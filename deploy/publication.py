@@ -28,6 +28,14 @@ def transform_reading_page(blob, name, views, **kwargs):
 
 def build_reader_views(blobs):
     documents, views = legacy.build_reader_views(blobs)
+    source = 'measure-probability/code/README.md'
+    if source in blobs:
+        target = views[source]
+        text = blobs[source].decode().split('## 校验', 1)[0]
+        documents[target] = legacy.document(
+            target, text.splitlines()[0].removeprefix('# '),
+            '通过 C11/Python 程序复现可测结构、积分、条件均值、转移核与独立求和的分布。',
+            legacy.markdown(text, source, views), raw=source)
     for name in registered.keys() - FROZEN_BOOKS:
         source, target = f'{name}/code/README.md', f'{name}/code/index.html'
         if source in blobs:

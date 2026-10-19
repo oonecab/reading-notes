@@ -1,0 +1,336 @@
+{
+  "issue": "I034",
+  "recorded_on": "2026-10-19",
+  "status": "completed_locally",
+  "scope": {
+    "chapters": [
+      5,
+      6
+    ],
+    "new_source_items": 89,
+    "new_exercises": 55,
+    "source_pages": [
+      141,
+      228
+    ],
+    "appendix_pages": [
+      242,
+      251
+    ],
+    "new_numbered_statements": 77,
+    "new_numbered_examples": 12,
+    "all_starred_sections": true,
+    "total_reading_pages": 8,
+    "total_original_exercises": 170
+  },
+  "source_reading": "review/source-reading.json",
+  "pre_drafting_inventory": "review/source-inventory-ch56.json",
+  "new_page_baseline": "471253a5a998b71d7cd55ed57da8b68df8162381",
+  "prior_revision_record": "review/final-assessment.json",
+  "source_sha256": {
+    "measure-probability/notes/book_overview.html": "ee39f80406f22b6535f1a212990542ac6a88180a73338ef4fac1b47419b205ea",
+    "measure-probability/notes/chapter01_measurable_spaces.html": "c6d6b91ee1e869739dea735e7808b89dea16872c14ccf7acdf5156f0f7502f3f",
+    "measure-probability/notes/chapter02_measure_spaces.html": "120071c00e574bc80a386581b3ac94e14d59bc32228f97d1f6885aa1e3d89e38",
+    "measure-probability/notes/chapter03_integration.html": "43a26e36bd09a08980d1a52f4c35ca8328edab87bf9bd17bafcd42a3197130fb",
+    "measure-probability/notes/chapter04_signed_measures.html": "4e8f81ac4461ace1088fe30bd76ff0d2107585daa4e201a4dcf1883ae0850d63",
+    "measure-probability/notes/chapter05_product_spaces.html": "0935356c6e923d0312185efc2e60ef9d8d1067a28d6b85dc58959d2ef9dc4ea1",
+    "measure-probability/notes/chapter06_independent_sequences.html": "f1b0e1c27a68d13ad9962f93ba8efaed61af16431ebc9308bae5035cbf45424d",
+    "measure-probability/notes/preface.html": "d60147d6952521bb1a8a72b7e67d3e57d012c9a8d1e29f767e5b2d6d8f832142"
+  },
+  "output_sha256": {
+    "measure-probability/notes/book_overview.html": "13fcf78aee5aac35ec7de26bc645fa8fd8824adc10b582ede46fe24c37cae21d",
+    "measure-probability/notes/chapter01_measurable_spaces.html": "756f7fe653fa60c3698294653fbdaa7c579e308e1217582ce260351a4091a313",
+    "measure-probability/notes/chapter02_measure_spaces.html": "2c6d12d7b4e3af14f0b3c0744d6fce20cde28865226cbbcf23e78e9f9099a7b0",
+    "measure-probability/notes/chapter03_integration.html": "fa0ccddd8bc94b8daee270274a30f23f55e9d2f7cf21768b6cedad030de5f140",
+    "measure-probability/notes/chapter04_signed_measures.html": "44633ac54d4116204305feb2c56bd953673977383e49ac623fffae68eaf28aee",
+    "measure-probability/notes/chapter05_product_spaces.html": "2f43290a838c0635f1c9bc1a97307f8daad01646a371836b2028ed3233dcd897",
+    "measure-probability/notes/chapter06_independent_sequences.html": "1f01fb93b8d814974bcb19764c09c1c6b1335cb6084bb563a4d873510de1dd9f",
+    "measure-probability/notes/preface.html": "99b78fd05d9650a0611f21d480aaa3621bcfe785419d2cd12cf51041fbcfd9af"
+  },
+  "findings": [],
+  "delivery": {
+    "local_baseline_commit": "471253a5a998b71d7cd55ed57da8b68df8162381",
+    "push": false,
+    "production_deploy": false,
+    "remaining_batch_changes": "working_tree",
+    "source_baseline_only": true,
+    "scope": "local files and local package; no remote push or production deployment",
+    "primary_deliverable": "completed local reading-note workspace",
+    "recorded_phase": "local acceptance before the subsequent Git publication authorization",
+    "git_publication_authorization": {
+      "date": "2026-10-19",
+      "request": "提交推送到远端吧",
+      "remote": "origin",
+      "branch": "main",
+      "verification": "Commit identity and remote readback are recorded in the task delivery; local acceptance fields above describe their recording time."
+    }
+  },
+  "build": {
+    "release": "20261019T230918",
+    "status": "passed",
+    "public_files": 307,
+    "reading_pages": 56,
+    "public_html": 76,
+    "parity": {
+      "all_reading_pages": 56,
+      "differences": 0
+    },
+    "source_tree_dirty": true,
+    "initial_release": "20261019T225322",
+    "archive_sha256": "acc0be44dc2a0022c23af9487d56c4b4d1b2f8cf8ed4a9845e063b629cfe1521",
+    "bytes": 29492410,
+    "source_commit": "471253a5a998b71d7cd55ed57da8b68df8162381",
+    "csp": {
+      "path": "tmp/reading-notes-migration/csp/runs/2026-10-19T15-10-05-249Z-341a65d0/report.json",
+      "sha256": "74cda5522caeb2ba9d99242957dac11421b923eab703435f519ff22414e60502"
+    },
+    "https": {
+      "path": "tmp/release-check/20261019T230918-mnut8qq2/https-verification.json",
+      "sha256": "cb09c1716e669cfffbfa80dce040636c55e9041d9f689e2382bef5c80e6f7a47"
+    },
+    "package_equivalence": {
+      "path": "tmp/measure-probability-ch56/final-package-equivalence.json",
+      "sha256": "83db0dd754742c17965acb4f7e466bd324128e7ec505447c6395820ef633dede"
+    },
+    "preview_servers": "Both task-owned preview servers stopped; temporary HTTPS server stopped by verifier.",
+    "snapshot_boundary": {
+      "record": "tmp/measure-probability-ch56/public-snapshot-difference.json",
+      "sha256": "5fffcfe4ff8c5c77aab50b520eba8770eabe4ca38ef7836278ec21d972f8ad48",
+      "current_workspace_completed": true,
+      "package_lifecycle_status": "pre-closure in_progress for current scope and chapters 5/6",
+      "final_state_deployment_package": false
+    }
+  },
+  "programs": {
+    "valid_cases": 298,
+    "invalid_cases": 35,
+    "cli_executions": 999,
+    "builds": [
+      [
+        "clang",
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-pedantic",
+        "-O2",
+        "books/measure-probability/code/product_limits.c",
+        "-lm",
+        "-o",
+        "tmp/project-check/20261019T231400-at51xyjt/measure-probability/product-limits/product_limits-release"
+      ],
+      [
+        "clang",
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-pedantic",
+        "-O1",
+        "-g",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer",
+        "books/measure-probability/code/product_limits.c",
+        "-lm",
+        "-o",
+        "tmp/project-check/20261019T231400-at51xyjt/measure-probability/product-limits/product_limits-sanitized"
+      ]
+    ],
+    "oracles": [
+      "exact atom fractions and all-atom independence",
+      "layer-cake finite expectation",
+      "binomial coefficients",
+      "all binary paths for n<=6",
+      "centered one-step CF product"
+    ],
+    "mutations_rejected": [
+      "kernel_mass",
+      "conditional_weight",
+      "kernel_independence",
+      "binomial_coefficient",
+      "binomial_variance",
+      "normalization"
+    ],
+    "scope": "Finite models and correction fixtures; no simulation is used as proof of an infinite limit."
+  },
+  "initial_gate_failure": {
+    "record": "tmp/project-check/20261019T224206-o3w3hvha/report.json",
+    "reason": "new pages not yet represented in Astro baseline records; book structure and all executable models passed",
+    "resolution": "added reviewed local per-page Git baselines and explicit golden records"
+  },
+  "negative_baseline": {
+    "previous_six_page_baseline": "rejected as expected",
+    "reason": "numbered source item missing or duplicated",
+    "scope": "pre-change HTML lacks chapters 5–6; current expected scope remains 236 items and 170 exercises",
+    "timing": "Independent inventory was made before drafting; retained-old-HTML negative execution was performed after drafting."
+  },
+  "source_review": {
+    "numbered_items": 89,
+    "original_exercises": 55,
+    "printed_pages": [
+      129,
+      216
+    ],
+    "scanned_pdf_pages": [
+      141,
+      228
+    ],
+    "appendix_pdf_pages": [
+      242,
+      251
+    ],
+    "method": "Visual source-page reading, independent pre-drafting inventory, then mathematical derivation and question-condition readback; OCR used only as locator.",
+    "preserved_prior_rows": {
+      "path": "tmp/measure-probability-ch56/preservation.json",
+      "sha256": "3027f03a1daa474ccb42cb4364c6eda738edce8e298b420f7de59604d3afdda9"
+    },
+    "corrections": [
+      "MP-013",
+      "MP-014",
+      "MP-015",
+      "MP-016",
+      "MP-017",
+      "MP-018",
+      "MP-019",
+      "MP-020"
+    ]
+  },
+  "browser": {
+    "status": "passed",
+    "tool": "ego-browser",
+    "release": "20261019T230918",
+    "matrix": {
+      "path": "tmp/reading-notes-migration/browser/measure-probability/runs/2026-10-19T15-10-32-496Z-0e934ea2/report.json",
+      "sha256": "66c3d7d02871e1c21027b37dcac303fa205572ae6097fb9d41d7b56456a27c25"
+    },
+    "public_pages": 10,
+    "js_views": 40,
+    "no_js_views": 20,
+    "external_requests": [],
+    "exercise_deep_links": 110,
+    "exercise_count": 55,
+    "deep_link_widths": [
+      1440,
+      390
+    ],
+    "reader_paths": {
+      "path": "tmp/measure-probability-ch56/browser/reader-paths.json",
+      "sha256": "80ce3c1dc90201a6d3f7580acf43a822d69add70795c49cb4118706797922c67"
+    },
+    "reader_actions": {
+      "path": "tmp/measure-probability-ch56/browser/reader-actions.json",
+      "sha256": "fac2f5251a4bfdf9905309a5ecb63564b752e15591e08ee5fee3aa49bf770d5c"
+    },
+    "navigation_actions": 8,
+    "downloads": [
+      {
+        "file": "product_limits.py",
+        "url": "/measure-probability/code/product_limits.py",
+        "sha256": "8f547e453ddb7b5449ed358c07ff321f5b0f8baf1430d359c89737c7b418e8bc",
+        "matched_maintained_source": true
+      },
+      {
+        "file": "product_limits.c",
+        "url": "/measure-probability/code/product_limits.c",
+        "sha256": "9de2fa92cb8fcadd58388e55d78a1aa9fd7022508adcf5f7ceecca414d5025bc",
+        "matched_maintained_source": true
+      }
+    ],
+    "explicit_no_js_exercises": [
+      "5.11",
+      "6.23",
+      "6.26"
+    ],
+    "horizontal_formula": [
+      {
+        "selector": "#ex-6-26 .answer div.equation",
+        "before": {
+          "left": 0,
+          "max": 58,
+          "x": 187.5,
+          "y": 464.875
+        },
+        "after": {
+          "left": 58,
+          "viewport": 390,
+          "pageOverflow": false
+        }
+      }
+    ],
+    "final_program_guide": {
+      "path": "tmp/measure-probability-ch56/browser/program-guide-final.json",
+      "sha256": "f85d9f1ffc00bde19190b5097986f2dd0b80f692133f06a67367fe7596126eee"
+    },
+    "visual_readback": [
+      "tulcea-1800",
+      "fubini-1024",
+      "feller-1440",
+      "empirical-390",
+      "kernel-model-390",
+      "empirical-scroll-right-390",
+      "empirical-no-js-390",
+      "program-guide-1440",
+      "program-guide-390"
+    ],
+    "visual_scope": "These screenshots were visually read. The 110 deep-link checks verify availability/order/layout, not visual reading of every answer.",
+    "equivalence": "Final eight reading HTML pages and the two new programs equal the manually accepted initial release; updated auxiliary program guide separately rerun.",
+    "taskspace_lifecycle": {
+      "closed": true,
+      "kept_tabs": [],
+      "evidence": {
+        "path": "tmp/measure-probability-ch56/browser-finish.log",
+        "sha256": "e12deec31f05915218ca50e343ec7b819d5fe589f3c180e0de905b9cb76dddf7"
+      }
+    }
+  },
+  "auxiliary_page_fix": {
+    "problem": "Fourth program placed after maintenance section was omitted by published guide; historical title still described three groups.",
+    "resolution": "Move all reader program sections before maintenance cutoff; regenerate guide heading/intro through existing publication extension while preserving frozen I028 transformer.",
+    "positive_regression": "tools/test_reader_views.py: 8 passed",
+    "negative_regression": {
+      "path": "tmp/measure-probability-ch56/program-guide-negative.json",
+      "sha256": "de6b67b6baabe8d44291d921dcca06e27810bd7d591cebe0ee2ad959f9524c67"
+    }
+  },
+  "failed_attempts": [
+    {
+      "path": "tmp/project-check/20261019T224206-o3w3hvha/report.json",
+      "reason": "New per-page Astro baselines not yet registered; source and program checks already passed.",
+      "resolution": "Registered reviewed local new-page baseline and current revision bindings."
+    },
+    {
+      "path": "tmp/measure-probability-ch56/frozen-transformer-rejection.log",
+      "reason": "Direct edit of frozen publication transformer rejected by parity.",
+      "resolution": "Restored frozen file byte-for-byte; use existing deploy/publication.py extension."
+    },
+    {
+      "path": "tmp/measure-probability-ch56/browser/reader-actions-round02.json",
+      "reason": "Driver selected absolute href instead of actual relative footer link.",
+      "resolution": "Re-selected current DOM footer link; 8 navigation actions passed."
+    },
+    {
+      "path": "tmp/measure-probability-ch56/browser/reader-actions-round03.json",
+      "reason": "Native hover restored desktop viewport while testing a mobile formula.",
+      "resolution": "DOM placement with viewport verification, mouse wheel and native CDP click; 390px horizontal/no-JS checks passed."
+    }
+  ],
+  "repository_regression": {
+    "status": "passed",
+    "command": "python3 tools/project.py check --book all",
+    "checks": 16,
+    "report": {
+      "path": "tmp/project-check/20261019T231400-at51xyjt/report.json",
+      "sha256": "d82fad7461c5dbdd3a14b043ec55229006d02b07facba843a50200ddfa36674f"
+    },
+    "book_report": {
+      "path": "tmp/project-check/20261019T231400-at51xyjt/measure-probability/report.json",
+      "sha256": "cb27991b9e96fc0e681c333835c241d4f118dd3750c5243d7aff73a8773c3d1f"
+    }
+  },
+  "publication_preflight": {
+    "history_snapshot": "review/history/20261019-before-ch56/validation.json",
+    "original_snapshot_sha256": "146638627a01c8cf095cb7c9097660ba04b64a91a5e9a551ffa4026eda0c8b5b",
+    "current_snapshot_sha256": "bd1241c323998e63cb029443b518eb2d96e5734152c8b6977a213fa55f3c4abb",
+    "scope": "Reader content and mathematical records unchanged; repository evidence uses relative paths and summary lifecycle states."
+  }
+}

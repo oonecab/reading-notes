@@ -126,7 +126,7 @@ Carter《Visual Group Theory》在 `books/visual-group-theory/` 维护，全书�
 
 ## 测度与概率伴读范围
 
-程士宏《测度论与概率论基础》在 `books/measure-probability/` 维护，当前六页为全书地图、序言与前言、前四章，覆盖 126 个编号陈述、21 个编号例子和 115 道习题。来源为 256 页图像扫描，正文印刷页到 PDF 页序偏移为 +12；原书校注独立登记，第五、六章保持待写。正式内容为单文件 HTML，静态 MathML/SVG；三组 C11/Python 程序以 code/ 为维护源，同步工具核对网页副本。原有独立集合闭包、覆盖子族穷举、有理数基准之外，本批增加层集积分、全子集 Jordan 极值、条件期望定义及 L2 投影检验；普通与 ASan/UBSan 构建分别执行。OCR 与公式转换仅用于忽略目录中的一次性编写，不增加阅读运行依赖。原 PDF 仅本地对照，技术栈与服务环境沿用原约定。首批记录保存在书级 review/history；当前批次依据为 [I024](issues/I024-measure-probability-ch03-04.md) / [T024](test/T024-measure-probability-ch03-04.md)。
+程士宏《测度论与概率论基础》当前八页为伴读总览、序言与前言和六章，覆盖 203 个编号陈述、33 个编号例子及 170 道习题。第五、六章新增 89 项编号内容、55 题与一组 C11/Python 核积分/二项卷积程序，总计四组维护源。原页 PDF 141—228 与附录 242—251 经目视，写前清单与当前读回分开。有限模型新增精确原子分布、层集期望、二项系数、路径穷举和单步特征函数乘积的独立基准，含普通与 ASan/UBSan 构建。内容与公式修正见 [I034](issues/I034-measure-probability-ch05-06.md) / [T034](test/T034-measure-probability-ch05-06.md)。来源仍为 256 页扫描，印刷页偏移 +12；本地原 PDF 不公开。受控 HTML、静态 MathML/SVG、Astro 构建与服务环境沿用现有约定。
 
 第 9—10 章扩写依据为 [I025](issues/I025-visual-group-theory-ch09-10.md) / [T025](test/T025-visual-group-theory-ch09-10.md)。独立检查加入全部小阶对称群子群、六维有理矩阵、Sturm 根数、A₅ 共轭类与有限域；工具为 `tools/check_sylow_galois.py`，未新增运行依赖或环境变量。
 
@@ -145,3 +145,5 @@ I033 加固浏览器驱动：深链读写绑定预期页面并等待节点，CSP
 I032 新书接入验收使用 `tools/test_new_book_build.py` 运行完整隔离构建。发布文件由 allowlist 控制，新增书的入口、资料视图和 Nginx 前缀由目录登记派生；旧五书 Transformer 保留冻结字节，测度书范围标签由独立适配层处理。新增书/页可登记独立 Git 原始快照，后续修订仍走显式审阅链。
 
 I033 于 2026-10-17 实机部署 `20261017T210828`，通过真实 systemd unit、旧版回滚及新版恢复、两版本 HTTPS 响应哈希和 root 只读权限验证。现有证书仍有效，自动续期未完成；Web 主机 tmpfiles 与可选构建主机模板已拆分。当前事实以 [I033 报告](docs/browser-stability-report.md)为准，I029/I032 保留各自验收时的边界。
+
+I034 增页后当前书籍阅读页为 56 页、原书习题 1489 题；包括辅助页与旧入口共 76 个公开 HTML，allowlist 新增两章与两个源文件。新增页按 `page_baselines` 登记经过读回的本地 Git 内容快照，既有页继续保留 I028 原始 hash 并追加修订链；构建和真实阅读记录与生产发布记录分别维护。

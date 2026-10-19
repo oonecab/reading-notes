@@ -191,6 +191,120 @@
       "original": "习题 4.15 附录离散均匀分布的中间区间向左错一格。",
       "correction": "在 k≤x<k+1 时 CDF 为 k/n；x<1 为零，x≥n 为一。",
       "basis": "逐点计数整数 1 至 n 中不大于 x 的个数；n=1 边界"
+    },
+    {
+      "id": "MP-013",
+      "page": "chapter05_product_spaces.html",
+      "anchor": "correction-iterated-existence",
+      "printed_pages": [
+        146
+      ],
+      "pdf_pages": [
+        158
+      ],
+      "original": "推论 5.2.6 的积分表述称“只要等式的一端有意义，另一端就也有意义并且等式成立”。",
+      "correction": "对非负 g 可直接使用；对有符号 g 应要求联合积分存在（至少一部有限），常用充分条件是绝对可积。",
+      "basis": "独立均匀坐标配合例 5.1.2 的 g，两种累次积分为正负 π/4，而联合积分未定义。一个有限累次积分不能推出联合积分存在。"
+    },
+    {
+      "id": "MP-014",
+      "page": "chapter05_product_spaces.html",
+      "anchor": "correction-iid-conditional-mean",
+      "printed_pages": [
+        165
+      ],
+      "pdf_pages": [
+        177
+      ],
+      "original": "习题 5.18 仅假定相互独立同分布，即书写两个条件期望等于和的一半。",
+      "correction": "在本书可积条件期望框架下增加 E|X|<∞；非负变量可另按扩展条件期望解释。",
+      "basis": "Cauchy 等有符号分布不具有可积期望，通常的条件期望算子未定义；事件积分交换的证明也需要合法积分。"
+    },
+    {
+      "id": "MP-015",
+      "page": "chapter06_independent_sequences.html",
+      "anchor": "correction-cf-continuity",
+      "printed_pages": [
+        187
+      ],
+      "pdf_pages": [
+        199
+      ],
+      "original": "命题 6.3.2 的证明把 E|e^{iΔtX}−1| 直接界为 |Δt|。",
+      "correction": "一般应使用 E min(2,|ΔtX|)→0；若 E|X| 有限，才有 Lipschitz 上界 |Δt|E|X|。",
+      "basis": "例如 X 恒等于 2，小 h 时 |e^{2ih}−1|/|h|→2，不能界为 1。Cauchy 例还说明不能默认一阶绝对矩有限。"
+    },
+    {
+      "id": "MP-016",
+      "page": "chapter06_independent_sequences.html",
+      "anchor": "correction-truncated-cf-frequency",
+      "printed_pages": [
+        198,
+        199
+      ],
+      "pdf_pages": [
+        210,
+        211
+      ],
+      "original": "引理 6.4.4 的第二式对任意 ε>0 都用 −Cε ln Re φ(1) 控制截断二阶矩。",
+      "correction": "固定频率 1 的证明只能在 0<ε<2π 的截断范围内给统一常数；任意 ε 时改在 uε=1/(1+ε) 处取特征函数。后续必要性证明使用此修正版。",
+      "basis": "令 X 以 3/4 概率取 0、以 1/4 概率取 2π，则 Re φ(t)≥1/2，但 φ(1)=1。当 ε>2π 时左侧二阶矩为 π²>0，原右侧为零。缩小频率后余弦核在截断区间有正二次下界。"
+    },
+    {
+      "id": "MP-017",
+      "page": "chapter06_independent_sequences.html",
+      "anchor": "correction-positive-log-limit",
+      "printed_pages": [
+        206
+      ],
+      "pdf_pages": [
+        218
+      ],
+      "original": "例 6.5.2 的中间计算将非负积分量 nI 的极限写成 −t²/2。",
+      "correction": "该非负量的极限为 +t²/2；负号出现在 ln(1−I) 的展开中，最终特征函数极限仍为 e^(−t²/2)。",
+      "basis": "直接用 sin²y/y³ 在零点等价于 1/y 的积分渐近展开，可分别看清正的积分系数和负的指数系数。"
+    },
+    {
+      "id": "MP-018",
+      "page": "chapter06_independent_sequences.html",
+      "anchor": "correction-chebyshev-scale",
+      "printed_pages": [
+        215
+      ],
+      "pdf_pages": [
+        227
+      ],
+      "original": "习题 6.23 在逐项方差有界条件下，将中心化和除以其标准差后的量写为依概率趋零。",
+      "correction": "Chebyshev 弱大数律应为中心化和除以 n 依概率趋零。若保留原标准差分母，题设不足以得到该结论。",
+      "basis": "iid 标准正态的标准化和对每个 n 都服从标准正态；原分母下固定尾概率不趋零。修正命题的三项截断估计均不超过常数 C/n。"
+    },
+    {
+      "id": "MP-019",
+      "page": "chapter06_independent_sequences.html",
+      "anchor": "correction-khinchine-mean",
+      "printed_pages": [
+        215
+      ],
+      "pdf_pages": [
+        227
+      ],
+      "original": "习题 6.24 仅假定 iid 且一阶绝对矩有限，就把平均的极限写成零。",
+      "correction": "极限为 EX₁；等价地，中心化平均依概率趋零。",
+      "basis": "常数一序列立即否定零极限；截断均值由支配收敛趋 EX₁，定理 6.4.9 给其余误差趋零。"
+    },
+    {
+      "id": "MP-020",
+      "page": "chapter06_independent_sequences.html",
+      "anchor": "correction-empirical-scale",
+      "printed_pages": [
+        216
+      ],
+      "pdf_pages": [
+        228
+      ],
+      "original": "习题 6.26 将 F_n(x)−F(x) 除以 √[nF(x)(1−F(x))]，声称趋标准正态。",
+      "correction": "平均的标准差应为 √[F(x)(1−F(x))/n]；等价地分子乘 √n、分母只留 √[F(x)(1−F(x))]。",
+      "basis": "n 个 Bernoulli 指标的和方差为 np(1−p)，平均的方差则为 p(1−p)/n。原式还可直接由有界分子证明趋零。"
     }
   ]
 }

@@ -1,0 +1,152 @@
+{
+  "schema_version": 1,
+  "kind": "additive_migration_baseline",
+  "baseline_ref": "b2aeff3",
+  "records": [
+    {
+      "page": "measure-probability/notes/book_overview.html",
+      "source_sha256": "d373a539537e762e6f019dfa8f8784ccbad8a7f459f9253809496424be8575aa",
+      "output_sha256": "e56e0689413037486e1f38aa12a00129ade165c97e3324fd5eba82a764d1c6d7",
+      "source_counts": {
+        "exercises": 0,
+        "self_checks": 0,
+        "statements": 0,
+        "mathml": 8,
+        "svg": 1
+      },
+      "publication_counts": {
+        "exercises": 0,
+        "self_checks": 0,
+        "statements": 0,
+        "mathml": 8,
+        "svg": 2
+      },
+      "differences": [],
+      "source_bytes": 40601,
+      "output_bytes": 46784,
+      "js_bytes": 4154,
+      "js_ratio": 1
+    },
+    {
+      "page": "measure-probability/notes/chapter01_measurable_spaces.html",
+      "source_sha256": "e42c667532b38baa9c910df41ff77342a14b0f9a49748fa44b1f0685823b06a2",
+      "output_sha256": "97da1dd55b9807c08ac93e2e07fd4b31079eae0597eeed1a195767e4890637b5",
+      "source_counts": {
+        "exercises": 25,
+        "self_checks": 0,
+        "statements": 25,
+        "mathml": 292,
+        "svg": 0
+      },
+      "publication_counts": {
+        "exercises": 25,
+        "self_checks": 0,
+        "statements": 25,
+        "mathml": 292,
+        "svg": 1
+      },
+      "differences": [],
+      "source_bytes": 177804,
+      "output_bytes": 183986,
+      "js_bytes": 4154,
+      "js_ratio": 1
+    },
+    {
+      "page": "measure-probability/notes/chapter02_measure_spaces.html",
+      "source_sha256": "ee36adc70aafd5b556017e6b1ed494b8f92caddc3671601a8ed585779b834447",
+      "output_sha256": "f9a9caa6be7efbacf0eaa5f3eb85f3cebe8638a3faf7e392fa5c728d045645fe",
+      "source_counts": {
+        "exercises": 32,
+        "self_checks": 0,
+        "statements": 31,
+        "mathml": 366,
+        "svg": 1
+      },
+      "publication_counts": {
+        "exercises": 32,
+        "self_checks": 0,
+        "statements": 31,
+        "mathml": 366,
+        "svg": 2
+      },
+      "differences": [],
+      "source_bytes": 205228,
+      "output_bytes": 211410,
+      "js_bytes": 4154,
+      "js_ratio": 1
+    },
+    {
+      "page": "measure-probability/notes/chapter03_integration.html",
+      "source_sha256": "68883c73cf1e41066594031d2b5dc3780913ca5cd0e9941060e5617521a991d3",
+      "output_sha256": "69d1b8668c753d54c2bbc2725fd6a79a8230efbb3130f5320b66d106d6232dda",
+      "source_counts": {
+        "exercises": 30,
+        "self_checks": 0,
+        "statements": 36,
+        "mathml": 952,
+        "svg": 1
+      },
+      "publication_counts": {
+        "exercises": 30,
+        "self_checks": 0,
+        "statements": 36,
+        "mathml": 952,
+        "svg": 2
+      },
+      "differences": [],
+      "source_bytes": 345762,
+      "output_bytes": 351944,
+      "js_bytes": 4154,
+      "js_ratio": 1
+    },
+    {
+      "page": "measure-probability/notes/chapter04_signed_measures.html",
+      "source_sha256": "ebc05efd5d6517577b13ed564643a6d30dc4168ade61754fdaaa756daf00337b",
+      "output_sha256": "28f666c59136ee1896309aac2ecf7a35a97a09bf162385f005033ee7b0e9e459",
+      "source_counts": {
+        "exercises": 28,
+        "self_checks": 0,
+        "statements": 34,
+        "mathml": 1089,
+        "svg": 1
+      },
+      "publication_counts": {
+        "exercises": 28,
+        "self_checks": 0,
+        "statements": 34,
+        "mathml": 1089,
+        "svg": 2
+      },
+      "differences": [],
+      "source_bytes": 360747,
+      "output_bytes": 366929,
+      "js_bytes": 4154,
+      "js_ratio": 1
+    },
+    {
+      "page": "measure-probability/notes/preface.html",
+      "source_sha256": "ca606f60da08e0d4229dcc3bda2896c980f3076efa6b2f68a841e3c659b0038b",
+      "output_sha256": "1552d4fbf1ef923058842ebe69f3eafb0fb3556b323a59a1dafd214287817ca4",
+      "source_counts": {
+        "exercises": 0,
+        "self_checks": 0,
+        "statements": 0,
+        "mathml": 0,
+        "svg": 0
+      },
+      "publication_counts": {
+        "exercises": 0,
+        "self_checks": 0,
+        "statements": 0,
+        "mathml": 0,
+        "svg": 1
+      },
+      "differences": [],
+      "source_bytes": 31463,
+      "output_bytes": 37645,
+      "js_bytes": 4154,
+      "js_ratio": 1
+    }
+  ],
+  "note": "原内容完整性基线保持；此文件追加原源文件与 Astro 输出的身份及逐页 parity。"
+}

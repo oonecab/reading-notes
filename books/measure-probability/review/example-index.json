@@ -147,6 +147,90 @@
       "type": "完整例题",
       "title": "§5 例 1 · 只知道事件 B 是否发生",
       "review": "逐项读回条件、推导和边界；扩写计算的四例另列于 I032-P1-8 记录"
+    },
+    {
+      "anchor": "example-5-1-1",
+      "page": "chapter05_product_spaces.html",
+      "type": "完整例题",
+      "title": "例 5.1.1 · 计数测度失去 sigma 有限性",
+      "review": "逐截面积分得到一和零；指出不可数集合上的计数测度不具备 sigma 有限覆盖。"
+    },
+    {
+      "anchor": "example-5-1-2",
+      "page": "chapter05_product_spaces.html",
+      "type": "完整例题",
+      "title": "例 5.1.2 · 两个有限累次积分仍可能不相等",
+      "review": "用原函数计算两个次序，并以原点正负扇形分别证明两部积分发散。"
+    },
+    {
+      "anchor": "example-6-1-1",
+      "page": "chapter06_independent_sequences.html",
+      "type": "完整例题",
+      "title": "例 6.1.1 · 收敛事件为什么属于尾域",
+      "review": "用可数 Cauchy 表达式核对尾事件可测性，平均删除前缀差随 n 消失。"
+    },
+    {
+      "anchor": "example-6-1-2",
+      "page": "chapter06_independent_sequences.html",
+      "type": "完整例题",
+      "title": "例 6.1.2 · 上下极限是尾随机变量",
+      "review": "可数 sup/inf 给尾可测性；对比级数的收敛事件和总和随机变量。"
+    },
+    {
+      "anchor": "example-6-2-1",
+      "page": "chapter06_independent_sequences.html",
+      "type": "完整例题",
+      "title": "例 6.2.1 · 二进制数字的频率",
+      "review": "明确二进制端点采用非终止表示，区间长度给独立位并由强律得单数字频率。"
+    },
+    {
+      "anchor": "example-6-2-2",
+      "page": "chapter06_independent_sequences.html",
+      "type": "完整例题",
+      "title": "例 6.2.2 · 有偏数字序列的典型集合",
+      "review": "模式概率由乘积给出，零质量的二进制歧义序列可删，典型频率集合互斥。"
+    },
+    {
+      "anchor": "example-6-2-3",
+      "page": "chapter06_independent_sequences.html",
+      "type": "完整例题",
+      "title": "例 6.2.3 · 连续而奇异的分布",
+      "review": "无原子由单点编码概率得出，奇异性由两种强律的频率集合分离得到。"
+    },
+    {
+      "anchor": "example-6-3-1",
+      "page": "chapter06_independent_sequences.html",
+      "type": "完整例题",
+      "title": "例 6.3.1 · 退化分布的相位",
+      "review": "直接积分退化律得到相位，区分特征函数恒一与仅模恒一。"
+    },
+    {
+      "anchor": "example-6-3-2",
+      "page": "chapter06_independent_sequences.html",
+      "type": "完整例题",
+      "title": "例 6.3.2 · 标准正态的特征函数",
+      "review": "高斯常数先用二维积分求出，积分内导数和分部积分形成可解 ODE。"
+    },
+    {
+      "anchor": "example-6-3-3",
+      "page": "chapter06_independent_sequences.html",
+      "type": "完整例题",
+      "title": "例 6.3.3 · Cauchy 特征函数及无一阶矩边界",
+      "review": "以高斯混合积分和变量替换计算 Cauchy 特征函数，并说明零点不可导与矩边界。"
+    },
+    {
+      "anchor": "example-6-5-1",
+      "page": "chapter06_independent_sequences.html",
+      "type": "完整例题",
+      "title": "例 6.5.1 · Cauchy 平均的分布保持不变",
+      "review": "由乘积特征函数精确识别每个 n 的分布，指出强律和通常 CLT 的矩条件均不满足。"
+    },
+    {
+      "anchor": "example-6-5-2",
+      "page": "chapter06_independent_sequences.html",
+      "type": "完整例题",
+      "title": "例 6.5.2 · 无限方差却仍能有正态极限",
+      "review": "计算密度矩与特征函数小参数对数项，推导 sqrt(n log n) 尺度及正的 t平方半系数。"
     }
   ]
 }

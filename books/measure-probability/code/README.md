@@ -1,6 +1,6 @@
-# 有限测度、积分与条件期望程序
+# 测度、乘积空间与独立求和程序
 
-程序对应[第一章有限可测空间](../notes/chapter01_measurable_spaces.html#finite-model)、[简单函数逼近](../notes/chapter01_measurable_spaces.html#simple-model)和[第二章外测度例子](../notes/chapter02_measure_spaces.html#outer-model)，以及[第三、四章的积分与条件期望](../notes/chapter03_integration.html#integration-model)。Python 仅用标准库；C 使用严格 C11。下载源文件后可独立运行。
+程序对应[第一章有限可测空间](../notes/chapter01_measurable_spaces.html#finite-model)、[简单函数逼近](../notes/chapter01_measurable_spaces.html#simple-model)和[第二章外测度例子](../notes/chapter02_measure_spaces.html#outer-model)，以及[第三、四章的积分与条件期望](../notes/chapter03_integration.html#integration-model)、[第五、六章的转移核与独立求和](../notes/chapter05_product_spaces.html#product-model)。Python 仅用标准库；C 使用严格 C11。下载源文件后可独立运行。
 
 ```sh
 python3 finite_spaces.py sigma 4 3
@@ -37,6 +37,26 @@ clang -std=c11 -Wall -Wextra -Werror -pedantic finite_integrals.c -o finite_inte
 Jordan 正负质量是逐点的正负部分。Lebesgue 分解相对于输入权重：正权重点构成绝对连续部分，零权重点上的符号质量构成奇异部分。`density` 只表示绝对连续部分的密度；本例为 `[2,1],[-1,2],[0,1],[0,1]`，奇异质量向量 `[0,0,3,0]`，故 `absolute_continuous=false`，全变差总量 6。
 
 逐点累加后，每点扫描其信息块，时间 O(n²)、空间 O(n)。二阶积分上界 8×1000³=8×10⁹，使用 C 的 `long long`；解析每次累加后立即检查 1000 上界，下一次乘十前已有界。测试中的子集穷举属于独立基准，不影响示例算法复杂度。测试还枚举所有信息事件，检查条件积分、可测性、L2 投影，以及 Jordan 上下确界和密度恢复，普通构建与 ASan/UBSan 构建分别运行。
+
+## 核积分与独立和
+
+第四组源文件为 [product_limits.py](product_limits.py) / [product_limits.c](product_limits.c)。[第五章](../notes/chapter05_product_spaces.html#product-model)完整显示源码，[第六章](../notes/chapter06_independent_sequences.html#limit-model)接续二项卷积与标准化特征函数。
+
+```sh
+python3 product_limits.py joint 1 1 3 4
+python3 product_limits.py binomial 4 1 2
+clang -std=c11 -Wall -Wextra -Werror -pedantic product_limits.c -lm -o product_limits
+./product_limits joint 1 1 3 4
+./product_limits binomial 4 1 2
+```
+
+`joint p a b m` 表示 P(X=1)=p/m，P(Y=1|X=0)=a/m，P(Y=1|X=1)=b/m。1≤m≤1000，0≤p,a,b≤m。联合质量分子按 (0,0)、(0,1)、(1,0)、(1,1) 排列，共同分母 m²；行列边缘仍使用该分母。`expectation_numerator` 和 `iterated_numerator` 都是 Z=X+2Y 期望的分子，分别直接逐点和先核后初始质量计算。`independent` 精确检查四格交叉乘积。示例输出质量 [9,3,1,3]/16，边缘 [12,4]/16 与 [10,6]/16，两个期望分子均为 16，独立性为 false。零概率行的核可任意指定，它不影响联合律。
+
+`binomial n p m` 令 0≤n≤16，1≤m≤8，0≤p≤m。每一步将已有计数 k 的整数质量分别乘 m−p、p，送到 k 和 k+1，分母乘 m。输出二项质量分子与共同分母 mⁿ、均值分子（同分母）、方差分子 np(m−p) 和分母 m²。n=4,p=1,m=2 时质量为 [1,4,6,4,1]/16、均值 2、方差 1。n=0 是空和，质量 [1]、均值方差为零。p=0 或 p=m 也退化；这些情况 `normalizable=false`、`standardized_cf_t1=null`，不会做零标准差的除法。非退化时另输出 t=1 的标准化特征函数实虚部，使用 double，独立特征函数乘积基准的绝对误差阈值为 2e−12。
+
+质量与矩的分子为精确非负整数，不自动约分。最大 mⁿ 为 8¹⁶=2⁴⁸，均值分子不超过 16·2⁴⁸=2⁵²；C 使用 unsigned long long，联合四格交叉积不超过 10¹²。数字解析先限制 10 字符，每次累加立即检查上界，下一次乘十前已有界。只接受无符号 ASCII 十进制串，包括零及前导零；拒绝负号（含 −0）、加号、空白、下划线、小数及 Unicode 数字。非法输入退出码 2，无标准输出，错误写 stderr。
+
+核模型是固定四点，时间和空间均 O(1)；二项卷积时间 O(n²)、空间 O(n)。独立回归不只比较 C 与 Python：联合分布用精确分数与全部原子检验，期望另用层集尾和；二项质量用组合数公式与 n≤6 时的全部二进路径枚举；浮点特征函数用独立单步乘积公式。另保留错误输出变异、边界输入、原书截断引理及经验分布尺度的反例。有限程序的验证范围与无穷序列定理证明分别记录。
 
 ## 校验
 

@@ -146,7 +146,74 @@
       "output_bytes": 37645,
       "js_bytes": 4154,
       "js_ratio": 1
+    },
+    {
+      "page": "measure-probability/notes/chapter05_product_spaces.html",
+      "source_baseline_ref": "471253a5a998b71d7cd55ed57da8b68df8162381",
+      "source_sha256": "0935356c6e923d0312185efc2e60ef9d8d1067a28d6b85dc58959d2ef9dc4ea1",
+      "original_source_sha256": "0935356c6e923d0312185efc2e60ef9d8d1067a28d6b85dc58959d2ef9dc4ea1",
+      "review_revision": null,
+      "output_sha256": "2f43290a838c0635f1c9bc1a97307f8daad01646a371836b2028ed3233dcd897",
+      "source_counts": {
+        "exercises": 28,
+        "self_checks": 0,
+        "statements": 32,
+        "mathml": 369,
+        "svg": 1
+      },
+      "publication_counts": {
+        "exercises": 28,
+        "self_checks": 0,
+        "statements": 32,
+        "mathml": 369,
+        "svg": 2
+      },
+      "differences": [],
+      "script_additions": [],
+      "source_bytes": 222518,
+      "output_bytes": 228701,
+      "js_bytes": 4154,
+      "js_ratio": 1
+    },
+    {
+      "page": "measure-probability/notes/chapter06_independent_sequences.html",
+      "source_baseline_ref": "471253a5a998b71d7cd55ed57da8b68df8162381",
+      "source_sha256": "f1b0e1c27a68d13ad9962f93ba8efaed61af16431ebc9308bae5035cbf45424d",
+      "original_source_sha256": "f1b0e1c27a68d13ad9962f93ba8efaed61af16431ebc9308bae5035cbf45424d",
+      "review_revision": null,
+      "output_sha256": "1f01fb93b8d814974bcb19764c09c1c6b1335cb6084bb563a4d873510de1dd9f",
+      "source_counts": {
+        "exercises": 27,
+        "self_checks": 0,
+        "statements": 45,
+        "mathml": 601,
+        "svg": 1
+      },
+      "publication_counts": {
+        "exercises": 27,
+        "self_checks": 0,
+        "statements": 45,
+        "mathml": 601,
+        "svg": 2
+      },
+      "differences": [],
+      "script_additions": [],
+      "source_bytes": 327833,
+      "output_bytes": 334015,
+      "js_bytes": 4154,
+      "js_ratio": 1
     }
   ],
-  "note": "原内容完整性基线保持；此文件追加原源文件与 Astro 输出的身份及逐页 parity。"
+  "note": "原内容完整性基线保持；此文件追加原源文件与 Astro 输出的身份及逐页 parity。",
+  "new_page_batches": [
+    {
+      "issue": "I034",
+      "baseline_ref": "471253a5a998b71d7cd55ed57da8b68df8162381",
+      "pages": [
+        "measure-probability/notes/chapter05_product_spaces.html",
+        "measure-probability/notes/chapter06_independent_sequences.html"
+      ],
+      "prior_snapshot": "history/20261019-before-ch56/content-baseline-astro.json"
+    }
+  ]
 }

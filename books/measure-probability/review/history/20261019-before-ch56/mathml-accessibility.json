@@ -1,0 +1,76 @@
+{
+  "issue": "I032-P2-5",
+  "scope": "第一批 10 个核心公式；其余公式待后续批次，不宣称全覆盖或屏幕阅读器兼容性已验收",
+  "records": [
+    {
+      "page": "chapter01_measurable_spaces.html",
+      "anchor": "theorem-1-3-3",
+      "math_index": 1,
+      "label": "由域 A 生成的单调系 m(A) 等于由 A 生成的 sigma 域。",
+      "presentation_sha256": "8e0fc321e2bb1a50a4e33dbe4d9c9676ca7749460f29e2b45346ea8119c0ba95"
+    },
+    {
+      "page": "chapter01_measurable_spaces.html",
+      "anchor": "theorem-1-5-5-proof",
+      "math_index": 1,
+      "label": "s_n(x) 等于 2 的 n 次方乘 min(f(x),n) 后向下取整，再除以 2 的 n 次方。",
+      "presentation_sha256": "7cde068806e45107d60c0af9e8248cbf9ae9dda9a693cf30725244ddd4686418"
+    },
+    {
+      "page": "chapter02_measure_spaces.html",
+      "anchor": "theorem-2-1-5",
+      "math_index": 0,
+      "label": "A_n 上升到 A 时，mu(A_n) 上升到 mu(A)；A_n 下降到 A 且 mu(A_1) 有限时，mu(A_n) 下降到 mu(A)。",
+      "presentation_sha256": "3d1548297fd0fd77dbb0052e16c0e1d49b89dd9b9627eee17d8b0c687718421f"
+    },
+    {
+      "page": "chapter02_measure_spaces.html",
+      "anchor": "theorem-2-2-1",
+      "math_index": 0,
+      "label": "tau(A) 是所有可数 E 成员 B_n 覆盖 A 的总费用 sum mu(B_n) 的下确界。",
+      "presentation_sha256": "80c7121a994b74a7883536037aa8159cf8f415bc412efc63cd56d30f40a2423f"
+    },
+    {
+      "page": "chapter03_integration.html",
+      "anchor": "theorem-3-2-4-proof",
+      "math_index": 11,
+      "label": "g_k 的积分不超过 f_k 的积分，不超过 f 的积分；g_k 的积分极限等于 f 的积分，积分均对 mu。",
+      "presentation_sha256": "8d0c359563c43c60eb67675ea5847576a15d0d073d4da5129d34418f1237b218"
+    },
+    {
+      "page": "chapter03_integration.html",
+      "anchor": "theorem-3-2-6-proof",
+      "math_index": 5,
+      "label": "积分 liminf f_n 等于 lim_k 积分 g_k，不超过 lim_k inf_{n大于等于k} 积分 f_n，积分均对 mu。",
+      "presentation_sha256": "d4804ff88ea21dc78511ce1759dd4450453609dae78801c3bca0320ef147df02"
+    },
+    {
+      "page": "chapter03_integration.html",
+      "anchor": "theorem-3-3-4-proof",
+      "math_index": 5,
+      "label": "N_p(f+g) 的 p 次方，不超过积分 |f|乘|f+g|的 p−1 次方加积分 |g|乘|f+g|的 p−1 次方，不超过 [N_p(f)+N_p(g)]乘 N_p(f+g)的 p−1 次方。",
+      "presentation_sha256": "4abf0b8538a478b5788eb1e7fb6982dc7745b1844ede657b0231db40a68595f1"
+    },
+    {
+      "page": "chapter03_integration.html",
+      "anchor": "theorem-3-4-2-proof",
+      "math_index": 2,
+      "label": "|f| 的 s 次方的期望，不超过 (|f| 的 t 次方的期望)的 s/t 次方乘(E1)的 1−s/t 次方，等于 (|f| 的 t 次方的期望)的 s/t 次方。",
+      "presentation_sha256": "8b8451285a634bc5b60da47804b32f82a5ee402f7491b6e6f1d80aefdcf58082"
+    },
+    {
+      "page": "chapter04_signed_measures.html",
+      "anchor": "theorem-4-3-5-proof",
+      "math_index": 5,
+      "label": "phi(A) 等于各 n 的 phi(A 交 A_n)之和，等于各块 A 交 A_n 上 f_n 对 mu 积分之和，等于 A 上 f 对 mu 的积分。",
+      "presentation_sha256": "d866712a9bb39f9a552b308ef8c8f45a21aaeb225878797136c7c0a00ee6ef03"
+    },
+    {
+      "page": "chapter04_signed_measures.html",
+      "anchor": "definition-4-5-1",
+      "math_index": 4,
+      "label": "对每个 G 中的事件 A，A 上条件期望 E(f|G) 对 P 的积分，等于 A 上 f 对 P 的积分。",
+      "presentation_sha256": "b9aaec85ebc12a9d991d64c4167ac514cf32a305b3e486e6f5dde05641034c15"
+    }
+  ]
+}

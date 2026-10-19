@@ -15,6 +15,7 @@ from sync_code import synchronize, check_displayed, parser_regressions
 from check_models import run as check_models
 from check_integrals import run as check_integrals
 from check_excerpts import check_excerpts
+from check_products import run as check_products
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -64,19 +65,19 @@ def load(name):
 
 
 def check_coverage(texts, source, exercises, chapters):
-    require(len(source['items']) == 147 and len(source['exercises']) == 115, 'independent source scope changed')
+    require(len(source['items']) == 236 and len(source['exercises']) == 170, 'independent source scope changed')
     actual_items = [item for text in texts.values() for item in re.findall(r'data-source-item="([^"]+)"', text)]
     require(sorted(actual_items) == sorted(i['key'] for i in source['items']), 'numbered source item missing or duplicated')
-    require([sum(i['chapter'] == c for i in source['items']) for c in range(1, 5)] == [34, 41, 36, 36], 'per-chapter numbered scope drift')
-    expected_subparts = {(1, 1): 6, (1, 9): 4, (2, 3): 4, (2, 20): 2, (2, 26): 2, (2, 27): 2, (3, 9): 2, (3, 10): 2, (3, 22): 2, (4, 2): 2, (4, 6): 3, (4, 11): 2, (4, 17): 2}
+    require([sum(i['chapter'] == c for i in source['items']) for c in range(1, 7)] == [34, 41, 36, 36, 34, 55], 'per-chapter numbered scope drift')
+    expected_subparts = {(1, 1): 6, (1, 9): 4, (2, 3): 4, (2, 20): 2, (2, 26): 2, (2, 27): 2, (3, 9): 2, (3, 10): 2, (3, 22): 2, (4, 2): 2, (4, 6): 3, (4, 11): 2, (4, 17): 2, (5, 1): 3, (5, 11): 2, (6, 22): 3}
     source_ex = {(e['chapter'], e['number']): e for e in source['exercises']}
-    require(len(exercises) == 115 and {(e['chapter'], e['number']) for e in exercises} == set(source_ex),
+    require(len(exercises) == 170 and {(e['chapter'], e['number']) for e in exercises} == set(source_ex),
             'exercise scope differs from independent source inventory')
-    for chapter, count in ((1, 25), (2, 32), (3, 30), (4, 28)):
+    for chapter, count in ((1, 25), (2, 32), (3, 30), (4, 28), (5, 28), (6, 27)):
         text = texts[chapters[chapter]]
         actual = re.findall(r'<details class="exercise" id="ex-\d+-\d+" data-exercise="([^"]+)">', text)
         require(actual == [f'{chapter}.{n}' for n in range(1, count + 1)], 'exercise order or number differs')
-        require(all(f'<section id="s{chapter}-{n}">' in text for n in range(1, 5 if chapter == 3 else 6)), 'source section omitted')
+        require(all(f'<section id="s{chapter}-{n}">' in text for n in range(1, 5 if chapter in (3, 5) else 6)), 'source section omitted')
     for item in source['items']:
         text = texts[chapters[item['chapter']]]
         require(f'id="{item["anchor"]}"' in text, 'source anchor missing')
@@ -121,10 +122,10 @@ def structure():
     if pdf.exists():
         require(hashlib.sha256(pdf.read_bytes()).hexdigest() == manifest['source_pdf']['sha256'], 'source PDF hash changed')
     paths = sorted((ROOT / 'notes').glob('*.html'))
-    require([p.name for p in paths] == sorted(manifest['current_scope']['pages']) and len(paths) == 6, 'reading page scope changed')
+    require([p.name for p in paths] == sorted(manifest['current_scope']['pages']) and len(paths) == 8, 'reading page scope changed')
     texts = {p.name: p.read_text() for p in paths}
-    require(manifest['current_scope']['label'] == '前四章伴读', 'companion scope label missing')
-    require(all('前四章伴读' in re.search(r'<title>(.*?)</title>', text).group(1) for text in texts.values()),
+    require(manifest['current_scope']['label'] == '全六章伴读', 'companion scope label missing')
+    require(all('全六章伴读' in re.search(r'<title>(.*?)</title>', text).group(1) for text in texts.values()),
             'reading title does not state current scope')
     accessible = load('review/mathml-accessibility.json')['records']
     ns = {'m': 'http://www.w3.org/1998/Math/MathML'}
@@ -165,7 +166,7 @@ def structure():
         for svg in re.findall(r'<svg\b.*?</svg>', text, re.S):
             require('<title ' in svg and '<desc ' in svg and 'aria-labelledby=' in svg, 'diagram lacks accessible explanation')
             diagrams += 1
-    chapters = {c['chapter']: c['file'] for c in manifest['chapters'] if c['chapter'] <= 4}
+    chapters = {c['chapter']: c['file'] for c in manifest['chapters'] if c['chapter'] <= 6}
     check_coverage(texts, source, exercises, chapters)
     example_index = load('review/example-index.json')['examples']
     expected_examples = {x['anchor'] for x in source['items'] if x['kind'] == '例'}
@@ -209,7 +210,7 @@ def structure():
             rejected.append(name)
         else:
             raise ValueError('coverage checker accepted mutation: ' + name)
-    for chapter, number, before, after in [(3, 9, '(2)', '(0)'), (4, 27, '几乎必然', '处处')]:
+    for chapter, number, before, after in [(3, 9, '(2)', '(0)'), (4, 27, '几乎必然', '处处'), (5, 11, '(2)', '(0)'), (6, 22, '(3)', '(0)')]:
         page = chapters[chapter]
         q = question_block(texts[page].split(f'id="ex-{chapter}-{number}"', 1)[1])
         changed = q.replace(before, after, 1)
@@ -247,8 +248,8 @@ def structure():
             require(ROOT in file.parents and file.is_file(), 'review file is outside book')
             require(hashlib.sha256(file.read_bytes()).hexdigest() == sha, 'stale review: ' + name)
         binding = 'current files match recorded review; semantic and browser evidence are separate'
-    return {'pages': len(paths), 'original_exercises': len(exercises), 'numbered_statements': 126,
-            'numbered_examples': 21, 'mathml': maths, 'svg': diagrams, 'local_links': links,
+    return {'pages': len(paths), 'original_exercises': len(exercises), 'numbered_statements': 203,
+            'numbered_examples': 33, 'mathml': maths, 'svg': diagrams, 'local_links': links,
             'quotation_status': quotation_status,
             'annotated_core_formulae': len(accessible),
             'synchronized_sources': synchronize(), 'source_parser_mutations_rejected': parser_regressions(),
@@ -269,6 +270,7 @@ def main():
         run_dir.mkdir(parents=True, exist_ok=True)
         report['programs'] = check_models(run_dir)
         report['integration_program'] = check_integrals(run_dir / 'integration')
+        report['product_limits_program'] = check_products(run_dir / 'product-limits')
         (run_dir / 'report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
     print(json.dumps(report, ensure_ascii=False, indent=2))
 

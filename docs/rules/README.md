@@ -60,3 +60,5 @@ CS:APP 全书解释复核见 [I018](../../issues/I018-csapp-explanations.md) / [
 2026-10-17 的 [I028](../../issues/I028-static-first-astro.md) 只改变构建及发布路径，教材计算规则、精度、题号和条件保持；逐字重建与 golden-master parity、原独立 Python 回归共同验证此边界。
 
 2026-10-17 的 [I032](../../issues/I032-final-assessment-repairs.md) 补全[定理 1.5.5 修正条件的证明](../../books/measure-probability/notes/chapter01_measurable_spaces.html#theorem-1-5-5-proof)，并展开四个例子的已登记模型；原书编号与结论保留。命令入口的 ASCII 词法、负零与覆盖 mask 长度由[测度书程序说明](../../books/measure-probability/code/README.md)维护。C/Python 的数值算法与范围保持，空白、加号、Unicode 数字等非法输入统一拒绝，验证设计与故障变异见 [T032](../../test/T032-final-assessment-repairs.md)。
+
+测度概率第五、六章：乘积 sigma 域、转移核、Fubini 有符号条件、相容概率与扩张由[第五章](../../books/measure-probability/notes/chapter05_product_spaces.html)维护；三级数、强弱大数律、特征函数及 CLT 的独立性、矩和尺度由[第六章](../../books/measure-probability/notes/chapter06_independent_sequences.html)维护。截断特征函数引理与习题归一化修正保留原说法、修正、依据；[校注清单](../../books/measure-probability/notes/source_issues.json)是定位入口。核矩阵与二项卷积的整数边界、浮点误差和零方差约定见[程序说明](../../books/measure-probability/code/README.md)，独立回归见 [T034](../../test/T034-measure-probability-ch05-06.md)。

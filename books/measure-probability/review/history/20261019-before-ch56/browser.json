@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "astro_migration": {
+    "status": "passed",
+    "record": "review/astro-migration.json",
+    "sha256": "9ace5723fe53ea1f38b43790cab8adaf24b8be48a8fa2fcfac168453b43521a2",
+    "widths": [
+      1800,
+      1440,
+      1024,
+      390
+    ],
+    "js_views": 24,
+    "no_js_views": 6,
+    "external_requests": [],
+    "visual_review": "逐页查看六张联系图，包含 1800/1440/1024/390 首屏、手机末题和 no-JS 首题截图；目录、注解栏和正文边界正常，长公式保持局部滚动，原生题解可读。"
+  },
+  "final_static_migration": {
+    "repository_record": "docs/astro-migration-evidence.json",
+    "sha256": "013f706974f2bd767838b4f22de152e4dbbd2ba80b126e63bf453c63eb6db214",
+    "widths": [
+      1800,
+      1440,
+      1024,
+      390
+    ],
+    "js_views": 24,
+    "no_js_views": 6,
+    "external_requests": [],
+    "snapshot_kind": "I028 local snapshot"
+  },
+  "maintenance_binding_history": [
+    {
+      "issue": "I032",
+      "record": "review/astro-migration.json",
+      "previous_sha256": "f56cfaf76afad2e0dc43e9e0e25ac4dd32d9428356dd502a34a4fee9391a1025",
+      "current_sha256": "9ace5723fe53ea1f38b43790cab8adaf24b8be48a8fa2fcfac168453b43521a2",
+      "reason": "补充历史快照与生产证据的关系，保留原数据及局限"
+    },
+    {
+      "issue": "I032",
+      "record": "docs/astro-migration-evidence.json",
+      "previous_sha256": "b61d55d39174999815709d3f844089adab69f5e02a1d8ef3c4529a13d341e556",
+      "current_sha256": "013f706974f2bd767838b4f22de152e4dbbd2ba80b126e63bf453c63eb6db214",
+      "reason": "I028 snapshot annotation; production recorded separately"
+    }
+  ],
+  "production_record": {
+    "issue": "I029",
+    "repository_record": "docs/astro-production-report.md",
+    "sha256": "3d2267f581a081d63c6513c821bb4969dfb1842c48dc9d85ad48a04ab3f17929",
+    "release_id": "20261017T174039",
+    "scope": "历史实机发布记录；不代表 I032 新代码已部署"
+  },
+  "final_assessment": {
+    "issue": "I032",
+    "repository_record": "docs/final-assessment-evidence.json",
+    "sha256": "ec9475755e3c780b4b3f3933d1c9729416f9dbd98854b491207540e052f3ed00",
+    "release_id": "20261017T210828",
+    "public_html_pages": 8,
+    "js_views": 32,
+    "no_js_views": 16,
+    "external_requests": [],
+    "report": {
+      "source": "tmp/reading-notes-migration/browser/all/report.json",
+      "snapshot": "tmp/final-assessment/evidence/browser.json",
+      "sha256": "1ec6d5fe6b18738cf15fd73abd9c86cd990d6bd202f5f9c0d5c80ba0f41d9eed"
+    },
+    "visual_scope": "Automated whole-site acceptance; targeted new measure content and auxiliary-page visual checks recorded separately"
+  }
+}

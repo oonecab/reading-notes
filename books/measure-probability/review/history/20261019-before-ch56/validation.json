@@ -1,0 +1,1683 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-10-17T13:24:35.390565+00:00",
+  "status": "completed_locally; production_operations_pending",
+  "scope": {
+    "label": "前四章伴读",
+    "pages": 6,
+    "source_numbered_statements": 126,
+    "source_numbered_examples": 21,
+    "original_exercises": 115,
+    "later_chapters": "5–6 pending; 28+27 exercises"
+  },
+  "environment": {
+    "platform": "macOS-15.8.1-arm64-arm-64bit-Mach-O",
+    "python": "3.14.6",
+    "compiler": "Apple clang 17.0.0; arm64-apple-darwin24.6.0",
+    "browser": "Ego Lite 0.5.1.13; session details retained in local evidence"
+  },
+  "source_reading": {
+    "record": "review/source-reading.json",
+    "pdf_identity": "notes/source_manifest.json",
+    "correction_record": "notes/source_issues.json",
+    "proof_scope": "第三四章 72 项编号内容及 58 题逐项回读；全书目录浏览与全文阅读范围分别标明",
+    "inventory_status_note": "notes/source_inventory.json 保存写作前的独立清单快照；其中 content review pending 是建表时状态，当前逐项回读状态以本记录 verification 与 review 为准。"
+  },
+  "structure": {
+    "pages": 6,
+    "original_exercises": 115,
+    "numbered_statements": 126,
+    "numbered_examples": 21,
+    "mathml": 2708,
+    "svg": 4,
+    "local_links": 628,
+    "quotation_status": {
+      "statements": 126,
+      "quoted": 8,
+      "location_only": 118
+    },
+    "annotated_core_formulae": 10,
+    "synchronized_sources": 6,
+    "source_parser_mutations_rejected": [
+      "nested_tag",
+      "missing_end",
+      "duplicate_source",
+      "wrong_source"
+    ],
+    "mutations_rejected": [
+      "excerpt_status",
+      "excerpt_page",
+      "exercise_number",
+      "question_condition",
+      "chapter_3_question_condition",
+      "chapter_4_question_condition",
+      "source_page",
+      "displayed_source"
+    ],
+    "source_pdf": "local hash verified; page inventory read from scan",
+    "review_binding": "current files match recorded review; semantic and browser evidence are separate"
+  },
+  "programs": {
+    "sigma_closure_cases": 343,
+    "cover_subfamily_cases": 47,
+    "exact_rational_cases": 96,
+    "cli_executions": 852,
+    "builds": [
+      [
+        "clang",
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-pedantic",
+        "-O2",
+        "code/finite_spaces.c",
+        "-o",
+        "finite_spaces-release"
+      ],
+      [
+        "clang",
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-pedantic",
+        "-O1",
+        "-g",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer",
+        "code/finite_spaces.c",
+        "-o",
+        "finite_spaces-sanitized"
+      ],
+      [
+        "clang",
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-pedantic",
+        "-O2",
+        "code/simple_approx.c",
+        "-o",
+        "simple_approx-release"
+      ],
+      [
+        "clang",
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-pedantic",
+        "-O1",
+        "-g",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer",
+        "code/simple_approx.c",
+        "-o",
+        "simple_approx-sanitized"
+      ]
+    ],
+    "invalid_cases": {
+      "finite_spaces": 68,
+      "simple_approx": 42
+    },
+    "lexical_tokens": [
+      "1 ",
+      " 1",
+      "\t1",
+      "1\n",
+      "１",
+      "١",
+      "1_0",
+      "+1",
+      "",
+      "-",
+      "−1"
+    ],
+    "correction_regressions": [
+      "missing empty intersection",
+      "missing global cover",
+      "probability Cesaro counterexample"
+    ],
+    "scope": "finite models and numerical boundaries; general proofs are reviewed in HTML"
+  },
+  "integration_program": {
+    "cases": 79,
+    "invalid_cases": 19,
+    "cli_executions": 294,
+    "builds": [
+      [
+        "clang",
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-pedantic",
+        "-O2",
+        "books/measure-probability/code/finite_integrals.c",
+        "-o",
+        "tmp/project-check/20261017T211513-z282iy8m/measure-probability/integration/finite_integrals-release"
+      ],
+      [
+        "clang",
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-pedantic",
+        "-O1",
+        "-g",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer",
+        "books/measure-probability/code/finite_integrals.c",
+        "-o",
+        "tmp/project-check/20261017T211513-z282iy8m/measure-probability/integration/finite_integrals-sanitized"
+      ]
+    ],
+    "oracles": [
+      "level-set integral",
+      "all-subset Jordan extrema",
+      "all conditioning-event identities",
+      "RN defining integral",
+      "L2 projection"
+    ],
+    "mutations_rejected": [
+      "zero-point conditional measurability",
+      "integral",
+      "positive_integral",
+      "negative_integral",
+      "jordan_positive",
+      "jordan_negative",
+      "density",
+      "block_mass",
+      "AC_flag",
+      "paired_decomposition",
+      "second_moment",
+      "variation_total",
+      "expectation"
+    ],
+    "scope": "finite exact models only; infinite-space proofs reviewed separately"
+  },
+  "browser": {
+    "issue": "I032",
+    "repository_record": "docs/final-assessment-evidence.json",
+    "sha256": "ec9475755e3c780b4b3f3933d1c9729416f9dbd98854b491207540e052f3ed00",
+    "release_id": "20261017T210828",
+    "public_html_pages": 8,
+    "js_views": 32,
+    "no_js_views": 16,
+    "external_requests": [],
+    "report": {
+      "source": "tmp/reading-notes-migration/browser/all/report.json",
+      "snapshot": "tmp/final-assessment/evidence/browser.json",
+      "sha256": "1ec6d5fe6b18738cf15fd73abd9c86cd990d6bd202f5f9c0d5c80ba0f41d9eed"
+    },
+    "visual_scope": "Automated whole-site acceptance; targeted new measure content and auxiliary-page visual checks recorded separately"
+  },
+  "integration": {
+    "status": "passed_locally",
+    "source_commit": "4acee863d6e52b5f7de7f99e651d66353a1d8988",
+    "release_id": "20261017T210828",
+    "archive_sha256": "7f6ec99ead09b35f0c2cf205812005b7efeb0e6a202d24c3d53b4c9d59cd2217",
+    "full_report": {
+      "source": "tmp/project-check/20261017T210828-q57darbs/report.json",
+      "snapshot": "tmp/final-assessment/evidence/project_full.json",
+      "sha256": "fcc9bb9b59ce04ab3b24cbb21aee25dc5088f3672955799ed06008f60d6c3893"
+    },
+    "https_report": {
+      "source": "tmp/release-check/20261017T210828-z4zf6qns/https-verification.json",
+      "snapshot": "tmp/final-assessment/evidence/https.json",
+      "sha256": "dd302008be0d655f743c68e6071b46f862903eb836264cc323c8276c17d3b57c"
+    },
+    "publish_report": {
+      "source": "tmp/publish-check/20261017T210828-80sbncht/report.json",
+      "snapshot": "tmp/final-assessment/evidence/publish.json",
+      "sha256": "0052af3b486faff6db09c81655c950c64a9ba59d34249d0c5ea87fe9dd26575e"
+    },
+    "production_operations": "pending operator acceptance; I029 remains historical"
+  },
+  "history": {
+    "previous_validation": "review/history/20261017-first-batch-validation.json",
+    "previous_source_reading": "review/history/20261017-first-batch-source-reading.json",
+    "binding_changes": [
+      {
+        "file": "README.md",
+        "previous_sha256": "59caadf5940b06f0f37548d3f48f08d3137a1e42c832d9d1130447bcd48aecd8",
+        "current_sha256": "432093cd4a78fcb512bc1ab957eff806c28b11f57bf155b252240e7c988b3345",
+        "reason": "当前第三四章内容范围、程序契约与维护说明联动"
+      },
+      {
+        "file": "agent.md",
+        "previous_sha256": "b004caf0c405d424f255b390b16138618d866032cd0a045c990e2e30ca7f1c9b",
+        "current_sha256": "74d93122623b8d0987dee9f59bef123e8de0d5a4972a15c7625487855bf741d6",
+        "reason": "当前第三四章内容范围、程序契约与维护说明联动"
+      },
+      {
+        "file": "code/README.md",
+        "previous_sha256": "12e7e65f61e175f84accafd993f12d8b6bc1559b25f6cb7710264c142c68bcb4",
+        "current_sha256": "54f4acdb53c6a5b852204fa2b2077fc16396aa337eff285148eb82bc68efd86e",
+        "reason": "当前第三四章内容范围、程序契约与维护说明联动"
+      },
+      {
+        "file": "code/programs.json",
+        "previous_sha256": "70e38963fb23d10afda17e9c203476aa0ebf8d3cf1b20543a23b493893b4b1fc",
+        "current_sha256": "6a6b36cdc783f521f63d15ddda2679485a7b694c8ad238ccf209feed482788fe",
+        "reason": "当前第三四章内容范围、程序契约与维护说明联动"
+      },
+      {
+        "file": "notes/README.md",
+        "previous_sha256": "73c6fe870a189e16251db381ff94907b5fec0527fe8dd1c428da4ff4e032bd6d",
+        "current_sha256": "dab6dd33a6dba7790bd784c1ff036037c5628f6bfec70350997ad33dd3e87c29",
+        "reason": "当前第三四章内容范围、程序契约与维护说明联动"
+      },
+      {
+        "file": "notes/book_overview.html",
+        "previous_sha256": "697c022bf3c11e8141f20fe3e0c1408f25bbfb338922d6c29dd7f54b3dc0f15e",
+        "current_sha256": "d373a539537e762e6f019dfa8f8784ccbad8a7f459f9253809496424be8575aa",
+        "reason": "地图、当前范围、章节链接和第三组程序入口同步"
+      },
+      {
+        "file": "notes/chapter02_measure_spaces.html",
+        "previous_sha256": "e4afcec57c3153b470474e1126349112eb8850d0ca627e26a98fa19870ec5a07",
+        "current_sha256": "ee36adc70aafd5b556017e6b1ed494b8f92caddc3671601a8ed585779b834447",
+        "reason": "上下章导航接入第三章；原有题解和正文保留"
+      },
+      {
+        "file": "notes/exercise_manifest.json",
+        "previous_sha256": "1670060c737d2c0a2156de21de6901c2f2f9299dc261e31c762d1d1bba08e212",
+        "current_sha256": "327d1af2bbde0525022b67191ab48165e34f5683dbca5650896f13e85a401292",
+        "reason": "保留前 57 题，新增 58 题和逐题读回状态"
+      },
+      {
+        "file": "notes/source_inventory.json",
+        "previous_sha256": "daa58a277e16ebc0ccd3d8ca8be6639d6234589527c6c6880bd659becb9f6e47",
+        "current_sha256": "edf64973dffe629b7a24ac9dea2e587daa901576f19dd84060cb0a40d8ed9f28",
+        "reason": "保留原 75 项和 57 题，新增第三四章的独立清单"
+      },
+      {
+        "file": "notes/source_issues.json",
+        "previous_sha256": "d28f3790f5a17b8a0f203b6f8519a97fd37e0a44e4f1ef3b7bb5d9d05846ad15",
+        "current_sha256": "89611bc97aa274bb220c2a73c0f60e9467a5df5ecc50138b01f351b06d2a61f4",
+        "reason": "新增八条有原页依据的校注"
+      },
+      {
+        "file": "notes/source_manifest.json",
+        "previous_sha256": "7c0278fd8fcbf10206e4881244a40ddd33147b2e826f583a4a1a6b204e881303",
+        "current_sha256": "43bf8e5904bc8db8d6eaacda0dab02a2f6723d56ff98c3d5d06193af80f76a8a",
+        "reason": "第三四章页序、范围、完成状态和补充来源"
+      },
+      {
+        "file": "reading-plan.md",
+        "previous_sha256": "0544ccca1883fadddaaee1dd472a77bfb5555cfaa0bde8c1a47ba9141034a7de",
+        "current_sha256": "882660e8155ef81592c61dc1b478a02a52c96c9a59eb346c3ea88c91968830b0",
+        "reason": "当前第三四章内容范围、程序契约与维护说明联动"
+      },
+      {
+        "file": "review/README.md",
+        "previous_sha256": "7df8d6fd55c01a4b67443e3527f862bb110d7fc66e1b3b1d24cdbffdb5b1bef3",
+        "current_sha256": "2b49798a6e54ebc1c6e293ed55c6eda13a8362ecf1ea5cfa4993ec4b6a9ce14c",
+        "reason": "当前第三四章内容范围、程序契约与维护说明联动"
+      },
+      {
+        "file": "review/source-reading.json",
+        "previous_sha256": "ce12a90eead4af5dd906dc7b5186c65e617103ec69338bad29f5364900e9968e",
+        "current_sha256": "21d6afe88b5540ba4984a3c72f2bd470d42eeac860b95b7c52c4dd173d830340",
+        "reason": "保留首批逐项读回，追加 72 项和 58 题及回读修正记录；区分建表时的原始状态与写作后的逐项回读状态"
+      },
+      {
+        "file": "tools/check_notes.py",
+        "previous_sha256": "1cee94ab6e9786397289fafce7c433e4b864d06a16b4fd99b39dbc2c053cd18c",
+        "current_sha256": "79c2ab7ecb6180173eb9749c1c340162ee6dc46633f3e6c93acd8c6aaf6bd3b5",
+        "reason": "扩展到六页、147 项和 115 题；增加新章条件变异与程序测试"
+      },
+      {
+        "file": "tools/sync_code.py",
+        "previous_sha256": "f79e0fa5c37bc6d3ff6a22942096273ad064cf7d53f8aea0275746772ca63f82",
+        "current_sha256": "ea77e65f6fef389f5bcc274dcd926317e3f0c53f6dfbfac1beb069d0b0c9a0cc",
+        "reason": "核对三组共六份维护源码副本"
+      }
+    ],
+    "unchanged_previous_files": [
+      "code/finite_spaces.c",
+      "code/finite_spaces.py",
+      "code/simple_approx.c",
+      "code/simple_approx.py",
+      "notes/chapter01_measurable_spaces.html",
+      "notes/preface.html",
+      "notes/source_excerpts.json",
+      "tools/check_models.py"
+    ],
+    "I032_previous_top_level": {
+      "issue": "I032",
+      "scope": "I032 前的顶层审阅字段快照；原记录保留，当前结果另写",
+      "previous_fields": {
+        "recorded_at_utc": "2026-10-17T04:04:47.813489+00:00",
+        "status": "completed_locally",
+        "scope": {
+          "pages": 6,
+          "source_numbered_statements": 126,
+          "source_numbered_examples": 21,
+          "original_exercises": 115,
+          "new_chapters": [
+            3,
+            4
+          ],
+          "new_source_items": 72,
+          "new_exercises": 58,
+          "later_chapters": "5–6 pending"
+        },
+        "structure": {
+          "pages": 6,
+          "original_exercises": 115,
+          "numbered_statements": 126,
+          "numbered_examples": 21,
+          "mathml": 2707,
+          "svg": 4,
+          "local_links": 605,
+          "synchronized_sources": 6,
+          "mutations_rejected": [
+            "exercise_number",
+            "question_condition",
+            "chapter_3_question_condition",
+            "chapter_4_question_condition",
+            "source_page",
+            "displayed_source"
+          ],
+          "source_pdf": "local hash verified; page inventory read from scan",
+          "review_binding": "current files match recorded review; semantic and browser evidence are separate"
+        },
+        "programs": {
+          "sigma_closure_cases": 343,
+          "cover_subfamily_cases": 47,
+          "exact_rational_cases": 96,
+          "cli_executions": 579,
+          "builds": [
+            [
+              "clang",
+              "-std=c11",
+              "-Wall",
+              "-Wextra",
+              "-Werror",
+              "-pedantic",
+              "-O2",
+              "code/finite_spaces.c",
+              "-o",
+              "finite_spaces-release"
+            ],
+            [
+              "clang",
+              "-std=c11",
+              "-Wall",
+              "-Wextra",
+              "-Werror",
+              "-pedantic",
+              "-O1",
+              "-g",
+              "-fsanitize=address,undefined",
+              "-fno-omit-frame-pointer",
+              "code/finite_spaces.c",
+              "-o",
+              "finite_spaces-sanitized"
+            ],
+            [
+              "clang",
+              "-std=c11",
+              "-Wall",
+              "-Wextra",
+              "-Werror",
+              "-pedantic",
+              "-O2",
+              "code/simple_approx.c",
+              "-o",
+              "simple_approx-release"
+            ],
+            [
+              "clang",
+              "-std=c11",
+              "-Wall",
+              "-Wextra",
+              "-Werror",
+              "-pedantic",
+              "-O1",
+              "-g",
+              "-fsanitize=address,undefined",
+              "-fno-omit-frame-pointer",
+              "code/simple_approx.c",
+              "-o",
+              "simple_approx-sanitized"
+            ]
+          ],
+          "correction_regressions": [
+            "missing empty intersection",
+            "missing global cover",
+            "probability Cesaro counterexample"
+          ],
+          "scope": "finite models and numerical boundaries; general proofs are reviewed in HTML",
+          "report": "tmp/measure-probability-ch34/book-final/report.json"
+        },
+        "integration_program": {
+          "cases": 79,
+          "invalid_cases": 19,
+          "cli_executions": 294,
+          "builds": [
+            [
+              "clang",
+              "-std=c11",
+              "-Wall",
+              "-Wextra",
+              "-Werror",
+              "-pedantic",
+              "-O2",
+              "code/finite_integrals.c",
+              "-o",
+              "tmp/measure-probability-ch34/book-final/integration/finite_integrals-release"
+            ],
+            [
+              "clang",
+              "-std=c11",
+              "-Wall",
+              "-Wextra",
+              "-Werror",
+              "-pedantic",
+              "-O1",
+              "-g",
+              "-fsanitize=address,undefined",
+              "-fno-omit-frame-pointer",
+              "code/finite_integrals.c",
+              "-o",
+              "tmp/measure-probability-ch34/book-final/integration/finite_integrals-sanitized"
+            ]
+          ],
+          "oracles": [
+            "level-set integral",
+            "all-subset Jordan extrema",
+            "all conditioning-event identities",
+            "RN defining integral",
+            "L2 projection"
+          ],
+          "mutations_rejected": [
+            "zero-point conditional measurability"
+          ],
+          "scope": "finite exact models only; infinite-space proofs reviewed separately"
+        },
+        "browser": {
+          "source_layout_views": 16,
+          "packaged_layout_views": 16,
+          "widths": [
+            1800,
+            1440,
+            1024,
+            390
+          ],
+          "source_exercise_deeplinks": 58,
+          "packaged_exercise_deeplinks": 58,
+          "scope": "总览、第二至第四章的布局；本批 58 道题解，旧章节证据另存 history",
+          "current_reading_release": "20261017T115130",
+          "guide_release": "20261017T115412",
+          "guide": {
+            "release": "20261017T115412",
+            "views": [
+              {
+                "width": 1440,
+                "scrollWidth": 1425,
+                "heading": "集合、积分与条件期望程序",
+                "hasThird": true,
+                "sourceLinks": [
+                  "finite_spaces.py",
+                  "finite_spaces.c",
+                  "simple_approx.py",
+                  "simple_approx.c",
+                  "finite_integrals.py",
+                  "finite_integrals.c"
+                ]
+              },
+              {
+                "width": 390,
+                "scrollWidth": 375,
+                "heading": "集合、积分与条件期望程序",
+                "hasThird": true,
+                "sourceLinks": [
+                  "finite_spaces.py",
+                  "finite_spaces.c",
+                  "simple_approx.py",
+                  "simple_approx.c",
+                  "finite_integrals.py",
+                  "finite_integrals.c"
+                ]
+              }
+            ],
+            "downloads": [
+              {
+                "name": "finite_spaces.py",
+                "sameBytes": true,
+                "sha256": "08f5ecba1fa03d0e38dd553f1763965beedebdf9a6173d0dc8a0924d7d41886d"
+              },
+              {
+                "name": "finite_spaces.c",
+                "sameBytes": true,
+                "sha256": "bf0bdd33edcf8c32d7b1e8b9b0204d0d031c5a181520bf2454fcbdb040bd1613"
+              },
+              {
+                "name": "simple_approx.py",
+                "sameBytes": true,
+                "sha256": "ed4eff2e11569f54b4d6d9f47b9089a070d67e0cf74264c82d18a247e4666b89"
+              },
+              {
+                "name": "simple_approx.c",
+                "sameBytes": true,
+                "sha256": "93fdfe1ac362cc025f1258511a231b58202efec7c1b27e987340cd4dff133b17"
+              },
+              {
+                "name": "finite_integrals.py",
+                "sameBytes": true,
+                "sha256": "3a598f0554c1497890df87dffe885e882ccfc912e8f446f466b11118ae97c5c7"
+              },
+              {
+                "name": "finite_integrals.c",
+                "sameBytes": true,
+                "sha256": "3f743432f9cf038833614b2294a59981bc11fe22ae807c9241b19aaa66931c1b"
+              }
+            ]
+          },
+          "native_no_javascript_reading": {
+            "before": {
+              "open": false,
+              "toc": true
+            },
+            "after": {
+              "open": true,
+              "width": 390,
+              "scrollWidth": 375
+            }
+          },
+          "source_navigation": {
+            "second_third_fourth_overview": true,
+            "hash": "#integration-model",
+            "tocOpen": false,
+            "active": "#integration-model",
+            "top": 80.0078125
+          },
+          "packaged_navigation": {
+            "homes": {
+              "book_overview": [
+                {
+                  "text": "笔记首页",
+                  "href": "../../"
+                }
+              ],
+              "chapter02_measure_spaces": [
+                {
+                  "text": "笔记首页",
+                  "href": "../../"
+                }
+              ],
+              "chapter03_integration": [
+                {
+                  "text": "笔记首页",
+                  "href": "../../"
+                }
+              ],
+              "chapter04_signed_measures": [
+                {
+                  "text": "笔记首页",
+                  "href": "../../"
+                }
+              ]
+            },
+            "thirdToFourth": true,
+            "fourthToShelf": "http://127.0.0.1:57635/",
+            "note": "Initial inventory query expected ../../index.html; the actual supported home href is ../../. Rechecked all four header links and exercised the route."
+          },
+          "source_horizontal_reading": {
+            "width": 390,
+            "scrollWidth": 375,
+            "diagramScrollLeft": 299,
+            "diagramScrollWidth": 636,
+            "diagramClient": 337
+          },
+          "evidence_root": "tmp/measure-probability-ch34/browser",
+          "overview_final_recheck": {
+            "release": "20261017T120144",
+            "views": [
+              {
+                "width": 1800,
+                "scrollWidth": 1785,
+                "mathErrors": 0,
+                "indexLinks": [
+                  {
+                    "text": "集合上、下极限",
+                    "href": "chapter01_measurable_spaces.html#s1-1"
+                  },
+                  {
+                    "text": "π 系、半环、域和 σ 域",
+                    "href": "chapter01_measurable_spaces.html#s1-2"
+                  },
+                  {
+                    "text": "单调类与 π–λ 定理",
+                    "href": "chapter01_measurable_spaces.html#s1-3"
+                  },
+                  {
+                    "text": "可测函数判别",
+                    "href": "chapter01_measurable_spaces.html#s1-4"
+                  },
+                  {
+                    "text": "简单函数逼近",
+                    "href": "chapter01_measurable_spaces.html#theorem-1-5-3"
+                  },
+                  {
+                    "text": "测度连续性",
+                    "href": "chapter02_measure_spaces.html#theorem-2-1-5"
+                  },
+                  {
+                    "text": "Caratheodory 定理",
+                    "href": "chapter02_measure_spaces.html#theorem-2-2-2"
+                  },
+                  {
+                    "text": "扩张与唯一性",
+                    "href": "chapter02_measure_spaces.html#s2-3"
+                  },
+                  {
+                    "text": "完全化",
+                    "href": "chapter02_measure_spaces.html#s2-4"
+                  },
+                  {
+                    "text": "收敛性与分位数",
+                    "href": "chapter02_measure_spaces.html#s2-5"
+                  },
+                  {
+                    "text": "积分构造与单调收敛",
+                    "href": "chapter03_integration.html#s3-1"
+                  },
+                  {
+                    "text": "Fatou 引理与控制收敛",
+                    "href": "chapter03_integration.html#s3-2"
+                  },
+                  {
+                    "text": "Lp、不等式与完备性",
+                    "href": "chapter03_integration.html#s3-3"
+                  },
+                  {
+                    "text": "期望、矩与一致可积",
+                    "href": "chapter03_integration.html#s3-4"
+                  },
+                  {
+                    "text": "符号测度",
+                    "href": "chapter04_signed_measures.html#s4-1"
+                  },
+                  {
+                    "text": "Hahn 与 Jordan 分解",
+                    "href": "chapter04_signed_measures.html#s4-2"
+                  },
+                  {
+                    "text": "Radon–Nikodym 定理",
+                    "href": "chapter04_signed_measures.html#s4-3"
+                  },
+                  {
+                    "text": "Lebesgue 分解",
+                    "href": "chapter04_signed_measures.html#s4-4"
+                  },
+                  {
+                    "text": "条件期望与条件概率",
+                    "href": "chapter04_signed_measures.html#s4-5"
+                  }
+                ],
+                "sourceTable": "材料\t印刷页 / PDF 页序\n丛书序言\tI—II / 6—7\n作者前言\tIII—IV / 8—9\n完整目录\tV—VI / 11—12\n第一章与习题\t1—22 / 13—34\n第二章与习题\t23—59 / 35—71\n第三章与习题\t60—93 / 72—105\n第四章与习题\t94—128 / 106—140\n当前对应附录提示\t217—230 / 229—242"
+              },
+              {
+                "width": 1440,
+                "scrollWidth": 1425,
+                "mathErrors": 0,
+                "indexLinks": [
+                  {
+                    "text": "集合上、下极限",
+                    "href": "chapter01_measurable_spaces.html#s1-1"
+                  },
+                  {
+                    "text": "π 系、半环、域和 σ 域",
+                    "href": "chapter01_measurable_spaces.html#s1-2"
+                  },
+                  {
+                    "text": "单调类与 π–λ 定理",
+                    "href": "chapter01_measurable_spaces.html#s1-3"
+                  },
+                  {
+                    "text": "可测函数判别",
+                    "href": "chapter01_measurable_spaces.html#s1-4"
+                  },
+                  {
+                    "text": "简单函数逼近",
+                    "href": "chapter01_measurable_spaces.html#theorem-1-5-3"
+                  },
+                  {
+                    "text": "测度连续性",
+                    "href": "chapter02_measure_spaces.html#theorem-2-1-5"
+                  },
+                  {
+                    "text": "Caratheodory 定理",
+                    "href": "chapter02_measure_spaces.html#theorem-2-2-2"
+                  },
+                  {
+                    "text": "扩张与唯一性",
+                    "href": "chapter02_measure_spaces.html#s2-3"
+                  },
+                  {
+                    "text": "完全化",
+                    "href": "chapter02_measure_spaces.html#s2-4"
+                  },
+                  {
+                    "text": "收敛性与分位数",
+                    "href": "chapter02_measure_spaces.html#s2-5"
+                  },
+                  {
+                    "text": "积分构造与单调收敛",
+                    "href": "chapter03_integration.html#s3-1"
+                  },
+                  {
+                    "text": "Fatou 引理与控制收敛",
+                    "href": "chapter03_integration.html#s3-2"
+                  },
+                  {
+                    "text": "Lp、不等式与完备性",
+                    "href": "chapter03_integration.html#s3-3"
+                  },
+                  {
+                    "text": "期望、矩与一致可积",
+                    "href": "chapter03_integration.html#s3-4"
+                  },
+                  {
+                    "text": "符号测度",
+                    "href": "chapter04_signed_measures.html#s4-1"
+                  },
+                  {
+                    "text": "Hahn 与 Jordan 分解",
+                    "href": "chapter04_signed_measures.html#s4-2"
+                  },
+                  {
+                    "text": "Radon–Nikodym 定理",
+                    "href": "chapter04_signed_measures.html#s4-3"
+                  },
+                  {
+                    "text": "Lebesgue 分解",
+                    "href": "chapter04_signed_measures.html#s4-4"
+                  },
+                  {
+                    "text": "条件期望与条件概率",
+                    "href": "chapter04_signed_measures.html#s4-5"
+                  }
+                ],
+                "sourceTable": "材料\t印刷页 / PDF 页序\n丛书序言\tI—II / 6—7\n作者前言\tIII—IV / 8—9\n完整目录\tV—VI / 11—12\n第一章与习题\t1—22 / 13—34\n第二章与习题\t23—59 / 35—71\n第三章与习题\t60—93 / 72—105\n第四章与习题\t94—128 / 106—140\n当前对应附录提示\t217—230 / 229—242"
+              },
+              {
+                "width": 1024,
+                "scrollWidth": 1009,
+                "mathErrors": 0,
+                "indexLinks": [
+                  {
+                    "text": "集合上、下极限",
+                    "href": "chapter01_measurable_spaces.html#s1-1"
+                  },
+                  {
+                    "text": "π 系、半环、域和 σ 域",
+                    "href": "chapter01_measurable_spaces.html#s1-2"
+                  },
+                  {
+                    "text": "单调类与 π–λ 定理",
+                    "href": "chapter01_measurable_spaces.html#s1-3"
+                  },
+                  {
+                    "text": "可测函数判别",
+                    "href": "chapter01_measurable_spaces.html#s1-4"
+                  },
+                  {
+                    "text": "简单函数逼近",
+                    "href": "chapter01_measurable_spaces.html#theorem-1-5-3"
+                  },
+                  {
+                    "text": "测度连续性",
+                    "href": "chapter02_measure_spaces.html#theorem-2-1-5"
+                  },
+                  {
+                    "text": "Caratheodory 定理",
+                    "href": "chapter02_measure_spaces.html#theorem-2-2-2"
+                  },
+                  {
+                    "text": "扩张与唯一性",
+                    "href": "chapter02_measure_spaces.html#s2-3"
+                  },
+                  {
+                    "text": "完全化",
+                    "href": "chapter02_measure_spaces.html#s2-4"
+                  },
+                  {
+                    "text": "收敛性与分位数",
+                    "href": "chapter02_measure_spaces.html#s2-5"
+                  },
+                  {
+                    "text": "积分构造与单调收敛",
+                    "href": "chapter03_integration.html#s3-1"
+                  },
+                  {
+                    "text": "Fatou 引理与控制收敛",
+                    "href": "chapter03_integration.html#s3-2"
+                  },
+                  {
+                    "text": "Lp、不等式与完备性",
+                    "href": "chapter03_integration.html#s3-3"
+                  },
+                  {
+                    "text": "期望、矩与一致可积",
+                    "href": "chapter03_integration.html#s3-4"
+                  },
+                  {
+                    "text": "符号测度",
+                    "href": "chapter04_signed_measures.html#s4-1"
+                  },
+                  {
+                    "text": "Hahn 与 Jordan 分解",
+                    "href": "chapter04_signed_measures.html#s4-2"
+                  },
+                  {
+                    "text": "Radon–Nikodym 定理",
+                    "href": "chapter04_signed_measures.html#s4-3"
+                  },
+                  {
+                    "text": "Lebesgue 分解",
+                    "href": "chapter04_signed_measures.html#s4-4"
+                  },
+                  {
+                    "text": "条件期望与条件概率",
+                    "href": "chapter04_signed_measures.html#s4-5"
+                  }
+                ],
+                "sourceTable": "材料\t印刷页 / PDF 页序\n丛书序言\tI—II / 6—7\n作者前言\tIII—IV / 8—9\n完整目录\tV—VI / 11—12\n第一章与习题\t1—22 / 13—34\n第二章与习题\t23—59 / 35—71\n第三章与习题\t60—93 / 72—105\n第四章与习题\t94—128 / 106—140\n当前对应附录提示\t217—230 / 229—242"
+              },
+              {
+                "width": 390,
+                "scrollWidth": 375,
+                "mathErrors": 0,
+                "indexLinks": [
+                  {
+                    "text": "集合上、下极限",
+                    "href": "chapter01_measurable_spaces.html#s1-1"
+                  },
+                  {
+                    "text": "π 系、半环、域和 σ 域",
+                    "href": "chapter01_measurable_spaces.html#s1-2"
+                  },
+                  {
+                    "text": "单调类与 π–λ 定理",
+                    "href": "chapter01_measurable_spaces.html#s1-3"
+                  },
+                  {
+                    "text": "可测函数判别",
+                    "href": "chapter01_measurable_spaces.html#s1-4"
+                  },
+                  {
+                    "text": "简单函数逼近",
+                    "href": "chapter01_measurable_spaces.html#theorem-1-5-3"
+                  },
+                  {
+                    "text": "测度连续性",
+                    "href": "chapter02_measure_spaces.html#theorem-2-1-5"
+                  },
+                  {
+                    "text": "Caratheodory 定理",
+                    "href": "chapter02_measure_spaces.html#theorem-2-2-2"
+                  },
+                  {
+                    "text": "扩张与唯一性",
+                    "href": "chapter02_measure_spaces.html#s2-3"
+                  },
+                  {
+                    "text": "完全化",
+                    "href": "chapter02_measure_spaces.html#s2-4"
+                  },
+                  {
+                    "text": "收敛性与分位数",
+                    "href": "chapter02_measure_spaces.html#s2-5"
+                  },
+                  {
+                    "text": "积分构造与单调收敛",
+                    "href": "chapter03_integration.html#s3-1"
+                  },
+                  {
+                    "text": "Fatou 引理与控制收敛",
+                    "href": "chapter03_integration.html#s3-2"
+                  },
+                  {
+                    "text": "Lp、不等式与完备性",
+                    "href": "chapter03_integration.html#s3-3"
+                  },
+                  {
+                    "text": "期望、矩与一致可积",
+                    "href": "chapter03_integration.html#s3-4"
+                  },
+                  {
+                    "text": "符号测度",
+                    "href": "chapter04_signed_measures.html#s4-1"
+                  },
+                  {
+                    "text": "Hahn 与 Jordan 分解",
+                    "href": "chapter04_signed_measures.html#s4-2"
+                  },
+                  {
+                    "text": "Radon–Nikodym 定理",
+                    "href": "chapter04_signed_measures.html#s4-3"
+                  },
+                  {
+                    "text": "Lebesgue 分解",
+                    "href": "chapter04_signed_measures.html#s4-4"
+                  },
+                  {
+                    "text": "条件期望与条件概率",
+                    "href": "chapter04_signed_measures.html#s4-5"
+                  }
+                ],
+                "sourceTable": "材料\t印刷页 / PDF 页序\n丛书序言\tI—II / 6—7\n作者前言\tIII—IV / 8—9\n完整目录\tV—VI / 11—12\n第一章与习题\t1—22 / 13—34\n第二章与习题\t23—59 / 35—71\n第三章与习题\t60—93 / 72—105\n第四章与习题\t94—128 / 106—140\n当前对应附录提示\t217—230 / 229—242"
+              }
+            ]
+          },
+          "taskspace_lifecycle": {
+            "finished": true,
+            "kept_tabs": []
+          },
+          "final_release": "20261017T120144",
+          "final_index_navigation": {
+            "url": "http://127.0.0.1:58574/measure-probability/notes/chapter04_signed_measures.html#s4-5",
+            "top": 127.78125,
+            "active": "#s4-5",
+            "width": 390,
+            "scrollWidth": 375
+          },
+          "final_downloads": {
+            "release": "20261017T120144",
+            "downloads": [
+              {
+                "name": "finite_integrals.py",
+                "sameBytes": true,
+                "sha256": "3a598f0554c1497890df87dffe885e882ccfc912e8f446f466b11118ae97c5c7"
+              },
+              {
+                "name": "finite_integrals.c",
+                "sameBytes": true,
+                "sha256": "3f743432f9cf038833614b2294a59981bc11fe22ae807c9241b19aaa66931c1b"
+              }
+            ]
+          },
+          "reading_page_equivalence": "tmp/measure-probability-ch34/final-release-equivalence.json"
+        },
+        "integration": {
+          "status": "passed",
+          "full_report": "tmp/project-check/20261017T114435-e2g4dsdn/report.json",
+          "full_checks": 13,
+          "quick_report": "tmp/project-check/20261017T115002-q2_jzhng/report.json",
+          "quick_checks": 10,
+          "guide_quick_report": "tmp/project-check/20261017T115411-25m7636t/report.json",
+          "content_release": "20261017T115130",
+          "content_release_https_report": "tmp/release-check/20261017T115130-7dj29w1t/https-verification.json",
+          "guide_release": "20261017T115412",
+          "final_package_verification": "passed",
+          "public_deployment": "not performed",
+          "post_binding_quick_report": "tmp/project-check/20261017T120138-nkvl4p4p/report.json",
+          "final_release": "20261017T120144",
+          "https_report": "tmp/release-check/20261017T120144-w054obrk/https-verification.json",
+          "final_release_counts": {
+            "release_id": "20261017T120144",
+            "files": 296,
+            "html_pages": 72,
+            "reading_pages": 52,
+            "bytes": 33439743,
+            "local_references_checked": 7297,
+            "inline_scripts": 10,
+            "document_pages": 14,
+            "navigation_links": 7271,
+            "https_files_checked": 291,
+            "entry_redirects_checked": 15
+          },
+          "review_binding_note": "source-reading 逐项状态在最终归档时澄清；该维护记录不进入发布包，正文和程序字节不变",
+          "closure_quick_report": "tmp/project-check/20261017T120447-vxs0y0c5/report.json"
+        },
+        "delivery": {
+          "git_commit": "not performed",
+          "git_push": "not performed",
+          "public_deployment": "not performed"
+        }
+      }
+    }
+  },
+  "file_sha256": {
+    "README.md": "3fcebc7bb95778df1b336c51868a6b1ba120233ec1652c2a69a9f2d45a2ae53f",
+    "agent.md": "d5bd5414ccef2cc7b61ca19fbd5bfe6965bfe994e71bf8378c239e7184268538",
+    "code/README.md": "1edce4c57816ba26c02e5c90a8aecb958ab9a939dd2227850dee4eedda3ed5e9",
+    "code/finite_integrals.c": "3f743432f9cf038833614b2294a59981bc11fe22ae807c9241b19aaa66931c1b",
+    "code/finite_integrals.py": "3a598f0554c1497890df87dffe885e882ccfc912e8f446f466b11118ae97c5c7",
+    "code/finite_spaces.c": "c2164e1263eceac5cbc4ab43b9c03437e7a42f379744b734c9551a1d76ee38e9",
+    "code/finite_spaces.py": "600bd304686b55227ca11928f5f08d9bf3cae6025ea0e36074357cc7f3e7d68c",
+    "code/programs.json": "6a6b36cdc783f521f63d15ddda2679485a7b694c8ad238ccf209feed482788fe",
+    "code/simple_approx.c": "7b1c7d94efc3b1e51340860863c07e2ba2368a87ca4de91b310bf80322b831ce",
+    "code/simple_approx.py": "397b091accdde866a7ccd628d5099660d7864dffd0a0d9fd1e895dd40c4e57f7",
+    "notes/README.md": "01a3ddf9df5bf94441f92876a6124626c5a21fb656c46277b519e73e84d3660e",
+    "notes/book_overview.html": "8817d275163e2547c5c9ce336ef45329f581ddaf992e97e3d44e422fd4fd14f5",
+    "notes/chapter01_measurable_spaces.html": "391a457250efae51eade24b213d07c1f69b23d699505ce88f5a3c7aabd1fa3f5",
+    "notes/chapter02_measure_spaces.html": "e888f61631e0a72efaeacfe39374a095ee731627583906a6eff55690983f6479",
+    "notes/chapter03_integration.html": "b5c81fe5b0aef108aa1cf625d656b0403fb9de854be717c579a853d90e7f316c",
+    "notes/chapter04_signed_measures.html": "1b95e728afa338bf1c220412a22685dfb7a8c7eae78c5a39239598bedb78d92b",
+    "notes/exercise_manifest.json": "327d1af2bbde0525022b67191ab48165e34f5683dbca5650896f13e85a401292",
+    "notes/preface.html": "f32cdfb1be1ee3f2146e576bad3ebfecab0d412ba3c0bf059fa6b549cdde41b1",
+    "notes/source_excerpts.json": "37717cadccc3cb7d5622b93c11efaa98344c77526a5d98ea42642afaa13e99d3",
+    "notes/source_inventory.json": "edf64973dffe629b7a24ac9dea2e587daa901576f19dd84060cb0a40d8ed9f28",
+    "notes/source_issues.json": "89611bc97aa274bb220c2a73c0f60e9467a5df5ecc50138b01f351b06d2a61f4",
+    "notes/source_manifest.json": "9cdfe634115c960df490b6e7776b4ef47488e4fc73caba484fec9aa503d74913",
+    "reading-plan.md": "2e3719e21d185a9f2ab556fe45add1052e7ebd22c2f80c6dcea46df0c43b7a57",
+    "review/README.md": "2b49798a6e54ebc1c6e293ed55c6eda13a8362ecf1ea5cfa4993ec4b6a9ce14c",
+    "review/history/20261017-first-batch-source-reading.json": "ce12a90eead4af5dd906dc7b5186c65e617103ec69338bad29f5364900e9968e",
+    "review/history/20261017-first-batch-validation.json": "017c0f6cbf2dfc479f99a248eb06a41dd39f771fc0a6b71f8ada1335cbf0a58a",
+    "review/source-reading.json": "b38137f3ff6fab67aaee56e34ac46698ccece3150ac998f51253c6798f9ff825",
+    "tools/check_integrals.py": "4009004a02c8aab319920b2d42bfc182a426cbdf94bc1155cd15b29b7a93d4ab",
+    "tools/check_models.py": "7e2e5c2bffe527c18b27721d0e2e15a1f3f52b8ad4d9d5e59ec242c3c4b5a33a",
+    "tools/check_notes.py": "7df942a0454f9d2dc778e44dfdf8beb13cd5dcd59d6388c13aff8969348c3b9d",
+    "tools/sync_code.py": "9eceb700c71f70462083b425ee9eed2ce9de905503253b60ce275fa83a1933a2",
+    "review/final-assessment.json": "1d6ee5e6928a9ca24fdb61c318bb49a03fee2cb6f627ae9641d7213f78e2cedf",
+    "tools/check_excerpts.py": "62466881d33533c8f9d9617afc8f30edd9df5c437c61c922c00101af20c70a50",
+    "review/example-index.json": "448e8232e11d0ddcac275a76bd2e6dbf44bf75dc2cd64fcbd49676162e88762e",
+    "review/mathml-accessibility.json": "9d2eea5fd4d24c45a04c1c60594a27bfadf94796b7054e33692db268ee827e49",
+    "review/browser.json": "8bdfb0c8081710c46b66fafce782413f30eabd7496917e3572b24a444fb6cfc1"
+  },
+  "evidence_sha256": {
+    "tmp/measure-probability-ch34/baseline.json": "5e86be465874b20fb9aafc0a5791d808f8f006df71354c75e2cc0bbe40ceac95",
+    "tmp/measure-probability-ch34/book-debug/report.json": "d990a8915092df0000c2de19f2bf572809897d002c4b5b2bc441abe8109de7da",
+    "tmp/measure-probability-ch34/book-debug.log": "d990a8915092df0000c2de19f2bf572809897d002c4b5b2bc441abe8109de7da",
+    "tmp/measure-probability-ch34/book-final/report.json": "b4da77d3be40145695a9f04070135afd53bb7c170b34a75b87fa82c75770773a",
+    "tmp/measure-probability-ch34/book-final.log": "b4da77d3be40145695a9f04070135afd53bb7c170b34a75b87fa82c75770773a",
+    "tmp/measure-probability-ch34/browser/guide-integration-1440.png": "b28a2e0604cd4a9ac69f279d27d9432f0c4a8d500f3ecb0388ea30ab2a34e344",
+    "tmp/measure-probability-ch34/browser/guide-integration-390.png": "f8f43e944b6bc5e91c9669a92ed42ab70d1bc26cdf3e233bf20e50df27967f2b",
+    "tmp/measure-probability-ch34/browser/guide-top-1440.png": "f0154aed7e923110122b88e5809353a7d31fdb417305421dc6388130dc9f81aa",
+    "tmp/measure-probability-ch34/browser/guide-top-390.png": "c3206e49f595d33aa9373b48152e2442bbc40229da01e88dc707d6b36a563f52",
+    "tmp/measure-probability-ch34/browser/release-book_overview-1024.png": "dd7c474f5f6b1f18a09c7ad8eecc9ff0163ff09e165edd5bec42346a8f0fce4d",
+    "tmp/measure-probability-ch34/browser/release-book_overview-1440.png": "fb1ff53e12d10bb4037c9564417afe984b98120f09d79d5ed6a04a8e23361896",
+    "tmp/measure-probability-ch34/browser/release-book_overview-1800.png": "3b5f35372ea5b90b485dc0f2bd021491dcb84144553564fb3436bd28c48f7079",
+    "tmp/measure-probability-ch34/browser/release-book_overview-390.png": "32e093814117a54bfe2aa7f16422efa3603787bbcc69141b350e8c0c31f0059a",
+    "tmp/measure-probability-ch34/browser/release-chapter02_measure_spaces-1024.png": "aa5d782cf7b633dd89612942b0959ee1b2f7f946edbda0eeb7d4db97ed9f6283",
+    "tmp/measure-probability-ch34/browser/release-chapter02_measure_spaces-1440.png": "189446e71822e00981b68bff7898e3a9d3a0d2b6909843414daa8b6f6ad8fc4d",
+    "tmp/measure-probability-ch34/browser/release-chapter02_measure_spaces-1800.png": "c8d6e2240d768625ca689d4ab6a03f96c9d7b1ee89cc9ca31fa2a173d6da782f",
+    "tmp/measure-probability-ch34/browser/release-chapter02_measure_spaces-390.png": "1283a3065bc74959e0d527936f31173716cc9a130125f9df119b16124cdae754",
+    "tmp/measure-probability-ch34/browser/release-chapter03_integration-1024.png": "a97578a2cc1eb797d5985765f8e04afea22df47adc40deda06637ad1b051e219",
+    "tmp/measure-probability-ch34/browser/release-chapter03_integration-1440.png": "b79ff6bdaa6265f977a41b29160c8d63f66bf0fb129f817ef14d9a761e7c4544",
+    "tmp/measure-probability-ch34/browser/release-chapter03_integration-1800.png": "1401f3533caa6a0bf4491276fae16fd939774a71329d4b8dec36681f17ac2b5a",
+    "tmp/measure-probability-ch34/browser/release-chapter03_integration-390.png": "52afa3cafa49445016475b839bac0c5b20ba2beb8c6edc7c78b8b4c2858bc96e",
+    "tmp/measure-probability-ch34/browser/release-chapter04_signed_measures-1024.png": "66b1cff162b0207bd41daff6797036f4540e0aad480c4cb12467fa31ba64f152",
+    "tmp/measure-probability-ch34/browser/release-chapter04_signed_measures-1440.png": "e39dbb18952d39c12fa90e73ac03b2bfaaafce8139c74a36ee20f7282d0a9bff",
+    "tmp/measure-probability-ch34/browser/release-chapter04_signed_measures-1800.png": "3e26db3e226b434a425e8ba9375fb976fcaa5030debe4ebd38d43c6c73180db2",
+    "tmp/measure-probability-ch34/browser/release-chapter04_signed_measures-390.png": "2afda0d415d5d549501ee0f0e26ecfa83400f63bf27c30a85b6f147228c6773c",
+    "tmp/measure-probability-ch34/browser/release-deeplinks.json": "880e63bdc0bf47dcedd0740aa44781bb9ad035a7fb565e6ce73709ade1812b13",
+    "tmp/measure-probability-ch34/browser/release-guide.json": "761e7c78b0e8dc87e29a820f69366991ea26166b6e853e595b9b0d82c48398c3",
+    "tmp/measure-probability-ch34/browser/release-home-navigation.json": "64755995af33d5c2b102a909b6b56dafd5a81ae3cd7a2ca57f2d59400d1f04dc",
+    "tmp/measure-probability-ch34/browser/release-nojs-390.png": "0714e4d6b7995709b5bcad588518443066f47689754779acec0a4e9abc1d639d",
+    "tmp/measure-probability-ch34/browser/release-nojs.json": "b67e6f116b768a368bb9ccc23f8a8b98d1d42da80b33ab87f588f58616c6cfb9",
+    "tmp/measure-probability-ch34/browser/release-shelf-390.png": "05b5d28d708edd676292ae86f7b00962282fb1bf5fdae50693def6877461185d",
+    "tmp/measure-probability-ch34/browser/release-viewports.json": "b6881e03d779759bff625b3841e63368cd7773aa5af2eb57f622b39abdc3092a",
+    "tmp/measure-probability-ch34/browser/source-book_overview-1024.png": "070414383ba414e99e7562c1c5406366a9a7d3213c35356402aee5784e327cdc",
+    "tmp/measure-probability-ch34/browser/source-book_overview-1440.png": "1b2ce869ffbfe0771d143ee48fc861a122a44d84e5cbf4a91b8b06035564e312",
+    "tmp/measure-probability-ch34/browser/source-book_overview-1800.png": "36a78a6a32355f31a97884ff9ed5ec28393470f0631b5dc15e9658eb2a6697e3",
+    "tmp/measure-probability-ch34/browser/source-book_overview-390.png": "92de12e2a44419b9bb0716276824567604b825600753aa63bada1f9a13fc8be0",
+    "tmp/measure-probability-ch34/browser/source-chapter02_measure_spaces-1024.png": "46284eecc9ca7567973c01646f6867bac7635e619365ef2728426da5bbb31879",
+    "tmp/measure-probability-ch34/browser/source-chapter02_measure_spaces-1440.png": "e512d34334a02bad6a1269559922a0c29c6483ee931341a3e03cffd98a951c1a",
+    "tmp/measure-probability-ch34/browser/source-chapter02_measure_spaces-1800.png": "acc5b8f2d397c5e49ae829486de452f4ca8ba2c848a6abc5e3cd6ffccd92f616",
+    "tmp/measure-probability-ch34/browser/source-chapter02_measure_spaces-390.png": "f7cf700a5b9cf6ed6e78f72b45c8c790cc3d59831b10733b39ba780ca033e7f8",
+    "tmp/measure-probability-ch34/browser/source-chapter03_integration-1024.png": "d8b7089b1549cae3c5e3e03e703e77ca08fab4d984496c304e196c6e8780c4e2",
+    "tmp/measure-probability-ch34/browser/source-chapter03_integration-1440.png": "ffbbeab5076889f52949df24af4b953da00ff6007761693862ccc6e2329154f8",
+    "tmp/measure-probability-ch34/browser/source-chapter03_integration-1800.png": "12068db38fa1ff6ff327ce47bc3db928d711b41d5f2bb86ad2f98e78fe67c6db",
+    "tmp/measure-probability-ch34/browser/source-chapter03_integration-390.png": "a456d2f6979fb8cac6b18f606066903a02aa0ea39b351d8ead6bacdca1509790",
+    "tmp/measure-probability-ch34/browser/source-chapter04_signed_measures-1024.png": "11b7d01ab141442535e9d1b15280d251533669d29bbaa16bc6383403a0afb6da",
+    "tmp/measure-probability-ch34/browser/source-chapter04_signed_measures-1440.png": "aa832108fe3e5bd96e6e0807bbca397a7dcab32d0b0c812de3cfd52c3d8973cc",
+    "tmp/measure-probability-ch34/browser/source-chapter04_signed_measures-1800.png": "90b38354fc4b4af91509282bb0b7d54de84710487a876348fa78e59a756c3bd3",
+    "tmp/measure-probability-ch34/browser/source-chapter04_signed_measures-390.png": "ed281ad43d9dcae1df92aeddaab9e930a737c4934f833060869eddae60a3818c",
+    "tmp/measure-probability-ch34/browser/source-code-c-390.png": "b6b84a15501ed96dca0a015ca4b381bfadc1913e4619ae17f8a5dfa048f6587c",
+    "tmp/measure-probability-ch34/browser/source-code-py-390.png": "3defffac7b2ce69deeb0c89dc58b6f0c9475f92ca7f80920adcaa6a6d4a88306",
+    "tmp/measure-probability-ch34/browser/source-conditioning-blocks-1440.png": "9045eb3e7840f1e03a25277e07b43955c7b8e024718ea31a48b444ec60ccafee",
+    "tmp/measure-probability-ch34/browser/source-conditioning-right-390.png": "27f87c7bb53409d60ba6d55fa567a655e5c44364ff48fe882754ab499d9019d2",
+    "tmp/measure-probability-ch34/browser/source-convergence-map-1440.png": "016d2a09fafc8c4e137fdd471958fc94242ef49f27536d662596931078cddde3",
+    "tmp/measure-probability-ch34/browser/source-deeplinks.json": "7d58c02173b8d42bed6c3bc2d9ff37994b603a0c795fd89b33204ff989caa872",
+    "tmp/measure-probability-ch34/browser/source-downloads.json": "5da1f881c4e7292d17b5f5ebee03c2f51a10458553312d5562b130cf6dbe0e9b",
+    "tmp/measure-probability-ch34/browser/source-ex-3-19-390.png": "37f7783454b64d751938bda0f939ef5a0978b0beb765ae915da975119ed62ec7",
+    "tmp/measure-probability-ch34/browser/source-ex-3-23-390.png": "a07411fd38052209483b4f734fb680ed61ec459d613117470cd1a04170366078",
+    "tmp/measure-probability-ch34/browser/source-ex-4-22-390.png": "979d6f251d842181d2efb0c2bfdcbe9d95ff262de2bbc65c0132115c15445def",
+    "tmp/measure-probability-ch34/browser/source-ex-4-27-390.png": "ea450018405654d1aeda1a8c5e147e2b2d90034ed53cfb9bce347c82bf3d5e5c",
+    "tmp/measure-probability-ch34/browser/source-horizontal-reading.json": "18bcfed5cd45ca08e8e2e15bffb971d7a7dce43ba747458c79412b7c7ffc988d",
+    "tmp/measure-probability-ch34/browser/source-integration-model-390.png": "aa50ea3860a63f6baec302a116166b9c0de9ab9e29afaa251b52f2f9e7d84d34",
+    "tmp/measure-probability-ch34/browser/source-navigation.json": "e6914a6c5ed1aafb413535cae62eac9d7a25d28f3b177e30bf349a96adce9f0a",
+    "tmp/measure-probability-ch34/browser/source-nojs-ex-4-22-390.png": "9ae20cd6ca3912710ae58f473043ac22deba0102dd020a5999d85921bdf8be2f",
+    "tmp/measure-probability-ch34/browser/source-nojs.json": "3c3bd647158b4f398b0e9ff4265158b33dfa08889d76ae935d2d3d03cedc2ee1",
+    "tmp/measure-probability-ch34/browser/source-proposition-4-3-2-1440.png": "3aa4c752dcf4ea7c4affb6d2d85c4eaa63647ecdf95386bdfe4ee65864c738cf",
+    "tmp/measure-probability-ch34/browser/source-theorem-3-3-8-1440.png": "de2afe0015c7cd9c78176519189f02b37fa4e11c85169d99d4e55b7a3985b8a8",
+    "tmp/measure-probability-ch34/browser/source-theorem-4-5-6-1440.png": "304132354845a3d4ead7f8e0c62c5010a3f1483c05cab885047247a2523230b6",
+    "tmp/measure-probability-ch34/browser/source-viewports.json": "40c03899ba06b35eef5fd0c44de74642431ac727100fd6fbb14b4424dc899b71",
+    "tmp/measure-probability-ch34/build-concurrent-change.log": "1467b9fdbc98cfadf66791c378c15142d4e6bf5de4c821e76452fb6e74a191b0",
+    "tmp/measure-probability-ch34/build-guide.json": "73cea8b9abf6b0ecc56f7375a9f8f16d9b1744fd5814a694762b7fa9a2aba553",
+    "tmp/measure-probability-ch34/build-reading.json": "c929062b88e8e3a9d2b8055e2187fa3fd18ae4b28437371baca9612119ef9105",
+    "tmp/measure-probability-ch34/https-reading.log": "035b61658bb05aa1b24e158ed19eea3ff166b75fab2f030ad06d92c2c24bce6c",
+    "tmp/measure-probability-ch34/independent-inventory-ch34.json": "ee55f028f328c1dd22fc08928d8091b0a027fb5d0a125593852f73432f0c6188",
+    "tmp/measure-probability-ch34/reading-release-equivalence.json": "becb925d3e3de9359686f6e913bc71db9bd3a631a38aee6392ebac50e82ced42",
+    "tmp/measure-probability-ch34/red-before-drafting.log": "b029d2e08edf567859dc8a0a6e0d4838987ba5845775f869ed36a1bdb0cdb541",
+    "tmp/measure-probability-ch34/render-hints.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tmp/measure-probability-ch34/render.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tmp/measure-probability-ch34/root-all-quick.log": "92a4d45a267220927b17f5f70801716f790dc7d1d2f40fcb1f8ae94cac0d6a3c",
+    "tmp/measure-probability-ch34/root-full.log": "94e86d98e5b180f67c9a3abbe16260b50ff5019ce5d6bbd327d97994955a5cf8",
+    "tmp/measure-probability-ch34/root-guide-quick.log": "8cb4acede03091fc338791f12c5bfdffebcfe6962185a5e096464248e732d418",
+    "tmp/measure-probability-ch34/root-quick.log": "8a3f6807c3ddc58d5454f70f621ca8406c8fc32a7dcb565db3440097bc7a88af",
+    "tmp/measure-probability-ch34/scope-audit.json": "7993672d43ac78acd544e744aeca26757310d16dec8ad02afc79168c73b6986d",
+    "tmp/measure-probability-ch34/whole-html-balance-after-update.json": "339acc3b09add3c3d0e689adf17878a1bd264d3a3f00fccce7db538630e20066",
+    "tmp/measure-probability-ch34/whole-html-balance-latest.json": "843efac7059e163701f00db71a95e4f8d18b1e94fb10cb691ce43ff55a93d3a9",
+    "tmp/measure-probability-ch34/whole-html-balance.json": "843efac7059e163701f00db71a95e4f8d18b1e94fb10cb691ce43ff55a93d3a9",
+    "tmp/measure-probability-ch34/browser/final-downloads.json": "5c37d7dfb69dc57e18ac4664cd4e9f806a16faa37fb8750300e3f5d6a202f721",
+    "tmp/measure-probability-ch34/browser/final-index-navigation.json": "ee301806c54d2e3931098373ab729bb7e1535bac3524eaa5014a8d633c9793f3",
+    "tmp/measure-probability-ch34/browser/final-overview-index-1024.png": "9d8f92c4a6e1b1633dd2189ca581b7decb078d3b265d356fb1bde605fd67ace0",
+    "tmp/measure-probability-ch34/browser/final-overview-index-1440.png": "157c3ca015207d14b7c56bc6a8fc441e7d3716c4d8e1ec0dd0628bb6511dee96",
+    "tmp/measure-probability-ch34/browser/final-overview-index-1800.png": "adc2df19b0fb42fedabe2306c4106c6593fc9e9f1a7bd5fcef38c25fd1ef7ade",
+    "tmp/measure-probability-ch34/browser/final-overview-index-390.png": "587a2a904ef5969e8e706978533fe0beb629ea5c6af188a2dac0da60f6887370",
+    "tmp/measure-probability-ch34/browser/final-overview.json": "572fb45a0843510d22533964e6b388f2563b3f541a24f090fd2ac42426389f88",
+    "tmp/measure-probability-ch34/browser/taskspace-finished.json": "f6af11c2d168165f48fa8d62f52a5eda728906cac4f347d213f6369470e08868",
+    "tmp/measure-probability-ch34/build-final.json": "7cbb036379681e61822472f0c71a21d04dedfc53dbf25b5346b11115ab283dd1",
+    "tmp/measure-probability-ch34/final-release-equivalence.json": "120437e55fe9310d35f008b7d2817aa9a33cf9fe15dbfdca07ba7cf378198199",
+    "tmp/measure-probability-ch34/https-final.log": "55318f7d0786cb16506c7010f03ef53795231ecf67f1e75ae91d9d7c8474b83e",
+    "tmp/measure-probability-ch34/root-final-binding-quick.log": "273ff62a79e6b006234abb226ff200751cdacdec9ce796d17d34483eef6e4ed7",
+    "tmp/project-check/20261017T114435-e2g4dsdn/report.json": "66b92a9898934ba563272a8f6872e02119434535337d9eeb867014d8933a73fd",
+    "tmp/project-check/20261017T114435-e2g4dsdn/measure-probability/report.json": "31a3752175f2055e26656ff21c46bd5969e36193618c6424ec4c7cfcd61320c5",
+    "tmp/project-check/20261017T115002-q2_jzhng/report.json": "54bba80d175d280e6bd645829c73186e7a14afb16362c085cb2d8af4e80ee562",
+    "tmp/project-check/20261017T120138-nkvl4p4p/report.json": "590c51b76c2e891061d2e256d09a5cec12ac9979162f2aca58f6a903dd21369b",
+    "tmp/release-check/20261017T120144-w054obrk/https-verification.json": "084968ed3e31375346431f6d0910d1eb9cbbc3bc6f82d56c99a9cfa358313856",
+    "tmp/project-check/20261017T120447-vxs0y0c5/report.json": "6547ca04ebcf0de13075c59d071168a4c47e70657579af2535100c3d4434f71d",
+    "tmp/measure-probability-ch34/root-closure-quick.log": "dafacbd7bf591bd230c4389e56fda302bbaf4d3adefc0a4637ae373a57e2171b"
+  },
+  "delivery": {
+    "implementation_commit": "4acee863d6e52b5f7de7f99e651d66353a1d8988",
+    "git_publication": "Final evidence commit and remote readback recorded in repository history and task delivery",
+    "public_deployment": "I032 not performed; operator handoff is authoritative"
+  },
+  "migration_binding_history": [
+    {
+      "at": "2026-10-17T08:22:53.706400+00:00",
+      "updates": [
+        {
+          "file": "agent.md",
+          "previous_sha256": "74d93122623b8d0987dee9f59bef123e8de0d5a4972a15c7625487855bf741d6",
+          "current_sha256": "d5bd5414ccef2cc7b61ca19fbd5bfe6965bfe994e71bf8378c239e7184268538",
+          "reason": "Astro 迁移后维护路径说明；正文和计算规则保持"
+        },
+        {
+          "file": "notes/README.md",
+          "previous_sha256": "dab6dd33a6dba7790bd784c1ff036037c5628f6bfec70350997ad33dd3e87c29",
+          "current_sha256": "f66cdba18aceec2fe761e2c2a16ac59a23c8dd7d145df6d4742a2ab1d8b2d684",
+          "reason": "Astro 迁移后维护路径说明；正文和计算规则保持"
+        }
+      ]
+    }
+  ],
+  "astro_migration": {
+    "record": "review/astro-migration.json",
+    "sha256": "9ace5723fe53ea1f38b43790cab8adaf24b8be48a8fa2fcfac168453b43521a2",
+    "status": "Go",
+    "open_findings": [],
+    "source_sha256": {
+      "book_overview.html": "d373a539537e762e6f019dfa8f8784ccbad8a7f459f9253809496424be8575aa",
+      "chapter01_measurable_spaces.html": "e42c667532b38baa9c910df41ff77342a14b0f9a49748fa44b1f0685823b06a2",
+      "chapter02_measure_spaces.html": "ee36adc70aafd5b556017e6b1ed494b8f92caddc3671601a8ed585779b834447",
+      "chapter03_integration.html": "68883c73cf1e41066594031d2b5dc3780913ca5cd0e9941060e5617521a991d3",
+      "chapter04_signed_measures.html": "ebc05efd5d6517577b13ed564643a6d30dc4168ade61754fdaaa756daf00337b",
+      "preface.html": "ca606f60da08e0d4229dcc3bda2896c980f3076efa6b2f68a841e3c659b0038b"
+    }
+  },
+  "open_findings": [],
+  "final_static_migration": {
+    "repository_record": "docs/astro-migration-evidence.json",
+    "sha256": "013f706974f2bd767838b4f22de152e4dbbd2ba80b126e63bf453c63eb6db214",
+    "release_id": "20261017T172621",
+    "open_findings": [],
+    "snapshot_kind": "I028 local snapshot"
+  },
+  "maintenance_binding_history": [
+    {
+      "issue": "I032",
+      "record": "review/astro-migration.json",
+      "previous_sha256": "f56cfaf76afad2e0dc43e9e0e25ac4dd32d9428356dd502a34a4fee9391a1025",
+      "current_sha256": "9ace5723fe53ea1f38b43790cab8adaf24b8be48a8fa2fcfac168453b43521a2",
+      "reason": "补充历史快照与生产证据的关系，保留原数据及局限"
+    },
+    {
+      "issue": "I032",
+      "record": "docs/astro-migration-evidence.json",
+      "previous_sha256": "b61d55d39174999815709d3f844089adab69f5e02a1d8ef3c4529a13d341e556",
+      "current_sha256": "013f706974f2bd767838b4f22de152e4dbbd2ba80b126e63bf453c63eb6db214",
+      "reason": "I028 snapshot annotation; production recorded separately"
+    },
+    {
+      "issue": "I032",
+      "record": "review/browser.json",
+      "previous_sha256": "7109c727e177bd64630210923fcf527977a628425caa4bd49b2e0c08cd091ded",
+      "current_sha256": "8bdfb0c8081710c46b66fafce782413f30eabd7496917e3572b24a444fb6cfc1",
+      "reason": "绑定当前 74 页离线与 no-JS 验收；保留历史迁移及生产记录"
+    }
+  ],
+  "production_record": {
+    "issue": "I029",
+    "repository_record": "docs/astro-production-report.md",
+    "sha256": "3d2267f581a081d63c6513c821bb4969dfb1842c48dc9d85ad48a04ab3f17929",
+    "release_id": "20261017T174039",
+    "scope": "历史实机发布记录；不代表 I032 新代码已部署"
+  },
+  "content_revision_binding_history": [
+    {
+      "issue": "I032",
+      "reason": "P0-4 原页与五步证明读回；保留历史源 hash，当前正文绑定供独立结构检查",
+      "changes": [
+        {
+          "file": "notes/chapter01_measurable_spaces.html",
+          "previous_sha256": "e42c667532b38baa9c910df41ff77342a14b0f9a49748fa44b1f0685823b06a2",
+          "current_sha256": "75a7a55e5ca3a636f2a6a814a3b06a779e64f73a9b48d1b6bead146d75d59ea3"
+        },
+        {
+          "file": "review/final-assessment.json",
+          "previous_sha256": null,
+          "current_sha256": "98a3192f494b582e43ca93cce3aca3d72173ba9dba1d122fed5b729f41932506"
+        },
+        {
+          "file": "review/source-reading.json",
+          "previous_sha256": "21d6afe88b5540ba4984a3c72f2bd470d42eeac860b95b7c52c4dd173d830340",
+          "current_sha256": "8c1c3ea7bcff226f63254d4140ca1ab262435770098fb8f36938a5610721c7d7"
+        }
+      ]
+    },
+    {
+      "issue": "I032",
+      "reason": "P0-4 已通过构建、全 DOM parity 与 CSP；当前输出绑定，局部阅读检查随后记录",
+      "changes": [
+        {
+          "file": "review/final-assessment.json",
+          "previous_sha256": "98a3192f494b582e43ca93cce3aca3d72173ba9dba1d122fed5b729f41932506",
+          "current_sha256": "9673bf0475adec497477d43b5eafd81d083b33dac6e4e32a0ee1315ed278b14e"
+        }
+      ]
+    },
+    {
+      "issue": "I032",
+      "reason": "P0-4 证明、来源及双视口阅读记录绑定",
+      "changes": [
+        {
+          "file": "review/final-assessment.json",
+          "previous_sha256": "9673bf0475adec497477d43b5eafd81d083b33dac6e4e32a0ee1315ed278b14e",
+          "current_sha256": "14cd0f4900ca28c701f80d32f070edcc9d954c8d34177f600cec5230b94ac2ec"
+        }
+      ]
+    },
+    {
+      "issue": "I032",
+      "reason": "P1-7 人工摘录、逐条状态与页码变异检查",
+      "changes": [
+        {
+          "file": "notes/chapter01_measurable_spaces.html",
+          "previous_sha256": "75a7a55e5ca3a636f2a6a814a3b06a779e64f73a9b48d1b6bead146d75d59ea3",
+          "current_sha256": "d98d3f89726b885f277201502775c66ef7117e8bee4b8554c4f9aaedba43d1ff"
+        },
+        {
+          "file": "notes/chapter02_measure_spaces.html",
+          "previous_sha256": "ee36adc70aafd5b556017e6b1ed494b8f92caddc3671601a8ed585779b834447",
+          "current_sha256": "d019180b90e38cd3aa3791f20fa378f0f31077c657e2e6bed395fefb21f338ba"
+        },
+        {
+          "file": "notes/chapter03_integration.html",
+          "previous_sha256": "68883c73cf1e41066594031d2b5dc3780913ca5cd0e9941060e5617521a991d3",
+          "current_sha256": "9d216e9dc3778cd16ad91cabc0b247c34a92180f3d047ccec4772bef62baaf2a"
+        },
+        {
+          "file": "notes/chapter04_signed_measures.html",
+          "previous_sha256": "ebc05efd5d6517577b13ed564643a6d30dc4168ade61754fdaaa756daf00337b",
+          "current_sha256": "64b6440db29c304e2b6667cdb9dcff7ae18989abee5f41eda65ef35f0e1d5b27"
+        },
+        {
+          "file": "notes/source_excerpts.json",
+          "previous_sha256": "ac631a4012b039fc857bae372abf1686b7effed47c86e8bd61fe6b65aa99da97",
+          "current_sha256": "37717cadccc3cb7d5622b93c11efaa98344c77526a5d98ea42642afaa13e99d3"
+        },
+        {
+          "file": "review/final-assessment.json",
+          "previous_sha256": "14cd0f4900ca28c701f80d32f070edcc9d954c8d34177f600cec5230b94ac2ec",
+          "current_sha256": "6a0aefb81d38eee78ec5c489d25446306d62b09c0dcdd632a6940be0c08f4850"
+        },
+        {
+          "file": "tools/check_excerpts.py",
+          "previous_sha256": null,
+          "current_sha256": "62466881d33533c8f9d9617afc8f30edd9df5c437c61c922c00101af20c70a50"
+        },
+        {
+          "file": "tools/check_notes.py",
+          "previous_sha256": "79c2ab7ecb6180173eb9749c1c340162ee6dc46633f3e6c93acd8c6aaf6bd3b5",
+          "current_sha256": "e9a2332e9eb03a42219e5725cba1cbd5bb5f4ea3c0e9dcc79b8a578cdea8e0ef"
+        }
+      ]
+    },
+    {
+      "issue": "I032",
+      "reason": "P1-7 全站构建和全 DOM parity 通过后的输出绑定",
+      "changes": [
+        {
+          "file": "review/final-assessment.json",
+          "previous_sha256": "6a0aefb81d38eee78ec5c489d25446306d62b09c0dcdd632a6940be0c08f4850",
+          "current_sha256": "d0f31cd2b98535050bcbd769d15564c63640402f4797a3cf6dce83e71868e9f5"
+        }
+      ]
+    },
+    {
+      "issue": "I032",
+      "reason": "P1-8 例子分类、计算扩写与索引检查",
+      "changes": [
+        {
+          "file": "README.md",
+          "previous_sha256": "432093cd4a78fcb512bc1ab957eff806c28b11f57bf155b252240e7c988b3345",
+          "current_sha256": "29da49a66c427239ef69ebfcb63838773d92e5e1706aa333539fc5e44c3e46b1"
+        },
+        {
+          "file": "notes/book_overview.html",
+          "previous_sha256": "d373a539537e762e6f019dfa8f8784ccbad8a7f459f9253809496424be8575aa",
+          "current_sha256": "4c06f69603787477296156976708b9ad0db5d9aac3904c4652c02409720d6f29"
+        },
+        {
+          "file": "notes/chapter01_measurable_spaces.html",
+          "previous_sha256": "d98d3f89726b885f277201502775c66ef7117e8bee4b8554c4f9aaedba43d1ff",
+          "current_sha256": "ce5125ef953e4bf2e39d74cd9ab5c7afd84263805b2d7dbd8ee470a244b03e9b"
+        },
+        {
+          "file": "notes/chapter02_measure_spaces.html",
+          "previous_sha256": "d019180b90e38cd3aa3791f20fa378f0f31077c657e2e6bed395fefb21f338ba",
+          "current_sha256": "9ae1964dcbceb9d390058ee9466d75f3a6dce214937d2bfdf06b3c6b6121a70c"
+        },
+        {
+          "file": "notes/chapter04_signed_measures.html",
+          "previous_sha256": "64b6440db29c304e2b6667cdb9dcff7ae18989abee5f41eda65ef35f0e1d5b27",
+          "current_sha256": "269ebd8c4f8c0e048d838bc5327f3009d36538075c50f4f6020d65cf83c8e506"
+        },
+        {
+          "file": "review/final-assessment.json",
+          "previous_sha256": "d0f31cd2b98535050bcbd769d15564c63640402f4797a3cf6dce83e71868e9f5",
+          "current_sha256": "849d20ca4d36cdabede880e79b1bb0ff31052ed7bb657840b31b55d8db8b41f0"
+        },
+        {
+          "file": "tools/check_notes.py",
+          "previous_sha256": "e9a2332e9eb03a42219e5725cba1cbd5bb5f4ea3c0e9dcc79b8a578cdea8e0ef",
+          "current_sha256": "0e0b1d7178f4654c4f49a7ae04f426ee2f249ba99280dceffcf739fe3f24949f"
+        }
+      ]
+    },
+    {
+      "issue": "I032",
+      "reason": "P1-8 全站构建与 DOM parity 输出绑定",
+      "changes": [
+        {
+          "file": "review/final-assessment.json",
+          "previous_sha256": "849d20ca4d36cdabede880e79b1bb0ff31052ed7bb657840b31b55d8db8b41f0",
+          "current_sha256": "2830ceb344422c19ecc7acc246515a45010dc101f513b28a137c81854fcbc915"
+        }
+      ]
+    },
+    {
+      "issue": "I032",
+      "reason": "P1-9 147 项内容与 35 题的具体读回记录；保留另 80 题历史具体记录",
+      "changes": [
+        {
+          "file": "review/source-reading.json",
+          "previous_sha256": "8c1c3ea7bcff226f63254d4140ca1ab262435770098fb8f36938a5610721c7d7",
+          "current_sha256": "56a90d83c6a18089a7290d1cb15b517c964074621a9a354f0d45782baf960755"
+        }
+      ]
+    },
+    {
+      "issue": "I032",
+      "reason": "P1-9 审阅锚点和占位文本回归门禁",
+      "changes": [
+        {
+          "file": "tools/check_notes.py",
+          "previous_sha256": "0e0b1d7178f4654c4f49a7ae04f426ee2f249ba99280dceffcf739fe3f24949f",
+          "current_sha256": "6ad0c5f462a96bac63e6affabd16add722bc8cc4c3d22ea3272c66422421237b"
+        }
+      ]
+    },
+    {
+      "issue": "I032",
+      "reason": "P1-9 门禁发现并补足习题 3.14 两小问的具体审阅点",
+      "changes": [
+        {
+          "file": "review/source-reading.json",
+          "previous_sha256": "56a90d83c6a18089a7290d1cb15b517c964074621a9a354f0d45782baf960755",
+          "current_sha256": "b38137f3ff6fab67aaee56e34ac46698ccece3150ac998f51253c6798f9ff825"
+        }
+      ]
+    },
+    {
+      "issue": "I032",
+      "reason": "P1-10 CLI 词法、独立模型变异与 HTML 源码同步检查",
+      "changes": [
+        {
+          "file": "code/README.md",
+          "previous_sha256": "54f4acdb53c6a5b852204fa2b2077fc16396aa337eff285148eb82bc68efd86e",
+          "current_sha256": "1edce4c57816ba26c02e5c90a8aecb958ab9a939dd2227850dee4eedda3ed5e9"
+        },
+        {
+          "file": "code/finite_spaces.c",
+          "previous_sha256": "bf0bdd33edcf8c32d7b1e8b9b0204d0d031c5a181520bf2454fcbdb040bd1613",
+          "current_sha256": "c2164e1263eceac5cbc4ab43b9c03437e7a42f379744b734c9551a1d76ee38e9"
+        },
+        {
+          "file": "code/finite_spaces.py",
+          "previous_sha256": "08f5ecba1fa03d0e38dd553f1763965beedebdf9a6173d0dc8a0924d7d41886d",
+          "current_sha256": "600bd304686b55227ca11928f5f08d9bf3cae6025ea0e36074357cc7f3e7d68c"
+        },
+        {
+          "file": "code/simple_approx.c",
+          "previous_sha256": "93fdfe1ac362cc025f1258511a231b58202efec7c1b27e987340cd4dff133b17",
+          "current_sha256": "7b1c7d94efc3b1e51340860863c07e2ba2368a87ca4de91b310bf80322b831ce"
+        },
+        {
+          "file": "code/simple_approx.py",
+          "previous_sha256": "ed4eff2e11569f54b4d6d9f47b9089a070d67e0cf74264c82d18a247e4666b89",
+          "current_sha256": "397b091accdde866a7ccd628d5099660d7864dffd0a0d9fd1e895dd40c4e57f7"
+        },
+        {
+          "file": "notes/chapter01_measurable_spaces.html",
+          "previous_sha256": "ce5125ef953e4bf2e39d74cd9ab5c7afd84263805b2d7dbd8ee470a244b03e9b",
+          "current_sha256": "f0b87df9aac7992572c8d1a266b2138a403490ddb583764fd0aaaa4bbf5ad80e"
+        },
+        {
+          "file": "review/final-assessment.json",
+          "previous_sha256": "2830ceb344422c19ecc7acc246515a45010dc101f513b28a137c81854fcbc915",
+          "current_sha256": "0ee7adaf9c67b51fa87dea5f520df6c6bda6ec18e15e776f28402ab6d7b1ecaa"
+        },
+        {
+          "file": "tools/check_integrals.py",
+          "previous_sha256": "0743c00c140aa1773e018ec1b8651b00450469932c5587194fcd4b20cc3401df",
+          "current_sha256": "4009004a02c8aab319920b2d42bfc182a426cbdf94bc1155cd15b29b7a93d4ab"
+        },
+        {
+          "file": "tools/check_models.py",
+          "previous_sha256": "c9071293686062c1643400fab67b53afa6a04a75e959784c9d9647056299697b",
+          "current_sha256": "7e2e5c2bffe527c18b27721d0e2e15a1f3f52b8ad4d9d5e59ec242c3c4b5a33a"
+        },
+        {
+          "file": "tools/sync_code.py",
+          "previous_sha256": "ea77e65f6fef389f5bcc274dcd926317e3f0c53f6dfbfac1beb069d0b0c9a0cc",
+          "current_sha256": "9eceb700c71f70462083b425ee9eed2ce9de905503253b60ce275fa83a1933a2"
+        }
+      ]
+    },
+    {
+      "issue": "I032",
+      "reason": "P1-10 三路 CLI、13 类积分输出变异、4 类 HTML 同步变异均通过",
+      "changes": [
+        {
+          "file": "review/final-assessment.json",
+          "previous_sha256": "0ee7adaf9c67b51fa87dea5f520df6c6bda6ec18e15e776f28402ab6d7b1ecaa",
+          "current_sha256": "c76f8f8246f7f8cbf929d2091da0f3fffdace03a59760211cfb7700e5a96cd2e"
+        },
+        {
+          "file": "tools/check_notes.py",
+          "previous_sha256": "6ad0c5f462a96bac63e6affabd16add722bc8cc4c3d22ea3272c66422421237b",
+          "current_sha256": "02d8c9101b51beef2ca7803e03b92dbc0740d9e0e072d8d00e18eb16507ad99b"
+        }
+      ]
+    },
+    {
+      "issue": "I032",
+      "reason": "P2 范围标签及核心 MathML 文本回退检查",
+      "changes": [
+        {
+          "file": "README.md",
+          "previous_sha256": "29da49a66c427239ef69ebfcb63838773d92e5e1706aa333539fc5e44c3e46b1",
+          "current_sha256": "3fcebc7bb95778df1b336c51868a6b1ba120233ec1652c2a69a9f2d45a2ae53f"
+        },
+        {
+          "file": "notes/README.md",
+          "previous_sha256": "f66cdba18aceec2fe761e2c2a16ac59a23c8dd7d145df6d4742a2ab1d8b2d684",
+          "current_sha256": "01a3ddf9df5bf94441f92876a6124626c5a21fb656c46277b519e73e84d3660e"
+        },
+        {
+          "file": "notes/book_overview.html",
+          "previous_sha256": "4c06f69603787477296156976708b9ad0db5d9aac3904c4652c02409720d6f29",
+          "current_sha256": "8817d275163e2547c5c9ce336ef45329f581ddaf992e97e3d44e422fd4fd14f5"
+        },
+        {
+          "file": "notes/chapter01_measurable_spaces.html",
+          "previous_sha256": "f0b87df9aac7992572c8d1a266b2138a403490ddb583764fd0aaaa4bbf5ad80e",
+          "current_sha256": "391a457250efae51eade24b213d07c1f69b23d699505ce88f5a3c7aabd1fa3f5"
+        },
+        {
+          "file": "notes/chapter02_measure_spaces.html",
+          "previous_sha256": "9ae1964dcbceb9d390058ee9466d75f3a6dce214937d2bfdf06b3c6b6121a70c",
+          "current_sha256": "e888f61631e0a72efaeacfe39374a095ee731627583906a6eff55690983f6479"
+        },
+        {
+          "file": "notes/chapter03_integration.html",
+          "previous_sha256": "9d216e9dc3778cd16ad91cabc0b247c34a92180f3d047ccec4772bef62baaf2a",
+          "current_sha256": "b5c81fe5b0aef108aa1cf625d656b0403fb9de854be717c579a853d90e7f316c"
+        },
+        {
+          "file": "notes/chapter04_signed_measures.html",
+          "previous_sha256": "269ebd8c4f8c0e048d838bc5327f3009d36538075c50f4f6020d65cf83c8e506",
+          "current_sha256": "1b95e728afa338bf1c220412a22685dfb7a8c7eae78c5a39239598bedb78d92b"
+        },
+        {
+          "file": "notes/preface.html",
+          "previous_sha256": "ca606f60da08e0d4229dcc3bda2896c980f3076efa6b2f68a841e3c659b0038b",
+          "current_sha256": "f32cdfb1be1ee3f2146e576bad3ebfecab0d412ba3c0bf059fa6b549cdde41b1"
+        },
+        {
+          "file": "notes/source_manifest.json",
+          "previous_sha256": "43bf8e5904bc8db8d6eaacda0dab02a2f6723d56ff98c3d5d06193af80f76a8a",
+          "current_sha256": "9cdfe634115c960df490b6e7776b4ef47488e4fc73caba484fec9aa503d74913"
+        },
+        {
+          "file": "reading-plan.md",
+          "previous_sha256": "882660e8155ef81592c61dc1b478a02a52c96c9a59eb346c3ea88c91968830b0",
+          "current_sha256": "2e3719e21d185a9f2ab556fe45add1052e7ebd22c2f80c6dcea46df0c43b7a57"
+        },
+        {
+          "file": "review/final-assessment.json",
+          "previous_sha256": "c76f8f8246f7f8cbf929d2091da0f3fffdace03a59760211cfb7700e5a96cd2e",
+          "current_sha256": "b9987112fd96e2fd2e1b04170df1051a174c915dfe275322fa0e59211da6b83b"
+        },
+        {
+          "file": "review/mathml-accessibility.json",
+          "previous_sha256": "f58bf4b0762380446dc3701c92dc629a345db9e473b209ece87c3b99e5c8abcd",
+          "current_sha256": "9d2eea5fd4d24c45a04c1c60594a27bfadf94796b7054e33692db268ee827e49"
+        },
+        {
+          "file": "tools/check_notes.py",
+          "previous_sha256": "02d8c9101b51beef2ca7803e03b92dbc0740d9e0e072d8d00e18eb16507ad99b",
+          "current_sha256": "7df942a0454f9d2dc778e44dfdf8beb13cd5dcd59d6388c13aff8969348c3b9d"
+        }
+      ]
+    },
+    {
+      "issue": "I032",
+      "reason": "P2 范围说明与核心公式构建输出已通过全 DOM parity",
+      "changes": [
+        {
+          "file": "review/final-assessment.json",
+          "previous_sha256": "b9987112fd96e2fd2e1b04170df1051a174c915dfe275322fa0e59211da6b83b",
+          "current_sha256": "093bd65dcb13da3d7e0f1975716d79d2a70ad9c6de2fdbb8778f96c24560d243"
+        }
+      ]
+    },
+    {
+      "issue": "I032",
+      "reason": "目录适配层统一测度书导航范围，重新绑定当前输出",
+      "changes": [
+        {
+          "file": "review/final-assessment.json",
+          "previous_sha256": "093bd65dcb13da3d7e0f1975716d79d2a70ad9c6de2fdbb8778f96c24560d243",
+          "current_sha256": "7c79525135b06af4d314f59043a7d285a5d35f31cb23610425b5abafbf9dbefb"
+        }
+      ]
+    },
+    {
+      "issue": "I032",
+      "reason": "I032 最终完整程序、浏览器读回、发布包与历史边界绑定",
+      "changes": [
+        {
+          "file": "review/final-assessment.json",
+          "previous_sha256": "7c79525135b06af4d314f59043a7d285a5d35f31cb23610425b5abafbf9dbefb",
+          "current_sha256": "1d6ee5e6928a9ca24fdb61c318bb49a03fee2cb6f627ae9641d7213f78e2cedf"
+        }
+      ]
+    }
+  ],
+  "current_content_review": {
+    "record": "review/final-assessment.json",
+    "sha256": "1d6ee5e6928a9ca24fdb61c318bb49a03fee2cb6f627ae9641d7213f78e2cedf",
+    "status": "passed: source review, independent finite-model oracles, full integration, and current browser readback; production pending"
+  },
+  "example_scope": {
+    "index": "review/example-index.json",
+    "worked_examples": 7,
+    "definition_notes": 14,
+    "meaning": "完整例题与定义性短说明分开记录，不能笼统称 21 例都有完整过程"
+  },
+  "I032_readback": {
+    "items": 147,
+    "exercise_records": 115,
+    "new_exercise_readbacks": 36,
+    "retained_specific_exercise_records": 79,
+    "record": "review/source-reading.json",
+    "boundary": "本轮逐项正文逻辑读回与前次扫描记录分开；8 条核心摘录另逐句复核扫描图。",
+    "replaced_generic_exercise_records": 35
+  },
+  "companion_scope": "前四章伴读；第五章 28 题、第六章 27 题待续",
+  "final_assessment": {
+    "issue": "I032",
+    "repository_record": "docs/final-assessment-evidence.json",
+    "sha256": "ec9475755e3c780b4b3f3933d1c9729416f9dbd98854b491207540e052f3ed00",
+    "release_id": "20261017T210828",
+    "public_html_pages": 8,
+    "js_views": 32,
+    "no_js_views": 16,
+    "external_requests": [],
+    "report": {
+      "source": "tmp/reading-notes-migration/browser/all/report.json",
+      "snapshot": "tmp/final-assessment/evidence/browser.json",
+      "sha256": "1ec6d5fe6b18738cf15fd73abd9c86cd990d6bd202f5f9c0d5c80ba0f41d9eed"
+    },
+    "visual_scope": "Automated whole-site acceptance; targeted new measure content and auxiliary-page visual checks recorded separately"
+  },
+  "snapshot_redaction": {
+    "original_sha256": "146638627a01c8cf095cb7c9097660ba04b64a91a5e9a551ffa4026eda0c8b5b",
+    "original_git_ref": "9f2f3c2018064383bfa05cc99cd0291eee1dba89",
+    "original_git_path": "books/measure-probability/review/validation.json",
+    "fields": [
+      "/environment/browser",
+      "/integration_program/builds/0/7",
+      "/integration_program/builds/0/9",
+      "/integration_program/builds/1/10",
+      "/integration_program/builds/1/12",
+      "/history/I032_previous_top_level/previous_fields/browser/taskspace_lifecycle/id"
+    ],
+    "method": "Repository-root prefixes converted to relative paths; temporary browser session identifier omitted. Original bytes retained in local evidence and at the cited Git object."
+  }
+}

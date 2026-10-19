@@ -7,7 +7,7 @@ import sys
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "deploy"))
-from reader_views import build_reader_views, transform_reading_page
+from publication import build_reader_views, transform_reading_page
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -58,22 +58,24 @@ def reading_page(book, source_link):
 
 
 class SourcePageNavigation(unittest.TestCase):
-    def test_visual_group_program_guide_keeps_every_registered_download(self):
+    def test_program_guides_keep_every_registered_download(self):
         # Exercise the published document, where an early maintenance section
         # previously hid all later chapters despite intact raw Markdown links.
         paths = ["stochastic/code/README.md", "stochastic/code/programs.json",
-                 "weiss/notes/README.md", "visual-group-theory/code/README.md"]
+                 "weiss/notes/README.md", "visual-group-theory/code/README.md",
+                 "measure-probability/code/README.md"]
         paths += [f"stochastic/notes/{name}.json" for name in
                   ("source_manifest", "review_manifest", "validation")]
         blobs = {name: (ROOT / "books" / name).read_bytes() for name in paths}
         generated, _ = build_reader_views(blobs)
-        guide = generated["visual-group-theory/code/index.html"].decode()
-        registered = json.loads((ROOT / "books/visual-group-theory/code/programs.json").read_text())
-        downloads = set(Links(guide).downloads)
-        for program in registered["programs"]:
-            for source in program["files"].values():
-                with self.subTest(program=program["id"], source=source):
-                    self.assertIn(Path(source).name, downloads)
+        for book in ("visual-group-theory", "measure-probability"):
+            guide = generated[f"{book}/code/index.html"].decode()
+            registered = json.loads((ROOT / "books" / book / "code/programs.json").read_text())
+            downloads = set(Links(guide).downloads)
+            for program in registered["programs"]:
+                for source in program["files"].values():
+                    with self.subTest(book=book, program=program["id"], source=source):
+                        self.assertIn(Path(source).name, downloads)
 
     def test_measure_probability_source_ranges_and_download_survive_publication(self):
         source = ('<a class="source-ref" href="book_overview.html#source">印刷 56—57 / PDF 68—69</a>'

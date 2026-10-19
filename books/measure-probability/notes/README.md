@@ -1,13 +1,17 @@
-# 前四章伴读：页面、来源与维护
+# 全六章伴读：页面、来源与维护
 
-入口为 [伴读总览](book_overview.html)，另有 [序言与前言](preface.html)、[第一章](chapter01_measurable_spaces.html)、[第二章](chapter02_measure_spaces.html)、[第三章](chapter03_integration.html)与[第四章](chapter04_signed_measures.html)。原书印刷正文页加 12 即 PDF 页序；前置页另列于来源清单。
+入口为 [伴读总览](book_overview.html)，另有 [序言与前言](preface.html)、[第一章](chapter01_measurable_spaces.html)、[第二章](chapter02_measure_spaces.html)、[第三章](chapter03_integration.html)、[第四章](chapter04_signed_measures.html)、[第五章](chapter05_product_spaces.html)与[第六章](chapter06_independent_sequences.html)。原书印刷正文页加 12 即 PDF 页序；前置页另列于来源清单。
 
 第一章印刷 1—22 / PDF 13—34，习题 1 共 25 题；第二章印刷 23—59 / PDF 35—71，习题 2 共 32 题。第三章印刷 60—93 / PDF 72—105，习题 3 共 30 题；第四章印刷 94—128 / PDF 106—140，习题 4 共 28 题。前言印刷 III—IV / PDF 8—9，丛书序言 PDF 6—7，目录 PDF 11—12。附录相关提示从印刷 217 页开始，仅供校核，解答以伴读中的展开论证为准。
 
-六份受控 HTML 的维护入口为 `src/content/books/measure-probability/`，本目录保留展开后的兼容镜像。构建页面内嵌 CSS、导航 JS、静态 MathML 和 SVG，具体流程见 [Astro 维护说明](../../../docs/astro-authoring.md)。组件沿用随机过程序言及视觉群论首批页面：纸色 #fffefa、绿色 #285a4e、17px/1.9、860px 主栏、240px 目录及宽屏阅读注解；1100/1440px 断点和局部横滚保持一致。
+八份受控 HTML 的维护入口为 `src/content/books/measure-probability/`，本目录保留展开后的兼容镜像。构建页面内嵌 CSS、导航 JS、静态 MathML 和 SVG，具体流程见 [Astro 维护说明](../../../docs/astro-authoring.md)。组件沿用随机过程序言及视觉群论首批页面：纸色 #fffefa、绿色 #285a4e、17px/1.9、860px 主栏、240px 目录及宽屏阅读注解；1100/1440px 断点和局部横滚保持一致。
 
-来源清单、编号清单、习题清单、摘录清单和校注清单分别保存身份、定位与当前范围。原 PDF 位于忽略的 `../tmp/source.pdf`，不加入发布清单。未纳入本批的编号内容保持待逐项读回。
+来源清单、编号清单、习题清单、摘录清单和校注清单分别保存身份、定位与当前范围。原 PDF 位于忽略的 `../tmp/source.pdf`，不加入发布清单。六章编号内容按独立原页清单逐项对应。
 
 源码从 `../code/` 同步到带 `data-source` 的显示块；运行说明链接到源码和相应章节。来源读回、程序运行、浏览器阅读与集成记录分开保存在 `../review/`，不以数量检查替代内容判断。
 
 第三章分开记未开根矩 M_p 与开根量 N_p；第四章沿原书排除负无穷的方向约定展开，再说明另一方向如何换号。密度、弱收敛、零概率版本与 Stieltjes 端点校注在各节和题解中保持“原说法—修正—依据”。全书目录、程序与交付范围随当前批次联动。
+
+第五章印刷 129—166 / PDF 141—178，四节、28 题；第六章印刷 167—216 / PDF 179—228，五节、27 题。第五章的两节星号部分和整章标星的第六章完整保留。89 项编号内容的写前快照为 `../review/source-inventory-ch56.json`，逐项读回与现行绑定另记，旧快照不回写成完成状态。
+
+本批核积分明示 sigma 有限与正负部存在条件；极限定理明示独立、矩、截断阈值和归一化。新增校注保留原题/原式与修正依据，尤其注意截断特征函数引理的频率选择，以及习题 6.23、6.24、6.26 的归一化和均值。程序 `product_limits` 用同一个有限模型连接乘积核与二项卷积；精确质量和浮点特征函数分别标明。

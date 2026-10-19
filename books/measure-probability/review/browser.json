@@ -67,5 +67,94 @@
       "sha256": "1ec6d5fe6b18738cf15fd73abd9c86cd990d6bd202f5f9c0d5c80ba0f41d9eed"
     },
     "visual_scope": "Automated whole-site acceptance; targeted new measure content and auxiliary-page visual checks recorded separately"
+  },
+  "chapters05_06": {
+    "status": "passed",
+    "tool": "ego-browser",
+    "release": "20261019T230918",
+    "matrix": {
+      "path": "tmp/reading-notes-migration/browser/measure-probability/runs/2026-10-19T15-10-32-496Z-0e934ea2/report.json",
+      "sha256": "66c3d7d02871e1c21027b37dcac303fa205572ae6097fb9d41d7b56456a27c25"
+    },
+    "public_pages": 10,
+    "js_views": 40,
+    "no_js_views": 20,
+    "external_requests": [],
+    "exercise_deep_links": 110,
+    "exercise_count": 55,
+    "deep_link_widths": [
+      1440,
+      390
+    ],
+    "reader_paths": {
+      "path": "tmp/measure-probability-ch56/browser/reader-paths.json",
+      "sha256": "80ce3c1dc90201a6d3f7580acf43a822d69add70795c49cb4118706797922c67"
+    },
+    "reader_actions": {
+      "path": "tmp/measure-probability-ch56/browser/reader-actions.json",
+      "sha256": "fac2f5251a4bfdf9905309a5ecb63564b752e15591e08ee5fee3aa49bf770d5c"
+    },
+    "navigation_actions": 8,
+    "downloads": [
+      {
+        "file": "product_limits.py",
+        "url": "/measure-probability/code/product_limits.py",
+        "sha256": "8f547e453ddb7b5449ed358c07ff321f5b0f8baf1430d359c89737c7b418e8bc",
+        "matched_maintained_source": true
+      },
+      {
+        "file": "product_limits.c",
+        "url": "/measure-probability/code/product_limits.c",
+        "sha256": "9de2fa92cb8fcadd58388e55d78a1aa9fd7022508adcf5f7ceecca414d5025bc",
+        "matched_maintained_source": true
+      }
+    ],
+    "explicit_no_js_exercises": [
+      "5.11",
+      "6.23",
+      "6.26"
+    ],
+    "horizontal_formula": [
+      {
+        "selector": "#ex-6-26 .answer div.equation",
+        "before": {
+          "left": 0,
+          "max": 58,
+          "x": 187.5,
+          "y": 464.875
+        },
+        "after": {
+          "left": 58,
+          "viewport": 390,
+          "pageOverflow": false
+        }
+      }
+    ],
+    "final_program_guide": {
+      "path": "tmp/measure-probability-ch56/browser/program-guide-final.json",
+      "sha256": "f85d9f1ffc00bde19190b5097986f2dd0b80f692133f06a67367fe7596126eee"
+    },
+    "visual_readback": [
+      "tulcea-1800",
+      "fubini-1024",
+      "feller-1440",
+      "empirical-390",
+      "kernel-model-390",
+      "empirical-scroll-right-390",
+      "empirical-no-js-390",
+      "program-guide-1440",
+      "program-guide-390"
+    ],
+    "visual_scope": "These screenshots were visually read. The 110 deep-link checks verify availability/order/layout, not visual reading of every answer.",
+    "equivalence": "Final eight reading HTML pages and the two new programs equal the manually accepted initial release; updated auxiliary program guide separately rerun.",
+    "taskspace_lifecycle": {
+      "closed": true,
+      "kept_tabs": [],
+      "evidence": {
+        "path": "tmp/measure-probability-ch56/browser-finish.log",
+        "sha256": "e12deec31f05915218ca50e343ec7b819d5fe589f3c180e0de905b9cb76dddf7"
+      }
+    },
+    "record": "review/chapters05-06.json"
   }
 }
