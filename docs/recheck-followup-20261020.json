@@ -1,6 +1,6 @@
 {
   "issue": "I043",
-  "status": "locally_verified_publication_pending",
+  "status": "published_and_verified_with_prior_proxy_acceptance_open",
   "baseline_git": "5d69b9816379acc246017496e494c5ac40e85438",
   "scope": "Five-book recheck: exercise heading hierarchy, descriptive references and table names, example categories and exact CSS factoring.",
   "source_sha256": {
@@ -2669,7 +2669,7 @@
       "new_negative_groups": 4
     },
     "build": {
-      "report": "tmp/reading-notes-migration/build.json",
+      "report": "tmp/recheck-fixes-20261020/local-build.json",
       "sha256": "cfcad3a6065392f288a7398e830f200e2467d93020de2d8a787187bba0c0929c",
       "formal_pages": 56,
       "html_pages": 76,
@@ -2739,5 +2739,45 @@
       "opened": 18,
       "accepted": 18
     }
+  },
+  "publication": {
+    "release_id": "20261020T225222",
+    "source_commit": "0ccf855ddcbd7165975ecea463304c5333d488d1",
+    "previous": "20261020T212352",
+    "created_at": "2026-10-20T14:52:22.603599+00:00",
+    "archive_sha256": "d1c7e6068b27c2e6939441dcd50d2027579e18097df5d83c8a9d424efe0f6663",
+    "restoration_release": "20261020T212352",
+    "predeploy": {
+      "report": "tmp/recheck-fixes-20261020/predeploy-acceptance.json",
+      "sha256": "a913b63ffec58bfe405343cb3b6b0d9602ba280a57d7ada7c0d47de2a0704cc1"
+    },
+    "package_build": {
+      "report": "tmp/recheck-fixes-20261020/package-build.json",
+      "sha256": "6ce7f67d22f4a1ed3c6ddd39e8d68d9c67073361fd8ab46306b0ffa206bec418"
+    },
+    "server": {
+      "report": "tmp/recheck-fixes-20261020/server-after.json",
+      "sha256": "7370c553c1e61d37b55d1a260cfd71985b88f45b13e6f3ec5944f8d2d89b13c3"
+    },
+    "normal_domain": {
+      "report": "tmp/recheck-fixes-20261020/public-default.json",
+      "sha256": "d06c9bd5bab1620e6c9b4bbff50f6a73c66060894344aa8a4eeaac9317c386f3"
+    },
+    "browser": {
+      "report": "tmp/recheck-fixes-20261020/public-reading/report-final.json",
+      "sha256": "442ced862906b654798be0dee2942c3106474b8ca2a1362dd13252ae9a438df3"
+    },
+    "visual_readback": {
+      "report": "tmp/recheck-fixes-20261020/public-visual-readback.json",
+      "sha256": "2f3cfe8c8d5f24970f71cdbb038f1a0501e82099f0f4c75cd58994a89d1d579d"
+    },
+    "primary_integration": {
+      "report": "tmp/recheck-fixes-20261020/primary-integration.json",
+      "sha256": "12e56c9015d24c7fdbff59ef8c8c1f88acc367f8bd76473224075896549866c1"
+    },
+    "limits": [
+      "Prior source/math review boundaries and A01 proxy experiment remain unchanged.",
+      "Rollback release was verified and retained; this task did not switch production back to it."
+    ]
   }
 }

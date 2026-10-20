@@ -11,7 +11,7 @@
 
 - 本地预览：Python 静态 HTTP 服务，绑定 127.0.0.1
 - 正式阅读站点：notes.zzzping.top，Nginx + TLS；部署步骤见 deploy/README.md
-- Ubuntu reading-notes-deploy.service 以 reading-notes 调用固定 sudo root 安装器，当前发布 20261020T212352（I041）；deploy timer 保持 disabled，构建服务及构建 tmpfiles 模板留给独立构建主机
+- Ubuntu reading-notes-deploy.service 以 reading-notes 调用固定 sudo root 安装器，当前发布 20261020T225222（I043）；deploy timer 保持 disabled，构建服务及构建 tmpfiles 模板留给独立构建主机
 - I033 已应用 root-owned 只读 release、固定 helper/sudoers，unit 已移除整目录 Nginx 日志写例外；实机证据见 [本轮报告](browser-stability-report.md)
 - 宿主机历史 MySQL 服务及数据已于 2026-10-17 按 I030 卸载；mailutils 依赖的 mysql-common 与 libmysqlclient21 保留为共享客户端组件
 
@@ -42,3 +42,5 @@ I035 新增 `reading-notes-health.service/.timer` 模板，每 15 分钟以回�
 2026-10-20 I037 实机：current 为 releases/20261020T142535，来源为干净提交 163478b；恢复单元 20261020T120833 已逐项校验并保留。新旧版本各 495 文件的内容与只读权限通过校验，495 文件保留 mtime；Nginx 片段 hash 与发布前一致，发布及内容健康检查成功，health timer 保持 active。环境变量、服务配置和端口沿用原约定，.env.example 无需调整。测度概率第五、六章的页面、导航和公式实读结果见 [T037](../test/T037-measure-probability-production.md)。
 
 2026-10-20 I041 实机：current 为 releases/20261020T212352，来源为干净提交 0a84a11，恢复单元 20261020T200604 已逐项校验并保留。新旧版本各 495 文件的内容、所有权和只读权限通过；Nginx 片段散列未变，发布与内容健康检查成功，health timer active。更新当前发布事实；环境变量、服务配置和端口未变，.env.example 无需调整。公网与浏览器证据见 [T041](../test/T041-review-followup.md)。
+
+2026-10-20 I043 实机：current 为 releases/20261020T225222，来源为干净提交 0ccf855；恢复单元 20261020T212352 已核验并保留。495 文件、只读权限、缓存 mtime、Nginx 配置及发布/健康服务通过；正常域名和实际浏览器验收完成。环境变量、服务配置及端口不变，证据见 [T043](../test/T043-five-book-recheck.md)。

@@ -1,6 +1,6 @@
 # P043：第二轮复核实施计划
 
-状态：implementation_and_local_acceptance_complete；关联 [I043](../issues/I043-five-book-recheck.md)。第 1—4 步完成，正在执行第 5 步。
+状态：completed；关联 [I043](../issues/I043-five-book-recheck.md)。五步均完成，版本与证据见 T043。
 
 1. 独立复现标题、链接、表格名称、例子类别和 CSS 问题，按真实语义修订报告判断。
 2. 补全书与每道习题的标题检查、明确名称及类型缺失的负例，确认旧检查器不能拦截。
