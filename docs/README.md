@@ -23,6 +23,7 @@
 - [新增子项目](adding-a-book.md)与 [本次迁移](migration-20261012.md)。
 - [架构决策](decisions/ADR-001-book-subprojects.md)、[问题单](../issues/I001-project-merge.md)、[计划](../plan/P001-project-merge.md)、[测试设计](../test/T001-project-merge.md)与 [里程碑](../milestone/M001-project-merge.md)。
 - [书籍内容与计算规则入口](rules/README.md)；专项正文规范随各书维护。
+- [EOPL 本地准备批](../books/eopl/README.md)：全书地图、两篇序文、习题 0.1；来源清单、当前范围与后续代表章见[阅读计划](../books/eopl/reading-plan.md)，验收见 [T042](../test/T042-eopl-map-preface.md)。
 - [CS:APP 第一批笔记](../books/csapp/README.md)：[I002](../issues/I002-csapp-part-one.md)、[P002](../plan/P002-csapp-part-one.md)、[T002](../test/T002-csapp-part-one.md)、[M002](../milestone/M002-csapp-part-one.md)。
 
 - [CS:APP 全书地图与第一部分伴读](../books/csapp/notes/README.md)：[I003](../issues/I003-csapp-companion.md)、[P003](../plan/P003-csapp-companion.md)、[T003](../test/T003-csapp-companion.md)、[M003](../milestone/M003-csapp-companion.md)。

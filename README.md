@@ -12,6 +12,8 @@
 | [Carter 视觉群论](books/visual-group-theory/README.md) | [全书地图](books/visual-group-theory/notes/book_overview.html) | 12 个 HTML 页面：地图、序言、第 1—10 章及全部 302 题；10 组 C/Python 程序 |
 | [程士宏 测度论与概率论·全六章伴读](books/measure-probability/README.md) | [伴读总览](books/measure-probability/notes/book_overview.html) | 8 个 HTML 页面：总览、序言与前言、六章及全部 170 题；4 组 C/Python 程序，包含全部星号小节 |
 
+本地新书准备批：[Friedman / Wand · EOPL 第三版](books/eopl/README.md)，现有[全书地图](books/eopl/notes/book_overview.html)与[导读、作者序言](books/eopl/notes/preface.html)两页，包含习题 0.1 和可运行的闭包实验。后续章节与正式站点接入按该书阅读计划推进。
+
 CS:APP 全书笔记已接入统一首页与构建：从首页点击“进入 CS:APP 笔记”，进入全书地图后选择序言或第 1—12 章；阅读页顶部可返回书架。统一包收录笔记、教学程序与原书 PDF，点击章节、来源和习题中的页码链接可打开对应 PDF 页序。线上生效另按发布授权和验收记录确认。
 
 视觉群论已接入统一构建与书架，来源清单保留原书身份和印刷页/PDF 页序，完整原 PDF 仅本地对照；首批见 [T021](test/T021-visual-group-theory.md)，第 2—4 章见 [T022](test/T022-visual-group-theory-ch02-04.md)，第 5—8 章见 [T024](test/T024-visual-group-theory-ch05-08.md)，第 9—10 章见 [T025](test/T025-visual-group-theory-ch09-10.md)。视觉群论与测度概率当前范围的统一上线验收见 [T027](test/T027-five-book-publication.md)。

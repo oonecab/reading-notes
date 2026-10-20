@@ -1,0 +1,561 @@
+{
+  "schema_version": 1,
+  "book_id": "eopl",
+  "title": "Essentials of Programming Languages",
+  "authors": [
+    "Daniel P. Friedman",
+    "Mitchell Wand"
+  ],
+  "edition": "Third edition",
+  "publisher": "MIT Press",
+  "publication_year": 2008,
+  "isbn": "978-0-262-06279-4",
+  "source": {
+    "file": "books/eopl/tmp/eopl.pdf",
+    "supplied_filename": "Essentials of Programming Languages by Daniel P. Friedman, Mitchell Wand (z-lib.org).pdf",
+    "sha256": "b9e8770a4dc97206bd02230e6b21a878382eb02a340ff69321857d701e7d967c",
+    "bytes": 3579255,
+    "pdf_pages": 433,
+    "publication_scope": "local_reference_only",
+    "text_note": "Text PDF; pdftotext loses some ligatures, star glyphs, primes, arrows and diagram relationships. Render quoted pages for inspection."
+  },
+  "front_matter": [
+    {
+      "title": "Contents",
+      "printed_start": "v",
+      "printed_end": "vii",
+      "pdf_start": 6,
+      "pdf_end": 8
+    },
+    {
+      "title": "Foreword by Hal Abelson",
+      "printed_start": "ix",
+      "printed_end": "xiii",
+      "pdf_start": 10,
+      "pdf_end": 14
+    },
+    {
+      "title": "Preface",
+      "printed_start": "xv",
+      "printed_end": "xix",
+      "pdf_start": 16,
+      "pdf_end": 20
+    },
+    {
+      "title": "Acknowledgments",
+      "printed_start": "xxi",
+      "printed_end": "xxii",
+      "pdf_start": 22,
+      "pdf_end": 23
+    }
+  ],
+  "main_page_mapping": {
+    "printed_start": 1,
+    "printed_end": 410,
+    "pdf_start": 24,
+    "pdf_end": 433,
+    "offset": 23
+  },
+  "blank_pdf_pages": [
+    3,
+    9,
+    15,
+    21,
+    79,
+    125,
+    215,
+    395,
+    415
+  ],
+  "chapters": [
+    {
+      "number": "1",
+      "title": "Inductive Sets of Data",
+      "printed_start": 1,
+      "printed_end": 30,
+      "pdf_start": 24,
+      "pdf_end": 53,
+      "map_anchor": "chapter-1",
+      "companion_status": "planned"
+    },
+    {
+      "number": "2",
+      "title": "Data Abstraction",
+      "printed_start": 31,
+      "printed_end": 55,
+      "pdf_start": 54,
+      "pdf_end": 78,
+      "map_anchor": "chapter-2",
+      "companion_status": "planned"
+    },
+    {
+      "number": "3",
+      "title": "Expressions",
+      "printed_start": 57,
+      "printed_end": 101,
+      "pdf_start": 80,
+      "pdf_end": 124,
+      "map_anchor": "chapter-3",
+      "companion_status": "planned"
+    },
+    {
+      "number": "4",
+      "title": "State",
+      "printed_start": 103,
+      "printed_end": 138,
+      "pdf_start": 126,
+      "pdf_end": 161,
+      "map_anchor": "chapter-4",
+      "companion_status": "planned"
+    },
+    {
+      "number": "5",
+      "title": "Continuation-Passing Interpreters",
+      "printed_start": 139,
+      "printed_end": 191,
+      "pdf_start": 162,
+      "pdf_end": 214,
+      "map_anchor": "chapter-5",
+      "companion_status": "planned"
+    },
+    {
+      "number": "6",
+      "title": "Continuation-Passing Style",
+      "printed_start": 193,
+      "printed_end": 232,
+      "pdf_start": 216,
+      "pdf_end": 255,
+      "map_anchor": "chapter-6",
+      "companion_status": "planned"
+    },
+    {
+      "number": "7",
+      "title": "Types",
+      "printed_start": 233,
+      "printed_end": 274,
+      "pdf_start": 256,
+      "pdf_end": 297,
+      "map_anchor": "chapter-7",
+      "companion_status": "planned"
+    },
+    {
+      "number": "8",
+      "title": "Modules",
+      "printed_start": 275,
+      "printed_end": 324,
+      "pdf_start": 298,
+      "pdf_end": 347,
+      "map_anchor": "chapter-8",
+      "companion_status": "planned"
+    },
+    {
+      "number": "9",
+      "title": "Objects and Classes",
+      "printed_start": 325,
+      "printed_end": 371,
+      "pdf_start": 348,
+      "pdf_end": 394,
+      "map_anchor": "chapter-9",
+      "companion_status": "planned"
+    },
+    {
+      "number": "A",
+      "title": "For Further Reading",
+      "printed_start": 373,
+      "printed_end": 378,
+      "pdf_start": 396,
+      "pdf_end": 401,
+      "map_anchor": "appendices",
+      "companion_status": "planned"
+    },
+    {
+      "number": "B",
+      "title": "The SLLGEN Parsing System",
+      "printed_start": 379,
+      "printed_end": 391,
+      "pdf_start": 402,
+      "pdf_end": 414,
+      "map_anchor": "appendices",
+      "companion_status": "planned"
+    }
+  ],
+  "sections": [
+    {
+      "number": "1.1",
+      "title": "Recursively Specified Data",
+      "printed_start": 1,
+      "pdf_start": 24
+    },
+    {
+      "number": "1.2",
+      "title": "Deriving Recursive Programs",
+      "printed_start": 12,
+      "pdf_start": 35
+    },
+    {
+      "number": "1.3",
+      "title": "Auxiliary Procedures and Context Arguments",
+      "printed_start": 22,
+      "pdf_start": 45
+    },
+    {
+      "number": "1.4",
+      "title": "Exercises",
+      "printed_start": 25,
+      "pdf_start": 48
+    },
+    {
+      "number": "2.1",
+      "title": "Specifying Data via Interfaces",
+      "printed_start": 31,
+      "pdf_start": 54
+    },
+    {
+      "number": "2.2",
+      "title": "Representation Strategies for Data Types",
+      "printed_start": 35,
+      "pdf_start": 58
+    },
+    {
+      "number": "2.3",
+      "title": "Interfaces for Recursive Data Types",
+      "printed_start": 42,
+      "pdf_start": 65
+    },
+    {
+      "number": "2.4",
+      "title": "A Tool for Defining Recursive Data Types",
+      "printed_start": 45,
+      "pdf_start": 68
+    },
+    {
+      "number": "2.5",
+      "title": "Abstract Syntax and Its Representation",
+      "printed_start": 51,
+      "pdf_start": 74
+    },
+    {
+      "number": "3.1",
+      "title": "Specification and Implementation Strategy",
+      "printed_start": 57,
+      "pdf_start": 80
+    },
+    {
+      "number": "3.2",
+      "title": "LET: A Simple Language",
+      "printed_start": 60,
+      "pdf_start": 83
+    },
+    {
+      "number": "3.3",
+      "title": "PROC: A Language with Procedures",
+      "printed_start": 74,
+      "pdf_start": 97
+    },
+    {
+      "number": "3.4",
+      "title": "LETREC: A Language with Recursive Procedures",
+      "printed_start": 82,
+      "pdf_start": 105
+    },
+    {
+      "number": "3.5",
+      "title": "Scoping and Binding of Variables",
+      "printed_start": 87,
+      "pdf_start": 110
+    },
+    {
+      "number": "3.6",
+      "title": "Eliminating Variable Names",
+      "printed_start": 91,
+      "pdf_start": 114
+    },
+    {
+      "number": "3.7",
+      "title": "Implementing Lexical Addressing",
+      "printed_start": 93,
+      "pdf_start": 116
+    },
+    {
+      "number": "4.1",
+      "title": "Computational Effects",
+      "printed_start": 103,
+      "pdf_start": 126
+    },
+    {
+      "number": "4.2",
+      "title": "EXPLICIT-REFS: A Language with Explicit References",
+      "printed_start": 104,
+      "pdf_start": 127
+    },
+    {
+      "number": "4.3",
+      "title": "IMPLICIT-REFS: A Language with Implicit References",
+      "printed_start": 113,
+      "pdf_start": 136
+    },
+    {
+      "number": "4.4",
+      "title": "MUTABLE-PAIRS: A Language with Mutable Pairs",
+      "printed_start": 124,
+      "pdf_start": 147
+    },
+    {
+      "number": "4.5",
+      "title": "Parameter-Passing Variations",
+      "printed_start": 130,
+      "pdf_start": 153
+    },
+    {
+      "number": "5.1",
+      "title": "A Continuation-Passing Interpreter",
+      "printed_start": 141,
+      "pdf_start": 164
+    },
+    {
+      "number": "5.2",
+      "title": "A Trampolined Interpreter",
+      "printed_start": 155,
+      "pdf_start": 178
+    },
+    {
+      "number": "5.3",
+      "title": "An Imperative Interpreter",
+      "printed_start": 160,
+      "pdf_start": 183
+    },
+    {
+      "number": "5.4",
+      "title": "Exceptions",
+      "printed_start": 171,
+      "pdf_start": 194
+    },
+    {
+      "number": "5.5",
+      "title": "Threads",
+      "printed_start": 179,
+      "pdf_start": 202
+    },
+    {
+      "number": "6.1",
+      "title": "Writing Programs in Continuation-Passing Style",
+      "printed_start": 193,
+      "pdf_start": 216
+    },
+    {
+      "number": "6.2",
+      "title": "Tail Form",
+      "printed_start": 203,
+      "pdf_start": 226
+    },
+    {
+      "number": "6.3",
+      "title": "Converting to Continuation-Passing Style",
+      "printed_start": 212,
+      "pdf_start": 235
+    },
+    {
+      "number": "6.4",
+      "title": "Modeling Computational Effects",
+      "printed_start": 226,
+      "pdf_start": 249
+    },
+    {
+      "number": "7.1",
+      "title": "Values and Their Types",
+      "printed_start": 235,
+      "pdf_start": 258
+    },
+    {
+      "number": "7.2",
+      "title": "Assigning a Type to an Expression",
+      "printed_start": 238,
+      "pdf_start": 261
+    },
+    {
+      "number": "7.3",
+      "title": "CHECKED: A Type-Checked Language",
+      "printed_start": 240,
+      "pdf_start": 263
+    },
+    {
+      "number": "7.4",
+      "title": "INFERRED: A Language with Type Inference",
+      "printed_start": 248,
+      "pdf_start": 271
+    },
+    {
+      "number": "8.1",
+      "title": "The Simple Module System",
+      "printed_start": 276,
+      "pdf_start": 299
+    },
+    {
+      "number": "8.2",
+      "title": "Modules That Declare Types",
+      "printed_start": 292,
+      "pdf_start": 315
+    },
+    {
+      "number": "8.3",
+      "title": "Module Procedures",
+      "printed_start": 311,
+      "pdf_start": 334
+    },
+    {
+      "number": "9.1",
+      "title": "Object-Oriented Programming",
+      "printed_start": 326,
+      "pdf_start": 349
+    },
+    {
+      "number": "9.2",
+      "title": "Inheritance",
+      "printed_start": 329,
+      "pdf_start": 352
+    },
+    {
+      "number": "9.3",
+      "title": "The Language",
+      "printed_start": 334,
+      "pdf_start": 357
+    },
+    {
+      "number": "9.4",
+      "title": "The Interpreter",
+      "printed_start": 336,
+      "pdf_start": 359
+    },
+    {
+      "number": "9.5",
+      "title": "A Typed Language",
+      "printed_start": 352,
+      "pdf_start": 375
+    },
+    {
+      "number": "9.6",
+      "title": "The Type Checker",
+      "printed_start": 358,
+      "pdf_start": 381
+    },
+    {
+      "number": "B.1",
+      "title": "Scanning",
+      "printed_start": 379,
+      "pdf_start": 402
+    },
+    {
+      "number": "B.2",
+      "title": "Parsing",
+      "printed_start": 382,
+      "pdf_start": 405
+    },
+    {
+      "number": "B.3",
+      "title": "Scanners and Parsers in SLLGEN",
+      "printed_start": 383,
+      "pdf_start": 406
+    }
+  ],
+  "back_matter": [
+    {
+      "title": "Bibliography",
+      "printed_start": 393,
+      "printed_end": 400,
+      "pdf_start": 416,
+      "pdf_end": 423
+    },
+    {
+      "title": "Index",
+      "printed_start": 401,
+      "printed_end": 410,
+      "pdf_start": 424,
+      "pdf_end": 433
+    }
+  ],
+  "original_dependency_edges": [
+    [
+      1,
+      2
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      3,
+      4
+    ],
+    [
+      4,
+      5
+    ],
+    [
+      5,
+      6
+    ],
+    [
+      4,
+      7
+    ],
+    [
+      7,
+      8
+    ],
+    [
+      7,
+      9
+    ]
+  ],
+  "dependency_source": {
+    "printed_page": "xviii",
+    "pdf_page": 19
+  },
+  "current_scope": {
+    "pages": [
+      "book_overview.html",
+      "preface.html"
+    ],
+    "answered_exercises": [
+      "0.1"
+    ],
+    "formal_publication_registered": false
+  },
+  "reading": {
+    "date": "2026-10-20",
+    "text_read_pdf_ranges": [
+      [
+        1,
+        433
+      ]
+    ],
+    "rendered_and_viewed_pdf_pages": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      10,
+      13,
+      14,
+      16,
+      17,
+      18,
+      19,
+      20,
+      84,
+      98,
+      105,
+      127,
+      136,
+      153,
+      159,
+      160,
+      161,
+      263,
+      271,
+      272
+    ],
+    "note": "Sequential reading of extracted full text, targeted original-page visual inspection. Not a full visual proofreading or execution audit of all textbook code."
+  }
+}

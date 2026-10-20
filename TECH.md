@@ -167,3 +167,9 @@ I041 将五书共同组件约定更新为 RN-001 v1.2：版心不依赖注解增
 I041 已从干净提交 `0a84a11` 发布 `20261020T212352`，完成服务器和正常域名验收，前版 `20261020T200604` 保留。当前包仍为 495 文件、76 HTML、56 正式阅读页；服务配置、端口、白名单和脚本 CSP 不变，证据见 [T041](test/T041-review-followup.md)。
 
 I043 将组件语义约定更新为 RN-001 v1.3，补全按习题独立检查的标题父级、明确引用和表格名称、例子分类口径，并继续抽取相同样式。内容提交 `0ccf855` 已发布为 `20261020T225222`，恢复单元为 `20261020T212352`；本版仍为 495 文件、76 HTML、56 正式阅读页，技术栈、服务和端口不变。复核取舍及验收分别见 [复核说明](docs/recheck-followup-20261020.md) / [T043](test/T043-five-book-recheck.md)。
+
+## EOPL 本地准备批（I042）
+
+`books/eopl/` 保存第三版 EOPL 的来源清单、维护说明、Python 闭包实验和书内检查器；正文位于 `src/content/books/eopl/`，通过既有受控 HTML 展开器生成两份独立 HTML。当前范围为地图、Foreword、Preface 和习题 0.1；本批尚未加入正式 catalog、发布 allowlist、历史 Git 基线或根入口书级分派，依照新书接入的准备阶段使用 `python3 books/eopl/tools/check_notes.py`。根 README 提供本地阅读入口。
+
+现有 Python/Node 与共享静态组件足够完成本批，没有引入 Scheme 运行时或新的技术栈。正式发布登记待代表章接入时完成；本批不以五书公共构建证明 EOPL 已发布。维护依据见 [I042](issues/I042-eopl-map-preface.md)，验证与治理生成器兼容性记录见 [T042](test/T042-eopl-map-preface.md)。

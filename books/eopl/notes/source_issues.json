@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "scope": "Candidates noticed during whole-book text reading; original page and implementation must be checked when writing the relevant chapter. Not asserted errata.",
+  "items": [
+    {
+      "id": "candidate-fact-registerization",
+      "printed_pages": [
+        195,
+        196
+      ],
+      "pdf_pages": [
+        218,
+        219
+      ],
+      "status": "needs_visual_and_execution_review",
+      "observation": "Extracted apply-cont for factorial appears to restore n from saved-n without visibly multiplying val. Check the original figures and transformation context before any correction.",
+      "affects_current_pages": false
+    }
+  ]
+}

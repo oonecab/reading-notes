@@ -1,0 +1,319 @@
+{
+  "schema_version": 1,
+  "book_id": "eopl",
+  "status": "accepted_locally",
+  "stage": "preparation",
+  "reviewed_at": "2026-10-20T14:34:42.679413+00:00",
+  "reviewer": "Codex",
+  "scope": {
+    "pages": [
+      "book_overview.html",
+      "preface.html"
+    ],
+    "answered_exercises": [
+      "0.1"
+    ],
+    "formal_publication_registered": false
+  },
+  "files": [
+    {
+      "path": "src/content/books/eopl/book_overview.html",
+      "sha256": "2552e704ca4e8d0ed530844b82fc1519704b9a18b5cca64df64d23b687369b8c"
+    },
+    {
+      "path": "src/content/books/eopl/preface.html",
+      "sha256": "8bfa35868ba41d41c1b93008b231375d1b7210fc164bf3120eb1dd0815e6c667"
+    },
+    {
+      "path": "books/eopl/notes/book_overview.html",
+      "sha256": "76f386a190b1d0c836165a85d6d92a55512bbfa65345946bb1e342b9108f591c"
+    },
+    {
+      "path": "books/eopl/notes/preface.html",
+      "sha256": "7bb7010167d3a4acbb8d020a1abc4870bd24e8f26297e7d4603daefacc21e367"
+    },
+    {
+      "path": "books/eopl/code/scope_demo.py",
+      "sha256": "737f05ece44f0859864f74e98ef4f38ed3884cf23d2ff54a9ad89d4ad719da37"
+    },
+    {
+      "path": "books/eopl/notes/source_manifest.json",
+      "sha256": "0b285f06bdc8b1bf61536e61a8eafface4432fcb6daeeab4a3d83e685f3bb3b2"
+    },
+    {
+      "path": "books/eopl/notes/source_inventory.json",
+      "sha256": "62dfceed19f2192f3af9f4a96391a3dc91257a68051517b39948a8ba1fc124cc"
+    },
+    {
+      "path": "books/eopl/notes/source_excerpts.json",
+      "sha256": "8a4bb92a917d9cb68cf56a847b6c67f015ee3fa31b872677af894f52521795f8"
+    }
+  ],
+  "source": {
+    "sha256": "b9e8770a4dc97206bd02230e6b21a878382eb02a340ff69321857d701e7d967c",
+    "text_read_pdf_ranges": [
+      [
+        1,
+        433
+      ]
+    ],
+    "rendered_and_viewed_pdf_pages": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      10,
+      13,
+      14,
+      16,
+      17,
+      18,
+      19,
+      20,
+      84,
+      98,
+      105,
+      127,
+      136,
+      153,
+      159,
+      160,
+      161,
+      263,
+      271,
+      272
+    ],
+    "inventory_exercises": 356,
+    "inventory_scope": "Numbered locators; full future chapter subquestions not transcribed."
+  },
+  "content_review": [
+    "Foreword and Preface roles",
+    "Original chapter dependency edges",
+    "All nine chapter summaries and two appendices",
+    "Env, Store, Cont, TEnv distinctions",
+    "Closure steps, diagram, program and lexical/dynamic results",
+    "Six methods and third-edition changes",
+    "Complete exercise 0.1 and four sourced comparisons",
+    "CPS space limits, INFERRED scope and object-checker boundaries"
+  ],
+  "executed_check": {
+    "status": "passed",
+    "stage": "preparation",
+    "pages": 2,
+    "source_exercises": 356,
+    "answered_exercises": 1,
+    "source_check": "independent_inventory_verified",
+    "quick": false,
+    "page_sha256": {
+      "book_overview.html": "76f386a190b1d0c836165a85d6d92a55512bbfa65345946bb1e342b9108f591c",
+      "preface.html": "7bb7010167d3a4acbb8d020a1abc4870bd24e8f26297e7d4603daefacc21e367"
+    },
+    "checked_at": "2026-10-20T14:31:44.356796+00:00",
+    "semantic_tests": {
+      "status": "passed",
+      "hand_calculated_cases": 10,
+      "error_cases": 10,
+      "scope_grid": 125,
+      "scope_discriminating_cases": 100
+    },
+    "demo_stdout": "lexical: 15\ndynamic: 5\n",
+    "python": "3.14.6"
+  },
+  "negative_controls": {
+    "status": "passed",
+    "cases": [
+      {
+        "name": "unchanged_fixture",
+        "status": "passed",
+        "checker_status": "passed",
+        "observed_error": null
+      },
+      {
+        "name": "missing_anchor",
+        "status": "passed",
+        "checker_status": "failed",
+        "observed_error": "missing anchor: book_overview.html -> #missing-anchor"
+      },
+      {
+        "name": "page_mapping_shift",
+        "status": "passed",
+        "checker_status": "failed",
+        "observed_error": "page mapping differs"
+      },
+      {
+        "name": "program_copy_drift",
+        "status": "passed",
+        "checker_status": "failed",
+        "observed_error": "preface code copy differs; run sync_notes.py --write"
+      }
+    ],
+    "fixture_note": "Source PDF omitted from isolated fixture; full source validation runs separately."
+  },
+  "browser": {
+    "status": "passed",
+    "matrix_report": "tmp/eopl-browser/20261020/matrix.json",
+    "viewports": [
+      1800,
+      1440,
+      1024,
+      390
+    ],
+    "pages_per_viewport": 2,
+    "interaction_reports": [
+      "tmp/eopl-browser/20261020/interactions-preface.json",
+      "tmp/eopl-browser/20261020/interactions-map-offline.json"
+    ],
+    "offline_nojs_viewports": [
+      1440,
+      390
+    ],
+    "offline_mode": "CDP offline and script execution disabled; local file navigation",
+    "download_sha256": "737f05ece44f0859864f74e98ef4f38ed3884cf23d2ff54a9ad89d4ad719da37",
+    "screenshots_viewed": [
+      {
+        "path": "tmp/eopl-browser/20261020/book_overview-1024-diagram.png",
+        "sha256": "403e42b90b156cfaca9b6301bc7b85137a920da386c2c15d6c6dde20aa1cf47a"
+      },
+      {
+        "path": "tmp/eopl-browser/20261020/book_overview-1024-top.png",
+        "sha256": "3a2ce8199dede101729a9d2813956f9754d69b5c82e8de2c453b4bddcbdcf25b"
+      },
+      {
+        "path": "tmp/eopl-browser/20261020/book_overview-1440-diagram.png",
+        "sha256": "ea2ca2a7e4dfa588557928210c148fe57220aeb6e2b13c42860eff47d54a7538"
+      },
+      {
+        "path": "tmp/eopl-browser/20261020/book_overview-1440-models.png",
+        "sha256": "b70edd7f69b4ba0d719e237310339e362b61a3aaf45ba7b433d8cb88421bb617"
+      },
+      {
+        "path": "tmp/eopl-browser/20261020/book_overview-1440-offline-nojs-top.png",
+        "sha256": "0704764b33559e2db5a3ae65a9da65351cac1a99db58416f06f4d81988302f6f"
+      },
+      {
+        "path": "tmp/eopl-browser/20261020/book_overview-1440-top.png",
+        "sha256": "4b2fa379bf65b8f6fade8ecc98e51b04a866f515a28732ddda7110f146626bee"
+      },
+      {
+        "path": "tmp/eopl-browser/20261020/book_overview-1800-diagram.png",
+        "sha256": "b30161bb70bd9ebf8a23989cf4ef8e1c4c376345da7705dfbc6ca5cf0f6a1942"
+      },
+      {
+        "path": "tmp/eopl-browser/20261020/book_overview-1800-top.png",
+        "sha256": "8464ddaa3051047bf8c069caba2d449ed0bc8d776d890d5828afb600811548d3"
+      },
+      {
+        "path": "tmp/eopl-browser/20261020/book_overview-390-chapter9.png",
+        "sha256": "8b1a9c2ee5336549be941df2550db8f387db256145041839e1bae251d2fbf91f"
+      },
+      {
+        "path": "tmp/eopl-browser/20261020/book_overview-390-diagram-right.png",
+        "sha256": "f5d9bbc3d1c48cf14e0ac7325b81c1aec64df2a983675d031f0d629821789ddd"
+      },
+      {
+        "path": "tmp/eopl-browser/20261020/book_overview-390-diagram.png",
+        "sha256": "39f51fc117b1e624851166db3001d9cf3d5dfdacc52d67799c968cc73b08a5f0"
+      },
+      {
+        "path": "tmp/eopl-browser/20261020/book_overview-390-offline-nojs-top.png",
+        "sha256": "b25dbaf145c1c059a434f468057c4cfbaaf79cf6da07c71f7812d120a5c1802b"
+      },
+      {
+        "path": "tmp/eopl-browser/20261020/book_overview-390-top.png",
+        "sha256": "6de82d40a6220e12d1d57ffc540e47f5b34f4eb810b2c81d3915f15fb384d5c3"
+      },
+      {
+        "path": "tmp/eopl-browser/20261020/preface-1024-diagram.png",
+        "sha256": "26c482476c3ab5ffa961a0b69ee1de68f01c25bbbb1d0d494ae97dbb52084dd2"
+      },
+      {
+        "path": "tmp/eopl-browser/20261020/preface-1024-top.png",
+        "sha256": "e431051f24eff6807b0e5997c546aae51e563a89089ee9985c85505bb8e6008a"
+      },
+      {
+        "path": "tmp/eopl-browser/20261020/preface-1440-deep-exercise.png",
+        "sha256": "a21764aadf3477a327018df059f7e50b3519132a84b71c892ee14e9abdcb9ecb"
+      },
+      {
+        "path": "tmp/eopl-browser/20261020/preface-1440-diagram.png",
+        "sha256": "0bd1464aebb0f61520012d085d207a254bfdee53a2e62d0497ff48035e4cd11d"
+      },
+      {
+        "path": "tmp/eopl-browser/20261020/preface-1440-method.png",
+        "sha256": "78bd34a9f324dfb80c7cc21233c1bfb0f121fddd83490acf83ab1f7b6bab6582"
+      },
+      {
+        "path": "tmp/eopl-browser/20261020/preface-1440-offline-nojs-exercise.png",
+        "sha256": "106a44a9322869dd4c61d5e02b36bd306a59975bbc058b4a7fce3d44c86da6ee"
+      },
+      {
+        "path": "tmp/eopl-browser/20261020/preface-1440-offline-nojs-top.png",
+        "sha256": "90ba1310a16763ccb4d4be6a55086d8eb402bd289cd5e45b9f2087a332bbd17d"
+      },
+      {
+        "path": "tmp/eopl-browser/20261020/preface-1440-top.png",
+        "sha256": "a8ee881c3fda18d9da728c394faef97e2e025ae5242ce1ad283a351befc90c5a"
+      },
+      {
+        "path": "tmp/eopl-browser/20261020/preface-1800-diagram.png",
+        "sha256": "c8220b3eff32130496744f454d8c5ad10b1084ab8a42225e04b7ca24ca388040"
+      },
+      {
+        "path": "tmp/eopl-browser/20261020/preface-1800-top.png",
+        "sha256": "9a3a0111a4d3a3f11e174500169b222f845a12d2d17684706e85f808cbe591e2"
+      },
+      {
+        "path": "tmp/eopl-browser/20261020/preface-390-code.png",
+        "sha256": "c1091b7e8ea2005f2f3371218a91dff4f5de0777717a9b879a9be2d3642c0b95"
+      },
+      {
+        "path": "tmp/eopl-browser/20261020/preface-390-diagram-right.png",
+        "sha256": "f0d411ae1ccbd38dec0e34e9ad24e471df1cb730a948309e31d2c105ffc5e914"
+      },
+      {
+        "path": "tmp/eopl-browser/20261020/preface-390-diagram.png",
+        "sha256": "b05ad3d858a54e692bab86005565c057591e5972e5e9c5f47c57f90733ce4b15"
+      },
+      {
+        "path": "tmp/eopl-browser/20261020/preface-390-exercise-answer.png",
+        "sha256": "22f10741b1019ca98fbd887a5544df680d85e86fc64bb816ea15141d679f8329"
+      },
+      {
+        "path": "tmp/eopl-browser/20261020/preface-390-exercise-question.png",
+        "sha256": "f4353ddd702bea3c04b32bf7fb582f1ae51d2e479986e30a609d82555a911a14"
+      },
+      {
+        "path": "tmp/eopl-browser/20261020/preface-390-offline-nojs-exercise.png",
+        "sha256": "c651831ddc5fd4f31ca3dcd2882f3e57e5a0faca2ec8199a5e6c265971ba3f73"
+      },
+      {
+        "path": "tmp/eopl-browser/20261020/preface-390-offline-nojs-top.png",
+        "sha256": "a9525b637997e7159c27f1f0c15eb1b9ef0b8504150c501bbc099de443b3ee13"
+      },
+      {
+        "path": "tmp/eopl-browser/20261020/preface-390-top.png",
+        "sha256": "74949890bb99c5de2e7b2078ae41ac9a159d927f276ab90a4d78f0ca69e8518a"
+      }
+    ]
+  },
+  "common_regression": {
+    "command": "python3 tools/project.py check --quick",
+    "status": "passed",
+    "checks": 16,
+    "report": "tmp/project-check/20261020T222017-yy1t070z/report.json",
+    "scope": "Existing five books and shared tooling"
+  },
+  "governance_preview": {
+    "status": "failed",
+    "error": "未知的 commands 字段: preview",
+    "apply_executed": false,
+    "project_configuration_changed": false
+  },
+  "limitations": [
+    "Full text reading is not full-page visual proofreading.",
+    "Original Scheme interpreter suite was not executed.",
+    "Only the preparation pages and exercise 0.1 are authored.",
+    "Formal catalog, historical baseline, release build and deployment remain outside this batch."
+  ]
+}
