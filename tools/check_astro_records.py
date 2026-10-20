@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Independently check controlled sources, retained mirrors and current review bindings."""
+import base64
 import hashlib
 import json
 from pathlib import Path
@@ -10,6 +11,22 @@ from catalog import ROOT, load_books
 
 
 def sha(p): return hashlib.sha256(p.read_bytes()).hexdigest()
+
+
+def matches_reviewed_output(blob, expected):
+    if hashlib.sha256(blob).hexdigest() == expected:
+        return True
+    # I036 approves only this exact head insertion. Removing it must recover
+    # every byte of the independently reviewed output; historical hashes stay intact.
+    svg = (ROOT/'portal/favicon.svg').read_bytes()
+    if hashlib.sha256(svg).hexdigest() != 'f1ab2a8e135a12be4f93a272888396812665e9e095b3479975bc89237bbc1e86':
+        return False
+    icon = b'<link rel="icon" href="data:image/svg+xml;base64,' + base64.b64encode(svg) + b'" type="image/svg+xml">'
+    head, separator, body = blob.partition(b'</head>')
+    if not separator or icon not in head or blob.count(icon) != 1:
+        return False
+    original = head.replace(icon, b'', 1) + separator + body
+    return hashlib.sha256(original).hexdigest() == expected
 
 
 def main():
@@ -64,10 +81,10 @@ def main():
                 assert prior==digest
                 reviewed=json.loads((ROOT/revision['review_record']).read_text())
                 assert reviewed['source_sha256'][route]==digest
-                if (ROOT/'dist'/route).exists():assert sha(ROOT/'dist'/route)==reviewed['output_sha256'][route],route
+                if (ROOT/'dist'/route).exists():assert matches_reviewed_output((ROOT/'dist'/route).read_bytes(),reviewed['output_sha256'][route]),route
             else:
                 assert expanded==frozen,route
-                if (ROOT/'dist'/route).exists():assert sha(ROOT/'dist'/route)==release['files'][route],route
+                if (ROOT/'dist'/route).exists():assert matches_reviewed_output((ROOT/'dist'/route).read_bytes(),release['files'][route]),route
             count+=1
     print(json.dumps({'status':'passed','controlled_pages':count,'current_review_bindings':'passed','historical_source_snapshot':'preserved','reviewed_revision_pages':len(revisions)}))
 

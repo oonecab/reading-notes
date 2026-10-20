@@ -28,7 +28,7 @@ sys.path.insert(0, str(STOCHASTIC / 'deploy'))
 from html_support import Document, check_resources
 from build_release import INDEX, write_archive
 from reader_views import EXTERNAL_LINKS
-from publication import FROZEN_BOOKS, configure, build_reader_views, transform_reading_page, entry_page, add_catalog_links
+from publication import FROZEN_BOOKS, configure, build_reader_views, transform_reading_page, entry_page, add_catalog_links, with_site_icon
 from public_policy import load_policy, static_include
 configure(BOOKS)
 
@@ -228,6 +228,8 @@ def main():
             '<title>测度论与概率论基础读书笔记</title></head><body><p>'
             '<a href="notes/book_overview.html">进入测度论与概率论全书地图</a></p></body></html>\n').encode()
 
+    blobs = {name: with_site_icon(blob, name) if name.endswith('.html') else blob
+             for name, blob in blobs.items()}
     scans, scripts, references = {}, set(), 0
     for name, blob in blobs.items():
         if name.endswith('.html'):

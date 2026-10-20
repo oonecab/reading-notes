@@ -1,9 +1,32 @@
 """Catalog extensions around the frozen I028 reader transformer."""
 from html import escape
+from html.parser import HTMLParser
 import reader_views as legacy
 
 FROZEN_BOOKS = frozenset(legacy.BOOKS)
 registered = {}
+
+
+class IconLinks(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.found = False
+
+    def handle_starttag(self, tag, attrs):
+        if tag == 'link' and 'icon' in (dict(attrs).get('rel') or '').lower().split():
+            self.found = True
+
+
+def with_site_icon(blob, name):
+    head, separator, body = blob.partition(b'</head>')
+    if not separator:
+        raise ValueError(f'Missing document head: {name}')
+    icons = IconLinks()
+    icons.feed(head.decode())
+    if not icons.found:
+        href = escape(legacy.relative(name, 'favicon.svg'), quote=True)
+        head += f'<link rel="icon" href="{href}" type="image/svg+xml">'.encode()
+    return head + separator + body
 
 
 def configure(books):
@@ -23,7 +46,7 @@ def scope_labels(blob, name):
 
 
 def transform_reading_page(blob, name, views, **kwargs):
-    return scope_labels(legacy.transform_reading_page(blob, name, views, **kwargs), name)
+    return with_site_icon(scope_labels(legacy.transform_reading_page(blob, name, views, **kwargs), name), name)
 
 
 def build_reader_views(blobs):
@@ -48,10 +71,11 @@ def build_reader_views(blobs):
 
 def entry_page(book):
     title, entry = escape(book['title']), escape(book['entry'], quote=True)
-    return (f'<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">'
+    blob = (f'<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">'
             '<meta name="viewport" content="width=device-width,initial-scale=1">'
             f'<meta http-equiv="refresh" content="0;url={entry}"><title>{title}</title>'
             f'</head><body><p><a href="{entry}">进入 {title}</a></p></body></html>\n').encode()
+    return with_site_icon(blob, f'{book["publish_prefix"]}/index.html')
 
 
 def add_catalog_links(blob):

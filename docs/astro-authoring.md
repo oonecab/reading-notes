@@ -12,6 +12,10 @@ I032 开始，迁移后的明确内容修订在 `src/content-revisions.json` 逐
 
 `pnpm build` 在临时目录准备来源并构建，对全部公开 HTML（当前 76 页，含辅助页和 5 个旧入口页）内联 CSS、favicon 和脚本；下载文件保留链接。正式页完整 DOM 的标签、命名空间、属性和子节点顺序、习题 ID 序列，以及正文/MathML/SVG/代码指纹和内部锚点一起核对。页面数量来自受控条目清单，新增书籍按 catalog、migration-state 与发布 allowlist 登记，不修改固定页数。
 
+I036 在发布适配层为正式阅读页和旧入口补齐站点 favicon；唯一维护源为 `portal/favicon.svg`。所有公开 HTML 的 head 必须包含唯一且内容匹配的内联 SVG 图标，缺失、重复、错位或内容不同会中止构建。单页离线打开无需另取图标文件；新增页面沿用同一门禁。完整 DOM parity 的预期发布视图同样展开已声明资源，不忽略 head 差异。
+
+旧审阅记录继续保留原始输出 hash。独立 Python 绑定检查只认可 I036 明确批准的这一条 head 图标插入：图标资产 hash 固定，标记唯一且位于 head，移除精确标记后必须逐字恢复到原审阅 hash。正文、样式、脚本、标题或其他属性的任何改变仍拒绝；未来更改图标本身需另行审阅这条展示变更边界。
+
 构建还启动环回临时 HTTP 服务，以生产 CSP 模板在真实浏览器覆盖每种内联脚本，确认哈希变异被浏览器阻止；打包再校验这些页面和脚本的指纹。所有门禁通过后才替换 `dist/`，保留上一份输出。`node scripts/verify-parity.mjs --book <book>` 比较冻结源和旧发布视图；`node scripts/check-offline.mjs --book <book>` 用 Ego Lite 实际断网打开该书全部公开页面，验证 1800/1440/1024/390 四档、1440/390 两档无 JS、深链、目录和局部横滚；旧入口验证其本地跳转目标。完整命令从仓库根执行，构建与浏览证据写入忽略目录 `tmp/reading-notes-migration/`。
 
 逐书 `review/astro-migration.json`、`content-baseline-astro.json` 和 `release-astro.json` 是新增的迁移证据。旧数学审阅、来源材料、内容完整性基线和程序记录保留原有含义。仅因维护说明改动而更新的当前文档哈希，必须同时保存旧值及原因。

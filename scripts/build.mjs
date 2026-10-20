@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { inlineAssets, htmlFiles } from './inline-assets.mjs';
+import { inlineAssets, htmlFiles, validateSiteIcon } from './inline-assets.mjs';
 import { entries, syncMirrors } from '../src/lib/controlled-html.mjs';
 import { verifyParity } from './verify-parity.mjs';
 import { sha, offlineDependencies } from './parity-lib.mjs';
@@ -59,6 +59,11 @@ const routes=htmlFiles(target).map(file=>path.relative(target,file));
 inlineAssets(target,routes.map(r=>path.join(target,r)));
 for(const route of routes){const issues=offlineDependencies(fs.readFileSync(path.join(target,route),'utf8'));if(issues.length)throw new Error(`${route}: ${issues.join(', ')}`);}
 if(!shell){
+  const siteIcon=fs.readFileSync(path.join(root,'portal/favicon.svg'));
+  for(const route of routes){
+    try { validateSiteIcon(fs.readFileSync(path.join(target,route),'utf8'),siteIcon); }
+    catch(error) { throw new Error(`${route}: ${error.message}`, {cause:error}); }
+  }
   run('python3',['deploy/public_policy.py',target,'--transform','--sums',path.join(stage,'dist-SHA256SUMS')]);
   verifyParity(target);
   fs.writeFileSync(path.join(stage,'performance-budget.json'),JSON.stringify(checkBudgets(target),null,2)+'\n');

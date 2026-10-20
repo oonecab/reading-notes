@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
 """Check source-page navigation across the reading-page publication boundary."""
 from html.parser import HTMLParser
+import base64
+import hashlib
 import json
 from pathlib import Path
 import sys
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "deploy"))
-from publication import build_reader_views, transform_reading_page
+from publication import build_reader_views, transform_reading_page, entry_page, with_site_icon
+from check_astro_records import matches_reviewed_output
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -58,6 +61,40 @@ def reading_page(book, source_link):
 
 
 class SourcePageNavigation(unittest.TestCase):
+    def test_historical_review_binding_accepts_only_the_exact_head_icon_insertion(self):
+        original = b'<html><head><title>Book</title></head><body><p>Original text</p><script>read()</script></body></html>'
+        expected = hashlib.sha256(original).hexdigest()
+        svg = (ROOT/'portal/favicon.svg').read_bytes()
+        icon = b'<link rel="icon" href="data:image/svg+xml;base64,' + base64.b64encode(svg) + b'" type="image/svg+xml">'
+        published = original.replace(b'</head>', icon+b'</head>')
+        self.assertTrue(matches_reviewed_output(original, expected))
+        self.assertTrue(matches_reviewed_output(published, expected))
+        for bad in (published.replace(b'Original text', b'Changed text'),
+                    published.replace(b'read()', b'write()'),
+                    published.replace(b'<title>Book', b'<title>Changed'),
+                    published.replace(icon, icon+icon),
+                    original.replace(b'</body>', icon+b'</body>'),
+                    published.replace(b'image/svg+xml;base64,', b'image/png;base64,')):
+            with self.subTest(output=bad[:80]):
+                self.assertFalse(matches_reviewed_output(bad, expected))
+
+    def test_existing_site_icon_is_not_duplicated(self):
+        original = b'<html><head><link type="image/svg+xml" href="../../favicon.svg" rel="icon"></head><body></body></html>'
+        self.assertEqual(with_site_icon(original, 'weiss/notes/chapter01.html'), original)
+
+    def test_every_book_declares_the_shared_icon_at_both_entry_depths(self):
+        books = json.loads((ROOT / 'books/catalog.json').read_text())['books']
+        for book in books:
+            prefix = book['publish_prefix']
+            reading = transform_reading_page(reading_page(prefix, ''),
+                                             f'{prefix}/notes/chapter01.html', {}).decode()
+            entry = entry_page(book).decode()
+            for html, href in ((reading, '../../favicon.svg'), (entry, '../favicon.svg')):
+                with self.subTest(book=prefix, href=href):
+                    head = html.split('</head>', 1)[0]
+                    self.assertIn(f'<link rel="icon" href="{href}" type="image/svg+xml">', head)
+                    self.assertEqual(head.count('rel="icon"'), 1)
+
     def test_program_guides_keep_every_registered_download(self):
         # Exercise the published document, where an early maintenance section
         # previously hid all later chapters despite intact raw Markdown links.

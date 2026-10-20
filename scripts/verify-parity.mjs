@@ -4,7 +4,7 @@ import { execFileSync } from 'node:child_process';
 import { pathToFileURL } from 'node:url';
 import { entries, root, stage } from '../src/lib/controlled-html.mjs';
 import { fingerprint, differences, sha, validateInternalAnchors } from './parity-lib.mjs';
-import { htmlFiles } from './inline-assets.mjs';
+import { htmlFiles, inlineHtmlAssets } from './inline-assets.mjs';
 import { checkSource } from '../src/lib/source-revisions.mjs';
 import { separateApprovedIsland,deepLinkSource,islandsFor } from '../src/lib/islands.mjs';
 
@@ -21,7 +21,8 @@ export function verifyParity(directory=path.join(root,'dist'),book) {
   for(const {metadata,html} of pages) {
     const source=checkSource({metadata,html});
     if(!Buffer.from(html).equals(fs.readFileSync(metadata.legacy_path)))throw new Error(`Legacy compatibility HTML changed: ${metadata.route}`);
-    const expected=fs.readFileSync(path.join(stage,'legacy',metadata.route),'utf8').replace('<link rel="stylesheet" href="../../reader.css">',()=>'<style>'+readerCss.toString()+'</style>');
+    const expectedFile=path.join(stage,'legacy',metadata.route);
+    const expected=inlineHtmlAssets(path.join(stage,'legacy'),expectedFile,fs.readFileSync(expectedFile,'utf8'));
     const actual=fs.readFileSync(path.join(directory,metadata.route),'utf8');
     const before=fingerprint(expected),after=fingerprint(actual);
     const originalPart=fingerprint(separateApprovedIsland(actual,metadata.book));

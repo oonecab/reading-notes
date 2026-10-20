@@ -151,3 +151,5 @@ I034 增页后当前书籍阅读页为 56 页、原书习题 1489 题；包括�
 I035 为受控静态发布加入确定性 gzip-6 sidecar；派生文件仅限 allowlist 中登记的文本，解压内容与原文件严格一致并进入归档 SHA 清单。Nginx 使用 gzip_static，保留 no-cache 和精确条件请求；发布器将内容到 mtime 的持久登记与 release 解包时间分离，同一内容复用 ETag，改变内容的同大小文件也使用不同验证器。历史清单只从 root 安装的摘要命名文件读取，以保持旧版可回滚。发布事务在 test/reload 后验证回环 HTTPS 的首页、五书入口及代表章节内容，失败恢复旧站并复核。新增健康检查 unit 模板与静态 HTML/gzip/DOM/JS 预算，CS:APP 横滚检测批量测量。实现和实际启用状态分别见 [I035](issues/I035-cache-performance-reliability.md) / [T035](test/T035-cache-performance-reliability.md)；运行时与数学内容不变。
 
 I035 于 2026-10-20 从干净提交 e2ce917 构建并发布 `20261020T112509`：76 个 HTML、56 个正式页、495 个文件（含 188 个受控 gzip sidecar）。systemd 发布与源站内容检查成功，health timer 已启用。276 个与前版内容相同的文件保留 mtime；两个 PDF 和随机过程章正文以旧 ETag 实测返回 304。CS:APP 内容变化按新 ETag 提供，原基线及前版恢复单元保留。
+
+I036 在发布适配层统一补齐书籍页和旧入口的 favicon，构建在所有公开 HTML 中验证唯一的内联站点 SVG。图标继续由 `portal/favicon.svg` 维护，支持网页跳转及独立 HTML 离线打开；正文源与完整 DOM parity、安全策略和生产运行时保持原约定。验证与发布证据见 [T036](test/T036-book-favicon.md)。

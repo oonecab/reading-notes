@@ -4,10 +4,26 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { fingerprint,differences,offlineDependencies } from './parity-lib.mjs';
-import { inlineAssets } from './inline-assets.mjs';
+import { inlineAssets, inlineHtmlAssets, validateSiteIcon } from './inline-assets.mjs';
 import { separateApprovedIsland,deepLinkMarkup } from '../src/lib/islands.mjs';
 
 const page='<!doctype html><html><head><style>body{color:black}</style></head><body><main id="top"><p>条件 x&gt;0。</p><math><mi>x</mi><mo>+</mo><mn>1</mn></math><svg viewBox="0 0 10 10"><path d="M0 0 L10 10"/></svg><details class="exercise" id="ex-1-1"><summary>习题</summary><div class="exercise-question">x?</div><div class="answer">x+1</div></details><pre><code>return 1;</code></pre><a href="source.pdf#page=13">来源</a></main><script>console.log(1)</script></body></html>';
+test('book icons resolve at nested routes and remain self-contained; missing, misplaced and altered icons fail',()=>{
+  const dir=fs.mkdtempSync(path.join(os.tmpdir(),'rn-icon-'));
+  try {
+    const svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M0 0h32v32H0Z"/></svg>';
+    fs.writeFileSync(path.join(dir,'favicon.svg'),svg);
+    const link='<link rel="icon" href="../../favicon.svg" type="image/svg+xml">';
+    const actual=inlineHtmlAssets(dir,path.join(dir,'book/notes/chapter.html'),page.replace('</head>',link+'</head>'));
+    validateSiteIcon(actual,svg);
+    assert.deepEqual(offlineDependencies(actual),[]);
+    const icon=actual.match(/<link[^>]+>/)[0];
+    assert.equal(Buffer.from(icon.match(/base64,([^"]+)/)[1],'base64').toString(),svg);
+    for(const bad of [page, actual.replace(icon,''), actual.replace(icon,icon+icon), actual.replace(icon,'').replace('</body>',icon+'</body>'), actual.replace('image/svg+xml;base64,','image/png;base64,'), actual.replace('base64,','base64,eA==')]){
+      assert.throws(()=>validateSiteIcon(bad,svg),/favicon/);
+    }
+  } finally { fs.rmSync(dir,{recursive:true,force:true}); }
+});
 test('separately verifies the navigation addition while preserving every original fingerprint',()=>{
   const output=page.replace('</body>',deepLinkMarkup+'</body>');
   assert.deepEqual(fingerprint(separateApprovedIsland(output,'csapp')),fingerprint(page));
