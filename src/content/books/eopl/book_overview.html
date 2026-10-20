@@ -12,7 +12,8 @@
   "source_manifest": "books/eopl/notes/source_manifest.json",
   "route": "eopl/notes/book_overview.html",
   "legacy_path": "books/eopl/notes/book_overview.html",
-  "stage": "preparation"
+  "stage": "map-and-preface",
+  "original_sha256": "bcee15d3ae5f7b748a93ff07bdffc6eb7fbbb790f4e2af54fce3bc289605720c"
 }
 ---
 <!doctype html>
@@ -38,6 +39,8 @@
 .map-nodes a:focus-visible rect,.map-nodes a:hover rect{stroke-width:3;fill:#edf3ed}
 .appendix{margin:1.5rem 0}
 @media print{.annotation-sidebar{display:none!important}}
+
+<!-- RN:include styles/reading-typography.css -->
 </style>
 </head>
 <body class="rn-components">
@@ -71,7 +74,7 @@
 <p>我们平时用语言写程序，通常把变量查找、过程调用、赋值和异常当成已经规定好的规则。EOPL 把这些规则本身变成研究对象：同一个变量名究竟指向哪次绑定？过程返回以后，它创建的局部变量为什么还能被另一个过程使用？赋值改变了名字、值，还是存放值的位置？异常发生以后，原本剩下的计算去了哪里？</p>
 <p>作者的办法是设计一系列足够小的语言，为它们写解释器。解释器接受程序的抽象语法树，按照明确规则逐步求出结果。这样，“这个语言采用词法作用域”就能落到一个具体选择上：调用过程时，使用过程创建时保存的环境。把这一处改为调用者的环境，就得到另一种作用域规则；<a href="preface.html#scope-example">序言的闭包例子</a>会把两种结果算出来。</p>
 <p>全书不断重复同一种研究动作：先分清要描述的行为，再选一种表示，把规则写成可运行的程序，最后用小程序检验差异。第 1、2 章让我们能够处理语法树和抽象数据；第 3、4 章建立“名字、值、位置”的运行模型；第 5、6 章把控制过程显式化；第 7 章在运行以前推断一些性质；第 8、9 章把这些工具组合成模块和对象系统。</p>
-<p>因此，读这本书最有用的收获，是能从一个语言特性追到它的规则和实现位置。词法分析、语法分析在附录 B 中提供必要工具，控制变换、名字消除和类型分析也涉及编译思想；完整编译器后端、机器码生成与工业优化不在本书的主讲范围内。</p>
+<p>因此，读这本书最有用的收获，是能从一个语言特性追到它的规则和实现位置。词法分析、语法分析在附录 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="B" display="inline"><mi>B</mi></math> 中提供必要工具，控制变换、名字消除和类型分析也涉及编译思想；完整编译器后端、机器码生成与工业优化不在本书的主讲范围内。</p>
 <details class="reading-notes" id="notes-thread" data-notes-for="thread" open>
 <summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card">
 <span class="annotation-kind">先分清两层语言</span><h3>谁在解释谁</h3>
@@ -85,26 +88,32 @@
 <p>作者在序言中给出了下面的依赖图。箭头表示学习依赖，节点可以跳到本页对应章意。第 1—4 章是共同干线；之后，控制路线走向第 5、6 章，类型路线走向第 7 章，再通向模块与对象。</p>
 <figure>
 <div class="scroll" tabindex="0" aria-label="章节依赖图，可横向滚动">
-<svg class="book-diagram" viewBox="0 0 790 270" role="img" aria-labelledby="dependency-title dependency-desc">
+<svg class="book-diagram rn-diagram" viewBox="0 0 880 586" role="img" aria-labelledby="dependency-title dependency-desc">
 <title id="dependency-title">EOPL 第三版原序言的章节依赖图</title>
 <desc id="dependency-desc">1 到 2 到 3 到 4。4 分别到 5 和 7。5 到 6。7 分别到 8 和 9。</desc>
-<defs><marker id="dep-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10" fill="#285a4e"/></marker></defs>
-<g fill="none" stroke="#285a4e" stroke-width="1.6" marker-end="url(#dep-arrow)">
-<path d="M116 130H141"/><path d="M257 130H282"/><path d="M398 130H423"/>
-<path d="M539 130L565 55"/><path d="M539 130L565 192"/>
-<path d="M664 55H686"/><path d="M664 192L686 150"/><path d="M664 192L686 230"/>
+<defs><marker id="dep-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path class="rn-arrow" d="M1 1L9 5L1 9Z"/></marker></defs>
+<g marker-end="url(#dep-arrow)">
+<path class="rn-edge" data-edge="1-2" d="M220 66H340"/>
+<path class="rn-edge" data-edge="2-3" d="M520 66H640"/>
+<path class="rn-edge" data-edge="3-4" d="M730 100V158Q730 168 720 168H440Q430 168 430 178V184"/>
+<path class="rn-edge" data-edge="4-5" d="M390 252V286Q390 296 380 296H230Q220 296 220 306V336"/>
+<path class="rn-edge" data-edge="5-6" d="M220 404V488"/>
+<path class="rn-edge" data-edge="4-7" d="M470 252V286Q470 296 480 296H630Q640 296 640 306V336"/>
+<path class="rn-edge" data-edge="7-8" d="M610 404V444Q610 454 600 454H530Q520 454 520 464V488"/>
+<path class="rn-edge" data-edge="7-9" d="M670 404V444Q670 454 680 454H750Q760 454 760 464V488"/>
 </g>
-<g class="map-nodes">
-<a href="#chapter-1" aria-label="第 1 章：归纳数据"><rect class="n" x="6" y="102" width="110" height="56" rx="5"/><text x="61" y="126">1 归纳数据</text><text class="hint" x="61" y="146">递归的根据</text></a>
-<a href="#chapter-2" aria-label="第 2 章：数据抽象"><rect class="n" x="145" y="102" width="112" height="56" rx="5"/><text x="201" y="126">2 数据抽象</text><text class="hint" x="201" y="146">接口与表示</text></a>
-<a href="#chapter-3" aria-label="第 3 章：表达式"><rect class="n" x="286" y="102" width="112" height="56" rx="5"/><text x="342" y="126">3 表达式</text><text class="hint" x="342" y="146">环境与闭包</text></a>
-<a href="#chapter-4" aria-label="第 4 章：状态"><rect class="n" x="427" y="102" width="112" height="56" rx="5"/><text x="483" y="126">4 状态</text><text class="hint" x="483" y="146">位置与存储</text></a>
-<a href="#chapter-5" aria-label="第 5 章：续文解释器"><rect class="n" x="569" y="27" width="95" height="56" rx="5"/><text x="616" y="51">5 续文</text><text class="hint" x="616" y="71">解释器控制</text></a>
-<a href="#chapter-6" aria-label="第 6 章：CPS"><rect class="n" x="690" y="27" width="94" height="56" rx="5"/><text x="737" y="51">6 CPS</text><text class="hint" x="737" y="71">一般程序变换</text></a>
-<a href="#chapter-7" aria-label="第 7 章：类型"><rect class="n" x="569" y="164" width="95" height="56" rx="5"/><text x="616" y="188">7 类型</text><text class="hint" x="616" y="208">检查与推断</text></a>
-<a href="#chapter-8" aria-label="第 8 章：模块"><rect class="n" x="690" y="122" width="94" height="56" rx="5"/><text x="737" y="146">8 模块</text><text class="hint" x="737" y="166">抽象边界</text></a>
-<a href="#chapter-9" aria-label="第 9 章：对象与类"><rect class="n" x="690" y="202" width="94" height="56" rx="5"/><text x="737" y="226">9 对象</text><text class="hint" x="737" y="246">分派与子类型</text></a>
-</g></svg>
+<g class="map-nodes" text-anchor="middle">
+<a href="#chapter-1" aria-label="第 1 章：归纳数据"><rect class="rn-node" x="40" y="32" width="180" height="68"/><text x="130" y="59">1 归纳数据</text><text class="hint" x="130" y="82">递归的根据</text></a>
+<a href="#chapter-2" aria-label="第 2 章：数据抽象"><rect class="rn-node" x="340" y="32" width="180" height="68"/><text x="430" y="59">2 数据抽象</text><text class="hint" x="430" y="82">表示与接口</text></a>
+<a href="#chapter-3" aria-label="第 3 章：表达式"><rect class="rn-node" x="640" y="32" width="180" height="68"/><text x="730" y="59">3 表达式</text><text class="hint" x="730" y="82">环境与过程</text></a>
+<a href="#chapter-4" aria-label="第 4 章：状态"><rect class="rn-node rn-node-accent" x="340" y="184" width="180" height="68"/><text x="430" y="211">4 状态</text><text class="hint" x="430" y="234">位置与存储</text></a>
+<a href="#chapter-5" aria-label="第 5 章：续文"><rect class="rn-node" x="130" y="336" width="180" height="68"/><text x="220" y="363">5 续文</text><text class="hint" x="220" y="386">剩余的计算</text></a>
+<a href="#chapter-6" aria-label="第 6 章：续文传递"><rect class="rn-node" x="130" y="488" width="180" height="68"/><text x="220" y="515">6 续文传递</text><text class="hint" x="220" y="538">控制变换</text></a>
+<a href="#chapter-7" aria-label="第 7 章：类型"><rect class="rn-node rn-node-accent" x="550" y="336" width="180" height="68"/><text x="640" y="363">7 类型</text><text class="hint" x="640" y="386">运行前的约束</text></a>
+<a href="#chapter-8" aria-label="第 8 章：模块"><rect class="rn-node" x="430" y="488" width="180" height="68"/><text x="520" y="515">8 模块</text><text class="hint" x="520" y="538">接口与封装</text></a>
+<a href="#chapter-9" aria-label="第 9 章：对象"><rect class="rn-node" x="670" y="488" width="180" height="68"/><text x="760" y="515">9 对象</text><text class="hint" x="760" y="538">对象与方法</text></a>
+</g>
+</svg>
 </div>
 <figcaption>依赖边照原序言 p.xviii（PDF 19）重绘；中文节点说明由伴读添加。它是阅读依赖图，各章解释器所继承的具体语言仍须分别核对。</figcaption>
 </figure>
@@ -157,7 +166,7 @@
 <div class="chapter-map" id="chapter-6">
 <h3>6 · 续文传递风格</h3>
 <p class="source">Continuation-Passing Style · pp.193–232 / PDF 216–255 · 习题 6.1–6.40</p>
-<p>上一章是把一个熟悉的解释器改为 CPS；这一章把同样的方法推广为一个程序变换：输入 CPS-IN 的 AST，输出 CPS-OUT 的 AST。变换器为非尾位置的中间结果引入名字，把后续计算装进新的续文，再将调用组织为尾形式。</p>
+<p>上一章是把一个熟悉的解释器改为 CPS；这一章把同样的方法推广为一个程序变换：输入 CPS<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="-IN" display="inline"><mrow><mo>−</mo><mi>I</mi><mi>N</mi></mrow></math> 的 AST，输出 CPS<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="-OUT" display="inline"><mrow><mo>−</mo><mi>O</mi><mi>U</mi><mi>T</mi></mrow></math> 的 AST。变换器为非尾位置的中间结果引入名字，把后续计算装进新的续文，再将调用组织为尾形式。</p>
 <p>读变换规则时，要追踪求值顺序、生成名字的新鲜性和每个结果交给谁。加入打印、存储等效果后，某些原先可直接使用的表达式也必须按顺序处理；控制效果则解释为何有些跳转直接使用先前捕获的续文。</p>
 <p><span class="map-key">读完应能解释：</span>解释器运行一个程序与变换器输出另一个程序的差别。阶乘的续文链能进一步化为累乘器，依赖乘法组合的特殊结构；一般 CPS 变换本身不会自动获得这种空间压缩。</p>
 <p class="small">原书小节：6.1 写 CPS 程序（193）；6.2 尾形式（203）；6.3 转换为 CPS（212）；6.4 计算效果（226）。</p>
@@ -167,7 +176,7 @@
 <p class="source">Types · pp.233–274 / PDF 256–297 · 习题 7.1–7.30</p>
 <p>如果不运行程序，能否排除“对过程做减法”“调用一个整数”等错误？类型系统给表达式分配类型，并用规则约束子表达式的组合。CHECKED 要求过程参数等位置写出类型；类型检查器使用类型环境，检查过程体与调用是否一致。</p>
 <p>INFERRED 把部分类型留成未知量，从程序结构生成等式，再以合一和替换求解。occurs check 排除某个类型变量必须等于包含自身的有限类型表达式的情况。这里的类型变量是求解中的未知量，和程序中取值的变量属于不同层次。</p>
-<p><span class="map-key">读完应能解释：</span>类型检查如何保守地排除规定的错误，以及为什么“通过检查”不保证终止或满足业务目的。正文的推断器并未完整实现 let 多态；多态绑定、Algorithm W 和赋值下的限制在习题 7.28–7.30 中继续展开。</p>
+<p><span class="map-key">读完应能解释：</span>类型检查如何保守地排除规定的错误，以及为什么“通过检查”不保证终止或满足业务目的。正文的推断器并未完整实现 let 多态；多态绑定、Algorithm <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="W" display="inline"><mi>W</mi></math> 和赋值下的限制在习题 7.28–7.30 中继续展开。</p>
 <p class="small">原书小节：7.1 值与类型（235）；7.2 给表达式分配类型（238）；7.3 CHECKED（240）；7.4 INFERRED（248）。</p>
 </div>
 <div class="chapter-map" id="chapter-8">
@@ -182,14 +191,14 @@
 <h3>9 · 对象与类</h3>
 <p class="source">Objects and Classes · pp.325–371 / PDF 348–394 · 习题 9.1–9.42</p>
 <p>对象把一组需要协调变化的状态与操作它们的方法放在一起。CLASSES 用类描述字段和方法，通过继承共享实现，并在发送消息时按对象的实际类选择方法。字段位置、方法所属类、接收者 <code>self</code> 与 <code>super</code> 的查找起点需要分别保存，才能解释遮蔽和重写。</p>
-<p>TYPED-OO 再组合类型检查、接口和子类型。一个对象只有一个创建它的类，却可以满足多个类型。过程子类型在结果方向协变、参数方向逆变，原因是替代后的过程必须接受调用者原来有权传入的每一个参数，并返回原来承诺的结果种类。</p>
+<p>TYPED<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="-OO" display="inline"><mrow><mo>−</mo><mi>O</mi><mi>O</mi></mrow></math> 再组合类型检查、接口和子类型。一个对象只有一个创建它的类，却可以满足多个类型。过程子类型在结果方向协变、参数方向逆变，原因是替代后的过程必须接受调用者原来有权传入的每一个参数，并返回原来承诺的结果种类。</p>
 <p><span class="map-key">读完应能解释：</span>普通方法调用为什么动态分派，而 <code>super</code> 从当前方法所属类的父类开始查找，接收者仍是原对象。原书检查器的保证有边界：p.358 明确保留未初始化字段及显式调用 <code>initialize</code> 的问题，转换失败也可能是运行时错误。</p>
 <p class="small">原书小节：9.1 面向对象编程（326）；9.2 继承（329）；9.3 语言（334）；9.4 解释器（336）；9.5 带类型语言（352）；9.6 类型检查器（358）。</p>
 </div>
 <div class="appendix" id="appendices">
 <h3>附录是两种不同的回读入口</h3>
-<p><strong>附录 A · For Further Reading</strong>（pp.373–378 / PDF 396–401）追溯归纳、语义、续文、类型与对象等思想的文献来源。遇到“这个方法从哪里来、还能怎样形式化”时回到这里；文献年代与历史判断按原书 2008 年语境理解。</p>
-<p><strong>附录 B · The SLLGEN Parsing System</strong>（pp.379–391 / PDF 402–414）把文本分成 token，再按语法产生 AST。它介绍 LL(1) 约束、扫描规格、<code>arbno</code> 与 <code>separated-list</code>，附习题 B.1–B.5。完成第 2 章抽象语法后就可以并行阅读，帮助第 3 章解释器接收文本输入。参考文献在 pp.393–400，索引在 pp.401–410。</p>
+<p><strong>附录 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="A ·" display="inline"><mrow><mi>A</mi><mo>·</mo></mrow></math> For Further Reading</strong>（pp.373–378 / PDF 396–401）追溯归纳、语义、续文、类型与对象等思想的文献来源。遇到“这个方法从哪里来、还能怎样形式化”时回到这里；文献年代与历史判断按原书 2008 年语境理解。</p>
+<p><strong>附录 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="B ·" display="inline"><mrow><mi>B</mi><mo>·</mo></mrow></math> The SLLGEN Parsing System</strong>（pp.379–391 / PDF 402–414）把文本分成 token，再按语法产生 AST。它介绍 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="LL(1)" display="inline"><mrow><mi>L</mi><mi>L</mi><mrow><mo>(</mo><mn>1</mn><mo>)</mo></mrow></mrow></math> 约束、扫描规格、<code>arbno</code> 与 <code>separated-list</code>，附习题 B.1–B.5。完成第 2 章抽象语法后就可以并行阅读，帮助第 3 章解释器接收文本输入。参考文献在 pp.393–400，索引在 pp.401–410。</p>
 </div>
 </section>
 
@@ -199,8 +208,8 @@
 <div class="scroll"><table aria-label="环境、存储、续文和类型环境的比较">
 <thead><tr><th scope="col">对象</th><th scope="col">回答的问题</th><th scope="col">一个具体内容</th><th scope="col">主要位置</th></tr></thead>
 <tbody>
-<tr><th scope="row">环境 Env</th><td>这个名字当前绑定到什么？</td><td>PROC 中 <code>x ↦ 10</code>；IMPLICIT-REFS 中 <code>x ↦ ℓ</code></td><td>第 2—4 章</td></tr>
-<tr><th scope="row">存储 Store</th><td>这个位置现在装着什么？</td><td><code>ℓ ↦ 10</code>；赋值后同一位置装着 20</td><td>第 4 章起</td></tr>
+<tr><th scope="row">环境 Env</th><td>这个名字当前绑定到什么？</td><td>PROC 中 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x ↦ 10" display="inline"><mrow><mi>x</mi><mo>↦</mo><mn>10</mn></mrow></math>；IMPLICIT-REFS 中 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x ↦ ℓ" display="inline"><mrow><mi>x</mi><mo>↦</mo><mi>ℓ</mi></mrow></math></td><td>第 2—4 章</td></tr>
+<tr><th scope="row">存储 Store</th><td>这个位置现在装着什么？</td><td><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="ℓ ↦ 10" display="inline"><mrow><mi>ℓ</mi><mo>↦</mo><mn>10</mn></mrow></math>；赋值后同一位置装着 20</td><td>第 4 章起</td></tr>
 <tr><th scope="row">续文 Cont</th><td>当前结果出来以后还要做什么？</td><td>“拿到右操作数后，用已保存的 25 减它”</td><td>第 5、6 章</td></tr>
 <tr><th scope="row">类型环境 TEnv</th><td>静态分析时，这个名字应有什么类型？</td><td><code>x : int</code>，<code>f : int → int</code></td><td>第 7—9 章</td></tr>
 </tbody></table></div>
@@ -233,18 +242,18 @@
 
 <section id="source">
 <h2>来源与当前完成范围</h2>
-<p>本伴读依据 Daniel P. Friedman 与 Mitchell Wand 合著的第三版，MIT Press，2008，ISBN 978-0-262-06279-4。用户提供的 PDF 共 433 页，身份摘要与文件大小登记在<a href="source_manifest.json">来源清单</a>。这是本地对照材料，页面上的印刷页和 PDF 页序可供回查。</p>
+<p>本伴读依据 Daniel <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="P" display="inline"><mi>P</mi></math>. Friedman 与 Mitchell Wand 合著的第三版，MIT Press，2008，ISBN 978-0-262-06279-4。用户提供的 PDF 共 433 页，身份摘要与文件大小登记在<a href="source_manifest.json">来源清单</a>。这是本地对照材料，页面上的印刷页和 PDF 页序可供回查。</p>
 <div class="scroll"><table aria-label="原书印刷页与 PDF 页序">
 <thead><tr><th scope="col">范围</th><th scope="col">印刷页</th><th scope="col">PDF 页序（从 1 开始）</th></tr></thead>
 <tbody>
-<tr><th scope="row">目录</th><td>v–vii</td><td>6–8</td></tr>
+<tr><th scope="row">目录</th><td><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="v" display="inline"><mi>v</mi></math>–vii</td><td>6–8</td></tr>
 <tr><th scope="row">Abelson 导读</th><td>ix–xiii</td><td>10–14</td></tr>
 <tr><th scope="row">作者序言</th><td>xv–xix</td><td>16–20</td></tr>
 <tr><th scope="row">致谢</th><td>xxi–xxii</td><td>22–23</td></tr>
 <tr><th scope="row">正文、附录、文献与索引</th><td>1–410</td><td>24–433；此段 PDF 页序 = 印刷页 + 23</td></tr>
 </tbody></table></div>
-<p>目前已经按页阅读全书提取文本，并对本批使用的序文、目录、依赖图和原题进行原页图像核对。当前写成的伴读只有全书地图、导读与作者序言两页，完整题解为 0.1；后续九章和附录仍按<a href="../reading-plan.md">阅读计划</a>推进。全文阅读没有被记成全书程序实测或全部习题解答。</p>
-<p>原书清单共 356 道编号习题，其中 350 道位于第 1—9 章，1 道位于序言，5 道位于附录 B。编号定义、定理、Example 与 Figure 另在<a href="source_inventory.json">定位清单</a>中列出。正文中没有编号的程序例子仍按原节和原页追踪。</p>
+<p>目前已经按页阅读全书提取文本，并对本批使用的序文、目录、依赖图和原题进行原页图像核对。当前写成的伴读只有全书地图、导读与作者序言两页，完整题解为 0.1；后续九章和附录仍按<a href="#routes">阅读计划</a>推进。全文阅读没有被记成全书程序实测或全部习题解答。</p>
+<p>原书清单共 356 道编号习题，其中 350 道位于第 1—9 章，1 道位于序言，5 道位于附录 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="B" display="inline"><mi>B</mi></math>。编号定义、定理、Example 与 Figure 另在<a href="source_inventory.json">定位清单</a>中列出。正文中没有编号的程序例子仍按原节和原页追踪。</p>
 </section>
 <footer>
 <p>以第三版原书为主线；章节要点与阅读建议为伴读归纳。来源、执行与实际阅读记录见<a href="../review/map-preface.md">本批审阅</a>。</p>

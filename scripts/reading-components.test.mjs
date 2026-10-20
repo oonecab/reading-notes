@@ -1,14 +1,22 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import { parseFragment } from 'parse5';
 import { entries } from '../src/lib/controlled-html.mjs';
 import { checkPage, checkAll } from '../tools/reading-components/check.mjs';
 
 const fragment = content => `<body class="rn-components"><h1>书</h1><section><h2>习题</h2>${content}</section></body>`;
 const exercise = answer => `<details class="exercise"><summary>习题 1.1</summary><div class="exercise-question"><p class="rn-exercise-label">题目</p><p>原题。</p></div><div class="answer"><p class="rn-exercise-label">解答</p>${answer}</div></details>`;
+// Check reader-visible wording independently of inline MathML boundaries.
+const proseText = html => {
+  const read = n => n.nodeName === '#text' ? n.value
+    : n.tagName === 'annotation' ? ''
+    : (n.childNodes ?? []).map(read).join('');
+  return read(parseFragment(html));
+};
 
-test('all five books reject skipped headings, including an isolated exercise after another answer', () => {
-  for (const book of ['stochastic', 'weiss', 'csapp', 'measure-probability', 'visual-group-theory']) {
+test('all registered books reject skipped headings, including an isolated exercise after another answer', () => {
+  for (const book of new Set(entries().map(e => e.metadata.book))) {
     assert.throws(() => checkPage(fragment('<h4>缺少父级</h4>'), book), /Heading level skipped/);
     assert.throws(() => checkPage(fragment(exercise('<h3>前一道题</h3>') + exercise('<h4>另一道题</h4>')), book), /Exercise heading level skipped/);
     checkPage(fragment(exercise('<h3>小问</h3><h4>小问的推演</h4>')), book);
@@ -81,12 +89,12 @@ test('exercise 6.27 retains the original fourth moment separately from the secon
   assert.match(question, /<msubsup><mi>X<\/mi><mn>1<\/mn><mn>4<\/mn><\/msubsup>/);
   assert.match(answer, /Cauchy–Schwarz/);
   assert.match(answer, /这是解答得到的推广/);
-  assert.match(answer, /有限 n 时分母可能为零/);
+  assert.match(proseText(answer), /有限 n 时分母可能为零/);
 });
 
 test('splay local accounting distinguishes the two disjoint-subtree pairs', () => {
   const e = entries().find(e => e.metadata.book === 'weiss' && e.metadata.chapter === 12);
-  const answer = e.html.split('id="ex12-1"')[1].split('</details>')[0];
+  const answer = proseText(e.html.split('id="ex12-1"')[1].split('</details>')[0]);
   assert.match(answer, /旧 x 的整棵子树与新 t 的子树互不相交/);
   assert.match(answer, /新 y、t 的子树不相交/);
   assert.match(answer, /简化两种自顶向下算法均满足访问引理/);

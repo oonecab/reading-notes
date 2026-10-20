@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Durrett、Weiss、CS:APP、Carter 与程士宏教材的中文读书笔记：章节伴读、机制与推导、习题解答、C / Python 程序。">
-  <title>读书笔记 · 随机过程、数据结构、系统、群论与测度概率</title>
+  <meta name="description" content="Durrett、Weiss、CS:APP、Carter、程士宏与 EOPL 教材的中文读书笔记：章节伴读、机制与推导、习题解答和可运行程序。">
+  <title>读书笔记 · 数学、系统与程序设计语言</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -23,9 +23,9 @@
         <p class="eyebrow">THE READING SHELF / 学习书架</p>
         <h1 id="page-title">让理解，在阅读中发生。</h1>
         <p class="lead">按原书章节组织的中文伴读。读清定义与推导，先尝试习题，再用程序核对自己的理解。</p>
-        <div class="shelf-caption"><span>选择一本书开始</span><span>05 本笔记</span></div>
+        <div class="shelf-caption"><span>选择一本书开始</span><span>06 本笔记</span></div>
       </section>
-      <section class="books" id="books" aria-label="五本书的读书笔记">
+      <section class="books" id="books" aria-label="六本书的读书笔记">
         <article class="book stochastic" aria-labelledby="stochastic-title">
           <div class="cover" aria-hidden="true">
             <div class="cover-top"><span>RICHARD DURRETT</span><span>01</span></div>
@@ -94,7 +94,7 @@
           <div class="cover" aria-hidden="true">
             <div class="cover-top"><span>程士宏 / CHENG SHIHONG</span><span>05</span></div>
             <p class="cover-title">测度论与<br>概率论基础</p>
-            <svg class="cover-diagram" viewBox="0 0 300 90"><rect x="20" y="16" width="260" height="58" rx="3"/><path d="M85 16v58m65-58v58m65-58v58"/><text x="52" y="51">A₁</text><text x="117" y="51">A₂</text><text x="182" y="51">A₃</text><text x="247" y="51">A₄</text></svg>
+            <svg class="cover-diagram" viewBox="0 0 300 90"><rect x="20" y="16" width="260" height="58" rx="3"/><path d="M85 16v58m65-58v58m65-58v58"/><text x="52" y="51">A<tspan baseline-shift="sub" font-size="70%">1</tspan></text><text x="117" y="51">A<tspan baseline-shift="sub" font-size="70%">2</tspan></text><text x="182" y="51">A<tspan baseline-shift="sub" font-size="70%">3</tspan></text><text x="247" y="51">A<tspan baseline-shift="sub" font-size="70%">4</tspan></text></svg>
             <div class="cover-bottom"><span>可测 · 积分 · 极限</span><span>北京大学出版社 / 2004</span></div>
           </div>
           <div class="book-body">
@@ -104,6 +104,22 @@
             <p class="book-scope"><strong>8</strong> 页笔记 <i aria-hidden="true">/</i> <strong>170</strong> 道习题 <i aria-hidden="true">/</i> 全六章伴读：总览、序言与第 1—6 章</p>
             <ul class="topics" aria-label="当前主题"><li>可测结构</li><li>外测度与扩张</li><li>收敛方式</li><li>C/Python 模型</li></ul>
             <div class="book-actions"><a class="read-button" href="measure-probability/notes/book_overview.html">进入测度与概率笔记 <span aria-hidden="true">↗</span></a><a class="start-link" href="measure-probability/notes/preface.html">从序言开始 →</a></div>
+          </div>
+        </article>
+        <article class="book eopl" aria-labelledby="eopl-title">
+          <div class="cover" aria-hidden="true">
+            <div class="cover-top"><span>FRIEDMAN / WAND</span><span>06</span></div>
+            <p class="cover-title">Essentials of<br>Programming<br>Languages</p>
+            <svg class="cover-diagram" viewBox="0 0 300 90"><rect x="14" y="20" width="76" height="50" rx="10"/><rect x="112" y="20" width="76" height="50" rx="10"/><rect x="210" y="20" width="76" height="50" rx="10"/><path d="M90 45h22m76 0h22"/><text x="52" y="50">AST</text><text x="150" y="50">ENV</text><text x="248" y="50">VALUE</text></svg>
+            <div class="cover-bottom"><span>规则 · 环境 · 解释器</span><span>THIRD EDITION</span></div>
+          </div>
+          <div class="book-body">
+            <p class="book-meta">程序设计语言 <span>Friedman / Wand · 第三版</span></p>
+            <h2 id="eopl-title"><a href="eopl/notes/book_overview.html">程序设计语言要义</a></h2>
+            <p class="book-description">先看清九章的学习路线，再用一个可以运行的闭包例子，理解词法作用域怎样决定程序的结果。</p>
+            <p class="book-scope"><strong>2</strong> 页笔记 <i aria-hidden="true">/</i> 全书地图与序言 <i aria-hidden="true">/</i> 习题 0.1 与闭包实验</p>
+            <ul class="topics" aria-label="当前主题"><li>全书路线</li><li>环境与闭包</li><li>词法作用域</li><li>Python 实验</li></ul>
+            <div class="book-actions"><a class="read-button" href="eopl/notes/book_overview.html">进入 EOPL 笔记 <span aria-hidden="true">↗</span></a><a class="start-link" href="eopl/notes/preface.html">从导读开始 →</a></div>
           </div>
         </article>
       </section>

@@ -6,6 +6,7 @@ class Statements(HTMLParser):
     def __init__(self, text):
         super().__init__(convert_charrefs=True)
         self.stack, self.rows, self.current, self.marker = [], {}, None, None
+        self.math_label_depth = None
         self.feed(text)
         self.close()
 
@@ -22,6 +23,11 @@ class Statements(HTMLParser):
                 raise ValueError('quotation status outside statement or nested')
             self.marker = {'depth': len(self.stack), 'status': attrs['data-source-status'], 'text': ''}
             self.current['markers'].append(self.marker)
+        if tag == 'math' and self.marker is not None and attrs.get('aria-label'):
+            # Preserve the exact quoted spelling of indices and spacing while
+            # the presentation uses structured MathML.
+            self.marker['text'] += attrs['aria-label']
+            self.math_label_depth = len(self.stack)
         if tag not in {'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'}:
             self.stack.append(tag)
 
@@ -30,13 +36,15 @@ class Statements(HTMLParser):
             return
         depth = len(self.stack) - 1 - self.stack[::-1].index(tag)
         self.stack = self.stack[:depth]
+        if self.math_label_depth is not None and depth == self.math_label_depth:
+            self.math_label_depth = None
         if self.marker is not None and depth == self.marker['depth']:
             self.marker = None
         if self.current is not None and depth == self.current['depth']:
             self.current = None
 
     def handle_data(self, text):
-        if self.marker is not None:
+        if self.marker is not None and self.math_label_depth is None and 'annotation' not in self.stack:
             self.marker['text'] += text
 
 

@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "issue": "I044",
+  "book": "eopl",
+  "recorded_at_utc": "2026-10-20T16:51:57.632362+00:00",
+  "status": "Go",
+  "scope": "Existing map and preface only, including exercise 0.1 and original closure demonstration. Local publication acceptance; server release is recorded separately in T044.",
+  "baseline_ref": "7e9d2ea",
+  "baseline_kind": "retained_source_archive; not a prior production release",
+  "pages": 2,
+  "parity_differences": [],
+  "open_findings": [],
+  "external_requests": [],
+  "js_views": 16,
+  "no_js_views": 8,
+  "evidence_sha256": {
+    "tmp/reading-notes-migration/browser/eopl/runs/2026-10-20T16-50-23-585Z-960a1660/report.json": "191128d5d239099d0c0c4fe20d3598fc092cc09e32aa346458dafbb0fdc3f47e",
+    "tmp/typography-20261020/eopl-full/report.json": "f6c98d3f772f5f7d3afea6099733f48636ac30398cb4b5de7f38464c9aff6fdc",
+    "tmp/typography-20261020/fonts-and-visuals.json": "31050b79de7f9cb272c4c4cf3b5e338cc2609ae7504b63277846590cffda6fa1"
+  },
+  "current_source_sha256": {
+    "eopl/notes/book_overview.html": "eb5e6c0f3f7bb09389c724ad455781213a3e7058daf083c08d30c0beda45f52a",
+    "eopl/notes/preface.html": "2e72ad12c9d56092119a8d38daeb4bcc53f9e7c326866ffa340db581114ac0ca"
+  },
+  "current_output_sha256": {
+    "eopl/notes/book_overview.html": "273fa4de3af04c959f971d5dfca9d15668096384d2295e64d7c0ecdb0ac0bd0c",
+    "eopl/notes/preface.html": "7add7badfe7cd56cbe9bcd63301ba90ca8a11370ddde3298ecb44ab6beed9491"
+  },
+  "visual_review": "EOPL environment diagram, fourth-step variables and 1440/390 reading screenshots inspected. Four viewport offline navigation and desktop/mobile no-JS tests passed. No physical-device or screen-reader claim."
+}

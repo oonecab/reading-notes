@@ -1,0 +1,802 @@
+{
+  "issue": "I044",
+  "status": "locally_verified_publication_pending",
+  "baseline_git": "7e9d2ea",
+  "scope": "58 reading pages across six registered books; EOPL publishes only the existing map/preface. Font, mathematical notation, SVG appearance and EOPL environment/dependency layout.",
+  "source_sha256": {
+    "csapp/notes/book_overview.html": "81b614b433a5e9f4713ff2c45fa45986d4e0daa0027e6e5d5605b4ec2345152d",
+    "csapp/notes/chapter01_tour.html": "1679976a0e83981c044e770858183cf38e36d3c8137419c9c30780d679994297",
+    "csapp/notes/chapter02_information.html": "faf3b76796f1fd211a1c70a6edc20a9fe61c0a2c9de2cdafa58452b71e1c9102",
+    "csapp/notes/chapter03_machine_level.html": "4456f7233385f833ab1731cbd9fbcfe3d0ed6a86f881cdf1e7ed3740f38b413c",
+    "csapp/notes/chapter04_architecture.html": "2fd23fd9315fd012f27a5543e46a673617ec82b08e96d03631713027d5f16800",
+    "csapp/notes/chapter05_optimization.html": "420a86592b871b818b512af38611d90028d2591d58913c081df83ee34ffa4273",
+    "csapp/notes/chapter06_memory.html": "7a05d5d0bbe994ace048ffdb0fdf7921c9f8f0bc63cf0098bc7da2a1bf3d13ff",
+    "csapp/notes/chapter07_linking.html": "fe73d5197eae7c07faf4477dd2220d60dd1bfcbb0ea3488b7dc1fcd9d717d2c1",
+    "csapp/notes/chapter08_exceptional.html": "c9e5c9e4f0577d47a3237dfe8bc465a7037e550b4a6eb2186a65b23d69390524",
+    "csapp/notes/chapter09_virtual_memory.html": "6db86e3e79fa542947d6e8e68a5d38fc0c114cc95c8a6b4d33fab43c9d2e25ea",
+    "csapp/notes/chapter10_system_io.html": "053c3b5a0b61eb83796ee6414316035c26a1072c9ef50de5833e52f2eda1aeaa",
+    "csapp/notes/chapter11_network.html": "95777b42ebb4dd369b2d8c7ba8f4be5b4122e018df315c5c31ab569e2c199bf6",
+    "csapp/notes/chapter12_concurrency.html": "7e45bda46ff74ce950704d90dbae48f7fc7913ca9465ad6820717d68c67ed013",
+    "csapp/notes/preface.html": "7d7e256b4dcf50d97b87289d8c30d97fc6fa6e3bcf707250f9523a9716816461",
+    "eopl/notes/book_overview.html": "eb5e6c0f3f7bb09389c724ad455781213a3e7058daf083c08d30c0beda45f52a",
+    "eopl/notes/preface.html": "2e72ad12c9d56092119a8d38daeb4bcc53f9e7c326866ffa340db581114ac0ca",
+    "measure-probability/notes/book_overview.html": "ca6381da2e236ddadb394b421057ecf7aed739c3df9506caa4f247a3e0800540",
+    "measure-probability/notes/chapter01_measurable_spaces.html": "fa3e8291728294b61e46ee9247f3f0071608f4a187ab4622779886caef06f98d",
+    "measure-probability/notes/chapter02_measure_spaces.html": "1543bed43a4aa248f8c92242aa4e4c4943b09f549c229cb9177507e2df80a9f8",
+    "measure-probability/notes/chapter03_integration.html": "56fff149ae922933ebc2e5aae473d596b9079fd64c641db863a8545d8b036479",
+    "measure-probability/notes/chapter04_signed_measures.html": "bdb442cc591385ec9cf4ec75522481c41434dc99af03f673fffae8d778454296",
+    "measure-probability/notes/chapter05_product_spaces.html": "87425f9dc26fade18202e81fdadd871509dc59ae5048603b8a0233cabd6bf243",
+    "measure-probability/notes/chapter06_independent_sequences.html": "6acdd6b49dcc53943b29c5142fe47c75da81d7dbf6fd26ad3a5818cef1bf3df2",
+    "measure-probability/notes/preface.html": "a0125c46ce7c4a3d95488d87ed20c58b65c89b4e1580d47ff309cb03dfa83257",
+    "stochastic/notes/appendix_a_probability_review.html": "00d0f8c2696366b6194cb2a2d5b958d1543cc25abc91370ff5e12bcc98dae6df",
+    "stochastic/notes/book_overview.html": "ac30c6771e577dba995544fb7e87d2e1aabdd8f7e58466101b955a38342243f8",
+    "stochastic/notes/chapter01_markov_chains.html": "3cded9b59bcf5c2e15d792309ad91fa1392c702f3012598a73d682caf3c64476",
+    "stochastic/notes/chapter02_poisson_processes.html": "7ac368f82fe741131826ef285cda1b3325b8b47a3a1ff26205c0342ad1537a3d",
+    "stochastic/notes/chapter03_renewal_processes.html": "d08ef794173e91f4ed89f22bb0917208721d44a9703cbd80c8aa23b35eca83fc",
+    "stochastic/notes/chapter04_continuous_time_markov_chains.html": "cf7a134159077adba2652c395bef4bc5e73d1d1cc9e8ba51259ccb6201ffcf25",
+    "stochastic/notes/chapter05_martingales.html": "06589ff802eea608eb34f1892374359c7e8644478bdc7e5399e2830aa780d171",
+    "stochastic/notes/chapter06_mathematical_finance.html": "e938695ba217a9793d28d758bcd065cda61ca585baf304c057e511a22c359e88",
+    "stochastic/notes/preface.html": "dab5947cde1e7fb377d20fb988c86187e35134823c18fc70b158cd234a5a11bc",
+    "visual-group-theory/notes/book_overview.html": "c078eb0e6e6931488f721403f571fd959ed32ae36264d561ee861a80868f466d",
+    "visual-group-theory/notes/chapter01_what_is_a_group.html": "d9686e9ee04a91141426a919459c08e88f2b712dce3ae3c677cc14fcef1e7df0",
+    "visual-group-theory/notes/chapter02_what_do_groups_look_like.html": "80da92f4834687fa1cfcdbf0bbe3c8912fcb129738cc983c9898a0de4747a6cb",
+    "visual-group-theory/notes/chapter03_why_study_groups.html": "3d5a40e93ed6f2a89974cbe41d89f860cc3eb360e805ec50588eb63a94b91a25",
+    "visual-group-theory/notes/chapter04_algebra_at_last.html": "f3f62c4bfb8fd8e23c298f0c8dcb13bfdba0060ff632d3f1f7c6c555f295d1b6",
+    "visual-group-theory/notes/chapter05_five_families.html": "32e178e6bb009f548224429a601b8cfc667831cc4dc4f190f0c98cf967d312fe",
+    "visual-group-theory/notes/chapter06_subgroups.html": "5d50123512e31e947cd54a4b4ddc051f795765dfb3361744da4673c522f38053",
+    "visual-group-theory/notes/chapter07_products_and_quotients.html": "a3e78c8539bf5c354bdb06c564b874121158343cf1e6bcf75f05f2cbc306a8d4",
+    "visual-group-theory/notes/chapter08_homomorphisms.html": "a8190275788373629dfe57afbd3b0c59ed6db4a78c84803ae92cf64ad041b38a",
+    "visual-group-theory/notes/chapter09_sylow_theory.html": "f4518e0932a9c1e9063a08b97b03f29f78002d2b73a7230a562ef7be6de4982c",
+    "visual-group-theory/notes/chapter10_galois_theory.html": "a61786054f433c76ab3eee64615fb97277811d56b6954d58d6295f73faa5a2a7",
+    "visual-group-theory/notes/preface.html": "b9aa002d083646cbfb7278ec4deae3b2f9c96d224a16d3ef3b9040728f6898c2",
+    "weiss/notes/book_overview.html": "2ceceae60439c120bb16efe04e71df8a311df36ff3331842942265051fa42a62",
+    "weiss/notes/chapter01_introduction.html": "37f12e4fdf2755bbd5af5d87a53134ba736f80ea3d611776eb2fff33c24ee9f8",
+    "weiss/notes/chapter02_algorithm_analysis.html": "243de3ff9ab5ec82aeb7d5727145c60db46d7e05a8bedba4f7d878de71b2708a",
+    "weiss/notes/chapter03_lists_stacks_queues.html": "996373eda54bd2bfc14a6717b7afe7ebe521998f216b282eaf1f2739b18d741d",
+    "weiss/notes/chapter04_trees.html": "d2bc17f367f1609be619091c51388cddde6836b3d18b9b166ba79aa188aa3f1a",
+    "weiss/notes/chapter05_priority_queues.html": "54930cf231eb6c277de6ea8a215432d52b12f342eb3fda2f6328665505fd6e18",
+    "weiss/notes/chapter06_sorting.html": "89a2bfde18220730faf9595e56f1a3d050e0332da13482afc02f9e7f512cdb6d",
+    "weiss/notes/chapter07_hashing.html": "049ccedca934d3ffc4e55ce95520091ba4450c61979437323d046abc95ffff62",
+    "weiss/notes/chapter08_disjoint_sets.html": "c6263ecd8628d5d0521bba95150ac9f2347914a4700610c76c3d4a296d8c60ea",
+    "weiss/notes/chapter09_graph_algorithms.html": "72ec260dd56952dbde5f5209bb241cfb37c8ffc92f0816e0255d915060ca5d37",
+    "weiss/notes/chapter10_algorithm_design.html": "b646268c7ee98d9c128b1f588fea5587297253cc440b446762de92d66d3fec86",
+    "weiss/notes/chapter11_amortized_analysis.html": "c7f1d45757f9810f41ef2ef1499c22d718fbfa4feabec88d6edc51e83829aec8",
+    "weiss/notes/chapter12_advanced_data_structures.html": "4c207d27028d5c32c716d78f0f1691f3a519e1eed86130b3993ab2ffe5e90b5b"
+  },
+  "output_sha256": {
+    "measure-probability/notes/book_overview.html": "aac633aa108885cad18277b1beab7f1b1207b00b6085d004857de3a6987c1296",
+    "measure-probability/notes/chapter01_measurable_spaces.html": "d20ce5eec16c1c4a125e2c2ad683c7ef443a7dfefbaa22900e6108cdd62203a8",
+    "measure-probability/notes/chapter02_measure_spaces.html": "518891913c43c41f60f9a8cbaaf979f01dd0324683e8c0344fea65cdcd6147e8",
+    "measure-probability/notes/chapter03_integration.html": "83c36546d6beb6eba110e80d511b615e0ad6d2a9d3c4e57b8288e6caedc200dd",
+    "measure-probability/notes/chapter04_signed_measures.html": "c938930568d36892b6c3eb93563992be7340509a936bc2424d95e39f3367449a",
+    "measure-probability/notes/chapter05_product_spaces.html": "fbd11ab47cab53d4d0c1c1c33202c0b1485966abe36e293585a6e0288458fe8b",
+    "measure-probability/notes/chapter06_independent_sequences.html": "a02d0ed204524a9c6d9910424141059d45871ea68f6e2aba9dce8aab609a911a",
+    "measure-probability/notes/preface.html": "f66e80c33c83f327d40b3e1719367332ceee12873ef5a981c072811a6e89790b",
+    "visual-group-theory/notes/book_overview.html": "362a9f6351e2520b7af0c2be92782055f9fbac7f3258c82c52a36c309972b64e",
+    "visual-group-theory/notes/chapter01_what_is_a_group.html": "88acede4647b00e3c25e1eae7cd849cd367edc385255f6f65ae42aa3223ff341",
+    "visual-group-theory/notes/chapter02_what_do_groups_look_like.html": "7f6b90aff3d0d28dd64e37231e342ee17d4563fc88098e11b1f60177ac01590c",
+    "visual-group-theory/notes/chapter03_why_study_groups.html": "1ce779677e54a0927e39a29736dd506b450a99dc8fafb76c59c69693a33b8c1a",
+    "visual-group-theory/notes/chapter04_algebra_at_last.html": "4498392251b5f42d97349495444690d91448f7199216445fa015ad1953160c24",
+    "visual-group-theory/notes/chapter05_five_families.html": "c94d2b11a551c6a2bfd70c8893feef87458d74e7e3ff1556c93603d7dd8a3f69",
+    "visual-group-theory/notes/chapter06_subgroups.html": "ea1bc9c65afe30279b9c6ebae04d2d59ae128c3664d8e364b40c7598771d5cc2",
+    "visual-group-theory/notes/chapter07_products_and_quotients.html": "155a7027b229dac14e67aae1dabece6929c968ae3a40f7a89a14e43e516c4af8",
+    "visual-group-theory/notes/chapter08_homomorphisms.html": "1a889376f6a1051c2ae78cc3f6694fefb09988b4dbb6e5528aed356f198b2031",
+    "visual-group-theory/notes/chapter09_sylow_theory.html": "520bc92d65eff2cbf047f2a12818a61ce4b92eb02994fa03a4b0beff010e134a",
+    "visual-group-theory/notes/chapter10_galois_theory.html": "7680e37b8403dfb340595614265fa754bb2c5c3c235bcb52908bec4dd93b6ca1",
+    "visual-group-theory/notes/preface.html": "12524b40da8ffb29b2d34f2cd11404a8a4902989128e46b32721d119d5499878",
+    "stochastic/notes/appendix_a_probability_review.html": "92ccfa9e7bf162cca6347568056f8bf06ad3d87be024269e21c8fe00652353c1",
+    "stochastic/notes/book_overview.html": "8441c7265739af69a39d9139cd93d1f5a5c74c1031b04e1698e823f4769cb255",
+    "stochastic/notes/chapter01_markov_chains.html": "ead0058e4fe419652839b5a5b20c10a60fa71883a9d90700cd52c52b0990be31",
+    "stochastic/notes/chapter02_poisson_processes.html": "1d1c7270baf45e758ea1243303a36b8717a839ae414523f0231ac182293006fa",
+    "stochastic/notes/chapter03_renewal_processes.html": "29b914ee9b864ec2317ef732762d1ce1af58fb079638d721aa39ca0f4fa0d82d",
+    "stochastic/notes/chapter04_continuous_time_markov_chains.html": "3388e7dff83564436ed3a3e0db422306a1cfe3dd0d9035a970bdd1b221f24bd7",
+    "stochastic/notes/chapter05_martingales.html": "59a4dcfe238eaa6e545a737472a323ee5d11561bb39bbfcd7b50c46b4dffff22",
+    "stochastic/notes/chapter06_mathematical_finance.html": "33267432287baad3e8610969e9ebbcaa4678327174be5e5e0502ee79d64c5b3e",
+    "stochastic/notes/preface.html": "1ee31f9f62f3ed2c5706d2a4bfd0c0ceaa4cfe7564fea796012e9bbb1daff44c",
+    "weiss/notes/book_overview.html": "f7aa46026e5d8560912bf9cf5377612e7a4f41c664536e72f0038de605905d25",
+    "weiss/notes/chapter01_introduction.html": "e10b6db720c79e96793f4e29f2e3d889d91553637c5eedcd2d22eb72b1b3256a",
+    "weiss/notes/chapter02_algorithm_analysis.html": "0993c0d6f519296cadc7e2d4dd46419802e71813bd5b933d4edc5322f78deac1",
+    "weiss/notes/chapter03_lists_stacks_queues.html": "e96f41940de52de3e736ce6bc77c51750dd7e9b429a67e8c922e490e64d05dee",
+    "weiss/notes/chapter04_trees.html": "cc5e6de3c58d3e8c4d5b1f2dcab6f48fe473218b06a0771dd919e09d20b93463",
+    "weiss/notes/chapter05_priority_queues.html": "c71d06720e7749a89cdb3898528888416d0e6c6b5de5be8658b80127da0ea41d",
+    "weiss/notes/chapter06_sorting.html": "bf2cd92987fa4ce10c2fb1bd106905a1f79a1909acce748cc7f6467116197af6",
+    "weiss/notes/chapter07_hashing.html": "2d5f6858f57107f834847f21caecc8f5e16de7c83cad9c95c0563c365d77ff36",
+    "weiss/notes/chapter08_disjoint_sets.html": "fdf3d14048b84343912cd61c586742d582bdb3df931dcb1827b9545e5b55216a",
+    "weiss/notes/chapter09_graph_algorithms.html": "e1d67cec6c95b80cdccda222bdfb6ca63d008e6531989e0d815c257b33ca805e",
+    "weiss/notes/chapter10_algorithm_design.html": "8b9b154dce8cd8bcfb7d4d7209f2f30b34fd214a6719016295f81da00e758552",
+    "weiss/notes/chapter11_amortized_analysis.html": "df0a25e322020b69869fdf9f6997eabbcf8111c7778cb3b3aaddf7c7127f3cdc",
+    "weiss/notes/chapter12_advanced_data_structures.html": "90bf6a6096b0f1ba0573632a9f3ec5c8862079c4f45b69884c181d8de12d3c45",
+    "csapp/notes/book_overview.html": "705a4f2542e32ffcf81c2effa8ffb04529efcb192429ae06cf037f1d3bd61e3e",
+    "csapp/notes/chapter01_tour.html": "f31ee52569fb5513f6650504d9b4182d97cc69b993185717995153a696261feb",
+    "csapp/notes/chapter02_information.html": "3bccef9ea71d5137eb2e036e1c884c7734e800b9b6c015178aaf367541d0061e",
+    "csapp/notes/chapter03_machine_level.html": "9bbab4d4fd56dc3b942d1388db9b638e23c1c97ccdea17624171a34215cae670",
+    "csapp/notes/chapter04_architecture.html": "bbab37f8df8212c303ce56a26d63b978ba88333054a509ca43ab4f877e2f62b6",
+    "csapp/notes/chapter05_optimization.html": "bf909299e5752d8568e5d4c6f063d4d636bbdcfc465207af46e05c7172ce8382",
+    "csapp/notes/chapter06_memory.html": "01c32edf711767eea3d291386c1998041626547d65cb0371e535b3f05190b736",
+    "csapp/notes/chapter07_linking.html": "882c769aef7def1fae28dc5a25d83a15484333b29b113e2904d8c965d935b558",
+    "csapp/notes/chapter08_exceptional.html": "572806b1a8aa589afda6aa89d70fb41ea4ddb2f3a35aae35c328ff9854db5be4",
+    "csapp/notes/chapter09_virtual_memory.html": "d516289255b54981b6db53748fb1f67e438b7c2620c675556fc52a0e7e1d8d77",
+    "csapp/notes/chapter10_system_io.html": "66c17468cb756398827b8b81a982d08b0d578f74007f53a7d2b086038cec37e6",
+    "csapp/notes/chapter11_network.html": "817b94d7ae5ed9eb24427492c9696b23e0740111ee99d470772c6b9ad5b44c19",
+    "csapp/notes/chapter12_concurrency.html": "588024263db507d60f4728a9e073a75ce60d66d04e97246e703860150a4b11b9",
+    "csapp/notes/preface.html": "3965e34d8c370bc8db4a86ec8be950c1fff81e32219a1392f5505507e63abf45",
+    "eopl/notes/book_overview.html": "273fa4de3af04c959f971d5dfca9d15668096384d2295e64d7c0ecdb0ac0bd0c",
+    "eopl/notes/preface.html": "7add7badfe7cd56cbe9bcd63301ba90ca8a11370ddde3298ecb44ab6beed9491"
+  },
+  "limitations": [
+    "Times New Roman is selected from the reader device; no proprietary font is redistributed. Devices without it use the declared local fallback.",
+    "Native MathML operators retain mathematical-font fallback where Times New Roman lacks the glyph.",
+    "No physical handset, Safari, Firefox or screen-reader execution claimed.",
+    "CS:APP 12.39 real browser through the proxy remains outside this typography verification."
+  ],
+  "preservation": {
+    "status": "passed",
+    "baseline": "7e9d2ea",
+    "pages": [
+      {
+        "page": "measure-probability/notes/book_overview.html",
+        "source_sha256": "ca6381da2e236ddadb394b421057ecf7aed739c3df9506caa4f247a3e0800540",
+        "pre_blocks": 1,
+        "original_math": 8,
+        "original_math_preserved": 8,
+        "restructured_math": 0,
+        "new_math": 24,
+        "svg_count": 1
+      },
+      {
+        "page": "measure-probability/notes/chapter01_measurable_spaces.html",
+        "source_sha256": "fa3e8291728294b61e46ee9247f3f0071608f4a187ab4622779886caef06f98d",
+        "pre_blocks": 4,
+        "original_math": 293,
+        "original_math_preserved": 286,
+        "restructured_math": 7,
+        "new_math": 544,
+        "svg_count": 0
+      },
+      {
+        "page": "measure-probability/notes/chapter02_measure_spaces.html",
+        "source_sha256": "1543bed43a4aa248f8c92242aa4e4c4943b09f549c229cb9177507e2df80a9f8",
+        "pre_blocks": 0,
+        "original_math": 366,
+        "original_math_preserved": 364,
+        "restructured_math": 2,
+        "new_math": 1221,
+        "svg_count": 1
+      },
+      {
+        "page": "measure-probability/notes/chapter03_integration.html",
+        "source_sha256": "56fff149ae922933ebc2e5aae473d596b9079fd64c641db863a8545d8b036479",
+        "pre_blocks": 3,
+        "original_math": 952,
+        "original_math_preserved": 880,
+        "restructured_math": 72,
+        "new_math": 19,
+        "svg_count": 1
+      },
+      {
+        "page": "measure-probability/notes/chapter04_signed_measures.html",
+        "source_sha256": "bdb442cc591385ec9cf4ec75522481c41434dc99af03f673fffae8d778454296",
+        "pre_blocks": 0,
+        "original_math": 1089,
+        "original_math_preserved": 1070,
+        "restructured_math": 19,
+        "new_math": 76,
+        "svg_count": 1
+      },
+      {
+        "page": "measure-probability/notes/chapter05_product_spaces.html",
+        "source_sha256": "87425f9dc26fade18202e81fdadd871509dc59ae5048603b8a0233cabd6bf243",
+        "pre_blocks": 2,
+        "original_math": 369,
+        "original_math_preserved": 352,
+        "restructured_math": 17,
+        "new_math": 311,
+        "svg_count": 1
+      },
+      {
+        "page": "measure-probability/notes/chapter06_independent_sequences.html",
+        "source_sha256": "6acdd6b49dcc53943b29c5142fe47c75da81d7dbf6fd26ad3a5818cef1bf3df2",
+        "pre_blocks": 0,
+        "original_math": 602,
+        "original_math_preserved": 546,
+        "restructured_math": 56,
+        "new_math": 577,
+        "svg_count": 1
+      },
+      {
+        "page": "measure-probability/notes/preface.html",
+        "source_sha256": "a0125c46ce7c4a3d95488d87ed20c58b65c89b4e1580d47ff309cb03dfa83257",
+        "pre_blocks": 0,
+        "original_math": 0,
+        "original_math_preserved": 0,
+        "restructured_math": 0,
+        "new_math": 0,
+        "svg_count": 0
+      },
+      {
+        "page": "visual-group-theory/notes/book_overview.html",
+        "source_sha256": "c078eb0e6e6931488f721403f571fd959ed32ae36264d561ee861a80868f466d",
+        "pre_blocks": 0,
+        "original_math": 1,
+        "original_math_preserved": 1,
+        "restructured_math": 0,
+        "new_math": 7,
+        "svg_count": 1
+      },
+      {
+        "page": "visual-group-theory/notes/chapter01_what_is_a_group.html",
+        "source_sha256": "d9686e9ee04a91141426a919459c08e88f2b712dce3ae3c677cc14fcef1e7df0",
+        "pre_blocks": 3,
+        "original_math": 11,
+        "original_math_preserved": 11,
+        "restructured_math": 0,
+        "new_math": 195,
+        "svg_count": 2
+      },
+      {
+        "page": "visual-group-theory/notes/chapter02_what_do_groups_look_like.html",
+        "source_sha256": "80da92f4834687fa1cfcdbf0bbe3c8912fcb129738cc983c9898a0de4747a6cb",
+        "pre_blocks": 3,
+        "original_math": 13,
+        "original_math_preserved": 12,
+        "restructured_math": 1,
+        "new_math": 302,
+        "svg_count": 13
+      },
+      {
+        "page": "visual-group-theory/notes/chapter03_why_study_groups.html",
+        "source_sha256": "3d5a40e93ed6f2a89974cbe41d89f860cc3eb360e805ec50588eb63a94b91a25",
+        "pre_blocks": 3,
+        "original_math": 14,
+        "original_math_preserved": 11,
+        "restructured_math": 3,
+        "new_math": 302,
+        "svg_count": 22
+      },
+      {
+        "page": "visual-group-theory/notes/chapter04_algebra_at_last.html",
+        "source_sha256": "f3f62c4bfb8fd8e23c298f0c8dcb13bfdba0060ff632d3f1f7c6c555f295d1b6",
+        "pre_blocks": 4,
+        "original_math": 20,
+        "original_math_preserved": 17,
+        "restructured_math": 3,
+        "new_math": 1801,
+        "svg_count": 5
+      },
+      {
+        "page": "visual-group-theory/notes/chapter05_five_families.html",
+        "source_sha256": "32e178e6bb009f548224429a601b8cfc667831cc4dc4f190f0c98cf967d312fe",
+        "pre_blocks": 3,
+        "original_math": 34,
+        "original_math_preserved": 27,
+        "restructured_math": 7,
+        "new_math": 1142,
+        "svg_count": 25
+      },
+      {
+        "page": "visual-group-theory/notes/chapter06_subgroups.html",
+        "source_sha256": "5d50123512e31e947cd54a4b4ddc051f795765dfb3361744da4673c522f38053",
+        "pre_blocks": 3,
+        "original_math": 23,
+        "original_math_preserved": 23,
+        "restructured_math": 0,
+        "new_math": 882,
+        "svg_count": 23
+      },
+      {
+        "page": "visual-group-theory/notes/chapter07_products_and_quotients.html",
+        "source_sha256": "a3e78c8539bf5c354bdb06c564b874121158343cf1e6bcf75f05f2cbc306a8d4",
+        "pre_blocks": 3,
+        "original_math": 42,
+        "original_math_preserved": 38,
+        "restructured_math": 4,
+        "new_math": 1057,
+        "svg_count": 38
+      },
+      {
+        "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+        "source_sha256": "a8190275788373629dfe57afbd3b0c59ed6db4a78c84803ae92cf64ad041b38a",
+        "pre_blocks": 3,
+        "original_math": 48,
+        "original_math_preserved": 44,
+        "restructured_math": 4,
+        "new_math": 1446,
+        "svg_count": 25
+      },
+      {
+        "page": "visual-group-theory/notes/chapter09_sylow_theory.html",
+        "source_sha256": "f4518e0932a9c1e9063a08b97b03f29f78002d2b73a7230a562ef7be6de4982c",
+        "pre_blocks": 3,
+        "original_math": 80,
+        "original_math_preserved": 80,
+        "restructured_math": 0,
+        "new_math": 808,
+        "svg_count": 16
+      },
+      {
+        "page": "visual-group-theory/notes/chapter10_galois_theory.html",
+        "source_sha256": "a61786054f433c76ab3eee64615fb97277811d56b6954d58d6295f73faa5a2a7",
+        "pre_blocks": 3,
+        "original_math": 101,
+        "original_math_preserved": 98,
+        "restructured_math": 3,
+        "new_math": 1386,
+        "svg_count": 28
+      },
+      {
+        "page": "visual-group-theory/notes/preface.html",
+        "source_sha256": "b9aa002d083646cbfb7278ec4deae3b2f9c96d224a16d3ef3b9040728f6898c2",
+        "pre_blocks": 0,
+        "original_math": 0,
+        "original_math_preserved": 0,
+        "restructured_math": 0,
+        "new_math": 16,
+        "svg_count": 0
+      },
+      {
+        "page": "stochastic/notes/appendix_a_probability_review.html",
+        "source_sha256": "00d0f8c2696366b6194cb2a2d5b958d1543cc25abc91370ff5e12bcc98dae6df",
+        "pre_blocks": 0,
+        "original_math": 379,
+        "original_math_preserved": 348,
+        "restructured_math": 31,
+        "new_math": 468,
+        "svg_count": 0
+      },
+      {
+        "page": "stochastic/notes/book_overview.html",
+        "source_sha256": "ac30c6771e577dba995544fb7e87d2e1aabdd8f7e58466101b955a38342243f8",
+        "pre_blocks": 1,
+        "original_math": 28,
+        "original_math_preserved": 27,
+        "restructured_math": 1,
+        "new_math": 11,
+        "svg_count": 1
+      },
+      {
+        "page": "stochastic/notes/chapter01_markov_chains.html",
+        "source_sha256": "3cded9b59bcf5c2e15d792309ad91fa1392c702f3012598a73d682caf3c64476",
+        "pre_blocks": 2,
+        "original_math": 5159,
+        "original_math_preserved": 5094,
+        "restructured_math": 65,
+        "new_math": 1103,
+        "svg_count": 1
+      },
+      {
+        "page": "stochastic/notes/chapter02_poisson_processes.html",
+        "source_sha256": "7ac368f82fe741131826ef285cda1b3325b8b47a3a1ff26205c0342ad1537a3d",
+        "pre_blocks": 2,
+        "original_math": 1425,
+        "original_math_preserved": 1341,
+        "restructured_math": 84,
+        "new_math": 712,
+        "svg_count": 1
+      },
+      {
+        "page": "stochastic/notes/chapter03_renewal_processes.html",
+        "source_sha256": "d08ef794173e91f4ed89f22bb0917208721d44a9703cbd80c8aa23b35eca83fc",
+        "pre_blocks": 2,
+        "original_math": 633,
+        "original_math_preserved": 606,
+        "restructured_math": 27,
+        "new_math": 490,
+        "svg_count": 1
+      },
+      {
+        "page": "stochastic/notes/chapter04_continuous_time_markov_chains.html",
+        "source_sha256": "cf7a134159077adba2652c395bef4bc5e73d1d1cc9e8ba51259ccb6201ffcf25",
+        "pre_blocks": 2,
+        "original_math": 1412,
+        "original_math_preserved": 1367,
+        "restructured_math": 45,
+        "new_math": 1623,
+        "svg_count": 1
+      },
+      {
+        "page": "stochastic/notes/chapter05_martingales.html",
+        "source_sha256": "06589ff802eea608eb34f1892374359c7e8644478bdc7e5399e2830aa780d171",
+        "pre_blocks": 2,
+        "original_math": 821,
+        "original_math_preserved": 782,
+        "restructured_math": 39,
+        "new_math": 745,
+        "svg_count": 1
+      },
+      {
+        "page": "stochastic/notes/chapter06_mathematical_finance.html",
+        "source_sha256": "e938695ba217a9793d28d758bcd065cda61ca585baf304c057e511a22c359e88",
+        "pre_blocks": 4,
+        "original_math": 3146,
+        "original_math_preserved": 3062,
+        "restructured_math": 84,
+        "new_math": 895,
+        "svg_count": 1
+      },
+      {
+        "page": "stochastic/notes/preface.html",
+        "source_sha256": "dab5947cde1e7fb377d20fb988c86187e35134823c18fc70b158cd234a5a11bc",
+        "pre_blocks": 0,
+        "original_math": 6,
+        "original_math_preserved": 6,
+        "restructured_math": 0,
+        "new_math": 4,
+        "svg_count": 0
+      },
+      {
+        "page": "weiss/notes/book_overview.html",
+        "source_sha256": "2ceceae60439c120bb16efe04e71df8a311df36ff3331842942265051fa42a62",
+        "pre_blocks": 1,
+        "original_math": 8,
+        "original_math_preserved": 8,
+        "restructured_math": 0,
+        "new_math": 120,
+        "svg_count": 1
+      },
+      {
+        "page": "weiss/notes/chapter01_introduction.html",
+        "source_sha256": "37f12e4fdf2755bbd5af5d87a53134ba736f80ea3d611776eb2fff33c24ee9f8",
+        "pre_blocks": 15,
+        "original_math": 166,
+        "original_math_preserved": 165,
+        "restructured_math": 1,
+        "new_math": 6,
+        "svg_count": 3
+      },
+      {
+        "page": "weiss/notes/chapter02_algorithm_analysis.html",
+        "source_sha256": "243de3ff9ab5ec82aeb7d5727145c60db46d7e05a8bedba4f7d878de71b2708a",
+        "pre_blocks": 45,
+        "original_math": 504,
+        "original_math_preserved": 498,
+        "restructured_math": 6,
+        "new_math": 55,
+        "svg_count": 5
+      },
+      {
+        "page": "weiss/notes/chapter03_lists_stacks_queues.html",
+        "source_sha256": "996373eda54bd2bfc14a6717b7afe7ebe521998f216b282eaf1f2739b18d741d",
+        "pre_blocks": 75,
+        "original_math": 493,
+        "original_math_preserved": 489,
+        "restructured_math": 4,
+        "new_math": 66,
+        "svg_count": 2
+      },
+      {
+        "page": "weiss/notes/chapter04_trees.html",
+        "source_sha256": "d2bc17f367f1609be619091c51388cddde6836b3d18b9b166ba79aa188aa3f1a",
+        "pre_blocks": 58,
+        "original_math": 824,
+        "original_math_preserved": 820,
+        "restructured_math": 4,
+        "new_math": 125,
+        "svg_count": 27
+      },
+      {
+        "page": "weiss/notes/chapter05_priority_queues.html",
+        "source_sha256": "54930cf231eb6c277de6ea8a215432d52b12f342eb3fda2f6328665505fd6e18",
+        "pre_blocks": 36,
+        "original_math": 600,
+        "original_math_preserved": 599,
+        "restructured_math": 1,
+        "new_math": 106,
+        "svg_count": 24
+      },
+      {
+        "page": "weiss/notes/chapter06_sorting.html",
+        "source_sha256": "89a2bfde18220730faf9595e56f1a3d050e0332da13482afc02f9e7f512cdb6d",
+        "pre_blocks": 29,
+        "original_math": 311,
+        "original_math_preserved": 305,
+        "restructured_math": 6,
+        "new_math": 404,
+        "svg_count": 21
+      },
+      {
+        "page": "weiss/notes/chapter07_hashing.html",
+        "source_sha256": "049ccedca934d3ffc4e55ce95520091ba4450c61979437323d046abc95ffff62",
+        "pre_blocks": 22,
+        "original_math": 269,
+        "original_math_preserved": 266,
+        "restructured_math": 3,
+        "new_math": 111,
+        "svg_count": 21
+      },
+      {
+        "page": "weiss/notes/chapter08_disjoint_sets.html",
+        "source_sha256": "c6263ecd8628d5d0521bba95150ac9f2347914a4700610c76c3d4a296d8c60ea",
+        "pre_blocks": 16,
+        "original_math": 231,
+        "original_math_preserved": 227,
+        "restructured_math": 4,
+        "new_math": 177,
+        "svg_count": 15
+      },
+      {
+        "page": "weiss/notes/chapter09_graph_algorithms.html",
+        "source_sha256": "72ec260dd56952dbde5f5209bb241cfb37c8ffc92f0816e0255d915060ca5d37",
+        "pre_blocks": 21,
+        "original_math": 270,
+        "original_math_preserved": 258,
+        "restructured_math": 12,
+        "new_math": 947,
+        "svg_count": 15
+      },
+      {
+        "page": "weiss/notes/chapter10_algorithm_design.html",
+        "source_sha256": "b646268c7ee98d9c128b1f588fea5587297253cc440b446762de92d66d3fec86",
+        "pre_blocks": 63,
+        "original_math": 358,
+        "original_math_preserved": 353,
+        "restructured_math": 5,
+        "new_math": 963,
+        "svg_count": 23
+      },
+      {
+        "page": "weiss/notes/chapter11_amortized_analysis.html",
+        "source_sha256": "c7f1d45757f9810f41ef2ef1499c22d718fbfa4feabec88d6edc51e83829aec8",
+        "pre_blocks": 19,
+        "original_math": 352,
+        "original_math_preserved": 352,
+        "restructured_math": 0,
+        "new_math": 35,
+        "svg_count": 16
+      },
+      {
+        "page": "weiss/notes/chapter12_advanced_data_structures.html",
+        "source_sha256": "4c207d27028d5c32c716d78f0f1691f3a519e1eed86130b3993ab2ffe5e90b5b",
+        "pre_blocks": 28,
+        "original_math": 209,
+        "original_math_preserved": 207,
+        "restructured_math": 2,
+        "new_math": 414,
+        "svg_count": 54
+      },
+      {
+        "page": "csapp/notes/book_overview.html",
+        "source_sha256": "81b614b433a5e9f4713ff2c45fa45986d4e0daa0027e6e5d5605b4ec2345152d",
+        "pre_blocks": 1,
+        "original_math": 0,
+        "original_math_preserved": 0,
+        "restructured_math": 0,
+        "new_math": 19,
+        "svg_count": 1
+      },
+      {
+        "page": "csapp/notes/chapter01_tour.html",
+        "source_sha256": "1679976a0e83981c044e770858183cf38e36d3c8137419c9c30780d679994297",
+        "pre_blocks": 6,
+        "original_math": 16,
+        "original_math_preserved": 16,
+        "restructured_math": 0,
+        "new_math": 81,
+        "svg_count": 4
+      },
+      {
+        "page": "csapp/notes/chapter02_information.html",
+        "source_sha256": "faf3b76796f1fd211a1c70a6edc20a9fe61c0a2c9de2cdafa58452b71e1c9102",
+        "pre_blocks": 132,
+        "original_math": 538,
+        "original_math_preserved": 533,
+        "restructured_math": 5,
+        "new_math": 1508,
+        "svg_count": 7
+      },
+      {
+        "page": "csapp/notes/chapter03_machine_level.html",
+        "source_sha256": "4456f7233385f833ab1731cbd9fbcfe3d0ed6a86f881cdf1e7ed3740f38b413c",
+        "pre_blocks": 158,
+        "original_math": 47,
+        "original_math_preserved": 47,
+        "restructured_math": 0,
+        "new_math": 1354,
+        "svg_count": 3
+      },
+      {
+        "page": "csapp/notes/chapter04_architecture.html",
+        "source_sha256": "2fd23fd9315fd012f27a5543e46a673617ec82b08e96d03631713027d5f16800",
+        "pre_blocks": 76,
+        "original_math": 10,
+        "original_math_preserved": 10,
+        "restructured_math": 0,
+        "new_math": 826,
+        "svg_count": 6
+      },
+      {
+        "page": "csapp/notes/chapter05_optimization.html",
+        "source_sha256": "420a86592b871b818b512af38611d90028d2591d58913c081df83ee34ffa4273",
+        "pre_blocks": 43,
+        "original_math": 16,
+        "original_math_preserved": 16,
+        "restructured_math": 0,
+        "new_math": 433,
+        "svg_count": 9
+      },
+      {
+        "page": "csapp/notes/chapter06_memory.html",
+        "source_sha256": "7a05d5d0bbe994ace048ffdb0fdf7921c9f8f0bc63cf0098bc7da2a1bf3d13ff",
+        "pre_blocks": 46,
+        "original_math": 21,
+        "original_math_preserved": 21,
+        "restructured_math": 0,
+        "new_math": 1023,
+        "svg_count": 4
+      },
+      {
+        "page": "csapp/notes/chapter07_linking.html",
+        "source_sha256": "fe73d5197eae7c07faf4477dd2220d60dd1bfcbb0ea3488b7dc1fcd9d717d2c1",
+        "pre_blocks": 39,
+        "original_math": 3,
+        "original_math_preserved": 0,
+        "restructured_math": 3,
+        "new_math": 357,
+        "svg_count": 0
+      },
+      {
+        "page": "csapp/notes/chapter08_exceptional.html",
+        "source_sha256": "c9e5c9e4f0577d47a3237dfe8bc465a7037e550b4a6eb2186a65b23d69390524",
+        "pre_blocks": 38,
+        "original_math": 0,
+        "original_math_preserved": 0,
+        "restructured_math": 0,
+        "new_math": 158,
+        "svg_count": 1
+      },
+      {
+        "page": "csapp/notes/chapter09_virtual_memory.html",
+        "source_sha256": "6db86e3e79fa542947d6e8e68a5d38fc0c114cc95c8a6b4d33fab43c9d2e25ea",
+        "pre_blocks": 21,
+        "original_math": 4,
+        "original_math_preserved": 4,
+        "restructured_math": 0,
+        "new_math": 419,
+        "svg_count": 3
+      },
+      {
+        "page": "csapp/notes/chapter10_system_io.html",
+        "source_sha256": "053c3b5a0b61eb83796ee6414316035c26a1072c9ef50de5833e52f2eda1aeaa",
+        "pre_blocks": 30,
+        "original_math": 0,
+        "original_math_preserved": 0,
+        "restructured_math": 0,
+        "new_math": 181,
+        "svg_count": 0
+      },
+      {
+        "page": "csapp/notes/chapter11_network.html",
+        "source_sha256": "95777b42ebb4dd369b2d8c7ba8f4be5b4122e018df315c5c31ab569e2c199bf6",
+        "pre_blocks": 28,
+        "original_math": 0,
+        "original_math_preserved": 0,
+        "restructured_math": 0,
+        "new_math": 93,
+        "svg_count": 3
+      },
+      {
+        "page": "csapp/notes/chapter12_concurrency.html",
+        "source_sha256": "7e45bda46ff74ce950704d90dbae48f7fc7913ca9465ad6820717d68c67ed013",
+        "pre_blocks": 42,
+        "original_math": 1,
+        "original_math_preserved": 1,
+        "restructured_math": 0,
+        "new_math": 423,
+        "svg_count": 9
+      },
+      {
+        "page": "csapp/notes/preface.html",
+        "source_sha256": "7d7e256b4dcf50d97b87289d8c30d97fc6fa6e3bcf707250f9523a9716816461",
+        "pre_blocks": 0,
+        "original_math": 0,
+        "original_math_preserved": 0,
+        "restructured_math": 0,
+        "new_math": 18,
+        "svg_count": 0
+      },
+      {
+        "page": "eopl/notes/book_overview.html",
+        "source_sha256": "eb5e6c0f3f7bb09389c724ad455781213a3e7058daf083c08d30c0beda45f52a",
+        "pre_blocks": 1,
+        "original_math": 0,
+        "original_math_preserved": 0,
+        "restructured_math": 0,
+        "new_math": 14,
+        "svg_count": 1
+      },
+      {
+        "page": "eopl/notes/preface.html",
+        "source_sha256": "2e72ad12c9d56092119a8d38daeb4bcc53f9e7c326866ffa340db581114ac0ca",
+        "pre_blocks": 4,
+        "original_math": 1,
+        "original_math_preserved": 1,
+        "restructured_math": 0,
+        "new_math": 56,
+        "svg_count": 1
+      }
+    ],
+    "proseDifferences": []
+  },
+  "intentional_text_changes": [
+    "EOPL scope diagram caption: saved-environment route is now described as dashed, matching the redrawn path.",
+    "Stochastic iid/Bernoulli proof notation Xi/Bi/EBi is represented as indexed X_i/B_i/E B_i."
+  ],
+  "original_math_repairs": {
+    "structured_mtext_formulas": 26,
+    "binomial_square_groupings": 3,
+    "meaning": "Explicit grouping of (5 choose i)^2; original data-tex and coefficients remain unchanged."
+  },
+  "validation": {
+    "full_check": {
+      "report": "tmp/project-check/20261021T011132-pvuzk99l/report.json",
+      "sha256": "1b643ea87629b25b32910530b805905578a77fe7ee67907628d52a42d81814a1"
+    },
+    "node_tests": {
+      "report": "tmp/typography-20261020/node-tests.log",
+      "sha256": "1b9eb1729ff14cac139e8949e70da55d9c484aff87ac736cd115016a9f552764"
+    },
+    "preservation": {
+      "report": "tmp/typography-20261020/preservation.json",
+      "sha256": "84f8d5137ba5cc1ec534198ba4eb194b7360e8c2aa47208e2d5638924017f03e"
+    },
+    "svg_preservation": {
+      "report": "tmp/typography-20261020/svg-preservation.json",
+      "sha256": "e805560e7334d67bb5cdd6da2dc3d26a8b5ecbb629c789f31a20faa6ccf00fa9"
+    },
+    "typography_static": {
+      "report": "tmp/typography-20261020/static-check.json",
+      "sha256": "6b59bc6164e40201c4dec1ffaaf48b7ef657a71b992fb2f07a69156d17324066"
+    },
+    "geometry_initial": {
+      "report": "tmp/typography-20261020/geometry.json",
+      "sha256": "9d8cd40a106f4d9f8d0df2f60fb2f0605e49bdb8d515ca83c6aa496936867d66"
+    },
+    "geometry_fixed": {
+      "report": "tmp/typography-20261020/geometry-fixed.json",
+      "sha256": "22c784426ec4154c6ae59b14ce35de065c16ab3c04d59fa370149d0ca59bab20"
+    },
+    "svg_transformed_bounds": {
+      "report": "tmp/typography-20261020/svg-transformed-bounds.json",
+      "sha256": "00be3df9aafbeabc5cfd98416751c317757ce93c14688979d9fd3b81a08def8b"
+    },
+    "fonts_and_visuals": {
+      "report": "tmp/typography-20261020/fonts-and-visuals.json",
+      "sha256": "31050b79de7f9cb272c4c4cf3b5e338cc2609ae7504b63277846590cffda6fa1"
+    },
+    "build": {
+      "report": "tmp/typography-20261020/local-build.json",
+      "sha256": "e30c122b5530e4be7e767a40ab75b3854eacf91bb35f095e19c34c8193de573e"
+    },
+    "parity": {
+      "report": "tmp/typography-20261020/local-parity.json",
+      "sha256": "30306ba38fd9f0312f2d66fcefe654b37ac822a393d9cb8f879b34ed3f514507"
+    },
+    "performance": {
+      "report": "tmp/typography-20261020/local-performance.json",
+      "sha256": "6a724adb2d66ae66470f69595410b73bc2b1cba1a12b0d050f1d6f0941f9b88e"
+    },
+    "offline": {
+      "report": "tmp/reading-notes-migration/browser/all/runs/2026-10-20T16-59-10-219Z-2453e03c/report.json",
+      "sha256": "9e67f3fe250554f99ba29fe8a411f93935abfd33425a827a4e5958cc93611b2a"
+    }
+  },
+  "validation_summary": {
+    "reading_pages": 58,
+    "public_html": 80,
+    "packaged_files_including_gzip": 511,
+    "mathml": 50986,
+    "svg": 490,
+    "unchanged_pre_blocks": 1149,
+    "node_tests": 40,
+    "root_registered_checks": 21,
+    "offline_js_views": 320,
+    "offline_no_js_views": 160,
+    "offline_external_requests": 0,
+    "actual_font_probes": 32,
+    "manual_visual_scope": "Six representative desktop pages and EOPL mobile closure example; all source pages separately checked for geometry at 1440 and 390 with details expanded."
+  },
+  "checker_adaptations": [
+    "MathML table cells are decoded from displayed presentation, excluding duplicate copy annotations; stale aria labels cannot conceal altered exponents.",
+    "The 48 elimination checks continue to execute every actual row operation; explanatory coefficients newly expressed as MathML do not become extra operations.",
+    "The wrong-value traffic mutation modifies both displayed digits and the accessible label so the same numeric failure is exercised."
+  ]
+}

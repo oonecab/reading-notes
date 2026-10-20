@@ -7,12 +7,15 @@
   "printed_end": "xix",
   "pdf_start": 10,
   "pdf_end": 20,
-  "exercise_range": ["0.1"],
+  "exercise_range": [
+    "0.1"
+  ],
   "statement_count": 0,
   "source_manifest": "books/eopl/notes/source_manifest.json",
   "route": "eopl/notes/preface.html",
   "legacy_path": "books/eopl/notes/preface.html",
-  "stage": "preparation"
+  "stage": "map-and-preface",
+  "original_sha256": "4ffe7b18e4d6bc5b5ba6be871417b061f1896b88885b723a6d46ab2024a25392"
 }
 ---
 <!doctype html>
@@ -27,13 +30,15 @@
 <!-- RN:include styles/reading-navigation.css -->
 <!-- RN:include styles/reading-annotations.css -->
 <!-- RN:include styles/reading-components.css -->
-.scope-diagram{min-width:660px}
-.scope-diagram text{font-size:15px}.scope-diagram .hint{font-size:12px}
+.scope-diagram{min-width:680px}
+.scope-diagram text{font-size:18px}.scope-diagram .hint{font-size:14px}
 .original-question{font-family:Georgia,serif;font-size:.97rem;line-height:1.8}
 .code-version{margin:1.4rem 0}.code-version>summary{cursor:pointer;color:var(--green)}
 .step-number{color:var(--green);font-weight:650}
 .contract{padding:.5rem 1rem;border-left:2px solid var(--green)}
 @media print{.annotation-sidebar{display:none!important}}
+
+<!-- RN:include styles/reading-typography.css -->
 </style>
 </head>
 <body class="rn-components">
@@ -94,48 +99,51 @@
 </section>
 
 <section id="scope-example">
-<h2>先算一个例子：闭包记住哪一个 x</h2>
+<h2>先算一个例子：闭包记住哪一个 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math></h2>
 <div class="rn-example" id="example-closure">
 <h3>伴读原创例子 · 同一个调用，两个作用域规则</h3>
 <p class="source">机制依据：§3.3，pp.74–80 / PDF 97–103；动态绑定变体见习题 3.28，p.82 / PDF 105。本例不是原书编号例题。</p>
-<p>下面使用 PROC 风格的写法。<code>-(a,b)</code> 表示 a 减 b；<code>proc (y) body</code> 创建一个以 y 为形参的过程；<code>(f 25)</code> 调用 f。</p>
+<p>下面使用 PROC 风格的写法。<code>-(a,b)</code> 表示 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math> 减 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="b" display="inline"><mi>b</mi></math>；<code>proc (y) body</code> 创建一个以 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="y" display="inline"><mi>y</mi></math> 为形参的过程；<code>(f 25)</code> 调用 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math>。</p>
 <pre><code>let x = 10
 in let f = proc (y) -(y,x)
    in let x = 20
       in (f 25)</code></pre>
 <p>先不要运行。我们只采用四条规则：<code>let</code> 在当前环境计算右侧，再扩展环境求主体；变量查询沿环境链寻找最近绑定；创建过程时保存形参、过程体和当时环境；调用时先在调用者环境计算过程与实参，再在保存环境上增加形参绑定来执行过程体。</p>
-<p><span class="step-number">第一步：</span>把最外层的 x 绑定为 10，得到环境 E₁。可以把它画成一个节点 <code>x ↦ 10</code>，后面连接空环境。此时还没有 f，也没有内层的 x。</p>
-<p><span class="step-number">第二步：</span>在 E₁ 中求 <code>proc (y) -(y,x)</code>。这里暂不执行减法，而是创建闭包 <code>〈y, -(y,x), E₁〉</code>。把这个闭包绑定给 f 后得到 E₂。闭包保存的是创建时的 E₁，它知道自由变量 x 应沿哪条环境链查询。</p>
-<p><span class="step-number">第三步：</span>内层 <code>let x = 20</code> 在 E₂ 前面增加一个新节点，得到 E₃。E₃ 中最近的 x 是 20，但旧的 E₁ 仍然存在。这一步是<strong>遮蔽</strong>：增加一个更近的同名绑定；这里没有赋值操作，也没有把 E₁ 中的 10 改成 20。</p>
+<p><span class="step-number">第一步：</span>把最外层的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 绑定为 10，得到环境 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="E₁" display="inline"><msub><mi>E</mi><mn>1</mn></msub></math>。可以把它画成一个节点 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x ↦ 10" display="inline"><mrow><mi>x</mi><mo>↦</mo><mn>10</mn></mrow></math>，后面连接空环境。此时还没有 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math>，也没有内层的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math>。</p>
+<p><span class="step-number">第二步：</span>在 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="E₁" display="inline"><msub><mi>E</mi><mn>1</mn></msub></math> 中求 <code>proc (y) -(y,x)</code>。这里暂不执行减法，而是创建闭包 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="〈y, -(y,x), E₁〉" display="inline"><mrow><mo>〈</mo><mi>y</mi><mo>,</mo><mo>−</mo><mrow><mo>(</mo><mi>y</mi><mo>,</mo><mi>x</mi><mo>)</mo></mrow><mo>,</mo><msub><mi>E</mi><mn>1</mn></msub><mo>〉</mo></mrow></math>。把这个闭包绑定给 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math> 后得到 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="E₂" display="inline"><msub><mi>E</mi><mn>2</mn></msub></math>。闭包保存的是创建时的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="E₁" display="inline"><msub><mi>E</mi><mn>1</mn></msub></math>，它知道自由变量 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 应沿哪条环境链查询。</p>
+<p><span class="step-number">第三步：</span>内层 <code>let x = 20</code> 在 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="E₂" display="inline"><msub><mi>E</mi><mn>2</mn></msub></math> 前面增加一个新节点，得到 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="E₃" display="inline"><msub><mi>E</mi><mn>3</mn></msub></math>。<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="E₃" display="inline"><msub><mi>E</mi><mn>3</mn></msub></math> 中最近的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 是 20，但旧的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="E₁" display="inline"><msub><mi>E</mi><mn>1</mn></msub></math> 仍然存在。这一步是<strong>遮蔽</strong>：增加一个更近的同名绑定；这里没有赋值操作，也没有把 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="E₁" display="inline"><msub><mi>E</mi><mn>1</mn></msub></math> 中的 10 改成 20。</p>
 <figure>
 <div class="scroll" tabindex="0" aria-label="闭包保存环境与调用环境示意，可横向滚动">
-<svg class="scope-diagram" viewBox="0 0 740 245" role="img" aria-labelledby="closure-title closure-desc">
+<svg class="scope-diagram rn-diagram" viewBox="0 0 760 390" role="img" aria-labelledby="closure-title closure-desc">
 <title id="closure-title">创建环境与调用环境是两条不同的路径</title>
 <desc id="closure-desc">调用点 E3 从 x 等于 20 连到 E2 的 f 闭包，再连到 E1 的 x 等于 10。f 保存的环境直接是 E1。词法调用把 y 等于 25 加在 E1 前面，所以过程体读取 x 为 10。</desc>
-<defs><marker id="scope-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10" fill="#285a4e"/></marker></defs>
-<g fill="none" stroke="#285a4e" stroke-width="1.6" marker-end="url(#scope-arrow)">
-<path d="M196 67H265"/><path d="M457 67H538"/>
-<path d="M361 94V126H626V94"/>
-<path d="M457 199H626V94"/>
+<defs><marker id="scope-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path class="rn-arrow" d="M1 1L9 5L1 9Z"/></marker></defs>
+<g marker-end="url(#scope-arrow)">
+<path class="rn-edge" data-edge="E3-E2" d="M204 82H290"/><path class="rn-edge" data-edge="E2-E1" d="M470 82H550"/>
+<path class="rn-edge" data-edge="closure-E1" stroke-dasharray="5 5" d="M380 124V196Q380 204 388 204H602Q610 204 610 196V124"/>
+<path class="rn-edge" data-edge="E4-E1" d="M470 318H667Q675 318 675 310V124"/>
 </g>
-<g class="n"><rect x="16" y="40" width="180" height="54" rx="5"/><rect x="270" y="40" width="187" height="54" rx="5"/><rect x="543" y="40" width="176" height="54" rx="5"/><rect x="270" y="171" width="187" height="56" rx="5"/></g>
-<text x="106" y="62">E₃：x ↦ 20</text><text class="hint" x="106" y="82">调用时的环境</text>
-<text x="363" y="62">E₂：f ↦ 闭包</text><text class="hint" x="363" y="82">闭包含 y、体、E₁</text>
-<text x="631" y="62">E₁：x ↦ 10</text><text class="hint" x="631" y="82">父环境为空</text>
-<text class="hint" x="461" y="116">闭包保存的环境</text>
-<text x="363" y="194">E₄：y ↦ 25</text><text class="hint" x="363" y="215">过程体求值环境</text>
-<text class="hint" x="543" y="190">扩展 E₁</text>
+<rect class="rn-node" x="24" y="40" width="180" height="84"/><rect class="rn-node" x="290" y="40" width="180" height="84"/>
+<rect class="rn-node" x="550" y="40" width="180" height="84"/><rect class="rn-node rn-node-accent" x="290" y="276" width="180" height="84"/>
+<g text-anchor="middle">
+<text x="114" y="74">E<tspan baseline-shift="sub" font-size="70%">3</tspan>：x ↦ 20</text><text class="hint" x="114" y="102">调用时的环境</text>
+<text x="380" y="74">E<tspan baseline-shift="sub" font-size="70%">2</tspan>：f ↦ 闭包</text><text class="hint" x="380" y="102">形参 y · 过程体 · E<tspan baseline-shift="sub" font-size="70%">1</tspan></text>
+<text x="640" y="74">E<tspan baseline-shift="sub" font-size="70%">1</tspan>：x ↦ 10</text><text class="hint" x="640" y="102">父环境为空</text>
+<text class="hint" x="490" y="187">闭包保存的环境</text>
+<text x="380" y="310">E<tspan baseline-shift="sub" font-size="70%">4</tspan>：y ↦ 25</text><text class="hint" x="380" y="338">过程体求值环境</text>
+<text class="hint" x="563" y="300">词法调用：扩展 E<tspan baseline-shift="sub" font-size="70%">1</tspan></text>
+</g>
 </svg>
 </div>
-<figcaption>实线箭头表示环境查询的父链；中间折线单独标明闭包保存的 E₁。E₄ 的父环境是 E₁，因此体内的 x 不经过调用点 E₃。</figcaption>
+<figcaption>实线箭头表示环境查询的父链；虚线单独标明闭包保存的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="E₁" display="inline"><msub><mi>E</mi><mn>1</mn></msub></math>。<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="E₄" display="inline"><msub><mi>E</mi><mn>4</mn></msub></math> 的父环境是 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="E₁" display="inline"><msub><mi>E</mi><mn>1</mn></msub></math>，因此体内的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 不经过调用点 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="E₃" display="inline"><msub><mi>E</mi><mn>3</mn></msub></math>。</figcaption>
 </figure>
-<p><span class="step-number">第四步：</span>在 E₃ 中求 f，得到第二步创建的闭包；在 E₃ 中求实参 25，得到整数 25。按词法规则，给闭包保存的 E₁ 加上 <code>y ↦ 25</code>，得到执行过程体的 E₄。于是 y 查到 25，x 沿 E₄ 的父链查到 10。</p>
+<p><span class="step-number">第四步：</span>在 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="E₃" display="inline"><msub><mi>E</mi><mn>3</mn></msub></math> 中求 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math>，得到第二步创建的闭包；在 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="E₃" display="inline"><msub><mi>E</mi><mn>3</mn></msub></math> 中求实参 25，得到整数 25。按词法规则，给闭包保存的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="E₁" display="inline"><msub><mi>E</mi><mn>1</mn></msub></math> 加上 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="y ↦ 25" display="inline"><mrow><mi>y</mi><mo>↦</mo><mn>25</mn></mrow></math>，得到执行过程体的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="E₄" display="inline"><msub><mi>E</mi><mn>4</mn></msub></math>。于是 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="y" display="inline"><mi>y</mi></math> 查到 25，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 沿 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="E₄" display="inline"><msub><mi>E</mi><mn>4</mn></msub></math> 的父链查到 10。</p>
 <div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>25</mn><mo>−</mo><mn>10</mn><mo>=</mo><mn>15</mn></mrow></math></div>
-<p>如果有意把调用规则改成“扩展调用者环境 E₃”，新环境的父链上最近的 x 就是 20，结果变为 25 − 20 = 5。这是一个动态作用域变体。两个结果的差异来自查找环境的选择，而不是减法算法或源程序文本发生了变化。</p>
+<p>如果有意把调用规则改成“扩展调用者环境 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="E₃" display="inline"><msub><mi>E</mi><mn>3</mn></msub></math>”，新环境的父链上最近的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 就是 20，结果变为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="25 − 20 = 5" display="inline"><mrow><mn>25</mn><mo>−</mo><mn>20</mn><mo>=</mo><mn>5</mn></mrow></math>。这是一个动态作用域变体。两个结果的差异来自查找环境的选择，而不是减法算法或源程序文本发生了变化。</p>
 <div class="scroll"><table aria-label="闭包例子的两个作用域规则">
-<thead><tr><th scope="col">规则</th><th scope="col">过程体所在环境</th><th scope="col">读到的 y、x</th><th scope="col">结果</th></tr></thead>
-<tbody><tr><th scope="row">词法作用域</th><td>形参绑定 → 创建环境 E₁</td><td>25、10</td><td>15</td></tr>
-<tr><th scope="row">本例动态变体</th><td>形参绑定 → 调用环境 E₃</td><td>25、20</td><td>5</td></tr></tbody></table></div>
+<thead><tr><th scope="col">规则</th><th scope="col">过程体所在环境</th><th scope="col">读到的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="y" display="inline"><mi>y</mi></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math></th><th scope="col">结果</th></tr></thead>
+<tbody><tr><th scope="row">词法作用域</th><td>形参绑定 → 创建环境 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="E₁" display="inline"><msub><mi>E</mi><mn>1</mn></msub></math></td><td>25、10</td><td>15</td></tr>
+<tr><th scope="row">本例动态变体</th><td>形参绑定 → 调用环境 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="E₃" display="inline"><msub><mi>E</mi><mn>3</mn></msub></math></td><td>25、20</td><td>5</td></tr></tbody></table></div>
 <p>这就是序言所说的“用解释器表达语言设计”：规则落在一个可以指认的位置上，而且有一个小程序能区分两种设计。以后读到存储、续文和类型环境，也应该寻找同样具体的表示与选择。</p>
 </div>
 
@@ -278,7 +286,7 @@ if __name__ == &quot;__main__&quot;:
 <tr><th scope="row">2. 以解释器、类型检查器表达设计</th><td>自然语言中的含糊选择必须落实为完整处理规则，且能够执行。</td><td>调用时选择 saved_env，结果由此确定。</td></tr>
 <tr><th scope="row">3. 用接口与规格建立数据抽象</th><td>改变表示时，不必让所有使用者跟着改变。</td><td>环境查询有明确行为，后续可换表示。</td></tr>
 <tr><th scope="row">4. 在高层与低层多个抽象层次书写</th><td>既能看清意义，也能理解实现需要保存哪些状态。</td><td>“保存创建环境”对应闭包字段和环境链。</td></tr>
-<tr><th scope="row">5. 用代数式推演预测行为与性质</th><td>结果有可跟随的依据，能够辨认程序运行中的关键步骤。</td><td>先确定 x 与 y，再推出 25 − 10。</td></tr>
+<tr><th scope="row">5. 用代数式推演预测行为与性质</th><td>结果有可跟随的依据，能够辨认程序运行中的关键步骤。</td><td>先确定 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 与 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="y" display="inline"><mi>y</mi></math>，再推出 25 − 10。</td></tr>
 <tr><th scope="row">6. 通过习题研究替代设计</th><td>比较能揭示原选择的作用，也能暴露设计之间的相互影响。</td><td>动态作用域变体得到 5，区分用例因此成立。</td></tr>
 </tbody></table></div>
 <p>其中数据抽象会反复出现。第 2 章比较环境的不同表示，第 3 章表示过程，第 5 章表示续文，第 8 章用类型系统约束模块客户。每一次都要先问：外部可观察的操作是什么？哪些内部细节可以换掉？这种连续性，是把整本书读成一条主线的关键。</p>
@@ -292,7 +300,7 @@ if __name__ == &quot;__main__&quot;:
 <p>为了突出机制，第三版第 3、4、5、7、8 章的主体语言把过程简化为单参数，多参数扩展放入习题。第 6 章和第 9 章则使用多参数过程。阅读代码或找习题答案时需要先核对版次及语言，不能把不同章节的语法假设直接拼在一起。</p>
 <p>作者的组织安排是先准备工具，再解释行为，最后组合机制。前两章讨论归纳数据和抽象表示；第 3 章建立带词法作用域、一等过程和递归的解释器，并引入词法地址；第 4 章加入存储；第 5、6 章研究控制与 CPS；第 7 章加入类型检查和推断；第 8 章建立模块边界；第 9 章把状态、分派与类型组合成对象系统。</p>
 <p>两条容易读混的线需要先分开。第 5 章把“解释器自身”改成续文传递形式，第 6 章则写一个转换器，把一般源程序转成 CPS。第 7 章研究静态分析时，回到第 3 章语言建立类型规则，并不要求先把所有控制扩展合并。完整依赖关系与每章落点见<a href="book_overview.html#dependencies">全书依赖图</a>。</p>
-<p>附录 A 说明思想来源，适合带着概念回查文献；附录 B 介绍 SLLGEN，帮助把输入字符串变成 AST。两者分别支持追根溯源和动手实现。</p>
+<p>附录 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="A" display="inline"><mi>A</mi></math> 说明思想来源，适合带着概念回查文献；附录 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="B" display="inline"><mi>B</mi></math> 介绍 SLLGEN，帮助把输入字符串变成 AST。两者分别支持追根溯源和动手实现。</p>
 </section>
 
 <section id="usage">
@@ -301,7 +309,7 @@ if __name__ == &quot;__main__&quot;:
 <p>作者面向有数据结构基础、具有命令式语言经验，并接触过 Scheme、ML、Python 或 Haskell 这类语言的读者。原因很实际：你既要理解变量更新和控制执行，也要把过程当作可传递、可返回的数据。若这两方面有一方面不熟，先用很小的程序补齐，再进入解释器。</p>
 <p>习题是正文的一部分。作者建议每题都至少读过并思考；一星到三星表示从理解相关内容即可解决，到需要较多思考和编程的不同难度，不是严格的耗时配额。有些习题改变语言设计，有些改变实现表示，还有些把同一机制带到后续语言中。只读主文会错过这些比较。</p>
 <p>一个可持续的读法是：先给程序的输入、输出和语法分支做标记，再手算一个正常例子及一个能区分错误实现的例子，随后运行，最后改变一处规则。例如本页用同名遮蔽区分创建环境和调用环境；若程序没有这处遮蔽，两种实现可能输出相同值，就不足以检验闭包规则。</p>
-<p>作者说明，支持一等过程和赋值的语言都可用于完成习题。原书配套实现使用当时的 PLT Scheme，代码大体兼容 R<sup>5</sup>RS。这是原书的环境说明；本批实际执行的是前述 Python 教学模型，原书 Scheme 全套解释器的环境准备和运行留到相应章节记录。</p>
+<p>作者说明，支持一等过程和赋值的语言都可用于完成习题。原书配套实现使用当时的 PLT Scheme，代码大体兼容 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="R" display="inline"><mi>R</mi></math><sup>5</sup>RS。这是原书的环境说明；本批实际执行的是前述 Python 教学模型，原书 Scheme 全套解释器的环境准备和运行留到相应章节记录。</p>
 <p>现在可以带着三个具体问题进入第 1 章：输入数据有哪些合法构造？每种构造对应哪个程序分支？递归调用为什么可以只处理更小的部分？它们随后会成为写解释器、检查器和转换器的共同方法。</p>
 </section>
 
@@ -313,26 +321,26 @@ if __name__ == &quot;__main__&quot;:
 <p class="rn-exercise-label">原书题目</p>
 <p class="source">Preface · Usage，p.xix / PDF 20；序言唯一编号习题，无编号小问。</p>
 <p class="original-question" lang="en">We often use phrases like “some languages have property X.” For each such phrase, find one or more languages that have the property and one or more languages that do not have the property. Feel free to ferret out this information from any descriptive book on programming languages (say Scott (2005), Sebesta (2007), or Pratt &amp; Zelkowitz (2001)).</p>
-<p><strong>完整译义：</strong>我们经常使用“有些语言具有性质 X”这样的说法。对每一处这样的说法，找出一种或多种具有该性质的语言，再找出一种或多种不具有该性质的语言。可以从任何介绍程序设计语言的书中寻找这些信息，例如 Scott（2005）、Sebesta（2007），或 Pratt 与 Zelkowitz（2001）。</p>
+<p><strong>完整译义：</strong>我们经常使用“有些语言具有性质 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="X" display="inline"><mi>X</mi></math>”这样的说法。对每一处这样的说法，找出一种或多种具有该性质的语言，再找出一种或多种不具有该性质的语言。可以从任何介绍程序设计语言的书中寻找这些信息，例如 Scott（2005）、Sebesta（2007），或 Pratt 与 Zelkowitz（2001）。</p>
 </div>
 <div class="answer">
 <p class="rn-exercise-label">参考解答</p>
 <p>这是一项贯穿阅读的开放任务，没有一个有限名单可以替代全书后续的逐处比较。本批先把序言和地图用到的四个性质写成精确陈述，并选本书已经定义清楚的小语言作正反例。这样每一项都能回到语法与规则核查；以后遇到新的“有些语言”再继续补充。</p>
 <div class="scroll"><table aria-label="习题 0.1 的四组语言性质比较">
-<thead><tr><th scope="col">精确的性质 X</th><th scope="col">具有 X</th><th scope="col">不具有 X</th><th scope="col">原书依据</th></tr></thead>
+<thead><tr><th scope="col">精确的性质 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="X" display="inline"><mi>X</mi></math></th><th scope="col">具有 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="X" display="inline"><mi>X</mi></math></th><th scope="col">不具有 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="X" display="inline"><mi>X</mi></math></th><th scope="col">原书依据</th></tr></thead>
 <tbody>
 <tr><th scope="row">过程可以作为表达式的值</th><td>PROC</td><td>LET</td><td>§3.2 p.61；§3.3 p.75</td></tr>
 <tr><th scope="row">引用本身可以作为表达式的值</th><td>EXPLICIT-REFS</td><td>IMPLICIT-REFS</td><td>§4.2 p.104；§4.3 p.113</td></tr>
-<tr><th scope="row">未用到的过程实参可以不求值</th><td>CALL-BY-NEED</td><td>按值传参的 IMPLICIT-REFS</td><td>§4.5 pp.130、136–138</td></tr>
+<tr><th scope="row">未用到的过程实参可以不求值</th><td>CALL<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="-BY-" display="inline"><mrow><mo>−</mo><mi>B</mi><mi>Y</mi><mo>−</mo></mrow></math>NEED</td><td>按值传参的 IMPLICIT-REFS</td><td>§4.5 pp.130、136–138</td></tr>
 <tr><th scope="row">允许省去形式参数的显式类型并由分析推断</th><td>INFERRED，用 ? 留空</td><td>CHECKED，参数处须写类型</td><td>§7.3 p.240；§7.4 pp.248–249</td></tr>
 </tbody></table></div>
 <p><strong>第一组：</strong>在 PROC 中，<code>proc (x) x</code> 求值得到一个过程，可以把它绑定给变量、传入另一个过程或作为返回值。LET 的值域只有整数和布尔值，语法中也没有过程构造。因此反例的依据是这门小语言的定义，而不是“暂时没有使用过程”。</p>
 <p><strong>第二组：</strong>EXPLICIT-REFS 的 <code>newref(0)</code> 返回引用，引用可存到变量里再传递。IMPLICIT-REFS 的变量确实关联存储位置，但引用属于绑定值 DenVal，普通表达式返回的 ExpVal 不包含引用。这里比较的是“能否把引用作为表达式值操作”，不能把结论改说成“IMPLICIT-REFS 没有存储”。</p>
-<p><strong>第三组：</strong>考虑下面的区分程序。过程体根本不使用 x；但实参若被求值，会尝试把过程值与整数相减。</p>
+<p><strong>第三组：</strong>考虑下面的区分程序。过程体根本不使用 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math>；但实参若被求值，会尝试把过程值与整数相减。</p>
 <pre><code>let f = proc (x) 11
 in (f -(proc (y) y, 1))</code></pre>
-<p>按值规则在进入过程体前求实参，因此报告非数值减法错误。按需规则先保存待求值表达式和环境；体内没有读取 x，所以不会触发它，结果为 11。这是对原书规则的推演，本批 Python 模型只实现按值求值，没有执行这个按需语言实验。带副作用时还须继续区分按名反复求值与按需缓存。</p>
-<p><strong>第四组：</strong>INFERRED 可以写 <code>proc (x : ?) -(x,1)</code>，差运算给出 x 必须为 int 的约束，从而推得 <code>int → int</code>。CHECKED 的形式参数处需要写出 <code>int</code>。不能把这组差异概括为“CHECKED 完全不会推导任何表达式的类型”：它同样会按规则计算子表达式和整个表达式的类型，差异在于这里是否允许缺省注解。</p>
+<p>按值规则在进入过程体前求实参，因此报告非数值减法错误。按需规则先保存待求值表达式和环境；体内没有读取 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math>，所以不会触发它，结果为 11。这是对原书规则的推演，本批 Python 模型只实现按值求值，没有执行这个按需语言实验。带副作用时还须继续区分按名反复求值与按需缓存。</p>
+<p><strong>第四组：</strong>INFERRED 可以写 <code>proc (x : ?) -(x,1)</code>，差运算给出 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 必须为 int 的约束，从而推得 <code>int → int</code>。CHECKED 的形式参数处需要写出 <code>int</code>。不能把这组差异概括为“CHECKED 完全不会推导任何表达式的类型”：它同样会按规则计算子表达式和整个表达式的类型，差异在于这里是否允许缺省注解。</p>
 <p>对真实语言做同样比较时，还应标明版本、方言与具体构造，并给出最小区分程序。例如一句“这个语言是惰性的”往往不够精确，应该说清是过程实参、局部绑定还是某种容器按需计算。题目所列的参考书提供进一步查找的方向；本解答的四组结论直接依据本版 EOPL，不把未查阅的外部书目列为已核验来源。</p>
 </div>
 </details>

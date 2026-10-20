@@ -95,6 +95,16 @@ class RegressionTests(unittest.TestCase):
             path=ROOT/'notes'/filename;source=real_read(path)
             self.assertIn(correct,source)
             changed=source.replace(correct,wrong)
+            if filename == 'chapter04_continuous_time_markov_chains.html':
+                formula = next(n for n in Document(source).root.walk('math')
+                               if n.attrs.get('aria-label') == correct)
+                fragment = source[formula.start:formula.end]
+                self.assertIn('<mn>12</mn>', fragment)
+                # Mutate the displayed value as well as its accessible spelling.
+                # Replacing the label alone would leave the actual value 12/7.
+                altered = fragment.replace(correct, wrong).replace('<mn>12</mn>', '<mn>11</mn>')
+                changed = source[:formula.start] + altered + source[formula.end:]
+            self.assertNotEqual(changed, source)
             def read(obj,*args,**kwargs):return changed if obj==path else real_read(obj,*args,**kwargs)
             with self.subTest(filename=filename,value=wrong),patch.object(Path,'read_text',read):
                 with self.assertRaises(AssertionError):check_content_regressions.main()

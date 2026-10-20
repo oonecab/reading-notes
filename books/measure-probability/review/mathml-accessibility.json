@@ -49,14 +49,14 @@
       "anchor": "theorem-3-3-4-proof",
       "math_index": 5,
       "label": "N_p(f+g) 的 p 次方，不超过积分 |f|乘|f+g|的 p−1 次方加积分 |g|乘|f+g|的 p−1 次方，不超过 [N_p(f)+N_p(g)]乘 N_p(f+g)的 p−1 次方。",
-      "presentation_sha256": "4abf0b8538a478b5788eb1e7fb6982dc7745b1844ede657b0231db40a68595f1"
+      "presentation_sha256": "ffbb243d572c99a8f35adf8fa0961acd063e007c4328fe0eb792e374b8d72338"
     },
     {
       "page": "chapter03_integration.html",
       "anchor": "theorem-3-4-2-proof",
       "math_index": 2,
       "label": "|f| 的 s 次方的期望，不超过 (|f| 的 t 次方的期望)的 s/t 次方乘(E1)的 1−s/t 次方，等于 (|f| 的 t 次方的期望)的 s/t 次方。",
-      "presentation_sha256": "8b8451285a634bc5b60da47804b32f82a5ee402f7491b6e6f1d80aefdcf58082"
+      "presentation_sha256": "d8f2ac7f1de667611e06f354e6f2f226fb872f06e51d3966642c72092f0f687b"
     },
     {
       "page": "chapter04_signed_measures.html",
@@ -82,7 +82,7 @@
       "page": "chapter05_product_spaces.html",
       "anchor": "multivariate-increment",
       "label": "矩形增量由各顶点函数值按正负交替求和，要求结果非负。",
-      "presentation_sha256": "03fb37b107620c6f856728f6b03021a8de3aa9f009044024a4a14db3dbd74a99"
+      "presentation_sha256": "e1a0c8c216089b9520239fafb5c1f3c23347f22c30604cc785e59fe64d10f7aa"
     },
     {
       "page": "chapter06_independent_sequences.html",
@@ -94,7 +94,33 @@
       "page": "chapter06_independent_sequences.html",
       "anchor": "lindeberg-condition",
       "label": "每个固定正 epsilon 下，大于 epsilon 倍总标准差的中心化平方尾矩之和，除以总方差，趋于零。",
-      "presentation_sha256": "013fcb25df640a62476a6094575b203dbf761e2b1f5463ed32ff2c3d415c37ee"
+      "presentation_sha256": "4914b4d2d36ca942d525a8af3ac3df9f5a28dc56c60fa95bd8ad8db4eb9703bc"
     }
-  ]
+  ],
+  "I044_revision": {
+    "baseline_git": "7e9d2ea",
+    "reason": "Group complete fenced bases before scripts; all presentation token values/attributes and accessible annotations verified equal. Previous hashes retained here.",
+    "changes": [
+      {
+        "anchor": "theorem-3-3-4-proof",
+        "from_sha256": "4abf0b8538a478b5788eb1e7fb6982dc7745b1844ede657b0231db40a68595f1",
+        "to_sha256": "ffbb243d572c99a8f35adf8fa0961acd063e007c4328fe0eb792e374b8d72338"
+      },
+      {
+        "anchor": "theorem-3-4-2-proof",
+        "from_sha256": "8b8451285a634bc5b60da47804b32f82a5ee402f7491b6e6f1d80aefdcf58082",
+        "to_sha256": "d8f2ac7f1de667611e06f354e6f2f226fb872f06e51d3966642c72092f0f687b"
+      },
+      {
+        "anchor": "multivariate-increment",
+        "from_sha256": "03fb37b107620c6f856728f6b03021a8de3aa9f009044024a4a14db3dbd74a99",
+        "to_sha256": "e1a0c8c216089b9520239fafb5c1f3c23347f22c30604cc785e59fe64d10f7aa"
+      },
+      {
+        "anchor": "lindeberg-condition",
+        "from_sha256": "013fcb25df640a62476a6094575b203dbf761e2b1f5463ed32ff2c3d415c37ee",
+        "to_sha256": "4914b4d2d36ca942d525a8af3ac3df9f5a28dc56c60fa95bd8ad8db4eb9703bc"
+      }
+    ]
+  }
 }

@@ -9,3 +9,7 @@
 .group-theory .cover{background:#e5e6ed;color:#474d6c;border-color:#d7d8e2}.group-theory .cover-diagram circle{fill:#e5e6ed}.group-theory .topics li{background:#f0f0f5;color:#646981}
 
 .measure-probability .cover{background:#eae2d1;color:#54452e}.measure-probability .topics li{background:#f5f0e6;color:#746348}.measure-probability .cover-title{font-family:"Songti SC","Noto Serif CJK SC",serif;line-height:1.45}
+
+/* RN-001: Latin letters and digits share the reading-page font contract. */
+.eopl .cover{background:#e8f0f8;color:#3f5d77;border-color:#cad9e8}.eopl .topics li{background:#edf4fa;color:#536c83}
+body,body :not(math):not(math *){font-family:"Times New Roman",Times,system-ui,-apple-system,"PingFang SC","Microsoft YaHei",serif!important}

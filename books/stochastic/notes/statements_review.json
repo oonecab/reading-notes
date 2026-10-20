@@ -790,7 +790,7 @@
       "page_file": "chapter01_markov_chains.html",
       "display_title": "定理 1.2 · 强马尔可夫性质",
       "proof_anchor": "derive-c1-return-classification",
-      "canonical_html_sha256": "8faa8ba9cc8d3a4f34400a80005829f72b635787c0278d1a061206070454c1aa",
+      "canonical_html_sha256": "beb2e2cd781e9055090ce37fa9829ad0d0e422efe08b0f95e5e9183006520ba6",
       "formulas": [
         "T",
         "T=n",
@@ -833,7 +833,7 @@
       "page_file": "chapter01_markov_chains.html",
       "display_title": "引理 1.3 · 统一到达概率给出几何尾界",
       "proof_anchor": "derive-c1-return-classification",
-      "canonical_html_sha256": "01bc189d8ae80dd0fb1ada15b444bda76fa19fa95fd905f487746cab87fe7fad",
+      "canonical_html_sha256": "753b0f5560cd490a2fd78e469ae9d4f9971b20e788576d1fecc2882ee296d300",
       "formulas": [
         "P_x(T_y\\le k)\\ge\\alpha>0",
         "x",
@@ -1398,7 +1398,7 @@
       "page_file": "chapter01_markov_chains.html",
       "display_title": "定义 · 周期与本章的 I、A、S、R 条件",
       "proof_anchor": "derive-c1-period-cost",
-      "canonical_html_sha256": "d7ae4bf68b937e85dd445847e2466cc64838d2691f4097c45b36c7442b0eab0e",
+      "canonical_html_sha256": "41ddf719d1d4b3239a684adf2c51ab2cb9925100bef2944dfca37185f1d72a59",
       "formulas": [
         "n\\ge1",
         "p^n(x,x)>0",
@@ -1530,7 +1530,7 @@
       "page_file": "chapter01_markov_chains.html",
       "display_title": "定理 1.20 · 访问频率定理",
       "proof_anchor": "derive-c1-period-cost",
-      "canonical_html_sha256": "9b4b53ab7d12bb917780904b59114142a0cf0f3fecdf3efd4b7b60547bc4d8e4",
+      "canonical_html_sha256": "6ec31b0b2a8b77ae44f1a843ea5c8aa757006dc76ce37f6144f7cec3842712a5",
       "formulas": [
         "N_n(y)",
         "y",
@@ -1563,7 +1563,7 @@
       "page_file": "chapter01_markov_chains.html",
       "display_title": "定理 1.21 · 平均返回时间与唯一平稳分布",
       "proof_anchor": "derive-c1-period-cost",
-      "canonical_html_sha256": "994e230b7dfce3bb354f9b0cd49f26ecaa0cf7267203a430304c9c8f68447d18",
+      "canonical_html_sha256": "ad2ee34f4ac2c31aafb6eb29b626c4323fa98d9fd2ed696163d6b64c401390f0",
       "formulas": [
         "\\pi(y)=1/E_yT_y",
         "\\pi",
@@ -1594,7 +1594,7 @@
       "page_file": "chapter01_markov_chains.html",
       "display_title": "定理 1.22 · 马尔可夫链的时间平均",
       "proof_anchor": "derive-c1-period-cost",
-      "canonical_html_sha256": "f67fc2388a7de629002368614aaf4619f108a845693d7e1d7f3331dec85200fe",
+      "canonical_html_sha256": "e9b3c51a11c94ec36459b8d8a4650fdb2f4b490f6873ef774615bdbff5116c54",
       "formulas": [
         "\\sum_x|f(x)|\\pi(x)<\\infty",
         "\\frac1n\\sum_{m=1}^nf(X_m)\\to\\sum_xf(x)\\pi(x).",
@@ -1628,7 +1628,7 @@
       "page_file": "chapter01_markov_chains.html",
       "display_title": "定理 1.23 · 周期链的平均转移概率极限",
       "proof_anchor": "derive-c1-period-cost",
-      "canonical_html_sha256": "90db7487c17c9de6ed7f2611fb047fcd824f895e6166a5ed0bad7dcadd9123ad",
+      "canonical_html_sha256": "84042105efe727e67f6a095266e435f84c2eace9b7e96f99435392093e4e1a0e",
       "formulas": [
         "\\frac1n\\sum_{m=1}^np^m(x,y)\\to\\pi(y).",
         "p^m(x,y)",
@@ -1806,7 +1806,7 @@
       "page_file": "chapter01_markov_chains.html",
       "display_title": "定理 1.28 · 退出概率的调和边界问题",
       "proof_anchor": "derive-c1-gambler-harmonic",
-      "canonical_html_sha256": "8eb1b5d151e9a7bd288bb037d53abb0590b3c50bce8cdc744a359dfe561f19f8",
+      "canonical_html_sha256": "72b44182020f0d83d2ecd2366cf363131ba85414fd6786cfd4d7614735ea0ae4",
       "formulas": [
         "S",
         "A",
@@ -2044,7 +2044,7 @@
       "page_file": "chapter02_poisson_processes.html",
       "display_title": "定理 2.2 · 指数间隔之和的 Gamma 分布",
       "proof_anchor": "derive-c2-exponential-examples",
-      "canonical_html_sha256": "9291074f36e35523800e09ac81be8e5447dc6e70e07befd57d19e06c80b2b336",
+      "canonical_html_sha256": "5786803ccb394fd5ffa9739e045a63b5ee349056192c4796d5d631acfff944ce",
       "formulas": [
         "\\tau_1,\\tau_2,\\ldots",
         "\\lambda",
@@ -2169,7 +2169,7 @@
       "page_file": "chapter02_poisson_processes.html",
       "display_title": "定理 2.4 · 独立泊松变量相加",
       "proof_anchor": "derive-c2-counting-proof",
-      "canonical_html_sha256": "e81e37fb172e934a1e6bd45726d2e5b044b4e2153c5ce0b0ff76e868ad5cc870",
+      "canonical_html_sha256": "3c044c21ed9ae3bc2954df4ce95f003520c356908b4d924c5dcf969c614bc791",
       "formulas": [
         "X_i",
         "\\lambda_i",
@@ -2202,7 +2202,7 @@
       "page_file": "chapter02_poisson_processes.html",
       "display_title": "定理 2.5 · 二项分布的泊松极限",
       "proof_anchor": "derive-c2-counting-proof",
-      "canonical_html_sha256": "9409fec50e2ef5188ebff334a7a44f21a0ed3788b979b7aab323a12f86a4788f",
+      "canonical_html_sha256": "f4191b6b5cfe4de064fc9d864fd2c201870e2d882b11a3aed9a55db7193c17ce",
       "formulas": [
         "n",
         "n,\\lambda/n",
@@ -2243,7 +2243,7 @@
       "page_file": "chapter02_poisson_processes.html",
       "display_title": "引理 2.6 · 指数间隔构造得到泊松计数",
       "proof_anchor": "derive-c2-counting-proof",
-      "canonical_html_sha256": "e599d48f99cbd043486ed70cf5078b9c43a5911dd896d46196d089abd9fc43fa",
+      "canonical_html_sha256": "2e397e220fdc4a103cc3757ea3776afa795a6825dc2feee798a61e409f6f8924",
       "formulas": [
         "N(s)",
         "\\lambda s",
@@ -2281,7 +2281,7 @@
       "page_file": "chapter02_poisson_processes.html",
       "display_title": "引理 2.7 · 确定时刻之后重新开始",
       "proof_anchor": "derive-c2-counting-proof",
-      "canonical_html_sha256": "178e223933148fcac3abafbd25984f5ca7ebd3b3f4202ce0bf44e869d3b6c117",
+      "canonical_html_sha256": "5236dd7c1805f4739b808113dfc2a67dd120e295f17e3020c21df8fe9d12993a",
       "formulas": [
         "N(t+s)-N(s)",
         "t\\ge0",
@@ -2393,7 +2393,7 @@
       "page_file": "chapter02_poisson_processes.html",
       "display_title": "定理 2.10 · 独立随机和的均值与方差",
       "proof_anchor": "derive-c2-compound-moments",
-      "canonical_html_sha256": "4128b24cfca5c04d45e2152f63554b3c7654f2c723aa5b307659f3af0a6c97aa",
+      "canonical_html_sha256": "7efd4fa9439d20548437e15fdb52cf51faee3c80a5211f8f11d43c4cc2adf010",
       "formulas": [
         "Y_1,Y_2,\\ldots",
         "N",
@@ -2622,7 +2622,7 @@
       "page_file": "chapter02_poisson_processes.html",
       "display_title": "定理 2.15 · 给定总到达数后的均匀次序统计量",
       "proof_anchor": "derive-c2-race-conditional",
-      "canonical_html_sha256": "6b2bb1449a68a9731e8a937d6b5f3152ac8a6d357a830511cc712fcb848efb0d",
+      "canonical_html_sha256": "92d11041b6f4c8fd59fb8fc8ab75084a4de350eb6238ac8cab5d48a44481be1b",
       "formulas": [
         "N(t)=n",
         "(T_1,T_2,\\ldots,T_n)",
@@ -2662,7 +2662,7 @@
       "page_file": "chapter02_poisson_processes.html",
       "display_title": "定理 2.16 · 给定末时刻计数后的二项分布",
       "proof_anchor": "derive-c2-race-conditional",
-      "canonical_html_sha256": "64ce8ecdc1dc407bb3c1cc2dfb6678754b69b88fac9fcfccd441183b3ab6faa6",
+      "canonical_html_sha256": "c4e6d0211a68357a4042119b340600850583136ea9d96ef5dd3b35e3312bf461",
       "formulas": [
         "s<t",
         "0\\le m\\le n",
@@ -2775,7 +2775,7 @@
       "page_file": "chapter03_renewal_processes.html",
       "display_title": "定理 3.2 · 独立同分布变量的强大数律",
       "proof_anchor": "derive-c3-cycles-replacement",
-      "canonical_html_sha256": "e8f9741721b341a5f175703b332bb0e3d9857ce8618c2118550a6c4e7ae551d9",
+      "canonical_html_sha256": "8c2673c29d7cc8e00d14646a2aedc2ddc11585cb9d595cb09e0dfc1dbcdeda6e",
       "formulas": [
         "x_1,x_2,x_3,\\ldots",
         "Ex_i=\\mu",
@@ -2913,7 +2913,7 @@
       "page_file": "chapter03_renewal_processes.html",
       "display_title": "定义 · GI/G/1 与等待量的口径",
       "proof_anchor": "derive-c3-queue-identities",
-      "canonical_html_sha256": "42746e1d889bab64de8b06928a53b05189a8c7f5ee138c0ea7b178f1cf7d543c",
+      "canonical_html_sha256": "65cc93c8444536436f16d1b871c8c05a103fe89ceee80c5135ebf7c165f35ac1",
       "formulas": [
         "\\lambda_a",
         "\\lambda_a=\\lim_{t\\to\\infty}N_a(t)/t",
@@ -2952,7 +2952,7 @@
       "page_file": "chapter03_renewal_processes.html",
       "display_title": "定理 3.5 · 稳定 GI/G/1 的清空与忙碌比例",
       "proof_anchor": "derive-c3-queue-identities",
-      "canonical_html_sha256": "59bb9767afc24faccb2e91444ce702e7283201e6130f3e73b91c82d98503a105",
+      "canonical_html_sha256": "64e5124e8e2d831f43b88c67da96df84b9912979602973a312e73a3c1b2980ac",
       "formulas": [
         "\\lambda<\\mu",
         "k\\ge1",
@@ -3018,7 +3018,7 @@
       "page_file": "chapter03_renewal_processes.html",
       "display_title": "定理 3.7 · M/G/1 服务开始链的常返分类",
       "proof_anchor": "derive-c3-queue-identities",
-      "canonical_html_sha256": "070aa667d487557a5cd34e5aad5caf98aaa911762012ee3436086b6c487e26b8",
+      "canonical_html_sha256": "82d94e8192f41be413461884f64bc643dc782cb06456c192f49c3e86840b426c",
       "formulas": [
         "\\lambda<\\mu",
         "X_n",
@@ -3068,7 +3068,7 @@
       "page_file": "chapter03_renewal_processes.html",
       "display_title": "定理 3.8 · 泊松到达看到时间平均",
       "proof_anchor": "derive-c3-queue-identities",
-      "canonical_html_sha256": "797baea27fd8c105aea199e8ee2dcef31f0549c998230bcd2ec09d78c86c8cac",
+      "canonical_html_sha256": "5a60ef1b76cef711e30b9f8c9f6145bb8acc6c10f70b6c046456a5f9738eef19",
       "formulas": [
         "\\alpha_n=\\pi(n)",
         "\\alpha_n",
@@ -3100,7 +3100,7 @@
       "page_file": "chapter03_renewal_processes.html",
       "display_title": "定理 3.9 · Pollaczek–Khintchine 等待公式",
       "proof_anchor": "derive-c3-queue-identities",
-      "canonical_html_sha256": "555062df85dc005cbe3e21c921bd43b0d488668a03612432584e55cbb7aebdc9",
+      "canonical_html_sha256": "1a507985f80ff4c00545beae8c212e5f95ac03b11ed2ba37a59c4eab0dd77814",
       "formulas": [
         "W_Q=\\frac{\\lambda E(s_i^2/2)}{1-\\lambda Es_i}.",
         "ES^2<\\infty",
@@ -3176,7 +3176,7 @@
       "page_file": "chapter03_renewal_processes.html",
       "display_title": "定理 3.11 · 连续时间年龄与剩余寿命的时间平均",
       "proof_anchor": "derive-c3-equilibrium-continuous",
-      "canonical_html_sha256": "2b7c6ef3d6a094638b6ec3a6b0f4ec2805a546ac792ff887254b763d492b9039",
+      "canonical_html_sha256": "e3cbd0c1f90a3bab1b7e0912b79edb870d6d9a9f4018daab5991ba677c8638b5",
       "formulas": [
         "t\\to\\infty",
         "\\frac1t\\int_0^t1_{\\{A_s>x,Z_s>y\\}}\\,ds\\to\\frac1{Et_1}\\int_{x+y}^{\\infty}P(t_i>z)\\,dz.",
@@ -3320,7 +3320,7 @@
       "page_file": "chapter04_continuous_time_markov_chains.html",
       "display_title": "定理 4.2 · Yule 纯出生过程的转移分布",
       "proof_anchor": "derive-c4-yule-riccati",
-      "canonical_html_sha256": "81460cb306343506001a34d0ba559d1ca9feace46a0113c012fdf775e086d44c",
+      "canonical_html_sha256": "4040a605742ab569b988d17c7cec08786fbdae1a7fc7de582bfdbc8abb41d62e",
       "formulas": [
         "p_t(1,j)=e^{-\\beta t}(1-e^{-\\beta t})^{j-1}\\quad\\text{for }j\\ge1,",
         "p_t(i,j)=\\binom{j-1}{i-1}(e^{-\\beta t})^i(1-e^{-\\beta t})^{j-i}.",
@@ -3694,7 +3694,7 @@
       "page_file": "chapter04_continuous_time_markov_chains.html",
       "display_title": "定理 4.11 · 随队长减小的入队概率保证可归一化",
       "proof_anchor": "derive-c4-queue-means",
-      "canonical_html_sha256": "95b5f1ea5bb68a36f74240361e7dc90749b1ef8ca9a089d7ed01194707fe9153",
+      "canonical_html_sha256": "f6da4b389af07cc5ee6ea476956dc23deb9b6edeae686ceeb80b622a8d44391f",
       "formulas": [
         "a_n\\to0",
         "n\\to\\infty",
@@ -3731,7 +3731,7 @@
       "page_file": "chapter04_continuous_time_markov_chains.html",
       "display_title": "定理 4.12 · M/M/s 的三种常返类型",
       "proof_anchor": "derive-c4-queue-means",
-      "canonical_html_sha256": "62b1f00d206d81b8422d26ffa15f4a3d73f072b31e38f6fdc3008ab1aa3bd524",
+      "canonical_html_sha256": "bc08ffd8c1577230c29c716ed62d4f076d905fbd77eaba29478ecad0c0ef6d6f",
       "formulas": [
         "\\lambda<s\\mu",
         "\\lambda=s\\mu",
@@ -3768,7 +3768,7 @@
       "page_file": "chapter04_continuous_time_markov_chains.html",
       "display_title": "定理 4.13 · Burke 输出定理",
       "proof_anchor": "derive-c4-reversed-departures",
-      "canonical_html_sha256": "0a4b72747f6cd5a0c78d0d25ff8f92650092476cf23b185690b4b0ef6e4f320a",
+      "canonical_html_sha256": "a412de02b690ed97ff4cb40cef1567143420b1ab1a14b8ef82eced3e4d4ff92e",
       "formulas": [
         "\\lambda<\\mu s",
         "\\lambda",
@@ -3872,7 +3872,7 @@
       "page_file": "chapter04_continuous_time_markov_chains.html",
       "display_title": "定理 4.16 · 平稳 M/M/1 的过去输出与当前队长独立",
       "proof_anchor": "derive-c4-reversed-departures",
-      "canonical_html_sha256": "afed8b1b3f0d762aa4c948595efb27e7fec4da26e81cb67efe0f23d928370299",
+      "canonical_html_sha256": "c44da21404edeca3ed4d575d36832c794394681bbca87ccf4041f67ff781c218",
       "formulas": [
         "N(t)",
         "t",
@@ -3909,7 +3909,7 @@
       "page_file": "chapter04_continuous_time_markov_chains.html",
       "display_title": "引理 4.17 · 两站串联队列的乘积平稳分布",
       "proof_anchor": "derive-c4-jackson-balance",
-      "canonical_html_sha256": "c0c0ee66032cb361e72c23ecd396b0ee7661fa25242595a9fb6282d6e6f3ac0b",
+      "canonical_html_sha256": "866c3d8ace23e6db7f7c906c2af0a3cb8914189b2e75408893782062117c40f0",
       "formulas": [
         "\\pi(m,n)=c\\lambda^{m+n}/(\\mu_1^m\\mu_2^n)",
         "c=(1-\\lambda/\\mu_1)(1-\\lambda/\\mu_2)",
@@ -3984,7 +3984,7 @@
       "page_file": "chapter04_continuous_time_markov_chains.html",
       "display_title": "公式与推导 · 开放队列网络的交通方程与乘积形式",
       "proof_anchor": "derive-c4-jackson-balance",
-      "canonical_html_sha256": "2acc97690c79009c750e6a680a77e4f1450126d58220b474e8f67960dc12de9a",
+      "canonical_html_sha256": "3a1fd1178cb53b4bbcd82c8fb925336c4da650ac271ccaf2ef326d9e5866ec44",
       "formulas": [
         "K",
         "\\lambda",
@@ -4020,7 +4020,7 @@
       "page_file": "chapter04_continuous_time_markov_chains.html",
       "display_title": "公式与推导 · 统一化：以共同泊松时钟构造链",
       "proof_anchor": "derive-c4-clock-models",
-      "canonical_html_sha256": "730851272a720a1cff0ff9dfca82f7d12942b8b48910d3a3a397258f59dc5c41",
+      "canonical_html_sha256": "4f19bdd80dfd2b3eae2db0674a7c580a149687610580ac13c92a301a8e838c4b",
       "formulas": [
         "\\Lambda>0",
         "\\Lambda\\ge\\sup_iq_i",
@@ -4060,7 +4060,7 @@
       "page_file": "chapter05_martingales.html",
       "display_title": "定义 · 事件及信息下的条件期望",
       "proof_anchor": "derive-c5-conditional-rules",
-      "canonical_html_sha256": "d1435a51a18ab0b1c294d5c08d3e26b58e10af0148582c9134776ea2c5192715",
+      "canonical_html_sha256": "c694da60496698bd2b381062d588665cd73602ad8f730fbae2b54781337c33a4",
       "formulas": [
         "\\mathcal A=\\{A_1,\\ldots,A_n\\}",
         "\\Omega",
@@ -4100,7 +4100,7 @@
       "page_file": "chapter05_martingales.html",
       "display_title": "引理 5.1 · 条件期望中提取已知常数",
       "proof_anchor": "derive-c5-conditional-rules",
-      "canonical_html_sha256": "94b9719182f7e3691abf93f04c670dcfb81ba0067b223aafd2b19fc5f3c12d6d",
+      "canonical_html_sha256": "ecd3f290b7845869d206c05968369fa2382ab6723c782acc703f6bde65c49b40",
       "formulas": [
         "X",
         "c",
@@ -4426,7 +4426,7 @@
       "page_file": "chapter05_martingales.html",
       "display_title": "定义 · 可预测策略与自融资增量",
       "proof_anchor": "derive-c5-stopping-proof",
-      "canonical_html_sha256": "a2ff0461ae67cc55558b5702e045433240fac380f66f1b4a9ef3300432fd0825",
+      "canonical_html_sha256": "9779f7653663f379ef3d3a00d873c8c49f24dcb9af8c35eb8430af2a27b2a679",
       "formulas": [
         "H_n",
         "n",
@@ -4676,7 +4676,7 @@
       "page_file": "chapter05_martingales.html",
       "display_title": "定理 5.14 · GI/G/1 到达时工作量的正再生",
       "proof_anchor": "body-review-s54",
-      "canonical_html_sha256": "328538cfb6a035d6c8b58bea1308cc9f232ed9083ff3444bcf376f9786168c6a",
+      "canonical_html_sha256": "98f388c106e56d0118f4fe953c7074e3733e7f237cf1b145fe69c4f3de377a74",
       "formulas": [
         "Et_i>Es_i",
         "X_n",
@@ -4708,7 +4708,7 @@
       "page_file": "chapter05_martingales.html",
       "display_title": "引理 5.15 · 工作量在大状态处有统一负漂移",
       "proof_anchor": "body-review-s54",
-      "canonical_html_sha256": "c1ebf7e2588a6db1a176b183d2c62385a11c42048269912030dd1ad8f9c862b3",
+      "canonical_html_sha256": "dd1e8dac7bc1b100ea82aa9cf7a8b7b841c0b80b8688372d6f4eb01e1220d123",
       "formulas": [
         "\\epsilon=(Es_0-Et_1)/2",
         "K",
@@ -4749,7 +4749,7 @@
       "page_file": "chapter05_martingales.html",
       "display_title": "引理 5.16 · Lyapunov 负漂移控制进入小集的时间",
       "proof_anchor": "body-review-s54",
-      "canonical_html_sha256": "87fdb944a40a8d264b9fc8d2efa01134e37c88336ea6dcdc26fc28e41c67ea3f",
+      "canonical_html_sha256": "66a1e9d24a1aeda511ce9de67f7b2abd6d28111396fd00425c927f805f952ebf",
       "formulas": [
         "[0,\\infty)",
         "\\phi(x)\\ge0",
@@ -4797,7 +4797,7 @@
       "page_file": "chapter05_martingales.html",
       "display_title": "引理 5.17 · 从小集反复试探得到有限平均到达时间",
       "proof_anchor": "body-review-s54",
-      "canonical_html_sha256": "2810f84e15d1cc871d3758e473a457ceb3ab8ad97fae301ee8519dad1530c076",
+      "canonical_html_sha256": "f234a987e35dce2611c7d01fda450a423f57feba9cef194a1a05f96b5dd21a34",
       "formulas": [
         "M=\\sup\\{E_x\\phi(X_1):x\\le K\\}<\\infty",
         "C_1",
@@ -5005,7 +5005,7 @@
       "page_file": "chapter06_mathematical_finance.html",
       "display_title": "定理 6.4 · 风险中性下的折现股票鞅",
       "proof_anchor": "derive-c6-self-financing-proof",
-      "canonical_html_sha256": "aa75955ab08dad13d71337de20d99aec0b95f6e8992e420bda7138e6e05a5fa1",
+      "canonical_html_sha256": "15620df8e4323be868152708857410d717a9a5363dd5b5fb45c87c442ca2ce62",
       "formulas": [
         "M_n=S_n/(1+r)^n",
         "S_n",
@@ -5037,7 +5037,7 @@
       "page_file": "chapter06_mathematical_finance.html",
       "display_title": "定理 6.5 · 自融资财富鞅与折现期望定价",
       "proof_anchor": "derive-c6-self-financing-proof",
-      "canonical_html_sha256": "3b0062a95e9a00b040883d6b675159073b1c5cd576bc9ca952dac21a6c2b860b",
+      "canonical_html_sha256": "282e4b9a06adc96d54cdbdaeca4ac2e324e353ad4a310fe610ee0d8d32b86720",
       "formulas": [
         "\\Delta_n(a)",
         "W_n",
@@ -5071,7 +5071,7 @@
       "page_file": "chapter06_mathematical_finance.html",
       "display_title": "定理 6.6 · 欧式看涨看跌平价",
       "proof_anchor": "derive-c6-parity-knockout",
-      "canonical_html_sha256": "7574c8f67a1fa82b4d7d475bf6f95d3000fd7e7132018a84946862c9d54a9705",
+      "canonical_html_sha256": "e592efd98739d26acfef79d6454223dc478b7a704fab733818a11569f7b58483",
       "formulas": [
         "V_P",
         "V_C",
@@ -5170,7 +5170,7 @@
       "page_file": "chapter06_mathematical_finance.html",
       "display_title": "定理 6.7 · 一类美式支付不应提前行权",
       "proof_anchor": "derive-c6-snell-examples",
-      "canonical_html_sha256": "35c88e543cb46abc5de16a858382c12ec6f2f892e281de7281a0a45e7c0184fb",
+      "canonical_html_sha256": "3534ff3e923c4da7356bba079d324b53cca5f1ac4927c11b6fc67006bbfc6969",
       "formulas": [
         "g",
         "g(0)=0",
@@ -5208,7 +5208,7 @@
       "page_file": "chapter06_mathematical_finance.html",
       "display_title": "定理 6.8 · 中心极限定理",
       "proof_anchor": "derive-c6-normal-limit-price",
-      "canonical_html_sha256": "5e6f92d2547a8145995672092a163fb0d0d0b792f688921ac546ed3ef4ff60f3",
+      "canonical_html_sha256": "52861f0acc363bcb09efe79a0a0ce4a2815ffbaa91bd0cdc538014bc2aa1668b",
       "formulas": [
         "X_1,X_2,\\ldots",
         "EX_i=0",
@@ -5247,7 +5247,7 @@
       "page_file": "chapter06_mathematical_finance.html",
       "display_title": "定义 · 对数价格与风险中性漂移",
       "proof_anchor": "derive-c6-normal-limit-price",
-      "canonical_html_sha256": "c06dd9e7ac4da9f7add6f32467662edac7236a31312303261de96155740b3985",
+      "canonical_html_sha256": "5a4c6a0d3ed11cd84147dd24b4f695499a9fe03503488461b10cb624a8956090",
       "formulas": [
         "B_t",
         "\\mu=r-\\sigma^2/2",
@@ -5352,7 +5352,7 @@
       "page_file": "chapter06_mathematical_finance.html",
       "display_title": "定理 6.10 · Black–Scholes 欧式看涨公式",
       "proof_anchor": "derive-c6-normal-limit-price",
-      "canonical_html_sha256": "89a9d263131277f505493398f0f050f1ea0e8ff2c68948db2dd6606c301adfca",
+      "canonical_html_sha256": "a5752f345e3393daa41310c393070d614fa57665a40426021e351a8d68dd9839",
       "formulas": [
         "(S_t-K)^+",
         "S_0\\Phi(d_1)-e^{-rt}K\\Phi(d_2)",
@@ -5391,7 +5391,7 @@
       "page_file": "appendix_a_probability_review.html",
       "display_title": "公理 · 概率的三条基本公理",
       "proof_anchor": "derive-a-counting-bayes",
-      "canonical_html_sha256": "64d54696e4d720bd9f2b555b31cd05ff35ca37d63f62a66e42f6aa1dc56402bb",
+      "canonical_html_sha256": "9e556fa986483914192a7423406cbaa42ed36bb1e036de7c2563d6701554206f",
       "formulas": [
         "A",
         "0\\le P(A)\\le1",
@@ -5605,7 +5605,7 @@
       "page_file": "appendix_a_probability_review.html",
       "display_title": "定义 · 期望、方差与概率生成函数",
       "proof_anchor": "derive-a-moment-examples",
-      "canonical_html_sha256": "ee1264fbea53e2958ba5b79da89ef364b3ff2690207a50b5479557b08ac60bfa",
+      "canonical_html_sha256": "61b90334f98296a9a013b44266cf8b2d7f59ffcdff6034f78445406524cebb49",
       "formulas": [
         "h(x)=(x-EX)^2",
         "Eh(X)=E(X-EX)^2=EX^2-(EX)^2",
@@ -5738,7 +5738,7 @@
       "page_file": "appendix_a_probability_review.html",
       "display_title": "定理 A.6 · 独立同分布非负整数和的生成函数",
       "proof_anchor": "derive-a-moment-examples",
-      "canonical_html_sha256": "2345e58ab6dc334e290275dd10cfe7dc5fc8df307a1876f704ea89178a49fdb5",
+      "canonical_html_sha256": "9d19ab2f4a8da687fcfedb3c881cc46b4833b49ef2e4d93ae462a1d9eb14fd74",
       "formulas": [
         "X_1,\\ldots,X_n",
         "\\phi(x)",
@@ -5880,7 +5880,7 @@
       "page_file": "appendix_a_probability_review.html",
       "display_title": "定义 · 本节的收敛前提",
       "proof_anchor": "derive-a-convergence-proof",
-      "canonical_html_sha256": "4a5e35168f90581a4ed72c5a4828d5ea6d07e37cc4becd65b06130deede80d3a",
+      "canonical_html_sha256": "7c97cd30f3b80e913462f88151b1dfa064963494e8b03f6f9995cf64147a0aa3",
       "formulas": [
         "X_n",
         "X",
@@ -6052,7 +6052,7 @@
       "page_file": "chapter06_mathematical_finance.html",
       "display_title": "定义 · 标准布朗运动的定义",
       "proof_anchor": "derive-c6-normal-limit-price",
-      "canonical_html_sha256": "1511a26ab8ec6d979e706ac72a7783bb9842e05ba8004121d4fad7e7ca4121eb",
+      "canonical_html_sha256": "c8e84a35279e92b042572b8c31792c39830a48b7bc8613344551fe8b2fca0d88",
       "formulas": [
         "B(t)",
         "B(0)=0",
@@ -8351,44 +8351,44 @@
       "sha256": "e255b6e8ed79126c2cacdfcaececd18cc4607a37b9f09789e0696273f1c3f887"
     },
     "notes/appendix_a_probability_review.html": {
-      "bytes": 242022,
-      "sha256": "960e0c0d70284b0c3138d55918a026895e2ded6946adbd3a44ff125e231dbd71"
+      "bytes": 317214,
+      "sha256": "00d0f8c2696366b6194cb2a2d5b958d1543cc25abc91370ff5e12bcc98dae6df"
     },
     "notes/book_overview.html": {
-      "bytes": 56727,
-      "sha256": "9b59bbcbbf6b5b1adac295d8a3b41cddf28afca5b0658f87d020143fcb76ee88"
+      "bytes": 61742,
+      "sha256": "ac30c6771e577dba995544fb7e87d2e1aabdd8f7e58466101b955a38342243f8"
     },
     "notes/chapter01_markov_chains.html": {
-      "bytes": 2142264,
-      "sha256": "454000b2c5ea63f64720a047b194364ca8483e07c3b942a5837df4f9bff2d5b5"
+      "bytes": 2293734,
+      "sha256": "3cded9b59bcf5c2e15d792309ad91fa1392c702f3012598a73d682caf3c64476"
     },
     "notes/chapter02_poisson_processes.html": {
-      "bytes": 692779,
-      "sha256": "04c5a869a634448c746a5ca0a567c68acda9aa4524bb24c5c3342d873e27e658"
+      "bytes": 793422,
+      "sha256": "7ac368f82fe741131826ef285cda1b3325b8b47a3a1ff26205c0342ad1537a3d"
     },
     "notes/chapter03_renewal_processes.html": {
-      "bytes": 359534,
-      "sha256": "240e945c0910e354762aba58a338244adda473fe14658dc699ed86e39f6729c2"
+      "bytes": 430350,
+      "sha256": "d08ef794173e91f4ed89f22bb0917208721d44a9703cbd80c8aa23b35eca83fc"
     },
     "notes/chapter04_continuous_time_markov_chains.html": {
-      "bytes": 861635,
-      "sha256": "493dc1165ace99f70df22848ace832f52aa1918b9b651bdbce9e625b2983540c"
+      "bytes": 1110771,
+      "sha256": "cf7a134159077adba2652c395bef4bc5e73d1d1cc9e8ba51259ccb6201ffcf25"
     },
     "notes/chapter05_martingales.html": {
-      "bytes": 418269,
-      "sha256": "208cfd2d3255d614d1e82c957327a70509432babb924f29212d28552961abf85"
+      "bytes": 527505,
+      "sha256": "06589ff802eea608eb34f1892374359c7e8644478bdc7e5399e2830aa780d171"
     },
     "notes/chapter06_mathematical_finance.html": {
-      "bytes": 1199079,
-      "sha256": "a12e02ecbf7cf4ba0a056a8eac6bbee494df1b0102c9f21fffe2a131618944be"
+      "bytes": 1336455,
+      "sha256": "e938695ba217a9793d28d758bcd065cda61ca585baf304c057e511a22c359e88"
     },
     "notes/code_deployment_review.json": {
-      "bytes": 229709,
-      "sha256": "77b8cec83573d96bbac968d70b6aaccee311238bb983cee457878b0ddc03b04b"
+      "bytes": 230273,
+      "sha256": "3803af5b68c068407b7389938c7f9d0e25e36100d08c5ce28be5f7f2cf642c7e"
     },
     "notes/preface.html": {
-      "bytes": 46143,
-      "sha256": "2f2c54b23662cd45a958480bb41fec9653c3635ad20495fcaa0220811d6f130c"
+      "bytes": 50091,
+      "sha256": "dab5947cde1e7fb377d20fb988c86187e35134823c18fc70b158cd234a5a11bc"
     },
     "notes/source_manifest.json": {
       "bytes": 36372,
@@ -8399,8 +8399,8 @@
       "sha256": "0abcb345d1665a5759c23eaefe4b1c0a63730d14dd201b83bd12b94fded09681"
     },
     "notes/audit_fix_review.json": {
-      "bytes": 262335,
-      "sha256": "658f713106eaeac6b241ca6f648889f89cb53de761614d581e78685d4053d134"
+      "bytes": 262893,
+      "sha256": "7b42d857c68d9d65ecea0b0d17226fd2b85e30b2d156e27fa6d93a3223472ca8"
     }
   },
   "review_history": [
@@ -14870,5 +14870,11 @@
     "prior_record_git": "5d69b9816379acc246017496e494c5ac40e85438:books/stochastic/notes/statements_review.json",
     "prior_record_sha256": "266dd787425f21adeb015769f226093d57bfbddfa2f14ad3e0a3d6bf768eca0e",
     "scope": "Presentation and navigation bindings only. Original question text, MathML, SVG, pre and code are byte-preserved. Historical execution and browser claims retain their original scope. Fresh acceptance: docs/recheck-followup-20261020.json"
+  },
+  "I044_typography_revision": {
+    "issue": "I044",
+    "prior_record_git": "7e9d2ea:books/stochastic/notes/statements_review.json",
+    "prior_record_sha256": "cf36003d5fce7b3bb9c08a77399524b65de04ba5e97bd13e10c1579a15deca34",
+    "scope": "Current representation bindings: Times New Roman, structured inline MathML, positioned SVG scripts and explicit diagram node styling. Original program blocks and exercise IDs preserved. Historical execution claims retain their original scope; new acceptance is recorded in docs/reading-typography-review.json"
   }
 }

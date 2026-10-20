@@ -59,6 +59,15 @@ def require(condition, message):
         raise ValueError(message)
 
 
+def source_text(node):
+    """Recover one continuous source spelling through inline MathML."""
+    if isinstance(node, str):
+        return node
+    if node.tag == 'math' and node.attrs.get('aria-label'):
+        return node.attrs['aria-label']
+    return ''.join(source_text(child) for child in node.children)
+
+
 def question_block(block):
     start = block.index('<div class="exercise-question">')
     depth = 0
@@ -173,7 +182,10 @@ def structure():
     excerpts = json.loads((notes / 'source_excerpts.json').read_text())['excerpts']
     for item in excerpts:
         text = texts[(notes / item['page']).resolve()]
-        require(f'id="{item["anchor"]}"' in text and item['text'] in unescape(text), 'source excerpt drifted')
+        anchors = [node for node in Document(text).root.walk()
+                   if node.attrs.get('id') == item['anchor']]
+        require(len(anchors) == 1 and item['text'] in source_text(anchors[0]),
+                'source excerpt drifted')
     table = dict(re.findall(r'data-word="([^"]+)" data-result="([^"]+)"', chapter))
     require(table == EXPECTED, 'six-action table disagrees with independent reference')
     binding = 'not yet completed'

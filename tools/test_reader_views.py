@@ -9,7 +9,7 @@ import sys
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "deploy"))
-from publication import build_reader_views, transform_reading_page, entry_page, with_site_icon
+from publication import build_reader_views, transform_reading_page, entry_page, with_site_icon, configure
 from check_astro_records import matches_reviewed_output
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -93,6 +93,7 @@ class SourcePageNavigation(unittest.TestCase):
 
     def test_every_book_declares_the_shared_icon_at_both_entry_depths(self):
         books = json.loads((ROOT / 'books/catalog.json').read_text())['books']
+        configure({book['id']: book for book in books})
         for book in books:
             prefix = book['publish_prefix']
             reading = transform_reading_page(reading_page(prefix, ''),

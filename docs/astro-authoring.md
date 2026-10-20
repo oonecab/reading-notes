@@ -51,3 +51,9 @@ CSP 和离线验收默认复用 `tmp/final-assessment/browser-session.json` 中�
 `scripts/performance-budgets.json` 是经 I035 基线审查的上限；构建及 `pnpm check:performance` 检查每个公开 HTML 的原始/压缩体积、元素数和内联脚本量。首页和两个代表大章有单独预算，新增页面也受默认上限约束。预算不会随构建自动上涨。运行 `READING_NOTES_CSP_SPACE=<现有空间ID> node scripts/check-browser-performance.mjs https://notes.zzzping.top` 可取得 3 个代表页面、2 个视口/CPU 档、各 3 轮初访/复访的 36 次样本。它复用浏览器锁及独立运行目录，探针缺失或页面横溢出即失败，不清理用户全局缓存。静态预算不等于设备延迟；真实浏览器另记视口、CPU 倍率、初访/复访、长任务、布局和样本数。
 
 CS:APP 共享横滚脚本的此次修订通过正常 source revision 链登记，当前绑定在 `books/csapp/review/reader-performance.json`；数学正文、原习题和历史基线保留。
+
+## I044 字体与数学标记维护
+
+每页最后一个 head 样式块末尾引入一次 `<!-- RN:include styles/reading-typography.css -->`。共同约定以 RN-001 v1.4 为准；普通英文数字使用 Times New Roman，运算符和语义字体仍由 MathML 正确表示。`tools/reading-typography/math.mjs` 提供作者使用的静态表达式构造，`check.mjs` 检查全站字体、原始上下标泄漏、MathML 参数与 EOPL 环境关系。`normalize.mjs` / `repair-fences.mjs` 是迁移辅助工具，批量写入前必须保存基线并审阅差异，不能把任意程序片段自动当成公式。
+
+EOPL 以地图与序言两页接入，基线 `7e9d2ea` 是保留的原始源码，`release-astro.json` 中的归档身份不表示历史生产发布。当前发布页、浏览器检查和来源修订分别记录。新增页继续执行独立基线和完整验收流程。

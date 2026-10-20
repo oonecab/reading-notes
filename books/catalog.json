@@ -74,6 +74,21 @@
       "scope": "full-book companion: overview, prefaces, chapters 1–6, all starred sections and 170 exercises",
       "code_authority": "standalone_sources",
       "checker": "tools/check_notes.py"
+    },
+    {
+      "id": "eopl",
+      "title": "EOPL · 程序设计语言要义（地图与导读）",
+      "directory": "books/eopl",
+      "entry": "notes/book_overview.html",
+      "publish_prefix": "eopl",
+      "notes_directory": "notes",
+      "code_directory": "code",
+      "guidelines": "agent.md",
+      "expected_pages": 2,
+      "expected_exercises": 1,
+      "scope": "Preparation companion: full-book map, preface, exercise 0.1 and one executable lexical/dynamic scope example. Chapters 1–9 are mapped, not authored.",
+      "code_authority": "standalone_sources",
+      "checker": "tools/check_notes.py"
     }
   ]
 }

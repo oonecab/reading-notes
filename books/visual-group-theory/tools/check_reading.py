@@ -93,6 +93,11 @@ def spelling(node):
         return ''
     if kind == 'mspace':
         return ''
+    if kind == 'msubsup':
+        require(len(parts) == 3, 'MathML arity: ' + kind)
+        a, b, c = parts
+        require(a not in ')]}⟩', 'MathML script attached only to closing fence')
+        return a + '_{' + b + '}^{' + c + '}'
     if kind in ('msub', 'msup', 'mfrac', 'mroot', 'mover'):
         require(len(parts) == 2, 'MathML arity: ' + kind)
         a, b = parts
@@ -130,7 +135,7 @@ def check_math(source):
                 'formula accessible name differs from source notation')
         value = spelling(tree)
         if node.attrs.get('display') == 'inline':
-            require(any(tag(x) in ('mi', 'mn', 'msup', 'msub', 'msqrt', 'mfrac') for x in tree.iter()),
+            require(any(tag(x) in ('mi', 'mn', 'mo', 'msup', 'msub', 'msqrt', 'mfrac') for x in tree.iter()),
                     'inline formula cannot be only mtext')
             count += 1
         expected = {**EXPECTED, **DISPLAY_EXPECTED}

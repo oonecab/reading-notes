@@ -79,7 +79,14 @@ def check(book_id: str, quick: bool, benchmarks: bool) -> int:
         if quick:
             command.append("--quick")
         commands.append(command)
+    if "eopl" in selected:
+        command = [sys.executable, selected["eopl"]["root"] / "tools/check_notes.py",
+                   "--run-dir", run / "eopl"]
+        if quick:
+            command.append("--quick")
+        commands.append(command)
     commands.append(["node", ROOT / "tools/reading-components/check.mjs"])
+    commands.append(["node", ROOT / "tools/reading-typography/check.mjs"])
     commands.append([sys.executable, ROOT / "tools/check_astro_records.py"])
     report = {"status": "running", "book": book_id, "quick": quick, "benchmarks": benchmarks,
               "started_at": datetime.now(timezone.utc).isoformat(), "checks": []}

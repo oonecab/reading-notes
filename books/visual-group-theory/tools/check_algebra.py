@@ -7,6 +7,9 @@ from pathlib import Path
 import re
 import subprocess
 import sys
+import xml.etree.ElementTree as ET
+
+from check_reading import spelling
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -23,13 +26,29 @@ def module(name):
     return result
 
 
+def cell_text(fragment):
+    """Read the displayed MathML, excluding its duplicate copy annotation."""
+    superscripts = str.maketrans('0123456789+−=()ni', '⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ⁿⁱ')
+    subscripts = str.maketrans('0123456789+−=()aeijoruvx', '₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎ₐₑᵢⱼₒᵣᵤᵥₓ')
+
+    def math_text(match):
+        value = spelling(ET.fromstring(match[0]))
+        value = re.sub(r'\^\{([0123456789+−=()ni]+)\}',
+                       lambda m: m[1].translate(superscripts), value)
+        return re.sub(r'_\{([0123456789+−=()aeijoruvx]+)\}',
+                      lambda m: m[1].translate(subscripts), value)
+
+    fragment = re.sub(r'<math\b[^>]*>.*?</math>', math_text, fragment, flags=re.S)
+    return unescape(re.sub('<[^>]+>', '', fragment)).strip()
+
+
 def html_table(identifier):
     text = (ROOT/'notes/chapter04_algebra_at_last.html').read_text()
     found = re.search(r'<table\b[^>]*id="' + re.escape(identifier) + r'".*?</table>', text, re.S)
     need(found is not None, 'missing table ' + identifier)
     rows = []
     for row in re.findall(r'<tr\b[^>]*>(.*?)</tr>', found[0], re.S):
-        rows.append([unescape(re.sub('<[^>]+>', '', x)).strip()
+        rows.append([cell_text(x)
                      for x in re.findall(r'<t[dh]\b[^>]*>(.*?)</t[dh]>', row, re.S)])
     need(rows[0][1:] == [r[0] for r in rows[1:]], 'table labels do not align')
     return rows[0][1:], [r[1:] for r in rows[1:]]
@@ -53,6 +72,12 @@ def permutation_then(a, b):
 
 
 def source_oracles():
+    # A stale accessible label must not conceal a changed displayed exponent.
+    fixture = ('<math aria-label="a²"><semantics><msup><mi>a</mi><mn>2</mn>'
+               '</msup><annotation encoding="text/plain">a²</annotation></semantics></math>')
+    need(cell_text(fixture) == cell_text('a²') == 'a²', 'MathML table-cell decoding failed')
+    need(cell_text(fixture.replace('<mn>2</mn>', '<mn>3</mn>')) == 'a³',
+         'MathML table reader trusts stale annotation')
     data = json.loads((ROOT/'notes/algebra_inputs.json').read_text())
     # The printed D_n tables are checked on actual polygon vertices, independently
     # of the normal-form multiplication used to construct the tables.

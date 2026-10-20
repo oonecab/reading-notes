@@ -2,7 +2,7 @@
   "schema_version": 1,
   "project": {
     "name": "Reading Notes",
-    "summary": "统一管理 Durrett 随机过程、Weiss 数据结构、CS:APP 系统、Carter 视觉群论与程士宏测度概率笔记，保留正式 HTML、可运行示例、来源与验证记录，共用阅读入口和静态发布流程。",
+    "summary": "统一管理 Durrett 随机过程、Weiss 数据结构、CS:APP 系统、Carter 视觉群论与程士宏测度概率及 EOPL 地图与序言笔记，保留正式 HTML、可运行示例、来源与验证记录，共用阅读入口和静态发布流程。",
     "profile": "generic",
     "governance_level": "controlled"
   },
@@ -33,6 +33,7 @@
       "books/csapp",
       "books/visual-group-theory",
       "books/measure-probability",
+      "books/eopl",
       "portal",
       "deploy",
       "tools",
@@ -45,7 +46,8 @@
       "根目录工具统一调用各书既有校验器，输出写入被忽略的 tmp/ 或 deploy/portal-releases/。",
       "统一构建保留 /stochastic/、/weiss/、/csapp/ 并接入 /visual-group-theory/、/measure-probability/ URL；部署使用独立版本目录和 current 原子切换，同时维护本版 CSP。",
       "根 Git 历史与远端沿用；原 Weiss 工作目录保留，合并后的维护入口为本仓库。",
-      "五书 Astro 迁移已逐批验收；根 build 生成纯静态 dist 与不可变包，旧 HTML、旧构建器和历史审阅保留。Ubuntu /srv/reading-notes 生产发布已在 I029 实机验收，Node 只用于本地构建。"
+      "五书 Astro 迁移已逐批验收；根 build 生成纯静态 dist 与不可变包，旧 HTML、旧构建器和历史审阅保留。Ubuntu /srv/reading-notes 生产发布已在 I029 实机验收，Node 只用于本地构建。",
+      "I044 登记 EOPL 地图与序言两页，统一 /eopl/ 前缀、allowlist 和根检查；共 58 阅读页。共享 Times New Roman、MathML 和 SVG 样式保持内联，不新增技术栈。"
     ]
   },
   "commands": {

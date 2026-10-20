@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "review": "I035; measured pre-change build d3464db, explicit ceilings, never auto-refresh during build",
+  "review": "I035 baseline retained; I044 explicit allowance for semantic inline MathML and EOPL home card. JavaScript ceilings unchanged. Before/after metrics recorded in T044.",
   "default": {
     "html_bytes": 2250000,
     "gzip_bytes": 310000,
@@ -8,6 +8,26 @@
     "js_bytes": 8500
   },
   "pages": {
+    "index.html": {
+      "html_bytes": 21000,
+      "gzip_bytes": 7000,
+      "elements": 307,
+      "js_bytes": 564
+    },
+    "csapp/notes/chapter02_information.html": {
+      "html_bytes": 800000,
+      "gzip_bytes": 140000,
+      "elements": 21000,
+      "js_bytes": 7289
+    },
+    "stochastic/notes/chapter01_markov_chains.html": {
+      "html_bytes": 2400000,
+      "gzip_bytes": 306632,
+      "elements": 79470,
+      "js_bytes": 4967
+    }
+  },
+  "I044_previous_pages": {
     "index.html": {
       "html_bytes": 19050,
       "gzip_bytes": 6315,

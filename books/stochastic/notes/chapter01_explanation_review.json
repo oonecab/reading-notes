@@ -5206,8 +5206,8 @@
   ],
   "files": {
     "notes/chapter01_markov_chains.html": {
-      "bytes": 2142264,
-      "sha256": "454000b2c5ea63f64720a047b194364ca8483e07c3b942a5837df4f9bff2d5b5"
+      "bytes": 2293734,
+      "sha256": "3cded9b59bcf5c2e15d792309ad91fa1392c702f3012598a73d682caf3c64476"
     },
     "notes/source_manifest.json": {
       "bytes": 36372,
@@ -5218,16 +5218,16 @@
       "sha256": "2232660e1909b42c6df8b5aca8eba12cdb383bf3741ecb53add49f6c26c6a0e7"
     },
     "tools/content_baseline.json": {
-      "bytes": 1975727,
-      "sha256": "3c2433b9ba9519d01be8f64ecf6df207ed0cf4b1d9085f64703798e48e6d7e61"
+      "bytes": 2889428,
+      "sha256": "e1521036d62a9ba6ab6b1696416ddf950a44ff0c20f319c1799eecc4a5c7fa0c"
     },
     "../../test/test_stochastic_derivations.py": {
-      "bytes": 21772,
-      "sha256": "2d23757248548a11d2a7d42107b8ea501c7eebddc606c9b705e7b6bfeaccca93"
+      "bytes": 22548,
+      "sha256": "b6da985a6c5effa74d4a29357450a85e6f37da7a0d9a63a91076b080062acdee"
     },
     "notes/derivation_coverage.json": {
-      "bytes": 356326,
-      "sha256": "e8dda20443e209332eff7bcc7bec0c7320e105763a81eb30bd93175a96fe4959"
+      "bytes": 356352,
+      "sha256": "b39ec519f8613bd61dad6dbeb9ce5e8f1d9bd5e51095528c139fb44e9ac161dd"
     }
   },
   "publication": {
@@ -5310,5 +5310,11 @@
     "prior_record_git": "5d69b9816379acc246017496e494c5ac40e85438:books/stochastic/notes/chapter01_explanation_review.json",
     "prior_record_sha256": "3f3d18eba98da22fa1c9ed66357c60fd325410b5bdfa01406bb549ee19cc2d82",
     "scope": "Presentation and navigation bindings only. Original question text, MathML, SVG, pre and code are byte-preserved. Historical execution and browser claims retain their original scope. Fresh acceptance: docs/recheck-followup-20261020.json"
+  },
+  "I044_typography_revision": {
+    "issue": "I044",
+    "prior_record_git": "7e9d2ea:books/stochastic/notes/chapter01_explanation_review.json",
+    "prior_record_sha256": "265128cc4b9f88f4af966d33a0ed678df40437c5403bea249ac9ac3984146271",
+    "scope": "Current representation bindings: Times New Roman, structured inline MathML, positioned SVG scripts and explicit diagram node styling. Original program blocks and exercise IDs preserved. Historical execution claims retain their original scope; new acceptance is recorded in docs/reading-typography-review.json"
   }
 }

@@ -17506,28 +17506,28 @@
   ],
   "files": {
     "notes/chapter03_renewal_processes.html": {
-      "bytes": 359534,
-      "sha256": "240e945c0910e354762aba58a338244adda473fe14658dc699ed86e39f6729c2"
+      "bytes": 430350,
+      "sha256": "d08ef794173e91f4ed89f22bb0917208721d44a9703cbd80c8aa23b35eca83fc"
     },
     "notes/appendix_a_probability_review.html": {
-      "bytes": 242022,
-      "sha256": "960e0c0d70284b0c3138d55918a026895e2ded6946adbd3a44ff125e231dbd71"
+      "bytes": 317214,
+      "sha256": "00d0f8c2696366b6194cb2a2d5b958d1543cc25abc91370ff5e12bcc98dae6df"
     },
     "notes/chapter06_mathematical_finance.html": {
-      "bytes": 1199079,
-      "sha256": "a12e02ecbf7cf4ba0a056a8eac6bbee494df1b0102c9f21fffe2a131618944be"
+      "bytes": 1336455,
+      "sha256": "e938695ba217a9793d28d758bcd065cda61ca585baf304c057e511a22c359e88"
     },
     "notes/chapter02_poisson_processes.html": {
-      "bytes": 692779,
-      "sha256": "04c5a869a634448c746a5ca0a567c68acda9aa4524bb24c5c3342d873e27e658"
+      "bytes": 793422,
+      "sha256": "7ac368f82fe741131826ef285cda1b3325b8b47a3a1ff26205c0342ad1537a3d"
     },
     "notes/chapter04_continuous_time_markov_chains.html": {
-      "bytes": 861635,
-      "sha256": "493dc1165ace99f70df22848ace832f52aa1918b9b651bdbce9e625b2983540c"
+      "bytes": 1110771,
+      "sha256": "cf7a134159077adba2652c395bef4bc5e73d1d1cc9e8ba51259ccb6201ffcf25"
     },
     "notes/chapter05_martingales.html": {
-      "bytes": 418269,
-      "sha256": "208cfd2d3255d614d1e82c957327a70509432babb924f29212d28552961abf85"
+      "bytes": 527505,
+      "sha256": "06589ff802eea608eb34f1892374359c7e8644478bdc7e5399e2830aa780d171"
     },
     "notes/source_manifest.json": {
       "bytes": 36372,
@@ -17538,12 +17538,12 @@
       "sha256": "2232660e1909b42c6df8b5aca8eba12cdb383bf3741ecb53add49f6c26c6a0e7"
     },
     "notes/derivation_coverage.json": {
-      "bytes": 356326,
-      "sha256": "e8dda20443e209332eff7bcc7bec0c7320e105763a81eb30bd93175a96fe4959"
+      "bytes": 356352,
+      "sha256": "b39ec519f8613bd61dad6dbeb9ce5e8f1d9bd5e51095528c139fb44e9ac161dd"
     },
     "tools/content_baseline.json": {
-      "bytes": 1975727,
-      "sha256": "3c2433b9ba9519d01be8f64ecf6df207ed0cf4b1d9085f64703798e48e6d7e61"
+      "bytes": 2889428,
+      "sha256": "e1521036d62a9ba6ab6b1696416ddf950a44ff0c20f319c1799eecc4a5c7fa0c"
     },
     "tools/derivation_coverage.py": {
       "bytes": 15791,
@@ -17554,16 +17554,16 @@
       "sha256": "0abcb345d1665a5759c23eaefe4b1c0a63730d14dd201b83bd12b94fded09681"
     },
     "../../test/test_stochastic_derivations.py": {
-      "bytes": 21772,
-      "sha256": "2d23757248548a11d2a7d42107b8ea501c7eebddc606c9b705e7b6bfeaccca93"
+      "bytes": 22548,
+      "sha256": "b6da985a6c5effa74d4a29357450a85e6f37da7a0d9a63a91076b080062acdee"
     },
     "tools/check_content_regressions.py": {
       "bytes": 3865,
       "sha256": "5155d22f05dd9fedee4ed2a2345c31ee7da951d77141a43644d810588e03bf87"
     },
     "tools/test_tooling.py": {
-      "bytes": 6077,
-      "sha256": "a2f14ee2b92f0cca9bcb19cd6e9eddf32e144892ba2076f254ad66ee54157c3d"
+      "bytes": 6805,
+      "sha256": "b6c52715e8eaf6e691de98709db094997db70216b08b811b351b193411b734b7"
     }
   },
   "publication": {
@@ -17614,5 +17614,11 @@
     "prior_record_git": "5d69b9816379acc246017496e494c5ac40e85438:books/stochastic/notes/remaining_explanation_review.json",
     "prior_record_sha256": "8c478c7cd098a27c0dc9a9d32677ccc994ac6d5b67fa526626aacc8750f992c9",
     "scope": "Presentation and navigation bindings only. Original question text, MathML, SVG, pre and code are byte-preserved. Historical execution and browser claims retain their original scope. Fresh acceptance: docs/recheck-followup-20261020.json"
+  },
+  "I044_typography_revision": {
+    "issue": "I044",
+    "prior_record_git": "7e9d2ea:books/stochastic/notes/remaining_explanation_review.json",
+    "prior_record_sha256": "92ec3f0e4053609911603d0cd7682654621ef9d14a729c872a4173a6f1ed824c",
+    "scope": "Current representation bindings: Times New Roman, structured inline MathML, positioned SVG scripts and explicit diagram node styling. Original program blocks and exercise IDs preserved. Historical execution claims retain their original scope; new acceptance is recorded in docs/reading-typography-review.json"
   }
 }

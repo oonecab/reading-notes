@@ -1,10 +1,16 @@
 """Catalog extensions around the frozen I028 reader transformer."""
 from html import escape
 from html.parser import HTMLParser
+from pathlib import Path
 import reader_views as legacy
 
 FROZEN_BOOKS = frozenset(legacy.BOOKS)
 registered = {}
+
+def with_auxiliary_typography(blob):
+    css = (Path(__file__).resolve().parents[1] /
+           'src/styles/reading-auxiliary-typography.css').read_bytes()
+    return blob.replace(b'</head>', b'<style>' + css + b'</style></head>', 1)
 
 
 class IconLinks(HTMLParser):
@@ -46,6 +52,10 @@ def scope_labels(blob, name):
 
 
 def transform_reading_page(blob, name, views, **kwargs):
+    if name.startswith('eopl/notes/'):
+        blob = blob.replace(
+            b'href="../review/map-preface.md"',
+            b'href="https://github.com/oonecab/reading-notes/blob/main/books/eopl/review/map-preface.md"')
     # Adapt the explicitly reviewed RN-001 scope around the frozen I028 parser.
     component_body = b'<body class="rn-components">'
     scoped = component_body in blob
@@ -77,7 +87,8 @@ def build_reader_views(blobs):
             text = blobs[source].decode()
             documents[target] = legacy.document(target, text.splitlines()[0].removeprefix('# '),
                                                 '本书示例程序与运行说明。', legacy.markdown(text, target, views), raw=source)
-    return {name: scope_labels(blob, name) for name, blob in documents.items()}, views
+    return {name: with_auxiliary_typography(scope_labels(blob, name))
+            for name, blob in documents.items()}, views
 
 
 def entry_page(book):
@@ -86,11 +97,12 @@ def entry_page(book):
             '<meta name="viewport" content="width=device-width,initial-scale=1">'
             f'<meta http-equiv="refresh" content="0;url={entry}"><title>{title}</title>'
             f'</head><body><p><a href="{entry}">进入 {title}</a></p></body></html>\n').encode()
-    return with_site_icon(blob, f'{book["publish_prefix"]}/index.html')
+    return with_site_icon(with_auxiliary_typography(blob), f'{book["publish_prefix"]}/index.html')
 
 
 def add_catalog_links(blob):
-    new = registered.keys() - FROZEN_BOOKS
+    new = {name for name in registered.keys() - FROZEN_BOOKS
+           if f'href="{name}/{registered[name]["entry"]}"'.encode() not in blob}
     if not new:
         return blob
     links = ''.join(f'<a href="{name}/{escape(registered[name]["entry"], quote=True)}">'

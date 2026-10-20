@@ -1,6 +1,6 @@
 {
   "issue": "I041",
-  "scope": "All 56 controlled pages; explicit teaching blocks, not every occurrence of an example or proof in ordinary prose.",
+  "scope": "All 58 controlled pages; EOPL map and preface added by I044. Explicit teaching blocks, not every occurrence of an example or proof in ordinary prose.",
   "pages": [
     {
       "page": "measure-probability/notes/book_overview.html",
@@ -505,6 +505,24 @@
         "proof": 0,
         "exercise": 0
       }
+    },
+    {
+      "page": "eopl/notes/book_overview.html",
+      "counts": {
+        "statement": 0,
+        "example": 0,
+        "proof": 0,
+        "exercise": 0
+      }
+    },
+    {
+      "page": "eopl/notes/preface.html",
+      "counts": {
+        "statement": 0,
+        "example": 1,
+        "proof": 0,
+        "exercise": 1
+      }
     }
   ],
   "totals": {
@@ -512,5 +530,6 @@
     "example": 219,
     "proof": 351,
     "exercise": 1525
-  }
+  },
+  "I044_scope_extension": "Two existing EOPL pages; one original exercise and one companion example. Existing 56-page counts preserved."
 }

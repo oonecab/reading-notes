@@ -6,8 +6,7 @@ from pathlib import Path
 import re
 import subprocess
 import sys
-from check_algebra import module, need, permutation_then, graph_words
-from html import unescape
+from check_algebra import module, need, permutation_then, graph_words, cell_text
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -206,7 +205,7 @@ def source_checks():
     need(mul(mul(mul('a','x'),inv('a')),inv('x'))=='y','8.17 A4 commutator label failed')
     text=(ROOT/'notes/chapter06_subgroups.html').read_text()
     html=re.search(r'<table[^>]*id="table-a4-ch6".*?</table>',text,re.S)[0]
-    rows=[[unescape(re.sub('<[^>]+>','',v)) for v in re.findall(r'<t[hd][^>]*>(.*?)</t[hd]>',row,re.S)] for row in re.findall(r'<tr[^>]*>(.*?)</tr>',html,re.S)]
+    rows=[[cell_text(v) for v in re.findall(r'<t[hd][^>]*>(.*?)</t[hd]>',row,re.S)] for row in re.findall(r'<tr[^>]*>(.*?)</tr>',html,re.S)]
     labels=[x.replace('²','2') for x in rows[0][1:]]
     need([[v.replace('²','2') for v in row[1:]] for row in rows[1:]]==[[mul(a,b) for b in labels] for a in labels],'6.31 displayed A4 table differs from four-vertex action')
     # Hand-read orbit answers, independently build arrows on source positions.

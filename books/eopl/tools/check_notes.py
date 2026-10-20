@@ -101,8 +101,11 @@ def check(quick: bool) -> dict:
                 need(all(x in page.ids for x in attrs["aria-labelledby"].split()),
                      "accessible name target missing")
         metadata = json.loads((SOURCE / name).read_text().split("---\n")[1])
-        need(metadata["stage"] == "preparation" and "original_sha256" not in metadata,
-             "preparation must not pretend to have a historical baseline")
+        baseline = json.loads((BOOK / "review/content-baseline-astro.json").read_text())
+        frozen = {row["page"]: row["source_sha256"] for row in baseline["records"]}
+        need(metadata["stage"] == "map-and-preface" and
+             metadata.get("original_sha256") == frozen.get("eopl/notes/" + name),
+             "published map and preface must retain the accepted Git baseline")
     for name, page in pages.items():
         for target in page.links:
             url = urlsplit(target)
@@ -131,7 +134,7 @@ def check(quick: bool) -> dict:
     match = re.search(r'<code id="scope-demo-code" class="language-python">(.*?)</code>', preface, re.S)
     need(match is not None, "missing complete program")
     need(unescape(match[1]) == (BOOK / "code/scope_demo.py").read_text(), "program copy drift")
-    report = {"status": "passed", "stage": "preparation", "pages": 2,
+    report = {"status": "passed", "stage": "map-and-preface", "pages": 2,
               "source_exercises": sum(COUNTS.values()), "answered_exercises": 1,
               "source_check": source_check, "quick": quick,
               "page_sha256": {name: hashlib.sha256((BOOK / "notes" / name).read_bytes()).hexdigest()

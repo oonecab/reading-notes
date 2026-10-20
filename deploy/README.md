@@ -1,6 +1,6 @@
 # 统一笔记站点的构建与部署
 
-五本书的 56 个正式阅读页及统一书架通过 Astro 7.4.0 构建。Node 24.21.0 LTS 与 pnpm 11.21.0 只用于构建，运行时为 Nginx 静态文件。数学、习题和程序由原 Python 检查器独立验证；读者下载的 C/Python 程序在自己的电脑运行。
+六本书的 58 个正式阅读页及统一书架通过 Astro 7.4.0 构建。Node 24.21.0 LTS 与 pnpm 11.21.0 只用于构建，运行时为 Nginx 静态文件。数学、习题和程序由原 Python 检查器独立验证；读者下载的 C/Python 程序在自己的电脑运行。
 
 ## 构建与预览
 
@@ -16,7 +16,7 @@ pnpm check:offline
 python3 tools/project.py build
 ```
 
-`pnpm build` 输出 `dist/`，同时写入 `tmp/reading-notes-migration/dist-SHA256SUMS`。56 页和书架均内联资源，可直接 file 协议打开；其他资料页和下载链接需要保留整个发布目录。Ego Lite 离线验收独立运行四种宽度和 no-JS；构建成功不能替代阅读验收。
+`pnpm build` 输出 `dist/`，同时写入 `tmp/reading-notes-migration/dist-SHA256SUMS`。58 页和书架均内联资源，可直接 file 协议打开；其他资料页和下载链接需要保留整个发布目录。Ego Lite 离线验收独立运行四种宽度和 no-JS；构建成功不能替代阅读验收。
 
 `tools/project.py build` 调用同一个 Node 构建，在持有构建锁时打包，并拒绝覆盖已有版本号。可指定 `--release-id YYYYMMDDTHHMMSS`。完整包位于 `deploy/portal-releases/<id>/`：
 
@@ -41,7 +41,7 @@ python3 tools/test_static_publish.py --release-dir deploy/portal-releases/YYYYMM
 
 ## 发布白名单与 Ubuntu
 
-[精确白名单](publish-allowlist.json) 登记 307 个公开文件路径，构建和发布两次核对；新增文件必须明确登记。受控预压缩另生成 188 个 gzip sidecar，当前包合计 495 文件。正文、源码下载及公开的来源/习题索引保留，37 个历史审阅/校验 JSON URL 返回固定公开摘要。原审阅记录、夹具、截图和内容基线继续由仓库保存，不作为站点文件。两份原已授权 PDF 按原路径及冻结散列保留：随机过程的 assets PDF 和 CS:APP 的 csapp.pdf。其余原 PDF 只用于本地对照。来源资料 URL 和正文页码链接保持；修改 PDF 收录属于新的兼容性变更，必须重新审阅，不能只翻转旧开关。
+[精确白名单](publish-allowlist.json) 登记精确公开文件路径，构建和发布两次核对；新增文件必须明确登记。受控预压缩另生成 gzip sidecar，文件数量与内容散列以本版 release.json 为准。正文、源码下载及公开的来源/习题索引保留，37 个历史审阅/校验 JSON URL 返回固定公开摘要。原审阅记录、夹具、截图和内容基线继续由仓库保存，不作为站点文件。两份原已授权 PDF 按原路径及冻结散列保留：随机过程的 assets PDF 和 CS:APP 的 csapp.pdf。其余原 PDF 只用于本地对照。来源资料 URL 和正文页码链接保持；修改 PDF 收录属于新的兼容性变更，必须重新审阅，不能只翻转旧开关。
 
 [Ubuntu 安装与操作](UBUNTU.md) 规定 `/srv/reading-notes/releases/<id>/{site,SHA256SUMS,release.json}` 和 `current`。`publish.sh` 持 flock、验证归档及 allowlist，用 rsync 写新版本，再创建临时链接并 atomic rename 到 current。受限 root 安装器校验队列并写入版本树，再由固定 Nginx helper 完成 test/reload，失败恢复旧链接。完整 Nginx 配置由 root 审核安装，发布用户不能修改；新增脚本须先安装相应 CSP。Web 主机无需 Node。
 

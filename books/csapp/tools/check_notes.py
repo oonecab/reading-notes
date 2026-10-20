@@ -80,8 +80,11 @@ def validate_pages(sources, manifest, programs):
             raise ValueError(name + ': missing navigation elements ' + str(sorted(required_navigation - ids[name])))
         style = [n.text() for n in nodes if n.tag == 'style']
         script = [n.text() for n in nodes if n.tag == 'script']
-        shared_style = (ROOT / 'src/styles/reading-components.css').read_text()
-        if len(style) != 2 or style[1].strip() != shared_style.strip() or len(script) != 1:
+        shared_style = (ROOT / 'src/styles/reading-components.css').read_text().strip()
+        typography = (ROOT / 'src/styles/reading-typography.css').read_text().strip()
+        shared_ok = (len(style) == 2 and style[1].strip().startswith(shared_style)
+                     and style[1].strip()[len(shared_style):].strip() == typography)
+        if not shared_ok or len(script) != 1:
             raise ValueError(name + ': expected book style, exact RN-001 shared style, and one script')
         if common_style is None:
             common_style, common_script = style, script

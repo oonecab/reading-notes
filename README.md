@@ -1,6 +1,6 @@
 # Reading Notes · 读书笔记
 
-把一本书作为独立子项目，在同一个仓库中维护中文伴读笔记、习题解答、可运行程序、原书来源和验证记录。目前收录 Richard Durrett《Essentials of Stochastic Processes》第三版、Mark Allen Weiss《Data Structures and Algorithm Analysis in C》第二版（中国改编版）、Bryant / O’Hallaron《Computer Systems: A Programmer’s Perspective》第三版 Global Edition、Nathan C. Carter《Visual Group Theory》（MAA 2009 版权电子版），以及程士宏《测度论与概率论基础》（北京大学出版社 2004 年第 1 版）。
+把一本书作为独立子项目，在同一个仓库中维护中文伴读笔记、习题解答、可运行程序、原书来源和验证记录。目前收录 Richard Durrett《Essentials of Stochastic Processes》第三版、Mark Allen Weiss《Data Structures and Algorithm Analysis in C》第二版（中国改编版）、Bryant / O’Hallaron《Computer Systems: A Programmer’s Perspective》第三版 Global Edition、Nathan C. Carter《Visual Group Theory》（MAA 2009 版权电子版），程士宏《测度论与概率论基础》（北京大学出版社 2004 年第 1 版），以及 Friedman / Wand《Essentials of Programming Languages》第三版的地图与序言批。
 
 统一阅读站点为 [notes.zzzping.top](https://notes.zzzping.top/)。GitHub 仓库为 [oonecab/reading-notes](https://github.com/oonecab/reading-notes)，沿用随机过程项目的 Git 历史；本地项目目录继续沿用原名。
 
@@ -11,8 +11,9 @@
 | [CS:APP 计算机系统](books/csapp/README.md) | [全书地图](books/csapp/notes/book_overview.html) | 14 个 HTML 页面：序言及第 1—12 章，包含三个部分；117 个原书大节、419 道原书习题、36 道补充自测与 C/Python 实验；独立源码同步到网页 |
 | [Carter 视觉群论](books/visual-group-theory/README.md) | [全书地图](books/visual-group-theory/notes/book_overview.html) | 12 个 HTML 页面：地图、序言、第 1—10 章及全部 302 题；10 组 C/Python 程序 |
 | [程士宏 测度论与概率论·全六章伴读](books/measure-probability/README.md) | [伴读总览](books/measure-probability/notes/book_overview.html) | 8 个 HTML 页面：总览、序言与前言、六章及全部 170 题；4 组 C/Python 程序，包含全部星号小节 |
+| [Friedman / Wand · EOPL](books/eopl/README.md) | [全书地图](books/eopl/notes/book_overview.html) | 2 个 HTML 页面：地图、导读与序言；习题 0.1、Python 闭包实验；后续章节规划中 |
 
-本地新书准备批：[Friedman / Wand · EOPL 第三版](books/eopl/README.md)，现有[全书地图](books/eopl/notes/book_overview.html)与[导读、作者序言](books/eopl/notes/preface.html)两页，包含习题 0.1 和可运行的闭包实验。后续章节与正式站点接入按该书阅读计划推进。
+EOPL 当前公开[全书地图](books/eopl/notes/book_overview.html)与[导读、作者序言](books/eopl/notes/preface.html)两页，包含习题 0.1 和可运行的闭包实验。后续九章仍按该书阅读计划推进；本批统一排版与上线验收见 [T044](test/T044-reading-typography.md)。
 
 CS:APP 全书笔记已接入统一首页与构建：从首页点击“进入 CS:APP 笔记”，进入全书地图后选择序言或第 1—12 章；阅读页顶部可返回书架。统一包收录笔记、教学程序与原书 PDF，点击章节、来源和习题中的页码链接可打开对应 PDF 页序。线上生效另按发布授权和验收记录确认。
 
@@ -93,9 +94,9 @@ python3 tools/project.py build
 python3 tools/project.py build --release-id YYYYMMDDTHHMMSS
 ```
 
-统一包位于 `deploy/portal-releases/<release-id>/`，Astro 从 `src/content/books/` 构建登记的五本书，原 Python 检查继续读取同步镜像。发布路径分别为 `/stochastic/`、`/weiss/`、`/csapp/`、`/visual-group-theory/` 和 `/measure-probability/`；原有书籍的章节地址保持兼容。
+统一包位于 `deploy/portal-releases/<release-id>/`，Astro 从 `src/content/books/` 构建登记的六本书，原 Python 检查继续读取同步镜像。发布路径分别为 `/stochastic/`、`/weiss/`、`/csapp/`、`/visual-group-theory/`、`/measure-probability/` 和 `/eopl/`；原有书籍的章节地址保持兼容。
 
-构建依赖 Node/Astro 与 Python 辅助脚本，完整工具准备见 [Astro 编写说明](docs/astro-authoring.md)。全部公开 HTML 内联阅读资源（当前 76 页），正式页做全 DOM parity；代码/PDF 下载继续作为链接。`pnpm build` 包含使用生产 CSP 的真实浏览器冒烟和脚本哈希变异检查，`pnpm check:offline` 覆盖全部页面的四档视口及桌面/手机 no-JS。
+构建依赖 Node/Astro 与 Python 辅助脚本，完整工具准备见 [Astro 编写说明](docs/astro-authoring.md)。全部公开 HTML 内联阅读资源（数量以本次构建报告为准），正式页做全 DOM parity；代码/PDF 下载继续作为链接。`pnpm build` 包含使用生产 CSP 的真实浏览器冒烟和脚本哈希变异检查，`pnpm check:offline` 覆盖全部页面的四档视口及桌面/手机 no-JS。
 
 包内包括站点归档、逐文件 SHA-256、版本清单和本版 CSP 对应的 Nginx 配置。服务器采用独立 `releases/<release-id>` 目录与 `current` 原子切换；回滚同时恢复站点链接与该版本的配置。完整步骤、证书维护、验收边界及回滚命令见[部署说明](deploy/README.md)。
 

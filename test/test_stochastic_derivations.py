@@ -189,7 +189,21 @@ class ExactCalculationTests(unittest.TestCase):
             b = [number(x) for x in bodies[1].split(r'\\')]
             augmented = [row + [rhs] for row, rhs in zip(a, b)]
             table = next(lis[2].walk('table'))
-            operations = [m.attrs['data-tex'] for m in table.walk('math')]
+            operations = []
+            for row in table.walk('tr'):
+                cells = [c for c in row.children if isinstance(c, Element) and c.tag == 'td']
+                if not cells:
+                    continue
+                self.assertEqual(len(cells), 2)
+                # The first formula in the operation cell is the row operation.
+                # Its explanatory paragraph may also contain formatted coefficients.
+                statements = [c for c in cells[1].children
+                              if isinstance(c, Element) and c.has_class('math-inline')]
+                self.assertEqual(len(statements), 1)
+                formulas = list(statements[0].walk('math'))
+                self.assertEqual(len(formulas), 1)
+                operations.append(formulas[0].attrs['data-tex'])
+            self.assertTrue(operations)
             for operation in operations:
                 scaled = re.fullmatch(r'R_(\d+)\\leftarrow \((.*?)\)R_\1', operation)
                 subtracted = re.fullmatch(r'R_(\d+)\\leftarrow R_\1-\((.*?)\)R_(\d+)', operation)

@@ -1,7 +1,7 @@
 # AGENTS.md
 
 <!-- project-governance:managed:start -->
-本仓库是 **Reading Notes**：统一管理 Durrett 随机过程、Weiss 数据结构、CS:APP 系统、Carter 视觉群论与程士宏测度概率笔记，保留正式 HTML、可运行示例、来源与验证记录，共用阅读入口和静态发布流程。
+本仓库是 **Reading Notes**：统一管理 Durrett 随机过程、Weiss 数据结构、CS:APP 系统、Carter 视觉群论与程士宏测度概率及 EOPL 地图与序言笔记，保留正式 HTML、可运行示例、来源与验证记录，共用阅读入口和静态发布流程。
 
 这是 Codex、OpenCode 及兼容编码 Agent 的共享指令入口。详细规范只在下列权威文档中维护，不得在多个 Agent 文件中复制全文。
 
