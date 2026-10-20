@@ -10,4 +10,4 @@
 
 文档影响：更新 TECH 与 Astro 编写说明；教材正文、计算规则、源修订链、环境变量、服务和安全策略均无变化。生产通过现有原子发布流程生效，保留 20261020T112509 作为回滚版本；无 helper 或 Nginx 配置变化。
 
-关联：[P036](../plan/P036-book-favicon.md)、[T036](../test/T036-book-favicon.md)、[M036](../milestone/M036-book-favicon.md)。状态：进行中。
+关联：[P036](../plan/P036-book-favicon.md)、[T036](../test/T036-book-favicon.md)、[M036](../milestone/M036-book-favicon.md)。状态：已完成并部署。正式版本 20261020T120833 的源站健康检查、公网全量核验和五书图标浏览器验证均通过，旧版保留可回滚。

@@ -36,3 +36,5 @@ I032 的构建 CSP/离线验收需要 Ego Lite 与 ego-browser CLI，在私有�
 I035 新增 `reading-notes-health.service/.timer` 模板，每 15 分钟以回环 TLS 核对当前发布内容；独立 oneshot，无新增端口或凭据变量，安装状态见 I035。Nginx 新模板要求 gzip_static 模块；持久缓存验证器登记位于 `/srv/reading-notes/.cache-validators.json`，只由持锁 root 发布器更新。
 
 2026-10-20 I035 实机：reading-notes-health.timer 已 enabled/active，health.service 首次执行 Result=success、ExecMainStatus=0；每 15 分钟并带最多 30 秒抖动执行回环内容检查。current 为 releases/20261020T112509，保留 20261017T210828 作为前版。发布工具/片段备份和证据保存在 root 的 I035 私有目录，见 T035；没有新增公开端口或应用服务器。
+
+2026-10-20 I036 实机：current 更新为 releases/20261020T120833，来源为干净提交 4471c54；上一版 20261020T112509 已核验并保留。发布 unit、内容健康检查均成功，健康 timer 保持 active，Nginx 片段 hash 与发布前相同，版本树保持 root 拥有且只读。此次仅发布图标修复的静态文件包；环境变量名、服务配置和端口沿用既有约定，.env.example 无需调整。见 [T036](../test/T036-book-favicon.md)。

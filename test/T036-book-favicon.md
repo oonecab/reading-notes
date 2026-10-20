@@ -18,4 +18,10 @@
 
 本次变更只涉及 head 图标；采用上述定向离线验收，未重跑 I035 的 456 个全文阅读视图或发布器故障注入。正文、样式、脚本的逐字比较、全 DOM parity 和完整程序检查与这些历史实读证据分别记录。
 
-生产和最终 Git 身份待上线后补充。
+生产发布：修复提交 `4471c5487b6c26089ef0d93c5f6b50c6b06399a4` 已推送；正式包 `20261020T120833` 从干净提交构建，归档 SHA-256 为 `f015ff983d4d30bcd04385ada742cdbb53b31d2605658f773d97ee6459ddf282`，文件清单与已通过本地 HTTPS 验证的候选包逐项相同。
+
+现有 systemd 发布成功，current 指向 `releases/20261020T120833`；deploy 和 health 均 Result=success、ExecMainStatus=0。发布器事务内源站内容核验成功，前版 `20261020T112509` 重新核验通过；无遗留事务，ready 队列已清空、done 回执存在。新版本保持 root-owned 只读权限，378 个内容未变文件的 mtime 与前版一致，Nginx 片段 hash 未变。见 `tmp/i036/deploy.log`、`tmp/i036/server-before.json`、`tmp/i036/server-after.json`。
+
+公网浏览器重复首页→五书总览→各第一章→刷新，共 16 项图标声明/解码检查全部通过，见 `tmp/i036/browser-public.json`。`tmp/i036/public-verification.json` 全量核验通过：490 文件、188 gzip 表示、15 旧入口、2 PDF Range、490 次条件请求。一次 `/weiss/notes/chapter07_hashing.html` GET 读取超时按既有规则重试成功，报告保留这条记录；内容、MIME、CSP 和缓存断言全部执行，没有跳过文件。
+
+最终提交、origin/main、远端 main、Git tree、干净工作区与 release/source/archive 的收尾读回写入 `tmp/i036/final-delivery.json`。本地预览进程已停止；浏览器验收空间在完成时关闭。

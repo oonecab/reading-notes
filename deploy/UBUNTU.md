@@ -1,6 +1,6 @@
 # Ubuntu 静态发布
 
-I035 已发布 `20261020T112509`，启用预压缩、缓存验证器与内容健康检查；实际证据见 [T035](../test/T035-cache-performance-reliability.md)。I033 曾按 [I032 运维方案](OPERATIONS-I032.md)应用 root 安装器、只读版本树与新 unit，并发布 `20261017T210828`。`reading-notes-publish` 是受控生产写入口；当前实机结果见 [I033 报告](../docs/browser-stability-report.md)，I029 保留为历史迁移记录。
+I036 当前发布为 `20261020T120833`，补齐书籍页面的内联 favicon，上一版 `20261020T112509` 保留可回滚，见 [T036](../test/T036-book-favicon.md)。I035 启用的预压缩、缓存验证器与内容健康检查继续生效，见 [T035](../test/T035-cache-performance-reliability.md)。I033 曾按 [I032 运维方案](OPERATIONS-I032.md)应用 root 安装器、只读版本树与新 unit，并发布 `20261017T210828`。`reading-notes-publish` 是受控生产写入口；I033 加固结果见 [I033 报告](../docs/browser-stability-report.md)，I029 保留为历史迁移记录。
 
 构建主机使用 Node 24.21.0、pnpm 11.21.0、Python 3.10+、C/Make/Poppler；Web 主机只运行 Nginx。两台主机可以分开：Web 主机安装 Python、rsync 和 util-linux 仅用于一次性发布脚本，不启动 Node、Python HTTP 或数据库服务。下面的安装约定已在 I029 的 Ubuntu 22.04 上完成实机发布与验证；当前版本和证据见 [生产发布记录](../docs/astro-production-report.md)。独立构建主机仍为可选模板，本次构建在本地完成。
 
