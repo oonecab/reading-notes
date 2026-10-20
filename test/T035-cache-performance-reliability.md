@@ -17,3 +17,13 @@ Ubuntu 22.04 / Nginx 1.18.0 隔离演练由非特权 reading-notes 用户运行�
 浏览器前后各 36 次独立采样：tmp/i035/performance-comparison.json。1440px/1x 与 390px/4x，环回 Nginx、网络不降速，每页面首访/复访各 3 次。前序与 quick 检查重叠的 36 次预热样本明确排除，不覆盖原记录。压缩字节：随机过程第 1 章 381416 → 289216（-24.2%）；CS:APP 第 2 章 131718 → 110387（-16.2%）；首页 6506 → 5898。降速窄屏首访 loadEventEnd 中位数分别 1258 → 1146ms、500 → 429ms；桌面随机过程首访 479 → 486ms，CS:APP 复访 145 → 165ms，表明延迟存在波动，不能宣称所有场景同幅加速。最长章仍有 74912 个元素。
 
 另做单次 content-visibility 原型实验（仅浏览器注入，未进入源码）：首次 load 865 → 493ms，初始文档高度 214105 → 46845px，末题深链两者均能展开并定位。证据 tmp/i035/content-visibility-experiment.json。样本和高度估计均不足以支持全站推广，本次没有启用该原型。
+
+正式发布 `20261020T112509` 来自干净提交 `e2ce9179c5c82f48963433cca730180f3dd2e14a`，归档 SHA-256 `efb70752427b484b9c305d6666537c8e599d929af38a41e9f4b8270468243de0`；与隔离演练包的全部站点文件和 archive SHA 完全一致。代码推送已核对本地、tracking 和远端 ref。上线前备份发布库、固定 helper 与 snippet 到 `/root/reading-notes-i035-20261020T112509`，安装后先验证旧站内容，再通过 reading-notes-deploy.service 发布；Result=success / ExecMainStatus=0，origin_health=passed。health timer enabled/active，首次 health.service 成功。
+
+源站完整 HTTPS 校验通过 490 个非重定向文件、188 份预压缩表示、15 个旧入口和两份 PDF Range，报告 tmp/i035/origin-verification.json。root 只读权限、候选和前版 SHA、无遗留 journal 均再次验证。276 个相同内容文件的 mtime 全部保留；公网用前版 ETag 请求随机过程第 1 章 identity 和两份 PDF 返回 304，修改页返回 200，随后当前 identity/gzip 条件请求返回 304，证据 tmp/i035/cache-production.json。首次改用 gzip-6 的压缩字节变化，旧 gzip 验证器正确失效一次。
+
+公网浏览器实际走通首页 → CS:APP 伴读总览 → 第 2 章 → 390px 宽表横滚 → 末题深链，105 个横滚候选中实际宽表 scrollLeft 0 → 148，文档未横溢出；末题展开且位于视口内、目录高亮正确。桌面和窄屏截图已打开检查，证据 tmp/i035/public-browser.json 与 public-csapp-*.png。
+
+首次公网全量验证因一次读取超时退出，保留 tmp/i035/public-verification.log；没有记为成功。验证器补上只重试 GET/HEAD、最多三次、关闭失败连接、保留重试记录和每 50 文件进度。`tools/test_http_verification.py` 的恢复、重试耗尽、HTTP 错误不绕过、POST 不重放测试在本机及 Ubuntu 通过。最终公网复跑已成功，见下段。
+
+最终公网全量复跑：tmp/i035/public-verification.json，2026-10-20T11:38:51.276913+08:00 至 2026-10-20T11:43:57.810325+08:00，490 个文件、188 个压缩表示、15 个旧入口、两个 PDF Range 全部通过，transport_retries=0。原有测度第 5/6 章随本次完整发布上线，其路径与内容 SHA 已纳入核对。代码及站点构建提交为 e2ce917；发布后的验证器维护与本交付记录作为后续提交，不改变站点 payload。Gitleaks 初次代码暂存区扫描无泄漏；最终提交前再次扫描。隔离临时 payload 已在保留完整证据后清理；正式前版、归档回执和 root 恢复备份仍保留。

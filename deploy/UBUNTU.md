@@ -1,6 +1,6 @@
 # Ubuntu 静态发布
 
-I033 已按 [I032 运维方案](OPERATIONS-I032.md)应用 root 安装器、只读版本树与新 unit，并发布 `20261017T210828`。`reading-notes-publish` 是受控生产写入口；当前实机结果见 [I033 报告](../docs/browser-stability-report.md)，I029 保留为历史迁移记录。
+I035 已发布 `20261020T112509`，启用预压缩、缓存验证器与内容健康检查；实际证据见 [T035](../test/T035-cache-performance-reliability.md)。I033 曾按 [I032 运维方案](OPERATIONS-I032.md)应用 root 安装器、只读版本树与新 unit，并发布 `20261017T210828`。`reading-notes-publish` 是受控生产写入口；当前实机结果见 [I033 报告](../docs/browser-stability-report.md)，I029 保留为历史迁移记录。
 
 构建主机使用 Node 24.21.0、pnpm 11.21.0、Python 3.10+、C/Make/Poppler；Web 主机只运行 Nginx。两台主机可以分开：Web 主机安装 Python、rsync 和 util-linux 仅用于一次性发布脚本，不启动 Node、Python HTTP 或数据库服务。下面的安装约定已在 I029 的 Ubuntu 22.04 上完成实机发布与验证；当前版本和证据见 [生产发布记录](../docs/astro-production-report.md)。独立构建主机仍为可选模板，本次构建在本地完成。
 
@@ -82,3 +82,5 @@ Nginx 需要 `--with-http_gzip_static_module`，新 snippet 开启 `gzip_static 
 可安装 `reading-notes-health.service/.timer` 并执行 `systemctl daemon-reload && systemctl enable --now reading-notes-health.timer`。每 15 分钟检查相同内容；持共享发布锁，发布进行时延后，遗留 journal 视为失败。unit 只有读取权限且不会修改 current；失败出现在 systemd 状态和 journal，不发送外部消息。使用 `systemctl status reading-notes-health.service`、`journalctl -u reading-notes-health.service` 查看；timer 不等于外部公网监测。实际安装状态以 I035 验收记录为准。
 
 `tools/test_static_publish.py` 增加不变页面 identity/gzip 304、同大小首页变化 200、回滚 ETag、健康失败回滚；`deploy/verify_portal.py` 对所有文件验证内容及 304，对全部 sidecar 校验 gzip 原始字节、解压等价、Vary 和 gzip;q=0 回退，同时保留 PDF Range 和路由检查。
+
+公网全量验证器对 GET/HEAD 的网络/读取异常最多尝试三次，每次都关闭连接并记录请求路径和异常类别；最终失败仍以非零退出。HTTP 错误状态、错误正文和 CSP/缓存断言不会被重试绕过，POST 拒绝测试也不会重放。每 50 个文件输出进度，报告保留 transport_retries。

@@ -9,8 +9,30 @@ import json
 from pathlib import Path
 import socket
 import ssl
+import sys
+import time
 from urllib.parse import quote, urlsplit
 from zoneinfo import ZoneInfo
+
+
+def perform_request(factory, path, method, headers, retries):
+    """Retry only safe reads, close failed sockets, and retain every retry in evidence."""
+    attempts = 3 if method in {'GET', 'HEAD'} else 1
+    for attempt in range(attempts):
+        connection = factory()
+        try:
+            connection.request(method, path, headers=headers)
+            response = connection.getresponse()
+            return response.status, {k.lower(): v for k, v in response.getheaders()}, response.read()
+        except (OSError, http.client.HTTPException) as error:
+            if attempt + 1 == attempts:
+                raise RuntimeError(f'{method} {path} failed after {attempts} attempt(s)') from error
+            event = {'method': method, 'path': path, 'retry': attempt+1, 'error': type(error).__name__}
+            retries.append(event)
+            print(json.dumps({'transport_retry': event}), file=sys.stderr, flush=True)
+        finally:
+            connection.close()
+        time.sleep(.25 * (attempt+1))
 
 
 def main():
@@ -22,6 +44,7 @@ def main():
     args = ap.parse_args()
     metadata = json.loads((args.release_dir / 'release.json').read_text())
     origin = urlsplit(args.origin)
+    retries = []
     if origin.scheme not in {'http', 'https'} or origin.path not in {'', '/'}:
         ap.error('Origin must be an HTTP(S) origin without a path')
 
@@ -31,15 +54,11 @@ def main():
             self.sock = self._context.wrap_socket(self.sock, server_hostname=self.host)
 
     def request(path, method='GET', headers=None):
-        if origin.scheme == 'https':
-            connection = OriginTLS(origin.hostname, origin.port or 443, timeout=20, context=ssl.create_default_context())
-        else:
-            connection = http.client.HTTPConnection(args.connect_ip or origin.hostname, origin.port or 80, timeout=20)
-        connection.request(method, path, headers={'Host': origin.netloc, **(headers or {})})
-        response = connection.getresponse()
-        result = response.status, {k.lower(): v for k, v in response.getheaders()}, response.read()
-        connection.close()
-        return result
+        def connection():
+            if origin.scheme == 'https':
+                return OriginTLS(origin.hostname, origin.port or 443, timeout=20, context=ssl.create_default_context())
+            return http.client.HTTPConnection(args.connect_ip or origin.hostname, origin.port or 80, timeout=20)
+        return perform_request(connection, path, method, {'Host': origin.netloc, **(headers or {})}, retries)
 
     started = datetime.now(ZoneInfo('Asia/Shanghai')).isoformat()
     results = []
@@ -79,6 +98,8 @@ def main():
             assert code == 200 and not plain_headers.get('content-encoding') and plain == blob
             compression_results.append({'path':row['path'],'identity_bytes':len(blob),'gzip_bytes':len(gz_blob),'conditional':304})
         results.append({'path': row['path'], 'status': status, 'mime': mime, 'bytes': len(blob), 'sha256': digest})
+        if len(results) % 50 == 0:
+            print(json.dumps({'verified_files':len(results),'last_path':row['path']}),file=sys.stderr,flush=True)
     for path, target in [('/', 'index.html'), ('/stochastic/', 'stochastic/index.html'), ('/weiss/', 'weiss/index.html')]:
         if path in redirects:
             continue
@@ -124,6 +145,7 @@ def main():
               'files_checked': len(results), 'files': results, 'entry_redirects': redirect_results,
               'pdf_range': '206; bytes 32-63 agree with release', 'pdf_ranges': pdf_results,
               'precompressed': compression_results, 'conditional_requests': len(results),
+              'transport_retries': retries,
               'route_checks': 'pass'}
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + '\n')

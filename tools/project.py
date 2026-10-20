@@ -44,6 +44,7 @@ def check(book_id: str, quick: bool, benchmarks: bool) -> int:
     commands.extend([[sys.executable, ROOT / "tools/test_publish_durability.py"],
                      [sys.executable, ROOT / "tools/test_publish_policy.py"]])
     commands.append([sys.executable, ROOT / "tools/test_cache_delivery.py"])
+    commands.append([sys.executable, ROOT / "tools/test_http_verification.py"])
     if "stochastic" in selected:
         base = selected["stochastic"]["root"]
         commands += [[sys.executable, base / "tools/check_review_records.py"],

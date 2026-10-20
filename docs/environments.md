@@ -11,7 +11,7 @@
 
 - 本地预览：Python 静态 HTTP 服务，绑定 127.0.0.1
 - 正式阅读站点：notes.zzzping.top，Nginx + TLS；部署步骤见 deploy/README.md
-- Ubuntu reading-notes-deploy.service 以 reading-notes 调用固定 sudo root 安装器，已发布 20261017T210828；deploy timer 保持 disabled，构建服务及构建 tmpfiles 模板留给独立构建主机
+- Ubuntu reading-notes-deploy.service 以 reading-notes 调用固定 sudo root 安装器，当前发布 20261020T112509（I035）；deploy timer 保持 disabled，构建服务及构建 tmpfiles 模板留给独立构建主机
 - I033 已应用 root-owned 只读 release、固定 helper/sudoers，unit 已移除整目录 Nginx 日志写例外；实机证据见 [本轮报告](browser-stability-report.md)
 - 宿主机历史 MySQL 服务及数据已于 2026-10-17 按 I030 卸载；mailutils 依赖的 mysql-common 与 libmysqlclient21 保留为共享客户端组件
 
@@ -34,3 +34,5 @@
 I032 的构建 CSP/离线验收需要 Ego Lite 与 ego-browser CLI，在私有任务空间运行；临时 HTTP 服务只绑定回环随机端口，用后关闭。I033 实机已关闭 SSH 密码认证并验证新密钥会话，FTP 已 stop/mask，无 21/3306 监听；UFW 仅保留 22/80/443，fail2ban sshd jail 已运行。root 密码未轮换，现有 Certbot 手工 DNS-01 续期仍需改为自动 DNS；HTTP dry-run 实测 403，后续步骤见 [DNS 续期交接](../deploy/DNS-RENEWAL.md)。
 
 I035 新增 `reading-notes-health.service/.timer` 模板，每 15 分钟以回环 TLS 核对当前发布内容；独立 oneshot，无新增端口或凭据变量，安装状态见 I035。Nginx 新模板要求 gzip_static 模块；持久缓存验证器登记位于 `/srv/reading-notes/.cache-validators.json`，只由持锁 root 发布器更新。
+
+2026-10-20 I035 实机：reading-notes-health.timer 已 enabled/active，health.service 首次执行 Result=success、ExecMainStatus=0；每 15 分钟并带最多 30 秒抖动执行回环内容检查。current 为 releases/20261020T112509，保留 20261017T210828 作为前版。发布工具/片段备份和证据保存在 root 的 I035 私有目录，见 T035；没有新增公开端口或应用服务器。
