@@ -241,6 +241,8 @@ main[id],main [id]{scroll-margin-top:24px}
   padding: 0;
   border: 0;
 }
+.rn-components .statement-body > :first-child { margin-top: 0; }
+.rn-components .statement-body > :last-child { margin-bottom: 0; }
 .rn-components .rn-statement .original-excerpt {
   margin: .5rem 0 1rem;
   padding: .1rem 0 .1rem .85rem;
@@ -356,6 +358,45 @@ main[id],main [id]{scroll-margin-top:24px}
 .rn-components :is(.rn-proof-body, .rn-example, .rn-statement, .exercise-question, .answer) {
   overflow-wrap: break-word;
 }
+.rn-components .code-details {
+  margin: 1.2rem 0;
+  padding: .35rem 0 .35rem 1rem;
+  border-left: 2px solid var(--rule);
+}
+.rn-components :is(.code-details, .code-version) > summary {
+  cursor: pointer;
+  color: var(--green);
+  font-size: .95rem;
+  font-weight: 600;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .code-details pre { margin: .7rem 0 1rem; }
+.rn-components :is(.code-details, .code-version) > summary:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+.rn-components .example-kind {
+  margin: .5rem 0 1rem;
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components .exercise-index a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: .1rem .25rem;
+  font-variant-numeric: tabular-nums;
+}
+/* Align the reading column independently of annotation enhancement. */
+@media (min-width: 1440px) {
+  .rn-components .reading-layout {
+    grid-template-columns: 240px minmax(0, 860px) 280px;
+    max-width: 1524px;
+    gap: 32px;
+  }
+}
 @media (max-width: 1100px) {
   .rn-components:not(.portal-reader):not(.sample-fragment) :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
     scroll-margin-top: 90px;
@@ -379,7 +420,7 @@ main[id],main [id]{scroll-margin-top:24px}
 <p class="source">原书：<a class="source-pdf" href="../csapp.pdf#page=535">印刷 534 页 / PDF 535 页</a></p>
 <p>本章沿一个数组归约循环追问：同样的数学运算，为什么能从每元素十多个周期降到不足一个周期？先要划清优化的边界。编译器转换的是 C 程序允许的行为；它不能假定两个合法指针一定指向不同位置，也不能把会修改状态的函数当作纯数学函数。理解这些约束，才能知道哪些信息必须由程序员表达。</p>
 <div class="source-statement rn-statement" id="classic-5-safe-optimization" data-source-kind="Principle">
-<h4>原书原则 · 安全优化的语义边界</h4>
+<h3>原书原则 · 安全优化的语义边界</h3>
 <blockquote class="original-excerpt" lang="en"><p>Compilers must be careful to apply only safe optimizations to a program, meaning that the resulting program will have the exact same behavior as would an unoptimized version for all possible cases the program may encounter, up to the limits of the guarantees provided by the C language standards.</p></blockquote>
 <div class="statement-body"><p><strong>中文陈述。</strong>在 C 语言标准提供保证的范围内，优化必须保留程序对所有可能遇到情形的行为。证明一次变换安全，需要考虑合法的别名、可观察副作用和数值语义；未定义行为不提供可供承诺的原有结果。</p><p>下面让两个指针指向同一个值为 2 的对象，就能区分结果为 8 与 6 的两段代码。这个反例说明：代数式看似相同，内存读写顺序仍可能使程序含义不同。</p></div>
 <p class="source">原书 §5.1，印刷 534 页 / <a class="source-pdf" href="../csapp.pdf#page=535">PDF 535 页</a>。</p>
@@ -406,17 +447,17 @@ void once(long *xp, const long *yp) {
 <details class="reading-notes" id="notes-s5-1" data-notes-for="s5-1" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">语义</span><h3>const 与不别名是两件事</h3><p>const 限制通过当前左值写入；restrict 是更强的访问约定，用错会使程序违反语言要求。</p>
 </div><div class="annotation-card"><span class="annotation-kind">读代码</span><h3>先画对象，再化简表达式</h3><p>把指针画到具体对象上，追踪每次写入后下一次读到的值；这一步常能直接找到编译器不能做的变换。</p>
 </div></div></details>
-</section><section id="s5-2"><h2>5.2 · 用斜率区分固定开销与每元素成本<span class="english-title" lang="en">Expressing Program Performance</span></h2>
+</section><section id="s5-2"><h2 id="rn-table-label-1">5.2 · 用斜率区分固定开销与每元素成本<span class="english-title" lang="en">Expressing Program Performance</span></h2>
 <p class="source">原书：<a class="source-pdf" href="../csapp.pdf#page=539">印刷 538 页 / PDF 539 页</a></p>
 <div class="source-statement rn-statement" id="classic-5-cpe-slope" data-source-kind="Figure caption">
-<h4>原书表述 · CPE 是随元素数增加的斜率</h4>
+<h3>原书表述 · CPE 是随元素数增加的斜率</h3>
 <blockquote class="original-excerpt" lang="en"><p>The slope of the lines indicates the number of clock cycles per element (CPE).</p></blockquote>
 <div class="statement-body"><p><strong>中文陈述。</strong>在运行周期数随元素个数近似线性增长的区间，直线斜率表示每增加一个元素需要多少周期。固定启动成本由截距表达；改变每轮处理的元素数后，仍应按元素比较成本。</p><p>下面把同一规模范围写成 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>T</mi><mo>(</mo><mi>n</mi><mo>)</mo><mo>≈</mo><mi>a</mi><mo>+</mo><mi>b</mi><mi>n</mi></mrow></math></span>，用三种截距和斜率的交点说明“小输入更快”与“大输入每元素更省”如何同时成立。</p></div>
 <p class="source">原书 §5.2，图 5.2，印刷 539 页 / <a class="source-pdf" href="../csapp.pdf#page=540">PDF 540 页</a>。</p>
 </div>
 <p>运行时间受输入规模影响。归约 n 个元素时，可以用 T(n)≈a+b·n 描述一段规模范围内的测量：a 是调用、初始化和收尾等固定成本，b 是随每个元素增加的成本。以处理器周期为时间单位，斜率 b 称为 CPE（cycles per element）。一次测量的 T(n)/n=a/n+b，在 n 很小时仍混入明显固定开销。</p>
 <div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>T</mi><mo>(</mo><mi>n</mi><mo>)</mo><mo>≈</mo><mi>a</mi><mo>+</mo><mi>b</mi><mi>n</mi><mspace width="2em"/><mi>b</mi><mo>≈</mo><mfrac><mrow><mi>T</mi><mo>(</mo><msub><mi>n</mi><mn>2</mn></msub><mo>)</mo><mo>−</mo><mi>T</mi><mo>(</mo><msub><mi>n</mi><mn>1</mn></msub><mo>)</mo></mrow><mrow><msub><mi>n</mi><mn>2</mn></msub><mo>−</mo><msub><mi>n</mi><mn>1</mn></msub></mrow></mfrac></mrow></math></div>
-<div class="scroll"><table><thead><tr><th scope="col">n</th><th scope="col">版本 A：60+35n</th><th scope="col">版本 B：136+4n</th><th scope="col">版本 C：157+1.25n</th></tr></thead><tbody><tr><td>0</td><td>60</td><td>136</td><td>157</td></tr><tr><td>2</td><td>130</td><td>144</td><td>159.5</td></tr><tr><td>3</td><td>165</td><td>148</td><td>160.75</td></tr><tr><td>7</td><td>305</td><td>164</td><td>165.75</td></tr><tr><td>8</td><td>340</td><td>168</td><td>167</td></tr></tbody></table></div>
+<div class="scroll"><table aria-labelledby="rn-table-label-1"><thead><tr><th scope="col">n</th><th scope="col">版本 A：60+35n</th><th scope="col">版本 B：136+4n</th><th scope="col">版本 C：157+1.25n</th></tr></thead><tbody><tr><td>0</td><td>60</td><td>136</td><td>157</td></tr><tr><td>2</td><td>130</td><td>144</td><td>159.5</td></tr><tr><td>3</td><td>165</td><td>148</td><td>160.75</td></tr><tr><td>7</td><td>305</td><td>164</td><td>165.75</td></tr><tr><td>8</td><td>340</td><td>168</td><td>167</td></tr></tbody></table></div>
 <p>小规模 A 的低启动成本占优，中间 B 最快，n≥8 时 C 的低斜率胜出。习题 5.2 会求出准确区间。比较算法时应观察一组规模，检查曲线是否出现拐点；例如数组超出缓存后，原来线性段的斜率可能变化。</p>
 <p>现代机器的频率可能变化，墙钟时间还包含调度影响。笔记的本机实验使用 ns/element，原书表格使用参考机器的 CPE；两种单位分别标明。没有可靠的周期计数与频率依据，就不把纳秒直接换成“周期”。</p>
 
@@ -424,7 +465,7 @@ void once(long *xp, const long *yp) {
 <details class="reading-notes" id="notes-s5-2" data-notes-for="s5-2" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">测量</span><h3>CPE 是随规模增长的成本</h3><p>较小的总时间不一定意味着较小的斜率，反之也一样。</p>
 </div><div class="annotation-card"><span class="annotation-kind">条件</span><h3>一条直线只解释一个运行区间</h3><p>缓存容量、向量化阈值、频率与输入分布都可能使 T(n) 不再遵守同一组 a、b。</p>
 </div></div></details>
-</section><section id="s5-3"><h2>5.3 · 把抽象接口写成可以追踪的归约循环<span class="english-title" lang="en">Program Example</span></h2>
+</section><section id="s5-3"><h2 id="rn-table-label-2">5.3 · 把抽象接口写成可以追踪的归约循环<span class="english-title" lang="en">Program Example</span></h2>
 <p class="source">原书：<a class="source-pdf" href="../csapp.pdf#page=541">印刷 540 页 / PDF 541 页</a></p>
 <p>原书的向量抽象把长度和数据地址封装在 vec_rec 中。get_vec_element 检查索引并通过指针返回元素；combine1 使用统一的数据类型 data_t、单位元 IDENT 和运算 OP，因此可实例化为整数或浮点的求和、乘积。抽象有助于复用，但读一次元素要经过多少步骤，必须从循环内部展开看。</p>
 <pre><code data-language="c" class="language-c">typedef struct { long len; data_t *data; } vec_rec, *vec_ptr;
@@ -436,7 +477,7 @@ void combine1(vec_ptr v, data_t *dest) {
         *dest = *dest OP val;
     }
 }</code></pre>
-<div class="scroll"><table><thead><tr><th scope="col">表达式</th><th scope="col">一次迭代可能承担的工作</th><th scope="col">后续小节要消除什么</th></tr></thead><tbody><tr><td>vec_length(v)</td><td>取得长度；若未内联还有调用</td><td>5.4 把循环不变量移到外面</td></tr><tr><td>get_vec_element</td><td>调用、范围检查、取数据指针与元素</td><td>5.5 在验证边界后直接访问</td></tr><tr><td>*dest = *dest OP val</td><td>读结果、算术、写结果</td><td>5.6 用寄存器局部值累积</td></tr></tbody></table></div>
+<div class="scroll"><table aria-labelledby="rn-table-label-2"><thead><tr><th scope="col">表达式</th><th scope="col">一次迭代可能承担的工作</th><th scope="col">后续小节要消除什么</th></tr></thead><tbody><tr><td>vec_length(v)</td><td>取得长度；若未内联还有调用</td><td>5.4 把循环不变量移到外面</td></tr><tr><td>get_vec_element</td><td>调用、范围检查、取数据指针与元素</td><td>5.5 在验证边界后直接访问</td></tr><tr><td>*dest = *dest OP val</td><td>读结果、算术、写结果</td><td>5.6 用寄存器局部值累积</td></tr></tbody></table></div>
 <p>代码中的 data_t/OP/IDENT 是原书用于比较的编译时选项：求和单位元 0，乘积单位元 1。完整实验选择 uint64_t 求和与内积，其算术按模 2⁶⁴ 定义；Python 每次对应取低 64 位。这样可以把“改变分组是否正确”与“改变浮点舍入是否可接受”分开验证。空向量返回单位元，是每个变体共同需要保留的边界。</p>
 
 <div class="explanation" id="explain-s5-3"><p>把抽象记号换成一次求和就能逐句跟踪：取 data=[2,3,5]，把 OP 换成加号、IDENT 换成 0。循环前结果是 0；i=0 时取出 2，写回 0+2=2；i=1 时写回 2+3=5；i=2 时写回 5+5=10。每轮开始时，结果应恰好等于已经处理的前 i 项之和。这个始终成立的事实叫作循环不变量；下面所有优化都要说明它怎样继续成立。</p></div>
@@ -629,9 +670,9 @@ i2 += (size_t)(1-take);</code></pre>
 <pre><code data-language="sh" class="language-sh">gcc -pg -O2 program.c -o program
 ./program &lt; input.txt
 gprof program gmon.out</code></pre>
-<h3>5.14.2 · 二元词组统计：算法、分布和内循环共同决定时间</h3>
+<h3 id="rn-table-label-3">5.14.2 · 二元词组统计：算法、分布和内循环共同决定时间</h3>
 <p>案例处理莎士比亚文本，约 965,028 个词、23,706 个不同单词，产生 363,039 个不同二元词组。程序将词组计数放入哈希表，最后按频次排序。最初总时间 209 秒，其中排序约 203.7 秒；替换这段近乎平方级的插入排序后，时间降至 5.4 秒。该案例所用库排序算法与实现有关，C 标准并不规定 qsort 必须采用哪种算法。</p>
-<div class="scroll"><table><thead><tr><th scope="col">版本</th><th scope="col">原书时间 / 秒</th><th scope="col">从结果读出的机制</th></tr></thead><tbody><tr><td>初始</td><td>209</td><td>排序占据大部分运行时间</td></tr><tr><td>替换排序</td><td>5.4</td><td>主要热点移动到词组表操作</td></tr><tr><td>迭代且头部插入</td><td>7.5</td><td>高频旧词组被新项推向链尾，平均查找变长</td></tr><tr><td>迭代且尾部插入</td><td>5.3</td><td>常见项保留在较靠前位置</td></tr><tr><td>扩大桶数</td><td>5.1</td><td>差的散列函数仍只用到少量桶</td></tr><tr><td>改良散列</td><td>0.6</td><td>分布改善，碰撞链显著变短</td></tr><tr><td>线性时间大小写转换</td><td>0.2</td><td>消除反复 strlen 的平方工作</td></tr></tbody></table></div>
+<div class="scroll"><table aria-labelledby="rn-table-label-3"><thead><tr><th scope="col">版本</th><th scope="col">原书时间 / 秒</th><th scope="col">从结果读出的机制</th></tr></thead><tbody><tr><td>初始</td><td>209</td><td>排序占据大部分运行时间</td></tr><tr><td>替换排序</td><td>5.4</td><td>主要热点移动到词组表操作</td></tr><tr><td>迭代且头部插入</td><td>7.5</td><td>高频旧词组被新项推向链尾，平均查找变长</td></tr><tr><td>迭代且尾部插入</td><td>5.3</td><td>常见项保留在较靠前位置</td></tr><tr><td>扩大桶数</td><td>5.1</td><td>差的散列函数仍只用到少量桶</td></tr><tr><td>改良散列</td><td>0.6</td><td>分布改善，碰撞链显著变短</td></tr><tr><td>线性时间大小写转换</td><td>0.2</td><td>消除反复 strlen 的平方工作</td></tr></tbody></table></div>
 <p>为什么扩大到约二十万个桶收效有限？原始散列只是累加字符值，可达的散列和很小，大部分桶根本用不到。改成移位与异或混合后，更多位参与分布，降低碰撞。这说明“哈希表大一点就快”缺少对输入与散列函数的分析。头插与尾插的差异同样来自词频分布，不是一般意义上某种链表操作永远更快。</p>
 <div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>S</mi><mo>≤</mo><mfrac><mrow><mn>209</mn></mrow><mrow><mn>209</mn><mo>−</mo><mn>203.7</mn></mrow></mfrac><mo>≈</mo><mn>39.43</mn></mrow></math></div>
 <p>若只把排序加速到零耗时，其余 5.3 秒仍在，上式给出该步骤的 Amdahl 上界。原书此处写出 209/α 的式子与 α 为耗时比例的定义不一致；应是 1/(1−α)，也就是总时间除以未改进部分。采用原表数值，实际第一步加速比 209/5.4≈38.70，后续收益来自继续改进剩余部分。</p>
@@ -645,27 +686,27 @@ gprof program gmon.out</code></pre>
 <details class="reading-notes" id="notes-s5-15" data-notes-for="s5-15" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">回读</span><h3>先自己画出关键路径</h3><p>能解释 Horner 为何可能比直接求值慢，就已经抓住本章的重要转折。</p>
 </div><div class="annotation-card"><span class="annotation-kind">连接</span><h3>第 5 章与第 6 章共同解释时间</h3><p>处理器需要可重叠的工作，也需要及时供给的数据。</p>
 </div></div></details>
-</section><section id="exercises"><h2>原书习题与解答 · 5.1—5.19</h2><div class="exercise-index" aria-label="本章原书题号"><a href="#ex-5-1">5.1</a><a href="#ex-5-2">5.2</a><a href="#ex-5-3">5.3</a><a href="#ex-5-4">5.4</a><a href="#ex-5-5">5.5</a><a href="#ex-5-6">5.6</a><a href="#ex-5-7">5.7</a><a href="#ex-5-8">5.8</a><a href="#ex-5-9">5.9</a><a href="#ex-5-10">5.10</a><a href="#ex-5-11">5.11</a><a href="#ex-5-12">5.12</a><a href="#ex-5-13">5.13</a><a href="#ex-5-14">5.14</a><a href="#ex-5-15">5.15</a><a href="#ex-5-16">5.16</a><a href="#ex-5-17">5.17</a><a href="#ex-5-18">5.18</a><a href="#ex-5-19">5.19</a></div><p>练习题与家庭作业按本地 Global Edition 原号排列。先核对题目中的数据类型、参考机延迟与别名条件，再展开解答。表中原书测量保留其出处，程序实验的本机结果另列。</p>
-<details class="exercise" id="ex-5-1"><summary>5.1 · 交换函数中的同址指针</summary><div class="exercise-question" data-original-exercise="5.1" data-source-pdf-pages="537"><h3 class="question-title">原题（中文翻译）</h3><p>下面的过程试图只用加减法交换两个 long。若调用时 xp 与 yp 相等，会产生什么效果？</p>
+</section><section id="exercises"><h2>原书习题与解答 · 5.1—5.19</h2><div class="exercise-index" aria-label="本章习题题号索引" role="navigation"><a href="#ex-5-1" aria-label="习题 5.1">5.1</a><a href="#ex-5-2" aria-label="习题 5.2">5.2</a><a href="#ex-5-3" aria-label="习题 5.3">5.3</a><a href="#ex-5-4" aria-label="习题 5.4">5.4</a><a href="#ex-5-5" aria-label="习题 5.5">5.5</a><a href="#ex-5-6" aria-label="习题 5.6">5.6</a><a href="#ex-5-7" aria-label="习题 5.7">5.7</a><a href="#ex-5-8" aria-label="习题 5.8">5.8</a><a href="#ex-5-9" aria-label="习题 5.9">5.9</a><a href="#ex-5-10" aria-label="习题 5.10">5.10</a><a href="#ex-5-11" aria-label="习题 5.11">5.11</a><a href="#ex-5-12" aria-label="习题 5.12">5.12</a><a href="#ex-5-13" aria-label="习题 5.13">5.13</a><a href="#ex-5-14" aria-label="习题 5.14">5.14</a><a href="#ex-5-15" aria-label="习题 5.15">5.15</a><a href="#ex-5-16" aria-label="习题 5.16">5.16</a><a href="#ex-5-17" aria-label="习题 5.17">5.17</a><a href="#ex-5-18" aria-label="习题 5.18">5.18</a><a href="#ex-5-19" aria-label="习题 5.19">5.19</a></div><p>练习题与家庭作业按本地 Global Edition 原号排列。先核对题目中的数据类型、参考机延迟与别名条件，再展开解答。表中原书测量保留其出处，程序实验的本机结果另列。</p>
+<details class="exercise" id="ex-5-1"><summary>5.1 · 交换函数中的同址指针</summary><div class="exercise-question" data-original-exercise="5.1" data-source-pdf-pages="537"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p>下面的过程试图只用加减法交换两个 long。若调用时 xp 与 yp 相等，会产生什么效果？</p>
 <pre><code data-language="c" class="language-c">void swap(long *xp, long *yp) {
     *xp = *xp + *yp;
     *yp = *xp - *yp;
     *xp = *xp - *yp;
 }</code></pre>
 <p class="source">原书：<a class="source-pdf" href="../csapp.pdf#page=537">印刷 536 页 / PDF 537 页</a></p>
-</div><div class="answer"><h3 class="answer-title">解答</h3><p>设同一个对象的初值为 x。第一句读到两个 x，写入 2x；第二句的两个读取都看见 2x，写入 0；第三句又计算 0−0，最终为 0。不能沿用两个不同对象时“第二句恢复 x”的解释，因为第一个写入也改变了 *yp。</p>
-<div class="scroll"><table class="compact-table"><thead><tr><th scope="col">语句后</th><th scope="col">*xp</th><th scope="col">*yp</th></tr></thead><tbody><tr><td>初值</td><td>x</td><td>x</td></tr><tr><td>第 1 句</td><td>2x</td><td>2x</td></tr><tr><td>第 2 句</td><td>0</td><td>0</td></tr><tr><td>第 3 句</td><td>0</td><td>0</td></tr></tbody></table></div>
+</div><div class="answer"><p class="answer-title rn-exercise-label" id="rn-table-label-4">解答</p><p>设同一个对象的初值为 x。第一句读到两个 x，写入 2x；第二句的两个读取都看见 2x，写入 0；第三句又计算 0−0，最终为 0。不能沿用两个不同对象时“第二句恢复 x”的解释，因为第一个写入也改变了 *yp。</p>
+<div class="scroll"><table class="compact-table" aria-labelledby="rn-table-label-4"><thead><tr><th scope="col">语句后</th><th scope="col">*xp</th><th scope="col">*yp</th></tr></thead><tbody><tr><td>初值</td><td>x</td><td>x</td></tr><tr><td>第 1 句</td><td>2x</td><td>2x</td></tr><tr><td>第 2 句</td><td>0</td><td>0</td></tr><tr><td>第 3 句</td><td>0</td><td>0</td></tr></tbody></table></div>
 <p>C 语义边界：如果第一句的 2x 超出 long 范围，就发生有符号溢出，不能继续保证结果为 0。原书答案的代数推演适用于这些运算均可表示的输入；例如 x=7 得到 14→0→0。</p>
 </div></details>
-<details class="exercise" id="ex-5-2"><summary>5.2 · 三条成本直线何时相交</summary><div class="exercise-question" data-original-exercise="5.2" data-source-pdf-pages="541"><h3 class="question-title">原题（中文翻译）</h3><p>三个版本的运行周期分别为 60+35n、136+4n、157+1.25n。对非负整数长度 n，说明各版本在哪些区间最快。</p>
+<details class="exercise" id="ex-5-2"><summary>5.2 · 三条成本直线何时相交</summary><div class="exercise-question" data-original-exercise="5.2" data-source-pdf-pages="541"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p>三个版本的运行周期分别为 60+35n、136+4n、157+1.25n。对非负整数长度 n，说明各版本在哪些区间最快。</p>
 <p class="source">原书：<a class="source-pdf" href="../csapp.pdf#page=541">印刷 540 页 / PDF 541 页</a></p>
-</div><div class="answer"><h3 class="answer-title">解答</h3><p>A 与 B 交点为 60+35n=136+4n，即 n=76/31≈2.452；B 与 C 交点为 n=21/2.75≈7.636；A 与 C 交点 n=97/33.75≈2.874。判断最快必须取三条直线的下包络，不能只比较任意一对。</p>
-<div class="scroll"><table><thead><tr><th scope="col">整数范围</th><th scope="col">最快</th><th scope="col">边界核对</th></tr></thead><tbody><tr><td>0≤n≤2</td><td>A</td><td>n=2：130&lt;144&lt;159.5</td></tr><tr><td>3≤n≤7</td><td>B</td><td>n=7：164&lt;165.75&lt;305</td></tr><tr><td>n≥8</td><td>C</td><td>n=8：167&lt;168&lt;340</td></tr></tbody></table></div>
+</div><div class="answer"><p class="answer-title rn-exercise-label" id="rn-table-label-5">解答</p><p>A 与 B 交点为 60+35n=136+4n，即 n=76/31≈2.452；B 与 C 交点为 n=21/2.75≈7.636；A 与 C 交点 n=97/33.75≈2.874。判断最快必须取三条直线的下包络，不能只比较任意一对。</p>
+<div class="scroll"><table aria-labelledby="rn-table-label-5"><thead><tr><th scope="col">整数范围</th><th scope="col">最快</th><th scope="col">边界核对</th></tr></thead><tbody><tr><td>0≤n≤2</td><td>A</td><td>n=2：130&lt;144&lt;159.5</td></tr><tr><td>3≤n≤7</td><td>B</td><td>n=7：164&lt;165.75&lt;305</td></tr><tr><td>n≥8</td><td>C</td><td>n=8：167&lt;168&lt;340</td></tr></tbody></table></div>
 <p>A 固定开销最低；C 每元素成本最低。交点都不是整数，所以这些范围中没有并列。</p>
 
 <div class="explanation" id="explain-ex-5-2"><p>这里找“交点”，是因为哪条线低会在两条线相等的位置发生变化。以 A、B 为例，A 比 B 少 76 周期启动成本，却每项多花 31 周期；处理到 76/31 项时恰好抵消。输入长度只能是整数，所以实际交接落在 n=2 与 n=3 之间。再核对第三个版本，才知道 B 是否确实最小；表中逐段比较的是三个总时间，不是只选斜率最小的线。</p></div>
 </div></details>
-<details class="exercise" id="ex-5-3"><summary>5.3 · 循环判断还会多执行一次</summary><div class="exercise-question" data-original-exercise="5.3" data-source-pdf-pages="549"><h3 class="question-title">原题（中文翻译）</h3><p>给定以下函数与三个代码片段，令 x=10、y=100。填写每个片段调用 min、max、incr、square 的次数。</p>
+<details class="exercise" id="ex-5-3"><summary>5.3 · 循环判断还会多执行一次</summary><div class="exercise-question" data-original-exercise="5.3" data-source-pdf-pages="549"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p>给定以下函数与三个代码片段，令 x=10、y=100。填写每个片段调用 min、max、incr、square 的次数。</p>
 <pre><code data-language="c" class="language-c">long min(long x,long y) { return x&lt;y?x:y; }
 long max(long x,long y) { return x&lt;y?y:x; }
 void incr(long *xp,long v) { *xp+=v; }
@@ -678,12 +719,12 @@ for(i=max(x,y)-1;i&gt;=min(x,y);incr(&amp;i,-1)) t+=square(i);
 long low=min(x,y),high=max(x,y);
 for(i=low;i&lt;high;incr(&amp;i,1)) t+=square(i);</code></pre>
 <p class="source">原书：<a class="source-pdf" href="../csapp.pdf#page=549">印刷 548 页 / PDF 549 页</a></p>
-</div><div class="answer"><h3 class="answer-title">解答</h3><p>三个片段都处理 10 到 99 这 90 个整数，B 的方向相反。初始化一次；循环体和增量各 90 次；判断还需第 91 次失败才能退出。</p>
-<div class="scroll"><table><thead><tr><th scope="col">片段</th><th scope="col">min</th><th scope="col">max</th><th scope="col">incr</th><th scope="col">square</th></tr></thead><tbody><tr><td>A</td><td>1</td><td>91</td><td>90</td><td>90</td></tr><tr><td>B</td><td>91</td><td>1</td><td>90</td><td>90</td></tr><tr><td>C</td><td>1</td><td>1</td><td>90</td><td>90</td></tr></tbody></table></div>
+</div><div class="answer"><p class="answer-title rn-exercise-label" id="rn-table-label-6">解答</p><p>三个片段都处理 10 到 99 这 90 个整数，B 的方向相反。初始化一次；循环体和增量各 90 次；判断还需第 91 次失败才能退出。</p>
+<div class="scroll"><table aria-labelledby="rn-table-label-6"><thead><tr><th scope="col">片段</th><th scope="col">min</th><th scope="col">max</th><th scope="col">incr</th><th scope="col">square</th></tr></thead><tbody><tr><td>A</td><td>1</td><td>91</td><td>90</td><td>90</td></tr><tr><td>B</td><td>91</td><td>1</td><td>90</td><td>90</td></tr><tr><td>C</td><td>1</td><td>1</td><td>90</td><td>90</td></tr></tbody></table></div>
 <p>该表按源码调用次数计算。实际优化编译可能内联或外提纯函数，机器上的 call 数量要另看生成代码。</p>
 </div></details>
-<details class="exercise" id="ex-5-4"><summary>5.4 · 保留存储，消除冗余载入</summary><div class="exercise-question" data-original-exercise="5.4" data-source-pdf-pages="553,554"><h3 class="question-title">原题（中文翻译）</h3><p>用 gcc -O2 编译 combine3 得到以下 CPE，与 -O1 及使用局部累积器的 combine4 比较。给出的 double 乘积循环中，dest 在 rbx，data+i 在 rdx，终点在 rax。A：xmm0 在两版中的角色有什么区别？B：优化版在 dest 与 data 别名时是否仍实现 combine3？C：解释正确性，或给反例。</p>
-<div class="scroll"><table><thead><tr><th scope="col">版本</th><th scope="col">整数+</th><th scope="col">整数×</th><th scope="col">浮点+</th><th scope="col">浮点×</th></tr></thead><tbody><tr><td>-O1</td><td>7.17</td><td>9.02</td><td>9.02</td><td>11.03</td></tr><tr><td>-O2</td><td>1.6</td><td>3.01</td><td>3.01</td><td>5.01</td></tr><tr><td>combine4</td><td>1.27</td><td>3.01</td><td>3.01</td><td>5.01</td></tr></tbody></table></div>
+<details class="exercise" id="ex-5-4"><summary>5.4 · 保留存储，消除冗余载入</summary><div class="exercise-question" data-original-exercise="5.4" data-source-pdf-pages="553,554"><p class="question-title rn-exercise-label" id="rn-table-label-7">原题（中文翻译）</p><p>用 gcc -O2 编译 combine3 得到以下 CPE，与 -O1 及使用局部累积器的 combine4 比较。给出的 double 乘积循环中，dest 在 rbx，data+i 在 rdx，终点在 rax。A：xmm0 在两版中的角色有什么区别？B：优化版在 dest 与 data 别名时是否仍实现 combine3？C：解释正确性，或给反例。</p>
+<div class="scroll"><table aria-labelledby="rn-table-label-7"><thead><tr><th scope="col">版本</th><th scope="col">整数+</th><th scope="col">整数×</th><th scope="col">浮点+</th><th scope="col">浮点×</th></tr></thead><tbody><tr><td>-O1</td><td>7.17</td><td>9.02</td><td>9.02</td><td>11.03</td></tr><tr><td>-O2</td><td>1.6</td><td>3.01</td><td>3.01</td><td>5.01</td></tr><tr><td>combine4</td><td>1.27</td><td>3.01</td><td>3.01</td><td>5.01</td></tr></tbody></table></div>
 <pre><code data-language="asm" class="language-asm"># -O1
 .L17:
  vmovsd (%rbx), %xmm0
@@ -700,10 +741,10 @@ for(i=low;i&lt;high;incr(&amp;i,1)) t+=square(i);</code></pre>
  vmovsd %xmm0, (%rbx)
  jne .L22</code></pre>
 <p class="source">原书：<a class="source-pdf" href="../csapp.pdf#page=553">印刷 552—553 页 / PDF 553—554 页</a></p>
-</div><div class="answer"><h3 class="answer-title">解答</h3><p>A：-O1 中 xmm0 是每轮从内存重新装入的临时值；-O2 中它跨迭代保存活跃的累积积。B：在原书的普通、单线程、非 volatile 内存条件下，是。C：上一轮写入 *dest 的值就是 xmm0 中保留的值；到下一轮原本那条载入之前，没有其他写入改变该位置，所以载入可由寄存器值代替。</p>
+</div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>A：-O1 中 xmm0 是每轮从内存重新装入的临时值；-O2 中它跨迭代保存活跃的累积积。B：在原书的普通、单线程、非 volatile 内存条件下，是。C：上一轮写入 *dest 的值就是 xmm0 中保留的值；到下一轮原本那条载入之前，没有其他写入改变该位置，所以载入可由寄存器值代替。</p>
 <p>如果当前 data[i] 正好与 dest 重叠，乘法仍会读内存，而且之前各轮的写入仍然发生，因而看到与原程序相同的值。这与 combine4 仅在最后写一次不同。addq/cmpq 的前移不改内存，vmovsd 不改条件码，所以 jne 使用的比较结果仍正确。</p>
 </div></details>
-<details class="exercise" id="ex-5-5"><summary>5.5 · 直接多项式的运算数与关键路径</summary><div class="exercise-question" data-original-exercise="5.5" data-source-pdf-pages="567"><h3 class="question-title">原题（中文翻译）</h3><p>多项式 a₀+a₁x+…+aₙxⁿ 用下面程序求值。A：次数 n 时执行多少加法和乘法？B：按图 5.12 的延迟，原书测得 5.00 CPE；由跨迭代数据依赖解释。</p>
+<details class="exercise" id="ex-5-5"><summary>5.5 · 直接多项式的运算数与关键路径</summary><div class="exercise-question" data-original-exercise="5.5" data-source-pdf-pages="567"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p>多项式 a₀+a₁x+…+aₙxⁿ 用下面程序求值。A：次数 n 时执行多少加法和乘法？B：按图 5.12 的延迟，原书测得 5.00 CPE；由跨迭代数据依赖解释。</p>
 <pre><code data-language="c" class="language-c">double poly(double a[],double x,long degree) {
     double result=a[0],xpwr=x;
     for(long i=1;i&lt;=degree;++i) {
@@ -713,24 +754,24 @@ for(i=low;i&lt;high;incr(&amp;i,1)) t+=square(i);</code></pre>
     return result;
 }</code></pre>
 <p class="source">原书：<a class="source-pdf" href="../csapp.pdf#page=567">印刷 566 页 / PDF 567 页</a></p>
-</div><div class="answer"><h3 class="answer-title">解答</h3><p>A：每轮一项 a[i]*xpwr，再一次 xpwr*x，共 2n 次乘法、n 次加法。最后一轮更新 xpwr 的结果虽然不用，按所给源码仍计入；优化编译可能删除这次无用更新。B：xpwr 的反馈链每轮一个乘法，延迟 5；result 的反馈链每轮一个加法，延迟 3。a[i]*xpwr 可在幂值就绪后发起，并与其他迭代的工作重叠。参考机两个浮点乘法单元的资源下界只有每元素 2/2=1 周期，因此 max(5,3,1)=5。</p>
+</div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>A：每轮一项 a[i]*xpwr，再一次 xpwr*x，共 2n 次乘法、n 次加法。最后一轮更新 xpwr 的结果虽然不用，按所给源码仍计入；优化编译可能删除这次无用更新。B：xpwr 的反馈链每轮一个乘法，延迟 5；result 的反馈链每轮一个加法，延迟 3。a[i]*xpwr 可在幂值就绪后发起，并与其他迭代的工作重叠。参考机两个浮点乘法单元的资源下界只有每元素 2/2=1 周期，因此 max(5,3,1)=5。</p>
 <p>这说明不能把本轮两个乘法和一个加法的延迟直接相加成 13：不是本轮所有操作都位于同一条跨迭代反馈链。</p>
 </div></details>
-<details class="exercise" id="ex-5-6"><summary>5.6 · Horner 运算更少，相关更长</summary><div class="exercise-question" data-original-exercise="5.6" data-source-pdf-pages="567,568"><h3 class="question-title">原题（中文翻译）</h3><p>Horner 将同一多项式写为 a₀+x(a₁+x(…+x aₙ))，代码如下。A：求加法、乘法数。B：解释原书 8.00 CPE。C：解释 5.5 的直接求值为什么运算更多却更快。</p>
+<details class="exercise" id="ex-5-6"><summary>5.6 · Horner 运算更少，相关更长</summary><div class="exercise-question" data-original-exercise="5.6" data-source-pdf-pages="567,568"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p>Horner 将同一多项式写为 a₀+x(a₁+x(…+x aₙ))，代码如下。A：求加法、乘法数。B：解释原书 8.00 CPE。C：解释 5.5 的直接求值为什么运算更多却更快。</p>
 <pre><code data-language="c" class="language-c">double polyh(double a[],double x,long degree) {
     double result=a[degree];
     for(long i=degree-1;i&gt;=0;--i) result=a[i]+x*result;
     return result;
 }</code></pre>
 <p class="source">原书：<a class="source-pdf" href="../csapp.pdf#page=567">印刷 566—567 页 / PDF 567—568 页</a></p>
-</div><div class="answer"><h3 class="answer-title">解答</h3><p>A：n 次乘法、n 次加法。B：旧 result 先经过乘法的 5 周期，再经过加法的 3 周期，才成为下一轮输入，反馈延迟为 8；没有允许融合乘加时得到 8 CPE。C：直接法分开了幂链和加法链，最长反馈为 5，而 Horner 把乘、加串在同一条链中。减少总工作量与缩短关键路径是两个不同目标。</p>
+</div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>A：n 次乘法、n 次加法。B：旧 result 先经过乘法的 5 周期，再经过加法的 3 周期，才成为下一轮输入，反馈延迟为 8；没有允许融合乘加时得到 8 CPE。C：直接法分开了幂链和加法链，最长反馈为 5，而 Horner 把乘、加串在同一条链中。减少总工作量与缩短关键路径是两个不同目标。</p>
 <figure id="horner-path"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 160" role="img" aria-labelledby="horner-path-title"><title id="horner-path-title">Horner 的循环相关</title><defs><marker id="horner-path-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#7b8f85"/></marker></defs><rect class="node" x="10" y="50" width="130" height="60" rx="3"/><text x="75.0" y="86.0">旧 result</text><line x1="140" y1="80" x2="210" y2="80" stroke="#7b8f85" stroke-width="1.6" marker-end="url(#horner-path-arrow)"/><rect class="node" x="210" y="50" width="150" height="60" rx="3"/><text x="285.0" y="86.0">× x：5 周期</text><line x1="360" y1="80" x2="430" y2="80" stroke="#7b8f85" stroke-width="1.6" marker-end="url(#horner-path-arrow)"/><rect class="node" x="430" y="50" width="150" height="60" rx="3"/><text x="505.0" y="86.0">+ a[i]：3 周期</text><line x1="580" y1="80" x2="630" y2="80" stroke="#7b8f85" stroke-width="1.6" marker-end="url(#horner-path-arrow)"/><rect class="node" x="630" y="50" width="110" height="60" rx="3"/><text x="685.0" y="86.0">新 result</text></svg></div><figcaption>乘法与加法都在旧结果通向新结果的路径上，延迟相加。若使用 FMA，应换成该机器的 FMA 延迟重新建模。</figcaption></figure>
 
 <div class="explanation" id="explain-ex-5-6"><p>以二次多项式 2+3x+4x²、x=2 为例，Horner 先令 result=4，再算 3+2×4=11，最后算 2+2×11=24。第二轮的乘法必须取得上一轮完整的 11，不能只等上一轮的乘法结果 8；因此乘法后的那次加法也在反馈路径上。这正是 5+3 的由来，与一般代数上少做几次乘法是两回事。</p></div>
 </div></details>
-<details class="exercise" id="ex-5-7"><summary>5.7 · 五路展开和所有余数</summary><div class="exercise-question" data-original-exercise="5.7" data-source-pdf-pages="569"><h3 class="question-title">原题（中文翻译）</h3><p>仿照 combine5，写出展开因子为 5 的归约函数。保留单累积器与正确的末尾处理。</p>
+<details class="exercise" id="ex-5-7"><summary>5.7 · 五路展开和所有余数</summary><div class="exercise-question" data-original-exercise="5.7" data-source-pdf-pages="569"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p>仿照 combine5，写出展开因子为 5 的归约函数。保留单累积器与正确的末尾处理。</p>
 <p class="source">原书：<a class="source-pdf" href="../csapp.pdf#page=569">印刷 568 页 / PDF 569 页</a></p>
-</div><div class="answer"><h3 class="answer-title">解答</h3><p>完整实验以下用 uint64_t 求和实例化 data_t/OP/IDENT；推广到原书其他组合时分别替换为对应类型、运算和单位元。主循环每次处理五项，剩余 0—4 项逐个收尾。</p>
+</div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>完整实验以下用 uint64_t 求和实例化 data_t/OP/IDENT；推广到原书其他组合时分别替换为对应类型、运算和单位元。主循环每次处理五项，剩余 0—4 项逐个收尾。</p>
 <pre><code data-language="c" class="language-c">static uint64_t combine5(const uint64_t *a, size_t n) {
     uint64_t r = 0; size_t i = 0;
     for (; n - i &gt;= 5; i += 5) {
@@ -743,7 +784,7 @@ for(i=low;i&lt;high;incr(&amp;i,1)) t+=square(i);</code></pre>
 
 <div class="explanation" id="explain-ex-5-7"><p>例如 n=12：第一轮 i=0 处理下标 0—4，第二轮 i=5 处理 5—9；更新到 i=10 后剩余 12−10=2，不够五项，转入尾循环处理 10、11。n=3 时第一次判断就跳过主循环，尾循环处理全部三项；n=0 时两段循环都不进入，保留求和单位元 0。</p></div>
 </div></details>
-<details class="exercise" id="ex-5-8"><summary>5.8 · 五种括号形状的相关下界</summary><div class="exercise-question" data-original-exercise="5.8" data-source-pdf-pages="582,583"><h3 class="question-title">原题（中文翻译）</h3><p>下面函数每轮取三个 double，相乘后并入 r。乘法延迟为 5 周期。将标注行分别替换为 A1—A5，求由乘法数据依赖决定的 CPE 下界，并画出 r 的反馈路径。</p>
+<details class="exercise" id="ex-5-8"><summary>5.8 · 五种括号形状的相关下界</summary><div class="exercise-question" data-original-exercise="5.8" data-source-pdf-pages="582,583"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p>下面函数每轮取三个 double，相乘后并入 r。乘法延迟为 5 周期。将标注行分别替换为 A1—A5，求由乘法数据依赖决定的 CPE 下界，并画出 r 的反馈路径。</p>
 <pre><code data-language="c" class="language-c">double aprod(double a[],long n) {
     long i; double r=1;
     for(i=0;i&lt;n-2;i+=3) {
@@ -759,13 +800,13 @@ for(i=low;i&lt;high;incr(&amp;i,1)) t+=square(i);</code></pre>
 /* A4 */ r=r*(x*(y*z));
 /* A5 */ r=(r*x)*(y*z);</code></pre>
 <p class="source">原书：<a class="source-pdf" href="../csapp.pdf#page=582">印刷 581—582 页 / PDF 582—583 页</a></p>
-</div><div class="answer"><h3 class="answer-title">解答</h3><p>只追踪旧 r 到新 r 的必经乘法；不含 r 的子树可以提前准备。每轮处理三个元素，故把反馈延迟除以 3。</p>
-<div class="scroll"><table><thead><tr><th scope="col">形状</th><th scope="col">旧 r 到新 r 的路径</th><th scope="col">路径乘法数</th><th scope="col">CPE 下界</th></tr></thead><tbody><tr><td>A1</td><td>r → ×x → ×y → ×z</td><td>3</td><td>15/3=5</td></tr><tr><td>A2</td><td>r → ×(xy) → ×z</td><td>2</td><td>10/3</td></tr><tr><td>A3</td><td>r → ×((xy)z)</td><td>1</td><td>5/3</td></tr><tr><td>A4</td><td>r → ×(x(yz))</td><td>1</td><td>5/3</td></tr><tr><td>A5</td><td>r → ×x → ×(yz)</td><td>2</td><td>10/3</td></tr></tbody></table></div>
+</div><div class="answer"><p class="answer-title rn-exercise-label" id="rn-table-label-8">解答</p><p>只追踪旧 r 到新 r 的必经乘法；不含 r 的子树可以提前准备。每轮处理三个元素，故把反馈延迟除以 3。</p>
+<div class="scroll"><table aria-labelledby="rn-table-label-8"><thead><tr><th scope="col">形状</th><th scope="col">旧 r 到新 r 的路径</th><th scope="col">路径乘法数</th><th scope="col">CPE 下界</th></tr></thead><tbody><tr><td>A1</td><td>r → ×x → ×y → ×z</td><td>3</td><td>15/3=5</td></tr><tr><td>A2</td><td>r → ×(xy) → ×z</td><td>2</td><td>10/3</td></tr><tr><td>A3</td><td>r → ×((xy)z)</td><td>1</td><td>5/3</td></tr><tr><td>A4</td><td>r → ×(x(yz))</td><td>1</td><td>5/3</td></tr><tr><td>A5</td><td>r → ×x → ×(yz)</td><td>2</td><td>10/3</td></tr></tbody></table></div>
 <p>五种形式仍各做三次乘法，因此资源吞吐下界也要检查；题目此处只问由相关得到的下界。实际浮点结果可能因舍入、上溢或下溢而不同，重结合需要数值契约许可。</p>
 
 <div class="explanation" id="explain-ex-5-8"><p>A3 为什么只计一次反馈乘法？在等旧 r 的同时，可以先算 xy，再算 (xy)z；准备好这份只由本轮输入决定的乘积后，旧 r 到新 r 只经过最外面一次乘法。首次启动确实还要等待局部乘积准备，后续不同轮的准备工作却可重叠。表内 5/3 是长期反馈下界，不是在说一个孤立的三项乘积只用 5 个周期就全部算完。</p></div>
 </div></details>
-<details class="exercise" id="ex-5-9"><summary>5.9 · 用条件选择表达归并</summary><div class="exercise-question" data-original-exercise="5.9" data-source-pdf-pages="590"><h3 class="question-title">原题（中文翻译）</h3><p>以下归并过程读取两个各含 n 项的有序数组，输出到足够大的独立 dest。边界分支容易预测，两个值的大小关系对随机输入难预测，原书测得约 15.0 CPE（按输出的 2n 项计）。改写第一个循环，使内部 if 的效果可由条件传送实现。</p>
+<details class="exercise" id="ex-5-9"><summary>5.9 · 用条件选择表达归并</summary><div class="exercise-question" data-original-exercise="5.9" data-source-pdf-pages="590"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p>以下归并过程读取两个各含 n 项的有序数组，输出到足够大的独立 dest。边界分支容易预测，两个值的大小关系对随机输入难预测，原书测得约 15.0 CPE（按输出的 2n 项计）。改写第一个循环，使内部 if 的效果可由条件传送实现。</p>
 <pre><code data-language="c" class="language-c">void merge(long src1[],long src2[],long dest[],long n) {
     long i1=0,i2=0,id=0;
     while(i1&lt;n &amp;&amp; i2&lt;n) {
@@ -776,7 +817,7 @@ for(i=low;i&lt;high;incr(&amp;i,1)) t+=square(i);</code></pre>
     while(i2&lt;n) dest[id++]=src2[i2++];
 }</code></pre>
 <p class="source">原书：<a class="source-pdf" href="../csapp.pdf#page=590">印刷 589 页 / PDF 590 页</a></p>
-</div><div class="answer"><h3 class="answer-title">解答</h3><pre><code data-language="c" class="language-c">static void merge(const long *a,const long *b,long *d,size_t n) {
+</div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><pre><code data-language="c" class="language-c">static void merge(const long *a,const long *b,long *d,size_t n) {
     size_t i=0,j=0,k=0;
     while(i&lt;n &amp;&amp; j&lt;n) {
         long x=a[i],y=b[j]; int take=x&lt;y;
@@ -789,15 +830,15 @@ for(i=low;i&lt;high;incr(&amp;i,1)) t+=square(i);</code></pre>
 
 <div class="explanation" id="explain-ex-5-9"><p>例如当前两项为 x=3、y=7，比较 x&lt;y 得 take=1，输出 3，i 加 1、j 加 0；若 x=9、y=7，则 take=0，输出 7，i 加 0、j 加 1。用 1−take 正好让另一侧执行相反的增量，确保每轮只消费一个输入。只要两数组各自有序，较小的头元素就是尚未输出元素中的最小值，因此这个选择保持归并的正确性。</p></div>
 </div></details>
-<details class="exercise" id="ex-5-10"><summary>5.10 · 重叠复制的结果与速度</summary><div class="exercise-question" data-original-exercise="5.10" data-source-pdf-pages="596,597"><h3 class="question-title">原题（中文翻译）</h3><p>函数逐项执行 dest[i]=src[i]，i=0…n−1。数组 a 长度 1000，初值 a[i]=i。A：copy_array(a+1,a,999) 有何效果？B：copy_array(a,a+1,999) 呢？C：A 测得 1.2 CPE（四路展开后 1.0），B 为 5.0，如何解释？D：预测 copy_array(a,a,999) 的性能。</p>
+<details class="exercise" id="ex-5-10"><summary>5.10 · 重叠复制的结果与速度</summary><div class="exercise-question" data-original-exercise="5.10" data-source-pdf-pages="596,597"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p>函数逐项执行 dest[i]=src[i]，i=0…n−1。数组 a 长度 1000，初值 a[i]=i。A：copy_array(a+1,a,999) 有何效果？B：copy_array(a,a+1,999) 呢？C：A 测得 1.2 CPE（四路展开后 1.0），B 为 5.0，如何解释？D：预测 copy_array(a,a,999) 的性能。</p>
 <pre><code data-language="c" class="language-c">void copy_array(long *src,long *dest,long n) {
     for(long i=0;i&lt;n;++i) dest[i]=src[i];
 }</code></pre>
 <p class="source">原书：<a class="source-pdf" href="../csapp.pdf#page=596">印刷 595—596 页 / PDF 596—597 页</a></p>
-</div><div class="answer"><h3 class="answer-title">解答</h3><p>A：a[0…998] 变为 1…999，a[999] 保持 999。每次从右侧尚未写坏的位置读取。B：第一步令 a[1]=a[0]=0，第二步读取刚写的 a[1]，归纳得全部为 0。</p>
+</div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>A：a[0…998] 变为 1…999，a[999] 保持 999。每次从右侧尚未写坏的位置读取。B：第一步令 a[1]=a[0]=0，第二步读取刚写的 a[1]，归纳得全部为 0。</p>
 <p>C：B 的存储值是下一轮的载入值，存在 store→load→store 的循环相关；A 各轮传递原始不同元素，允许重叠。D：在同一机器、相同未消除循环的测量下，预期接近 A 的 1.2 CPE；同一轮自读自写不把本轮结果传到下一轮地址。若编译器在调用点证明完全自拷贝并删除循环，测量会变为另一种情形。</p>
 </div></details>
-<details class="exercise" id="ex-5-11"><summary>5.11 · 前缀和中多出的存储依赖</summary><div class="exercise-question" data-original-exercise="5.11" data-source-pdf-pages="598"><h3 class="question-title">原题（中文翻译）</h3><p>psum1 计算 p[0]=a[0]、p[i]=p[i−1]+a[i]。原书测得 9.00 CPE，浮点加法延迟只有 3 周期。给出内循环如下，请按数据流图分析跨迭代关键路径并解释高 CPE。a 在 rdi，p 在 rsi，i 在 rax，终点在 rdx。</p>
+<details class="exercise" id="ex-5-11"><summary>5.11 · 前缀和中多出的存储依赖</summary><div class="exercise-question" data-original-exercise="5.11" data-source-pdf-pages="598"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p>psum1 计算 p[0]=a[0]、p[i]=p[i−1]+a[i]。原书测得 9.00 CPE，浮点加法延迟只有 3 周期。给出内循环如下，请按数据流图分析跨迭代关键路径并解释高 CPE。a 在 rdi，p 在 rsi，i 在 rax，终点在 rdx。</p>
 <pre><code data-language="asm" class="language-asm">.L5:
  vmovss -4(%rsi,%rax,4), %xmm0
  vaddss (%rdi,%rax,4), %xmm0, %xmm0
@@ -806,12 +847,12 @@ for(i=low;i&lt;high;incr(&amp;i,1)) t+=square(i);</code></pre>
  cmpq %rdx, %rax
  jne .L5</code></pre>
 <p class="source">原书：<a class="source-pdf" href="../csapp.pdf#page=598">印刷 597 页 / PDF 598 页</a></p>
-</div><div class="answer"><h3 class="answer-title">解答</h3><figure id="prefix-memory"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 225" role="img" aria-labelledby="prefix-memory-title"><title id="prefix-memory-title">前缀和的跨迭代存储依赖</title><defs><marker id="prefix-memory-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#7b8f85"/></marker></defs><rect class="node" x="10" y="40" width="160" height="65" rx="3"/><text x="90.0" y="78.5">load p[i−1]</text><line x1="170" y1="72" x2="235" y2="72" stroke="#7b8f85" stroke-width="1.6" marker-end="url(#prefix-memory-arrow)"/><rect class="node" x="235" y="40" width="150" height="65" rx="3"/><text x="310.0" y="78.5">+ a[i]</text><line x1="385" y1="72" x2="450" y2="72" stroke="#7b8f85" stroke-width="1.6" marker-end="url(#prefix-memory-arrow)"/><rect class="node" x="450" y="40" width="160" height="65" rx="3"/><text x="530.0" y="78.5">store p[i]</text><path d="M530,110 V160 H90 V110" fill="none" stroke="#4c7766" marker-end="url(#prefix-memory-arrow)"/><text class="hint" x="310" y="190">下一轮读取刚写的 p[i]，反馈包含存储与载入</text></svg></div><figcaption>加法 3 周期只覆盖中间算术，完整反馈还包含存储数据到后续载入的传递。</figcaption></figure>
+</div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><figure id="prefix-memory"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 225" role="img" aria-labelledby="prefix-memory-title"><title id="prefix-memory-title">前缀和的跨迭代存储依赖</title><defs><marker id="prefix-memory-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#7b8f85"/></marker></defs><rect class="node" x="10" y="40" width="160" height="65" rx="3"/><text x="90.0" y="78.5">load p[i−1]</text><line x1="170" y1="72" x2="235" y2="72" stroke="#7b8f85" stroke-width="1.6" marker-end="url(#prefix-memory-arrow)"/><rect class="node" x="235" y="40" width="150" height="65" rx="3"/><text x="310.0" y="78.5">+ a[i]</text><line x1="385" y1="72" x2="450" y2="72" stroke="#7b8f85" stroke-width="1.6" marker-end="url(#prefix-memory-arrow)"/><rect class="node" x="450" y="40" width="160" height="65" rx="3"/><text x="530.0" y="78.5">store p[i]</text><path d="M530,110 V160 H90 V110" fill="none" stroke="#4c7766" marker-end="url(#prefix-memory-arrow)"/><text class="hint" x="310" y="190">下一轮读取刚写的 p[i]，反馈包含存储与载入</text></svg></div><figcaption>加法 3 周期只覆盖中间算术，完整反馈还包含存储数据到后续载入的传递。</figcaption></figure>
 <p>9.00 是原书机器对这条完整反馈链的观测；不能从“9−3=6”推出所有机器的 store 或 load 固定延迟为 6。地址生成和转发机制随机器及访问形状变化。</p>
 </div></details>
-<details class="exercise" id="ex-5-12"><summary>5.12 · 保留前缀值，不重复从内存取回</summary><div class="exercise-question" data-original-exercise="5.12" data-source-pdf-pages="598"><h3 class="question-title">原题（中文翻译）</h3><p>改写 psum1，使它无需每轮从内存重新读取已经计算的前缀值，不必展开循环。原书测得改写后 3.00 CPE，为浮点加法延迟。</p>
+<details class="exercise" id="ex-5-12"><summary>5.12 · 保留前缀值，不重复从内存取回</summary><div class="exercise-question" data-original-exercise="5.12" data-source-pdf-pages="598"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p>改写 psum1，使它无需每轮从内存重新读取已经计算的前缀值，不必展开循环。原书测得改写后 3.00 CPE，为浮点加法延迟。</p>
 <p class="source">原书：<a class="source-pdf" href="../csapp.pdf#page=598">印刷 597 页 / PDF 598 页</a></p>
-</div><div class="answer"><h3 class="answer-title">解答</h3><pre><code data-language="c" class="language-c">void psum2(const float *a,float *p,size_t n) {
+</div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><pre><code data-language="c" class="language-c">void psum2(const float *a,float *p,size_t n) {
     if(n==0) return;
     float last=a[0];
     p[0]=last;
@@ -822,7 +863,7 @@ for(i=low;i&lt;high;incr(&amp;i,1)) t+=square(i);</code></pre>
 }</code></pre>
 <p>last 是上一前缀的寄存器候选，每轮从旧 last 经一次加法得到新 last；存储 p[i] 不再位于下一轮反馈路径上。依赖下界缩到 3 CPE。这里保留 p[0]=a[0]，连有符号零的位模式也按原式初始化；实验中的从 +0 开始版本用于有限普通值，应注意 −0 的初值差别。a 与 p 可以完全相同而原地计算；任意部分重叠的契约仍需单独说明。</p>
 </div></details>
-<details class="exercise" id="ex-5-13"><summary>5.13 · 内积的乘法为何不在反馈链上</summary><div class="exercise-question" data-original-exercise="5.13" data-source-pdf-pages="607,608"><h3 class="question-title">原题（中文翻译）</h3><p>将抽象内积优化成下面的 inner4 后，整数测得 1.50 CPE，浮点测得 3.00。double 内循环列于下方，功能单元使用图 5.12 参数。A：画操作与相关图。B：double 的关键路径给出什么下界？C：整数版本的对应下界？D：浮点乘法延迟 5，为什么整体能到 3.00 CPE？</p>
+<details class="exercise" id="ex-5-13"><summary>5.13 · 内积的乘法为何不在反馈链上</summary><div class="exercise-question" data-original-exercise="5.13" data-source-pdf-pages="607,608"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p>将抽象内积优化成下面的 inner4 后，整数测得 1.50 CPE，浮点测得 3.00。double 内循环列于下方，功能单元使用图 5.12 参数。A：画操作与相关图。B：double 的关键路径给出什么下界？C：整数版本的对应下界？D：浮点乘法延迟 5，为什么整体能到 3.00 CPE？</p>
 <pre><code data-language="c" class="language-c">void inner4(vec_ptr u,vec_ptr v,data_t *dest) {
     long length=vec_length(u);
     data_t *udata=get_vec_start(u),*vdata=get_vec_start(v);
@@ -838,12 +879,12 @@ for(i=low;i&lt;high;incr(&amp;i,1)) t+=square(i);</code></pre>
  cmpq %rbx, %rcx
  jne .L15</code></pre>
 <p class="source">原书：<a class="source-pdf" href="../csapp.pdf#page=607">印刷 606—607 页 / PDF 607—608 页</a></p>
-</div><div class="answer"><h3 class="answer-title">解答</h3><figure id="dot-flow"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 230" role="img" aria-labelledby="dot-flow-title"><title id="dot-flow-title">内积独立乘积与累加反馈</title><defs><marker id="dot-flow-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#7b8f85"/></marker></defs><rect class="node" x="10" y="15" width="160" height="55" rx="3"/><text x="90.0" y="48.5">load u[i]</text><rect class="node" x="10" y="100" width="160" height="55" rx="3"/><text x="90.0" y="133.5">load v[i]</text><line x1="170" y1="43" x2="255" y2="80" stroke="#7b8f85" stroke-width="1.6" marker-end="url(#dot-flow-arrow)"/><line x1="170" y1="128" x2="255" y2="95" stroke="#7b8f85" stroke-width="1.6" marker-end="url(#dot-flow-arrow)"/><rect class="node" x="255" y="55" width="130" height="70" rx="3"/><text x="320.0" y="96.0">乘法</text><line x1="385" y1="90" x2="475" y2="90" stroke="#7b8f85" stroke-width="1.6" marker-end="url(#dot-flow-arrow)"/><rect class="node" x="475" y="55" width="130" height="70" rx="3"/><text x="540.0" y="96.0">加法</text><line x1="540" y1="175" x2="540" y2="125" stroke="#7b8f85" stroke-width="1.6" marker-end="url(#dot-flow-arrow)"/><text class="hint" x="540" y="200">旧 sum → 加法 → 新 sum</text><line x1="605" y1="90" x2="700" y2="90" stroke="#7b8f85" stroke-width="1.6" marker-end="url(#dot-flow-arrow)"/></svg></div><figcaption>乘积只依赖当前 u[i]、v[i]，可与前后迭代的加法交叠；只有 sum 反馈经过每一轮。</figcaption></figure>
+</div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><figure id="dot-flow"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 230" role="img" aria-labelledby="dot-flow-title"><title id="dot-flow-title">内积独立乘积与累加反馈</title><defs><marker id="dot-flow-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#7b8f85"/></marker></defs><rect class="node" x="10" y="15" width="160" height="55" rx="3"/><text x="90.0" y="48.5">load u[i]</text><rect class="node" x="10" y="100" width="160" height="55" rx="3"/><text x="90.0" y="133.5">load v[i]</text><line x1="170" y1="43" x2="255" y2="80" stroke="#7b8f85" stroke-width="1.6" marker-end="url(#dot-flow-arrow)"/><line x1="170" y1="128" x2="255" y2="95" stroke="#7b8f85" stroke-width="1.6" marker-end="url(#dot-flow-arrow)"/><rect class="node" x="255" y="55" width="130" height="70" rx="3"/><text x="320.0" y="96.0">乘法</text><line x1="385" y1="90" x2="475" y2="90" stroke="#7b8f85" stroke-width="1.6" marker-end="url(#dot-flow-arrow)"/><rect class="node" x="475" y="55" width="130" height="70" rx="3"/><text x="540.0" y="96.0">加法</text><line x1="540" y1="175" x2="540" y2="125" stroke="#7b8f85" stroke-width="1.6" marker-end="url(#dot-flow-arrow)"/><text class="hint" x="540" y="200">旧 sum → 加法 → 新 sum</text><line x1="605" y1="90" x2="700" y2="90" stroke="#7b8f85" stroke-width="1.6" marker-end="url(#dot-flow-arrow)"/></svg></div><figcaption>乘积只依赖当前 u[i]、v[i]，可与前后迭代的加法交叠；只有 sum 反馈经过每一轮。</figcaption></figure>
 <p>A：两个载入供给乘法，乘积再供给累加；另有索引加一链。B：double 的累加反馈为 3 周期，故下界 3。C：整数加法反馈为 1 周期，故下界 1。D：各项乘积彼此独立，可以提前流水执行，5 周期是单个乘积的完成延迟，不是整个序列只能每 5 周期开始一项。参考机 2 次载入/周期还给出内积至少 1 CPE，符合上述下界。</p>
 </div></details>
-<details class="exercise" id="ex-5-14"><summary>5.14 · 六路展开、单累积器</summary><div class="exercise-question" data-original-exercise="5.14" data-source-pdf-pages="608"><h3 class="question-title">原题（中文翻译）</h3><p>实现 5.13 的 6×1 内积。原书整数测得 1.07 CPE，浮点仍为 3.01。A：为何 Haswell 上任何这样的标量内积都不能低于 1.00 CPE？B：为什么展开没有改善浮点版本？</p>
+<details class="exercise" id="ex-5-14"><summary>5.14 · 六路展开、单累积器</summary><div class="exercise-question" data-original-exercise="5.14" data-source-pdf-pages="608"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p>实现 5.13 的 6×1 内积。原书整数测得 1.07 CPE，浮点仍为 3.01。A：为何 Haswell 上任何这样的标量内积都不能低于 1.00 CPE？B：为什么展开没有改善浮点版本？</p>
 <p class="source">原书：<a class="source-pdf" href="../csapp.pdf#page=608">印刷 607 页 / PDF 608 页</a></p>
-</div><div class="answer"><h3 class="answer-title">解答</h3><pre><code data-language="c" class="language-c">static uint64_t dot6x1(const uint64_t *u, const uint64_t *v, size_t n) {
+</div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><pre><code data-language="c" class="language-c">static uint64_t dot6x1(const uint64_t *u, const uint64_t *v, size_t n) {
     uint64_t r = 0; size_t i = 0;
     for (; n-i &gt;= 6; i += 6) {
         r += u[i]*v[i]; r += u[i+1]*v[i+1]; r += u[i+2]*v[i+2];
@@ -854,9 +895,9 @@ for(i=low;i&lt;high;incr(&amp;i,1)) t+=square(i);</code></pre>
 }</code></pre>
 <p>完整程序选 uint64_t，使乘加模 2⁶⁴ 有定义；若实例化为 double，六句累加保持串行结合顺序。A：每一对元素需从两个数组读取两项，参考机每周期最多两次标量载入，因此至少 2/2=1 周期/对。B：六个加法仍依次使用同一个 r，六项的反馈为 6×3=18 周期，即 3 CPE。展开节约循环控制，却没有分开累加链。</p>
 </div></details>
-<details class="exercise" id="ex-5-15"><summary>5.15 · 六路展开、六个累积器</summary><div class="exercise-question" data-original-exercise="5.15" data-source-pdf-pages="608"><h3 class="question-title">原题（中文翻译）</h3><p>实现 5.13 的 6×6 内积。原书整数 1.06 CPE、浮点 1.01。哪种因素把性能限制在约 1.00？</p>
+<details class="exercise" id="ex-5-15"><summary>5.15 · 六路展开、六个累积器</summary><div class="exercise-question" data-original-exercise="5.15" data-source-pdf-pages="608"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p>实现 5.13 的 6×6 内积。原书整数 1.06 CPE、浮点 1.01。哪种因素把性能限制在约 1.00？</p>
 <p class="source">原书：<a class="source-pdf" href="../csapp.pdf#page=608">印刷 607 页 / PDF 608 页</a></p>
-</div><div class="answer"><h3 class="answer-title">解答</h3><pre><code data-language="c" class="language-c">static uint64_t dot6x6(const uint64_t *u, const uint64_t *v, size_t n) {
+</div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><pre><code data-language="c" class="language-c">static uint64_t dot6x6(const uint64_t *u, const uint64_t *v, size_t n) {
     uint64_t r0=0,r1=0,r2=0,r3=0,r4=0,r5=0; size_t i=0;
     for (; n-i &gt;= 6; i += 6) {
         r0+=u[i]*v[i]; r1+=u[i+1]*v[i+1]; r2+=u[i+2]*v[i+2];
@@ -867,9 +908,9 @@ for(i=low;i&lt;high;incr(&amp;i,1)) t+=square(i);</code></pre>
 }</code></pre>
 <p>r0—r5 独立，各自只承担约六分之一的加法；末尾将余数加到 r0，最后合并所有累积器。浮点相关下界降为 3/6=0.5，但每对仍需两次载入，资源下界为 1，所以 1.01 与载入吞吐限制相符。整数也受同一输入供给限制。浮点合并改变求和顺序，应用需接受相应误差。</p>
 </div></details>
-<details class="exercise" id="ex-5-16"><summary>5.16 · 把六个乘积先在局部相加</summary><div class="exercise-question" data-original-exercise="5.16" data-source-pdf-pages="608"><h3 class="question-title">原题（中文翻译）</h3><p>实现 5.13 的 6×1a 内积，用重结合获得更大并行性。原书整数测得 1.10 CPE、浮点测得 1.05。</p>
+<details class="exercise" id="ex-5-16"><summary>5.16 · 把六个乘积先在局部相加</summary><div class="exercise-question" data-original-exercise="5.16" data-source-pdf-pages="608"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p>实现 5.13 的 6×1a 内积，用重结合获得更大并行性。原书整数测得 1.10 CPE、浮点测得 1.05。</p>
 <p class="source">原书：<a class="source-pdf" href="../csapp.pdf#page=608">印刷 607 页 / PDF 608 页</a></p>
-</div><div class="answer"><h3 class="answer-title">解答</h3><pre><code data-language="c" class="language-c">static uint64_t dot6x1a(const uint64_t *u, const uint64_t *v, size_t n) {
+</div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><pre><code data-language="c" class="language-c">static uint64_t dot6x1a(const uint64_t *u, const uint64_t *v, size_t n) {
     uint64_t r=0; size_t i=0;
     for (; n-i &gt;= 6; i+=6) {
         uint64_t a=u[i]*v[i]+u[i+1]*v[i+1];
@@ -882,14 +923,14 @@ for(i=low;i&lt;high;incr(&amp;i,1)) t+=square(i);</code></pre>
 }</code></pre>
 <p>三个相邻乘积对的和与旧 r 无关，(a+b)+c 也可在输入就绪后先算；旧 r 只经过最外层一次加法进入下一块。每六项的反馈延迟为 3，相关下界仅 0.5 CPE。总共仍是六个乘法和六个加法，载入下界仍是 1，故观测约 1.05 合理。不同局部树形可能改变调度和舍入，但不改变“反馈只过一次累加”的分析。</p>
 </div></details>
-<details class="exercise" id="ex-5-17"><summary>5.17 · 按字填充内存的完整边界</summary><div class="exercise-question" data-original-exercise="5.17" data-source-pdf-pages="608,609"><h3 class="question-title">原题（中文翻译）</h3><p>memset(void *s,int c,size_t n) 把从 s 开始的 n 字节填成 c 的低字节并返回 s。原书基本版本逐字节写入，要求改为 unsigned long 打包写入，在参考机上从 1.00 降到 0.127 CPE。令 K=sizeof(unsigned long)：填充函数不能调用库函数；n 可以是任意值；K 随机器变化；开头先写字节至地址为 K 的倍数，中段按字写，末尾补字节；注意 n 很小时与 sizeof 混合的无符号减法。</p>
+<details class="exercise" id="ex-5-17"><summary>5.17 · 按字填充内存的完整边界</summary><div class="exercise-question" data-original-exercise="5.17" data-source-pdf-pages="608,609"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p>memset(void *s,int c,size_t n) 把从 s 开始的 n 字节填成 c 的低字节并返回 s。原书基本版本逐字节写入，要求改为 unsigned long 打包写入，在参考机上从 1.00 降到 0.127 CPE。令 K=sizeof(unsigned long)：填充函数不能调用库函数；n 可以是任意值；K 随机器变化；开头先写字节至地址为 K 的倍数，中段按字写，末尾补字节；注意 n 很小时与 sizeof 混合的无符号减法。</p>
 <pre><code data-language="c" class="language-c">void *basic_memset(void *s,int c,size_t n) {
     unsigned char *p=s;
     for(size_t i=0;i&lt;n;++i) p[i]=(unsigned char)c;
     return s;
 }</code></pre>
 <p class="source">原书：<a class="source-pdf" href="../csapp.pdf#page=608">印刷 607—608 页 / PDF 608—609 页</a></p>
-</div><div class="answer"><h3 class="answer-title">解答</h3><p>先将低字节重复装进 packed，再将空间拆成“对齐前缀、完整字、末尾余数”。每写一段就减少剩余 n；条件用 n≥K，避免先算 n-K 而回绕。完整实现与验证见后面的 ch05_fill 源码，其核心如下。</p>
+</div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>先将低字节重复装进 packed，再将空间拆成“对齐前缀、完整字、末尾余数”。每写一段就减少剩余 n；条件用 n≥K，避免先算 n-K 而回绕。完整实现与验证见后面的 ch05_fill 源码，其核心如下。</p>
 <pre><code data-language="c" class="language-c">static void *fill(void *s,int c,size_t n) {
     unsigned char *p=s;const unsigned char byte=(unsigned char)c;
     const size_t k=sizeof(unsigned long);
@@ -910,9 +951,9 @@ for(i=low;i&lt;high;incr(&amp;i,1)) t+=square(i);</code></pre>
 <p>类型定义使用 typedef unsigned long alias_word __attribute__((__may_alias__))。<a href="https://gcc.gnu.org/onlinedocs/gcc-13.1.0/gcc/Common-Type-Attributes.html">GCC 的 may_alias 说明</a>明确允许此类访问绕过基于类型的别名限制；本机 Clang 编译与运行也已验证。该扩展支持按字访问其他有效类型；只有地址对齐并不足以让标准 C 的 unsigned long* 任意改写 char 数组变得合法。为了保持任意对象填充语义，纯标准 C 的实现应使用 unsigned char 访问，或由编译器把合法字符写合并为宽存储；本题“任意对象+显式按字写+完全可移植”需要这层条件补充。</p>
 <p>当前验证平台 K=8，8 位字节且 unsigned long 无填充位。程序覆盖 16 个起始偏移、0—64 的长度、c=−257/0/257，共 3120 例，每次检查两侧保护区与返回指针；这覆盖短于对齐前缀、空区域以及整字尾部。原书 0.127 CPE 保留为其参考机观测。</p>
 </div></details>
-<details class="exercise" id="ex-5-18"><summary>5.18 · 八条 Horner 链求多项式</summary><div class="exercise-question" data-original-exercise="5.18" data-source-pdf-pages="609,610"><h3 class="question-title">原题（中文翻译）</h3><p>在 5.5、5.6 的多项式求值基础上，组合展开、并行累积与重结合，尝试接近机器吞吐下界。原书最佳版本为 1.07 CPE。给出改进代码并测量。</p>
+<details class="exercise" id="ex-5-18"><summary>5.18 · 八条 Horner 链求多项式</summary><div class="exercise-question" data-original-exercise="5.18" data-source-pdf-pages="609,610"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p>在 5.5、5.6 的多项式求值基础上，组合展开、并行累积与重结合，尝试接近机器吞吐下界。原书最佳版本为 1.07 CPE。给出改进代码并测量。</p>
 <p class="source">原书：<a class="source-pdf" href="../csapp.pdf#page=609">印刷 608—609 页 / PDF 609—610 页</a></p>
-</div><div class="answer"><h3 class="answer-title">解答</h3><p>把指数按模 8 分组：P(x)=Q₀(x⁸)+xQ₁(x⁸)+…+x⁷Q₇(x⁸)，其中 Qⱼ(y)=Σₖaⱼ₊₈ₖyᵏ。每个 Q 独立用 Horner，八条乘加链可以重叠。最后以 x 再做七步 Horner 合并。代数验证只需把 xʲ(x⁸)ᵏ 展开为 xʲ⁺⁸ᵏ，每个系数恰好出现一次。</p>
+</div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>把指数按模 8 分组：P(x)=Q₀(x⁸)+xQ₁(x⁸)+…+x⁷Q₇(x⁸)，其中 Qⱼ(y)=Σₖaⱼ₊₈ₖyᵏ。每个 Q 独立用 Horner，八条乘加链可以重叠。最后以 x 再做七步 Horner 合并。代数验证只需把 xʲ(x⁸)ᵏ 展开为 xʲ⁺⁸ᵏ，每个系数恰好出现一次。</p>
 <pre><code data-language="c" class="language-c">static double split8(const double *a,double x,size_t degree) {
     double x2=x*x,x4=x2*x2,x8=x4*x4,r[8]={0};
     size_t count=degree+1,blocks=count/8,tail=count%8;
@@ -930,9 +971,9 @@ for(i=low;i&lt;high;incr(&amp;i,1)) t+=square(i);</code></pre>
 
 <div class="explanation" id="explain-ex-5-18"><p>先用次数 9 看分组从哪里来。令 y=x⁸，则 Q₀(y)=a₀+a₈y，Q₁(y)=a₁+a₉y，Q₂ 到 Q₇ 分别只含 a₂ 到 a₇。代回后，xQ₁(x⁸) 中的高次项是 a₉x⁹，Q₀ 中的是 a₈x⁸，其余给出二到七次项；全部十个系数恰好各出现一次。代码中的 tail=2 就对应最高块只有 a₈、a₉；先把它们放进 r[0]、r[1]，再处理低块，得到上述八个 Q。</p></div>
 </div></details>
-<details class="exercise" id="ex-5-19"><summary>5.19 · 增加局部加法，缩短前缀反馈</summary><div class="exercise-question" data-original-exercise="5.19" data-source-pdf-pages="610"><h3 class="question-title">原题（中文翻译）</h3><p>5.12 已把前缀和降到浮点加法延迟限制的 3.00 CPE，简单展开仍不能突破。结合展开与重结合，写出低于本机加法延迟的版本。原书两路展开每轮三次加法、四路每轮五次，最佳实现为 1.67 CPE。分析吞吐和延迟如何约束最低 CPE。</p>
+<details class="exercise" id="ex-5-19"><summary>5.19 · 增加局部加法，缩短前缀反馈</summary><div class="exercise-question" data-original-exercise="5.19" data-source-pdf-pages="610"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p>5.12 已把前缀和降到浮点加法延迟限制的 3.00 CPE，简单展开仍不能突破。结合展开与重结合，写出低于本机加法延迟的版本。原书两路展开每轮三次加法、四路每轮五次，最佳实现为 1.67 CPE。分析吞吐和延迟如何约束最低 CPE。</p>
 <p class="source">原书：<a class="source-pdf" href="../csapp.pdf#page=610">印刷 609 页 / PDF 610 页</a></p>
-</div><div class="answer"><h3 class="answer-title">解答</h3><p>一种清楚的构造是先独立计算三项内部前缀 b₀=aᵢ，b₁=aᵢ+aᵢ₊₁，b₂=b₁+aᵢ₊₂，再把上一块总和 s 分别加到它们。两次局部加法和三次加 s，共五次/三项；新 s 只依赖 s+b₂，因此跨块反馈每三项只有一次加法。</p>
+</div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>一种清楚的构造是先独立计算三项内部前缀 b₀=aᵢ，b₁=aᵢ+aᵢ₊₁，b₂=b₁+aᵢ₊₂，再把上一块总和 s 分别加到它们。两次局部加法和三次加 s，共五次/三项；新 s 只依赖 s+b₂，因此跨块反馈每三项只有一次加法。</p>
 <pre><code data-language="c" class="language-c">static void prefix3(const float *a,float *p,size_t n) {
     size_t i=0; float s=0;
     for(;n-i&gt;=3;i+=3) {
@@ -1366,9 +1407,9 @@ for offset in range(16):
             cases+=1
 print(f"fill-cases={cases} word-bytes={K} guards=ok")
 </code></pre></details></div>
-<h3>本机性能实验与读取方法</h3>
+<h3 id="rn-table-label-9">本机性能实验与读取方法</h3>
 <p>2026-10-13，在 Apple M3 / macOS 15.8.1 / Apple clang 17.0.0 上，以 -O3 -ffp-contract=off -fno-vectorize -fno-slp-vectorize 编译基准。每种算法先预热一次，再重复 4000 次、每次 8192 元素；运行三批。输入数组在重复计算中重用；本次编译已将五种计算内联到计时循环。时间包含算法计算、重复循环控制及 volatile 结果保存，以 timespec_get 的墙钟时间计。下面显示三批的中位数及范围，单位为 ns/element。</p>
-<div class="scroll"><table class="compact-table"><thead><tr><th scope="col">算法</th><th scope="col">中位数（ns/element）</th><th scope="col">范围（ns/element）</th></tr></thead><tbody><tr><td>直接多项式</td><td>1.049</td><td>1.045—1.764</td></tr><tr><td>Horner</td><td>1.787</td><td>1.775—1.907</td></tr><tr><td>八链分组</td><td>0.242</td><td>.239—.243</td></tr><tr><td>串行前缀和</td><td>0.721</td><td>.720—.744</td></tr><tr><td>三项局部前缀</td><td>0.258</td><td>.256—.260</td></tr></tbody></table></div>
+<div class="scroll"><table class="compact-table" aria-labelledby="rn-table-label-9"><thead><tr><th scope="col">算法</th><th scope="col">中位数（ns/element）</th><th scope="col">范围（ns/element）</th></tr></thead><tbody><tr><td>直接多项式</td><td>1.049</td><td>1.045—1.764</td></tr><tr><td>Horner</td><td>1.787</td><td>1.775—1.907</td></tr><tr><td>八链分组</td><td>0.242</td><td>.239—.243</td></tr><tr><td>串行前缀和</td><td>0.721</td><td>.720—.744</td></tr><tr><td>三项局部前缀</td><td>0.258</td><td>.256—.260</td></tr></tbody></table></div>
 <p>这组观测支持当前条件下八链多项式和三项前缀重组更快，也显示首次直接求值有明显波动。它不能证明原书 Haswell 的 1.07 或 1.67 CPE 已在本机复现。重组浮点结果的正确性由前面的误差与反例分析约束。</p>
 <p><a href="../code/ch05_bench.c" download>下载性能基准 C 源码</a>；与 ch05_loops.c、ch05_polynomial.c 放在同一目录编译。</p>
 <pre><code data-language="c" class="language-c">/* Build: clang -std=c11 -O3 -ffp-contract=off -fno-vectorize
@@ -1415,19 +1456,19 @@ int main(void) {
     return 0;
 }</code></pre>
 </section><section id="self-check"><h2>补充自测与解答</h2><p>以下为根据本章机制独立编写的自测。先在纸上写出判断、计算或理由，再展开解答。</p>
-<details class="exercise" id="q5-1"><summary>自测 5-1 · 别名</summary><div class="exercise-question"><h3>问题</h3>
+<details class="exercise" id="q5-1"><summary>自测 5-1 · 别名</summary><div class="exercise-question"><p class="rn-exercise-label">问题</p>
 <p>xp、yp 都指向初值为 2 的同一个 long，做两次 *xp+=*yp，与一次 *xp+=2*(*yp)，分别得到多少？</p>
-</div><div class="answer"><h3>解答</h3>
+</div><div class="answer"><p class="rn-exercise-label">解答</p>
 <p>两次更新为 2→4→8；一次更新读到原值 2，写入 2+2·2=6。两种写法对这一合法小值输入不同，说明排除别名是变换前提。</p>
 </div></details>
-<details class="exercise" id="q5-2"><summary>自测 5-2 · 展开与依赖</summary><div class="exercise-question"><h3>问题</h3>
+<details class="exercise" id="q5-2"><summary>自测 5-2 · 展开与依赖</summary><div class="exercise-question"><p class="rn-exercise-label">问题</p>
 <p>展开四项，但所有项仍依次加到同一个 acc，为什么可能仍受运算延迟限制？</p>
-</div><div class="answer"><h3>解答</h3>
+</div><div class="answer"><p class="rn-exercise-label">解答</p>
 <p>展开减少循环控制次数，数据图里却仍有四个连续依赖同一 acc 的操作。它们不能在前一个结果出现前完成；分为独立链才会缩短最长依赖路径。</p>
 </div></details>
-<details class="exercise" id="q5-3"><summary>自测 5-3 · 吞吐下界</summary><div class="exercise-question"><h3>问题</h3>
+<details class="exercise" id="q5-3"><summary>自测 5-3 · 吞吐下界</summary><div class="exercise-question"><p class="rn-exercise-label">问题</p>
 <p>某操作 L=6 周期、I=1 周期，只有一个功能单元，用三个独立累积器时模型的 CPE 下界是多少？六个时呢？</p>
-</div><div class="answer"><h3>解答</h3>
+</div><div class="answer"><p class="rn-exercise-label">解答</p>
 <p>三个时 max(6/3,1/1)=2；六个时 max(6/6,1/1)=1。继续增加链数不能越过 1 的单元吞吐下界，还可能触及载入或寄存器限制。</p>
 </div></details>
 </section><footer><p>依据 Bryant / O’Hallaron《Computer Systems: A Programmer’s Perspective》第三版 Global Edition（Pearson 2016）。模型条件随例子说明，程序说明与来源集中于全书地图。</p><p class="chapter-nav"><a href="#top">返回页首 ↑</a><a href="book_overview.html">全书地图</a><a href="book_overview.html#program-guide">程序说明</a><a href="chapter04_architecture.html">← 第 4 章</a><a href="chapter06_memory.html">第 6 章 →</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top"></a></p><div id="annotation-content"></div></aside></div><script>

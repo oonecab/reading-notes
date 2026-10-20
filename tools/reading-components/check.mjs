@@ -12,6 +12,24 @@ const text = n => n.nodeName === '#text' ? n.value : (n.childNodes ?? []).map(te
 export function checkPage(html, book) {
   const nodes = walk(parse(html));
   assert(nodes.some(n => n.tagName === 'body' && has(n, 'rn-components')), 'Missing shared reading scope');
+  const toc = nodes.find(n => has(n, 'chapter-toc'));
+  if (toc) {
+    const positions = new Map(nodes.map((n, i) => [attr(n, 'id'), i]).filter(([id]) => id));
+    let previous = -1;
+    for (const a of walk(toc).filter(n => n.tagName === 'a' && (attr(n, 'href') ?? '').startsWith('#'))) {
+      const position = positions.get(attr(a, 'href').slice(1));
+      assert(position !== undefined && position >= previous, 'TOC order differs from reading order');
+      previous = position;
+    }
+  }
+  if (book === 'csapp') {
+    let previousLevel = 0;
+    for (const n of nodes.filter(n => /^h[1-6]$/.test(n.tagName))) {
+      const level = Number(n.tagName.slice(1));
+      assert(level <= previousLevel + 1, 'Heading level skipped');
+      previousLevel = level;
+    }
+  }
   const counts = { statement: 0, example: 0, proof: 0, exercise: 0 };
   for (const n of nodes) {
     if (has(n, 'source-statement') || has(n, 'statement')) assert(has(n, 'rn-statement'), 'Unmapped statement');
@@ -26,8 +44,15 @@ export function checkPage(html, book) {
       counts.statement++;
       assert(n.tagName !== 'details', 'Statements must be visible');
       assert(children(n).some(n => /^h[3-4]$/.test(n.tagName)), 'Statement title missing');
+      assert(children(n).filter(n => has(n, 'statement-body')).length === 1, 'Statement body missing');
     }
-    if (has(n, 'rn-example')) counts.example++;
+    if (has(n, 'rn-example')) {
+      counts.example++;
+      if (book === 'measure-probability' && attr(n, 'data-example-kind')) {
+        const label = children(n).find(n => has(n, 'example-kind'));
+        assert(label && text(label).trim() === '类型：' + attr(n, 'data-example-kind'), 'Example classification missing');
+      }
+    }
     if (has(n, 'rn-proof')) {
       counts.proof++;
       assert(n.tagName === 'details' && attr(n, 'open') !== undefined, 'Proof must default open');
@@ -45,8 +70,31 @@ export function checkPage(html, book) {
       assert(q > 0 && a > q, 'Question must precede answer');
       for (const i of [q, a]) {
         const label = children(blocks[i])[0];
-        assert(label && /^(h[3-4]|p)$/.test(label.tagName) && text(label).trim(), 'Exercise label missing');
+        assert(label?.tagName === 'p' && has(label, 'rn-exercise-label') && text(label).trim(), 'Exercise label missing');
+        if (book === 'stochastic' && i === a) assert.equal(text(label).trim(), '解答', 'Solution label must be 解答');
       }
+    }
+    if (n.tagName === 'th') assert(['col', 'row', 'colgroup', 'rowgroup'].includes(attr(n, 'scope')), 'Table header scope missing');
+    if (has(n, 'code-details')) {
+      assert(n.tagName === 'details' && children(n)[0]?.tagName === 'summary' &&
+        walk(n).some(n => n.tagName === 'code'), 'Code disclosure structure missing');
+    }
+    if (n.tagName === 'table') {
+      const labelled = (attr(n, 'aria-labelledby') ?? '').split(/\s+/).filter(Boolean);
+      assert(children(n).some(n => n.tagName === 'caption' && text(n).trim()) || attr(n, 'aria-label') ||
+        (labelled.length && labelled.every(id => nodes.some(n => attr(n, 'id') === id && text(n).trim()))), 'Table accessible name missing');
+    }
+  }
+  const originalExercises = nodes.filter(n => has(n, 'exercise') && !/^q\d/.test(attr(n, 'id') ?? ''));
+  const indexes = nodes.filter(n => has(n, 'exercise-index'));
+  if (originalExercises.length >= 20) {
+    const links = indexes.flatMap(n => walk(n).filter(n => n.tagName === 'a'));
+    assert(originalExercises.every(n => links.some(a => attr(a, 'href') === '#' + attr(n, 'id'))), 'Exercise index incomplete');
+  }
+  for (const index of indexes) {
+    assert(attr(index, 'role') === 'navigation' && attr(index, 'aria-label'), 'Exercise index navigation name missing');
+    for (const a of walk(index).filter(n => n.tagName === 'a')) {
+      assert(attr(a, 'aria-label')?.startsWith('习题 '), 'Exercise index link name missing');
     }
   }
   return counts;

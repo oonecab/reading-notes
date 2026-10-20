@@ -1,0 +1,10 @@
+/* Chinese textbook prompts precede the worked solutions. */
+.exercise-question{margin:1.15rem 0 1.25rem;padding:.85rem 1rem;background:var(--tint);border-left:2px solid var(--green);min-width:0}
+.question-title,.answer-title{margin:.15rem 0 .8rem;font-size:1rem;color:var(--green)}
+.exercise-question>p:last-child{margin-bottom:.2rem}
+.exercise-question ol{margin:.65rem 0 1rem}
+.question-note{font-size:.9rem;color:var(--sub);border-top:1px solid var(--rule);padding-top:.6rem}
+.question-context{font-size:.94rem}
+.exercise-question .source{margin-top:1rem}
+.question-code{font-size:13px}
+svg.question-large-tree{min-width:1120px}

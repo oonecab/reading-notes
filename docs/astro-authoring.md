@@ -4,6 +4,8 @@ I040 将五书的教学组件接入 `src/styles/reading-components.css`；每页
 
 受控正文位于 `src/content/books/<book>/`，一章一份 HTML，文件头为 JSON frontmatter。共享 CSS/JS 在 `src/styles/`、`src/scripts/`，由 `RN:include` 标记按原字节展开。`ReaderLayout` 提供 head/body 骨架，组件保留语义片段边界，静态 MathML/SVG 不经重排。目录、注解与复制是独立的渐进增强脚本；基础阅读和原生 details 使用静态 HTML。
 
+I041 将十份书级样式的相同连续段抽到 `reading-base`、`reading-content`、`reading-navigation`、`reading-annotations` 等共享 CSS。书级组合文件用 `/* RN:include styles/名称.css */` 在原层叠位置递归展开；首轮抽取后展开字节完全相同，再单独审阅显示修正。Node 构建与 Python 独立检查均展开此语法并拒绝路径越界、循环和未展开标记。成品仍内联完整 CSS，不引入运行时请求；各书有实际用途的差异保留，不能仅因选择器重名就删除后续覆盖。组件内层、布局与导航约定以 RN-001 v1.2 为准，本轮审阅见 [I041](../issues/I041-review-followup.md)。
+
 `books/<book>/notes/*.html` 是受控源展开后的兼容镜像，供原 Python 检查器独立读取。构建在验证受控源身份后自动生成镜像；`node scripts/sync-legacy.mjs` 单独检查一致性，`--write` 单独生成。兼容快照暂时随 Git 保留以支持独立检查与回滚，正文的唯一权威源是 `src/content/books/`。C/Python 程序仍遵循各书原代码维护入口，先把显示块同步进受控章节，再展开镜像并运行原检查。Weiss 的教学程序维护于受控章节内。
 
 迁移期间 `scripts/migration-state.json` 固定起点，`original_sha256` 和 `git show` 双重守卫禁止正文变化。未来数学内容修订须另开受审阅的变更，连同原题/条件/代码、来源清单、Python 基线、当前审阅绑定与新 golden master 一起更新；不能以同步镜像命令自动认可内容变化。共享资源文件的哈希名称只为去重，不构成内容正确性的证明。

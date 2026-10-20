@@ -8,6 +8,20 @@ export function walk(node) {
   return [node, ...(node.content?.childNodes ?? node.childNodes ?? []).flatMap(walk)];
 }
 export function attr(node, name) { return node.attrs?.find(a => a.name === name)?.value; }
+export function sharedAsset(name, base=root, stack=[]) {
+  if (!/^(styles\/[a-z0-9-]+\.css|scripts\/[a-z0-9-]+\.js)$/.test(name)) {
+    throw new Error('Invalid shared asset');
+  }
+  if (stack.includes(name)) throw new Error('Circular shared stylesheet: ' + name);
+  const content = fs.readFileSync(path.join(base, 'src', name), 'utf8');
+  if (!name.startsWith('styles/')) return content;
+  const expanded = content.replace(/\/\* RN:include ([^*]+) \*\//g, (_, child) => {
+    if (!/^styles\/[a-z0-9-]+\.css$/.test(child)) throw new Error('Stylesheet may only include styles');
+    return sharedAsset(child, base, [...stack, name]);
+  });
+  if (expanded.includes('RN:include')) throw new Error('Unexpanded stylesheet include');
+  return expanded;
+}
 export function readSource(filename, base=root) {
   const source = fs.readFileSync(filename, 'utf8');
   const match = source.match(/^---\n([\s\S]*?)\n---\n/);
@@ -17,8 +31,7 @@ export function readSource(filename, base=root) {
     if (!(key in metadata)) throw new Error(`Missing ${key}: ${filename}`);
   }
   const html = source.slice(match[0].length).replace(/<!-- RN:include ([\w/.-]+) -->/g, (_, name) => {
-    if (!/^(styles|scripts)\/[a-z0-9-]+\.(css|js)$/.test(name)) throw new Error('Invalid shared asset');
-    return fs.readFileSync(path.join(base, 'src', name), 'utf8');
+    return sharedAsset(name, base);
   });
   return { metadata, html, filename };
 }

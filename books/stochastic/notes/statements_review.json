@@ -8351,56 +8351,56 @@
       "sha256": "e255b6e8ed79126c2cacdfcaececd18cc4607a37b9f09789e0696273f1c3f887"
     },
     "notes/appendix_a_probability_review.html": {
-      "bytes": 240730,
-      "sha256": "832ba9b1dcea33f2815f0aca6d53c7ae3770ba35ff590a579734d097bc7b05a1"
+      "bytes": 242014,
+      "sha256": "c74ee8f92c3bd86759ab93541dabc29187a1486a9c56f2c3f96d295d8876feb4"
     },
     "notes/book_overview.html": {
-      "bytes": 55190,
-      "sha256": "c508dec857c57a2ff7a064d42483338c33e5ced30b6a2a62f2ac4e691cadea39"
+      "bytes": 56719,
+      "sha256": "1da1fbc825ee687b81ad375af916ed400a3c3240ba7bfa145babf9a1164c355a"
     },
     "notes/chapter01_markov_chains.html": {
-      "bytes": 2133361,
-      "sha256": "965a1f232581f51cb12b2c7d3aadde490121235015905358a00f30ce2c3e5570"
+      "bytes": 2142153,
+      "sha256": "52a486f7d558c9f89b402d4cad20b6c03a85fb0d9e4b582e135d22ac1708951e"
     },
     "notes/chapter02_poisson_processes.html": {
-      "bytes": 687987,
-      "sha256": "909143d425d6c05b3a7ed53757e9ce175118f982a3c1d541540d5c9f289977c3"
+      "bytes": 692771,
+      "sha256": "a45892c2ace203e54863f7077e20a1946fd0854fbf5ef111575f849664644ced"
     },
     "notes/chapter03_renewal_processes.html": {
-      "bytes": 356861,
-      "sha256": "d5932191c703610b415fa86bc2a35794bad6351cc56cdec33bdaa5f7500c3273"
+      "bytes": 359526,
+      "sha256": "4f2b94618d9e96d6dcda154258491993967932879a9c413b705fa983322cd9c4"
     },
     "notes/chapter04_continuous_time_markov_chains.html": {
-      "bytes": 857045,
-      "sha256": "7d0058245839dfce30a02c2b4b0258eac2cf28562df8abb1a6eb4824672d662a"
+      "bytes": 861627,
+      "sha256": "197b369a35feeb31db00bbc5fc48e7f2b369d68cee030bc538ca44996adf3050"
     },
     "notes/chapter05_martingales.html": {
-      "bytes": 416306,
-      "sha256": "048a88b68b1a561d4411d6ab8b6c7779c3fe42dafe6da0073dcf3d4a4def5bc2"
+      "bytes": 418261,
+      "sha256": "9c685e0a40f2ec18ff168c7f8b87d243fbf9c78ee7691364e032153ab7df7b2a"
     },
     "notes/chapter06_mathematical_finance.html": {
-      "bytes": 1192918,
-      "sha256": "71a2c5bcc3bda1bb49cce53ee8923c7d5b1acd3743742f15490ce48926f226a0"
+      "bytes": 1199071,
+      "sha256": "39aee98fedf6ad145e188623e3b02012ddc5866157922009cf83354d087cf303"
     },
     "notes/code_deployment_review.json": {
-      "bytes": 228656,
-      "sha256": "9978d34c5e640493b320474a1a18097484794ae4883a0bb63568cab5d6bbef2c"
+      "bytes": 229182,
+      "sha256": "5e8daec213119af9d9a310fee5a464a7e8717959b4454e794801ce33c6097b1d"
     },
     "notes/preface.html": {
-      "bytes": 44968,
-      "sha256": "338e855b27c8cee3fa49cac29bc8b21398fc955627cbc8acc2948a125f2d9ef1"
+      "bytes": 46135,
+      "sha256": "e1c36d2040af534d175695e584daa6278280814a1212ad71fc6ec6cd54199af1"
     },
     "notes/source_manifest.json": {
       "bytes": 36372,
       "sha256": "f139c6dfedbf36be0b24bbae20b3f5af15482c4db068906a629bb6e29aafe23f"
     },
     "tools/check_notes.py": {
-      "bytes": 26792,
-      "sha256": "ba62cd72b8554d6122937f0f35b9e5b23726e06701f4cf223539f96d52b654ca"
+      "bytes": 26794,
+      "sha256": "0abcb345d1665a5759c23eaefe4b1c0a63730d14dd201b83bd12b94fded09681"
     },
     "notes/audit_fix_review.json": {
-      "bytes": 261294,
-      "sha256": "ea05edb0a344925d53d20492e5a7f40d012b28afa4663d04da98e1973daa5675"
+      "bytes": 261778,
+      "sha256": "c4ea02abe8955d714d8a25747578f6614497b7f042e2c07cf9a0a0144268fca5"
     }
   },
   "review_history": [
@@ -14858,5 +14858,11 @@
     "prior_record_git": "41a77dd3affc726bef81505ca5cde067d6f3944c:books/stochastic/notes/statements_review.json",
     "prior_record_sha256": "b360cc5777f149ded793ede09fa33a2ac11b71f8591d36360b735af00dc50804",
     "scope": "Current representation bindings updated after byte-preservation review. Historical mathematical and browser claims keep their original scope; fresh acceptance is recorded in docs/reading-components-review.json"
+  },
+  "I041_representation_revision": {
+    "issue": "I041",
+    "prior_record_git": "f727226e6aad63d77df1c946f58adc58531bb8ef:books/stochastic/notes/statements_review.json",
+    "prior_record_sha256": "05900fb60aa5f7664b062edc6c7ecc69d6daf1c8f03798cf89d5942bf2b59709",
+    "scope": "Presentation and navigation bindings only. Original question text, MathML, SVG, pre and code are byte-preserved. Historical execution and browser claims retain their original scope. Fresh acceptance: docs/review-followup-20261020.json"
   }
 }

@@ -5,7 +5,7 @@
   "historical_review_entry": "notes/README.md",
   "file_sha256": {
     "agent.md": "92f5aeaa13733fb839552b3fe90a4dc3c1faa8b98d0f5547c5e355b9113f56d5",
-    "notes/README.md": "d82bf35646481106eff0ae48a9ed26aad7b50b4b23031ac976e21c215e641f0d",
+    "notes/README.md": "ddcd13dadab74a78a3b7d7752a4527d099a49062d7e8d7445c535941c2c3053e",
     "review/browser.json": "6f67fc11648b74c329715e9259d8fe7aa1562bb288067f97b541cda12e0cca77"
   },
   "open_findings": [],
@@ -107,5 +107,11 @@
         }
       ]
     }
-  ]
+  ],
+  "I041_representation_revision": {
+    "issue": "I041",
+    "prior_record_git": "f727226e6aad63d77df1c946f58adc58531bb8ef:books/weiss/review/validation.json",
+    "prior_record_sha256": "8ac630be4fc86c708cd9aed9e261fee353943d0e62f76a06a8dbcfa3e76d22ce",
+    "scope": "Presentation and navigation bindings only. Original question text, MathML, SVG, pre and code are byte-preserved. Historical execution and browser claims retain their original scope. Fresh acceptance: docs/review-followup-20261020.json"
+  }
 }

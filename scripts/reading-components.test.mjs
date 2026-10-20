@@ -15,6 +15,33 @@ test('collapsed proofs, unmapped statements and reversed exercise sections are r
   assert.throws(() => checkPage(e.html.replace('class="exercise-question"', 'class="answer"'), 'stochastic'), /Question must precede/);
 });
 
+test('shared inner structure, table semantics and long exercise navigation cannot regress', () => {
+  const e = entries().find(e => e.metadata.book === 'stochastic' && e.metadata.chapter === 1);
+  assert.throws(() => checkPage(e.html.replace('class="statement-body"', 'class="lost-body"'), 'stochastic'), /Statement body missing/);
+  assert.throws(() => checkPage(e.html.replace('rn-exercise-label', 'lost-label'), 'stochastic'), /Exercise label missing/);
+  assert.throws(() => checkPage(e.html.replace('scope="col"', ''), 'stochastic'), /Table header scope missing/);
+  assert.throws(() => checkPage(e.html.replace('class="exercise-index"', 'class="lost-index"'), 'stochastic'), /Exercise index incomplete/);
+  assert.throws(() => checkPage(e.html.replace('aria-label="习题 1.1"', ''), 'stochastic'), /Exercise index link name missing/);
+  assert.throws(() => checkPage(e.html.replace('rn-exercise-label">解答', 'rn-exercise-label">提示'), 'stochastic'), /Solution label must be 解答/);
+});
+
+test('example classifications and system-principle headings keep their intended roles', () => {
+  const measure = entries().find(e => e.metadata.book === 'measure-probability' && e.metadata.chapter === 5);
+  assert.throws(() => checkPage(measure.html.replace('class="example-kind"', 'class="lost-kind"'), 'measure-probability'), /Example classification missing/);
+  const csapp = entries().find(e => e.metadata.book === 'csapp' && e.metadata.chapter === 4);
+  const skipped = csapp.html.replace(/<h3([^>]*)>(原书论述[^]*?)<\/h3>/, '<h4$1>$2</h4>');
+  assert.notEqual(skipped, csapp.html);
+  assert.throws(() => checkPage(skipped, 'csapp'), /Heading level skipped/);
+});
+
+test('TOC entries must follow the actual document order for current-section highlighting', () => {
+  const e = entries().find(e => e.metadata.book === 'measure-probability' && e.metadata.chapter === 'book_overview');
+  const link = '<li><a href="#example-index">全六章例子索引</a></li>';
+  const misplaced = e.html.replace(link, '').replace('<li><a href="#program-guide">', link + '<li><a href="#program-guide">');
+  assert.notEqual(misplaced, e.html);
+  assert.throws(() => checkPage(misplaced, 'measure-probability'), /TOC order differs/);
+});
+
 test('exercise 6.27 retains the original fourth moment separately from the second moment extension', () => {
   const e = entries().find(e => e.metadata.book === 'measure-probability' && e.metadata.chapter === 6);
   const block = e.html.split('id="ex-6-27"')[1].split('</details>')[0];

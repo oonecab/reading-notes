@@ -12,6 +12,23 @@ from catalog import ROOT, load_books
 
 def sha(p): return hashlib.sha256(p.read_bytes()).hexdigest()
 
+def shared_asset(name, stack=()):
+    if not re.fullmatch(r"(styles/[a-z0-9-]+\.css|scripts/[a-z0-9-]+\.js)", name):
+        raise ValueError("Invalid shared asset")
+    if name in stack:
+        raise ValueError("Circular shared stylesheet")
+    content = (ROOT / "src" / name).read_text()
+    if name.startswith("styles/"):
+        def include(match):
+            child = match[1]
+            if not re.fullmatch(r"styles/[a-z0-9-]+\.css", child):
+                raise ValueError("Stylesheet may only include styles")
+            return shared_asset(child, (*stack, name))
+        content = re.sub(r"/\* RN:include ([^*]+) \*/", include, content)
+        if "RN:include" in content:
+            raise ValueError("Unexpanded stylesheet include")
+    return content
+
 
 def matches_reviewed_output(blob, expected):
     if hashlib.sha256(blob).hexdigest() == expected:
@@ -61,7 +78,7 @@ def main():
                 assert key in meta,(file,key)
             assert (ROOT/meta['source_manifest']).is_file()
             def expand(match):
-                return (ROOT/'src'/match[1]).read_bytes().decode()
+                return shared_asset(match[1])
             expanded=re.sub(r'<!-- RN:include ((?:styles|scripts)/[a-z0-9-]+\.(?:css|js)) -->',expand,body).encode()
             assert b'RN:include' not in expanded
             ref=state.get('page_baselines',{}).get(route,state.get('book_baselines',{}).get(name,state['baseline_ref']))

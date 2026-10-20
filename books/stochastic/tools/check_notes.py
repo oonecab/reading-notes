@@ -104,7 +104,7 @@ class Page(HTMLParser):
         if not self.math_depth and not self.code and not self.style and not any(t=='script' for t,a in self.stack):
             if readable_text(s) != s:
                 self.errors.append('omitted leading zero in readable text: '+s[:100])
-            if any(t=='h3' and a.get('class')=='answer-title' for t,a in self.stack) and s.strip()!='解答':
+            if any('answer-title' in a.get('class', '').split() for t,a in self.stack) and s.strip()!='解答':
                 self.errors.append('solution heading must be 解答: '+s)
             if re.search(r'\$[^$\n]+\$|\\(?:frac|begin|sum|mathbb|operatorname)\s*[{(]',s):
                 self.errors.append('unconverted formula text: '+s[:70])
