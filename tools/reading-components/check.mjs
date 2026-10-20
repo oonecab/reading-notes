@@ -8,6 +8,19 @@ import { entries, walk, attr } from '../../src/lib/controlled-html.mjs';
 const has = (n, c) => (attr(n, 'class') ?? '').split(/\s+/).includes(c);
 const children = n => (n.childNodes ?? []).filter(n => n.tagName);
 const text = n => n.nodeName === '#text' ? n.value : (n.childNodes ?? []).map(text).join('');
+const headingLevel = n => /^h[1-6]$/.test(n.tagName) ? Number(n.tagName.slice(1)) : 0;
+const within = (n, c) => n ? has(n, c) || within(n.parentNode, c) : false;
+
+// A sibling exercise's headings cannot supply the parent of the next answer.
+export function enclosingHeadingLevel(node) {
+  for (let current = node; current?.parentNode; current = current.parentNode) {
+    const siblings = current.parentNode.childNodes;
+    for (let i = siblings.indexOf(current) - 1; i >= 0; i--) {
+      if (headingLevel(siblings[i])) return headingLevel(siblings[i]);
+    }
+  }
+  return 0;
+}
 
 export function checkPage(html, book) {
   const nodes = walk(parse(html));
@@ -22,13 +35,11 @@ export function checkPage(html, book) {
       previous = position;
     }
   }
-  if (book === 'csapp') {
-    let previousLevel = 0;
-    for (const n of nodes.filter(n => /^h[1-6]$/.test(n.tagName))) {
-      const level = Number(n.tagName.slice(1));
-      assert(level <= previousLevel + 1, 'Heading level skipped');
-      previousLevel = level;
-    }
+  let previousLevel = 0;
+  for (const n of nodes.filter(headingLevel)) {
+    const level = headingLevel(n);
+    assert(level <= previousLevel + 1, 'Heading level skipped');
+    previousLevel = level;
   }
   const counts = { statement: 0, example: 0, proof: 0, exercise: 0 };
   for (const n of nodes) {
@@ -48,9 +59,10 @@ export function checkPage(html, book) {
     }
     if (has(n, 'rn-example')) {
       counts.example++;
-      if (book === 'measure-probability' && attr(n, 'data-example-kind')) {
+      if (book === 'measure-probability') {
         const label = children(n).find(n => has(n, 'example-kind'));
-        assert(label && text(label).trim() === '类型：' + attr(n, 'data-example-kind'), 'Example classification missing');
+        assert(attr(n, 'data-example-kind') && label &&
+          text(label).trim() === '类型：' + attr(n, 'data-example-kind'), 'Example classification missing');
       }
     }
     if (has(n, 'rn-proof')) {
@@ -72,6 +84,12 @@ export function checkPage(html, book) {
         const label = children(blocks[i])[0];
         assert(label?.tagName === 'p' && has(label, 'rn-exercise-label') && text(label).trim(), 'Exercise label missing');
         if (book === 'stochastic' && i === a) assert.equal(text(label).trim(), '解答', 'Solution label must be 解答');
+        let previous = enclosingHeadingLevel(n);
+        for (const heading of walk(blocks[i]).filter(headingLevel)) {
+          const level = headingLevel(heading);
+          assert(level <= previous + 1, 'Exercise heading level skipped: ' + (attr(n, 'id') ?? text(blocks[0])));
+          previous = level;
+        }
       }
     }
     if (n.tagName === 'th') assert(['col', 'row', 'colgroup', 'rowgroup'].includes(attr(n, 'scope')), 'Table header scope missing');
@@ -81,8 +99,13 @@ export function checkPage(html, book) {
     }
     if (n.tagName === 'table') {
       const labelled = (attr(n, 'aria-labelledby') ?? '').split(/\s+/).filter(Boolean);
-      assert(children(n).some(n => n.tagName === 'caption' && text(n).trim()) || attr(n, 'aria-label') ||
-        (labelled.length && labelled.every(id => nodes.some(n => attr(n, 'id') === id && text(n).trim()))), 'Table accessible name missing');
+      const targets = labelled.map(id => nodes.find(n => attr(n, 'id') === id));
+      assert(targets.every(n => n && text(n).trim()), 'Table label target missing');
+      const caption = children(n).find(n => n.tagName === 'caption');
+      const name = (labelled.length ? targets.map(text).join(' ')
+        : attr(n, 'aria-label') ?? (caption ? text(caption) : '')).trim();
+      assert(name, 'Table accessible name missing');
+      assert(!/^[（(][a-z0-9]+[）)]$/i.test(name), 'Table accessible name lacks context');
     }
   }
   const originalExercises = nodes.filter(n => has(n, 'exercise') && !/^q\d/.test(attr(n, 'id') ?? ''));
@@ -96,6 +119,9 @@ export function checkPage(html, book) {
     for (const a of walk(index).filter(n => n.tagName === 'a')) {
       assert(attr(a, 'aria-label')?.startsWith('习题 '), 'Exercise index link name missing');
     }
+  }
+  for (const n of nodes.filter(n => n.tagName === 'a' && /#ex-?\d/.test(attr(n, 'href') ?? '') && !within(n, 'exercise-index'))) {
+    assert(!/^\d+\.\d/.test(text(n).trim()), 'Ambiguous exercise reference: ' + text(n).trim());
   }
   return counts;
 }

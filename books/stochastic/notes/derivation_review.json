@@ -2324,16 +2324,16 @@
   ],
   "files": {
     "notes/remaining_explanation_review.json": {
-      "bytes": 831704,
-      "sha256": "8c478c7cd098a27c0dc9a9d32677ccc994ac6d5b67fa526626aacc8750f992c9"
+      "bytes": 832237,
+      "sha256": "92ec3f0e4053609911603d0cd7682654621ef9d14a729c872a4173a6f1ed824c"
     },
     "notes/chapter01_explanation_review.json": {
-      "bytes": 185680,
-      "sha256": "3f3d18eba98da22fa1c9ed66357c60fd325410b5bdfa01406bb549ee19cc2d82"
+      "bytes": 186213,
+      "sha256": "265128cc4b9f88f4af966d33a0ed678df40437c5403bea249ac9ac3984146271"
     },
     "notes/derivation_coverage.json": {
       "bytes": 356326,
-      "sha256": "a1e9d1b64f56814400325b35dd596f54d7706bc0a21c9c17940d9e553dd95d36"
+      "sha256": "e8dda20443e209332eff7bcc7bec0c7320e105763a81eb30bd93175a96fe4959"
     },
     "tools/derivation_coverage.py": {
       "bytes": 15791,
@@ -2345,7 +2345,7 @@
     },
     "tools/content_baseline.json": {
       "bytes": 1975727,
-      "sha256": "77f3bea83796f1499a9e6fc71e4947f535b25fcb8acd88e6749d2f4b7389bddb"
+      "sha256": "3c2433b9ba9519d01be8f64ecf6df207ed0cf4b1d9085f64703798e48e6d7e61"
     }
   },
   "publication": "Local review only; no commit, push or deployment.",
@@ -5996,5 +5996,11 @@
     "prior_record_git": "f727226e6aad63d77df1c946f58adc58531bb8ef:books/stochastic/notes/derivation_review.json",
     "prior_record_sha256": "9958ba1cba52b878c46d80acd387618da07f7c8ed2be64bbe896e73900cb2703",
     "scope": "Presentation and navigation bindings only. Original question text, MathML, SVG, pre and code are byte-preserved. Historical execution and browser claims retain their original scope. Fresh acceptance: docs/review-followup-20261020.json"
+  },
+  "I043_representation_revision": {
+    "issue": "I043",
+    "prior_record_git": "5d69b9816379acc246017496e494c5ac40e85438:books/stochastic/notes/derivation_review.json",
+    "prior_record_sha256": "37c1eee4aa62433d9c0947c77f149ec0cfba50d81c88f40d8970c3ef59159973",
+    "scope": "Presentation and navigation bindings only. Original question text, MathML, SVG, pre and code are byte-preserved. Historical execution and browser claims retain their original scope. Fresh acceptance: docs/recheck-followup-20261020.json"
   }
 }

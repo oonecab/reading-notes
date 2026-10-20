@@ -4,6 +4,38 @@ import fs from 'node:fs';
 import { entries } from '../src/lib/controlled-html.mjs';
 import { checkPage, checkAll } from '../tools/reading-components/check.mjs';
 
+const fragment = content => `<body class="rn-components"><h1>书</h1><section><h2>习题</h2>${content}</section></body>`;
+const exercise = answer => `<details class="exercise"><summary>习题 1.1</summary><div class="exercise-question"><p class="rn-exercise-label">题目</p><p>原题。</p></div><div class="answer"><p class="rn-exercise-label">解答</p>${answer}</div></details>`;
+
+test('all five books reject skipped headings, including an isolated exercise after another answer', () => {
+  for (const book of ['stochastic', 'weiss', 'csapp', 'measure-probability', 'visual-group-theory']) {
+    assert.throws(() => checkPage(fragment('<h4>缺少父级</h4>'), book), /Heading level skipped/);
+    assert.throws(() => checkPage(fragment(exercise('<h3>前一道题</h3>') + exercise('<h4>另一道题</h4>')), book), /Exercise heading level skipped/);
+    checkPage(fragment(exercise('<h3>小问</h3><h4>小问的推演</h4>')), book);
+    checkPage(fragment('<h3>习题分组</h3>' + exercise('<h4>小问</h4>')), book);
+  }
+});
+
+test('exercise references distinguish prose from the compact numbered index', () => {
+  for (const label of ['11.6', '12.8–12.12', '9.7 的分轮证明']) {
+    assert.throws(() => checkPage(fragment(`<a href="chapter.html#ex9-7">${label}</a>`), 'weiss'), /Ambiguous exercise reference/);
+  }
+  checkPage(fragment('<a href="#ex9-7">习题 9.7 的分轮证明</a><div class="exercise-index" role="navigation" aria-label="习题索引"><a href="#ex9-7" aria-label="习题 9.7">9.7</a></div>'), 'weiss');
+});
+
+test('table names describe their context and obey accessible-name precedence', () => {
+  assert.throws(() => checkPage(fragment('<p id="part">(a)</p><table aria-labelledby="part" aria-label="有效名称"><caption>另一名称</caption></table>'), 'stochastic'), /Table accessible name lacks context/);
+  assert.throws(() => checkPage(fragment('<table aria-labelledby="missing" aria-label="有效名称"></table>'), 'stochastic'), /Table label target missing/);
+  checkPage(fragment('<table aria-label="习题 1.9(a) 的增广矩阵消元步骤"></table>'), 'stochastic');
+});
+
+test('unnumbered and companion examples still require explicit classification', () => {
+  assert.throws(() => checkPage(fragment('<div class="rn-example"><p>积分实例</p></div>'), 'measure-probability'), /Example classification missing/);
+  for (const kind of ['原书未编号实例', '伴读计算例']) {
+    checkPage(fragment(`<div class="rn-example" data-example-kind="${kind}"><p class="example-kind">类型：${kind}</p><p>积分实例</p></div>`), 'measure-probability');
+  }
+});
+
 test('all registered reading components satisfy the common contract', () => {
   assert.equal(checkAll().status, 'passed');
 });
