@@ -419,7 +419,17 @@ body.rn-components :is(p,li,td,th,summary,figcaption,h1,h2,h3,h4) math{vertical-
 body.rn-components .rn-math-inline{display:inline-block;max-width:100%;overflow-x:auto;overflow-y:hidden;vertical-align:middle}
 body.rn-components pre{font-size:16px;line-height:1.65;tab-size:4;white-space:pre}
 body.rn-components pre code{font-size:inherit;white-space:inherit}
-body.rn-components :not(pre)>code{font-size:1em}
+/* Keep short expressions together; long statements wrap within the text column. */
+body.rn-components code:not(pre code){
+  display:inline-block;max-width:100%;vertical-align:baseline;
+  font-size:.96em;font-style:normal;font-weight:400;line-height:1.45;
+  color:#294553;background:#eef2f4;border:1px solid #dfe6e9;border-radius:4px;
+  padding:.08em .3em;box-decoration-break:clone;-webkit-box-decoration-break:clone;
+  white-space:normal;overflow-wrap:anywhere;word-break:normal
+}
+body.rn-components :is(h1,h2,h3,h4,summary,th) code:not(pre code){font-size:.94em;font-weight:inherit}
+body.rn-components a code:not(pre code){color:inherit}
+body.rn-components pre code{background:none;border:0;border-radius:0;padding:0;box-decoration-break:slice;overflow-wrap:normal}
 body.rn-components svg text{fill:var(--rn-diagram-ink)}
 body.rn-components svg.rn-diagram{background:transparent;border:0}
 body.rn-components svg tspan[baseline-shift]{font-size:70%}
@@ -456,7 +466,7 @@ body.rn-components :is(.scroll,.diagram):has(>svg.rn-diagram){background:transpa
 </section>
 <section id="dependencies"><h2>带着哪些基础开始</h2>
 <p>需要熟悉集合、数列极限、实数完备性与基本微积分，也要能读懂“对每个”“存在”“充分大以后”这些量词。作者明确说明，实变函数不是先修前提；有相关基础会帮助比较 Lebesgue 测度，但本书自身建立需要的概念。</p>
-<figure><div class="scroll"><svg class="rn-diagram" viewBox="0 0 760 250" role="img" aria-labelledby="map-title map-desc"><title id="map-title">从可测结构到概率极限定理</title><desc id="map-desc">第一章可测结构通向第二章测度与收敛，第三章积分通向第四章符号测度和第五章乘积空间，两者共同支持第六章独立序列。</desc><defs><marker id="map-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="none" stroke="#285a4e"/></marker></defs><g fill="none" stroke="#285a4e" stroke-width="1.5" marker-end="url(#map-arrow)"><path d="M160 65H195"/><path d="M355 65H390"/><path d="M550 65H585"/><path d="M470 95V160"/><path d="M550 190H665V95"/></g><g class="n"><rect x="10" y="35" width="150" height="60" rx="5"/><rect x="195" y="35" width="160" height="60" rx="5"/><rect x="390" y="35" width="160" height="60" rx="5"/><rect x="585" y="35" width="165" height="60" rx="5"/><rect x="390" y="160" width="160" height="60" rx="5"/></g><text x="85" y="60">1 可测结构</text><text class="hint" x="85" y="82">集合与函数</text><text x="275" y="60">2 测度与收敛</text><text class="hint" x="275" y="82">大小与极限</text><text x="470" y="60">3 积分</text><text class="hint" x="470" y="82">期望与 Lp</text><text x="667" y="60">6 独立序列</text><text class="hint" x="667" y="82">大数律与中心极限</text><text x="470" y="185">4—5 结构工具</text><text class="hint" x="470" y="208">分解、导数与乘积</text></svg></div><figcaption>章节依赖由伴读作者归纳。箭头表示学习依赖；原书仍按第 1—6 章顺序组织。</figcaption></figure><p>第一次读可以沿五个问题检查理解：为什么只要求可数运算？为什么用原像定义可测？为什么有限可加不够？为什么扩张的存在与唯一要分别证明？为什么不同收敛方式不能随意替换？第一章的生成定理与第二章的连续性是反复回读的位置。</p>
+<figure><div class="scroll"><svg class="rn-diagram" viewBox="0 0 760 250" role="img" aria-labelledby="map-title map-desc"><title id="map-title">从可测结构到概率极限定理</title><desc id="map-desc">第一章可测结构通向第二章测度与收敛，第三章积分通向第四章符号测度和第五章乘积空间，两者共同支持第六章独立序列。</desc><defs><marker id="map-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="none" stroke="#285a4e"/></marker></defs><g fill="none" stroke="#285a4e" stroke-width="1.5" marker-end="url(#map-arrow)"><path d="M141 65 H207"/><path d="M343 65 H402"/><path d="M538 65 H603.5"/><path d="M470 99 V156"/><path d="M538 190 H665 L664.67 99"/></g><g class="n"><rect x="29" y="31" width="112" height="68" rx="5" data-rn-fit="flow"/><rect x="207" y="31" width="136" height="68" rx="5" data-rn-fit="flow"/><rect x="402" y="31" width="136" height="68" rx="5" data-rn-fit="flow"/><rect x="603.5" y="31" width="128" height="68" rx="5" data-rn-fit="flow"/><rect x="402" y="156" width="136" height="68" rx="5" data-rn-fit="flow"/></g><text x="85" y="60">1 可测结构</text><text class="hint" x="85" y="82">集合与函数</text><text x="275" y="60">2 测度与收敛</text><text class="hint" x="275" y="82">大小与极限</text><text x="470" y="60">3 积分</text><text class="hint" x="470" y="82">期望与 Lp</text><text x="667" y="60">6 独立序列</text><text class="hint" x="667" y="82">大数律与中心极限</text><text x="470" y="185">4—5 结构工具</text><text class="hint" x="470" y="208">分解、导数与乘积</text></svg></div><figcaption>章节依赖由伴读作者归纳。箭头表示学习依赖；原书仍按第 1—6 章顺序组织。</figcaption></figure><p>第一次读可以沿五个问题检查理解：为什么只要求可数运算？为什么用原像定义可测？为什么有限可加不够？为什么扩张的存在与唯一要分别证明？为什么不同收敛方式不能随意替换？第一章的生成定理与第二章的连续性是反复回读的位置。</p>
 </section>
 <section id="scope"><h2>全六章阅读入口</h2>
 <p>当前包含八页：伴读总览、序言与前言、第一至第六章。六章依次保留 25、32、30、28、28、27 道原题，共 170 题；题号在章内从 1 开始，页内锚点加上章号以免混淆。每题先呈现原题，再展开解答；原书的简短提示会在必要时扩写成完整证明。</p>

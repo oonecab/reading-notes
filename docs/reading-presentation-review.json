@@ -1,0 +1,6537 @@
+{
+  "issue": "I045",
+  "status": "locally_verified_publication_pending",
+  "baseline_git": "09759945a0ad27e73f42c291e6b121a76fa6ce7a",
+  "scope": "58 reading pages, 490 SVG diagrams inspected; inline program syntax and content-aware diagram node proportions.",
+  "source_sha256": {
+    "csapp/notes/book_overview.html": "9b4e35b09428c0293de5312c5304fea5c90e505f407945786e9a2d783dfaf741",
+    "csapp/notes/chapter01_tour.html": "f70708bd99b72686a9701e3294cc463c254e295b39986c595c727b17a80315d9",
+    "csapp/notes/chapter02_information.html": "6563f9d67cc2744805576728484a24190460cca2e63d2d211721325209875b44",
+    "csapp/notes/chapter03_machine_level.html": "fe2ca631cba5ec60661b4f5b17f1ded5192430e0dbae7dca6d47f8e4962fa6f5",
+    "csapp/notes/chapter04_architecture.html": "b9c003bd2e0a70b5e755507a06b235bb01475aecd7dc9d00e7744cc06225e760",
+    "csapp/notes/chapter05_optimization.html": "bff1eb10c64fa0f992d6bf7828aa14369dda9297ee6355e3fdc4b4ade36afb2a",
+    "csapp/notes/chapter06_memory.html": "6ad8e5da1cd8fb89864a10697a46593547e05e63fbc93d1a64a1d8705470a2ae",
+    "csapp/notes/chapter07_linking.html": "e6e64056967829dfe76ce3a2c9e9e63a3eb24e37197c43bcb3dec57d19b54d4c",
+    "csapp/notes/chapter08_exceptional.html": "d899e6f6976b14b1addddbb7c85ef8c4f192e3f8190abc3f5880fbf5bd9eea12",
+    "csapp/notes/chapter09_virtual_memory.html": "c0a06a3c92531d8fb8d4519a6628ae6b006180c8c39329d0dc580a4ec6d8bd12",
+    "csapp/notes/chapter10_system_io.html": "c95d0d7b1f7606572523ebf4ad2aabbfc294032faac7e4f7ad009fede3da325c",
+    "csapp/notes/chapter11_network.html": "db0cd6ad4bd7e140f5847f79d0960490d959fe68032e214ed7fe353c5700d1c8",
+    "csapp/notes/chapter12_concurrency.html": "7aa4fbd1f3b522fd3a54cbe005c8d8e58d2627b5cbcbde5651c6f7576082e67a",
+    "csapp/notes/preface.html": "47806100af590ea53c2a11e7632522ae04866f225f9a3692654b9e42fafe6b29",
+    "eopl/notes/book_overview.html": "8043ce42258d6491773296fd23b9915359ecc98459c2e38608e0ce298cd22a97",
+    "eopl/notes/preface.html": "6b986f0402e3785710a7c6dac9a0d2effdf5c7c3a0bf365be0ff70c06634e6ca",
+    "measure-probability/notes/book_overview.html": "ddaf0620210acbaaaaa781ffd88b64bc6515073c8ad93d6c42d592170f746e4b",
+    "measure-probability/notes/chapter01_measurable_spaces.html": "4b1dc41a86f938eb1173a811a3f11b3ee1bc11b5db107621ae2dc5f5218ee495",
+    "measure-probability/notes/chapter02_measure_spaces.html": "839c186ecc4d418172070cf9b46a048cc99ffdf052c681f2ea9909db4dc5a396",
+    "measure-probability/notes/chapter03_integration.html": "cbb761fb65cd7468df80f569e7ed92374ce672b837ec8e5de02fa705f1ea4b02",
+    "measure-probability/notes/chapter04_signed_measures.html": "cd2fb94a98c41e1183869b33016e236745d45bff902f697110c01a07ab185314",
+    "measure-probability/notes/chapter05_product_spaces.html": "7b20f4a628205bd260cf889803840f143f19a13ddf68fe69cc5c4ed456dadbd6",
+    "measure-probability/notes/chapter06_independent_sequences.html": "80b33bfc64ed7c5a3506b182e49c125f3851200c01b3b9cd93b1853634b73742",
+    "measure-probability/notes/preface.html": "8756afbcf1d5c48adccc4203eaf2bb19841871eeefa9873b51bffcde26d4def3",
+    "stochastic/notes/appendix_a_probability_review.html": "87088b240d63e8fcf100eeaa0c369c1e7bb7b92104a1bde98aac2228e4252e65",
+    "stochastic/notes/book_overview.html": "e5db448e3b244ed9db61b0b4cb3b85c2559cc9dd7d50aefc14c7b435cbd634c9",
+    "stochastic/notes/chapter01_markov_chains.html": "1bbafd05e41b0cdaacd9fa5323053c74b21023d0318115e6857b25dbed3a2a2d",
+    "stochastic/notes/chapter02_poisson_processes.html": "d0ad8824c41b2098b3d9835c8dd97dc9f42f79b42c7e4306a8ac67da10905678",
+    "stochastic/notes/chapter03_renewal_processes.html": "60ccf3b13221329af65ef094bb1059b0b38283a2878fe1ca75526bdd3d42fcf5",
+    "stochastic/notes/chapter04_continuous_time_markov_chains.html": "cadfd5c4c6d6559ab691681994aef9fa1948055d9bbf5454233e94e92e99a94b",
+    "stochastic/notes/chapter05_martingales.html": "c385285dd6e9a1c9e9dca48006e1d75171f2fa48b2aee89e21895a9383e89cea",
+    "stochastic/notes/chapter06_mathematical_finance.html": "9234ad95b3b813d08388949793441310d454c0626fdff11344946b1283a52b1e",
+    "stochastic/notes/preface.html": "ab5ec6e7206e24539b4b2e7809f78378b80d9dc66f349b6eb029756ad933a006",
+    "visual-group-theory/notes/book_overview.html": "43567ce76b3e0baeeee1a1f514f9b7b3109f25cbbd849eb8288b01d4fed5cc1c",
+    "visual-group-theory/notes/chapter01_what_is_a_group.html": "c33c8173e4d2a9027a3516c79c256ca661958353c0287f598c4065dedce072d0",
+    "visual-group-theory/notes/chapter02_what_do_groups_look_like.html": "d1c45c23965cef6c84c6ef0ce5f27539a457ed4e3bb7c8d0d1dc7d4591bfc410",
+    "visual-group-theory/notes/chapter03_why_study_groups.html": "64622185e90e5bee8f59bf6e51cf885fccf5c43c0f1b532be2a6ceb9786e08cb",
+    "visual-group-theory/notes/chapter04_algebra_at_last.html": "5bd3c168c0dc2240cd3ed8a1dc32d6cb7bd6fda71af568349ae087ed3a3afaf1",
+    "visual-group-theory/notes/chapter05_five_families.html": "5f0641b68072f80c992553de33b6aae30de57b74848727117ed0efad649e32a9",
+    "visual-group-theory/notes/chapter06_subgroups.html": "d4e79380e8a8547793aaf67b9f78e682c66a108348a329572141863e835c7a42",
+    "visual-group-theory/notes/chapter07_products_and_quotients.html": "ff26c5a6240b6b00299601ce4289585bcf9afb91b81be7de76195569c7378d22",
+    "visual-group-theory/notes/chapter08_homomorphisms.html": "8939322b752fdea6f8ab4360736de177b73a331b452973aae986e20f9f511b9c",
+    "visual-group-theory/notes/chapter09_sylow_theory.html": "df078748d7fd3ea1c28518510afc232a3ee9508f637a437b0ebe767c4d8c6227",
+    "visual-group-theory/notes/chapter10_galois_theory.html": "9630a02d557b89dbec6c3a0a2440e68eba1c3411232aba46b4eaa03958715c1d",
+    "visual-group-theory/notes/preface.html": "a6066d4bdf9a87d02b2e6fc44998735e919f9417d2d50b2da555ebc250d4f6f3",
+    "weiss/notes/book_overview.html": "dcdd62510d56bb4563081b77282bd434d7c6ae5c02945cae4ea21e40af8253a5",
+    "weiss/notes/chapter01_introduction.html": "dd32e1c464ebef330f02582c4b90be16c89179a270d49b754c646a31b137dd6d",
+    "weiss/notes/chapter02_algorithm_analysis.html": "7c10ad5c3100bd803fad88b87088ec929a57e8eb0b792bc356e7adb485d17db9",
+    "weiss/notes/chapter03_lists_stacks_queues.html": "0e372e1d3013201b0e925b9c0d944e184dc656fe24ae88fbe111964c535b9bdf",
+    "weiss/notes/chapter04_trees.html": "2cf1b8c2bdf4722b0943ffb45a1a8c6bcfb067434329dac376f9e7e3ecc8ee2e",
+    "weiss/notes/chapter05_priority_queues.html": "3429e8fed9c4cee015c7b351d76200c11aa7794c08e21c83defc7f7c6cc58f73",
+    "weiss/notes/chapter06_sorting.html": "9c85bfc62463b91517e90c16b76c922e49f72721b80a78a685b34812c24e45d8",
+    "weiss/notes/chapter07_hashing.html": "420d353a702fafb10fb22bd0bf41e6de1aa1b1b606bcbb09cf5a0255bb37c2fb",
+    "weiss/notes/chapter08_disjoint_sets.html": "4f9777701aabaa511b3983f7ad0053336b41b50cd3376ae30fd1debe7b4ff97d",
+    "weiss/notes/chapter09_graph_algorithms.html": "4208308ff88a1d1a6a17787b07aef2603d575e9649ea2170087765f0d47bde91",
+    "weiss/notes/chapter10_algorithm_design.html": "e9200e97ad9de0cf5e9a57c7ee0b3e10314ea525db0b198b725bd892779f85ca",
+    "weiss/notes/chapter11_amortized_analysis.html": "f54736a133d4cf8dc45399340ed09ecfce8961cfb83971745c52695028093c5f",
+    "weiss/notes/chapter12_advanced_data_structures.html": "3b20371987896c69a730362a71cc5bfe44850dadca05341ad0cda4211eb8762b"
+  },
+  "output_sha256": {
+    "measure-probability/notes/book_overview.html": "e38c9bfd13b55328b54b090c3848eb09e9f784b98bd340ea22f86b9bf1f15d75",
+    "measure-probability/notes/chapter01_measurable_spaces.html": "57081302691c3c32b53e1cd751b52101391f952f42c4480ab4127ef90a74d8b9",
+    "measure-probability/notes/chapter02_measure_spaces.html": "21d2942b8c53293e1213981be9c7bd530a7b97b0c8e455b0c38b54ac36b12810",
+    "measure-probability/notes/chapter03_integration.html": "abc25f8d47082fd2b2cb26e825b3680d6fb8a11bcb5bbf220a0f74b0384b665e",
+    "measure-probability/notes/chapter04_signed_measures.html": "24821f51ca122736171cd2f2f9e16f378ec366c9509dd74327df0694de8b3f26",
+    "measure-probability/notes/chapter05_product_spaces.html": "4b978e4272f3a7a02f827614de87154615824cf4b605afa7415edd090b4f6b99",
+    "measure-probability/notes/chapter06_independent_sequences.html": "e7b6e2dfa8579a8d260e61796cb084f15d2918abffd157e0441671ac4290ff5a",
+    "measure-probability/notes/preface.html": "c5e528eddf41f8900a6729a25e763485e8859803303af58081d8e7dc35ad41a0",
+    "visual-group-theory/notes/book_overview.html": "b391f41fa74ace702a0e79e22e7125ebfd0d62f8b4f505c119bf6c9cb327012e",
+    "visual-group-theory/notes/chapter01_what_is_a_group.html": "a4cce85b4191914c6a144363380668303e3304abdf278dbb4fcd9568d025e6b9",
+    "visual-group-theory/notes/chapter02_what_do_groups_look_like.html": "0b57d8e957f7b8ceb04b053efee556dca6ecc06a8749a037c68e51d26d6a9614",
+    "visual-group-theory/notes/chapter03_why_study_groups.html": "522b4f02d559adb283e154b97acdc126cc61fd8363f2bcb1a96a8b6236b69519",
+    "visual-group-theory/notes/chapter04_algebra_at_last.html": "53552fc1934ce17c330371be01eb90a978382b020c932034b3d29974b5d42c4c",
+    "visual-group-theory/notes/chapter05_five_families.html": "07d2ea63985b7a6dfafd9896f175c91a4123debafcd18f5600bd45b0a605de8f",
+    "visual-group-theory/notes/chapter06_subgroups.html": "1d057143cee5aa15f7fcd9c67acaf8f8168651eec564394d1910f340ecc87004",
+    "visual-group-theory/notes/chapter07_products_and_quotients.html": "66203154cc0832e51ad66d554e45d5439519488605af8e08ecd828d89461380d",
+    "visual-group-theory/notes/chapter08_homomorphisms.html": "06d544900c7dad39023e4e7fa0385246b7f7ba4210b159159953bfd830907056",
+    "visual-group-theory/notes/chapter09_sylow_theory.html": "15d9571656cc12893bd6c0365471396a78d283ff9e60b7f44e6d7bbd5d8c4e27",
+    "visual-group-theory/notes/chapter10_galois_theory.html": "14a5646c7971ce99b17994dca8148796da067732e6eb77ec943c43425fe823cc",
+    "visual-group-theory/notes/preface.html": "ac759840a6cfbdbe427dc538899baae317b43ad6779ce15f71a28bee4e3f71f8",
+    "stochastic/notes/appendix_a_probability_review.html": "5ef7c6f36c0b174145757027ccdfc8ac3544c77139ce5cb3798527772faa0363",
+    "stochastic/notes/book_overview.html": "46d4b8f31d2cc21b9e2403464ae1d1bd7a050f40e8943d405ec23d5aceede328",
+    "stochastic/notes/chapter01_markov_chains.html": "d8f3f2012aa5b1ca75e78ff3ae90315ab66c9373b758c5cb638a038c6225a14a",
+    "stochastic/notes/chapter02_poisson_processes.html": "9d1eb5695c369d6b73ae10f688bee9737a556765ed7f274b9ed07dfb1bf4b40f",
+    "stochastic/notes/chapter03_renewal_processes.html": "339144b187fcec0b7d5ecbef9da0054bb5b50067977b0a194178f6175115bb58",
+    "stochastic/notes/chapter04_continuous_time_markov_chains.html": "5d10bf18c13b632ac100aff9fee628ac350e4cb006768cd2a801fd68071dc113",
+    "stochastic/notes/chapter05_martingales.html": "2000e8cb369ebb92fc4ef5186eb6bc2df10f9e18fafea1a3274669d5fb2632a3",
+    "stochastic/notes/chapter06_mathematical_finance.html": "0c922c1cfd4bfe3c56277d6760733b0c5a0ff42c2cd40257b7246b5fd975eebf",
+    "stochastic/notes/preface.html": "b97c21020fb8901b9d526212125ea664577be217e07623ccecea1790166b108e",
+    "weiss/notes/book_overview.html": "db5964fadcccafc8f22e9bb000e40c199822d74a1fbcf66bbff1e3ff27dea200",
+    "weiss/notes/chapter01_introduction.html": "f91fc7a6b369e29fa7b8cc0c77ce67c0919d12980b1604935c9b733c6ee977a5",
+    "weiss/notes/chapter02_algorithm_analysis.html": "5fd86a9e14585dccc18b87a9fae7936c07fe2736ca91a0981b834ba49660d471",
+    "weiss/notes/chapter03_lists_stacks_queues.html": "e0db4fbe6897f3b7f560b90a6de3b9ae9a8c235805278ae1f8eb4c5324c55e56",
+    "weiss/notes/chapter05_priority_queues.html": "6fd703e5325ecb3089b2e819f737d654bcdeb38d0072b4d9ea88d1fef50cde5f",
+    "weiss/notes/chapter06_sorting.html": "1e5b43ef445c01bb410af9822a24c98bf4ee27efc356ca2fcd4f5de680d4124b",
+    "weiss/notes/chapter07_hashing.html": "b57efd08526a2af0a5e417e76a519ed660d36ddc11806961a1bb76270c5408f6",
+    "weiss/notes/chapter08_disjoint_sets.html": "ad8ec2b7ac7af7c4bdbb615c354f62f2318ce5298ccbfd69d83425966d2daab4",
+    "weiss/notes/chapter09_graph_algorithms.html": "a6f866abf9845aad8e1f52cc7a39fb169fdb8acea00771205e27cbab133112fe",
+    "weiss/notes/chapter10_algorithm_design.html": "98f8377c7a0a20d8c118374418d9afcd2def03ce3f671f336804973dfd854b6f",
+    "weiss/notes/chapter11_amortized_analysis.html": "eaecf772e85da590d90060b24a6ec09ebb0365c589e41f3269776af1f478aefd",
+    "weiss/notes/chapter12_advanced_data_structures.html": "e225783621362248d418bee213b99158c184dd77aac81f4ea5bfb8ee431c4c9e",
+    "csapp/notes/book_overview.html": "4e1001aefc3deb920b787eab7d7e40f7381530899d119092b48f9a33ae370d02",
+    "csapp/notes/chapter01_tour.html": "a1e7157014b974f9c0d33599a24f640ed57ba13144557ce71d54a4b6fd05e020",
+    "csapp/notes/chapter02_information.html": "fd76b35b625f7d1ca6f8b6151436d2b2e0bc3072dabc34677eaf58b5f9f67137",
+    "csapp/notes/chapter03_machine_level.html": "fe5638d8c76d1c1df1ae7b02c30ec1f1761728a89d1490df63247a7a1e80a244",
+    "csapp/notes/chapter04_architecture.html": "4f14dd9affb33a305f71a26dae9835226c83e41df811bfa80ab7b2e3ed1b21a6",
+    "csapp/notes/chapter05_optimization.html": "28b63c953af78ed30cf53b8af62e4f769a636caeaf8964a1a3be2173904b9b3e",
+    "csapp/notes/chapter06_memory.html": "9c61b512f66f5718b12693d99873cc56f3e1958f53c315c2c85fcdff8feb5b5d",
+    "csapp/notes/chapter07_linking.html": "c7892191907d70ddc30e4f42109ba3698abcf26cabcb2c9e4f5fec94414b068c",
+    "csapp/notes/chapter08_exceptional.html": "ed06d10e0c1682df25c589a367908cc8437218d0f54a176d1205a2ada66fc8f1",
+    "csapp/notes/chapter09_virtual_memory.html": "a4e356635deb28891c12d613cc729cf382dbb585f92b09d8af0ce186b6babf3c",
+    "csapp/notes/chapter10_system_io.html": "443a92a4a658b41724f465b707e38c55cbbf1ca852fabb6674fd6f36fea24fbd",
+    "csapp/notes/chapter11_network.html": "1ee67141175f1d50f5d2738de613cc1cd4d1b31a7b5e7d52d25421c7568a40a1",
+    "csapp/notes/chapter12_concurrency.html": "1c78cb155e320cda249a20384591715f8623cb4b446f5e7c945c99a3ce2f20da",
+    "csapp/notes/preface.html": "1e0443cd4dba7dec1f255edecb7eb27ad2960d5de8351746f1b58dee91411e63",
+    "eopl/notes/book_overview.html": "a40bf4953605a7eddfc39f2f33dac810128092c834c35a067859b98bd39901ef",
+    "eopl/notes/preface.html": "9b94e2640a2da184c3169c816bb418302f54da753c8ed84609470b94efd962cb",
+    "weiss/notes/chapter04_trees.html": "f8b0f4dde0d7a578f7f718e6260866c2bf21be15d7c3c6ad681e4e9d8ef2d434"
+  },
+  "inline_markup_added": 4595,
+  "inline_markup_pages": 29,
+  "joined_program_expressions": 165,
+  "program_math_fragments_reclassified": 157,
+  "node_changes": [
+    {
+      "page": "measure-probability/notes/book_overview.html",
+      "svg": 0,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 10,
+        "y": 35,
+        "w": 150,
+        "h": 60
+      },
+      "next": {
+        "x": 29,
+        "y": 31,
+        "w": 112,
+        "h": 68
+      },
+      "labels": [
+        "1 可测结构",
+        "集合与函数"
+      ],
+      "texts": [
+        0,
+        1
+      ]
+    },
+    {
+      "page": "measure-probability/notes/book_overview.html",
+      "svg": 0,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 195,
+        "y": 35,
+        "w": 160,
+        "h": 60
+      },
+      "next": {
+        "x": 207,
+        "y": 31,
+        "w": 136,
+        "h": 68
+      },
+      "labels": [
+        "2 测度与收敛",
+        "大小与极限"
+      ],
+      "texts": [
+        2,
+        3
+      ]
+    },
+    {
+      "page": "measure-probability/notes/book_overview.html",
+      "svg": 0,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 390,
+        "y": 35,
+        "w": 160,
+        "h": 60
+      },
+      "next": {
+        "x": 402,
+        "y": 31,
+        "w": 136,
+        "h": 68
+      },
+      "labels": [
+        "3 积分",
+        "期望与 Lp"
+      ],
+      "texts": [
+        4,
+        5
+      ]
+    },
+    {
+      "page": "measure-probability/notes/book_overview.html",
+      "svg": 0,
+      "node": 4,
+      "type": "rect",
+      "old": {
+        "x": 390,
+        "y": 160,
+        "w": 160,
+        "h": 60
+      },
+      "next": {
+        "x": 402,
+        "y": 156,
+        "w": 136,
+        "h": 68
+      },
+      "labels": [
+        "4—5 结构工具",
+        "分解、导数与乘积"
+      ],
+      "texts": [
+        8,
+        9
+      ]
+    },
+    {
+      "page": "measure-probability/notes/book_overview.html",
+      "svg": 0,
+      "node": 3,
+      "type": "rect",
+      "old": {
+        "x": 585,
+        "y": 35,
+        "w": 165,
+        "h": 60
+      },
+      "next": {
+        "x": 603.5,
+        "y": 31,
+        "w": 128,
+        "h": 68
+      },
+      "labels": [
+        "6 独立序列",
+        "大数律与中心极限"
+      ],
+      "texts": [
+        6,
+        7
+      ]
+    },
+    {
+      "page": "measure-probability/notes/chapter02_measure_spaces.html",
+      "svg": 0,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 70,
+        "w": 180,
+        "h": 65
+      },
+      "next": {
+        "x": 46,
+        "y": 70,
+        "w": 128,
+        "h": 65
+      },
+      "labels": [
+        "a.e. 几乎处处",
+        "每点最终不再坏"
+      ],
+      "texts": [
+        0,
+        1
+      ]
+    },
+    {
+      "page": "measure-probability/notes/chapter02_measure_spaces.html",
+      "svg": 0,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 285,
+        "y": 70,
+        "w": 180,
+        "h": 65
+      },
+      "next": {
+        "x": 311,
+        "y": 70,
+        "w": 128,
+        "h": 65
+      },
+      "labels": [
+        "a.u. 几乎一致",
+        "尾部坏区域趋小"
+      ],
+      "texts": [
+        2,
+        3
+      ]
+    },
+    {
+      "page": "measure-probability/notes/chapter02_measure_spaces.html",
+      "svg": 0,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 550,
+        "y": 70,
+        "w": 180,
+        "h": 65
+      },
+      "next": {
+        "x": 576,
+        "y": 70,
+        "w": 128,
+        "h": 65
+      },
+      "labels": [
+        "依测度",
+        "当前坏区域趋小"
+      ],
+      "texts": [
+        4,
+        5
+      ]
+    },
+    {
+      "page": "measure-probability/notes/chapter03_integration.html",
+      "svg": 0,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 10,
+        "y": 10,
+        "w": 300,
+        "h": 64
+      },
+      "next": {
+        "x": 68,
+        "y": 10,
+        "w": 184,
+        "h": 64
+      },
+      "labels": [
+        "非负 + 单调递增",
+        "极限允许取正无穷"
+      ],
+      "texts": [
+        0,
+        1
+      ]
+    },
+    {
+      "page": "measure-probability/notes/chapter03_integration.html",
+      "svg": 0,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 10,
+        "y": 98,
+        "w": 300,
+        "h": 64
+      },
+      "next": {
+        "x": 68,
+        "y": 98,
+        "w": 184,
+        "h": 64
+      },
+      "labels": [
+        "任意非负函数列",
+        "先取逐点下极限"
+      ],
+      "texts": [
+        4,
+        5
+      ]
+    },
+    {
+      "page": "measure-probability/notes/chapter03_integration.html",
+      "svg": 0,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 10,
+        "y": 186,
+        "w": 300,
+        "h": 64
+      },
+      "next": {
+        "x": 68,
+        "y": 186,
+        "w": 184,
+        "h": 64
+      },
+      "labels": [
+        "a.e. 或依测度收敛",
+        "同一个可积函数控制绝对值"
+      ],
+      "texts": [
+        9,
+        10
+      ]
+    },
+    {
+      "page": "measure-probability/notes/chapter03_integration.html",
+      "svg": 0,
+      "node": 3,
+      "type": "rect",
+      "old": {
+        "x": 455,
+        "y": 10,
+        "w": 275,
+        "h": 64
+      },
+      "next": {
+        "x": 480.5,
+        "y": 20,
+        "w": 224,
+        "h": 44
+      },
+      "labels": [
+        "积分随函数单调到极限积分"
+      ],
+      "texts": [
+        3
+      ]
+    },
+    {
+      "page": "measure-probability/notes/chapter03_integration.html",
+      "svg": 0,
+      "node": 4,
+      "type": "rect",
+      "old": {
+        "x": 455,
+        "y": 98,
+        "w": 275,
+        "h": 64
+      },
+      "next": {
+        "x": 480.5,
+        "y": 98,
+        "w": 224,
+        "h": 64
+      },
+      "labels": [
+        "下极限的积分",
+        "不超过积分的下极限"
+      ],
+      "texts": [
+        7,
+        8
+      ]
+    },
+    {
+      "page": "measure-probability/notes/chapter03_integration.html",
+      "svg": 0,
+      "node": 5,
+      "type": "rect",
+      "old": {
+        "x": 455,
+        "y": 186,
+        "w": 275,
+        "h": 64
+      },
+      "next": {
+        "x": 480.5,
+        "y": 186,
+        "w": 224,
+        "h": 64
+      },
+      "labels": [
+        "绝对差积分趋零",
+        "从而积分趋于极限积分"
+      ],
+      "texts": [
+        12,
+        13
+      ]
+    },
+    {
+      "page": "measure-probability/notes/chapter05_product_spaces.html",
+      "svg": 0,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 12,
+        "y": 18,
+        "w": 156,
+        "h": 60
+      },
+      "next": {
+        "x": 26,
+        "y": 26,
+        "w": 128,
+        "h": 44
+      },
+      "labels": [
+        "初始质量"
+      ],
+      "texts": [
+        0
+      ]
+    },
+    {
+      "page": "measure-probability/notes/chapter05_product_spaces.html",
+      "svg": 0,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 195,
+        "y": 18,
+        "w": 156,
+        "h": 60
+      },
+      "next": {
+        "x": 209,
+        "y": 26,
+        "w": 128,
+        "h": 44
+      },
+      "labels": [
+        "逐行转移核"
+      ],
+      "texts": [
+        1
+      ]
+    },
+    {
+      "page": "measure-probability/notes/chapter05_product_spaces.html",
+      "svg": 0,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 378,
+        "y": 18,
+        "w": 156,
+        "h": 60
+      },
+      "next": {
+        "x": 392,
+        "y": 26,
+        "w": 128,
+        "h": 44
+      },
+      "labels": [
+        "联合矩形质量"
+      ],
+      "texts": [
+        2
+      ]
+    },
+    {
+      "page": "measure-probability/notes/chapter05_product_spaces.html",
+      "svg": 0,
+      "node": 3,
+      "type": "rect",
+      "old": {
+        "x": 561,
+        "y": 18,
+        "w": 156,
+        "h": 60
+      },
+      "next": {
+        "x": 575,
+        "y": 26,
+        "w": 128,
+        "h": 44
+      },
+      "labels": [
+        "函数的期望"
+      ],
+      "texts": [
+        3
+      ]
+    },
+    {
+      "page": "measure-probability/notes/chapter06_independent_sequences.html",
+      "svg": 0,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 12,
+        "y": 18,
+        "w": 156,
+        "h": 60
+      },
+      "next": {
+        "x": 12,
+        "y": 26,
+        "w": 156,
+        "h": 44
+      },
+      "labels": [
+        "精确路径概率"
+      ],
+      "texts": [
+        0
+      ]
+    },
+    {
+      "page": "measure-probability/notes/chapter06_independent_sequences.html",
+      "svg": 0,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 195,
+        "y": 18,
+        "w": 156,
+        "h": 60
+      },
+      "next": {
+        "x": 195,
+        "y": 26,
+        "w": 156,
+        "h": 44
+      },
+      "labels": [
+        "卷积与二项质量"
+      ],
+      "texts": [
+        1
+      ]
+    },
+    {
+      "page": "measure-probability/notes/chapter06_independent_sequences.html",
+      "svg": 0,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 378,
+        "y": 18,
+        "w": 156,
+        "h": 60
+      },
+      "next": {
+        "x": 378,
+        "y": 26,
+        "w": 156,
+        "h": 44
+      },
+      "labels": [
+        "中心化和标准差"
+      ],
+      "texts": [
+        2
+      ]
+    },
+    {
+      "page": "measure-probability/notes/chapter06_independent_sequences.html",
+      "svg": 0,
+      "node": 3,
+      "type": "rect",
+      "old": {
+        "x": 561,
+        "y": 18,
+        "w": 156,
+        "h": 60
+      },
+      "next": {
+        "x": 561,
+        "y": 26,
+        "w": 156,
+        "h": 44
+      },
+      "labels": [
+        "特征函数极限"
+      ],
+      "texts": [
+        3
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/book_overview.html",
+      "svg": 0,
+      "node": 3,
+      "type": "rect",
+      "old": {
+        "x": 585,
+        "y": 28,
+        "w": 165,
+        "h": 100
+      },
+      "next": {
+        "x": 595.5,
+        "y": 28,
+        "w": 144,
+        "h": 100
+      },
+      "labels": [
+        "第 9–10 章",
+        "分类与方程",
+        "用结构回答大问题"
+      ],
+      "texts": [
+        9,
+        10,
+        11
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter07_products_and_quotients.html",
+      "svg": 6,
+      "node": 0,
+      "type": "circle",
+      "old": {
+        "cx": 60,
+        "cy": 60,
+        "r": 22
+      },
+      "next": {
+        "cx": 60,
+        "cy": 60,
+        "r": 38
+      },
+      "labels": [
+        "(0,0,0,0)"
+      ],
+      "texts": [
+        0
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter07_products_and_quotients.html",
+      "svg": 6,
+      "node": 1,
+      "type": "circle",
+      "old": {
+        "cx": 390,
+        "cy": 60,
+        "r": 22
+      },
+      "next": {
+        "cx": 390,
+        "cy": 60,
+        "r": 38
+      },
+      "labels": [
+        "(0,0,0,1)"
+      ],
+      "texts": [
+        1
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter07_products_and_quotients.html",
+      "svg": 6,
+      "node": 2,
+      "type": "circle",
+      "old": {
+        "cx": 60,
+        "cy": 360,
+        "r": 22
+      },
+      "next": {
+        "cx": 60,
+        "cy": 360,
+        "r": 38
+      },
+      "labels": [
+        "(0,0,1,0)"
+      ],
+      "texts": [
+        2
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter07_products_and_quotients.html",
+      "svg": 6,
+      "node": 3,
+      "type": "circle",
+      "old": {
+        "cx": 390,
+        "cy": 360,
+        "r": 22
+      },
+      "next": {
+        "cx": 390,
+        "cy": 360,
+        "r": 38
+      },
+      "labels": [
+        "(0,0,1,1)"
+      ],
+      "texts": [
+        3
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter07_products_and_quotients.html",
+      "svg": 6,
+      "node": 4,
+      "type": "circle",
+      "old": {
+        "cx": 60,
+        "cy": 170,
+        "r": 22
+      },
+      "next": {
+        "cx": 60,
+        "cy": 170,
+        "r": 38
+      },
+      "labels": [
+        "(0,1,0,0)"
+      ],
+      "texts": [
+        4
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter07_products_and_quotients.html",
+      "svg": 6,
+      "node": 5,
+      "type": "circle",
+      "old": {
+        "cx": 390,
+        "cy": 170,
+        "r": 22
+      },
+      "next": {
+        "cx": 390,
+        "cy": 170,
+        "r": 38
+      },
+      "labels": [
+        "(0,1,0,1)"
+      ],
+      "texts": [
+        5
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter07_products_and_quotients.html",
+      "svg": 6,
+      "node": 6,
+      "type": "circle",
+      "old": {
+        "cx": 60,
+        "cy": 470,
+        "r": 22
+      },
+      "next": {
+        "cx": 60,
+        "cy": 470,
+        "r": 38
+      },
+      "labels": [
+        "(0,1,1,0)"
+      ],
+      "texts": [
+        6
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter07_products_and_quotients.html",
+      "svg": 6,
+      "node": 7,
+      "type": "circle",
+      "old": {
+        "cx": 390,
+        "cy": 470,
+        "r": 22
+      },
+      "next": {
+        "cx": 390,
+        "cy": 470,
+        "r": 38
+      },
+      "labels": [
+        "(0,1,1,1)"
+      ],
+      "texts": [
+        7
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter07_products_and_quotients.html",
+      "svg": 6,
+      "node": 8,
+      "type": "circle",
+      "old": {
+        "cx": 190,
+        "cy": 60,
+        "r": 22
+      },
+      "next": {
+        "cx": 190,
+        "cy": 60,
+        "r": 38
+      },
+      "labels": [
+        "(1,0,0,0)"
+      ],
+      "texts": [
+        8
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter07_products_and_quotients.html",
+      "svg": 6,
+      "node": 9,
+      "type": "circle",
+      "old": {
+        "cx": 520,
+        "cy": 60,
+        "r": 22
+      },
+      "next": {
+        "cx": 520,
+        "cy": 60,
+        "r": 38
+      },
+      "labels": [
+        "(1,0,0,1)"
+      ],
+      "texts": [
+        9
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter07_products_and_quotients.html",
+      "svg": 6,
+      "node": 10,
+      "type": "circle",
+      "old": {
+        "cx": 190,
+        "cy": 360,
+        "r": 22
+      },
+      "next": {
+        "cx": 190,
+        "cy": 360,
+        "r": 38
+      },
+      "labels": [
+        "(1,0,1,0)"
+      ],
+      "texts": [
+        10
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter07_products_and_quotients.html",
+      "svg": 6,
+      "node": 11,
+      "type": "circle",
+      "old": {
+        "cx": 520,
+        "cy": 360,
+        "r": 22
+      },
+      "next": {
+        "cx": 520,
+        "cy": 360,
+        "r": 38
+      },
+      "labels": [
+        "(1,0,1,1)"
+      ],
+      "texts": [
+        11
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter07_products_and_quotients.html",
+      "svg": 6,
+      "node": 12,
+      "type": "circle",
+      "old": {
+        "cx": 190,
+        "cy": 170,
+        "r": 22
+      },
+      "next": {
+        "cx": 190,
+        "cy": 170,
+        "r": 38
+      },
+      "labels": [
+        "(1,1,0,0)"
+      ],
+      "texts": [
+        12
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter07_products_and_quotients.html",
+      "svg": 6,
+      "node": 13,
+      "type": "circle",
+      "old": {
+        "cx": 520,
+        "cy": 170,
+        "r": 22
+      },
+      "next": {
+        "cx": 520,
+        "cy": 170,
+        "r": 38
+      },
+      "labels": [
+        "(1,1,0,1)"
+      ],
+      "texts": [
+        13
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter07_products_and_quotients.html",
+      "svg": 6,
+      "node": 14,
+      "type": "circle",
+      "old": {
+        "cx": 190,
+        "cy": 470,
+        "r": 22
+      },
+      "next": {
+        "cx": 190,
+        "cy": 470,
+        "r": 38
+      },
+      "labels": [
+        "(1,1,1,0)"
+      ],
+      "texts": [
+        14
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter07_products_and_quotients.html",
+      "svg": 6,
+      "node": 15,
+      "type": "circle",
+      "old": {
+        "cx": 520,
+        "cy": 470,
+        "r": 22
+      },
+      "next": {
+        "cx": 520,
+        "cy": 470,
+        "r": 38
+      },
+      "labels": [
+        "(1,1,1,1)"
+      ],
+      "texts": [
+        15
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 1,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 22,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 90.5,
+        "y": 27.5,
+        "w": 104,
+        "h": 44
+      },
+      "labels": [
+        "{0,2,4,6,8}"
+      ],
+      "texts": [
+        0
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 1,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 415,
+        "y": 22,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 485.5,
+        "y": 27.5,
+        "w": 104,
+        "h": 44
+      },
+      "labels": [
+        "0"
+      ],
+      "texts": [
+        1
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 1,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 127,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 90.5,
+        "y": 132.5,
+        "w": 104,
+        "h": 44
+      },
+      "labels": [
+        "{1,3,5,7,9}"
+      ],
+      "texts": [
+        3
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 1,
+      "node": 3,
+      "type": "rect",
+      "old": {
+        "x": 415,
+        "y": 127,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 485.5,
+        "y": 132.5,
+        "w": 104,
+        "h": 44
+      },
+      "labels": [
+        "3"
+      ],
+      "texts": [
+        4
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 2,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 22,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 94.5,
+        "y": 27.5,
+        "w": 96,
+        "h": 44
+      },
+      "labels": [
+        "G"
+      ],
+      "texts": [
+        0
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 2,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 415,
+        "y": 22,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 489.5,
+        "y": 27.5,
+        "w": 96,
+        "h": 44
+      },
+      "labels": [
+        "G/K"
+      ],
+      "texts": [
+        1
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 2,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 127,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 94.5,
+        "y": 132.5,
+        "w": 96,
+        "h": 44
+      },
+      "labels": [
+        "G/K"
+      ],
+      "texts": [
+        3
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 2,
+      "node": 3,
+      "type": "rect",
+      "old": {
+        "x": 415,
+        "y": 127,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 489.5,
+        "y": 132.5,
+        "w": 96,
+        "h": 44
+      },
+      "labels": [
+        "Im φ"
+      ],
+      "texts": [
+        4
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 2,
+      "node": 4,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 232,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 94.5,
+        "y": 237.5,
+        "w": 96,
+        "h": 44
+      },
+      "labels": [
+        "Im φ"
+      ],
+      "texts": [
+        6
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 2,
+      "node": 5,
+      "type": "rect",
+      "old": {
+        "x": 415,
+        "y": 232,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 489.5,
+        "y": 237.5,
+        "w": 96,
+        "h": 44
+      },
+      "labels": [
+        "H"
+      ],
+      "texts": [
+        7
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 3,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 22,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 58.5,
+        "y": 27.5,
+        "w": 168,
+        "h": 44
+      },
+      "labels": [
+        "… −6, −3, 0, 3, 6 …"
+      ],
+      "texts": [
+        0
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 3,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 415,
+        "y": 22,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 453.5,
+        "y": 27.5,
+        "w": 168,
+        "h": 44
+      },
+      "labels": [
+        "[0]"
+      ],
+      "texts": [
+        1
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 3,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 127,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 58.5,
+        "y": 132.5,
+        "w": 168,
+        "h": 44
+      },
+      "labels": [
+        "… −5, −2, 1, 4, 7 …"
+      ],
+      "texts": [
+        3
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 3,
+      "node": 3,
+      "type": "rect",
+      "old": {
+        "x": 415,
+        "y": 127,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 453.5,
+        "y": 132.5,
+        "w": 168,
+        "h": 44
+      },
+      "labels": [
+        "[1]"
+      ],
+      "texts": [
+        4
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 3,
+      "node": 4,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 232,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 58.5,
+        "y": 237.5,
+        "w": 168,
+        "h": 44
+      },
+      "labels": [
+        "… −4, −1, 2, 5, 8 …"
+      ],
+      "texts": [
+        6
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 3,
+      "node": 5,
+      "type": "rect",
+      "old": {
+        "x": 415,
+        "y": 232,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 453.5,
+        "y": 237.5,
+        "w": 168,
+        "h": 44
+      },
+      "labels": [
+        "[2]"
+      ],
+      "texts": [
+        7
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 6,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 22,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 70.5,
+        "y": 27.5,
+        "w": 144,
+        "h": 44
+      },
+      "labels": [
+        "有限阿贝尔 A"
+      ],
+      "texts": [
+        0
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 6,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 415,
+        "y": 22,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 465.5,
+        "y": 27.5,
+        "w": 144,
+        "h": 44
+      },
+      "labels": [
+        "各个 p 主分量"
+      ],
+      "texts": [
+        1
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 6,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 127,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 70.5,
+        "y": 132.5,
+        "w": 144,
+        "h": 44
+      },
+      "labels": [
+        "阿贝尔 p 群 G"
+      ],
+      "texts": [
+        3
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 6,
+      "node": 3,
+      "type": "rect",
+      "old": {
+        "x": 415,
+        "y": 127,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 465.5,
+        "y": 132.5,
+        "w": 144,
+        "h": 44
+      },
+      "labels": [
+        "最长循环 C × H"
+      ],
+      "texts": [
+        4
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 6,
+      "node": 4,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 232,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 70.5,
+        "y": 237.5,
+        "w": 144,
+        "h": 44
+      },
+      "labels": [
+        "较小的 H"
+      ],
+      "texts": [
+        6
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 6,
+      "node": 5,
+      "type": "rect",
+      "old": {
+        "x": 415,
+        "y": 232,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 465.5,
+        "y": 237.5,
+        "w": 144,
+        "h": 44
+      },
+      "labels": [
+        "循环群的直积"
+      ],
+      "texts": [
+        7
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 11,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 22,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 58.5,
+        "y": 25.5,
+        "w": 168,
+        "h": 48
+      },
+      "labels": [
+        "C1 = {0}"
+      ],
+      "texts": [
+        0
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 11,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 415,
+        "y": 22,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 453.5,
+        "y": 25.5,
+        "w": 168,
+        "h": 48
+      },
+      "labels": [
+        "0 ∈ Z"
+      ],
+      "texts": [
+        1
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 11,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 127,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 58.5,
+        "y": 130.5,
+        "w": 168,
+        "h": 48
+      },
+      "labels": [
+        "… −2, −1, 0, 1, 2 …"
+      ],
+      "texts": [
+        3
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 11,
+      "node": 3,
+      "type": "rect",
+      "old": {
+        "x": 415,
+        "y": 127,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 453.5,
+        "y": 130.5,
+        "w": 168,
+        "h": 48
+      },
+      "labels": [
+        "… −4, −2, 0, 2, 4 …"
+      ],
+      "texts": [
+        4
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 12,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 22,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 94.5,
+        "y": 25.5,
+        "w": 96,
+        "h": 48
+      },
+      "labels": [
+        "1 → C3"
+      ],
+      "texts": [
+        0
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 12,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 415,
+        "y": 22,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 489.5,
+        "y": 25.5,
+        "w": 96,
+        "h": 48
+      },
+      "labels": [
+        "C6"
+      ],
+      "texts": [
+        1
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 12,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 127,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 94.5,
+        "y": 130.5,
+        "w": 96,
+        "h": 48
+      },
+      "labels": [
+        "C6"
+      ],
+      "texts": [
+        3
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 12,
+      "node": 3,
+      "type": "rect",
+      "old": {
+        "x": 415,
+        "y": 127,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 489.5,
+        "y": 130.5,
+        "w": 96,
+        "h": 48
+      },
+      "labels": [
+        "C2 → 1"
+      ],
+      "texts": [
+        4
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 13,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 22,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 94.5,
+        "y": 25.5,
+        "w": 96,
+        "h": 48
+      },
+      "labels": [
+        "1 → C3"
+      ],
+      "texts": [
+        0
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 13,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 415,
+        "y": 22,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 489.5,
+        "y": 25.5,
+        "w": 96,
+        "h": 48
+      },
+      "labels": [
+        "S3"
+      ],
+      "texts": [
+        1
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 13,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 127,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 94.5,
+        "y": 130.5,
+        "w": 96,
+        "h": 48
+      },
+      "labels": [
+        "S3"
+      ],
+      "texts": [
+        3
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 13,
+      "node": 3,
+      "type": "rect",
+      "old": {
+        "x": 415,
+        "y": 127,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 489.5,
+        "y": 130.5,
+        "w": 96,
+        "h": 48
+      },
+      "labels": [
+        "C2 → 1"
+      ],
+      "texts": [
+        4
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 14,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 22,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 94.5,
+        "y": 25.5,
+        "w": 96,
+        "h": 48
+      },
+      "labels": [
+        "1 → V4"
+      ],
+      "texts": [
+        0
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 14,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 415,
+        "y": 22,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 489.5,
+        "y": 25.5,
+        "w": 96,
+        "h": 48
+      },
+      "labels": [
+        "A4"
+      ],
+      "texts": [
+        1
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 14,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 127,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 94.5,
+        "y": 130.5,
+        "w": 96,
+        "h": 48
+      },
+      "labels": [
+        "A4"
+      ],
+      "texts": [
+        3
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 14,
+      "node": 3,
+      "type": "rect",
+      "old": {
+        "x": 415,
+        "y": 127,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 489.5,
+        "y": 130.5,
+        "w": 96,
+        "h": 48
+      },
+      "labels": [
+        "C3 → 1"
+      ],
+      "texts": [
+        4
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 23,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 22,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 70.5,
+        "y": 22,
+        "w": 144,
+        "h": 55
+      },
+      "labels": [
+        "G0，阶 pN"
+      ],
+      "texts": [
+        0
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 23,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 415,
+        "y": 22,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 465.5,
+        "y": 22,
+        "w": 144,
+        "h": 55
+      },
+      "labels": [
+        "G1，阶 p^(N−1)"
+      ],
+      "texts": [
+        1
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 23,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 127,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 70.5,
+        "y": 127,
+        "w": 144,
+        "h": 55
+      },
+      "labels": [
+        "G_(N−2)，阶 p2"
+      ],
+      "texts": [
+        3
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 23,
+      "node": 3,
+      "type": "rect",
+      "old": {
+        "x": 415,
+        "y": 127,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 465.5,
+        "y": 127,
+        "w": 144,
+        "h": 55
+      },
+      "labels": [
+        "G_(N−1) ≅ Cp"
+      ],
+      "texts": [
+        4
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 23,
+      "node": 4,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 232,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 70.5,
+        "y": 232,
+        "w": 144,
+        "h": 55
+      },
+      "labels": [
+        "G_(N−1) ≅ Cp"
+      ],
+      "texts": [
+        6
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 23,
+      "node": 5,
+      "type": "rect",
+      "old": {
+        "x": 415,
+        "y": 232,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 465.5,
+        "y": 232,
+        "w": 144,
+        "h": 55
+      },
+      "labels": [
+        "{e}"
+      ],
+      "texts": [
+        7
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 24,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 22,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 90.5,
+        "y": 25.5,
+        "w": 104,
+        "h": 48
+      },
+      "labels": [
+        "C4×C8×C2"
+      ],
+      "texts": [
+        0
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 24,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 415,
+        "y": 22,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 485.5,
+        "y": 25.5,
+        "w": 104,
+        "h": 48
+      },
+      "labels": [
+        "C4×C8"
+      ],
+      "texts": [
+        1
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 24,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 127,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 90.5,
+        "y": 130.5,
+        "w": 104,
+        "h": 48
+      },
+      "labels": [
+        "C4×C8"
+      ],
+      "texts": [
+        3
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 24,
+      "node": 3,
+      "type": "rect",
+      "old": {
+        "x": 415,
+        "y": 127,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 485.5,
+        "y": 130.5,
+        "w": 104,
+        "h": 48
+      },
+      "labels": [
+        "C2×C8"
+      ],
+      "texts": [
+        4
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 24,
+      "node": 4,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 232,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 90.5,
+        "y": 235.5,
+        "w": 104,
+        "h": 48
+      },
+      "labels": [
+        "C2×C8"
+      ],
+      "texts": [
+        6
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "svg": 24,
+      "node": 5,
+      "type": "rect",
+      "old": {
+        "x": 415,
+        "y": 232,
+        "w": 245,
+        "h": 55
+      },
+      "next": {
+        "x": 485.5,
+        "y": 235.5,
+        "w": 104,
+        "h": 48
+      },
+      "labels": [
+        "C8"
+      ],
+      "texts": [
+        7
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter09_sylow_theory.html",
+      "svg": 2,
+      "node": 0,
+      "type": "circle",
+      "old": {
+        "cx": 135,
+        "cy": 70,
+        "r": 22
+      },
+      "next": {
+        "cx": 135,
+        "cy": 70,
+        "r": 36
+      },
+      "labels": [
+        "(e,e,e)"
+      ],
+      "texts": [
+        0
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter09_sylow_theory.html",
+      "svg": 2,
+      "node": 1,
+      "type": "circle",
+      "old": {
+        "cx": 135,
+        "cy": 180,
+        "r": 22
+      },
+      "next": {
+        "cx": 135,
+        "cy": 180,
+        "r": 36
+      },
+      "labels": [
+        "(r,r,r)"
+      ],
+      "texts": [
+        1
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter09_sylow_theory.html",
+      "svg": 2,
+      "node": 2,
+      "type": "circle",
+      "old": {
+        "cx": 135,
+        "cy": 290,
+        "r": 22
+      },
+      "next": {
+        "cx": 135,
+        "cy": 290,
+        "r": 36
+      },
+      "labels": [
+        "(r2,r2,r2)"
+      ],
+      "texts": [
+        2
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter09_sylow_theory.html",
+      "svg": 2,
+      "node": 3,
+      "type": "circle",
+      "old": {
+        "cx": 480,
+        "cy": 60,
+        "r": 22
+      },
+      "next": {
+        "cx": 480,
+        "cy": 60,
+        "r": 36
+      },
+      "labels": [
+        "(e,r,r2)"
+      ],
+      "texts": [
+        3
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter09_sylow_theory.html",
+      "svg": 2,
+      "node": 4,
+      "type": "circle",
+      "old": {
+        "cx": 600,
+        "cy": 280,
+        "r": 22
+      },
+      "next": {
+        "cx": 600,
+        "cy": 280,
+        "r": 36
+      },
+      "labels": [
+        "(r2,e,r)"
+      ],
+      "texts": [
+        4
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter09_sylow_theory.html",
+      "svg": 2,
+      "node": 5,
+      "type": "circle",
+      "old": {
+        "cx": 360,
+        "cy": 280,
+        "r": 22
+      },
+      "next": {
+        "cx": 360,
+        "cy": 280,
+        "r": 36
+      },
+      "labels": [
+        "(r,r2,e)"
+      ],
+      "texts": [
+        5
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter09_sylow_theory.html",
+      "svg": 5,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 25,
+        "w": 640,
+        "h": 65
+      },
+      "next": {
+        "x": 240,
+        "y": 25,
+        "w": 200,
+        "h": 65
+      },
+      "labels": [
+        "H 左作用于 G/H",
+        "点 = 陪集；作用元素 = H 中的 h"
+      ],
+      "texts": [
+        0,
+        1
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter09_sylow_theory.html",
+      "svg": 5,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 125,
+        "w": 640,
+        "h": 65
+      },
+      "next": {
+        "x": 240,
+        "y": 125,
+        "w": 200,
+        "h": 65
+      },
+      "labels": [
+        "hgH=gH 对所有 h 成立",
+        "等价于 g−1Hg=H"
+      ],
+      "texts": [
+        2,
+        3
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter09_sylow_theory.html",
+      "svg": 5,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 225,
+        "w": 640,
+        "h": 65
+      },
+      "next": {
+        "x": 240,
+        "y": 225,
+        "w": 200,
+        "h": 65
+      },
+      "labels": [
+        "固定点 = N_G(H)/H",
+        "固定点数与全部陪集数模 p 相同"
+      ],
+      "texts": [
+        4,
+        5
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter09_sylow_theory.html",
+      "svg": 6,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 25,
+        "w": 640,
+        "h": 65
+      },
+      "next": {
+        "x": 228,
+        "y": 23.5,
+        "w": 224,
+        "h": 68
+      },
+      "labels": [
+        "H ◁ N_G(H)，|H|=pi",
+        "先确定合法的商群"
+      ],
+      "texts": [
+        0,
+        1
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter09_sylow_theory.html",
+      "svg": 6,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 125,
+        "w": 640,
+        "h": 65
+      },
+      "next": {
+        "x": 228,
+        "y": 123.5,
+        "w": 224,
+        "h": 68
+      },
+      "labels": [
+        "在 N_G(H)/H 中找到 p 阶 L",
+        "Cauchy 只在商里给元素 aH"
+      ],
+      "texts": [
+        2,
+        3
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter09_sylow_theory.html",
+      "svg": 6,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 225,
+        "w": 640,
+        "h": 65
+      },
+      "next": {
+        "x": 228,
+        "y": 223.5,
+        "w": 224,
+        "h": 68
+      },
+      "labels": [
+        "H′=q−1(L)，|H′|=pi+1",
+        "p 个大小为 pi 的陪集整体提升"
+      ],
+      "texts": [
+        4,
+        5
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter10_galois_theory.html",
+      "svg": 7,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 25,
+        "w": 640,
+        "h": 65
+      },
+      "next": {
+        "x": 224,
+        "y": 25,
+        "w": 232,
+        "h": 65
+      },
+      "labels": [
+        "Q ⊂ Q(s) ⊂ Q(s,t)=L",
+        "先 s2=−3；再 t3=2，且 ζ∈Q(s)"
+      ],
+      "texts": [
+        0,
+        1
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter10_galois_theory.html",
+      "svg": 7,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 125,
+        "w": 640,
+        "h": 65
+      },
+      "next": {
+        "x": 224,
+        "y": 125,
+        "w": 232,
+        "h": 65
+      },
+      "labels": [
+        "S3 ⊃ C3 ⊃ {e}",
+        "域增大，对应固定子群缩小"
+      ],
+      "texts": [
+        2,
+        3
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter10_galois_theory.html",
+      "svg": 7,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 225,
+        "w": 640,
+        "h": 65
+      },
+      "next": {
+        "x": 224,
+        "y": 225,
+        "w": 232,
+        "h": 65
+      },
+      "labels": [
+        "商群：S3/C3≅C2，C3/{e}≅C3",
+        "每层正规且商阿贝尔 → 可解"
+      ],
+      "texts": [
+        4,
+        5
+      ]
+    },
+    {
+      "page": "csapp/notes/book_overview.html",
+      "svg": 0,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 235,
+        "y": 6,
+        "w": 350,
+        "h": 76
+      },
+      "next": {
+        "x": 302,
+        "y": 6,
+        "w": 216,
+        "h": 76
+      },
+      "labels": [
+        "1 · 计算机系统漫游",
+        "总览：程序怎样在系统中运行"
+      ],
+      "texts": [
+        0,
+        1
+      ]
+    },
+    {
+      "page": "csapp/notes/book_overview.html",
+      "svg": 0,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 16,
+        "y": 126,
+        "w": 144,
+        "h": 80
+      },
+      "next": {
+        "x": 16,
+        "y": 132,
+        "w": 144,
+        "h": 68
+      },
+      "labels": [
+        "2 · 位与数值",
+        "数据怎样表示"
+      ],
+      "texts": [
+        3,
+        4
+      ]
+    },
+    {
+      "page": "csapp/notes/book_overview.html",
+      "svg": 0,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 177,
+        "y": 126,
+        "w": 144,
+        "h": 80
+      },
+      "next": {
+        "x": 177,
+        "y": 132,
+        "w": 144,
+        "h": 68
+      },
+      "labels": [
+        "3 · 机器指令",
+        "C 怎样变成指令"
+      ],
+      "texts": [
+        5,
+        6
+      ]
+    },
+    {
+      "page": "csapp/notes/book_overview.html",
+      "svg": 0,
+      "node": 3,
+      "type": "rect",
+      "old": {
+        "x": 338,
+        "y": 126,
+        "w": 144,
+        "h": 80
+      },
+      "next": {
+        "x": 338,
+        "y": 132,
+        "w": 144,
+        "h": 68
+      },
+      "labels": [
+        "4 · 处理器",
+        "指令怎样被执行"
+      ],
+      "texts": [
+        7,
+        8
+      ]
+    },
+    {
+      "page": "csapp/notes/book_overview.html",
+      "svg": 0,
+      "node": 4,
+      "type": "rect",
+      "old": {
+        "x": 499,
+        "y": 126,
+        "w": 144,
+        "h": 80
+      },
+      "next": {
+        "x": 499,
+        "y": 132,
+        "w": 144,
+        "h": 68
+      },
+      "labels": [
+        "5 · 性能优化",
+        "依赖链与吞吐量"
+      ],
+      "texts": [
+        9,
+        10
+      ]
+    },
+    {
+      "page": "csapp/notes/book_overview.html",
+      "svg": 0,
+      "node": 5,
+      "type": "rect",
+      "old": {
+        "x": 660,
+        "y": 126,
+        "w": 144,
+        "h": 80
+      },
+      "next": {
+        "x": 660,
+        "y": 132,
+        "w": 144,
+        "h": 68
+      },
+      "labels": [
+        "6 · 存储层次",
+        "缓存与局部性"
+      ],
+      "texts": [
+        11,
+        12
+      ]
+    },
+    {
+      "page": "csapp/notes/book_overview.html",
+      "svg": 0,
+      "node": 6,
+      "type": "rect",
+      "old": {
+        "x": 16,
+        "y": 278,
+        "w": 230,
+        "h": 80
+      },
+      "next": {
+        "x": 35,
+        "y": 284,
+        "w": 192,
+        "h": 68
+      },
+      "labels": [
+        "7 · 链接",
+        "符号解析与重定位"
+      ],
+      "texts": [
+        14,
+        15
+      ]
+    },
+    {
+      "page": "csapp/notes/book_overview.html",
+      "svg": 0,
+      "node": 7,
+      "type": "rect",
+      "old": {
+        "x": 295,
+        "y": 278,
+        "w": 230,
+        "h": 80
+      },
+      "next": {
+        "x": 314,
+        "y": 284,
+        "w": 192,
+        "h": 68
+      },
+      "labels": [
+        "8 · 异常控制流",
+        "异常、进程与信号"
+      ],
+      "texts": [
+        16,
+        17
+      ]
+    },
+    {
+      "page": "csapp/notes/book_overview.html",
+      "svg": 0,
+      "node": 8,
+      "type": "rect",
+      "old": {
+        "x": 574,
+        "y": 278,
+        "w": 230,
+        "h": 80
+      },
+      "next": {
+        "x": 593,
+        "y": 284,
+        "w": 192,
+        "h": 68
+      },
+      "labels": [
+        "9 · 虚拟内存",
+        "地址翻译、共享与保护"
+      ],
+      "texts": [
+        18,
+        19
+      ]
+    },
+    {
+      "page": "csapp/notes/book_overview.html",
+      "svg": 0,
+      "node": 9,
+      "type": "rect",
+      "old": {
+        "x": 16,
+        "y": 430,
+        "w": 230,
+        "h": 80
+      },
+      "next": {
+        "x": 35,
+        "y": 436,
+        "w": 192,
+        "h": 68
+      },
+      "labels": [
+        "10 · 系统级 I/O",
+        "文件、描述符与可靠读写"
+      ],
+      "texts": [
+        21,
+        22
+      ]
+    },
+    {
+      "page": "csapp/notes/book_overview.html",
+      "svg": 0,
+      "node": 10,
+      "type": "rect",
+      "old": {
+        "x": 295,
+        "y": 430,
+        "w": 230,
+        "h": 80
+      },
+      "next": {
+        "x": 314,
+        "y": 436,
+        "w": 192,
+        "h": 68
+      },
+      "labels": [
+        "11 · 网络编程",
+        "套接字与应用协议"
+      ],
+      "texts": [
+        23,
+        24
+      ]
+    },
+    {
+      "page": "csapp/notes/book_overview.html",
+      "svg": 0,
+      "node": 11,
+      "type": "rect",
+      "old": {
+        "x": 574,
+        "y": 430,
+        "w": 230,
+        "h": 80
+      },
+      "next": {
+        "x": 593,
+        "y": 436,
+        "w": 192,
+        "h": 68
+      },
+      "labels": [
+        "12 · 并发编程",
+        "共享状态与同步"
+      ],
+      "texts": [
+        25,
+        26
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter01_tour.html",
+      "svg": 0,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 10,
+        "y": 45,
+        "w": 135,
+        "h": 68
+      },
+      "next": {
+        "x": 25.5,
+        "y": 45,
+        "w": 104,
+        "h": 68
+      },
+      "labels": [
+        "hello.c",
+        "C源文件"
+      ],
+      "texts": [
+        0,
+        1
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter01_tour.html",
+      "svg": 0,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 161,
+        "y": 45,
+        "w": 135,
+        "h": 68
+      },
+      "next": {
+        "x": 176.5,
+        "y": 45,
+        "w": 104,
+        "h": 68
+      },
+      "labels": [
+        "hello.i",
+        "预处理后的C"
+      ],
+      "texts": [
+        2,
+        3
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter01_tour.html",
+      "svg": 0,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 312,
+        "y": 45,
+        "w": 135,
+        "h": 68
+      },
+      "next": {
+        "x": 327.5,
+        "y": 45,
+        "w": 104,
+        "h": 68
+      },
+      "labels": [
+        "hello.s",
+        "汇编文本"
+      ],
+      "texts": [
+        4,
+        5
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter01_tour.html",
+      "svg": 0,
+      "node": 3,
+      "type": "rect",
+      "old": {
+        "x": 463,
+        "y": 45,
+        "w": 135,
+        "h": 68
+      },
+      "next": {
+        "x": 478.5,
+        "y": 45,
+        "w": 104,
+        "h": 68
+      },
+      "labels": [
+        "hello.o",
+        "可重定位目标"
+      ],
+      "texts": [
+        6,
+        7
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter01_tour.html",
+      "svg": 0,
+      "node": 4,
+      "type": "rect",
+      "old": {
+        "x": 614,
+        "y": 45,
+        "w": 135,
+        "h": 68
+      },
+      "next": {
+        "x": 629.5,
+        "y": 45,
+        "w": 104,
+        "h": 68
+      },
+      "labels": [
+        "hello",
+        "可执行文件"
+      ],
+      "texts": [
+        8,
+        9
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter01_tour.html",
+      "svg": 1,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 45,
+        "w": 205,
+        "h": 80
+      },
+      "next": {
+        "x": 46.5,
+        "y": 51,
+        "w": 152,
+        "h": 68
+      },
+      "labels": [
+        "处理器",
+        "PC、寄存器、ALU"
+      ],
+      "texts": [
+        0,
+        1
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter01_tour.html",
+      "svg": 1,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 300,
+        "y": 45,
+        "w": 160,
+        "h": 80
+      },
+      "next": {
+        "x": 332,
+        "y": 63,
+        "w": 96,
+        "h": 44
+      },
+      "labels": [
+        "I/O 桥"
+      ],
+      "texts": [
+        2
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter01_tour.html",
+      "svg": 1,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 555,
+        "y": 45,
+        "w": 185,
+        "h": 80
+      },
+      "next": {
+        "x": 595.5,
+        "y": 51,
+        "w": 104,
+        "h": 68
+      },
+      "labels": [
+        "主存",
+        "指令与数据"
+      ],
+      "texts": [
+        3,
+        4
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter01_tour.html",
+      "svg": 1,
+      "node": 3,
+      "type": "rect",
+      "old": {
+        "x": 160,
+        "y": 210,
+        "w": 440,
+        "h": 75
+      },
+      "next": {
+        "x": 284,
+        "y": 210,
+        "w": 192,
+        "h": 75
+      },
+      "labels": [
+        "设备控制器与适配器",
+        "键盘、显示、磁盘、网络"
+      ],
+      "texts": [
+        8,
+        9
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter01_tour.html",
+      "svg": 3,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 45,
+        "w": 170,
+        "h": 70
+      },
+      "next": {
+        "x": 33,
+        "y": 45,
+        "w": 144,
+        "h": 70
+      },
+      "labels": [
+        "本地终端",
+        "输入命令 / 显示输出"
+      ],
+      "texts": [
+        0,
+        1
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter01_tour.html",
+      "svg": 3,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 570,
+        "y": 45,
+        "w": 170,
+        "h": 70
+      },
+      "next": {
+        "x": 583,
+        "y": 45,
+        "w": 144,
+        "h": 70
+      },
+      "labels": [
+        "远端进程",
+        "执行hello"
+      ],
+      "texts": [
+        4,
+        5
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter01_tour.html",
+      "svg": 3,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 290,
+        "y": 45,
+        "w": 180,
+        "h": 70
+      },
+      "next": {
+        "x": 304,
+        "y": 45,
+        "w": 152,
+        "h": 70
+      },
+      "labels": [
+        "客户端 ↔ 服务端",
+        "网络中搬运字节"
+      ],
+      "texts": [
+        2,
+        3
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter03_machine_level.html",
+      "svg": 0,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 75,
+        "w": 150,
+        "h": 65
+      },
+      "next": {
+        "x": 43,
+        "y": 73.5,
+        "w": 104,
+        "h": 68
+      },
+      "labels": [
+        "k=n−60",
+        "无符号k≤5？"
+      ],
+      "texts": [
+        0,
+        1
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter03_machine_level.html",
+      "svg": 0,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 250,
+        "y": 35,
+        "w": 200,
+        "h": 160
+      },
+      "next": {
+        "x": 274,
+        "y": 35,
+        "w": 152,
+        "h": 160
+      },
+      "labels": [
+        "跳转表的6个目标",
+        "60/62 → 8x，返回",
+        "63 → 算术右移3，返回",
+        "64 → 15x后贯穿",
+        "65 → 平方后贯穿"
+      ],
+      "texts": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter03_machine_level.html",
+      "svg": 0,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 525,
+        "y": 110,
+        "w": 215,
+        "h": 65
+      },
+      "next": {
+        "x": 548.5,
+        "y": 108.5,
+        "w": 168,
+        "h": 68
+      },
+      "labels": [
+        "default: x+75",
+        "既可直接进入，也可贯穿"
+      ],
+      "texts": [
+        8,
+        9
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter04_architecture.html",
+      "svg": 0,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 25,
+        "y": 75,
+        "w": 160,
+        "h": 65
+      },
+      "next": {
+        "x": 37,
+        "y": 85.5,
+        "w": 136,
+        "h": 44
+      },
+      "labels": [
+        "旧寄存器输出 7"
+      ],
+      "texts": [
+        0
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter04_architecture.html",
+      "svg": 0,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 270,
+        "y": 75,
+        "w": 180,
+        "h": 65
+      },
+      "next": {
+        "x": 304,
+        "y": 85.5,
+        "w": 112,
+        "h": 44
+      },
+      "labels": [
+        "组合结果 12"
+      ],
+      "texts": [
+        2
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter04_architecture.html",
+      "svg": 0,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 530,
+        "y": 75,
+        "w": 210,
+        "h": 65
+      },
+      "next": {
+        "x": 555,
+        "y": 85.5,
+        "w": 160,
+        "h": 44
+      },
+      "labels": [
+        "下一寄存器输入 12"
+      ],
+      "texts": [
+        3
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter04_architecture.html",
+      "svg": 1,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 25,
+        "y": 25,
+        "w": 140,
+        "h": 55
+      },
+      "next": {
+        "x": 43,
+        "y": 30.5,
+        "w": 104,
+        "h": 44
+      },
+      "labels": [
+        "PC=0x100"
+      ],
+      "texts": [
+        0
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter04_architecture.html",
+      "svg": 1,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 235,
+        "y": 25,
+        "w": 345,
+        "h": 55
+      },
+      "next": {
+        "x": 295.5,
+        "y": 30.5,
+        "w": 224,
+        "h": 44
+      },
+      "labels": [
+        "取指：mrmovq 8(%rbx),%rax"
+      ],
+      "texts": [
+        1
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter04_architecture.html",
+      "svg": 1,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 25,
+        "y": 145,
+        "w": 200,
+        "h": 55
+      },
+      "next": {
+        "x": 45,
+        "y": 150.5,
+        "w": 160,
+        "h": 44
+      },
+      "labels": [
+        "newPC=valP=0x10a"
+      ],
+      "texts": [
+        2
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter04_architecture.html",
+      "svg": 1,
+      "node": 3,
+      "type": "rect",
+      "old": {
+        "x": 550,
+        "y": 145,
+        "w": 205,
+        "h": 55
+      },
+      "next": {
+        "x": 584.5,
+        "y": 150.5,
+        "w": 136,
+        "h": 44
+      },
+      "labels": [
+        "R[%rbx]=0x200"
+      ],
+      "texts": [
+        3
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter04_architecture.html",
+      "svg": 1,
+      "node": 4,
+      "type": "rect",
+      "old": {
+        "x": 520,
+        "y": 280,
+        "w": 235,
+        "h": 55
+      },
+      "next": {
+        "x": 545.5,
+        "y": 285.5,
+        "w": 184,
+        "h": 44
+      },
+      "labels": [
+        "ALU：0x200+8=0x208"
+      ],
+      "texts": [
+        4
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter04_architecture.html",
+      "svg": 1,
+      "node": 5,
+      "type": "rect",
+      "old": {
+        "x": 250,
+        "y": 280,
+        "w": 215,
+        "h": 55
+      },
+      "next": {
+        "x": 277.5,
+        "y": 285.5,
+        "w": 160,
+        "h": 44
+      },
+      "labels": [
+        "内存 M8[0x208]=42"
+      ],
+      "texts": [
+        5
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter04_architecture.html",
+      "svg": 1,
+      "node": 6,
+      "type": "rect",
+      "old": {
+        "x": 25,
+        "y": 280,
+        "w": 155,
+        "h": 55
+      },
+      "next": {
+        "x": 54.5,
+        "y": 285.5,
+        "w": 96,
+        "h": 44
+      },
+      "labels": [
+        "%rax←42"
+      ],
+      "texts": [
+        6
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter04_architecture.html",
+      "svg": 2,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 25,
+        "y": 30,
+        "w": 205,
+        "h": 60
+      },
+      "next": {
+        "x": 63.5,
+        "y": 38,
+        "w": 128,
+        "h": 44
+      },
+      "labels": [
+        "M：%rdx←10"
+      ],
+      "texts": [
+        0
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter04_architecture.html",
+      "svg": 2,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 285,
+        "y": 30,
+        "w": 205,
+        "h": 60
+      },
+      "next": {
+        "x": 323.5,
+        "y": 38,
+        "w": 128,
+        "h": 44
+      },
+      "labels": [
+        "E：%rax←3"
+      ],
+      "texts": [
+        1
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter04_architecture.html",
+      "svg": 2,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 545,
+        "y": 30,
+        "w": 205,
+        "h": 60
+      },
+      "next": {
+        "x": 583.5,
+        "y": 38,
+        "w": 128,
+        "h": 44
+      },
+      "labels": [
+        "W：更老指令"
+      ],
+      "texts": [
+        2
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter04_architecture.html",
+      "svg": 2,
+      "node": 3,
+      "type": "rect",
+      "old": {
+        "x": 250,
+        "y": 180,
+        "w": 310,
+        "h": 60
+      },
+      "next": {
+        "x": 325,
+        "y": 188,
+        "w": 160,
+        "h": 44
+      },
+      "labels": [
+        "D：addq %rdx,%rax"
+      ],
+      "texts": [
+        3
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter04_architecture.html",
+      "svg": 3,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 30,
+        "y": 50,
+        "w": 220,
+        "h": 65
+      },
+      "next": {
+        "x": 72,
+        "y": 58.5,
+        "w": 136,
+        "h": 48
+      },
+      "labels": [
+        "64 路 ai XOR bi"
+      ],
+      "texts": [
+        0
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter04_architecture.html",
+      "svg": 3,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 320,
+        "y": 50,
+        "w": 150,
+        "h": 65
+      },
+      "next": {
+        "x": 339,
+        "y": 58.5,
+        "w": 112,
+        "h": 48
+      },
+      "labels": [
+        "64 输入 OR"
+      ],
+      "texts": [
+        1
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter04_architecture.html",
+      "svg": 3,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 535,
+        "y": 50,
+        "w": 100,
+        "h": 65
+      },
+      "next": {
+        "x": 535,
+        "y": 58.5,
+        "w": 100,
+        "h": 48
+      },
+      "labels": [
+        "NOT"
+      ],
+      "texts": [
+        2
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter04_architecture.html",
+      "svg": 4,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 25,
+        "y": 35,
+        "w": 280,
+        "h": 60
+      },
+      "next": {
+        "x": 53,
+        "y": 43,
+        "w": 224,
+        "h": 44
+      },
+      "labels": [
+        "M：load 读得 %rdx=13"
+      ],
+      "texts": [
+        0
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter04_architecture.html",
+      "svg": 4,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 455,
+        "y": 35,
+        "w": 280,
+        "h": 60
+      },
+      "next": {
+        "x": 483,
+        "y": 43,
+        "w": 224,
+        "h": 44
+      },
+      "labels": [
+        "E：pushq %rdx，%rsp=0x200"
+      ],
+      "texts": [
+        1
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter04_architecture.html",
+      "svg": 4,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 300,
+        "y": 170,
+        "w": 180,
+        "h": 55
+      },
+      "next": {
+        "x": 318,
+        "y": 175.5,
+        "w": 144,
+        "h": 44
+      },
+      "labels": [
+        "Fwd A → e_valA"
+      ],
+      "texts": [
+        4
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter04_architecture.html",
+      "svg": 4,
+      "node": 3,
+      "type": "rect",
+      "old": {
+        "x": 240,
+        "y": 275,
+        "w": 300,
+        "h": 50
+      },
+      "next": {
+        "x": 278,
+        "y": 275,
+        "w": 224,
+        "h": 50
+      },
+      "labels": [
+        "下一周期 M：M8[0x1f8]←13"
+      ],
+      "texts": [
+        6
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "svg": 0,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 15,
+        "y": 30,
+        "w": 170,
+        "h": 65
+      },
+      "next": {
+        "x": 32,
+        "y": 40.5,
+        "w": 136,
+        "h": 44
+      },
+      "labels": [
+        "读 *dest"
+      ],
+      "texts": [
+        0
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "svg": 0,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 250,
+        "y": 30,
+        "w": 170,
+        "h": 65
+      },
+      "next": {
+        "x": 267,
+        "y": 40.5,
+        "w": 136,
+        "h": 44
+      },
+      "labels": [
+        "与 data[i] 运算"
+      ],
+      "texts": [
+        1
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "svg": 0,
+      "node": 3,
+      "type": "rect",
+      "old": {
+        "x": 15,
+        "y": 145,
+        "w": 170,
+        "h": 60
+      },
+      "next": {
+        "x": 32,
+        "y": 153,
+        "w": 136,
+        "h": 44
+      },
+      "labels": [
+        "寄存器 acc"
+      ],
+      "texts": [
+        3
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "svg": 0,
+      "node": 4,
+      "type": "rect",
+      "old": {
+        "x": 250,
+        "y": 145,
+        "w": 170,
+        "h": 60
+      },
+      "next": {
+        "x": 267,
+        "y": 153,
+        "w": 136,
+        "h": 44
+      },
+      "labels": [
+        "与 data[i] 运算"
+      ],
+      "texts": [
+        4
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "svg": 0,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 485,
+        "y": 30,
+        "w": 220,
+        "h": 65
+      },
+      "next": {
+        "x": 507,
+        "y": 40.5,
+        "w": 176,
+        "h": 44
+      },
+      "labels": [
+        "写 *dest；下轮再读"
+      ],
+      "texts": [
+        2
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "svg": 0,
+      "node": 5,
+      "type": "rect",
+      "old": {
+        "x": 485,
+        "y": 145,
+        "w": 220,
+        "h": 60
+      },
+      "next": {
+        "x": 507,
+        "y": 153,
+        "w": 176,
+        "h": 44
+      },
+      "labels": [
+        "新 acc；结束才存储"
+      ],
+      "texts": [
+        5
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "svg": 1,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 10,
+        "y": 50,
+        "w": 135,
+        "h": 80
+      },
+      "next": {
+        "x": 21.5,
+        "y": 68,
+        "w": 112,
+        "h": 44
+      },
+      "labels": [
+        "预测与取指"
+      ],
+      "texts": [
+        0
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "svg": 1,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 195,
+        "y": 50,
+        "w": 145,
+        "h": 80
+      },
+      "next": {
+        "x": 195,
+        "y": 68,
+        "w": 145,
+        "h": 44
+      },
+      "labels": [
+        "译码、重命名"
+      ],
+      "texts": [
+        1
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "svg": 1,
+      "node": 4,
+      "type": "rect",
+      "old": {
+        "x": 600,
+        "y": 80,
+        "w": 145,
+        "h": 100
+      },
+      "next": {
+        "x": 600,
+        "y": 108,
+        "w": 145,
+        "h": 44
+      },
+      "labels": [
+        "按序退休"
+      ],
+      "texts": [
+        4
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "svg": 1,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 390,
+        "y": 20,
+        "w": 155,
+        "h": 60
+      },
+      "next": {
+        "x": 390,
+        "y": 28,
+        "w": 155,
+        "h": 44
+      },
+      "labels": [
+        "等待输入 / 发射"
+      ],
+      "texts": [
+        2
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "svg": 1,
+      "node": 3,
+      "type": "rect",
+      "old": {
+        "x": 390,
+        "y": 120,
+        "w": 155,
+        "h": 60
+      },
+      "next": {
+        "x": 390,
+        "y": 128,
+        "w": 155,
+        "h": 44
+      },
+      "labels": [
+        "并行执行单元"
+      ],
+      "texts": [
+        3
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "svg": 2,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 10,
+        "y": 60,
+        "w": 120,
+        "h": 65
+      },
+      "next": {
+        "x": 22,
+        "y": 68.5,
+        "w": 96,
+        "h": 48
+      },
+      "labels": [
+        "acc0"
+      ],
+      "texts": [
+        0
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "svg": 2,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 175,
+        "y": 60,
+        "w": 130,
+        "h": 65
+      },
+      "next": {
+        "x": 192,
+        "y": 68.5,
+        "w": 96,
+        "h": 48
+      },
+      "labels": [
+        "× data[0]"
+      ],
+      "texts": [
+        1
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "svg": 2,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 350,
+        "y": 60,
+        "w": 130,
+        "h": 65
+      },
+      "next": {
+        "x": 367,
+        "y": 68.5,
+        "w": 96,
+        "h": 48
+      },
+      "labels": [
+        "× data[1]"
+      ],
+      "texts": [
+        2
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "svg": 2,
+      "node": 3,
+      "type": "rect",
+      "old": {
+        "x": 525,
+        "y": 60,
+        "w": 130,
+        "h": 65
+      },
+      "next": {
+        "x": 542,
+        "y": 68.5,
+        "w": 96,
+        "h": 48
+      },
+      "labels": [
+        "× data[2]"
+      ],
+      "texts": [
+        3
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "svg": 3,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 10,
+        "y": 20,
+        "w": 120,
+        "h": 55
+      },
+      "next": {
+        "x": 22,
+        "y": 23.5,
+        "w": 96,
+        "h": 48
+      },
+      "labels": [
+        "a0"
+      ],
+      "texts": [
+        0
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "svg": 3,
+      "node": 3,
+      "type": "rect",
+      "old": {
+        "x": 10,
+        "y": 120,
+        "w": 120,
+        "h": 55
+      },
+      "next": {
+        "x": 22,
+        "y": 123.5,
+        "w": 96,
+        "h": 48
+      },
+      "labels": [
+        "a1"
+      ],
+      "texts": [
+        3
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "svg": 3,
+      "node": 6,
+      "type": "rect",
+      "old": {
+        "x": 615,
+        "y": 80,
+        "w": 120,
+        "h": 60
+      },
+      "next": {
+        "x": 627,
+        "y": 86,
+        "w": 96,
+        "h": 48
+      },
+      "labels": [
+        "最后合并"
+      ],
+      "texts": [
+        6
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "svg": 3,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 180,
+        "y": 20,
+        "w": 150,
+        "h": 55
+      },
+      "next": {
+        "x": 207,
+        "y": 23.5,
+        "w": 96,
+        "h": 48
+      },
+      "labels": [
+        "× data[0]"
+      ],
+      "texts": [
+        1
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "svg": 3,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 380,
+        "y": 20,
+        "w": 150,
+        "h": 55
+      },
+      "next": {
+        "x": 407,
+        "y": 23.5,
+        "w": 96,
+        "h": 48
+      },
+      "labels": [
+        "× data[2]"
+      ],
+      "texts": [
+        2
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "svg": 3,
+      "node": 4,
+      "type": "rect",
+      "old": {
+        "x": 180,
+        "y": 120,
+        "w": 150,
+        "h": 55
+      },
+      "next": {
+        "x": 207,
+        "y": 123.5,
+        "w": 96,
+        "h": 48
+      },
+      "labels": [
+        "× data[1]"
+      ],
+      "texts": [
+        4
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "svg": 3,
+      "node": 5,
+      "type": "rect",
+      "old": {
+        "x": 380,
+        "y": 120,
+        "w": 150,
+        "h": 55
+      },
+      "next": {
+        "x": 407,
+        "y": 123.5,
+        "w": 96,
+        "h": 48
+      },
+      "labels": [
+        "× data[3]"
+      ],
+      "texts": [
+        5
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "svg": 5,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 15,
+        "y": 25,
+        "w": 190,
+        "h": 60
+      },
+      "next": {
+        "x": 15,
+        "y": 33,
+        "w": 190,
+        "h": 44
+      },
+      "labels": [
+        "数组：base + 8i"
+      ],
+      "texts": [
+        0
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "svg": 5,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 15,
+        "y": 135,
+        "w": 190,
+        "h": 60
+      },
+      "next": {
+        "x": 15,
+        "y": 143,
+        "w": 190,
+        "h": 44
+      },
+      "labels": [
+        "链表：load p→next"
+      ],
+      "texts": [
+        2
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "svg": 5,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 290,
+        "y": 25,
+        "w": 400,
+        "h": 60
+      },
+      "next": {
+        "x": 378,
+        "y": 33,
+        "w": 224,
+        "h": 44
+      },
+      "labels": [
+        "下一地址可由 i+1 直接计算"
+      ],
+      "texts": [
+        1
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "svg": 5,
+      "node": 3,
+      "type": "rect",
+      "old": {
+        "x": 290,
+        "y": 135,
+        "w": 170,
+        "h": 60
+      },
+      "next": {
+        "x": 327,
+        "y": 143,
+        "w": 96,
+        "h": 44
+      },
+      "labels": [
+        "得到新 p"
+      ],
+      "texts": [
+        3
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "svg": 5,
+      "node": 4,
+      "type": "rect",
+      "old": {
+        "x": 515,
+        "y": 135,
+        "w": 185,
+        "h": 60
+      },
+      "next": {
+        "x": 527.5,
+        "y": 143,
+        "w": 160,
+        "h": 44
+      },
+      "labels": [
+        "才能发起下次 load"
+      ],
+      "texts": [
+        4
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "svg": 6,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 10,
+        "y": 50,
+        "w": 130,
+        "h": 60
+      },
+      "next": {
+        "x": 27,
+        "y": 58,
+        "w": 96,
+        "h": 44
+      },
+      "labels": [
+        "旧 result"
+      ],
+      "texts": [
+        0
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "svg": 6,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 210,
+        "y": 50,
+        "w": 150,
+        "h": 60
+      },
+      "next": {
+        "x": 221,
+        "y": 58,
+        "w": 128,
+        "h": 44
+      },
+      "labels": [
+        "× x：5 周期"
+      ],
+      "texts": [
+        1
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "svg": 6,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 430,
+        "y": 50,
+        "w": 150,
+        "h": 60
+      },
+      "next": {
+        "x": 441,
+        "y": 58,
+        "w": 128,
+        "h": 44
+      },
+      "labels": [
+        "+ a[i]：3 周期"
+      ],
+      "texts": [
+        2
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "svg": 6,
+      "node": 3,
+      "type": "rect",
+      "old": {
+        "x": 630,
+        "y": 50,
+        "w": 110,
+        "h": 60
+      },
+      "next": {
+        "x": 637,
+        "y": 58,
+        "w": 96,
+        "h": 44
+      },
+      "labels": [
+        "新 result"
+      ],
+      "texts": [
+        3
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "svg": 7,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 10,
+        "y": 40,
+        "w": 160,
+        "h": 65
+      },
+      "next": {
+        "x": 38,
+        "y": 50.5,
+        "w": 104,
+        "h": 44
+      },
+      "labels": [
+        "load p[i−1]"
+      ],
+      "texts": [
+        0
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "svg": 7,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 450,
+        "y": 40,
+        "w": 160,
+        "h": 65
+      },
+      "next": {
+        "x": 478,
+        "y": 50.5,
+        "w": 104,
+        "h": 44
+      },
+      "labels": [
+        "store p[i]"
+      ],
+      "texts": [
+        2
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "svg": 7,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 235,
+        "y": 40,
+        "w": 150,
+        "h": 65
+      },
+      "next": {
+        "x": 262,
+        "y": 50.5,
+        "w": 96,
+        "h": 44
+      },
+      "labels": [
+        "+ a[i]"
+      ],
+      "texts": [
+        1
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "svg": 8,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 10,
+        "y": 15,
+        "w": 160,
+        "h": 55
+      },
+      "next": {
+        "x": 42,
+        "y": 20.5,
+        "w": 96,
+        "h": 44
+      },
+      "labels": [
+        "load u[i]"
+      ],
+      "texts": [
+        0
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "svg": 8,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 10,
+        "y": 100,
+        "w": 160,
+        "h": 55
+      },
+      "next": {
+        "x": 42,
+        "y": 105.5,
+        "w": 96,
+        "h": 44
+      },
+      "labels": [
+        "load v[i]"
+      ],
+      "texts": [
+        1
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "svg": 8,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 255,
+        "y": 55,
+        "w": 130,
+        "h": 70
+      },
+      "next": {
+        "x": 272,
+        "y": 68,
+        "w": 96,
+        "h": 44
+      },
+      "labels": [
+        "乘法"
+      ],
+      "texts": [
+        2
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "svg": 8,
+      "node": 3,
+      "type": "rect",
+      "old": {
+        "x": 475,
+        "y": 55,
+        "w": 130,
+        "h": 70
+      },
+      "next": {
+        "x": 492,
+        "y": 68,
+        "w": 96,
+        "h": 44
+      },
+      "labels": [
+        "加法"
+      ],
+      "texts": [
+        3
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter08_exceptional.html",
+      "svg": 0,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 100,
+        "w": 185,
+        "h": 65
+      },
+      "next": {
+        "x": 44.5,
+        "y": 110.5,
+        "w": 136,
+        "h": 44
+      },
+      "labels": [
+        "当前指令 Icurr"
+      ],
+      "texts": [
+        0
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter08_exceptional.html",
+      "svg": 0,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 300,
+        "y": 100,
+        "w": 175,
+        "h": 65
+      },
+      "next": {
+        "x": 319.5,
+        "y": 110.5,
+        "w": 136,
+        "h": 44
+      },
+      "labels": [
+        "内核异常处理"
+      ],
+      "texts": [
+        1
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter08_exceptional.html",
+      "svg": 0,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 565,
+        "y": 100,
+        "w": 175,
+        "h": 65
+      },
+      "next": {
+        "x": 584.5,
+        "y": 110.5,
+        "w": 136,
+        "h": 44
+      },
+      "labels": [
+        "下一条 Inext"
+      ],
+      "texts": [
+        2
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter08_exceptional.html",
+      "svg": 0,
+      "node": 3,
+      "type": "rect",
+      "old": {
+        "x": 565,
+        "y": 205,
+        "w": 175,
+        "h": 50
+      },
+      "next": {
+        "x": 584.5,
+        "y": 205,
+        "w": 136,
+        "h": 50
+      },
+      "labels": [
+        "终止应用"
+      ],
+      "texts": [
+        6
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter09_virtual_memory.html",
+      "svg": 0,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 10,
+        "y": 25,
+        "w": 231.66666666666666,
+        "h": 70
+      },
+      "next": {
+        "x": 45.83333333333333,
+        "y": 25,
+        "w": 160,
+        "h": 70
+      },
+      "labels": [
+        "CPU",
+        "VA = 0x1004"
+      ],
+      "texts": [
+        0,
+        1
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter09_virtual_memory.html",
+      "svg": 0,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 256.66666666666663,
+        "y": 25,
+        "w": 231.66666666666666,
+        "h": 70
+      },
+      "next": {
+        "x": 292.49999999999994,
+        "y": 25,
+        "w": 160,
+        "h": 70
+      },
+      "labels": [
+        "MMU 与当前页表",
+        "VPN 1 → PPN 0"
+      ],
+      "texts": [
+        3,
+        4
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter09_virtual_memory.html",
+      "svg": 0,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 503.3333333333333,
+        "y": 25,
+        "w": 231.66666666666666,
+        "h": 70
+      },
+      "next": {
+        "x": 539.1666666666666,
+        "y": 25,
+        "w": 160,
+        "h": 70
+      },
+      "labels": [
+        "物理存储系统",
+        "PA = 0x0004"
+      ],
+      "texts": [
+        6,
+        7
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter09_virtual_memory.html",
+      "svg": 2,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 10,
+        "y": 25,
+        "w": 231.66666666666666,
+        "h": 70
+      },
+      "next": {
+        "x": 53.83333333333333,
+        "y": 25,
+        "w": 144,
+        "h": 70
+      },
+      "labels": [
+        "写入前",
+        "父/子 PTE → 帧7"
+      ],
+      "texts": [
+        0,
+        1
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter09_virtual_memory.html",
+      "svg": 2,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 256.66666666666663,
+        "y": 25,
+        "w": 231.66666666666666,
+        "h": 70
+      },
+      "next": {
+        "x": 300.49999999999994,
+        "y": 25,
+        "w": 144,
+        "h": 70
+      },
+      "labels": [
+        "子写入触发 #PF",
+        "区域允许私有写"
+      ],
+      "texts": [
+        3,
+        4
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter09_virtual_memory.html",
+      "svg": 2,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 503.3333333333333,
+        "y": 25,
+        "w": 231.66666666666666,
+        "h": 70
+      },
+      "next": {
+        "x": 547.1666666666666,
+        "y": 25,
+        "w": 144,
+        "h": 70
+      },
+      "labels": [
+        "复制和改映射",
+        "父→帧7，子→帧12"
+      ],
+      "texts": [
+        6,
+        7
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter11_network.html",
+      "svg": 0,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 10,
+        "y": 25,
+        "w": 170,
+        "h": 70
+      },
+      "next": {
+        "x": 23,
+        "y": 25,
+        "w": 144,
+        "h": 70
+      },
+      "labels": [
+        "客户端请求",
+        "GET /hello.txt"
+      ],
+      "texts": [
+        0,
+        1
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter11_network.html",
+      "svg": 0,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 195,
+        "y": 25,
+        "w": 170,
+        "h": 70
+      },
+      "next": {
+        "x": 208,
+        "y": 25,
+        "w": 144,
+        "h": 70
+      },
+      "labels": [
+        "服务器操作资源",
+        "读文件的12个字节"
+      ],
+      "texts": [
+        3,
+        4
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter11_network.html",
+      "svg": 0,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 380,
+        "y": 25,
+        "w": 170,
+        "h": 70
+      },
+      "next": {
+        "x": 393,
+        "y": 25,
+        "w": 144,
+        "h": 70
+      },
+      "labels": [
+        "服务器响应",
+        "状态、头部与文件"
+      ],
+      "texts": [
+        6,
+        7
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter11_network.html",
+      "svg": 0,
+      "node": 3,
+      "type": "rect",
+      "old": {
+        "x": 565,
+        "y": 25,
+        "w": 170,
+        "h": 70
+      },
+      "next": {
+        "x": 578,
+        "y": 25,
+        "w": 144,
+        "h": 70
+      },
+      "labels": [
+        "客户端处理",
+        "显示或保存内容"
+      ],
+      "texts": [
+        9,
+        10
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter11_network.html",
+      "svg": 1,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 55,
+        "w": 230,
+        "h": 60
+      },
+      "next": {
+        "x": 43,
+        "y": 51,
+        "w": 184,
+        "h": 68
+      },
+      "labels": [
+        "socket",
+        "得到 clientfd"
+      ],
+      "texts": [
+        2,
+        3
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter11_network.html",
+      "svg": 1,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 510,
+        "y": 55,
+        "w": 230,
+        "h": 60
+      },
+      "next": {
+        "x": 533,
+        "y": 51,
+        "w": 184,
+        "h": 68
+      },
+      "labels": [
+        "socket → bind → listen",
+        "建立 listenfd 与监听队列"
+      ],
+      "texts": [
+        4,
+        5
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter11_network.html",
+      "svg": 1,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 165,
+        "w": 230,
+        "h": 65
+      },
+      "next": {
+        "x": 43,
+        "y": 163.5,
+        "w": 184,
+        "h": 68
+      },
+      "labels": [
+        "connect(clientfd, …)",
+        "连接到服务器地址"
+      ],
+      "texts": [
+        6,
+        7
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter11_network.html",
+      "svg": 1,
+      "node": 3,
+      "type": "rect",
+      "old": {
+        "x": 510,
+        "y": 165,
+        "w": 230,
+        "h": 65
+      },
+      "next": {
+        "x": 533,
+        "y": 163.5,
+        "w": 184,
+        "h": 68
+      },
+      "labels": [
+        "accept(listenfd, …)",
+        "返回新的 connfd"
+      ],
+      "texts": [
+        8,
+        9
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter11_network.html",
+      "svg": 1,
+      "node": 5,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 305,
+        "w": 230,
+        "h": 65
+      },
+      "next": {
+        "x": 43,
+        "y": 303.5,
+        "w": 184,
+        "h": 68
+      },
+      "labels": [
+        "read / write(clientfd)",
+        "接收与发送应用字节"
+      ],
+      "texts": [
+        12,
+        13
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter11_network.html",
+      "svg": 1,
+      "node": 6,
+      "type": "rect",
+      "old": {
+        "x": 510,
+        "y": 305,
+        "w": 230,
+        "h": 65
+      },
+      "next": {
+        "x": 533,
+        "y": 303.5,
+        "w": 184,
+        "h": 68
+      },
+      "labels": [
+        "read / write(connfd)",
+        "处理本次连接的字节"
+      ],
+      "texts": [
+        14,
+        15
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter11_network.html",
+      "svg": 1,
+      "node": 7,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 415,
+        "w": 230,
+        "h": 50
+      },
+      "next": {
+        "x": 43,
+        "y": 415,
+        "w": 184,
+        "h": 50
+      },
+      "labels": [
+        "close(clientfd)"
+      ],
+      "texts": [
+        17
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter11_network.html",
+      "svg": 1,
+      "node": 8,
+      "type": "rect",
+      "old": {
+        "x": 510,
+        "y": 415,
+        "w": 230,
+        "h": 50
+      },
+      "next": {
+        "x": 533,
+        "y": 415,
+        "w": 184,
+        "h": 50
+      },
+      "labels": [
+        "close(connfd)"
+      ],
+      "texts": [
+        18
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter11_network.html",
+      "svg": 1,
+      "node": 4,
+      "type": "rect",
+      "old": {
+        "x": 290,
+        "y": 166,
+        "w": 180,
+        "h": 64
+      },
+      "next": {
+        "x": 312,
+        "y": 164,
+        "w": 136,
+        "h": 68
+      },
+      "labels": [
+        "内核连接队列",
+        "衔接连接与接受"
+      ],
+      "texts": [
+        10,
+        11
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter11_network.html",
+      "svg": 2,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 10,
+        "y": 25,
+        "w": 170,
+        "h": 70
+      },
+      "next": {
+        "x": 23,
+        "y": 25,
+        "w": 144,
+        "h": 70
+      },
+      "labels": [
+        "HTTP解析",
+        "body=a=2&b=3；7 B"
+      ],
+      "texts": [
+        0,
+        1
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter11_network.html",
+      "svg": 2,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 195,
+        "y": 25,
+        "w": 170,
+        "h": 70
+      },
+      "next": {
+        "x": 208,
+        "y": 25,
+        "w": 144,
+        "h": 70
+      },
+      "labels": [
+        "子进程环境",
+        "POST；length=7"
+      ],
+      "texts": [
+        3,
+        4
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter11_network.html",
+      "svg": 2,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 380,
+        "y": 25,
+        "w": 170,
+        "h": 70
+      },
+      "next": {
+        "x": 393,
+        "y": 25,
+        "w": 144,
+        "h": 70
+      },
+      "labels": [
+        "CGI stdin",
+        "准确读取7 B"
+      ],
+      "texts": [
+        6,
+        7
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter11_network.html",
+      "svg": 2,
+      "node": 3,
+      "type": "rect",
+      "old": {
+        "x": 565,
+        "y": 25,
+        "w": 170,
+        "h": 70
+      },
+      "next": {
+        "x": 578,
+        "y": 25,
+        "w": 144,
+        "h": 70
+      },
+      "labels": [
+        "CGI stdout",
+        "Content-Type与结果5"
+      ],
+      "texts": [
+        9,
+        10
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter12_concurrency.html",
+      "svg": 0,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 10,
+        "y": 25,
+        "w": 170,
+        "h": 70
+      },
+      "next": {
+        "x": 47,
+        "y": 25,
+        "w": 96,
+        "h": 70
+      },
+      "labels": [
+        "accept",
+        "引用 0 → 1"
+      ],
+      "texts": [
+        0,
+        1
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter12_concurrency.html",
+      "svg": 0,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 195,
+        "y": 25,
+        "w": 170,
+        "h": 70
+      },
+      "next": {
+        "x": 232,
+        "y": 25,
+        "w": 96,
+        "h": 70
+      },
+      "labels": [
+        "fork",
+        "引用 1 → 2"
+      ],
+      "texts": [
+        3,
+        4
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter12_concurrency.html",
+      "svg": 0,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 380,
+        "y": 25,
+        "w": 170,
+        "h": 70
+      },
+      "next": {
+        "x": 417,
+        "y": 25,
+        "w": 96,
+        "h": 70
+      },
+      "labels": [
+        "父 close",
+        "引用 2 → 1"
+      ],
+      "texts": [
+        6,
+        7
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter12_concurrency.html",
+      "svg": 0,
+      "node": 3,
+      "type": "rect",
+      "old": {
+        "x": 565,
+        "y": 25,
+        "w": 170,
+        "h": 70
+      },
+      "next": {
+        "x": 602,
+        "y": 25,
+        "w": 96,
+        "h": 70
+      },
+      "labels": [
+        "子 close",
+        "引用 1 → 0"
+      ],
+      "texts": [
+        9,
+        10
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter12_concurrency.html",
+      "svg": 1,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 20,
+        "y": 170,
+        "w": 220,
+        "h": 75
+      },
+      "next": {
+        "x": 34,
+        "y": 170,
+        "w": 192,
+        "h": 75
+      },
+      "labels": [
+        "等待可读",
+        "非阻塞 read，保存新字节"
+      ],
+      "texts": [
+        0,
+        1
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter12_concurrency.html",
+      "svg": 1,
+      "node": 4,
+      "type": "rect",
+      "old": {
+        "x": 280,
+        "y": 340,
+        "w": 200,
+        "h": 65
+      },
+      "next": {
+        "x": 280,
+        "y": 350.5,
+        "w": 200,
+        "h": 44
+      },
+      "labels": [
+        "关闭连接"
+      ],
+      "texts": [
+        12
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter12_concurrency.html",
+      "svg": 1,
+      "node": 3,
+      "type": "rect",
+      "old": {
+        "x": 530,
+        "y": 340,
+        "w": 210,
+        "h": 65
+      },
+      "next": {
+        "x": 530,
+        "y": 338.5,
+        "w": 210,
+        "h": 68
+      },
+      "labels": [
+        "本段发送完毕",
+        "消费对应输入，继续检查"
+      ],
+      "texts": [
+        9,
+        10
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter12_concurrency.html",
+      "svg": 2,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 10,
+        "y": 25,
+        "w": 170,
+        "h": 70
+      },
+      "next": {
+        "x": 31,
+        "y": 25,
+        "w": 128,
+        "h": 70
+      },
+      "labels": [
+        "初始",
+        "1 worker / 4槽"
+      ],
+      "texts": [
+        0,
+        1
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter12_concurrency.html",
+      "svg": 2,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 195,
+        "y": 25,
+        "w": 170,
+        "h": 70
+      },
+      "next": {
+        "x": 216,
+        "y": 25,
+        "w": 128,
+        "h": 70
+      },
+      "labels": [
+        "队列满",
+        "倍增到2，最多8"
+      ],
+      "texts": [
+        3,
+        4
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter12_concurrency.html",
+      "svg": 2,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 380,
+        "y": 25,
+        "w": 170,
+        "h": 70
+      },
+      "next": {
+        "x": 401,
+        "y": 25,
+        "w": 128,
+        "h": 70
+      },
+      "labels": [
+        "处理结束",
+        "空队列下减半目标"
+      ],
+      "texts": [
+        6,
+        7
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter12_concurrency.html",
+      "svg": 2,
+      "node": 3,
+      "type": "rect",
+      "old": {
+        "x": 565,
+        "y": 25,
+        "w": 170,
+        "h": 70
+      },
+      "next": {
+        "x": 586,
+        "y": 25,
+        "w": 128,
+        "h": 70
+      },
+      "labels": [
+        "关闭实验",
+        "排空 + join全部"
+      ],
+      "texts": [
+        9,
+        10
+      ]
+    },
+    {
+      "page": "eopl/notes/book_overview.html",
+      "svg": 0,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 40.0,
+        "y": 32.0,
+        "w": 180.0,
+        "h": 68.0
+      },
+      "next": {
+        "x": 50.0,
+        "y": 32.0,
+        "w": 160.0,
+        "h": 64.0
+      },
+      "labels": [
+        "1 归纳数据",
+        "递归的根据"
+      ],
+      "texts": [
+        0,
+        1
+      ]
+    },
+    {
+      "page": "eopl/notes/book_overview.html",
+      "svg": 0,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 340.0,
+        "y": 32.0,
+        "w": 180.0,
+        "h": 68.0
+      },
+      "next": {
+        "x": 350.0,
+        "y": 32.0,
+        "w": 160.0,
+        "h": 64.0
+      },
+      "labels": [
+        "2 数据抽象",
+        "表示与接口"
+      ],
+      "texts": [
+        2,
+        3
+      ]
+    },
+    {
+      "page": "eopl/notes/book_overview.html",
+      "svg": 0,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 640.0,
+        "y": 32.0,
+        "w": 180.0,
+        "h": 68.0
+      },
+      "next": {
+        "x": 650.0,
+        "y": 32.0,
+        "w": 160.0,
+        "h": 64.0
+      },
+      "labels": [
+        "3 表达式",
+        "环境与过程"
+      ],
+      "texts": [
+        4,
+        5
+      ]
+    },
+    {
+      "page": "eopl/notes/book_overview.html",
+      "svg": 0,
+      "node": 3,
+      "type": "rect",
+      "old": {
+        "x": 340.0,
+        "y": 184.0,
+        "w": 180.0,
+        "h": 68.0
+      },
+      "next": {
+        "x": 350.0,
+        "y": 160.0,
+        "w": 160.0,
+        "h": 64.0
+      },
+      "labels": [
+        "4 状态",
+        "位置与存储"
+      ],
+      "texts": [
+        6,
+        7
+      ]
+    },
+    {
+      "page": "eopl/notes/book_overview.html",
+      "svg": 0,
+      "node": 4,
+      "type": "rect",
+      "old": {
+        "x": 130.0,
+        "y": 336.0,
+        "w": 180.0,
+        "h": 68.0
+      },
+      "next": {
+        "x": 140.0,
+        "y": 288.0,
+        "w": 160.0,
+        "h": 64.0
+      },
+      "labels": [
+        "5 续文",
+        "剩余的计算"
+      ],
+      "texts": [
+        8,
+        9
+      ]
+    },
+    {
+      "page": "eopl/notes/book_overview.html",
+      "svg": 0,
+      "node": 5,
+      "type": "rect",
+      "old": {
+        "x": 130.0,
+        "y": 488.0,
+        "w": 180.0,
+        "h": 68.0
+      },
+      "next": {
+        "x": 140.0,
+        "y": 416.0,
+        "w": 160.0,
+        "h": 64.0
+      },
+      "labels": [
+        "6 续文传递",
+        "控制变换"
+      ],
+      "texts": [
+        10,
+        11
+      ]
+    },
+    {
+      "page": "eopl/notes/book_overview.html",
+      "svg": 0,
+      "node": 6,
+      "type": "rect",
+      "old": {
+        "x": 550.0,
+        "y": 336.0,
+        "w": 180.0,
+        "h": 68.0
+      },
+      "next": {
+        "x": 560.0,
+        "y": 288.0,
+        "w": 160.0,
+        "h": 64.0
+      },
+      "labels": [
+        "7 类型",
+        "运行前的约束"
+      ],
+      "texts": [
+        12,
+        13
+      ]
+    },
+    {
+      "page": "eopl/notes/book_overview.html",
+      "svg": 0,
+      "node": 7,
+      "type": "rect",
+      "old": {
+        "x": 430.0,
+        "y": 488.0,
+        "w": 180.0,
+        "h": 68.0
+      },
+      "next": {
+        "x": 440.0,
+        "y": 416.0,
+        "w": 160.0,
+        "h": 64.0
+      },
+      "labels": [
+        "8 模块",
+        "接口与封装"
+      ],
+      "texts": [
+        14,
+        15
+      ]
+    },
+    {
+      "page": "eopl/notes/book_overview.html",
+      "svg": 0,
+      "node": 8,
+      "type": "rect",
+      "old": {
+        "x": 670.0,
+        "y": 488.0,
+        "w": 180.0,
+        "h": 68.0
+      },
+      "next": {
+        "x": 680.0,
+        "y": 416.0,
+        "w": 160.0,
+        "h": 64.0
+      },
+      "labels": [
+        "9 对象",
+        "对象与方法"
+      ],
+      "texts": [
+        16,
+        17
+      ]
+    },
+    {
+      "page": "eopl/notes/preface.html",
+      "svg": 0,
+      "node": 0,
+      "type": "rect",
+      "old": {
+        "x": 24.0,
+        "y": 40.0,
+        "w": 180.0,
+        "h": 84.0
+      },
+      "next": {
+        "x": 34.0,
+        "y": 32.0,
+        "w": 160.0,
+        "h": 68.0
+      },
+      "labels": [
+        "E3：x ↦ 20",
+        "调用时的环境"
+      ],
+      "texts": [
+        0,
+        1
+      ]
+    },
+    {
+      "page": "eopl/notes/preface.html",
+      "svg": 0,
+      "node": 1,
+      "type": "rect",
+      "old": {
+        "x": 290.0,
+        "y": 40.0,
+        "w": 180.0,
+        "h": 84.0
+      },
+      "next": {
+        "x": 300.0,
+        "y": 32.0,
+        "w": 160.0,
+        "h": 68.0
+      },
+      "labels": [
+        "E2：f ↦ 闭包",
+        "形参 y · 过程体 · E1"
+      ],
+      "texts": [
+        2,
+        3
+      ]
+    },
+    {
+      "page": "eopl/notes/preface.html",
+      "svg": 0,
+      "node": 2,
+      "type": "rect",
+      "old": {
+        "x": 550.0,
+        "y": 40.0,
+        "w": 180.0,
+        "h": 84.0
+      },
+      "next": {
+        "x": 560.0,
+        "y": 32.0,
+        "w": 160.0,
+        "h": 68.0
+      },
+      "labels": [
+        "E1：x ↦ 10",
+        "父环境为空"
+      ],
+      "texts": [
+        4,
+        5
+      ]
+    },
+    {
+      "page": "eopl/notes/preface.html",
+      "svg": 0,
+      "node": 3,
+      "type": "rect",
+      "old": {
+        "x": 290.0,
+        "y": 276.0,
+        "w": 180.0,
+        "h": 84.0
+      },
+      "next": {
+        "x": 300.0,
+        "y": 224.0,
+        "w": 160.0,
+        "h": 68.0
+      },
+      "labels": [
+        "E4：y ↦ 25",
+        "过程体求值环境"
+      ],
+      "texts": [
+        7,
+        8
+      ]
+    }
+  ],
+  "evidence": {
+    "root_check": {
+      "report": "tmp/inline-code-20261021/accepted-build/root-report.json",
+      "sha256": "f9ebe6be0219438bbb5a6b131555fb63958f5138dd88a063929748c64bf3fae7"
+    },
+    "affected_check": {
+      "report": "tmp/inline-code-20261021/accepted-build/affected-report.json",
+      "sha256": "04c90375a5832b45de100a5bf2199fe80e2bbb560b61a8ac44105c50cbe3241b"
+    },
+    "node_tests": {
+      "report": "tmp/inline-code-20261021/node-tests-final.log",
+      "sha256": "d877f0d0ad693cdc5d3820f1b80470e9e04a399d0786a69da6bd3323a1ad2fed"
+    },
+    "preservation": {
+      "report": "tmp/inline-code-20261021/preservation.json",
+      "sha256": "4593b32c4a1f8c4317d419e2415b181dc075fba881065172b1a7e51a69a0c5a5"
+    },
+    "node_fit": {
+      "report": "tmp/inline-code-20261021/fit-result.json",
+      "sha256": "573c7a94a283ef11e7316ed20005eb7f4cd7f8d7a8b7612798792b45ef7f07aa"
+    },
+    "connections": {
+      "report": "tmp/inline-code-20261021/connections.json",
+      "sha256": "5ba3941c7fdbf5682399dc3630e474289a4b9448dec1115514afff8b484a9ce3"
+    },
+    "expanded_reading": {
+      "report": "tmp/inline-code-20261021/final-content-browser.json",
+      "sha256": "0502d9efb709dea038bf472a6a7f11c12b85f569e9b1d8c21d1da137791187e1"
+    },
+    "visual_readback": {
+      "report": "tmp/inline-code-20261021/visual-readback.json",
+      "sha256": "49019ba3e9efc673c56eea88af7525ab73854c27287943589c88c05778f07717"
+    },
+    "build": {
+      "report": "tmp/inline-code-20261021/accepted-build/build.json",
+      "sha256": "25b09505b641e91146cf3953ead49e0c98c87a891b4bbc10abb0c649f69f071c"
+    },
+    "parity": {
+      "report": "tmp/inline-code-20261021/accepted-build/all.json",
+      "sha256": "cb71bc65c37626dd4146a2013a90f1a72590e13907c1ec4303331fd6217fcbbe"
+    },
+    "performance": {
+      "report": "tmp/inline-code-20261021/accepted-build/performance-budget.json",
+      "sha256": "8f0a941d568ca86fa78b047f8220c11b6a2a4354b26b14e87eb1e5c077bc7e4a"
+    },
+    "csp": {
+      "report": "tmp/inline-code-20261021/accepted-build/csp.json",
+      "sha256": "fd8be527958dea02f9c6bf110f13e966baba3bc928339f07506bc9e531479218"
+    },
+    "offline": {
+      "report": "tmp/reading-notes-migration/browser/all/runs/2026-10-20T18-35-08-839Z-0b1c585c/report.json",
+      "sha256": "d72012f5c20ab28a2c5b8906cdd7d156eb06547a7b5f799a45239aa5f464ac2b"
+    },
+    "accepted_files": {
+      "report": "tmp/inline-code-20261021/accepted-dist-files.json",
+      "sha256": "2a960f626f0366d572fde941c7fe53f0fca2e877d03d75bde7c4c4b38f2d03b3"
+    }
+  },
+  "limitations": [
+    "Times New Roman uses the reader device font; no font binary is distributed.",
+    "Browser execution uses Chromium; no physical handset, Safari, Firefox or screen-reader acceptance is claimed.",
+    "Presentation review does not repeat every mathematical source proof or the historical CS:APP proxy browser experiment."
+  ],
+  "preservation": {
+    "status": "passed",
+    "baseline": "09759945a0ad27e73f42c291e6b121a76fa6ce7a",
+    "pages": 58,
+    "pre": 1149,
+    "math": 50829,
+    "svg": 490,
+    "records": [
+      {
+        "page": "measure-probability/notes/book_overview.html",
+        "pre": 1,
+        "math": 32,
+        "svg": 1
+      },
+      {
+        "page": "measure-probability/notes/chapter01_measurable_spaces.html",
+        "pre": 4,
+        "math": 837,
+        "svg": 0
+      },
+      {
+        "page": "measure-probability/notes/chapter02_measure_spaces.html",
+        "pre": 0,
+        "math": 1587,
+        "svg": 1
+      },
+      {
+        "page": "measure-probability/notes/chapter03_integration.html",
+        "pre": 3,
+        "math": 971,
+        "svg": 1
+      },
+      {
+        "page": "measure-probability/notes/chapter04_signed_measures.html",
+        "pre": 0,
+        "math": 1165,
+        "svg": 1
+      },
+      {
+        "page": "measure-probability/notes/chapter05_product_spaces.html",
+        "pre": 2,
+        "math": 680,
+        "svg": 1
+      },
+      {
+        "page": "measure-probability/notes/chapter06_independent_sequences.html",
+        "pre": 0,
+        "math": 1179,
+        "svg": 1
+      },
+      {
+        "page": "measure-probability/notes/preface.html",
+        "pre": 0,
+        "math": 0,
+        "svg": 0
+      },
+      {
+        "page": "visual-group-theory/notes/book_overview.html",
+        "pre": 0,
+        "math": 8,
+        "svg": 1
+      },
+      {
+        "page": "visual-group-theory/notes/chapter01_what_is_a_group.html",
+        "pre": 3,
+        "math": 206,
+        "svg": 2
+      },
+      {
+        "page": "visual-group-theory/notes/chapter02_what_do_groups_look_like.html",
+        "pre": 3,
+        "math": 315,
+        "svg": 13
+      },
+      {
+        "page": "visual-group-theory/notes/chapter03_why_study_groups.html",
+        "pre": 3,
+        "math": 316,
+        "svg": 22
+      },
+      {
+        "page": "visual-group-theory/notes/chapter04_algebra_at_last.html",
+        "pre": 4,
+        "math": 1821,
+        "svg": 5
+      },
+      {
+        "page": "visual-group-theory/notes/chapter05_five_families.html",
+        "pre": 3,
+        "math": 1176,
+        "svg": 25
+      },
+      {
+        "page": "visual-group-theory/notes/chapter06_subgroups.html",
+        "pre": 3,
+        "math": 905,
+        "svg": 23
+      },
+      {
+        "page": "visual-group-theory/notes/chapter07_products_and_quotients.html",
+        "pre": 3,
+        "math": 1099,
+        "svg": 38
+      },
+      {
+        "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+        "pre": 3,
+        "math": 1494,
+        "svg": 25
+      },
+      {
+        "page": "visual-group-theory/notes/chapter09_sylow_theory.html",
+        "pre": 3,
+        "math": 888,
+        "svg": 16
+      },
+      {
+        "page": "visual-group-theory/notes/chapter10_galois_theory.html",
+        "pre": 3,
+        "math": 1487,
+        "svg": 28
+      },
+      {
+        "page": "visual-group-theory/notes/preface.html",
+        "pre": 0,
+        "math": 16,
+        "svg": 0
+      },
+      {
+        "page": "stochastic/notes/appendix_a_probability_review.html",
+        "pre": 0,
+        "math": 847,
+        "svg": 0
+      },
+      {
+        "page": "stochastic/notes/book_overview.html",
+        "pre": 1,
+        "math": 39,
+        "svg": 1
+      },
+      {
+        "page": "stochastic/notes/chapter01_markov_chains.html",
+        "pre": 2,
+        "math": 6262,
+        "svg": 1
+      },
+      {
+        "page": "stochastic/notes/chapter02_poisson_processes.html",
+        "pre": 2,
+        "math": 2137,
+        "svg": 1
+      },
+      {
+        "page": "stochastic/notes/chapter03_renewal_processes.html",
+        "pre": 2,
+        "math": 1123,
+        "svg": 1
+      },
+      {
+        "page": "stochastic/notes/chapter04_continuous_time_markov_chains.html",
+        "pre": 2,
+        "math": 3035,
+        "svg": 1
+      },
+      {
+        "page": "stochastic/notes/chapter05_martingales.html",
+        "pre": 2,
+        "math": 1566,
+        "svg": 1
+      },
+      {
+        "page": "stochastic/notes/chapter06_mathematical_finance.html",
+        "pre": 4,
+        "math": 4041,
+        "svg": 1
+      },
+      {
+        "page": "stochastic/notes/preface.html",
+        "pre": 0,
+        "math": 10,
+        "svg": 0
+      },
+      {
+        "page": "weiss/notes/book_overview.html",
+        "pre": 1,
+        "math": 128,
+        "svg": 1
+      },
+      {
+        "page": "weiss/notes/chapter01_introduction.html",
+        "pre": 15,
+        "math": 172,
+        "svg": 3
+      },
+      {
+        "page": "weiss/notes/chapter02_algorithm_analysis.html",
+        "pre": 45,
+        "math": 559,
+        "svg": 5
+      },
+      {
+        "page": "weiss/notes/chapter03_lists_stacks_queues.html",
+        "pre": 75,
+        "math": 554,
+        "svg": 2
+      },
+      {
+        "page": "weiss/notes/chapter04_trees.html",
+        "pre": 58,
+        "math": 942,
+        "svg": 27
+      },
+      {
+        "page": "weiss/notes/chapter05_priority_queues.html",
+        "pre": 36,
+        "math": 706,
+        "svg": 24
+      },
+      {
+        "page": "weiss/notes/chapter06_sorting.html",
+        "pre": 29,
+        "math": 715,
+        "svg": 21
+      },
+      {
+        "page": "weiss/notes/chapter07_hashing.html",
+        "pre": 22,
+        "math": 378,
+        "svg": 21
+      },
+      {
+        "page": "weiss/notes/chapter08_disjoint_sets.html",
+        "pre": 16,
+        "math": 402,
+        "svg": 15
+      },
+      {
+        "page": "weiss/notes/chapter09_graph_algorithms.html",
+        "pre": 21,
+        "math": 1217,
+        "svg": 15
+      },
+      {
+        "page": "weiss/notes/chapter10_algorithm_design.html",
+        "pre": 63,
+        "math": 1316,
+        "svg": 23
+      },
+      {
+        "page": "weiss/notes/chapter11_amortized_analysis.html",
+        "pre": 19,
+        "math": 383,
+        "svg": 16
+      },
+      {
+        "page": "weiss/notes/chapter12_advanced_data_structures.html",
+        "pre": 28,
+        "math": 621,
+        "svg": 54
+      },
+      {
+        "page": "csapp/notes/book_overview.html",
+        "pre": 1,
+        "math": 19,
+        "svg": 1
+      },
+      {
+        "page": "csapp/notes/chapter01_tour.html",
+        "pre": 6,
+        "math": 97,
+        "svg": 4
+      },
+      {
+        "page": "csapp/notes/chapter02_information.html",
+        "pre": 132,
+        "math": 2031,
+        "svg": 7
+      },
+      {
+        "page": "csapp/notes/chapter03_machine_level.html",
+        "pre": 158,
+        "math": 1347,
+        "svg": 3
+      },
+      {
+        "page": "csapp/notes/chapter04_architecture.html",
+        "pre": 76,
+        "math": 832,
+        "svg": 6
+      },
+      {
+        "page": "csapp/notes/chapter05_optimization.html",
+        "pre": 43,
+        "math": 437,
+        "svg": 9
+      },
+      {
+        "page": "csapp/notes/chapter06_memory.html",
+        "pre": 46,
+        "math": 1042,
+        "svg": 4
+      },
+      {
+        "page": "csapp/notes/chapter07_linking.html",
+        "pre": 39,
+        "math": 360,
+        "svg": 0
+      },
+      {
+        "page": "csapp/notes/chapter08_exceptional.html",
+        "pre": 38,
+        "math": 146,
+        "svg": 1
+      },
+      {
+        "page": "csapp/notes/chapter09_virtual_memory.html",
+        "pre": 21,
+        "math": 422,
+        "svg": 3
+      },
+      {
+        "page": "csapp/notes/chapter10_system_io.html",
+        "pre": 30,
+        "math": 160,
+        "svg": 0
+      },
+      {
+        "page": "csapp/notes/chapter11_network.html",
+        "pre": 28,
+        "math": 92,
+        "svg": 3
+      },
+      {
+        "page": "csapp/notes/chapter12_concurrency.html",
+        "pre": 42,
+        "math": 420,
+        "svg": 9
+      },
+      {
+        "page": "csapp/notes/preface.html",
+        "pre": 0,
+        "math": 18,
+        "svg": 0
+      },
+      {
+        "page": "eopl/notes/book_overview.html",
+        "pre": 1,
+        "math": 14,
+        "svg": 1
+      },
+      {
+        "page": "eopl/notes/preface.html",
+        "pre": 4,
+        "math": 57,
+        "svg": 1
+      }
+    ]
+  },
+  "svg_math_labels_normalized": 7,
+  "svg_script_repairs": [
+    {
+      "file": "src/content/books/visual-group-theory/chapter08_homomorphisms.html",
+      "before": "，阶 p^(N−1)",
+      "after": "，阶 p<tspan baseline-shift=\"super\" font-size=\"70%\" data-notation=\"^(N−1)\">N−1</tspan>"
+    },
+    {
+      "file": "src/content/books/visual-group-theory/chapter08_homomorphisms.html",
+      "before": "G_(N−2)，阶 p",
+      "after": "G<tspan baseline-shift=\"sub\" font-size=\"70%\" data-notation=\"_(N−2)\">N−2</tspan>，阶 p"
+    },
+    {
+      "file": "src/content/books/visual-group-theory/chapter08_homomorphisms.html",
+      "before": "G_(N−1) ≅ C",
+      "after": "G<tspan baseline-shift=\"sub\" font-size=\"70%\" data-notation=\"_(N−1)\">N−1</tspan> ≅ C"
+    },
+    {
+      "file": "src/content/books/visual-group-theory/chapter08_homomorphisms.html",
+      "before": "G_(N−1) ≅ C",
+      "after": "G<tspan baseline-shift=\"sub\" font-size=\"70%\" data-notation=\"_(N−1)\">N−1</tspan> ≅ C"
+    },
+    {
+      "file": "src/content/books/visual-group-theory/chapter09_sylow_theory.html",
+      "before": "固定点 = N_G(H)/H",
+      "after": "固定点 = N<tspan baseline-shift=\"sub\" font-size=\"70%\" data-notation=\"_G\">G</tspan>(H)/H"
+    },
+    {
+      "file": "src/content/books/visual-group-theory/chapter09_sylow_theory.html",
+      "before": "H ◁ N_G(H)，|H|=p",
+      "after": "H ◁ N<tspan baseline-shift=\"sub\" font-size=\"70%\" data-notation=\"_G\">G</tspan>(H)，|H|=p"
+    },
+    {
+      "file": "src/content/books/visual-group-theory/chapter09_sylow_theory.html",
+      "before": "在 N_G(H)/H 中找到 p 阶 L",
+      "after": "在 N<tspan baseline-shift=\"sub\" font-size=\"70%\" data-notation=\"_G\">G</tspan>(H)/H 中找到 p 阶 L"
+    }
+  ],
+  "inline_code_total": 6438,
+  "validation_scope": {
+    "root_checks": 22,
+    "node_tests": 43,
+    "reading_pages": 58,
+    "published_html": 80,
+    "expanded_views": 116,
+    "offline_views": 320,
+    "no_js_views": 160,
+    "external_requests": [],
+    "final_delta": "The final pipe-lf.hcl formatting repair was followed by affected CS:APP checks, shared checks, Node regressions, a fresh build and the full final browser matrix. Program blocks remained identical."
+  }
+}

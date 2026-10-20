@@ -87,6 +87,7 @@ def check(book_id: str, quick: bool, benchmarks: bool) -> int:
         commands.append(command)
     commands.append(["node", ROOT / "tools/reading-components/check.mjs"])
     commands.append(["node", ROOT / "tools/reading-typography/check.mjs"])
+    commands.append(["node", ROOT / "tools/reading-presentation/check.mjs"])
     commands.append([sys.executable, ROOT / "tools/check_astro_records.py"])
     report = {"status": "running", "book": book_id, "quick": quick, "benchmarks": benchmarks,
               "started_at": datetime.now(timezone.utc).isoformat(), "checks": []}

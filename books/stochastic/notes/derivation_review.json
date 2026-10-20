@@ -2324,16 +2324,16 @@
   ],
   "files": {
     "notes/remaining_explanation_review.json": {
-      "bytes": 832807,
-      "sha256": "7095558e941302dac0dfd686fdfd65643730b877eea88d5f33bcedc9a57ef5ee"
+      "bytes": 833408,
+      "sha256": "31f342cbc8b6bc9348117cdd9df298d1481ae6777493497bf5b3d9ee997c92c8"
     },
     "notes/chapter01_explanation_review.json": {
-      "bytes": 186782,
-      "sha256": "7053464ba9dc51e16206c150d504097c014098beecbadb387e68d6f543a68735"
+      "bytes": 187383,
+      "sha256": "42d99bab2cd9c11ed12d81aefe61479ba3d1a938d7874ef867e632004dc48207"
     },
     "notes/derivation_coverage.json": {
       "bytes": 356352,
-      "sha256": "b39ec519f8613bd61dad6dbeb9ce5e8f1d9bd5e51095528c139fb44e9ac161dd"
+      "sha256": "391b4b668a7fa8b1f2801d842455f844e95f3bef92a0de611dda4e517e8868dd"
     },
     "tools/derivation_coverage.py": {
       "bytes": 15791,
@@ -6008,5 +6008,11 @@
     "prior_record_git": "7e9d2ea:books/stochastic/notes/derivation_review.json",
     "prior_record_sha256": "8064b8f6a055489f40e3d1f913666d62b1ea44b575ffec33f4b80a631dbfff1f",
     "scope": "Current representation bindings: Times New Roman, structured inline MathML, positioned SVG scripts and explicit diagram node styling. Original program blocks and exercise IDs preserved. Historical execution claims retain their original scope; new acceptance is recorded in docs/reading-typography-review.json"
+  },
+  "I045_typography_revision": {
+    "issue": "I045",
+    "prior_record_git": "09759945a0ad27e73f42c291e6b121a76fa6ce7a:books/stochastic/notes/derivation_review.json",
+    "prior_record_sha256": "7e5d121c1b0d1058c3725826e98a42c03d74042cafe6945a2ffd5fbad16ba1e7",
+    "scope": "Current representation bindings: complete inline program syntax, shared code treatment and content-aware SVG node sizing. Program blocks, readable meaning and exercise IDs preserved. Historical execution claims retain their original scope; new acceptance is recorded in docs/reading-presentation-review.json"
   }
 }

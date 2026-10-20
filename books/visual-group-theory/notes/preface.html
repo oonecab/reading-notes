@@ -418,7 +418,17 @@ body.rn-components :is(p,li,td,th,summary,figcaption,h1,h2,h3,h4) math{vertical-
 body.rn-components .rn-math-inline{display:inline-block;max-width:100%;overflow-x:auto;overflow-y:hidden;vertical-align:middle}
 body.rn-components pre{font-size:16px;line-height:1.65;tab-size:4;white-space:pre}
 body.rn-components pre code{font-size:inherit;white-space:inherit}
-body.rn-components :not(pre)>code{font-size:1em}
+/* Keep short expressions together; long statements wrap within the text column. */
+body.rn-components code:not(pre code){
+  display:inline-block;max-width:100%;vertical-align:baseline;
+  font-size:.96em;font-style:normal;font-weight:400;line-height:1.45;
+  color:#294553;background:#eef2f4;border:1px solid #dfe6e9;border-radius:4px;
+  padding:.08em .3em;box-decoration-break:clone;-webkit-box-decoration-break:clone;
+  white-space:normal;overflow-wrap:anywhere;word-break:normal
+}
+body.rn-components :is(h1,h2,h3,h4,summary,th) code:not(pre code){font-size:.94em;font-weight:inherit}
+body.rn-components a code:not(pre code){color:inherit}
+body.rn-components pre code{background:none;border:0;border-radius:0;padding:0;box-decoration-break:slice;overflow-wrap:normal}
 body.rn-components svg text{fill:var(--rn-diagram-ink)}
 body.rn-components svg.rn-diagram{background:transparent;border:0}
 body.rn-components svg tspan[baseline-shift]{font-size:70%}
