@@ -877,5 +877,18 @@
       }
     ],
     "content_or_style_changes": false
+  },
+  "follow_up": {
+    "issue": "I040",
+    "record": "docs/reading-components-review.json",
+    "release_id": "20261020T200604",
+    "source_commit": "581b3f34c5fcd80a87647f183d3cb24b92396ada",
+    "finding_disposition": {
+      "F01": "corrected_and_published",
+      "F02": "corrected_and_published",
+      "C01": "expanded_and_published",
+      "A01": "open_tool_rejects_isolated_proxy_browser_target"
+    },
+    "historical_scope": "Original findings and audit evidence above retain their snapshot meaning."
   }
 }

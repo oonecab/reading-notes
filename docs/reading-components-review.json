@@ -1,6 +1,6 @@
 {
   "issue": "I040",
-  "status": "locally_verified_with_open_proxy_acceptance",
+  "status": "published_with_open_proxy_acceptance",
   "scope": "56 reading pages: unified teaching components; three documented content fixes.",
   "source_sha256": {
     "csapp/notes/book_overview.html": "7ee4a2084715d1391684af0b57f82af3650794eee521601a2eb0a34431fac0af",
@@ -3100,6 +3100,108 @@
     "performance": {
       "pages": 76,
       "status": "passed"
+    },
+    "production": {
+      "status": "published_and_verified",
+      "release_id": "20261020T200604",
+      "source_commit": "581b3f34c5fcd80a87647f183d3cb24b92396ada",
+      "previous": "20261020T142535",
+      "archive_sha256": "1d6bb41037d47a2929ea9d32858bfc674ed87dedc46aa11ec054c787535f018d",
+      "source_tree_dirty": false,
+      "package_files": 495,
+      "html_pages": 76,
+      "reading_pages": 56,
+      "package_preflight": {
+        "report": "tmp/components-rollout-20261020/package-preflight.json",
+        "sha256": "4ec3c8705459fb3394c69ce12c7ff5b6e6c07720b03bd77157609a465b65b74c"
+      },
+      "predeploy_acceptance": {
+        "report": "tmp/components-rollout-20261020/predeploy-acceptance.json",
+        "sha256": "d09ce0977b9dc4327e6dfdc000c5daf064b2b68523e5ac925d672f41e20c7fbf"
+      },
+      "server": {
+        "report": "tmp/components-rollout-20261020/server-after.json",
+        "sha256": "f3fcacce755f70183d5356d5dcbd30825b265f846aa6f1c5c21f6c122f59c12c",
+        "current": "releases/20261020T200604",
+        "verified_files_current": 495,
+        "verified_files_rollback": 495,
+        "root_owned_read_only": true,
+        "unchanged_mtime_preserved": 375,
+        "changed_mtime_distinct": 120,
+        "queue_empty": true,
+        "pending_transaction": false,
+        "nginx_test": "passed",
+        "nginx_active": true,
+        "deploy_result": "success",
+        "health_result": "success",
+        "health_timer_active": true,
+        "nginx_snippet_sha256": "62b11e6ecfcbe16abe278fbcdf124a85e285da9e1277c35ac2f5c668a15c10fd"
+      },
+      "public_https": {
+        "report": "tmp/components-rollout-20261020/public-default.json",
+        "sha256": "ddde6fae2bc6459468cd50d31b713b8ba255d5c3d8a6a945f4eaef75e8b437a5",
+        "origin": "https://notes.zzzping.top",
+        "connect_ip": null,
+        "files_checked": 490,
+        "entry_redirects": 15,
+        "gzip_files": 188,
+        "conditional_requests": 490,
+        "pdf_ranges": 2,
+        "transport_retries": 0,
+        "route_checks": "pass"
+      },
+      "public_browser": {
+        "report": "tmp/components-rollout-20261020/public-reading/report-final.json",
+        "sha256": "6b8fcc7a9554016e7ab097e39ea81d263a8cc9bd8f307fbda7bcf963cc881d69",
+        "html_routes_verified": 76,
+        "redirect_routes_resolved": 5,
+        "home_book_chapter_home_flows": 10,
+        "targeted_views": 12,
+        "prior_attempt": {
+          "report": "tmp/components-rollout-20261020/public-reading/report.json",
+          "sha256": "76a32b254dfeaf0f70bdc5918b4e8b3b112acf83b056821d7af16a0d6dcd279b"
+        },
+        "recovery": "The first selector chose a link inside a collapsed mobile TOC. The resumed run used the visible chapter link in main; successful earlier paths were retained."
+      },
+      "public_visual_readback": {
+        "status": "passed",
+        "method": "Opened and read actual production screenshot pixels through view_image",
+        "screenshots_viewed": [
+          {
+            "file": "tmp/components-rollout-20261020/public-reading/stochastic-theorem-1-1-proof-390.png",
+            "sha256": "3e24e3169a042c3489a120d96a2db7fcb8940fb93a067141f42c2ebc549d0fbc"
+          },
+          {
+            "file": "tmp/components-rollout-20261020/public-reading/weiss-rn-leftist-bound-390.png",
+            "sha256": "d6afece7365b7e418d6fbd372cb0aab1e925a3ed53e35e7f17f19ac19135662e"
+          },
+          {
+            "file": "tmp/components-rollout-20261020/public-reading/csapp-principle-2-unsigned-encoding-390.png",
+            "sha256": "79e4414fd024ad0c2edf010ca61960e49362e82921541df8a544b8fb8e1b1c42"
+          },
+          {
+            "file": "tmp/components-rollout-20261020/public-reading/visual-group-theory-theorem-5-1-390.png",
+            "sha256": "775d3870efa3ba5db208f92833fe653629eb89211dd347945d2e15fa4881d792"
+          },
+          {
+            "file": "tmp/components-rollout-20261020/public-reading/measure-probability-ex-6-27-390.png",
+            "sha256": "b3db17c34c84a026c53801ec338e1b0e8c61675e9c32f06cf451918257e478ea"
+          },
+          {
+            "file": "tmp/components-rollout-20261020/public-reading/weiss-ex12-1-1440.png",
+            "sha256": "8936b90a1c23ae2c924568314a83bd05b4c0d8c3869ba0f4601d4d9d9df302f5"
+          }
+        ],
+        "findings": "Five-book statement/proof/question/answer styles, mobile title visibility, formula local scrolling and Weiss 12.1 detailed explanation visually confirmed.",
+        "limits": "Six selected production screenshots; all-path and hash checks are recorded separately."
+      },
+      "gitleaks": {
+        "staged_findings": 0,
+        "public_findings": 0
+      },
+      "open_acceptance": [
+        "A01: CS:APP 12.39 real browser through proxy remains unverified."
+      ]
     }
   }
 }

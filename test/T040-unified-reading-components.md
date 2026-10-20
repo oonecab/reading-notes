@@ -1,6 +1,6 @@
 # T040：全站组件与发布验收
 
-状态：in_progress；关联 [I040](../issues/I040-unified-reading-components.md)。
+状态：published_and_verified；A01 保留待验收；关联 [I040](../issues/I040-unified-reading-components.md)。
 
 证据位于忽略目录 `tmp/components-rollout-20261020/`。本轮分别记录内容保全、三处内容修订与代理实验、程序执行、56 页四断点与无脚本阅读、公开包集成、Git 及生产验收。旧检查记录不作为本轮执行结果。
 
@@ -32,4 +32,16 @@ I038 的 A01（CS:APP 12.39 真实浏览器经代理访问）仍开放。当前 
 
 加强遮挡判定后的全站离线验收报告为 `tmp/reading-notes-migration/browser/all/runs/2026-10-20T11-58-11-106Z-9801e9a6/report.json`：**304** 个脚本视图、**152** 个无脚本视图、**0** 外部请求与 **0** 错误，另生成 502 张自动验收截图；自动截图数量不作为目视数量。最后结构检查 `tmp/project-check/20261020T195946-fiotfz3f/report.json` 为 **16/16**；56 页完整 DOM parity 零差异，76 个公开 HTML 均满足性能预算。CSP 在真实浏览器验证 9 页／12 种脚本 hash，变异脚本被阻止。
 
-历史浏览器证据另与 Git 中原记录逐字段比较，原 hash、日期和结果均保留；本轮当前源绑定与新截图验收独立登记。Git 提交及服务器发布记录在完成后追加。
+历史浏览器证据另与 Git 中原记录逐字段比较，原 hash、日期和结果均保留；本轮当前源绑定与新截图验收独立登记。Git 提交及服务器发布结果见下文。
+
+## Git、正式包与生产读回
+
+内容提交 `581b3f34c5fcd80a87647f183d3cb24b92396ada` 已推送 `main`；构建前核对 HEAD、origin/main、实时远端 main 及树身份一致，工作区干净。暂存源和公开 dist 的 Gitleaks 均为 0 条发现。从该提交构建的正式版本为 `20261020T200604`，包含 **495 文件、76 HTML、56 正式阅读页**，归档 SHA-256 为 `1d6bb41037d47a2929ea9d32858bfc674ed87dedc46aa11ec054c787535f018d`。76 个 HTML 均与最终离线浏览器报告逐字同 hash，56 个正式页同时匹配最终样式矩阵和当前审阅绑定；12 种脚本 hash 与公开规则不变。
+
+`python3 tools/project.py verify-release --release-id 20261020T200604` 在临时真实 Nginx HTTPS 环境通过，报告位于 `tmp/release-check/20261020T200604-5zqio6b9/https-verification.json`，结束后临时 Nginx 已停止。正式包通过私有暂存目录上传并逐文件验 hash，再由既有 systemd 队列发布；服务器 `current` 指向 `releases/20261020T200604`。新旧两版各 **495** 个文件的 hash、root 所有权和只读权限核对通过，目录权限为 0555、公开文件为 0444。375 个未变化文件保留缓存时间，120 个变化文件使用不同时间；Nginx 配置 hash 保持不变，nginx -t、部署与健康服务结果均正常，健康定时器运行，队列为空且无遗留事务。旧版 `20261020T142535` 的归档 hash 与发布前相同，保留作为恢复单元；本轮未执行生产回滚切换。
+
+公网使用正常域名 `https://notes.zzzping.top` 完成 **490** 个文件的内容 hash、MIME、CSP、缓存条件请求及 **188** 个 gzip 表示验证，另验 **15** 个入口跳转、**2** 个 PDF Range 及私有/缺失路径和不允许的方法；未指定连接 IP，证据为 `public-default.json`。490 与 495 的差额为由 Nginx 跳转的 5 个旧 HTML 入口。
+
+Ego 的正常域名浏览器另核对 **76** 个 HTML 路径（其中 5 个按实际跳转目标核对内容），完成五书 **10** 条 1440/390px 的“首页—地图—第一章—首页”路径和 **12** 个正文定位视图；实际打开并读回 **6** 张线上截图，覆盖五书及 Weiss 12.1。完整最终报告为 `public-reading/report-final.json`，目视文件及 SHA 在 `public-visual-readback.json`。首轮选择器选中了手机折叠目录内不可见的第一章链接，保留失败报告 `public-reading/report.json`；观察页面后改用正文中的可见阅读链接，续跑余下路径成功。该工具选择失败不作为网站缺陷，也未删除旧失败记录。
+
+上述发布记录追加于内容提交之后；验收提交只改变治理与证据文档，线上内容继续绑定 `581b3f3`。机器索引保留报告 SHA。A01 的工具限制和验收边界沿用上文，未因部署成功而关闭。

@@ -1,5 +1,9 @@
 # M040：统一教学组件上线
 
-状态：in_progress；完成条件见 [I040](../issues/I040-unified-reading-components.md) 与 [T040](../test/T040-unified-reading-components.md)。
+状态：deployed_with_open_acceptance；关联 [I040](../issues/I040-unified-reading-components.md)、[P040](../plan/P040-unified-reading-components.md)、[T040](../test/T040-unified-reading-components.md)。
 
-用户已授权全书修复、提交推送及生产发布。当前正在实施与验证，尚未声明线上生效。
+五书 56 个正式页已接入统一陈述、例题、证明和习题组件，三处已确认的内容修订及相应规范、审阅绑定、回归门禁同步完成。完整程序检查、最终四断点与无脚本阅读、代表截图读回和正式包 HTTPS 门禁通过。
+
+内容提交 `581b3f34c5fcd80a87647f183d3cb24b92396ada` 已推送；干净发布包 `20261020T200604` 已上线，服务器及公网文件、五书桌面/手机导航和正文定位验收通过，旧版 `20261020T142535` 保留。后续提交补齐发布证据，不改变线上内容身份。
+
+CS:APP 12.39 的真实浏览器经代理实验 A01 仍未验收：当前工具拒绝创建独立代理目标页。程序协议回归、直接浏览器阅读与全站发布验收分别记录，不将其视作该实验的替代。
