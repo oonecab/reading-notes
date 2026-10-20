@@ -1,6 +1,6 @@
 {
   "issue": "I045",
-  "status": "locally_verified_publication_pending",
+  "status": "published_and_verified",
   "baseline_git": "09759945a0ad27e73f42c291e6b121a76fa6ce7a",
   "scope": "58 reading pages, 490 SVG diagrams inspected; inline program syntax and content-aware diagram node proportions.",
   "source_sha256": {
@@ -6119,6 +6119,42 @@
     "accepted_files": {
       "report": "tmp/inline-code-20261021/accepted-dist-files.json",
       "sha256": "2a960f626f0366d572fde941c7fe53f0fca2e877d03d75bde7c4c4b38f2d03b3"
+    },
+    "package_preflight": {
+      "report": "tmp/inline-code-20261021/package-preflight.json",
+      "sha256": "24cda0617e412ee9caa84a88d60d713adaa72085f333d651ce5e0b1545683cf9"
+    },
+    "predeploy_acceptance": {
+      "report": "tmp/inline-code-20261021/predeploy-acceptance.json",
+      "sha256": "4302209085d94807213f2d0a774a98712ae414ddbe4855acbb7933dd13411c12"
+    },
+    "server_after": {
+      "report": "tmp/inline-code-20261021/server-after.json",
+      "sha256": "e2a5a8f6aef451ff6939e4283ba24af2e71da0bea1b5f9c5db78c5fd95bedc5b"
+    },
+    "public_verification": {
+      "report": "tmp/inline-code-20261021/public-verification.json",
+      "sha256": "5f828c23facec67436ee90304cf1dcfbba48b03526df64bd817c4a6b220491b4"
+    },
+    "public_browser": {
+      "report": "tmp/inline-code-20261021/public-browser.json",
+      "sha256": "a14a9a40636e917fe485b56d8262c00b1af263285ac42dcc30dfdf3c8793ef88"
+    },
+    "source_secret_scan": {
+      "report": "tmp/inline-code-20261021/gitleaks-source.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    "publication_secret_scan": {
+      "report": "tmp/inline-code-20261021/gitleaks-public.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    "local_https": {
+      "report": "tmp/release-check/20261021T024246-4e5eqhjm/https-verification.json",
+      "sha256": "17872c44b83a553e7b978d6f22de35e8e5833645b38b2e3a55c174b11bbf9cf4"
+    },
+    "publisher_integration": {
+      "report": "tmp/publish-check/20261021T024246-m92j7h3x/report.json",
+      "sha256": "5be51ec23ee7f28eddd7eb471015a943c87d3c84bd6d7f532056675e63522978"
     }
   },
   "limitations": [
@@ -6533,5 +6569,60 @@
     "no_js_views": 160,
     "external_requests": [],
     "final_delta": "The final pipe-lf.hcl formatting repair was followed by affected CS:APP checks, shared checks, Node regressions, a fresh build and the full final browser matrix. Program blocks remained identical."
+  },
+  "publication": {
+    "status": "published_and_verified",
+    "release_id": "20261021T024246",
+    "source_commit": "bc442bb42e679bc8ad448d7dd3cf4b426d506465",
+    "source_tree_dirty": false,
+    "tag": "v2026.10.21-inline-code-layout",
+    "archive_sha256": "c8fcbaf3c0a55e5bb29de649ed0a2ea560f8aeda4b4c271a88827582d867857a",
+    "origin": "https://notes.zzzping.top",
+    "normal_dns": true,
+    "current": "releases/20261021T024246",
+    "rollback_release": "20261021T012051",
+    "rollback_verified_files": 511,
+    "production_rollback_executed": false,
+    "server_verified_files": 511,
+    "root_owned_read_only": true,
+    "unchanged_mtime_preserved": 395,
+    "changed_mtime_distinct": 116,
+    "configuration_unchanged": true,
+    "nginx_snippet_sha256": "8c8a40dd1dcc0a16541a2d47bb38037787e57ad0859bc27ad8ffe5c7f3704dd2",
+    "policy_sha256": "eac0d803f29f69a5399ee2f33fb9a5fb6254ed6e70eaec6662ae631f56dcef69",
+    "public_files_checked": 505,
+    "public_redirect_cases": 18,
+    "public_gzip_representations": 194,
+    "public_pdf_ranges": 2,
+    "public_conditional_requests": 505,
+    "public_browser_views": 12,
+    "actual_times_new_roman_probes": 18,
+    "public_no_js": {
+      "url": "https://notes.zzzping.top/eopl/notes/preface.html?release=20261021T024246&nojs=1",
+      "width": 390,
+      "documentWidth": 390,
+      "mathml": 57,
+      "svg": 2
+    },
+    "public_home_to_eopl": {
+      "url": "https://notes.zzzping.top/eopl/notes/book_overview.html",
+      "title": "全书地图 · EOPL 程序设计语言要义"
+    },
+    "screenshots_viewed": [
+      {
+        "file": "tmp/inline-code-20261021/public-eopl-1440.png",
+        "sha256": "f4a7484190cba79c0bfa0eb5910d9cf73759d57e4200435edcd0d1a47eff9fbe"
+      },
+      {
+        "file": "tmp/inline-code-20261021/public-eopl-390.png",
+        "sha256": "1ec9d76b682c4640039456b7f1543b4968192f3b6649dc411adbaa4fd00eb01c"
+      },
+      {
+        "file": "tmp/inline-code-20261021/public-csapp-code-390.png",
+        "sha256": "66c6180932f79902c9bd8e3004fa636dc7814fc56278ab048bbf8bd413192645"
+      }
+    ],
+    "publisher_integration_checks": 24,
+    "audit_commit_scope": "Post-publication record changes only; the tag remains bound to the deployed content commit."
   }
 }

@@ -1,6 +1,6 @@
 # T045 行内程序与图中节点比例
 
-状态：本地已验收，发布待执行；关联 I045、P045 与 M045。内容基线为 `09759945a0ad27e73f42c291e6b121a76fa6ce7a`，范围为六本书现有 58 个阅读页。EOPL 仍为全书地图、序言、习题 0.1 与闭包实验。
+状态：已完成并部署，线上验收通过；关联 I045、P045 与 M045。内容基线为 `09759945a0ad27e73f42c291e6b121a76fa6ce7a`，范围为六本书现有 58 个阅读页。EOPL 仍为全书地图、序言、习题 0.1 与闭包实验。
 
 ## 表达与图形
 
@@ -20,4 +20,12 @@
 
 ## 发布
 
-从干净内容提交构建正式包，部署前核实服务器恢复单元 `20261021T012051`。沿用既有白名单、CSP、服务和端口。发布后需要正常域名内容/缓存验证、服务器逐文件读回与浏览器代表页验收；实际结果待写入。
+正式包从干净内容提交 `bc442bb42e679bc8ad448d7dd3cf4b426d506465` 构建，注释标签 `v2026.10.21-inline-code-layout` 指向该提交；内容已合入 `main`，主分支与标签原子推送后读取远端引用确认。发布号 `20261021T024246`，归档 SHA-256 为 `c8fcbaf3c0a55e5bb29de649ed0a2ea560f8aeda4b4c271a88827582d867857a`。后续验收记录提交只补充发布事实，标签与部署来源保持上述内容提交。
+
+部署前核对 511 个包内文件与已验收成品完全一致，80 个 HTML 与最终离线矩阵的页面摘要一致，58 页当前审阅绑定通过。临时 HTTPS 验证覆盖 505 个直接文件、18 项跳转、194 个 gzip 表示及 2 项 PDF Range；发布器隔离集成检查 24 项通过。两处临时 Nginx 均已停止。源码改动与整个发布目录分别经 Gitleaks 扫描，结果均为 0 条发现。证据为 `tmp/inline-code-20261021/package-preflight.json`、`predeploy-acceptance.json`，以及 `tmp/release-check/20261021T024246-4e5eqhjm/https-verification.json`、`tmp/publish-check/20261021T024246-m92j7h3x/report.json`。
+
+服务器 `current` 已指向 `releases/20261021T024246`。新版本和恢复单元 `20261021T012051` 各 511 个文件的内容摘要、root 所有权与只读权限均通过；395 个内容未变文件保留 mtime，116 个变更文件的 mtime 与旧版区分。Nginx 配置检查通过、服务 active；发布与健康检查 Result=success、ExecMainStatus=0，健康 timer active。没有待完成事务，队列为空，完成回执存在。管理员 Nginx 片段及发布策略的 SHA-256 分别保持 `8c8a40dd1dcc0a16541a2d47bb38037787e57ad0859bc27ad8ffe5c7f3704dd2`、`eac0d803f29f69a5399ee2f33fb9a5fb6254ed6e70eaec6662ae631f56dcef69`。旧版已核验并保留，本次未执行生产回滚。
+
+正常域名 `https://notes.zzzping.top` 经常规 DNS 解析验证，未指定源站 IP：505 个直接文件内容、MIME、CSP 与缓存校验通过，18 项跳转、194 个 gzip 表示、2 项 PDF Range、条件请求和异常路由检查通过。实际浏览器覆盖六书代表页的 1440/390px 共 12 个视图，正文宽度、行内代码样式与数学显示正常；18 个实际字体探针均命中 Times New Roman。另验收 EOPL 390px 无脚本页面和首页到 EOPL 的真实点击路径。线上 EOPL 桌面/窄屏及 CS:APP 窄屏三张截图均已目视检查。证据 `server-after.json`、`public-verification.json`、`public-browser.json` 及截图位于 `tmp/inline-code-20261021/`，摘要同时绑定到当前排版审阅记录。
+
+RN-001、TECH、环境当前版本、问题单、计划及里程碑已同步。本次没有改变技术栈、环境变量、服务配置、端口或计算规则，`.project-governance.json` 与 `.env.example` 无需修改。
