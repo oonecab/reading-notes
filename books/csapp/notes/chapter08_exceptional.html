@@ -210,13 +210,177 @@ main[id],main [id]{scroll-margin-top:24px}
 .reading-layout>main>section:not(#exercises):not(#self-check) pre{font-size:14px}
 
 .worked{background:var(--tint);border-left:2px solid var(--green);padding:.8rem 1.1rem;margin:1.5rem 0}.worked h3{margin:.2rem 0 .7rem}.english-title{display:block;color:var(--sub);font-size:.85rem;font-weight:400}.code-download{font-size:.9rem}.code-explanation li{margin:.7rem 0}.flow-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}svg .highlight{fill:#e6eee7;stroke:var(--green)}.solution-steps>li{margin:1rem 0}.question-note strong{color:var(--green)}.experiment-output{font-size:.9rem}main [id]{scroll-margin-top:100px}@media(max-width:1099px){main [id]{scroll-margin-top:132px}}
-</style></head><body><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="章节目录"><details class="toc-panel" id="toc-panel" open><summary>本章目录</summary><nav class="chapter-toc" id="chapter-toc" aria-label="本章目录"><a class="toc-home" href="book_overview.html">全书地图</a><a class="toc-home" href="preface.html">序言</a><ul><li><a href="#s8-1">8.1 · 先确定事件、入口和返回位置</a></li><li><a href="#s8-2">8.2 · 用上下文维持独立执行的表象</a></li><li><a href="#s8-3">8.3 · 让返回值决定后续路径</a></li><li><a href="#s8-4">8.4 · 从复制进程到运行另一份程序</a></li><li><a href="#s8-5">8.5 · 把通知与可靠状态分开</a></li><li><a href="#s8-6">8.6 · 绕过返回链也会绕过清理</a></li><li><a href="#s8-7">8.7 · 用工具核对状态，不用样本代替证明</a></li><li><a href="#s8-8">8.8 · 把控制流与状态约束一起读</a></li><li><a href="#models">可运行机制与实现</a></li><li><a href="#experiment">进程与信号实验</a></li><li><a href="#io-model">I/O 与命令执行</a></li><li><a href="#shell-model">作业控制 shell</a></li><li><a href="#self-check">原创自测</a></li><li><a href="#exercises">本版原书习题</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">CS:APP · 第三版 GLOBAL EDITION · 中文伴读</p><h1>第 8 章：异常控制流</h1><p class="intro">当事件打断指令、孩子先于父进程结束、信号落在条件检查与睡眠之间，靠什么让程序仍然正确？从异常返回位置走到进程生命周期，再把信号通知与可靠状态接起来。</p><p class="source"><a class="source-pdf" href="../csapp.pdf#page=758">来源：印刷 757—835 页 / PDF 758—836 页</a></p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="book_overview.html#program-guide">程序说明</a><a href="chapter07_linking.html">← 第 7 章</a><a href="chapter09_virtual_memory.html">第 9 章 →</a></p></header><details class="statement-index" id="source-index"><summary>本页原书摘录 · 5 处</summary><ul class="statement-links"><li><a href="#classic-8-exception">异常由事件触发</a></li><li><a href="#classic-8-process">进程的经典定义</a></li><li><a href="#classic-8-errors">先查返回值</a></li><li><a href="#classic-8-pending">通知表达至少一次</a></li><li><a href="#classic-8-nonlocal">跳向仍在执行的调用环境</a></li></ul></details><section id="s8-1"><h2>8.1 · 先确定事件、入口和返回位置<span class="english-title" lang="en">Exceptions</span></h2><p class="source"><a class="source-pdf" href="../csapp.pdf#page=760">来源：印刷 759—767 页 / PDF 760—768 页</a></p><div class="source-statement" id="classic-8-exception"><p class="statement-label">原书摘录 · 异常由事件触发</p><blockquote class="original-excerpt" lang="en"><p>An exception is an abrupt change in the control flow in response to some change in the processor’s state.</p></blockquote><p class="statement-body"><strong>中文释义：</strong>处理器状态中的事件使控制流突然改变。这里的 exception 包含硬件中断，不等同于 C++ 的 throw。</p><p class="source"><a class="source-pdf" href="../csapp.pdf#page=760">来源：印刷 759 页 / PDF 760 页</a></p></div><p>前几章把程序看作按跳转、调用和返回前进的指令序列。现在设想一条读内存指令遇到不在物理内存中的页：它不能靠普通分支预先检查所有可能事件。硬件必须把控制交给内核，内核补齐页，再让原指令重试。这个“离开—处理—恢复”的路径，就是本章和下一章的连接点。</p><h3 id="ss8-1-1">8.1.1 · 硬件入口与软件处理如何分工<span class="english-title" lang="en">Exception Handling</span></h3><p>启动时内核建立异常入口，硬件检测事件并取得异常号，保存足以恢复执行的状态，切换到受保护的入口。处理程序识别原因、改变内核状态，再通过专门的异常返回机制恢复程序。保存的不只是普通函数调用的返回地址，还包括状态寄存器、权限及必要的栈信息；来自用户态的异常不能信任用户自己提供的内核栈。</p><p>原书图 8.2—8.3 用“基址 + 异常号 × 8”说明地址表索引，是概念模型。真实 x86-64 IDT 使用描述符，syscall 还有专用的入口寄存器机制，不能把每种硬件入口都实现成一本书画的普通函数指针数组。</p><h3 id="ss8-1-2">8.1.2 · 最关键的问题是返回哪条指令<span class="english-title" lang="en">Classes of Exceptions</span></h3><div class="scroll"><table><thead><tr><th>类别</th><th>触发关系</th><th>例子</th><th>处理后控制流</th></tr></thead><tbody><tr><td>interrupt 中断</td><td>异步于当前指令</td><td>设备完成、时钟</td><td>恢复中断边界后的指令</td></tr><tr><td>trap 陷阱</td><td>指令有意触发</td><td>系统调用</td><td>通常下一条；退出类调用不返回</td></tr><tr><td>fault 故障</td><td>当前指令触发，可修复</td><td>缺页</td><td>修复后重试当前指令；否则终止</td></tr><tr><td>abort 终止类异常</td><td>不可恢复</td><td>硬件一致性错误</td><td>不恢复应用执行</td></tr></tbody></table></div><p>为什么缺页不能直接跳到下一条？假设 <code>movq (%rdi),%rax</code> 还没有取得数据就缺页，跳过它会让后续指令使用旧的 %rax。修复页表后重新执行同一条指令，才能让“程序看起来只执行了一次成功的 load”成立。相反，write 系统调用已经完成服务，返回时继续下一条，才不会重复写出内容。</p><figure><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 285" role="img" aria-labelledby="exception-paths-title" style="min-width:680px;width:100%;height:auto"><title id="exception-paths-title">同步异常处理后的重试、继续与终止路径</title><defs><marker id="exception-paths-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8 Z" fill="#7b8f85"/></marker></defs><rect x="20" y="100" width="185" height="65" rx="4" fill="#fffefa" stroke="#285a4e" stroke-width="1.3"/><text x="112.5" y="137.5" style="text-anchor:middle;font-size:16px">当前指令 Icurr</text><rect x="300" y="100" width="175" height="65" rx="4" fill="#fffefa" stroke="#285a4e" stroke-width="1.3"/><text x="387.5" y="137.5" style="text-anchor:middle;font-size:16px">内核异常处理</text><rect x="565" y="100" width="175" height="65" rx="4" fill="#fffefa" stroke="#285a4e" stroke-width="1.3"/><text x="652.5" y="137.5" style="text-anchor:middle;font-size:16px">下一条 Inext</text><path d="M205 132 H300" fill="none" stroke="#7b8f85" stroke-width="1.6" marker-end="url(#exception-paths-arrow)"/><text x="252" y="115" style="text-anchor:middle;font-size:14px">触发事件</text><path d="M387 100 V40 H112 V100" fill="none" stroke="#7b8f85" stroke-width="1.6" marker-end="url(#exception-paths-arrow)"/><text x="280" y="28" style="text-anchor:middle;font-size:14px">fault 修复成功：重试当前指令</text><path d="M475 132 H565" fill="none" stroke="#7b8f85" stroke-width="1.6" marker-end="url(#exception-paths-arrow)"/><text x="572" y="85" style="text-anchor:middle;font-size:14px">trap 完成服务后继续</text><path d="M387 165 V230 H565" fill="none" stroke="#7b8f85" stroke-width="1.6" marker-end="url(#exception-paths-arrow)"/><rect x="565" y="205" width="175" height="50" rx="4" fill="#fffefa" stroke="#285a4e" stroke-width="1.3"/><text x="652.5" y="235.0" style="text-anchor:middle;font-size:16px">终止应用</text><text x="480" y="210" style="text-anchor:middle;font-size:14px">故障无法修复 / abort</text></svg></div><figcaption>同步异常的三条控制路径：可修复 fault 回到当前指令，返回的 trap 继续下一条，不可恢复情形终止应用。异步中断恢复中断边界后的执行，见上表；退出类系统调用不返回。箭头表示控制转移，是否切换进程由调度另行决定。</figcaption></figure><h3 id="ss8-1-3">8.1.3 · 区分 ISA 故障、内核策略和系统调用 ABI<span class="english-title" lang="en">Exceptions in Linux/x86-64 Systems</span></h3><p>x86-64 的除法错误向量是 0、一般保护是 13、缺页是 14、机器检查是 18。内核如何把它们变成用户可见结果属于另一层：例如整数除零也可能表现为 SIGFPE，名称中的“浮点”不代表只发生于浮点。写只读页或访问未映射地址常由页故障路径最终生成 SIGSEGV；原书把这类访问笼统列入一般保护故障，不能据 SIGSEGV 倒推出一定发生向量 13。</p><p>Linux x86-64 原始 syscall 用 %rax 放调用号，前六个参数依次放 %rdi、%rsi、%rdx、%r10、%r8、%r9，返回值在 %rax，%rcx 和 %r11 被破坏。它与普通 System V 函数调用的第四参数寄存器 %rcx 不同。write=1、exit=60 是这个 ABI 的编号；macOS ARM64 不使用这套编号。libc 包装器通常把原始负错误码转换成返回 −1 并设置 errno。</p><pre><code>/* Linux x86-64 原始入口示意；不是本机可移植 C 接口。 */
+</style><style>
+/* RN-001 shared teaching components. Inlined in every controlled reading page. */
+.rn-components {
+  --rn-space: 1rem;
+  --rn-label-size: .95rem;
+  --rn-title-size: 1.05rem;
+}
+.rn-components :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
+  min-width: 0;
+  scroll-margin-top: 24px;
+}
+.rn-components .rn-statement {
+  margin: 1.5rem 0;
+  padding: 1rem 1.15rem;
+  border: 0;
+  border-left: 3px solid var(--green);
+  background: var(--tint);
+}
+.rn-components :is(.rn-statement, .rn-example) > :is(h3, h4, .rn-title) {
+  margin: 0 0 .8rem;
+  padding: 0;
+  border: 0;
+  font-size: var(--rn-title-size);
+  line-height: 1.7;
+  font-weight: 650;
+  color: var(--green);
+}
+.rn-components .rn-statement > .statement-body {
+  padding: 0;
+  border: 0;
+}
+.rn-components .rn-statement .original-excerpt {
+  margin: .5rem 0 1rem;
+  padding: .1rem 0 .1rem .85rem;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-statement .statement-label {
+  margin: .8rem 0 .3rem;
+  color: var(--sub);
+  font-size: .85rem;
+  font-weight: 600;
+}
+.rn-components .rn-example {
+  margin: 1.75rem 0;
+  padding: 1rem 0 .25rem;
+  border: 0;
+  border-top: 1px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-proof {
+  margin: 1.1rem 0 1.75rem;
+  padding: 0 0 .2rem 1rem;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-proof > summary {
+  cursor: pointer;
+  margin: 0;
+  padding: .35rem 0;
+  color: var(--green);
+  font-size: var(--rn-label-size);
+  font-weight: 650;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .rn-proof > .rn-proof-body { margin-top: .7rem; }
+.rn-components .rn-proof-body p { margin: .85rem 0; }
+.rn-components .rn-proof-body > :first-child:not(.rn-example):not(.rn-statement):not(.rn-proof) {
+  margin-top: 0;
+}
+.rn-components :is(.rn-proof-body, .rn-statement, .rn-example) > :last-child:not(.rn-example):not(.rn-statement):not(.rn-proof) {
+  margin-bottom: 0;
+}
+.rn-components .exercise {
+  margin: 1rem 0;
+  padding: 0;
+  border: 1px solid var(--rule);
+  background: transparent;
+}
+.rn-components .exercise > summary {
+  margin: 0;
+  padding: .85rem 1rem;
+  color: var(--green);
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .exercise[open] > summary {
+  border-bottom: 1px solid var(--rule);
+  background: var(--tint);
+}
+.rn-components .exercise > :is(.exercise-question, .answer) {
+  margin: 0;
+  padding: 1rem;
+  border: 0;
+  background: transparent;
+  min-width: 0;
+}
+.rn-components .exercise > .answer {
+  border-top: 1px solid var(--rule);
+}
+.rn-components .exercise :is(.exercise-question, .answer) > :first-child {
+  margin: 0 0 .75rem;
+  padding: 0;
+  border: 0;
+  color: var(--green);
+  font-size: var(--rn-label-size);
+  font-weight: 650;
+  line-height: 1.75;
+}
+.rn-components .exercise :is(.exercise-question, .answer) > :first-child > strong { font-weight: inherit; }
+.rn-components :is(.exercise-question, .answer) > :last-child { margin-bottom: 0; }
+.rn-components :is(.rn-statement, .rn-example, .rn-proof, .exercise) .source {
+  margin-top: 1rem;
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components .exercise > .source {
+  margin: 0;
+  padding: 0 1rem 1rem;
+}
+.rn-components .rn-statement .source-status {
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components :is(.derivation-steps, .proof-steps, .solution-steps) {
+  margin: .75rem 0 1rem;
+  padding-left: 1.5rem;
+}
+.rn-components :is(.derivation-steps, .proof-steps, .solution-steps) > li {
+  padding-left: .15rem;
+  margin: .9rem 0;
+}
+.rn-components :is(.rn-proof, .exercise) > summary:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+.rn-components :is(.rn-proof-body, .rn-example, .rn-statement, .exercise-question, .answer) {
+  overflow-wrap: break-word;
+}
+@media (max-width: 1100px) {
+  .rn-components:not(.portal-reader):not(.sample-fragment) :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
+    scroll-margin-top: 90px;
+  }
+}
+@media (max-width: 640px) {
+  .rn-components .rn-statement { padding: .85rem .8rem; }
+  .rn-components .rn-proof { padding-left: .75rem; }
+  .rn-components .exercise > :is(summary, .exercise-question, .answer) {
+    padding: .85rem .8rem;
+  }
+  .rn-components .exercise > .source { padding: 0 .8rem .85rem; }
+}
+@media print {
+  .rn-components .rn-proof::details-content { content-visibility: visible !important; }
+}
+
+</style>
+</head><body class="rn-components"><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="章节目录"><details class="toc-panel" id="toc-panel" open><summary>本章目录</summary><nav class="chapter-toc" id="chapter-toc" aria-label="本章目录"><a class="toc-home" href="book_overview.html">全书地图</a><a class="toc-home" href="preface.html">序言</a><ul><li><a href="#s8-1">8.1 · 先确定事件、入口和返回位置</a></li><li><a href="#s8-2">8.2 · 用上下文维持独立执行的表象</a></li><li><a href="#s8-3">8.3 · 让返回值决定后续路径</a></li><li><a href="#s8-4">8.4 · 从复制进程到运行另一份程序</a></li><li><a href="#s8-5">8.5 · 把通知与可靠状态分开</a></li><li><a href="#s8-6">8.6 · 绕过返回链也会绕过清理</a></li><li><a href="#s8-7">8.7 · 用工具核对状态，不用样本代替证明</a></li><li><a href="#s8-8">8.8 · 把控制流与状态约束一起读</a></li><li><a href="#models">可运行机制与实现</a></li><li><a href="#experiment">进程与信号实验</a></li><li><a href="#io-model">I/O 与命令执行</a></li><li><a href="#shell-model">作业控制 shell</a></li><li><a href="#self-check">原创自测</a></li><li><a href="#exercises">本版原书习题</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">CS:APP · 第三版 GLOBAL EDITION · 中文伴读</p><h1>第 8 章：异常控制流</h1><p class="intro">当事件打断指令、孩子先于父进程结束、信号落在条件检查与睡眠之间，靠什么让程序仍然正确？从异常返回位置走到进程生命周期，再把信号通知与可靠状态接起来。</p><p class="source"><a class="source-pdf" href="../csapp.pdf#page=758">来源：印刷 757—835 页 / PDF 758—836 页</a></p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="book_overview.html#program-guide">程序说明</a><a href="chapter07_linking.html">← 第 7 章</a><a href="chapter09_virtual_memory.html">第 9 章 →</a></p></header><details class="statement-index" id="source-index"><summary>本页原书摘录 · 5 处</summary><ul class="statement-links"><li><a href="#classic-8-exception">异常由事件触发</a></li><li><a href="#classic-8-process">进程的经典定义</a></li><li><a href="#classic-8-errors">先查返回值</a></li><li><a href="#classic-8-pending">通知表达至少一次</a></li><li><a href="#classic-8-nonlocal">跳向仍在执行的调用环境</a></li></ul></details><section id="s8-1"><h2>8.1 · 先确定事件、入口和返回位置<span class="english-title" lang="en">Exceptions</span></h2><p class="source"><a class="source-pdf" href="../csapp.pdf#page=760">来源：印刷 759—767 页 / PDF 760—768 页</a></p><div class="source-statement rn-statement" id="classic-8-exception"><h3 class="rn-title">原书摘录 · 异常由事件触发</h3><blockquote class="original-excerpt" lang="en"><p>An exception is an abrupt change in the control flow in response to some change in the processor’s state.</p></blockquote><p class="statement-body"><strong>中文释义：</strong>处理器状态中的事件使控制流突然改变。这里的 exception 包含硬件中断，不等同于 C++ 的 throw。</p><p class="source"><a class="source-pdf" href="../csapp.pdf#page=760">来源：印刷 759 页 / PDF 760 页</a></p></div><p>前几章把程序看作按跳转、调用和返回前进的指令序列。现在设想一条读内存指令遇到不在物理内存中的页：它不能靠普通分支预先检查所有可能事件。硬件必须把控制交给内核，内核补齐页，再让原指令重试。这个“离开—处理—恢复”的路径，就是本章和下一章的连接点。</p><h3 id="ss8-1-1">8.1.1 · 硬件入口与软件处理如何分工<span class="english-title" lang="en">Exception Handling</span></h3><p>启动时内核建立异常入口，硬件检测事件并取得异常号，保存足以恢复执行的状态，切换到受保护的入口。处理程序识别原因、改变内核状态，再通过专门的异常返回机制恢复程序。保存的不只是普通函数调用的返回地址，还包括状态寄存器、权限及必要的栈信息；来自用户态的异常不能信任用户自己提供的内核栈。</p><p>原书图 8.2—8.3 用“基址 + 异常号 × 8”说明地址表索引，是概念模型。真实 x86-64 IDT 使用描述符，syscall 还有专用的入口寄存器机制，不能把每种硬件入口都实现成一本书画的普通函数指针数组。</p><h3 id="ss8-1-2">8.1.2 · 最关键的问题是返回哪条指令<span class="english-title" lang="en">Classes of Exceptions</span></h3><div class="scroll"><table><thead><tr><th>类别</th><th>触发关系</th><th>例子</th><th>处理后控制流</th></tr></thead><tbody><tr><td>interrupt 中断</td><td>异步于当前指令</td><td>设备完成、时钟</td><td>恢复中断边界后的指令</td></tr><tr><td>trap 陷阱</td><td>指令有意触发</td><td>系统调用</td><td>通常下一条；退出类调用不返回</td></tr><tr><td>fault 故障</td><td>当前指令触发，可修复</td><td>缺页</td><td>修复后重试当前指令；否则终止</td></tr><tr><td>abort 终止类异常</td><td>不可恢复</td><td>硬件一致性错误</td><td>不恢复应用执行</td></tr></tbody></table></div><p>为什么缺页不能直接跳到下一条？假设 <code>movq (%rdi),%rax</code> 还没有取得数据就缺页，跳过它会让后续指令使用旧的 %rax。修复页表后重新执行同一条指令，才能让“程序看起来只执行了一次成功的 load”成立。相反，write 系统调用已经完成服务，返回时继续下一条，才不会重复写出内容。</p><figure><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 285" role="img" aria-labelledby="exception-paths-title" style="min-width:680px;width:100%;height:auto"><title id="exception-paths-title">同步异常处理后的重试、继续与终止路径</title><defs><marker id="exception-paths-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8 Z" fill="#7b8f85"/></marker></defs><rect x="20" y="100" width="185" height="65" rx="4" fill="#fffefa" stroke="#285a4e" stroke-width="1.3"/><text x="112.5" y="137.5" style="text-anchor:middle;font-size:16px">当前指令 Icurr</text><rect x="300" y="100" width="175" height="65" rx="4" fill="#fffefa" stroke="#285a4e" stroke-width="1.3"/><text x="387.5" y="137.5" style="text-anchor:middle;font-size:16px">内核异常处理</text><rect x="565" y="100" width="175" height="65" rx="4" fill="#fffefa" stroke="#285a4e" stroke-width="1.3"/><text x="652.5" y="137.5" style="text-anchor:middle;font-size:16px">下一条 Inext</text><path d="M205 132 H300" fill="none" stroke="#7b8f85" stroke-width="1.6" marker-end="url(#exception-paths-arrow)"/><text x="252" y="115" style="text-anchor:middle;font-size:14px">触发事件</text><path d="M387 100 V40 H112 V100" fill="none" stroke="#7b8f85" stroke-width="1.6" marker-end="url(#exception-paths-arrow)"/><text x="280" y="28" style="text-anchor:middle;font-size:14px">fault 修复成功：重试当前指令</text><path d="M475 132 H565" fill="none" stroke="#7b8f85" stroke-width="1.6" marker-end="url(#exception-paths-arrow)"/><text x="572" y="85" style="text-anchor:middle;font-size:14px">trap 完成服务后继续</text><path d="M387 165 V230 H565" fill="none" stroke="#7b8f85" stroke-width="1.6" marker-end="url(#exception-paths-arrow)"/><rect x="565" y="205" width="175" height="50" rx="4" fill="#fffefa" stroke="#285a4e" stroke-width="1.3"/><text x="652.5" y="235.0" style="text-anchor:middle;font-size:16px">终止应用</text><text x="480" y="210" style="text-anchor:middle;font-size:14px">故障无法修复 / abort</text></svg></div><figcaption>同步异常的三条控制路径：可修复 fault 回到当前指令，返回的 trap 继续下一条，不可恢复情形终止应用。异步中断恢复中断边界后的执行，见上表；退出类系统调用不返回。箭头表示控制转移，是否切换进程由调度另行决定。</figcaption></figure><h3 id="ss8-1-3">8.1.3 · 区分 ISA 故障、内核策略和系统调用 ABI<span class="english-title" lang="en">Exceptions in Linux/x86-64 Systems</span></h3><p>x86-64 的除法错误向量是 0、一般保护是 13、缺页是 14、机器检查是 18。内核如何把它们变成用户可见结果属于另一层：例如整数除零也可能表现为 SIGFPE，名称中的“浮点”不代表只发生于浮点。写只读页或访问未映射地址常由页故障路径最终生成 SIGSEGV；原书把这类访问笼统列入一般保护故障，不能据 SIGSEGV 倒推出一定发生向量 13。</p><p>Linux x86-64 原始 syscall 用 %rax 放调用号，前六个参数依次放 %rdi、%rsi、%rdx、%r10、%r8、%r9，返回值在 %rax，%rcx 和 %r11 被破坏。它与普通 System V 函数调用的第四参数寄存器 %rcx 不同。write=1、exit=60 是这个 ABI 的编号；macOS ARM64 不使用这套编号。libc 包装器通常把原始负错误码转换成返回 −1 并设置 errno。</p><pre><code>/* Linux x86-64 原始入口示意；不是本机可移植 C 接口。 */
 movq $1, %rax      # write
 movq $1, %rdi      # stdout
 leaq message(%rip), %rsi
 movq $13, %rdx     # &quot;hello, world\n&quot; 共 13 字节
 syscall
-</code></pre><p>原书的字符串 hello, world 后接换行，共 13 字节，不含结尾 NUL。图 8.11 用 string_end−string 求实际长度，避免手工计数；write 不会自行查找 NUL。</p><details class="reading-notes" id="notes-s8-1" data-notes-for="s8-1"><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">推理</span><h3>重试并非重复完成</h3><p>缺页指令尚未完成目标内存访问；修复后重试保持程序语义。</p></div><div class="annotation-card"><span class="annotation-kind">边界</span><h3>异常进入不等于调度切换</h3><p>一次系统调用可以在同一进程上下文完成后直接返回，也可以阻塞并切换。</p></div></div></details></section><section id="s8-2"><h2>8.2 · 用上下文维持独立执行的表象<span class="english-title" lang="en">Processes</span></h2><p class="source"><a class="source-pdf" href="../csapp.pdf#page=769">来源：印刷 768—773 页 / PDF 769—774 页</a></p><div class="source-statement" id="classic-8-process"><p class="statement-label">原书摘录 · 进程的经典定义</p><blockquote class="original-excerpt" lang="en"><p>The classic definition of a process is an instance of a program in execution.</p></blockquote><p class="statement-body"><strong>中文释义：</strong>进程是程序的一次执行实例；可执行文件是程序，执行中的上下文才是进程。</p><p class="source"><a class="source-pdf" href="../csapp.pdf#page=769">来源：印刷 768 页 / PDF 769 页</a></p></div><h3 id="ss8-2-1">8.2.1 · 把自己的 PC 序列从全机执行中抽出来<span class="english-title" lang="en">Logical Control Flow</span></h3><p>单核依次执行 A 的一段、B 的一段，再恢复 A。A 能继续，是因为内核保存了寄存器、PC、栈等上下文，恢复时这些值接上原来的序列。A 的逻辑控制流可以忽略“中间 B 做了什么”，但墙上时钟会体现 A 被抢占的时间。此抽象并不承诺指令耗时固定。</p><h3 id="ss8-2-2">8.2.2 · 时间重叠是并发，同时用核才是并行<span class="english-title" lang="en">Concurrent Flows</span></h3><p>A 在 1—3 运行、B 在 2—5 运行、C 在 4—6 运行：A/B 与 B/C 的生命周期重叠，A/C 不重叠。单核交替执行也满足并发；只有不同执行资源上同时运行才叫并行。由此也能看出“与同一个进程并发”不是传递关系。区间端点仅相接时，不把零长度交点视为一段重叠执行。</p><h3 id="ss8-2-3">8.2.3 · 相同虚拟地址不必指向同一字节<span class="english-title" lang="en">Private Address Space</span></h3><p>父进程 fork 后的 x 和子进程的 x 可以有相同虚拟地址及初值，却属于两个私有地址空间。操作系统可用写时复制延迟真实拷贝，但对程序暴露的私有写入语义不变。显式共享映射和共享的内核打开文件描述是例外，不能从“地址空间私有”推出所有资源都隔离。</p><p>图 8.13 的 0x400000 是书中非 PIE 可执行文件布局实例；启用 PIE/ASLR 后代码起址可变。图示 2<sup>48</sup> 和标注 %esp 也不能当作所有 x86-64 进程的固定上界与栈寄存器；此处讨论 64 位栈时应看 %rsp。具体地址与隔离策略由 ABI 和当前内核实现决定。</p><h3 id="ss8-2-4">8.2.4 · 权限限制使地址空间承诺可信<span class="english-title" lang="en">User and Kernel Modes</span></h3><p>普通应用不能改页表、任意停止处理器或直接读内核敏感状态。系统调用通过预先受控的入口进入内核，内核校验参数后执行服务；并不是应用把一个普通变量置为“内核模式”。Linux 的 /proc 导出的是内核主动提供的接口，也不能据此任意绕过权限。</p><h3 id="ss8-2-5">8.2.5 · 先换执行模式，再可能换进程<span class="english-title" lang="en">Context Switches</span></h3><div class="scroll"><table><thead><tr><th>时刻</th><th>CPU 正在替谁做什么</th><th>发生的改变</th></tr></thead><tbody><tr><td>t0</td><td>A 用户代码调用 read</td><td>A → A 的内核路径</td></tr><tr><td>t1</td><td>A 的数据尚未就绪</td><td>保存 A；恢复 B 的上下文</td></tr><tr><td>t2</td><td>B 用户代码运行</td><td>同一物理 CPU 执行 B 的逻辑流</td></tr><tr><td>t3</td><td>设备完成，进入内核</td><td>更新等待状态，A 变为可运行</td></tr><tr><td>t4</td><td>调度选择 A</td><td>恢复 A，从 read 返回继续</td></tr></tbody></table></div><p>设备完成不意味着 CPU 必须立刻恢复 A；调度器还要决定何时运行它。原书 p773 有“内核代表 A 执行用户态指令”的措辞，准确的分层是应用代码在用户态执行、内核代码在内核态代表当前进程执行。系统调用期间仍然有当前进程，不能另造一个“所有系统调用共享的内核进程”来解释。</p><details class="reading-notes" id="notes-s8-2" data-notes-for="s8-2"><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">概念</span><h3>并发不要求两颗核</h3><p>判断生命周期是否重叠，再判断是否有真正同时执行的资源。</p></div><div class="annotation-card"><span class="annotation-kind">连接</span><h3>fork 的私有内存与共享文件</h3><p>局部变量写入不跨进程可见；继承的描述符却可指向同一个打开文件描述。</p></div></div></details></section><section id="s8-3"><h2>8.3 · 让返回值决定后续路径<span class="english-title" lang="en">System Call Error Handling</span></h2><p class="source"><a class="source-pdf" href="../csapp.pdf#page=774">来源：印刷 773—774 页 / PDF 774—775 页</a></p><p>系统级编程的难点常在失败分支。fork 可能因资源限制返回 −1，此时没有子进程；把 −1 当“父进程路径”继续 wait 或 kill，会改变程序含义。waitpid 返回 −1 且 errno=EINTR 表示等待被打断，通常应继续等同一个目标；errno=ECHILD 则表示不存在可等待的匹配子进程，不能一律重试。</p><div class="source-statement" id="classic-8-errors"><p class="statement-label">原书摘录 · 先查返回值</p><blockquote class="original-excerpt" lang="en"><p>Programmers should always check for errors, but unfortunately, many skip error checking because it bloats the code and makes it harder to read.</p></blockquote><p class="statement-body"><strong>中文释义：</strong>应检查系统接口的失败结果；封装应帮助保持可读性，而不是掩盖失败。</p><p class="source"><a class="source-pdf" href="../csapp.pdf#page=774">来源：印刷 773 页 / PDF 774 页</a></p></div><pre><code>pid_t r;
+</code></pre><p>原书的字符串 hello, world 后接换行，共 13 字节，不含结尾 NUL。图 8.11 用 string_end−string 求实际长度，避免手工计数；write 不会自行查找 NUL。</p><details class="reading-notes" id="notes-s8-1" data-notes-for="s8-1"><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">推理</span><h3>重试并非重复完成</h3><p>缺页指令尚未完成目标内存访问；修复后重试保持程序语义。</p></div><div class="annotation-card"><span class="annotation-kind">边界</span><h3>异常进入不等于调度切换</h3><p>一次系统调用可以在同一进程上下文完成后直接返回，也可以阻塞并切换。</p></div></div></details></section><section id="s8-2"><h2>8.2 · 用上下文维持独立执行的表象<span class="english-title" lang="en">Processes</span></h2><p class="source"><a class="source-pdf" href="../csapp.pdf#page=769">来源：印刷 768—773 页 / PDF 769—774 页</a></p><div class="source-statement rn-statement" id="classic-8-process"><h3 class="rn-title">原书摘录 · 进程的经典定义</h3><blockquote class="original-excerpt" lang="en"><p>The classic definition of a process is an instance of a program in execution.</p></blockquote><p class="statement-body"><strong>中文释义：</strong>进程是程序的一次执行实例；可执行文件是程序，执行中的上下文才是进程。</p><p class="source"><a class="source-pdf" href="../csapp.pdf#page=769">来源：印刷 768 页 / PDF 769 页</a></p></div><h3 id="ss8-2-1">8.2.1 · 把自己的 PC 序列从全机执行中抽出来<span class="english-title" lang="en">Logical Control Flow</span></h3><p>单核依次执行 A 的一段、B 的一段，再恢复 A。A 能继续，是因为内核保存了寄存器、PC、栈等上下文，恢复时这些值接上原来的序列。A 的逻辑控制流可以忽略“中间 B 做了什么”，但墙上时钟会体现 A 被抢占的时间。此抽象并不承诺指令耗时固定。</p><h3 id="ss8-2-2">8.2.2 · 时间重叠是并发，同时用核才是并行<span class="english-title" lang="en">Concurrent Flows</span></h3><p>A 在 1—3 运行、B 在 2—5 运行、C 在 4—6 运行：A/B 与 B/C 的生命周期重叠，A/C 不重叠。单核交替执行也满足并发；只有不同执行资源上同时运行才叫并行。由此也能看出“与同一个进程并发”不是传递关系。区间端点仅相接时，不把零长度交点视为一段重叠执行。</p><h3 id="ss8-2-3">8.2.3 · 相同虚拟地址不必指向同一字节<span class="english-title" lang="en">Private Address Space</span></h3><p>父进程 fork 后的 x 和子进程的 x 可以有相同虚拟地址及初值，却属于两个私有地址空间。操作系统可用写时复制延迟真实拷贝，但对程序暴露的私有写入语义不变。显式共享映射和共享的内核打开文件描述是例外，不能从“地址空间私有”推出所有资源都隔离。</p><p>图 8.13 的 0x400000 是书中非 PIE 可执行文件布局实例；启用 PIE/ASLR 后代码起址可变。图示 2<sup>48</sup> 和标注 %esp 也不能当作所有 x86-64 进程的固定上界与栈寄存器；此处讨论 64 位栈时应看 %rsp。具体地址与隔离策略由 ABI 和当前内核实现决定。</p><h3 id="ss8-2-4">8.2.4 · 权限限制使地址空间承诺可信<span class="english-title" lang="en">User and Kernel Modes</span></h3><p>普通应用不能改页表、任意停止处理器或直接读内核敏感状态。系统调用通过预先受控的入口进入内核，内核校验参数后执行服务；并不是应用把一个普通变量置为“内核模式”。Linux 的 /proc 导出的是内核主动提供的接口，也不能据此任意绕过权限。</p><h3 id="ss8-2-5">8.2.5 · 先换执行模式，再可能换进程<span class="english-title" lang="en">Context Switches</span></h3><div class="scroll"><table><thead><tr><th>时刻</th><th>CPU 正在替谁做什么</th><th>发生的改变</th></tr></thead><tbody><tr><td>t0</td><td>A 用户代码调用 read</td><td>A → A 的内核路径</td></tr><tr><td>t1</td><td>A 的数据尚未就绪</td><td>保存 A；恢复 B 的上下文</td></tr><tr><td>t2</td><td>B 用户代码运行</td><td>同一物理 CPU 执行 B 的逻辑流</td></tr><tr><td>t3</td><td>设备完成，进入内核</td><td>更新等待状态，A 变为可运行</td></tr><tr><td>t4</td><td>调度选择 A</td><td>恢复 A，从 read 返回继续</td></tr></tbody></table></div><p>设备完成不意味着 CPU 必须立刻恢复 A；调度器还要决定何时运行它。原书 p773 有“内核代表 A 执行用户态指令”的措辞，准确的分层是应用代码在用户态执行、内核代码在内核态代表当前进程执行。系统调用期间仍然有当前进程，不能另造一个“所有系统调用共享的内核进程”来解释。</p><details class="reading-notes" id="notes-s8-2" data-notes-for="s8-2"><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">概念</span><h3>并发不要求两颗核</h3><p>判断生命周期是否重叠，再判断是否有真正同时执行的资源。</p></div><div class="annotation-card"><span class="annotation-kind">连接</span><h3>fork 的私有内存与共享文件</h3><p>局部变量写入不跨进程可见；继承的描述符却可指向同一个打开文件描述。</p></div></div></details></section><section id="s8-3"><h2>8.3 · 让返回值决定后续路径<span class="english-title" lang="en">System Call Error Handling</span></h2><p class="source"><a class="source-pdf" href="../csapp.pdf#page=774">来源：印刷 773—774 页 / PDF 774—775 页</a></p><p>系统级编程的难点常在失败分支。fork 可能因资源限制返回 −1，此时没有子进程；把 −1 当“父进程路径”继续 wait 或 kill，会改变程序含义。waitpid 返回 −1 且 errno=EINTR 表示等待被打断，通常应继续等同一个目标；errno=ECHILD 则表示不存在可等待的匹配子进程，不能一律重试。</p><div class="source-statement rn-statement" id="classic-8-errors"><h3 class="rn-title">原书摘录 · 先查返回值</h3><blockquote class="original-excerpt" lang="en"><p>Programmers should always check for errors, but unfortunately, many skip error checking because it bloats the code and makes it harder to read.</p></blockquote><p class="statement-body"><strong>中文释义：</strong>应检查系统接口的失败结果；封装应帮助保持可读性，而不是掩盖失败。</p><p class="source"><a class="source-pdf" href="../csapp.pdf#page=774">来源：印刷 773 页 / PDF 774 页</a></p></div><pre><code>pid_t r;
 int status;
 do {
     r = waitpid(child, &amp;status, 0);
@@ -234,7 +398,7 @@ char *const envp[] = {&quot;PATH=/usr/bin:/bin&quot;, NULL};
 execve(&quot;/bin/sh&quot;, argv, envp);
 /* 只有失败才到这里；在 fork 的子分支中不要返回 shell 主循环。 */
 _exit(127);
-</code></pre><p>execve 不会按 PATH 查找文件；需要搜索时才选择 execvp 一类接口。未设置 close-on-exec 的描述符可继续存在；已捕获信号的处理动作在 exec 后重置，信号掩码却会继承。getenv 返回 value 指针或 NULL；setenv 与现代 POSIX unsetenv 都以 0/−1 返回成功/失败，原书 p788 的 void unsetenv 是旧式原型。</p><h3 id="ss8-4-6">8.4.6 · shell 负责创建、登记、等待与回收<span class="english-title" lang="en">Using fork and execve to Run Programs</span></h3><p>shell 读一行，区分内建命令与可执行文件。内建 cd 一类操作必须影响 shell 自身；普通命令则 fork，在子进程 exec。父进程保留自己的命令循环，前台时等待，后台时继续读输入。先 fork 再 exec 也为子进程在装入前设置进程组、重定向描述符提供机会。</p><p>原书的第一版 shell 故意没有回收后台孩子，因此长期运行会积累僵尸。完整实现还要保证“登记作业”先于“回收后删除作业”，并把 Ctrl+C/ Ctrl+Z 转发给前台作业的整个进程组。本页 <a href="#shell-model">作业控制程序</a>采用题目给出的简化终端模型，并在退出时回收自己创建的作业。</p><details class="reading-notes" id="notes-s8-4" data-notes-for="s8-4"><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">推导</span><h3>用偏序代替猜运行顺序</h3><p>同一进程语句和 wait 的依赖构成有向边；合法输出是这些边允许的线性排列。</p></div><div class="annotation-card"><span class="annotation-kind">校注</span><h3>行数要交代缓冲条件</h3><p>终端换行会刷新行缓冲；重定向后全缓冲可能在后续 fork 中复制旧文本。</p></div></div></details></section><section id="s8-5"><h2>8.5 · 把通知与可靠状态分开<span class="english-title" lang="en">Signals</span></h2><p class="source"><a class="source-pdf" href="../csapp.pdf#page=793">来源：印刷 792—817 页 / PDF 793—818 页</a></p><p>信号把内核或别的进程检测到的事件带到用户级。它与异常处理的关系是“异常先进入内核，内核可能决定通知用户进程”，不是硬件直接执行用户提供的 handler。SIGCHLD 尤其适合通知“孩子状态值得检查了”，但不携带“这次恰好死了几个孩子”的可靠计数。</p><h3 id="ss8-5-1">8.5.1 · 发送、待处理、接收是三个阶段<span class="english-title" lang="en">Signal Terminology</span></h3><p>发送把通知记入目标的待处理状态；接收才使进程执行默认动作或处理程序。blocked 表示暂时不能接收的类型，pending 表示已经到达但尚未处理的类型。书中把普通信号画成位向量：<code>ready = pending &amp; ~blocked</code>。信号被阻塞仍可变为 pending，解除阻塞也不是“再发送一次”。</p><div class="source-statement" id="classic-8-pending"><p class="statement-label">原书摘录 · 通知表达至少一次</p><blockquote class="original-excerpt" lang="en"><p>The key idea is that the existence of a pending signal merely indicates that at least one signal has arrived.</p></blockquote><p class="statement-body"><strong>中文释义：</strong>一个待处理普通信号只说明至少发生过一次，不能据此恢复次数。</p><p class="source"><a class="source-pdf" href="../csapp.pdf#page=807">来源：印刷 806 页 / PDF 807 页</a></p></div><p>本章的单个 pending 位模型适用于所讨论的普通信号；实时信号及排队接口需要另论。即便在普通信号平台上观察到五次发送被合并成一次处理，也只是该实现与这段受控时序的观察。健壮程序从 waitpid 或自己的队列读取工作，而不是依赖“发送数 = handler 次数”。</p>
+</code></pre><p>execve 不会按 PATH 查找文件；需要搜索时才选择 execvp 一类接口。未设置 close-on-exec 的描述符可继续存在；已捕获信号的处理动作在 exec 后重置，信号掩码却会继承。getenv 返回 value 指针或 NULL；setenv 与现代 POSIX unsetenv 都以 0/−1 返回成功/失败，原书 p788 的 void unsetenv 是旧式原型。</p><h3 id="ss8-4-6">8.4.6 · shell 负责创建、登记、等待与回收<span class="english-title" lang="en">Using fork and execve to Run Programs</span></h3><p>shell 读一行，区分内建命令与可执行文件。内建 cd 一类操作必须影响 shell 自身；普通命令则 fork，在子进程 exec。父进程保留自己的命令循环，前台时等待，后台时继续读输入。先 fork 再 exec 也为子进程在装入前设置进程组、重定向描述符提供机会。</p><p>原书的第一版 shell 故意没有回收后台孩子，因此长期运行会积累僵尸。完整实现还要保证“登记作业”先于“回收后删除作业”，并把 Ctrl+C/ Ctrl+Z 转发给前台作业的整个进程组。本页 <a href="#shell-model">作业控制程序</a>采用题目给出的简化终端模型，并在退出时回收自己创建的作业。</p><details class="reading-notes" id="notes-s8-4" data-notes-for="s8-4"><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">推导</span><h3>用偏序代替猜运行顺序</h3><p>同一进程语句和 wait 的依赖构成有向边；合法输出是这些边允许的线性排列。</p></div><div class="annotation-card"><span class="annotation-kind">校注</span><h3>行数要交代缓冲条件</h3><p>终端换行会刷新行缓冲；重定向后全缓冲可能在后续 fork 中复制旧文本。</p></div></div></details></section><section id="s8-5"><h2>8.5 · 把通知与可靠状态分开<span class="english-title" lang="en">Signals</span></h2><p class="source"><a class="source-pdf" href="../csapp.pdf#page=793">来源：印刷 792—817 页 / PDF 793—818 页</a></p><p>信号把内核或别的进程检测到的事件带到用户级。它与异常处理的关系是“异常先进入内核，内核可能决定通知用户进程”，不是硬件直接执行用户提供的 handler。SIGCHLD 尤其适合通知“孩子状态值得检查了”，但不携带“这次恰好死了几个孩子”的可靠计数。</p><h3 id="ss8-5-1">8.5.1 · 发送、待处理、接收是三个阶段<span class="english-title" lang="en">Signal Terminology</span></h3><p>发送把通知记入目标的待处理状态；接收才使进程执行默认动作或处理程序。blocked 表示暂时不能接收的类型，pending 表示已经到达但尚未处理的类型。书中把普通信号画成位向量：<code>ready = pending &amp; ~blocked</code>。信号被阻塞仍可变为 pending，解除阻塞也不是“再发送一次”。</p><div class="source-statement rn-statement" id="classic-8-pending"><h3 class="rn-title">原书摘录 · 通知表达至少一次</h3><blockquote class="original-excerpt" lang="en"><p>The key idea is that the existence of a pending signal merely indicates that at least one signal has arrived.</p></blockquote><p class="statement-body"><strong>中文释义：</strong>一个待处理普通信号只说明至少发生过一次，不能据此恢复次数。</p><p class="source"><a class="source-pdf" href="../csapp.pdf#page=807">来源：印刷 806 页 / PDF 807 页</a></p></div><p>本章的单个 pending 位模型适用于所讨论的普通信号；实时信号及排队接口需要另论。即便在普通信号平台上观察到五次发送被合并成一次处理，也只是该实现与这段受控时序的观察。健壮程序从 waitpid 或自己的队列读取工作，而不是依赖“发送数 = handler 次数”。</p>
 <div class="explanation" id="explain-s8-5"><p>pending 位可想成一张“有事待查”的便签：第一次到达把 0 改为 1，尚未取走时再来一次，便签仍只有一个 1；它没有空间记录来了两次。孩子的退出记录则分别保存在内核中，三个孩子就是三份可领取状态。因此一次 SIGCHLD 足以提醒主流程循环回收三个孩子，但仅把 handler 次数加一永远不能还原三个退出事件。</p></div>
 <h3 id="ss8-5-2">8.5.2 · 进程组才是一个作业的信号边界<span class="english-title" lang="en">Sending Signals</span></h3><p>每个进程属于一个进程组。fork 默认继承组，setpgid(0,0) 让自己成为新组的组长。kill(p,sig) 的 p&gt;0 针对一个 PID，p=0 针对调用者的组，p&lt;−1 针对组 −p；p=−1 有特别的广泛发送语义，不能概括成“组 1”。</p><p>一个前台管道可能有多个成员，Ctrl+C 要影响整个前台作业，所以 shell 不能只杀一个 PID。真实终端把键盘信号直接送给终端前台进程组；本章作业控制题采用 shell 收到后再转发的教学模型。alarm(secs) 则安排给自己发送 SIGALRM；同一进程的新 alarm 会替换旧计时，库函数不可随意占用调用者已有的计时器。</p><h3 id="ss8-5-3">8.5.3 · 默认动作与自定义动作不是同一层<span class="english-title" lang="en">Receiving Signals</span></h3><p>常见动作是终止、终止并可能生成 core、停止、忽略。SIGKILL 与 SIGSTOP 不能捕获、忽略或屏蔽。handler 在本进程的用户态运行，共享本进程全局变量；另一个未被阻塞的信号可以嵌套打断它。默认忽略 SIGCHLD 不表示不需要 wait；显式设置 SIG_IGN 或 SA_NOCLDWAIT 在 POSIX 语义下会改变僵尸处理，不应与默认动作混为一谈。</p><p>本页使用 sigaction 明确设置处理函数、处理期间额外掩码和标志。SA_RESTART 只对规定可重启的阻塞操作有效；sleep、sigsuspend 等仍有自己的中断契约，因此错误处理不能靠设置一个标志后全部省略。</p><h3 id="ss8-5-4">8.5.4 · 恢复旧掩码才能组合成可靠组件<span class="english-title" lang="en">Blocking and Unblocking Signals</span></h3><div class="scroll"><table><thead><tr><th>操作</th><th>集合变化</th><th>典型用途</th></tr></thead><tbody><tr><td>SIG_BLOCK</td><td>blocked ∪ set</td><td>进入临界区，加上要保护的类型</td></tr><tr><td>SIG_UNBLOCK</td><td>blocked − set</td><td>明确撤销这些类型的阻塞</td></tr><tr><td>SIG_SETMASK</td><td>blocked = set</td><td>恢复进入之前的完整状态</td></tr></tbody></table></div><p>临界区保存 prev，结束用 SIG_SETMASK 恢复 prev。如果简单 SIG_UNBLOCK，就可能意外解除调用者原本已经设置的屏蔽。fork 子进程继承掩码，所以 exec 前也要恢复。多线程程序里掩码是线程维度，应使用对应线程接口和更完整的信号分派设计；本章实验限定单线程。</p><h3 id="ss8-5-5">8.5.5 · 安全、完整、可移植要同时满足<span class="english-title" lang="en">Writing Signal Handlers</span></h3><p>最易推理的 handler 只写一个 <code>volatile sig_atomic_t</code> 标志。volatile 使异步改变对当前执行流可见，sig_atomic_t 保证单次访问的适当原子性；它们不把 <code>x++</code> 变成多线程原子操作，也不保护整个数据结构。一份链表若在“已更新前指针、未更新后指针”时被 handler 遍历，单个字段再原子也没有用。</p><p>printf、malloc、exit 等函数维护内部共享状态，若主程序正执行它们又被 handler 再入，可能死锁或破坏状态。处理程序中只调用明确异步信号安全的接口，简单输出可用 write，立即终止用 _exit。可能改 errno 的处理函数先存旧值再恢复；打印、分配和作业表修改尽量留给正常主流程。</p><pre><code>static volatile sig_atomic_t changed;
 static void on_child(int sig) {
@@ -257,13 +421,13 @@ while (!done)
 sigprocmask(SIG_SETMASK, &amp;old, NULL);
 </code></pre><p><code>old</code> 保存调用者原来的掩码；<code>waiting</code> 从 old 复制，再显式删除 SIGCHLD。即使调用者进来时已屏蔽 SIGCHLD，等待期间也能递交该通知，而调用者原先对其他信号的屏蔽保持不变。handler 返回后，恢复的是进入 sigsuspend 前的保护掩码，即 <code>old ∪ {SIGCHLD}</code>；因此检查 done 时仍受保护。循环结束后再恢复 old，把控制权和原来的信号环境一起还给调用者。</p><p>sigsuspend 原子地用参数<strong>替换</strong>当前掩码并挂起；待处理通知会在这个边界得到处理，handler 返回后恢复调用前掩码。循环仍必要，因为唤醒可能来自别的信号。原书 p817 的等价伪码把第一步写成 SIG_BLOCK，若原先已阻塞 SIGCHLD 就无法解除它，正确概念应是 SIG_SETMASK；三条独立调用也不具备 sigsuspend 的原子性。<a href="https://pubs.opengroup.org/onlinepubs/9799919799/functions/sigsuspend.html">POSIX 的 sigsuspend 定义</a>明确规定替换与恢复。</p>
 <div class="explanation" id="explain-wait-two-cases"><p>保护后只剩两类可行时序：如果孩子在父检查之前已退出，SIGCHLD 因被屏蔽而保持待处理，父进入 <code>sigsuspend</code> 的原子边界时就能接收它；如果孩子在父已经挂起后才退出，新信号会唤醒父。关键是不存在“已经允许递交、但还没开始可被唤醒的等待”这一空隙。handler 返回后重新检查条件，既处理无关信号，也让业务状态决定是否结束等待。</p></div>
-<details class="reading-notes" id="notes-s8-5" data-notes-for="s8-5"><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">不变量</span><h3>表里先有，处理后才删</h3><p>屏蔽从 fork 之前开始，登记结束后再允许 SIGCHLD 处理。</p></div><div class="annotation-card"><span class="annotation-kind">等待</span><h3>唤醒不是条件本身</h3><p>收到信号只表示值得重新检查；循环读取实际状态，避免漏工作和假完成。</p></div></div></details></section><section id="s8-6"><h2>8.6 · 绕过返回链也会绕过清理<span class="english-title" lang="en">Nonlocal Jumps</span></h2><p class="source"><a class="source-pdf" href="../csapp.pdf#page=818">来源：印刷 817—822 页 / PDF 818—823 页</a></p><div class="source-statement" id="classic-8-nonlocal"><p class="statement-label">原书摘录 · 跳向仍在执行的调用环境</p><blockquote class="original-excerpt" lang="en"><p>C provides a form of user-level exceptional control flow, called a nonlocal jump, that transfers control directly from one function to another currently executing function without having to go through the normal call-and-return sequence.</p></blockquote><p class="statement-body"><strong>中文释义：</strong>非局部跳转能跨过中间调用，回到尚未结束的较外层调用环境。</p><p class="source"><a class="source-pdf" href="../csapp.pdf#page=818">来源：印刷 817 页 / PDF 818 页</a></p></div><p>main 调 setjmp 保存环境，第一次返回 0，于是调用 outer，再由 outer 调 inner。inner 检测错误后 longjmp(env,2)，outer 和 inner 都不正常返回，执行直接恢复到原先 setjmp 的分支位置，这次观察到 2。longjmp 自身没有正常返回；若传 0，setjmp 一侧得到的是 1。它不是重新从 main 第一条指令运行，也不是倒转内存里所有修改。</p><pre><code>switch (setjmp(env)) {
+<details class="reading-notes" id="notes-s8-5" data-notes-for="s8-5"><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">不变量</span><h3>表里先有，处理后才删</h3><p>屏蔽从 fork 之前开始，登记结束后再允许 SIGCHLD 处理。</p></div><div class="annotation-card"><span class="annotation-kind">等待</span><h3>唤醒不是条件本身</h3><p>收到信号只表示值得重新检查；循环读取实际状态，避免漏工作和假完成。</p></div></div></details></section><section id="s8-6"><h2>8.6 · 绕过返回链也会绕过清理<span class="english-title" lang="en">Nonlocal Jumps</span></h2><p class="source"><a class="source-pdf" href="../csapp.pdf#page=818">来源：印刷 817—822 页 / PDF 818—823 页</a></p><div class="source-statement rn-statement" id="classic-8-nonlocal"><h3 class="rn-title">原书摘录 · 跳向仍在执行的调用环境</h3><blockquote class="original-excerpt" lang="en"><p>C provides a form of user-level exceptional control flow, called a nonlocal jump, that transfers control directly from one function to another currently executing function without having to go through the normal call-and-return sequence.</p></blockquote><p class="statement-body"><strong>中文释义：</strong>非局部跳转能跨过中间调用，回到尚未结束的较外层调用环境。</p><p class="source"><a class="source-pdf" href="../csapp.pdf#page=818">来源：印刷 817 页 / PDF 818 页</a></p></div><p>main 调 setjmp 保存环境，第一次返回 0，于是调用 outer，再由 outer 调 inner。inner 检测错误后 longjmp(env,2)，outer 和 inner 都不正常返回，执行直接恢复到原先 setjmp 的分支位置，这次观察到 2。longjmp 自身没有正常返回；若传 0，setjmp 一侧得到的是 1。它不是重新从 main 第一条指令运行，也不是倒转内存里所有修改。</p><pre><code>switch (setjmp(env)) {
 case 0: outer(); break;
 case 2: /* inner 使用 longjmp(env, 2) 到这里 */ break;
 default: /* 其他错误 */ break;
 }
 </code></pre><p>C 对 setjmp 的出现位置有特别限制；把它用于 switch 的控制表达式或指定的 if/循环条件形式是惯用安全写法，不要随意写成赋值子表达式。保存环境的函数已经返回后，jmp_buf 即使还在堆里也不能作为返回目标。发生跳转后，保存环境的函数中那些在 setjmp 后改变、且未声明 volatile 的自动局部变量值可能不确定；不要把它们当错误现场快照。</p><p>跨过的函数不会替你 close、free 或释放锁。C++ 异常的析构和栈展开具有额外语言规则，不能把 longjmp 当作同等资源管理工具。教学程序的跳转路径没有持有待释放资源，因此可以直观观察控制转移。生产接口更适合把错误和清理责任一起设计。</p><p>sigsetjmp(env,1) 额外保存当前信号掩码，siglongjmp 可恢复它；它<strong>不保存或恢复待处理信号队列</strong>，原书 p821 把 pending 与 blocked 都列入信号上下文并不准确。若从 handler 跳走，仍须考虑被打断的非安全函数是否留下内部状态：回到主循环再调用这些函数也未必安全。保存环境和安装处理函数的先后、掩码恢复以及可到达代码都须一起证明。<a href="https://pubs.opengroup.org/onlinepubs/9799919799/functions/sigsetjmp.html">POSIX 的 sigsetjmp 定义</a>限定保存对象为 calling environment 与可选 current signal mask。</p>
-<div class="explanation" id="explain-s8-6"><p>例如全局 <code>count</code> 原为 0，<code>inner</code> 先令它变为 1 再 <code>longjmp</code>，回到保存点后 count 仍是 1。保存的是继续执行所需的控制环境，不是一份整个进程内存的备份。类似地，若 inner 已申请一块堆内存而清理语句在它的正常返回路径上，跳过这条路径就会跳过释放；是否需要恢复数据、释放资源，必须由调用协议安排。</p></div>
+<div class="explanation" id="explain-s8-6"><div class="rn-example" id="rn-example-8-1"><h3>例：非局部跳转后的对象状态</h3><p>例如全局 <code>count</code> 原为 0，<code>inner</code> 先令它变为 1 再 <code>longjmp</code>，回到保存点后 count 仍是 1。保存的是继续执行所需的控制环境，不是一份整个进程内存的备份。类似地，若 inner 已申请一块堆内存而清理语句在它的正常返回路径上，跳过这条路径就会跳过释放；是否需要恢复数据、释放资源，必须由调用协议安排。</p></div></div>
 <details class="reading-notes" id="notes-s8-6" data-notes-for="s8-6"><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">生命周期</span><h3>目标栈帧必须仍然活着</h3><p>把 jmp_buf 复制或移到堆上，不能复活已经返回的函数。</p></div><div class="annotation-card"><span class="annotation-kind">资源</span><h3>跳转不是状态回滚</h3><p>文件、堆对象、锁和此前的外部写入都需要另有明确的清理策略。</p></div></div></details></section><section id="s8-7"><h2>8.7 · 用工具核对状态，不用样本代替证明<span class="english-title" lang="en">Tools for Manipulating Processes</span></h2><p class="source"><a class="source-pdf" href="../csapp.pdf#page=823">来源：印刷 822—823 页 / PDF 823—824 页</a></p><p>先明确想观察哪一层。ps 适合看 PID、PPID、PGID、状态；Linux strace 能看进程的 fork/exec/wait 与信号事件；/proc/PID/maps 和 pmap 适合看地址空间。工具输出是某一时刻的样本：没看到僵尸不证明从来不会积累，看到一种输出顺序也不证明没有其他偏序排列。</p><pre><code># Linux 示例；只跟踪本次自己启动的演示程序
 strace -f -e trace=process,signal ./ch08_ecf
 ps -o pid,ppid,pgid,state,command -p CHILD_PID

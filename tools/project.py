@@ -79,6 +79,7 @@ def check(book_id: str, quick: bool, benchmarks: bool) -> int:
         if quick:
             command.append("--quick")
         commands.append(command)
+    commands.append(["node", ROOT / "tools/reading-components/check.mjs"])
     commands.append([sys.executable, ROOT / "tools/check_astro_records.py"])
     report = {"status": "running", "book": book_id, "quick": quick, "benchmarks": benchmarks,
               "started_at": datetime.now(timezone.utc).isoformat(), "checks": []}
@@ -181,6 +182,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     subs = parser.add_subparsers(dest="action", required=True)
     subs.add_parser("doctor", help="检查环境；不安装或升级软件")
+    subs.add_parser("preview-components", help="生成 I039 内容组件样章，仅写入 tmp/reading-components-preview")
     p = subs.add_parser("check", help="运行登记的结构与程序检查")
     p.add_argument("--book", choices=("all", *load_books()), default="all")
     p.add_argument("--quick", action="store_true", help="仅结构、链接、代码同步和审阅记录检查")
@@ -196,6 +198,8 @@ def main() -> int:
     try:
         if args.action == "doctor":
             return doctor()
+        if args.action == "preview-components":
+            return subprocess.run(["node", ROOT / "tools/reading-components/preview.mjs"], cwd=ROOT).returncode
         if args.action == "check":
             if args.quick and args.benchmarks:
                 parser.error("--benchmarks requires the full check")

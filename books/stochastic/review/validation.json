@@ -5,7 +5,7 @@
   "historical_review_entry": "notes/validation.json",
   "file_sha256": {
     "agent.md": "ac845c60605089b7db9d6e421446de3666039923e493e9e9818c5affd083a31a",
-    "notes/README.md": "654dd57be66614b5310f8fa8f6499b0c0faed03a2149d429e01fee1561994422",
+    "notes/README.md": "e255b6e8ed79126c2cacdfcaececd18cc4607a37b9f09789e0696273f1c3f887",
     "review/browser.json": "55204c6858e93eb4bb226e4b6a9fc77e020d6263b6439a8bd6df32ff0332ed5b"
   },
   "open_findings": [],
@@ -78,5 +78,18 @@
       "sha256": "1ec6d5fe6b18738cf15fd73abd9c86cd990d6bd202f5f9c0d5c80ba0f41d9eed"
     },
     "visual_scope": "Automated whole-site acceptance; targeted new measure content and auxiliary-page visual checks recorded separately"
-  }
+  },
+  "content_revision_binding_history": [
+    {
+      "issue": "I040",
+      "reason": "Reviewed component representation and content corrections; original binding values retained.",
+      "changes": [
+        {
+          "file": "notes/README.md",
+          "previous_sha256": "654dd57be66614b5310f8fa8f6499b0c0faed03a2149d429e01fee1561994422",
+          "current_sha256": "e255b6e8ed79126c2cacdfcaececd18cc4607a37b9f09789e0696273f1c3f887"
+        }
+      ]
+    }
+  ]
 }

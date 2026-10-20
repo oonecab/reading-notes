@@ -134,6 +134,8 @@ Carter《Visual Group Theory》在 `books/visual-group-theory/` 维护，全书�
 
 ## Astro 迁移状态
 
+I039 提供隔离的内容组件样章命令 `python3 tools/project.py preview-components`，从 Git 基线 `41a77dd` 生成第一章副本、五书片段对照及完整性报告，仅写入 `tmp/reading-components-preview/`。该命令重现[历史提案](docs/reading-components-proposal.md)；正式实现与后续验收由 I040 承接，发布流程和技术栈保持原约定。
+
 I032 修复后的仓库构建仍是 Node/Astro + Python helpers，全部公开 HTML 内联资源，正式页增加全 DOM/锚点 parity，页数从受控条目派生，兼容镜像由构建生成并暂时保留 Git 快照。Ego Lite/ego-browser 为构建中的真实 CSP 冒烟及完整离线验收依赖。新发布模板由 root 安装器持有版本树，fsync 屏障、原子 journal、损坏日志受控恢复、容量预检与保留策略见 [ADR-005](docs/decisions/ADR-005-root-release-installer.md)。I029–I031 保留历史实机记录；I033 已应用 root 安装器和权限/SSH/FTP/UFW/fail2ban 配置，实际结果及证书续期待办见 [I033 报告](docs/browser-stability-report.md)。
 
 I033 加固浏览器驱动：深链读写绑定预期页面并等待节点，CSP/离线使用同一会话锁，失效缓存只在明确 not-found 时重建。`READING_NOTES_CSP_SPACE` 可显式选择现有空间；每次运行独立保存报告、日志、截图，成功入口原子更新，最新尝试另行记录。技术栈及正式内容未改变，恢复方法见 [Astro 编写说明](docs/astro-authoring.md)。
@@ -157,3 +159,5 @@ I036 在发布适配层统一补齐书籍页和旧入口的 favicon，构建在�
 I036 于 2026-10-20 从干净提交 4471c54 发布 `20261020T120833`。继续使用现有 systemd/root 发布器与 Nginx 配置，旧版 20261020T112509 保留；378 个内容未变的文件延续原缓存验证器。发布后内容健康检查及五书公网浏览器图标检查通过。
 
 I037 于 2026-10-20 从干净提交 `163478b` 发布 `20261020T142535`，当前版本含 56 个正式阅读页、76 个 HTML 和 495 个文件。公开文件与 `20261020T120833` 逐字相同，495 文件的 mtime 均保留；此次将最新提交绑定到正式发布记录，并重点验收测度概率第五、六章。systemd 发布、源站内容健康检查及新旧版本树校验通过，前版保留为恢复单元；验收范围与失败记录见 [T037](test/T037-measure-probability-production.md)。
+
+I040 将 I039 样章组件落实到五书全部正式页，使用 `src/styles/reading-components.css` 统一陈述、例题、证明、习题的展示与展开约定；语义边界保存在受控 HTML，构建仍逐字展开镜像与内联。共同规范为 RN-001 v1.1，覆盖检查接入根 check 与 Node 测试；内容修改单独登记审阅链，保留原始迁移哈希。当前实施、验证与发布状态见 [I040](issues/I040-unified-reading-components.md) / [T040](test/T040-unified-reading-components.md)。

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Verify current review file/block hashes; historical checkpoint hashes stay historical."""
 from pathlib import Path
-import hashlib,json
+import hashlib,json,subprocess
 from html_support import Document,canonical
 from content_integrity import digest
 
@@ -37,9 +37,27 @@ def main():
                 else:node=nodes[r['page']][r['id']];omit=False
                 assert r['html_sha256']==digest(canonical(node,omit_programs=omit)),(filename,r['id'])
     repair=json.loads((notes/'audit_fix_review.json').read_text())
+    if 'I040_representation_revision' in repair:
+        prior=repair['I040_representation_revision']
+        original=subprocess.check_output(['git','show',prior['prior_record_git']],cwd=ROOT)
+        assert hashlib.sha256(original).hexdigest()==prior['prior_record_sha256']
+        historical=json.loads(original)['browser_review']['layouts']
+        assert len(historical)==len(repair['browser_review']['layouts'])
+        for old,current in zip(historical,repair['browser_review']['layouts']):
+            retained={key:value for key,value in current.items()
+                      if key not in {'current_representation_sha256','current_representation_review'}}
+            assert retained==old,'Historical browser evidence was rewritten'
     for r in repair['browser_review']['layouts']:
-        assert r['sha256']==hashlib.sha256((notes/r['file']).read_bytes()).hexdigest()
-    print(json.dumps({'status':'pass','current_file_bindings':count,'statement_bindings':150,'annotation_group_bindings':66,'annotation_card_bindings':132,'browser_layout_bindings':36,'scope':'Current records; preserved historical checkpoints intentionally retain earlier hashes.'}))
+        current=hashlib.sha256((notes/r['file']).read_bytes()).hexdigest()
+        if 'current_representation_sha256' in r:
+            # A presentation revision does not rewrite the hash or date of an old
+            # screenshot. Its current source must also match the separate review.
+            review=json.loads((ROOT.parents[1]/r['current_representation_review']).read_text())
+            assert current==r['current_representation_sha256']
+            assert review['source_sha256']['stochastic/notes/'+r['file']]==current
+        else:
+            assert r['sha256']==current
+    print(json.dumps({'status':'pass','current_file_bindings':count,'statement_bindings':150,'annotation_group_bindings':66,'annotation_card_bindings':132,'historical_browser_layouts_with_current_source_binding':36,'scope':'Current source bindings; historical screenshot hashes and dates retain their original scope. New presentation acceptance is separate.'}))
 
 
 if __name__=='__main__':main()

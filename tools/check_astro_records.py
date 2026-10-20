@@ -62,7 +62,7 @@ def main():
             assert (ROOT/meta['source_manifest']).is_file()
             def expand(match):
                 return (ROOT/'src'/match[1]).read_bytes().decode()
-            expanded=re.sub(r'<!-- RN:include ((?:styles|scripts)/[a-f0-9]{20}\.(?:css|js)) -->',expand,body).encode()
+            expanded=re.sub(r'<!-- RN:include ((?:styles|scripts)/[a-z0-9-]+\.(?:css|js)) -->',expand,body).encode()
             assert b'RN:include' not in expanded
             ref=state.get('page_baselines',{}).get(route,state.get('book_baselines',{}).get(name,state['baseline_ref']))
             frozen=subprocess.check_output(['git','show',ref+':'+legacy],cwd=ROOT)

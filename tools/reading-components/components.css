@@ -1,0 +1,159 @@
+/* I039 proposal. Only the isolated preview opts into this stylesheet. */
+.rn-components {
+  --rn-space: 1rem;
+  --rn-label-size: .95rem;
+  --rn-title-size: 1.05rem;
+}
+.rn-components :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
+  min-width: 0;
+  scroll-margin-top: 24px;
+}
+.rn-components .rn-statement {
+  margin: 1.5rem 0;
+  padding: 1rem 1.15rem;
+  border: 0;
+  border-left: 3px solid var(--green);
+  background: var(--tint);
+}
+.rn-components :is(.rn-statement, .rn-example) > :is(h3, h4, .rn-title) {
+  margin: 0 0 .8rem;
+  padding: 0;
+  border: 0;
+  font-size: var(--rn-title-size);
+  line-height: 1.7;
+  font-weight: 650;
+  color: var(--green);
+}
+.rn-components .rn-statement > .statement-body {
+  padding: 0;
+  border: 0;
+}
+.rn-components .rn-statement .original-excerpt {
+  margin: .5rem 0 1rem;
+  padding: .1rem 0 .1rem .85rem;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-statement .statement-label {
+  margin: .8rem 0 .3rem;
+  color: var(--sub);
+  font-size: .85rem;
+  font-weight: 600;
+}
+.rn-components .rn-example {
+  margin: 1.75rem 0;
+  padding: 1rem 0 .25rem;
+  border: 0;
+  border-top: 1px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-proof {
+  margin: 1.1rem 0 1.75rem;
+  padding: 0 0 .2rem 1rem;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-proof > summary {
+  cursor: pointer;
+  margin: 0;
+  padding: .35rem 0;
+  color: var(--green);
+  font-size: var(--rn-label-size);
+  font-weight: 650;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .rn-proof > .rn-proof-body { margin-top: .7rem; }
+.rn-components .rn-proof-body p { margin: .85rem 0; }
+.rn-components .rn-proof-body > :first-child { margin-top: 0; }
+.rn-components :is(.rn-proof-body, .rn-statement, .rn-example) > :last-child {
+  margin-bottom: 0;
+}
+.rn-components .exercise {
+  margin: 1rem 0;
+  padding: 0;
+  border: 1px solid var(--rule);
+  background: transparent;
+}
+.rn-components .exercise > summary {
+  margin: 0;
+  padding: .85rem 1rem;
+  color: var(--green);
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .exercise[open] > summary {
+  border-bottom: 1px solid var(--rule);
+  background: var(--tint);
+}
+.rn-components .exercise > :is(.exercise-question, .answer) {
+  margin: 0;
+  padding: 1rem;
+  border: 0;
+  background: transparent;
+  min-width: 0;
+}
+.rn-components .exercise > .answer {
+  border-top: 1px solid var(--rule);
+}
+.rn-components .exercise .rn-section-label {
+  margin: 0 0 .75rem;
+  padding: 0;
+  border: 0;
+  color: var(--green);
+  font-size: var(--rn-label-size);
+  font-weight: 650;
+  line-height: 1.75;
+}
+.rn-components .rn-section-label > strong { font-weight: inherit; }
+.rn-components :is(.exercise-question, .answer) > :last-child { margin-bottom: 0; }
+.rn-components :is(.rn-statement, .rn-example, .rn-proof, .exercise) .source {
+  margin-top: 1rem;
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components .exercise > .source {
+  margin: 0;
+  padding: 0 1rem 1rem;
+}
+.rn-components .rn-statement .source-status {
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components :is(.derivation-steps, .proof-steps, .solution-steps) {
+  margin: .75rem 0 1rem;
+  padding-left: 1.5rem;
+}
+.rn-components :is(.derivation-steps, .proof-steps, .solution-steps) > li {
+  padding-left: .15rem;
+  margin: .9rem 0;
+}
+.rn-components :is(.rn-proof, .exercise) > summary:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+.rn-components :is(.rn-proof-body, .rn-example, .rn-statement, .exercise-question, .answer) {
+  overflow-wrap: break-word;
+}
+@media (max-width: 1100px) {
+  .rn-components:not(.sample-fragment) :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
+    scroll-margin-top: 90px;
+  }
+}
+@media (max-width: 640px) {
+  .rn-components .rn-statement { padding: .85rem .8rem; }
+  .rn-components .rn-proof { padding-left: .75rem; }
+  .rn-components .exercise > :is(summary, .exercise-question, .answer) {
+    padding: .85rem .8rem;
+  }
+  .rn-components .exercise > .source { padding: 0 .8rem .85rem; }
+}
+@media print {
+  .rn-components .rn-proof::details-content { content-visibility: visible !important; }
+}

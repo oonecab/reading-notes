@@ -131,7 +131,171 @@ main[id],main [id]{scroll-margin-top:24px}
 }
 @media(max-width:640px){.chapter-sidebar{padding:8px 18px}}
 @media print{.reading-layout{display:block;max-width:860px;padding:0}.chapter-sidebar,.skip-link{display:none}.reading-layout>main{padding:24px}}
-</style></head><body><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="本章目录"><details class="toc-panel" id="toc-panel" open><summary>本章目录</summary><nav class="chapter-toc" id="chapter-toc" aria-label="本章目录"><a class="toc-home" href="book_overview.html">← 全书地图</a><ul><li><a href="#greedy">贪心与调度</a></li><li><a href="#coding">Huffman 与装箱</a></li><li><a href="#recurrences">分治递推</a></li><li><a href="#geometry">最近点对与选择</a></li><li><a href="#arithmetic">递归乘法与 Strassen</a></li><li><a href="#dynamic">动态规划与区间状态</a></li><li><a href="#randomized">随机化与素数测试</a></li><li><a href="#backtracking">回溯与游戏搜索</a></li><li><a href="#connection">本章与前后知识</a></li><li><a href="#exercises">习题解答 · 10.1–10.60</a></li><li><a href="#programs">程序接口与本章驱动</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">Weiss · 第二版中国改编版 · 第十章</p><h1>第十章：算法设计技巧</h1><p class="intro">从一次局部选择开始，沿着分治、保存子问题、引入随机性与撤销失败分支，理解算法为何正确，以及代价由什么决定。</p><p class="source">来源：本仓库 Weiss 教材；正文印刷页 349–416／PDF 366–433，习题印刷页 417–424／PDF 434–441，参考文献 PDF 441–445。本页代码为按原书思想独立编写的教学实现。</p><p class="chapter-nav"><a href="book_overview.html#topology">全书地图</a><a href="book_overview.html#program-guide">程序说明</a><a href="chapter09_graph_algorithms.html">上一章：图算法</a><a href="chapter11_amortized_analysis.html">下一章：摊还分析</a></p></header><section id="greedy"><h2>一、§10.1：贪心必须有交换理由</h2><p>第九章已经出现 Dijkstra、Prim 和 Kruskal。第十章把视角从“怎样把给定算法实现得高效”转向“怎样设计求解方法”。贪心每一阶段作一个当前看来最好的选择；做过之后不回头。它是否得到全局最优，要由问题结构决定。找零钱先取最大面额在某些币制成立，但面额 1、3、4 时，金额 6 用 4、1、1 就输给 3、3。</p><div class="passage"><p class="english">“we hope that the local optimum is equal to the global optimum”</p><p>我们希望局部最优等于全局最优。</p><p class="source">§10.1，印刷页 349／PDF 366。这里的 hope 随后必须由证明兑现。</p></div><p>§10.1.1 假设所有作业时刻 0 可用、时长已知、不能抢占，目标是平均完成时间。四个时长 15、8、3、10 按给定顺序运行，完成时间为 15、23、26、36，平均 25；按 3、8、10、15 运行，完成时间为 3、11、21、36，平均 17.75。若排列为 <span class="math-inline"><math data-tex="t_1,\ldots,t_N" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>t</mi><mn>1</mn></msub><mo>&#x0002C;</mo><mi>&#x02026;</mi><mo>&#x0002C;</mo><msub><mi>t</mi><mi>N</mi></msub></mrow></math></span>，完成时间总和是 <span class="math-inline"><math data-tex="Nt_1+(N-1)t_2+\cdots+t_N" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>N</mi><msub><mi>t</mi><mn>1</mn></msub><mo>&#x0002B;</mo><mo stretchy="false">&#x00028;</mo><mi>N</mi><mo>&#x02212;</mo><mn>1</mn><mo stretchy="false">&#x00029;</mo><msub><mi>t</mi><mn>2</mn></msub><mo>&#x0002B;</mo><mo>&#x022EF;</mo><mo>&#x0002B;</mo><msub><mi>t</mi><mi>N</mi></msub></mrow></math></span>。较短作业放在较大的系数上，才能降低后续作业共同承担的等待。</p><p>相邻作业时长 a&gt;b 却先执行 a，交换后两者的完成时间之和减少 a−b，其他作业完成时间不变。不断交换逆序对就得到 SPT，即最短处理时间优先。排序 <span class="math-inline"><math data-tex="O(N\log N)" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>O</mi><mo stretchy="false">&#x00028;</mo><mi>N</mi><mi>log</mi><mi>N</mi><mo stretchy="false">&#x00029;</mo></mrow></math></span>，输出 <span class="math-inline"><math data-tex="O(N)" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>O</mi><mo stretchy="false">&#x00028;</mo><mi>N</mi><mo stretchy="false">&#x00029;</mo></mrow></math></span>；若已有排序则无需重复排序。</p><p>三个相同处理器上的例子使用时长 3、5、6、10、11、14、15、18、20。把排序后的作业轮流交给处理器，三条序列为 (3,10,15)、(5,11,18)、(6,14,20)，完成时间总和 165，平均约 18.33；最后一台到 40 才结束。原书另一种最短作业分配保持同一平均值却把最后完成时间降到 38，最小化最后完成时间还能达到 34。这三个目标的差异解释了为什么不能把 SPT 的证明套到 makespan 上。多处理器的完整证明见 <a href="#ex10-1">10.1</a>，带收益与期限的单位作业见 <a href="#ex10-2">10.2</a>。</p></section><section id="coding"><h2>二、§10.1.2–10.1.3：同一种局部选择，得到两种保证</h2><p>Huffman 从字符频率出发。书中 a、e、i、s、t、空格、换行的频率分别为 10、15、12、3、4、13、1，共 58 个字符。固定三位编码需 174 位；前缀树允许常见字符离根更近，而且不需要额外分隔码字。完整二叉树把最低频率的两个节点合并为一个节点，反复执行。合并权重依次为 4、8、18、25、33、58，其和 146 就是加权外部路径长度。</p><div class="scroll"><table><thead><tr><th scope="col">字符</th><th scope="col">a</th><th scope="col">e</th><th scope="col">i</th><th scope="col">s</th><th scope="col">t</th><th scope="col">空格</th><th scope="col">换行</th></tr></thead><tbody><tr><td>原书最优码</td><td>001</td><td>01</td><td>10</td><td>00000</td><td>0001</td><td>11</td><td>00001</td></tr></tbody></table></div><p>为什么能先合并最少的两个？任何最优满前缀树都有一对最深兄弟叶；把最低频率的两个符号交换到那里不会增加总位数。收缩这对叶后，两个频率相加，问题缩小一个符号；若缩小后的树还有更优解，展开它就能改进原树。交换与收缩一起构成归纳证明，见 <a href="#ex10-5">10.5</a>。左右枝和平频率可能产生不同码字，但位数相同。本页按“权重、创建编号”决定平局，叶按字节升序创建。</p><p>优先队列做两次删除最小值与一次插入，建立树 <span class="math-inline"><math data-tex="O(K\log K)" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>O</mi><mo stretchy="false">&#x00028;</mo><mi>K</mi><mi>log</mi><mi>K</mi><mo stretchy="false">&#x00029;</mo></mrow></math></span>；已有频率顺序时可以用两个队列做到 <span class="math-inline"><math data-tex="O(K)" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>O</mi><mo stretchy="false">&#x00028;</mo><mi>K</mi><mo stretchy="false">&#x00029;</mo></mrow></math></span>。本页另保存每个字节的码字，总代码长度为 <span class="math-inline"><math data-tex="O(K^2)" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>O</mi><mo stretchy="false">&#x00028;</mo><msup><mi>K</mi><mn>2</mn></msup><mo stretchy="false">&#x00029;</mo></mrow></math></span> 的最坏上界；字节字母表 K≤256。文件是二进制流，包括空字节；频数与原长度使用无符号 64 位，溢出报错。空文件没有树，只有一种字节时可以使用长度 0 的码字，靠原长度恢复重复次数。</p><div class="code-pair" id="pair-huffman-code" data-pair="huffman"><details class="code-version" data-language="c" open><summary>C（C11）</summary><pre><code id="huffman-code" data-language="c" class="language-c">typedef struct { uint64_t weight; int left,right,symbol; } HNode;
+</style><style>
+/* RN-001 shared teaching components. Inlined in every controlled reading page. */
+.rn-components {
+  --rn-space: 1rem;
+  --rn-label-size: .95rem;
+  --rn-title-size: 1.05rem;
+}
+.rn-components :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
+  min-width: 0;
+  scroll-margin-top: 24px;
+}
+.rn-components .rn-statement {
+  margin: 1.5rem 0;
+  padding: 1rem 1.15rem;
+  border: 0;
+  border-left: 3px solid var(--green);
+  background: var(--tint);
+}
+.rn-components :is(.rn-statement, .rn-example) > :is(h3, h4, .rn-title) {
+  margin: 0 0 .8rem;
+  padding: 0;
+  border: 0;
+  font-size: var(--rn-title-size);
+  line-height: 1.7;
+  font-weight: 650;
+  color: var(--green);
+}
+.rn-components .rn-statement > .statement-body {
+  padding: 0;
+  border: 0;
+}
+.rn-components .rn-statement .original-excerpt {
+  margin: .5rem 0 1rem;
+  padding: .1rem 0 .1rem .85rem;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-statement .statement-label {
+  margin: .8rem 0 .3rem;
+  color: var(--sub);
+  font-size: .85rem;
+  font-weight: 600;
+}
+.rn-components .rn-example {
+  margin: 1.75rem 0;
+  padding: 1rem 0 .25rem;
+  border: 0;
+  border-top: 1px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-proof {
+  margin: 1.1rem 0 1.75rem;
+  padding: 0 0 .2rem 1rem;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-proof > summary {
+  cursor: pointer;
+  margin: 0;
+  padding: .35rem 0;
+  color: var(--green);
+  font-size: var(--rn-label-size);
+  font-weight: 650;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .rn-proof > .rn-proof-body { margin-top: .7rem; }
+.rn-components .rn-proof-body p { margin: .85rem 0; }
+.rn-components .rn-proof-body > :first-child:not(.rn-example):not(.rn-statement):not(.rn-proof) {
+  margin-top: 0;
+}
+.rn-components :is(.rn-proof-body, .rn-statement, .rn-example) > :last-child:not(.rn-example):not(.rn-statement):not(.rn-proof) {
+  margin-bottom: 0;
+}
+.rn-components .exercise {
+  margin: 1rem 0;
+  padding: 0;
+  border: 1px solid var(--rule);
+  background: transparent;
+}
+.rn-components .exercise > summary {
+  margin: 0;
+  padding: .85rem 1rem;
+  color: var(--green);
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .exercise[open] > summary {
+  border-bottom: 1px solid var(--rule);
+  background: var(--tint);
+}
+.rn-components .exercise > :is(.exercise-question, .answer) {
+  margin: 0;
+  padding: 1rem;
+  border: 0;
+  background: transparent;
+  min-width: 0;
+}
+.rn-components .exercise > .answer {
+  border-top: 1px solid var(--rule);
+}
+.rn-components .exercise :is(.exercise-question, .answer) > :first-child {
+  margin: 0 0 .75rem;
+  padding: 0;
+  border: 0;
+  color: var(--green);
+  font-size: var(--rn-label-size);
+  font-weight: 650;
+  line-height: 1.75;
+}
+.rn-components .exercise :is(.exercise-question, .answer) > :first-child > strong { font-weight: inherit; }
+.rn-components :is(.exercise-question, .answer) > :last-child { margin-bottom: 0; }
+.rn-components :is(.rn-statement, .rn-example, .rn-proof, .exercise) .source {
+  margin-top: 1rem;
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components .exercise > .source {
+  margin: 0;
+  padding: 0 1rem 1rem;
+}
+.rn-components .rn-statement .source-status {
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components :is(.derivation-steps, .proof-steps, .solution-steps) {
+  margin: .75rem 0 1rem;
+  padding-left: 1.5rem;
+}
+.rn-components :is(.derivation-steps, .proof-steps, .solution-steps) > li {
+  padding-left: .15rem;
+  margin: .9rem 0;
+}
+.rn-components :is(.rn-proof, .exercise) > summary:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+.rn-components :is(.rn-proof-body, .rn-example, .rn-statement, .exercise-question, .answer) {
+  overflow-wrap: break-word;
+}
+@media (max-width: 1100px) {
+  .rn-components:not(.portal-reader):not(.sample-fragment) :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
+    scroll-margin-top: 90px;
+  }
+}
+@media (max-width: 640px) {
+  .rn-components .rn-statement { padding: .85rem .8rem; }
+  .rn-components .rn-proof { padding-left: .75rem; }
+  .rn-components .exercise > :is(summary, .exercise-question, .answer) {
+    padding: .85rem .8rem;
+  }
+  .rn-components .exercise > .source { padding: 0 .8rem .85rem; }
+}
+@media print {
+  .rn-components .rn-proof::details-content { content-visibility: visible !important; }
+}
+
+</style>
+</head><body class="rn-components"><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="本章目录"><details class="toc-panel" id="toc-panel" open><summary>本章目录</summary><nav class="chapter-toc" id="chapter-toc" aria-label="本章目录"><a class="toc-home" href="book_overview.html">← 全书地图</a><ul><li><a href="#greedy">贪心与调度</a></li><li><a href="#coding">Huffman 与装箱</a></li><li><a href="#recurrences">分治递推</a></li><li><a href="#geometry">最近点对与选择</a></li><li><a href="#arithmetic">递归乘法与 Strassen</a></li><li><a href="#dynamic">动态规划与区间状态</a></li><li><a href="#randomized">随机化与素数测试</a></li><li><a href="#backtracking">回溯与游戏搜索</a></li><li><a href="#connection">本章与前后知识</a></li><li><a href="#exercises">习题解答 · 10.1–10.60</a></li><li><a href="#programs">程序接口与本章驱动</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">Weiss · 第二版中国改编版 · 第十章</p><h1>第十章：算法设计技巧</h1><p class="intro">从一次局部选择开始，沿着分治、保存子问题、引入随机性与撤销失败分支，理解算法为何正确，以及代价由什么决定。</p><p class="source">来源：本仓库 Weiss 教材；正文印刷页 349–416／PDF 366–433，习题印刷页 417–424／PDF 434–441，参考文献 PDF 441–445。本页代码为按原书思想独立编写的教学实现。</p><p class="chapter-nav"><a href="book_overview.html#topology">全书地图</a><a href="book_overview.html#program-guide">程序说明</a><a href="chapter09_graph_algorithms.html">上一章：图算法</a><a href="chapter11_amortized_analysis.html">下一章：摊还分析</a></p></header><section id="greedy"><h2>一、§10.1：贪心必须有交换理由</h2><p>第九章已经出现 Dijkstra、Prim 和 Kruskal。第十章把视角从“怎样把给定算法实现得高效”转向“怎样设计求解方法”。贪心每一阶段作一个当前看来最好的选择；做过之后不回头。它是否得到全局最优，要由问题结构决定。找零钱先取最大面额在某些币制成立，但面额 1、3、4 时，金额 6 用 4、1、1 就输给 3、3。</p><div class="passage"><p class="english">“we hope that the local optimum is equal to the global optimum”</p><p>我们希望局部最优等于全局最优。</p><p class="source">§10.1，印刷页 349／PDF 366。这里的 hope 随后必须由证明兑现。</p></div><p>§10.1.1 假设所有作业时刻 0 可用、时长已知、不能抢占，目标是平均完成时间。四个时长 15、8、3、10 按给定顺序运行，完成时间为 15、23、26、36，平均 25；按 3、8、10、15 运行，完成时间为 3、11、21、36，平均 17.75。若排列为 <span class="math-inline"><math data-tex="t_1,\ldots,t_N" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>t</mi><mn>1</mn></msub><mo>&#x0002C;</mo><mi>&#x02026;</mi><mo>&#x0002C;</mo><msub><mi>t</mi><mi>N</mi></msub></mrow></math></span>，完成时间总和是 <span class="math-inline"><math data-tex="Nt_1+(N-1)t_2+\cdots+t_N" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>N</mi><msub><mi>t</mi><mn>1</mn></msub><mo>&#x0002B;</mo><mo stretchy="false">&#x00028;</mo><mi>N</mi><mo>&#x02212;</mo><mn>1</mn><mo stretchy="false">&#x00029;</mo><msub><mi>t</mi><mn>2</mn></msub><mo>&#x0002B;</mo><mo>&#x022EF;</mo><mo>&#x0002B;</mo><msub><mi>t</mi><mi>N</mi></msub></mrow></math></span>。较短作业放在较大的系数上，才能降低后续作业共同承担的等待。</p><p>相邻作业时长 a&gt;b 却先执行 a，交换后两者的完成时间之和减少 a−b，其他作业完成时间不变。不断交换逆序对就得到 SPT，即最短处理时间优先。排序 <span class="math-inline"><math data-tex="O(N\log N)" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>O</mi><mo stretchy="false">&#x00028;</mo><mi>N</mi><mi>log</mi><mi>N</mi><mo stretchy="false">&#x00029;</mo></mrow></math></span>，输出 <span class="math-inline"><math data-tex="O(N)" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>O</mi><mo stretchy="false">&#x00028;</mo><mi>N</mi><mo stretchy="false">&#x00029;</mo></mrow></math></span>；若已有排序则无需重复排序。</p><p>三个相同处理器上的例子使用时长 3、5、6、10、11、14、15、18、20。把排序后的作业轮流交给处理器，三条序列为 (3,10,15)、(5,11,18)、(6,14,20)，完成时间总和 165，平均约 18.33；最后一台到 40 才结束。原书另一种最短作业分配保持同一平均值却把最后完成时间降到 38，最小化最后完成时间还能达到 34。这三个目标的差异解释了为什么不能把 SPT 的证明套到 makespan 上。多处理器的完整证明见 <a href="#ex10-1">10.1</a>，带收益与期限的单位作业见 <a href="#ex10-2">10.2</a>。</p></section><section id="coding"><h2>二、§10.1.2–10.1.3：同一种局部选择，得到两种保证</h2><div class="rn-example" id="rn-huffman-weights"><h3>例：七种字符的 Huffman 编码</h3><p>Huffman 从字符频率出发。书中 a、e、i、s、t、空格、换行的频率分别为 10、15、12、3、4、13、1，共 58 个字符。固定三位编码需 174 位；前缀树允许常见字符离根更近，而且不需要额外分隔码字。完整二叉树把最低频率的两个节点合并为一个节点，反复执行。合并权重依次为 4、8、18、25、33、58，其和 146 就是加权外部路径长度。</p><div class="scroll"><table><thead><tr><th scope="col">字符</th><th scope="col">a</th><th scope="col">e</th><th scope="col">i</th><th scope="col">s</th><th scope="col">t</th><th scope="col">空格</th><th scope="col">换行</th></tr></thead><tbody><tr><td>原书最优码</td><td>001</td><td>01</td><td>10</td><td>00000</td><td>0001</td><td>11</td><td>00001</td></tr></tbody></table></div></div><p>为什么能先合并最少的两个？任何最优满前缀树都有一对最深兄弟叶；把最低频率的两个符号交换到那里不会增加总位数。收缩这对叶后，两个频率相加，问题缩小一个符号；若缩小后的树还有更优解，展开它就能改进原树。交换与收缩一起构成归纳证明，见 <a href="#ex10-5">10.5</a>。左右枝和平频率可能产生不同码字，但位数相同。本页按“权重、创建编号”决定平局，叶按字节升序创建。</p><p>优先队列做两次删除最小值与一次插入，建立树 <span class="math-inline"><math data-tex="O(K\log K)" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>O</mi><mo stretchy="false">&#x00028;</mo><mi>K</mi><mi>log</mi><mi>K</mi><mo stretchy="false">&#x00029;</mo></mrow></math></span>；已有频率顺序时可以用两个队列做到 <span class="math-inline"><math data-tex="O(K)" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>O</mi><mo stretchy="false">&#x00028;</mo><mi>K</mi><mo stretchy="false">&#x00029;</mo></mrow></math></span>。本页另保存每个字节的码字，总代码长度为 <span class="math-inline"><math data-tex="O(K^2)" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>O</mi><mo stretchy="false">&#x00028;</mo><msup><mi>K</mi><mn>2</mn></msup><mo stretchy="false">&#x00029;</mo></mrow></math></span> 的最坏上界；字节字母表 K≤256。文件是二进制流，包括空字节；频数与原长度使用无符号 64 位，溢出报错。空文件没有树，只有一种字节时可以使用长度 0 的码字，靠原长度恢复重复次数。</p><div class="code-pair" id="pair-huffman-code" data-pair="huffman"><details class="code-version" data-language="c" open><summary>C（C11）</summary><pre><code id="huffman-code" data-language="c" class="language-c">typedef struct { uint64_t weight; int left,right,symbol; } HNode;
 typedef struct { HNode node[511]; int count,root; unsigned char code[256][256]; int len[256]; } Huffman;
 int h_less(Huffman *h,int a,int b) {
     return h-&gt;node[a].weight&lt;h-&gt;node[b].weight ||
@@ -327,7 +491,7 @@ def h_decompress(src,dst):
             u=h.node[u][2 if (bits&gt;&gt;left)&amp;1 else 1]
         dst.write(bytes((h.node[u][3],)))
     if left and bits&amp;((1&lt;&lt;left)-1): raise ValueError(&#x27;nonzero padding&#x27;)
-    if src.read(1): raise ValueError(&#x27;trailing bytes&#x27;)</code></pre></details></div><p>装箱则说明贪心有时只能近似。箱容量为 1，物品不可分，在线算法见到一件就必须决定放哪里，也不知道输入何时结束。对 0.2、0.5、0.4、0.7、0.1、0.3、0.8，最优需要 3 箱；Next Fit 只看当前箱，用 5 箱；First Fit 看最早放得下的箱，用 4 箱；Best Fit 选放入后余量最小的箱，也用 4 箱。先递减排序后的 FFD 与 BFD 在这个输入上都用 3 箱，但已是离线策略。</p><p>若最优需要 M 箱，Next Fit 的任意相邻两箱总负载大于 1，否则后箱第一件本来能放到前箱。两箱成对给出 <span class="math-inline"><math data-tex="NF\le2M-1" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>N</mi><mi>F</mi><mo>&#x02264;</mo><mn>2</mn><mi>M</mi><mo>&#x02212;</mo><mn>1</mn></mrow></math></span>（非空输入），足以得到书中 <span class="math-inline"><math data-tex="2M" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>2</mn><mi>M</mi></mrow></math></span> 上界；并存在接近两倍的序列。在线算法的 <span class="math-inline"><math data-tex="4/3" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>4</mn><mo>&#x0002F;</mo><mn>3</mn></mrow></math></span> 下界来自“先给许多略小于半箱的物品，可能立刻停止，也可能再给略大于半箱的物品”；更强的 <span class="math-inline"><math data-tex="3/2" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>3</mn><mo>&#x0002F;</mo><mn>2</mn></mrow></math></span> 构造完整见 <a href="#ex10-8">10.8</a>。</p><p>原书定理 10.3 给出 <span class="math-inline"><math data-tex="FF\le\lceil17M/10\rceil" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>F</mi><mi>F</mi><mo>&#x02264;</mo><mi>&#x02308;</mi><mn>17</mn><mi>M</mi><mo>&#x0002F;</mo><mn>10</mn><mi>&#x02309;</mi></mrow></math></span>，定理 10.5 给出 <span class="math-inline"><math data-tex="FFD\le11M/9+4" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>F</mi><mi>F</mi><mi>D</mi><mo>&#x02264;</mo><mn>11</mn><mi>M</mi><mo>&#x0002F;</mo><mn>9</mn><mo>&#x0002B;</mo><mn>4</mn></mrow></math></span>，是对容量 1、尺寸在 (0,1] 的物品序列成立的近似界。这里采用本版参考文献 [23] Johnson、Demers、Ullman、Garey、Graham（1974，Worst-case performance bounds for simple one-dimensional packing algorithms）已经证明的上界；常数界需要按尺寸分类计费，不能从“总量够放”直接推出。</p><p>书中较容易证明的 FFD 界是 <span class="math-inline"><math data-tex="(4M+1)/3" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mo stretchy="false">&#x00028;</mo><mn>4</mn><mi>M</mi><mo>&#x0002B;</mo><mn>1</mn><mo stretchy="false">&#x00029;</mo><mo>&#x0002F;</mo><mn>3</mn></mrow></math></span>。假设第一件进第 M+1 箱的物品 x&gt;1/3：此前每箱至多两件，且单件箱一定排在双件箱之前，否则较晚单件与 x 可塞入较早双件箱。前 j 个单件相互不能合箱，也不能容纳剩余大件；后面的 <span class="math-inline"><math data-tex="2(M-j)+1" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>2</mn><mo stretchy="false">&#x00028;</mo><mi>M</mi><mo>&#x02212;</mo><mi>j</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0002B;</mo><mn>1</mn></mrow></math></span> 件都大于 1/3，却只有 M−j 箱，矛盾。因此额外物品至多 1/3。若额外物品至少 M 件，把其中 M 件分别与前 M 箱配对，每一对负载都大于 1，总尺寸就大于 M，又矛盾。最多 M−1 件小物品，额外箱除最后一箱都可放至少三件，于是额外箱数至多 <span class="math-inline"><math data-tex="\lceil(M-1)/3\rceil" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>&#x02308;</mi><mo stretchy="false">&#x00028;</mo><mi>M</mi><mo>&#x02212;</mo><mn>1</mn><mo stretchy="false">&#x00029;</mo><mo>&#x0002F;</mo><mn>3</mn><mi>&#x02309;</mi></mrow></math></span>，得到所述界。</p><p>图 10.28 的下界构造为 6M 件 <span class="math-inline"><math data-tex="1/2+\varepsilon" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>1</mn><mo>&#x0002F;</mo><mn>2</mn><mo>&#x0002B;</mo><mi>&#x003B5;</mi></mrow></math></span>、6M 件 <span class="math-inline"><math data-tex="1/4+2\varepsilon" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>1</mn><mo>&#x0002F;</mo><mn>4</mn><mo>&#x0002B;</mo><mn>2</mn><mi>&#x003B5;</mi></mrow></math></span>、6M 件 <span class="math-inline"><math data-tex="1/4+\varepsilon" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>1</mn><mo>&#x0002F;</mo><mn>4</mn><mo>&#x0002B;</mo><mi>&#x003B5;</mi></mrow></math></span>、12M 件 <span class="math-inline"><math data-tex="1/4-2\varepsilon" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>1</mn><mo>&#x0002F;</mo><mn>4</mn><mo>&#x02212;</mo><mn>2</mn><mi>&#x003B5;</mi></mrow></math></span>。FFD 先把每个大件与第二类的一件配对，第三类每三件一箱，最后一类每四件一箱，共 6M+2M+3M=11M 箱；最优用 6M 箱各放第一、第三、第四类一件，再用 3M 箱各放第二、第四类两件，共 9M 箱。这里 <span class="math-inline"><math data-tex="0&lt;\varepsilon&lt;1/24" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>0</mn><mo>&#x0003C;</mo><mi>&#x003B5;</mi><mo>&#x0003C;</mo><mn>1</mn><mo>&#x0002F;</mo><mn>24</mn></mrow></math></span>，三类合计恰为 1。原书前一句提及 next fit decreasing，但本定理陈述及该构造讨论的算法是 first fit decreasing。</p><p>程序把容量与尺寸按同一整数比例表示，避免小数舍入改变可行性。First Fit 的区间树存每段箱子的最大余量，从根优先走左边找到最早箱；Best Fit 的 AVL 树键为（余量、箱号），找最小的可用键。更新各需 <span class="math-inline"><math data-tex="O(\log N)" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>O</mi><mo stretchy="false">&#x00028;</mo><mi>log</mi><mi>N</mi><mo stretchy="false">&#x00029;</mo></mrow></math></span>，两版递减排序都用稳定归并，平尺寸保持输入顺序。Next Fit 线性，其余包括排序在内 <span class="math-inline"><math data-tex="O(N\log N)" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>O</mi><mo stretchy="false">&#x00028;</mo><mi>N</mi><mi>log</mi><mi>N</mi><mo stretchy="false">&#x00029;</mo></mrow></math></span>，保存分配结果及索引的空间均 <span class="math-inline"><math data-tex="O(N)" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>O</mi><mo stretchy="false">&#x00028;</mo><mi>N</mi><mo stretchy="false">&#x00029;</mo></mrow></math></span>。</p><div class="code-pair" id="pair-packing-code" data-pair="packing"><details class="code-version" data-language="c" open><summary>C（C11）</summary><pre><code id="packing-code" data-language="c" class="language-c">typedef struct Avl { int rem,id,height; struct Avl *left,*right; } Avl;
+    if src.read(1): raise ValueError(&#x27;trailing bytes&#x27;)</code></pre></details></div><div class="rn-example" id="rn-packing-comparison"><h3>例：同一序列的五种装箱结果</h3><p>装箱则说明贪心有时只能近似。箱容量为 1，物品不可分，在线算法见到一件就必须决定放哪里，也不知道输入何时结束。对 0.2、0.5、0.4、0.7、0.1、0.3、0.8，最优需要 3 箱；Next Fit 只看当前箱，用 5 箱；First Fit 看最早放得下的箱，用 4 箱；Best Fit 选放入后余量最小的箱，也用 4 箱。先递减排序后的 FFD 与 BFD 在这个输入上都用 3 箱，但已是离线策略。</p></div><p>若最优需要 M 箱，Next Fit 的任意相邻两箱总负载大于 1，否则后箱第一件本来能放到前箱。两箱成对给出 <span class="math-inline"><math data-tex="NF\le2M-1" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>N</mi><mi>F</mi><mo>&#x02264;</mo><mn>2</mn><mi>M</mi><mo>&#x02212;</mo><mn>1</mn></mrow></math></span>（非空输入），足以得到书中 <span class="math-inline"><math data-tex="2M" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>2</mn><mi>M</mi></mrow></math></span> 上界；并存在接近两倍的序列。在线算法的 <span class="math-inline"><math data-tex="4/3" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>4</mn><mo>&#x0002F;</mo><mn>3</mn></mrow></math></span> 下界来自“先给许多略小于半箱的物品，可能立刻停止，也可能再给略大于半箱的物品”；更强的 <span class="math-inline"><math data-tex="3/2" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>3</mn><mo>&#x0002F;</mo><mn>2</mn></mrow></math></span> 构造完整见 <a href="#ex10-8">10.8</a>。</p><div class="rn-statement" id="rn-packing-bounds"><h3>定理 10.3 与 10.5 · 装箱近似界</h3><p>原书定理 10.3 给出 <span class="math-inline"><math data-tex="FF\le\lceil17M/10\rceil" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>F</mi><mi>F</mi><mo>&#x02264;</mo><mi>&#x02308;</mi><mn>17</mn><mi>M</mi><mo>&#x0002F;</mo><mn>10</mn><mi>&#x02309;</mi></mrow></math></span>，定理 10.5 给出 <span class="math-inline"><math data-tex="FFD\le11M/9+4" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>F</mi><mi>F</mi><mi>D</mi><mo>&#x02264;</mo><mn>11</mn><mi>M</mi><mo>&#x0002F;</mo><mn>9</mn><mo>&#x0002B;</mo><mn>4</mn></mrow></math></span>，是对容量 1、尺寸在 (0,1] 的物品序列成立的近似界。这里采用本版参考文献 [23] Johnson、Demers、Ullman、Garey、Graham（1974，Worst-case performance bounds for simple one-dimensional packing algorithms）已经证明的上界；常数界需要按尺寸分类计费，不能从“总量够放”直接推出。</p></div><details class="rn-proof" id="rn-ffd-bound" open><summary>证明：FFD 的较松上界</summary><div class="rn-proof-body"><p>书中较容易证明的 FFD 界是 <span class="math-inline"><math data-tex="(4M+1)/3" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mo stretchy="false">&#x00028;</mo><mn>4</mn><mi>M</mi><mo>&#x0002B;</mo><mn>1</mn><mo stretchy="false">&#x00029;</mo><mo>&#x0002F;</mo><mn>3</mn></mrow></math></span>。假设第一件进第 M+1 箱的物品 x&gt;1/3：此前每箱至多两件，且单件箱一定排在双件箱之前，否则较晚单件与 x 可塞入较早双件箱。前 j 个单件相互不能合箱，也不能容纳剩余大件；后面的 <span class="math-inline"><math data-tex="2(M-j)+1" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>2</mn><mo stretchy="false">&#x00028;</mo><mi>M</mi><mo>&#x02212;</mo><mi>j</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0002B;</mo><mn>1</mn></mrow></math></span> 件都大于 1/3，却只有 M−j 箱，矛盾。因此额外物品至多 1/3。若额外物品至少 M 件，把其中 M 件分别与前 M 箱配对，每一对负载都大于 1，总尺寸就大于 M，又矛盾。最多 M−1 件小物品，额外箱除最后一箱都可放至少三件，于是额外箱数至多 <span class="math-inline"><math data-tex="\lceil(M-1)/3\rceil" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>&#x02308;</mi><mo stretchy="false">&#x00028;</mo><mi>M</mi><mo>&#x02212;</mo><mn>1</mn><mo stretchy="false">&#x00029;</mo><mo>&#x0002F;</mo><mn>3</mn><mi>&#x02309;</mi></mrow></math></span>，得到所述界。</p></div></details><div class="rn-example" id="rn-ffd-lower-bound"><h3>例：FFD 的下界构造</h3><p>图 10.28 的下界构造为 6M 件 <span class="math-inline"><math data-tex="1/2+\varepsilon" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>1</mn><mo>&#x0002F;</mo><mn>2</mn><mo>&#x0002B;</mo><mi>&#x003B5;</mi></mrow></math></span>、6M 件 <span class="math-inline"><math data-tex="1/4+2\varepsilon" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>1</mn><mo>&#x0002F;</mo><mn>4</mn><mo>&#x0002B;</mo><mn>2</mn><mi>&#x003B5;</mi></mrow></math></span>、6M 件 <span class="math-inline"><math data-tex="1/4+\varepsilon" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>1</mn><mo>&#x0002F;</mo><mn>4</mn><mo>&#x0002B;</mo><mi>&#x003B5;</mi></mrow></math></span>、12M 件 <span class="math-inline"><math data-tex="1/4-2\varepsilon" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>1</mn><mo>&#x0002F;</mo><mn>4</mn><mo>&#x02212;</mo><mn>2</mn><mi>&#x003B5;</mi></mrow></math></span>。FFD 先把每个大件与第二类的一件配对，第三类每三件一箱，最后一类每四件一箱，共 6M+2M+3M=11M 箱；最优用 6M 箱各放第一、第三、第四类一件，再用 3M 箱各放第二、第四类两件，共 9M 箱。这里 <span class="math-inline"><math data-tex="0&lt;\varepsilon&lt;1/24" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>0</mn><mo>&#x0003C;</mo><mi>&#x003B5;</mi><mo>&#x0003C;</mo><mn>1</mn><mo>&#x0002F;</mo><mn>24</mn></mrow></math></span>，三类合计恰为 1。原书前一句提及 next fit decreasing，但本定理陈述及该构造讨论的算法是 first fit decreasing。</p></div><p>程序把容量与尺寸按同一整数比例表示，避免小数舍入改变可行性。First Fit 的区间树存每段箱子的最大余量，从根优先走左边找到最早箱；Best Fit 的 AVL 树键为（余量、箱号），找最小的可用键。更新各需 <span class="math-inline"><math data-tex="O(\log N)" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>O</mi><mo stretchy="false">&#x00028;</mo><mi>log</mi><mi>N</mi><mo stretchy="false">&#x00029;</mo></mrow></math></span>，两版递减排序都用稳定归并，平尺寸保持输入顺序。Next Fit 线性，其余包括排序在内 <span class="math-inline"><math data-tex="O(N\log N)" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>O</mi><mo stretchy="false">&#x00028;</mo><mi>N</mi><mi>log</mi><mi>N</mi><mo stretchy="false">&#x00029;</mo></mrow></math></span>，保存分配结果及索引的空间均 <span class="math-inline"><math data-tex="O(N)" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>O</mi><mo stretchy="false">&#x00028;</mo><mi>N</mi><mo stretchy="false">&#x00029;</mo></mrow></math></span>。</p><div class="code-pair" id="pair-packing-code" data-pair="packing"><details class="code-version" data-language="c" open><summary>C（C11）</summary><pre><code id="packing-code" data-language="c" class="language-c">typedef struct Avl { int rem,id,height; struct Avl *left,*right; } Avl;
 int ah(Avl *p) { return p?p-&gt;height:0; }
 void afix(Avl *p) { int a=ah(p-&gt;left),b=ah(p-&gt;right); p-&gt;height=1+(a&gt;b?a:b); }
 Avl *aright(Avl *p) { Avl *q=p-&gt;left; p-&gt;left=q-&gt;right; q-&gt;right=p; afix(p); afix(q); return q; }

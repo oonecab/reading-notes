@@ -5206,8 +5206,8 @@
   ],
   "files": {
     "notes/chapter01_markov_chains.html": {
-      "bytes": 2125126,
-      "sha256": "43117cafd58f73e03af5c4626e88c32bbe42dbe0905660b1397b00a8a744ac0e"
+      "bytes": 2133361,
+      "sha256": "965a1f232581f51cb12b2c7d3aadde490121235015905358a00f30ce2c3e5570"
     },
     "notes/source_manifest.json": {
       "bytes": 36372,
@@ -5219,7 +5219,7 @@
     },
     "tools/content_baseline.json": {
       "bytes": 1975727,
-      "sha256": "88b59f81fd487316f90696b8bd442ad3433536adc500a2195ef90bf3a0a15202"
+      "sha256": "9b8f7164e919a947e6f7829796efad288f86e4b11b4127f3351db027fff7dc70"
     },
     "../../test/test_stochastic_derivations.py": {
       "bytes": 21772,
@@ -5227,7 +5227,7 @@
     },
     "notes/derivation_coverage.json": {
       "bytes": 356326,
-      "sha256": "e89ee6dfea1f7e7c9ed9ab403aa8ba436249c97ef382a0de64befcdc4166ec23"
+      "sha256": "1259088a6b1f3b2ace88d8d70f2f87071b0e2c51001a54bd0e35188e5fa23198"
     }
   },
   "publication": {
@@ -5292,5 +5292,11 @@
     "record": "remaining_explanation_review.json",
     "scope": "I017: source comparison and author readback of all 349 items in chapters 2–6 and appendix A: 106 examples, 84 theorems/lemmas, 159 exercises and their subparts. Chapter 1, preface and overview unchanged from the I016 checkpoint.",
     "note": "The remaining-chapter backlog in the I016 historical limitations is now handled by I017."
+  },
+  "I040_representation_revision": {
+    "issue": "I040",
+    "prior_record_git": "41a77dd3affc726bef81505ca5cde067d6f3944c:books/stochastic/notes/chapter01_explanation_review.json",
+    "prior_record_sha256": "d5a6cf3b02ded119fbc837bf4824836ac91485373a401ab1d07e79c4b41df0f2",
+    "scope": "Current representation bindings updated after byte-preservation review. Historical mathematical and browser claims keep their original scope; fresh acceptance is recorded in docs/reading-components-review.json"
   }
 }

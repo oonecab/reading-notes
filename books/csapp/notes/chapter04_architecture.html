@@ -210,10 +210,174 @@ main[id],main [id]{scroll-margin-top:24px}
 .reading-layout>main>section:not(#exercises):not(#self-check) pre{font-size:14px}
 
 .worked{background:var(--tint);border-left:2px solid var(--green);padding:.8rem 1.1rem;margin:1.5rem 0}.worked h3{margin:.2rem 0 .7rem}.english-title{display:block;color:var(--sub);font-size:.85rem;font-weight:400}.code-download{font-size:.9rem}.code-explanation li{margin:.7rem 0}.flow-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}svg .highlight{fill:#e6eee7;stroke:var(--green)}.solution-steps>li{margin:1rem 0}.question-note strong{color:var(--green)}.experiment-output{font-size:.9rem}main [id]{scroll-margin-top:100px}@media(max-width:1099px){main [id]{scroll-margin-top:132px}}
-</style></head><body><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="章节目录"><details class="toc-panel" id="toc-panel" open><summary>本章目录</summary><nav class="chapter-toc" id="chapter-toc" aria-label="本章目录"><a class="toc-home" href="book_overview.html">全书地图</a><a class="toc-home" href="preface.html">序言</a><ul><li><a href="#s4-1">4.1 · 把 ISA 写成可检验的状态变化</a></li><li><a href="#s4-2">4.2 · 让控制表达式变成有时序的电路</a></li><li><a href="#s4-3">4.3 · 用一条组合通路完成整条指令</a></li><li><a href="#s4-4">4.4 · 把延迟与连续产出分开计算</a></li><li><a href="#s4-5">4.5 · 让并发执行保持顺序语义</a></li><li><a href="#s4-6">4.6 · 实现可以变，程序含义必须稳定</a></li><li><a href="#simulator-experiment">官方 SEQ / PIPE 模拟器实验</a></li><li><a href="#machine-model">可运行模型 · 指令状态与控制选择</a></li><li><a href="#algorithm-model">可运行程序 · 指针排序与 switch 参考结果</a></li><li><a href="#experiment">补充实验 · 理想流水线时间模型</a></li><li><a href="#self-check">自测与解答</a></li><li><a href="#exercises">习题解答 · 4.1—4.59</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">CS:APP · 第三版 GLOBAL EDITION · 中文伴读</p><h1>第 4 章：处理器体系结构</h1><p class="intro">从 Y86-64 的状态变化构造 SEQ，再用转发、停顿和气泡让 PIPE 重叠执行而保持同一指令语义。</p><p class="source">原书：<a class="source-pdf" href="../csapp.pdf#page=388">印刷 387—530 页 / PDF 388—531 页</a></p>
+</style><style>
+/* RN-001 shared teaching components. Inlined in every controlled reading page. */
+.rn-components {
+  --rn-space: 1rem;
+  --rn-label-size: .95rem;
+  --rn-title-size: 1.05rem;
+}
+.rn-components :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
+  min-width: 0;
+  scroll-margin-top: 24px;
+}
+.rn-components .rn-statement {
+  margin: 1.5rem 0;
+  padding: 1rem 1.15rem;
+  border: 0;
+  border-left: 3px solid var(--green);
+  background: var(--tint);
+}
+.rn-components :is(.rn-statement, .rn-example) > :is(h3, h4, .rn-title) {
+  margin: 0 0 .8rem;
+  padding: 0;
+  border: 0;
+  font-size: var(--rn-title-size);
+  line-height: 1.7;
+  font-weight: 650;
+  color: var(--green);
+}
+.rn-components .rn-statement > .statement-body {
+  padding: 0;
+  border: 0;
+}
+.rn-components .rn-statement .original-excerpt {
+  margin: .5rem 0 1rem;
+  padding: .1rem 0 .1rem .85rem;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-statement .statement-label {
+  margin: .8rem 0 .3rem;
+  color: var(--sub);
+  font-size: .85rem;
+  font-weight: 600;
+}
+.rn-components .rn-example {
+  margin: 1.75rem 0;
+  padding: 1rem 0 .25rem;
+  border: 0;
+  border-top: 1px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-proof {
+  margin: 1.1rem 0 1.75rem;
+  padding: 0 0 .2rem 1rem;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-proof > summary {
+  cursor: pointer;
+  margin: 0;
+  padding: .35rem 0;
+  color: var(--green);
+  font-size: var(--rn-label-size);
+  font-weight: 650;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .rn-proof > .rn-proof-body { margin-top: .7rem; }
+.rn-components .rn-proof-body p { margin: .85rem 0; }
+.rn-components .rn-proof-body > :first-child:not(.rn-example):not(.rn-statement):not(.rn-proof) {
+  margin-top: 0;
+}
+.rn-components :is(.rn-proof-body, .rn-statement, .rn-example) > :last-child:not(.rn-example):not(.rn-statement):not(.rn-proof) {
+  margin-bottom: 0;
+}
+.rn-components .exercise {
+  margin: 1rem 0;
+  padding: 0;
+  border: 1px solid var(--rule);
+  background: transparent;
+}
+.rn-components .exercise > summary {
+  margin: 0;
+  padding: .85rem 1rem;
+  color: var(--green);
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .exercise[open] > summary {
+  border-bottom: 1px solid var(--rule);
+  background: var(--tint);
+}
+.rn-components .exercise > :is(.exercise-question, .answer) {
+  margin: 0;
+  padding: 1rem;
+  border: 0;
+  background: transparent;
+  min-width: 0;
+}
+.rn-components .exercise > .answer {
+  border-top: 1px solid var(--rule);
+}
+.rn-components .exercise :is(.exercise-question, .answer) > :first-child {
+  margin: 0 0 .75rem;
+  padding: 0;
+  border: 0;
+  color: var(--green);
+  font-size: var(--rn-label-size);
+  font-weight: 650;
+  line-height: 1.75;
+}
+.rn-components .exercise :is(.exercise-question, .answer) > :first-child > strong { font-weight: inherit; }
+.rn-components :is(.exercise-question, .answer) > :last-child { margin-bottom: 0; }
+.rn-components :is(.rn-statement, .rn-example, .rn-proof, .exercise) .source {
+  margin-top: 1rem;
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components .exercise > .source {
+  margin: 0;
+  padding: 0 1rem 1rem;
+}
+.rn-components .rn-statement .source-status {
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components :is(.derivation-steps, .proof-steps, .solution-steps) {
+  margin: .75rem 0 1rem;
+  padding-left: 1.5rem;
+}
+.rn-components :is(.derivation-steps, .proof-steps, .solution-steps) > li {
+  padding-left: .15rem;
+  margin: .9rem 0;
+}
+.rn-components :is(.rn-proof, .exercise) > summary:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+.rn-components :is(.rn-proof-body, .rn-example, .rn-statement, .exercise-question, .answer) {
+  overflow-wrap: break-word;
+}
+@media (max-width: 1100px) {
+  .rn-components:not(.portal-reader):not(.sample-fragment) :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
+    scroll-margin-top: 90px;
+  }
+}
+@media (max-width: 640px) {
+  .rn-components .rn-statement { padding: .85rem .8rem; }
+  .rn-components .rn-proof { padding-left: .75rem; }
+  .rn-components .exercise > :is(summary, .exercise-question, .answer) {
+    padding: .85rem .8rem;
+  }
+  .rn-components .exercise > .source { padding: 0 .8rem .85rem; }
+}
+@media print {
+  .rn-components .rn-proof::details-content { content-visibility: visible !important; }
+}
+
+</style>
+</head><body class="rn-components"><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="章节目录"><details class="toc-panel" id="toc-panel" open><summary>本章目录</summary><nav class="chapter-toc" id="chapter-toc" aria-label="本章目录"><a class="toc-home" href="book_overview.html">全书地图</a><a class="toc-home" href="preface.html">序言</a><ul><li><a href="#s4-1">4.1 · 把 ISA 写成可检验的状态变化</a></li><li><a href="#s4-2">4.2 · 让控制表达式变成有时序的电路</a></li><li><a href="#s4-3">4.3 · 用一条组合通路完成整条指令</a></li><li><a href="#s4-4">4.4 · 把延迟与连续产出分开计算</a></li><li><a href="#s4-5">4.5 · 让并发执行保持顺序语义</a></li><li><a href="#s4-6">4.6 · 实现可以变，程序含义必须稳定</a></li><li><a href="#simulator-experiment">官方 SEQ / PIPE 模拟器实验</a></li><li><a href="#machine-model">可运行模型 · 指令状态与控制选择</a></li><li><a href="#algorithm-model">可运行程序 · 指针排序与 switch 参考结果</a></li><li><a href="#experiment">补充实验 · 理想流水线时间模型</a></li><li><a href="#self-check">自测与解答</a></li><li><a href="#exercises">习题解答 · 4.1—4.59</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">CS:APP · 第三版 GLOBAL EDITION · 中文伴读</p><h1>第 4 章：处理器体系结构</h1><p class="intro">从 Y86-64 的状态变化构造 SEQ，再用转发、停顿和气泡让 PIPE 重叠执行而保持同一指令语义。</p><p class="source">原书：<a class="source-pdf" href="../csapp.pdf#page=388">印刷 387—530 页 / PDF 388—531 页</a></p>
 <p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="book_overview.html#program-guide">程序说明</a><a href="chapter03_machine_level.html">← 第 3 章</a><a href="chapter05_optimization.html">第 5 章 →</a></p></header><section id="s4-1"><h2>4.1 · 把 ISA 写成可检验的状态变化<span class="english-title" lang="en">The Y86-64 Instruction Set Architecture</span></h2><details class="statement-index" id="source-index"><summary>本页原书摘录 · 6 处</summary><ul class="statement-links"><li><a href="#principle-4-isa-visible-state">ISA 约束程序可见的状态</a></li><li><a href="#principle-4-no-reading-back">原书原则 · 无须回读新状态（No reading back）</a></li><li><a href="#principle-4-pipeline-throughput-latency">吞吐量与单项延迟</a></li><li><a href="#principle-4-slowest-stage">最慢阶段决定时钟</a></li><li><a href="#principle-4-feedback-dependencies">反馈决定哪些工作能够重叠</a></li><li><a href="#principle-4-pipeline-hazards">依赖何时构成流水冒险</a></li></ul></details><p class="source">来源：<a class="source-pdf" href="../csapp.pdf#page=392">印刷 391—408 页 / PDF 392—409 页</a></p>
 <p>第 3 章把指令集当作软件可以调用的接口，本章转到接口的实现一侧。同一段机器码必须得到同一组可见结果，内部可以串行，也可以让不同指令的阶段重叠。Y86-64 去掉复杂寻址和大多数运算，留下足以暴露数据依赖、控制依赖和异常的结构。它是独立的教学 ISA，普通 x86 汇编器不能直接汇编这里的程序。</p>
-<div class="source-statement" id="principle-4-isa-visible-state" data-source-kind="Statement">
+<div class="source-statement rn-statement" id="principle-4-isa-visible-state" data-source-kind="Statement">
 <h4>原书论述 · ISA 约束程序可见的状态</h4>
 <blockquote class="original-excerpt" lang="en"><p>We will see in our processor implementations that we do not need to represent and organize this state in exactly the manner implied by the ISA, as long as we can make sure that machine-level programs appear to have access to the programmer-visible state.</p></blockquote>
 <div class="statement-body"><p><strong>中文陈述。</strong>处理器内部可以用不同方式表示和组织状态，条件是机器程序观察到的状态与 ISA 规定一致。因而比较两种实现时，应从相同初态执行同一程序，核对寄存器、内存、控制流及异常语义。</p><p>下面先列出 Y86-64 的可见状态，再把每条指令写成状态转移；<a href="#s4-5-1">SEQ+ 的 PC 重定时</a>则展示内部状态位置如何改变而保持同一地址序列。</p></div>
@@ -231,7 +395,7 @@ main[id],main [id]{scroll-margin-top:24px}
 <h3 id="s4-1-3">4.1.3 · 先辨认字段，才能找到下一条指令<span class="english-title" lang="en">Instruction Encoding</span></h3>
 <p>首字节的高半字节是 icode，低半字节是 ifun；若需要寄存器，第二字节的高、低半字节分别是 rA、rB；再往后是按小端序排列的八字节常量。立即数、位移和跳转目标都占八字节，跳转目标是绝对地址。寄存器字节存在与否决定常量从 PC+1 还是 PC+2 开始。</p>
 <div class="scroll"><table><thead><tr><th scope="col">icode</th><th scope="col">指令族</th><th scope="col">ifun</th></tr></thead><tbody><tr><td>0</td><td>halt</td><td>0</td></tr><tr><td>1</td><td>nop</td><td>0</td></tr><tr><td>2</td><td>rrmovq / cmovXX</td><td>0—6</td></tr><tr><td>3 / 4 / 5</td><td>irmovq / rmmovq / mrmovq</td><td>0</td></tr><tr><td>6</td><td>addq / subq / andq / xorq</td><td>0 / 1 / 2 / 3</td></tr><tr><td>7</td><td>jXX</td><td>0—6</td></tr><tr><td>8 / 9 / a / b</td><td>call / ret / pushq / popq</td><td>0</td></tr></tbody></table></div>
-<p>例如 <code>rmmovq %rsp,0x123456789abcd(%rdx)</code>：首字节是 40；rA=%rsp=4、rB=%rdx=2，得到 42；补足八字节后的常量是 00 01 23 45 67 89 ab cd，存储顺序为 cd ab 89 67 45 23 01 00。整条编码为 <code>40 42 cd ab 89 67 45 23 01 00</code>。已知合法起始地址后，首字节决定长度；从任意中间字节开始则没有这种保证。</p>
+<div class="rn-example" id="rn-example-4-1"><h3>例：Y86-64 指令编码</h3><p>例如 <code>rmmovq %rsp,0x123456789abcd(%rdx)</code>：首字节是 40；rA=%rsp=4、rB=%rdx=2，得到 42；补足八字节后的常量是 00 01 23 45 67 89 ab cd，存储顺序为 cd ab 89 67 45 23 01 00。整条编码为 <code>40 42 cd ab 89 67 45 23 01 00</code>。已知合法起始地址后，首字节决定长度；从任意中间字节开始则没有这种保证。</p></div>
 <h3 id="s4-1-4">4.1.4 · 异常也是指令语义的一部分<span class="english-title" lang="en">Y86-64 Exceptions</span></h3>
 <div class="scroll"><table class="compact-table"><thead><tr><th scope="col">状态</th><th scope="col">含义</th><th scope="col">模型行为</th></tr></thead><tbody><tr><td>AOK</td><td>正常运行</td><td>继续解释下一条</td></tr><tr><td>HLT</td><td>遇到 halt</td><td>停止</td></tr><tr><td>ADR</td><td>取指或数据地址非法</td><td>停止并保留异常位置</td></tr><tr><td>INS</td><td>指令编码非法</td><td>停止</td></tr></tbody></table></div>
 <p>图 4.5 给出的数值是 AOK=1、HLT=2、ADR=3、INS=4；图 4.26 却把后三者重新排列。这里始终用符号区分状态，避免错误地把不同表格的数值拼接。真实处理器通常把控制交给异常处理程序；本章的教学机器以停止作为终点。</p>
@@ -305,7 +469,7 @@ bool out = (s &amp;&amp; a) || (!s &amp;&amp; b);</code></pre>
 <h3 id="s4-3-2">4.3.2 · 数据通路把同一结果送到多个用途<span class="english-title" lang="en">SEQ Hardware Structure</span></h3>
 <figure><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SEQ 的 mrmovq 数据通路" viewBox="0 0 780 430" style="min-width:680px;width:100%;height:auto"><title>SEQ 的 mrmovq 数据通路</title><defs><marker id="SEQ的mrmovq数据通路arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#285a4e"/></marker></defs><rect x="25" y="25" width="140" height="55" rx="6" fill="#f4f6f2" stroke="#285a4e"/><text x="95.0" y="57.5" text-anchor="middle" font-size="15" fill="#252b29" style="font-size:15px;text-anchor:middle">PC=0x100</text><path d="M165 52 L235 52" stroke="#285a4e" stroke-width="2" fill="none" marker-end="url(#SEQ的mrmovq数据通路arrow)"/><rect x="235" y="25" width="345" height="55" rx="6" fill="#f4f6f2" stroke="#285a4e"/><text x="407.5" y="57.5" text-anchor="middle" font-size="15" fill="#252b29" style="font-size:15px;text-anchor:middle">取指：mrmovq 8(%rbx),%rax</text><rect x="25" y="145" width="200" height="55" rx="6" fill="#f4f6f2" stroke="#285a4e"/><text x="125.0" y="177.5" text-anchor="middle" font-size="15" fill="#252b29" style="font-size:15px;text-anchor:middle">newPC=valP=0x10a</text><rect x="550" y="145" width="205" height="55" rx="6" fill="#f4f6f2" stroke="#285a4e"/><text x="652.5" y="177.5" text-anchor="middle" font-size="15" fill="#252b29" style="font-size:15px;text-anchor:middle">R[%rbx]=0x200</text><rect x="520" y="280" width="235" height="55" rx="6" fill="#f4f6f2" stroke="#285a4e"/><text x="637.5" y="312.5" text-anchor="middle" font-size="15" fill="#252b29" style="font-size:15px;text-anchor:middle">ALU：0x200+8=0x208</text><rect x="250" y="280" width="215" height="55" rx="6" fill="#f4f6f2" stroke="#285a4e"/><text x="357.5" y="312.5" text-anchor="middle" font-size="15" fill="#252b29" style="font-size:15px;text-anchor:middle">内存 M8[0x208]=42</text><rect x="25" y="280" width="155" height="55" rx="6" fill="#f4f6f2" stroke="#285a4e"/><text x="102.5" y="312.5" text-anchor="middle" font-size="15" fill="#252b29" style="font-size:15px;text-anchor:middle">%rax←42</text><path d="M 285 80 L 285 115 L 125 115 L 125 140" stroke="#285a4e" fill="none" marker-end="url(#SEQ的mrmovq数据通路arrow)"/><text x="295" y="113" font-size="13" style="font-size:13px">valP</text><path d="M 580 52 L 655 52 L 655 140" stroke="#285a4e" fill="none" marker-end="url(#SEQ的mrmovq数据通路arrow)"/><text x="665" y="117" font-size="13" style="font-size:13px">rB=3</text><path d="M 430 80 L 430 235 L 575 235 L 575 275" stroke="#285a4e" fill="none" marker-end="url(#SEQ的mrmovq数据通路arrow)"/><text x="437" y="180" font-size="13" style="font-size:13px">valC=8</text><path d="M655 200 L655 275" stroke="#285a4e" stroke-width="2" fill="none" marker-end="url(#SEQ的mrmovq数据通路arrow)"/><text x="655.0" y="237.5" text-anchor="middle" font-size="13" fill="#285a4e" style="font-size:13px;text-anchor:middle">valB=0x200</text><path d="M520 307 L470 307" stroke="#285a4e" stroke-width="2" fill="none" marker-end="url(#SEQ的mrmovq数据通路arrow)"/><text x="495.0" y="295.0" text-anchor="middle" font-size="13" fill="#285a4e" style="font-size:13px;text-anchor:middle">valE</text><path d="M250 307 L185 307" stroke="#285a4e" stroke-width="2" fill="none" marker-end="url(#SEQ的mrmovq数据通路arrow)"/><text x="217.5" y="295.0" text-anchor="middle" font-size="13" fill="#285a4e" style="font-size:13px;text-anchor:middle">valM=42</text><text x="390" y="395" text-anchor="middle" font-size="15" style="font-size:15px;text-anchor:middle">组合信号稳定后，下一上升沿同时写入 %rax 与 PC</text></svg></div><figcaption>SEQ 的 mrmovq 数据通路</figcaption></figure><p>同一 ALU 在 OPq 中运算，在访存中求地址，在 call/pushq 中把栈顶减 8。两个写端口的必要性来自 popq：valE 写 %rsp，valM 写 rA；两者同名时 M 端口优先。普通不写寄存器的指令把目的编号置 RNONE，省去为每个寄存器单独生成写使能。</p>
 <h3 id="s4-3-3">4.3.3 · 为什么可以同时写回<span class="english-title" lang="en">SEQ Timing</span></h3>
-<div class="source-statement" id="principle-4-no-reading-back" data-source-kind="Principle">
+<div class="source-statement rn-statement" id="principle-4-no-reading-back" data-source-kind="Principle">
 <h4>原书原则 · 无须回读新状态（No reading back）</h4>
 <blockquote class="original-excerpt" lang="en"><p>The processor never needs to read back the state updated by an instruction in order to complete the processing of this instruction.</p></blockquote>
 <div class="statement-body"><p><strong>中文陈述。</strong>在这里设计的指令与 SEQ 数据通路中，完成本条指令不需要先写入某个状态，再从该状态读回新值。操作数来自周期开始时的状态，中间结果沿组合通路传递，状态写入可以在时钟边沿共同完成。</p><p><code>pushq</code> 先由旧栈顶计算 <code>valE=S−8</code>，再把同一个信号同时送到内存地址端和 %rsp 写端口。因此它不必等 %rsp 更新后再读一次；下面的时序表把“组合信号已经算好”与“寄存器状态已经写入”分开。</p></div>
@@ -371,7 +535,7 @@ word new_pc = [
 <p>PC 增量为 1+need_regids+8·need_valC：因此 jXX 是 9 字节，mrmovq 是 10 字节。图 4.27 图注的“six bytes”与正文及 Y86-64 最长 10 字节格式冲突；应按 10 字节候选窗口理解，并按当前指令实际长度判断有效取指。</p>
 <details class="reading-notes" id="notes-s4-3" data-notes-for="s4-3"><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">推导</span><h3>先填表再写 HCL</h3><p>例如 mem_addr 的 valA 分支只来自 popq/ret，因为它们读的是旧栈顶；pushq/call 必须使用已经减 8 的 valE。</p></div><div class="annotation-card"><span class="annotation-kind">时序</span><h3>逻辑阶段不等于时钟阶段</h3><p>SEQ 的六步是组织计算的次序。一条指令经过所有部件后才到写入边沿；PIPE 才在部件之间插入新的时钟状态。</p></div></div></details>
 </section><section id="s4-4"><h2>4.4 · 把延迟与连续产出分开计算<span class="english-title" lang="en">General Principles of Pipelining</span></h2><p class="source">来源：<a class="source-pdf" href="../csapp.pdf#page=449">印刷 448—457 页 / PDF 449—458 页</a></p>
-<div class="source-statement" id="principle-4-pipeline-throughput-latency" data-source-kind="Statement">
+<div class="source-statement rn-statement" id="principle-4-pipeline-throughput-latency" data-source-kind="Statement">
 <h4>原书原理 · 吞吐量与单项延迟</h4>
 <blockquote class="original-excerpt" lang="en"><p>A key feature of pipelining is that it increases the throughput of the system (i.e., the number of customers served per unit time), but it may also slightly increase the latency (i.e., the time required to service an individual customer).</p></blockquote>
 <div class="statement-body"><p><strong>中文陈述。</strong>流水线让不同任务的阶段重叠，从而提高单位时间完成的任务数；新增流水寄存器和阶段等待也可能增加单个任务从开始到结束的时间。比较时应分别计算单项延迟与稳定产出间隔。</p><p>下面的原书例子把单项延迟从 320 ps 增到 360 ps，同时把稳定产出间隔从 320 ps 缩到 120 ps。只有第一项走完全部阶段后，后续任务才能连续产出。</p></div>
@@ -385,7 +549,7 @@ word new_pc = [
 <p>在 239 ps，A 的结果已到第一寄存器输入，但其输出还属于 I1；240 ps 的边沿把 I2 的 A 结果和 I1 的 B 结果同时保存。240—360 ps 内分别计算 I3 的 A、I2 的 B、I1 的 C。放慢时钟会增加等待但不改变结果；过快则会采样尚未稳定的值。</p>
 
 <h3 id="s4-4-3">4.4.3 · 不均衡与寄存器开销限制收益<span class="english-title" lang="en">Limitations of Pipelining</span></h3>
-<div class="source-statement" id="principle-4-slowest-stage" data-source-kind="Statement">
+<div class="source-statement rn-statement" id="principle-4-slowest-stage" data-source-kind="Statement">
 <h4>原书原理 · 最慢阶段决定时钟</h4>
 <blockquote class="original-excerpt" lang="en"><p>However, the rate at which we can operate the clock is limited by the delay of the slowest stage.</p></blockquote>
 <div class="statement-body"><p><strong>中文陈述。</strong>采用统一时钟、每级在一拍内完成组合计算时，周期至少要容纳最慢一级的延迟及寄存器开销。较快阶段的空闲时间不能挪给较慢阶段使用。</p><p>因此 50、150、100 ps 的三级划分必须按 150 ps 加寄存器开销定时。下节的 170 ps 与 510 ps 分别是产出间隔和三级总延迟；将各级取平均会破坏时序条件。</p></div>
@@ -394,7 +558,7 @@ word new_pc = [
 <p>若三段是 50、150、100 ps，时钟必须取 170 ps，单项延迟 510 ps，吞吐量约 5.88 GIPS。第一段每周期等待 100 ps，第三段等待 50 ps；取平均 100 ps 来设置时钟会使第二段来不及完成。若把 300 ps 均分 k 段，则时钟为 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mfrac><mn>300</mn><mi>k</mi></mfrac><mo>+</mo><mn>20</mn></mrow></math></span> ps、延迟为 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>300</mn><mo>+</mo><mn>20</mn><mi>k</mi></mrow></math></span> ps；吞吐量趋近 50 GIPS。实际门、存储器与线路也不能任意等分。</p>
 
 <h3 id="s4-4-4">4.4.4 · 有反馈时，快一倍也必须算同一个递推<span class="english-title" lang="en">Pipelining a System with Feedback</span></h3>
-<div class="source-statement" id="principle-4-feedback-dependencies" data-source-kind="Statement">
+<div class="source-statement rn-statement" id="principle-4-feedback-dependencies" data-source-kind="Statement">
 <h4>原书原理 · 反馈决定哪些工作能够重叠</h4>
 <blockquote class="original-excerpt" lang="en"><p>Somehow we must deal with the data and control dependencies between instructions so that the resulting behavior matches the model defined by the ISA.</p></blockquote>
 <div class="statement-body"><p><strong>中文陈述。</strong>在带反馈的指令系统中加入流水线，必须同时处理数据依赖和控制依赖，使执行结果仍符合 ISA。后继指令要用的是前驱应当产生的新值，下一条指令的位置也必须符合实际控制流。</p><p>下面三条指令依次产生 %rax、%rbx 和访存地址，正好构成一条依赖链。转发可把已算出的新值提前送给消费者，等待则把消费者推迟到值真正可用的时刻。</p></div>
@@ -428,7 +592,7 @@ word f_pc = [
 ];</code></pre>
 <p>普通指令顺序前进；call 与 jmp 的目标在取指后就确定；条件跳转一律先猜“跳”。分支到 E 级才知道实际条件，下一周期在 M 级用保存的 valP 恢复。ret 的目标来自内存，直到 W_valM 出现才可用于取指，因此把未确定目标期间的取指结果丢弃。</p>
 <h3 id="s4-5-5">4.5.5 · 数据、控制冒险的时间账<span class="english-title" lang="en">Pipeline Hazards</span></h3>
-<div class="source-statement" id="principle-4-pipeline-hazards" data-source-kind="Definition">
+<div class="source-statement rn-statement" id="principle-4-pipeline-hazards" data-source-kind="Definition">
 <h4>原书定义 · 依赖何时构成流水冒险</h4>
 <blockquote class="original-excerpt" lang="en"><p>When such dependencies have the potential to cause an erroneous computation by the pipeline, they are called hazards. Like dependencies, hazards can be classified as either data hazards or control hazards.</p></blockquote>
 <div class="statement-body"><p><strong>中文陈述。</strong>当数据或控制依赖可能让流水线算错时，就构成相应的流水冒险。依赖本身并不必然要求停顿：若正确值能及时转发，消费者仍可按计划前进。</p><p>本节先检查 ALU 结果的转发，再用 load/use 例子确定必须等待的一拍；分支预测错误则需要取消已经进入流水线的年轻指令。每种措施都由值或控制结果的可用时刻推导。</p></div>

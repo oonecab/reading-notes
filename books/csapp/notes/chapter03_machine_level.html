@@ -210,9 +210,173 @@ main[id],main [id]{scroll-margin-top:24px}
 .reading-layout>main>section:not(#exercises):not(#self-check) pre{font-size:14px}
 
 .worked{background:var(--tint);border-left:2px solid var(--green);padding:.8rem 1.1rem;margin:1.5rem 0}.worked h3{margin:.2rem 0 .7rem}.english-title{display:block;color:var(--sub);font-size:.85rem;font-weight:400}.code-download{font-size:.9rem}.code-explanation li{margin:.7rem 0}.flow-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}svg .highlight{fill:#e6eee7;stroke:var(--green)}.solution-steps>li{margin:1rem 0}.question-note strong{color:var(--green)}.experiment-output{font-size:.9rem}main [id]{scroll-margin-top:100px}@media(max-width:1099px){main [id]{scroll-margin-top:132px}}
-</style></head><body><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="章节目录"><details class="toc-panel" id="toc-panel" open><summary>本章目录</summary><nav class="chapter-toc" id="chapter-toc" aria-label="本章目录"><a class="toc-home" href="book_overview.html">全书地图</a><a class="toc-home" href="preface.html">序言</a><ul><li><a href="#s3-1">3.1 · 名字带着历史，执行遵守当前的指令集</a></li><li><a href="#s3-2">3.2 · 从C、汇编到真正的机器字节</a></li><li><a href="#s3-3">3.3 · 宽度是每一次读写的组成部分</a></li><li><a href="#s3-4">3.4 · 从操作数一路算到内存中的字节</a></li><li><a href="#s3-5">3.5 · 把每条算术指令当成状态变换</a></li><li><a href="#s3-6">3.6 · 条件改变控制流，也能改变数据流</a></li><li><a href="#s3-7">3.7 · 一次调用要同时传控制、传数据和保存状态</a></li><li><a href="#s3-8">3.8 · 数组的类型决定地址算式</a></li><li><a href="#s3-9">3.9 · 结构体字段是编译期确定的偏移</a></li><li><a href="#s3-10">3.10 · 当数据字节碰到控制状态</a></li><li><a href="#s3-11">3.11 · 浮点值进入XMM寄存器与浮点条件</a></li><li><a href="#s3-12">3.12 · 把整段程序连成一条可验证的状态链</a></li><li><a href="#experiment">动手验证 · 地址、布局与简单函数</a></li><li><a href="#exercises">习题解答 · 3.1—3.75</a></li><li><a href="#self-check">原创自测与解答</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">CS:APP · 第三版 GLOBAL EDITION · 中文伴读</p><h1>第 3 章：程序的机器级表示</h1><p class="intro">把 C 的值、分支、调用和数据结构还原为寄存器、地址与指令；用明确的 x86-64/Linux 约定追踪状态。</p><p class="source">原书：<a class="source-pdf" href="../csapp.pdf#page=200">印刷 199—386 页 / PDF 200—387 页</a></p>
+</style><style>
+/* RN-001 shared teaching components. Inlined in every controlled reading page. */
+.rn-components {
+  --rn-space: 1rem;
+  --rn-label-size: .95rem;
+  --rn-title-size: 1.05rem;
+}
+.rn-components :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
+  min-width: 0;
+  scroll-margin-top: 24px;
+}
+.rn-components .rn-statement {
+  margin: 1.5rem 0;
+  padding: 1rem 1.15rem;
+  border: 0;
+  border-left: 3px solid var(--green);
+  background: var(--tint);
+}
+.rn-components :is(.rn-statement, .rn-example) > :is(h3, h4, .rn-title) {
+  margin: 0 0 .8rem;
+  padding: 0;
+  border: 0;
+  font-size: var(--rn-title-size);
+  line-height: 1.7;
+  font-weight: 650;
+  color: var(--green);
+}
+.rn-components .rn-statement > .statement-body {
+  padding: 0;
+  border: 0;
+}
+.rn-components .rn-statement .original-excerpt {
+  margin: .5rem 0 1rem;
+  padding: .1rem 0 .1rem .85rem;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-statement .statement-label {
+  margin: .8rem 0 .3rem;
+  color: var(--sub);
+  font-size: .85rem;
+  font-weight: 600;
+}
+.rn-components .rn-example {
+  margin: 1.75rem 0;
+  padding: 1rem 0 .25rem;
+  border: 0;
+  border-top: 1px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-proof {
+  margin: 1.1rem 0 1.75rem;
+  padding: 0 0 .2rem 1rem;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-proof > summary {
+  cursor: pointer;
+  margin: 0;
+  padding: .35rem 0;
+  color: var(--green);
+  font-size: var(--rn-label-size);
+  font-weight: 650;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .rn-proof > .rn-proof-body { margin-top: .7rem; }
+.rn-components .rn-proof-body p { margin: .85rem 0; }
+.rn-components .rn-proof-body > :first-child:not(.rn-example):not(.rn-statement):not(.rn-proof) {
+  margin-top: 0;
+}
+.rn-components :is(.rn-proof-body, .rn-statement, .rn-example) > :last-child:not(.rn-example):not(.rn-statement):not(.rn-proof) {
+  margin-bottom: 0;
+}
+.rn-components .exercise {
+  margin: 1rem 0;
+  padding: 0;
+  border: 1px solid var(--rule);
+  background: transparent;
+}
+.rn-components .exercise > summary {
+  margin: 0;
+  padding: .85rem 1rem;
+  color: var(--green);
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .exercise[open] > summary {
+  border-bottom: 1px solid var(--rule);
+  background: var(--tint);
+}
+.rn-components .exercise > :is(.exercise-question, .answer) {
+  margin: 0;
+  padding: 1rem;
+  border: 0;
+  background: transparent;
+  min-width: 0;
+}
+.rn-components .exercise > .answer {
+  border-top: 1px solid var(--rule);
+}
+.rn-components .exercise :is(.exercise-question, .answer) > :first-child {
+  margin: 0 0 .75rem;
+  padding: 0;
+  border: 0;
+  color: var(--green);
+  font-size: var(--rn-label-size);
+  font-weight: 650;
+  line-height: 1.75;
+}
+.rn-components .exercise :is(.exercise-question, .answer) > :first-child > strong { font-weight: inherit; }
+.rn-components :is(.exercise-question, .answer) > :last-child { margin-bottom: 0; }
+.rn-components :is(.rn-statement, .rn-example, .rn-proof, .exercise) .source {
+  margin-top: 1rem;
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components .exercise > .source {
+  margin: 0;
+  padding: 0 1rem 1rem;
+}
+.rn-components .rn-statement .source-status {
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components :is(.derivation-steps, .proof-steps, .solution-steps) {
+  margin: .75rem 0 1rem;
+  padding-left: 1.5rem;
+}
+.rn-components :is(.derivation-steps, .proof-steps, .solution-steps) > li {
+  padding-left: .15rem;
+  margin: .9rem 0;
+}
+.rn-components :is(.rn-proof, .exercise) > summary:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+.rn-components :is(.rn-proof-body, .rn-example, .rn-statement, .exercise-question, .answer) {
+  overflow-wrap: break-word;
+}
+@media (max-width: 1100px) {
+  .rn-components:not(.portal-reader):not(.sample-fragment) :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
+    scroll-margin-top: 90px;
+  }
+}
+@media (max-width: 640px) {
+  .rn-components .rn-statement { padding: .85rem .8rem; }
+  .rn-components .rn-proof { padding-left: .75rem; }
+  .rn-components .exercise > :is(summary, .exercise-question, .answer) {
+    padding: .85rem .8rem;
+  }
+  .rn-components .exercise > .source { padding: 0 .8rem .85rem; }
+}
+@media print {
+  .rn-components .rn-proof::details-content { content-visibility: visible !important; }
+}
+
+</style>
+</head><body class="rn-components"><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="章节目录"><details class="toc-panel" id="toc-panel" open><summary>本章目录</summary><nav class="chapter-toc" id="chapter-toc" aria-label="本章目录"><a class="toc-home" href="book_overview.html">全书地图</a><a class="toc-home" href="preface.html">序言</a><ul><li><a href="#s3-1">3.1 · 名字带着历史，执行遵守当前的指令集</a></li><li><a href="#s3-2">3.2 · 从C、汇编到真正的机器字节</a></li><li><a href="#s3-3">3.3 · 宽度是每一次读写的组成部分</a></li><li><a href="#s3-4">3.4 · 从操作数一路算到内存中的字节</a></li><li><a href="#s3-5">3.5 · 把每条算术指令当成状态变换</a></li><li><a href="#s3-6">3.6 · 条件改变控制流，也能改变数据流</a></li><li><a href="#s3-7">3.7 · 一次调用要同时传控制、传数据和保存状态</a></li><li><a href="#s3-8">3.8 · 数组的类型决定地址算式</a></li><li><a href="#s3-9">3.9 · 结构体字段是编译期确定的偏移</a></li><li><a href="#s3-10">3.10 · 当数据字节碰到控制状态</a></li><li><a href="#s3-11">3.11 · 浮点值进入XMM寄存器与浮点条件</a></li><li><a href="#s3-12">3.12 · 把整段程序连成一条可验证的状态链</a></li><li><a href="#experiment">动手验证 · 地址、布局与简单函数</a></li><li><a href="#exercises">习题解答 · 3.1—3.75</a></li><li><a href="#self-check">原创自测与解答</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">CS:APP · 第三版 GLOBAL EDITION · 中文伴读</p><h1>第 3 章：程序的机器级表示</h1><p class="intro">把 C 的值、分支、调用和数据结构还原为寄存器、地址与指令；用明确的 x86-64/Linux 约定追踪状态。</p><p class="source">原书：<a class="source-pdf" href="../csapp.pdf#page=200">印刷 199—386 页 / PDF 200—387 页</a></p>
 <p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="book_overview.html#program-guide">程序说明</a><a href="chapter02_information.html">← 第 2 章</a><a href="chapter04_architecture.html">第 4 章 →</a></p></header><section id="s3-1"><h2>3.1 · 名字带着历史，执行遵守当前的指令集<span class="english-title" lang="en">A Historical Perspective</span></h2><details class="statement-index" id="source-index"><summary>本页原书摘录 · 16 处</summary><ul class="statement-links"><li><a href="#classic-3-abstractions">经典表述 · ISA 与虚拟内存两种抽象</a></li><li><a href="#classic-3-operands">经典表述 · 操作数决定取值的路径</a></li><li><a href="#classic-3-zero-extension">经典表述 · 四字节寄存器结果会清零高半部</a></li><li><a href="#classic-3-lea">经典表述 · 有效地址计算也能表达算术</a></li><li><a href="#classic-3-control-dataflow">经典表述 · 条件可以改变控制流或数据流</a></li><li><a href="#classic-3-cmov-boundary">经典表述 · 条件传送的求值前提</a></li><li><a href="#classic-3-jump-table">经典表述 · 跳转表把多路选择化为查表</a></li><li><a href="#classic-3-procedure-mechanisms">经典表述 · 过程调用的三项责任</a></li><li><a href="#classic-3-recursion">经典表述 · 栈为每次递归调用保留私有状态</a></li><li><a href="#classic-3-row-major">经典表述 · 二维数组由嵌套数组决定行顺序</a></li><li><a href="#classic-3-struct-fields">经典表述 · 字段选择在编译时化为偏移</a></li><li><a href="#classic-3-alignment">经典表述 · 对齐约束落在对象起始地址</a></li><li><a href="#classic-3-pointer-types">经典表述 · 指针类型是 C 提供的抽象</a></li><li><a href="#classic-3-bounds-state">经典表述 · 越界写可能破坏过程状态</a></li><li><a href="#classic-3-scalar-float">经典表述 · 标量浮点使用向量寄存器的低部</a></li><li><a href="#classic-3-float-unordered">经典表述 · NaN 对应比较的无序结果</a></li></ul></details><p class="source">来源：<a class="source-pdf" href="../csapp.pdf#page=203">印刷202页起 / PDF 203页起</a></p><p>第2章回答“位模式表示什么”，本章把问题推进一步：程序的这些位模式怎样在处理器中被读取、计算和保存？目标不是记住一份指令字典，而是拿到一段汇编后，能写下某条指令执行前后的寄存器、内存和下一条指令地址。只要这三类状态连起来，C中的表达式、分支、函数与数据结构就可以沿同一条线理解。</p><p>x86从16位8086，经32位IA32扩展到x86-64，因此同一寄存器留下ax、eax、rax几代名字。“word”仍是16位，“double word”是32位，“quad word”才是64位；它们不是随处理器位数一起变化的口语“一个机器字”。x86-64增加了寄存器并扩大地址和数据能力，同时保留大量早期编码。历史解释为什么接口不整齐，实际解题仍必须依据当前指令的精确定义。</p><div class="scroll"><table><thead><tr><th scope="col">层次</th><th scope="col">本章用它回答的问题</th><th scope="col">相同/不同的边界</th></tr></thead><tbody><tr><td>C语言语义</td><td>源表达式是否定义良好？是否允许重排？</td><td>有符号溢出并非模运算；指针有对象范围</td></tr><tr><td>ISA</td><td>一条指令读取/写入哪些状态？</td><td>同一x86-64指令可以由多种硬件实现</td></tr><tr><td>ABI</td><td>参数、返回值、保存责任如何约定？</td><td>本章以x86-64/Linux System V为主</td></tr><tr><td>实现与测量</td><td>编译器选择哪条指令，运行多少周期？</td><td>版本、选项、系统和CPU都影响观察</td></tr></tbody></table></div><p>后文的“64位机器结果”常指模<span class="math-inline" data-tex="2^{64}"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msup><mn>2</mn><mrow><mn>64</mn></mrow></msup></mrow></math></span>位操作，它与数学整数及C有符号long不是同一个模型。本章每个关键例子都把这层差异放在使用处：可以用uint64_t精确模拟回绕；要验证ABI则要执行对应机器代码；Python只对算式和状态模型作独立核算。</p><details class="reading-notes" id="notes-s3-1" data-notes-for="s3-1"><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解</span><h3>先确定四层中的哪一层</h3><p>读到“会溢出”时，先问它指机器位截断、C未定义行为，还是浮点舍入。层次明确后，结论才不会互相冲突。</p></div><div class="annotation-card"><span class="annotation-kind">阅读方法</span><h3>先猜下一条状态</h3><p>看到mov、lea或跳转，先遮住注释，用当前寄存器表预测它改了什么；再往下读一条验证自己的预测。</p></div></div></details></section><section id="s3-2"><h2>3.2 · 从C、汇编到真正的机器字节<span class="english-title" lang="en">Program Encodings</span></h2><p class="source">来源：<a class="source-pdf" href="../csapp.pdf#page=206">印刷205页起 / PDF 206页起</a></p><h3 id="s3-2-1">3.2.1 · 机器级代码暴露哪些状态<span class="english-title" lang="en">Machine-Level Code</span></h3>
-<aside class="source-statement" id="classic-3-abstractions" data-source-pdf-pages="207,208" data-original-section="3.2.1">
+<aside class="source-statement rn-statement" id="classic-3-abstractions" data-source-pdf-pages="207,208" data-original-section="3.2.1">
 <h4>经典表述 · ISA 与虚拟内存两种抽象</h4>
 <blockquote class="original-excerpt" lang="en"><p>First, the format and behavior of a machine-level program is defined by the instruction set architecture, or ISA, defining the processor state, the format of the instructions, and the effect each of these instructions will have on the state.</p><p>Second, the memory addresses used by a machine-level program are virtual addresses, providing a memory model that appears to be a very large byte array.</p></blockquote>
 <div class="statement-body"><p>机器级程序建立在两种抽象上：ISA 规定可见状态、指令格式和状态变化；虚拟内存提供按字节寻址的巨大数组。前者让读者能逐条推演指令，后者让同一个地址表达式具有稳定的程序含义。</p><p><strong>伴读：</strong>处理器内部可以并行执行指令，内存也由多级硬件和操作系统实现；沿本章状态表阅读时，先以这两项程序可见约定为依据。 <a href="#derive-3-2-1">接着看本节例子</a>。</p></div>
@@ -229,7 +393,7 @@ void multstore(long x,long y,long *dest) {
     movq %rax,(%rbx)
     popq %rbx
     ret</code></pre><p>前两个参数x、y已经在rdi、rsi；第三参数dest原在rdx，但mult2可破坏rdx，所以multstore先保存旧rbx，再把dest放入被调用者保存的rbx。call返回后，rax含乘积，movq把它写到dest，最后恢复rbx。这六条指令同时解释了“局部变量消失”和“为了调用多出栈操作”：t直接就是rax的值，而rbx的保存用于遵守跨函数约定。</p><div class="scroll"><table><thead><tr><th scope="col">阶段/命令</th><th scope="col">形成的对象</th><th scope="col">此时能看到什么</th></tr></thead><tbody><tr><td>clang -O1 -S probe.c</td><td>汇编文本.s</td><td>符号名、寄存器、指令、伪指令</td></tr><tr><td>clang -c probe.c</td><td>可重定位目标.o</td><td>机器字节；外部调用处仍需重定位</td></tr><tr><td>链接所有目标与库</td><td>可执行文件</td><td>符号被安排到地址、调用位移被补齐</td></tr><tr><td>反汇编目标/可执行文件</td><td>字节与指令并列</td><td>能判断真实编码长度和相对跳转</td></tr></tbody></table></div><p>书中multstore的目标代码是14字节，而目标文件整体远大于14字节，因为还包含段、符号及重定位等信息。call后的四字节在未链接目标中可能暂为0，不能据此推断函数真的调用下一条指令；应同时看重定位信息。</p><h3 id="s3-2-3">3.2.3 · 怎样整理汇编而不改变含义<span class="english-title" lang="en">Notes on Formatting</span></h3><p>阅读时可以把.file、.cfi等工具信息与实际执行指令分开，保留标签、数据常量和影响段/对齐的伪指令。AT&amp;T写法通常“源在前、目的在后”，寄存器前有%、立即数前有$；Intel写法通常目的在前。把一种语法里的注释粘到另一种语法会直接把减法和比较读反。</p><p>本章的注释先写数据流，诸如“rax←旧rax−rsi”，再把它命名成源变量。不要先认定rax永远叫result。编译器版本不同可以生成不同但等价的程序；<a href="../code/ch03_compiler.c">编译探针</a>提供小函数用于重新观察，生成的Linux x86-64汇编是静态目标证据，宿主程序另行执行。</p><details class="reading-notes" id="notes-s3-2" data-notes-for="s3-2"><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解</span><h3>目标文件中的零可能是占位</h3><p>外部符号未链接时，call位移依靠重定位补全。反汇编与符号/重定位表需要一起读。</p></div><div class="annotation-card"><span class="annotation-kind">追踪</span><h3>局部变量不等于一个栈槽</h3><p>变量可以仅存寄存器，也可以被表达式消去；栈槽的存在要从实际取址、溢出保存和调用需求推断。</p></div></div></details></section><section id="s3-3"><h2>3.3 · 宽度是每一次读写的组成部分<span class="english-title" lang="en">Data Formats</span></h2><p class="source">来源：<a class="source-pdf" href="../csapp.pdf#page=214">印刷213页起 / PDF 214页起</a></p><p>先确定数据宽度，才能追踪值。书中LP64模型规定char、short、int、long的尺寸为1、2、4、8字节，对象指针为8字节，float和double为4、8字节。普通整数指令后缀b/w/l/q对应8/16/32/64位；指令后缀l的“long”是历史上的double word，不能误认为C的64位long。</p><div class="scroll"><table><thead><tr><th scope="col">C对象（本章LP64）</th><th scope="col">字节数</th><th scope="col">整数操作后缀/寄存器例</th></tr></thead><tbody><tr><td>char / unsigned char</td><td>1</td><td>b / %al</td></tr><tr><td>short / unsigned short</td><td>2</td><td>w / %ax</td></tr><tr><td>int / unsigned</td><td>4</td><td>l / %eax</td></tr><tr><td>long / unsigned long / 对象指针</td><td>8</td><td>q / %rax</td></tr><tr><td>float</td><td>4</td><td>标量浮点ss / %xmm0低32位</td></tr><tr><td>double</td><td>8</td><td>标量浮点sd / %xmm0低64位</td></tr></tbody></table></div><p>rax、eax、ax、al是同一寄存器的不同视图。写al只改低8位，写ax只改低16位，而写eax除了改低32位还把高32位清零。这个特殊规则提供免费的32到64位零扩展。内存没有这种附带效果：movl %eax,(%rdi)只写4字节，不会把紧接着的4字节清零。</p><div class="scroll"><table><thead><tr><th scope="col">顺序执行的指令</th><th scope="col">执行后rax的十六进制值</th><th scope="col">关键动作</th></tr></thead><tbody><tr><td>movabsq $0x0011223344556677,%rax</td><td>0011223344556677</td><td>初始化全部64位</td></tr><tr><td>movb $-1,%al</td><td>00112233445566ff</td><td>只覆盖低字节</td></tr><tr><td>movw $-1,%ax</td><td>001122334455ffff</td><td>只覆盖低两字节</td></tr><tr><td>movl $-1,%eax</td><td>00000000ffffffff</td><td>写32位并清高32位</td></tr><tr><td>movq $-1,%rax</td><td>ffffffffffffffff</td><td>写全部64位</td></tr></tbody></table></div><p>普通char究竟有无符号、long是否8字节不是C语言跨平台保证。本章给定模型下讨论布局，实验开头检查宿主尺寸；遇到不符合LP64的环境应重新设定模型，不能让一份碰巧通过的地址表代表所有平台。</p><details class="reading-notes" id="notes-s3-3" data-notes-for="s3-3"><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">易混点</span><h3>地址宽度与数据宽度分开</h3><p>movb (%rax),%dl使用64位地址但只读1字节；地址计算中的scale也不能替代指令的数据尺寸。</p></div><div class="annotation-card"><span class="annotation-kind">推导</span><h3>32位写为什么能做零扩展</h3><p>movl生成的高32位按ISA清零，所以无符号32位转64位通常不需要独立movzlq指令。</p></div></div></details></section><section id="s3-4"><h2>3.4 · 从操作数一路算到内存中的字节<span class="english-title" lang="en">Accessing Information</span></h2><p class="source">来源：<a class="source-pdf" href="../csapp.pdf#page=216">印刷215页起 / PDF 216页起</a></p><h3 id="s3-4-1">3.4.1 · 三种操作数与有效地址<span class="english-title" lang="en">Operand Specifiers</span></h3>
-<aside class="source-statement" id="classic-3-operands" data-source-pdf-pages="218" data-original-section="3.4.1">
+<aside class="source-statement rn-statement" id="classic-3-operands" data-source-pdf-pages="218" data-original-section="3.4.1">
 <h4>经典表述 · 操作数决定取值的路径</h4>
 <blockquote class="original-excerpt" lang="en"><p>Operands can denote immediate (constant) values, register values, or values from memory.</p></blockquote>
 <div class="statement-body"><p>操作数可以直接给出常数、指定寄存器内容，或通过地址从内存取值。一般内存形式 <code>Imm(rb,ri,s)</code> 的有效地址为：</p><div class="math-block" data-tex="\mathrm{EA}=\mathrm{Imm}+R[r_b]+sR[r_i],\qquad s\in\{1,2,4,8\}."><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mrow><mi mathvariant="normal">E</mi><mi mathvariant="normal">A</mi></mrow><mo>&#x0003D;</mo><mrow><mi mathvariant="normal">I</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">m</mi></mrow><mo>&#x0002B;</mo><mi>R</mi><mo stretchy="false">[</mo><msub><mi>r</mi><mi>b</mi></msub><mo stretchy="false">]</mo><mo>&#x0002B;</mo><mi>s</mi><mi>R</mi><mo stretchy="false">[</mo><msub><mi>r</mi><mi>i</mi></msub><mo stretchy="false">]</mo><mo>&#x0002C;</mo><mspace width="2em" /><mi>s</mi><mo>&#x02208;</mo><mo stretchy="false">&#x0007B;</mo><mn>1</mn><mo>&#x0002C;</mo><mn>2</mn><mo>&#x0002C;</mo><mn>4</mn><mo>&#x0002C;</mo><mn>8</mn><mo stretchy="false">&#x0007D;</mo><mo>&#x0002E;</mo></mrow></math></div><p>在本节的 x86-64 寻址模型中，基址和索引使用 64 位寄存器；指令的数据宽度再决定从这个地址读取或写入多少字节。</p><p><strong>伴读：</strong>立即数 8、地址 8、地址中保存的值是三个不同对象；下方先算有效地址再读取四字节的过程把它们逐个分开。 <a href="#derive-3-4-1">接着看本节例子</a>。</p></div>
@@ -238,7 +402,7 @@ void multstore(long x,long y,long *dest) {
 <p id="derive-3-4-1">立即数给出数本身，寄存器给出当前位置的位模式，内存操作数则先计算地址再读取那里的字节。若rdi=0x1000、rsi=3，<code>$8</code>就是8，<code>%rdi</code>是0x1000，<code>8(%rdi,%rsi,4)</code>的有效地址是0x1014，movl会读取那里连续4字节。</p><div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mi>EA</mi><mo>=</mo><mi>D</mi><mo>+</mo><mi>R</mi><mo>[</mo><msub><mi>r</mi><mi>b</mi></msub><mo>]</mo><mo>+</mo><mi>S</mi><mo>·</mo><mi>R</mi><mo>[</mo><msub><mi>r</mi><mi>i</mi></msub><mo>]</mo></math></div><p>S只能是1、2、4、8，可省略位移、基址或索引。没有寄存器括号也可能是绝对内存地址，如0x104；只有加$才变立即数。若内存0x1014..0x1017的字节依次为78、56、34、12，小端movl得到0x12345678，再由eax写规则清空rax高部。</p>
 <div class="explanation" id="explain-s3-4"><h3>把地址和值分两步读</h3><p>设 <code>%rdi=0x1000</code>、<code>%rcx=3</code>，内存地址 <code>0x1014</code> 开始的 4 字节存着整数 42。操作数 <code>8(%rdi,%rcx,4)</code> 先算 <code>0x1000+3×4+8=0x1014</code>；<code>movl 8(%rdi,%rcx,4),%eax</code> 才去该地址读取 4 字节，使 <code>%eax=42</code>。若换成 <code>leaq 8(%rdi,%rcx,4),%rax</code>，结果是地址数值 <code>0x1014</code>，不会读取 42。括号里的寄存器提供地址计算所需的数；指令决定是否访存、访存多宽。</p></div>
 <h3 id="s3-4-2">3.4.2 · 传送、符号扩展与零扩展<span class="english-title" lang="en">Data Movement Instructions</span></h3>
-<aside class="source-statement" id="classic-3-zero-extension" data-source-pdf-pages="222" data-original-section="3.4.2">
+<aside class="source-statement rn-statement" id="classic-3-zero-extension" data-source-pdf-pages="222" data-original-section="3.4.2">
 <h4>经典表述 · 四字节寄存器结果会清零高半部</h4>
 <blockquote class="original-excerpt" lang="en"><p>This technique takes advantage of the property that an instruction generating a 4-byte value with a register as the destination will fill the upper 4 bytes with zeros.</p></blockquote>
 <div class="statement-body"><p>生成四字节结果并以整数寄存器为目的时，x86-64 将对应 64 位寄存器的高四字节清零。因此写 <code>%eax</code> 就能得到 32 位到 64 位的零扩展；写入内存的四字节操作没有这项寄存器效果。</p><p><strong>伴读：</strong>把 0xA5 当作无符号字节扩展得到 165；按有符号字节扩展得到 −91。先确认源类型，再选择零扩展或符号扩展。 <a href="#derive-3-4-2">接着看本节例子</a>。</p></div>
@@ -251,7 +415,7 @@ void multstore(long x,long y,long *dest) {
 }</code></pre><pre><code data-language="assembly" class="language-assembly">movq (%rdi),%rax   # 保存xp所指的旧值，作为返回值
 movq %rsi,(%rdi)   # 把y写到同一个对象
 ret</code></pre><div class="scroll"><table><thead><tr><th scope="col">执行位置</th><th scope="col">rdi</th><th scope="col">rsi</th><th scope="col">rax</th><th scope="col">M₈[0x2000]</th></tr></thead><tbody><tr><td>进入</td><td>0x2000</td><td>3</td><td>未知</td><td>4</td></tr><tr><td>第一条后</td><td>0x2000</td><td>3</td><td>4</td><td>4</td></tr><tr><td>第二条后</td><td>0x2000</td><td>3</td><td>4</td><td>3</td></tr><tr><td>返回调用者</td><td>—</td><td>—</td><td>返回4</td><td>a变成3</td></tr></tbody></table></div><p>这里xp自身没有被修改，变化的是它指向的对象。C中的局部变量x没有栈槽，旧值直接留在rax。第一次读必须早于写，否则返回的就不再是旧值。这种“先捕获必要旧状态再覆盖”的顺序还会出现在交换、链表更新与结构返回中。</p><h3 id="s3-4-4">3.4.4 · 栈顶是一个地址，压栈改变它<span class="english-title" lang="en">Pushing and Popping Stack Data</span></h3><p>普通pushq先令rsp减8，再把源值写到新rsp；普通popq先读旧rsp的8字节，再使rsp加8。以rsp=0x108、rax=0x123开始，pushq %rax后rsp=0x100且M₈[0x100]=0x123；popq %rdx后rdx=0x123、rsp又为0x108。内存0x100的字节没有自动清除，只是脱离活动栈顶。</p><p>从栈中间读取仍用普通地址式：movq 8(%rsp),%rdx读第二个8字节槽。将push写成sub加mov只是在一般操作数条件下解释效果；若源或目的涉及rsp自身，必须按指令规定的求值顺序处理，不能机械替换。</p><details class="reading-notes" id="notes-s3-4" data-notes-for="s3-4"><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">状态</span><h3>先写地址，再取值</h3><p>遇到括号时先算EA，列出读写字节数，再查看内容。这一步能阻止把指针值与对象值混在一起。</p></div><div class="annotation-card"><span class="annotation-kind">校注</span><h3>原题也要受编码规则约束</h3><p>3.6、3.7等题出现scale=3/7/9或寄存器scale，均不能编码；算式意图与合法实现已在题解中分别给出。</p></div></div></details></section><section id="s3-5"><h2>3.5 · 把每条算术指令当成状态变换<span class="english-title" lang="en">Arithmetic and Logical Operations</span></h2><p class="source">来源：<a class="source-pdf" href="../csapp.pdf#page=228">印刷227页起 / PDF 228页起</a></p><h3 id="s3-5-1">3.5.1 · lea算地址式，但不访问内存<span class="english-title" lang="en">Load Effective Address</span></h3>
-<aside class="source-statement" id="classic-3-lea" data-source-pdf-pages="229" data-original-section="3.5.1">
+<aside class="source-statement rn-statement" id="classic-3-lea" data-source-pdf-pages="229" data-original-section="3.5.1">
 <h4>经典表述 · 有效地址计算也能表达算术</h4>
 <blockquote class="original-excerpt" lang="en"><p>Its first operand appears to be a memory reference, but instead of reading from the designated location, the instruction copies the effective address to the destination.</p></blockquote>
 <div class="statement-body"><p><code>lea</code> 使用内存操作数的地址计算形式，把算出的地址值写入目的寄存器。它不读取该地址上的对象，所以也能表达基址、比例项和常数项组成的算术。</p><p><strong>伴读：</strong>将 <code>7(%rdi,%rdi,2)</code> 按地址式展开就是 <span class="math-inline" data-tex="7+x+2x=3x+7"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>7</mn><mo>&#x0002B;</mo><mi>x</mi><mo>&#x0002B;</mo><mn>2</mn><mi>x</mi><mo>&#x0003D;</mo><mn>3</mn><mi>x</mi><mo>&#x0002B;</mo><mn>7</mn></mrow></math></span>。能计算这个数，不要求它此时是可访问的对象地址。 <a href="#derive-3-5-1">接着看本节例子</a>。</p></div>
@@ -270,7 +434,7 @@ idivq %rsi       # rdx:rax / y；商rax、余数rdx
 movq %rax,(%r8)
 movq %rdx,(%rcx)
 ret</code></pre><p>有符号例x=−17,y=5：cqto让高半部全1，idiv产生商−3、余数−2，满足x=qy+r且余数与被除数同号。无符号除法把高半部清零并改用divq。除数为0、或商无法装入目标宽度会触发异常；例如有符号最小数除以−1不合法。128位有符号乘积怎样由低半部乘法及符号交叉项组成，见3.59的完整推导。</p><details class="reading-notes" id="notes-s3-5" data-notes-for="s3-5"><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">推导</span><h3>掩码比直觉可靠</h3><p>判断符号扩展或最低位扩散时，把全0/全1掩码写出来，再做按位式；3.58正是一个可复用例子。</p></div><div class="annotation-card"><span class="annotation-kind">边界</span><h3>C表达式不自动等价于回绕指令</h3><p>汇编乘法截取低64位是确定行为，C有符号乘法溢出是另一回事。需要全域模拟时使用uint64_t及显式截断。</p></div></div></details></section><section id="s3-6"><h2>3.6 · 条件改变控制流，也能改变数据流<span class="english-title" lang="en">Control</span></h2><p class="source">来源：<a class="source-pdf" href="../csapp.pdf#page=237">印刷236页起 / PDF 237页起</a></p><h3 id="s3-6-1">3.6.1 · 条件码记住最近一次相关运算<span class="english-title" lang="en">Condition Codes</span></h3>
-<aside class="source-statement" id="classic-3-control-dataflow" data-source-pdf-pages="237" data-original-section="3.6">
+<aside class="source-statement rn-statement" id="classic-3-control-dataflow" data-source-pdf-pages="237" data-original-section="3.6">
 <h4>经典表述 · 条件可以改变控制流或数据流</h4>
 <blockquote class="original-excerpt" lang="en"><p>Machine code provides two basic low-level mechanisms for implementing conditional behavior: it tests data values and then alters either the control flow or the data flow based on the results of these tests.</p></blockquote>
 <div class="statement-body"><p>机器实现条件行为的两种基本方式是：先测试数据，再据结果改变下一条执行的指令，或改变将采用的数据值。条件跳转对应控制流选择，条件传送对应数据流选择；二者都依赖测试形成的状态。</p><p><strong>伴读：</strong>先追踪哪条指令设置条件码，再找哪条跳转或传送使用它。下方减法溢出例解释了为什么有符号小于需要 <span class="math-inline" data-tex="\mathrm{SF}\mathbin{\oplus}\mathrm{OF}"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mrow><mi mathvariant="normal">S</mi><mi mathvariant="normal">F</mi></mrow><mo lspace="0.22em" rspace="0.22em"><mrow><mo>&#x02295;</mo></mrow></mo><mrow><mi mathvariant="normal">O</mi><mi mathvariant="normal">F</mi></mrow></mrow></math></span>。 <a href="#derive-3-6-1">接着看本节例子</a>。</p></div>
@@ -290,7 +454,7 @@ ret
 movq %rdi,%rax
 subq %rsi,%rax       # x&gt;=y: x-y
 ret</code></pre><p>取x=3,y=8，cmp的有符号结果为小于，jge不跳，顺序得到8−3=5；取x=9,y=4则跳.ge得到9−4=5。if两支若各自还更新一个计数器，也只应进入相应路径。差值必须可表示；“绝对差”并不保证两个long的差一定能装入long。短路表达式a&amp;&amp;*p&lt;a要先判断a，再决定是否读取*p，见3.16。</p><h3 id="s3-6-6">3.6.6 · cmov选择结果，不能取消已经发生的读取<span class="english-title" lang="en">Implementing Conditional Branches with Conditional Moves</span></h3>
-<aside class="source-statement" id="classic-3-cmov-boundary" data-source-pdf-pages="255" data-original-section="3.6.6">
+<aside class="source-statement rn-statement" id="classic-3-cmov-boundary" data-source-pdf-pages="255" data-original-section="3.6.6">
 <h4>经典表述 · 条件传送的求值前提</h4>
 <blockquote class="original-excerpt" lang="en"><p>If one of those two expressions could possibly generate an error condition or a side effect, this could lead to invalid behavior.</p></blockquote>
 <div class="statement-body"><p>原文讨论的是先计算两个候选值、再条件选择的实现。若任一候选表达式可能产生错误或副作用，把原本只执行一支的程序改成两支都求值，就可能改变行为。条件传送只能在候选值能够安全取得时这样使用。</p><p><strong>伴读：</strong>对 <code>xp ? *xp : 0</code>，先解引用再丢弃结果无法保护空指针；下方例子与习题 3.61 展示了先选择有效地址、再读取对象的做法。 <a href="#derive-3-6-6">接着看本节例子</a>。</p></div>
@@ -310,14 +474,14 @@ ret</code></pre><p id="derive-3-6-6">这个最小值函数无需控制分支：�
     cmpq %rdi,%rdx
     jle .body          # i&lt;=n继续
     ret</code></pre><div class="scroll"><table><thead><tr><th scope="col">n=3时到达.test</th><th scope="col">i/rdx</th><th scope="col">sum/rax</th><th scope="col">测试后的动作</th></tr></thead><tbody><tr><td>第一次</td><td>1</td><td>0</td><td>1≤3，进入主体</td></tr><tr><td>第二次</td><td>2</td><td>1</td><td>2≤3，进入主体</td></tr><tr><td>第三次</td><td>3</td><td>3</td><td>3≤3，进入主体</td></tr><tr><td>第四次</td><td>4</td><td>6</td><td>4≤3为假，返回6</td></tr></tbody></table></div><p>这里先jmp到测试，n≤0时循环执行零次。do-while会先执行主体再测试，至少一次；guarded-do先用入口条件排除零次情况，再采用底部回边。for的更新表达式属于每轮继续前必经的步骤；continue必须去更新位置，不能直接跳到while测试，否则会遗漏i++。3.29把这一点用无限循环反例讲清。</p><p>反推循环时先列每个寄存器的初值、循环体更新和退出后用途，再提出循环不变量。本例每次测试时sum=1+…+(i−1)；主体加i并递增，保持不变量。推导同时要求n和总和可表示，不能让i在LONG_MAX后溢出。</p><h3 id="s3-6-8">3.6.8 · switch的跳转表与贯穿<span class="english-title" lang="en">Switch Statements</span></h3>
-<aside class="source-statement" id="classic-3-jump-table" data-source-pdf-pages="270" data-original-section="3.6.8">
+<aside class="source-statement rn-statement" id="classic-3-jump-table" data-source-pdf-pages="270" data-original-section="3.6.8">
 <h4>经典表述 · 跳转表把多路选择化为查表</h4>
 <blockquote class="original-excerpt" lang="en"><p>The advantage of using a jump table over a long sequence of if-else statements is that the time taken to perform the switch is independent of the number of switch cases.</p></blockquote>
 <div class="statement-body"><p>采用跳转表的 <code>switch</code> 用索引选出一项代码地址，再进行间接跳转。原书指出，这种选择路径不需要逐个比较全部分支，因而查表动作的步骤数不随分支数量增长。</p><p><strong>伴读：</strong>这个结论针对已经采用跳转表的实现；表的大小、标签稠密度、边界检查和缓存仍影响实际代价。重复分支可以共享表项，缺失值指向默认分支。 <a href="#derive-3-6-8">接着看本节例子</a>。</p></div>
 <p class="source">第三版 Global Edition，§3.6.8；原书未编号表述；印刷 269 页 / <a class="source-pdf" href="../csapp.pdf#page=270">PDF 270 页</a>。</p>
 </aside>
 <p id="derive-3-6-8">密集case可以把值归一化成从0开始的索引，再一次查表跳到目标。假设case范围60—65：先令k=n−60，再用无符号k&gt;5排除两端。n&lt;60时减法的位模式很大，也被同一比较排除。表中不同项可以指向同一个代码块，缺口指向default；进入一个块以后是否再落入后块，还要继续读控制流。</p><figure><div class="scroll"><svg viewBox="0 0 760 230" role="img" aria-label="switch索引和贯穿的执行图"><defs><marker id="arrow-switch" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#285a4e"/></marker></defs><rect class="node" x="20" y="75" width="150" height="65"/><text x="95" y="102">k=n−60</text><text class="hint" x="95" y="126">无符号k≤5？</text><path class="edge" marker-end="url(#arrow-switch)" d="M170 105H245"/><rect class="node" x="250" y="35" width="200" height="160"/><text x="350" y="66">跳转表的6个目标</text><text class="hint" x="350" y="96">60/62 → 8x，返回</text><text class="hint" x="350" y="120">63 → 算术右移3，返回</text><text class="hint" x="350" y="144">64 → 15x后贯穿</text><text class="hint" x="350" y="168">65 → 平方后贯穿</text><path class="edge" marker-end="url(#arrow-switch)" d="M450 145H520"/><text class="hint" x="485" y="133">64 / 65</text><rect class="node" x="525" y="110" width="215" height="65"/><text x="632" y="138">default: x+75</text><text class="hint" x="632" y="161">既可直接进入，也可贯穿</text><path class="edge" marker-end="url(#arrow-switch)" d="M95 140V210H630V180"/><text class="hint" x="265" y="226">超出范围 → default</text></svg></div><figcaption>按课后题3.63重绘的控制流。跳转表只决定入口，入口后的贯穿决定最终运算。</figcaption></figure><p>3.63中n=64先把x变成15x，再落到平方，再落到加75；n=65跳过第一步。因此“共用尾部”不等于“同一个表达式”。稀疏case未必用表，编译器也可能选择比较树；反推应以实际数据流为依据。</p><details class="reading-notes" id="notes-s3-6" data-notes-for="s3-6"><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">条件码</span><h3>溢出位修正差的符号</h3><p>a−b的截断结果可能符号颠倒，SF⊕OF才是有符号小于的稳定判据；模型穷举了全部65,536对8位输入。</p></div><div class="annotation-card"><span class="annotation-kind">循环</span><h3>退出值也是证据</h3><p>i最后等于n还是n+1，sum是否包含最后一项，应由最后一次更新与测试次序推出来，不能凭for外观猜测。</p></div></div></details></section><section id="s3-7"><h2>3.7 · 一次调用要同时传控制、传数据和保存状态<span class="english-title" lang="en">Procedures</span></h2><p class="source">来源：<a class="source-pdf" href="../csapp.pdf#page=275">印刷274页起 / PDF 275页起</a></p><h3 id="s3-7-1">3.7.1 · 活动栈帧与生存期<span class="english-title" lang="en">The Run-Time Stack</span></h3>
-<aside class="source-statement" id="classic-3-procedure-mechanisms" data-source-pdf-pages="276" data-original-section="3.7">
+<aside class="source-statement rn-statement" id="classic-3-procedure-mechanisms" data-source-pdf-pages="276" data-original-section="3.7">
 <h4>经典表述 · 过程调用的三项责任</h4>
 <blockquote class="original-excerpt" lang="en"><p>Passing control. The program counter must be set to the starting address of the code for Q upon entry and then set to the instruction in P following the call to Q upon return.</p><p>Passing data. P must be able to provide one or more parameters to Q, and Q must be able to return a value back to P.</p><p>Allocating and deallocating memory. Q may need to allocate space for local variables when it begins and then free that storage before it returns.</p></blockquote>
 <div class="statement-body"><p>设 P 调用 Q，然后 Q 返回 P。机器支持过程调用时，需要按该调用的实际需求传递控制、传递数据，以及分配和释放局部存储：进入 Q 时改变 PC，返回时恢复 P 的续点；参数和返回值必须到达约定位置；局部对象的空间按生存期管理。</p><p><strong>伴读：</strong>当 Q 运行时，P 暂停；Q 返回后，它的局部空间即可释放。这种后调用先返回的顺序解释了栈为何适合管理活动过程，下方调用轨迹同时列出三项状态。 <a href="#derive-3-7-1">接着看本节例子</a>。</p></div>
@@ -359,7 +523,7 @@ exchange:
     movq (%rdi),%rax
     movq %rsi,(%rdi)
     ret</code></pre><div class="scroll"><table><thead><tr><th scope="col">步骤（x=5）</th><th scope="col">rsp</th><th scope="col">重要内容</th><th scope="col">下一步依据</th></tr></thead><tbody><tr><td>caller入口</td><td>0x1008</td><td>[1008]=返回R，rbx=B</td><td>保存调用者的B</td></tr><tr><td>push+sub后</td><td>0x0FF0</td><td>[1000]=B，[0FF8]=a=5</td><td>call点rsp为16倍数</td></tr><tr><td>安排参数</td><td>0x0FF0</td><td>rdi=0x0FF8，rsi=6，rbx=5</td><td>a作为对象传给callee</td></tr><tr><td>exchange入口</td><td>0x0FE8</td><td>[0FE8]=K，[0FF8]=5</td><td>call压入K</td></tr><tr><td>exchange写后</td><td>0x0FE8</td><td>rax=5，[0FF8]=6</td><td>ret弹K</td></tr><tr><td>回到K</td><td>0x0FF0</td><td>rax=5→11→16</td><td>读取a，再加rbx中的原x</td></tr><tr><td>恢复局部区及rbx</td><td>0x1008</td><td>rbx=B，rax=16</td><td>ret将R弹出</td></tr><tr><td>回到上层调用者</td><td>0x1010</td><td>返回值16</td><td>栈恢复到调用caller前</td></tr></tbody></table></div><h3 id="s3-7-3">3.7.3 · 参数寄存器与栈参数<span class="english-title" lang="en">Data Transfer</span></h3><div class="scroll"><table><thead><tr><th scope="col">位置</th><th scope="col">第1</th><th scope="col">第2</th><th scope="col">第3</th><th scope="col">第4</th><th scope="col">第5</th><th scope="col">第6</th></tr></thead><tbody><tr><td>64位整数/指针</td><td>rdi</td><td>rsi</td><td>rdx</td><td>rcx</td><td>r8</td><td>r9</td></tr><tr><td>32位整数</td><td>edi</td><td>esi</td><td>edx</td><td>ecx</td><td>r8d</td><td>r9d</td></tr><tr><td>16位整数</td><td>di</td><td>si</td><td>dx</td><td>cx</td><td>r8w</td><td>r9w</td></tr><tr><td>8位整数</td><td>dil</td><td>sil</td><td>dl</td><td>cl</td><td>r8b</td><td>r9b</td></tr></tbody></table></div><p>普通整型/指针参数超过六个时，额外参数放栈，callee入口的第七个参数通常位于rsp+8，第八个位于rsp+16，因为rsp本身指向返回地址。返回标量整数通常在rax的适当部分。浮点参数另走XMM队列，3.11再展开；结构参数和返回值还需要ABI分类，3.67给出隐藏结果指针的具体实现。</p><h3 id="s3-7-4">3.7.4 · 为什么有些局部变量必须落到内存<span class="english-title" lang="en">Local Storage on the Stack</span></h3><p>caller例中a的地址传给exchange，因此必须存在一个可寻址对象；old只在返回后使用，直接用rax即可。寄存器不够、局部数组/结构、地址逃逸也会造成栈分配。对a作8(%rsp)寻址时，callee有自己的rsp；它通过传来的rdi访问caller的对象，不能拿callee的rsp+8当成同一个位置。</p><figure><div class="scroll"><svg viewBox="0 0 760 265" role="img" aria-label="caller和exchange共存时的栈"><rect class="node" x="140" y="20" width="420" height="40"/><text x="350" y="47">0x1008：返回上层的地址 R</text><rect class="node" x="140" y="60" width="420" height="40"/><text x="350" y="87">0x1000：旧 rbx = B</text><rect class="node" x="140" y="100" width="420" height="40"/><text x="350" y="127">0x0FF8：局部 a = 6</text><rect class="node" x="140" y="140" width="420" height="40"/><text class="hint" x="350" y="167">0x0FF0：局部区/对齐余量</text><rect class="node" x="140" y="180" width="420" height="40"/><text x="350" y="207">0x0FE8：返回 caller 的地址 K</text><text class="hint" x="70" y="120">高地址↑</text><text class="hint" x="652" y="127">rdi → a</text><text class="hint" x="652" y="207">rsp → K</text><text class="hint" x="350" y="251">exchange 通过 rdi 访问仍然存活的 caller 局部对象</text></svg></div><figcaption>在exchange即将ret时的活动栈。对象a、保存的rbx和两个返回地址承担不同责任。</figcaption></figure><h3 id="s3-7-5">3.7.5 · 谁负责保存寄存器<span class="english-title" lang="en">Local Storage in Registers</span></h3><p>rbx、rbp、r12—r15是本章通常使用的callee-saved寄存器。callee若修改它们，必须先保留旧值，并在返回前恢复。其他常用整数临时/参数寄存器属于caller-saved，调用者若需要其旧值活过call，应自己另存。caller把x放入rbx不是“因为rbx不会变”，而是因为每个callee都承担了恢复责任；caller自身也同样要恢复上层的B。</p><p>在调用链上，保存责任可以逐层复合。若x只在call之前使用，无需保存；如果需要同时保留多个临时量且六个callee-saved不够，剩余值可以放栈。3.34通过完整push序列、六个寄存器与两个栈槽演示这一点。</p><h3 id="s3-7-6">3.7.6 · 递归的每一层有自己的续点和旧值<span class="english-title" lang="en">Recursive Procedures</span></h3>
-<aside class="source-statement" id="classic-3-recursion" data-source-pdf-pages="291" data-original-section="3.7.6">
+<aside class="source-statement rn-statement" id="classic-3-recursion" data-source-pdf-pages="291" data-original-section="3.7.6">
 <h4>经典表述 · 栈为每次递归调用保留私有状态</h4>
 <blockquote class="original-excerpt" lang="en"><p>Our stack discipline provides a mechanism where each invocation of a function has its own private storage for state information (saved values of the return location and callee-saved registers).</p></blockquote>
 <div class="statement-body"><p>递归调用沿用普通调用机制。每次调用都有自己的状态存储，包括返回位置和被调用者保存寄存器的旧值；需要时还保存局部变量。这种独立性属于每次调用，而不是函数名字本身。</p><p><strong>伴读：</strong>阶乘例中同一个物理 rbx 依次保存不同层的 n；旧值随栈压入与弹出恢复，因此子调用返回后才能完成本层乘法。 <a href="#derive-3-7-6">接着看本节例子</a>。</p></div>
@@ -377,7 +541,7 @@ exchange:
 .done:
     popq %rbx
     ret</code></pre><p id="derive-3-7-6">n=3时，父层rbx=3；进入n=2先把3压栈，再把rbx改为2；进入n=1先把2压栈。基例返回1后，n=2层已经恢复自己的rbx=2，所以乘出2；再返回n=3，恢复rbx=3，乘出6。一个物理rbx寄存器并没有同时装三个n，旧值沿栈保存和恢复。</p><div class="scroll"><table><thead><tr><th scope="col">阶段</th><th scope="col">当前n</th><th scope="col">本层rbx</th><th scope="col">子调用返回rax</th><th scope="col">本层返回rax</th></tr></thead><tbody><tr><td>到达基例</td><td>1</td><td>1</td><td>无需调用</td><td>1</td></tr><tr><td>回到n=2</td><td>2</td><td>2</td><td>1</td><td>1×2=2</td></tr><tr><td>回到n=3</td><td>3</td><td>3</td><td>2</td><td>2×3=6</td></tr></tbody></table></div><p>栈空间随最大递归深度线性增长；机器能正确保存状态不意味着任意深度都安全。此阶乘还要求n!能由返回类型表示，64位有符号上限是20!。3.35的右移递归则把每层参数缩小四倍，时间和栈深为对数级，并给出具体上下行数值轨迹。</p><details class="reading-notes" id="notes-s3-7" data-notes-for="s3-7"><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">调用约定</span><h3>保存责任是一种契约</h3><p>callee-saved并非硬件自动保存，push/pop或其他存储由代码实现。忽略这一点会让只在单独测试中成功的函数破坏调用者。</p></div><div class="annotation-card"><span class="annotation-kind">递归</span><h3>回来的不仅是返回值</h3><p>子调用返回时，rax提供子结果，callee-saved寄存器恢复本层旧状态，rsp恢复本层栈顶；三者合起来才允许继续原表达式。</p></div></div></details></section><section id="s3-8"><h2>3.8 · 数组的类型决定地址算式<span class="english-title" lang="en">Array Allocation and Access</span></h2><p class="source">来源：<a class="source-pdf" href="../csapp.pdf#page=292">印刷291页起 / PDF 292页起</a></p><h3 id="s3-8-1">3.8.1 · 一维数组：起点加元素步长<span class="english-title" lang="en">Basic Principles</span></h3><p>声明T A[N]分配N个连续T对象。若sizeof(T)=L，A[i]起点就是base+Li；取值还需读取L字节。对int数组，movl (%rdx,%rcx,4),%eax正好完成下标rcx到4字节步长的缩放。数组里的元素如果是指针，L是指针尺寸，而不是最终所指对象的尺寸。</p><h3 id="s3-8-2">3.8.2 · 指针算术自动按类型缩放<span class="english-title" lang="en">Pointer Arithmetic</span></h3><p>A+i与&amp;A[i]形成相同指针；*(A+i)才取对象。若short数组起点0x3000，i=3，A+i=0x3006，读取A[i]则取0x3006开始的2字节。两个同数组指针相减得到元素距离，不是裸字节差：&amp;A[5]−&amp;A[2]=3，即使机器地址相差6。</p><div class="scroll"><table><thead><tr><th scope="col">表达式</th><th scope="col">结果类型</th><th scope="col">机器动作</th></tr></thead><tbody><tr><td>P+i</td><td>short*</td><td>base+2i，lea</td></tr><tr><td>P[i]</td><td>short</td><td>读取M₂[base+2i]，movw</td></tr><tr><td>&amp;P[i]−P</td><td>ptrdiff_t</td><td>合法同数组下得到i</td></tr><tr><td>*(P+i)</td><td>short</td><td>与P[i]相同</td></tr><tr><td>&amp;P[N]</td><td>short*</td><td>合法尾后指针，不能解引用</td></tr></tbody></table></div><h3 id="s3-8-3">3.8.3 · 连续二维数组与指针数组不是同一种结构<span class="english-title" lang="en">Nested Arrays</span></h3>
-<aside class="source-statement" id="classic-3-row-major" data-source-pdf-pages="295" data-original-section="3.8.3">
+<aside class="source-statement rn-statement" id="classic-3-row-major" data-source-pdf-pages="295" data-original-section="3.8.3">
 <h4>经典表述 · 二维数组由嵌套数组决定行顺序</h4>
 <blockquote class="original-excerpt" lang="en"><p>This ordering is a consequence of our nested declaration.</p></blockquote>
 <div class="statement-body"><p>原文的“这种顺序”指行优先布局：二维数组是一维行数组的连续排列，每一行内部再连续排列元素。对 <code>T D[R][C]</code>，设基址为 <span class="math-inline" data-tex="x_D"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>x</mi><mi>D</mi></msub></mrow></math></span>，每个元素占 <span class="math-inline" data-tex="L"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>L</mi></mrow></math></span> 字节，则原书公式为：</p><div class="math-block" data-tex="\&amp;D[i][j]=x_D+L(Ci+j)."><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>&#x00026;</mi><mi>D</mi><mo stretchy="false">[</mo><mi>i</mi><mo stretchy="false">]</mo><mo stretchy="false">[</mo><mi>j</mi><mo stretchy="false">]</mo><mo>&#x0003D;</mo><msub><mi>x</mi><mi>D</mi></msub><mo>&#x0002B;</mo><mi>L</mi><mo stretchy="false">&#x00028;</mo><mi>C</mi><mi>i</mi><mo>&#x0002B;</mo><mi>j</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0002E;</mo></mrow></math></div><p>这里要求下标落在相应维度范围内。行长 <span class="math-inline" data-tex="C"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>C</mi></mrow></math></span> 决定跨行步长，元素宽度 <span class="math-inline" data-tex="L"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>L</mi></mrow></math></span> 把元素偏移换成字节偏移。</p><p><strong>伴读：</strong>先越过 <span class="math-inline" data-tex="i"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>i</mi></mrow></math></span> 行的 <span class="math-inline" data-tex="Ci"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>C</mi><mi>i</mi></mrow></math></span> 个元素，再越过本行的 <span class="math-inline" data-tex="j"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>j</mi></mrow></math></span> 个元素，最后整体乘以每元素字节数；指针数组则必须先读取行指针。 <a href="#derive-3-8-3">接着看本节例子</a>。</p></div>
@@ -392,28 +556,28 @@ movq (%rdi,%rsi,8),%rax
 movl (%rax,%rdx,4),%eax</code></pre><h3 id="s3-8-4">3.8.4 · 固定维数让重复地址计算变成步长<span class="english-title" lang="en">Fixed-Size Arrays</span></h3><p>矩阵乘法的一个元素是A第i行与B第k列的内积。N=16、int=4字节时，沿A行每步前进4字节，沿B列每步前进64字节。编译器可先形成起点，然后循环只更新两个指针，无需每轮重新计算乘法下标。</p><div class="scroll"><table><thead><tr><th scope="col">迭代j</th><th scope="col">A元素地址</th><th scope="col">B元素地址</th><th scope="col">积累动作</th></tr></thead><tbody><tr><td>0</td><td>xA+64i</td><td>xB+4k</td><td>sum+=A[i][0]B[0][k]</td></tr><tr><td>1</td><td>xA+64i+4</td><td>xB+4k+64</td><td>sum+=A[i][1]B[1][k]</td></tr><tr><td>2</td><td>xA+64i+8</td><td>xB+4k+128</td><td>sum+=A[i][2]B[2][k]</td></tr><tr><td>…</td><td>每次+4</td><td>每次+64</td><td>重复16次</td></tr></tbody></table></div><p>机器可把终点写成整数地址，严格C还须遵守子数组边界。原书Bend=&amp;B[N][k]不应机械复制为通用C技巧；3.39、3.40明确区分地址推导与有效C指针，并给出有边界的实现。</p><h3 id="s3-8-5">3.8.5 · 变长数组把行长变成运行时参数<span class="english-title" lang="en">Variable-Size Arrays</span></h3><p>对参数 <code>long A[rows][cols]</code>，外层数组仍会调整为指向一行的指针，而cols参与该行类型的运行时步长。A[i][j]地址为base+8(cols·i+j)，此时通常需要一次整数乘法计算行偏移；固定步长循环则可先算8cols并逐次累加。3.66从行数3n与字节步长8(4n+1)恢复了宏定义。</p><p>VLA尺寸必须为正，尺寸乘法和实际存储容量都需有效。参数写法不会自动执行边界检查，也不把不连续的指针数组转换成连续二维数组。C11实现对VLA支持有可选性，维护实验使用固定数组或明确容量的平坦存储。</p>
 <div class="explanation" id="explain-s3-8"><h3>行优先公式里的每一项在数什么</h3><p>对 <code>int a[3][4]</code>，从 <code>a[0][0]</code> 走到 <code>a[2][1]</code>，先跨过 2 个完整行，每行 4 个元素，再跨过本行的 1 个元素，因此一共跨过 <code>2×4+1=9</code> 个 <code>int</code>。在每个 <code>int</code> 为 4 字节的约定下，地址增加 <code>9×4=36</code> 字节。一般式 <code>base+(i*C+j)*L</code> 中，<code>i*C+j</code> 数元素，最后乘 <code>L</code> 才换成字节。这里连续存放的是 12 个整数，没有先存 3 个行地址；<code>int **</code> 则需要先读取一个指针再访问它指向的行，不能直接套同一个布局。</p></div>
 <details class="reading-notes" id="notes-s3-8" data-notes-for="s3-8"><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">类型</span><h3>A+i前进的是一整行</h3><p>对int A[R][C]，衰变后的元素类型是int[C]；因此A+1走C*sizeof(int)，不是sizeof(int)。</p></div><div class="annotation-card"><span class="annotation-kind">优化</span><h3>归纳变量可变成地址</h3><p>循环里重复的乘法可被提到循环外，再用固定增量更新地址；第5章会继续讨论这种减少依赖和工作量的方式。</p></div></div></details></section><section id="s3-9"><h2>3.9 · 结构体字段是编译期确定的偏移<span class="english-title" lang="en">Heterogeneous Data Structures</span></h2><p class="source">来源：<a class="source-pdf" href="../csapp.pdf#page=302">印刷301页起 / PDF 302页起</a></p><h3 id="s3-9-1">3.9.1 · 字段访问：基址加常量<span class="english-title" lang="en">Structures</span></h3>
-<aside class="source-statement" id="classic-3-struct-fields" data-source-pdf-pages="304" data-original-section="3.9.1">
+<aside class="source-statement rn-statement" id="classic-3-struct-fields" data-source-pdf-pages="304" data-original-section="3.9.1">
 <h4>经典表述 · 字段选择在编译时化为偏移</h4>
 <blockquote class="original-excerpt" lang="en"><p>As these examples show, the selection of the different fields of a structure is handled completely at compile time. The machine code contains no information about the field declarations or the names of the fields.</p></blockquote>
 <div class="statement-body"><p>结构体的字段声明和名字由编译器处理；在这里展示的机器访问中，选择字段已经化为基址加固定字节偏移。取字段值还需执行相应宽度的读取，取字段地址则只计算这个偏移。</p><p><strong>伴读：</strong>看到 <code>8(%rdi)</code> 时，可以依据已知类型布局恢复字段；单独一个偏移并不能唯一恢复源代码中的字段名或声明。 <a href="#derive-3-9-1">接着看本节例子</a>。</p></div>
 <p class="source">第三版 Global Edition，§3.9.1；原书未编号表述；印刷 303 页 / <a class="source-pdf" href="../csapp.pdf#page=304">PDF 304 页</a>。</p>
 </aside>
 <p id="derive-3-9-1">结构体把不同类型的对象按声明顺序组织；机器指令通常只看基址和偏移，字段名字已消失。例如 <code>struct R {char tag; long count; int value;};</code> 在本章LP64中tag偏移0、count偏移8、value偏移16，总长24。读count可movq 8(%rdi),%rax，取value地址则lea 16(%rdi),%rax。</p><p>嵌套结构把内部布局整体嵌入外部，不会再存一个“内部结构指针”。3.41中p占8字节，内部两个short在偏移8与10，下一个指针必须从16开始。编译器还能把r->i与r->j的整数和符号扩展为索引，再用lea形成r->a[index]地址；值、索引、地址的宽度要逐层核对。</p><h3 id="s3-9-2">3.9.2 · 联合体共享同一段存储<span class="english-title" lang="en">Unions</span></h3><p>union所有成员从偏移0重叠，总尺寸至少能容纳最大成员，再满足最大对齐。若union里既有double d又有unsigned u[2]，写u会改变d的位表示；它不是把整数数值转换成double。小端机器的u[0]对应低32位，u[1]对应高32位。</p><p>这种表示观察与C有效对象/值规则需要一起考虑：读取另一个成员是对对象表示的重解释，可能遇到无效/陷阱表示；它也不能凭空保证混合成员中的指针可解引用。跨类型检查位模式时，用memcpy到相同尺寸无符号对象更清楚。若union用于表示多种业务对象，通常另加tag说明当前有效成员，避免代码凭猜测解释同一批字节。</p><h3 id="s3-9-3">3.9.3 · 内部填充与尾部填充解决不同问题<span class="english-title" lang="en">Data Alignment</span></h3>
-<aside class="source-statement" id="classic-3-alignment" data-source-pdf-pages="310" data-original-section="3.9.3">
+<aside class="source-statement rn-statement" id="classic-3-alignment" data-source-pdf-pages="310" data-original-section="3.9.3">
 <h4>经典表述 · 对齐约束落在对象起始地址</h4>
 <blockquote class="original-excerpt" lang="en"><p>Many computer systems place restrictions on the allowable addresses for the primitive data types, requiring that the address for some objects must be a multiple of some value K (typically 2, 4, or 8).</p></blockquote>
 <div class="statement-body"><p>对齐约束要求某类对象的起始地址是给定 <span class="math-inline" data-tex="K"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>K</mi></mrow></math></span> 的倍数。它帮助硬件按规定的存储块读写对象；结构布局要同时满足各字段的起点约束，以及结构数组下一元素的起点约束。</p><div class="math-block" data-tex="\operatorname{alignUp}(a,K)=K\left\lceil\frac{a}{K}\right\rceil."><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mo>alignUp</mo><mo stretchy="false">&#x00028;</mo><mi>a</mi><mo>&#x0002C;</mo><mi>K</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><mi>K</mi><mrow><mo stretchy="true" fence="true" form="prefix">&#x02308;</mo><mfrac><mrow><mi>a</mi></mrow><mrow><mi>K</mi></mrow></mfrac><mo stretchy="true" fence="true" form="postfix">&#x02309;</mo></mrow><mo>&#x0002E;</mo></mrow></math></div><p>公式适用于非负地址偏移和正对齐值；具体类型的 <span class="math-inline" data-tex="K"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>K</mi></mrow></math></span> 由本章给定的 ABI 决定。</p><p><strong>伴读：</strong>每放一个字段先把当前偏移向它的对齐值取整；全部字段放完，再把总长向最大对齐值取整。后一步正是尾部填充的来源。 <a href="#derive-3-9-3">接着看本节例子</a>。</p></div>
 <p class="source">第三版 Global Edition，§3.9.3；原书未编号表述；印刷 309 页 / <a class="source-pdf" href="../csapp.pdf#page=310">PDF 310 页</a>。</p>
 </aside>
 <p id="derive-3-9-3">字段起点必须满足该类型的对齐，结构整体尺寸还必须保证数组中下一个结构仍能对齐。上面的R若只算有效字节共13，却必须有24字节步长：tag后补7使count从8起，value在16—19，末尾再补4使下一R从24起。尾部填充保护的是“数组中下一个元素”的字段对齐。</p><div class="scroll"><table><thead><tr><th scope="col">R中的区域</th><th scope="col">偏移</th><th scope="col">长度/字节</th><th scope="col">原因</th></tr></thead><tbody><tr><td>tag</td><td>0</td><td>1</td><td>char对齐1</td></tr><tr><td>内部填充</td><td>1—7</td><td>7</td><td>下个long按8对齐</td></tr><tr><td>count</td><td>8—15</td><td>8</td><td>long</td></tr><tr><td>value</td><td>16—19</td><td>4</td><td>int</td></tr><tr><td>尾部填充</td><td>20—23</td><td>4</td><td>sizeof(R)为8的倍数</td></tr></tbody></table></div><p>若将字段重排为count、value、tag，偏移0、8、12，总长16；但必须在程序所有使用处保持同一声明，二进制接口和持久化布局可能因此改变。不是每种重排都会省空间：3.45原声明已经达到48字节最小尺寸，本版参考答案将short错对齐到16才得到虚假的节省。</p><p>普通x86标量访存许多情况下允许未对齐地址，仍不表示所有指令都允许；某些对齐向量访存会在不满足要求时异常。硬件偶尔能处理非对齐数据，也不能取消C的对齐要求。本章用正常ABI布局核算，不偷偷加入packed选项。</p><details class="reading-notes" id="notes-s3-9" data-notes-for="s3-9"><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">推导</span><h3>对齐按两个阶段算</h3><p>每字段先向上取整起点，最后再把结构大小向最大对齐取整；缺少后一阶段就会把结构数组的步长算错。</p></div><div class="annotation-card"><span class="annotation-kind">来源核对</span><h3>答案表也可能算错</h3><p>3.41、3.44、3.45保留原书错误并用字段大小、对齐递推和offsetof三者交叉核验。</p></div></div></details></section><section id="s3-10"><h2>3.10 · 当数据字节碰到控制状态<span class="english-title" lang="en">Combining Control and Data in Machine-Level Programs</span></h2><p class="source">来源：<a class="source-pdf" href="../csapp.pdf#page=313">印刷312页起 / PDF 313页起</a></p><h3 id="s3-10-1">3.10.1 · 指针有地址值，也有类型约束<span class="english-title" lang="en">Understanding Pointers</span></h3>
-<aside class="source-statement" id="classic-3-pointer-types" data-source-pdf-pages="314" data-original-section="3.10.1">
+<aside class="source-statement rn-statement" id="classic-3-pointer-types" data-source-pdf-pages="314" data-original-section="3.10.1">
 <h4>经典表述 · 指针类型是 C 提供的抽象</h4>
 <blockquote class="original-excerpt" lang="en"><p>Pointer types are not part of machine code; they are an abstraction provided by C to help programmers avoid addressing errors.</p></blockquote>
 <div class="statement-body"><p>指针类型是 C 语言提供的抽象，帮助程序按正确对象类型计算地址和访问内容；机器指令实际使用地址位模式和操作宽度。类型即使不以名字留在机器指令中，也已影响编译器生成的步长、读写和转换。</p><p><strong>伴读：</strong>同一地址加 1，在 <code>char *</code> 与 <code>long *</code> 算术中推进的字节数不同。反推汇编时，应同时追踪数值地址和对象类型所要求的边界。 <a href="#derive-3-10-1">接着看本节例子</a>。</p></div>
 <p class="source">第三版 Global Edition，§3.10.1；原书未编号表述；印刷 313 页 / <a class="source-pdf" href="../csapp.pdf#page=314">PDF 314 页</a>。</p>
 </aside>
 <p id="derive-3-10-1">指针在机器上通常编码一个虚拟地址；C类型决定算术步长与解引用的对象尺寸。NULL表示不指向有效对象，不能因它“只是0”就读取；函数指针指向代码入口而非数据对象。&amp;取地址不读取对象内容，*解引用则读或写对象，具体取决于它处于表达式还是赋值左侧。</p><p>同一个数值地址强制转换成不同类型后，硬件可能读取不同字节数，但C还要考虑对象生存期、对齐和别名规则。栈上局部变量的地址在函数退出后不能继续使用；返回时栈内字节尚未清除，不能挽救其生存期已结束这一事实。</p><h3 id="s3-10-2">3.10.2 · 在调试器中观察同一条状态链<span class="english-title" lang="en">Life in the Real World: Using the gdb Debugger</span></h3><div class="scroll"><table><thead><tr><th scope="col">目的</th><th scope="col">Linux/GDB示例命令</th><th scope="col">读到什么</th></tr></thead><tbody><tr><td>定位函数</td><td>break exchange；run</td><td>停在可重复的程序位置</td></tr><tr><td>看实际指令</td><td>disassemble exchange</td><td>函数机器指令与地址</td></tr><tr><td>看关键寄存器</td><td>info registers rdi rsi rax rsp rip</td><td>输入、输出、栈顶、PC</td></tr><tr><td>看内存字节</td><td>x/8xb $rdi</td><td>按字节读对象表示</td></tr><tr><td>按long看对象</td><td>x/gd $rdi</td><td>同一位置按有符号8字节解释</td></tr><tr><td>只执行一条</td><td>si</td><td>随后再次核对寄存器与内存</td></tr><tr><td>检查栈</td><td>x/4gx $rsp</td><td>当前几个8字节槽</td></tr></tbody></table></div><p>有效调试循环是“停在指令前→记输入→单步→看被改位置”，而不是只看函数最终返回值。对exchange( &amp;a,3 )，先检查a=4，再单步第一条看到rax=4，单步第二条看到a=3，就能同时验证读写顺序。以上命令可供在具备 GDB 的 x86-64 环境中复现；正文状态表按已给定的输入与指令语义推演。</p><h3 id="s3-10-3">3.10.3 · 越界写为什么能改变返回去向<span class="english-title" lang="en">Out-of-Bounds Memory References and Buffer Overflow</span></h3>
-<aside class="source-statement" id="classic-3-bounds-state" data-source-pdf-pages="316" data-original-section="3.10.3">
+<aside class="source-statement rn-statement" id="classic-3-bounds-state" data-source-pdf-pages="316" data-original-section="3.10.3">
 <h4>经典表述 · 越界写可能破坏过程状态</h4>
 <blockquote class="original-excerpt" lang="en"><p>This combination can lead to serious program errors, where the state stored on the stack gets corrupted by a write to an out-of-bounds array element.</p></blockquote>
 <div class="statement-body"><p>原文中的“这种组合”是：C 数组访问通常没有自动边界检查，局部数组又与保存寄存器、返回地址等过程状态共享栈空间。因此越界写可能破坏程序稍后将恢复的状态，并在返回或继续计算时暴露错误。</p><p><strong>伴读：</strong>沿下方字节布局逐个计算写入位置，就能从数据越界解释控制错误发生的原因；接口容量、终止零与失败处理是避免这种破坏的直接条件。 <a href="#derive-3-10-3">接着看本节例子</a>。</p></div>
@@ -428,20 +592,20 @@ leave              # 等价于movq %rbp,%rsp；popq %rbp
 ret</code></pre><p>向上对齐地址到<span class="math-inline" data-tex="2^{k}"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msup><mn>2</mn><mrow><mi>k</mi></mrow></msup></mrow></math></span>倍数可用(a+<span class="math-inline" data-tex="2^{k}"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msup><mn>2</mn><mrow><mi>k</mi></mrow></msup></mrow></math></span>−1)&amp;−<span class="math-inline" data-tex="2^{k}"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msup><mn>2</mn><mrow><mi>k</mi></mrow></msup></mrow></math></span>；向下对齐用a&amp;−<span class="math-inline" data-tex="2^{k}"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msup><mn>2</mn><mrow><mi>k</mi></mrow></msup></mrow></math></span>。分配总量必须同时覆盖数组本身和两端可能的对齐余量，不能仅把8n向下取整。3.49、3.72分别以8字节和16字节数组起点对齐，给出了余量公式、两组实例及真实栈对齐前提。</p>
 <div class="explanation" id="explain-s3-10"><h3>为什么“加 15 再清低 4 位”是向上对齐</h3><p>16 的倍数用二进制表示时，最低 4 位都是 0。<code>a &amp; ~15</code> 清掉这 4 位，会把地址向下取到最近的 16 字节边界；为了向上取整，先加最多需要补齐的 15 字节，再清位。例如 <code>a=2017</code> 时，<code>2017+15=2032</code> 已是 16 的倍数，结果为 2032；<code>a=2016</code> 已对齐时，<code>2031 &amp; ~15=2016</code>，不会多跳一格。该地址算式还要求加法不溢出、结果仍在已经预留的空间内；对齐只解决位置，分配空间是另一项义务。</p></div>
 <details class="reading-notes" id="notes-s3-10" data-notes-for="s3-10"><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">机制</span><h3>数组越界能破坏下一条PC</h3><p>返回地址是一组普通内存字节，被覆盖后ret仍按它跳转。把数据布局与控制流连起来才能解释错误出现的位置。</p></div><div class="annotation-card"><span class="annotation-kind">观察边界</span><h3>命令、模型与实测分清</h3><p>本节提供GDB复现路径；真正记录的执行证据是宿主C检查与浮点汇编穷举，各自有独立环境说明。</p></div></div></details></section><section id="s3-11"><h2>3.11 · 浮点值进入XMM寄存器与浮点条件<span class="english-title" lang="en">Floating-Point Code</span></h2><p class="source">来源：<a class="source-pdf" href="../csapp.pdf#page=330">印刷329页起 / PDF 330页起</a></p><p>整数寄存器中的64位模式与XMM中的低64位可以装相同字节，但指令如何解释它们完全不同。这里关注标量float/double：ss表示单精度标量，sd表示双精度标量；packed指令可以同时作用于多组数据，而本章经常只关心最低一个元素。AVX常采用三操作数形式，读两源写一目的，减除方向仍须按AT&amp;T顺序确认。</p><h3 id="s3-11-1">3.11.1 · 移动位模式与转换数值<span class="english-title" lang="en">Floating-Point Movement and Conversion Operations</span></h3>
-<aside class="source-statement" id="classic-3-scalar-float" data-source-pdf-pages="332" data-original-section="3.11">
+<aside class="source-statement rn-statement" id="classic-3-scalar-float" data-source-pdf-pages="332" data-original-section="3.11">
 <h4>经典表述 · 标量浮点使用向量寄存器的低部</h4>
 <blockquote class="original-excerpt" lang="en"><p>When operating on scalar data, these registers only hold floating-point data, and only the low-order 32 bits (for float) or 64 bits (for double) are used.</p></blockquote>
 <div class="statement-body"><p>在本章标量浮点运算中，相关寄存器用低 32 位保存 <code>float</code>、低 64 位保存 <code>double</code>。寄存器的总宽度大于一次标量计算的宽度，所以应按具体指令确定当前参与运算的部分。</p><p><strong>伴读：</strong><code>vmovss</code> 传送单精度位模式，整数与浮点转换则按数值重新编码；两种操作会产生不同的数据流和舍入效果。 <a href="#derive-3-11-1">接着看本节例子</a>。</p></div>
 <p class="source">第三版 Global Edition，§3.11；原书未编号表述；印刷 331 页 / <a class="source-pdf" href="../csapp.pdf#page=332">PDF 332 页</a>。</p>
 </aside>
-<p id="derive-3-11-1">vmovss/vmovsd把内存中的单/双精度位模式送入XMM或写回，不转换数值；vcvtsi2sd把有符号整数按数值转成double，vcvttsd2si把double向零截断成整数。末尾q通常指整数操作数64位，而不是把double变成另一种宽度。</p><div class="scroll"><table><thead><tr><th scope="col">操作</th><th scope="col">示例</th><th scope="col">说明</th></tr></thead><tbody><tr><td>读float</td><td>vmovss (%rdi),%xmm0</td><td>读4字节</td></tr><tr><td>写double</td><td>vmovsd %xmm0,(%rsi)</td><td>写8字节</td></tr><tr><td>long转double</td><td>vcvtsi2sdq %rdi,%xmm0,%xmm0</td><td>大整数可能舍入</td></tr><tr><td>double转int</td><td>vcvttsd2si %xmm0,%eax</td><td>向零截断；要求结果可表示</td></tr><tr><td>float转double</td><td>vcvtss2sd %xmm0,%xmm0,%xmm0</td><td>有限float可精确表示为double</td></tr><tr><td>double转float</td><td>vcvtsd2ss %xmm0,%xmm0,%xmm0</td><td>可能舍入或溢出</td></tr></tbody></table></div><p>例如double −2.75转int得到−2，int7转float得到7.0；把−2.75的原64位字节直接复制到rax则得到完全不同的整数位模式。3.50同时追踪四个变量，强调在覆盖内存前保留旧值。</p><h3 id="s3-11-2">3.11.2 · 混合参数分到两个寄存器队列<span class="english-title" lang="en">Floating-Point Code in Procedures</span></h3><p>通常最多八个浮点标量参数按顺序放xmm0—xmm7，整数/指针仍按rdi、rsi等独立分配，浮点返回值在xmm0，XMM寄存器属于caller-saved。对double f(int x,double y,long z)，x=edi、y=xmm0、z=rsi；把y挪到参数列表第一位并不会让整数队列空出一个槽。</p><p>指针指向float并不使其成为浮点实参：float *p仍从整数寄存器传递。3.52给出四种完整混合原型；3.75进一步展示double complex的实部和虚部分别占两个XMM位置。</p><h3 id="s3-11-3">3.11.3 · 三操作数算术与舍入位置<span class="english-title" lang="en">Floating-Point Arithmetic Operations</span></h3><pre><code data-language="assembly" class="language-assembly">vcvtsi2ss %edi,%xmm2,%xmm2  # int x -&gt; float
+<p id="derive-3-11-1">vmovss/vmovsd把内存中的单/双精度位模式送入XMM或写回，不转换数值；vcvtsi2sd把有符号整数按数值转成double，vcvttsd2si把double向零截断成整数。末尾q通常指整数操作数64位，而不是把double变成另一种宽度。</p><div class="scroll"><table><thead><tr><th scope="col">操作</th><th scope="col">示例</th><th scope="col">说明</th></tr></thead><tbody><tr><td>读float</td><td>vmovss (%rdi),%xmm0</td><td>读4字节</td></tr><tr><td>写double</td><td>vmovsd %xmm0,(%rsi)</td><td>写8字节</td></tr><tr><td>long转double</td><td>vcvtsi2sdq %rdi,%xmm0,%xmm0</td><td>大整数可能舍入</td></tr><tr><td>double转int</td><td>vcvttsd2si %xmm0,%eax</td><td>向零截断；要求结果可表示</td></tr><tr><td>float转double</td><td>vcvtss2sd %xmm0,%xmm0,%xmm0</td><td>有限float可精确表示为double</td></tr><tr><td>double转float</td><td>vcvtsd2ss %xmm0,%xmm0,%xmm0</td><td>可能舍入或溢出</td></tr></tbody></table></div><div class="rn-example" id="rn-example-3-1"><h3>例：数值转换与位模式</h3><p>例如double −2.75转int得到−2，int7转float得到7.0；把−2.75的原64位字节直接复制到rax则得到完全不同的整数位模式。3.50同时追踪四个变量，强调在覆盖内存前保留旧值。</p></div><h3 id="s3-11-2">3.11.2 · 混合参数分到两个寄存器队列<span class="english-title" lang="en">Floating-Point Code in Procedures</span></h3><p>通常最多八个浮点标量参数按顺序放xmm0—xmm7，整数/指针仍按rdi、rsi等独立分配，浮点返回值在xmm0，XMM寄存器属于caller-saved。对double f(int x,double y,long z)，x=edi、y=xmm0、z=rsi；把y挪到参数列表第一位并不会让整数队列空出一个槽。</p><p>指针指向float并不使其成为浮点实参：float *p仍从整数寄存器传递。3.52给出四种完整混合原型；3.75进一步展示double complex的实部和虚部分别占两个XMM位置。</p><h3 id="s3-11-3">3.11.3 · 三操作数算术与舍入位置<span class="english-title" lang="en">Floating-Point Arithmetic Operations</span></h3><pre><code data-language="assembly" class="language-assembly">vcvtsi2ss %edi,%xmm2,%xmm2  # int x -&gt; float
 vmulss %xmm1,%xmm2,%xmm2    # float(x)*y，先舍入到float
 vcvtss2sd %xmm2,%xmm2,%xmm2 # 再扩为double
 vcvtsi2sdq %rsi,%xmm1,%xmm1 # long z -&gt; double
 vdivsd %xmm1,%xmm0,%xmm0    # w/z，不是z/w
 vsubsd %xmm0,%xmm2,%xmm0    # float乘积 - double商
 ret</code></pre><p>这正对应3.54的(float)x*y−w/z。若x=3,y=2.0,w=12,z=4，低位值按xmm2:3→6→6.0，xmm0:12→3→3变化。一般输入下，先单精度相乘再扩宽与先扩宽再相乘可能不同；从汇编反推C时，精度变化也是表达式的一部分。</p><h3 id="s3-11-4">3.11.4 · 浮点常量为什么从内存读<span class="english-title" lang="en">Defining and Using Floating-Point Constants</span></h3><p>常见标量浮点算术没有任意浮点立即数操作数，所以编译器在只读常量区放入位表示，再用RIP相对地址读取。摄氏转华氏1.8·t+32.0的常量32.0编码为0x4040000000000000；在小端 .long 序列里先写低字0，再写高字0x40400000。3.55从符号、指数和小数位还原其数值。</p><h3 id="s3-11-5">3.11.5 · 绝对值与取反可以只改符号位<span class="english-title" lang="en">Using Bitwise Operations in Floating-Point Code</span></h3><p>把double与0x7fffffffffffffff按位与，清符号位即可实现绝对值；与0x8000000000000000异或，翻转符号位即可取负。这些指令不会重新计算有效数字或改变舍入。自身异或产生+0.0，不能泛化为x−x，因为无穷与NaN在浮点算术中有特殊规则。3.56保留了三个原常量表及完整位解释。</p><h3 id="s3-11-6">3.11.6 · NaN使比较增加第四种结果<span class="english-title" lang="en">Floating-Point Comparison Operations</span></h3>
-<aside class="source-statement" id="classic-3-float-unordered" data-source-pdf-pages="343" data-original-section="3.11.6">
+<aside class="source-statement rn-statement" id="classic-3-float-unordered" data-source-pdf-pages="343" data-original-section="3.11.6">
 <h4>经典表述 · NaN 对应比较的无序结果</h4>
 <blockquote class="original-excerpt" lang="en"><p>The unordered case occurs when either operand is NaN. This can be detected with the parity flag.</p></blockquote>
 <div class="statement-body"><p>当任一浮点操作数为 NaN 时，比较进入无序类别；本节指令将 PF 置 1，同时将 CF、ZF 也置 1。因此比较分类需要先后安排无序路径，不能把置位的 CF 或 ZF 单独读成普通的小于或等于。</p><p><strong>伴读：</strong>下方条件码表把四种结果并列。分支版先处理 PF，条件传送版最后让 PF 覆盖普通候选，两种次序都能保留无序类别。 <a href="#derive-3-11-6">接着看本节例子</a>。</p></div>

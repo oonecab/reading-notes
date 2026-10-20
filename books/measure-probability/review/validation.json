@@ -1162,19 +1162,19 @@
     "code/programs.json": "b26bc2e2d9fee5c6a4395873ddcbeeba64fe218bf0b57e45d62ccdebd2b1c4b2",
     "code/simple_approx.c": "7b1c7d94efc3b1e51340860863c07e2ba2368a87ca4de91b310bf80322b831ce",
     "code/simple_approx.py": "397b091accdde866a7ccd628d5099660d7864dffd0a0d9fd1e895dd40c4e57f7",
-    "notes/README.md": "847af2805a8ac562ed32cca2127622f4a451a6dcf991502e77000cd57775a8bb",
-    "notes/book_overview.html": "ee39f80406f22b6535f1a212990542ac6a88180a73338ef4fac1b47419b205ea",
-    "notes/chapter01_measurable_spaces.html": "c6d6b91ee1e869739dea735e7808b89dea16872c14ccf7acdf5156f0f7502f3f",
-    "notes/chapter02_measure_spaces.html": "120071c00e574bc80a386581b3ac94e14d59bc32228f97d1f6885aa1e3d89e38",
-    "notes/chapter03_integration.html": "43a26e36bd09a08980d1a52f4c35ca8328edab87bf9bd17bafcd42a3197130fb",
-    "notes/chapter04_signed_measures.html": "4e8f81ac4461ace1088fe30bd76ff0d2107585daa4e201a4dcf1883ae0850d63",
-    "notes/chapter05_product_spaces.html": "0935356c6e923d0312185efc2e60ef9d8d1067a28d6b85dc58959d2ef9dc4ea1",
-    "notes/chapter06_independent_sequences.html": "f1b0e1c27a68d13ad9962f93ba8efaed61af16431ebc9308bae5035cbf45424d",
-    "notes/exercise_manifest.json": "18af4f6627c44321ed9fb458d580a9df86a1b0a1af3937c1d1f679312938ee49",
-    "notes/preface.html": "d60147d6952521bb1a8a72b7e67d3e57d012c9a8d1e29f767e5b2d6d8f832142",
+    "notes/README.md": "1754f5885ebf5fabfc16366f0768bcc6ab5d45c5cbe056916c2ec5bf2193e5f2",
+    "notes/book_overview.html": "7369207bb99aa0932b1f5fc5794a164210b1079486713f8ba932380dad11854d",
+    "notes/chapter01_measurable_spaces.html": "1bda596b0ea342077fcbbe3d6d07e7e1d2b872428e2e0afba2c904302334b723",
+    "notes/chapter02_measure_spaces.html": "c6de0502f67d22b8a3cdce925d2f4705aa8f8816a80f8c89bfd304f2ad988310",
+    "notes/chapter03_integration.html": "79cfceaa0766549b8e1bce2872f7004344062481c3c36546d248a77c54bacf67",
+    "notes/chapter04_signed_measures.html": "44175d90613cbbcd695363cac26fb31bdaa5b042b62ce99aaf8b1c71adf0dbb1",
+    "notes/chapter05_product_spaces.html": "daa43103060b3ee3a3358e84ff47b338475bed2e8d7f38f53dd9114b1f147b81",
+    "notes/chapter06_independent_sequences.html": "75e667bd29c2ab6620e5fc0dbe89d7416d5124349f960c39068d3f8481acc549",
+    "notes/exercise_manifest.json": "1ea32d35b9f36ccf0828de556523a677e7e615eb3cac74b436dfdfb2a47a3a38",
+    "notes/preface.html": "47229ef94f3dab16e6788cfef6882c89b17eea6d1d29580805dd12f837bfa6da",
     "notes/source_excerpts.json": "a18f7592851836ed455df245098df139c0ab6090e7df14d9825d19f9ba871b12",
     "notes/source_inventory.json": "559b11cde9795bdb32eba170c79b52bc100a62b2b23f0a494a4691227aeeb881",
-    "notes/source_issues.json": "1637cd2a09a1137d0caf1170e6db3592a84e08f93d0878091792e87f6dd000c3",
+    "notes/source_issues.json": "60789cee2874f4435696c955f1ce3aa71a18be40ea6c39bab12fae0f0aa3db3e",
     "notes/source_manifest.json": "81ee9b711a3961e9cda70b61a2bb59186b672c5a84c23ee9e1e58c2734012d3a",
     "reading-plan.md": "76deed93a93ddd914f74a3aeded80cf4450594d5c6be552553b8935badb16699",
     "review/README.md": "562669928a22170fcc946a49368152a8c6d8cfc8fcb8ceefea34db07810803f4",
@@ -1777,6 +1777,67 @@
           "file": "review/final-assessment.json",
           "previous_sha256": "7c79525135b06af4d314f59043a7d285a5d35f31cb23610425b5abafbf9dbefb",
           "current_sha256": "1d6ee5e6928a9ca24fdb61c318bb49a03fee2cb6f627ae9641d7213f78e2cedf"
+        }
+      ]
+    },
+    {
+      "issue": "I040",
+      "reason": "Reviewed component representation and content corrections; original binding values retained.",
+      "changes": [
+        {
+          "file": "notes/README.md",
+          "previous_sha256": "847af2805a8ac562ed32cca2127622f4a451a6dcf991502e77000cd57775a8bb",
+          "current_sha256": "1754f5885ebf5fabfc16366f0768bcc6ab5d45c5cbe056916c2ec5bf2193e5f2"
+        },
+        {
+          "file": "notes/book_overview.html",
+          "previous_sha256": "ee39f80406f22b6535f1a212990542ac6a88180a73338ef4fac1b47419b205ea",
+          "current_sha256": "7369207bb99aa0932b1f5fc5794a164210b1079486713f8ba932380dad11854d"
+        },
+        {
+          "file": "notes/chapter01_measurable_spaces.html",
+          "previous_sha256": "c6d6b91ee1e869739dea735e7808b89dea16872c14ccf7acdf5156f0f7502f3f",
+          "current_sha256": "1bda596b0ea342077fcbbe3d6d07e7e1d2b872428e2e0afba2c904302334b723"
+        },
+        {
+          "file": "notes/chapter02_measure_spaces.html",
+          "previous_sha256": "120071c00e574bc80a386581b3ac94e14d59bc32228f97d1f6885aa1e3d89e38",
+          "current_sha256": "c6de0502f67d22b8a3cdce925d2f4705aa8f8816a80f8c89bfd304f2ad988310"
+        },
+        {
+          "file": "notes/chapter03_integration.html",
+          "previous_sha256": "43a26e36bd09a08980d1a52f4c35ca8328edab87bf9bd17bafcd42a3197130fb",
+          "current_sha256": "79cfceaa0766549b8e1bce2872f7004344062481c3c36546d248a77c54bacf67"
+        },
+        {
+          "file": "notes/chapter04_signed_measures.html",
+          "previous_sha256": "4e8f81ac4461ace1088fe30bd76ff0d2107585daa4e201a4dcf1883ae0850d63",
+          "current_sha256": "44175d90613cbbcd695363cac26fb31bdaa5b042b62ce99aaf8b1c71adf0dbb1"
+        },
+        {
+          "file": "notes/chapter05_product_spaces.html",
+          "previous_sha256": "0935356c6e923d0312185efc2e60ef9d8d1067a28d6b85dc58959d2ef9dc4ea1",
+          "current_sha256": "daa43103060b3ee3a3358e84ff47b338475bed2e8d7f38f53dd9114b1f147b81"
+        },
+        {
+          "file": "notes/chapter06_independent_sequences.html",
+          "previous_sha256": "f1b0e1c27a68d13ad9962f93ba8efaed61af16431ebc9308bae5035cbf45424d",
+          "current_sha256": "75e667bd29c2ab6620e5fc0dbe89d7416d5124349f960c39068d3f8481acc549"
+        },
+        {
+          "file": "notes/exercise_manifest.json",
+          "previous_sha256": "18af4f6627c44321ed9fb458d580a9df86a1b0a1af3937c1d1f679312938ee49",
+          "current_sha256": "1ea32d35b9f36ccf0828de556523a677e7e615eb3cac74b436dfdfb2a47a3a38"
+        },
+        {
+          "file": "notes/preface.html",
+          "previous_sha256": "d60147d6952521bb1a8a72b7e67d3e57d012c9a8d1e29f767e5b2d6d8f832142",
+          "current_sha256": "47229ef94f3dab16e6788cfef6882c89b17eea6d1d29580805dd12f837bfa6da"
+        },
+        {
+          "file": "notes/source_issues.json",
+          "previous_sha256": "1637cd2a09a1137d0caf1170e6db3592a84e08f93d0878091792e87f6dd000c3",
+          "current_sha256": "60789cee2874f4435696c955f1ce3aa71a18be40ea6c39bab12fae0f0aa3db3e"
         }
       ]
     }

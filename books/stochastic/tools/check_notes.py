@@ -40,7 +40,7 @@ class Page(HTMLParser):
             if count<3:self.errors.append('fewer than three detailed steps: '+num)
     def handle_starttag(self,tag,attrs):
         a=dict(attrs)
-        if tag=='details' and 'source-statement' in a.get('class','').split():
+        if tag in {'div', 'details'} and 'source-statement' in a.get('class','').split():
             parent=next((attrs.get('id') for t,attrs in reversed(self.stack) if t=='section'),None)
             self.statements.append({'id':a.get('id'),'kind':a.get('data-source-kind'),
                                     'number':a.get('data-source-number'),'section':parent})
@@ -48,7 +48,7 @@ class Page(HTMLParser):
             self.original_excerpts+=1
             if a.get('lang')!='en':self.errors.append('original excerpt must be marked English')
             if a.get('data-preface-paragraph'):self.preface_paragraphs.append(a['data-preface-paragraph'])
-        if tag=='li' and any(t=='details' and attrs.get('data-source-kind')=='Axiom' for t,attrs in self.stack):
+        if tag=='li' and any(t in {'div', 'details'} and attrs.get('data-source-kind')=='Axiom' for t,attrs in self.stack):
             self.axioms+=1
         if tag=='section' and self.stack and self.stack[-1][0]=='main':self.sections.append(a.get('id'))
         if tag=='details' and 'reading-notes' in a.get('class','').split():

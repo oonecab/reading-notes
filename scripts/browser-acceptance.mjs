@@ -60,7 +60,11 @@ try {
       await page.waitForFunction(id=>{
         const e=document.getElementById(id);if(!e)return false;
         for(let n=e;n;n=n.parentElement)if(n.tagName==='DETAILS'&&!n.open)return false;
-        const r=(e.tagName==='DETAILS'?e.querySelector(':scope > summary'):e).getBoundingClientRect();return r.top>=0&&r.top<innerHeight&&r.bottom>0;
+        const blockers=[document.querySelector('.reader-bar'),
+          ...(innerWidth<1100?[document.querySelector('#toc-panel > summary')]:[])].filter(Boolean);
+        const visibleTop=Math.max(0,...blockers.map(n=>n.getBoundingClientRect()).filter(r=>r.top<150&&r.bottom>0).map(r=>r.bottom));
+        const r=(e.tagName==='DETAILS'?e.querySelector(':scope > summary'):e).getBoundingClientRect();
+        return r.top>=visibleTop-1&&r.top<innerHeight&&r.bottom>visibleTop;
       },id,{timeout:10000});
       // A revealed details changes the document height. Wait for native anchor
       // scrolling and layout to settle before evaluating the next interaction.

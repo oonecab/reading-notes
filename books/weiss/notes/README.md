@@ -82,3 +82,5 @@
 - MathML 除标签合法性外，还核对 `data-tex` 中分组花括号及转义分隔符是否完整，查看正文是否遗留转换标记；上下标、分式与求和以实际渲染结果验收。
 
 正文和教学代码维护入口为 `src/content/books/weiss/`，本目录十三份 HTML 为兼容镜像；程序提取仍由原 Python 检查器从镜像独立进行。共享 CSS/JS 构建内联，流程见 仓库的 `docs/astro-authoring.md`。章节 frontmatter 的范围合并原章首正文页与全部题干页属性，印刷页加 17 对应 PDF 页序，参考文献范围仍保留在章首。
+
+2026-10-20 起，四类教学组件统一遵循 RN-001 v1.1：陈述保持可见，证明默认展开并可折叠，习题默认收起，题干、解答与来源共用排版。维护规范见仓库 `docs/reading-notes-standard.md`，共享维护源为 `src/styles/reading-components.css`，具体覆盖与本轮内容修正记录于 I040；原数学审阅和历史执行证据保留。

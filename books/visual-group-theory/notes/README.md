@@ -38,3 +38,5 @@
 本轮内容、来源与实际阅读结论见 [一致性修订审阅](../review/polish.md)，上一批验收绑定已保留于 review/history/batch04-*。
 
 页面外提取公式时，可读取 `math.getAttribute("aria-label")` 或 `math.querySelector('annotation[encoding="text/plain"]').textContent`，两者给出同一连续记号，不依赖页面 JavaScript。原生 `Selection.toString()` 的逐节点换行取决于浏览器；复制增强不改写这一原生接口。显示公式回退与复制追加验收见 [审阅记录](../review/polish.md)。
+
+2026-10-20 起，四类教学组件统一遵循 [RN-001 v1.1](../../../docs/reading-notes-standard.md)；共享维护源为 `src/styles/reading-components.css`。陈述保持可见，证明默认展开并可折叠，习题默认收起，题干、解答与来源共用排版。具体覆盖与本轮内容修正见 [I040](../../../issues/I040-unified-reading-components.md)，原数学审阅和历史执行证据保留。

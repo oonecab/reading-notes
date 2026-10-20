@@ -1406,56 +1406,56 @@
   },
   "files": {
     "notes/appendix_a_probability_review.html": {
-      "bytes": 234663,
-      "sha256": "e9f6b0e37de94beada21f646eaaef34bdd4aea8815b0b4eaa1b82f5190574072"
+      "bytes": 240730,
+      "sha256": "832ba9b1dcea33f2815f0aca6d53c7ae3770ba35ff590a579734d097bc7b05a1"
     },
     "notes/book_overview.html": {
-      "bytes": 50653,
-      "sha256": "ada864dd6a3702675b9506f4f99d1918c7b39ecb13b11b3404b4b2b767a418f0"
+      "bytes": 55190,
+      "sha256": "c508dec857c57a2ff7a064d42483338c33e5ced30b6a2a62f2ac4e691cadea39"
     },
     "notes/chapter01_markov_chains.html": {
-      "bytes": 2125126,
-      "sha256": "43117cafd58f73e03af5c4626e88c32bbe42dbe0905660b1397b00a8a744ac0e"
+      "bytes": 2133361,
+      "sha256": "965a1f232581f51cb12b2c7d3aadde490121235015905358a00f30ce2c3e5570"
     },
     "notes/chapter02_poisson_processes.html": {
-      "bytes": 681667,
-      "sha256": "bea17e948c3e109e2179a9b6c786eb71545c90c633f53721f70f7f71b5d5af0f"
+      "bytes": 687987,
+      "sha256": "909143d425d6c05b3a7ed53757e9ce175118f982a3c1d541540d5c9f289977c3"
     },
     "notes/chapter03_renewal_processes.html": {
-      "bytes": 351148,
-      "sha256": "780e29b3a4dde7f84314e1d53b66403585b008c361fd8f375546fce047d354ba"
+      "bytes": 356861,
+      "sha256": "d5932191c703610b415fa86bc2a35794bad6351cc56cdec33bdaa5f7500c3273"
     },
     "notes/chapter04_continuous_time_markov_chains.html": {
-      "bytes": 850422,
-      "sha256": "b566c5c4da6b6031c7c89c86afdbdec24182cfe9d905a5f53e62dfd1c74f6b1c"
+      "bytes": 857045,
+      "sha256": "7d0058245839dfce30a02c2b4b0258eac2cf28562df8abb1a6eb4824672d662a"
     },
     "notes/chapter05_martingales.html": {
-      "bytes": 409836,
-      "sha256": "402c2d0834d8ed2a2e0cff270f1e19d216baf3a98f7df89b32692be2fc45005c"
+      "bytes": 416306,
+      "sha256": "048a88b68b1a561d4411d6ab8b6c7779c3fe42dafe6da0073dcf3d4a4def5bc2"
     },
     "notes/chapter06_mathematical_finance.html": {
-      "bytes": 1187107,
-      "sha256": "abdb3e6c1c7bcee20a443671dac19190b9160dc40280db2ec926098ad5caaece"
+      "bytes": 1192918,
+      "sha256": "71a2c5bcc3bda1bb49cce53ee8923c7d5b1acd3743742f15490ce48926f226a0"
     },
     "notes/preface.html": {
-      "bytes": 40431,
-      "sha256": "e85f3baf68c3f319fa47dd49e70be94af47709405b37ed7b44e96b54f967b3ba"
+      "bytes": 44968,
+      "sha256": "338e855b27c8cee3fa49cac29bc8b21398fc955627cbc8acc2948a125f2d9ef1"
     },
     "agent.md": {
       "bytes": 7102,
       "sha256": "ac845c60605089b7db9d6e421446de3666039923e493e9e9818c5affd083a31a"
     },
     "notes/README.md": {
-      "bytes": 13603,
-      "sha256": "654dd57be66614b5310f8fa8f6499b0c0faed03a2149d429e01fee1561994422"
+      "bytes": 14024,
+      "sha256": "e255b6e8ed79126c2cacdfcaececd18cc4607a37b9f09789e0696273f1c3f887"
     },
     "notes/source_manifest.json": {
       "bytes": 36372,
       "sha256": "f139c6dfedbf36be0b24bbae20b3f5af15482c4db068906a629bb6e29aafe23f"
     },
     "tools/check_notes.py": {
-      "bytes": 26770,
-      "sha256": "034867cf277244e8f5b74cb6b7ce4830ab522b1075a3cf9b27402d90e25298de"
+      "bytes": 26792,
+      "sha256": "ba62cd72b8554d6122937f0f35b9e5b23726e06701f4cf223539f96d52b654ca"
     },
     "tools/sync_code.py": {
       "bytes": 4837,
@@ -1570,8 +1570,8 @@
       "sha256": "2232660e1909b42c6df8b5aca8eba12cdb383bf3741ecb53add49f6c26c6a0e7"
     },
     "notes/audit_fix_review.json": {
-      "bytes": 253995,
-      "sha256": "f7f1df05c0676ce4ae17620cdf2452a48c37b7e472a6170a4186e21e8a4b2e62"
+      "bytes": 261294,
+      "sha256": "ea05edb0a344925d53d20492e5a7f40d012b28afa4663d04da98e1973daa5675"
     }
   },
   "review_history": [
@@ -6543,5 +6543,11 @@
         }
       ]
     }
-  ]
+  ],
+  "I040_representation_revision": {
+    "issue": "I040",
+    "prior_record_git": "41a77dd3affc726bef81505ca5cde067d6f3944c:books/stochastic/notes/code_deployment_review.json",
+    "prior_record_sha256": "2d6c69f74b23dff7a234ab1e271adbaee84c2a89b58ae5135a7a7118b17cfeb9",
+    "scope": "Current representation bindings updated after byte-preservation review. Historical mathematical and browser claims keep their original scope; fresh acceptance is recorded in docs/reading-components-review.json"
+  }
 }

@@ -132,7 +132,171 @@ main[id],main [id]{scroll-margin-top:24px}
 }
 @media(max-width:640px){.chapter-sidebar{padding:8px 18px}}
 @media print{.reading-layout{display:block;max-width:860px;padding:0}.chapter-sidebar,.skip-link{display:none}.reading-layout>main{padding:24px}}
-</style></head><body><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="本章目录"><details class="toc-panel" id="toc-panel" open><summary>本章目录</summary><nav class="chapter-toc" id="chapter-toc" aria-label="本章目录"><a class="toc-home" href="book_overview.html">← 全书地图</a><ul><li><a href="#notation">§2.1：比较增长率，不是比较某一次计时</a></li><li><a href="#model">§2.2–§2.3：一个单位究竟是什么？</a></li><li><a href="#counting">§2.4.1–§2.4.2：先问语句执行了几次</a></li><li><a href="#maxsum">§2.4.3：四种算法逐步拿掉什么重复工作？</a></li><li><a href="#logarithms">§2.4.4：对数来自规模下降，不来自递归这个词</a></li><li><a href="#measurement">§2.4.5–§2.4.6：数据能检查分析，但不能替代证明</a></li><li><a href="#exercises">习题解答 · 2.1–2.25</a></li><li><a href="#verification">复习路线</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">Weiss · 第二版中国改编版 · 第二章</p><h1>第二章：算法分析</h1><p class="intro">不只是给程序贴一个复杂度标签，而是找到反复发生的工作，证明它为何发生，并据此改变算法。</p><p class="small">对应印刷页 9–34／PDF 页 26–51。正文 §2.1–§2.4，习题 2.1–2.25。以下推导与代码为原创；原书计时、模型预测与本次实测分别标明。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="book_overview.html#program-guide">程序说明</a><a href="chapter01_introduction.html">上一章：引论</a><a href="chapter03_lists_stacks_queues.html">下一章：表、栈和队列</a></p></header>
+</style><style>
+/* RN-001 shared teaching components. Inlined in every controlled reading page. */
+.rn-components {
+  --rn-space: 1rem;
+  --rn-label-size: .95rem;
+  --rn-title-size: 1.05rem;
+}
+.rn-components :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
+  min-width: 0;
+  scroll-margin-top: 24px;
+}
+.rn-components .rn-statement {
+  margin: 1.5rem 0;
+  padding: 1rem 1.15rem;
+  border: 0;
+  border-left: 3px solid var(--green);
+  background: var(--tint);
+}
+.rn-components :is(.rn-statement, .rn-example) > :is(h3, h4, .rn-title) {
+  margin: 0 0 .8rem;
+  padding: 0;
+  border: 0;
+  font-size: var(--rn-title-size);
+  line-height: 1.7;
+  font-weight: 650;
+  color: var(--green);
+}
+.rn-components .rn-statement > .statement-body {
+  padding: 0;
+  border: 0;
+}
+.rn-components .rn-statement .original-excerpt {
+  margin: .5rem 0 1rem;
+  padding: .1rem 0 .1rem .85rem;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-statement .statement-label {
+  margin: .8rem 0 .3rem;
+  color: var(--sub);
+  font-size: .85rem;
+  font-weight: 600;
+}
+.rn-components .rn-example {
+  margin: 1.75rem 0;
+  padding: 1rem 0 .25rem;
+  border: 0;
+  border-top: 1px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-proof {
+  margin: 1.1rem 0 1.75rem;
+  padding: 0 0 .2rem 1rem;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-proof > summary {
+  cursor: pointer;
+  margin: 0;
+  padding: .35rem 0;
+  color: var(--green);
+  font-size: var(--rn-label-size);
+  font-weight: 650;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .rn-proof > .rn-proof-body { margin-top: .7rem; }
+.rn-components .rn-proof-body p { margin: .85rem 0; }
+.rn-components .rn-proof-body > :first-child:not(.rn-example):not(.rn-statement):not(.rn-proof) {
+  margin-top: 0;
+}
+.rn-components :is(.rn-proof-body, .rn-statement, .rn-example) > :last-child:not(.rn-example):not(.rn-statement):not(.rn-proof) {
+  margin-bottom: 0;
+}
+.rn-components .exercise {
+  margin: 1rem 0;
+  padding: 0;
+  border: 1px solid var(--rule);
+  background: transparent;
+}
+.rn-components .exercise > summary {
+  margin: 0;
+  padding: .85rem 1rem;
+  color: var(--green);
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .exercise[open] > summary {
+  border-bottom: 1px solid var(--rule);
+  background: var(--tint);
+}
+.rn-components .exercise > :is(.exercise-question, .answer) {
+  margin: 0;
+  padding: 1rem;
+  border: 0;
+  background: transparent;
+  min-width: 0;
+}
+.rn-components .exercise > .answer {
+  border-top: 1px solid var(--rule);
+}
+.rn-components .exercise :is(.exercise-question, .answer) > :first-child {
+  margin: 0 0 .75rem;
+  padding: 0;
+  border: 0;
+  color: var(--green);
+  font-size: var(--rn-label-size);
+  font-weight: 650;
+  line-height: 1.75;
+}
+.rn-components .exercise :is(.exercise-question, .answer) > :first-child > strong { font-weight: inherit; }
+.rn-components :is(.exercise-question, .answer) > :last-child { margin-bottom: 0; }
+.rn-components :is(.rn-statement, .rn-example, .rn-proof, .exercise) .source {
+  margin-top: 1rem;
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components .exercise > .source {
+  margin: 0;
+  padding: 0 1rem 1rem;
+}
+.rn-components .rn-statement .source-status {
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components :is(.derivation-steps, .proof-steps, .solution-steps) {
+  margin: .75rem 0 1rem;
+  padding-left: 1.5rem;
+}
+.rn-components :is(.derivation-steps, .proof-steps, .solution-steps) > li {
+  padding-left: .15rem;
+  margin: .9rem 0;
+}
+.rn-components :is(.rn-proof, .exercise) > summary:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+.rn-components :is(.rn-proof-body, .rn-example, .rn-statement, .exercise-question, .answer) {
+  overflow-wrap: break-word;
+}
+@media (max-width: 1100px) {
+  .rn-components:not(.portal-reader):not(.sample-fragment) :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
+    scroll-margin-top: 90px;
+  }
+}
+@media (max-width: 640px) {
+  .rn-components .rn-statement { padding: .85rem .8rem; }
+  .rn-components .rn-proof { padding-left: .75rem; }
+  .rn-components .exercise > :is(summary, .exercise-question, .answer) {
+    padding: .85rem .8rem;
+  }
+  .rn-components .exercise > .source { padding: 0 .8rem .85rem; }
+}
+@media print {
+  .rn-components .rn-proof::details-content { content-visibility: visible !important; }
+}
+
+</style>
+</head><body class="rn-components"><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="本章目录"><details class="toc-panel" id="toc-panel" open><summary>本章目录</summary><nav class="chapter-toc" id="chapter-toc" aria-label="本章目录"><a class="toc-home" href="book_overview.html">← 全书地图</a><ul><li><a href="#notation">§2.1：比较增长率，不是比较某一次计时</a></li><li><a href="#model">§2.2–§2.3：一个单位究竟是什么？</a></li><li><a href="#counting">§2.4.1–§2.4.2：先问语句执行了几次</a></li><li><a href="#maxsum">§2.4.3：四种算法逐步拿掉什么重复工作？</a></li><li><a href="#logarithms">§2.4.4：对数来自规模下降，不来自递归这个词</a></li><li><a href="#measurement">§2.4.5–§2.4.6：数据能检查分析，但不能替代证明</a></li><li><a href="#exercises">习题解答 · 2.1–2.25</a></li><li><a href="#verification">复习路线</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">Weiss · 第二版中国改编版 · 第二章</p><h1>第二章：算法分析</h1><p class="intro">不只是给程序贴一个复杂度标签，而是找到反复发生的工作，证明它为何发生，并据此改变算法。</p><p class="small">对应印刷页 9–34／PDF 页 26–51。正文 §2.1–§2.4，习题 2.1–2.25。以下推导与代码为原创；原书计时、模型预测与本次实测分别标明。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="book_overview.html#program-guide">程序说明</a><a href="chapter01_introduction.html">上一章：引论</a><a href="chapter03_lists_stacks_queues.html">下一章：表、栈和队列</a></p></header>
 <section id="notation"><h2>一、§2.1：比较增长率，不是比较某一次计时</h2><p>第一章说明了大输入会暴露算法差异，第二章需要一套不被具体机器牵着走的语言。<span class="math-inline"><math data-tex="1000N" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mn>1000</mn><mi>N</mi></mrow></math></span> 在小规模时可能大于 <span class="math-inline"><math data-tex="N^{2}" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msup><mi>N</mi><mrow><mn>2</mn></mrow></msup></mrow></math></span>，但 <span class="math-inline"><math data-tex="N" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>N</mi></mrow></math></span> 超过 1000 后就反过来。渐近符号关注的是：越过某个阈值之后，是否能用固定常数倍持续约束另一个函数。</p><p>以下假设资源函数最终非负，比较函数最终为正；常数 <span class="math-inline"><math data-tex="c" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>c</mi></mrow></math></span>、<span class="math-inline"><math data-tex="c_{1}" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>c</mi><mrow><mn>1</mn></mrow></msub></mrow></math></span>、<span class="math-inline"><math data-tex="c_{2}" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>c</mi><mrow><mn>2</mn></mrow></msub></mrow></math></span>、<span class="math-inline"><math data-tex="n_{0}" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>n</mi><mrow><mn>0</mn></mrow></msub></mrow></math></span> 与 <span class="math-inline"><math data-tex="N" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>N</mi></mrow></math></span> 无关。常见写法 <span class="math-inline"><math data-tex="T=\mathrm{O}(f)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>T</mi><mo>=</mo><mi>O</mi><mo stretchy="false">(</mo><mi>f</mi><mo stretchy="false">)</mo></mrow></math></span> 表示属于一类函数，不是普通数值等式。</p><div class="scroll"><table><thead><tr><th>符号</th><th>精确含义</th><th>应读成</th></tr></thead><tbody><tr><td><span class="math-inline"><math data-tex="T(N)=\mathrm{O}(f(N))" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>T</mi><mo stretchy="false">(</mo><mi>N</mi><mo stretchy="false">)</mo><mo>=</mo><mi>O</mi><mo stretchy="false">(</mo><mi>f</mi><mo stretchy="false">(</mo><mi>N</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow></math></span></td><td><span class="math-inline"><math data-tex="\exists c&gt;0,\exists n_0,\forall N\ge n_0:\ 0\le T(N)\le cf(N)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>∃</mo><mi>c</mi><mo>&gt;</mo><mn>0</mn><mo>,</mo><mo>∃</mo><msub><mi>n</mi><mn>0</mn></msub><mo>,</mo><mo>∀</mo><mi>N</mi><mo>≥</mo><msub><mi>n</mi><mn>0</mn></msub><mi>:</mi><mtext> </mtext><mn>0</mn><mo>≤</mo><mi>T</mi><mo stretchy="false">(</mo><mi>N</mi><mo stretchy="false">)</mo><mo>≤</mo><mi>c</mi><mi>f</mi><mo stretchy="false">(</mo><mi>N</mi><mo stretchy="false">)</mo></mrow></math></span></td><td>最终的常数倍上界</td></tr><tr><td><span class="math-inline"><math data-tex="T(N)=\Omega(f(N))" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>T</mi><mo stretchy="false">(</mo><mi>N</mi><mo stretchy="false">)</mo><mo>=</mo><mi>Ω</mi><mo stretchy="false">(</mo><mi>f</mi><mo stretchy="false">(</mo><mi>N</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow></math></span></td><td><span class="math-inline"><math data-tex="\exists c&gt;0,\exists n_0,\forall N\ge n_0:\ T(N)\ge cf(N)\ge0" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>∃</mo><mi>c</mi><mo>&gt;</mo><mn>0</mn><mo>,</mo><mo>∃</mo><msub><mi>n</mi><mn>0</mn></msub><mo>,</mo><mo>∀</mo><mi>N</mi><mo>≥</mo><msub><mi>n</mi><mn>0</mn></msub><mi>:</mi><mtext> </mtext><mi>T</mi><mo stretchy="false">(</mo><mi>N</mi><mo stretchy="false">)</mo><mo>≥</mo><mi>c</mi><mi>f</mi><mo stretchy="false">(</mo><mi>N</mi><mo stretchy="false">)</mo><mo>≥</mo><mn>0</mn></mrow></math></span></td><td>最终的常数倍下界</td></tr><tr><td><span class="math-inline"><math data-tex="T(N)=\Theta(f(N))" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>T</mi><mo stretchy="false">(</mo><mi>N</mi><mo stretchy="false">)</mo><mo>=</mo><mi>Θ</mi><mo stretchy="false">(</mo><mi>f</mi><mo stretchy="false">(</mo><mi>N</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow></math></span></td><td><span class="math-inline"><math data-tex="\exists c_1,c_2&gt;0,\exists n_0,\forall N\ge n_0:\ c_1f(N)\le T(N)\le c_2f(N)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>∃</mo><msub><mi>c</mi><mn>1</mn></msub><mo>,</mo><msub><mi>c</mi><mn>2</mn></msub><mo>&gt;</mo><mn>0</mn><mo>,</mo><mo>∃</mo><msub><mi>n</mi><mn>0</mn></msub><mo>,</mo><mo>∀</mo><mi>N</mi><mo>≥</mo><msub><mi>n</mi><mn>0</mn></msub><mi>:</mi><mtext> </mtext><msub><mi>c</mi><mn>1</mn></msub><mi>f</mi><mo stretchy="false">(</mo><mi>N</mi><mo stretchy="false">)</mo><mo>≤</mo><mi>T</mi><mo stretchy="false">(</mo><mi>N</mi><mo stretchy="false">)</mo><mo>≤</mo><msub><mi>c</mi><mn>2</mn></msub><mi>f</mi><mo stretchy="false">(</mo><mi>N</mi><mo stretchy="false">)</mo></mrow></math></span></td><td>上下界匹配、紧确阶</td></tr><tr><td><span class="math-inline"><math data-tex="T(N)=o(f(N))" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>T</mi><mo stretchy="false">(</mo><mi>N</mi><mo stretchy="false">)</mo><mo>=</mo><mi>o</mi><mo stretchy="false">(</mo><mi>f</mi><mo stretchy="false">(</mo><mi>N</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow></math></span></td><td><span class="math-inline"><math data-tex="\forall c&gt;0,\exists n_0,\forall N\ge n_0:\ 0\le T(N)&lt;cf(N)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>∀</mo><mi>c</mi><mo>&gt;</mo><mn>0</mn><mo>,</mo><mo>∃</mo><msub><mi>n</mi><mn>0</mn></msub><mo>,</mo><mo>∀</mo><mi>N</mi><mo>≥</mo><msub><mi>n</mi><mn>0</mn></msub><mi>:</mi><mtext> </mtext><mn>0</mn><mo>≤</mo><mi>T</mi><mo stretchy="false">(</mo><mi>N</mi><mo stretchy="false">)</mo><mo>&lt;</mo><mi>c</mi><mi>f</mi><mo stretchy="false">(</mo><mi>N</mi><mo stretchy="false">)</mo></mrow></math></span></td><td>任意小的常数倍最终都能压住它</td></tr></tbody></table></div><p>例如 <span class="math-inline"><math data-tex="2N^2+3N+7=\Theta(N^2)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mn>2</mn><msup><mi>N</mi><mn>2</mn></msup><mo>+</mo><mn>3</mn><mi>N</mi><mo>+</mo><mn>7</mn><mo>=</mo><mi>Θ</mi><mo stretchy="false">(</mo><msup><mi>N</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow></math></span>，也可以写 <span class="math-inline"><math data-tex="\mathrm{O}(N^{3})" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>N</mi><mrow><mn>3</mn></mrow></msup><mo stretchy="false">)</mo></mrow></math></span>，但后者是更松的保证。<span class="math-inline"><math data-tex="\mathrm{O}" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>O</mi></mrow></math></span> 不是“最坏情况”的别名，<span class="math-inline"><math data-tex="\Omega " display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Ω</mi></mrow></math></span> 也不是“最好情况”：平均时间、最坏时间各自都可以有上下界。先指定分析的是哪一个函数，再使用符号。</p><p>对常见的正函数，如果比值极限存在且为 0、正常数或无穷，就分别得到小 <span class="math-inline"><math data-tex="o" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>o</mi></mrow></math></span>、<span class="math-inline"><math data-tex="\Theta " display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Θ</mi></mrow></math></span> 或反向小 <span class="math-inline"><math data-tex="o" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>o</mi></mrow></math></span>。极限振荡并不自动意味着不能比较：<span class="math-inline"><math data-tex="N(2+\sin N)=\Theta(N)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>N</mi><mo stretchy="false">(</mo><mn>2</mn><mo>+</mo><mo form="prefix" lspace="0.1667em" mathvariant="normal" rspace="0.1667em">sin</mo><mi>N</mi><mo stretchy="false">)</mo><mo>=</mo><mi>Θ</mi><mo stretchy="false">(</mo><mi>N</mi><mo stretchy="false">)</mo></mrow></math></span>，因为系数始终在 1 与 3 之间。</p><div class="callout"><strong>对原书定义的补充。</strong>原书此处把小 <span class="math-inline"><math data-tex="o" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>o</mi></mrow></math></span> 表述成“大 <span class="math-inline"><math data-tex="\mathrm{O}" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>O</mi></mrow></math></span> 且非 <span class="math-inline"><math data-tex="\Theta " display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Θ</mi></mrow></math></span>”，对本章常见、增长比稳定的例子可用；对任意振荡函数，它不足以替代上表的量词定义。例如比值在偶数处为 1、奇数处为 <span class="math-inline"><math data-tex="\frac{1}{N}" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mfrac><mrow><mn>1</mn></mrow><mrow><mi>N</mi></mrow></mfrac></mrow></math></span>，可以是 <span class="math-inline"><math data-tex="\mathrm{O}" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>O</mi></mrow></math></span> 而非 <span class="math-inline"><math data-tex="\Theta " display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Θ</mi></mrow></math></span>，却不趋于 0。这里采用一般数学定义；习题 2.5 正适合检验函数是否真能排成全序。</div><p>多项式看最高次项，连续步骤相加时看最大的阶；嵌套工作相乘时则必须核实内层次数是否依赖外层下标。对数的底在固定底大于 1 时只改变常数；但 <span class="math-inline"><math data-tex="(\log N)^2" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">(</mo><mo form="prefix" lspace="0.1667em" mathvariant="normal" rspace="0.1667em">log</mo><mi>N</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow></math></span> 与 <span class="math-inline"><math data-tex="\log(N^2)=2\log N" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo form="prefix" lspace="0.1667em" mathvariant="normal" rspace="0.1667em">log</mo><mo stretchy="false">(</mo><msup><mi>N</mi><mn>2</mn></msup><mo stretchy="false">)</mo><mo>=</mo><mn>2</mn><mo form="prefix" lspace="0.1667em" mathvariant="normal" rspace="0.1667em">log</mo><mi>N</mi></mrow></math></span> 是不同的函数。</p></section>
 <section id="model"><h2>二、§2.2–§2.3：一个单位究竟是什么？</h2><p>作者选择顺序执行的单位成本模型：定长整数的加法、比较、乘法、赋值等简单操作各按常数计，内存足够。模型刻意略过编译器、缓存和磁盘差异，目的是先比较算法的结构性工作量，不是声称所有机器指令真的同样快。</p><p>模型不能把“排序”“任意精度整数乘法”偷放进一个单位。快速幂的乘法次数少，并不表示每次乘法都很便宜；若结果的位数增加，位运算成本也必须增加。<span class="math-inline"><math data-tex="B" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>B</mi></mrow></math></span> 树讨论外存时又需要另一本页面访问账本，第四章会展示为什么内存模型与 <span class="math-inline"><math data-tex="\frac{I}{O}" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mfrac><mrow><mi>I</mi></mrow><mrow><mi>O</mi></mrow></mfrac></mrow></math></span> 模型不能混用。</p><p>令大小为 <span class="math-inline"><math data-tex="N" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>N</mi></mrow></math></span> 的输入集合为 <span class="math-inline"><math data-tex="I_{n}" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>I</mi><mrow><mi>n</mi></mrow></msub></mrow></math></span>，最坏时间是 <span class="math-inline"><math data-tex="T_{\mathrm{worst}}(N)=\max_{x\in I_N}T(x)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>T</mi><mrow><mrow><mi mathvariant="normal">w</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">t</mi></mrow></mrow></msub><mo stretchy="false">(</mo><mi>N</mi><mo stretchy="false">)</mo><mo>=</mo><msub><mo>max</mo><mrow><mi>x</mi><mo>∈</mo><msub><mi>I</mi><mi>N</mi></msub></mrow></msub><mi>T</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></math></span>；平均时间是 <span class="math-inline"><math data-tex="T_{\mathrm{avg}}(N)=\mathbb E_{x\sim\mathcal D_N}[T(x)]" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>T</mi><mrow><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">v</mi><mi mathvariant="normal">g</mi></mrow></mrow></msub><mo stretchy="false">(</mo><mi>N</mi><mo stretchy="false">)</mo><mo>=</mo><msub><mi mathvariant="normal">𝔼</mi><mrow><mi>x</mi><mi>~</mi><msub><mi mathvariant="normal">𝒟</mi><mi>N</mi></msub></mrow></msub><mo stretchy="false">[</mo><mi>T</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">]</mo></mrow></math></span>。必须说出分布 <span class="math-inline"><math data-tex="D_{n}" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>D</mi><mrow><mi>n</mi></mrow></msub></mrow></math></span>，才能说“平均”。有序输入、均匀随机排列和热点访问不是同一种平均。</p><p>本书通常默认最坏分析，因为它覆盖所有输入，且平均分布常常难以定义或计算。实测随机输入比最坏上界更快，不足以证明最坏分析错误；还要判断是上界不紧，还是没有抽到坏输入。</p></section>
 <section id="counting"><h2>三、§2.4.1–§2.4.2：先问语句执行了几次</h2><p>求立方和的例子，在作者指定的记账规则下得到 <span class="math-inline"><math data-tex="6N+4" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mn>6</mn><mi>N</mi><mo>+</mo><mn>4</mn></mrow></math></span> 个单位。最后写 <span class="math-inline"><math data-tex="\mathrm{O}(N)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>N</mi><mo stretchy="false">)</mo></mrow></math></span>，并不是先拍脑袋忽略细节，而是在知道计数线性后删掉常数与低阶项。后续无需每次重复精确计数，但不能忽略调用了另一个昂贵函数。</p><div class="equation"><math data-tex="\sum_{i=1}^N i^3=\left(\frac{N(N+1)}2\right)^2." display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><msup><mi>i</mi><mn>3</mn></msup><mo>=</mo><msup><mrow><mo fence="true" form="prefix" stretchy="true">(</mo><mfrac><mrow><mi>N</mi><mo stretchy="false">(</mo><mi>N</mi><mo>+</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><mn>2</mn></mfrac><mo fence="true" form="postfix" stretchy="true">)</mo></mrow><mn>2</mn></msup><mo>.</mo></mrow></math></div><p>这个闭式是另一种算法；用它能减少算术操作数，但结果溢出和大整数成本仍需考虑。一般循环分析可以按“每个外层下标对应多少内层工作”写求和；条件分支取测试成本加两分支的最大成本，连续片段则相加。</p><h3>Fibonacci：合法递归也可能极慢</h3><p>书中的 Fib 基例为 Fib(0)=Fib(1)=1。朴素实现每次调用两个重叠子问题；Fib(n<span class="math-inline"><math data-tex="-1" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>−</mo><mn>1</mn></mrow></math></span>) 已经算过 Fib(n<span class="math-inline"><math data-tex="-2" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>−</mo><mn>2</mn></mrow></math></span>)，第二个分支又把它重算。若只数调用次数 <span class="math-inline"><math data-tex="C_{n}" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>C</mi><mrow><mi>n</mi></mrow></msub></mrow></math></span>，则</p><div class="equation"><math data-tex="C_0=C_1=1,\qquad C_n=C_{n-1}+C_{n-2}+1=2G_{n+1}-1." display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>C</mi><mn>0</mn></msub><mo>=</mo><msub><mi>C</mi><mn>1</mn></msub><mo>=</mo><mn>1</mn><mo>,</mo><mspace width="2em"></mspace><msub><mi>C</mi><mi>n</mi></msub><mo>=</mo><msub><mi>C</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>+</mo><msub><mi>C</mi><mrow><mi>n</mi><mo>−</mo><mn>2</mn></mrow></msub><mo>+</mo><mn>1</mn><mo>=</mo><mn>2</mn><msub><mi>G</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><mn>1</mn><mo>.</mo></mrow></math></div><p>这里 <span class="math-inline"><math data-tex="G" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>G</mi></mrow></math></span> 是标准 0、1 起点的 Fibonacci，故总时间 <span class="math-inline"><math data-tex="\Theta(\phi^n)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Θ</mi><mo stretchy="false">(</mo><msup><mi>ϕ</mi><mi>n</mi></msup><mo stretchy="false">)</mo></mrow></math></span>。同时存活的最大调用链只有线性深度，不能把指数调用总数误当成指数栈空间。记忆化或从小到大迭代能消除重复，单位算术模型下时间线性；若要求精确大整数，结果位数的增长还须计入。</p><div class="passage"><p class="english" lang="en">“Don’t compute anything more than once”</p><p>译：不要把同一项计算反复做。</p><p class="source">§2.4.2，印刷页 18。指可复用的同一子问题，不是禁止循环中必要的不同输入计算。</p></div></section>

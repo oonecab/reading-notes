@@ -67,3 +67,5 @@ Part I 开篇在印刷 65 / PDF 66，包含第 2—6 章。第 1 章为进入这
 新评估与本轮修订见 [I010](../../../issues/I010-csapp-review-v2-fixes.md) / [T010](../../../test/T010-csapp-review-v2-fixes.md)。题号覆盖、程序检查和实验完成度分别记录：12.39 的真实浏览器经代理验收仍待完成，不能由直接访问 Tiny 的表单或协议驱动替代。逐章记录保存每项修订和当前状态，旧审阅及历史哈希继续保留原范围。
 
 正文维护入口为 `src/content/books/csapp/`，本目录十四份 HTML 为独立检查使用的展开镜像。样式和脚本由 Astro 构建内联，详见 [Astro 维护说明](../../../docs/astro-authoring.md)。历史程序与数学审阅保持原范围，12.39 代理实验的待验收状态不由静态迁移覆盖。
+
+2026-10-20 起，四类教学组件统一遵循 [RN-001 v1.1](../../../docs/reading-notes-standard.md)；共享维护源为 `src/styles/reading-components.css`。陈述保持可见，证明默认展开并可折叠，习题默认收起，题干、解答与来源共用排版。具体覆盖与本轮内容修正见 [I040](../../../issues/I040-unified-reading-components.md)，原数学审阅和历史执行证据保留。

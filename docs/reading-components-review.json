@@ -1,0 +1,3105 @@
+{
+  "issue": "I040",
+  "status": "locally_verified_with_open_proxy_acceptance",
+  "scope": "56 reading pages: unified teaching components; three documented content fixes.",
+  "source_sha256": {
+    "csapp/notes/book_overview.html": "7ee4a2084715d1391684af0b57f82af3650794eee521601a2eb0a34431fac0af",
+    "csapp/notes/chapter01_tour.html": "4d2c400e85755a13f158d037579e868b96f66f50b0eaa14b74a7b0e6c805d48d",
+    "csapp/notes/chapter02_information.html": "0289e9fe8850332366119a722e77d51ca6b745f6a82af32022bc4253a4160cb4",
+    "csapp/notes/chapter03_machine_level.html": "1867668f04b54229f2de635dfa368145a5a8c1480deb93d247bc0fe92d5e4131",
+    "csapp/notes/chapter04_architecture.html": "dc9daec82a750d6c7afd504413cd170e5b525092ba69c6c5730c09fa5f1abc67",
+    "csapp/notes/chapter05_optimization.html": "ed8b4f2fb6aef43588dd5e957ecbfed6a53fc980a389775178b0ce6a4774e289",
+    "csapp/notes/chapter06_memory.html": "3830aa84e242da2d742af968500c13e7558180a9a433c2ae3354aa43922726ff",
+    "csapp/notes/chapter07_linking.html": "1c1bbd22ce2025fb5a207bc2e7291f95252e79841ed3a458de5d911bec392459",
+    "csapp/notes/chapter08_exceptional.html": "a88f35ad427821cb45222f11cf7d427a462212ad1ddddd76e4d036bb4005806b",
+    "csapp/notes/chapter09_virtual_memory.html": "88eb642c52ae1086aab6464d379ccf9c878e354f0cffea1c4015d19d1eb2f3fa",
+    "csapp/notes/chapter10_system_io.html": "17d0037e7515ba760ff0229656fbf8e7801597764b2528eccd29bf6534f67d2f",
+    "csapp/notes/chapter11_network.html": "afb9e12b265e4d56ff1120bb67a059fbf99e3fa376fe988da4071fd093e6116d",
+    "csapp/notes/chapter12_concurrency.html": "685d2decc4d5936f28833672a30346c75350ed6d6d3d40351870b04ad1350766",
+    "csapp/notes/preface.html": "a517fe8c9204268951addf65b555b4c2faf94b74aab8a7882546a6e1ee1d412b",
+    "measure-probability/notes/book_overview.html": "7369207bb99aa0932b1f5fc5794a164210b1079486713f8ba932380dad11854d",
+    "measure-probability/notes/chapter01_measurable_spaces.html": "1bda596b0ea342077fcbbe3d6d07e7e1d2b872428e2e0afba2c904302334b723",
+    "measure-probability/notes/chapter02_measure_spaces.html": "c6de0502f67d22b8a3cdce925d2f4705aa8f8816a80f8c89bfd304f2ad988310",
+    "measure-probability/notes/chapter03_integration.html": "79cfceaa0766549b8e1bce2872f7004344062481c3c36546d248a77c54bacf67",
+    "measure-probability/notes/chapter04_signed_measures.html": "44175d90613cbbcd695363cac26fb31bdaa5b042b62ce99aaf8b1c71adf0dbb1",
+    "measure-probability/notes/chapter05_product_spaces.html": "daa43103060b3ee3a3358e84ff47b338475bed2e8d7f38f53dd9114b1f147b81",
+    "measure-probability/notes/chapter06_independent_sequences.html": "75e667bd29c2ab6620e5fc0dbe89d7416d5124349f960c39068d3f8481acc549",
+    "measure-probability/notes/preface.html": "47229ef94f3dab16e6788cfef6882c89b17eea6d1d29580805dd12f837bfa6da",
+    "stochastic/notes/appendix_a_probability_review.html": "832ba9b1dcea33f2815f0aca6d53c7ae3770ba35ff590a579734d097bc7b05a1",
+    "stochastic/notes/book_overview.html": "c508dec857c57a2ff7a064d42483338c33e5ced30b6a2a62f2ac4e691cadea39",
+    "stochastic/notes/chapter01_markov_chains.html": "965a1f232581f51cb12b2c7d3aadde490121235015905358a00f30ce2c3e5570",
+    "stochastic/notes/chapter02_poisson_processes.html": "909143d425d6c05b3a7ed53757e9ce175118f982a3c1d541540d5c9f289977c3",
+    "stochastic/notes/chapter03_renewal_processes.html": "d5932191c703610b415fa86bc2a35794bad6351cc56cdec33bdaa5f7500c3273",
+    "stochastic/notes/chapter04_continuous_time_markov_chains.html": "7d0058245839dfce30a02c2b4b0258eac2cf28562df8abb1a6eb4824672d662a",
+    "stochastic/notes/chapter05_martingales.html": "048a88b68b1a561d4411d6ab8b6c7779c3fe42dafe6da0073dcf3d4a4def5bc2",
+    "stochastic/notes/chapter06_mathematical_finance.html": "71a2c5bcc3bda1bb49cce53ee8923c7d5b1acd3743742f15490ce48926f226a0",
+    "stochastic/notes/preface.html": "338e855b27c8cee3fa49cac29bc8b21398fc955627cbc8acc2948a125f2d9ef1",
+    "visual-group-theory/notes/book_overview.html": "c722c8b297f5ed00a3c38dfe699ede9f962e32c33beb83f7ae4441b6e57fbd7c",
+    "visual-group-theory/notes/chapter01_what_is_a_group.html": "f3659e66913cd0835cec48aee95c1bf10b006d647f68fcb4631a5e08234e902c",
+    "visual-group-theory/notes/chapter02_what_do_groups_look_like.html": "423d6b528a446cd37499ef920287b40631e7167ad7e5f7a20f17896f7a56def1",
+    "visual-group-theory/notes/chapter03_why_study_groups.html": "549ac3cbf633566d792c33bd1c7580c720a954237398d57645cb4d07e277b087",
+    "visual-group-theory/notes/chapter04_algebra_at_last.html": "ab2c0325212320c0da14effb07c5499715f59b45c65d6866598cd5bd2ea2a7ee",
+    "visual-group-theory/notes/chapter05_five_families.html": "2e5c77ef416419f6214210219ec9cfb8198723e92281d3e8c7385b02834f5156",
+    "visual-group-theory/notes/chapter06_subgroups.html": "5119da25f2ed0a99948c7e15c7b79db553c06dab2c831fbd259d987c276abd37",
+    "visual-group-theory/notes/chapter07_products_and_quotients.html": "1ccca2406db43a98bb0bb725046a955313a394d3820cbf023a4b2b32e44906de",
+    "visual-group-theory/notes/chapter08_homomorphisms.html": "51420ff86e04e13fccf4f2dd47d9a673add4a03f7ead6a97e1589ad1c74780e2",
+    "visual-group-theory/notes/chapter09_sylow_theory.html": "f6b18381e1dcc905d745f601e59e9fc358bc3f559e61a1736b0a7283c6c89b5f",
+    "visual-group-theory/notes/chapter10_galois_theory.html": "f517f256f4b586f85b89663e61c150dcd4846899873fabe5ffd2477bc7d5706d",
+    "visual-group-theory/notes/preface.html": "43ed02a1b1b22f906f457dd99c8f254cbc85fde4656fb7278434f0247486b253",
+    "weiss/notes/book_overview.html": "e0f0d4c8c30fe7b47f385506657cf42a22a31fe6a946259b5a6b1a4a597f6626",
+    "weiss/notes/chapter01_introduction.html": "9ffc38f0e40a0ee42320e2ffd13dbf011e37805b49204953dd7a4720d176fa62",
+    "weiss/notes/chapter02_algorithm_analysis.html": "73392042908a66d2017af15bf77356d3c7122a7aa541681e19c33a90f60b28ea",
+    "weiss/notes/chapter03_lists_stacks_queues.html": "7cdbc09cd9b0bf948da411cb3d3205f3fb1a17091cf8f78f57850a341032e86d",
+    "weiss/notes/chapter04_trees.html": "e4192151af1326b42c8825c97438b5c90745f49a78f8231ac7998e0d74c97d7c",
+    "weiss/notes/chapter05_priority_queues.html": "eae35a456d5c4a56b00eeeb00f19263a7441b6b8dd88f44887b286652d82b4f6",
+    "weiss/notes/chapter06_sorting.html": "680e8ecfd1ab8c69ddfe6da202f18dd6997530e621256541b5da8ecc783eb4f6",
+    "weiss/notes/chapter07_hashing.html": "a8992cc3f93ef9f138fcdd8f4fdd173f4f96f3021f033ca33b689cbba5d511fa",
+    "weiss/notes/chapter08_disjoint_sets.html": "d2a06a0e2ce1d853166c3a23b00c8a120731fed89e2bfed558460d3d84f27169",
+    "weiss/notes/chapter09_graph_algorithms.html": "9688c81c1559b50be129a60d78af7350a8aceb060b1976c153a120ad4f7e82c2",
+    "weiss/notes/chapter10_algorithm_design.html": "03945edffad054c0ef4e03ebc2d655dcf4b4106a22865de6e83d8297c94ea9ac",
+    "weiss/notes/chapter11_amortized_analysis.html": "dcec3a2563cd3cdee6205acb2d828b2997a7fb6bbd0ba6cadf5240337326d80b",
+    "weiss/notes/chapter12_advanced_data_structures.html": "1ef5b83f0b05ae7fb6474a67c1c4f9047dfdfadf7aac595dfe3236ee6306195f"
+  },
+  "output_sha256": {
+    "measure-probability/notes/book_overview.html": "7a45338584808e851410ec1b32ab50ea3a1b3a32a5077fe921aef81d22b317e7",
+    "measure-probability/notes/chapter01_measurable_spaces.html": "4b600efb71dea497bcc706991ef1c36b905b305c42826b584adf84644f53a88f",
+    "measure-probability/notes/chapter02_measure_spaces.html": "927abb46f30c690889453bbba4bb0f2b91a692f00f7e959653a72d827715c556",
+    "measure-probability/notes/chapter03_integration.html": "b40df443d6af0614e72ad3874588722b6c1669f3aaed70ad3406815c654ed811",
+    "measure-probability/notes/chapter04_signed_measures.html": "bcbb60a88664bc18a91eda4070665537ed5b838f6acd7da229b1e15643a4e479",
+    "measure-probability/notes/chapter05_product_spaces.html": "a3c738bb053147743e0acc6b9874a10b082d1dbe8caaf4c5c42b6af09e0075cc",
+    "measure-probability/notes/chapter06_independent_sequences.html": "c5ceae018723b5412ccc91db7f407580df38fc6db1bf1a7c072d46fa8bb1d5b6",
+    "measure-probability/notes/preface.html": "41c0fc773168177bd03f8a3d66fbc7c33e9b4cb36abe6de17b27e5b0f5d308c2",
+    "visual-group-theory/notes/book_overview.html": "73917498af06758bdf83aca0d5e744f5b8ca728e6cccef1eb9456d2b038ba247",
+    "visual-group-theory/notes/chapter01_what_is_a_group.html": "6c040b8ef8e1740c924a4a2edc660b986e329f2c05a24015e6a54c8623ddb09e",
+    "visual-group-theory/notes/chapter02_what_do_groups_look_like.html": "25038c490b2a6d55f92587444c371315a582c3079406105944d15e5f3373877b",
+    "visual-group-theory/notes/chapter03_why_study_groups.html": "d54dc3f18a45e90eabeb1bf91bdce768d2a90b1d8d939fbae61bfade05b01d57",
+    "visual-group-theory/notes/chapter04_algebra_at_last.html": "204814f3faded3e12a233e98edee78f33f7200a3baaee16598f4aca4780737ed",
+    "visual-group-theory/notes/chapter05_five_families.html": "b0bf301fc5fbde0e7945326cd793c760d6c6ed0cadf942be9623fa3f4a107895",
+    "visual-group-theory/notes/chapter06_subgroups.html": "034beb860acd6871916c264d72c1ba19108339c54d9b5a89e8bdb5e3d0239790",
+    "visual-group-theory/notes/chapter07_products_and_quotients.html": "36d042361931cb7a75f09b6ee86e765175352a091afbe86038fc5a8bf01865a8",
+    "visual-group-theory/notes/chapter08_homomorphisms.html": "55340e210022f0c0e0d2a14eedfa9a080c4effa61482c71ebaf204cbd790d77d",
+    "visual-group-theory/notes/chapter09_sylow_theory.html": "3e7261906e6ad46d84def5b83b7be6ca289d54c6cacc20533626d5427b163651",
+    "visual-group-theory/notes/chapter10_galois_theory.html": "7686bb56b77ab28a5b731c38181f557b467ccbec91b241f00c10d57e2efb9122",
+    "visual-group-theory/notes/preface.html": "3a6a019efce8a430b9f2a483651fc4f0c96d8b6530d9e875a3591adfda85ae05",
+    "stochastic/notes/appendix_a_probability_review.html": "f71a3a6d626c7b5dd9d48b1db23daa100feb1a5a35c7bc85fd0d4e5eb569029f",
+    "stochastic/notes/book_overview.html": "ff7f34a860efb9f426cbe876384a84b9a336eeca13da096a411c5f8c9ef792c0",
+    "stochastic/notes/chapter01_markov_chains.html": "d4f4b26512f7a7da9f8d32e1a79912041cdda5e1087775341fac39fcb9129b90",
+    "stochastic/notes/chapter02_poisson_processes.html": "3d0520b87fe6722278b04c54d7b2386060b9a531ea5970fbfe2b75ba899cf22d",
+    "stochastic/notes/chapter03_renewal_processes.html": "15f5b5719f503415d9c266bb406235f00941725814ee9803884cc6796f6a33de",
+    "stochastic/notes/chapter04_continuous_time_markov_chains.html": "faddc183bc8c429abe0f7ae32e64f421c30ee62a09f1bfad3b9a08aa25465738",
+    "stochastic/notes/chapter05_martingales.html": "3537dcc03d111b6622bdca109301c9a7a4cece1137e87191b7d25182bae6a30b",
+    "stochastic/notes/chapter06_mathematical_finance.html": "a9feb075c24a9f5b780d368bef2bc3ba5b8ded8d79a3d8c50f4e7d4e0d4217a7",
+    "stochastic/notes/preface.html": "f086532f9b4306aadae9174988bddd5ceccb836937f0a44d3ecb015383d8ba96",
+    "weiss/notes/book_overview.html": "394aab49cdd31e72e404f56cde4270f610a145d472acb1d9898b6e812a704380",
+    "weiss/notes/chapter01_introduction.html": "adc7fcefbe0eb15fd024c4a75b87c7487544f8373b3c495cb26201365d86cf33",
+    "weiss/notes/chapter02_algorithm_analysis.html": "2d6283b70b3ccd17fe5016f08694e98f67da0835865100517695dc468b6baa83",
+    "weiss/notes/chapter03_lists_stacks_queues.html": "cb59d206e67a66b79d198a4b3e4fbd95b290449fb5b94d3d0141424cb709ded9",
+    "weiss/notes/chapter04_trees.html": "5e95b8df42a1e7731441b4a3a90cccaa584aeaf2721b15ac385bb9741e3f459c",
+    "weiss/notes/chapter05_priority_queues.html": "2c7ceecc3c29e92717e5548fd9a20563b57ac0ace5e045b164f604012921a7a0",
+    "weiss/notes/chapter06_sorting.html": "32c93624229560e9b8696293c18a432e0f0046b2f5f7d4030774dc49663b2122",
+    "weiss/notes/chapter07_hashing.html": "c8dddff29137b2e5911b4e520dc3d40a38015aea0bb11cd74a66d42b8f6a6b8f",
+    "weiss/notes/chapter08_disjoint_sets.html": "91b6a349ef14b7bb1d9bcd2be7eefca43ebf62a30014bc1bf90d43734756d098",
+    "weiss/notes/chapter09_graph_algorithms.html": "9039eabbd2a13b119ea735dbdf80c4e455710daa5e9f7cfdea83b14f1d05e371",
+    "weiss/notes/chapter10_algorithm_design.html": "67261629132a74553f8281314abacb1d1515b6cda314d1ac2d3767b14c9cb636",
+    "weiss/notes/chapter11_amortized_analysis.html": "7d1f9f510ae02c3ecedaac82dbdbf4fac9379db71cfaf0fdcc71987a5498c710",
+    "weiss/notes/chapter12_advanced_data_structures.html": "c6d3fbadf14c079795dd1ab7512b1c62f08acf3dfc060a8dc010e459e2b22d0a",
+    "csapp/notes/book_overview.html": "a9351803e58c5a98f29c7fd0231fed01178d2417e88d436e4f61913651cba40f",
+    "csapp/notes/chapter01_tour.html": "7c551bc03a5268e2a40f6aa84ce2d0ef1454d4b222f8aeb888cd20748e1314db",
+    "csapp/notes/chapter02_information.html": "b87aa748cd4c7f15c18e524fa2748244434cf0fc6316422f9847f6ef99207d0c",
+    "csapp/notes/chapter03_machine_level.html": "d68652fdd1c9e2bdf370113f87a45c013ecb49eb358d090368d348324f5c1918",
+    "csapp/notes/chapter04_architecture.html": "1b811a0a1499189f4c6db3921171511c3f212a317ef43ba4111d4d11d3b33fa5",
+    "csapp/notes/chapter05_optimization.html": "aba6eda388789f10cc57191ee0409f99b12e767a1a47acdc05285fc2b96f4a4b",
+    "csapp/notes/chapter06_memory.html": "07d54b34c28a539807300014d15c8b53acec1534da5c0df9644a0a7556450d30",
+    "csapp/notes/chapter07_linking.html": "800159b074b501bdd0d86f283ab3f5a5e760c8b330013d73c3e1419b86b3167e",
+    "csapp/notes/chapter08_exceptional.html": "c5a0966803b62318a2906f249cee9363d9355643fe586275164d8c4349bb8cf7",
+    "csapp/notes/chapter09_virtual_memory.html": "d2b4c9b4df87b3284d7f75bcacb738528a557d4f03f6a3aec4ea8309d70b7b57",
+    "csapp/notes/chapter10_system_io.html": "b98309aa8ec1ea32800f1079e728fd9dbcea71a95d95fcec14419c9729c7646a",
+    "csapp/notes/chapter11_network.html": "773df0d3de11bf79b7f4d2dd279cf2792a6372a6bc7c3af8baabe32704dc23c2",
+    "csapp/notes/chapter12_concurrency.html": "9bcc92aa62f7b597f4df90564329d8fde102a39326a4f567a6ae31c3d3cfc4d1",
+    "csapp/notes/preface.html": "2afaafcb1398ca60880535166e16b5bce18d804120d0b27c2ac8adc693976bb1"
+  },
+  "content_review": {
+    "preservation": "All text outside the three reviewed corrections and newly added labels retained; MathML outside ex-6-27 and ex12-1, and all SVG/pre/code retained byte for byte. All original anchors retain order.",
+    "measure_6_27": "PDF 228 visually reread; restore finite fourth moment; Cauchy-Schwarz implies second moment, which suffices for the existing CLT, SLLN and Slutsky proof.",
+    "measure_preface": "All six chapters exist; replace stale first-two-chapter scope.",
+    "weiss_12_1": "Expand two-step splay local ranks and telescoping; distinguish the simplified implementation theorem dependency and normalized costs.",
+    "csapp_12_39": "Browser acceptance remains open: the current Ego tool rejected creation of an isolated proxy browser target. Protocol evidence is separate."
+  },
+  "limitations": [
+    "No physical handset, Safari/Firefox or screen-reader acceptance claimed.",
+    "CS:APP 12.39 real browser through proxy remains unverified."
+  ],
+  "preservation": {
+    "status": "passed",
+    "pages": [
+      {
+        "page": "measure-probability/notes/book_overview.html",
+        "before_sha256": "ee39f80406f22b6535f1a212990542ac6a88180a73338ef4fac1b47419b205ea",
+        "source_sha256": "7369207bb99aa0932b1f5fc5794a164210b1079486713f8ba932380dad11854d",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 8,
+            "sha256": "dad176cdacdf50bb31cc03be92b9942318438b70c4cc2e33f47cb5abe2651f3f"
+          },
+          "svg": {
+            "count": 1,
+            "sha256": "cb40bda7242125a0d9dde69558cc89c6573dc7bce3cfdb91a54f2d0a93cf634c"
+          },
+          "pre": {
+            "count": 1,
+            "sha256": "ec3ca512a24a7bd3084b0a46576b1af724ed252c7e5e1c4c1db4e8422456f2c1"
+          },
+          "code": {
+            "count": 1,
+            "sha256": "266d19a9b7870b515b5ba24c64d95c07e853feddb3d37eaac717d7b37c9e3435"
+          }
+        },
+        "original_anchors": 19,
+        "new_anchors": 0
+      },
+      {
+        "page": "measure-probability/notes/chapter01_measurable_spaces.html",
+        "before_sha256": "c6d6b91ee1e869739dea735e7808b89dea16872c14ccf7acdf5156f0f7502f3f",
+        "source_sha256": "1bda596b0ea342077fcbbe3d6d07e7e1d2b872428e2e0afba2c904302334b723",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 293,
+            "sha256": "a27b03e0c105869f0dc8fb08b55d8cf8b9e5c9be90232c6f38ee03b9cc20df94"
+          },
+          "svg": {
+            "count": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "pre": {
+            "count": 4,
+            "sha256": "777189292b8595111d0ce3e03aaef92fa82d177673e6fa4db0f30924d6644e87"
+          },
+          "code": {
+            "count": 4,
+            "sha256": "d4b0836345772b0dea7b1a0a30429f485b4f285b0e839e85eed51cb73d5cf793"
+          }
+        },
+        "original_anchors": 102,
+        "new_anchors": 0
+      },
+      {
+        "page": "measure-probability/notes/chapter02_measure_spaces.html",
+        "before_sha256": "120071c00e574bc80a386581b3ac94e14d59bc32228f97d1f6885aa1e3d89e38",
+        "source_sha256": "c6de0502f67d22b8a3cdce925d2f4705aa8f8816a80f8c89bfd304f2ad988310",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 366,
+            "sha256": "1907e6f7cb2c6ebcfe15efb87c7bc8e955265fe31fdf80a8e8316540f05ed10a"
+          },
+          "svg": {
+            "count": 1,
+            "sha256": "cf67d4f7bd9c8744e9207229f47ff92c7872a3c811696568117fb50b58394527"
+          },
+          "pre": {
+            "count": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "code": {
+            "count": 1,
+            "sha256": "551c37602c176290a04d15eed5b2cb616ea88d943ba9967463831c9c5f38aa91"
+          }
+        },
+        "original_anchors": 120,
+        "new_anchors": 0
+      },
+      {
+        "page": "measure-probability/notes/chapter03_integration.html",
+        "before_sha256": "43a26e36bd09a08980d1a52f4c35ca8328edab87bf9bd17bafcd42a3197130fb",
+        "source_sha256": "79cfceaa0766549b8e1bce2872f7004344062481c3c36546d248a77c54bacf67",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 952,
+            "sha256": "3969e5a0abbd004f342e642d8a1e97df796719c622425acbfeb60edf53409180"
+          },
+          "svg": {
+            "count": 1,
+            "sha256": "23bad4da8ce62810a8a6462b85cf5f633345715573e64dcbf2bed242e11a0563"
+          },
+          "pre": {
+            "count": 3,
+            "sha256": "a4ffe17c2e39c2e9694bfd73599c0bd4f9abf0851eaa9bf0f99bd6802e605943"
+          },
+          "code": {
+            "count": 4,
+            "sha256": "f9171bda74a0ea54cc98d06e9312183a25f3b3c6f1c91edce5ce75de7c6b250d"
+          }
+        },
+        "original_anchors": 131,
+        "new_anchors": 0
+      },
+      {
+        "page": "measure-probability/notes/chapter04_signed_measures.html",
+        "before_sha256": "4e8f81ac4461ace1088fe30bd76ff0d2107585daa4e201a4dcf1883ae0850d63",
+        "source_sha256": "44175d90613cbbcd695363cac26fb31bdaa5b042b62ce99aaf8b1c71adf0dbb1",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 1089,
+            "sha256": "f48eb62d8ba06cc93f3f3a5b8b40b5e3c4d286bcc7d7e411b7b209d264877f3a"
+          },
+          "svg": {
+            "count": 1,
+            "sha256": "74104dccf7ee0414bd371bfab466b991aab5d1b77907a585333440bdf7f1493f"
+          },
+          "pre": {
+            "count": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "code": {
+            "count": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        "original_anchors": 124,
+        "new_anchors": 0
+      },
+      {
+        "page": "measure-probability/notes/chapter05_product_spaces.html",
+        "before_sha256": "0935356c6e923d0312185efc2e60ef9d8d1067a28d6b85dc58959d2ef9dc4ea1",
+        "source_sha256": "daa43103060b3ee3a3358e84ff47b338475bed2e8d7f38f53dd9114b1f147b81",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 369,
+            "sha256": "f949833bc93557af47f991224e8505b52b2a396ffee4da364a8d3ec84ebbc1d8"
+          },
+          "svg": {
+            "count": 1,
+            "sha256": "4a921075027dbac031ff66ecf974bb4b27b9cb86029063ce1f17302931712ef0"
+          },
+          "pre": {
+            "count": 2,
+            "sha256": "f5a039c89f41683bbf54a0e4f4c22bbf3791d3bde4610950742c0464ac5e927a"
+          },
+          "code": {
+            "count": 4,
+            "sha256": "cf8b6576045471cc11abaed9cd8370e74d90f4c75f2d6c168bee4f9749881507"
+          }
+        },
+        "original_anchors": 117,
+        "new_anchors": 0
+      },
+      {
+        "page": "measure-probability/notes/chapter06_independent_sequences.html",
+        "before_sha256": "f1b0e1c27a68d13ad9962f93ba8efaed61af16431ebc9308bae5035cbf45424d",
+        "source_sha256": "75e667bd29c2ab6620e5fc0dbe89d7416d5124349f960c39068d3f8481acc549",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 588,
+            "sha256": "cbe12a4ab610c961d87a9f97d350f9f19060bec6918dcd065c26a98a181ac403"
+          },
+          "svg": {
+            "count": 1,
+            "sha256": "7cfdf7a8c453ba5b9b46e787dc923a45dc6c6de4d6a30e6b51b91bc4164cd9a2"
+          },
+          "pre": {
+            "count": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "code": {
+            "count": 2,
+            "sha256": "d83a49640ac52cb0afb5e2c4347b31bca1c76bc7b98e205bfef620c65ba28868"
+          }
+        },
+        "original_anchors": 156,
+        "new_anchors": 1
+      },
+      {
+        "page": "measure-probability/notes/preface.html",
+        "before_sha256": "d60147d6952521bb1a8a72b7e67d3e57d012c9a8d1e29f767e5b2d6d8f832142",
+        "source_sha256": "47229ef94f3dab16e6788cfef6882c89b17eea6d1d29580805dd12f837bfa6da",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "svg": {
+            "count": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "pre": {
+            "count": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "code": {
+            "count": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        "original_anchors": 15,
+        "new_anchors": 0
+      },
+      {
+        "page": "visual-group-theory/notes/book_overview.html",
+        "before_sha256": "7f62f2bc3ee92441a274bed9395747b2fa8da57b481a83b346eb38094b6e2afb",
+        "source_sha256": "c722c8b297f5ed00a3c38dfe699ede9f962e32c33beb83f7ae4441b6e57fbd7c",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 1,
+            "sha256": "7cb4cc76d94857b4ca3a146bf5a33bbacf1b1d10151c829e5912e62bf62a98d0"
+          },
+          "svg": {
+            "count": 1,
+            "sha256": "f2da7cfd66b823ea9542f6d6082352bb1d77425a855dd1d204da4d5267f14631"
+          },
+          "pre": {
+            "count": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "code": {
+            "count": 1,
+            "sha256": "ac7fd2c362362d6acdfcab0362183b479745df0406c5a4376d9d527dd43e73ef"
+          }
+        },
+        "original_anchors": 30,
+        "new_anchors": 0
+      },
+      {
+        "page": "visual-group-theory/notes/chapter01_what_is_a_group.html",
+        "before_sha256": "eb199f9c4e18d8798a1a2b3b857a4d167597ef865240210882109226ffb2075b",
+        "source_sha256": "f3659e66913cd0835cec48aee95c1bf10b006d647f68fcb4631a5e08234e902c",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 11,
+            "sha256": "4f1798d1a5547c9fa250911e931a1e9ebfc399f6400d5f559b251ac630407205"
+          },
+          "svg": {
+            "count": 2,
+            "sha256": "990d2996ef372a268fae4730068124a9b928644d9ffadb7d929b320c839ef7d1"
+          },
+          "pre": {
+            "count": 3,
+            "sha256": "b3e4434851c8fb6055d682027db0678e3f2357d80aa0124b1f519356409b72ec"
+          },
+          "code": {
+            "count": 17,
+            "sha256": "0d959bbcdd3d653f48db90c3c98c7eaaf3b2014ce5977450cb85690972bc1821"
+          }
+        },
+        "original_anchors": 61,
+        "new_anchors": 0
+      },
+      {
+        "page": "visual-group-theory/notes/chapter02_what_do_groups_look_like.html",
+        "before_sha256": "683005e2729eb40b9ba13e3958c4159b61e7d29b44718cf2f7042a4e358c02a7",
+        "source_sha256": "423d6b528a446cd37499ef920287b40631e7167ad7e5f7a20f17896f7a56def1",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 13,
+            "sha256": "bd16bbe4169d5779591b3ec0efa7b72323652f72814917d80df57adb94e9dd9b"
+          },
+          "svg": {
+            "count": 13,
+            "sha256": "65dc8c95bb44e8d86b90634dca2275920798706a72f51d062496a49a8b2b6f66"
+          },
+          "pre": {
+            "count": 3,
+            "sha256": "f99c585fe0bfabaea08d51e7f472711351ff8fe081c5309d6e84d29dceed91ad"
+          },
+          "code": {
+            "count": 3,
+            "sha256": "8aa868af68006f42e6bbf546fd24e4775706b7a0f81248cc7fc9e9e968b7b2ea"
+          }
+        },
+        "original_anchors": 125,
+        "new_anchors": 0
+      },
+      {
+        "page": "visual-group-theory/notes/chapter03_why_study_groups.html",
+        "before_sha256": "677d4c58de3f14c4870d85377946e7d7c1b55a2eaf7cb3ea40d101b792d86a4b",
+        "source_sha256": "549ac3cbf633566d792c33bd1c7580c720a954237398d57645cb4d07e277b087",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 14,
+            "sha256": "6cc66bdf3c1eec11dc2ea13f0fa76d34ed69407a84e5a0bdb72963a1ea58539a"
+          },
+          "svg": {
+            "count": 22,
+            "sha256": "bfc9d61222f4a5ed279a2f3842c645c402bdabcf9ebc653880fc3815c1b97c73"
+          },
+          "pre": {
+            "count": 3,
+            "sha256": "d0c76059f9635c45cf4ccc4a45a05687bba38c13675ec9899360804658fed85e"
+          },
+          "code": {
+            "count": 3,
+            "sha256": "0d621cea4ffb7010fe545f5637190b7c429b8fd246b11ee364ca07761ed3aad2"
+          }
+        },
+        "original_anchors": 179,
+        "new_anchors": 0
+      },
+      {
+        "page": "visual-group-theory/notes/chapter04_algebra_at_last.html",
+        "before_sha256": "0392ed264f748ae1466b39544acf82f56bcf2b0f5805e2e06b81c27377ed1f24",
+        "source_sha256": "ab2c0325212320c0da14effb07c5499715f59b45c65d6866598cd5bd2ea2a7ee",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 20,
+            "sha256": "7903f00e82e1e49541ab39a2d2bba9d691fe869148bd35e23f9da32a366fefea"
+          },
+          "svg": {
+            "count": 5,
+            "sha256": "58270f46fbff9a9fd54cd4824759b9968fbf49d1ad722964ff1fe2f213702d44"
+          },
+          "pre": {
+            "count": 4,
+            "sha256": "f3acbce1a336715820b8b0ed648656c4ae1eff98fefb206a50905307d749069f"
+          },
+          "code": {
+            "count": 4,
+            "sha256": "5dda9eedf0c5aaf443d3ed25ecc52aaf6dbf42fdc7479c009b61255ad7681009"
+          }
+        },
+        "original_anchors": 131,
+        "new_anchors": 0
+      },
+      {
+        "page": "visual-group-theory/notes/chapter05_five_families.html",
+        "before_sha256": "2516e98357384a6d37047d2dcfc0f82e66402e6f4a41af7cca8a4b846d1171a2",
+        "source_sha256": "2e5c77ef416419f6214210219ec9cfb8198723e92281d3e8c7385b02834f5156",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 34,
+            "sha256": "c962cc050f2528a852fba34f3e8ecc4ad9595b3d24f38ffc547909046a908186"
+          },
+          "svg": {
+            "count": 25,
+            "sha256": "72022ef8e36395accf97abedcd2c3f539a1330dab5fc74346e577ad36cbaf9a8"
+          },
+          "pre": {
+            "count": 3,
+            "sha256": "86a052a2679ee9988badba88ab9bddb89408208800fe37fda6b9e8a557de55cf"
+          },
+          "code": {
+            "count": 3,
+            "sha256": "131166a2de25c60660330a4e1be6dc2c5b8b7fb8bef9c38489a8f03cb32d77c5"
+          }
+        },
+        "original_anchors": 317,
+        "new_anchors": 1
+      },
+      {
+        "page": "visual-group-theory/notes/chapter06_subgroups.html",
+        "before_sha256": "637260be65ade2b64f3f21fe4a86a108d2aeef4d78ed42469a88ff20b5218324",
+        "source_sha256": "5119da25f2ed0a99948c7e15c7b79db553c06dab2c831fbd259d987c276abd37",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 23,
+            "sha256": "302f98cc668fa33a3ca96414dc255a11f68387e0783a32608da03352e5de3c0c"
+          },
+          "svg": {
+            "count": 23,
+            "sha256": "50b0eec77ea91581c9fd8e51a2a2fb4af0eef6af692cddf30a416b129cb80f4a"
+          },
+          "pre": {
+            "count": 3,
+            "sha256": "40da62c55da08a375bc09f37059d490e75e42aba6216ada6d9436866720f1a91"
+          },
+          "code": {
+            "count": 3,
+            "sha256": "f48fa573a7bc9912534960e4fd1c41f9bdaf1746bb1a3e9d4a3a24975c2cf034"
+          }
+        },
+        "original_anchors": 290,
+        "new_anchors": 4
+      },
+      {
+        "page": "visual-group-theory/notes/chapter07_products_and_quotients.html",
+        "before_sha256": "5cba664803e8489f96a290ec257024e519038961498b258b84e0f7e508c33758",
+        "source_sha256": "1ccca2406db43a98bb0bb725046a955313a394d3820cbf023a4b2b32e44906de",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 42,
+            "sha256": "b50a4db415f835bd98ece538e647e7ae8f6125eaacd93b756424b6b03fc0dbe0"
+          },
+          "svg": {
+            "count": 38,
+            "sha256": "6057c50996d4b9899ae9fc49cf816135fffc4efb2e6bec5da8eaf5193142869d"
+          },
+          "pre": {
+            "count": 3,
+            "sha256": "9249539060f55083ee975414f3d132404515e7aec0dbb4082f3e105e91514e16"
+          },
+          "code": {
+            "count": 3,
+            "sha256": "a0c2859e11c694e688011fdc92c449d80fde35f141750a0996f8624ecc5d08a3"
+          }
+        },
+        "original_anchors": 421,
+        "new_anchors": 3
+      },
+      {
+        "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+        "before_sha256": "aaeca980fc8e8c32a2126188e997fac2fca704b2ff1745f2474220b2a1b746b5",
+        "source_sha256": "51420ff86e04e13fccf4f2dd47d9a673add4a03f7ead6a97e1589ad1c74780e2",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 48,
+            "sha256": "8ae00ee970a7d7216df4574466f7347ebe86ae49488c87656872dd20905f07f0"
+          },
+          "svg": {
+            "count": 25,
+            "sha256": "ac1eb707f5cc9a466d75a3b5ee411792861f11372e178ffbed8caa4606864181"
+          },
+          "pre": {
+            "count": 3,
+            "sha256": "c7deda005bdf96fa8d2c6b78457fb36cf2bd9fcbd2360a1f0bab6fd62f4b62ed"
+          },
+          "code": {
+            "count": 3,
+            "sha256": "a7eb39866fd37d0af37a2245afdd57aa86d8799d6b0cb7cc13f8969e1638f91b"
+          }
+        },
+        "original_anchors": 324,
+        "new_anchors": 5
+      },
+      {
+        "page": "visual-group-theory/notes/chapter09_sylow_theory.html",
+        "before_sha256": "090ad2053310e455d4938b1e166dbbbc3cd5eacc6d62352ee792b1e43cad11db",
+        "source_sha256": "f6b18381e1dcc905d745f601e59e9fc358bc3f559e61a1736b0a7283c6c89b5f",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 80,
+            "sha256": "388b88d0693a70c5990b181f558ffd336026042fd5a8412bcb1cde60a07955c1"
+          },
+          "svg": {
+            "count": 16,
+            "sha256": "294ff0e519a944b8c824b6c61c280eb978ef914f60fe49e183f67e11b3b23db8"
+          },
+          "pre": {
+            "count": 3,
+            "sha256": "b695898983370d61114a34d15705cf490583ca797b70b5589a47c6c280bce22b"
+          },
+          "code": {
+            "count": 3,
+            "sha256": "bbb4394989ffff67cb38896bd1117029ddbc7299d83a68401d4552091eca3394"
+          }
+        },
+        "original_anchors": 221,
+        "new_anchors": 9
+      },
+      {
+        "page": "visual-group-theory/notes/chapter10_galois_theory.html",
+        "before_sha256": "f95c10f25b53fe6eba4e4cb536bd59b5f43b42aa0b51d8316aa5c1ccdb862471",
+        "source_sha256": "f517f256f4b586f85b89663e61c150dcd4846899873fabe5ffd2477bc7d5706d",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 101,
+            "sha256": "f0b175cd17c4e1bbd5fba6c3a344f8913c6175224ceb596a898f81cae9e6dac5"
+          },
+          "svg": {
+            "count": 28,
+            "sha256": "9452e60f67817111b46ac698717c68af453b3b898e7584acd74d29749cc59013"
+          },
+          "pre": {
+            "count": 3,
+            "sha256": "d9f95ff1f365c88fa04f5b8ffed79d6d4ce31bf1d4693a5c04d1b9677fe37e85"
+          },
+          "code": {
+            "count": 3,
+            "sha256": "6348ce7e49f087da4384cd1915b149415d38307e1e2f032bfc0f64f47b0fa5aa"
+          }
+        },
+        "original_anchors": 336,
+        "new_anchors": 8
+      },
+      {
+        "page": "visual-group-theory/notes/preface.html",
+        "before_sha256": "fd91a9f873822512937b889c2fe84a7c128502bf3f2130fa3f09a48e374ca99b",
+        "source_sha256": "43ed02a1b1b22f906f457dd99c8f254cbc85fde4656fb7278434f0247486b253",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "svg": {
+            "count": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "pre": {
+            "count": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "code": {
+            "count": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        "original_anchors": 15,
+        "new_anchors": 0
+      },
+      {
+        "page": "stochastic/notes/appendix_a_probability_review.html",
+        "before_sha256": "e9f6b0e37de94beada21f646eaaef34bdd4aea8815b0b4eaa1b82f5190574072",
+        "source_sha256": "832ba9b1dcea33f2815f0aca6d53c7ae3770ba35ff590a579734d097bc7b05a1",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 379,
+            "sha256": "aa85ff0b27e06a7a2d44f0d380f23daf1013154defa58637138afa8b86f5a97b"
+          },
+          "svg": {
+            "count": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "pre": {
+            "count": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "code": {
+            "count": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        "original_anchors": 81,
+        "new_anchors": 0
+      },
+      {
+        "page": "stochastic/notes/book_overview.html",
+        "before_sha256": "ada864dd6a3702675b9506f4f99d1918c7b39ecb13b11b3404b4b2b767a418f0",
+        "source_sha256": "c508dec857c57a2ff7a064d42483338c33e5ced30b6a2a62f2ac4e691cadea39",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 28,
+            "sha256": "a43c87488aaa65cd2a450846c3db1009e98f565cdc8e8c388c8d5bbde5481d69"
+          },
+          "svg": {
+            "count": 1,
+            "sha256": "8012d8a787a74da115c30c0826e7ab83ee2d5c0d417782902b2a95bae5941e51"
+          },
+          "pre": {
+            "count": 1,
+            "sha256": "8990e7feabc461aac17eea8cd60b695c88b409ef887b0497cf8467bdd70d4e74"
+          },
+          "code": {
+            "count": 1,
+            "sha256": "1871bb9ee44c9b4039ab55b61decbf41aa73b3a6eac58d6ea1b703cd312e6db9"
+          }
+        },
+        "original_anchors": 24,
+        "new_anchors": 0
+      },
+      {
+        "page": "stochastic/notes/chapter01_markov_chains.html",
+        "before_sha256": "43117cafd58f73e03af5c4626e88c32bbe42dbe0905660b1397b00a8a744ac0e",
+        "source_sha256": "965a1f232581f51cb12b2c7d3aadde490121235015905358a00f30ce2c3e5570",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 5159,
+            "sha256": "65e99eb952ed434f822b8f75871b0698598a0d05dfc968c4620e67844cfe5353"
+          },
+          "svg": {
+            "count": 1,
+            "sha256": "ad32fc7e264cad121bd9f172240112d82efc0866290e640a6736693e98cd5e94"
+          },
+          "pre": {
+            "count": 2,
+            "sha256": "b0101a52658dd90ae6c305c912e447ef004902ca1ac436e34aeb39fa2324b178"
+          },
+          "code": {
+            "count": 2,
+            "sha256": "31ffd2f2d2fae1df25c181018ecace3332b3766ce4bc67f3ee0486616254d622"
+          }
+        },
+        "original_anchors": 262,
+        "new_anchors": 0
+      },
+      {
+        "page": "stochastic/notes/chapter02_poisson_processes.html",
+        "before_sha256": "bea17e948c3e109e2179a9b6c786eb71545c90c633f53721f70f7f71b5d5af0f",
+        "source_sha256": "909143d425d6c05b3a7ed53757e9ce175118f982a3c1d541540d5c9f289977c3",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 1425,
+            "sha256": "d23b48bfd45af3a56af0a258d2abeb4b54de2fb490fa2fcecd6cfe8e3638b4b7"
+          },
+          "svg": {
+            "count": 1,
+            "sha256": "3b5d38315336a991a8b569026c73fa0a900f70bd1a5c6411fb90124229ffad98"
+          },
+          "pre": {
+            "count": 2,
+            "sha256": "e0ca705ab8de11e20c31eff018c2d7443bca1e6523297a446583e6d6016450fa"
+          },
+          "code": {
+            "count": 2,
+            "sha256": "e9895840f34190d056d6358b9fb1813593cde917ef59716603925224601ab881"
+          }
+        },
+        "original_anchors": 146,
+        "new_anchors": 0
+      },
+      {
+        "page": "stochastic/notes/chapter03_renewal_processes.html",
+        "before_sha256": "780e29b3a4dde7f84314e1d53b66403585b008c361fd8f375546fce047d354ba",
+        "source_sha256": "d5932191c703610b415fa86bc2a35794bad6351cc56cdec33bdaa5f7500c3273",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 633,
+            "sha256": "39792028b0e761566ae54cb39ff223217b80a5daaccb3ba0bb0ec6edb2034a1f"
+          },
+          "svg": {
+            "count": 1,
+            "sha256": "819169e81085f48c0d84c538da5000ba9117883a3b73f921753484cd171cef9d"
+          },
+          "pre": {
+            "count": 2,
+            "sha256": "f19ac3bb72d70e8c13f88c0a73a49bc571615f42641643c2bb2aee497f022707"
+          },
+          "code": {
+            "count": 2,
+            "sha256": "4dfc0f8b936ce1c52187d12698ccd2fa9ac9de5b00ae84c4f454349afd04c0ae"
+          }
+        },
+        "original_anchors": 91,
+        "new_anchors": 0
+      },
+      {
+        "page": "stochastic/notes/chapter04_continuous_time_markov_chains.html",
+        "before_sha256": "b566c5c4da6b6031c7c89c86afdbdec24182cfe9d905a5f53e62dfd1c74f6b1c",
+        "source_sha256": "7d0058245839dfce30a02c2b4b0258eac2cf28562df8abb1a6eb4824672d662a",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 1412,
+            "sha256": "5ffe550ff85b5b0f719e592d90a96f24c13921cd0fab05d0e0bc4b26f7f1c2e5"
+          },
+          "svg": {
+            "count": 1,
+            "sha256": "6b1c50f72a5ea9138eb5b57438a90961d9992c08029de8324c5bfcdd51468568"
+          },
+          "pre": {
+            "count": 2,
+            "sha256": "1742c95ff105bb0e1f604bade2d0b325903888e521815c2e8ea8c65a3b50e07c"
+          },
+          "code": {
+            "count": 2,
+            "sha256": "590f429aaa545b1e0f45e6b0a1cc6e3d8557cb9662caaed8bfc477de1afa310b"
+          }
+        },
+        "original_anchors": 157,
+        "new_anchors": 0
+      },
+      {
+        "page": "stochastic/notes/chapter05_martingales.html",
+        "before_sha256": "402c2d0834d8ed2a2e0cff270f1e19d216baf3a98f7df89b32692be2fc45005c",
+        "source_sha256": "048a88b68b1a561d4411d6ab8b6c7779c3fe42dafe6da0073dcf3d4a4def5bc2",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 821,
+            "sha256": "96e7a65610723e3d6aaf0872ea7338ae95eb8a6bc5f9348798c373ced0538d95"
+          },
+          "svg": {
+            "count": 1,
+            "sha256": "b1b67477dc2c1497b85ca8e62252fccdd0471f7f276b4c08b7f455f72271b532"
+          },
+          "pre": {
+            "count": 2,
+            "sha256": "90e681ec8682b5d570485c0e9f75c5d8ef5014a50a8e948cceae0de82cc428a4"
+          },
+          "code": {
+            "count": 2,
+            "sha256": "f30fdd77493d7a719e1290483089408aa9e33d546574c138a378a40a8be6328b"
+          }
+        },
+        "original_anchors": 101,
+        "new_anchors": 0
+      },
+      {
+        "page": "stochastic/notes/chapter06_mathematical_finance.html",
+        "before_sha256": "abdb3e6c1c7bcee20a443671dac19190b9160dc40280db2ec926098ad5caaece",
+        "source_sha256": "71a2c5bcc3bda1bb49cce53ee8923c7d5b1acd3743742f15490ce48926f226a0",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 3146,
+            "sha256": "cfe257b1a68709cac7667054bbec6cd7a1398f715be299abae435035353b2cb8"
+          },
+          "svg": {
+            "count": 1,
+            "sha256": "7afac305fd4dcef47c7fc7d01279a7789312ead9c9ccd40bb283c7f9ed4684d2"
+          },
+          "pre": {
+            "count": 4,
+            "sha256": "1afabbdeeebcfbc3d0f4f1410ca60f95209da464821b15222e45d555f2149613"
+          },
+          "code": {
+            "count": 4,
+            "sha256": "106ccbdffbf1a6bcda2cbfa531802eff78f4f967d9812051fec4f2e10c6d9010"
+          }
+        },
+        "original_anchors": 110,
+        "new_anchors": 0
+      },
+      {
+        "page": "stochastic/notes/preface.html",
+        "before_sha256": "e85f3baf68c3f319fa47dd49e70be94af47709405b37ed7b44e96b54f967b3ba",
+        "source_sha256": "338e855b27c8cee3fa49cac29bc8b21398fc955627cbc8acc2948a125f2d9ef1",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 6,
+            "sha256": "bb6858bb5feb0c40ce4d5bfeb178d61e07f2740abe4d1ca18c06a197f995725a"
+          },
+          "svg": {
+            "count": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "pre": {
+            "count": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "code": {
+            "count": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        "original_anchors": 17,
+        "new_anchors": 0
+      },
+      {
+        "page": "weiss/notes/book_overview.html",
+        "before_sha256": "d9affaad061d069ff234c7df10971336e66f35cb6e9f4e6166942fb61fcc4410",
+        "source_sha256": "e0f0d4c8c30fe7b47f385506657cf42a22a31fe6a946259b5a6b1a4a597f6626",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 8,
+            "sha256": "8bebafdbd7896804daa06ed0525b31b6d30f1934a603e14e1c1ba7162aa2bce2"
+          },
+          "svg": {
+            "count": 1,
+            "sha256": "b2ea11c4510ab2ea9fd4f2c20b67463f633d35a7bafe9f5181e8fe49b1aac8b6"
+          },
+          "pre": {
+            "count": 1,
+            "sha256": "634be125f93c218884e1a9ac164643dde1446fd7c883898071a5ad2aaeca44a9"
+          },
+          "code": {
+            "count": 164,
+            "sha256": "e58a68acfa2b87f2052005b9d24d9b45f0a77d76fc298c39773c6dcff8ab9601"
+          }
+        },
+        "original_anchors": 31,
+        "new_anchors": 0
+      },
+      {
+        "page": "weiss/notes/chapter01_introduction.html",
+        "before_sha256": "a05dcf3379c9b44e22744f7644e3d15dd2ff7c7c000c94201229a74f92f28371",
+        "source_sha256": "9ffc38f0e40a0ee42320e2ffd13dbf011e37805b49204953dd7a4720d176fa62",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 166,
+            "sha256": "4677a9882abaae2e4a8c62d5897e05a6f0a0b21d9460ec1acf9ff161ee83c7b3"
+          },
+          "svg": {
+            "count": 3,
+            "sha256": "646e6631d7e597a71ae4043c96605120a129e2223c5ea1b046f6b20f3937277e"
+          },
+          "pre": {
+            "count": 15,
+            "sha256": "4f8167e19ec80a14500ab373dd5c40b077e1ed1fbd423ebbf8feebf508c67842"
+          },
+          "code": {
+            "count": 21,
+            "sha256": "db28294c37788f4a75b069a45fbc9d5d570a9d4bc8d4524e47180681efab9e0c"
+          }
+        },
+        "original_anchors": 198,
+        "new_anchors": 1
+      },
+      {
+        "page": "weiss/notes/chapter02_algorithm_analysis.html",
+        "before_sha256": "5a72251a6cb216a274fe6f6c97e2d5a7aca183a763b6a906f698307cf323cca6",
+        "source_sha256": "73392042908a66d2017af15bf77356d3c7122a7aa541681e19c33a90f60b28ea",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 504,
+            "sha256": "72983e4faaf80acf8d52327a0ccbe56c101d9d1ef2fbc24a767a4ccdc9b06469"
+          },
+          "svg": {
+            "count": 5,
+            "sha256": "c1aabcb05cbfd101e28d37eac32cd0890dbe79e2326dc2581a640ada5112e7c9"
+          },
+          "pre": {
+            "count": 45,
+            "sha256": "13a085feda9d462edb6fc57ef480b949edca709255bb8759225c60457c9ad535"
+          },
+          "code": {
+            "count": 59,
+            "sha256": "cf147fed53fbab6209d2ca541da835c59e8817a104be0a76c98f62931f636de6"
+          }
+        },
+        "original_anchors": 468,
+        "new_anchors": 0
+      },
+      {
+        "page": "weiss/notes/chapter03_lists_stacks_queues.html",
+        "before_sha256": "fe455ada73c21041bed4c58307edb003f3c9d33443e9db64bb2afeea507c3753",
+        "source_sha256": "7cdbc09cd9b0bf948da411cb3d3205f3fb1a17091cf8f78f57850a341032e86d",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 493,
+            "sha256": "0d93ef7901d40a93ca6610bc0114c486e20a233353b024892b1625ed035cd8b6"
+          },
+          "svg": {
+            "count": 2,
+            "sha256": "4557665ef6c8981f94fc9d9e3cbf8d358ab232d4e338d1488aac66daf5d94b89"
+          },
+          "pre": {
+            "count": 75,
+            "sha256": "fc21a558d4da5bc1cfea17dced7960b8be56d693b4c2febe04f5e0fa7127c17e"
+          },
+          "code": {
+            "count": 229,
+            "sha256": "ea3712efafe8cd436e88daa43c1103bd44fd3df5ff7928ffde4217a43b6bb0e1"
+          }
+        },
+        "original_anchors": 288,
+        "new_anchors": 0
+      },
+      {
+        "page": "weiss/notes/chapter04_trees.html",
+        "before_sha256": "bfea8f1feb4c561e8e94238511cf201be32a089f3e5bb294072ab0445b11365b",
+        "source_sha256": "e4192151af1326b42c8825c97438b5c90745f49a78f8231ac7998e0d74c97d7c",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 824,
+            "sha256": "bb14d1156755247a43e5dbf49ed635dc9ec3cf2773df5e93d5dd6d1f719f90e3"
+          },
+          "svg": {
+            "count": 27,
+            "sha256": "ea346e231f0c80acfa9ef4810545f54ea63319081e1012cb3d247ed9d24c013b"
+          },
+          "pre": {
+            "count": 58,
+            "sha256": "e2d71a64e21de6de1860f6ee814db02be9aa66b13b17c9b5b2dcf6447d7b95fe"
+          },
+          "code": {
+            "count": 149,
+            "sha256": "0e5d990974c811abfff5b81accb6b4aec66747584f0afe340d76c2b621ef61c8"
+          }
+        },
+        "original_anchors": 1027,
+        "new_anchors": 1
+      },
+      {
+        "page": "weiss/notes/chapter05_priority_queues.html",
+        "before_sha256": "a71a9d3eb4c6db1d1d93a7277da1652c0addef2efb4dce5affbf1417811fe78c",
+        "source_sha256": "eae35a456d5c4a56b00eeeb00f19263a7441b6b8dd88f44887b286652d82b4f6",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 600,
+            "sha256": "4ea3d94d593b19edbb420bed43bffd2f1fbaf429a7a7577b45d7a4d2294a0569"
+          },
+          "svg": {
+            "count": 24,
+            "sha256": "5d6eab154f40af726c6e6b02bd174b007cb60d940020af48f96df6146304f32f"
+          },
+          "pre": {
+            "count": 36,
+            "sha256": "0bd06d465bf8090cbe5325a282d35ed86b36f74b0d5731b94677dcdaa2e4f41a"
+          },
+          "code": {
+            "count": 182,
+            "sha256": "facbebfda7c2acef444c166a2342f96fc27cbb65043f4f06fe34abb7c10a2a2e"
+          }
+        },
+        "original_anchors": 754,
+        "new_anchors": 5
+      },
+      {
+        "page": "weiss/notes/chapter06_sorting.html",
+        "before_sha256": "bc0b051868aee4cfeacf261b66dea30ea861231abc305c44617c0f9a2353339d",
+        "source_sha256": "680e8ecfd1ab8c69ddfe6da202f18dd6997530e621256541b5da8ecc783eb4f6",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 311,
+            "sha256": "7c8fff4d2b65c5cf61fe8210366db4e147d0e65990f9bae7ba7f2f5365d4fba3"
+          },
+          "svg": {
+            "count": 21,
+            "sha256": "f103d3d369c44525996c16d8165ebd5dfe35c863524ee9442c499f2e84e2df40"
+          },
+          "pre": {
+            "count": 29,
+            "sha256": "c419a31395c2bf6dc126d9ba398bf962d48ba80e7551dd02e8d65fb077b442b2"
+          },
+          "code": {
+            "count": 157,
+            "sha256": "7c6d4d6e20ef9c90cb7d424b2949d7136221f80ecb64a6ec28e77ec9ef38e8b5"
+          }
+        },
+        "original_anchors": 2152,
+        "new_anchors": 0
+      },
+      {
+        "page": "weiss/notes/chapter07_hashing.html",
+        "before_sha256": "3254d029ed34f588b5f518f2d71bc9a54fdbf5cec7725235893e58c0b814905c",
+        "source_sha256": "a8992cc3f93ef9f138fcdd8f4fdd173f4f96f3021f033ca33b689cbba5d511fa",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 269,
+            "sha256": "220956a0cff63a7fbea1884c7f9bde3d4fe029e0dedfb067e1ab2aeaabad032e"
+          },
+          "svg": {
+            "count": 21,
+            "sha256": "627075c374995d0afaa76b360ddb9fa87c174de10acc4fb8873db2a68ada5330"
+          },
+          "pre": {
+            "count": 22,
+            "sha256": "fabe6dfc56f7f1c075675685ca0541bfb330d51d6ba9f3b1940245424e42a50c"
+          },
+          "code": {
+            "count": 70,
+            "sha256": "9ed1c31eb0e2d31eb7f4f95674bc1e196cc8277ac8f29bf422c8900055f5deff"
+          }
+        },
+        "original_anchors": 1067,
+        "new_anchors": 2
+      },
+      {
+        "page": "weiss/notes/chapter08_disjoint_sets.html",
+        "before_sha256": "f857814b6a739938b0746170338a1b2edacb9bcd640625953ce2c870c64b8b59",
+        "source_sha256": "d2a06a0e2ce1d853166c3a23b00c8a120731fed89e2bfed558460d3d84f27169",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 231,
+            "sha256": "2a64035479bb2113beccb39c47cbf6457a0a4a1772e4fe88b0b8cbe7e338a12d"
+          },
+          "svg": {
+            "count": 15,
+            "sha256": "526110e0f629947cec05c0cd7caf28662b2ac33ac75b2e553385c2d2a13762cd"
+          },
+          "pre": {
+            "count": 16,
+            "sha256": "6edd51ca8366bab83d9233f440da082b0d5b3abf13dbccb9235a9115316d8ed6"
+          },
+          "code": {
+            "count": 39,
+            "sha256": "699413bd53317b8006a8da598536bd4a097d463a432cec966b7657b9229523dd"
+          }
+        },
+        "original_anchors": 649,
+        "new_anchors": 2
+      },
+      {
+        "page": "weiss/notes/chapter09_graph_algorithms.html",
+        "before_sha256": "50bb2ae925b92a9981d6a3484d35ab05c80b16165216b184fe9ca69655825b06",
+        "source_sha256": "9688c81c1559b50be129a60d78af7350a8aceb060b1976c153a120ad4f7e82c2",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 270,
+            "sha256": "90516dda2a41440db6db55a47bc7a8c9639025809dd82dd322f4c6ecb2f893f2"
+          },
+          "svg": {
+            "count": 15,
+            "sha256": "66ad24e750a3376f43ee4fd07f10ee66c5cf4ff474da5808a9e276c287ccd854"
+          },
+          "pre": {
+            "count": 21,
+            "sha256": "ec05190dfb92c7c404a6d1cdc2649800e10527ab815003d33a13c7dbbad0d791"
+          },
+          "code": {
+            "count": 21,
+            "sha256": "d36267a99227737169870c24565d04415655e5bb7177c3b8f6fbe41fd53d1527"
+          }
+        },
+        "original_anchors": 135,
+        "new_anchors": 0
+      },
+      {
+        "page": "weiss/notes/chapter10_algorithm_design.html",
+        "before_sha256": "38090454df465bd260d3dbc955ca09f06d7f7ac36bf376c946574c93a909e87d",
+        "source_sha256": "03945edffad054c0ef4e03ebc2d655dcf4b4106a22865de6e83d8297c94ea9ac",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 358,
+            "sha256": "cd7d44693255be17b15d1a4f6b09b93d509bb81962acf06502d13b6d29675855"
+          },
+          "svg": {
+            "count": 23,
+            "sha256": "ff9d8774db217354835009d8e2e99ad379be6acfdd9e508c318913af879a8981"
+          },
+          "pre": {
+            "count": 63,
+            "sha256": "ddbb52cd1f17bcb3b8fe3cfafb1772b14fec0510888d523fb7669368105246d9"
+          },
+          "code": {
+            "count": 78,
+            "sha256": "7be3d8ce57215dca3470d4a7ba81c756bfece433dce9ade2ae81d4b61a340112"
+          }
+        },
+        "original_anchors": 1810,
+        "new_anchors": 5
+      },
+      {
+        "page": "weiss/notes/chapter11_amortized_analysis.html",
+        "before_sha256": "125dfb580200b673a07590a09020e27381f354e1be65ccbdd403fee36725b355",
+        "source_sha256": "dcec3a2563cd3cdee6205acb2d828b2997a7fb6bbd0ba6cadf5240337326d80b",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 352,
+            "sha256": "d43edaf52c4621be8f10e8d1d2015bea0aecf2057947e64b343038c0914e192f"
+          },
+          "svg": {
+            "count": 16,
+            "sha256": "a5c17311d7c35e87b54741cfffc593b79424531d70c3b3ed5a9cb593201214b9"
+          },
+          "pre": {
+            "count": 19,
+            "sha256": "08d49b9e92e649dccd688de9a6d9eccd440859f263d329c0bbf70a2f68818fb6"
+          },
+          "code": {
+            "count": 19,
+            "sha256": "91c0f81bef0ee07b212b816273b045a7dea15366b6d67e43da55171ceefcfc0a"
+          }
+        },
+        "original_anchors": 555,
+        "new_anchors": 3
+      },
+      {
+        "page": "weiss/notes/chapter12_advanced_data_structures.html",
+        "before_sha256": "ab22dcfc47bd830aadc0830500f858ee6c6596525b39f4750bc1c95a9c52bfef",
+        "source_sha256": "1ef5b83f0b05ae7fb6474a67c1c4f9047dfdfadf7aac595dfe3236ee6306195f",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 199,
+            "sha256": "7187b7e67880b7d623b92e17c2a28f677d8699d1a25f09546c085fd8c3fa6156"
+          },
+          "svg": {
+            "count": 54,
+            "sha256": "54713dff5a01daa6b23b0535ab64d0e624f434d3f541c35a94f465917c94ad0e"
+          },
+          "pre": {
+            "count": 28,
+            "sha256": "3fe217aacf462e82c0a9775a2fe8354ace0083c0f000e25a4b108cfe15bfdcc6"
+          },
+          "code": {
+            "count": 28,
+            "sha256": "c84c55390f07aff6867fd888a54113cded4256603c377b934cac37d441e9e206"
+          }
+        },
+        "original_anchors": 2169,
+        "new_anchors": 0
+      },
+      {
+        "page": "csapp/notes/book_overview.html",
+        "before_sha256": "ead21f20f845ed32972993692cb8b523c109a250ee2d2d782189f6f329a3aaba",
+        "source_sha256": "7ee4a2084715d1391684af0b57f82af3650794eee521601a2eb0a34431fac0af",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "svg": {
+            "count": 1,
+            "sha256": "bbf8ef3d630e35254659ed519277ec2ef7cac4457e60bff460aac7c042f2eb3a"
+          },
+          "pre": {
+            "count": 1,
+            "sha256": "92efe1b8aefa7929141d267d0d085ab3ec6bc0f1b8c82e65326476435cd8b8ca"
+          },
+          "code": {
+            "count": 11,
+            "sha256": "b7b7ba29d24c392904141051e06b7697c90c5df8bc5950c95849c2a128e254ef"
+          }
+        },
+        "original_anchors": 30,
+        "new_anchors": 0
+      },
+      {
+        "page": "csapp/notes/chapter01_tour.html",
+        "before_sha256": "c039cf925c85475a9cce6129cbbb9a16d8bed941810f73b95b604193a3a1826a",
+        "source_sha256": "4d2c400e85755a13f158d037579e868b96f66f50b0eaa14b74a7b0e6c805d48d",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 16,
+            "sha256": "838db13a6cdca04a34c6c3ff9834be1e5d4407e738404168d41b29a9321bacce"
+          },
+          "svg": {
+            "count": 4,
+            "sha256": "a66e6ae088b30e173c484cae0396b0f9e5d73569aef28d3620287c3631d42749"
+          },
+          "pre": {
+            "count": 6,
+            "sha256": "2df900d4ef6cef134d64e6f3c4c6a54c714b4701e27b98a622ec3e88e3f30eb4"
+          },
+          "code": {
+            "count": 17,
+            "sha256": "ae19a2365dbbf2f379917740faab250693bf281e2d740cb1fb780a48e4bc8bd0"
+          }
+        },
+        "original_anchors": 68,
+        "new_anchors": 1
+      },
+      {
+        "page": "csapp/notes/chapter02_information.html",
+        "before_sha256": "de784c70e5bf7ea6a30021c33db25330e6f056d1627a789b910837fa472f71a6",
+        "source_sha256": "0289e9fe8850332366119a722e77d51ca6b745f6a82af32022bc4253a4160cb4",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 538,
+            "sha256": "ee5462860c5495f36feb5853d919e3412cd61fe31ce7dc7509a07c0ff954a6ea"
+          },
+          "svg": {
+            "count": 7,
+            "sha256": "2db368779b34842647949109dde4005136fe6dc35258ebccfe8e5c1a7c153bce"
+          },
+          "pre": {
+            "count": 132,
+            "sha256": "cf4c39a5d39f0bb2e1e2df4523aa5965206f1d4d1949acb4b736c83573fad82a"
+          },
+          "code": {
+            "count": 495,
+            "sha256": "c49fa30b8d4981f080fed4c0c7708dfd92ede2d901294d21881eb0120bd770ea"
+          }
+        },
+        "original_anchors": 307,
+        "new_anchors": 0
+      },
+      {
+        "page": "csapp/notes/chapter03_machine_level.html",
+        "before_sha256": "4a9440bfeaebc5c0bef5027e6345b0b40f4ba664648ef922834ca1132afdf187",
+        "source_sha256": "1867668f04b54229f2de635dfa368145a5a8c1480deb93d247bc0fe92d5e4131",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 47,
+            "sha256": "c01f90aeb67ec9466c577c57b9c66ee99a683275ab62073fe9ae648233921e1c"
+          },
+          "svg": {
+            "count": 3,
+            "sha256": "d90dcdb6bb1ba710e38e58fc0b6137c4b4a2d1fe1124032cc4aa6781f90b3f76"
+          },
+          "pre": {
+            "count": 158,
+            "sha256": "70c1871be7bb6f6513de222571237c9a4290ac09a74f44f2bb7baf4575ec8292"
+          },
+          "code": {
+            "count": 310,
+            "sha256": "99bba1e6083a165f8b35cbec2b7ebfcc6c6d56c2efafe37d881a6077ba004db8"
+          }
+        },
+        "original_anchors": 237,
+        "new_anchors": 1
+      },
+      {
+        "page": "csapp/notes/chapter04_architecture.html",
+        "before_sha256": "5cb590d1e4530d20c1550471b4e0688512f094e58a1ea0baf4bf154b5af6fa44",
+        "source_sha256": "dc9daec82a750d6c7afd504413cd170e5b525092ba69c6c5730c09fa5f1abc67",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 10,
+            "sha256": "0641f3f29c00af510b58ebcfcc7dc85a6c2877cf9a7532d6a85772143bec0034"
+          },
+          "svg": {
+            "count": 6,
+            "sha256": "5dd588959a252bd9b2ca0bb97615d682b1ed30de1f6d61635be8e17a80cd9f2f"
+          },
+          "pre": {
+            "count": 76,
+            "sha256": "f4e8755cfca19ffd5ba612ce6df4578cf613c7517bf7f457299beddaae782f8f"
+          },
+          "code": {
+            "count": 142,
+            "sha256": "65dfe18c77c55e7f9f354b4881c9ba59bd59eda0b30594fcb8e1ba2c2c61eb85"
+          }
+        },
+        "original_anchors": 174,
+        "new_anchors": 1
+      },
+      {
+        "page": "csapp/notes/chapter05_optimization.html",
+        "before_sha256": "536ebb4c2801aceb9142f69f0dc784f0210885293508a88823af5837021eb71f",
+        "source_sha256": "ed8b4f2fb6aef43588dd5e957ecbfed6a53fc980a389775178b0ce6a4774e289",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 16,
+            "sha256": "14771c81e441888e509d4b0130bb283848dc0898b33d80d66a12c35919593e80"
+          },
+          "svg": {
+            "count": 9,
+            "sha256": "d92d4c747167e26dc3dd69d5f87bfca3f07ae660a25e988736cce7e9c4c14166"
+          },
+          "pre": {
+            "count": 43,
+            "sha256": "e469e7023f5163024a7fdbe4ab4998cef484b8102a4813e3f8aade89b0b04a26"
+          },
+          "code": {
+            "count": 67,
+            "sha256": "47f3dd14b6dc97ded6087d74264f450a10efe87466f8376244f8acc259b5da9c"
+          }
+        },
+        "original_anchors": 118,
+        "new_anchors": 1
+      },
+      {
+        "page": "csapp/notes/chapter06_memory.html",
+        "before_sha256": "5dfd635fbe83f63c7ddcfe8159251c1ba1460b5b56382d3e2d4dc33386369862",
+        "source_sha256": "3830aa84e242da2d742af968500c13e7558180a9a433c2ae3354aa43922726ff",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 21,
+            "sha256": "09f2766315e57ded8f60e11b34ca6fe75daf8216476b61f9ff4167cba4e40a4a"
+          },
+          "svg": {
+            "count": 4,
+            "sha256": "14c3006adea39e235baef41e874c8365ab1ee64b62d614270e2ceb198ba4350d"
+          },
+          "pre": {
+            "count": 46,
+            "sha256": "eda845db9890e9648448194504c21cad2b10e34a6877a1042516a8d3ac6d842e"
+          },
+          "code": {
+            "count": 80,
+            "sha256": "b05717d36f3129347ed323b19f035ccc3e2369d64c4471d8b5231b69a35971e0"
+          }
+        },
+        "original_anchors": 131,
+        "new_anchors": 1
+      },
+      {
+        "page": "csapp/notes/chapter07_linking.html",
+        "before_sha256": "d8417b2ffaf4e3b91e448af66b57cd1ee52de3b076d70c5da84721a29fda6da3",
+        "source_sha256": "1c1bbd22ce2025fb5a207bc2e7291f95252e79841ed3a458de5d911bec392459",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 3,
+            "sha256": "9d738030cf62f79757c3edd178ce6f603cc8d9f49c6d9f76da27d482825292c5"
+          },
+          "svg": {
+            "count": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "pre": {
+            "count": 39,
+            "sha256": "a41b3f0aaba32de2e0785464cae04228aa240d996f5ff303e9f066cd7f21616e"
+          },
+          "code": {
+            "count": 104,
+            "sha256": "e2baf1950eeea63f08cd0064a7774fe9cb39969df9f3e5ab498c60c0cd47d242"
+          }
+        },
+        "original_anchors": 83,
+        "new_anchors": 0
+      },
+      {
+        "page": "csapp/notes/chapter08_exceptional.html",
+        "before_sha256": "0de3105be36aba98b233505521ffd37773bdf6d7b139c0a431cd0aa1f7bd6a9b",
+        "source_sha256": "a88f35ad427821cb45222f11cf7d427a462212ad1ddddd76e4d036bb4005806b",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "svg": {
+            "count": 1,
+            "sha256": "c2d106322fdaf9750ae1b840ba5126d7897426b9ce0153cb0c2f9e4260e6f3ee"
+          },
+          "pre": {
+            "count": 38,
+            "sha256": "077b3fb807ca6dba32aeb0640bdf9a237b6727c1fa4ff34fe857eda6b1b8c30a"
+          },
+          "code": {
+            "count": 88,
+            "sha256": "534d14be4197bc8765102a37989a804ea5480b9800da09f6b9b2633c28df9ea3"
+          }
+        },
+        "original_anchors": 101,
+        "new_anchors": 1
+      },
+      {
+        "page": "csapp/notes/chapter09_virtual_memory.html",
+        "before_sha256": "6dbe323b7e655b8fdb34ff447cea6e243360b4df767e23536bc8d55ae6aa42c6",
+        "source_sha256": "88eb642c52ae1086aab6464d379ccf9c878e354f0cffea1c4015d19d1eb2f3fa",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 4,
+            "sha256": "d2b1b9d6bd2e1e33228586cd32215732a63eb417e09eeb307f08e2b4abc8abf4"
+          },
+          "svg": {
+            "count": 3,
+            "sha256": "6f79ae690ee4663b3e76d7b2062fcf34062d07eee466d18cb75956ece380d6a8"
+          },
+          "pre": {
+            "count": 21,
+            "sha256": "0202154e8fe76c33bb3fa7d4c1e1d755a58a8623f6b5f72f32e8668c0654edb0"
+          },
+          "code": {
+            "count": 92,
+            "sha256": "df313fa1f7621b717b2d95a0c35ff3d15f2759a3837f45e41ed017abb8e80c74"
+          }
+        },
+        "original_anchors": 124,
+        "new_anchors": 3
+      },
+      {
+        "page": "csapp/notes/chapter10_system_io.html",
+        "before_sha256": "192957aaaeaac3e4a081fd257175c978b74aa1232a661d6377c5239dd3f8763b",
+        "source_sha256": "17d0037e7515ba760ff0229656fbf8e7801597764b2528eccd29bf6534f67d2f",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "svg": {
+            "count": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "pre": {
+            "count": 30,
+            "sha256": "b5c7ef79e4fb6902175f542edf6342d28a987f46322e078390ee510302e52d66"
+          },
+          "code": {
+            "count": 77,
+            "sha256": "4b3bd573f41ca491d1083b5571bdebe85cbb3724e01450af1251a7abef2c2c1e"
+          }
+        },
+        "original_anchors": 72,
+        "new_anchors": 0
+      },
+      {
+        "page": "csapp/notes/chapter11_network.html",
+        "before_sha256": "e5f8714a957ea4b74cbcc42359e1627df28214bc53b582c6ef855f7fe08c28dd",
+        "source_sha256": "afb9e12b265e4d56ff1120bb67a059fbf99e3fa376fe988da4071fd093e6116d",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "svg": {
+            "count": 3,
+            "sha256": "14fdb0d19619a1806d71afef1a25ce37384f67a947959932a50efc5b46d1fbf3"
+          },
+          "pre": {
+            "count": 28,
+            "sha256": "5e327ed29e982e47cc34bed9483e04fd8e80743b16cb333162521f531c0d86be"
+          },
+          "code": {
+            "count": 70,
+            "sha256": "3b8b737ccf29538c02a07cafe0ce1646d92169ef6aad0dfa7c725eb6f30156f9"
+          }
+        },
+        "original_anchors": 80,
+        "new_anchors": 1
+      },
+      {
+        "page": "csapp/notes/chapter12_concurrency.html",
+        "before_sha256": "5dccfae47f4de1b88be2b73331af5dff7df57fe17e26115c3a96a113e6b78a71",
+        "source_sha256": "685d2decc4d5936f28833672a30346c75350ed6d6d3d40351870b04ad1350766",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 1,
+            "sha256": "47d2d133f8f1e2adf6f94d66933fbcaa07d6aa7f3a50b90281cccb721b8fb29b"
+          },
+          "svg": {
+            "count": 9,
+            "sha256": "318699d9c7c1315476d3501444f140e1b110f7cbceae92e2f1241fe4b5f3d86c"
+          },
+          "pre": {
+            "count": 42,
+            "sha256": "9c4cf1c4a57a33158d535d501bd348d2c00ec62253cdad3a3056ad0b41582661"
+          },
+          "code": {
+            "count": 62,
+            "sha256": "c49f0dee8d0118d5af515f27a577105c857e8cba964bf509cdf8ea3e7df6d282"
+          }
+        },
+        "original_anchors": 139,
+        "new_anchors": 1
+      },
+      {
+        "page": "csapp/notes/preface.html",
+        "before_sha256": "b877e52712900434404f7e27c6ed2b5eec5a1c083d6a816ad2be2e792ad56ef8",
+        "source_sha256": "a517fe8c9204268951addf65b555b4c2faf94b74aab8a7882546a6e1ee1d412b",
+        "text_preservation": "passed excluding documented additions and reviewed content fixes",
+        "protected": {
+          "math": {
+            "count": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "svg": {
+            "count": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "pre": {
+            "count": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "code": {
+            "count": 2,
+            "sha256": "ed738a3c419b316099f4b27b3a694e613335d3c80101b411f5719a7dfa3e1053"
+          }
+        },
+        "original_anchors": 23,
+        "new_anchors": 0
+      }
+    ]
+  },
+  "semantic_blocks": [
+    {
+      "page": "visual-group-theory/notes/chapter05_five_families.html",
+      "blocks": [
+        {
+          "id": "theorem-5-1-proof",
+          "kind": "proof",
+          "title": "证明与说明",
+          "content_sha256": "056e5c279c8cd73d427d69dfca457eb73ed1e3fe0d97c8523015c4641fc9d164",
+          "elements": [
+            "p",
+            "div",
+            "p"
+          ],
+          "first": "给每个 g∈G 分配置换 Rg:x↦xg，也就是乘法表的第 g 列。它确为双射，逆置换是 Rg⁻¹。为了证明这张对应表忠实表达整个运算，需验证两个不同问题。第一，保乘法：先 Rg ",
+          "last": "同构。仅检查 e 的像能辨认元素，但保乘法还需对任意 x 使用结合律；这补出了原书图示证明中容易略过的一步。无限群也适用，只是置换作用的集合 G 可能无限，不能写成某个有限 Sₙ。"
+        }
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter06_subgroups.html",
+      "blocks": [
+        {
+          "id": "observation-6-3-proof",
+          "kind": "proof",
+          "title": "证明与说明",
+          "content_sha256": "621b67c0bda0da4e6739324725354732f12ce43d57de867785516f9c1a04ada7",
+          "elements": [
+            "p"
+          ],
+          "first": "因为e∈He∈H，任意 g 都属于 gH，也属于 Hg。这给出覆盖，但还没证明不同副本是否重叠。",
+          "last": "因为e∈He∈H，任意 g 都属于 gH，也属于 Hg。这给出覆盖，但还没证明不同副本是否重叠。"
+        },
+        {
+          "id": "observation-6-6-proof",
+          "kind": "proof",
+          "title": "证明与说明",
+          "content_sha256": "960634b6b3cd38b15fb4332b177029f1efa2e39ad8911e9423d7e2a4b09f98c3",
+          "elements": [
+            "p"
+          ],
+          "first": "写 b=ah₀。对每个 h∈H，bh=a(h₀h)∈aH，所以 bH⊆aH；反过来 a=bh₀⁻¹，使 ah=b(h₀⁻¹h)∈bH，所以 aH⊆bH。两个包含关系一起才得到相等。",
+          "last": "写 b=ah₀。对每个 h∈H，bh=a(h₀h)∈aH，所以 bH⊆aH；反过来 a=bh₀⁻¹，使 ah=b(h₀⁻¹h)∈bH，所以 aH⊆bH。两个包含关系一起才得到相等。"
+        },
+        {
+          "id": "theorem-6-7-proof",
+          "kind": "proof",
+          "title": "证明与说明",
+          "content_sha256": "659b90dc4a97eda692570ec18da4a4c5b580e1aff0c56ce0684c2f553cdf6c14",
+          "elements": [
+            "p"
+          ],
+          "first": "覆盖已由 g∈gH 给出。若 x∈aH∩bH，由 Observation 6.6 得 aH=xH=bH。所以两个陪集要么完全相同，要么完全不交；这里不存在“只交一半”的情况。",
+          "last": "覆盖已由 g∈gH 给出。若 x∈aH∩bH，由 Observation 6.6 得 aH=xH=bH。所以两个陪集要么完全相同，要么完全不交；这里不存在“只交一半”的情况。"
+        },
+        {
+          "id": "theorem-6-8-proof",
+          "kind": "proof",
+          "title": "证明与说明",
+          "content_sha256": "a21f25cff6655a544753fca6bd3f808b5bdb3ec1360d58dbed0410cde8036578",
+          "elements": [
+            "p"
+          ],
+          "first": "每个块都与 H 等大：映射 h↦gh 满射到 gH，且 gh₁=gh₂ 可消去 g，所以单射。设不同左陪集共有 k 个，上一结论保证它们互斥又穷尽，因此 |G|=k|H|。系数 k",
+          "last": " 满射到 gH，且 gh₁=gh₂ 可消去 g，所以单射。设不同左陪集共有 k 个，上一结论保证它们互斥又穷尽，因此 |G|=k|H|。系数 k 不是额外假设，而是不同陪集的个数。"
+        }
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter07_products_and_quotients.html",
+      "blocks": [
+        {
+          "id": "theorem-7-6-proof",
+          "kind": "proof",
+          "title": "证明与说明",
+          "content_sha256": "a1f52775e207549330f45c62bcbe4759f2633e4fe45900240505182e4fb1ee36",
+          "elements": [
+            "p",
+            "p"
+          ],
+          "first": "先证充分性。若 a′=ah₁、b′=bh₂ 是另外两个代表元，则 a′b′=ah₁bh₂=ab(b⁻¹h₁b)h₂。正规性保证 b⁻¹h₁b∈H，故 a′b′H=abH；因此结果与",
+          "last": "、hg 必须同属 gH，故 hg∈gH，对全部 h 得 Hg⊆gH。再对 g⁻¹ 使用同样结论并乘回去，得反向包含，所以gH=HggH=Hg。图上“同色出口一致”与正规性恰好等价。"
+        },
+        {
+          "id": "theorem-7-7-proof",
+          "kind": "proof",
+          "title": "证明与说明",
+          "content_sha256": "6f865e9d7f8d9552a8cb2853cad6fb5ef50a94ad85914d3b996a432475fc7357",
+          "elements": [
+            "p",
+            "div"
+          ],
+          "first": "单位元显然保持 H。若 a、b 都保持 H，则 (ab)H(ab)⁻¹=a(bHb⁻¹)a⁻¹=aHa⁻¹=H；若 aHa⁻¹=H，左右乘 a⁻¹、a 得 a⁻¹Ha=H，所以逆元",
+          "last": "H ≤ N_G(H) ≤ G；若 H◁K≤G，则 K≤N_G(H)。H ≤ N_G(H) ≤ G；若 H◁K≤G，则 K≤N_G(H)。"
+        },
+        {
+          "id": "rn-example-7-3",
+          "kind": "example",
+          "title": "例：计算反射子群的正规化子",
+          "content_sha256": "211315c39067df68e1f94b565c866c9992467795f184c67e8c1082fa3f113eda",
+          "elements": [
+            "p"
+          ],
+          "first": "D₆ 中，rᵏfr⁻ᵏ=r²ᵏf。要保持 {e,f}，需 2k≡0 mod6，即 k=0 或 3；加上相应反射，N_D₆(⟨f⟩)={e,r³,f,r³f}≅V₄。因此 H 在整个",
+          "last": "{e,f}，需 2k≡0 mod6，即 k=0 或 3；加上相应反射，N_D₆(⟨f⟩)={e,r³,f,r³f}≅V₄。因此 H 在整个 D₆ 中不正规，却在这个四阶子群中正规。"
+        }
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "blocks": [
+        {
+          "id": "theorem-8-5-proof",
+          "kind": "proof",
+          "title": "证明与说明",
+          "content_sha256": "7751f59efc474a6c0b6941f5a240ff9c244e4a5a5922b2308f78a1afe3aef933",
+          "elements": [
+            "p"
+          ],
+          "first": "证明需要分别解决四件事，不能只比较元素个数。记 K=Ker φ，定义 F(gK)=φ(g)。①良定义：gK=g′K 意味着 g⁻¹g′∈K，故 φ(g)=φ(g′)。②保乘法：F(",
+          "last": " g⁻¹h∈K，故两陪集相同。④满到像：Im φ 中每个元素按定义就是某个 φ(g)。正规性已经由 Observation 8.4 保证，所以 (gK)(hK)=ghK 本身合法。"
+        },
+        {
+          "id": "theorem-8-7-proof",
+          "kind": "proof",
+          "title": "证明与说明",
+          "content_sha256": "684f4062f6217390bcb9185f04811aa2a1c0e3339382c84aae70a4300237eee8",
+          "elements": [
+            "p"
+          ],
+          "first": "充分性：互素时 (1,1) 的阶为 nm，已经走遍 nm 个点，所以生成整个直积。显式同构 k mod nm ↦ (k mod n,k mod m)。必要性：任意 (a,b) 的阶",
+          "last": "k mod m)。必要性：任意 (a,b) 的阶是两坐标阶的最小公倍数，整除 lcm(n,m)；若 gcd>1，所有元素的阶都小于 nm，不可能同构于有 nm 阶生成元的 Cₙₘ。"
+        },
+        {
+          "id": "theorem-8-8-proof",
+          "kind": "proof",
+          "title": "证明路线与完整解答入口",
+          "content_sha256": "63b476e6dd7647e0f3dd49a0ebbfba24f32c2ceca7e2b20b7632f69feafcda82",
+          "elements": [
+            "p",
+            "figure"
+          ],
+          "first": "证明路线分两层。第一层按质数拆开：每个元素都能唯一分解为一个 p 幂阶部分和一个阶与 p 互素的部分，Bezout 等式负责把它们真正写出来。第二层在有限阿贝尔 p 群里选最长循环",
+          "last": " G最长循环 C × H8.46—8.47：找补因子较小的 H循环群的直积重复，群阶严格下降每条箭头都有对应习题的证明。有限性使重复分解终止；交换性保证子群、幂映射与内部直积合法。"
+        },
+        {
+          "id": "rn-example-8-4",
+          "kind": "example",
+          "title": "例：核、陪集与像",
+          "content_sha256": "096852e6097a8f2740247040547529159ccb5c505af71bb09208ba7ee6bf8f90",
+          "elements": [
+            "p"
+          ],
+          "first": "例如 φ:C₁₂→C₈，φ(x)=2x mod 8。核为 {0,4,8}；四个陪集分别是 {0,4,8}、{1,5,9}、{2,6,10}、{3,7,11}，映到 0、2、4、6。",
+          "last": "C₈ 中的偶数子群，也是 C₄，而目标仍是 C₈。有限情形由等大的纤维数元素得 |G|=|Ker φ|·|Im φ|。无限情形仍有同构，不能用“两个无限基数相等”替代上述单射证明。"
+        },
+        {
+          "id": "rn-example-8-5",
+          "kind": "example",
+          "title": "例：200 阶有限阿贝尔群",
+          "content_sha256": "87d39ddb1e7af38a0060bb04e5b27940532824f87725209b412fa6ed07b1a673",
+          "elements": [
+            "p"
+          ],
+          "first": "例如 200=2³·5²。2³ 可以按 3、2+1、1+1+1 分配为 C₈、C₄×C₂、C₂³；5² 可以按 2、1+1 分配为 C₂₅、C₅²；两侧独立组合，得到六类，见 8.",
+          "last": "³；5² 可以按 2、1+1 分配为 C₂₅、C₅²；两侧独立组合，得到六类，见 8.44(f)。这一计数还要说明候选不重复：元素阶分布、各 p 次幂为单位元的解数都是同构不变量。"
+        }
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter09_sylow_theory.html",
+      "blocks": [
+        {
+          "id": "definition-9-3-proof",
+          "kind": "proof",
+          "title": "证明与说明",
+          "content_sha256": "8df9ccc27cb0fce87ff12c5150fff7f48bdec214a31e9627b306283cba21a489",
+          "elements": [
+            "p"
+          ],
+          "first": "若两个轨道相交，设 s·a=t·b，则 t=s·ab⁻¹，彼此可达，所以两轨道相同。稳定子含 e；若 a,b 稳定 s，则 (s·a)·b=s，而由 s·a=s 再作用 a⁻¹ 得",
+          "last": " s，则 (s·a)·b=s，而由 s·a=s 再作用 a⁻¹ 得 s·a⁻¹=s。稳定子因此有单位元、封闭与逆元。注意“某个生成元没动这个点”不足以称稳定；所有生成元都不动才够。"
+        },
+        {
+          "id": "theorem-9-4-proof",
+          "kind": "proof",
+          "title": "证明与说明",
+          "content_sha256": "646ac7569c208360de289ab5456c85e163ea6940ac51af05d41e0613942dc203",
+          "elements": [
+            "p"
+          ],
+          "first": "设 H=Stab(s)。按本页右作用约定，映射 Hg↦s·g 使用右陪集：若 g′=hg，h∈H，则 s·g′=(s·h)·g=s·g，故良定义；反过来 s·g=s·k，右作用 k",
+          "last": "s·g=s·k，右作用 k⁻¹ 得 s·gk⁻¹=s，即 gk⁻¹∈H，故 Hg=Hk。它显然满射，所以是双射。每个陪集有 |H| 个元素，陪集数恰为轨道大小，乘起来就是 |G|。"
+        },
+        {
+          "id": "theorem-9-5-proof",
+          "kind": "proof",
+          "title": "证明与说明",
+          "content_sha256": "b8000c3e0270025387755f61c0f0031ac30c1c36d8a274baa6bc9380b29e5faa",
+          "elements": [
+            "p"
+          ],
+          "first": "轨道—稳定子定理让每个轨道的大小整除 p，所以只能是 1 或 p。把所有单点轨道留下，其他轨道每次删去 p 个点；删完后剩余点数与原点数模 p 相同。这个证明依靠的是轨道分割，既不",
+          "last": "除 p，所以只能是 1 或 p。把所有单点轨道留下，其他轨道每次删去 p 个点；删完后剩余点数与原点数模 p 相同。这个证明依靠的是轨道分割，既不要求作用忠实，也不要求 S 是群。"
+        },
+        {
+          "id": "theorem-9-6-proof",
+          "kind": "proof",
+          "title": "证明与说明",
+          "content_sha256": "b1242d0bdedbc23db405628c0c89e0a2634065cc3360888432d7748dad7f09fd",
+          "elements": [
+            "p",
+            "div",
+            "p"
+          ],
+          "first": "要找到 g≠e 且 gᵖ=e，先把问题放大：令 X={(g₁,…,gₚ):g₁⋯gₚ=e}。前 p−1 项可任取，最后一项必须是前面乘积的逆元，因此 |X|=|G|ᵖ⁻¹。让 Cₚ",
+          "last": "有 (e,…,e)，所以实际上至少为 p≥2。取一个非单位元 g；|g| 整除 p，又不为 1，故 |g|=p。这里“至少为 1”与“p 的倍数”合用，才排除了只存在单位元的可能。"
+        },
+        {
+          "id": "theorem-9-8-proof",
+          "kind": "proof",
+          "title": "证明与说明",
+          "content_sha256": "f7049f4caa1de790e288f86775f0c3990bfe5c1497f7a98c404c47187bc2cf51",
+          "elements": [
+            "p"
+          ],
+          "first": "轨道大小整除pnpⁿ，所以只能取 1,p,…,pnpⁿ。非单点轨道不必一样大，却都被 p 整除；删去它们后仍得到同一同余。对非平凡 p 群应用于共轭作用，固定点是中心 Z(G)，所",
+          "last": "仍得到同一同余。对非平凡 p 群应用于共轭作用，固定点是中心 Z(G)，所以 p∣|Z(G)|；中心含单位元，因此至少有 p 个元素。这条推论将在阶 p² 分类和 9.22 使用。"
+        },
+        {
+          "id": "theorem-9-9-proof",
+          "kind": "proof",
+          "title": "证明与说明",
+          "content_sha256": "15da8f193cff9f6e50f56b43ecaec2a93e21679f7a02115b667e0d74cd406dbc",
+          "elements": [
+            "p"
+          ],
+          "first": "让 H 以左作用h·(gH)=hgH 作用在左陪集集G/HG/H上。换代表 g→gh₀ 不改变结果；h⁻¹ 是逆操作，故确是置换。一个陪集 gH 被所有 h∈H 固定，当且仅当对每",
+          "last": "⊆H。两个有限子群阶相同，包含变成相等，所以 g∈NG(H)N_G(H)。稳定点恰有 [NG(H)N_G(H):H] 个，而全部点有[G:H][G:H]个，应用 9.8 即得结论。"
+        },
+        {
+          "id": "theorem-9-10-proof",
+          "kind": "proof",
+          "title": "证明与说明",
+          "content_sha256": "aa67c3787c5a012af6d660a6ff9683c4301b2b21b5dc187567a24e6b073f1e61",
+          "elements": [
+            "p",
+            "p"
+          ],
+          "first": "给定 |H|=pⁱ，i<n，有[G:H][G:H]=pⁿ⁻ⁱm 被 p 整除。9.9 推出 [NG(H)N_G(H):H] 也被 p 整除。令 q:NG(H)N_G(H)→NG(H",
+          "last": "含 H。从 {e} 开始重复就得到所有大小；从任意已有 p 子群开始重复，就得到包含它的最大 p 子群。q⁻¹ 在这里是集合逆像，并非逆函数；整个构造也不是内共轭，它可能改变群阶。"
+        },
+        {
+          "id": "theorem-9-12-proof",
+          "kind": "proof",
+          "title": "证明与说明",
+          "content_sha256": "a7bab277229843568e86287bbcc5a06a5db1f480b67310c2f0bd07c86c8eb84b",
+          "elements": [
+            "p"
+          ],
+          "first": "令 P 为 Sylow p 子群，K 为任意 p 子群，让 K 左乘作用于 G/P。点数 m=[G:P] 不被 p 整除，9.8 保证固定点数也不被 p 整除，故至少有一个固定陪集",
+          "last": "故至少有一个固定陪集 gP。其固定条件是 g⁻¹Kg⊆P。若 K 也是 Sylow 子群，两侧大小同为pnpⁿ，故相等。这同时解释了“大小决定存在”和“共轭决定关系”如何接在一起。"
+        },
+        {
+          "id": "theorem-9-13-proof",
+          "kind": "proof",
+          "title": "证明与说明",
+          "content_sha256": "7a4419944f6da55dbaffe89de2aafc7c5486e083089360f0bdeed1e1c36c97fb",
+          "elements": [
+            "p"
+          ],
+          "first": "让 G 共轭作用于全部 Sylow p 子群。由第二定理，这是一个轨道；P 的稳定子是NG(P)N_G(P)，轨道—稳定子便给指数公式。再只让 P 共轭作用于同一集合。若 Q 是这",
+          "last": "。P、Q 都是 N_G(Q) 的 Sylow p 子群，第二定理说它们在该正规化子中共轭；而 Q 在其中正规，只能共轭成自己，所以 P=Q。固定点恰有一个，9.8 给npnₚ≡1。"
+        }
+      ]
+    },
+    {
+      "page": "visual-group-theory/notes/chapter10_galois_theory.html",
+      "blocks": [
+        {
+          "id": "theorem-10-3-proof",
+          "kind": "proof",
+          "title": "证明与说明",
+          "content_sha256": "c14c858af7165735524fd590b5cbb69326abf624479c0a4165d370d62a8f7e41",
+          "elements": [
+            "p"
+          ],
+          "first": "共轭保加法和乘法：和的共轭等于共轭之和，积的共轭等于共轭之积，逐项展开见习题 10.5。于是 f(r)=0 的两边取共轭，得到 Σāⱼr̄ʲ=Σaⱼr̄ʲ=f(r¯r̄)=0，最",
+          "last": "r̄ʲ=f(r¯r̄)=0，最后一步用的是 aⱼ 为实数。复系数反例 x−i 只有根 i，没有根 −i。复共轭在实根上可以是恒等，因此它并不保证 Galois 群有非单位的二阶元。"
+        },
+        {
+          "id": "theorem-10-4-proof",
+          "kind": "proof",
+          "title": "证明与说明",
+          "content_sha256": "5c40054f56f45d62f4757a2ed1ad9c9e7f073117033c45facd81313d3f576850",
+          "elements": [
+            "p",
+            "p"
+          ],
+          "first": "补充证明。先除去系数公因子，得到本原多项式；Gauss 引理说它在 Q 上若分解，则在 Z 上也分解成正次数本原因子。引理的关键是两个本原整数多项式的乘积仍本原：若某个素数整除乘积",
+          "last": "后都不下降。域上多项式唯一分解迫使两者都为正次单项式，因此 g(0)、h(0) 均被 p 整除，f(0) 被 p² 整除，矛盾。缺项的系数是 0，当然被 p 整除，检查时不能漏掉。"
+        },
+        {
+          "id": "theorem-10-5-proof",
+          "kind": "proof",
+          "title": "证明与说明",
+          "content_sha256": "96cf1ae9415e46b980ec45b4a44662e335acc10924b31302d29cf4cc9786e614",
+          "elements": [
+            "p"
+          ],
+          "first": "证明分三步：多项式除以 m，把所有高次幂降到次数 <d；若低次非零多项式在 r 处为零，则违背最小性，故这 d 个幂线性独立；最后对非零 v(r)，gcd(v,m)=1，扩展欧几里",
+          "last": ")，gcd(v,m)=1，扩展欧几里得给 A(x)v(x)+B(x)m(x)=1，代 r 得 v(r)⁻¹=A(r)。因此商与逆没有逃出多项式表示。习题 10.12 展开这一过程。"
+        },
+        {
+          "id": "theorem-10-7-proof",
+          "kind": "proof",
+          "title": "证明与说明",
+          "content_sha256": "a9ee83091c38a0c245832f221648d9a5e3643da92208aa38f92e38d9d6041deb",
+          "elements": [
+            "p"
+          ],
+          "first": "若 {uᵢ} 是 E/F 的基、{vⱼ} 是 L/E 的基，则 {uᵢvⱼ} 张成 L：先展开 vⱼ 系数，再展开 uᵢ。若 Σⱼ(Σᵢaᵢⱼuᵢ)vⱼ=0，由 vⱼ 对 E 独立",
+          "last": "系数，再展开 uᵢ。若 Σⱼ(Σᵢaᵢⱼuᵢ)vⱼ=0，由 vⱼ 对 E 独立得每个括号为零，再由 uᵢ 对 F 独立得每个 aᵢⱼ=0。因此这是真正的乘积基底，数目就是次数乘积。"
+        },
+        {
+          "id": "theorem-10-8-proof",
+          "kind": "proof",
+          "title": "证明与说明",
+          "content_sha256": "b682954d84caa7510a6cbc1508d2bb7f778aaa79ac66a06eba48572cfca32aca",
+          "elements": [
+            "p"
+          ],
+          "first": "证明：两域均同构于 F[x]/(m)，对应 f(r₁)↦f(r₂)。若 f(r₁)=g(r₁)，m 整除 f−g，代入 r₂ 后仍为零，故良定义；逆映射交换 r₁,r₂。注意它先给",
+          "last": "r₁)，m 整除 f−g，代入 r₂ 后仍为零，故良定义；逆映射交换 r₁,r₂。注意它先给两个域之间的同构，并不自动给某个单根域的自同构；需要两域相同，或把同构延伸到共同分裂域。"
+        },
+        {
+          "id": "theorem-10-9-proof",
+          "kind": "proof",
+          "title": "证明与说明",
+          "content_sha256": "4c6db8078d3b2df0231f35a13025ab12079e424f517bbf853c55c82800d9f3cf",
+          "elements": [
+            "p"
+          ],
+          "first": "理由是逐次添根时，一个 F 嵌入有多少延伸，等于新根最小多项式的不同根数；特征零下这个数就是其次数。沿有限生成塔相乘，嵌入总数为 [L:F]。正规性保证这些嵌入全把 L 映回 L，",
+          "last": "证这些嵌入全把 L 映回 L，有限维单射是双射，所以全部是自同构。更具体地，已有嵌入可把系数作用到最小多项式，选它的任一根后通过商 F[x]/(m) 延伸；依次添完所有生成元即可。"
+        },
+        {
+          "id": "theorem-10-10-proof",
+          "kind": "proof",
+          "title": "证明与说明",
+          "content_sha256": "3b7939738fcdf423c2614b130c1a3d4c9e57d29339e4579b47ff7b20f0bf7281",
+          "elements": [
+            "p",
+            "p",
+            "p",
+            "p"
+          ],
+          "first": "为什么箭头反向？要固定的数越多，可允许的自同构越少。L 本身对应只剩恒等的 {e}，F 则对应全部 G。若 H⊆K，对 K 中更多动作都固定的数更少，所以 Lᴷ⊆Lᴴ。下面补足原书",
+          "last": "(L/E)σ⁻¹=Gal(L/σ(E))。因此H◁GH◁G恰在每个 σ 都保持 E 时成立；限制映射 G→Gal(E/F) 的核为 H，且嵌入延伸性质保证满射，第一同构定理给商群。"
+        },
+        {
+          "id": "theorem-10-11-proof",
+          "kind": "proof",
+          "title": "证明与说明",
+          "content_sha256": "2e312b42cb80988ccb08cc6a15eef20efb888f721a234b5d1c3f14253f45259a",
+          "elements": [
+            "p",
+            "p",
+            "p",
+            "p",
+            "p"
+          ],
+          "first": "根式判据的证明要点。用到三个群论事实：可解群的子群与商群可解；可解群的扩张仍可解；有限阿贝尔商可进一步细分为素数阶循环商。第一点可把可解链与子群相交、再用同态定理把新商嵌入原阿贝尔",
+          "last": "“根位于某条根式塔内”，不要求原分裂域本身恰由原来选定的那条根式塔构造。添单位根、取正规闭包的两步使群论条件适用。单根非正规域的自同构群可能平凡，不能据此断言其元素全可用根式写出。"
+        }
+      ]
+    },
+    {
+      "page": "weiss/notes/chapter01_introduction.html",
+      "blocks": [
+        {
+          "id": "rn-proof-chapter01",
+          "kind": "proof",
+          "title": "定理 1.1 的完整归纳",
+          "content_sha256": "1842b785387a44d2b0a29ddabf95fb3bd2c6b19ae11690ec6b55f8246099d69a",
+          "elements": [
+            "p",
+            "div"
+          ],
+          "first": "对位数归纳。一位数直接交给 PrintDigit，正确。假设所有不超过D位的非负整数都能正确打印。一个D+1位的正整数的商N10恰有D位，递归按假设输出其高位部分；随后输出余数，它",
+          "last": " all the recursive calls work.”译：假定所有递归调用都能正确工作。§1.2，印刷页 6。使用这个设计规则之前，先确认子问题确实更小；其数学依据是归纳。"
+        }
+      ]
+    },
+    {
+      "page": "weiss/notes/chapter04_trees.html",
+      "blocks": [
+        {
+          "id": "rn-example-4-1",
+          "kind": "example",
+          "title": "例：AVL 插入与旋转",
+          "content_sha256": "4c8feafde4056613df8c8e15d85e207b29d76af1fae53f542132fffc6671b3e6",
+          "elements": [
+            "p"
+          ],
+          "first": "图 4.37 的具体例子是给原来的 AVL 插入 6，使 8 的左侧过深，再让 7 升到 8 的位置。单旋只需要常数次链接修改，但必须把新根接回原父节点：原书随后插入 3、2、1、",
+          "last": "要常数次链接修改，但必须把新根接回原父节点：原书随后插入 3、2、1、4、5、6、7 的推演中，旋转使 4 取代 3 时，2 的右孩子也必须从 3 改为 4，否则新树会变得不可达。"
+        }
+      ]
+    },
+    {
+      "page": "weiss/notes/chapter05_priority_queues.html",
+      "blocks": [
+        {
+          "id": "rn-example-5-1",
+          "kind": "example",
+          "title": "例：保留最大的三个元素",
+          "content_sha256": "e8ee176436e0c51ef256c1b965ef5aa98975994834066e0f53e23f2e22d96f72",
+          "elements": [
+            "p"
+          ],
+          "first": "例如输入[7, 2, 9, 4, 9, 1]，k=3：读完前三项时候选为 2、7、9；读 4 淘汰 2；再读 9 淘汰 4；读 1 不变。最后候选为 7、9、9，根 7 是第 3 ",
+          "last": "=3：读完前三项时候选为 2、7、9；读 4 淘汰 2；再读 9 淘汰 4；读 1 不变。最后候选为 7、9、9，根 7 是第 3 大。只把候选看成去重集合，会错把重复 9 丢掉。"
+        },
+        {
+          "id": "rn-example-5-2",
+          "kind": "example",
+          "title": "例：逐层建堆",
+          "content_sha256": "105def5a5e97ab741e911f2cd875e38609d3565d31ee7207784bd2bf3e54f977",
+          "elements": [
+            "p",
+            "div"
+          ],
+          "first": "图 5.15 初始层序为[150, 80, 40, 30, 10, 70, 110, 100, 20, 90, 60, 50, 120, 140, 130]。例如处理 6 时把 5",
+          "last": "30]110、20、30 上移；150 放到 9[10, 20, 40, 30, 60, 50, 110, 100, 150, 90, 80, 70, 120, 140, 130]"
+        },
+        {
+          "id": "rn-height-sum",
+          "kind": "statement",
+          "title": "定理 5.1 与完全树的高度和",
+          "content_sha256": "b418c8f26c8e9c082fd405c223317754743f1611df6d7387dc42718bdc5c4308",
+          "boundary": "manually reviewed paragraph boundary",
+          "first": "b(N) 是 N 的二进制中 1 的个数。每层最多两次键比较，于是普通 Floyd 建堆比较数不超过 2(N−b(N))≤2N−2（N≥1）。原书定理 5.1 先证明满二叉树的高度和：\nS=∑i=0h",
+          "last": "层最多两次键比较，于是普通 Floyd 建堆比较数不超过 2(N−b(N))≤2N−2（N≥1）。原书定理 5.1 先证明满二叉树的高度和：\nS=∑i=0h2i(h−i)=(2h+1−1)−(h+1)"
+        },
+        {
+          "id": "rn-leftist-bound",
+          "kind": "statement",
+          "title": "定理 5.2 · 左式堆的右路径",
+          "content_sha256": "79453a141e3b7a6b47bb585bb2d8f35d8e472ad325295a4a5dde055579a9d1a5",
+          "boundary": "manually reviewed paragraph boundary",
+          "first": "右路径有 r 个非空节点时，至少有 2r−1 个节点。",
+          "last": "右路径有 r 个非空节点时，至少有 2r−1 个节点。"
+        },
+        {
+          "id": "rn-leftist-bound-proof",
+          "kind": "proof",
+          "title": "证明：按右路径长度归纳",
+          "content_sha256": "3add8c9354a9c718601d51c4647bcc78822788c2f4e9f06b725e6c3cf608a818",
+          "boundary": "manually reviewed paragraph boundary",
+          "first": "证明按 r 归纳：右子树右路径长 r−1；左式约束使左子树的空路径长至少相同，因此左右子树各至少 2r−1−1 个节点，加根得到 2r−1。故 r≤⌊log2(N+1)⌋。控制较短的一侧，已经足以加速",
+          "last": " r−1；左式约束使左子树的空路径长至少相同，因此左右子树各至少 2r−1−1 个节点，加根得到 2r−1。故 r≤⌊log2(N+1)⌋。控制较短的一侧，已经足以加速合并，无须把整棵树变成 AVL。"
+        }
+      ]
+    },
+    {
+      "page": "weiss/notes/chapter07_hashing.html",
+      "blocks": [
+        {
+          "id": "rn-example-7-1",
+          "kind": "example",
+          "title": "例：装载因子与探测代价",
+          "content_sha256": "02fb697869468fa12382848e13585144b91b813ea93b1a951e2e01281f8c378e",
+          "elements": [
+            "p"
+          ],
+          "first": "例如装载因子从 0.5 上升到 0.9，线性探测在当前装载下的下一次插入估计由 2.5 次升到 50.5 次；这说明控制空槽比例有实际意义。整段从空表开始的插入实验还要平均早期廉价",
+          "last": "探测在当前装载下的下一次插入估计由 2.5 次升到 50.5 次；这说明控制空槽比例有实际意义。整段从空表开始的插入实验还要平均早期廉价插入，不能拿 50.5 直接与整段均值比较。"
+        },
+        {
+          "id": "rn-proof-chapter07",
+          "kind": "proof",
+          "title": "平方探测的保证来自素数与半空表",
+          "content_sha256": "40713e50a48dc1bfe57399a9c75ee057145189f6ca2d8d9b08a36cdd0f9afc1c",
+          "elements": [
+            "p",
+            "p"
+          ],
+          "first": "令m为奇素数。候选h(x)+i2，其中0≤i≤(m−1)/2，共(m+1)/2个。若两个候选相同，就有(i−j)(i+j)≡0(modm)；素数性质要求i=j或i+j=m，而当前范",
+          "last": "m/gcd(m,h2(x))个位置，所以步长非零之外，还要与表长互素。素数表长和1≤h2(x)<m提供了这个条件。书中表长 10 的例子只用于演示，习题 7.1 会让失败真实发生。"
+        }
+      ]
+    },
+    {
+      "page": "weiss/notes/chapter08_disjoint_sets.html",
+      "blocks": [
+        {
+          "id": "rn-proof-chapter08",
+          "kind": "proof",
+          "title": "证明：路径压缩的分组计账",
+          "content_sha256": "d7d661e542d497a5c0a1ffa5a8e7aa9621385f07132d056c9cd2be0c6381d7e5",
+          "elements": [
+            "h3",
+            "p",
+            "p",
+            "h3",
+            "p",
+            "p",
+            "div",
+            "p",
+            "div",
+            "p"
+          ],
+          "first": "固定合并历史，先得到三个计数事实",
+          "last": "内部调用的 Find，且Ffind=O(M)。完整压缩的两遍只差常数因子。若M=Ω(N)且N≥2，得到原书证明的O(Mlog*N)。分析没有假设随机输入，也没有把实验速度当成证明。"
+        },
+        {
+          "id": "rn-union-find-bound",
+          "kind": "statement",
+          "title": "并查集的逆 Ackermann 时间界",
+          "content_sha256": "172daf155102b33392f598292e6c2c8779de9c9495a53b571b2d015864ae065a",
+          "boundary": "manually reviewed paragraph boundary",
+          "first": "按秩或按大小合并，结合完整路径压缩，M 次操作的总时间为 O(Mα(M,N))，初始化为 Θ(N)。在通常可表示的规模内，α 是很小的数；作为无界函数，它仍会增长，不能在数学上把它删掉。这个更强的定理",
+          "last": "规模内，α 是很小的数；作为无界函数，它仍会增长，不能在数学上把它删掉。这个更强的定理来自本章参考文献 [15]、[18]；习题 8.5 使用它的条件与定义，下面则复现原书 §8.6.1 的计账证明。"
+        }
+      ]
+    },
+    {
+      "page": "weiss/notes/chapter11_amortized_analysis.html",
+      "blocks": [
+        {
+          "id": "rn-example-11-1",
+          "kind": "example",
+          "title": "例：访问节点 2 的势能变化",
+          "content_sha256": "f3ffd021b3846e04a8cebc44efc438234bae1814738bf18f6803dbe92afc07d3",
+          "elements": [
+            "p",
+            "figure"
+          ],
+          "first": "图 11.22 的七节点初态是7→6→5→4的左链，再接4的左孩子 1、1 的右孩子 2、2 的右孩子 3。访问 2 依次做一次 zig-zag、一次 zig-zig、一次 zig",
+          "last": "终态；边关系保持原图，中间步骤由正文给出。初态：访问 27654123五次旋转后2175463重绘图 11.22（PDF 468）的初态与终态；边关系保持原图，中间步骤由正文给出。"
+        },
+        {
+          "id": "rn-proof-chapter11",
+          "kind": "proof",
+          "title": "证明：访问引理的局部势能与求和",
+          "content_sha256": "8154a32e60daf6fb55712f0c8fd0b292255aebc88883e2a6c38296973b463314",
+          "elements": [
+            "p",
+            "p",
+            "div",
+            "p",
+            "p",
+            "div"
+          ],
+          "first": "一次单旋只改变参与旋转的两个节点的子树大小，双旋只改变x,p,g的大小。其余节点虽可能换深度，但子树集合不变，这让势能变化能够局部计算。这里的“秩”是对数子树大小，并不等于 AVL",
+          "last": "q+ΔΦ≤3(log2N−log2sbefore(x))+1"
+        },
+        {
+          "id": "rn-fibonacci-rank",
+          "kind": "proof",
+          "title": "证明：Fibonacci 堆的秩界",
+          "content_sha256": "6752383b1110b339fdcaa4d7b9a0b637476c6730faa14bcb7c878c000ac3ad01",
+          "boundary": "manually reviewed paragraph boundary",
+          "first": "按仍然存活的孩子被连接到当前父节点的先后顺序，从最早到最晚编号 c1,…,cr。当 ci 接入时，前面的 i−1 个现存孩子已经在父节点下，因此它当时的秩至少为 i−1；作为孩子期间最多损失一个孩子，",
+          "last": "因此 s(x)≥Fr+1，秩 r 至多 O(logN)。具体地，令 φ=(1+5)/2，这些数至少以 φr 增长，故 r≤logφN。这正是结构名称的来源；堆里没有运行 Fibonacci 数列程序。"
+        }
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter01_tour.html",
+      "blocks": [
+        {
+          "id": "rn-example-1-1",
+          "kind": "example",
+          "title": "例：同一字节的两种解释",
+          "content_sha256": "5d8e72c0b8664cc7a6f7f22ab24cad7c31b6e77382c1fa2f444c5902e80ff81a",
+          "elements": [
+            "p"
+          ],
+          "first": "例如 ASCII 字符A的编码是十进制 65，即十六进制0x41、二进制01000001。如果把同一字节当作无符号整数，它的值就是 65；如果按字符编码读取，显示的是 A。文件里的",
+          "last": "整数，它的值就是 65；如果按字符编码读取，显示的是 A。文件里的字符1对应字节 0x31，并不是整数 1 的单字节表示 0x01。一个字节序列本身不会附带“我是文本”这样的标签。"
+        }
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter03_machine_level.html",
+      "blocks": [
+        {
+          "id": "rn-example-3-1",
+          "kind": "example",
+          "title": "例：数值转换与位模式",
+          "content_sha256": "da04acd75a01428bb1c5932ea68e7f8f0f7f1769fd9a7eccf040accfd41aa924",
+          "elements": [
+            "p"
+          ],
+          "first": "例如double −2.75转int得到−2，int7转float得到7.0；把−2.75的原64位字节直接复制到rax则得到完全不同的整数位模式。3.50同时追踪四个变量，强调在",
+          "last": "2.75转int得到−2，int7转float得到7.0；把−2.75的原64位字节直接复制到rax则得到完全不同的整数位模式。3.50同时追踪四个变量，强调在覆盖内存前保留旧值。"
+        }
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter04_architecture.html",
+      "blocks": [
+        {
+          "id": "rn-example-4-1",
+          "kind": "example",
+          "title": "例：Y86-64 指令编码",
+          "content_sha256": "16e3e98c876f4b213a152d2d4077d2a9c9bbd7bd0d4ba452a792c1d5d1c9adc0",
+          "elements": [
+            "p"
+          ],
+          "first": "例如rmmovq %rsp,0x123456789abcd(%rdx)：首字节是 40；rA=%rsp=4、rB=%rdx=2，得到 42；补足八字节后的常量是 00 01 23 ",
+          "last": "b 89 67 45 23 01 00。整条编码为40 42 cd ab 89 67 45 23 01 00。已知合法起始地址后，首字节决定长度；从任意中间字节开始则没有这种保证。"
+        }
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "blocks": [
+        {
+          "id": "rn-example-5-1",
+          "kind": "example",
+          "title": "例：重复求字符串长度的工作量",
+          "content_sha256": "e2237ec082d1947023d6c6bbb566b6abb95009627c1a907d25a31a3e7bbb1a02",
+          "elements": [
+            "p"
+          ],
+          "first": "例如字符串为ABC，长度 3。判断 i=0、1、2 时进入循环，判断 i=3 时退出，共判断 4 次；若每次 strlen 都重新检查 A、B、C 和结尾的零字节，就为求长度做了 ",
+          "last": "4=16 次字节检查。先求一次长度只需 4 次。这里把终止字节也计入；上面的 W(n) 则是忽略这类常数差异的数量级模型。把字符转小写没有改变终止位置，才允许复用第一次求得的 3。"
+        }
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter06_memory.html",
+      "blocks": [
+        {
+          "id": "rn-example-6-1",
+          "kind": "example",
+          "title": "例：磁盘容量的单位换算",
+          "content_sha256": "b64f7afa9256c59a0e7dbef87b77e11c9d5b77014590efbc0121186de33afcf3",
+          "elements": [
+            "p"
+          ],
+          "first": "例如 512×300×20,000×2×5=30,720,000,000 字节，即 30.72 GB。磁盘标称容量使用十进制 GB=10⁹ 字节；缓存容量常用 KiB=2¹⁰ 字节",
+          "last": "000 字节，即 30.72 GB。磁盘标称容量使用十进制 GB=10⁹ 字节；缓存容量常用 KiB=2¹⁰ 字节。涉及完整扇区的文件题若只写 MB，需要把这一口径明确写在计算前。"
+        }
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter08_exceptional.html",
+      "blocks": [
+        {
+          "id": "rn-example-8-1",
+          "kind": "example",
+          "title": "例：非局部跳转后的对象状态",
+          "content_sha256": "877bee2bcee04f04fe18f1026866e02b170c54beeb53c29f674e3c5559d36c90",
+          "elements": [
+            "p"
+          ],
+          "first": "例如全局count原为 0，inner先令它变为 1 再longjmp，回到保存点后 count 仍是 1。保存的是继续执行所需的控制环境，不是一份整个进程内存的备份。类似地，若 ",
+          "last": "环境，不是一份整个进程内存的备份。类似地，若 inner 已申请一块堆内存而清理语句在它的正常返回路径上，跳过这条路径就会跳过释放；是否需要恢复数据、释放资源，必须由调用协议安排。"
+        }
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter09_virtual_memory.html",
+      "blocks": [
+        {
+          "id": "rn-example-9-1",
+          "kind": "example",
+          "title": "例：四级页表中的读取地址",
+          "content_sha256": "efc520ccd32fb30d5bd71f3d128372008bb408e4975f5e86ed14f407776c9cca",
+          "elements": [
+            "p"
+          ],
+          "first": "例如CR3表基址0x1000，各级被选项依次给表基址0x2000、0x3000、0x4000，则读取位置分别是0x1120、0x2688、0x3598、0x4c48。最后PTE若给",
+          "last": "0x2688、0x3598、0x4c48。最后PTE若给PPN=0x12345，PA就是0x12345abc。9位索引与8 B项宽各有职责：前者选512项，后者把项号变成字节偏移。"
+        },
+        {
+          "id": "rn-example-9-2",
+          "kind": "example",
+          "title": "例：峰值利用率",
+          "content_sha256": "958ef33e5b6ded7eb2f0911945322c3bf32560f790250900f284b9e1a7a07792",
+          "elements": [
+            "p"
+          ],
+          "first": "例如堆固定128 B，活跃请求先为20 B、再为44 B、最后降到24 B，则各时刻峰值利用率为20/128、44/128、44/128；最后不是24/128。原式假定H不下降；允",
+          "last": "/128、44/128、44/128；最后不是24/128。原式假定H不下降；允许归还内存时可采用历史堆高水位，并必须明确分母，不能把“请求字节/已分配块大小”偷换成整个堆利用率。"
+        },
+        {
+          "id": "rn-example-9-3",
+          "kind": "example",
+          "title": "例：三个空闲块合并",
+          "content_sha256": "c87100f8629b17ef5b148f7f9ebd990cb963d368f5bc43ea34383d7af8d61fdb",
+          "elements": [
+            "p"
+          ],
+          "first": "例如相邻块从偏移 100、124、156 开始，大小依次为 24、32、40，三块合并后只认起点 100、大小 96，下一块从 196 开始。旧起点 124、156 已处在新块内部",
+          "last": "从 196 开始。旧起点 124、156 已处在新块内部，即使那里还残留原头部字节，也不再是合法块边界。合并时写最外层头尾并修复搜索游标，正是为了让所有后续遍历都按这份新布局行走。"
+        }
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter11_network.html",
+      "blocks": [
+        {
+          "id": "rn-example-11-1",
+          "kind": "example",
+          "title": "例：从地址信息建立连接",
+          "content_sha256": "0b8da988a61df0c3b27c646dd1eeeec79234d607dcd7b32743c0dde1117d24b5",
+          "elements": [
+            "p"
+          ],
+          "first": "例如getaddrinfo(\"127.0.0.1\",\"8080\",…)生成IPv4流候选，socket使用候选类型，connect使用ai_addr/ai_addrlen；getn",
+          "last": "rlen；getnameinfo加两个NI_NUMERIC旗标又把它显示成127.0.0.1与8080。返回链表不应按程序想象的固定节点数遍历，始终跟随ai_next直到NULL。"
+        }
+      ]
+    },
+    {
+      "page": "csapp/notes/chapter12_concurrency.html",
+      "blocks": [
+        {
+          "id": "rn-example-12-1",
+          "kind": "example",
+          "title": "例：select 的输入与输出集合",
+          "content_sha256": "8cf25452fedbc812a52ea416b613f374303920f7990b9b2b0bea7572e47b3691",
+          "elements": [
+            "p"
+          ],
+          "first": "例如兴趣集合为{0,4,9}，本轮只有 4 可读，select 返回的就绪集合便为{4}。若下轮直接沿用这个结果作为输入，0 和 9 就被无意间取消监听；所以要从持久兴趣集合重新复",
+          "last": "接沿用这个结果作为输入，0 和 9 就被无意间取消监听；所以要从持久兴趣集合重新复制。参数应是9+1=10，因为内核需要检查编号 0 到 9 的位置，而不是只检查集合中有几个元素。"
+        }
+      ]
+    },
+    {
+      "page": "weiss/notes/chapter10_algorithm_design.html",
+      "blocks": [
+        {
+          "id": "rn-packing-bounds",
+          "kind": "statement",
+          "title": "定理 10.3 与 10.5 · 装箱近似界",
+          "content_sha256": "9020c38ee44bd4193929003ca36bb1b044b648e169dd1e63dc0a1698cb69b14c",
+          "boundary": "manually reviewed paragraph boundary",
+          "first": "原书定理 10.3 给出 FF≤⌈17M/10⌉，定理 10.5 给出 FFD≤11M/9+4，是对容量 1、尺寸在 (0,1] 的物品序列成立的近似界。这里采用本版参考文献 [23] Johnson",
+          "last": "performance bounds for simple one-dimensional packing algorithms）已经证明的上界；常数界需要按尺寸分类计费，不能从“总量够放”直接推出。"
+        },
+        {
+          "id": "rn-ffd-bound",
+          "kind": "proof",
+          "title": "证明：FFD 的较松上界",
+          "content_sha256": "c05f1038276a96b6bf02c959421bde1fb94e4b9b13a4feb7cd09dfbd89203d62",
+          "boundary": "manually reviewed paragraph boundary",
+          "first": "书中较容易证明的 FFD 界是 (4M+1)/3。假设第一件进第 M+1 箱的物品 x>1/3：此前每箱至多两件，且单件箱一定排在双件箱之前，否则较晚单件与 x 可塞入较早双件箱。前 j 个单件相互不",
+          "last": " M 件，把其中 M 件分别与前 M 箱配对，每一对负载都大于 1，总尺寸就大于 M，又矛盾。最多 M−1 件小物品，额外箱除最后一箱都可放至少三件，于是额外箱数至多 ⌈(M−1)/3⌉，得到所述界。"
+        },
+        {
+          "id": "rn-huffman-weights",
+          "kind": "example",
+          "title": "例：七种字符的 Huffman 编码",
+          "content_sha256": "bd5a4f6be959bd29e15fe28bfd2baa56396d4d47f6c3944fb85e6f213a43cb9f",
+          "boundary": "manually reviewed paragraph boundary",
+          "first": "Huffman 从字符频率出发。书中 a、e、i、s、t、空格、换行的频率分别为 10、15、12、3、4、13、1，共 58 个字符。固定三位编码需 174 位；前缀树允许常见字符离根更近，而且不需",
+          "last": "率的两个节点合并为一个节点，反复执行。合并权重依次为 4、8、18、25、33、58，其和 146 就是加权外部路径长度。字符aeist空格换行原书最优码00101100000000011100001"
+        },
+        {
+          "id": "rn-packing-comparison",
+          "kind": "example",
+          "title": "例：同一序列的五种装箱结果",
+          "content_sha256": "0e42a6a4e1530752e8f775114967f0aa9c0e2df579c6e7d1c4b7cf30ee31f0b3",
+          "boundary": "manually reviewed paragraph boundary",
+          "first": "装箱则说明贪心有时只能近似。箱容量为 1，物品不可分，在线算法见到一件就必须决定放哪里，也不知道输入何时结束。对 0.2、0.5、0.4、0.7、0.1、0.3、0.8，最优需要 3 箱；Next F",
+          "last": "前箱，用 5 箱；First Fit 看最早放得下的箱，用 4 箱；Best Fit 选放入后余量最小的箱，也用 4 箱。先递减排序后的 FFD 与 BFD 在这个输入上都用 3 箱，但已是离线策略。"
+        },
+        {
+          "id": "rn-ffd-lower-bound",
+          "kind": "example",
+          "title": "例：FFD 的下界构造",
+          "content_sha256": "50c78b156ea0d238b7f84bc40b04b8d288f1f5d1cde787ceeccd92300d42f7f8",
+          "boundary": "manually reviewed paragraph boundary",
+          "first": "图 10.28 的下界构造为 6M 件 1/2+ε、6M 件 1/4+2ε、6M 件 1/4+ε、12M 件 1/4−2ε。FFD 先把每个大件与第二类的一件配对，第三类每三件一箱，最后一类每四件一箱",
+          "last": "第四类两件，共 9M 箱。这里 0<ε<1/24，三类合计恰为 1。原书前一句提及 next fit decreasing，但本定理陈述及该构造讨论的算法是 first fit decreasing。"
+        }
+      ]
+    }
+  ],
+  "components": {
+    "issue": "I040",
+    "scope": "All 56 controlled pages; explicit teaching blocks, not every occurrence of an example or proof in ordinary prose.",
+    "pages": [
+      {
+        "page": "measure-probability/notes/book_overview.html",
+        "counts": {
+          "statement": 0,
+          "example": 0,
+          "proof": 0,
+          "exercise": 0
+        }
+      },
+      {
+        "page": "measure-probability/notes/chapter01_measurable_spaces.html",
+        "counts": {
+          "statement": 25,
+          "example": 9,
+          "proof": 23,
+          "exercise": 25
+        }
+      },
+      {
+        "page": "measure-probability/notes/chapter02_measure_spaces.html",
+        "counts": {
+          "statement": 31,
+          "example": 10,
+          "proof": 26,
+          "exercise": 32
+        }
+      },
+      {
+        "page": "measure-probability/notes/chapter03_integration.html",
+        "counts": {
+          "statement": 36,
+          "example": 0,
+          "proof": 36,
+          "exercise": 30
+        }
+      },
+      {
+        "page": "measure-probability/notes/chapter04_signed_measures.html",
+        "counts": {
+          "statement": 34,
+          "example": 2,
+          "proof": 34,
+          "exercise": 28
+        }
+      },
+      {
+        "page": "measure-probability/notes/chapter05_product_spaces.html",
+        "counts": {
+          "statement": 32,
+          "example": 2,
+          "proof": 32,
+          "exercise": 28
+        }
+      },
+      {
+        "page": "measure-probability/notes/chapter06_independent_sequences.html",
+        "counts": {
+          "statement": 45,
+          "example": 10,
+          "proof": 45,
+          "exercise": 27
+        }
+      },
+      {
+        "page": "measure-probability/notes/preface.html",
+        "counts": {
+          "statement": 0,
+          "example": 0,
+          "proof": 0,
+          "exercise": 0
+        }
+      },
+      {
+        "page": "visual-group-theory/notes/book_overview.html",
+        "counts": {
+          "statement": 0,
+          "example": 0,
+          "proof": 0,
+          "exercise": 0
+        }
+      },
+      {
+        "page": "visual-group-theory/notes/chapter01_what_is_a_group.html",
+        "counts": {
+          "statement": 9,
+          "example": 0,
+          "proof": 0,
+          "exercise": 14
+        }
+      },
+      {
+        "page": "visual-group-theory/notes/chapter02_what_do_groups_look_like.html",
+        "counts": {
+          "statement": 0,
+          "example": 0,
+          "proof": 0,
+          "exercise": 19
+        }
+      },
+      {
+        "page": "visual-group-theory/notes/chapter03_why_study_groups.html",
+        "counts": {
+          "statement": 1,
+          "example": 0,
+          "proof": 0,
+          "exercise": 16
+        }
+      },
+      {
+        "page": "visual-group-theory/notes/chapter04_algebra_at_last.html",
+        "counts": {
+          "statement": 2,
+          "example": 0,
+          "proof": 0,
+          "exercise": 33
+        }
+      },
+      {
+        "page": "visual-group-theory/notes/chapter05_five_families.html",
+        "counts": {
+          "statement": 1,
+          "example": 0,
+          "proof": 1,
+          "exercise": 44
+        }
+      },
+      {
+        "page": "visual-group-theory/notes/chapter06_subgroups.html",
+        "counts": {
+          "statement": 9,
+          "example": 0,
+          "proof": 4,
+          "exercise": 31
+        }
+      },
+      {
+        "page": "visual-group-theory/notes/chapter07_products_and_quotients.html",
+        "counts": {
+          "statement": 7,
+          "example": 1,
+          "proof": 2,
+          "exercise": 37
+        }
+      },
+      {
+        "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+        "counts": {
+          "statement": 9,
+          "example": 2,
+          "proof": 3,
+          "exercise": 50
+        }
+      },
+      {
+        "page": "visual-group-theory/notes/chapter09_sylow_theory.html",
+        "counts": {
+          "statement": 13,
+          "example": 0,
+          "proof": 9,
+          "exercise": 28
+        }
+      },
+      {
+        "page": "visual-group-theory/notes/chapter10_galois_theory.html",
+        "counts": {
+          "statement": 11,
+          "example": 0,
+          "proof": 8,
+          "exercise": 30
+        }
+      },
+      {
+        "page": "visual-group-theory/notes/preface.html",
+        "counts": {
+          "statement": 0,
+          "example": 0,
+          "proof": 0,
+          "exercise": 0
+        }
+      },
+      {
+        "page": "stochastic/notes/appendix_a_probability_review.html",
+        "counts": {
+          "statement": 19,
+          "example": 23,
+          "proof": 13,
+          "exercise": 0
+        }
+      },
+      {
+        "page": "stochastic/notes/book_overview.html",
+        "counts": {
+          "statement": 0,
+          "example": 0,
+          "proof": 0,
+          "exercise": 0
+        }
+      },
+      {
+        "page": "stochastic/notes/chapter01_markov_chains.html",
+        "counts": {
+          "statement": 38,
+          "example": 56,
+          "proof": 32,
+          "exercise": 77
+        }
+      },
+      {
+        "page": "stochastic/notes/chapter02_poisson_processes.html",
+        "counts": {
+          "statement": 19,
+          "example": 14,
+          "proof": 17,
+          "exercise": 61
+        }
+      },
+      {
+        "page": "stochastic/notes/chapter03_renewal_processes.html",
+        "counts": {
+          "statement": 14,
+          "example": 10,
+          "proof": 11,
+          "exercise": 24
+        }
+      },
+      {
+        "page": "stochastic/notes/chapter04_continuous_time_markov_chains.html",
+        "counts": {
+          "statement": 23,
+          "example": 31,
+          "proof": 18,
+          "exercise": 39
+        }
+      },
+      {
+        "page": "stochastic/notes/chapter05_martingales.html",
+        "counts": {
+          "statement": 20,
+          "example": 19,
+          "proof": 18,
+          "exercise": 10
+        }
+      },
+      {
+        "page": "stochastic/notes/chapter06_mathematical_finance.html",
+        "counts": {
+          "statement": 17,
+          "example": 9,
+          "proof": 12,
+          "exercise": 25
+        }
+      },
+      {
+        "page": "stochastic/notes/preface.html",
+        "counts": {
+          "statement": 0,
+          "example": 0,
+          "proof": 0,
+          "exercise": 0
+        }
+      },
+      {
+        "page": "weiss/notes/book_overview.html",
+        "counts": {
+          "statement": 0,
+          "example": 0,
+          "proof": 0,
+          "exercise": 0
+        }
+      },
+      {
+        "page": "weiss/notes/chapter01_introduction.html",
+        "counts": {
+          "statement": 0,
+          "example": 0,
+          "proof": 1,
+          "exercise": 5
+        }
+      },
+      {
+        "page": "weiss/notes/chapter02_algorithm_analysis.html",
+        "counts": {
+          "statement": 0,
+          "example": 0,
+          "proof": 0,
+          "exercise": 25
+        }
+      },
+      {
+        "page": "weiss/notes/chapter03_lists_stacks_queues.html",
+        "counts": {
+          "statement": 0,
+          "example": 0,
+          "proof": 0,
+          "exercise": 26
+        }
+      },
+      {
+        "page": "weiss/notes/chapter04_trees.html",
+        "counts": {
+          "statement": 0,
+          "example": 1,
+          "proof": 0,
+          "exercise": 46
+        }
+      },
+      {
+        "page": "weiss/notes/chapter05_priority_queues.html",
+        "counts": {
+          "statement": 2,
+          "example": 2,
+          "proof": 1,
+          "exercise": 36
+        }
+      },
+      {
+        "page": "weiss/notes/chapter06_sorting.html",
+        "counts": {
+          "statement": 0,
+          "example": 0,
+          "proof": 0,
+          "exercise": 44
+        }
+      },
+      {
+        "page": "weiss/notes/chapter07_hashing.html",
+        "counts": {
+          "statement": 0,
+          "example": 1,
+          "proof": 1,
+          "exercise": 15
+        }
+      },
+      {
+        "page": "weiss/notes/chapter08_disjoint_sets.html",
+        "counts": {
+          "statement": 1,
+          "example": 0,
+          "proof": 1,
+          "exercise": 14
+        }
+      },
+      {
+        "page": "weiss/notes/chapter09_graph_algorithms.html",
+        "counts": {
+          "statement": 0,
+          "example": 0,
+          "proof": 0,
+          "exercise": 41
+        }
+      },
+      {
+        "page": "weiss/notes/chapter10_algorithm_design.html",
+        "counts": {
+          "statement": 1,
+          "example": 3,
+          "proof": 1,
+          "exercise": 60
+        }
+      },
+      {
+        "page": "weiss/notes/chapter11_amortized_analysis.html",
+        "counts": {
+          "statement": 0,
+          "example": 1,
+          "proof": 2,
+          "exercise": 14
+        }
+      },
+      {
+        "page": "weiss/notes/chapter12_advanced_data_structures.html",
+        "counts": {
+          "statement": 0,
+          "example": 0,
+          "proof": 0,
+          "exercise": 36
+        }
+      },
+      {
+        "page": "csapp/notes/book_overview.html",
+        "counts": {
+          "statement": 3,
+          "example": 0,
+          "proof": 0,
+          "exercise": 0
+        }
+      },
+      {
+        "page": "csapp/notes/chapter01_tour.html",
+        "counts": {
+          "statement": 9,
+          "example": 1,
+          "proof": 0,
+          "exercise": 5
+        }
+      },
+      {
+        "page": "csapp/notes/chapter02_information.html",
+        "counts": {
+          "statement": 28,
+          "example": 0,
+          "proof": 0,
+          "exercise": 100
+        }
+      },
+      {
+        "page": "csapp/notes/chapter03_machine_level.html",
+        "counts": {
+          "statement": 16,
+          "example": 1,
+          "proof": 0,
+          "exercise": 78
+        }
+      },
+      {
+        "page": "csapp/notes/chapter04_architecture.html",
+        "counts": {
+          "statement": 6,
+          "example": 1,
+          "proof": 0,
+          "exercise": 62
+        }
+      },
+      {
+        "page": "csapp/notes/chapter05_optimization.html",
+        "counts": {
+          "statement": 6,
+          "example": 1,
+          "proof": 0,
+          "exercise": 22
+        }
+      },
+      {
+        "page": "csapp/notes/chapter06_memory.html",
+        "counts": {
+          "statement": 7,
+          "example": 1,
+          "proof": 0,
+          "exercise": 49
+        }
+      },
+      {
+        "page": "csapp/notes/chapter07_linking.html",
+        "counts": {
+          "statement": 5,
+          "example": 0,
+          "proof": 0,
+          "exercise": 16
+        }
+      },
+      {
+        "page": "csapp/notes/chapter08_exceptional.html",
+        "counts": {
+          "statement": 5,
+          "example": 1,
+          "proof": 0,
+          "exercise": 29
+        }
+      },
+      {
+        "page": "csapp/notes/chapter09_virtual_memory.html",
+        "counts": {
+          "statement": 4,
+          "example": 3,
+          "proof": 0,
+          "exercise": 23
+        }
+      },
+      {
+        "page": "csapp/notes/chapter10_system_io.html",
+        "counts": {
+          "statement": 10,
+          "example": 0,
+          "proof": 0,
+          "exercise": 13
+        }
+      },
+      {
+        "page": "csapp/notes/chapter11_network.html",
+        "counts": {
+          "statement": 6,
+          "example": 1,
+          "proof": 0,
+          "exercise": 16
+        }
+      },
+      {
+        "page": "csapp/notes/chapter12_concurrency.html",
+        "counts": {
+          "statement": 4,
+          "example": 1,
+          "proof": 0,
+          "exercise": 42
+        }
+      },
+      {
+        "page": "csapp/notes/preface.html",
+        "counts": {
+          "statement": 5,
+          "example": 0,
+          "proof": 0,
+          "exercise": 0
+        }
+      }
+    ],
+    "totals": {
+      "statement": 533,
+      "example": 217,
+      "proof": 351,
+      "exercise": 1525
+    }
+  },
+  "acceptance": {
+    "full_program_checks": {
+      "report": "tmp/project-check/20261020T194611-m71y2yzg/report.json",
+      "checks": 19,
+      "status": "passed",
+      "scope": "All displayed program bytes match the final source. The final CSS-only anchor fix was rechecked structurally and in the browser."
+    },
+    "final_structure": {
+      "report": "tmp/project-check/20261020T195946-fiotfz3f/report.json",
+      "checks": 16,
+      "status": "passed"
+    },
+    "node_tests": {
+      "report": "tmp/components-rollout-20261020/node-tests-02.log",
+      "passed": 25
+    },
+    "publication_tests": {
+      "report": "tmp/components-rollout-20261020/reader-tests-01.log",
+      "passed": 12
+    },
+    "browser": {
+      "report": "tmp/reading-notes-migration/browser/all/runs/2026-10-20T11-58-11-106Z-9801e9a6/report.json",
+      "sha256": "57b1118391dd6a60002648d866f866f0c59b4fef5341febd571fc9d405f624e4",
+      "js_views": 304,
+      "no_js_views": 152,
+      "external_requests": 0,
+      "generated_screenshots": 502
+    },
+    "component_style_matrix": {
+      "report": "tmp/components-rollout-20261020/style-matrix-final.json",
+      "views": 224,
+      "expanded_mobile_pages": 56,
+      "style_differences": 0,
+      "source_output_sha256": {
+        "measure-probability/notes/book_overview.html": "7a45338584808e851410ec1b32ab50ea3a1b3a32a5077fe921aef81d22b317e7",
+        "measure-probability/notes/chapter01_measurable_spaces.html": "4b600efb71dea497bcc706991ef1c36b905b305c42826b584adf84644f53a88f",
+        "measure-probability/notes/chapter02_measure_spaces.html": "927abb46f30c690889453bbba4bb0f2b91a692f00f7e959653a72d827715c556",
+        "measure-probability/notes/chapter03_integration.html": "b40df443d6af0614e72ad3874588722b6c1669f3aaed70ad3406815c654ed811",
+        "measure-probability/notes/chapter04_signed_measures.html": "bcbb60a88664bc18a91eda4070665537ed5b838f6acd7da229b1e15643a4e479",
+        "measure-probability/notes/chapter05_product_spaces.html": "a3c738bb053147743e0acc6b9874a10b082d1dbe8caaf4c5c42b6af09e0075cc",
+        "measure-probability/notes/chapter06_independent_sequences.html": "c5ceae018723b5412ccc91db7f407580df38fc6db1bf1a7c072d46fa8bb1d5b6",
+        "measure-probability/notes/preface.html": "41c0fc773168177bd03f8a3d66fbc7c33e9b4cb36abe6de17b27e5b0f5d308c2",
+        "visual-group-theory/notes/book_overview.html": "73917498af06758bdf83aca0d5e744f5b8ca728e6cccef1eb9456d2b038ba247",
+        "visual-group-theory/notes/chapter01_what_is_a_group.html": "6c040b8ef8e1740c924a4a2edc660b986e329f2c05a24015e6a54c8623ddb09e",
+        "visual-group-theory/notes/chapter02_what_do_groups_look_like.html": "25038c490b2a6d55f92587444c371315a582c3079406105944d15e5f3373877b",
+        "visual-group-theory/notes/chapter03_why_study_groups.html": "d54dc3f18a45e90eabeb1bf91bdce768d2a90b1d8d939fbae61bfade05b01d57",
+        "visual-group-theory/notes/chapter04_algebra_at_last.html": "204814f3faded3e12a233e98edee78f33f7200a3baaee16598f4aca4780737ed",
+        "visual-group-theory/notes/chapter05_five_families.html": "b0bf301fc5fbde0e7945326cd793c760d6c6ed0cadf942be9623fa3f4a107895",
+        "visual-group-theory/notes/chapter06_subgroups.html": "034beb860acd6871916c264d72c1ba19108339c54d9b5a89e8bdb5e3d0239790",
+        "visual-group-theory/notes/chapter07_products_and_quotients.html": "36d042361931cb7a75f09b6ee86e765175352a091afbe86038fc5a8bf01865a8",
+        "visual-group-theory/notes/chapter08_homomorphisms.html": "55340e210022f0c0e0d2a14eedfa9a080c4effa61482c71ebaf204cbd790d77d",
+        "visual-group-theory/notes/chapter09_sylow_theory.html": "3e7261906e6ad46d84def5b83b7be6ca289d54c6cacc20533626d5427b163651",
+        "visual-group-theory/notes/chapter10_galois_theory.html": "7686bb56b77ab28a5b731c38181f557b467ccbec91b241f00c10d57e2efb9122",
+        "visual-group-theory/notes/preface.html": "3a6a019efce8a430b9f2a483651fc4f0c96d8b6530d9e875a3591adfda85ae05",
+        "stochastic/notes/appendix_a_probability_review.html": "f71a3a6d626c7b5dd9d48b1db23daa100feb1a5a35c7bc85fd0d4e5eb569029f",
+        "stochastic/notes/book_overview.html": "ff7f34a860efb9f426cbe876384a84b9a336eeca13da096a411c5f8c9ef792c0",
+        "stochastic/notes/chapter01_markov_chains.html": "d4f4b26512f7a7da9f8d32e1a79912041cdda5e1087775341fac39fcb9129b90",
+        "stochastic/notes/chapter02_poisson_processes.html": "3d0520b87fe6722278b04c54d7b2386060b9a531ea5970fbfe2b75ba899cf22d",
+        "stochastic/notes/chapter03_renewal_processes.html": "15f5b5719f503415d9c266bb406235f00941725814ee9803884cc6796f6a33de",
+        "stochastic/notes/chapter04_continuous_time_markov_chains.html": "faddc183bc8c429abe0f7ae32e64f421c30ee62a09f1bfad3b9a08aa25465738",
+        "stochastic/notes/chapter05_martingales.html": "3537dcc03d111b6622bdca109301c9a7a4cece1137e87191b7d25182bae6a30b",
+        "stochastic/notes/chapter06_mathematical_finance.html": "a9feb075c24a9f5b780d368bef2bc3ba5b8ded8d79a3d8c50f4e7d4e0d4217a7",
+        "stochastic/notes/preface.html": "f086532f9b4306aadae9174988bddd5ceccb836937f0a44d3ecb015383d8ba96",
+        "weiss/notes/book_overview.html": "394aab49cdd31e72e404f56cde4270f610a145d472acb1d9898b6e812a704380",
+        "weiss/notes/chapter01_introduction.html": "adc7fcefbe0eb15fd024c4a75b87c7487544f8373b3c495cb26201365d86cf33",
+        "weiss/notes/chapter02_algorithm_analysis.html": "2d6283b70b3ccd17fe5016f08694e98f67da0835865100517695dc468b6baa83",
+        "weiss/notes/chapter03_lists_stacks_queues.html": "cb59d206e67a66b79d198a4b3e4fbd95b290449fb5b94d3d0141424cb709ded9",
+        "weiss/notes/chapter04_trees.html": "5e95b8df42a1e7731441b4a3a90cccaa584aeaf2721b15ac385bb9741e3f459c",
+        "weiss/notes/chapter05_priority_queues.html": "2c7ceecc3c29e92717e5548fd9a20563b57ac0ace5e045b164f604012921a7a0",
+        "weiss/notes/chapter06_sorting.html": "32c93624229560e9b8696293c18a432e0f0046b2f5f7d4030774dc49663b2122",
+        "weiss/notes/chapter07_hashing.html": "c8dddff29137b2e5911b4e520dc3d40a38015aea0bb11cd74a66d42b8f6a6b8f",
+        "weiss/notes/chapter08_disjoint_sets.html": "91b6a349ef14b7bb1d9bcd2be7eefca43ebf62a30014bc1bf90d43734756d098",
+        "weiss/notes/chapter09_graph_algorithms.html": "9039eabbd2a13b119ea735dbdf80c4e455710daa5e9f7cfdea83b14f1d05e371",
+        "weiss/notes/chapter10_algorithm_design.html": "67261629132a74553f8281314abacb1d1515b6cda314d1ac2d3767b14c9cb636",
+        "weiss/notes/chapter11_amortized_analysis.html": "7d1f9f510ae02c3ecedaac82dbdbf4fac9379db71cfaf0fdcc71987a5498c710",
+        "weiss/notes/chapter12_advanced_data_structures.html": "c6d3fbadf14c079795dd1ab7512b1c62f08acf3dfc060a8dc010e459e2b22d0a",
+        "csapp/notes/book_overview.html": "a9351803e58c5a98f29c7fd0231fed01178d2417e88d436e4f61913651cba40f",
+        "csapp/notes/chapter01_tour.html": "7c551bc03a5268e2a40f6aa84ce2d0ef1454d4b222f8aeb888cd20748e1314db",
+        "csapp/notes/chapter02_information.html": "b87aa748cd4c7f15c18e524fa2748244434cf0fc6316422f9847f6ef99207d0c",
+        "csapp/notes/chapter03_machine_level.html": "d68652fdd1c9e2bdf370113f87a45c013ecb49eb358d090368d348324f5c1918",
+        "csapp/notes/chapter04_architecture.html": "1b811a0a1499189f4c6db3921171511c3f212a317ef43ba4111d4d11d3b33fa5",
+        "csapp/notes/chapter05_optimization.html": "aba6eda388789f10cc57191ee0409f99b12e767a1a47acdc05285fc2b96f4a4b",
+        "csapp/notes/chapter06_memory.html": "07d54b34c28a539807300014d15c8b53acec1534da5c0df9644a0a7556450d30",
+        "csapp/notes/chapter07_linking.html": "800159b074b501bdd0d86f283ab3f5a5e760c8b330013d73c3e1419b86b3167e",
+        "csapp/notes/chapter08_exceptional.html": "c5a0966803b62318a2906f249cee9363d9355643fe586275164d8c4349bb8cf7",
+        "csapp/notes/chapter09_virtual_memory.html": "d2b4c9b4df87b3284d7f75bcacb738528a557d4f03f6a3aec4ea8309d70b7b57",
+        "csapp/notes/chapter10_system_io.html": "b98309aa8ec1ea32800f1079e728fd9dbcea71a95d95fcec14419c9729c7646a",
+        "csapp/notes/chapter11_network.html": "773df0d3de11bf79b7f4d2dd279cf2792a6372a6bc7c3af8baabe32704dc23c2",
+        "csapp/notes/chapter12_concurrency.html": "9bcc92aa62f7b597f4df90564329d8fde102a39326a4f567a6ae31c3d3cfc4d1",
+        "csapp/notes/preface.html": "2afaafcb1398ca60880535166e16b5bce18d804120d0b27c2ac8adc693976bb1"
+      }
+    },
+    "targeted_reader_paths": {
+      "report": "tmp/components-rollout-20261020/reader-spots-final/report.json",
+      "views": 38,
+      "native_no_js_proofs": 4
+    },
+    "manual_visual_readback": {
+      "status": "passed",
+      "method": "Opened and visually read image pixels through view_image in the current session",
+      "screenshots_viewed": [
+        {
+          "file": "tmp/components-rollout-20261020/reader-spots-final/stochastic-theorem-1-1-proof-390.png",
+          "sha256": "3e24e3169a042c3489a120d96a2db7fcb8940fb93a067141f42c2ebc549d0fbc"
+        },
+        {
+          "file": "tmp/components-rollout-20261020/reader-spots-final/measure-probability-ex-6-27-390.png",
+          "sha256": "b3db17c34c84a026c53801ec338e1b0e8c61675e9c32f06cf451918257e478ea"
+        },
+        {
+          "file": "tmp/components-rollout-20261020/reader-spots-final/weiss-rn-leftist-bound-390.png",
+          "sha256": "d6afece7365b7e418d6fbd372cb0aab1e925a3ed53e35e7f17f19ac19135662e"
+        },
+        {
+          "file": "tmp/components-rollout-20261020/reader-spots-final/visual-group-theory-theorem-5-1-390.png",
+          "sha256": "162d25ac0564e99b267c5198adfce320c21037232d5f6f774a9ca8de589743a9"
+        },
+        {
+          "file": "tmp/components-rollout-20261020/reader-spots-final/weiss-ex1-1-1440.png",
+          "sha256": "af9ca4e3c797edc04e20bc59d10a294a5b214de50e54ca84e86cc8e40beecdc4"
+        },
+        {
+          "file": "tmp/components-rollout-20261020/reader-spots-final/weiss-ex12-1-1440.png",
+          "sha256": "8936b90a1c23ae2c924568314a83bd05b4c0d8c3869ba0f4601d4d9d9df302f5"
+        },
+        {
+          "file": "tmp/components-rollout-20261020/reader-spots-final/weiss-ex12-1-step3-390.png",
+          "sha256": "ae337491d6143ad3187a47f48f207f114a3fe10fdf8045db5f134ba538f8df8f"
+        },
+        {
+          "file": "tmp/components-rollout-20261020/reader-spots-final/weiss-ex12-1-step6-1440.png",
+          "sha256": "2930bae0a8a1ec04219191d9ffaab8a5ea68c29cd29224bf95b657afb30e3f1b"
+        },
+        {
+          "file": "tmp/components-rollout-20261020/reader-spots-final/csapp-principle-2-unsigned-encoding-390.png",
+          "sha256": "79e4414fd024ad0c2edf010ca61960e49362e82921541df8a544b8fb8e1b1c42"
+        },
+        {
+          "file": "tmp/components-rollout-20261020/reader-spots-final/csapp-rn-example-1-1-1440.png",
+          "sha256": "882635f826020dfd1bc1168c39232b468b0767ab16c771b93658c21c163ea7c4"
+        },
+        {
+          "file": "tmp/components-rollout-20261020/reader-spots-final/csapp-ex-12-39-390.png",
+          "sha256": "3995330718d57bdfed75af9b1097772f702257b4276debf242a4f11cb6b63502"
+        },
+        {
+          "file": "tmp/components-rollout-20261020/reader-spots-final/visual-group-theory-theorem-10-11-proof-1440.png",
+          "sha256": "82d995a703fc31cc7efd476947046c54f4bd4b2a040c73279edd39e127246535"
+        },
+        {
+          "file": "tmp/components-rollout-20261020/reader-spots-final/stochastic-theorem-1-1-1440.png",
+          "sha256": "35852b9ddd2d2ee9896da050554c341df6c83ce48acf771de2c2251581929594"
+        },
+        {
+          "file": "tmp/components-rollout-20261020/reader-spots-final/stochastic-example-1-4-390.png",
+          "sha256": "bc612c503c5d15e5469287a6dd6a59fbd7de2df4201189cae790231a1c1a0381"
+        },
+        {
+          "file": "tmp/components-rollout-20261020/reader-spots-final/stochastic-example-5-9-390.png",
+          "sha256": "459866c190942ccacb6e96cbbaed28bb8f507cf8f62802b580df43dc690caa58"
+        },
+        {
+          "file": "tmp/components-rollout-20261020/reader-spots-final/weiss-rn-proof-chapter07-1440.png",
+          "sha256": "f7e91a7080c43a8f1ca8eeb153e9a9c656f8f40a0315d565c7d9254c78aa7ee0"
+        },
+        {
+          "file": "tmp/components-rollout-20261020/reader-spots-final/measure-probability-theorem-1-3-2-1440.png",
+          "sha256": "4b042a1409263f65eab95eb2bd3fd1b14a0fcd3f85de478a540230007861e5d0"
+        },
+        {
+          "file": "tmp/components-rollout-20261020/reader-spots-final/measure-probability-theorem-1-3-2-390.png",
+          "sha256": "875bb219a931d2cafb486407c2381753d76f496823913f79ca3a5ef44a6d9f68"
+        },
+        {
+          "file": "tmp/components-rollout-20261020/reader-spots-final/weiss-rn-packing-bounds-1440.png",
+          "sha256": "9346de51f4b4e6a2158cae09fdd7eb474859607f9f4add4746a314197b6f7c96"
+        },
+        {
+          "file": "tmp/components-rollout-20261020/reader-spots-final/weiss-ex1-1-390.png",
+          "sha256": "002c7f5ba2744be24db9db806f688e1350bcb6634d603ce3969918d562aaa3f8"
+        },
+        {
+          "file": "tmp/components-rollout-20261020/reader-spots-final/stochastic-theorem-1-1-proof-1440.png",
+          "sha256": "5b86016f15c0f7b18129fcbf98e53009443fc2e8f7e01111310c860a8d636516"
+        },
+        {
+          "file": "tmp/components-rollout-20261020/reader-spots-final/visual-group-theory-theorem-10-11-proof-390.png",
+          "sha256": "5d2fd339facb3d03bd251cf6bfb882bd18cd93373f598a3217718accf06bc0f1"
+        },
+        {
+          "file": "tmp/components-rollout-20261020/reader-spots-final/weiss-ex12-1-step6-390.png",
+          "sha256": "2a774291231e8b26eb97bea479728ddefcdc75340768944f48d5dbdb9db3fcc7"
+        },
+        {
+          "file": "tmp/components-rollout-20261020/reader-spots-final/csapp-rn-example-1-1-390.png",
+          "sha256": "ba40a3328785c35298f004933f2e8e79b1fd599fd6680c45cab78ce10573ed1d"
+        }
+      ],
+      "findings": "Final component titles are visible below fixed navigation. Mathematical layout, local scrolling, statement/proof separation and exercise/code presentation were visually read.",
+      "limits": "Representative manual reading; all-page computed-style and geometry checks are separate."
+    },
+    "parity": {
+      "pages": 56,
+      "differences": 0
+    },
+    "performance": {
+      "pages": 76,
+      "status": "passed"
+    }
+  }
+}

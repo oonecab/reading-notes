@@ -29,21 +29,21 @@
     "code/sylow.py": "a912c93325b8d76b9c358148481f12e25420cfe7993b49eff5237b240714942c",
     "code/tables.c": "94fc3d207985dbda78ca3f4e53b7300a5decac14d505d688d675aa5206b4eeb3",
     "code/tables.py": "9e5755dfdb90ccc2d04f28a27ab4c430893469730a15dc075c79aa7994b62d83",
-    "notes/README.md": "30b6c4582f3b22d7b0803909a39b13fbe747270ca78ba6d8713bfe53390b5c9d",
+    "notes/README.md": "338a0b8fc194c742b645bf35f509ea39db9f9511fe2dfc0b5ff27ac851b17e50",
     "notes/algebra_inputs.json": "0f9d1ca881822af32e01db131019fb91192f0570fa1b366946f5dd192cd770ce",
-    "notes/book_overview.html": "7f62f2bc3ee92441a274bed9395747b2fa8da57b481a83b346eb38094b6e2afb",
-    "notes/chapter01_what_is_a_group.html": "eb199f9c4e18d8798a1a2b3b857a4d167597ef865240210882109226ffb2075b",
-    "notes/chapter02_what_do_groups_look_like.html": "683005e2729eb40b9ba13e3958c4159b61e7d29b44718cf2f7042a4e358c02a7",
-    "notes/chapter03_why_study_groups.html": "677d4c58de3f14c4870d85377946e7d7c1b55a2eaf7cb3ea40d101b792d86a4b",
-    "notes/chapter04_algebra_at_last.html": "0392ed264f748ae1466b39544acf82f56bcf2b0f5805e2e06b81c27377ed1f24",
-    "notes/chapter05_five_families.html": "2516e98357384a6d37047d2dcfc0f82e66402e6f4a41af7cca8a4b846d1171a2",
-    "notes/chapter06_subgroups.html": "637260be65ade2b64f3f21fe4a86a108d2aeef4d78ed42469a88ff20b5218324",
-    "notes/chapter07_products_and_quotients.html": "5cba664803e8489f96a290ec257024e519038961498b258b84e0f7e508c33758",
-    "notes/chapter08_homomorphisms.html": "aaeca980fc8e8c32a2126188e997fac2fca704b2ff1745f2474220b2a1b746b5",
-    "notes/chapter09_sylow_theory.html": "090ad2053310e455d4938b1e166dbbbc3cd5eacc6d62352ee792b1e43cad11db",
-    "notes/chapter10_galois_theory.html": "f95c10f25b53fe6eba4e4cb536bd59b5f43b42aa0b51d8316aa5c1ccdb862471",
+    "notes/book_overview.html": "c722c8b297f5ed00a3c38dfe699ede9f962e32c33beb83f7ae4441b6e57fbd7c",
+    "notes/chapter01_what_is_a_group.html": "f3659e66913cd0835cec48aee95c1bf10b006d647f68fcb4631a5e08234e902c",
+    "notes/chapter02_what_do_groups_look_like.html": "423d6b528a446cd37499ef920287b40631e7167ad7e5f7a20f17896f7a56def1",
+    "notes/chapter03_why_study_groups.html": "549ac3cbf633566d792c33bd1c7580c720a954237398d57645cb4d07e277b087",
+    "notes/chapter04_algebra_at_last.html": "ab2c0325212320c0da14effb07c5499715f59b45c65d6866598cd5bd2ea2a7ee",
+    "notes/chapter05_five_families.html": "2e5c77ef416419f6214210219ec9cfb8198723e92281d3e8c7385b02834f5156",
+    "notes/chapter06_subgroups.html": "5119da25f2ed0a99948c7e15c7b79db553c06dab2c831fbd259d987c276abd37",
+    "notes/chapter07_products_and_quotients.html": "1ccca2406db43a98bb0bb725046a955313a394d3820cbf023a4b2b32e44906de",
+    "notes/chapter08_homomorphisms.html": "51420ff86e04e13fccf4f2dd47d9a673add4a03f7ead6a97e1589ad1c74780e2",
+    "notes/chapter09_sylow_theory.html": "f6b18381e1dcc905d745f601e59e9fc358bc3f559e61a1736b0a7283c6c89b5f",
+    "notes/chapter10_galois_theory.html": "f517f256f4b586f85b89663e61c150dcd4846899873fabe5ffd2477bc7d5706d",
     "notes/exercise_manifest.json": "804134c833922b16c8b2cbdd1657f140f90710d37e1a9f275bf85d3e549d6cbc",
-    "notes/preface.html": "fd91a9f873822512937b889c2fe84a7c128502bf3f2130fa3f09a48e374ca99b",
+    "notes/preface.html": "43ed02a1b1b22f906f457dd99c8f254cbc85fde4656fb7278434f0247486b253",
     "notes/source_excerpts.json": "ae9a838e098ba9805b1eda5a2c835f512bd100f5ae86cc774aa1d59ec968bf5a",
     "notes/source_inventory.json": "bac4bfb9e68bee85bba3c779ded0fb2e7372c79be69c7f04e58628e76e53b284",
     "notes/source_manifest.json": "36d3e1d988194e724320d0a8e56c96afd09e91d8865e6e4010a24754109a344a",
@@ -186,5 +186,78 @@
       "sha256": "1ec6d5fe6b18738cf15fd73abd9c86cd990d6bd202f5f9c0d5c80ba0f41d9eed"
     },
     "visual_scope": "Automated whole-site acceptance; targeted new measure content and auxiliary-page visual checks recorded separately"
-  }
+  },
+  "content_revision_binding_history": [
+    {
+      "issue": "I040",
+      "reason": "Reviewed component representation and content corrections; original binding values retained.",
+      "changes": [
+        {
+          "file": "notes/README.md",
+          "previous_sha256": "30b6c4582f3b22d7b0803909a39b13fbe747270ca78ba6d8713bfe53390b5c9d",
+          "current_sha256": "338a0b8fc194c742b645bf35f509ea39db9f9511fe2dfc0b5ff27ac851b17e50"
+        },
+        {
+          "file": "notes/book_overview.html",
+          "previous_sha256": "7f62f2bc3ee92441a274bed9395747b2fa8da57b481a83b346eb38094b6e2afb",
+          "current_sha256": "c722c8b297f5ed00a3c38dfe699ede9f962e32c33beb83f7ae4441b6e57fbd7c"
+        },
+        {
+          "file": "notes/chapter01_what_is_a_group.html",
+          "previous_sha256": "eb199f9c4e18d8798a1a2b3b857a4d167597ef865240210882109226ffb2075b",
+          "current_sha256": "f3659e66913cd0835cec48aee95c1bf10b006d647f68fcb4631a5e08234e902c"
+        },
+        {
+          "file": "notes/chapter02_what_do_groups_look_like.html",
+          "previous_sha256": "683005e2729eb40b9ba13e3958c4159b61e7d29b44718cf2f7042a4e358c02a7",
+          "current_sha256": "423d6b528a446cd37499ef920287b40631e7167ad7e5f7a20f17896f7a56def1"
+        },
+        {
+          "file": "notes/chapter03_why_study_groups.html",
+          "previous_sha256": "677d4c58de3f14c4870d85377946e7d7c1b55a2eaf7cb3ea40d101b792d86a4b",
+          "current_sha256": "549ac3cbf633566d792c33bd1c7580c720a954237398d57645cb4d07e277b087"
+        },
+        {
+          "file": "notes/chapter04_algebra_at_last.html",
+          "previous_sha256": "0392ed264f748ae1466b39544acf82f56bcf2b0f5805e2e06b81c27377ed1f24",
+          "current_sha256": "ab2c0325212320c0da14effb07c5499715f59b45c65d6866598cd5bd2ea2a7ee"
+        },
+        {
+          "file": "notes/chapter05_five_families.html",
+          "previous_sha256": "2516e98357384a6d37047d2dcfc0f82e66402e6f4a41af7cca8a4b846d1171a2",
+          "current_sha256": "2e5c77ef416419f6214210219ec9cfb8198723e92281d3e8c7385b02834f5156"
+        },
+        {
+          "file": "notes/chapter06_subgroups.html",
+          "previous_sha256": "637260be65ade2b64f3f21fe4a86a108d2aeef4d78ed42469a88ff20b5218324",
+          "current_sha256": "5119da25f2ed0a99948c7e15c7b79db553c06dab2c831fbd259d987c276abd37"
+        },
+        {
+          "file": "notes/chapter07_products_and_quotients.html",
+          "previous_sha256": "5cba664803e8489f96a290ec257024e519038961498b258b84e0f7e508c33758",
+          "current_sha256": "1ccca2406db43a98bb0bb725046a955313a394d3820cbf023a4b2b32e44906de"
+        },
+        {
+          "file": "notes/chapter08_homomorphisms.html",
+          "previous_sha256": "aaeca980fc8e8c32a2126188e997fac2fca704b2ff1745f2474220b2a1b746b5",
+          "current_sha256": "51420ff86e04e13fccf4f2dd47d9a673add4a03f7ead6a97e1589ad1c74780e2"
+        },
+        {
+          "file": "notes/chapter09_sylow_theory.html",
+          "previous_sha256": "090ad2053310e455d4938b1e166dbbbc3cd5eacc6d62352ee792b1e43cad11db",
+          "current_sha256": "f6b18381e1dcc905d745f601e59e9fc358bc3f559e61a1736b0a7283c6c89b5f"
+        },
+        {
+          "file": "notes/chapter10_galois_theory.html",
+          "previous_sha256": "f95c10f25b53fe6eba4e4cb536bd59b5f43b42aa0b51d8316aa5c1ccdb862471",
+          "current_sha256": "f517f256f4b586f85b89663e61c150dcd4846899873fabe5ffd2477bc7d5706d"
+        },
+        {
+          "file": "notes/preface.html",
+          "previous_sha256": "fd91a9f873822512937b889c2fe84a7c128502bf3f2130fa3f09a48e374ca99b",
+          "current_sha256": "43ed02a1b1b22f906f457dd99c8f254cbc85fde4656fb7278434f0247486b253"
+        }
+      ]
+    }
+  ]
 }

@@ -1,5 +1,7 @@
 # Astro 内容与独立检查
 
+I040 将五书的教学组件接入 `src/styles/reading-components.css`；每页内联一次，作用域为 `body.rn-components`。发布适配层保留该类并添加站点导航，冻结的 I028 Transformer 不变。陈述常显、证明默认展开、习题默认收起，明确边界及例题映射见 `docs/reading-components-inventory.json`。原题条件和证明的实质修订单独列入 `docs/reading-components-review.json`；旧浏览器记录保留旧 hash，新增当前表示绑定不能充当重新目视验收。
+
 受控正文位于 `src/content/books/<book>/`，一章一份 HTML，文件头为 JSON frontmatter。共享 CSS/JS 在 `src/styles/`、`src/scripts/`，由 `RN:include` 标记按原字节展开。`ReaderLayout` 提供 head/body 骨架，组件保留语义片段边界，静态 MathML/SVG 不经重排。目录、注解与复制是独立的渐进增强脚本；基础阅读和原生 details 使用静态 HTML。
 
 `books/<book>/notes/*.html` 是受控源展开后的兼容镜像，供原 Python 检查器独立读取。构建在验证受控源身份后自动生成镜像；`node scripts/sync-legacy.mjs` 单独检查一致性，`--write` 单独生成。兼容快照暂时随 Git 保留以支持独立检查与回滚，正文的唯一权威源是 `src/content/books/`。C/Python 程序仍遵循各书原代码维护入口，先把显示块同步进受控章节，再展开镜像并运行原检查。Weiss 的教学程序维护于受控章节内。
@@ -28,7 +30,7 @@ CSP 和离线验收默认复用 `tmp/final-assessment/browser-session.json` 中�
 
 离线证据在 `tmp/reading-notes-migration/browser/<all或书名>/runs/<UTC时间-随机ID>/`，CSP 证据在 `tmp/reading-notes-migration/csp/runs/<ID>/`。每轮独立保存 `report.json`、`driver.log` 和截图，报告使用临时文件、fsync 和原子替换。父目录的 `report.json` 只在完整成功且驱动正常退出后更新，`latest-attempt.json` 标明最近一次尝试及其状态；检查最近结果必须同时查看两者。失败保留其完整目录，不覆盖上一次成功截图。历史旧格式报告仍按原路径保留，I032 已归档证据不回写。
 
-深链在执行与最终读取前等待目标存在，并在单次 DOM 读取中验证 URL、取得节点和读取状态；节点瞬时消失最多尝试三次，缺失或导航至别页明确失败。只有有习题的正式页检查首末习题深链；旧入口核对重定向与内容，辅助页保留渲染、目录和滚动检查。
+深链在执行与最终读取前等待目标存在，并在单次 DOM 读取中验证 URL、取得节点和读取状态；节点瞬时消失最多尝试三次，缺失或导航至别页明确失败。I040 起还要求目标标题位于实际顶部导航及手机目录栏下方，仅进入视口而仍被遮挡不算通过。只有有习题的正式页检查首末习题深链；旧入口核对重定向与内容，辅助页保留渲染、目录和滚动检查。
 
 ### 新书与新页的构建空跑
 

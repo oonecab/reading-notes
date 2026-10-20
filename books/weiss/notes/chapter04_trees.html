@@ -133,7 +133,171 @@ main[id],main [id]{scroll-margin-top:24px}
 }
 @media(max-width:640px){.chapter-sidebar{padding:8px 18px}}
 @media print{.reading-layout{display:block;max-width:860px;padding:0}.chapter-sidebar,.skip-link{display:none}.reading-layout>main{padding:24px}}
-</style></head><body><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="本章目录"><details class="toc-panel" id="toc-panel" open><summary>本章目录</summary><nav class="chapter-toc" id="chapter-toc" aria-label="本章目录"><a class="toc-home" href="book_overview.html">← 全书地图</a><ul><li><a href="#opening">第三章留下的问题：找到位置仍然太慢</a></li><li><a href="#general">§4.1：先把关系说清，再决定指针怎样放</a></li><li><a href="#binary">§4.2：表达式树，把第三章的栈接到树上</a></li><li><a href="#traversal">§4.2.3：遍历顺序就是计算依赖顺序</a></li><li><a href="#bst">§4.3：有序约束让查找只走一条路</a></li><li><a href="#average">§4.3.6：平均 O(logN)，究竟平均了什么？</a></li><li><a href="#avl">§4.4：AVL 把平衡变成每个节点的不变量</a></li><li><a href="#splay">§4.5：伸展树关心的是下一次访问</a></li><li><a href="#btree">§4.6：当读取一个节点需要访问磁盘</a></li><li><a href="#closing">合上书之后：四类查找结构各保护什么？</a></li><li><a href="#exercises">习题解答 · 4.1–4.46</a></li></ul></nav></details></aside><main id="top" tabindex="-1">
+</style><style>
+/* RN-001 shared teaching components. Inlined in every controlled reading page. */
+.rn-components {
+  --rn-space: 1rem;
+  --rn-label-size: .95rem;
+  --rn-title-size: 1.05rem;
+}
+.rn-components :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
+  min-width: 0;
+  scroll-margin-top: 24px;
+}
+.rn-components .rn-statement {
+  margin: 1.5rem 0;
+  padding: 1rem 1.15rem;
+  border: 0;
+  border-left: 3px solid var(--green);
+  background: var(--tint);
+}
+.rn-components :is(.rn-statement, .rn-example) > :is(h3, h4, .rn-title) {
+  margin: 0 0 .8rem;
+  padding: 0;
+  border: 0;
+  font-size: var(--rn-title-size);
+  line-height: 1.7;
+  font-weight: 650;
+  color: var(--green);
+}
+.rn-components .rn-statement > .statement-body {
+  padding: 0;
+  border: 0;
+}
+.rn-components .rn-statement .original-excerpt {
+  margin: .5rem 0 1rem;
+  padding: .1rem 0 .1rem .85rem;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-statement .statement-label {
+  margin: .8rem 0 .3rem;
+  color: var(--sub);
+  font-size: .85rem;
+  font-weight: 600;
+}
+.rn-components .rn-example {
+  margin: 1.75rem 0;
+  padding: 1rem 0 .25rem;
+  border: 0;
+  border-top: 1px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-proof {
+  margin: 1.1rem 0 1.75rem;
+  padding: 0 0 .2rem 1rem;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-proof > summary {
+  cursor: pointer;
+  margin: 0;
+  padding: .35rem 0;
+  color: var(--green);
+  font-size: var(--rn-label-size);
+  font-weight: 650;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .rn-proof > .rn-proof-body { margin-top: .7rem; }
+.rn-components .rn-proof-body p { margin: .85rem 0; }
+.rn-components .rn-proof-body > :first-child:not(.rn-example):not(.rn-statement):not(.rn-proof) {
+  margin-top: 0;
+}
+.rn-components :is(.rn-proof-body, .rn-statement, .rn-example) > :last-child:not(.rn-example):not(.rn-statement):not(.rn-proof) {
+  margin-bottom: 0;
+}
+.rn-components .exercise {
+  margin: 1rem 0;
+  padding: 0;
+  border: 1px solid var(--rule);
+  background: transparent;
+}
+.rn-components .exercise > summary {
+  margin: 0;
+  padding: .85rem 1rem;
+  color: var(--green);
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .exercise[open] > summary {
+  border-bottom: 1px solid var(--rule);
+  background: var(--tint);
+}
+.rn-components .exercise > :is(.exercise-question, .answer) {
+  margin: 0;
+  padding: 1rem;
+  border: 0;
+  background: transparent;
+  min-width: 0;
+}
+.rn-components .exercise > .answer {
+  border-top: 1px solid var(--rule);
+}
+.rn-components .exercise :is(.exercise-question, .answer) > :first-child {
+  margin: 0 0 .75rem;
+  padding: 0;
+  border: 0;
+  color: var(--green);
+  font-size: var(--rn-label-size);
+  font-weight: 650;
+  line-height: 1.75;
+}
+.rn-components .exercise :is(.exercise-question, .answer) > :first-child > strong { font-weight: inherit; }
+.rn-components :is(.exercise-question, .answer) > :last-child { margin-bottom: 0; }
+.rn-components :is(.rn-statement, .rn-example, .rn-proof, .exercise) .source {
+  margin-top: 1rem;
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components .exercise > .source {
+  margin: 0;
+  padding: 0 1rem 1rem;
+}
+.rn-components .rn-statement .source-status {
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components :is(.derivation-steps, .proof-steps, .solution-steps) {
+  margin: .75rem 0 1rem;
+  padding-left: 1.5rem;
+}
+.rn-components :is(.derivation-steps, .proof-steps, .solution-steps) > li {
+  padding-left: .15rem;
+  margin: .9rem 0;
+}
+.rn-components :is(.rn-proof, .exercise) > summary:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+.rn-components :is(.rn-proof-body, .rn-example, .rn-statement, .exercise-question, .answer) {
+  overflow-wrap: break-word;
+}
+@media (max-width: 1100px) {
+  .rn-components:not(.portal-reader):not(.sample-fragment) :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
+    scroll-margin-top: 90px;
+  }
+}
+@media (max-width: 640px) {
+  .rn-components .rn-statement { padding: .85rem .8rem; }
+  .rn-components .rn-proof { padding-left: .75rem; }
+  .rn-components .exercise > :is(summary, .exercise-question, .answer) {
+    padding: .85rem .8rem;
+  }
+  .rn-components .exercise > .source { padding: 0 .8rem .85rem; }
+}
+@media print {
+  .rn-components .rn-proof::details-content { content-visibility: visible !important; }
+}
+
+</style>
+</head><body class="rn-components"><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="本章目录"><details class="toc-panel" id="toc-panel" open><summary>本章目录</summary><nav class="chapter-toc" id="chapter-toc" aria-label="本章目录"><a class="toc-home" href="book_overview.html">← 全书地图</a><ul><li><a href="#opening">第三章留下的问题：找到位置仍然太慢</a></li><li><a href="#general">§4.1：先把关系说清，再决定指针怎样放</a></li><li><a href="#binary">§4.2：表达式树，把第三章的栈接到树上</a></li><li><a href="#traversal">§4.2.3：遍历顺序就是计算依赖顺序</a></li><li><a href="#bst">§4.3：有序约束让查找只走一条路</a></li><li><a href="#average">§4.3.6：平均 O(logN)，究竟平均了什么？</a></li><li><a href="#avl">§4.4：AVL 把平衡变成每个节点的不变量</a></li><li><a href="#splay">§4.5：伸展树关心的是下一次访问</a></li><li><a href="#btree">§4.6：当读取一个节点需要访问磁盘</a></li><li><a href="#closing">合上书之后：四类查找结构各保护什么？</a></li><li><a href="#exercises">习题解答 · 4.1–4.46</a></li></ul></nav></details></aside><main id="top" tabindex="-1">
 <header><div class="overline">Weiss · 第二版中国改编版 · 第四章</div><h1>第四章：树</h1><p class="intro">沿原书的思路追问：树怎样表示关系，遍历怎样表达计算依赖，查找怎样利用顺序；当树变深时，又该维护平衡、调整访问路径，还是改变每个节点的容量？</p><p class="small">依据仓库中的第二版中国改编版 PDF。正文与总结：印刷页 83–134（PDF 第 100–151 页）；习题：134–140；参考文献：141–143。英文短摘句注明小节与页码；解释、重绘图和教学代码由笔记编写。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="book_overview.html#program-guide">程序说明</a><a href="chapter03_lists_stacks_queues.html">上一章：表、栈和队列</a><a href="chapter05_priority_queues.html">下一章：优先队列（堆）</a></p></header>
 <section id="opening"><h2>一、第三章留下的问题：找到位置仍然太慢</h2><p>链表把局部插入与删除变成了少量链接修改，但这有一个前提：已经知道操作位置。若每次按值查找都要从头扫描，输入一大，<span class="math-inline"><math data-tex="\mathrm{O}(N)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>N</mi><mo stretchy="false">)</mo></mrow></math></span> 的定位就成了瓶颈。第四章开头正是从这个问题出发，提出多数查找操作平均只需 <span class="math-inline"><math data-tex="\mathrm{O}(\log  N)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mi>N</mi><mo stretchy="false">)</mo></mrow></math></span> 的结构。</p><p>不过作者没有直接开始写查找树。他先把“树”作为更一般的抽象介绍：目录有层次，表达式有嵌套，查找有逐步缩小的候选范围。三种问题都能用树表达，但它们需要的结构约束不同。<strong>一棵二叉树不会仅仅因为长得像树，就自动拥有对数时间的查找能力。</strong></p><p>全章随后给出三个不同的保护策略：AVL 严格限制局部高度差；伸展树允许某次访问很慢，却通过调整控制连续操作的总成本；<span class="math-inline"><math data-tex="B" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>B</mi></mrow></math></span> 树扩大分支数，把注意力转向磁盘访问。这不是三种可以随意互换的“平衡技巧”，而是三种不同的代价管理方式。</p></section>
 <section id="general"><h2>二、§4.1：先把关系说清，再决定指针怎样放</h2><h3>2.1　深度向上看，高度向下看</h3><p>树的定义本身是递归的：空集合可以是树；非空树有一个根，根连接零棵或多棵非空子树。非空树有 <span class="math-inline"><math data-tex="N" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>N</mi></mrow></math></span> 个节点、<span class="math-inline"><math data-tex="N-1" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></math></span> 条父子边，因为除根外，每个节点恰好有一个父亲。从根到任意节点的路径唯一，这也是文件路径与递归下降能够工作的重要原因。</p><p>原书图 4.2 用字母树区分父亲、孩子、兄弟、叶子、祖先与后代。读图时必须按<strong>边数</strong>计路径长度，而不是数经过几个节点：根深度为 0，叶子高度为 0；节点深度是根到它的距离，高度是它到最深叶子的距离。整棵树的高度等于最深叶子的深度。</p><div class="callout">本章的约定：空树高度为 <span class="math-inline"><math data-tex="-1" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>−</mo><mn>1</mn></mrow></math></span>，单节点树高度为 0。因此 <code>height(T) = 1 + max(height(T.left), height(T.right))</code> 对叶子也成立。它不是所有教材共同采用的约定，写代码与推导时要保持一致。</div><h3>2.2　图 4.3–4.4：第一孩子／下一兄弟</h3><p>一般树的孩子数量未知。若每个节点固定预留很多孩子指针，会浪费空间；若预留太少，又装不下。作者把第三章的链表思想搬过来：节点只存 <code>FirstChild</code> 与 <code>NextSibling</code>。第一个链接向下进入孩子表，第二个链接向右寻找同一父亲的其他孩子。</p><div class="scroll"><table><thead><tr><th>链接</th><th>含义</th><th>遍历动作</th></tr></thead><tbody><tr><td><code>FirstChild</code></td><td>当前节点的第一个孩子</td><td>进入下一层</td></tr><tr><td><code>NextSibling</code></td><td>当前节点的下一个兄弟</td><td>保持层次，走向另一棵兄弟子树</td></tr></tbody></table></div><p>图 4.4 中，<span class="math-inline"><math data-tex="E" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>E</mi></mrow></math></span> 的孩子链接指向 <span class="math-inline"><math data-tex="I" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>I</mi></mrow></math></span>，兄弟链接指向 <span class="math-inline"><math data-tex="F" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>F</mi></mrow></math></span>。这两个字段都能为空。虽然每个节点只有两个链接，却仍在表达一棵多叉树：<strong>兄弟不是孩子，不能把两个字段机械当成普通二叉树的左右孩子来解释深度。</strong>列出某个节点的全部孩子，需要从其 FirstChild 开始沿 NextSibling 扫描；访问整棵树时，再对每个孩子递归。</p><p>这种表示总空间为 <span class="math-inline"><math data-tex="\mathrm{O}(N)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>N</mi><mo stretchy="false">)</mo></mrow></math></span>，代价是无法像数组那样直接取得“第 <span class="math-inline"><math data-tex="k" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>k</mi></mrow></math></span> 个孩子”。它再次说明：减少存储与增强随机访问能力，是两种不同的目标。</p></section>
@@ -269,7 +433,7 @@ def bst_clear(t):
 <section id="average"><h2>六、§4.3.6：平均 <span class="math-inline"><math data-tex="\mathrm{O}(\log  N)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mi>N</mi><mo stretchy="false">)</mo></mrow></math></span>，究竟平均了什么？</h2><p>查找、插入、删除的直接保证是 <span class="math-inline"><math data-tex="\mathrm{O}(h+1)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>h</mi><mo>+</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></math></span>，而非无条件的 <span class="math-inline"><math data-tex="\mathrm{O}(\log  N)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mi>N</mi><mo stretchy="false">)</mo></mrow></math></span>。作者用内部路径长度 <span class="math-inline"><math data-tex="D(N)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>D</mi><mo stretchy="false">(</mo><mi>N</mi><mo stretchy="false">)</mo></mrow></math></span>——全部节点深度之和——推导平均结论。若根的左子树有 <span class="math-inline"><math data-tex="i" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>i</mi></mrow></math></span> 个节点，右子树有 <span class="math-inline"><math data-tex="N-i-1" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>N</mi><mo>−</mo><mi>i</mi><mo>−</mo><mn>1</mn></mrow></math></span> 个，则把两棵子树接到根下，会使其中每个节点深度增加 1：</p><div class="equation"><math data-tex="D(T)=D(T_{\mathrm{left}})+D(T_{\mathrm{right}})+N-1" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>D</mi><mo stretchy="false">(</mo><mi>T</mi><mo stretchy="false">)</mo><mo>=</mo><mi>D</mi><mo stretchy="false">(</mo><msub><mi>T</mi><mrow><mrow><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">f</mi><mi mathvariant="normal">t</mi></mrow></mrow></msub><mo stretchy="false">)</mo><mo>+</mo><mi>D</mi><mo stretchy="false">(</mo><msub><mi>T</mi><mrow><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">g</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">t</mi></mrow></mrow></msub><mo stretchy="false">)</mo><mo>+</mo><mi>N</mi><mo>−</mo><mn>1</mn></mrow></math></div><p>随机插入模型下，令 <span class="math-inline"><math data-tex="E_N" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>E</mi><mi>N</mi></msub></mrow></math></span> 为期望内部路径长度。根的秩均匀，两侧期望求和对称，于是</p><div class="equation"><math data-tex="E_0=E_1=0,\qquad E_N=\frac{2}{N}\sum_{j=0}^{N-1}E_j+N-1." display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>E</mi><mn>0</mn></msub><mo>=</mo><msub><mi>E</mi><mn>1</mn></msub><mo>=</mo><mn>0</mn><mo>,</mo><mspace width="2em"></mspace><msub><mi>E</mi><mi>N</mi></msub><mo>=</mo><mfrac><mrow><mn>2</mn></mrow><mrow><mi>N</mi></mrow></mfrac><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></munderover><msub><mi>E</mi><mi>j</mi></msub><mo>+</mo><mi>N</mi><mo>−</mo><mn>1</mn><mo>.</mo></mrow></math></div><p>与前一规模的递推相减，再除以相邻规模，可求得 <span class="math-inline"><math data-tex="E_N=2(N+1)H_N-4N" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>E</mi><mi>N</mi></msub><mo>=</mo><mn>2</mn><mo stretchy="false">(</mo><mi>N</mi><mo>+</mo><mn>1</mn><mo stretchy="false">)</mo><msub><mi>H</mi><mi>N</mi></msub><mo>−</mo><mn>4</mn><mi>N</mi></mrow></math></span>，其中 <span class="math-inline"><math data-tex="H_N=\sum_{j=1}^N\frac1j" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>H</mi><mi>N</mi></msub><mo>=</mo><msubsup><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></msubsup><mfrac><mn>1</mn><mi>j</mi></mfrac></mrow></math></span>。因此 <span class="math-inline"><math data-tex="E_N=\mathrm{O}(N\log N)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>E</mi><mi>N</mi></msub><mo>=</mo><mi>O</mi><mo stretchy="false">(</mo><mi>N</mi><mi>log</mi><mi>N</mi><mo stretchy="false">)</mo></mrow></math></span>，平均节点深度为 <span class="math-inline"><math data-tex="E_N/N=\mathrm{O}(\log N)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>E</mi><mi>N</mi></msub><mo>/</mo><mi>N</mi><mo>=</mo><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mi>N</mi><mo stretchy="false">)</mo></mrow></math></span>（<span class="math-inline"><math data-tex="N\ge 1" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>N</mi><mo>≥</mo><mn>1</mn></mrow></math></span>）。</p><p>这里应把“随机”说具体：<span class="math-inline"><math data-tex="N" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>N</mi></mrow></math></span> 个互异键以各插入排列等可能的方式建树，根的秩均匀，于是左子树规模 0 到 <span class="math-inline"><math data-tex="N-1" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></math></span> 等可能。<strong>不同树形本身并不等概率。</strong>例如三个键时，以最小键为根的某些链形只有一个排列产生，以中间键为根的平衡形可以由两个排列产生。原书关于“all trees equally likely”的概括，阅读时宜以随后的插入序列与根秩推导为准确依据。</p><p>这证明的是随机插入条件下的平均访问深度，不能把“节点平均深度”和“整棵树的最大深度”当成同一量。若输入已经排好序，<span class="math-inline"><math data-tex="N" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>N</mi></mrow></math></span> 次插入会形成链，每一步越来越深，总成本达到 <span class="math-inline"><math data-tex="\Theta (N^{2})" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Θ</mi><mo stretchy="false">(</mo><msup><mi>N</mi><mrow><mn>2</mn></mrow></msup><mo stretchy="false">)</mo></mrow></math></span>。</p><p>图 4.31–4.32 及邻近说明进一步提醒：交错插入、删除会改变分布。总从右子树取后继的删除带有方向偏置；原书讨论长期更新下的失衡现象，并没有给任意插删序列颁发平均对数时间保证。这里最重要的不是记住一次实验的数字，而是明白“平均”需要能够被维护的概率前提。</p><p>因此，下节的 AVL 才有必要：不是再证明随机输入表现好，而是改变结构约束，使有序输入这样的简单坏例子也不会把树拖成长链。</p></section>
 <section id="avl"><h2>七、§4.4：AVL 把平衡变成每个节点的不变量</h2><h3>7.1　只要求根平衡，为什么不够？</h3><p>图 4.33 两边可以同样高，却各自都很深，说明只平衡根无济于事。若要求所有节点左右高度完全相同，又太严格，几乎只允许完美二叉树。AVL 放宽为：<strong>每个节点的左右子树高度差至多 1</strong>。这是逐节点的约束，不是整棵树“看起来比较匀”。</p><p>图 4.35 讨论高度为 <span class="math-inline"><math data-tex="h" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>h</mi></mrow></math></span> 的 AVL 至少有多少节点。为了节点尽可能少，两棵子树高度应为 <span class="math-inline"><math data-tex="h-1" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>h</mi><mo>−</mo><mn>1</mn></mrow></math></span> 与 <span class="math-inline"><math data-tex="h-2" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>h</mi><mo>−</mo><mn>2</mn></mrow></math></span>，因此 <span class="math-inline"><math data-tex="S(h)=S(h-1)+S(h-2)+1" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>S</mi><mo stretchy="false">(</mo><mi>h</mi><mo stretchy="false">)</mo><mo>=</mo><mi>S</mi><mo stretchy="false">(</mo><mi>h</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo>+</mo><mi>S</mi><mo stretchy="false">(</mo><mi>h</mi><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo><mo>+</mo><mn>1</mn></mrow></math></span>，且 <span class="math-inline"><math data-tex="S(-1)=0" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>S</mi><mo stretchy="false">(</mo><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo>=</mo><mn>0</mn></mrow></math></span>、<span class="math-inline"><math data-tex="S(0)=1" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>S</mi><mo stretchy="false">(</mo><mn>0</mn><mo stretchy="false">)</mo><mo>=</mo><mn>1</mn></mrow></math></span>。其增长类似 Fibonacci 数，反过来得到 <span class="math-inline"><math data-tex="h=\mathrm{O}(\log " display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>h</mi><mo>=</mo><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi></mrow></math></span> <span class="math-inline"><math data-tex="N" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>N</mi></mrow></math></span>)。例如高度 9 至少需要 143 个节点。这个递推比背诵高度上界的系数更能解释平衡条件为什么有效。</p><h3>7.2　插入只影响访问路径</h3><p>插入发生在一个空孩子位置。只有这个位置的祖先高度可能改变，因此沿递归返回路径更新高度，找第一个（最深的）失衡节点 <span class="math-inline"><math data-tex="\alpha " display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>α</mi></mrow></math></span>。左右高度差从合法的 1 变到 2，失衡落在四种方向组合之一。</p><div class="scroll"><table><thead><tr><th>从 <span class="math-inline"><math data-tex="\alpha " display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>α</mi></mrow></math></span> 下降的两步</th><th>位置</th><th>修复</th></tr></thead><tbody><tr><td>LL</td><td>左孩子的左侧，外侧</td><td>在 <span class="math-inline"><math data-tex="\alpha " display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>α</mi></mrow></math></span> 处右旋</td></tr><tr><td>RR</td><td>右孩子的右侧，外侧</td><td>在 <span class="math-inline"><math data-tex="\alpha " display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>α</mi></mrow></math></span> 处左旋</td></tr><tr><td>LR</td><td>左孩子的右侧，内侧</td><td>先左旋左孩子，再右旋 <span class="math-inline"><math data-tex="\alpha " display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>α</mi></mrow></math></span></td></tr><tr><td>RL</td><td>右孩子的左侧，内侧</td><td>先右旋右孩子，再左旋 <span class="math-inline"><math data-tex="\alpha " display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>α</mi></mrow></math></span></td></tr></tbody></table></div><p>注意书中的 <code>SingleRotateWithLeft</code> 名称是“与左孩子旋转”，对应通常说的<strong>右旋</strong>。不能单凭 Left 字样判断旋转方向。</p><h3>7.3　图 4.36：单旋真正移动的是哪几条链接？</h3><p>以 LL 为例，旧根 <span class="math-inline"><math data-tex="k_{2}" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>k</mi><mrow><mn>2</mn></mrow></msub></mrow></math></span> 的左孩子为 <span class="math-inline"><math data-tex="k_{1}" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>k</mi><mrow><mn>1</mn></mrow></msub></mrow></math></span>。原有键序是 <span class="math-inline"><math data-tex="X" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>X</mi></mrow></math></span> &lt; <span class="math-inline"><math data-tex="k_{1}" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>k</mi><mrow><mn>1</mn></mrow></msub></mrow></math></span> &lt; <span class="math-inline"><math data-tex="Y" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Y</mi></mrow></math></span> &lt; <span class="math-inline"><math data-tex="k_{2}" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>k</mi><mrow><mn>2</mn></mrow></msub></mrow></math></span> &lt; <span class="math-inline"><math data-tex="Z" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Z</mi></mrow></math></span>。让 <span class="math-inline"><math data-tex="k_{1}" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>k</mi><mrow><mn>1</mn></mrow></msub></mrow></math></span> 升为根，<span class="math-inline"><math data-tex="k_{2}" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>k</mi><mrow><mn>2</mn></mrow></msub></mrow></math></span> 成为它的右孩子，<span class="math-inline"><math data-tex="Y" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Y</mi></mrow></math></span> 转为 <span class="math-inline"><math data-tex="k_{2}" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>k</mi><mrow><mn>2</mn></mrow></msub></mrow></math></span> 的左子树。<span class="math-inline"><math data-tex="X" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>X</mi></mrow></math></span>、<span class="math-inline"><math data-tex="Y" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Y</mi></mrow></math></span>、<span class="math-inline"><math data-tex="Z" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Z</mi></mrow></math></span> 的内部结构完全保留。</p>
 <figure><div class="scroll"><svg aria-labelledby="rotation-title" role="img" viewBox="0 0 700 280"><title id="rotation-title">右旋前后：k1 成为新根，Y 从 k1 的右子树转为 k2 的左子树</title><g class="e"><path d="M180 70 L100 110 M180 70 L270 175 M100 150 L50 185 M100 150 L150 185 M500 70 L450 175 M500 70 L590 110 M590 150 L540 185 M590 150 L650 185"></path></g><g><text class="hint" x="160" y="24">旋转前</text><text class="hint" x="550" y="24">右旋后</text><circle class="n" cx="180" cy="50" r="22"></circle><text x="180" y="56">k<tspan baseline-shift="sub" font-size="75%">2</tspan></text><circle class="n" cx="100" cy="130" r="22"></circle><text x="100" y="136">k<tspan baseline-shift="sub" font-size="75%">1</tspan></text><rect class="n" height="36" width="50" x="25" y="185"></rect><text x="50" y="209">X</text><rect class="n" height="36" width="50" x="125" y="185"></rect><text x="150" y="209">Y</text><rect class="n" height="36" width="50" x="245" y="175"></rect><text x="270" y="199">Z</text><text x="350" y="130">→</text><circle class="n" cx="500" cy="50" r="22"></circle><text x="500" y="56">k<tspan baseline-shift="sub" font-size="75%">1</tspan></text><circle class="n" cx="590" cy="130" r="22"></circle><text x="590" y="136">k<tspan baseline-shift="sub" font-size="75%">2</tspan></text><rect class="n" height="36" width="50" x="425" y="175"></rect><text x="450" y="199">X</text><rect class="n" height="36" width="50" x="515" y="185"></rect><text x="540" y="209">Y</text><rect class="n" height="36" width="50" x="625" y="185"></rect><text x="650" y="209">Z</text><text class="hint" x="350" y="260">中序顺序保持：X → k<tspan baseline-shift="sub" font-size="75%">1</tspan> → Y → k<tspan baseline-shift="sub" font-size="75%">2</tspan> → Z</text></g></svg></div><figcaption>依据图 4.36 重绘，框代表整棵子树。旋转改变高度，不改变中序键序。</figcaption></figure>
-<p>图 4.37 的具体例子是给原来的 AVL 插入 6，使 8 的左侧过深，再让 7 升到 8 的位置。单旋只需要常数次链接修改，但必须把新根接回原父节点：原书随后插入 3、2、1、4、5、6、7 的推演中，旋转使 4 取代 3 时，2 的右孩子也必须从 3 改为 4，否则新树会变得不可达。</p><h3>7.4　图 4.39–4.41：内侧失衡为什么要双旋？</h3><p>LR 情况下，深的是左孩子的右子树。直接右旋把外层换了，却没把这棵内侧子树拉上来。最小例子是依次插入 3、1、2：3 左边是 1，1 右边是 2；只右旋会得到根 1、右孩子 3、3 左边 2，仍然失衡。先在 1 处左旋，再在 3 处右旋，得到根 2、左孩子 1、右孩子 3。</p><p>图 4.40 把它推广到四棵子树 <span class="math-inline"><math data-tex="A" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi></mrow></math></span>、<span class="math-inline"><math data-tex="B" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>B</mi></mrow></math></span>、<span class="math-inline"><math data-tex="C" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>C</mi></mrow></math></span>、<span class="math-inline"><math data-tex="D" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>D</mi></mrow></math></span>：中间键 <span class="math-inline"><math data-tex="k_{2}" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>k</mi><mrow><mn>2</mn></mrow></msub></mrow></math></span> 升为根，<span class="math-inline"><math data-tex="k_{1}" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>k</mi><mrow><mn>1</mn></mrow></msub></mrow></math></span>、<span class="math-inline"><math data-tex="k_{3}" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>k</mi><mrow><mn>3</mn></mrow></msub></mrow></math></span> 分居两边，<span class="math-inline"><math data-tex="B" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>B</mi></mrow></math></span>、<span class="math-inline"><math data-tex="C" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>C</mi></mrow></math></span> 分别转接到两侧的内侧孩子位置。它不是丢掉中间子树再重建，而是通过键的区间约束确定每条链接的新位置。书中继续插入 16、15、14 等值的长例子，是为了展示子树非空时也必须保留这套区间关系。</p><h3>7.5　高度更新是旋转的一部分</h3><p>图 4.43 的 Height 读取节点中保存的高度，空节点返回 <span class="math-inline"><math data-tex="-1" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>−</mo><mn>1</mn></mrow></math></span>，时间 <span class="math-inline"><math data-tex="\mathrm{O}(1)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></math></span>；它不同于图 4.10 那个递归计算整棵树高度的函数。若在 AVL 的每一层都重新遍历子树来算高度，就会破坏预期的插入效率。</p><p>下面是独立编写的旋转教学代码。前提是根及被提升的孩子非空，而且原有高度字段正确；双旋还要求内侧孙子存在。它不分配、不释放节点，只修改链接与高度；调用者必须接回返回值。AVL 插入的比较与递归外壳见图 4.44，这里只展示维护约束的核心。</p><div class="code-pair" id="pair-avl-code" data-pair="avl-code"><details class="code-version" data-language="c" open=""><summary>C（C11）</summary><pre><code id="avl-code" data-language="c" class="language-c">#include &lt;stddef.h&gt;
+<div class="rn-example" id="rn-example-4-1"><h3>例：AVL 插入与旋转</h3><p>图 4.37 的具体例子是给原来的 AVL 插入 6，使 8 的左侧过深，再让 7 升到 8 的位置。单旋只需要常数次链接修改，但必须把新根接回原父节点：原书随后插入 3、2、1、4、5、6、7 的推演中，旋转使 4 取代 3 时，2 的右孩子也必须从 3 改为 4，否则新树会变得不可达。</p></div><h3>7.4　图 4.39–4.41：内侧失衡为什么要双旋？</h3><p>LR 情况下，深的是左孩子的右子树。直接右旋把外层换了，却没把这棵内侧子树拉上来。最小例子是依次插入 3、1、2：3 左边是 1，1 右边是 2；只右旋会得到根 1、右孩子 3、3 左边 2，仍然失衡。先在 1 处左旋，再在 3 处右旋，得到根 2、左孩子 1、右孩子 3。</p><p>图 4.40 把它推广到四棵子树 <span class="math-inline"><math data-tex="A" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi></mrow></math></span>、<span class="math-inline"><math data-tex="B" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>B</mi></mrow></math></span>、<span class="math-inline"><math data-tex="C" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>C</mi></mrow></math></span>、<span class="math-inline"><math data-tex="D" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>D</mi></mrow></math></span>：中间键 <span class="math-inline"><math data-tex="k_{2}" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>k</mi><mrow><mn>2</mn></mrow></msub></mrow></math></span> 升为根，<span class="math-inline"><math data-tex="k_{1}" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>k</mi><mrow><mn>1</mn></mrow></msub></mrow></math></span>、<span class="math-inline"><math data-tex="k_{3}" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>k</mi><mrow><mn>3</mn></mrow></msub></mrow></math></span> 分居两边，<span class="math-inline"><math data-tex="B" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>B</mi></mrow></math></span>、<span class="math-inline"><math data-tex="C" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>C</mi></mrow></math></span> 分别转接到两侧的内侧孩子位置。它不是丢掉中间子树再重建，而是通过键的区间约束确定每条链接的新位置。书中继续插入 16、15、14 等值的长例子，是为了展示子树非空时也必须保留这套区间关系。</p><h3>7.5　高度更新是旋转的一部分</h3><p>图 4.43 的 Height 读取节点中保存的高度，空节点返回 <span class="math-inline"><math data-tex="-1" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>−</mo><mn>1</mn></mrow></math></span>，时间 <span class="math-inline"><math data-tex="\mathrm{O}(1)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></math></span>；它不同于图 4.10 那个递归计算整棵树高度的函数。若在 AVL 的每一层都重新遍历子树来算高度，就会破坏预期的插入效率。</p><p>下面是独立编写的旋转教学代码。前提是根及被提升的孩子非空，而且原有高度字段正确；双旋还要求内侧孙子存在。它不分配、不释放节点，只修改链接与高度；调用者必须接回返回值。AVL 插入的比较与递归外壳见图 4.44，这里只展示维护约束的核心。</p><div class="code-pair" id="pair-avl-code" data-pair="avl-code"><details class="code-version" data-language="c" open=""><summary>C（C11）</summary><pre><code id="avl-code" data-language="c" class="language-c">#include &lt;stddef.h&gt;
 typedef struct Avl {
     int key, height;
     struct Avl *left, *right;

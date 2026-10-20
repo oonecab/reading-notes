@@ -305,6 +305,21 @@
       "original": "习题 6.26 将 F_n(x)−F(x) 除以 √[nF(x)(1−F(x))]，声称趋标准正态。",
       "correction": "平均的标准差应为 √[F(x)(1−F(x))/n]；等价地分子乘 √n、分母只留 √[F(x)(1−F(x))]。",
       "basis": "n 个 Bernoulli 指标的和方差为 np(1−p)，平均的方差则为 p(1−p)/n。原式还可直接由有界分子证明趋零。"
+    },
+    {
+      "id": "MP-COMPANION-627",
+      "page": "chapter06_independent_sequences.html",
+      "anchor": "ex-6-27-moment-note",
+      "printed_pages": [
+        216
+      ],
+      "pdf_pages": [
+        228
+      ],
+      "original": "原书习题 6.27 要求独立同分布非退化随机变量的四阶矩有限。",
+      "correction": "伴读原题恢复四阶矩；二阶矩条件作为解答证明得到的推广另列。此项修正伴读转写，不是原书错误。",
+      "basis": "重新目视 PDF 第 228 页；Cauchy–Schwarz 推出有限二阶矩，CLT、平方变量的强律与 Slutsky 夹逼使用有限二阶矩。",
+      "issue": "I040"
     }
   ]
 }

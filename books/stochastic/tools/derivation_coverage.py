@@ -107,7 +107,7 @@ def inventory(documents=None, notes=NOTES):
             dest, target = target_for(documents, page, a.attrs.get('href'))
             if target is not None:
                 incoming[(dest, target.attrs['id'])] += 1
-        for n in doc.root.walk('div'):
+        for n in doc.root.walk():
             if n.has_class('source-review'):
                 reviews.append({'page': page, 'id': n.attrs['id'],
                                 'text_characters': len(readable(n))})
@@ -116,7 +116,7 @@ def inventory(documents=None, notes=NOTES):
         doc = documents[page]
         dest, target = target_for(documents, page, href)
         section = section_of(doc, node) if node else None
-        candidates = [r for r in doc.root.walk('div') if r.has_class('source-review')
+        candidates = [r for r in doc.root.walk() if r.has_class('source-review')
                       and mentions_result(r, number)] if kind in RESULT_KINDS else []
         target_class = next((c for c in ['source-review', 'body-derivation']
                              if target is not None and target.has_class(c)), 'other')
@@ -154,7 +154,7 @@ def inventory(documents=None, notes=NOTES):
             'target_id': (target.attrs.get('id') if target else None) or (urlsplit(href or '').fragment or None),
             'target_class': target_class,
             'target_mentions_number': has_number, 'target_has_proof_steps': has_steps,
-            'in_section_source_review_ids': [n.attrs['id'] for n in section.walk('div') if n.has_class('source-review')] if section else [],
+            'in_section_source_review_ids': [n.attrs['id'] for n in section.walk() if n.has_class('source-review')] if section else [],
             'candidate_proof_ids': [n.attrs['id'] for n in candidates],
             'gap_type': gap, 'source_pdf_pages': source_pages or [],
             'text_characters': len(readable(specific)) if specific else 0,
@@ -163,7 +163,7 @@ def inventory(documents=None, notes=NOTES):
     result_nodes = {}
     exercise_nodes = {}
     for page, doc in documents.items():
-        for n in doc.root.walk('details'):
+        for n in doc.root.walk():
             if n.has_class('source-statement') and n.attrs.get('data-source-kind') in RESULT_KINDS:
                 key = (n.attrs['data-source-kind'], n.attrs['data-source-number'])
                 if key in result_nodes:
@@ -231,8 +231,8 @@ def validate(documents, pages=None):
             if target is None or not target.has_class('source-review') or not mentions(target, number):
                 errors.append(label + ': proof target does not cover this result')
                 continue
-            item = next((n for n in target.walk('div') if n.attrs.get('data-proof-for') == kind + ':' + number), None)
-            if item is None or not any(mentions(h, number) for h in item.walk('h4')):
+            item = next((n for n in target.walk() if n.attrs.get('data-proof-for') == kind + ':' + number), None)
+            if item is None or not any(mentions(h, number) for h in item.walk() if h.tag in {'h4', 'summary'}):
                 errors.append(label + ': missing explicit item-specific proof and visible number')
                 continue
             sequence = steps(item, 'proof-steps')

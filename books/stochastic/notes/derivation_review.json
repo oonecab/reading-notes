@@ -2324,28 +2324,28 @@
   ],
   "files": {
     "notes/remaining_explanation_review.json": {
-      "bytes": 830665,
-      "sha256": "7e418f9d21e4982279490a996e55802369b43b1907cdc2e2a19f4915748c0952"
+      "bytes": 831172,
+      "sha256": "c3ab30b253b6bc524718b91f47831cc305319af6cce683adccdd581add77550b"
     },
     "notes/chapter01_explanation_review.json": {
-      "bytes": 184641,
-      "sha256": "d5a6cf3b02ded119fbc837bf4824836ac91485373a401ab1d07e79c4b41df0f2"
+      "bytes": 185148,
+      "sha256": "5e44357da7c5640f52b77d517dafe7f416e44631fdf9a34a4f85a3acbb133a0a"
     },
     "notes/derivation_coverage.json": {
       "bytes": 356326,
-      "sha256": "e89ee6dfea1f7e7c9ed9ab403aa8ba436249c97ef382a0de64befcdc4166ec23"
+      "sha256": "1259088a6b1f3b2ace88d8d70f2f87071b0e2c51001a54bd0e35188e5fa23198"
     },
     "tools/derivation_coverage.py": {
-      "bytes": 15794,
-      "sha256": "84cbd451ba661fdc78b7e39b5e4e8ab32076afda8e72adbcfade9a7816fb3b4a"
+      "bytes": 15791,
+      "sha256": "20c755825e09474c7b57e07a3065fd8a54c2d2fdf9011f16fd20ff6ca353d296"
     },
     "tools/check_notes.py": {
-      "bytes": 26770,
-      "sha256": "034867cf277244e8f5b74cb6b7ce4830ab522b1075a3cf9b27402d90e25298de"
+      "bytes": 26792,
+      "sha256": "ba62cd72b8554d6122937f0f35b9e5b23726e06701f4cf223539f96d52b654ca"
     },
     "tools/content_baseline.json": {
       "bytes": 1975727,
-      "sha256": "88b59f81fd487316f90696b8bd442ad3433536adc500a2195ef90bf3a0a15202"
+      "sha256": "9b8f7164e919a947e6f7829796efad288f86e4b11b4127f3351db027fff7dc70"
     }
   },
   "publication": "Local review only; no commit, push or deployment.",
@@ -5984,5 +5984,11 @@
     "content_regressions": "pass",
     "tooling_regressions": "pass",
     "scope": "Fresh registered full check of current files. This numerical/tooling evidence is separate from author mathematical proof review and browser review."
+  },
+  "I040_representation_revision": {
+    "issue": "I040",
+    "prior_record_git": "41a77dd3affc726bef81505ca5cde067d6f3944c:books/stochastic/notes/derivation_review.json",
+    "prior_record_sha256": "f9c363e296ca2871d57c4e8572243ba9a245fa385096b1335a66b11420d69902",
+    "scope": "Current representation bindings updated after byte-preservation review. Historical mathematical and browser claims keep their original scope; fresh acceptance is recorded in docs/reading-components-review.json"
   }
 }

@@ -68,3 +68,5 @@ make 编译独立 C 程序，sync_code 检查源码与网页逐字一致。check
 验证分工明确：`tools/content_integrity.py` 保存已审阅的文字、MathML、TeX、摘录及来源链接快照，后续变化会要求重新审阅；快照一致本身不能证明数学正确。完整检查从PDF提取文字，核对236题和117条编号结果的353个编号及起始页；四处内容修订另有确切代数回归。`tools/generate_cases.py` 从输入独立生成有理数／解析基准，避免只用同一程序产生期望结果；`tools/test_tooling.py` 验证内容变异、空公式、语言标记、超额代码块、资源依赖和异常退出能被识别。四项仿真另加入三种种子，共12次额外运行。这些是已执行的有限检查，原文翻译和一般证明仍需逐项数学审阅。
 
 正文维护入口已迁至 `src/content/books/stochastic/`，本目录九份 HTML 为独立 Python 检查使用的展开镜像；共享样式和脚本由构建内联。详见 [Astro 维护说明](../../../docs/astro-authoring.md)。原数学、来源和程序记录继续按原范围使用。
+
+2026-10-20 起，四类教学组件统一遵循 [RN-001 v1.1](../../../docs/reading-notes-standard.md)；共享维护源为 `src/styles/reading-components.css`。陈述保持可见，证明默认展开并可折叠，习题默认收起，题干、解答与来源共用排版。具体覆盖与本轮内容修正见 [I040](../../../issues/I040-unified-reading-components.md)，原数学审阅和历史执行证据保留。

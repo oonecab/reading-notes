@@ -197,7 +197,171 @@ main[id],main [id]{scroll-margin-top:24px}
 .action-controls{display:flex;flex-wrap:wrap;gap:.6rem}button{font:inherit;cursor:pointer;color:var(--green);background:var(--paper);border:1px solid var(--green);padding:.4rem .7rem;border-radius:3px}button:focus-visible{outline:3px solid #96b9a7;outline-offset:3px}button:disabled{opacity:.55;cursor:default}.interactive-word{overflow-wrap:anywhere}.compact-table{min-width:0!important}.compact-table th,.compact-table td{padding:.4rem .6rem}.small-diagram{min-width:0;max-width:650px}.rule-index{display:flex;flex-wrap:wrap;gap:.3rem 1rem}.book-map-row{scroll-margin-top:150px}.pending{color:var(--sub)}.source-ref{font-size:.85rem;color:var(--sub)}
 
 .proof{margin:1rem 0 1.6rem}.proof-label{color:var(--green);font-weight:600}.source-correction{border-left:3px solid #916e36;background:#faf5e9;padding:.7rem 1rem;margin:1.3rem 0}.statement h3{font-size:1.05rem}.definition-table{min-width:670px}.concept-index{columns:2}.exercise-question .equation{font-size:.94em}@media(max-width:640px){.concept-index{columns:1}}
-</style></head><body><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="章节目录"><details class="toc-panel" id="toc-panel" open><summary>目录</summary><nav class="chapter-toc" id="chapter-toc"><a class="toc-home" href="book_overview.html">伴读总览</a><ul><li><a href="#thread">全书主线</a></li><li><a href="#chapters">六章地图</a></li><li><a href="#dependencies">基础与依赖</a></li><li><a href="#scope">当前范围</a></li><li><a href="#index">概念索引</a></li><li><a href="#program-guide">程序入口</a></li><li><a href="#source">来源与页序</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">程士宏 · 测度论与概率论基础 · 中文伴读</p><h1>全六章伴读总览</h1><p>当前正文覆盖原书六章及全部 170 道习题，包含第五章无穷维乘积与第六章全部星号内容。下表可直接进入各章正文。</p><p class="intro">从“能描述什么”走到“能测量什么”，再建立概率的极限语言</p><p class="source">原书目录 PDF 11—12；正文六章印刷 1—216</p><p class="chapter-nav"><a href="book_overview.html">伴读总览</a><a href="preface.html">序言与前言 →</a></p></header><section id="thread"><h2>这本书在搭一座什么桥</h2>
+</style><style>
+/* RN-001 shared teaching components. Inlined in every controlled reading page. */
+.rn-components {
+  --rn-space: 1rem;
+  --rn-label-size: .95rem;
+  --rn-title-size: 1.05rem;
+}
+.rn-components :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
+  min-width: 0;
+  scroll-margin-top: 24px;
+}
+.rn-components .rn-statement {
+  margin: 1.5rem 0;
+  padding: 1rem 1.15rem;
+  border: 0;
+  border-left: 3px solid var(--green);
+  background: var(--tint);
+}
+.rn-components :is(.rn-statement, .rn-example) > :is(h3, h4, .rn-title) {
+  margin: 0 0 .8rem;
+  padding: 0;
+  border: 0;
+  font-size: var(--rn-title-size);
+  line-height: 1.7;
+  font-weight: 650;
+  color: var(--green);
+}
+.rn-components .rn-statement > .statement-body {
+  padding: 0;
+  border: 0;
+}
+.rn-components .rn-statement .original-excerpt {
+  margin: .5rem 0 1rem;
+  padding: .1rem 0 .1rem .85rem;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-statement .statement-label {
+  margin: .8rem 0 .3rem;
+  color: var(--sub);
+  font-size: .85rem;
+  font-weight: 600;
+}
+.rn-components .rn-example {
+  margin: 1.75rem 0;
+  padding: 1rem 0 .25rem;
+  border: 0;
+  border-top: 1px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-proof {
+  margin: 1.1rem 0 1.75rem;
+  padding: 0 0 .2rem 1rem;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-proof > summary {
+  cursor: pointer;
+  margin: 0;
+  padding: .35rem 0;
+  color: var(--green);
+  font-size: var(--rn-label-size);
+  font-weight: 650;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .rn-proof > .rn-proof-body { margin-top: .7rem; }
+.rn-components .rn-proof-body p { margin: .85rem 0; }
+.rn-components .rn-proof-body > :first-child:not(.rn-example):not(.rn-statement):not(.rn-proof) {
+  margin-top: 0;
+}
+.rn-components :is(.rn-proof-body, .rn-statement, .rn-example) > :last-child:not(.rn-example):not(.rn-statement):not(.rn-proof) {
+  margin-bottom: 0;
+}
+.rn-components .exercise {
+  margin: 1rem 0;
+  padding: 0;
+  border: 1px solid var(--rule);
+  background: transparent;
+}
+.rn-components .exercise > summary {
+  margin: 0;
+  padding: .85rem 1rem;
+  color: var(--green);
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .exercise[open] > summary {
+  border-bottom: 1px solid var(--rule);
+  background: var(--tint);
+}
+.rn-components .exercise > :is(.exercise-question, .answer) {
+  margin: 0;
+  padding: 1rem;
+  border: 0;
+  background: transparent;
+  min-width: 0;
+}
+.rn-components .exercise > .answer {
+  border-top: 1px solid var(--rule);
+}
+.rn-components .exercise :is(.exercise-question, .answer) > :first-child {
+  margin: 0 0 .75rem;
+  padding: 0;
+  border: 0;
+  color: var(--green);
+  font-size: var(--rn-label-size);
+  font-weight: 650;
+  line-height: 1.75;
+}
+.rn-components .exercise :is(.exercise-question, .answer) > :first-child > strong { font-weight: inherit; }
+.rn-components :is(.exercise-question, .answer) > :last-child { margin-bottom: 0; }
+.rn-components :is(.rn-statement, .rn-example, .rn-proof, .exercise) .source {
+  margin-top: 1rem;
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components .exercise > .source {
+  margin: 0;
+  padding: 0 1rem 1rem;
+}
+.rn-components .rn-statement .source-status {
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components :is(.derivation-steps, .proof-steps, .solution-steps) {
+  margin: .75rem 0 1rem;
+  padding-left: 1.5rem;
+}
+.rn-components :is(.derivation-steps, .proof-steps, .solution-steps) > li {
+  padding-left: .15rem;
+  margin: .9rem 0;
+}
+.rn-components :is(.rn-proof, .exercise) > summary:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+.rn-components :is(.rn-proof-body, .rn-example, .rn-statement, .exercise-question, .answer) {
+  overflow-wrap: break-word;
+}
+@media (max-width: 1100px) {
+  .rn-components:not(.portal-reader):not(.sample-fragment) :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
+    scroll-margin-top: 90px;
+  }
+}
+@media (max-width: 640px) {
+  .rn-components .rn-statement { padding: .85rem .8rem; }
+  .rn-components .rn-proof { padding-left: .75rem; }
+  .rn-components .exercise > :is(summary, .exercise-question, .answer) {
+    padding: .85rem .8rem;
+  }
+  .rn-components .exercise > .source { padding: 0 .8rem .85rem; }
+}
+@media print {
+  .rn-components .rn-proof::details-content { content-visibility: visible !important; }
+}
+
+</style>
+</head><body class="rn-components"><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="章节目录"><details class="toc-panel" id="toc-panel" open><summary>目录</summary><nav class="chapter-toc" id="chapter-toc"><a class="toc-home" href="book_overview.html">伴读总览</a><ul><li><a href="#thread">全书主线</a></li><li><a href="#chapters">六章地图</a></li><li><a href="#dependencies">基础与依赖</a></li><li><a href="#scope">当前范围</a></li><li><a href="#index">概念索引</a></li><li><a href="#program-guide">程序入口</a></li><li><a href="#source">来源与页序</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">程士宏 · 测度论与概率论基础 · 中文伴读</p><h1>全六章伴读总览</h1><p>当前正文覆盖原书六章及全部 170 道习题，包含第五章无穷维乘积与第六章全部星号内容。下表可直接进入各章正文。</p><p class="intro">从“能描述什么”走到“能测量什么”，再建立概率的极限语言</p><p class="source">原书目录 PDF 11—12；正文六章印刷 1—216</p><p class="chapter-nav"><a href="book_overview.html">伴读总览</a><a href="preface.html">序言与前言 →</a></p></header><section id="thread"><h2>这本书在搭一座什么桥</h2>
 <p>初等概率里，我们常直接使用“事件的概率”“随机变量的期望”和“随机变量趋于某个极限”。一旦样本空间无限，三个问题就必须分开回答：哪些集合允许谈概率，哪些函数允许谈期望，哪一种“趋于”足以支持后续运算。本书用测度论把这些对象放进同一套严谨语言。</p>
 <p>先选空间 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>X</mi></mrow></math></span> 和允许讨论的集合系 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi mathvariant="script">F</mi></mrow></math></span>，得到可测空间；再给集合赋予大小 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>&#x003BC;</mi></mrow></math></span>，得到测度空间；再用简单函数把集合上的大小推广成函数的积分。概率空间是 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>P</mi><mo stretchy="false">&#x00028;</mo><mi>X</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><mn>1</mn></mrow></math></span> 的测度空间，数学期望是这种空间上的积分。后半本书继续处理带正负号的测度、多坐标空间及独立随机变量序列。</p>
 <p>前两章是这条路线的地基。第一章解决“能不能描述”，第二章解决“怎样测量、怎样理解极限”。第二章末的分布函数、分位数与 Skorokhod 表示已经把抽象工具接回概率论，因此阅读时不宜把它们拆成互不相干的定义表。</p>

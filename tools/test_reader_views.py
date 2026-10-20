@@ -61,6 +61,15 @@ def reading_page(book, source_link):
 
 
 class SourcePageNavigation(unittest.TestCase):
+    def test_component_scope_survives_publication_without_double_transformation(self):
+        original = reading_page('weiss', '').replace(
+            b'<body>', b'<body class="rn-components">')
+        published = transform_reading_page(original, 'weiss/notes/chapter01.html', {})
+        self.assertIn(b'<body class="portal-reader rn-components">', published)
+        self.assertEqual(published.count(b'<nav class="reader-bar"'), 1)
+        with self.assertRaisesRegex(ValueError, 'canonical, untransformed'):
+            transform_reading_page(published, 'weiss/notes/chapter01.html', {})
+
     def test_historical_review_binding_accepts_only_the_exact_head_icon_insertion(self):
         original = b'<html><head><title>Book</title></head><body><p>Original text</p><script>read()</script></body></html>'
         expected = hashlib.sha256(original).hexdigest()

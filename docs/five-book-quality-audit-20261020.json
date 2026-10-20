@@ -1,0 +1,881 @@
+{
+  "schema_version": 1,
+  "audit_id": "I038",
+  "status": "completed_with_findings",
+  "recorded_at": "2026-10-20T07:47:37.632621+00:00",
+  "source_head": "41a77dd3affc726bef81505ca5cde067d6f3944c",
+  "release_id": "20261020T152942",
+  "scope": {
+    "books": 5,
+    "chapters": 46,
+    "reading_pages": 56,
+    "publication_html": 76,
+    "original_exercises": 1489,
+    "self_checks": 36
+  },
+  "content_review": {
+    "method": "Chapter-level representative reading and selected PDF visual checks; not a fresh proof of every exercise.",
+    "pdf_pages_viewed": 6
+  },
+  "execution": {
+    "registered_checks": 18,
+    "registered_checks_passed": 18,
+    "node_tests_passed": 21,
+    "parity_pages": 56,
+    "parity_differences": 0,
+    "performance_pages": 76,
+    "browser_js_views": 304,
+    "browser_no_js_views": 152,
+    "browser_errors": 0,
+    "external_requests": 0,
+    "automatic_browser_screenshots": 502
+  },
+  "style_review": {
+    "views": 224,
+    "expanded_mobile_pages": 56,
+    "manual_reading_screenshots_viewed": 44,
+    "core_computed_styles": {
+      "1800": {
+        "body": {
+          "pages": 56,
+          "values": {
+            "font": [
+              "system-ui, -apple-system, \"PingFang SC\", \"Microsoft YaHei\", sans-serif"
+            ],
+            "size": [
+              "17px"
+            ],
+            "line": [
+              "32.3px"
+            ],
+            "color": [
+              "rgb(37, 43, 41)"
+            ],
+            "background": [
+              "rgb(255, 254, 250)"
+            ]
+          }
+        },
+        "h1": {
+          "pages": 56,
+          "values": {
+            "size": [
+              "35.2px"
+            ],
+            "line": [
+              "45.76px"
+            ]
+          }
+        },
+        "h2": {
+          "pages": 56,
+          "values": {
+            "size": [
+              "24.8px"
+            ],
+            "line": [
+              "47.12px"
+            ]
+          }
+        },
+        "main": {
+          "pages": 56,
+          "values": {
+            "maxWidth": [
+              "860px"
+            ],
+            "padding": [
+              "48px 24px 90px"
+            ]
+          }
+        },
+        ".exercise": {
+          "pages": 46,
+          "values": {
+            "padding": [
+              "12px 16px"
+            ],
+            "border": [
+              "1px solid rgb(217, 223, 218)"
+            ]
+          }
+        }
+      },
+      "1440": {
+        "body": {
+          "pages": 56,
+          "values": {
+            "font": [
+              "system-ui, -apple-system, \"PingFang SC\", \"Microsoft YaHei\", sans-serif"
+            ],
+            "size": [
+              "17px"
+            ],
+            "line": [
+              "32.3px"
+            ],
+            "color": [
+              "rgb(37, 43, 41)"
+            ],
+            "background": [
+              "rgb(255, 254, 250)"
+            ]
+          }
+        },
+        "h1": {
+          "pages": 56,
+          "values": {
+            "size": [
+              "35.2px"
+            ],
+            "line": [
+              "45.76px"
+            ]
+          }
+        },
+        "h2": {
+          "pages": 56,
+          "values": {
+            "size": [
+              "24.8px"
+            ],
+            "line": [
+              "47.12px"
+            ]
+          }
+        },
+        "main": {
+          "pages": 56,
+          "values": {
+            "maxWidth": [
+              "860px"
+            ],
+            "padding": [
+              "48px 24px 90px"
+            ]
+          }
+        },
+        ".exercise": {
+          "pages": 46,
+          "values": {
+            "padding": [
+              "12px 16px"
+            ],
+            "border": [
+              "1px solid rgb(217, 223, 218)"
+            ]
+          }
+        }
+      },
+      "1024": {
+        "body": {
+          "pages": 56,
+          "values": {
+            "font": [
+              "system-ui, -apple-system, \"PingFang SC\", \"Microsoft YaHei\", sans-serif"
+            ],
+            "size": [
+              "17px"
+            ],
+            "line": [
+              "32.3px"
+            ],
+            "color": [
+              "rgb(37, 43, 41)"
+            ],
+            "background": [
+              "rgb(255, 254, 250)"
+            ]
+          }
+        },
+        "h1": {
+          "pages": 56,
+          "values": {
+            "size": [
+              "35.2px"
+            ],
+            "line": [
+              "45.76px"
+            ]
+          }
+        },
+        "h2": {
+          "pages": 56,
+          "values": {
+            "size": [
+              "24.8px"
+            ],
+            "line": [
+              "47.12px"
+            ]
+          }
+        },
+        "main": {
+          "pages": 56,
+          "values": {
+            "maxWidth": [
+              "860px"
+            ],
+            "padding": [
+              "48px 24px 90px"
+            ]
+          }
+        },
+        ".exercise": {
+          "pages": 46,
+          "values": {
+            "padding": [
+              "12px 16px"
+            ],
+            "border": [
+              "1px solid rgb(217, 223, 218)"
+            ]
+          }
+        }
+      },
+      "390": {
+        "body": {
+          "pages": 56,
+          "values": {
+            "font": [
+              "system-ui, -apple-system, \"PingFang SC\", \"Microsoft YaHei\", sans-serif"
+            ],
+            "size": [
+              "17px"
+            ],
+            "line": [
+              "32.3px"
+            ],
+            "color": [
+              "rgb(37, 43, 41)"
+            ],
+            "background": [
+              "rgb(255, 254, 250)"
+            ]
+          }
+        },
+        "h1": {
+          "pages": 56,
+          "values": {
+            "size": [
+              "28px"
+            ],
+            "line": [
+              "36.4px"
+            ]
+          }
+        },
+        "h2": {
+          "pages": 56,
+          "values": {
+            "size": [
+              "20.8px"
+            ],
+            "line": [
+              "39.52px"
+            ]
+          }
+        },
+        "main": {
+          "pages": 56,
+          "values": {
+            "maxWidth": [
+              "860px"
+            ],
+            "padding": [
+              "30px 18px 60px"
+            ]
+          }
+        },
+        ".exercise": {
+          "pages": 46,
+          "values": {
+            "padding": [
+              "12px 16px"
+            ],
+            "border": [
+              "1px solid rgb(217, 223, 218)"
+            ]
+          }
+        }
+      }
+    },
+    "component_scope": "Representative existing elements per page plus full expanded mobile overflow scan; manual screenshots listed separately."
+  },
+  "findings": [
+    {
+      "id": "F01",
+      "priority": "P2",
+      "kind": "source_fidelity",
+      "status": "open",
+      "path": "src/content/books/measure-probability/chapter06_independent_sequences.html",
+      "line": 427,
+      "anchor": "ex-6-27",
+      "summary": "Original exercise has finite fourth moment; displayed original question silently weakens it to finite second moment. The proof supports the weaker condition."
+    },
+    {
+      "id": "F02",
+      "priority": "P3",
+      "kind": "stale_scope",
+      "status": "open",
+      "path": "src/content/books/measure-probability/preface.html",
+      "line": 40,
+      "summary": "Preface still says only the first two chapters are completed although all six are present."
+    },
+    {
+      "id": "A01",
+      "priority": "P2",
+      "kind": "existing_acceptance_gap",
+      "status": "not_executed",
+      "path": "src/content/books/csapp/chapter12_concurrency.html",
+      "line": 1655,
+      "anchor": "ex-12-39",
+      "summary": "Real browser traffic through the local HTTP proxy has not been accepted; protocol regression and reading-page browser checks do not close this item."
+    },
+    {
+      "id": "C01",
+      "kind": "teaching_improvement",
+      "status": "advisory",
+      "path": "src/content/books/weiss/chapter12_advanced_data_structures.html",
+      "line": 1228,
+      "anchor": "ex12-1",
+      "summary": "Expand local potential accounting for top-down splay cases and L/R assembly; existing chapter 11 bottom-up analysis is present."
+    }
+  ],
+  "public_readback": [
+    {
+      "route": "index.html",
+      "status": 200,
+      "bytes": 17912,
+      "sha256": "2294a5b503b0e17a16288feb29496f94ac8feb8b130f0f396a93c378e3bc66d6",
+      "matches_dist": true
+    },
+    {
+      "route": "stochastic/notes/chapter01_markov_chains.html",
+      "status": 200,
+      "bytes": 2131756,
+      "sha256": "326d88ae42795fef0a4f1f66bc80fec66cfaa42075ea69d5f1d78081cfca6c70",
+      "matches_dist": true
+    },
+    {
+      "route": "weiss/notes/chapter07_hashing.html",
+      "status": 200,
+      "bytes": 470677,
+      "sha256": "bf94091eae0379d749358fc81a078e2a554bed97ca0e80706dd5cf014cd36ff3",
+      "matches_dist": true
+    },
+    {
+      "route": "csapp/notes/chapter12_concurrency.html",
+      "status": 200,
+      "bytes": 253638,
+      "sha256": "1bf31120437abfc8625908dc40b52710c3a7bb3e9c266c6147494b4e123b0e37",
+      "matches_dist": true
+    },
+    {
+      "route": "visual-group-theory/notes/chapter10_galois_theory.html",
+      "status": 200,
+      "bytes": 240389,
+      "sha256": "9fc7be6b95a42625ff09a33a0af4c3e85b0a16faffb8e5a3680739b75b079ddf",
+      "matches_dist": true
+    },
+    {
+      "route": "measure-probability/notes/chapter06_independent_sequences.html",
+      "status": 200,
+      "bytes": 334479,
+      "sha256": "10ac22f97c2e82dc56175417f0062a4471cc76c4df4dbe677a1598b9d8171e0b",
+      "matches_dist": true
+    }
+  ],
+  "source_snapshots": [
+    {
+      "path": "src/content/books/measure-probability/chapter06_independent_sequences.html",
+      "sha256": "839261b416487fc62e3be6fbfd77c7e87abe1c81c1225a90d27d7cf98e11fcfd",
+      "bytes": 303848
+    },
+    {
+      "path": "src/content/books/measure-probability/preface.html",
+      "sha256": "e3f853996a4a7cc7cbbeb914bc911aea2e7374acaa341d0b5e9337097745dcee",
+      "bytes": 7776
+    },
+    {
+      "path": "src/content/books/csapp/chapter12_concurrency.html",
+      "sha256": "eaf0d39fd32420ac8ca2d285968c387baa362db4cb97b2de08153449f5730109",
+      "bytes": 220340
+    },
+    {
+      "path": "src/content/books/weiss/chapter12_advanced_data_structures.html",
+      "sha256": "fb9c7e561b38c174b509bbf254ced2f157b937f795ff4c9c2409c88de33cc900",
+      "bytes": 945493
+    }
+  ],
+  "run_evidence": [
+    {
+      "path": "tmp/project-check/20261020T152832-chr6u4e6/report.json",
+      "sha256": "5779f997238581225e64a4830ad0ad635f90ccf8c24db49a37cfe0f52659aebe",
+      "bytes": 4991
+    },
+    {
+      "path": "tmp/reading-notes-migration/browser/all/runs/2026-10-20T07-31-45-146Z-c3cefdb8/report.json",
+      "sha256": "2db4f0999ff821e79d80227515a40ee8b977a8ae319c2d2e3f071bb89720227b",
+      "bytes": 1013733
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/style-matrix.json",
+      "sha256": "adecb36b66986cc8baa1f03a33c75021a729ebe7d8984623492a3e526c5e8bde",
+      "bytes": 3460110
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/reader-spots.json",
+      "sha256": "f62f826c284885bfc3630b11a29aadc213fdf0f1e151f7299e335cb3427f0739",
+      "bytes": 40943
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/inventory.json",
+      "sha256": "a81fd1a2fc89d45cc6ffb9b93a5e297ce8d7f23f4c7c34bdb93222cd21068b6e",
+      "bytes": 305335
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/reading-samples.json",
+      "sha256": "cc943d01dd649a36d293db25c2dfa44094f1897784250b78bc64a6bc4b3d610c",
+      "bytes": 656566
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/build.log",
+      "sha256": "8287a67a11ca1fdbf356827c66a5c7a242bdb6d840d5e704d88b90558b1886c7",
+      "bytes": 221
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/parity.log",
+      "sha256": "77619af0086bf9ab2f711e13edfa46a90ecdb637d5a9bd99f41ab29f48dfa586",
+      "bytes": 93
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/performance.log",
+      "sha256": "d35830e3431b3f1115de17a4f0459650ffc15d904aea98aaf82ef686fa10fe04",
+      "bytes": 69
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/offline.log",
+      "sha256": "49bb1af0d377aac4dfdb7f8a6fde7f10e9a616987a6ae18af31b4cc7ec448dfd",
+      "bytes": 212
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/public-readback.json",
+      "sha256": "20cfabe10d04edb50c36901e3f31e3d29d1a78f8bdece09f84e18d7708b0c1b5",
+      "bytes": 1283
+    },
+    {
+      "path": "tmp/five-book-node-tests-20261020.log",
+      "sha256": "e26295e15016ab5f2ff8f5c1ba23603141d5bf614fd0bb0b52e00d2473d91d7d",
+      "bytes": 2223
+    },
+    {
+      "path": "tmp/project-check/20261020T152832-chr6u4e6/check-01.log",
+      "sha256": "6a0455d1185ce83e961d0d70dad91242e96cdccc50ad92caaeb76144e63a02ca",
+      "bytes": 82
+    },
+    {
+      "path": "tmp/project-check/20261020T152832-chr6u4e6/check-02.log",
+      "sha256": "b95b5805bef96b568b1b2424b637003cd6f306e6312d682e4f2e4e23f635b26a",
+      "bytes": 104
+    },
+    {
+      "path": "tmp/project-check/20261020T152832-chr6u4e6/check-03.log",
+      "sha256": "91c28a11c890e53b0016f6f71b1e1db89614ed5d34e370466ff7a632173fef94",
+      "bytes": 110
+    },
+    {
+      "path": "tmp/project-check/20261020T152832-chr6u4e6/check-04.log",
+      "sha256": "38bf320bde0206302c1e57a1b42621b895232f0c74ebfec8c7b81ec6681fa5a0",
+      "bytes": 103
+    },
+    {
+      "path": "tmp/project-check/20261020T152832-chr6u4e6/check-05.log",
+      "sha256": "0d6653413f55f7cf64dbfab59b6b29c640ade8e63585414ab2a44a0892a5ed0a",
+      "bytes": 105
+    },
+    {
+      "path": "tmp/project-check/20261020T152832-chr6u4e6/check-06.log",
+      "sha256": "35e173770e8b2ae664bb6a561f29ed51afa8d5f7cc9761dbdfa594317be439b2",
+      "bytes": 104
+    },
+    {
+      "path": "tmp/project-check/20261020T152832-chr6u4e6/check-07.log",
+      "sha256": "0fbab6892346ecb604d7f463256faa7c0c5acd591e2541babd57be6da2c08a35",
+      "bytes": 390
+    },
+    {
+      "path": "tmp/project-check/20261020T152832-chr6u4e6/check-08.log",
+      "sha256": "9ff756297c3ac28a3cbae5a00c36741b907e7c670d6340ee1bf59ce5a261c342",
+      "bytes": 272
+    },
+    {
+      "path": "tmp/project-check/20261020T152832-chr6u4e6/check-09.log",
+      "sha256": "7319e15479106d71789e6435dbaf96801dc086364f2df04a0d5d6de63dc443a0",
+      "bytes": 3298
+    },
+    {
+      "path": "tmp/project-check/20261020T152832-chr6u4e6/check-10.log",
+      "sha256": "d829a294e3a2c5c188d8ca9940cb0d19aefadcc33743a16b82922572dd166c89",
+      "bytes": 1744
+    },
+    {
+      "path": "tmp/project-check/20261020T152832-chr6u4e6/check-11.log",
+      "sha256": "f5308d763d72e722ee0c6204fb6b4e922f23c8030d61d386c038805ae744ff7e",
+      "bytes": 3672
+    },
+    {
+      "path": "tmp/project-check/20261020T152832-chr6u4e6/check-12.log",
+      "sha256": "7e0c0079bb941b09c3c4510c5258db770b68dab6d110ae4904b07e51e2ebf594",
+      "bytes": 72
+    },
+    {
+      "path": "tmp/project-check/20261020T152832-chr6u4e6/check-13.log",
+      "sha256": "44e8890ba098dc16d512b8c9e400c412c0f0483982c833fcf73868cda3e2ecd3",
+      "bytes": 774
+    },
+    {
+      "path": "tmp/project-check/20261020T152832-chr6u4e6/check-14.log",
+      "sha256": "5285680e4c7f484397fcfeaf6fab11e5ed4b85344862c39bf0e13ade05b8295a",
+      "bytes": 1443
+    },
+    {
+      "path": "tmp/project-check/20261020T152832-chr6u4e6/check-15.log",
+      "sha256": "3e612916da8b8f0022f335d4618c6c50f2728db9220c9cbf1b14f468ae21ca06",
+      "bytes": 75954
+    },
+    {
+      "path": "tmp/project-check/20261020T152832-chr6u4e6/check-16.log",
+      "sha256": "c2316cfe549e01cd05b292fef3f217d7eadadbc5ff92e1735d561a864f2b18b0",
+      "bytes": 12414
+    },
+    {
+      "path": "tmp/project-check/20261020T152832-chr6u4e6/check-17.log",
+      "sha256": "6e91606ce6e1dc13aef170138a05193c270ff1e5f41610a3553e7a91e633efca",
+      "bytes": 6189
+    },
+    {
+      "path": "tmp/project-check/20261020T152832-chr6u4e6/check-18.log",
+      "sha256": "5d50ae1b0ebf814e886a0d3a775837f528133ca774164434d02af819002b0132",
+      "bytes": 156
+    }
+  ],
+  "manual_reading_screenshots": [
+    {
+      "path": "tmp/five-book-audit-20261020/csapp-1024-top.png",
+      "sha256": "5eda77f1f155301bcd2eca3eed751e21d197860d59c1efb6a801512a03513c86",
+      "bytes": 124192
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/csapp-1440-top.png",
+      "sha256": "38f6cfecfcc5b79da188d5208b4483090bb1d6e5a90cc7823d94a510b0ac73c6",
+      "bytes": 245167
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/csapp-1800-top.png",
+      "sha256": "340ea5e8794fa7a74715c2965728a6ac947d61b063f64715bf92e92b5f4e4a64",
+      "bytes": 250418
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/csapp-390-top.png",
+      "sha256": "8e51f49a5d32e049cc000a489a174eecfb70f3420a90874f168d518153e6697c",
+      "bytes": 101944
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/csapp-ex-12-39-1800.png",
+      "sha256": "3dff3c568762cf6bb8e40c2da15666662fe3a228135dff04da02ea4a204514a3",
+      "bytes": 329201
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/csapp-ex-12-39-390.png",
+      "sha256": "1333fbf11b27a7d2f876a0a877d1d13d86d015dffe57460e9cde3c8c6c895670",
+      "bytes": 123888
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/csapp-s5-1-1800.png",
+      "sha256": "4d06f1331fa8ee3140e28ff9168a765da223f0d5d7e96516d10b26ddc9b7eb17",
+      "bytes": 327135
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/csapp-s5-1-390.png",
+      "sha256": "da158abb44a92c50cc9ed5c37e0a1357b193b1222fb13f4e449ee1280b7c2be3",
+      "bytes": 120300
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/measure-probability-1024-top.png",
+      "sha256": "a6286885a770fdd3fb284cccb54a5d347d8989684ff65807438319f849ff6b81",
+      "bytes": 142307
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/measure-probability-1440-top.png",
+      "sha256": "cbbc2034c6e691f079d7873d9e86a26404760b37767dd75371c339e7df43b1b1",
+      "bytes": 214136
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/measure-probability-1800-top.png",
+      "sha256": "1b98d41889ea9657682d6ff5da9fdda36441797f74f4a9ef061bc79bd48d550a",
+      "bytes": 221054
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/measure-probability-390-top.png",
+      "sha256": "4af9cf5970b09f2f82655ac8fe8ad15dfb2445fa7f1d31e2bc11e95cdfb24277",
+      "bytes": 113680
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/measure-probability-ex-4-15-1800.png",
+      "sha256": "d9854b790ff5d7b8c8cf11245598c66c76700d81d47f90d35c07ad6667ede625",
+      "bytes": 196343
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/measure-probability-ex-4-15-390.png",
+      "sha256": "a0292d9a73941dcdfa30ce5ee20b5281756d06ac9397bfa9a5e07068e98b1683",
+      "bytes": 83205
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/measure-probability-ex-6-27-1800.png",
+      "sha256": "e112557437c59b8bfc0fcc896a5e6fc70aaa77f0e1cef91c93a48b4100c1c839",
+      "bytes": 227892
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/measure-probability-ex-6-27-390.png",
+      "sha256": "cef54b1960623fc3a3ba750afcff83a3439272c946bac19f4df3b7da2c86534d",
+      "bytes": 93411
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/measure-probability-product-model-1800.png",
+      "sha256": "11eec63965dc1f25203c0eab69547eadaebf86df27efe80083a00a13d85e5f53",
+      "bytes": 263528
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/measure-probability-product-model-390.png",
+      "sha256": "3fcbd52c8791675aec8b99be02ed6fd939c73936f68db27079ad7ddcd38a69f2",
+      "bytes": 102856
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/stochastic-1024-top.png",
+      "sha256": "9e5df05070375f42e0704a1cceead7e41f8956d45a9c8c45c34744f2e42ca825",
+      "bytes": 110859
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/stochastic-1440-top.png",
+      "sha256": "86a786e6023309e3acd5fe6749e4a3132c383b6b5e89ee67a760eacb508a9541",
+      "bytes": 245415
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/stochastic-1800-top.png",
+      "sha256": "098da3743bbd40e896dbe1857e3214d8d930865a525a194bbe8ff700050791b4",
+      "bytes": 247390
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/stochastic-390-top.png",
+      "sha256": "63d60e6d87a0df6d07e417d6de9a383497653d7b7de266cfdafa4d32438b2939",
+      "bytes": 89776
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/stochastic-ex-5-6-1800.png",
+      "sha256": "6d3b0e31d0ebc0e2a31f73001f2a0778f7f3e8a247141b06c900a7a61ed2ccb6",
+      "bytes": 230560
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/stochastic-ex-5-6-390.png",
+      "sha256": "ab42525ddfec964195dd55872702f14362d4e91ea09614692839a2b0fa1763eb",
+      "bytes": 88622
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/stochastic-example-1-4-1800.png",
+      "sha256": "e74c1a27f9fbed614beaa80cbb1fde2cb9cba02be394cc851fd03404d8a54b2e",
+      "bytes": 370685
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/stochastic-example-1-4-390.png",
+      "sha256": "921a6ee4a11a282cf71a674b39ea591a71b8bb6d587a330e0ca8cb3b1d9352c5",
+      "bytes": 122726
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/stochastic-pair-linear-1800.png",
+      "sha256": "e670ce6466a1c8867c1bae03933f43cb001e3414a30c8918593c2f4dd5bf1714",
+      "bytes": 277841
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/stochastic-pair-linear-390.png",
+      "sha256": "566bcd0952ddb4e54f9da061d54452a0b7a9fb726cdaded78cac4e33539d09ee",
+      "bytes": 83255
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/visual-group-theory-1024-top.png",
+      "sha256": "14042d1818890592597bf51112393ba15d76b86c3b0473bd92ff3d3e60273eb8",
+      "bytes": 147535
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/visual-group-theory-1440-top.png",
+      "sha256": "41b59360193ca44c64e264a5a81b0b67d9a7b1018879fb3d3befe35943631e14",
+      "bytes": 231452
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/visual-group-theory-1800-top.png",
+      "sha256": "1f4aa5eac456adee75f2634e82b9c27dbe38c10a627696e13c448a40171ccec3",
+      "bytes": 235197
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/visual-group-theory-390-top.png",
+      "sha256": "149ee6d18d87f1c7e0c8fbed61bcba71aca169428e7da56d8405912d0f8f03ee",
+      "bytes": 96187
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/visual-group-theory-ex-9-28-1800.png",
+      "sha256": "c3b3df484ce9f1e1f712979cd526c62df71378923a398cc6152ed364d4faf01f",
+      "bytes": 264472
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/visual-group-theory-ex-9-28-390.png",
+      "sha256": "97b1a7707d2fc79f1d2729ee8e94fd41f28aa7b16a0b2b086c780846f3f89a8f",
+      "bytes": 110777
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/visual-group-theory-program-galois-1800.png",
+      "sha256": "b8ab40b249c5c53133035efa7978494340da8839adfa0fdb79562aff1ce0826d",
+      "bytes": 329650
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/visual-group-theory-program-galois-390.png",
+      "sha256": "8cd4986de1a8b473705db69a89572b091f86ea60e854d3cc957198fe6c45c858",
+      "bytes": 151016
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/weiss-1024-top.png",
+      "sha256": "8736ad39d4efc241f3313c346b87d4b59f1203b769a27be42250176d7817d6cb",
+      "bytes": 151872
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/weiss-1440-top.png",
+      "sha256": "3930dae256d6668ff6f1a52f3bd221a2a2ebc6c6205e4adafdeb164172909636",
+      "bytes": 188918
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/weiss-1800-top.png",
+      "sha256": "4409803512626bace35c2c59edec96decd79398fb61dbc156514fe960921bc63",
+      "bytes": 192319
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/weiss-390-top.png",
+      "sha256": "66b64f2804f8b14f4bf1ea7541750d1dad9e888490a878b28a89d9851552d67b",
+      "bytes": 120825
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/weiss-ex12-1-1800.png",
+      "sha256": "96de7e0d8eb98257ca6d34dab83352a915624e863b695d94170f0969c8e151b6",
+      "bytes": 219202
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/weiss-ex12-1-390.png",
+      "sha256": "9822f41d5e0b56f95d3ff6dcc1c2146fcc7a46d699b60592bce717725fdf3a7a",
+      "bytes": 107595
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/weiss-ex7-1-1800.png",
+      "sha256": "7523006450f85b0db480d913b237a33e911cd22b0f5bdd01e106dca279df3ef8",
+      "bytes": 143836
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/weiss-ex7-1-390.png",
+      "sha256": "484ab017fbd375a66fe282ce9feaa3968c2a569ef0b16cde791fc070fbe73c4c",
+      "bytes": 77539
+    }
+  ],
+  "source_page_screenshots": [
+    {
+      "path": "tmp/five-book-audit-20261020/source/csapp-continuation.png",
+      "sha256": "6bdcd4fa5706de63bf6c8bed2fddf87ed78fc2151509e7bbef3c622cf4bb5406",
+      "bytes": 219117
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/source/csapp.png",
+      "sha256": "6cb8faa30ed9c47e0f64651691d588c0fa798b6b87e0bcc701f2bea9ff671f3c",
+      "bytes": 303085
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/source/measure-probability.png",
+      "sha256": "95f0a264ef6b21bc9031d0368025e6d51f495e2915da91cb585cfb5aee7970e4",
+      "bytes": 34053
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/source/stochastic.png",
+      "sha256": "810d554cea381bb44b94702757b3109f0aa97c97a7574000ca2ee342453e3ec4",
+      "bytes": 312540
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/source/visual-group-theory.png",
+      "sha256": "dbd1e461f031e02c766e51595f1821469e646b4c94ea8e7cd802a2d45509c36d",
+      "bytes": 99801
+    },
+    {
+      "path": "tmp/five-book-audit-20261020/source/weiss.png",
+      "sha256": "3277d10038970378c013176e1ad9f70a7c92030f774551316cdbfb190868fc50",
+      "bytes": 137947
+    }
+  ],
+  "browser_task_space": {
+    "id": 16,
+    "finished": true,
+    "kept_pages": []
+  },
+  "boundaries": [
+    "No textbook source, code or style changes.",
+    "No commit, push or production deployment.",
+    "No all-exercise independent proof.",
+    "No physical mobile, Safari, Firefox or screen-reader acceptance.",
+    "Public HTTPS readback covers six routes, not server state or every published route."
+  ],
+  "documentation_impact": "Audit records only; TECH, governance configuration, content rules and environment facts unchanged.",
+  "component_review_addendum": {
+    "recorded_at": "2026-10-20T07:55:37.244091+00:00",
+    "method": "Full controlled-HTML structure scan and CSS comparison, cross-checked with previously viewed final-page screenshots. No new browser run.",
+    "conclusion": "Shared page theme passes; exercise shells are consistent but inner headings vary. Examples, theorems and proofs do not use a unified cross-book component.",
+    "exercises_and_self_checks": 1525,
+    "common_question_answer_structure": 1525,
+    "default_open_exercises": 0,
+    "exercise_title_forms": {
+      "measure-probability": {
+        "question:p.question-title": 170,
+        "answer:p.answer-title": 170
+      },
+      "visual-group-theory": {
+        "question:h4.question-title": 14,
+        "answer:h4.answer-title": 14,
+        "question:p.": 288,
+        "answer:p.": 288
+      },
+      "stochastic": {
+        "question:h3.question-title": 236,
+        "answer:h3.answer-title": 236
+      },
+      "weiss": {
+        "question:h3.question-title": 362,
+        "answer:h3.answer-title": 362
+      },
+      "csapp": {
+        "question:h3.question-title": 399,
+        "answer:h3.answer-title": 399,
+        "question:h3.": 18,
+        "answer:h3.": 18,
+        "question:p.": 12,
+        "answer:p.": 12,
+        "question:h4.question-title": 26,
+        "answer:h4.answer-title": 26
+      }
+    },
+    "evidence": [
+      {
+        "path": "tmp/five-book-audit-20261020/component-structure.json",
+        "bytes": 58919,
+        "sha256": "ff1a990f4a0fe12a57c944a32ca5109d22937db2c3c710c7327215e9ce693e2c"
+      },
+      {
+        "path": "tmp/five-book-audit-20261020/exercise-component-forms.json",
+        "bytes": 11100,
+        "sha256": "67289511f5b5fbc1a2bd6916ff3841301df767eee05d5077a871dc2915ba77a5"
+      }
+    ],
+    "content_or_style_changes": false
+  }
+}

@@ -132,7 +132,171 @@ main[id],main [id]{scroll-margin-top:24px}
 }
 @media(max-width:640px){.chapter-sidebar{padding:8px 18px}}
 @media print{.reading-layout{display:block;max-width:860px;padding:0}.chapter-sidebar,.skip-link{display:none}.reading-layout>main{padding:24px}}
-</style></head><body><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="本章目录"><details class="toc-panel" id="toc-panel" open><summary>本章目录</summary><nav class="chapter-toc" id="chapter-toc" aria-label="本章目录"><a class="toc-home" href="book_overview.html">← 全书地图</a><ul><li><a href="#selection">§1.1：正确答案只是起点</a></li><li><a href="#puzzle">同一个字谜，为什么可以把循环倒过来？</a></li><li><a href="#recursion">§1.2：把当前问题写成更小的问题</a></li><li><a href="#printing">打印整数：输出顺序就是递归结构</a></li><li><a href="#rules">四条规则是一条设计流程</a></li><li><a href="#exercises">习题解答 · 1.1–1.5</a></li><li><a href="#verification">实测与复习</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">Weiss · 第二版中国改编版 · 第一章</p><h1>第一章：引论</h1><p class="intro">从“写得出来”走到“规模变大后仍然可用”，再用递归建立描述、终止与证明之间的联系。</p><p class="small">对应印刷页 1–8／PDF 页 18–25；正文 §1.1–§1.2，习题 1.1–1.5。解释、重绘与教学代码均为原创；书中历史计时不是本次机器的测量。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="book_overview.html#program-guide">程序说明</a><a href="chapter02_algorithm_analysis.html">下一章：算法分析</a></p></header>
+</style><style>
+/* RN-001 shared teaching components. Inlined in every controlled reading page. */
+.rn-components {
+  --rn-space: 1rem;
+  --rn-label-size: .95rem;
+  --rn-title-size: 1.05rem;
+}
+.rn-components :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
+  min-width: 0;
+  scroll-margin-top: 24px;
+}
+.rn-components .rn-statement {
+  margin: 1.5rem 0;
+  padding: 1rem 1.15rem;
+  border: 0;
+  border-left: 3px solid var(--green);
+  background: var(--tint);
+}
+.rn-components :is(.rn-statement, .rn-example) > :is(h3, h4, .rn-title) {
+  margin: 0 0 .8rem;
+  padding: 0;
+  border: 0;
+  font-size: var(--rn-title-size);
+  line-height: 1.7;
+  font-weight: 650;
+  color: var(--green);
+}
+.rn-components .rn-statement > .statement-body {
+  padding: 0;
+  border: 0;
+}
+.rn-components .rn-statement .original-excerpt {
+  margin: .5rem 0 1rem;
+  padding: .1rem 0 .1rem .85rem;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-statement .statement-label {
+  margin: .8rem 0 .3rem;
+  color: var(--sub);
+  font-size: .85rem;
+  font-weight: 600;
+}
+.rn-components .rn-example {
+  margin: 1.75rem 0;
+  padding: 1rem 0 .25rem;
+  border: 0;
+  border-top: 1px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-proof {
+  margin: 1.1rem 0 1.75rem;
+  padding: 0 0 .2rem 1rem;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-proof > summary {
+  cursor: pointer;
+  margin: 0;
+  padding: .35rem 0;
+  color: var(--green);
+  font-size: var(--rn-label-size);
+  font-weight: 650;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .rn-proof > .rn-proof-body { margin-top: .7rem; }
+.rn-components .rn-proof-body p { margin: .85rem 0; }
+.rn-components .rn-proof-body > :first-child:not(.rn-example):not(.rn-statement):not(.rn-proof) {
+  margin-top: 0;
+}
+.rn-components :is(.rn-proof-body, .rn-statement, .rn-example) > :last-child:not(.rn-example):not(.rn-statement):not(.rn-proof) {
+  margin-bottom: 0;
+}
+.rn-components .exercise {
+  margin: 1rem 0;
+  padding: 0;
+  border: 1px solid var(--rule);
+  background: transparent;
+}
+.rn-components .exercise > summary {
+  margin: 0;
+  padding: .85rem 1rem;
+  color: var(--green);
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .exercise[open] > summary {
+  border-bottom: 1px solid var(--rule);
+  background: var(--tint);
+}
+.rn-components .exercise > :is(.exercise-question, .answer) {
+  margin: 0;
+  padding: 1rem;
+  border: 0;
+  background: transparent;
+  min-width: 0;
+}
+.rn-components .exercise > .answer {
+  border-top: 1px solid var(--rule);
+}
+.rn-components .exercise :is(.exercise-question, .answer) > :first-child {
+  margin: 0 0 .75rem;
+  padding: 0;
+  border: 0;
+  color: var(--green);
+  font-size: var(--rn-label-size);
+  font-weight: 650;
+  line-height: 1.75;
+}
+.rn-components .exercise :is(.exercise-question, .answer) > :first-child > strong { font-weight: inherit; }
+.rn-components :is(.exercise-question, .answer) > :last-child { margin-bottom: 0; }
+.rn-components :is(.rn-statement, .rn-example, .rn-proof, .exercise) .source {
+  margin-top: 1rem;
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components .exercise > .source {
+  margin: 0;
+  padding: 0 1rem 1rem;
+}
+.rn-components .rn-statement .source-status {
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components :is(.derivation-steps, .proof-steps, .solution-steps) {
+  margin: .75rem 0 1rem;
+  padding-left: 1.5rem;
+}
+.rn-components :is(.derivation-steps, .proof-steps, .solution-steps) > li {
+  padding-left: .15rem;
+  margin: .9rem 0;
+}
+.rn-components :is(.rn-proof, .exercise) > summary:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+.rn-components :is(.rn-proof-body, .rn-example, .rn-statement, .exercise-question, .answer) {
+  overflow-wrap: break-word;
+}
+@media (max-width: 1100px) {
+  .rn-components:not(.portal-reader):not(.sample-fragment) :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
+    scroll-margin-top: 90px;
+  }
+}
+@media (max-width: 640px) {
+  .rn-components .rn-statement { padding: .85rem .8rem; }
+  .rn-components .rn-proof { padding-left: .75rem; }
+  .rn-components .exercise > :is(summary, .exercise-question, .answer) {
+    padding: .85rem .8rem;
+  }
+  .rn-components .exercise > .source { padding: 0 .8rem .85rem; }
+}
+@media print {
+  .rn-components .rn-proof::details-content { content-visibility: visible !important; }
+}
+
+</style>
+</head><body class="rn-components"><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="本章目录"><details class="toc-panel" id="toc-panel" open><summary>本章目录</summary><nav class="chapter-toc" id="chapter-toc" aria-label="本章目录"><a class="toc-home" href="book_overview.html">← 全书地图</a><ul><li><a href="#selection">§1.1：正确答案只是起点</a></li><li><a href="#puzzle">同一个字谜，为什么可以把循环倒过来？</a></li><li><a href="#recursion">§1.2：把当前问题写成更小的问题</a></li><li><a href="#printing">打印整数：输出顺序就是递归结构</a></li><li><a href="#rules">四条规则是一条设计流程</a></li><li><a href="#exercises">习题解答 · 1.1–1.5</a></li><li><a href="#verification">实测与复习</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">Weiss · 第二版中国改编版 · 第一章</p><h1>第一章：引论</h1><p class="intro">从“写得出来”走到“规模变大后仍然可用”，再用递归建立描述、终止与证明之间的联系。</p><p class="small">对应印刷页 1–8／PDF 页 18–25；正文 §1.1–§1.2，习题 1.1–1.5。解释、重绘与教学代码均为原创；书中历史计时不是本次机器的测量。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="book_overview.html#program-guide">程序说明</a><a href="chapter02_algorithm_analysis.html">下一章：算法分析</a></p></header>
 <section id="selection"><h2>一、§1.1：正确答案只是起点</h2><p>作者没有先罗列数据结构，而是给出一个人人似乎都会做的任务：从 <span class="math-inline"><math data-tex="N" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>N</mi></mrow></math></span> 个数中找第 <span class="math-inline"><math data-tex="k" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>k</mi></mrow></math></span> 大。把全部数按降序排序，取第 <span class="math-inline"><math data-tex="k" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>k</mi></mrow></math></span> 项，当然正确；只保留当前最大的 <span class="math-inline"><math data-tex="k" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>k</mi></mrow></math></span> 项，也看起来更节省。两种想法真正的区别，要到规模和参数一起变大时才能看清。</p><p>第一种若用冒泡排序，最坏要做与 <span class="math-inline"><math data-tex="N^2" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msup><mi>N</mi><mn>2</mn></msup></mrow></math></span> 同阶的比较。第二种先把前 <span class="math-inline"><math data-tex="k" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>k</mi></mrow></math></span> 项排好，再逐项读入新数：新数不超过当前第 <span class="math-inline"><math data-tex="k" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>k</mi></mrow></math></span> 大时直接丢弃，否则插入降序表并淘汰末项。它的不变量是<strong>工作数组恰保存已读输入中最大的 <span class="math-inline"><math data-tex="k" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>k</mi></mrow></math></span> 项</strong>，重复值按出现次数计入排名。一次接纳可能移动整个工作数组，因此朴素实现最坏为 <span class="math-inline"><math data-tex="\mathrm{O}(k^2+(N-k)k)=\mathrm{O}(Nk)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>k</mi><mn>2</mn></msup><mo>+</mo><mo stretchy="false">(</mo><mi>N</mi><mo>−</mo><mi>k</mi><mo stretchy="false">)</mo><mi>k</mi><mo stretchy="false">)</mo><mo>=</mo><mi>O</mi><mo stretchy="false">(</mo><mi>N</mi><mi>k</mi><mo stretchy="false">)</mo></mrow></math></span>，额外存储 <span class="math-inline"><math data-tex="\mathrm{O}(k)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>k</mi><mo stretchy="false">)</mo></mrow></math></span>。</p><p>这并不自动比全排序好：固定很小的 <span class="math-inline"><math data-tex="k" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>k</mi></mrow></math></span> 时，它接近线性；题目取 <span class="math-inline"><math data-tex="k=\left\lfloor\frac N2\right\rfloor" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>k</mi><mo>=</mo><mrow><mo fence="true" form="prefix" stretchy="true">⌊</mo><mfrac><mi>N</mi><mn>2</mn></mfrac><mo fence="true" form="postfix" stretchy="true">⌋</mo></mrow></mrow></math></span> 时，仍是二次级。书中以一百万个数、寻找中位附近的元素说明差距，所引“数天”与“约一秒”属于当时的算法和硬件背景。现代机器更快，但把输入扩大十倍，二次算法的核心工作仍约扩大一百倍。</p><div class="passage"><p class="english" lang="en">“writing a working program is not good enough.”</p><p>译：仅仅写出能工作的程序还不够。</p><p class="source">§1.1，印刷页 2。这里的“还不够”是增加资源要求，不是降低正确性的优先级。</p></div><p>第六章会引入更好的选择方法。现在应抓住的是分析习惯：先说清输入规模、排名约定、工作数组的含义，再判断有没有反复搬移或排序并不需要的信息。只找一个秩，不一定需要获得所有秩的完整排序。</p></section>
 <section id="puzzle"><h2>二、同一个字谜，为什么可以把循环倒过来？</h2><p>图 1.1 的网格如下。单词沿八个固定方向延伸，不能在途中转弯；正文坐标从 1 开始。下面用表格重绘，避免把 OCR 的 <span class="math-inline"><math data-tex="h" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>h</mi></mrow></math></span>、<span class="math-inline"><math data-tex="i" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>i</mi></mrow></math></span> 读成其他字符。</p><figure><div class="scroll"><table aria-label="图1.1字谜网格重绘" class="puzzle"><thead><tr><th>行／列</th><th>1</th><th>2</th><th>3</th><th>4</th></tr></thead><tbody><tr><th>1</th><td><span class="math-inline"><math data-tex="t" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>t</mi></mrow></math></span></td><td><span class="math-inline"><math data-tex="h" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>h</mi></mrow></math></span></td><td><span class="math-inline"><math data-tex="i" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>i</mi></mrow></math></span></td><td><span class="math-inline"><math data-tex="s" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>s</mi></mrow></math></span></td></tr><tr><th>2</th><td><span class="math-inline"><math data-tex="w" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>w</mi></mrow></math></span></td><td><span class="math-inline"><math data-tex="a" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>a</mi></mrow></math></span></td><td><span class="math-inline"><math data-tex="t" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>t</mi></mrow></math></span></td><td><span class="math-inline"><math data-tex="s" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>s</mi></mrow></math></span></td></tr><tr><th>3</th><td><span class="math-inline"><math data-tex="o" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>o</mi></mrow></math></span></td><td><span class="math-inline"><math data-tex="a" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>a</mi></mrow></math></span></td><td><span class="math-inline"><math data-tex="h" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>h</mi></mrow></math></span></td><td><span class="math-inline"><math data-tex="g" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>g</mi></mrow></math></span></td></tr><tr><th>4</th><td><span class="math-inline"><math data-tex="f" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>f</mi></mrow></math></span></td><td><span class="math-inline"><math data-tex="g" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>g</mi></mrow></math></span></td><td><span class="math-inline"><math data-tex="d" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>d</mi></mrow></math></span></td><td><span class="math-inline"><math data-tex="t" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>t</mi></mrow></math></span></td></tr></tbody></table></div><figcaption>this：(<span class="math-inline"><math data-tex="1,1" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mn>1</mn><mo>,</mo><mn>1</mn></mrow></math></span>)→(<span class="math-inline"><math data-tex="1,4" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mn>1</mn><mo>,</mo><mn>4</mn></mrow></math></span>)；two：(<span class="math-inline"><math data-tex="1,1" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mn>1</mn><mo>,</mo><mn>1</mn></mrow></math></span>)→(<span class="math-inline"><math data-tex="3,1" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mn>3</mn><mo>,</mo><mn>1</mn></mrow></math></span>)；fat：(<span class="math-inline"><math data-tex="4,1" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mn>4</mn><mo>,</mo><mn>1</mn></mrow></math></span>)→(<span class="math-inline"><math data-tex="2,3" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mn>2</mn><mo>,</mo><mn>3</mn></mrow></math></span>)；that：(<span class="math-inline"><math data-tex="4,4" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mn>4</mn><mo>,</mo><mn>4</mn></mrow></math></span>)→(<span class="math-inline"><math data-tex="1,1" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mn>1</mn><mo>,</mo><mn>1</mn></mrow></math></span>)。这是图 1.1 的教学重绘。</figcaption></figure><p>第一种方法以词表为外循环：对每个词，枚举起点与方向，再逐字符核对。第二种以网格为外循环：枚举起点、方向和长度，把得到的字符串拿去词表查找。前者重复搜索同一网格，后者反复问“这个候选字符串在字典里吗”。瓶颈因此从路径核对转移到了<strong>字典查询</strong>。</p><p>设网格有 <span class="math-inline"><math data-tex="R" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi></mrow></math></span> 行、<span class="math-inline"><math data-tex="C" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>C</mi></mrow></math></span> 列，词数 <span class="math-inline"><math data-tex="W" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>W</mi></mrow></math></span>，最长词长 <span class="math-inline"><math data-tex="L" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>L</mi></mrow></math></span>。按词搜索的直接上界是 <span class="math-inline"><math data-tex="\mathrm{O}(W R C L)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>W</mi><mi>R</mi><mi>C</mi><mi>L</mi><mo stretchy="false">)</mo></mrow></math></span>；八个方向只是常数。按网格生成候选，至多有 <span class="math-inline"><math data-tex="8RCL" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mn>8</mn><mi>R</mi><mi>C</mi><mi>L</mi></mrow></math></span> 个；若每个候选线性扫描词表、一次词比较最多检查 <span class="math-inline"><math data-tex="L" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>L</mi></mrow></math></span> 个字符，则直接上界为 <span class="math-inline"><math data-tex="\mathrm{O}(R C W L^2)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>R</mi><mi>C</mi><mi>W</mi><msup><mi>L</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow></math></span>，须另计输入读取。第二章习题 2.21 固定 <span class="math-inline"><math data-tex="L=10" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>L</mi><mo>=</mo><mn>10</mn></mrow></math></span>，这时长度因素才可当常数。</p><p>本章只是指出能改善，并没有在这里给出字典结构。后面有序数组的二分查询、散列表的成员查询，以及适合前缀的树结构，都能改变这项代价。不能只数外层有几个 for，就断言两种搜索同样快。</p></section>
 <section id="recursion"><h2>三、§1.2：把当前问题写成更小的问题</h2><p>书中先对比直接公式与递归定义。温度换算是 <span class="math-inline"><math data-tex="C=\frac{5(F-32)}9" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>C</mi><mo>=</mo><mfrac><mrow><mn>5</mn><mo stretchy="false">(</mo><mi>F</mi><mo>−</mo><mn>32</mn><mo stretchy="false">)</mo></mrow><mn>9</mn></mfrac></mrow></math></span>；递归例子则指定</p><div class="equation"><math data-tex="F(0)=0,\qquad F(x)=2F(x-1)+x^2\quad(x\ge1)." display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>F</mi><mo stretchy="false">(</mo><mn>0</mn><mo stretchy="false">)</mo><mo>=</mo><mn>0</mn><mo>,</mo><mspace width="2em"></mspace><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mn>2</mn><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo>+</mo><msup><mi>x</mi><mn>2</mn></msup><mspace width="1em"></mspace><mo stretchy="false">(</mo><mi>x</mi><mo>≥</mo><mn>1</mn><mo stretchy="false">)</mo><mo>.</mo></mrow></math></div><p>C 版数值范围为 0…61：第 61 项仍可由 uint64_t 表示，第 62 项超出范围，因此超界直接拒绝；Python 教学版采用同一范围。这里的递归深度与 n 同阶。<br>其中这个 <span class="math-inline"><math data-tex="F" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>F</mi></mrow></math></span> 是教学函数，不是本章习题中的 Fibonacci 序列。求 <span class="math-inline"><math data-tex="F(4)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>F</mi><mo stretchy="false">(</mo><mn>4</mn><mo stretchy="false">)</mo></mrow></math></span> 时，当前层暂时不能完成乘加，必须先求 <span class="math-inline"><math data-tex="F(3)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>F</mi><mo stretchy="false">(</mo><mn>3</mn><mo stretchy="false">)</mo></mrow></math></span>，再向下直到 <span class="math-inline"><math data-tex="F(0)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>F</mi><mo stretchy="false">(</mo><mn>0</mn><mo stretchy="false">)</mo></mrow></math></span>。回程才依次得到 1、6、21、58。</p><div class="scroll"><table><thead><tr><th>待完成的一层</th><th>返回后完成的运算</th><th>结果</th></tr></thead><tbody><tr><td><span class="math-inline"><math data-tex="F(1)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>F</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></math></span></td><td><span class="math-inline"><math data-tex="2\cdot0+1^2" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mn>2</mn><mo>·</mo><mn>0</mn><mo>+</mo><msup><mn>1</mn><mn>2</mn></msup></mrow></math></span></td><td>1</td></tr><tr><td><span class="math-inline"><math data-tex="F(2)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>F</mi><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></math></span></td><td><span class="math-inline"><math data-tex="2\cdot1+2^2" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mn>2</mn><mo>·</mo><mn>1</mn><mo>+</mo><msup><mn>2</mn><mn>2</mn></msup></mrow></math></span></td><td>6</td></tr><tr><td><span class="math-inline"><math data-tex="F(3)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>F</mi><mo stretchy="false">(</mo><mn>3</mn><mo stretchy="false">)</mo></mrow></math></span></td><td><span class="math-inline"><math data-tex="2\cdot6+3^2" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mn>2</mn><mo>·</mo><mn>6</mn><mo>+</mo><msup><mn>3</mn><mn>2</mn></msup></mrow></math></span></td><td>21</td></tr><tr><td><span class="math-inline"><math data-tex="F(4)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>F</mi><mo stretchy="false">(</mo><mn>4</mn><mo stretchy="false">)</mo></mrow></math></span></td><td><span class="math-inline"><math data-tex="2\cdot21+4^2" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mn>2</mn><mo>·</mo><mn>21</mn><mo>+</mo><msup><mn>4</mn><mn>2</mn></msup></mrow></math></span></td><td>58</td></tr></tbody></table></div><p>循环定义的问题不是“定义里出现了自己”，而是<strong>同一个实例是否直接或间接依赖自己</strong>。<span class="math-inline"><math data-tex="F(4)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>F</mi><mo stretchy="false">(</mo><mn>4</mn><mo stretchy="false">)</mo></mrow></math></span> 依赖更小的 <span class="math-inline"><math data-tex="F(3)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>F</mi><mo stretchy="false">(</mo><mn>3</mn><mo stretchy="false">)</mo></mrow></math></span> 没有问题；<span class="math-inline"><math data-tex="F(1)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>F</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></math></span> 依赖 <span class="math-inline"><math data-tex="F(1)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>F</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></math></span> 则无法推进。运行时保存返回位置和局部状态的机制，第三章会用调用栈正式解释。</p><div class="code-pair" id="pair-intro-recursion" data-pair="intro-recursion"><details class="code-version" data-language="c" open=""><summary>C（C11）</summary><pre><code id="intro-recursion" data-language="c" class="language-c">#include &lt;stdint.h&gt;
@@ -175,7 +339,7 @@ def print_uint(n, output=None):
     if n &gt;= 10:
         print_uint(n // 10, output)
     PrintDigit(n % 10, output)
-</code></pre></details></div><p>0 是一位数，也要打印一次，不能用“只要 <span class="math-inline"><math data-tex="N" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>N</mi></mrow></math></span> 非零就递归”的逻辑漏掉它。若有 <span class="math-inline"><math data-tex="D" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>D</mi></mrow></math></span> 位，调用 <span class="math-inline"><math data-tex="D" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>D</mi></mrow></math></span> 次，输出 <span class="math-inline"><math data-tex="D" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>D</mi></mrow></math></span> 个字符；时间 <span class="math-inline"><math data-tex="\Theta(D)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Θ</mi><mo stretchy="false">(</mo><mi>D</mi><mo stretchy="false">)</mo></mrow></math></span>，栈空间 <span class="math-inline"><math data-tex="\mathrm{O}(D)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>D</mi><mo stretchy="false">)</mo></mrow></math></span>，正整数时 <span class="math-inline"><math data-tex="D=\lfloor\log_{10}N\rfloor+1" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>D</mi><mo>=</mo><mi>⌊</mi><msub><mo form="prefix" lspace="0.1667em" mathvariant="normal" rspace="0.1667em">log</mo><mrow><mn>10</mn></mrow></msub><mi>N</mi><mi>⌋</mi><mo>+</mo><mn>1</mn></mrow></math></span>。这里假设机器整数除法、余数和单字符输出各按单位成本计。</p><h3>定理 1.1 的完整归纳</h3><p>对位数归纳。一位数直接交给 PrintDigit，正确。假设所有不超过 <span class="math-inline"><math data-tex="D" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>D</mi></mrow></math></span> 位的非负整数都能正确打印。一个 <span class="math-inline"><math data-tex="D+1" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>D</mi><mo>+</mo><mn>1</mn></mrow></math></span> 位的正整数的商 <span class="math-inline"><math data-tex="\frac{N}{10}" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mfrac><mrow><mi>N</mi></mrow><mrow><mn>10</mn></mrow></mfrac></mrow></math></span> 恰有 <span class="math-inline"><math data-tex="D" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>D</mi></mrow></math></span> 位，递归按假设输出其高位部分；随后输出余数，它正是最后一位。拼接得到原整数，因此程序对任意有限位非负整数正确。终止性由位数严格下降单独保证，归纳假设并不是允许递归调用当前实例。</p><div class="passage"><p class="english" lang="en">“Assume that all the recursive calls work.”</p><p>译：假定所有递归调用都能正确工作。</p><p class="source">§1.2，印刷页 6。使用这个设计规则之前，先确认子问题确实更小；其数学依据是归纳。</p></div></section>
+</code></pre></details></div><p>0 是一位数，也要打印一次，不能用“只要 <span class="math-inline"><math data-tex="N" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>N</mi></mrow></math></span> 非零就递归”的逻辑漏掉它。若有 <span class="math-inline"><math data-tex="D" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>D</mi></mrow></math></span> 位，调用 <span class="math-inline"><math data-tex="D" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>D</mi></mrow></math></span> 次，输出 <span class="math-inline"><math data-tex="D" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>D</mi></mrow></math></span> 个字符；时间 <span class="math-inline"><math data-tex="\Theta(D)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Θ</mi><mo stretchy="false">(</mo><mi>D</mi><mo stretchy="false">)</mo></mrow></math></span>，栈空间 <span class="math-inline"><math data-tex="\mathrm{O}(D)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>D</mi><mo stretchy="false">)</mo></mrow></math></span>，正整数时 <span class="math-inline"><math data-tex="D=\lfloor\log_{10}N\rfloor+1" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>D</mi><mo>=</mo><mi>⌊</mi><msub><mo form="prefix" lspace="0.1667em" mathvariant="normal" rspace="0.1667em">log</mo><mrow><mn>10</mn></mrow></msub><mi>N</mi><mi>⌋</mi><mo>+</mo><mn>1</mn></mrow></math></span>。这里假设机器整数除法、余数和单字符输出各按单位成本计。</p><details class="rn-proof" id="rn-proof-chapter01" open><summary>定理 1.1 的完整归纳</summary><div class="rn-proof-body"><p>对位数归纳。一位数直接交给 PrintDigit，正确。假设所有不超过 <span class="math-inline"><math data-tex="D" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>D</mi></mrow></math></span> 位的非负整数都能正确打印。一个 <span class="math-inline"><math data-tex="D+1" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>D</mi><mo>+</mo><mn>1</mn></mrow></math></span> 位的正整数的商 <span class="math-inline"><math data-tex="\frac{N}{10}" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mfrac><mrow><mi>N</mi></mrow><mrow><mn>10</mn></mrow></mfrac></mrow></math></span> 恰有 <span class="math-inline"><math data-tex="D" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>D</mi></mrow></math></span> 位，递归按假设输出其高位部分；随后输出余数，它正是最后一位。拼接得到原整数，因此程序对任意有限位非负整数正确。终止性由位数严格下降单独保证，归纳假设并不是允许递归调用当前实例。</p><div class="passage"><p class="english" lang="en">“Assume that all the recursive calls work.”</p><p>译：假定所有递归调用都能正确工作。</p><p class="source">§1.2，印刷页 6。使用这个设计规则之前，先确认子问题确实更小；其数学依据是归纳。</p></div></div></details></section>
 <section id="rules"><h2>五、四条规则是一条设计流程</h2><p><strong>先定基例，再选下降度量，随后组合子结果，最后检查有没有重复求解。</strong> 前两步决定能否结束，第三步决定返回结果是否正确，第四步决定能否承受规模增长。一个函数完全可能正确并终止，却因为重复子问题而极慢；第二章的朴素 Fibonacci 正是这个反例。</p><div class="scroll"><table><thead><tr><th>规则</th><th>自己写代码时的问题</th><th>本章对应处</th></tr></thead><tbody><tr><td>基例</td><td>不再调用别人时，我能直接给出什么？</td><td>单数字与 <span class="math-inline"><math data-tex="F(0)" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>F</mi><mo stretchy="false">(</mo><mn>0</mn><mo stretchy="false">)</mo></mrow></math></span></td></tr><tr><td>推进</td><td>哪一个非负度量严格减小？</td><td>位数；Bad 的反例</td></tr><tr><td>设计</td><td>假设子结果正确，当前结果如何组合？</td><td>高位输出后追加末位</td></tr><tr><td>复利</td><td>是否对同一输入反复算了相同子结果？</td><td>下一章的 Fibonacci 调用树</td></tr></tbody></table></div><p>本章结尾再提醒“速度是相对的”：算法、输入、机器和测量边界必须一起说明。下一章把这句话转成单位成本模型与渐近界；第三章解释递归调用怎样在栈上保存，第四章则展示递归与树结构真正契合的场景。</p></section>
 <section id="exercises"><h2>习题解答 · 1.1–1.5</h2><p class="small">按本版印刷页 7 排列。以下为原创参考解答；编程实现明确输入约定。1.1 给出实验程序与实测结果；1.3 的输出原语限制按题面原文审查。</p>
 <details class="exercise" id="ex1-1"><summary>1.1 · 第 <span class="math-inline"><math data-tex="k" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>k</mi></mrow></math></span> 大与规模计时</summary><div class="exercise-question" id="question-1-1" data-original-exercise="1.1" data-source-pdf-pages="24"><h3 class="question-title" id="question-1-1-title">原题（中文翻译）</h3><p>编写一个程序解决选择问题。令 <span class="math-inline"><math data-tex="k=N/2" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>k</mi><mo>&#x0003D;</mo><mi>N</mi><mo>&#x0002F;</mo><mn>2</mn></mrow></math></span>，用表格列出程序在不同 <span class="math-inline"><math data-tex="N" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>N</mi></mrow></math></span> 值下的运行时间。</p><p class="question-context"><strong>原书上下文：</strong>本章的选择问题是：给定 <span class="math-inline"><math data-tex="N" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>N</mi></mrow></math></span> 个数，找出其中第 <span class="math-inline"><math data-tex="k" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>k</mi></mrow></math></span> 大的数。</p><p class="source">原书习题 1.1 · 印刷页 7 · PDF 第 24 页。</p></div><div class="answer"><h3 class="answer-title">解答</h3><p>取偶数规模并令 <span class="math-inline"><math data-tex="k=\frac N2" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>k</mi><mo>=</mo><mfrac><mi>N</mi><mn>2</mn></mfrac></mrow></math></span>；按出现次数排名，返回降序第 <span class="math-inline"><math data-tex="k" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>k</mi></mrow></math></span> 项。下面实现正文“维护 <span class="math-inline"><math data-tex="k" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>k</mi></mrow></math></span> 项”的策略，不修改输入；工作数组归函数所有，释放以后只返回整数结果。空输入、<span class="math-inline"><math data-tex="k=0" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>k</mi><mo>=</mo><mn>0</mn></mrow></math></span>、<span class="math-inline"><math data-tex="k&gt;N" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>k</mi><mo>&gt;</mo><mi>N</mi></mrow></math></span> 返回 false。Python 非法排名返回 None，移动元素使用显式循环，时间界与 C 相同。合法请求要求 <span class="math-inline"><math data-tex="a" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>a</mi></mrow></math></span> 指向 <span class="math-inline"><math data-tex="n" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi></mrow></math></span> 个有效整数，out 可写；工作数组分配失败或字节数溢出时用 abort 终止。</p><div class="code-pair" id="pair-selection-code" data-pair="selection-code"><details class="code-version" data-language="c" open=""><summary>C（C11）</summary><pre><code id="selection-code" data-language="c" class="language-c">#include &lt;stddef.h&gt;

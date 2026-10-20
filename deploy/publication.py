@@ -46,7 +46,18 @@ def scope_labels(blob, name):
 
 
 def transform_reading_page(blob, name, views, **kwargs):
-    return with_site_icon(scope_labels(legacy.transform_reading_page(blob, name, views, **kwargs), name), name)
+    # Adapt the explicitly reviewed RN-001 scope around the frozen I028 parser.
+    component_body = b'<body class="rn-components">'
+    scoped = component_body in blob
+    if scoped:
+        if blob.count(component_body) != 1:
+            raise ValueError(f'Duplicate reading component scope: {name}')
+        blob = blob.replace(component_body, b'<body>', 1)
+    published = legacy.transform_reading_page(blob, name, views, **kwargs)
+    if scoped:
+        published = published.replace(b'<body class="portal-reader">',
+                                      b'<body class="portal-reader rn-components">', 1)
+    return with_site_icon(scope_labels(published, name), name)
 
 
 def build_reader_views(blobs):

@@ -67,6 +67,9 @@
     "build": [
       "pnpm build",
       "python3 tools/project.py build"
+    ],
+    "preview": [
+      "python3 tools/project.py preview-components"
     ]
   },
   "agents": {

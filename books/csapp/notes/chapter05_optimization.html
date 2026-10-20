@@ -210,11 +210,175 @@ main[id],main [id]{scroll-margin-top:24px}
 .reading-layout>main>section:not(#exercises):not(#self-check) pre{font-size:14px}
 
 .worked{background:var(--tint);border-left:2px solid var(--green);padding:.8rem 1.1rem;margin:1.5rem 0}.worked h3{margin:.2rem 0 .7rem}.english-title{display:block;color:var(--sub);font-size:.85rem;font-weight:400}.code-download{font-size:.9rem}.code-explanation li{margin:.7rem 0}.flow-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}svg .highlight{fill:#e6eee7;stroke:var(--green)}.solution-steps>li{margin:1rem 0}.question-note strong{color:var(--green)}.experiment-output{font-size:.9rem}main [id]{scroll-margin-top:100px}@media(max-width:1099px){main [id]{scroll-margin-top:132px}}
-</style></head><body><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="章节目录"><details class="toc-panel" id="toc-panel" open><summary>本章目录</summary><nav class="chapter-toc" id="chapter-toc" aria-label="本章目录"><a class="toc-home" href="book_overview.html">全书地图</a><a class="toc-home" href="preface.html">序言</a><ul><li><a href="#s5-1">5.1 · 编译器必须保留程序实际表达的语义</a></li><li><a href="#s5-2">5.2 · 用斜率区分固定开销与每元素成本</a></li><li><a href="#s5-3">5.3 · 把抽象接口写成可以追踪的归约循环</a></li><li><a href="#s5-4">5.4 · 把不变的工作移出循环</a></li><li><a href="#s5-5">5.5 · 在可信边界内减少过程调用</a></li><li><a href="#s5-6">5.6 · 用局部累积器缩短读改写链</a></li><li><a href="#s5-7">5.7 · 从数据依赖预测性能下界</a></li><li><a href="#s5-8">5.8 · 循环展开减少控制工作，却保留原来的累积链</a></li><li><a href="#s5-9">5.9 · 改变依赖图，让独立运算同时进行</a></li><li><a href="#s5-10">5.10 · 用原书数据核对模型</a></li><li><a href="#s5-11">5.11 · 独立链足够之后，检查寄存器与分支</a></li><li><a href="#s5-12">5.12 · 理解载入、存储以及它们之间的相关</a></li><li><a href="#s5-13">5.13 · 把优化组织成可以检验的假设</a></li><li><a href="#s5-14">5.14 · 剖析先找到大头，再解释它为什么慢</a></li><li><a href="#s5-15">5.15 · 把本章收束成两条下界和一套验证方法</a></li><li><a href="#exercises">原书习题与解答 · 5.1—5.19</a></li><li><a href="#experiment">动手验证 · 从语义到实际运行</a></li><li><a href="#self-check">补充自测与解答</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">CS:APP · 第三版 GLOBAL EDITION · 中文伴读</p><h1>第 5 章 · 优化程序性能</h1><p class="intro">从一个归约循环出发，追踪工作量、机器相关与资源吞吐怎样共同决定执行时间。每次变换都同时解释语义条件、数据流和测量。</p><p class="source">原书：<a class="source-pdf" href="../csapp.pdf#page=532">印刷 531—614 页 / PDF 532—615 页</a></p>
+</style><style>
+/* RN-001 shared teaching components. Inlined in every controlled reading page. */
+.rn-components {
+  --rn-space: 1rem;
+  --rn-label-size: .95rem;
+  --rn-title-size: 1.05rem;
+}
+.rn-components :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
+  min-width: 0;
+  scroll-margin-top: 24px;
+}
+.rn-components .rn-statement {
+  margin: 1.5rem 0;
+  padding: 1rem 1.15rem;
+  border: 0;
+  border-left: 3px solid var(--green);
+  background: var(--tint);
+}
+.rn-components :is(.rn-statement, .rn-example) > :is(h3, h4, .rn-title) {
+  margin: 0 0 .8rem;
+  padding: 0;
+  border: 0;
+  font-size: var(--rn-title-size);
+  line-height: 1.7;
+  font-weight: 650;
+  color: var(--green);
+}
+.rn-components .rn-statement > .statement-body {
+  padding: 0;
+  border: 0;
+}
+.rn-components .rn-statement .original-excerpt {
+  margin: .5rem 0 1rem;
+  padding: .1rem 0 .1rem .85rem;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-statement .statement-label {
+  margin: .8rem 0 .3rem;
+  color: var(--sub);
+  font-size: .85rem;
+  font-weight: 600;
+}
+.rn-components .rn-example {
+  margin: 1.75rem 0;
+  padding: 1rem 0 .25rem;
+  border: 0;
+  border-top: 1px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-proof {
+  margin: 1.1rem 0 1.75rem;
+  padding: 0 0 .2rem 1rem;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-proof > summary {
+  cursor: pointer;
+  margin: 0;
+  padding: .35rem 0;
+  color: var(--green);
+  font-size: var(--rn-label-size);
+  font-weight: 650;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .rn-proof > .rn-proof-body { margin-top: .7rem; }
+.rn-components .rn-proof-body p { margin: .85rem 0; }
+.rn-components .rn-proof-body > :first-child:not(.rn-example):not(.rn-statement):not(.rn-proof) {
+  margin-top: 0;
+}
+.rn-components :is(.rn-proof-body, .rn-statement, .rn-example) > :last-child:not(.rn-example):not(.rn-statement):not(.rn-proof) {
+  margin-bottom: 0;
+}
+.rn-components .exercise {
+  margin: 1rem 0;
+  padding: 0;
+  border: 1px solid var(--rule);
+  background: transparent;
+}
+.rn-components .exercise > summary {
+  margin: 0;
+  padding: .85rem 1rem;
+  color: var(--green);
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .exercise[open] > summary {
+  border-bottom: 1px solid var(--rule);
+  background: var(--tint);
+}
+.rn-components .exercise > :is(.exercise-question, .answer) {
+  margin: 0;
+  padding: 1rem;
+  border: 0;
+  background: transparent;
+  min-width: 0;
+}
+.rn-components .exercise > .answer {
+  border-top: 1px solid var(--rule);
+}
+.rn-components .exercise :is(.exercise-question, .answer) > :first-child {
+  margin: 0 0 .75rem;
+  padding: 0;
+  border: 0;
+  color: var(--green);
+  font-size: var(--rn-label-size);
+  font-weight: 650;
+  line-height: 1.75;
+}
+.rn-components .exercise :is(.exercise-question, .answer) > :first-child > strong { font-weight: inherit; }
+.rn-components :is(.exercise-question, .answer) > :last-child { margin-bottom: 0; }
+.rn-components :is(.rn-statement, .rn-example, .rn-proof, .exercise) .source {
+  margin-top: 1rem;
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components .exercise > .source {
+  margin: 0;
+  padding: 0 1rem 1rem;
+}
+.rn-components .rn-statement .source-status {
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components :is(.derivation-steps, .proof-steps, .solution-steps) {
+  margin: .75rem 0 1rem;
+  padding-left: 1.5rem;
+}
+.rn-components :is(.derivation-steps, .proof-steps, .solution-steps) > li {
+  padding-left: .15rem;
+  margin: .9rem 0;
+}
+.rn-components :is(.rn-proof, .exercise) > summary:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+.rn-components :is(.rn-proof-body, .rn-example, .rn-statement, .exercise-question, .answer) {
+  overflow-wrap: break-word;
+}
+@media (max-width: 1100px) {
+  .rn-components:not(.portal-reader):not(.sample-fragment) :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
+    scroll-margin-top: 90px;
+  }
+}
+@media (max-width: 640px) {
+  .rn-components .rn-statement { padding: .85rem .8rem; }
+  .rn-components .rn-proof { padding-left: .75rem; }
+  .rn-components .exercise > :is(summary, .exercise-question, .answer) {
+    padding: .85rem .8rem;
+  }
+  .rn-components .exercise > .source { padding: 0 .8rem .85rem; }
+}
+@media print {
+  .rn-components .rn-proof::details-content { content-visibility: visible !important; }
+}
+
+</style>
+</head><body class="rn-components"><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="章节目录"><details class="toc-panel" id="toc-panel" open><summary>本章目录</summary><nav class="chapter-toc" id="chapter-toc" aria-label="本章目录"><a class="toc-home" href="book_overview.html">全书地图</a><a class="toc-home" href="preface.html">序言</a><ul><li><a href="#s5-1">5.1 · 编译器必须保留程序实际表达的语义</a></li><li><a href="#s5-2">5.2 · 用斜率区分固定开销与每元素成本</a></li><li><a href="#s5-3">5.3 · 把抽象接口写成可以追踪的归约循环</a></li><li><a href="#s5-4">5.4 · 把不变的工作移出循环</a></li><li><a href="#s5-5">5.5 · 在可信边界内减少过程调用</a></li><li><a href="#s5-6">5.6 · 用局部累积器缩短读改写链</a></li><li><a href="#s5-7">5.7 · 从数据依赖预测性能下界</a></li><li><a href="#s5-8">5.8 · 循环展开减少控制工作，却保留原来的累积链</a></li><li><a href="#s5-9">5.9 · 改变依赖图，让独立运算同时进行</a></li><li><a href="#s5-10">5.10 · 用原书数据核对模型</a></li><li><a href="#s5-11">5.11 · 独立链足够之后，检查寄存器与分支</a></li><li><a href="#s5-12">5.12 · 理解载入、存储以及它们之间的相关</a></li><li><a href="#s5-13">5.13 · 把优化组织成可以检验的假设</a></li><li><a href="#s5-14">5.14 · 剖析先找到大头，再解释它为什么慢</a></li><li><a href="#s5-15">5.15 · 把本章收束成两条下界和一套验证方法</a></li><li><a href="#exercises">原书习题与解答 · 5.1—5.19</a></li><li><a href="#experiment">动手验证 · 从语义到实际运行</a></li><li><a href="#self-check">补充自测与解答</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">CS:APP · 第三版 GLOBAL EDITION · 中文伴读</p><h1>第 5 章 · 优化程序性能</h1><p class="intro">从一个归约循环出发，追踪工作量、机器相关与资源吞吐怎样共同决定执行时间。每次变换都同时解释语义条件、数据流和测量。</p><p class="source">原书：<a class="source-pdf" href="../csapp.pdf#page=532">印刷 531—614 页 / PDF 532—615 页</a></p>
 <p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="book_overview.html#program-guide">程序说明</a><a href="chapter04_architecture.html">← 第 4 章</a><a href="chapter06_memory.html">第 6 章 →</a></p></header><section id="s5-1"><h2>5.1 · 编译器必须保留程序实际表达的语义<span class="english-title" lang="en">Capabilities and Limitations of Optimizing Compilers</span></h2><details class="statement-index" id="source-index"><summary>本页原书摘录 · 6 处</summary><ul class="statement-links"><li><a href="#classic-5-safe-optimization">原书原则 · 安全优化的语义边界</a></li><li><a href="#classic-5-cpe-slope">原书表述 · CPE 是随元素数增加的斜率</a></li><li><a href="#classic-5-latency-bound">顺序依赖给出延迟下界</a></li><li><a href="#classic-5-throughput-bound">功能单元给出吞吐下界</a></li><li><a href="#classic-5-multiple-accumulators">原书方法 · 用独立累积器拆开依赖链</a></li><li><a href="#classic-5-floating-associativity">浮点运算的结合顺序影响结果</a></li></ul></details>
 <p class="source">原书：<a class="source-pdf" href="../csapp.pdf#page=535">印刷 534 页 / PDF 535 页</a></p>
 <p>本章沿一个数组归约循环追问：同样的数学运算，为什么能从每元素十多个周期降到不足一个周期？先要划清优化的边界。编译器转换的是 C 程序允许的行为；它不能假定两个合法指针一定指向不同位置，也不能把会修改状态的函数当作纯数学函数。理解这些约束，才能知道哪些信息必须由程序员表达。</p>
-<div class="source-statement" id="classic-5-safe-optimization" data-source-kind="Principle">
+<div class="source-statement rn-statement" id="classic-5-safe-optimization" data-source-kind="Principle">
 <h4>原书原则 · 安全优化的语义边界</h4>
 <blockquote class="original-excerpt" lang="en"><p>Compilers must be careful to apply only safe optimizations to a program, meaning that the resulting program will have the exact same behavior as would an unoptimized version for all possible cases the program may encounter, up to the limits of the guarantees provided by the C language standards.</p></blockquote>
 <div class="statement-body"><p><strong>中文陈述。</strong>在 C 语言标准提供保证的范围内，优化必须保留程序对所有可能遇到情形的行为。证明一次变换安全，需要考虑合法的别名、可观察副作用和数值语义；未定义行为不提供可供承诺的原有结果。</p><p>下面让两个指针指向同一个值为 2 的对象，就能区分结果为 8 与 6 的两段代码。这个反例说明：代数式看似相同，内存读写顺序仍可能使程序含义不同。</p></div>
@@ -244,7 +408,7 @@ void once(long *xp, const long *yp) {
 </div></div></details>
 </section><section id="s5-2"><h2>5.2 · 用斜率区分固定开销与每元素成本<span class="english-title" lang="en">Expressing Program Performance</span></h2>
 <p class="source">原书：<a class="source-pdf" href="../csapp.pdf#page=539">印刷 538 页 / PDF 539 页</a></p>
-<div class="source-statement" id="classic-5-cpe-slope" data-source-kind="Figure caption">
+<div class="source-statement rn-statement" id="classic-5-cpe-slope" data-source-kind="Figure caption">
 <h4>原书表述 · CPE 是随元素数增加的斜率</h4>
 <blockquote class="original-excerpt" lang="en"><p>The slope of the lines indicates the number of clock cycles per element (CPE).</p></blockquote>
 <div class="statement-body"><p><strong>中文陈述。</strong>在运行周期数随元素个数近似线性增长的区间，直线斜率表示每增加一个元素需要多少周期。固定启动成本由截距表达；改变每轮处理的元素数后，仍应按元素比较成本。</p><p>下面把同一规模范围写成 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>T</mi><mo>(</mo><mi>n</mi><mo>)</mo><mo>≈</mo><mi>a</mi><mo>+</mo><mi>b</mi><mi>n</mi></mrow></math></span>，用三种截距和斜率的交点说明“小输入更快”与“大输入每元素更省”如何同时成立。</p></div>
@@ -293,7 +457,7 @@ for (long i = 0; i &lt; length; ++i) {
 <div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>W</mi><mo>(</mo><mi>n</mi><mo>)</mo><mo>≈</mo><mo>(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo>)</mo><mi>n</mi><mo>+</mo><mi>n</mi><mo>=</mo><msup><mi>n</mi><mn>2</mn></msup><mo>+</mo><mn>2</mn><mi>n</mi></mrow></math></div>
 <p>这类代码移动不需要知道目标机器有几个乘法器。先减少算法实际执行的工作，再讨论每个操作怎样重叠，通常更容易解释收益。习题 5.3 用函数调用次数训练这一判断。</p>
 
-<div class="explanation" id="explain-s5-4"><p>例如字符串为 <code>ABC</code>，长度 3。判断 i=0、1、2 时进入循环，判断 i=3 时退出，共判断 4 次；若每次 strlen 都重新检查 A、B、C 和结尾的零字节，就为求长度做了 4×4=16 次字节检查。先求一次长度只需 4 次。这里把终止字节也计入；上面的 W(n) 则是忽略这类常数差异的数量级模型。把字符转小写没有改变终止位置，才允许复用第一次求得的 3。</p></div>
+<div class="explanation" id="explain-s5-4"><div class="rn-example" id="rn-example-5-1"><h3>例：重复求字符串长度的工作量</h3><p>例如字符串为 <code>ABC</code>，长度 3。判断 i=0、1、2 时进入循环，判断 i=3 时退出，共判断 4 次；若每次 strlen 都重新检查 A、B、C 和结尾的零字节，就为求长度做了 4×4=16 次字节检查。先求一次长度只需 4 次。这里把终止字节也计入；上面的 W(n) 则是忽略这类常数差异的数量级模型。把字符转小写没有改变终止位置，才允许复用第一次求得的 3。</p></div></div>
 <details class="reading-notes" id="notes-s5-4" data-notes-for="s5-4" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">推导</span><h3>同时数循环次数和每次成本</h3><p>n 次循环乘上每次 Θ(n) 的隐式扫描，得到 Θ(n²)。</p>
 </div><div class="annotation-card"><span class="annotation-kind">边界</span><h3>外提需要不变量证明</h3><p>若循环能改变长度或调用有副作用，预计算一次可能改变程序行为。</p>
 </div></div></details>
@@ -331,7 +495,7 @@ for (long i = 0; i &lt; length; ++i)
 <figure id="ooo"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 230" role="img" aria-labelledby="ooo-title"><title id="ooo-title">乱序执行的简化信息流</title><defs><marker id="ooo-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#7b8f85"/></marker></defs><rect class="node" x="10" y="50" width="135" height="80" rx="3"/><text x="77.5" y="96.0">预测与取指</text><line x1="145" y1="90" x2="195" y2="90" stroke="#7b8f85" stroke-width="1.6" marker-end="url(#ooo-arrow)"/><rect class="node" x="195" y="50" width="145" height="80" rx="3"/><text x="267.5" y="96.0">译码、重命名</text><path d="M340 90 H365 V50 H390" fill="none" stroke="#7b8f85" stroke-width="1.6" marker-end="url(#ooo-arrow)"/><rect class="node" x="390" y="20" width="155" height="60" rx="3"/><text x="467.5" y="56.0">等待输入 / 发射</text><rect class="node" x="390" y="120" width="155" height="60" rx="3"/><text x="467.5" y="156.0">并行执行单元</text><line x1="470" y1="80" x2="470" y2="120" stroke="#7b8f85" stroke-width="1.6" marker-end="url(#ooo-arrow)"/><line x1="545" y1="150" x2="600" y2="150" stroke="#7b8f85" stroke-width="1.6" marker-end="url(#ooo-arrow)"/><rect class="node" x="600" y="80" width="145" height="100" rx="3"/><text x="672.5" y="136.0">按序退休</text></svg></div><figcaption>图只表达数据准备、执行与提交的分工。它不把第 4 章的五级教学流水线直接等同于商品处理器。</figcaption></figure>
 
 <h3>5.7.2 · 功能单元：延迟与吞吐是两个问题</h3>
-<div class="source-statement" id="classic-5-throughput-bound" data-source-kind="Statement">
+<div class="source-statement rn-statement" id="classic-5-throughput-bound" data-source-kind="Statement">
 <h4>原书原理 · 功能单元给出吞吐下界</h4>
 <blockquote class="original-excerpt" lang="en"><p>The throughput bound gives a minimum bound for the CPE based on the maximum rate at which the functional units can produce results.</p></blockquote>
 <div class="statement-body"><p><strong>中文陈述。</strong>即使各次运算完全独立，有限的执行单元也限制单位时间能够产出的结果数。若有 C 个同类单元、每个单元的发射间隔为 I 周期，每元素需要一次该运算时，其资源下界为 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>CPE</mi><mo>≥</mo><mfrac><mi>I</mi><mi>C</mi></mfrac></mrow></math></span>。</p><p>本节表中的两个浮点乘法单元可在稳定状态每周期共接收两项，对应 0.5 CPE；完整归约还必须取得输入，因此载入端口可能给出更高的下界。下一张数据流图再确定这些资源能否被同时使用。</p></div>
@@ -341,7 +505,7 @@ for (long i = 0; i &lt; length; ++i)
 <div class="scroll"><table><caption>原书图 5.12，印刷 559 页 / PDF 560 页</caption><thead><tr><th scope="col">操作</th><th scope="col">延迟 L（周期）</th><th scope="col">发射间隔 I（周期）</th><th scope="col">容量 C（同类单元数）</th></tr></thead><tbody><tr><td>整数加法</td><td>1</td><td>1</td><td>4</td></tr><tr><td>整数乘法</td><td>3</td><td>1</td><td>1</td></tr><tr><td>浮点加法</td><td>3</td><td>1</td><td>1</td></tr><tr><td>浮点乘法</td><td>5</td><td>1</td><td>2</td></tr><tr><td>整数除法</td><td>3—30</td><td>3—30</td><td>1</td></tr><tr><td>浮点除法</td><td>3—15</td><td>3—15</td><td>1</td></tr></tbody></table></div>
 
 <h3>5.7.3 · 用数据流图分离循环开销和关键路径</h3>
-<div class="source-statement" id="classic-5-latency-bound" data-source-kind="Statement">
+<div class="source-statement rn-statement" id="classic-5-latency-bound" data-source-kind="Statement">
 <h4>原书原理 · 顺序依赖给出延迟下界</h4>
 <blockquote class="original-excerpt" lang="en"><p>The latency bound gives a minimum value for the CPE for any function that must perform the combining operation in a strict sequence.</p></blockquote>
 <div class="statement-body"><p><strong>中文陈述。</strong>若每次归约必须等上一次归约的结果，连续运算就在同一条依赖链上。对于每个元素一次、延迟为 L 的归约运算，忽略启动收尾后的 CPE 至少为 L；增加空闲运算单元并不能提前生成依赖值。</p><p>下面的乘积链每次乘法依赖旧 %xmm0。原书参考模型的浮点乘法延迟是 5 周期，因此三个串联乘法的关键路径长 15 周期；这个结论来自数据流，而不是源程序行数。</p></div>
@@ -377,7 +541,7 @@ for (; i &lt; n; ++i) acc = acc OP data[i];</code></pre>
 </section><section id="s5-9"><h2>5.9 · 改变依赖图，让独立运算同时进行<span class="english-title" lang="en">Enhancing Parallelism</span></h2>
 <p class="source">原书：<a class="source-pdf" href="../csapp.pdf#page=573">印刷 572 页 / PDF 573 页</a></p>
 <h3>5.9.1 · 多个累积器</h3>
-<div class="source-statement" id="classic-5-multiple-accumulators" data-source-kind="Statement">
+<div class="source-statement rn-statement" id="classic-5-multiple-accumulators" data-source-kind="Statement">
 <h4>原书方法 · 用独立累积器拆开依赖链</h4>
 <blockquote class="original-excerpt" lang="en"><p>For a combining operation that is associative and commutative, such as integer addition or multiplication, we can improve performance by splitting the set of combining operations into two or more parts and combining the results at the end.</p></blockquote>
 <div class="statement-body"><p><strong>中文陈述。</strong>当所用运算满足结合律和交换律时，可以把输入分组，各组独立归约，最后合并结果。这样改变了分组与执行顺序，所以这些代数性质必须在实际采用的数值模型中成立。</p><p>下面按奇偶下标建立两条乘积链，每条约处理一半元素，使相关下界降为 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mfrac><mi>L</mi><mn>2</mn></mfrac></mrow></math></span>。本页的无符号模运算满足所需性质；有符号 C 运算须保证变换前后的中间值均可表示，浮点另见后面的舍入反例。</p></div>
@@ -401,7 +565,7 @@ acc = (acc * data[i]) * data[i+1];
 acc = acc * (data[i] * data[i+1]);</code></pre>
 <p>第二个式子的内部乘积不依赖旧 acc，可以与上一轮的工作重叠；跨迭代反馈只通过最后一次乘法，每两项的相关代价由 10 降为 5。总乘法次数没有减少，改变的是最长依赖链。习题 5.8 将三项的五种合法括号形状逐一比较。</p>
 <h3>代数等价与机器结果</h3>
-<div class="source-statement" id="classic-5-floating-associativity" data-source-kind="Statement">
+<div class="source-statement rn-statement" id="classic-5-floating-associativity" data-source-kind="Statement">
 <h4>原书边界 · 浮点运算的结合顺序影响结果</h4>
 <blockquote class="original-excerpt" lang="en"><p>On the other hand, floating-point multiplication and addition are not associative. Thus, combine5 and combine6 could produce different results due to rounding or overflow.</p></blockquote>
 <div class="statement-body"><p><strong>中文陈述。</strong>浮点加法和乘法一般不满足结合律。把顺序归约改成多组并行归约，可能因逐次舍入、上溢或下溢得到不同结果；优化的正确性必须按所需误差或逐位一致性要求判断。</p><p>下面的前缀和反例采用 binary32，并在每次加法后按最近偶数舍入；同一组输入得到最终值 1 与 2，把“改变依赖图能提速”和“数值结果是否满足要求”落实为两个可以分别检查的问题。</p></div>

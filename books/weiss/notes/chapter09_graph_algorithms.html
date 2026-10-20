@@ -131,7 +131,171 @@ main[id],main [id]{scroll-margin-top:24px}
 }
 @media(max-width:640px){.chapter-sidebar{padding:8px 18px}}
 @media print{.reading-layout{display:block;max-width:860px;padding:0}.chapter-sidebar,.skip-link{display:none}.reading-layout>main{padding:24px}}
-</style></head><body><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="本章目录"><details class="toc-panel" id="toc-panel" open><summary>本章目录</summary><nav class="chapter-toc" id="chapter-toc" aria-label="本章目录"><a class="toc-home" href="book_overview.html">← 全书地图</a><ul><li><a href="#representation">图的语义与表示</a></li><li><a href="#topological">拓扑顺序与候选集合</a></li><li><a href="#shortest">BFS、Dijkstra 与索引堆</a></li><li><a href="#negative-dag">负边、DAG 与关键路径</a></li><li><a href="#flow">残余网络与最大流</a></li><li><a href="#spanning">Prim、Kruskal 与割性质</a></li><li><a href="#depth-first">DFS、分量与欧拉路线</a></li><li><a href="#complexity">可判定性、P／NP 与归约</a></li><li><a href="#driver">共同输入与驱动</a></li><li><a href="#exercises">习题解答 · 9.1–9.41</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">Weiss · 第二版中国改编版 · 第九章</p><h1>第九章：图算法</h1><p class="intro">从“点和边怎样表示”走到“每一步选择凭什么安全”：用队列、堆、并查集与 DFS 建立顺序、距离、流量和连通结构，再用归约辨认一般情形的困难。</p><p class="source">依据本仓库第二版中国改编版 PDF。正文 §9.1–9.7 与总结：印刷页 285–339（PDF 第 302–356 页）；习题 9.1–9.41：339–345（PDF 第 356–362 页）；参考文献：345–347（PDF 第 362–364 页）。中文题干按本版扫描页翻译；说明、图示和教学程序独立编写。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="book_overview.html#program-guide">程序说明</a><a href="chapter08_disjoint_sets.html">上一章：不相交集</a><a href="chapter10_algorithm_design.html">下一章：算法设计技巧</a></p></header><section id="representation"><h2>一、§9.1：图的语义决定数据表示</h2><p>树为每个非根节点指定一个父亲；图允许多个入口、回路和不能互达的区域。写成 <span class="math-inline"><math data-tex="G=(V,E)" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>G</mi><mo>&#x0003D;</mo><mo stretchy="false">&#x00028;</mo><mi>V</mi><mo>&#x0002C;</mo><mi>E</mi><mo stretchy="false">&#x00029;</mo></mrow></math></span> 时，边可以有方向，也可以带费用或容量；“一条边”在这些问题中承担不同意义。机场的直飞线路天然有方向，票价与飞行时间又是不同权值；道路网络中的车道容量则为后面的流量模型做准备。先确定这些含义，才知道应求边数最少、费用最低，还是可通过的总量最大。</p><p>原书把路径长度定义为边数，把带权长度定义为边权之和；允许从一个点到自己走零条边。无向边往返一次用的是同一条边，因此 u→v→u 不构成普通无向简单图的环；两条不同的平行边却可以形成长度 2 的环。无向连通、有向强连通以及忽略方向后的弱连通，要分别判断。简单路径不重复顶点，欧拉路线则不重复边，它们会在本章末尾引出截然不同的算法。</p><p>邻接矩阵占 <span class="math-inline"><math data-tex="\Theta(|V|^2)" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>&#x00398;</mi><mo stretchy="false">&#x00028;</mo><mo stretchy="false">&#x0007C;</mo><mi>V</mi><msup><mo stretchy="false">&#x0007C;</mo><mn>2</mn></msup><mo stretchy="false">&#x00029;</mo></mrow></math></span> 空间，检查一条指定边方便；邻接表占 <span class="math-inline"><math data-tex="\Theta(|V|+|E|)" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>&#x00398;</mi><mo stretchy="false">&#x00028;</mo><mo stretchy="false">&#x0007C;</mo><mi>V</mi><mo stretchy="false">&#x0007C;</mo><mo>&#x0002B;</mo><mo stretchy="false">&#x0007C;</mo><mi>E</mi><mo stretchy="false">&#x0007C;</mo><mo stretchy="false">&#x00029;</mo></mrow></math></span> 空间，遍历某个顶点的出边只付出与实际出度相称的时间。原书的街区示例有 3000 个路口和约 12000 条有向邻接记录，矩阵却有 9000000 格。存储比例直接解释了为什么这章的大多数线性算法都要求邻接表。</p><div class="passage"><p class="english">“the data that are actually there”</p><p>表示实际存在的数据。</p><p class="source">§9.1.1，印刷页 287／PDF 304；作者以稀疏街区图说明邻接表的作用。</p></div><p>实际城市名、课程名可以用第七章的散列表映射到稠密编号，再用反向名字表输出。本页程序与图 9.29 一样采用 0…N−1；图中的字母和 <span class="math-inline"><math data-tex="v_{1}" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>v</mi><mrow><mn>1</mn></mrow></msub></mrow></math></span> 等只是显示名。每条输入边有一个永久边号，无向边生成两条共享边号的邻接记录，自环也生成两条，这使后面的桥和欧拉算法可以准确处理平行边。邻接项按输入顺序保留，建图时间为 <span class="math-inline"><math data-tex="O(|V|+|E|)" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>O</mi><mo stretchy="false">&#x00028;</mo><mo stretchy="false">&#x0007C;</mo><mi>V</mi><mo stretchy="false">&#x0007C;</mo><mo>&#x0002B;</mo><mo stretchy="false">&#x0007C;</mo><mi>E</mi><mo stretchy="false">&#x0007C;</mo><mo stretchy="false">&#x00029;</mo></mrow></math></span>。</p><p>C 用连续邻接数组和偏移量表示列表，Graph 拥有并释放这些数组；Python 用等价的列表。两版限制 <span class="math-inline"><math data-tex="0\le N\le10^5" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>0</mn><mo>&#x02264;</mo><mi>N</mi><mo>&#x02264;</mo><msup><mn>10</mn><mn>5</mn></msup></mrow></math></span>、<span class="math-inline"><math data-tex="0\le M\le10^6" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>0</mn><mo>&#x02264;</mo><mi>M</mi><mo>&#x02264;</mo><msup><mn>10</mn><mn>6</mn></msup></mrow></math></span>、<span class="math-inline"><math data-tex="|w|\le10^9" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mo stretchy="false">&#x0007C;</mo><mi>w</mi><mo stretchy="false">&#x0007C;</mo><mo>&#x02264;</mo><msup><mn>10</mn><mn>9</mn></msup></mrow></math></span>，所有费用运算采用相同的有限区间 <span class="math-inline"><math data-tex="(-I,I)" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mo stretchy="false">&#x00028;</mo><mo>&#x02212;</mo><mi>I</mi><mo>&#x0002C;</mo><mi>I</mi><mo stretchy="false">&#x00029;</mo></mrow></math></span>，其中 <span class="math-inline"><math data-tex="I=\lfloor(2^{63}-1)/4\rfloor" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>I</mi><mo>&#x0003D;</mo><mi>&#x0230A;</mi><mo stretchy="false">&#x00028;</mo><msup><mn>2</mn><mrow><mn>63</mn></mrow></msup><mo>&#x02212;</mo><mn>1</mn><mo stretchy="false">&#x00029;</mo><mo>&#x0002F;</mo><mn>4</mn><mi>&#x0230B;</mi></mrow></math></span>；I 与 −I 留作不可达标记。相加前检查范围，不对无穷大做加法；路径计数另限无符号 64 位。C 分配或输入失败报错退出，Python 对应抛出异常。</p><div class="code-pair" id="pair-graph-code" data-pair="graph"><details class="code-version" data-language="c" open><summary>C（C11）</summary><pre><code id="graph-code" data-language="c" class="language-c">#include &lt;stdio.h&gt;
+</style><style>
+/* RN-001 shared teaching components. Inlined in every controlled reading page. */
+.rn-components {
+  --rn-space: 1rem;
+  --rn-label-size: .95rem;
+  --rn-title-size: 1.05rem;
+}
+.rn-components :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
+  min-width: 0;
+  scroll-margin-top: 24px;
+}
+.rn-components .rn-statement {
+  margin: 1.5rem 0;
+  padding: 1rem 1.15rem;
+  border: 0;
+  border-left: 3px solid var(--green);
+  background: var(--tint);
+}
+.rn-components :is(.rn-statement, .rn-example) > :is(h3, h4, .rn-title) {
+  margin: 0 0 .8rem;
+  padding: 0;
+  border: 0;
+  font-size: var(--rn-title-size);
+  line-height: 1.7;
+  font-weight: 650;
+  color: var(--green);
+}
+.rn-components .rn-statement > .statement-body {
+  padding: 0;
+  border: 0;
+}
+.rn-components .rn-statement .original-excerpt {
+  margin: .5rem 0 1rem;
+  padding: .1rem 0 .1rem .85rem;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-statement .statement-label {
+  margin: .8rem 0 .3rem;
+  color: var(--sub);
+  font-size: .85rem;
+  font-weight: 600;
+}
+.rn-components .rn-example {
+  margin: 1.75rem 0;
+  padding: 1rem 0 .25rem;
+  border: 0;
+  border-top: 1px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-proof {
+  margin: 1.1rem 0 1.75rem;
+  padding: 0 0 .2rem 1rem;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-proof > summary {
+  cursor: pointer;
+  margin: 0;
+  padding: .35rem 0;
+  color: var(--green);
+  font-size: var(--rn-label-size);
+  font-weight: 650;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .rn-proof > .rn-proof-body { margin-top: .7rem; }
+.rn-components .rn-proof-body p { margin: .85rem 0; }
+.rn-components .rn-proof-body > :first-child:not(.rn-example):not(.rn-statement):not(.rn-proof) {
+  margin-top: 0;
+}
+.rn-components :is(.rn-proof-body, .rn-statement, .rn-example) > :last-child:not(.rn-example):not(.rn-statement):not(.rn-proof) {
+  margin-bottom: 0;
+}
+.rn-components .exercise {
+  margin: 1rem 0;
+  padding: 0;
+  border: 1px solid var(--rule);
+  background: transparent;
+}
+.rn-components .exercise > summary {
+  margin: 0;
+  padding: .85rem 1rem;
+  color: var(--green);
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .exercise[open] > summary {
+  border-bottom: 1px solid var(--rule);
+  background: var(--tint);
+}
+.rn-components .exercise > :is(.exercise-question, .answer) {
+  margin: 0;
+  padding: 1rem;
+  border: 0;
+  background: transparent;
+  min-width: 0;
+}
+.rn-components .exercise > .answer {
+  border-top: 1px solid var(--rule);
+}
+.rn-components .exercise :is(.exercise-question, .answer) > :first-child {
+  margin: 0 0 .75rem;
+  padding: 0;
+  border: 0;
+  color: var(--green);
+  font-size: var(--rn-label-size);
+  font-weight: 650;
+  line-height: 1.75;
+}
+.rn-components .exercise :is(.exercise-question, .answer) > :first-child > strong { font-weight: inherit; }
+.rn-components :is(.exercise-question, .answer) > :last-child { margin-bottom: 0; }
+.rn-components :is(.rn-statement, .rn-example, .rn-proof, .exercise) .source {
+  margin-top: 1rem;
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components .exercise > .source {
+  margin: 0;
+  padding: 0 1rem 1rem;
+}
+.rn-components .rn-statement .source-status {
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components :is(.derivation-steps, .proof-steps, .solution-steps) {
+  margin: .75rem 0 1rem;
+  padding-left: 1.5rem;
+}
+.rn-components :is(.derivation-steps, .proof-steps, .solution-steps) > li {
+  padding-left: .15rem;
+  margin: .9rem 0;
+}
+.rn-components :is(.rn-proof, .exercise) > summary:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+.rn-components :is(.rn-proof-body, .rn-example, .rn-statement, .exercise-question, .answer) {
+  overflow-wrap: break-word;
+}
+@media (max-width: 1100px) {
+  .rn-components:not(.portal-reader):not(.sample-fragment) :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
+    scroll-margin-top: 90px;
+  }
+}
+@media (max-width: 640px) {
+  .rn-components .rn-statement { padding: .85rem .8rem; }
+  .rn-components .rn-proof { padding-left: .75rem; }
+  .rn-components .exercise > :is(summary, .exercise-question, .answer) {
+    padding: .85rem .8rem;
+  }
+  .rn-components .exercise > .source { padding: 0 .8rem .85rem; }
+}
+@media print {
+  .rn-components .rn-proof::details-content { content-visibility: visible !important; }
+}
+
+</style>
+</head><body class="rn-components"><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="本章目录"><details class="toc-panel" id="toc-panel" open><summary>本章目录</summary><nav class="chapter-toc" id="chapter-toc" aria-label="本章目录"><a class="toc-home" href="book_overview.html">← 全书地图</a><ul><li><a href="#representation">图的语义与表示</a></li><li><a href="#topological">拓扑顺序与候选集合</a></li><li><a href="#shortest">BFS、Dijkstra 与索引堆</a></li><li><a href="#negative-dag">负边、DAG 与关键路径</a></li><li><a href="#flow">残余网络与最大流</a></li><li><a href="#spanning">Prim、Kruskal 与割性质</a></li><li><a href="#depth-first">DFS、分量与欧拉路线</a></li><li><a href="#complexity">可判定性、P／NP 与归约</a></li><li><a href="#driver">共同输入与驱动</a></li><li><a href="#exercises">习题解答 · 9.1–9.41</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">Weiss · 第二版中国改编版 · 第九章</p><h1>第九章：图算法</h1><p class="intro">从“点和边怎样表示”走到“每一步选择凭什么安全”：用队列、堆、并查集与 DFS 建立顺序、距离、流量和连通结构，再用归约辨认一般情形的困难。</p><p class="source">依据本仓库第二版中国改编版 PDF。正文 §9.1–9.7 与总结：印刷页 285–339（PDF 第 302–356 页）；习题 9.1–9.41：339–345（PDF 第 356–362 页）；参考文献：345–347（PDF 第 362–364 页）。中文题干按本版扫描页翻译；说明、图示和教学程序独立编写。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="book_overview.html#program-guide">程序说明</a><a href="chapter08_disjoint_sets.html">上一章：不相交集</a><a href="chapter10_algorithm_design.html">下一章：算法设计技巧</a></p></header><section id="representation"><h2>一、§9.1：图的语义决定数据表示</h2><p>树为每个非根节点指定一个父亲；图允许多个入口、回路和不能互达的区域。写成 <span class="math-inline"><math data-tex="G=(V,E)" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>G</mi><mo>&#x0003D;</mo><mo stretchy="false">&#x00028;</mo><mi>V</mi><mo>&#x0002C;</mo><mi>E</mi><mo stretchy="false">&#x00029;</mo></mrow></math></span> 时，边可以有方向，也可以带费用或容量；“一条边”在这些问题中承担不同意义。机场的直飞线路天然有方向，票价与飞行时间又是不同权值；道路网络中的车道容量则为后面的流量模型做准备。先确定这些含义，才知道应求边数最少、费用最低，还是可通过的总量最大。</p><p>原书把路径长度定义为边数，把带权长度定义为边权之和；允许从一个点到自己走零条边。无向边往返一次用的是同一条边，因此 u→v→u 不构成普通无向简单图的环；两条不同的平行边却可以形成长度 2 的环。无向连通、有向强连通以及忽略方向后的弱连通，要分别判断。简单路径不重复顶点，欧拉路线则不重复边，它们会在本章末尾引出截然不同的算法。</p><p>邻接矩阵占 <span class="math-inline"><math data-tex="\Theta(|V|^2)" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>&#x00398;</mi><mo stretchy="false">&#x00028;</mo><mo stretchy="false">&#x0007C;</mo><mi>V</mi><msup><mo stretchy="false">&#x0007C;</mo><mn>2</mn></msup><mo stretchy="false">&#x00029;</mo></mrow></math></span> 空间，检查一条指定边方便；邻接表占 <span class="math-inline"><math data-tex="\Theta(|V|+|E|)" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>&#x00398;</mi><mo stretchy="false">&#x00028;</mo><mo stretchy="false">&#x0007C;</mo><mi>V</mi><mo stretchy="false">&#x0007C;</mo><mo>&#x0002B;</mo><mo stretchy="false">&#x0007C;</mo><mi>E</mi><mo stretchy="false">&#x0007C;</mo><mo stretchy="false">&#x00029;</mo></mrow></math></span> 空间，遍历某个顶点的出边只付出与实际出度相称的时间。原书的街区示例有 3000 个路口和约 12000 条有向邻接记录，矩阵却有 9000000 格。存储比例直接解释了为什么这章的大多数线性算法都要求邻接表。</p><div class="passage"><p class="english">“the data that are actually there”</p><p>表示实际存在的数据。</p><p class="source">§9.1.1，印刷页 287／PDF 304；作者以稀疏街区图说明邻接表的作用。</p></div><p>实际城市名、课程名可以用第七章的散列表映射到稠密编号，再用反向名字表输出。本页程序与图 9.29 一样采用 0…N−1；图中的字母和 <span class="math-inline"><math data-tex="v_{1}" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>v</mi><mrow><mn>1</mn></mrow></msub></mrow></math></span> 等只是显示名。每条输入边有一个永久边号，无向边生成两条共享边号的邻接记录，自环也生成两条，这使后面的桥和欧拉算法可以准确处理平行边。邻接项按输入顺序保留，建图时间为 <span class="math-inline"><math data-tex="O(|V|+|E|)" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>O</mi><mo stretchy="false">&#x00028;</mo><mo stretchy="false">&#x0007C;</mo><mi>V</mi><mo stretchy="false">&#x0007C;</mo><mo>&#x0002B;</mo><mo stretchy="false">&#x0007C;</mo><mi>E</mi><mo stretchy="false">&#x0007C;</mo><mo stretchy="false">&#x00029;</mo></mrow></math></span>。</p><p>C 用连续邻接数组和偏移量表示列表，Graph 拥有并释放这些数组；Python 用等价的列表。两版限制 <span class="math-inline"><math data-tex="0\le N\le10^5" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>0</mn><mo>&#x02264;</mo><mi>N</mi><mo>&#x02264;</mo><msup><mn>10</mn><mn>5</mn></msup></mrow></math></span>、<span class="math-inline"><math data-tex="0\le M\le10^6" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>0</mn><mo>&#x02264;</mo><mi>M</mi><mo>&#x02264;</mo><msup><mn>10</mn><mn>6</mn></msup></mrow></math></span>、<span class="math-inline"><math data-tex="|w|\le10^9" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mo stretchy="false">&#x0007C;</mo><mi>w</mi><mo stretchy="false">&#x0007C;</mo><mo>&#x02264;</mo><msup><mn>10</mn><mn>9</mn></msup></mrow></math></span>，所有费用运算采用相同的有限区间 <span class="math-inline"><math data-tex="(-I,I)" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mo stretchy="false">&#x00028;</mo><mo>&#x02212;</mo><mi>I</mi><mo>&#x0002C;</mo><mi>I</mi><mo stretchy="false">&#x00029;</mo></mrow></math></span>，其中 <span class="math-inline"><math data-tex="I=\lfloor(2^{63}-1)/4\rfloor" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>I</mi><mo>&#x0003D;</mo><mi>&#x0230A;</mi><mo stretchy="false">&#x00028;</mo><msup><mn>2</mn><mrow><mn>63</mn></mrow></msup><mo>&#x02212;</mo><mn>1</mn><mo stretchy="false">&#x00029;</mo><mo>&#x0002F;</mo><mn>4</mn><mi>&#x0230B;</mi></mrow></math></span>；I 与 −I 留作不可达标记。相加前检查范围，不对无穷大做加法；路径计数另限无符号 64 位。C 分配或输入失败报错退出，Python 对应抛出异常。</p><div class="code-pair" id="pair-graph-code" data-pair="graph"><details class="code-version" data-language="c" open><summary>C（C11）</summary><pre><code id="graph-code" data-language="c" class="language-c">#include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
 #include &lt;stdint.h&gt;
 #include &lt;limits.h&gt;

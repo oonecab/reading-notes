@@ -197,7 +197,171 @@ main[id],main [id]{scroll-margin-top:24px}
 .action-controls{display:flex;flex-wrap:wrap;gap:.6rem}button{font:inherit;cursor:pointer;color:var(--green);background:var(--paper);border:1px solid var(--green);padding:.4rem .7rem;border-radius:3px}button:focus-visible{outline:3px solid #96b9a7;outline-offset:3px}button:disabled{opacity:.55;cursor:default}.interactive-word{overflow-wrap:anywhere}.compact-table{min-width:0!important}.compact-table th,.compact-table td{padding:.4rem .6rem}.small-diagram{min-width:0;max-width:650px}.rule-index{display:flex;flex-wrap:wrap;gap:.3rem 1rem}.book-map-row{scroll-margin-top:150px}.pending{color:var(--sub)}.source-ref{font-size:.85rem;color:var(--sub)}
 
 .proof{margin:1rem 0 1.6rem}.proof-label{color:var(--green);font-weight:600}.source-correction{border-left:3px solid #916e36;background:#faf5e9;padding:.7rem 1rem;margin:1.3rem 0}.statement h3{font-size:1.05rem}.definition-table{min-width:670px}.concept-index{columns:2}.exercise-question .equation{font-size:.94em}@media(max-width:640px){.concept-index{columns:1}}
-</style></head><body><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="章节目录"><details class="toc-panel" id="toc-panel" open><summary>目录</summary><nav class="chapter-toc" id="chapter-toc"><a class="toc-home" href="book_overview.html">伴读总览</a><ul><li><a href="#series">两份前置文字</a></li><li><a href="#bridge">概率论之间的桥梁</a></li><li><a href="#course">内容取舍与严格性</a></li><li><a href="#background">先修基础</a></li><li><a href="#practice">习题与阅读顺序</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">程士宏 · 测度论与概率论基础 · 中文伴读</p><h1>序言与前言</h1><p class="intro">在有限篇幅中保留条件、证明与独立思考</p><p class="source">丛书序言：印刷 I—II / PDF 6—7；作者前言：印刷 III—IV / PDF 8—9</p><p class="chapter-nav"><a href="book_overview.html">伴读总览</a><a href="chapter01_measurable_spaces.html">第一章 · 可测空间和可测映射 →</a></p></header><section id="series"><h2>先区分丛书序言与作者前言</h2>
+</style><style>
+/* RN-001 shared teaching components. Inlined in every controlled reading page. */
+.rn-components {
+  --rn-space: 1rem;
+  --rn-label-size: .95rem;
+  --rn-title-size: 1.05rem;
+}
+.rn-components :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
+  min-width: 0;
+  scroll-margin-top: 24px;
+}
+.rn-components .rn-statement {
+  margin: 1.5rem 0;
+  padding: 1rem 1.15rem;
+  border: 0;
+  border-left: 3px solid var(--green);
+  background: var(--tint);
+}
+.rn-components :is(.rn-statement, .rn-example) > :is(h3, h4, .rn-title) {
+  margin: 0 0 .8rem;
+  padding: 0;
+  border: 0;
+  font-size: var(--rn-title-size);
+  line-height: 1.7;
+  font-weight: 650;
+  color: var(--green);
+}
+.rn-components .rn-statement > .statement-body {
+  padding: 0;
+  border: 0;
+}
+.rn-components .rn-statement .original-excerpt {
+  margin: .5rem 0 1rem;
+  padding: .1rem 0 .1rem .85rem;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-statement .statement-label {
+  margin: .8rem 0 .3rem;
+  color: var(--sub);
+  font-size: .85rem;
+  font-weight: 600;
+}
+.rn-components .rn-example {
+  margin: 1.75rem 0;
+  padding: 1rem 0 .25rem;
+  border: 0;
+  border-top: 1px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-proof {
+  margin: 1.1rem 0 1.75rem;
+  padding: 0 0 .2rem 1rem;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-proof > summary {
+  cursor: pointer;
+  margin: 0;
+  padding: .35rem 0;
+  color: var(--green);
+  font-size: var(--rn-label-size);
+  font-weight: 650;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .rn-proof > .rn-proof-body { margin-top: .7rem; }
+.rn-components .rn-proof-body p { margin: .85rem 0; }
+.rn-components .rn-proof-body > :first-child:not(.rn-example):not(.rn-statement):not(.rn-proof) {
+  margin-top: 0;
+}
+.rn-components :is(.rn-proof-body, .rn-statement, .rn-example) > :last-child:not(.rn-example):not(.rn-statement):not(.rn-proof) {
+  margin-bottom: 0;
+}
+.rn-components .exercise {
+  margin: 1rem 0;
+  padding: 0;
+  border: 1px solid var(--rule);
+  background: transparent;
+}
+.rn-components .exercise > summary {
+  margin: 0;
+  padding: .85rem 1rem;
+  color: var(--green);
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .exercise[open] > summary {
+  border-bottom: 1px solid var(--rule);
+  background: var(--tint);
+}
+.rn-components .exercise > :is(.exercise-question, .answer) {
+  margin: 0;
+  padding: 1rem;
+  border: 0;
+  background: transparent;
+  min-width: 0;
+}
+.rn-components .exercise > .answer {
+  border-top: 1px solid var(--rule);
+}
+.rn-components .exercise :is(.exercise-question, .answer) > :first-child {
+  margin: 0 0 .75rem;
+  padding: 0;
+  border: 0;
+  color: var(--green);
+  font-size: var(--rn-label-size);
+  font-weight: 650;
+  line-height: 1.75;
+}
+.rn-components .exercise :is(.exercise-question, .answer) > :first-child > strong { font-weight: inherit; }
+.rn-components :is(.exercise-question, .answer) > :last-child { margin-bottom: 0; }
+.rn-components :is(.rn-statement, .rn-example, .rn-proof, .exercise) .source {
+  margin-top: 1rem;
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components .exercise > .source {
+  margin: 0;
+  padding: 0 1rem 1rem;
+}
+.rn-components .rn-statement .source-status {
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components :is(.derivation-steps, .proof-steps, .solution-steps) {
+  margin: .75rem 0 1rem;
+  padding-left: 1.5rem;
+}
+.rn-components :is(.derivation-steps, .proof-steps, .solution-steps) > li {
+  padding-left: .15rem;
+  margin: .9rem 0;
+}
+.rn-components :is(.rn-proof, .exercise) > summary:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+.rn-components :is(.rn-proof-body, .rn-example, .rn-statement, .exercise-question, .answer) {
+  overflow-wrap: break-word;
+}
+@media (max-width: 1100px) {
+  .rn-components:not(.portal-reader):not(.sample-fragment) :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
+    scroll-margin-top: 90px;
+  }
+}
+@media (max-width: 640px) {
+  .rn-components .rn-statement { padding: .85rem .8rem; }
+  .rn-components .rn-proof { padding-left: .75rem; }
+  .rn-components .exercise > :is(summary, .exercise-question, .answer) {
+    padding: .85rem .8rem;
+  }
+  .rn-components .exercise > .source { padding: 0 .8rem .85rem; }
+}
+@media print {
+  .rn-components .rn-proof::details-content { content-visibility: visible !important; }
+}
+
+</style>
+</head><body class="rn-components"><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="章节目录"><details class="toc-panel" id="toc-panel" open><summary>目录</summary><nav class="chapter-toc" id="chapter-toc"><a class="toc-home" href="book_overview.html">伴读总览</a><ul><li><a href="#series">两份前置文字</a></li><li><a href="#bridge">概率论之间的桥梁</a></li><li><a href="#course">内容取舍与严格性</a></li><li><a href="#background">先修基础</a></li><li><a href="#practice">习题与阅读顺序</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">程士宏 · 测度论与概率论基础 · 中文伴读</p><h1>序言与前言</h1><p class="intro">在有限篇幅中保留条件、证明与独立思考</p><p class="source">丛书序言：印刷 I—II / PDF 6—7；作者前言：印刷 III—IV / PDF 8—9</p><p class="chapter-nav"><a href="book_overview.html">伴读总览</a><a href="chapter01_measurable_spaces.html">第一章 · 可测空间和可测映射 →</a></p></header><section id="series"><h2>先区分丛书序言与作者前言</h2>
 <p>扫描版前面有两份不同的文字。丛书序言由张继平署名，日期为 2002 年 5 月 18 日，说明北京大学数学教学系列丛书与课程改革的背景；作者前言由程士宏署名，写于 2004 年元月，解释本书的授课对象、内容取舍和阅读方法。两者分别回答“这套教材为什么编”和“这一本书怎样使用”。</p>
 <p>丛书序言强调扎实的数学基础与后续课程内容的精炼。这里的“少而精”意味着把有限学时用在能支撑进一步学习的核心思想上。对伴读而言，最有价值的回应是把必要条件和中间论证讲清楚，使读者能够独立使用工具。</p>
 <p>定位：丛书序言 PDF 6—7；作者前言 PDF 8—9。</p>
@@ -218,7 +382,7 @@ main[id],main [id]{scroll-margin-top:24px}
 <section id="practice"><h2>习题、星号与回读</h2>
 <p>作者建议先独立做题，再看附录的解答与提示。题目不只检验记忆，还会把正文略去的证明补齐：例如原像运算、分位数的左连续性、逆分布函数的弱收敛，都在习题中继续展开。伴读把这些论证放在可展开的题解中，正文可以精确链接过去。</p>
 <p>前言指出，一个学期可讲完没有星号的章节；带星号部分可以自学或作介绍。第六章展示测度论怎样使独立序列的极限理论得到严格论证，可以作为全书目标先浏览，再在学过积分、乘积空间后回读。</p>
-<p>本批先完成前两章。读完第一章，应能解释一个随机变量怎样把事件拉回样本空间；读完第二章，应能说明同一个“趋于零”在几乎处处、依概率和依分布意义下各自要求什么。接着进入<a href="chapter01_measurable_spaces.html">第一章</a>。</p>
+<p>本伴读已覆盖全六章。读完第一章，应能解释一个随机变量怎样把事件拉回样本空间；读完第二章，应能说明同一个“趋于零”在几乎处处、依概率和依分布意义下各自要求什么。第三、四章继续建立积分与条件期望，第五、六章讨论乘积空间、独立性与极限定理。可按原书顺序进入<a href="chapter01_measurable_spaces.html">第一章</a>。</p>
 </section>
 <footer><p>依照 2004 年第 1 版展开。原书陈述、伴读解释与校注分别标明；每节和每题保留印刷页及 PDF 页序。</p><p class="chapter-nav"><a href="book_overview.html">伴读总览</a><a href="chapter01_measurable_spaces.html">第一章 · 可测空间和可测映射 →</a></p><p><a href="#top">回到页首 ↑</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top">本节理解与补充</a></p><div id="annotation-content"></div></aside></div><script>
 (() => {

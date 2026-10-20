@@ -63,7 +63,7 @@ def check_pdf_locations():
     count = 0
     for path in sorted((ROOT/'notes').glob('*.html')):
         doc = Document(path.read_text())
-        for node in doc.root.walk('details'):
+        for node in doc.root.walk():
             expected = None
             if node.has_class('exercise'):
                 number = node.attrs.get('data-original-exercise') or node.attrs['id'][3:].replace('-', '.')
