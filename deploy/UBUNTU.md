@@ -8,7 +8,7 @@ I033 已按 [I032 运维方案](OPERATIONS-I032.md)应用 root 安装器、只�
 
 Web 主机管理员安装 `nginx python3 rsync util-linux openssl certbot`，创建 `reading-notes` 系统组及同名无登录系统用户。独立构建主机另建 `reading-notes-build` 用户，加入 `reading-notes` 组；安装锁定 Node/pnpm 和 `clang make poppler-utils`，检出已审核提交至 `/opt/reading-notes-builder`。先执行 `python3 tools/project.py doctor`，不要用不匹配的 Node/pnpm 继续构建。
 
-将 `deploy/scripts/`、`deploy/public_policy.py`、`deploy/publish-allowlist.json`、`deploy/nginx/` 与 `tools/release_support.py` 按仓库相对结构安装到 `/usr/local/lib/reading-notes/`，由 root 拥有、目录 0755、普通文件 0644、脚本 0755。此安装目录不可由发布用户修改。将 `reading-notes-publish` 与 `reading-notes-nginx` 安装到 `/usr/local/sbin/`，root:root 0755。将 `reading-notes.sudoers` 用 `visudo -cf` 校验后安装到 `/etc/sudoers.d/reading-notes`，root:root 0440；它只允许调用校验固定动作及版本 ID 的 `reading-notes-publish`；安装器再调用 Nginx helper 的 test/reload。
+将 `deploy/scripts/`、`deploy/public_policy.py`、`deploy/http_checks.py`、`deploy/publish-allowlist.json`、`deploy/policies/`、`deploy/nginx/` 与 `tools/release_support.py` 按仓库相对结构安装到 `/usr/local/lib/reading-notes/`，由 root 拥有、目录 0755、普通文件 0644、脚本 0755。此安装目录不可由发布用户修改。将 `reading-notes-publish` 与 `reading-notes-nginx` 安装到 `/usr/local/sbin/`，root:root 0755。将 `reading-notes.sudoers` 用 `visudo -cf` 校验后安装到 `/etc/sudoers.d/reading-notes`，root:root 0440；它只允许调用校验固定动作及版本 ID 的 `reading-notes-publish`；安装器再调用 Nginx helper 的 test/reload/health。
 
 Web 主机将 `reading-notes.tmpfiles.conf` 安装到 `/etc/tmpfiles.d/reading-notes.conf`，执行 `systemd-tmpfiles --create /etc/tmpfiles.d/reading-notes.conf`。独立构建主机在创建构建用户后额外安装 `reading-notes-build.tmpfiles.conf`；Web 模板不引用构建用户。运行目录为：
 
@@ -68,3 +68,17 @@ sudo -u reading-notes sudo -n /usr/local/sbin/reading-notes-publish rollback YYY
 I032 加固后的安装顺序为：逐文件 fsync → 从叶到根 fsync 目录 → rename 候选 → fsync 候选与 releases 父目录 → 临时 journal 文件 fsync / 原子替换 / 父目录 fsync → 切 current / 父目录 fsync。清除 journal 和队列回执迁移也落盘。此契约依赖支持 POSIX fsync/同文件系统 rename 的本地文件系统及存储设备正确兑现写入屏障。损坏 journal 的 `--recover` 返回结构化诊断和退出码 2，保持文件及 current；管理员检查版本后使用 `reading-notes-publish recover YYYYMMDDTHHMMSS`，验证指定版本再恢复，并将损坏文件保留在 web root 外的 `.publish-transaction.corrupt-*.json`。恢复后可继续发布；不存在 journal 时 recover 幂等。
 
 本地演练使用 `tools/test_static_publish.py --release-dir deploy/portal-releases/<id>`，真实执行 SHA、rsync、锁、原子 rename、临时 Nginx HTTPS/HTTP 和故障回滚。`publish.sh --dry-run --root <临时目录>` 也实际写入临时 release，但没有 service hook 时明确跳过服务动作，不代表生产验收。完整线上验收用 `deploy/verify_portal.py --release-dir <本地包> --origin https://notes.zzzping.top --output <私有报告>`，并实际检查桌面/手机页面、深链及公式。I029 已执行远端发布、真实 systemd/受限 helper 与生产证书 HTTPS 验证，并在 Ubuntu 隔离目录执行 13 项失败恢复测试。首次生产迁移保留旧站目录及配置，恢复命令见生产发布记录；没有为故障演练主动回退在线站点。
+
+## I035 缓存与发布内容检查
+
+安装新 helper 前保留旧 helper、snippet 和精确公开清单；旧清单以其 SHA-256 命名安装至 `deploy/policies/`（root:root，不可由队列用户修改）。新 release 按当前清单验证，旧版按其原清单验证。不要把上传包里的任意 policy 自动加入信任库。
+
+Nginx 需要 `--with-http_gzip_static_module`，新 snippet 开启 `gzip_static on`、`gzip_vary on` 与 `if_modified_since exact`。仅命中真实 `.gz` 时静态协商 gzip，identity / gzip;q=0 正常回退；HTTP 响应继续 no-cache。预压缩在构建时完成，线上没有压缩任务服务。
+
+发布锁内持久维护 `/srv/reading-notes/.cache-validators.json`；首次导入既有版本先逐文件验证哈希。相同 URL/内容复用秒级 mtime，identity 与 gzip 表示共享时间占用集合以避免等大小表示碰撞，改变内容在同秒发布也占用另一个未使用的过去秒，避免同大小 ETag 冲突和未来 Last-Modified。mtime 是缓存身份，不用于判断发布时间；版本身份看 release.json。即使保留策略删除旧 release，也保留该登记，禁止将它当临时缓存清理。登记写入及 fsync 在候选只读与 current 切换之前，失败终止发布。
+
+`reading-notes-nginx health` 使用正常 TLS 主机名校验，连接 127.0.0.1:443，核对当前 manifest 的首页、每书入口和最大章节内容 SHA、类型、缓存及 CSP。健康检查处于事务内；任一步失败恢复旧 current，再执行 test/reload/health。恢复检查失败保留 journal。成功回执记录 release/archive/source 和源站健康状态；这不代替公网连通与浏览器验收。
+
+可安装 `reading-notes-health.service/.timer` 并执行 `systemctl daemon-reload && systemctl enable --now reading-notes-health.timer`。每 15 分钟检查相同内容；持共享发布锁，发布进行时延后，遗留 journal 视为失败。unit 只有读取权限且不会修改 current；失败出现在 systemd 状态和 journal，不发送外部消息。使用 `systemctl status reading-notes-health.service`、`journalctl -u reading-notes-health.service` 查看；timer 不等于外部公网监测。实际安装状态以 I035 验收记录为准。
+
+`tools/test_static_publish.py` 增加不变页面 identity/gzip 304、同大小首页变化 200、回滚 ETag、健康失败回滚；`deploy/verify_portal.py` 对所有文件验证内容及 304，对全部 sidecar 校验 gzip 原始字节、解压等价、Vary 和 gzip;q=0 回退，同时保留 PDF Range 和路由检查。

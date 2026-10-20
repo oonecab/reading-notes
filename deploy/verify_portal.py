@@ -3,6 +3,7 @@
 import argparse
 from datetime import datetime
 import hashlib
+import gzip
 import http.client
 import json
 from pathlib import Path
@@ -43,6 +44,8 @@ def main():
     started = datetime.now(ZoneInfo('Asia/Shanghai')).isoformat()
     results = []
     redirects = metadata.get('entry_redirects', {})
+    inventory = {r['path']:r for r in metadata['files']}
+    compression_results = []
     for row in metadata['files']:
         if '/' + row['path'] in redirects:
             continue
@@ -59,6 +62,22 @@ def main():
         assert headers['cache-control'] == 'no-cache'
         csp = headers['content-security-policy']
         assert all(value in csp for value in metadata['inline_script_csp_sources'])
+        assert not headers.get('content-encoding'), row['path']
+        etag = headers.get('etag')
+        assert etag, row['path']
+        cached, cached_headers, cached_body = request('/'+quote(row['path']), headers={'If-None-Match':etag})
+        assert cached == 304 and not cached_body and cached_headers['etag'] == etag, row['path']
+        compressed = inventory.get(row['path']+'.gz')
+        if compressed:
+            code, gz_headers, gz_blob = request('/'+quote(row['path']), headers={'Accept-Encoding':'gzip'})
+            assert code == 200 and gz_headers.get('content-encoding') == 'gzip', row['path']
+            assert 'accept-encoding' in gz_headers.get('vary','').lower(), row['path']
+            assert hashlib.sha256(gz_blob).hexdigest() == compressed['sha256'], row['path']
+            assert gzip.decompress(gz_blob) == blob, row['path']
+            assert request('/'+quote(row['path']), headers={'Accept-Encoding':'gzip','If-None-Match':gz_headers['etag']})[0] == 304
+            code, plain_headers, plain = request('/'+quote(row['path']), headers={'Accept-Encoding':'gzip;q=0'})
+            assert code == 200 and not plain_headers.get('content-encoding') and plain == blob
+            compression_results.append({'path':row['path'],'identity_bytes':len(blob),'gzip_bytes':len(gz_blob),'conditional':304})
         results.append({'path': row['path'], 'status': status, 'mime': mime, 'bytes': len(blob), 'sha256': digest})
     for path, target in [('/', 'index.html'), ('/stochastic/', 'stochastic/index.html'), ('/weiss/', 'weiss/index.html')]:
         if path in redirects:
@@ -104,6 +123,7 @@ def main():
               'finished_at': datetime.now(ZoneInfo('Asia/Shanghai')).isoformat(),
               'files_checked': len(results), 'files': results, 'entry_redirects': redirect_results,
               'pdf_range': '206; bytes 32-63 agree with release', 'pdf_ranges': pdf_results,
+              'precompressed': compression_results, 'conditional_requests': len(results),
               'route_checks': 'pass'}
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + '\n')

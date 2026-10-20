@@ -32,3 +32,5 @@
 新模板目录为 `/srv/reading-notes`，构建工作目录为 `/opt/reading-notes-builder`；Node/pnpm 只存在于构建主机。Web 主机的 Python/rsync/flock 是一次性发布命令依赖，不是 HTTP 运行服务。现网已在 I029 切换到 /srv/reading-notes/current/site，旧 /var/www/notes.zzzping.top 目录与配置保留为首次迁移恢复点；实际版本见 [生产发布记录](astro-production-report.md)。
 
 I032 的构建 CSP/离线验收需要 Ego Lite 与 ego-browser CLI，在私有任务空间运行；临时 HTTP 服务只绑定回环随机端口，用后关闭。I033 实机已关闭 SSH 密码认证并验证新密钥会话，FTP 已 stop/mask，无 21/3306 监听；UFW 仅保留 22/80/443，fail2ban sshd jail 已运行。root 密码未轮换，现有 Certbot 手工 DNS-01 续期仍需改为自动 DNS；HTTP dry-run 实测 403，后续步骤见 [DNS 续期交接](../deploy/DNS-RENEWAL.md)。
+
+I035 新增 `reading-notes-health.service/.timer` 模板，每 15 分钟以回环 TLS 核对当前发布内容；独立 oneshot，无新增端口或凭据变量，安装状态见 I035。Nginx 新模板要求 gzip_static 模块；持久缓存验证器登记位于 `/srv/reading-notes/.cache-validators.json`，只由持锁 root 发布器更新。

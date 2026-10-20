@@ -147,3 +147,5 @@ I032 新书接入验收使用 `tools/test_new_book_build.py` 运行完整隔离�
 I033 于 2026-10-17 实机部署 `20261017T210828`，通过真实 systemd unit、旧版回滚及新版恢复、两版本 HTTPS 响应哈希和 root 只读权限验证。现有证书仍有效，自动续期未完成；Web 主机 tmpfiles 与可选构建主机模板已拆分。当前事实以 [I033 报告](docs/browser-stability-report.md)为准，I029/I032 保留各自验收时的边界。
 
 I034 增页后当前书籍阅读页为 56 页、原书习题 1489 题；包括辅助页与旧入口共 76 个公开 HTML，allowlist 新增两章与两个源文件。新增页按 `page_baselines` 登记经过读回的本地 Git 内容快照，既有页继续保留 I028 原始 hash 并追加修订链；构建和真实阅读记录与生产发布记录分别维护。
+
+I035 为受控静态发布加入确定性 gzip-6 sidecar；派生文件仅限 allowlist 中登记的文本，解压内容与原文件严格一致并进入归档 SHA 清单。Nginx 使用 gzip_static，保留 no-cache 和精确条件请求；发布器将内容到 mtime 的持久登记与 release 解包时间分离，同一内容复用 ETag，改变内容的同大小文件也使用不同验证器。历史清单只从 root 安装的摘要命名文件读取，以保持旧版可回滚。发布事务在 test/reload 后验证回环 HTTPS 的首页、五书入口及代表章节内容，失败恢复旧站并复核。新增健康检查 unit 模板与静态 HTML/gzip/DOM/JS 预算，CS:APP 横滚检测批量测量。实现和实际启用状态分别见 [I035](issues/I035-cache-performance-reliability.md) / [T035](test/T035-cache-performance-reliability.md)；运行时与数学内容不变。

@@ -7,6 +7,7 @@ import { entries, syncMirrors } from '../src/lib/controlled-html.mjs';
 import { verifyParity } from './verify-parity.mjs';
 import { sha, offlineDependencies } from './parity-lib.mjs';
 import { checkCsp } from './check-csp.mjs';
+import { checkBudgets } from './performance-budget.mjs';
 import { checkSource } from '../src/lib/source-revisions.mjs';
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
@@ -60,6 +61,7 @@ for(const route of routes){const issues=offlineDependencies(fs.readFileSync(path
 if(!shell){
   run('python3',['deploy/public_policy.py',target,'--transform','--sums',path.join(stage,'dist-SHA256SUMS')]);
   verifyParity(target);
+  fs.writeFileSync(path.join(stage,'performance-budget.json'),JSON.stringify(checkBudgets(target),null,2)+'\n');
   await checkCsp(target);
   const previous=path.join(stage,'previous-dist');fs.rmSync(previous,{recursive:true,force:true});
   if(fs.existsSync(path.join(root,'dist')))fs.renameSync(path.join(root,'dist'),previous);

@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "review": "I035; measured pre-change build d3464db, explicit ceilings, never auto-refresh during build",
+  "default": {
+    "html_bytes": 2250000,
+    "gzip_bytes": 310000,
+    "elements": 79000,
+    "js_bytes": 8500
+  },
+  "pages": {
+    "index.html": {
+      "html_bytes": 19050,
+      "gzip_bytes": 6315,
+      "elements": 307,
+      "js_bytes": 564
+    },
+    "csapp/notes/chapter02_information.html": {
+      "html_bytes": 560860,
+      "gzip_bytes": 116971,
+      "elements": 13065,
+      "js_bytes": 7289
+    },
+    "stochastic/notes/chapter01_markov_chains.html": {
+      "html_bytes": 2259233,
+      "gzip_bytes": 306632,
+      "elements": 79470,
+      "js_bytes": 4967
+    }
+  }
+}

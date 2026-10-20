@@ -1,0 +1,298 @@
+{
+  "revision": "I035",
+  "date": "2026-10-20",
+  "scope": "CS:APP overflow layout reads batched before attribute writes; unchanged states do not rewrite attributes. Mathematical and reading content unchanged.",
+  "source_sha256": {
+    "csapp/notes/book_overview.html": "ead21f20f845ed32972993692cb8b523c109a250ee2d2d782189f6f329a3aaba",
+    "csapp/notes/chapter01_tour.html": "c039cf925c85475a9cce6129cbbb9a16d8bed941810f73b95b604193a3a1826a",
+    "csapp/notes/chapter02_information.html": "de784c70e5bf7ea6a30021c33db25330e6f056d1627a789b910837fa472f71a6",
+    "csapp/notes/chapter03_machine_level.html": "4a9440bfeaebc5c0bef5027e6345b0b40f4ba664648ef922834ca1132afdf187",
+    "csapp/notes/chapter04_architecture.html": "5cb590d1e4530d20c1550471b4e0688512f094e58a1ea0baf4bf154b5af6fa44",
+    "csapp/notes/chapter05_optimization.html": "536ebb4c2801aceb9142f69f0dc784f0210885293508a88823af5837021eb71f",
+    "csapp/notes/chapter06_memory.html": "5dfd635fbe83f63c7ddcfe8159251c1ba1460b5b56382d3e2d4dc33386369862",
+    "csapp/notes/chapter07_linking.html": "d8417b2ffaf4e3b91e448af66b57cd1ee52de3b076d70c5da84721a29fda6da3",
+    "csapp/notes/chapter08_exceptional.html": "0de3105be36aba98b233505521ffd37773bdf6d7b139c0a431cd0aa1f7bd6a9b",
+    "csapp/notes/chapter09_virtual_memory.html": "6dbe323b7e655b8fdb34ff447cea6e243360b4df767e23536bc8d55ae6aa42c6",
+    "csapp/notes/chapter10_system_io.html": "192957aaaeaac3e4a081fd257175c978b74aa1232a661d6377c5239dd3f8763b",
+    "csapp/notes/chapter11_network.html": "e5f8714a957ea4b74cbcc42359e1627df28214bc53b582c6ef855f7fe08c28dd",
+    "csapp/notes/chapter12_concurrency.html": "5dccfae47f4de1b88be2b73331af5dff7df57fe17e26115c3a96a113e6b78a71",
+    "csapp/notes/preface.html": "b877e52712900434404f7e27c6ed2b5eec5a1c083d6a816ad2be2e792ad56ef8"
+  },
+  "output_sha256": {
+    "csapp/notes/book_overview.html": "e6e17522474768ed913e2607eb075fa0b929a88b12a9a0ec4ff86713efc7ab3d",
+    "csapp/notes/chapter01_tour.html": "e32bdbbb206eba5e04d0af78d6dbf24025f2f73b3ab0ec5f23cd4780bc9a1b3e",
+    "csapp/notes/chapter02_information.html": "71a0e6ef163c17113ecb8c8ffc2bd040e2f6f84683ca39a21dac492ff8aae72b",
+    "csapp/notes/chapter03_machine_level.html": "3cf1bce48fc2fb1f5c99ede67beb9beb48f019f1740b7487f8b26ff3a9c52389",
+    "csapp/notes/chapter04_architecture.html": "870ac08062fc393526d03124e5e029c375183e4c898e317598cd2578e244b44f",
+    "csapp/notes/chapter05_optimization.html": "793e29fd3d07420642af36f555260734cf76674406d13a583b1ef7455012a57a",
+    "csapp/notes/chapter06_memory.html": "b38ad3c3432462985750d64a2bcd0a5e0aae1fbeff315dbeacabd58c90e8d730",
+    "csapp/notes/chapter07_linking.html": "45a95ef7e028d4ebdbf4657c6d8d2302e4516aba7ce8ec3f90123708ad54e8fe",
+    "csapp/notes/chapter08_exceptional.html": "7559fc2a446d51e6619cae0a165a372e94cddf00931fed27c91a1e40b64410f8",
+    "csapp/notes/chapter09_virtual_memory.html": "435832dcbe59aa5f4ee645c9cc901abc6e13fb6a725c0b19c55adc3182ae467f",
+    "csapp/notes/chapter10_system_io.html": "37d39ef1a77e5ec3a39459c07195eb39c784c6954e897f24e5418f2c6e60b6c5",
+    "csapp/notes/chapter11_network.html": "77e51b28abdd58023cef55fb60d33fa517a14272217f6564d415caa2e7bd934c",
+    "csapp/notes/chapter12_concurrency.html": "c3245ea7acd56f7cfa5755a3bfeb4caa3d05222d04dd52fbba168cc758618ae2",
+    "csapp/notes/preface.html": "f5da005e429b64dc15e8e930d66a44c1a3b1fd539d8211942201ae9829b7df96"
+  },
+  "evidence": {
+    "unit": "scripts/reader-performance.test.mjs",
+    "parity": "tmp/reading-notes-migration/parity/all.json: 56 pages, zero differences",
+    "browser": "tmp/reading-notes-migration/browser/all/runs/2026-10-20T03-08-10-291Z-7a7f0021/report.json: 304 JS and 152 no-JS views passed",
+    "visual_readback": "CS:APP chapter 2 at 1440px and 390px; title, two sidebars, question/answer and chapter links inspected",
+    "limits": "Presentation script only. Body, math, SVG, code, anchors and exercise identities unchanged; no new mathematical review claim."
+  },
+  "pages": [
+    {
+      "route": "csapp/notes/book_overview.html",
+      "differences": [
+        "dom",
+        "scripts",
+        "js_bytes"
+      ],
+      "unchanged": [
+        "body_text",
+        "mathml",
+        "svg",
+        "anchors",
+        "links",
+        "code",
+        "exercise_ids",
+        "styles"
+      ]
+    },
+    {
+      "route": "csapp/notes/chapter01_tour.html",
+      "differences": [
+        "dom",
+        "scripts",
+        "js_bytes"
+      ],
+      "unchanged": [
+        "body_text",
+        "mathml",
+        "svg",
+        "anchors",
+        "links",
+        "code",
+        "exercise_ids",
+        "styles"
+      ]
+    },
+    {
+      "route": "csapp/notes/chapter02_information.html",
+      "differences": [
+        "dom",
+        "scripts",
+        "js_bytes"
+      ],
+      "unchanged": [
+        "body_text",
+        "mathml",
+        "svg",
+        "anchors",
+        "links",
+        "code",
+        "exercise_ids",
+        "styles"
+      ]
+    },
+    {
+      "route": "csapp/notes/chapter03_machine_level.html",
+      "differences": [
+        "dom",
+        "scripts",
+        "js_bytes"
+      ],
+      "unchanged": [
+        "body_text",
+        "mathml",
+        "svg",
+        "anchors",
+        "links",
+        "code",
+        "exercise_ids",
+        "styles"
+      ]
+    },
+    {
+      "route": "csapp/notes/chapter04_architecture.html",
+      "differences": [
+        "dom",
+        "scripts",
+        "js_bytes"
+      ],
+      "unchanged": [
+        "body_text",
+        "mathml",
+        "svg",
+        "anchors",
+        "links",
+        "code",
+        "exercise_ids",
+        "styles"
+      ]
+    },
+    {
+      "route": "csapp/notes/chapter05_optimization.html",
+      "differences": [
+        "dom",
+        "scripts",
+        "js_bytes"
+      ],
+      "unchanged": [
+        "body_text",
+        "mathml",
+        "svg",
+        "anchors",
+        "links",
+        "code",
+        "exercise_ids",
+        "styles"
+      ]
+    },
+    {
+      "route": "csapp/notes/chapter06_memory.html",
+      "differences": [
+        "dom",
+        "scripts",
+        "js_bytes"
+      ],
+      "unchanged": [
+        "body_text",
+        "mathml",
+        "svg",
+        "anchors",
+        "links",
+        "code",
+        "exercise_ids",
+        "styles"
+      ]
+    },
+    {
+      "route": "csapp/notes/chapter07_linking.html",
+      "differences": [
+        "dom",
+        "scripts",
+        "js_bytes"
+      ],
+      "unchanged": [
+        "body_text",
+        "mathml",
+        "svg",
+        "anchors",
+        "links",
+        "code",
+        "exercise_ids",
+        "styles"
+      ]
+    },
+    {
+      "route": "csapp/notes/chapter08_exceptional.html",
+      "differences": [
+        "dom",
+        "scripts",
+        "js_bytes"
+      ],
+      "unchanged": [
+        "body_text",
+        "mathml",
+        "svg",
+        "anchors",
+        "links",
+        "code",
+        "exercise_ids",
+        "styles"
+      ]
+    },
+    {
+      "route": "csapp/notes/chapter09_virtual_memory.html",
+      "differences": [
+        "dom",
+        "scripts",
+        "js_bytes"
+      ],
+      "unchanged": [
+        "body_text",
+        "mathml",
+        "svg",
+        "anchors",
+        "links",
+        "code",
+        "exercise_ids",
+        "styles"
+      ]
+    },
+    {
+      "route": "csapp/notes/chapter10_system_io.html",
+      "differences": [
+        "dom",
+        "scripts",
+        "js_bytes"
+      ],
+      "unchanged": [
+        "body_text",
+        "mathml",
+        "svg",
+        "anchors",
+        "links",
+        "code",
+        "exercise_ids",
+        "styles"
+      ]
+    },
+    {
+      "route": "csapp/notes/chapter11_network.html",
+      "differences": [
+        "dom",
+        "scripts",
+        "js_bytes"
+      ],
+      "unchanged": [
+        "body_text",
+        "mathml",
+        "svg",
+        "anchors",
+        "links",
+        "code",
+        "exercise_ids",
+        "styles"
+      ]
+    },
+    {
+      "route": "csapp/notes/chapter12_concurrency.html",
+      "differences": [
+        "dom",
+        "scripts",
+        "js_bytes"
+      ],
+      "unchanged": [
+        "body_text",
+        "mathml",
+        "svg",
+        "anchors",
+        "links",
+        "code",
+        "exercise_ids",
+        "styles"
+      ]
+    },
+    {
+      "route": "csapp/notes/preface.html",
+      "differences": [
+        "dom",
+        "scripts",
+        "js_bytes"
+      ],
+      "unchanged": [
+        "body_text",
+        "mathml",
+        "svg",
+        "anchors",
+        "links",
+        "code",
+        "exercise_ids",
+        "styles"
+      ]
+    }
+  ]
+}

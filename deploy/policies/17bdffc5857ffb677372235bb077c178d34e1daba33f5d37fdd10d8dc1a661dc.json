@@ -1,0 +1,1243 @@
+{
+  "schema_version": 1,
+  "source_baseline": "b2aeff3",
+  "description": "既有 URL 的显式发布清单；审阅与校验数据的旧入口仅输出公开摘要。",
+  "authorized_pdfs": {
+    "stochastic/assets/essentials-of-stochastic-processes.pdf": "books/stochastic/notes/source_manifest.json:web_pdf",
+    "csapp/csapp.pdf": "books/csapp/notes/source_manifest.json:publication.include_source_pdf"
+  },
+  "files": [
+    {
+      "path": "csapp/code/README.md",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/addresses.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/addresses.py",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/cache.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/cache.py",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch01_amdahl.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch01_amdahl.py",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch02_float.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch02_float.py",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch02_integer.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch02_integer.py",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch03_compiler.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch03_good_echo.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch03_good_echo.py",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch03_models.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch03_models.py",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch03_procprob_alias.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch03_range_check.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch03_range_check.py",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch03_ranges.S",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch04_algorithms.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch04_algorithms.py",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch04_machine.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch04_machine.py",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch05_bench.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch05_fill.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch05_fill.py",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch05_loops.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch05_loops.py",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch05_polynomial.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch05_polynomial.py",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch06_cache.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch06_cache.py",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch06_kernels.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch06_kernels.py",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch06_mountain.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch06_mountain.py",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch07_archive.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch07_archive.py",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch07_dlopen.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch07_link_main.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch07_link_sum.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch07_plugin.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch07_probe.py",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch07_relocation.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch07_relocation.py",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch08_ecf.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch08_ecf.py",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch08_io.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch08_io.py",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch08_shell.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch08_shell.py",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch09_allocator.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch09_allocator.py",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch09_mmap.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch09_space.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch09_vm.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch09_vm.py",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch10_cpfile.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch10_files.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch10_files.py",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch10_fstatcheck.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch10_rio.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch10_rio.py",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch11_address.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch11_address.py",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch11_echo.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch11_echo.py",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch11_http.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch11_http.py",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch12_models.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch12_models.py",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch12_resolver.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch12_sbuf.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch12_server_checks.py",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch12_servers.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch12_tfgets.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/ch12_threads.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/hello.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/hello.py",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/index.html",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/pipeline.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/pipeline.py",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/programs.json",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/reductions.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/reductions.py",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/representation.c",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/representation.py",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/y86-verification-support.tar.gz",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/y86/Y86_REPRODUCE.md",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/y86/build_y86_variants.sh",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/y86/csapp-ex4-52-58.patch",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/y86/sim-cases/branch-equal-taken.ys",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/y86/sim-cases/branch-equal-untaken.ys",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/y86/sim-cases/branch-loop-ret.ys",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/y86/sim-cases/branch-unconditional-target-once.ys",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/y86/sim-cases/iadd-load-forward-cc.ys",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/y86/sim-cases/iadd-negative.ys",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/y86/sim-cases/iadd-old-memory-error.ys",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/y86/sim-cases/iadd-overflow.ys",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/y86/sim-cases/lf-load-push-data.ys",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/y86/sim-cases/lf-load-rsp-push.ys",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/y86/sim-cases/lf-load-store-address.ys",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/y86/sim-cases/noforward-h-b-r.ys",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/y86/sim-cases/noforward-h-b.ys",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/y86/sim-cases/page-4-4-representative.ys",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/y86/sim-cases/page-4-47-mixed.ys",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/y86/sim-cases/page-4-47-reverse.ys",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/y86/sim-cases/page-4-47-sorted.ys",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/y86/sim-cases/page-4-48-mixed.ys",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/y86/sim-cases/page-4-48-reverse.ys",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/y86/sim-cases/page-4-48-sorted.ys",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/y86/sim-cases/page-4-49-mixed.ys",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/y86/sim-cases/page-4-49-reverse.ys",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/y86/sim-cases/page-4-49-sorted.ys",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/y86/sim-cases/page-4-5-representative.ys",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/y86/sim-cases/page-4-6-representative.ys",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/y86/sim-cases/pop-adjacent.ys",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/y86/sim-cases/pop-invalid-address.ys",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/y86/sim-cases/pop-load-rsp-refetch.ys",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/y86/sim-cases/pop-preserve-cc.ys",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/y86/sim-cases/pop-rsp-ret.ys",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/code/y86/sim-cases/pop-wrongpath-flush.ys",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/csapp.pdf",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/index.html",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/notes/book_overview.html",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/notes/chapter01_review.json",
+      "mode": "public-summary"
+    },
+    {
+      "path": "csapp/notes/chapter01_tour.html",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/notes/chapter02_information.html",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/notes/chapter02_review.json",
+      "mode": "public-summary"
+    },
+    {
+      "path": "csapp/notes/chapter03_machine_level.html",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/notes/chapter03_review.json",
+      "mode": "public-summary"
+    },
+    {
+      "path": "csapp/notes/chapter04_architecture.html",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/notes/chapter04_review.json",
+      "mode": "public-summary"
+    },
+    {
+      "path": "csapp/notes/chapter05_optimization.html",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/notes/chapter05_review.json",
+      "mode": "public-summary"
+    },
+    {
+      "path": "csapp/notes/chapter06_memory.html",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/notes/chapter06_review.json",
+      "mode": "public-summary"
+    },
+    {
+      "path": "csapp/notes/chapter07_linking.html",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/notes/chapter07_review.json",
+      "mode": "public-summary"
+    },
+    {
+      "path": "csapp/notes/chapter08_exceptional.html",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/notes/chapter08_review.json",
+      "mode": "public-summary"
+    },
+    {
+      "path": "csapp/notes/chapter09_review.json",
+      "mode": "public-summary"
+    },
+    {
+      "path": "csapp/notes/chapter09_virtual_memory.html",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/notes/chapter10_review.json",
+      "mode": "public-summary"
+    },
+    {
+      "path": "csapp/notes/chapter10_system_io.html",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/notes/chapter11_network.html",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/notes/chapter11_review.json",
+      "mode": "public-summary"
+    },
+    {
+      "path": "csapp/notes/chapter12_concurrency.html",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/notes/chapter12_review.json",
+      "mode": "public-summary"
+    },
+    {
+      "path": "csapp/notes/exercise_manifest.json",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/notes/explanation_review.json",
+      "mode": "public-summary"
+    },
+    {
+      "path": "csapp/notes/preface.html",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/notes/reading_review.json",
+      "mode": "public-summary"
+    },
+    {
+      "path": "csapp/notes/simulator_review.json",
+      "mode": "public-summary"
+    },
+    {
+      "path": "csapp/notes/source_excerpts.json",
+      "mode": "public-summary"
+    },
+    {
+      "path": "csapp/notes/source_manifest.json",
+      "mode": "copy"
+    },
+    {
+      "path": "csapp/notes/source_reading_review.json",
+      "mode": "public-summary"
+    },
+    {
+      "path": "csapp/notes/validation.json",
+      "mode": "public-summary"
+    },
+    {
+      "path": "csapp/notes/visual_navigation_review.json",
+      "mode": "public-summary"
+    },
+    {
+      "path": "favicon.svg",
+      "mode": "copy"
+    },
+    {
+      "path": "index.html",
+      "mode": "copy"
+    },
+    {
+      "path": "measure-probability/code/README.md",
+      "mode": "copy"
+    },
+    {
+      "path": "measure-probability/code/finite_integrals.c",
+      "mode": "copy"
+    },
+    {
+      "path": "measure-probability/code/finite_integrals.py",
+      "mode": "copy"
+    },
+    {
+      "path": "measure-probability/code/finite_spaces.c",
+      "mode": "copy"
+    },
+    {
+      "path": "measure-probability/code/finite_spaces.py",
+      "mode": "copy"
+    },
+    {
+      "path": "measure-probability/code/index.html",
+      "mode": "copy"
+    },
+    {
+      "path": "measure-probability/code/product_limits.c",
+      "mode": "copy"
+    },
+    {
+      "path": "measure-probability/code/product_limits.py",
+      "mode": "copy"
+    },
+    {
+      "path": "measure-probability/code/programs.json",
+      "mode": "copy"
+    },
+    {
+      "path": "measure-probability/code/simple_approx.c",
+      "mode": "copy"
+    },
+    {
+      "path": "measure-probability/code/simple_approx.py",
+      "mode": "copy"
+    },
+    {
+      "path": "measure-probability/index.html",
+      "mode": "copy"
+    },
+    {
+      "path": "measure-probability/notes/book_overview.html",
+      "mode": "copy"
+    },
+    {
+      "path": "measure-probability/notes/chapter01_measurable_spaces.html",
+      "mode": "copy"
+    },
+    {
+      "path": "measure-probability/notes/chapter02_measure_spaces.html",
+      "mode": "copy"
+    },
+    {
+      "path": "measure-probability/notes/chapter03_integration.html",
+      "mode": "copy"
+    },
+    {
+      "path": "measure-probability/notes/chapter04_signed_measures.html",
+      "mode": "copy"
+    },
+    {
+      "path": "measure-probability/notes/chapter05_product_spaces.html",
+      "mode": "copy"
+    },
+    {
+      "path": "measure-probability/notes/chapter06_independent_sequences.html",
+      "mode": "copy"
+    },
+    {
+      "path": "measure-probability/notes/exercise_manifest.json",
+      "mode": "copy"
+    },
+    {
+      "path": "measure-probability/notes/preface.html",
+      "mode": "copy"
+    },
+    {
+      "path": "measure-probability/notes/source_excerpts.json",
+      "mode": "public-summary"
+    },
+    {
+      "path": "measure-probability/notes/source_inventory.json",
+      "mode": "public-summary"
+    },
+    {
+      "path": "measure-probability/notes/source_issues.json",
+      "mode": "copy"
+    },
+    {
+      "path": "measure-probability/notes/source_manifest.json",
+      "mode": "copy"
+    },
+    {
+      "path": "reader.css",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/assets/essentials-of-stochastic-processes.pdf",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/code/Makefile",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/code/README.md",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/code/chapter01_markov_chains/README.md",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/code/chapter01_markov_chains/index.html",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/code/chapter01_markov_chains/linear.c",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/code/chapter01_markov_chains/linear.py",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/code/chapter02_poisson_processes/README.md",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/code/chapter02_poisson_processes/index.html",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/code/chapter02_poisson_processes/poisson.c",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/code/chapter02_poisson_processes/poisson.py",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/code/chapter03_renewal_processes/README.md",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/code/chapter03_renewal_processes/index.html",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/code/chapter03_renewal_processes/renewal.c",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/code/chapter03_renewal_processes/renewal.py",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/code/chapter04_continuous_time_markov_chains/README.md",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/code/chapter04_continuous_time_markov_chains/ctmc.c",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/code/chapter04_continuous_time_markov_chains/ctmc.py",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/code/chapter04_continuous_time_markov_chains/index.html",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/code/chapter05_martingales/README.md",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/code/chapter05_martingales/index.html",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/code/chapter05_martingales/stopping.c",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/code/chapter05_martingales/stopping.py",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/code/chapter06_mathematical_finance/README.md",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/code/chapter06_mathematical_finance/bs.c",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/code/chapter06_mathematical_finance/bs.py",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/code/chapter06_mathematical_finance/finance.c",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/code/chapter06_mathematical_finance/finance.py",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/code/chapter06_mathematical_finance/index.html",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/code/examples.zip",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/code/index.html",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/code/programs.json",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/index.html",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/notes/annotations_review.json",
+      "mode": "public-summary"
+    },
+    {
+      "path": "stochastic/notes/appendix_a_probability_review.html",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/notes/audit_fix_review.json",
+      "mode": "public-summary"
+    },
+    {
+      "path": "stochastic/notes/book_overview.html",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/notes/chapter01_explanation_review.json",
+      "mode": "public-summary"
+    },
+    {
+      "path": "stochastic/notes/chapter01_markov_chains.html",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/notes/chapter02_poisson_processes.html",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/notes/chapter03_renewal_processes.html",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/notes/chapter04_continuous_time_markov_chains.html",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/notes/chapter05_martingales.html",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/notes/chapter06_mathematical_finance.html",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/notes/code_deployment_review.json",
+      "mode": "public-summary"
+    },
+    {
+      "path": "stochastic/notes/derivation_coverage.json",
+      "mode": "public-summary"
+    },
+    {
+      "path": "stochastic/notes/derivation_review.json",
+      "mode": "public-summary"
+    },
+    {
+      "path": "stochastic/notes/preface.html",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/notes/readability_review.json",
+      "mode": "public-summary"
+    },
+    {
+      "path": "stochastic/notes/remaining_explanation_review.json",
+      "mode": "public-summary"
+    },
+    {
+      "path": "stochastic/notes/review_manifest.html",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/notes/review_manifest.json",
+      "mode": "public-summary"
+    },
+    {
+      "path": "stochastic/notes/source_manifest.html",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/notes/source_manifest.json",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/notes/statements_review.json",
+      "mode": "public-summary"
+    },
+    {
+      "path": "stochastic/notes/validation.html",
+      "mode": "copy"
+    },
+    {
+      "path": "stochastic/notes/validation.json",
+      "mode": "public-summary"
+    },
+    {
+      "path": "styles.css",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/code/README.md",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/code/actions.c",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/code/actions.py",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/code/cayley.c",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/code/cayley.py",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/code/frieze.c",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/code/frieze.py",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/code/galois.c",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/code/galois.py",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/code/homomorphisms.c",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/code/homomorphisms.py",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/code/index.html",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/code/permutations.c",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/code/permutations.py",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/code/products.c",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/code/products.py",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/code/programs.json",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/code/subgroups.c",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/code/subgroups.py",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/code/sylow.c",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/code/sylow.py",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/code/tables.c",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/code/tables.py",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/index.html",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/notes/algebra_inputs.json",
+      "mode": "public-summary"
+    },
+    {
+      "path": "visual-group-theory/notes/book_overview.html",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/notes/chapter01_what_is_a_group.html",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/notes/chapter02_what_do_groups_look_like.html",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/notes/chapter03_why_study_groups.html",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/notes/chapter04_algebra_at_last.html",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/notes/chapter05_five_families.html",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/notes/chapter06_subgroups.html",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/notes/chapter07_products_and_quotients.html",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/notes/chapter09_sylow_theory.html",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/notes/chapter10_galois_theory.html",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/notes/exercise_manifest.json",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/notes/preface.html",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/notes/source_excerpts.json",
+      "mode": "public-summary"
+    },
+    {
+      "path": "visual-group-theory/notes/source_inventory.json",
+      "mode": "public-summary"
+    },
+    {
+      "path": "visual-group-theory/notes/source_manifest.json",
+      "mode": "copy"
+    },
+    {
+      "path": "visual-group-theory/notes/structures_inputs.json",
+      "mode": "public-summary"
+    },
+    {
+      "path": "visual-group-theory/notes/sylow_galois_inputs.json",
+      "mode": "public-summary"
+    },
+    {
+      "path": "weiss/c/ch8.c",
+      "mode": "copy"
+    },
+    {
+      "path": "weiss/index.html",
+      "mode": "copy"
+    },
+    {
+      "path": "weiss/notes/README.md",
+      "mode": "copy"
+    },
+    {
+      "path": "weiss/notes/book_overview.html",
+      "mode": "copy"
+    },
+    {
+      "path": "weiss/notes/chapter01_introduction.html",
+      "mode": "copy"
+    },
+    {
+      "path": "weiss/notes/chapter02_algorithm_analysis.html",
+      "mode": "copy"
+    },
+    {
+      "path": "weiss/notes/chapter03_lists_stacks_queues.html",
+      "mode": "copy"
+    },
+    {
+      "path": "weiss/notes/chapter04_trees.html",
+      "mode": "copy"
+    },
+    {
+      "path": "weiss/notes/chapter05_priority_queues.html",
+      "mode": "copy"
+    },
+    {
+      "path": "weiss/notes/chapter06_sorting.html",
+      "mode": "copy"
+    },
+    {
+      "path": "weiss/notes/chapter07_hashing.html",
+      "mode": "copy"
+    },
+    {
+      "path": "weiss/notes/chapter08_disjoint_sets.html",
+      "mode": "copy"
+    },
+    {
+      "path": "weiss/notes/chapter09_graph_algorithms.html",
+      "mode": "copy"
+    },
+    {
+      "path": "weiss/notes/chapter10_algorithm_design.html",
+      "mode": "copy"
+    },
+    {
+      "path": "weiss/notes/chapter11_amortized_analysis.html",
+      "mode": "copy"
+    },
+    {
+      "path": "weiss/notes/chapter12_advanced_data_structures.html",
+      "mode": "copy"
+    },
+    {
+      "path": "weiss/notes/reading_guide.html",
+      "mode": "copy"
+    },
+    {
+      "path": "weiss/notes/tools/check_notes.py",
+      "mode": "copy"
+    }
+  ],
+  "authorized_pdf_sha256": {
+    "stochastic/assets/essentials-of-stochastic-processes.pdf": "2232660e1909b42c6df8b5aca8eba12cdb383bf3741ecb53add49f6c26c6a0e7",
+    "csapp/csapp.pdf": "dcd44c5dd0819af7dbef3ebef088a5012aadb5c82761e4b6603b4fb5d0ff504a"
+  }
+}

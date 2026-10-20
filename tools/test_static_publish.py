@@ -3,6 +3,7 @@
 import argparse
 import fcntl
 import hashlib
+import gzip
 import http.client
 import io
 import json
@@ -55,12 +56,13 @@ def main():
         return result
     original=json.loads((a.release_dir/'release.json').read_text())
     packages=[]
-    for i in range(1,5):
+    for i in range(1,6):
         package=work/f'package-{i}';package.mkdir();packages.append(package)
         meta=json.loads(json.dumps(original));meta['release_id']=f'20990101T00000{i}'
         with tarfile.open(a.release_dir/'site.tar.gz') as archive:
             blobs={m.name:archive.extractfile(m).read() for m in archive.getmembers()}
-        if i>1: blobs['index.html']+=f'\n<!-- publication fixture {i} -->\n'.encode()
+        blobs['index.html']+=f'\n<!-- publication fixture {i} -->\n'.encode()
+        if 'index.html.gz' in blobs: blobs['index.html.gz']=gzip.compress(blobs['index.html'],compresslevel=6,mtime=0)
         meta['files']=[{'path':n,'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()} for n,b in sorted(blobs.items())]
         meta['total_bytes']=sum(row['bytes'] for row in meta['files'])
         write_archive(package/'site.tar.gz',blobs)
@@ -140,7 +142,7 @@ ssl_certificate "{cert}"; ssl_certificate_key "{key}"; include "{work}/static.in
     nginx_args=[nginx,'-p',str(work)+'/', '-c',str(config)]
     subprocess.run([*nginx_args,'-t'],check=True,capture_output=True)
     hook=work/'service-hook.py'
-    hook.write_text('#!/usr/bin/env python3\nimport subprocess,sys\nargs='+repr(nginx_args)+'\nraise SystemExit(subprocess.run(args+(["-t"] if sys.argv[1]=="test" else ["-s","reload"])).returncode)\n')
+    hook.write_text('#!/usr/bin/env python3\nimport subprocess,sys,json,os\nfrom pathlib import Path\nsys.path.insert(0,'+repr(str(ROOT/'deploy'))+')\nfrom http_checks import probe_release\nos.environ["SSL_CERT_FILE"]='+repr(str(cert))+'\nargs='+repr(nginx_args)+'\nif sys.argv[1]=="health":\n probe_release(json.loads(Path('+repr(str(root/'current/release.json'))+').read_text()),'+repr(f'https://localhost:{https}')+',"127.0.0.1")\nelse:\n raise SystemExit(subprocess.run(args+(["-t"] if sys.argv[1]=="test" else ["-s","reload"])).returncode)\n')
     hook.chmod(0o755)
     log=(work/'process.log').open('w')
     process=subprocess.Popen([*nginx_args,'-g','daemon off;'],stdout=log,stderr=log)
@@ -155,6 +157,10 @@ ssl_certificate "{cert}"; ssl_certificate_key "{key}"; include "{work}/static.in
             except OSError: time.sleep(.1)
         else: raise AssertionError('Nginx did not start')
         oldhash=hashlib.sha256(get()[2]).hexdigest()
+        old_etag=get()[1]['ETag']
+        stable='/stochastic/notes/chapter01_markov_chains.html'
+        stable_etag=get(stable)[1]['ETag']
+        stable_gzip_etag=get(stable,{'Accept-Encoding':'gzip'})[1]['ETag']
         c=http.client.HTTPConnection('127.0.0.1',http_port);c.request('GET','/csapp?proof=1');r=c.getresponse()
         assert r.status==301 and r.getheader('Location')==f'https://localhost:{https}/csapp?proof=1';r.read();c.close()
         status,headers,body=get('/index.html',{'Accept-Encoding':'gzip'})
@@ -183,9 +189,14 @@ ssl_certificate "{cert}"; ssl_certificate_key "{key}"; include "{work}/static.in
         assert first!=second and set(observed)<={first,second} and not missing
         secondhash=hashlib.sha256(get()[2]).hexdigest()
         assert secondhash!=oldhash
+        assert get('/',{'If-None-Match':old_etag})[0]==200
+        assert get(stable,{'If-None-Match':stable_etag})[0]==304
+        assert get(stable,{'Accept-Encoding':'gzip','If-None-Match':stable_gzip_etag})[0]==304
+        assert json.loads((root/'.last-publish.json').read_text())['origin_health']=='passed'
+        passed('unchanged identity/gzip return 304 across releases; same-size changed homepage returns 200')
         passed('atomic switch and actual nginx test/reload',observations=len(observed),missing=missing)
         # Inject one failure, then allow rollback to exercise the actual old config reload.
-        for phase,package in [('test',packages[2]),('reload',packages[3])]:
+        for phase,package in [('test',packages[2]),('reload',packages[3]),('health',packages[4])]:
             marker=work/('failed-'+phase)
             failing=work/('fail-'+phase+'.py')
             failing.write_text('#!/usr/bin/env python3\nfrom pathlib import Path\nimport subprocess,sys\np=Path('+repr(str(marker))+')\nif sys.argv[1]=='+repr(phase)+' and not p.exists():\n p.touch();sys.exit(42)\nraise SystemExit(subprocess.run(['+repr(str(hook))+',sys.argv[1]]).returncode)\n')
@@ -194,9 +205,18 @@ ssl_certificate "{cert}"; ssl_certificate_key "{key}"; include "{work}/static.in
             assert os.readlink(root/'current')==second and hashlib.sha256(get()[2]).hexdigest()==secondhash
             assert not (root/'.publish-transaction.json').exists()
             passed('automatic rollback after '+phase+' failure')
+        both=work/'fail-both-health.py'
+        both.write_text('#!/usr/bin/env python3\nimport subprocess,sys\nif sys.argv[1]=="health":sys.exit(42)\nraise SystemExit(subprocess.run(['+repr(str(hook))+',sys.argv[1]]).returncode)\n')
+        both.chmod(0o755)
+        publish('--rollback','20990101T000001',hook=both,expected=1)
+        assert (root/'.publish-transaction.json').exists() and os.readlink(root/'current')==second
+        publish('--recover',hook=hook)
+        assert not (root/'.publish-transaction.json').exists() and os.readlink(root/'current')==second
+        passed('failed candidate and failed recovery health preserve journal until verified recovery')
         publish('--rollback','20990101T000001',hook=hook)
         assert os.readlink(root/'current')==first and hashlib.sha256(get()[2]).hexdigest()==oldhash
-        passed('explicit rollback restores old HTTP body and symlink')
+        assert get('/',{'If-None-Match':old_etag})[0]==304
+        passed('explicit rollback restores old HTTP body, ETag and symlink')
         (root/'.publish-transaction.json').write_text(json.dumps({'previous':second,'candidate':first}))
         publish('--release-dir',packages[0],expected=1)
         publish('--recover',hook=hook)
@@ -211,7 +231,7 @@ ssl_certificate "{cert}"; ssl_certificate_key "{key}"; include "{work}/static.in
         passed('verified rollback remains available after active payload corruption')
         # Full existing verifier runs against installed site, including both PDF byte ranges and 15 old routes.
         env={**os.environ,'SSL_CERT_FILE':str(cert)}
-        subprocess.run([sys.executable,ROOT/'deploy/verify_portal.py','--release-dir',a.release_dir,
+        subprocess.run([sys.executable,ROOT/'deploy/verify_portal.py','--release-dir',packages[0],
                         '--origin',f'https://localhost:{https}','--output',work/'https-verification.json'],check=True,env=env)
         passed('all public file hashes, MIME, CSP, both PDF ranges and old URL/query/HEAD/POST behavior')
         import importlib.util

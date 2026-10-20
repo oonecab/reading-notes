@@ -1,0 +1,11 @@
+[Unit]
+Description=Periodic Reading Notes origin content check
+
+[Timer]
+OnBootSec=3min
+OnUnitActiveSec=15min
+RandomizedDelaySec=30s
+Unit=reading-notes-health.service
+
+[Install]
+WantedBy=timers.target

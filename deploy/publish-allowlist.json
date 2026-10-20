@@ -1239,5 +1239,20 @@
   "authorized_pdf_sha256": {
     "stochastic/assets/essentials-of-stochastic-processes.pdf": "2232660e1909b42c6df8b5aca8eba12cdb383bf3741ecb53add49f6c26c6a0e7",
     "csapp/csapp.pdf": "dcd44c5dd0819af7dbef3ebef088a5012aadb5c82761e4b6603b4fb5d0ff504a"
+  },
+  "precompression": {
+    "format": "gzip",
+    "level": 6,
+    "min_bytes": 1024,
+    "extensions": [
+      ".html",
+      ".css",
+      ".json",
+      ".svg",
+      ".txt",
+      ".md",
+      ".c",
+      ".py"
+    ]
   }
 }

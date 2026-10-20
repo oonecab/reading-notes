@@ -33,3 +33,11 @@ CSP 和离线验收默认复用 `tmp/final-assessment/browser-session.json` 中�
 构建会从受控 HTML 生成缺失的兼容镜像，新增书的公开文件、静态资料视图和书架入口由目录登记与 allowlist 派生；Nginx 的书籍入口正则从已审核发布清单生成，不再枚举固定五书。`deploy/publication.py` 在冻结的旧 Transformer 外衔接目录扩展，并把测度书的地图导航标成伴读总览。I034 将该书程序入口的标题改从维护 README 取得，并更新引言；各组程序说明置于末尾维护用“校验”节之前。发布视图回归逐一核对登记程序的下载入口，避免后续章节被维护分隔截掉。
 
 `python3 tools/test_new_book_build.py` 会在忽略目录复制当前源码到独立 Git 副本，加入两页 dummy 书及其原始快照，删去兼容镜像后运行真正的 `pnpm build --release-id ...`、全部 parity、CSP 浏览器冒烟、Python checker 和发布清单检查。测试只修改隔离副本；报告写入 `tmp/new-book-build/run-*/report.json`。它需要完整构建工具链及已启动的 Ego Lite，不加入每次 quick 检查。
+
+### 缓存与性能门禁（I035）
+
+公开文本在内联、摘要脱敏后生成 gzip-6 sidecar，header mtime 固定为 0。HTML 与压缩文件一同进入 release 清单。新 sidecar 不允许承载额外来源：发布器逐项有界解压并核对原文件，私有路径、遗漏、伪造压缩内容均拒绝。构建不压缩 PDF、zip 或已压缩下载。
+
+`scripts/performance-budgets.json` 是经 I035 基线审查的上限；构建及 `pnpm check:performance` 检查每个公开 HTML 的原始/压缩体积、元素数和内联脚本量。首页和两个代表大章有单独预算，新增页面也受默认上限约束。预算不会随构建自动上涨。运行 `READING_NOTES_CSP_SPACE=<现有空间ID> node scripts/check-browser-performance.mjs https://notes.zzzping.top` 可取得 3 个代表页面、2 个视口/CPU 档、各 3 轮初访/复访的 36 次样本。它复用浏览器锁及独立运行目录，探针缺失或页面横溢出即失败，不清理用户全局缓存。静态预算不等于设备延迟；真实浏览器另记视口、CPU 倍率、初访/复访、长任务、布局和样本数。
+
+CS:APP 共享横滚脚本的此次修订通过正常 source revision 链登记，当前绑定在 `books/csapp/review/reader-performance.json`；数学正文、原习题和历史基线保留。

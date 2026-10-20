@@ -4,12 +4,19 @@
   "private": true,
   "type": "module",
   "packageManager": "pnpm@11.21.0",
-  "engines": { "node": "24.21.0", "pnpm": "11.21.0" },
+  "engines": {
+    "node": "24.21.0",
+    "pnpm": "11.21.0"
+  },
   "scripts": {
     "build": "node scripts/build.mjs",
     "check:parity": "node scripts/verify-parity.mjs",
     "check:offline": "node scripts/check-offline.mjs",
-    "test": "node --test scripts/*.test.mjs"
+    "test": "node --test scripts/*.test.mjs",
+    "check:performance": "node scripts/performance-budget.mjs"
   },
-  "devDependencies": { "astro": "7.4.0", "parse5": "8.0.1" }
+  "devDependencies": {
+    "astro": "7.4.0",
+    "parse5": "8.0.1"
+  }
 }

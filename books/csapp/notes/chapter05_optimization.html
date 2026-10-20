@@ -1385,12 +1385,16 @@ int main(void) {
   let pending = false;
   const update = () => {
     pending = false;
-    for (const node of containers) {
-      const overflow = node.clientWidth > 0 && node.scrollWidth > node.clientWidth + 2;
-      node.dataset.horizontalOverflow = String(overflow);
+    // Measure every container before changing attributes that can trigger layout.
+    const measured = containers.map(node => {
+      const width = node.clientWidth;
+      return [node, width > 0 && node.scrollWidth > width + 2];
+    });
+    for (const [node, overflow] of measured) {
+      if (node.dataset.horizontalOverflow !== String(overflow)) node.dataset.horizontalOverflow = String(overflow);
       if (overflow) {
         const label = node.matches('.equation,.math-block') ? '左右滑动查看完整公式 →' : '左右滑动查看完整图表 →';
-        node.dataset.scrollLabel = label;
+        if (node.dataset.scrollLabel !== label) node.dataset.scrollLabel = label;
         if (!node.hasAttribute('tabindex')) {
           node.tabIndex = 0;
           node.dataset.scrollFocusable = 'true';

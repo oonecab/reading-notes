@@ -21,6 +21,7 @@ from public_policy import inspect, sums, POLICY, static_include
 from release_support import extract_release
 from durability import atomic_json, durable_unlink, sync_directory, sync_tree
 from retention import capacity, retention_plan, stale_temporaries, remove_tree
+from cache_validators import assign_validators
 
 
 def identity(value):
@@ -46,9 +47,16 @@ def verified(directory, require_root=False):
             raise ValueError('Non-regular release metadata')
     meta = json.loads((directory/'release.json').read_text())
     identity(meta['release_id'])
-    if meta.get('publish_policy_sha256') != hashlib.sha256(POLICY.read_bytes()).hexdigest():
-        raise ValueError('Release allowlist version is not installed')
-    rows = inspect(directory/'site')
+    policy_hash = meta.get('publish_policy_sha256', '')
+    policy = POLICY
+    if policy_hash != hashlib.sha256(POLICY.read_bytes()).hexdigest():
+        # Historical policies are administrator-installed, never supplied by a queue.
+        if not re.fullmatch(r'[0-9a-f]{64}', policy_hash):
+            raise ValueError('Invalid release allowlist identity')
+        policy = DEPLOY/'policies'/(policy_hash+'.json')
+        if policy.is_symlink() or not policy.is_file() or hashlib.sha256(policy.read_bytes()).hexdigest() != policy_hash:
+            raise ValueError('Release allowlist version is not installed')
+    rows = inspect(directory/'site', policy_path=policy)
     if rows != meta['files'] or (directory/'SHA256SUMS').read_text() != sums(rows):
         raise ValueError('Release inventory or SHA256SUMS differs')
     # GNU sha256sum on Ubuntu; macOS has shasum. Both validate the supplied list.
@@ -182,7 +190,7 @@ def main():
         else:
             durable_unlink(current)
         if target:
-            service('test'); service('reload')
+            service('test'); service('reload'); service('health')
         if damaged:
             os.replace(journal, root/('.publish-transaction.corrupt-'+uuid.uuid4().hex+'.json'))
             sync_directory(root)
@@ -218,6 +226,7 @@ def main():
             for name in ['release.json','SHA256SUMS']:
                 shutil.copyfile(source/name,unpack/name)
             verified(unpack)
+            assign_validators(root, unpack/'site', meta['files'])
             for value in meta['inline_script_csp_sources']:
                 if not re.fullmatch(r"'sha256-[A-Za-z0-9+/]{43}='", value):
                     raise ValueError('Invalid CSP source')
@@ -259,6 +268,7 @@ def main():
         checkpoint('switch')
         service('test')
         service('reload')
+        service('health')
     except BaseException as error:
         if switched:
             if previous:
@@ -268,7 +278,7 @@ def main():
         rollback_error = None
         if previous:
             try:
-                service('test'); service('reload')
+                service('test'); service('reload'); service('health')
             except BaseException as failure:
                 rollback_error = str(failure)
         if not rollback_error:
@@ -276,7 +286,10 @@ def main():
         print(json.dumps({'status':'failed','restored_current':previous,
                           'error':str(error),'rollback_service_error':rollback_error}), file=sys.stderr)
         return 1
-    atomic_json(root/'.last-publish.json',{'previous':previous,'current':target})
+    atomic_json(root/'.last-publish.json',{'previous':previous,'current':target,
+                'archive_sha256':meta['archive_sha256'],
+                'source_commit':meta.get('source_commit'),
+                'origin_health':'passed' if (a.service_hook or not a.dry_run) else 'skipped'})
     durable_unlink(journal)
     print(json.dumps({'status':'passed','mode':'dry-run' if a.dry_run else 'publish',
                       'release_id':meta['release_id'],'current':target,'previous':previous,

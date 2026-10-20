@@ -4,6 +4,7 @@ set -eu
 [ "$#" -eq 1 ] || exit 2
 case "$1" in
   test) exec /usr/bin/systemd-run --quiet --wait --pipe --collect /usr/sbin/nginx -t ;;
+  health) exec /usr/bin/python3 -I /usr/local/lib/reading-notes/deploy/scripts/healthcheck.py ;;
   reload) exec /usr/bin/systemctl reload nginx ;;
   *) exit 2 ;;
 esac
