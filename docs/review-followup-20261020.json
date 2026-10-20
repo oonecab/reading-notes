@@ -1,6 +1,6 @@
 {
   "issue": "I041",
-  "status": "locally_verified_publication_pending",
+  "status": "published_and_verified",
   "baseline_git": "f727226e6aad63d77df1c946f58adc58531bb8ef",
   "scope": "Five-book report follow-up: layout, semantic structure, navigation, accessibility associations, shared CSS and bounded prose corrections.",
   "source_sha256": {
@@ -2852,5 +2852,81 @@
       "report": "tmp/reading-notes-migration/performance-budget.json",
       "sha256": "779b8a433202764c2809b5a8424fa42891f2d18e4cff380bf6820ffd6fabfc2c"
     }
+  },
+  "publication": {
+    "status": "published_and_verified",
+    "release_id": "20261020T212352",
+    "source_commit": "0a84a1117823c6680b060c534b48a1edd2086bf3",
+    "previous": "20261020T200604",
+    "created_at": "2026-10-20T13:23:52.414310+00:00",
+    "archive_sha256": "77f4f0943d898c642115c7e3d1a0b92ee3703118cd2f91fa9ea4497c89deba84",
+    "source_tree_dirty": false,
+    "files": 495,
+    "html_pages": 76,
+    "formal_pages": 56,
+    "package_preflight": {
+      "report": "tmp/review-improvements-20261020/package-preflight.json",
+      "sha256": "ac3debda160c4d72e7931d854b3181366ce56d928d27bd7d96b80e3c13214a1d"
+    },
+    "predeploy_acceptance": {
+      "report": "tmp/review-improvements-20261020/predeploy-acceptance.json",
+      "sha256": "7526530694de66b43595c49377604bc8df50d177409fa6ed554cd604e499ad22"
+    },
+    "git_content_push": {
+      "report": "tmp/review-improvements-20261020/git-content-push.json",
+      "sha256": "98053ecd337a3b46cff60c020880a6c0249c6462149342fd74f8699535a4cd32"
+    },
+    "server": {
+      "report": "tmp/review-improvements-20261020/server-after.json",
+      "sha256": "780f1d1f8e0f27d44ac9df1ca15ebc01feba74b60b04a3e192d54e55c41bd760",
+      "current": "releases/20261020T212352",
+      "verified_files_current": 495,
+      "verified_files_rollback": 495,
+      "root_owned_read_only": true,
+      "nginx_test": "passed",
+      "unchanged_mtime_preserved": 375,
+      "changed_mtime_distinct": 120,
+      "queue_empty": true,
+      "pending_transaction": false,
+      "nginx_snippet_sha256": "62b11e6ecfcbe16abe278fbcdf124a85e285da9e1277c35ac2f5c668a15c10fd",
+      "health_result": "success",
+      "health_timer_active": true
+    },
+    "public_https": {
+      "report": "tmp/review-improvements-20261020/public-default.json",
+      "sha256": "15526db52cc2ff9a087d00983e670cc35128efd6add5f44048e1ef5809464106",
+      "origin": "https://notes.zzzping.top",
+      "connect_ip": null,
+      "files_checked": 490,
+      "entry_redirects": 15,
+      "gzip_files": 188,
+      "pdf_ranges": 2,
+      "transport_retries": 0
+    },
+    "public_browser": {
+      "report": "tmp/review-improvements-20261020/public-reading/report-final.json",
+      "sha256": "25916fc752ff2a2a5bbb9d386c14928d07907405e7e5cba2e4337ccc6c422d5f",
+      "html_routes_verified": 76,
+      "home_book_chapter_home_flows": 10,
+      "targeted_views": 12,
+      "keyboard_code_disclosures": 2
+    },
+    "public_visual_readback": {
+      "report": "tmp/review-improvements-20261020/public-visual-readback.json",
+      "sha256": "98c58a2d756d0ff8f4af81507e9d668658da63601c98cc45ec2c07845721edd6",
+      "screenshots_actually_opened": 12
+    },
+    "gitleaks": {
+      "staged": {
+        "report": "tmp/review-improvements-20261020/gitleaks-staged.json",
+        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      "public": {
+        "report": "tmp/review-improvements-20261020/gitleaks-public.json",
+        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      "findings": 0
+    },
+    "rollback": "Previous release kept and rehashed; no production rollback switch was needed or claimed."
   }
 }

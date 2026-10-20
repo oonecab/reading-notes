@@ -1,6 +1,6 @@
 # P041：评估复核与实施顺序
 
-状态：local_steps_complete_publication_pending；关联 [I041](../issues/I041-review-followup.md)。
+状态：completed；关联 [I041](../issues/I041-review-followup.md)。
 
 1. 从当前源和成品复现报告中的布局、结构、计数和内容问题，记录成立项及对报告建议的修正。
 2. 抽取可精确还原的公共样式片段，保持层叠顺序；统一独立于注解开关的版心，修复无样式折叠块和类型标签。
