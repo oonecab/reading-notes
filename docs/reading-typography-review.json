@@ -1,6 +1,6 @@
 {
   "issue": "I044",
-  "status": "locally_verified_publication_pending",
+  "status": "published_and_verified",
   "baseline_git": "7e9d2ea",
   "scope": "58 reading pages across six registered books; EOPL publishes only the existing map/preface. Font, mathematical notation, SVG appearance and EOPL environment/dependency layout.",
   "source_sha256": {
@@ -798,5 +798,54 @@
     "MathML table cells are decoded from displayed presentation, excluding duplicate copy annotations; stale aria labels cannot conceal altered exponents.",
     "The 48 elimination checks continue to execute every actual row operation; explanatory coefficients newly expressed as MathML do not become extra operations.",
     "The wrong-value traffic mutation modifies both displayed digits and the accessible label so the same numeric failure is exercised."
-  ]
+  ],
+  "publication": {
+    "release_id": "20261021T012051",
+    "source_commit": "24e7e69584f09482824996006570d28ae454cfd4",
+    "tag": "v2026.10.21-typography",
+    "archive_sha256": "8f388fe02ba61bb87db2f52bc1eeda56418c66317a3ce315a19a4dfdf87c58d6",
+    "rollback_release": "20261020T225222",
+    "public_origin": "https://notes.zzzping.top",
+    "package_files": 511,
+    "public_html": 80,
+    "reading_pages": 58,
+    "administrator_configuration": "Adds the EOPL entry prefix and explicit publication policy. Retains the existing approved CSP hashes and archives both policy versions for rollback.",
+    "predeploy": {
+      "report": "tmp/typography-20261020/predeploy-acceptance.json",
+      "sha256": "82897df8f03b8c61aa37933a83518c2bc91a7f4d8bd4f434507d4768050b2b5a"
+    },
+    "package_build": {
+      "report": "tmp/typography-20261020/package-build.log",
+      "sha256": "253c219478f9ce34b746802f2456dfa2b465d3bd3a24c0f285e5963642a1fa6f"
+    },
+    "server": {
+      "report": "tmp/typography-20261020/server-after.json",
+      "sha256": "3635f0e739c690e3e3e62c86f72543a48c716a8fb9de5fb964fa2d26b72e3656"
+    },
+    "normal_domain": {
+      "report": "tmp/typography-20261020/public-default.json",
+      "sha256": "b63d72acd6919d3cc3b221bce0d9100e3868d67c504897ecf2021e6dd7826569"
+    },
+    "browser": {
+      "report": "tmp/typography-20261020/public-browser.json",
+      "sha256": "125fed8def4d1c6341d158f1d9cfec6fed81163300f3a2ccacc3698f4c98cf11"
+    },
+    "visual_readback": {
+      "report": "tmp/typography-20261020/public-visual-readback.json",
+      "sha256": "6d5f15e774dc67ce387d6f26000be872d9ff46c3699c234cc3ec29731e8ae486"
+    },
+    "remote": {
+      "report": "tmp/typography-20261020/remote-publication.json",
+      "sha256": "baf0bd4e82464b3cee31fc4066b45cbe0b68119eb11ce1fb9cb938499f230139"
+    },
+    "gitleaks_source": {
+      "report": "tmp/typography-20261020/gitleaks-source.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    "gitleaks_public": {
+      "report": "tmp/typography-20261020/gitleaks-public.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    "recovery_scope": "Previous release and configuration retained and independently verified; production was not switched back during acceptance."
+  }
 }

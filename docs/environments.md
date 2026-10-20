@@ -11,7 +11,7 @@
 
 - 本地预览：Python 静态 HTTP 服务，绑定 127.0.0.1
 - 正式阅读站点：notes.zzzping.top，Nginx + TLS；部署步骤见 deploy/README.md
-- Ubuntu reading-notes-deploy.service 以 reading-notes 调用固定 sudo root 安装器，当前发布 20261020T225222（I043）；deploy timer 保持 disabled，构建服务及构建 tmpfiles 模板留给独立构建主机
+- Ubuntu reading-notes-deploy.service 以 reading-notes 调用固定 sudo root 安装器，当前发布 20261021T012051（I044）；deploy timer 保持 disabled，构建服务及构建 tmpfiles 模板留给独立构建主机
 - I033 已应用 root-owned 只读 release、固定 helper/sudoers，unit 已移除整目录 Nginx 日志写例外；实机证据见 [本轮报告](browser-stability-report.md)
 - 宿主机历史 MySQL 服务及数据已于 2026-10-17 按 I030 卸载；mailutils 依赖的 mysql-common 与 libmysqlclient21 保留为共享客户端组件
 
@@ -45,4 +45,6 @@ I035 新增 `reading-notes-health.service/.timer` 模板，每 15 分钟以回�
 
 2026-10-20 I043 实机：current 为 releases/20261020T225222，来源为干净提交 0ccf855；恢复单元 20261020T212352 已核验并保留。495 文件、只读权限、缓存 mtime、Nginx 配置及发布/健康服务通过；正常域名和实际浏览器验收完成。环境变量、服务配置及端口不变，证据见 [T043](../test/T043-five-book-recheck.md)。
 
-I044 新增静态 `/eopl/` 路由，范围为地图、序言、来源摘要和 Python 闭包示例；仍由既有 Nginx 80/443 提供，服务及非秘密环境变量名不变，无需修改 `.env.example`。对应新版本由 catalog 派生 Nginx 前缀并随发布包安装，实际当前版本见 T044。
+I044 新增静态 `/eopl/` 路由，范围为地图、序言、来源摘要和 Python 闭包示例；仍由既有 Nginx 80/443 提供，服务及非秘密环境变量名不变，无需修改 `.env.example`。前缀由 catalog 登记；本次在管理员维护的原 Nginx 片段中加入该前缀并保留已许可的 CSP 哈希集合，实际当前版本见 T044。
+
+2026-10-21 I044 实机：current 为 releases/20261021T012051，来源为干净提交 24e7e69，标签 `v2026.10.21-typography`；恢复单元 `20261020T225222` 及其管理员配置已核验并保留。新旧发布树、缓存 mtime、Nginx、发布/健康服务、正常域名和浏览器验收通过。新增 `/eopl/` 前缀和显式发布清单，原 CSP 哈希集合保留，服务、端口及环境变量名保持。证据见 [T044](../test/T044-reading-typography.md)。

@@ -175,3 +175,5 @@ I043 将组件语义约定更新为 RN-001 v1.3，补全按习题独立检查的
 现有 Python/Node 与共享静态组件足够完成本批，没有引入 Scheme 运行时或新的技术栈。实际发布状态以 [T044](test/T044-reading-typography.md) 的服务器与公网证据为准。维护依据见 [I042](issues/I042-eopl-map-preface.md)，验证与治理生成器兼容性记录见 [T042](test/T042-eopl-map-preface.md)。
 
 I044 将 RN-001 更新为 v1.4，以 `reading-typography.css` 统一 Times New Roman 英文数字、语义 MathML 与明确角色的 SVG 节点。数学运算符及具有不同含义的双线体、花体保留数学字形；中文用系统字体。新增 authoring/check 工具，不引入阅读时网络依赖或运行时库；原始题干、程序、锚点与历史审阅记录保留，当前修改独立绑定。
+
+I044 已从干净提交 `24e7e69` 发布 `20261021T012051`，注释标签 `v2026.10.21-typography` 指向该内容提交。正式包为六书 58 阅读页、80 HTML、511 文件；源站及正常域名验收通过。恢复单元 `20261020T225222` 与原配置保留，Nginx 增加 EOPL 前缀及显式清单，沿用原 CSP 哈希集合、服务与端口。证据见 [T044](test/T044-reading-typography.md)。
