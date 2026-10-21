@@ -2324,16 +2324,16 @@
   ],
   "files": {
     "notes/remaining_explanation_review.json": {
-      "bytes": 833408,
-      "sha256": "31f342cbc8b6bc9348117cdd9df298d1481ae6777493497bf5b3d9ee997c92c8"
+      "bytes": 833982,
+      "sha256": "8f2ccdbb8c5c2972e9813b517bc3613e836a0ada1ef7a7a1484e32077c63da25"
     },
     "notes/chapter01_explanation_review.json": {
-      "bytes": 187383,
-      "sha256": "42d99bab2cd9c11ed12d81aefe61479ba3d1a938d7874ef867e632004dc48207"
+      "bytes": 187957,
+      "sha256": "5f109cf2f856f1769c91a5ecb0387e03a2b3eb250eb88609ef382b4ee2c51dc2"
     },
     "notes/derivation_coverage.json": {
       "bytes": 356352,
-      "sha256": "391b4b668a7fa8b1f2801d842455f844e95f3bef92a0de611dda4e517e8868dd"
+      "sha256": "2a77444204c1a2324a1c6f1eb28db9623493e6aed38b83260d01af6003065e65"
     },
     "tools/derivation_coverage.py": {
       "bytes": 15791,
@@ -2345,7 +2345,7 @@
     },
     "tools/content_baseline.json": {
       "bytes": 2889428,
-      "sha256": "e1521036d62a9ba6ab6b1696416ddf950a44ff0c20f319c1799eecc4a5c7fa0c"
+      "sha256": "a951a5f0724359dc1212dd43f5a8525739f791c40fb45c21f715c389c7ed6f57"
     }
   },
   "publication": "Local review only; no commit, push or deployment.",
@@ -6014,5 +6014,11 @@
     "prior_record_git": "09759945a0ad27e73f42c291e6b121a76fa6ce7a:books/stochastic/notes/derivation_review.json",
     "prior_record_sha256": "7e5d121c1b0d1058c3725826e98a42c03d74042cafe6945a2ffd5fbad16ba1e7",
     "scope": "Current representation bindings: complete inline program syntax, shared code treatment and content-aware SVG node sizing. Program blocks, readable meaning and exercise IDs preserved. Historical execution claims retain their original scope; new acceptance is recorded in docs/reading-presentation-review.json"
+  },
+  "I046_reader_copy_revision": {
+    "issue": "I046",
+    "prior_record_git": "3064e29e84f5e2ba60fdfbb4bb7389dfcb9ff084:books/stochastic/notes/derivation_review.json",
+    "prior_record_sha256": "31d198a40eed60b4dbd22da2239653e8dab653f1080bbdfa5b40de1f37064971",
+    "scope": "Current reader-copy bindings: maintenance wording moved out of reading pages. Programs, original questions, formulas, diagrams, source links and anchors preserved. Historical execution claims retain their original scope; new acceptance is recorded in docs/reader-copy-review.json"
   }
 }

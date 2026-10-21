@@ -6161,8 +6161,8 @@
       "sha256": "87088b240d63e8fcf100eeaa0c369c1e7bb7b92104a1bde98aac2228e4252e65"
     },
     "notes/book_overview.html": {
-      "bytes": 62462,
-      "sha256": "e5db448e3b244ed9db61b0b4cb3b85c2559cc9dd7d50aefc14c7b435cbd634c9"
+      "bytes": 62319,
+      "sha256": "a43f7d6c8d20016c6503c2f9ad51c150f4bd3aa8a1a47df441aba01d229ba78e"
     },
     "notes/chapter01_markov_chains.html": {
       "bytes": 2294454,
@@ -6189,16 +6189,16 @@
       "sha256": "9234ad95b3b813d08388949793441310d454c0626fdff11344946b1283a52b1e"
     },
     "notes/code_deployment_review.json": {
-      "bytes": 230868,
-      "sha256": "0bddf7c1683cfc244b12d827624007627b972378d4b5a25532f3cf95ea4dde2f"
+      "bytes": 231436,
+      "sha256": "4bdb75a1120b28c0df8d56505c2a3245179b9d904424a0aa200f26bab782d7e3"
     },
     "notes/preface.html": {
       "bytes": 50811,
       "sha256": "ab5ec6e7206e24539b4b2e7809f78378b80d9dc66f349b6eb029756ad933a006"
     },
     "notes/audit_fix_review.json": {
-      "bytes": 263554,
-      "sha256": "27682b9041ad71f454184a08cab9657dc288db5b42af4a7b59bbc15a36c681e0"
+      "bytes": 264080,
+      "sha256": "ae78639b0338203c286f80ebd5fa220ea4c9c65841adb15f767998b930248235"
     }
   },
   "review_history": [
@@ -10093,5 +10093,11 @@
     "prior_record_git": "09759945a0ad27e73f42c291e6b121a76fa6ce7a:books/stochastic/notes/readability_review.json",
     "prior_record_sha256": "9dde93e637e487e8d9c45935172a764c36dbaa251fbd35fce805cb83dd0c3e4a",
     "scope": "Current representation bindings: complete inline program syntax, shared code treatment and content-aware SVG node sizing. Program blocks, readable meaning and exercise IDs preserved. Historical execution claims retain their original scope; new acceptance is recorded in docs/reading-presentation-review.json"
+  },
+  "I046_reader_copy_revision": {
+    "issue": "I046",
+    "prior_record_git": "3064e29e84f5e2ba60fdfbb4bb7389dfcb9ff084:books/stochastic/notes/readability_review.json",
+    "prior_record_sha256": "3cab6ebadf7d51c433c7ac9a4189285c0a31faa55dccf2bbcc64a8b18b904a92",
+    "scope": "Current reader-copy bindings: maintenance wording moved out of reading pages. Programs, original questions, formulas, diagrams, source links and anchors preserved. Historical execution claims retain their original scope; new acceptance is recorded in docs/reader-copy-review.json"
   }
 }

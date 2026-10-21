@@ -299,8 +299,8 @@
         "badMath": 0,
         "contexts": 6,
         "deepLinks": 0,
-        "current_representation_sha256": "e5db448e3b244ed9db61b0b4cb3b85c2559cc9dd7d50aefc14c7b435cbd634c9",
-        "current_representation_review": "docs/reading-presentation-review.json"
+        "current_representation_sha256": "a43f7d6c8d20016c6503c2f9ad51c150f4bd3aa8a1a47df441aba01d229ba78e",
+        "current_representation_review": "docs/reader-copy-review.json"
       },
       {
         "file": "preface.html",
@@ -345,8 +345,8 @@
         "badMath": 0,
         "contexts": 0,
         "deepLinks": 0,
-        "current_representation_sha256": "e5db448e3b244ed9db61b0b4cb3b85c2559cc9dd7d50aefc14c7b435cbd634c9",
-        "current_representation_review": "docs/reading-presentation-review.json"
+        "current_representation_sha256": "a43f7d6c8d20016c6503c2f9ad51c150f4bd3aa8a1a47df441aba01d229ba78e",
+        "current_representation_review": "docs/reader-copy-review.json"
       },
       {
         "file": "preface.html",
@@ -391,8 +391,8 @@
         "badMath": 0,
         "contexts": 0,
         "deepLinks": 0,
-        "current_representation_sha256": "e5db448e3b244ed9db61b0b4cb3b85c2559cc9dd7d50aefc14c7b435cbd634c9",
-        "current_representation_review": "docs/reading-presentation-review.json"
+        "current_representation_sha256": "a43f7d6c8d20016c6503c2f9ad51c150f4bd3aa8a1a47df441aba01d229ba78e",
+        "current_representation_review": "docs/reader-copy-review.json"
       },
       {
         "file": "preface.html",
@@ -437,8 +437,8 @@
         "badMath": 0,
         "contexts": 0,
         "deepLinks": 0,
-        "current_representation_sha256": "e5db448e3b244ed9db61b0b4cb3b85c2559cc9dd7d50aefc14c7b435cbd634c9",
-        "current_representation_review": "docs/reading-presentation-review.json"
+        "current_representation_sha256": "a43f7d6c8d20016c6503c2f9ad51c150f4bd3aa8a1a47df441aba01d229ba78e",
+        "current_representation_review": "docs/reader-copy-review.json"
       },
       {
         "file": "preface.html",
@@ -2814,8 +2814,8 @@
       "sha256": "87088b240d63e8fcf100eeaa0c369c1e7bb7b92104a1bde98aac2228e4252e65"
     },
     "notes/book_overview.html": {
-      "bytes": 62462,
-      "sha256": "e5db448e3b244ed9db61b0b4cb3b85c2559cc9dd7d50aefc14c7b435cbd634c9"
+      "bytes": 62319,
+      "sha256": "a43f7d6c8d20016c6503c2f9ad51c150f4bd3aa8a1a47df441aba01d229ba78e"
     },
     "notes/chapter01_markov_chains.html": {
       "bytes": 2294454,
@@ -2875,7 +2875,7 @@
     },
     "tools/content_baseline.json": {
       "bytes": 2889428,
-      "sha256": "e1521036d62a9ba6ab6b1696416ddf950a44ff0c20f319c1799eecc4a5c7fa0c"
+      "sha256": "a951a5f0724359dc1212dd43f5a8525739f791c40fb45c21f715c389c7ed6f57"
     },
     "tools/content_integrity.py": {
       "bytes": 5876,
@@ -7738,5 +7738,11 @@
     "prior_record_git": "09759945a0ad27e73f42c291e6b121a76fa6ce7a:books/stochastic/notes/audit_fix_review.json",
     "prior_record_sha256": "7b42d857c68d9d65ecea0b0d17226fd2b85e30b2d156e27fa6d93a3223472ca8",
     "scope": "Current representation bindings: complete inline program syntax, shared code treatment and content-aware SVG node sizing. Program blocks, readable meaning and exercise IDs preserved. Historical execution claims retain their original scope; new acceptance is recorded in docs/reading-presentation-review.json"
+  },
+  "I046_reader_copy_revision": {
+    "issue": "I046",
+    "prior_record_git": "3064e29e84f5e2ba60fdfbb4bb7389dfcb9ff084:books/stochastic/notes/audit_fix_review.json",
+    "prior_record_sha256": "27682b9041ad71f454184a08cab9657dc288db5b42af4a7b59bbc15a36c681e0",
+    "scope": "Current reader-copy bindings: maintenance wording moved out of reading pages. Programs, original questions, formulas, diagrams, source links and anchors preserved. Historical execution claims retain their original scope; new acceptance is recorded in docs/reader-copy-review.json"
   }
 }

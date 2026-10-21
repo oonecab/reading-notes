@@ -507,7 +507,7 @@ in let f = proc (y) -(y,x)
 
 # lexical: 15
 # dynamic: 5</code></pre>
-<p class="source">从仓库根目录运行；单独下载后可用 <code>python3 scope_demo.py</code>。这里列出手算预期，实际执行记录在本批审阅中。有限测试用于检验实现，词法查找规则的解释仍以上述环境链为依据。</p>
+<p class="source">从仓库根目录运行；单独下载后可用 <code>python3 scope_demo.py</code>。程序应输出上面手算得到的 15 与 5；可以沿环境链逐步核对变量查找，判断每次调用使用的是创建环境还是调用环境。有限测试用于检验实现，词法查找规则的解释仍以上述环境链为依据。</p>
 <details class="code-version" id="full-code"><summary>完整 Python 3 实现与演示输入</summary>
 <!-- EOPL:code-start -->
 <pre><code id="scope-demo-code" class="language-python">#!/usr/bin/env python3
@@ -647,7 +647,7 @@ if __name__ == &quot;__main__&quot;:
 <section id="edition">
 <h2>第三版做了什么，全书怎样展开</h2>
 <p class="source">Preface，p.xvii–xviii / PDF 18–19。</p>
-<p>本次资料是第三版。作者特别说明：为非平凡定义加入非正式的输入输出契约；模块章为新内容；第 6 章改用一阶、组合式的 CPS 变换方法。这里“一阶”说的是变换算法所采用的方法，不意味着被研究的语言取消了高阶过程。</p>
+<p>第三版特别说明：为非平凡定义加入非正式的输入输出契约；模块章为新内容；第 6 章改用一阶、组合式的 CPS 变换方法。这里“一阶”说的是变换算法所采用的方法，不意味着被研究的语言取消了高阶过程。</p>
 <p>为了突出机制，第三版第 3、4、5、7、8 章的主体语言把过程简化为单参数，多参数扩展放入习题。第 6 章和第 9 章则使用多参数过程。阅读代码或找习题答案时需要先核对版次及语言，不能把不同章节的语法假设直接拼在一起。</p>
 <p>作者的组织安排是先准备工具，再解释行为，最后组合机制。前两章讨论归纳数据和抽象表示；第 3 章建立带词法作用域、一等过程和递归的解释器，并引入词法地址；第 4 章加入存储；第 5、6 章研究控制与 CPS；第 7 章加入类型检查和推断；第 8 章建立模块边界；第 9 章把状态、分派与类型组合成对象系统。</p>
 <p>两条容易读混的线需要先分开。第 5 章把“解释器自身”改成续文传递形式，第 6 章则写一个转换器，把一般源程序转成 CPS。第 7 章研究静态分析时，回到第 3 章语言建立类型规则，并不要求先把所有控制扩展合并。完整依赖关系与每章落点见<a href="book_overview.html#dependencies">全书依赖图</a>。</p>
@@ -660,7 +660,7 @@ if __name__ == &quot;__main__&quot;:
 <p>作者面向有数据结构基础、具有命令式语言经验，并接触过 Scheme、ML、Python 或 Haskell 这类语言的读者。原因很实际：你既要理解变量更新和控制执行，也要把过程当作可传递、可返回的数据。若这两方面有一方面不熟，先用很小的程序补齐，再进入解释器。</p>
 <p>习题是正文的一部分。作者建议每题都至少读过并思考；一星到三星表示从理解相关内容即可解决，到需要较多思考和编程的不同难度，不是严格的耗时配额。有些习题改变语言设计，有些改变实现表示，还有些把同一机制带到后续语言中。只读主文会错过这些比较。</p>
 <p>一个可持续的读法是：先给程序的输入、输出和语法分支做标记，再手算一个正常例子及一个能区分错误实现的例子，随后运行，最后改变一处规则。例如本页用同名遮蔽区分创建环境和调用环境；若程序没有这处遮蔽，两种实现可能输出相同值，就不足以检验闭包规则。</p>
-<p>作者说明，支持一等过程和赋值的语言都可用于完成习题。原书配套实现使用当时的 PLT Scheme，代码大体兼容 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="R" display="inline"><mi>R</mi></math><sup>5</sup>RS。这是原书的环境说明；本批实际执行的是前述 Python 教学模型，原书 Scheme 全套解释器的环境准备和运行留到相应章节记录。</p>
+<p>作者说明，支持一等过程和赋值的语言都可用于完成习题。原书配套实现使用当时的 PLT Scheme，代码大体兼容 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="R" display="inline"><mi>R</mi></math><sup>5</sup>RS。本页可运行的程序是前述 Python 教学模型；原书 Scheme 全套解释器尚未在本伴读中执行，其运行环境需按对应代码另行配置。</p>
 <p>现在可以带着三个具体问题进入第 1 章：输入数据有哪些合法构造？每种构造对应哪个程序分支？递归调用为什么可以只处理更小的部分？它们随后会成为写解释器、检查器和转换器的共同方法。</p>
 </section>
 
@@ -676,7 +676,7 @@ if __name__ == &quot;__main__&quot;:
 </div>
 <div class="answer">
 <p class="rn-exercise-label">参考解答</p>
-<p>这是一项贯穿阅读的开放任务，没有一个有限名单可以替代全书后续的逐处比较。本批先把序言和地图用到的四个性质写成精确陈述，并选本书已经定义清楚的小语言作正反例。这样每一项都能回到语法与规则核查；以后遇到新的“有些语言”再继续补充。</p>
+<p>这是一项贯穿阅读的开放任务，没有一个有限名单可以替代全书后续的逐处比较。下面把序言和地图用到的四个性质写成精确陈述，并选原书定义的小语言作正反例。每一项都能回到语法与规则核查；读到其他“有些语言”时，可用同样方法继续比较。</p>
 <div class="scroll"><table aria-label="习题 0.1 的四组语言性质比较">
 <thead><tr><th scope="col">精确的性质 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="X" display="inline"><mi>X</mi></math></th><th scope="col">具有 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="X" display="inline"><mi>X</mi></math></th><th scope="col">不具有 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="X" display="inline"><mi>X</mi></math></th><th scope="col">原书依据</th></tr></thead>
 <tbody>
@@ -690,14 +690,14 @@ if __name__ == &quot;__main__&quot;:
 <p><strong>第三组：</strong>考虑下面的区分程序。过程体根本不使用 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math>；但实参若被求值，会尝试把过程值与整数相减。</p>
 <pre><code>let f = proc (x) 11
 in (f -(proc (y) y, 1))</code></pre>
-<p>按值规则在进入过程体前求实参，因此报告非数值减法错误。按需规则先保存待求值表达式和环境；体内没有读取 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math>，所以不会触发它，结果为 11。这是对原书规则的推演，本批 Python 模型只实现按值求值，没有执行这个按需语言实验。带副作用时还须继续区分按名反复求值与按需缓存。</p>
+<p>按值规则在进入过程体前求实参，因此报告非数值减法错误。按需规则先保存待求值表达式和环境；体内没有读取 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math>，所以不会触发它，结果为 11。这是对原书规则的推演；本页 Python 模型只实现按值求值，按需语言实验尚未执行。带副作用时还须继续区分按名反复求值与按需缓存。</p>
 <p><strong>第四组：</strong>INFERRED 可以写 <code>proc (x : ?) -(x,1)</code>，差运算给出 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 必须为 <code>int</code> 的约束，从而推得 <code>int → int</code>。CHECKED 的形式参数处需要写出 <code>int</code>。不能把这组差异概括为“CHECKED 完全不会推导任何表达式的类型”：它同样会按规则计算子表达式和整个表达式的类型，差异在于这里是否允许缺省注解。</p>
-<p>对真实语言做同样比较时，还应标明版本、方言与具体构造，并给出最小区分程序。例如一句“这个语言是惰性的”往往不够精确，应该说清是过程实参、局部绑定还是某种容器按需计算。题目所列的参考书提供进一步查找的方向；本解答的四组结论直接依据本版 EOPL，不把未查阅的外部书目列为已核验来源。</p>
+<p>对真实语言做同样比较时，还应标明版本、方言与具体构造，并给出最小区分程序。例如一句“这个语言是惰性的”往往不够精确，应该说清是过程实参、局部绑定还是某种容器按需计算。本解答的四组结论直接依据本版 EOPL 的语言定义；题目所列参考书提供扩展查询的方向。</p>
 </div>
 </details>
 </section>
 <footer>
-<p>本页保留两篇序文的不同角色、第三版范围与完整习题 0.1；闭包实验为伴读原创。摘录及页码见<a href="source_excerpts.json">来源登记</a>，实际验证见<a href="../review/map-preface.md">本批审阅</a>。</p>
+<p>本页介绍两篇序文、第三版的阅读方法与习题 0.1；闭包实验为伴读原创。摘录及页码见<a href="source_excerpts.json">来源登记</a>。</p>
 <p class="chapter-nav"><a href="book_overview.html">← 全书地图</a><a href="book_overview.html#chapter-1">第 1 章在全书中的位置</a><a href="#top">回到页首 ↑</a></p>
 </footer>
 </main>

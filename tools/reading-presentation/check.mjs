@@ -7,6 +7,19 @@ import {entries, walk, attr} from '../../src/lib/controlled-html.mjs';
 const text = n => n.nodeName === '#text' ? n.value : (n.childNodes ?? []).map(text).join('');
 const parents = n => n.parentNode ? [n.parentNode, ...parents(n.parentNode)] : [];
 
+export function requireReaderCopy(html) {
+  const blocks = new Set(['p', 'li', 'th', 'td', 'summary', 'figcaption', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']);
+  const prose = n => ['script', 'style', 'pre', 'code', 'math'].includes(n.tagName) ? ''
+    : n.nodeName === '#text' ? n.value : (n.childNodes ?? []).map(prose).join('') + (blocks.has(n.tagName) ? '\n' : '');
+  const processCopy = /(?<!检)验收|本批(?:次)?(?:审阅|测试记录)|(?:本轮|本次)(?:修订|校订|审阅)|本地验证目录|验证摘要|已有程序核对摘要/;
+  const document = parse(html);
+  for (const value of [prose(document), ...walk(document).flatMap(n =>
+    (n.attrs ?? []).filter(a => ['aria-label', 'title', 'alt'].includes(a.name)).map(a => a.value))]) {
+    const match = processCopy.exec(value);
+    assert(!match, `Reading copy contains maintenance status: ${match?.[0]}`);
+  }
+}
+
 export function requireInlinePrograms(html, expected) {
   const codes = walk(parse(html)).filter(n => n.tagName === 'code' && !parents(n).some(p => p.tagName === 'pre'));
   for (const expression of expected) {
@@ -51,6 +64,7 @@ export function checkAll() {
   };
   let codes = 0, fittedNodes = 0;
   for (const page of pages) {
+    requireReaderCopy(page.html);
     const nodes = walk(parse(page.html));
     const styles = nodes.filter(n => n.tagName === 'style').map(text).join('\n');
     assert(styles.includes('code:not(pre code)'), `${page.metadata.route}: missing inline program style`);

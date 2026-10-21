@@ -115,6 +115,13 @@ class SourcePageNavigation(unittest.TestCase):
                   ("source_manifest", "review_manifest", "validation")]
         blobs = {name: (ROOT / "books" / name).read_bytes() for name in paths}
         generated, _ = build_reader_views(blobs)
+        guide = generated['weiss/notes/reading_guide.html'].decode()
+        links = Links(guide).hrefs
+        self.assertIn('book_overview.html#program-guide', links)
+        for chapter in (ROOT/'books/weiss/notes').glob('chapter*.html'):
+            self.assertIn(chapter.name, links)
+        for maintenance in ('交付验收', '章节笔记规范', 'data-source-pdf-pages'):
+            self.assertNotIn(maintenance, guide)
         for book in ("visual-group-theory", "measure-probability"):
             guide = generated[f"{book}/code/index.html"].decode()
             registered = json.loads((ROOT / "books" / book / "code/programs.json").read_text())

@@ -72,6 +72,25 @@ def transform_reading_page(blob, name, views, **kwargs):
 
 def build_reader_views(blobs):
     documents, views = legacy.build_reader_views(blobs)
+    source = 'weiss/notes/README.md'
+    if source in blobs:
+        target = views[source]
+        # The repository README also contains authoring and maintenance rules.
+        # Publish its chapter navigation with reader-facing usage guidance.
+        text = blobs[source].decode()
+        marker = '## 当前入口\n'
+        if text.count(marker) != 1:
+            raise ValueError('Weiss guide needs one current chapter index')
+        chapters = text.split(marker, 1)[1].split('\n## ', 1)[0]
+        body = ('<section><h2>怎样使用这份伴读</h2>'
+                '<p>从全书地图了解各章的联系，再进入章节正文。习题展开后先读原题，独立思考后再对照解答；'
+                '程序区域可以分别展开 C11 与 Python 3 实现。</p>'
+                '<p>运行环境、程序提取命令、实验口径与特殊依赖见 '
+                '<a href="book_overview.html#program-guide">阅读与程序使用说明</a>。'
+                '各章的实验数据与图表放在对应问题附近。</p></section>'
+                '<section><h2>按章节阅读</h2>' + legacy.markdown(chapters, target, views) + '</section>')
+        documents[target] = legacy.document(target, '阅读与程序使用说明',
+                                           '选择章节，展开习题与程序，并沿正文中的说明复现实验。', body)
     source = 'measure-probability/code/README.md'
     if source in blobs:
         target = views[source]

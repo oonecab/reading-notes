@@ -56,7 +56,7 @@
 <li><a href="#models">四种容易混淆的对象</a></li>
 <li><a href="#routes">怎样开始与回读</a></li>
 <li><a href="#program-guide">程序与阅读入口</a></li>
-<li><a href="#source">来源、页序与当前范围</a></li>
+<li><a href="#source">来源、页序与可阅读范围</a></li>
 </ul></nav></details>
 </aside>
 <main id="top" tabindex="-1">
@@ -64,7 +64,7 @@
 <p class="overline">Friedman / Wand · Essentials of Programming Languages · Third Edition</p>
 <h1>全书地图</h1>
 <p class="intro">把语言规则写成程序，再看一条规则怎样改变程序的含义。</p>
-<p>这份地图串起原书九章与两个附录。当前可阅读的伴读包括本页和<a href="preface.html">导读与作者序言</a>；后续章节先在这里说明问题、依赖和阅读落点。</p>
+<p>这份地图串起原书九章与两个附录。当前可阅读的伴读包括本页和<a href="preface.html">导读与作者序言</a>；九章与附录的条目说明原书的问题、依赖和阅读落点。</p>
 <p class="source">MIT Press，2008 · 目录 v–vii（PDF 6–8）· 作者序言 xv–xix（PDF 16–20）</p>
 <p class="chapter-nav"><a href="preface.html">导读与作者序言 →</a></p>
 </header>
@@ -225,24 +225,24 @@
 <p>第一次建议先读两篇序文，再按 1 → 2 → 3 → 4 建立共同基础。不要急着同时实现所有语言：先能给一个递归过程写出输入输出约定，画出一个 AST，再手算嵌套 <code>let</code> 和闭包调用。到第 4 章，用一张环境表和一张存储表记录每次赋值，避免凭熟悉语言的直觉猜规则。</p>
 <p>接下来，想理解异常、调度和控制变换，就沿 5 → 6；想理解静态检查和程序组织，就先读 7，再分别读 8、9。这里的路线沿用原书依赖，学习重点由伴读归纳。无论从哪条分支出发，遇到“变量为什么取到这个值”都回到第 3 章；遇到“改了一处为什么另一处也变了”都回到第 4 章。</p>
 <p>需要的基础是数据结构、递归、基本归纳，以及至少一种命令式语言和一种支持过程作为值的语言的经验。不熟悉 Scheme 时，先认清前缀调用、<code>lambda</code>、列表操作、条件分支和局部绑定；再把书中 <code>define-datatype</code>/<code>cases</code> 理解为构造与按变体分支。Scheme 阅读能力直接关系到能否分辨宿主机制与被定义机制。</p>
-<p>每读一个新构造，选一个能手算完的程序，先预测结果，再执行，再改动一条规则观察差异。习题穿插在正文中，其中常包含另一种设计；本书全部编号题的入口清单在<a href="source_inventory.json">原书定位清单</a>中，已完成的序言题见<a href="preface.html#ex-0-1">习题 0.1</a>。</p>
+<p>每读一个新构造，选一个能手算完的程序，先预测结果，再执行，再改动一条规则观察差异。习题穿插在正文中，其中常包含另一种设计；本书全部编号题的入口清单在<a href="source_inventory.json">原书定位清单</a>中，序言题的完整题干与解答见<a href="preface.html#ex-0-1">习题 0.1</a>。</p>
 </section>
 
 <section id="program-guide">
 <h2>从一个闭包实验开始</h2>
-<p>本批的<a href="preface.html#scope-example">闭包例子</a>在外层把 <code>x</code> 绑定为 10，创建 <code>f</code>，再在调用处把另一个 <code>x</code> 绑定为 20。词法规则得到 15，动态规则得到 5；页面逐步展示为什么取到不同的 <code>x</code>。</p>
+<p><a href="preface.html#scope-example">序言的闭包例子</a>在外层把 <code>x</code> 绑定为 10，创建 <code>f</code>，再在调用处把另一个 <code>x</code> 绑定为 20。词法规则得到 15，动态规则得到 5；页面逐步展示为什么取到不同的 <code>x</code>。</p>
 <p>配套 Python 3.10+ 程序显式保存环境，接受六种 AST 构造。它是伴读原创实验，完整源代码可在序言展开，也可<a href="../code/scope_demo.py" download>下载 <code>scope_demo.py</code></a>。程序用标准库即可运行；整数为精确整数，递归深度受宿主限制。</p>
 <pre><code>python3 books/eopl/code/scope_demo.py
 # 预期输出：
 # lexical: 15
 # dynamic: 5</code></pre>
 <p>上面命令从 Reading Notes 仓库根目录执行。若单独下载文件，进入下载目录运行 <code>python3 scope_demo.py</code>。完整接口、错误条件和模型边界见<a href="../code/README.md">程序说明</a>。</p>
-<p>两页成品内嵌样式、图与导航脚本，可以离线打开。关闭脚本后，正文、图、代码和原生折叠控件仍可使用；桌面目录在左，窄屏目录位于页首，宽表和图在各自区域滚动。</p>
+<p>两页伴读内嵌样式、图与导航脚本，可以离线打开。关闭脚本后，正文、图、代码和原生折叠控件仍可使用；桌面目录在左，窄屏目录位于页首，宽表和图在各自区域滚动。</p>
 </section>
 
 <section id="source">
-<h2>来源与当前完成范围</h2>
-<p>本伴读依据 Daniel <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="P" display="inline"><mi>P</mi></math>. Friedman 与 Mitchell Wand 合著的第三版，MIT Press，2008，ISBN 978-0-262-06279-4。用户提供的 PDF 共 433 页，身份摘要与文件大小登记在<a href="source_manifest.json">来源清单</a>。这是本地对照材料，页面上的印刷页和 PDF 页序可供回查。</p>
+<h2>来源、页序与可阅读范围</h2>
+<p>本伴读依据 Daniel <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="P" display="inline"><mi>P</mi></math>. Friedman 与 Mitchell Wand 合著的第三版，MIT Press，2008，ISBN 978-0-262-06279-4。所用 PDF 共 433 页，身份摘要与文件大小见<a href="source_manifest.json">来源清单</a>。这是本地对照材料，页面上的印刷页和 PDF 页序可供回查。</p>
 <div class="scroll"><table aria-label="原书印刷页与 PDF 页序">
 <thead><tr><th scope="col">范围</th><th scope="col">印刷页</th><th scope="col">PDF 页序（从 1 开始）</th></tr></thead>
 <tbody>
@@ -252,11 +252,11 @@
 <tr><th scope="row">致谢</th><td>xxi–xxii</td><td>22–23</td></tr>
 <tr><th scope="row">正文、附录、文献与索引</th><td>1–410</td><td>24–433；此段 PDF 页序 = 印刷页 + 23</td></tr>
 </tbody></table></div>
-<p>目前已经按页阅读全书提取文本，并对本批使用的序文、目录、依赖图和原题进行原页图像核对。当前写成的伴读只有全书地图、导读与作者序言两页，完整题解为 0.1；后续九章和附录仍按<a href="#routes">阅读计划</a>推进。全文阅读没有被记成全书程序实测或全部习题解答。</p>
+<p>当前独立伴读页为全书地图、导读与作者序言，完整题解为习题 0.1。本页九章和附录条目提供章意、页码与依赖；逐章伴读和其余题解尚未展开，可按<a href="#routes">阅读路线</a>选读原书。</p>
 <p>原书清单共 356 道编号习题，其中 350 道位于第 1—9 章，1 道位于序言，5 道位于附录 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="B" display="inline"><mi>B</mi></math>。编号定义、定理、Example 与 Figure 另在<a href="source_inventory.json">定位清单</a>中列出。正文中没有编号的程序例子仍按原节和原页追踪。</p>
 </section>
 <footer>
-<p>以第三版原书为主线；章节要点与阅读建议为伴读归纳。来源、执行与实际阅读记录见<a href="../review/map-preface.md">本批审阅</a>。</p>
+<p>以第三版原书为主线；章节要点与阅读建议为伴读归纳。各章的印刷页与 PDF 页序可用于对照原书。</p>
 <p class="chapter-nav"><a href="preface.html">导读与作者序言 →</a><a href="#top">回到页首 ↑</a></p>
 </footer>
 </main>

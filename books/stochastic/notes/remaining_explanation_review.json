@@ -17539,11 +17539,11 @@
     },
     "notes/derivation_coverage.json": {
       "bytes": 356352,
-      "sha256": "391b4b668a7fa8b1f2801d842455f844e95f3bef92a0de611dda4e517e8868dd"
+      "sha256": "2a77444204c1a2324a1c6f1eb28db9623493e6aed38b83260d01af6003065e65"
     },
     "tools/content_baseline.json": {
       "bytes": 2889428,
-      "sha256": "e1521036d62a9ba6ab6b1696416ddf950a44ff0c20f319c1799eecc4a5c7fa0c"
+      "sha256": "a951a5f0724359dc1212dd43f5a8525739f791c40fb45c21f715c389c7ed6f57"
     },
     "tools/derivation_coverage.py": {
       "bytes": 15791,
@@ -17626,5 +17626,11 @@
     "prior_record_git": "09759945a0ad27e73f42c291e6b121a76fa6ce7a:books/stochastic/notes/remaining_explanation_review.json",
     "prior_record_sha256": "7095558e941302dac0dfd686fdfd65643730b877eea88d5f33bcedc9a57ef5ee",
     "scope": "Current representation bindings: complete inline program syntax, shared code treatment and content-aware SVG node sizing. Program blocks, readable meaning and exercise IDs preserved. Historical execution claims retain their original scope; new acceptance is recorded in docs/reading-presentation-review.json"
+  },
+  "I046_reader_copy_revision": {
+    "issue": "I046",
+    "prior_record_git": "3064e29e84f5e2ba60fdfbb4bb7389dfcb9ff084:books/stochastic/notes/remaining_explanation_review.json",
+    "prior_record_sha256": "31f342cbc8b6bc9348117cdd9df298d1481ae6777493497bf5b3d9ee997c92c8",
+    "scope": "Current reader-copy bindings: maintenance wording moved out of reading pages. Programs, original questions, formulas, diagrams, source links and anchors preserved. Historical execution claims retain their original scope; new acceptance is recorded in docs/reader-copy-review.json"
   }
 }

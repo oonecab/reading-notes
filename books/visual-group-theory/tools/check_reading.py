@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Reading contracts, including independent spellings of key MathML structures."""
 import json
+import re
 from pathlib import Path
 import sys
 import xml.etree.ElementTree as ET
@@ -146,6 +147,25 @@ def check_math(source):
     return count, formulas
 
 
+def check_chapter_map(source, chapters):
+    overview = Document(source)
+    tables = [t for t in overview.root.walk('table') if '原书习题' in t.text()]
+    require(len(tables) == 1, 'chapter map needs one exercise-count table')
+    rows = [r for r in tables[0].walk('tr') if any(n.tag == 'td' for n in r.walk())]
+    require(len(rows) == len(chapters), 'chapter map coverage changed')
+    for row, chapter in zip(rows, chapters):
+        cells = list(row.walk('td'))
+        require(len(cells) == 4, 'chapter map needs four content columns')
+        links = [a.attrs.get('href') for a in cells[0].walk('a')]
+        require(links == [chapter['file']], 'chapter map target differs from source chapter')
+        pages = re.sub(r'\s+', '', cells[2].text())
+        expected = f"{chapter['printed_start']}–{chapter['printed_end']}PDF{chapter['pdf_start']}–{chapter['pdf_end']}"
+        require(pages == expected, 'chapter map source page range changed')
+        count = re.sub(r'\s+', '', cells[3].text())
+        require(count == f"{chapter['source_exercise_count']}题", 'chapter map exercise count changed')
+    return len(rows)
+
+
 def run(root=ROOT):
     notes = root / 'notes'
     texts = {p.name: p.read_text() for p in notes.glob('*.html')}
@@ -166,9 +186,20 @@ def run(root=ROOT):
     require(EXPECTED.keys() <= formulas.keys(), 'missing protected key formula')
     require(DISPLAY_EXPECTED.keys() <= formulas.keys(), 'missing protected display formula')
     require(display_total == 31, 'display formula coverage changed')
-    overview = Document(texts['book_overview.html'])
-    chapter_table = next(t for t in overview.root.walk('table') if '原书习题 / 进度' in t.text())
-    require(chapter_table.text().count('已完成本地验收') == 10, 'chapter statuses disagree')
+    chapters = json.loads((notes/'source_manifest.json').read_text())['chapters']
+    chapter_rows = check_chapter_map(texts['book_overview.html'], chapters)
+    map_mutations = [
+        texts['book_overview.html'].replace('14 题', '15 题', 1),
+        texts['book_overview.html'].replace('PDF 18–25', 'PDF 18–26', 1),
+        texts['book_overview.html'].replace('href="chapter01_what_is_a_group.html"', 'href="preface.html"', 1),
+    ]
+    for mutated in map_mutations:
+        try:
+            check_chapter_map(mutated, chapters)
+        except ValueError:
+            pass
+        else:
+            raise ValueError('accepted a chapter map count, page or navigation mutation')
     annotation_count = 0
     for chapter in (2, 3, 4):
         name = next(n for n in texts if n.startswith(f'chapter{chapter:02}'))
@@ -242,7 +273,7 @@ def run(root=ROOT):
             rejected.append(label)
         else:
             raise ValueError('accepted MathML mutation: ' + label)
-    return {'inline_mathml': total, 'display_mathml': display_total,
+    return {'chapter_map_rows': chapter_rows, 'inline_mathml': total, 'display_mathml': display_total,
             'total_mathml': total + display_total, 'distinct_formulas': len(formulas),
             'protected_semantic_references': len(EXPECTED) + len(DISPLAY_EXPECTED), 'mutations_rejected': rejected,
             'new_reading_notes': annotation_count, 'scoped_excerpts': partial_count,

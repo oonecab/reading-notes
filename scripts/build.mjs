@@ -9,6 +9,7 @@ import { sha, offlineDependencies } from './parity-lib.mjs';
 import { checkCsp } from './check-csp.mjs';
 import { checkBudgets } from './performance-budget.mjs';
 import { checkSource } from '../src/lib/source-revisions.mjs';
+import { requireReaderCopy } from '../tools/reading-presentation/check.mjs';
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 process.chdir(root);
@@ -65,6 +66,10 @@ if(!shell){
     catch(error) { throw new Error(`${route}: ${error.message}`, {cause:error}); }
   }
   run('python3',['deploy/public_policy.py',target,'--transform','--sums',path.join(stage,'dist-SHA256SUMS')]);
+  for (const route of routes) {
+    try { requireReaderCopy(fs.readFileSync(path.join(target, route), 'utf8')); }
+    catch (error) { throw new Error(`${route}: ${error.message}`, {cause: error}); }
+  }
   verifyParity(target);
   fs.writeFileSync(path.join(stage,'performance-budget.json'),JSON.stringify(checkBudgets(target),null,2)+'\n');
   await checkCsp(target);
