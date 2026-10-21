@@ -1,0 +1,547 @@
+{
+  "schema_version": 1,
+  "issue": "I052",
+  "status": "published_and_verified",
+  "verified_at": "2026-10-22T00:23:15.036389+08:00",
+  "source_commit": "62019e2e273fd856c68df88f3fc22c466190ef99",
+  "source_tree": "e8d628d5a13dcfd2d6be1b147d57b9edade3b21e",
+  "source_tree_dirty": false,
+  "annotated_tag": {
+    "name": "v2026.10.21-reader-contract",
+    "object": "fd64752c061f2435d1907ddc755cd340d6f94110",
+    "target": "62019e2e273fd856c68df88f3fc22c466190ef99",
+    "evidence": {
+      "report": "tmp/reader-audit-20261021/remote-publication.json",
+      "sha256": "745fa3e0459573e94ae6ebe6a1084a9dea5b81e07415816f1598b34343e3e995"
+    }
+  },
+  "release": {
+    "id": "20261022T000343",
+    "archive_sha256": "d9f744056f5027c76b1f491af5edc9155616cc5727ede50fc9e8240077cd0044",
+    "files": 523,
+    "bytes": 78952236,
+    "html_identical_to_accepted_browser": 82,
+    "formal_pages_identical_to_visual": 60,
+    "pdfs": [
+      {
+        "book": "stochastic",
+        "route": "stochastic/assets/essentials-of-stochastic-processes.pdf",
+        "sha256": "2232660e1909b42c6df8b5aca8eba12cdb383bf3741ecb53add49f6c26c6a0e7",
+        "pages": 282
+      },
+      {
+        "book": "weiss",
+        "route": "weiss/assets/source.pdf",
+        "sha256": "03e4b6bf05e0fb7f02bd62bb4d918860d6a906342bdcba01b48363492f5eb846",
+        "pages": 518
+      },
+      {
+        "book": "csapp",
+        "route": "csapp/csapp.pdf",
+        "sha256": "dcd44c5dd0819af7dbef3ebef088a5012aadb5c82761e4b6603b4fb5d0ff504a",
+        "pages": 1122
+      },
+      {
+        "book": "visual-group-theory",
+        "route": "visual-group-theory/assets/source.pdf",
+        "sha256": "f82d041ad301baa07b1ec17f495805e17c49852a772c770a28afeb29de7ecf2a",
+        "pages": 312
+      },
+      {
+        "book": "measure-probability",
+        "route": "measure-probability/assets/source.pdf",
+        "sha256": "93fe7f0ca35155c2f58a5bca90ef6497da96ef1f0fc17660430114e9ccbe24f0",
+        "pages": 256
+      },
+      {
+        "book": "eopl",
+        "route": "eopl/assets/source.pdf",
+        "sha256": "b9e8770a4dc97206bd02230e6b21a878382eb02a340ff69321857d701e7d967c",
+        "pages": 433
+      }
+    ],
+    "evidence": {
+      "report": "tmp/reader-audit-20261021/package-preflight.json",
+      "sha256": "f29f01199122d9591f8c39de7c8a473c5bfa7a69c531d6d968b2fd0f0a68026c"
+    }
+  },
+  "checks_before_publish": {
+    "complete_run_passed": 23,
+    "unchanged_output_record_checker_recheck_passed": 1,
+    "javascript_tests_passed": 95,
+    "local_https": {
+      "report": "tmp/release-check/20261022T000343-s2zxi5vx/https-verification.json",
+      "sha256": "15d531572ae877d102ad7990e3e18826e39e2a896a49c621a21960b21867e0a8",
+      "files": 517,
+      "redirects": 18,
+      "pdfs": 6
+    },
+    "local_publish_recovery": {
+      "report": "tmp/publish-check/20261022T000343-uxuzz2md/report.json",
+      "sha256": "4d594dd86b31b5d5ce42ed803c256f0fd09b4f5388cac5351afda7d09ec20dec",
+      "checks": 24
+    },
+    "evidence": {
+      "report": "tmp/reader-audit-20261021/predeploy-acceptance.json",
+      "sha256": "f51c9ad715b3b2227a788d0a4e0bb4349ab3ed195b902a73d3d4fcacf49a26c1"
+    }
+  },
+  "server": {
+    "current": "releases/20261022T000343",
+    "recovery_release": "20261021T135233",
+    "new_files_verified": 523,
+    "recovery_files_verified": 519,
+    "root_owned_read_only": true,
+    "unchanged_mtime_preserved": 387,
+    "changed_mtime_distinct": 132,
+    "queue_empty": true,
+    "pending_transaction": false,
+    "done_receipt": true,
+    "nginx_test": "passed",
+    "deploy_service_result": "success",
+    "health_service_result": "success",
+    "health_timer": "active",
+    "evidence": {
+      "report": "tmp/reader-audit-20261021/server-after.json",
+      "sha256": "0b03c6d3e572c1c9417753cf3286d57e6aa7ee1ba9e3931ab5617898b1208ee0"
+    }
+  },
+  "public_http": {
+    "origin": "https://notes.zzzping.top",
+    "release_id": "20261022T000343",
+    "status": "pass",
+    "files_checked": 517,
+    "conditional_requests": 517,
+    "precompressed_checked": 196,
+    "entry_redirects_checked": 18,
+    "pdf_ranges_checked": 6,
+    "transport_retries": [],
+    "checks": [
+      "Full-file GET bytes and SHA-256",
+      "MIME, cache policy, content security headers",
+      "Conditional ETag request returns 304",
+      "Precompressed gzip matches manifest and decompressed content",
+      "Book entry redirects including query, HEAD and POST",
+      "Six PDF full GET identities and Range bytes 32-63"
+    ],
+    "evidence": {
+      "report": "tmp/reader-audit-20261021/public-verification.json",
+      "sha256": "049fcc37f7a8900bf12209b5666a22bc295f49f98f826ca22aa36ae5587b0e74"
+    }
+  },
+  "public_browser": {
+    "status": "passed",
+    "reader_views": [
+      {
+        "route": "eopl/notes/chapter02_data_abstraction.html",
+        "width": 1800,
+        "annotation_bindings_checked": 5,
+        "code_fold": {
+          "applicable": true,
+          "id": "",
+          "summary": "查看实现 · ex-2-1",
+          "open": true,
+          "mouse": {
+            "open": false,
+            "same_code": true,
+            "width": 1785,
+            "viewport": 1800,
+            "visible": false,
+            "focused": true
+          },
+          "keyboard": {
+            "open": true,
+            "same_code": true,
+            "width": 1785,
+            "viewport": 1800,
+            "visible": true,
+            "focused": true
+          }
+        },
+        "python_fold": null,
+        "mobile_toc_clicks": [],
+        "question_anchor": "ex-2-1",
+        "images": [
+          {
+            "file": "tmp/reader-audit-20261021/public-browser/eopl-reading-1800.png",
+            "sha256": "c35fa341a602da69c5605002aedaefca0dcce43515a1e54d60fa1de54f2ebff8",
+            "visual_status": "passed",
+            "observation": "实际看到第2.1节标题、完整接口正文、等宽程序名和右侧两条对应注解；左目录当前项高亮，三栏没有相互遮盖。"
+          },
+          {
+            "file": "tmp/reader-audit-20261021/public-browser/eopl-question-1800.png",
+            "sha256": "2161a51ed49b0c84eb87ebdc2fcc6bc28baf52aee2e758243e500edcb2b8a85c",
+            "visual_status": "passed",
+            "observation": "实际看到习题2.1中文任务、基数表示前置定义、PDF57入口和独立英文折叠；解答正文为正常字重，程序操作为等宽标记，右栏对应2.1。"
+          }
+        ]
+      },
+      {
+        "route": "eopl/notes/chapter02_data_abstraction.html",
+        "width": 390,
+        "annotation_bindings_checked": 5,
+        "code_fold": {
+          "applicable": true,
+          "id": "",
+          "summary": "查看实现 · ex-2-1",
+          "open": true,
+          "mouse": {
+            "open": false,
+            "same_code": true,
+            "width": 375,
+            "viewport": 390,
+            "visible": false,
+            "focused": true
+          },
+          "keyboard": {
+            "open": true,
+            "same_code": true,
+            "width": 375,
+            "viewport": 390,
+            "visible": true,
+            "focused": true
+          }
+        },
+        "python_fold": null,
+        "mobile_toc_clicks": [
+          {
+            "hash": "#s2-1",
+            "title_clear": true,
+            "active_correct": true,
+            "collapsed": true
+          },
+          {
+            "hash": "#s2-4",
+            "title_clear": true,
+            "active_correct": true,
+            "collapsed": true
+          },
+          {
+            "hash": "#programs",
+            "title_clear": true,
+            "active_correct": true,
+            "collapsed": true
+          }
+        ],
+        "question_anchor": "ex-2-1",
+        "images": [
+          {
+            "file": "tmp/reader-audit-20261021/public-browser/eopl-reading-390.png",
+            "sha256": "3727aacb91870f589d73f54bd79d939877d59b0a6b104c58a93347606c0c75b0",
+            "visual_status": "passed",
+            "observation": "实际看到手机目录已收起，2.1标题露出固定栏；正文和接口公式在当前可见范围正常换行。"
+          },
+          {
+            "file": "tmp/reader-audit-20261021/public-browser/eopl-question-390.png",
+            "sha256": "638202ec562f21769aa484de5ac8c1b9cb7bd70ddb188aea94d5231848c5c9e8",
+            "visual_status": "passed",
+            "observation": "实际看到手机中文题干及表示定义完整换行，PDF57入口、英文折叠和解答标题均可见；没有页面横向溢出或标题遮挡。"
+          }
+        ]
+      },
+      {
+        "route": "visual-group-theory/notes/chapter02_what_do_groups_look_like.html",
+        "width": 1800,
+        "annotation_bindings_checked": 6,
+        "code_fold": {
+          "applicable": true,
+          "id": "code-fold-2",
+          "summary": "Python 3 完整程序",
+          "open": false,
+          "mouse": {
+            "open": true,
+            "same_code": true,
+            "width": 1785,
+            "viewport": 1800,
+            "visible": true,
+            "focused": true
+          },
+          "keyboard": {
+            "open": false,
+            "same_code": true,
+            "width": 1785,
+            "viewport": 1800,
+            "visible": false,
+            "focused": true
+          }
+        },
+        "python_fold": {
+          "applicable": true,
+          "id": "code-fold-2",
+          "summary": "Python 3 完整程序",
+          "open": false,
+          "mouse": {
+            "open": true,
+            "same_code": true,
+            "width": 1785,
+            "viewport": 1800,
+            "visible": true,
+            "focused": true
+          },
+          "keyboard": {
+            "open": false,
+            "same_code": true,
+            "width": 1785,
+            "viewport": 1800,
+            "visible": false,
+            "focused": true
+          }
+        },
+        "mobile_toc_clicks": [],
+        "question_anchor": "ex-2-1",
+        "images": [
+          {
+            "file": "tmp/reader-audit-20261021/public-browser/visual-group-theory-reading-1800.png",
+            "sha256": "1c0b38d35b2db84f970168929cf1a5311b6d3075100fdb577ec11e9a728102d2",
+            "visual_status": "passed",
+            "observation": "实际看到2.1正文、当前目录高亮、右侧节点与动作注解，三栏与EOPL使用同一布局。"
+          },
+          {
+            "file": "tmp/reader-audit-20261021/public-browser/visual-group-theory-question-1800.png",
+            "sha256": "6b0aa5a1a7f194f78cf8e1294876823c2d7b547a4fbd259ae6e4071a5eac167d",
+            "visual_status": "passed",
+            "observation": "实际看到习题2.1中文任务及正常字重解答、PDF36入口；目录高亮基础小节，题目折叠样式一致。习题小节未登记右栏注解，截图不将空栏误记为已显示注解。"
+          }
+        ]
+      },
+      {
+        "route": "visual-group-theory/notes/chapter02_what_do_groups_look_like.html",
+        "width": 390,
+        "annotation_bindings_checked": 6,
+        "code_fold": {
+          "applicable": true,
+          "id": "code-fold-2",
+          "summary": "Python 3 完整程序",
+          "open": false,
+          "mouse": {
+            "open": true,
+            "same_code": true,
+            "width": 375,
+            "viewport": 390,
+            "visible": true,
+            "focused": true
+          },
+          "keyboard": {
+            "open": false,
+            "same_code": true,
+            "width": 375,
+            "viewport": 390,
+            "visible": false,
+            "focused": true
+          }
+        },
+        "python_fold": {
+          "applicable": true,
+          "id": "code-fold-2",
+          "summary": "Python 3 完整程序",
+          "open": false,
+          "mouse": {
+            "open": true,
+            "same_code": true,
+            "width": 375,
+            "viewport": 390,
+            "visible": true,
+            "focused": true
+          },
+          "keyboard": {
+            "open": false,
+            "same_code": true,
+            "width": 375,
+            "viewport": 390,
+            "visible": false,
+            "focused": true
+          }
+        },
+        "mobile_toc_clicks": [
+          {
+            "hash": "#s2-1",
+            "title_clear": true,
+            "active_correct": true,
+            "collapsed": true
+          },
+          {
+            "hash": "#s2-6-1",
+            "title_clear": true,
+            "active_correct": true,
+            "collapsed": true
+          },
+          {
+            "hash": "#group-explorer",
+            "title_clear": true,
+            "active_correct": true,
+            "collapsed": true
+          }
+        ],
+        "question_anchor": "ex-2-1",
+        "images": [
+          {
+            "file": "tmp/reader-audit-20261021/public-browser/visual-group-theory-reading-390.png",
+            "sha256": "83e492411d3e5a10d00ff9d48966611312a89e1795a201116163edb1d703355d",
+            "visual_status": "passed",
+            "observation": "实际看到手机2.1长标题在固定栏下分两行显示，正文有正常行距且未向屏幕外溢出。"
+          },
+          {
+            "file": "tmp/reader-audit-20261021/public-browser/visual-group-theory-question-390.png",
+            "sha256": "c70d412543670aac904412e8808f5599bdd8dbccf6a42eb011b440b492423d7f",
+            "visual_status": "passed",
+            "observation": "实际看到手机习题2.1中文题干、PDF36入口、正常字重解答及后续折叠题目，公式随正文阅读，题目标题无遮挡。"
+          }
+        ]
+      }
+    ],
+    "source_pdf_clicks": [
+      {
+        "book": "stochastic",
+        "from": "stochastic/notes/chapter01_markov_chains.html",
+        "link": {
+          "href": "https://notes.zzzping.top/stochastic/assets/essentials-of-stochastic-processes.pdf#page=87",
+          "label": "第三版习题 1.1，印刷页 78／PDF 第 87 页"
+        },
+        "url": "https://notes.zzzping.top/stochastic/assets/essentials-of-stochastic-processes.pdf#page=87",
+        "viewer_target_page": 87,
+        "viewer_total_pages": 282,
+        "pdf_sha256": "2232660e1909b42c6df8b5aca8eba12cdb383bf3741ecb53add49f6c26c6a0e7",
+        "file": "tmp/reader-audit-20261021/public-browser/pdf-ready/stochastic-source-pdf.png",
+        "sha256": "283f02360b52ee19c63a3485d9911d682c71d30be002f450caa68238fbf351ec",
+        "visual_status": "passed",
+        "observation": "阅读器显示87/282；纸面页78，1.13 Exercises与习题1.1可见。"
+      },
+      {
+        "book": "weiss",
+        "from": "weiss/notes/chapter01_introduction.html",
+        "link": {
+          "href": "https://notes.zzzping.top/weiss/assets/source.pdf#page=24",
+          "label": "PDF 第 24 页"
+        },
+        "url": "https://notes.zzzping.top/weiss/assets/source.pdf#page=24",
+        "viewer_target_page": 24,
+        "viewer_total_pages": 518,
+        "pdf_sha256": "03e4b6bf05e0fb7f02bd62bb4d918860d6a906342bdcba01b48363492f5eb846",
+        "file": "tmp/reader-audit-20261021/public-browser/pdf-ready/weiss-source-pdf.png",
+        "sha256": "ecd95041067560cea42a29d462da2722f3f4cb709b2866bc02d6c099a9d873ca",
+        "visual_status": "passed",
+        "observation": "阅读器显示24/518；纸面页7，Summary及Exercises 1.1–1.4可见。"
+      },
+      {
+        "book": "csapp",
+        "from": "csapp/notes/chapter01_tour.html",
+        "link": {
+          "href": "https://notes.zzzping.top/csapp/csapp.pdf#page=59",
+          "label": "印刷 58—59 页 / PDF 59—60 页"
+        },
+        "url": "https://notes.zzzping.top/csapp/csapp.pdf#page=59",
+        "viewer_target_page": 59,
+        "viewer_total_pages": 1122,
+        "pdf_sha256": "dcd44c5dd0819af7dbef3ebef088a5012aadb5c82761e4b6603b4fb5d0ff504a",
+        "file": "tmp/reader-audit-20261021/public-browser/pdf-ready/csapp-source-pdf-settled.png",
+        "sha256": "c4a698862215bd82e1294bda1896b0942e4cb04512db3d4305915e8aecaa176c",
+        "visual_status": "passed",
+        "observation": "阅读器显示59/1122；纸面页58，Important Themes与Amdahl’s Law及公式可见。该入口为原创自测所引用的原书依据页。"
+      },
+      {
+        "book": "visual-group-theory",
+        "from": "visual-group-theory/notes/chapter01_what_is_a_group.html",
+        "link": {
+          "href": "https://notes.zzzping.top/visual-group-theory/assets/source.pdf#page=22",
+          "label": "印刷 7 / PDF 22"
+        },
+        "url": "https://notes.zzzping.top/visual-group-theory/assets/source.pdf#page=22",
+        "viewer_target_page": 22,
+        "viewer_total_pages": 312,
+        "pdf_sha256": "f82d041ad301baa07b1ec17f495805e17c49852a772c770a28afeb29de7ecf2a",
+        "file": "tmp/reader-audit-20261021/public-browser/pdf-ready/visual-group-theory-source-pdf.png",
+        "sha256": "926ab7e813a9808f27cf35f19b36903e9b65f07e999996576c0a493c04d5a992",
+        "visual_status": "passed",
+        "observation": "阅读器显示22/312；纸面页7，1.5 Exercises及Exercise 1.1可见。"
+      },
+      {
+        "book": "measure-probability",
+        "from": "measure-probability/notes/chapter01_measurable_spaces.html",
+        "link": {
+          "href": "https://notes.zzzping.top/measure-probability/assets/source.pdf#page=32",
+          "label": "印刷 20 / PDF 32"
+        },
+        "url": "https://notes.zzzping.top/measure-probability/assets/source.pdf#page=32",
+        "viewer_target_page": 32,
+        "viewer_total_pages": 256,
+        "pdf_sha256": "93fe7f0ca35155c2f58a5bca90ef6497da96ef1f0fc17660430114e9ccbe24f0",
+        "file": "tmp/reader-audit-20261021/public-browser/pdf-ready/measure-probability-source-pdf.png",
+        "sha256": "9d04e70027a3d5ac041a26c41bb14038d95d5cd169050b6e3a6d9b14fa2e9c70",
+        "visual_status": "passed",
+        "observation": "阅读器显示32/256；纸面页20，定理1.5.6后习题1的第1题可见。"
+      },
+      {
+        "book": "eopl",
+        "from": "eopl/notes/chapter01_inductive_data.html",
+        "link": {
+          "href": "https://notes.zzzping.top/eopl/assets/source.pdf#page=28",
+          "label": "PDF 28"
+        },
+        "url": "https://notes.zzzping.top/eopl/assets/source.pdf#page=28",
+        "viewer_target_page": 28,
+        "viewer_total_pages": 433,
+        "pdf_sha256": "b9e8770a4dc97206bd02230e6b21a878382eb02a340ff69321857d701e7d967c",
+        "file": "tmp/reader-audit-20261021/public-browser/pdf-ready/eopl-source-pdf-settled.png",
+        "sha256": "16221866963597e1a3345f1493d86538a3cf2bf7228a145992b9bb35795a7520",
+        "visual_status": "passed",
+        "observation": "阅读器显示28/433；纸面页5，Exercise 1.1及集合定义小问可见。"
+      }
+    ],
+    "actual_images_reviewed": 14,
+    "evidence": [
+      {
+        "report": "tmp/reader-audit-20261021/public-browser/reader-paths.json",
+        "sha256": "636d76a6828775bdff8bc5531dbf0d11f674b49b88367e9929462430db1a7341"
+      },
+      {
+        "report": "tmp/reader-audit-20261021/public-browser/pdf-final.json",
+        "sha256": "78c8714930d89c7629dcfc9568fb4b7533c26e8c5fa8756077247a3f958c5046"
+      }
+    ],
+    "scope": "Two production chapter pages at 1800px and 390px; all their required annotation bindings, native code pointer/Space actions, mobile TOC first/middle/last clicks, first Chinese question and source links. One native PDF source-link path per book. This production smoke check is distinct from the accepted 60-page local visual matrix."
+  },
+  "independent_review": {
+    "candidate": {
+      "report": "tmp/reader-audit-20261021/finalization/surface-prepublication-candidate-stage4.json",
+      "sha256": "63febbf4eba97f97069aeb95b9078474ae48ed0a584c70c1a36c80fdc32abf16"
+    },
+    "git": {
+      "report": "tmp/reader-audit-20261021/finalization/surface-postflight-stage5-git.json",
+      "sha256": "410c292755d7d3d5ac7b5f185bb47c3b03ea68c73f042e5d5ab31ea13500fabd"
+    },
+    "clean_package": {
+      "report": "tmp/reader-audit-20261021/finalization/surface-postflight-stage6-local.json",
+      "sha256": "b041010619762405ed3b48e515d3c659d60e0ce7727cfb8480a38811b3a34885"
+    }
+  },
+  "retained_nonpassing_attempts": [
+    {
+      "scope": "Initial clean package CSP browser invocation",
+      "reason": "The dedicated browser space no longer existed; the explicitly authorized replacement space ran the original check successfully. No source was changed for this recovery.",
+      "evidence": {
+        "report": "tmp/reader-audit-20261021/clean-release-build-interruption.json",
+        "sha256": "a1b0701f2a341cd4ef0abb43fcb3f8a7389369ce19f9d8ffab173279e3c3842f"
+      }
+    },
+    {
+      "scope": "Initial public PDF screenshots",
+      "reason": "Loading frames did not establish a rendered target page. A PDF-frame selector wait also timed out. Initial evidence was retained; actual rendered document and displayed page numbers were subsequently read for all six PDFs.",
+      "evidence": [
+        {
+          "report": "tmp/reader-audit-20261021/public-browser/pdf-clicks.json",
+          "sha256": "380396fd7846dc5848cdaa9ce41e32d6c07c25600978a54bef1487102cca359c"
+        },
+        {
+          "report": "tmp/reader-audit-20261021/public-pdf-ready-browser.log",
+          "sha256": "b0b804021446b0a82f1733c9f93cf3e6dc6d839e253fec28d660810bc8920ed2"
+        }
+      ]
+    }
+  ],
+  "followup_commit": "Publication facts are recorded by a documentation-only child commit; the annotated release tag and deployed source remain the content commit above.",
+  "limits": [
+    "Local recovery integration uses an isolated temporary environment; no destructive rollback was performed on the production site.",
+    "Browser evidence is Ego Lite/Chromium on this machine at recorded CSS viewport widths; no physical-phone, Safari or Firefox assertion.",
+    "Content completeness and visual review do not re-prove every existing mathematical solution. Historical CSAPP 12.39 real-browser-through-proxy experiment remains unexecuted."
+  ]
+}

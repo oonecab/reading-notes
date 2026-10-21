@@ -1,6 +1,6 @@
 {
   "issue": "I052",
-  "status": "validated_before_publication",
+  "status": "completed",
   "baseline_git": "a4d646e3f0c3a61d28ee38b10664f0fc8fc4c404",
   "scope": "All 60 reading pages: complete Chinese questions, independently registered annotations, shared layout and indexes, source PDF identity and page navigation. Browser and content-review evidence are recorded separately.",
   "source_sha256": {
@@ -1198,5 +1198,6 @@
     "browser": "docs/reader-browser-review.json",
     "visual": "docs/reader-visual-review.json",
     "report": "docs/reader-contract-report.md"
-  }
+  },
+  "publication_review": "docs/reader-publication-review.json"
 }
