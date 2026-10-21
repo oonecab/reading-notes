@@ -1,6 +1,6 @@
 {
   "issue": "I047",
-  "status": "locally_verified_publication_pending",
+  "status": "published_and_verified",
   "baseline_git": "be7ba1895684a914d8cfe77cd535659ddae6f223",
   "scope": "All 58 reading pages across six books inspected; 55 native code folds added in 18 pages, with two existing outputs explicitly classified.",
   "source_sha256": {
@@ -1391,6 +1391,26 @@
     "accepted_dist": {
       "report": "tmp/code-folding-20261021/accepted-dist-files.json",
       "sha256": "b740c79fe54ee253b1f5f5bdc4dcdd9bc926622bdb13295941b5692951d8495d"
+    },
+    "predeploy": {
+      "report": "tmp/code-folding-20261021/predeploy-acceptance.json",
+      "sha256": "7a8fddbc43a7ee97f5daeaad77abada5f8c685c35aadc578ee97b1ff04bde611"
+    },
+    "server": {
+      "report": "tmp/code-folding-20261021/server-after.json",
+      "sha256": "88d0f094b12df49fb70d2e3c8ee9e1b69b81dc2320ec8307bdc3411e883b1a5f"
+    },
+    "normal_domain": {
+      "report": "tmp/code-folding-20261021/public-verification.json",
+      "sha256": "f0e087d021ffc6e91d8eefc197104a893ae87ed26c335f205a105c52174e46ec"
+    },
+    "public_browser": {
+      "report": "tmp/code-folding-20261021/public-folds.json",
+      "sha256": "3f5d5f7d032cda0b68d6600616460fca52fb923345e2844b408bca4550a6455e"
+    },
+    "public_render_review": {
+      "report": "tmp/code-folding-20261021/public-render-review.json",
+      "sha256": "511d5fe583ee7f9a06ba8a561d6ea2f0df33ed7f9502899eca47079672e32d69"
     }
   },
   "local_acceptance": {
@@ -1407,5 +1427,28 @@
     "formulas_preserved": 50829,
     "svgs_preserved": 490,
     "original_question_blocks_preserved": 1527
+  },
+  "publication": {
+    "release_id": "20261021T103218",
+    "previous": "20261021T095146",
+    "source_commit": "33d34416ff0072e46da44abbcb13dbbeb0592017",
+    "tag": "v2026.10.21-code-folding",
+    "previous_source_commit": "c2784f93af30cc86618585b2d6850e13447f4e3d",
+    "previous_archive_sha256": "74cc053aadedff4a7b11effe06edac8c8ed1ce85f77425afd7cf28e10368c2a7",
+    "previous_policy_sha256": "eac0d803f29f69a5399ee2f33fb9a5fb6254ed6e70eaec6662ae631f56dcef69",
+    "policy_sha256": "eac0d803f29f69a5399ee2f33fb9a5fb6254ed6e70eaec6662ae631f56dcef69",
+    "administrator_snippet_sha256": "8c8a40dd1dcc0a16541a2d47bb38037787e57ad0859bc27ad8ffe5c7f3704dd2",
+    "archive_sha256": "7355c583fcda6915a7bbab6eeee5ac48d412731e9a5356286070dad84d68fdad",
+    "normal_domain_files_checked": 505,
+    "public_code_fold_views": 220,
+    "public_code_deep_links": 68,
+    "public_no_js_code_scroll": true,
+    "rollback_release_retained": true,
+    "unchanged_files_keep_mtime": 475,
+    "changed_files_distinct_mtime": 36,
+    "server_files_verified": 511,
+    "nginx_and_policy_unchanged": true,
+    "deploy_and_health": "passed",
+    "clean_isolated_build": true
   }
 }
