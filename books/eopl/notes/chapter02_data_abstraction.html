@@ -1,0 +1,1819 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>第 2 章 · 数据抽象与抽象语法 · EOPL</title>
+<style>
+
+:root{--ink:#252b29;--sub:#58615d;--rule:#d9dfda;--green:#285a4e;--paper:#fffefa;--tint:#f4f6f2}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.9 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}main{max-width:860px;margin:auto;padding:48px 24px 90px}h1{font-size:2.2rem;line-height:1.3;margin:.2rem 0}h2{font-size:1.55rem;margin:3.4rem 0 1.2rem;padding-bottom:.45rem;border-bottom:1px solid var(--rule)}h3{font-size:1.16rem;margin:2rem 0 .6rem}p{margin:.7rem 0 1.1rem}header{padding-bottom:22px;border-bottom:1px solid var(--rule)}.overline,.source,.small,figcaption{color:var(--sub);font-size:.85rem}.intro{font-size:1.08rem}a{color:var(--green);text-underline-offset:3px}nav{border-left:3px solid var(--green);padding:.6rem 1.3rem;margin:2rem 0;background:var(--tint)}nav ul{margin:.3rem 0;padding-left:1.2rem;columns:2}nav li{break-inside:avoid}.passage{border-left:2px solid var(--green);padding:.15rem 0 .15rem 1.2rem;margin:1.5rem 0}.english{font:italic 1.05rem/1.7 Georgia,serif}.passage p{margin:.25rem 0}pre{background:var(--tint);border:1px solid var(--rule);padding:1rem 1.1rem;overflow:auto;font:14px/1.65 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}code{font:.9em ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}pre code{font:inherit}.callout{background:var(--tint);padding:.8rem 1.1rem;margin:1.4rem 0;border-left:2px solid var(--green)}.scroll{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:.91rem;margin:1.1rem 0}th,td{padding:.6rem .7rem;text-align:left;vertical-align:top;border-bottom:1px solid var(--rule)}th{border-top:1px solid var(--rule);background:var(--tint)}.wide{min-width:640px}figure{margin:1.5rem 0}figure .scroll{padding:12px 8px;border:1px solid var(--rule);background:var(--tint)}figcaption{margin-top:.6rem}svg{display:block;width:100%;height:auto;min-width:620px}svg text{font-family:system-ui,-apple-system,"PingFang SC",sans-serif;text-anchor:middle;fill:var(--ink);font-size:16px}svg .n{fill:var(--paper);stroke:var(--green);stroke-width:1.3}svg .e{fill:none;stroke:#7b8f85;stroke-width:1.4}svg .hint{font-size:13px;fill:var(--sub)}ul,ol{padding-left:1.5rem}li{margin:.35rem 0}footer{border-top:1px solid var(--rule);padding-top:1rem;margin-top:4rem;color:var(--sub);font-size:.85rem}@media(max-width:640px){main{padding:30px 18px 60px}h1{font-size:1.75rem}nav ul{columns:1}h2{font-size:1.3rem}}
+.exercise{margin:.8rem 0;border:1px solid var(--rule);padding:.75rem 1rem;scroll-margin-top:16px}.exercise summary{cursor:pointer;color:var(--green);font-weight:600}.exercise summary:focus-visible{outline:2px solid var(--green);outline-offset:4px}.exercise-index{display:flex;flex-wrap:wrap;gap:.4rem 1rem;margin:1rem 0}.exercise .answer{margin-top:1rem}.tree-code{overflow-wrap:anywhere;word-break:break-word}.exercise .scroll table{min-width:620px}
+
+/* Native, static MathML: no network resources or runtime typesetting. */
+math{font-family:"STIX Two Math","Cambria Math",math;font-size:1.04em}
+.math-inline{display:inline-block;max-width:100%;overflow-x:auto;overflow-y:hidden;vertical-align:middle;margin:0 .08em;padding:0 .02em}
+.equation{overflow-x:auto;max-width:100%;padding:.65rem .2rem;margin:1rem 0;text-align:center}
+.equation math{display:block;width:max-content;margin:0 auto;font-size:1.08em}
+.answer :is(h3,h4){margin:1.35rem 0 .5rem;font-size:1rem}
+:not(pre)>code{overflow-wrap:anywhere}
+pre code{overflow-wrap:normal;white-space:pre}
+
+.comparison,.benchmark{min-width:800px}.array-values{min-width:620px}.array-values th,.array-values td{text-align:center;padding:.4rem .55rem}.forest-label{font-weight:600}svg .hint{font-size:12px}.answer pre{font-size:13px}.exercise{scroll-margin-top:20px}
+
+.code-pair{margin:1.2rem 0;border-left:2px solid var(--rule);padding-left:1rem}.code-version{margin:.5rem 0;padding:.35rem 0}.code-version>summary{cursor:pointer;font-weight:600;color:var(--green)}.code-version>summary:focus-visible{outline:2px solid var(--green);outline-offset:3px}.code-version pre{margin:.7rem 0 1rem}.code-reference{font-size:.92rem}.pair-note{font-size:.9rem;color:var(--sub)}.chapter-nav{display:flex;flex-wrap:wrap;gap:.4rem 1rem}.exercise>summary{line-height:1.65}.experiment{margin:1.2rem 0;padding:.7rem 1rem;border-left:2px solid var(--green);background:var(--tint)}
+
+.meta,.caption{color:var(--sub);font-size:.85rem}
+.scroll,.table-scroll,.diagram{max-width:100%;overflow-x:auto}
+main,header,section,.answer,.code-pair,.code-version{min-width:0}
+.math-inline{padding:.20em .05em}
+.chapter-nav{display:flex;flex-wrap:wrap;gap:.4rem 1rem}
+.scroll>table{min-width:620px}
+.puzzle{width:auto;margin:1.2rem auto}
+.scroll>table.puzzle{min-width:0}
+.puzzle th,.puzzle td{text-align:center;min-width:44px}
+.verification-table,.state-table,.benchmark{font-variant-numeric:tabular-nums}
+.diagram{margin:1.2rem 0;padding:1rem 1.1rem;border:1px solid var(--rule);background:var(--tint)}
+.diagram figcaption{margin:0 0 .65rem}
+.chain{display:flex;align-items:center;gap:.55rem;min-width:max-content;font-size:.92rem}
+.diagram>.chain+.chain{margin-top:.7rem}
+.chain .node{border:1px solid #9caaa2;background:var(--paper);padding:.3rem .6rem;white-space:nowrap}
+.chain .edge{color:var(--green);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;white-space:nowrap}
+.diagram-notes{margin:.75rem 0 0;padding-left:1.2rem;font-size:.92rem}
+.diagram-notes li{margin:0}
+.step-table th:first-child,.step-table td:first-child{width:5.3rem;white-space:nowrap}
+.step-table th:nth-child(2){width:14rem}
+.step-table code{white-space:nowrap}
+.step-table .chain{gap:.35rem}
+.step-table .node{padding:.1rem .4rem}
+.state-table{table-layout:fixed}
+.state-table th:first-child{width:37%}
+.state-table td:not(:first-child),.state-table th:not(:first-child){text-align:center}
+.state-table td:last-child{white-space:nowrap}
+svg .node{fill:var(--paper);stroke:var(--green);stroke-width:1.3}
+svg .edge{fill:none;stroke:#7b8f85;stroke-width:1.4;marker-end:url(#arrow)}
+svg .small{font-size:12px;fill:var(--sub)}
+svg .chapter-link{cursor:pointer}
+svg .chapter-link:hover .node,svg .chapter-link:focus-visible .node{fill:var(--tint);stroke-width:2.5}
+blockquote{margin:1.4rem 0;padding:.5rem 1.2rem;border-left:2px solid var(--green);background:var(--tint)}
+hr{border:0;border-top:1px solid var(--rule);margin:2.6rem 0}
+@media(max-width:640px){.diagram{padding:.8rem}.state-table{table-layout:auto;min-width:570px}}
+
+/* Reading rail: one table of contents beside the book page. */
+.reading-layout{display:grid;grid-template-columns:240px minmax(0,860px);gap:32px;max-width:1200px;margin:0 auto;padding:0 24px;align-items:start}
+.reading-layout>main{width:100%;min-width:0;margin:0}
+.chapter-sidebar{position:sticky;top:32px;max-height:calc(100dvh - 64px);overflow-y:auto;overscroll-behavior:contain;padding:8px 16px 12px 0;margin-top:40px;border-right:1px solid var(--rule);scrollbar-width:thin}
+.toc-panel>summary{display:flex;align-items:center;justify-content:space-between;gap:1rem;list-style:none;padding:.45rem .55rem;color:var(--green);font-size:.9rem;font-weight:650;cursor:pointer}
+.toc-panel>summary::-webkit-details-marker{display:none}
+.toc-panel>summary::after{content:"+";font-size:1.1rem;font-weight:400}
+.toc-panel[open]>summary::after{content:"−"}
+.toc-panel>summary:focus-visible,.chapter-toc a:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+.chapter-toc{border:0;background:transparent;margin:.45rem 0 0;padding:0;font-size:.84rem;line-height:1.65}
+.chapter-toc ul{columns:1;list-style:none;margin:0;padding:0}
+.chapter-toc li{margin:.18rem 0}
+.chapter-toc a{display:block;padding:.5rem .6rem;border-left:2px solid transparent;text-decoration:none;overflow-wrap:anywhere;color:var(--sub)}
+.chapter-toc a:hover{color:var(--green);background:var(--tint)}
+.chapter-toc a[aria-current="location"]{color:var(--green);border-left-color:var(--green);background:var(--tint);font-weight:600}
+.chapter-toc .toc-home{margin-bottom:.55rem;font-size:.8rem;color:var(--green)}
+.skip-link{position:fixed;left:16px;top:-100px;z-index:100;padding:.5rem 1rem;background:var(--paper);border:1px solid var(--green)}
+.skip-link:focus{top:12px}
+main[id],main [id]{scroll-margin-top:24px}
+@media(max-width:1099px){
+ .reading-layout{display:block;padding:0;max-width:860px}
+ .reading-layout>main{margin:auto}
+ .chapter-sidebar{position:static;top:0;z-index:10;margin:0;padding:8px 24px;border-right:0;border-bottom:1px solid var(--rule);background:var(--paper);max-height:none;overflow:visible}
+ .toc-enhanced .chapter-sidebar{position:sticky}
+ .toc-panel>summary{padding:.35rem 0;font-size:.88rem}
+ .chapter-toc{max-height:60dvh;overflow-y:auto;overscroll-behavior:contain;padding-bottom:.4rem}
+ main[id],main [id]{scroll-margin-top:80px}
+}
+@media(max-width:640px){.chapter-sidebar{padding:8px 18px}}
+@media print{.reading-layout{display:block;max-width:860px;padding:0}.chapter-sidebar,.skip-link{display:none}.reading-layout>main{padding:24px}}
+
+.result{font-variant-numeric:tabular-nums}.source-link{white-space:normal}
+.book-card{padding:1rem 0;border-bottom:1px solid var(--rule)}
+.book-card h3{margin:.2rem 0}.book-card p{margin:.4rem 0}
+.chart-svg{min-width:0} .chart-svg text{font-size:13px}
+.exercise-index a{font-variant-numeric:tabular-nums}.solution-link{font-size:.9rem}
+.exercise-question .scroll>table{min-width:480px}
+.question-note strong{color:var(--green)}
+
+/* Supplementary reading notes share the page's type and color palette. */
+.reading-notes{margin:2rem 0 0;padding:0.8rem 1rem;border-left:2px solid var(--green);background:var(--tint);font-size:0.92rem;line-height:1.85}
+.reading-notes>summary{color:var(--green);font-weight:650;cursor:pointer;list-style:none}
+.reading-notes>summary::-webkit-details-marker{display:none}
+.reading-notes>summary::after{content:"＋";float:right;font-weight:400}
+.reading-notes[open]>summary::after{content:"−"}
+.reading-notes>summary:focus-visible,.annotation-context a:focus-visible{outline:2px solid var(--green);outline-offset:4px}
+.annotation-card{min-width:0;margin:1.15rem 0 0;padding:1rem 0 0;border-top:1px solid var(--rule)}
+.annotation-card:first-child{border-top:0;padding-top:0}
+.annotation-kind{display:block;font-size:0.73rem;font-weight:600;letter-spacing:0.05em;color:var(--green);margin-bottom:0.25rem}
+.annotation-card h3{font-size:0.97rem;line-height:1.65;margin:0 0 0.5rem;font-weight:650}
+.annotation-card p{margin:0.4rem 0 0.7rem}
+.annotation-card p:last-child{margin-bottom:0}
+.annotation-card .equation{padding:0.5rem 0;margin:0.65rem 0}
+.annotation-card math{font-size:1em}
+.annotation-sidebar{display:none}
+@media(min-width:1440px){
+ .notes-enhanced .reading-layout{grid-template-columns:240px minmax(0,860px) 280px;max-width:1524px;gap:32px}
+ .notes-enhanced main .reading-notes{display:none}
+ .notes-enhanced .annotation-sidebar:not([hidden]){display:block;position:sticky;top:32px;max-height:calc(100dvh - 64px);overflow-y:auto;overscroll-behavior:contain;min-width:0;margin-top:40px;padding:8px 0 12px 22px;border-left:1px solid var(--rule);font-size:0.9rem;line-height:1.85;scrollbar-width:thin}
+ .annotation-label{color:var(--green);font-size:0.87rem;font-weight:650;margin:0 0 0.75rem}
+ .annotation-context{font-size:0.85rem;line-height:1.65;margin:0 0 1.25rem}
+ .annotation-context a{color:var(--sub);text-decoration:none}
+ .annotation-context a:hover{color:var(--green);text-decoration:underline}
+ .annotation-sidebar .annotation-card{margin-top:1.5rem;padding-top:1.35rem}
+ .annotation-sidebar .annotation-card:first-child{margin-top:0;padding-top:0}
+ .annotation-sidebar .annotation-card h3{font-size:0.95rem}
+}
+@media print{.annotation-sidebar{display:none!important}main .reading-notes{display:block!important;break-inside:avoid}}
+
+/* RN-001 shared teaching components. Inlined in every controlled reading page. */
+.rn-components {
+  --rn-space: 1rem;
+  --rn-label-size: .95rem;
+  --rn-title-size: 1.05rem;
+}
+.rn-components :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
+  min-width: 0;
+  scroll-margin-top: 24px;
+}
+.rn-components .rn-statement {
+  margin: 1.5rem 0;
+  padding: 1rem 1.15rem;
+  border: 0;
+  border-left: 3px solid var(--green);
+  background: var(--tint);
+}
+.rn-components :is(.rn-statement, .rn-example) > :is(h3, h4, .rn-title) {
+  margin: 0 0 .8rem;
+  padding: 0;
+  border: 0;
+  font-size: var(--rn-title-size);
+  line-height: 1.7;
+  font-weight: 650;
+  color: var(--green);
+}
+.rn-components .rn-statement > .statement-body {
+  padding: 0;
+  border: 0;
+}
+.rn-components .statement-body > :first-child { margin-top: 0; }
+.rn-components .statement-body > :last-child { margin-bottom: 0; }
+.rn-components .rn-statement .original-excerpt {
+  margin: .5rem 0 1rem;
+  padding: .1rem 0 .1rem .85rem;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-statement .statement-label {
+  margin: .8rem 0 .3rem;
+  color: var(--sub);
+  font-size: .85rem;
+  font-weight: 600;
+}
+.rn-components .rn-example {
+  margin: 1.75rem 0;
+  padding: 1rem 0 .25rem;
+  border: 0;
+  border-top: 1px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-proof {
+  margin: 1.1rem 0 1.75rem;
+  padding: 0 0 .2rem 1rem;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-proof > summary {
+  cursor: pointer;
+  margin: 0;
+  padding: .35rem 0;
+  color: var(--green);
+  font-size: var(--rn-label-size);
+  font-weight: 650;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .rn-proof > .rn-proof-body { margin-top: .7rem; }
+.rn-components .rn-proof-body p { margin: .85rem 0; }
+.rn-components .rn-proof-body > :first-child:not(.rn-example):not(.rn-statement):not(.rn-proof) {
+  margin-top: 0;
+}
+.rn-components :is(.rn-proof-body, .rn-statement, .rn-example) > :last-child:not(.rn-example):not(.rn-statement):not(.rn-proof) {
+  margin-bottom: 0;
+}
+.rn-components .exercise {
+  margin: 1rem 0;
+  padding: 0;
+  border: 1px solid var(--rule);
+  background: transparent;
+}
+.rn-components .exercise > summary {
+  margin: 0;
+  padding: .85rem 1rem;
+  color: var(--green);
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .exercise[open] > summary {
+  border-bottom: 1px solid var(--rule);
+  background: var(--tint);
+}
+.rn-components .exercise > :is(.exercise-question, .answer) {
+  margin: 0;
+  padding: 1rem;
+  border: 0;
+  background: transparent;
+  min-width: 0;
+}
+.rn-components .exercise > .answer {
+  border-top: 1px solid var(--rule);
+}
+.rn-components .exercise :is(.exercise-question, .answer) > :first-child {
+  margin: 0 0 .75rem;
+  padding: 0;
+  border: 0;
+  color: var(--green);
+  font-size: var(--rn-label-size);
+  font-weight: 650;
+  line-height: 1.75;
+}
+.rn-components .exercise :is(.exercise-question, .answer) > :first-child > strong { font-weight: inherit; }
+.rn-components :is(.exercise-question, .answer) > :last-child { margin-bottom: 0; }
+.rn-components :is(.rn-statement, .rn-example, .rn-proof, .exercise) .source {
+  margin-top: 1rem;
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components .exercise > .source {
+  margin: 0;
+  padding: 0 1rem 1rem;
+}
+.rn-components .rn-statement .source-status {
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components :is(.derivation-steps, .proof-steps, .solution-steps) {
+  margin: .75rem 0 1rem;
+  padding-left: 1.5rem;
+}
+.rn-components :is(.derivation-steps, .proof-steps, .solution-steps) > li {
+  padding-left: .15rem;
+  margin: .9rem 0;
+}
+.rn-components :is(.rn-proof, .exercise) > summary:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+.rn-components :is(.rn-proof-body, .rn-example, .rn-statement, .exercise-question, .answer) {
+  overflow-wrap: break-word;
+}
+.rn-components .code-details {
+  margin: 1.2rem 0;
+  padding: .35rem 0 .35rem 1rem;
+  border-left: 2px solid var(--rule);
+}
+.rn-components :is(.code-details, .code-version) > summary {
+  cursor: pointer;
+  color: var(--green);
+  font-size: .95rem;
+  font-weight: 600;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .code-details pre { margin: .7rem 0 1rem; }
+.rn-components :is(.code-details, .code-version) > summary:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+.rn-components .example-kind {
+  margin: .5rem 0 1rem;
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components .exercise-index a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: .1rem .25rem;
+  font-variant-numeric: tabular-nums;
+}
+/* Align the reading column independently of annotation enhancement. */
+@media (min-width: 1440px) {
+  .rn-components .reading-layout {
+    grid-template-columns: 240px minmax(0, 860px) 280px;
+    max-width: 1524px;
+    gap: 32px;
+  }
+}
+@media (max-width: 1100px) {
+  .rn-components:not(.portal-reader):not(.sample-fragment) :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
+    scroll-margin-top: 90px;
+  }
+}
+@media (max-width: 640px) {
+  .rn-components .rn-statement { padding: .85rem .8rem; }
+  .rn-components .rn-proof { padding-left: .75rem; }
+  .rn-components .exercise > :is(summary, .exercise-question, .answer) {
+    padding: .85rem .8rem;
+  }
+  .rn-components .exercise > .source { padding: 0 .8rem .85rem; }
+}
+@media print {
+  .rn-components .rn-proof::details-content { content-visibility: visible !important; }
+}
+
+.scope-diagram{min-width:680px}
+.scope-diagram text{font-size:18px}.scope-diagram .hint{font-size:14px}
+.original-question{font-family:Georgia,serif;font-size:.97rem;line-height:1.8}
+.code-version{margin:1.4rem 0}.code-version>summary{cursor:pointer;color:var(--green)}
+.step-number{color:var(--green);font-weight:650}
+.contract{padding:.5rem 1rem;border-left:2px solid var(--green)}
+@media print{.annotation-sidebar{display:none!important}}
+
+
+
+body.rn-components pre.original-source{white-space:pre-wrap;overflow-wrap:anywhere;font-family:"Times New Roman",serif;line-height:1.75;margin:1rem 0;background:none;border:0;padding:0;max-height:none;overflow:visible}
+.eopl-diagram{min-width:640px;width:100%;height:auto}.eopl-diagram text{font-size:17px}.eopl-diagram .hint{font-size:14px}
+.diagram-scroll{overflow-x:auto}.code-details pre{max-height:36rem;overflow:auto}.exercise-links{line-height:2}
+/* RN-001: a single Latin/digit face across prose, code, tables and diagrams.
+   CJK glyphs use the local Chinese fallback; no proprietary fonts are shipped. */
+:root{--rn-text-font:"Times New Roman",Times,system-ui,-apple-system,"PingFang SC","Microsoft YaHei",serif;--rn-diagram-blue:#edf5fd;--rn-diagram-blue-line:#a9bfd5;--rn-diagram-amber:#fff6e4;--rn-diagram-amber-line:#d6bd87;--rn-diagram-ink:#303b46;--rn-diagram-edge:#8c969f}
+body.rn-components,body.rn-components :not(math):not(math *){
+  font-family:var(--rn-text-font)!important
+}
+body.rn-components math{font-family:"STIX Two Math","Cambria Math",math;font-size:1em}
+body.rn-components math :is(mi,mn,mtext,ms){font-family:var(--rn-text-font)!important}
+body.rn-components math mi:not([mathvariant]),body.rn-components math mi[mathvariant="italic"]{font-style:italic;text-transform:none}
+body.rn-components math :is(mn,mtext,ms),body.rn-components math mi[mathvariant="normal"]{font-style:normal}
+body.rn-components math mi:is([mathvariant="bold"],[mathvariant="bold-italic"]){font-weight:700;text-transform:none}
+body.rn-components math mi[mathvariant="bold-italic"]{font-style:italic}
+body.rn-components math mi:is([mathvariant="double-struck"],[mathvariant="script"],[mathvariant="bold-script"],[mathvariant="fraktur"],[mathvariant="bold-fraktur"]){font-family:"STIX Two Math","Cambria Math",math!important}
+body.rn-components :is(p,li,td,th,summary,figcaption,h1,h2,h3,h4) math{vertical-align:baseline}
+body.rn-components .rn-math-inline{display:inline-block;max-width:100%;overflow-x:auto;overflow-y:hidden;vertical-align:middle}
+body.rn-components pre{font-size:16px;line-height:1.65;tab-size:4;white-space:pre}
+body.rn-components pre code{font-size:inherit;white-space:inherit}
+/* Keep short expressions together; long statements wrap within the text column. */
+body.rn-components code:not(pre code){
+  display:inline-block;max-width:100%;vertical-align:baseline;
+  font-size:.96em;font-style:normal;font-weight:400;line-height:1.45;
+  color:#294553;background:#eef2f4;border:1px solid #dfe6e9;border-radius:4px;
+  padding:.08em .3em;box-decoration-break:clone;-webkit-box-decoration-break:clone;
+  white-space:normal;overflow-wrap:anywhere;word-break:normal
+}
+body.rn-components :is(h1,h2,h3,h4,summary,th) code:not(pre code){font-size:.94em;font-weight:inherit}
+body.rn-components a code:not(pre code){color:inherit}
+body.rn-components pre code{background:none;border:0;border-radius:0;padding:0;box-decoration-break:slice;overflow-wrap:normal}
+body.rn-components svg text{fill:var(--rn-diagram-ink)}
+body.rn-components svg.rn-diagram{background:transparent;border:0}
+body.rn-components svg tspan[baseline-shift]{font-size:70%}
+/* Node roles are explicit. Coordinate plots, data series, cells and generator
+   colours keep their original encodings. */
+body.rn-components svg.rn-diagram :is(.rn-node,.node,rect.n,circle.n,ellipse.n,.n rect,.n circle,.n ellipse){
+  fill:var(--rn-diagram-blue);stroke:var(--rn-diagram-blue-line);stroke-width:1.15;
+  vector-effect:non-scaling-stroke
+}
+body.rn-components svg.rn-diagram rect:is(.rn-node,.node),
+body.rn-components svg.rn-diagram .n rect,
+body.rn-components svg.rn-diagram rect.n{rx:10px;ry:10px}
+body.rn-components svg.rn-diagram .rn-node.rn-node-accent{fill:var(--rn-diagram-amber);stroke:var(--rn-diagram-amber-line)}
+body.rn-components svg.rn-diagram .rn-edge{
+  fill:none;stroke:var(--rn-diagram-edge);stroke-width:1.15;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke
+}
+body.rn-components svg.rn-diagram .rn-arrow{fill:var(--rn-diagram-edge);stroke:none}
+body.rn-components svg.rn-diagram .hint{fill:#626d77}
+body.rn-components svg.rn-diagram text{font-weight:400}
+body.rn-components figure:has(svg.rn-diagram){background:#fff;border:1px solid #e5e9ed;border-radius:12px;padding:1.25rem}
+body.rn-components :is(.scroll,.diagram):has(>svg.rn-diagram){background:transparent;border:0}
+@media(max-width:640px){body.rn-components figure:has(svg.rn-diagram){padding:.75rem}}
+@media print{body.rn-components figure:has(svg.rn-diagram){border-color:#bbb;break-inside:avoid}}
+
+</style>
+</head>
+<body class="rn-components"><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="章节目录"><details class="toc-panel" id="toc-panel" open><summary>目录</summary><nav class="chapter-toc" id="chapter-toc"><a class="toc-home" href="book_overview.html">EOPL · 全书地图</a><ul><li><a href="#s2-1">2.1 先规定观察结果，再选择表示</a></li><li><a href="#s2-2">2.2 环境：一套方程，多种实现</a></li><li><a href="#s2-3">2.3 递归接口与带上下文的游标</a></li><li><a href="#s2-4">2.4 用 <code>define-datatype</code> 声明构造，用 cases 消去构造</a></li><li><a href="#s2-5">2.5 从具体语法得到可计算的树</a></li><li><a href="#programs">运行本章程序</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">EOPL 第三版 · 第 2 章</p><h1>第 2 章 · 数据抽象与抽象语法</h1><p class="intro">用接口固定意义，用多种表示检验独立性，再把程序文本变成树。</p><p class="source">原书 pp.31–55 / PDF 54–78。题目按原编号排列；英文原题保留全部小问、示例与提示，中文解答解释推理和执行。题中原图按结构重绘，排版疑点在对应解答说明。</p><p class="chapter-nav"><a href="chapter01_inductive_data.html">← 第 1 章</a><a href="book_overview.html#chapter-3">回到全书地图 →</a></p></header><section id="s2-1"><h2>2.1 先规定观察结果，再选择表示</h2>
+<p class="source">原书 §2.1，pp.31–35 / PDF 54–58。</p>
+<p>第 1 章把文法映射成递归结构；第 2 章把“一个值是什么意思”与“它在内存里长什么样”分开。以自然数为例，客户需要零、判零、后继、前驱四个操作。可以用整数，也可以用 #<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="t" display="inline"><mi>t</mi></math> 的列表或一串数位；只要操作满足同一组关系，遵守接口的客户就能继续工作。</p>
+<div class="rn-statement" id="nat-interface"><h3>自然数接口的规格</h3><div class="statement-body"><p>用 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="⌈n⌉" display="inline"><mrow><mo>⌈</mo><mi>n</mi><mo>⌉</mo></mrow></math> 表示自然数 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 的某种实现值，而不是向上取整。<code>zero</code>() = ⌈0⌉；<code>is-zero?</code><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(⌈n⌉)" display="inline"><mrow><mo>(</mo><mo>⌈</mo><mi>n</mi><mo>⌉</mo><mo>)</mo></mrow></math> 当且仅当 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n = 0" display="inline"><mrow><mi>n</mi><mo>=</mo><mn>0</mn></mrow></math>；<code>successor</code><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(⌈n⌉) = ⌈n+1⌉" display="inline"><mrow><mrow><mo>(</mo><mo>⌈</mo><mi>n</mi><mo>⌉</mo><mo>)</mo></mrow><mo>=</mo><mo>⌈</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo>⌉</mo></mrow></math>；当 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n &gt; 0" display="inline"><mrow><mi>n</mi><mo>&gt;</mo><mn>0</mn></mrow></math> 时，<code>predecessor</code><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(⌈n⌉) = ⌈n−1⌉" display="inline"><mrow><mrow><mo>(</mo><mo>⌈</mo><mi>n</mi><mo>⌉</mo><mo>)</mo></mrow><mo>=</mo><mo>⌈</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo>⌉</mo></mrow></math>。最后一条没有规定零的前驱。</p></div></div>
+<p>客户加法可以这样推导：若第一个数为零，结果就是第二个数；否则先将第一个数减一，把递归加法的结果加一。程序只需要四个接口操作，不需要知道列表长度、数位顺序或宿主整数运算。原书形式的执行轨迹如下，尖括号这里只示意抽象的数值：</p>
+<pre><code>plus(3,2)
+= successor(plus(2,2))
+= successor(successor(plus(1,2)))
+= successor(successor(successor(plus(0,2))))
+= successor(successor(successor(2)))
+= 5</code></pre>
+<p>接口方程还支持等价的尾递归写法：把一单位从第一个参数移到第二个参数，直到第一个为零。习题的计时代码采用这一形式，避免把尚未完成的 <code>successor</code> 全压在返回链上。它仍是逐单位加法，因此不会自动获得宿主大整数乘法的效率。</p>
+<p>数据抽象首先是一条程序依赖原则；表示透明与否还取决于语言和封装机制。本书在当时的 Scheme 背景下主要依靠客户遵守接口约定。我们的 Racket 模块为教学导出实现，便于比较与测试，不能把这种组织说成已经证明所有客户都无法观察表示。</p>
+<div class="exercise-index" role="navigation" aria-label="本节习题索引">本节习题：<a href="#ex-2-1" aria-label="习题 2.1">2.1</a> · <a href="#ex-2-2" aria-label="习题 2.2">2.2</a> · <a href="#ex-2-3" aria-label="习题 2.3">2.3</a></div><details class="exercise" id="ex-2-1"><summary>习题 2.1 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.34 / PDF 57</p><pre class="original-source" lang="en">Exercise 2.1 [★] Implement the four required operations for bigits. Then use your
+implementation to calculate the factorial of 10. How does the execution time vary
+as this argument changes? How does the execution time vary as the base changes?
+Explain why.</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>选择基数 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="N ≥ 2" display="inline"><mrow><mi>N</mi><mo>≥</mo><mn>2</mn></mrow></math>，最低位放在表头。零唯一表示为 ()；非零数的最高位必须非零，避免 (0)、(0 0) 这样的伪零。<code>successor</code> 遇到小于 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="N−1" display="inline"><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></math> 的位就加 1 并共享剩余尾部，遇到 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="N−1" display="inline"><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></math> 则写 0 并向后进位。<code>predecessor</code> 遇到 0 就写 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="N−1" display="inline"><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></math> 并向后借位；从单独的 (1) 减一必须得到 ()，以保持规范形式。</p>
+<p>以 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="N = 16" display="inline"><mrow><mi>N</mi><mo>=</mo><mn>16</mn></mrow></math> 为例，255 的 (15 15) 加一变成 (0 0 1)；256 的 (0 0 1) 减一，借位链返回 (15 15)。10! 的十进制结果为 3628800，十六进制 bigits 是 (0 0 15 5 7 3)。<code>encode/decode</code> 只用于建立输入与检查结果；阶乘客户程序只调用题目指定的四个操作。</p>
+<p>下面的实测表来自本机 Racket 8.17，先预热一次，再在每次计时前回收垃圾，取三次单调时钟测量的中位数。加法使用尾递归形式把 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 的单位逐个移给 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="y" display="inline"><mi>y</mi></math>，乘法重复加法，阶乘重复乘法；这不是高效大整数乘法。</p>
+<table aria-label="不同参数与基数的阶乘运行中位数"><thead><tr><th scope="col">参数 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math></th><th scope="col">基数 2 / ms</th><th scope="col">基数 10 / ms</th><th scope="col">基数 16 / ms</th><th scope="col">基数 256 / ms</th></tr></thead><tbody><tr><th scope="row">6</th><td>0.027</td><td>0.017</td><td>0.017</td><td>0.016</td></tr><tr><th scope="row">8</th><td>1.227</td><td>0.813</td><td>0.830</td><td>0.768</td></tr><tr><th scope="row">10</th><td>113.206</td><td>74.737</td><td>75.520</td><td>71.672</td></tr></tbody></table>
+<p>参数从 8 增至 10 时，最终结果从 40320 增至 3628800，逐单位增加的次数迅速增多，时间也大幅增加。更大的基数通常减少位数与进位/借位次数，但递归加法仍做大量 <code>successor</code>，所以优势不会按位数比例无限放大；实测 base 10 与 16 很接近。单次进位最坏扫过全部位，连续多次计数的平均进位链却短得多。表中毫秒数描述这份实现及本次机器状态，不是所有阶乘算法的复杂度。</p><!-- EOPL:snippet chapter02.rkt ex-2-1 -->
+<details class="code-details" open><summary>查看实现 · ex-2-1</summary><pre><code class="language-scheme">(struct number-api (zero zero? succ pred encode decode) #:transparent)
+;; Canonical little-endian base-N digits; zero is (). N &gt;= 2.
+(define (make-bigits base)
+  (unless (and (exact-integer? base) (&gt;= base 2)) (error &#x27;make-bigits &quot;base &gt;= 2 required&quot;))
+  (define (successor ds)
+    (cond [(null? ds) &#x27;(1)]
+          [(= (car ds) (- base 1)) (cons 0 (successor (cdr ds)))]
+          [else (cons (+ 1 (car ds)) (cdr ds))]))
+  (define (predecessor ds)
+    (cond [(null? ds) (error &#x27;predecessor &quot;zero is outside the contract&quot;)]
+          [(zero? (car ds)) (cons (- base 1) (predecessor (cdr ds)))]
+          [(and (= (car ds) 1) (null? (cdr ds))) &#x27;()]
+          [else (cons (- (car ds) 1) (cdr ds))]))
+  (define (encode n)
+    (if (zero? n) &#x27;() (cons (remainder n base) (encode (quotient n base)))))
+  (define (decode ds)
+    (if (null? ds) 0 (+ (car ds) (* base (decode (cdr ds))))))
+  (number-api (lambda () &#x27;()) null? successor predecessor encode decode))
+;; Clients use only the four abstract operations. The loops are tail calls.
+(define (nat-plus a x y)
+  (if ((number-api-zero? a) x) y
+      (nat-plus a ((number-api-pred a) x) ((number-api-succ a) y))))
+(define (nat-times a x y)
+  (let loop ([k x] [acc ((number-api-zero a))])
+    (if ((number-api-zero? a) k) acc
+        (loop ((number-api-pred a) k) (nat-plus a y acc)))))
+(define (nat-factorial a n)
+  (let loop ([k n] [acc ((number-api-succ a) ((number-api-zero a)))])
+    (if ((number-api-zero? a) k) acc
+        (loop ((number-api-pred a) k) (nat-times a k acc)))))
+</code></pre></details>
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-2"><summary>习题 2.2 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.34 / PDF 57</p><pre class="original-source" lang="en">Exercise 2.2 [★★] Analyze each of these proposed representations critically. To what
+extent do they succeed or fail in satisfying the specification of the data type?</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>四条接口方程只约束合法自然数表示，且 <code>predecessor</code> 的参数必须非零。第一种一元列表表示能满足这些方程；数字越大，空间越多，解码长度为线性，但加一和删表头可为常数时间。第二种宿主整数表示也满足方程；本次 Racket 的精确整数会自动扩展，不能以固定机器字溢出批评这份实际实现。如果换成固定宽度整数，越过上界才会破坏无界自然数规格。</p>
+<p>第三种 bigits 表示在 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="N ≥ 2" display="inline"><mrow><mi>N</mi><mo>≥</mo><mn>2</mn></mrow></math>、数位合法、最高位非零的规范域内满足规格，空间按位数增长；进位和借位的最坏时间随位数增加。若允许 (0) 进入表示域，却用 <code>null?</code> 判断零，就会失败，因此合法表示域是证明的一部分。</p>
+<p>三者都没有仅凭接口约定阻止客户窥看内部。抽象意义上的等价要求客户只使用接口；透明打印、<code>car</code> 或直接算术可能区分表示。<code>predecessor</code>(0) 不在书中契约内，返回 −1 或报错都不能单凭这一点判定实现不符合原规格。</p><!-- EOPL:snippet chapter02.rkt ex-2-2 -->
+<details class="code-details" open><summary>查看实现 · ex-2-2</summary><pre><code class="language-scheme">(define unary-api
+  (number-api (lambda () &#x27;()) null? (lambda (xs) (cons #t xs)) cdr
+              (lambda (n) (make-list/true n)) length))
+(define (make-list/true n)
+  (if (= n 0) &#x27;() (cons #t (make-list/true (- n 1)))))
+(define native-api (number-api (lambda () 0) zero? add1 sub1 values values))
+</code></pre></details>
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-3"><summary>习题 2.3 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.34–35 / PDF 57–58</p><pre class="original-source" lang="en">Exercise 2.3 [★★] Define a representation of all the integers (negative and nonnegative) as diff-trees, where a diff-tree is a list defined by the grammar
+
+                      Diff-tree ::= (one) | (diff Diff-tree Diff-tree)
+
+The list (one) represents 1. If t1 represents n1 and t2 represents n2 , then
+      (diff t1 t2 ) is a representation of n1 − n2 .
+      So both (one) and (diff (one) (diff (one) (one))) are representations of
+      1; (diff (diff (one) (one)) (one)) is a representation of −1.
+
+      1. Show that every number has infinitely many representations in this system.
+      2. Turn this representation of the integers into an implementation by writing zero,
+         is-zero?, successor, and predecessor, as specified on page 32, except that
+         now the negative integers are also represented. Your procedures should take as
+         input any of the multiple legal representations of an integer in this scheme. For
+         example, if your successor procedure is given any of the infinitely many legal
+         representations of 1, it should produce one of the legal representations of 2. It is
+         permissible for different legal representations of 1 to yield different legal representations of 2.
+      3. Write a procedure diff-tree-plus that does addition in this representation.
+         Your procedure should be optimized for the diff-tree representation, and should
+         do its work in a constant amount of time (independent of the size of its inputs). In
+         particular, it should not be recursive.</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>① 任意树 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="t" display="inline"><mi>t</mi></math> 都可以改写为 (diff <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="t z)" display="inline"><mrow><mi>t</mi><mi>z</mi><mo>)</mo></mrow></math>，其中 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="z = (" display="inline"><mrow><mi>z</mi><mo>=</mo><mo>(</mo></mrow></math>diff (one) (one)) 表示零。每做一次都增加节点数而保持数值，因此得到无限多个不同的有限树。所有整数都可从 one 经有限次加一/减一到达，所以论证适用于每个整数。</p>
+<p>② <code>zero</code> 返回 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="z" display="inline"><mi>z</mi></math>；<code>is-zero?</code> 递归计算树值后比较零，不能只比较它是否长得像 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="z" display="inline"><mi>z</mi></math>。令 <code>neg-one</code> = (diff <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="z (" display="inline"><mrow><mi>z</mi><mo>(</mo></mrow></math>one))；<code>successor</code>(t) = (diff <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="t" display="inline"><mi>t</mi></math> <code>neg-one</code>)，<code>predecessor</code>(t) = (diff <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="t (" display="inline"><mrow><mi>t</mi><mo>(</mo></mrow></math>one))。对任何合法表示，取值方程分别给出 value<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(t)+1" display="inline"><mrow><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow><mo>+</mo><mn>1</mn></mrow></math> 和 value<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(t)−1" display="inline"><mrow><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow><mo>−</mo><mn>1</mn></mrow></math>，所以不需要先规范化输入。</p>
+<p>③ <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a+b = a−(0−b)" display="inline"><mrow><mi>a</mi><mo>+</mo><mi>b</mi><mo>=</mo><mi>a</mi><mo>−</mo><mrow><mo>(</mo><mn>0</mn><mo>−</mo><mi>b</mi><mo>)</mo></mrow></mrow></math>，因此只构造 (diff <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a (" display="inline"><mrow><mi>a</mi><mo>(</mo></mrow></math>diff <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="z b))" display="inline"><mrow><mi>z</mi><mi>b</mi><mo>)</mo><mo>)</mo></mrow></math>。代码不递归，也不复制输入树，只保留对 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="b" display="inline"><mi>b</mi></math> 的引用；构造节点数是常数。随后打印或计算整棵树的数值仍可能很贵，不能把“加法构造常数时间”误解为所有观察操作都常数时间。共享输入形成的实际对象图也可能比展开后的打印树小得多。</p><!-- EOPL:snippet chapter02.rkt ex-2-3 -->
+<details class="code-details" open><summary>查看实现 · ex-2-3</summary><pre><code class="language-scheme">;; DiffTree = (one) | (diff DiffTree DiffTree); may represent any integer.
+(define (dt-zero) &#x27;(diff (one) (one)))
+(define (dt-value t)
+  (if (eqv? (car t) &#x27;one) 1 (- (dt-value (cadr t)) (dt-value (caddr t)))))
+(define (dt-zero? t) (zero? (dt-value t)))
+(define (dt-succ t) (list &#x27;diff t (list &#x27;diff (dt-zero) &#x27;(one))))
+(define (dt-pred t) (list &#x27;diff t &#x27;(one)))
+(define (diff-tree-plus a b) (list &#x27;diff a (list &#x27;diff (dt-zero) b)))
+</code></pre></details>
+<!-- EOPL:end-snippet --></div></details></section><section id="s2-2"><h2>2.2 环境：一套方程，多种实现</h2>
+<p class="source">原书 §2.2，pp.35–42 / PDF 58–65。</p>
+<p>环境把有限个变量名关联到值。它是一个有限函数；查询已绑定变量返回对应值，查询未绑定变量报告失败。<code>extend-env</code><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(var" display="inline"><mrow><mo>(</mo><mi>v</mi><mi>a</mi><mi>r</mi></mrow></math>,val,<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="env)" display="inline"><mrow><mi>e</mi><mi>n</mi><mi>v</mi><mo>)</mo></mrow></math> 产生一个新环境：查 var 得 val，查其他名字则沿用 env。这个“先比较当前名字，否则交给旧环境”的方程，同时决定了链表实现与闭包实现的行为。</p>
+<div class="rn-example" id="example-env-trace"><h3>查询 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="y" display="inline"><mi>y</mi></math> 时，旧 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="y" display="inline"><mi>y</mi></math> 为什么不会被读到</h3><pre><code>E0 = empty-env()
+E1 = extend-env(y,14,E0)
+E2 = extend-env(x,7,E1)
+E3 = extend-env(y,8,E2)
+E4 = extend-env(d,6,E3)
+
+apply-env(E4,y): d ≠ y → E3
+apply-env(E3,y): y = y → 8
+apply-env(E2,y): x ≠ y → E1 → 14</code></pre><p>新环境中的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="y" display="inline"><mi>y</mi></math> 是 8，旧环境 E2 中的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="y" display="inline"><mi>y</mi></math> 仍是 14。扩展没有修改 E2；遮蔽改变的是从哪一端开始查。抽象环境只看当前可见映射，具体的链式表示可以保留那些已经被遮蔽的旧绑定。</p></div>
+<figure id="environment-chain"><div class="diagram-scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 790 135" role="img" aria-labelledby="environment-chain-title environment-chain-desc" class="eopl-diagram"><title id="environment-chain-title">持久环境的查询链</title><desc id="environment-chain-desc">箭头指向 saved-env；从左端查询 y，在 E3 命中 8。从 E2 开始则最终命中 14。</desc><defs><marker id="environment-chain-arrow" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><path d="M0 0 L9 3.5 L0 7 Z" fill="#506679"/></marker></defs><rect x="20" y="35" width="165" height="62" rx="9" fill="#eaf2f8" stroke="#547a99"/><text x="102.5" y="60" text-anchor="middle">E4 : d ↦ 6</text><text class="hint" x="102.5" y="82" text-anchor="middle">查 y：继续</text><path d="M185 66 L207 66" fill="none" stroke="#506679" marker-end="url(#environment-chain-arrow)"/><rect x="210" y="35" width="165" height="62" rx="9" fill="#fff2dc" stroke="#b07822"/><text x="292.5" y="60" text-anchor="middle">E3 : y ↦ 8</text><text class="hint" x="292.5" y="82" text-anchor="middle">查 y：命中</text><path d="M375 66 L397 66" fill="none" stroke="#506679" marker-end="url(#environment-chain-arrow)"/><rect x="400" y="35" width="165" height="62" rx="9" fill="#eaf2f8" stroke="#547a99"/><text x="482.5" y="60" text-anchor="middle">E2 : x ↦ 7</text><text class="hint" x="482.5" y="82" text-anchor="middle">旧环境仍可使用</text><path d="M565 66 L587 66" fill="none" stroke="#506679" marker-end="url(#environment-chain-arrow)"/><rect x="590" y="35" width="165" height="62" rx="9" fill="#eaf2f8" stroke="#547a99"/><text x="672.5" y="60" text-anchor="middle">E1 : y ↦ 14</text><text class="hint" x="672.5" y="82" text-anchor="middle">旧绑定</text></svg></div><figcaption>箭头指向 <code>saved-env</code>；从左端查询 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="y" display="inline"><mi>y</mi></math>，在 E3 命中 8。从 E2 开始则最终命中 14。</figcaption></figure>
+<p>带标签的数据表示把 <code>empty-env</code> 和 <code>extend-env</code> 的构造历史直接保存成记录。<code>apply-env</code> 读标签、取字段、再决定下一步，这就是原书的解释器模式。过程表示把这些判断移到构造时：<code>empty-env</code> 返回一个总是报未绑定的过程；<code>extend-env</code> 返回一个闭包，保存 <code>saved-var</code>、<code>saved-val</code>、<code>saved-env</code>，查询时比较名字，失败则调用旧闭包。</p>
+<p>这两个表示都在解释同一套环境方程。数据表示让结构可直接遍历，过程表示让查询成为一次函数调用。要比较它们，应用相同客户：扩展 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 为 7，再扩展 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 为 99；新环境查 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 得 99，旧环境查 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 仍得 7。绑定值为 #<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math> 时，“值是假”与“根本没绑定”必须由不同观察器区分。</p>
+<p>本节代码的 <code>env-api</code> 只是在 Racket 中把同名操作装成一组，方便同一测试切换实现；原书的抽象思想不依赖这个辅助结构。所有展示的列表、ribcage、闭包及 <code>define-datatype</code> 环境都采用持久式扩展，后续章节引入可变存储时才会增加另一类语义问题。</p>
+<div class="exercise-index" role="navigation" aria-label="本节习题索引">本节习题：<a href="#ex-2-4" aria-label="习题 2.4">2.4</a> · <a href="#ex-2-5" aria-label="习题 2.5">2.5</a> · <a href="#ex-2-6" aria-label="习题 2.6">2.6</a> · <a href="#ex-2-7" aria-label="习题 2.7">2.7</a> · <a href="#ex-2-8" aria-label="习题 2.8">2.8</a> · <a href="#ex-2-9" aria-label="习题 2.9">2.9</a> · <a href="#ex-2-10" aria-label="习题 2.10">2.10</a> · <a href="#ex-2-11" aria-label="习题 2.11">2.11</a> · <a href="#ex-2-12" aria-label="习题 2.12">2.12</a> · <a href="#ex-2-13" aria-label="习题 2.13">2.13</a> · <a href="#ex-2-14" aria-label="习题 2.14">2.14</a></div><details class="exercise" id="ex-2-4"><summary>习题 2.4 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.37 / PDF 60</p><pre class="original-source" lang="en">Exercise 2.4 [★★] Consider the data type of stacks of values, with an interface consisting of the procedures empty-stack, push, pop, top, and empty-stack?. Write a
+specification for these operations in the style of the example above. Which operations
+are constructors and which are observers?</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>令 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="ε" display="inline"><mi>ε</mi></math> 表示空栈，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="P(v,s)" display="inline"><mrow><mi>P</mi><mrow><mo>(</mo><mi>v</mi><mo>,</mo><mi>s</mi><mo>)</mo></mrow></mrow></math> 表示把 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="v" display="inline"><mi>v</mi></math> 压入 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="s" display="inline"><mi>s</mi></math>。接口方程是 <code>empty-stack</code><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="() = ε" display="inline"><mrow><mrow><mo>(</mo><mo>)</mo></mrow><mo>=</mo><mi>ε</mi></mrow></math>；<code>push</code><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(v,s) = P(v,s)" display="inline"><mrow><mrow><mo>(</mo><mi>v</mi><mo>,</mo><mi>s</mi><mo>)</mo></mrow><mo>=</mo><mi>P</mi><mrow><mo>(</mo><mi>v</mi><mo>,</mo><mi>s</mi><mo>)</mo></mrow></mrow></math>；<code>top</code><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(P(v,s)) = v" display="inline"><mrow><mrow><mo>(</mo><mi>P</mi><mrow><mo>(</mo><mi>v</mi><mo>,</mo><mi>s</mi><mo>)</mo></mrow><mo>)</mo></mrow><mo>=</mo><mi>v</mi></mrow></math>；<code>pop</code><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(P(v,s)) = s" display="inline"><mrow><mrow><mo>(</mo><mi>P</mi><mrow><mo>(</mo><mi>v</mi><mo>,</mo><mi>s</mi><mo>)</mo></mrow><mo>)</mo></mrow><mo>=</mo><mi>s</mi></mrow></math>；<code>empty-stack?</code><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(ε) =" display="inline"><mrow><mrow><mo>(</mo><mi>ε</mi><mo>)</mo></mrow><mo>=</mo></mrow></math> #<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="t" display="inline"><mi>t</mi></math>；<code>empty-stack?</code><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(P(v,s)) =" display="inline"><mrow><mrow><mo>(</mo><mi>P</mi><mrow><mo>(</mo><mi>v</mi><mo>,</mo><mi>s</mi><mo>)</mo></mrow><mo>)</mo></mrow><mo>=</mo></mrow></math> #<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math>。<code>top</code>、<code>pop</code> 对空栈的结果须另行约定，本答案统一报错。</p>
+<p>按本章“返回抽象类型值”的分类，<code>empty-stack</code>、<code>push</code>、<code>pop</code> 是构造器，<code>top</code>、<code>empty-stack?</code> 是观察器。<code>pop</code> 虽然不一定新分配节点，仍返回一个栈；构造器的分类不等于内存分配行为。列表实现直接对应这些方程，后三种程序表示也应接受同一组栈客户测试。</p><!-- EOPL:snippet chapter02.rkt ex-2-4 -->
+<details class="code-details" open><summary>查看实现 · ex-2-4</summary><pre><code class="language-scheme">;; Stack equations: top(push(v,s))=v; pop(push(v,s))=s;
+;; empty?(empty)=#t; empty?(push(v,s))=#f. Empty top/pop are errors here.
+(define (empty-stack) &#x27;())
+(define (push v s) (cons v s))
+(define (empty-stack? s) (null? s))
+(define (top s) (if (null? s) (error &#x27;top &quot;empty stack&quot;) (car s)))
+(define (pop s) (if (null? s) (error &#x27;pop &quot;empty stack&quot;) (cdr s)))
+</code></pre></details>
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-5"><summary>习题 2.5 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.39 / PDF 62</p><pre class="original-source" lang="en">Exercise 2.5 [★] We can use any data structure for representing environments, if we
+can distinguish empty environments from non-empty ones, and in which one can
+extract the pieces of a non-empty environment. Implement environments using a
+representation in which the empty environment is represented as the empty list, and
+in which extend-env builds an environment that looks like
+[Original pointer diagram is reproduced below.]
+
+This is called an a-list or association-list representation.</pre><figure id="question-2-5-figure"><div class="diagram-scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 385 220" role="img" aria-labelledby="question-2-5-figure-title question-2-5-figure-desc" class="eopl-diagram"><title id="question-2-5-figure-title">习题 2.5 原图结构</title><desc id="question-2-5-figure-desc">原题指针关系重绘：外层表的 car 指向一对，cdr 指向旧环境；下层点对的 car/cdr 分别保存变量与值。</desc><defs><marker id="question-2-5-figure-arrow" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><path d="M0 0 L9 3.5 L0 7 Z" fill="#506679"/></marker></defs><rect x="90" y="25" width="64" height="28" fill="#eaf2f8" stroke="#547a99"/><path d="M122 25 V53" stroke="#547a99"/><rect x="90" y="100" width="64" height="28" fill="#fff2dc" stroke="#b07822"/><path d="M122 100 V128" stroke="#b07822"/><path d="M106 53 L106 98" fill="none" stroke="#506679" marker-end="url(#question-2-5-figure-arrow)"/><text class="hint" x="114.0" y="69.5">car</text><path d="M140 39 L250 39" fill="none" stroke="#506679" marker-end="url(#question-2-5-figure-arrow)"/><text class="hint" x="203.0" y="33.0">cdr</text><path d="M106 128 L60 167" fill="none" stroke="#506679" marker-end="url(#question-2-5-figure-arrow)"/><path d="M138 128 L185 167" fill="none" stroke="#506679" marker-end="url(#question-2-5-figure-arrow)"/><text class="hint" x="60" y="190" text-anchor="middle">saved-var</text><text class="hint" x="185" y="190" text-anchor="middle">saved-val</text><text class="hint" x="260" y="43">saved-env</text></svg></div><figcaption>原题指针关系重绘：外层表的 <code>car</code> 指向一对，<code>cdr</code> 指向旧环境；下层点对的 <code>car/cdr</code> 分别保存变量与值。</figcaption></figure></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>一条绑定使用点对 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(var" display="inline"><mrow><mo>(</mo><mi>v</mi><mi>a</mi><mi>r</mi></mrow></math> . <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="val)" display="inline"><mrow><mi>v</mi><mi>a</mi><mi>l</mi><mo>)</mo></mrow></math>，环境是这些绑定组成的列表。<code>extend-env</code> 在最前端 <code>cons</code> 一条绑定；查询从表头向后，第一次匹配就返回该点对的 <code>cdr</code>。<code>saved-val</code> 可以是列表，所以不能一律用 <code>cadr</code> 提取值：<code>(cons 'x '(1 2))</code> 的 <code>cdr</code> 才是完整的 <code>'(1 2)</code>。</p>
+<p>新同名绑定位于前面，旧绑定仍保留在旧环境和尾部中；因此遮蔽成立，持有旧环境的客户不会看到后来扩展的值。查找缺失变量到空表时报错。下面代码与题中指针图的 <code>car/cdr</code> 方向一一对应。</p><!-- EOPL:snippet chapter02.rkt ex-2-5 -->
+<details class="code-details" open><summary>查看实现 · ex-2-5</summary><pre><code class="language-scheme">(struct env-api (empty extend lookup empty? has? extend*) #:transparent)
+(define (missing who v) (error who &quot;no binding for ~s&quot; v))
+(define (alist-empty) &#x27;())
+(define (alist-extend v val env) (cons (cons v val) env))
+(define (alist-lookup env v)
+  (cond [(null? env) (missing &#x27;apply-env v)]
+        [(eqv? (caar env) v) (cdar env)]
+        [else (alist-lookup (cdr env) v)]))
+</code></pre></details>
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-6"><summary>习题 2.6 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.39 / PDF 62</p><pre class="original-source" lang="en">Exercise 2.6 [★] Invent at least three different representations of the environment
+interface and implement them.</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>给出三种额外表示。第一种保存两条平行列表 (vars,vals)，同一位置组成一条绑定；第二种保存交替序列 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(var" display="inline"><mrow><mo>(</mo><mi>v</mi><mi>a</mi><mi>r</mi></mrow></math> val var val …)，查找每次跳两项；第三种使用不可变 hash 表，以新表表示扩展后的有限映射。前两者直接保留历史绑定；hash 表只保留当前可见绑定，但旧表仍可被引用，因此三个实现都保持持久性。</p>
+<p>下面把每个实现的操作装入 <code>env-api</code>，客户只通过该接口扩展与查询。同一组测试检查遮蔽、旧环境不变、缺失变量、批量扩展和绑定值为 #<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math>。平行表和交替表通常线性查询；hash 表的具体时间依赖宿主实现，不能仅凭名称承诺所有操作严格 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="O(1)" display="inline"><mrow><mi>O</mi><mrow><mo>(</mo><mn>1</mn><mo>)</mo></mrow></mrow></math>。客户不能以打印内部结构的结果作为抽象行为规格。</p><!-- EOPL:snippet chapter02.rkt ex-2-6 -->
+<details class="code-details" open><summary>查看实现 · ex-2-6</summary><pre><code class="language-scheme">;; Three additional persistent representations; all keep #f as a legal value.
+;; Parallel variable/value lists.
+(define (parallel-empty) (list &#x27;() &#x27;()))
+(define (parallel-extend v x e) (list (cons v (car e)) (cons x (cadr e))))
+(define (parallel-find e v found absent)
+  (let loop ([vs (car e)] [xs (cadr e)])
+    (cond [(null? vs) (absent)] [(eqv? v (car vs)) (found (car xs))]
+          [else (loop (cdr vs) (cdr xs))])))
+(define parallel-api
+  (env-api parallel-empty parallel-extend
+           (lambda (e v) (parallel-find e v values (lambda () (missing &#x27;parallel v))))
+           (lambda (e) (null? (car e)))
+           (lambda (e v) (parallel-find e v (lambda (_) #t) (lambda () #f)))
+           (lambda (vs xs e) (extend-many parallel-extend vs xs e))))
+;; Flat alternating sequence: (var value var value ...).
+(define (flat-extend v x e) (cons v (cons x e)))
+(define (flat-find e v found absent)
+  (cond [(null? e) (absent)] [(eqv? v (car e)) (found (cadr e))]
+        [else (flat-find (cddr e) v found absent)]))
+(define flat-api
+  (env-api (lambda () &#x27;()) flat-extend
+           (lambda (e v) (flat-find e v values (lambda () (missing &#x27;flat v)))) null?
+           (lambda (e v) (flat-find e v (lambda (_) #t) (lambda () #f)))
+           (lambda (vs xs e) (extend-many flat-extend vs xs e))))
+;; Immutable hash table: old environments retain their bindings.
+(define (hash-extend v x e) (hash-set e v x))
+(define hash-api
+  (env-api hasheqv hash-extend
+           (lambda (e v) (hash-ref e v (lambda () (missing &#x27;hash v))))
+           hash-empty? hash-has-key?
+           (lambda (vs xs e) (extend-many hash-extend vs xs e))))
+</code></pre></details>
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-7"><summary>习题 2.7 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.39 / PDF 62</p><pre class="original-source" lang="en">Exercise 2.7 [★] Rewrite apply-env in figure 2.1 to give a more informative error
+message.</pre><div id="source-context-figure-2-1"><p class="source">题目引用的原书程序/文法：p.38 / PDF 61。保留原逻辑供比较，解答实现列在下方。</p><pre><code class="language-scheme">(define empty-env
+  (lambda () (list &#x27;empty-env)))
+(define extend-env
+   (lambda (var val env)
+     (list &#x27;extend-env var val env)))
+(define apply-env
+  (lambda (env search-var)
+     (cond
+       ((eqv? (car env) &#x27;empty-env)
+        (report-no-binding-found search-var))
+       ((eqv? (car env) &#x27;extend-env)
+        (let ((saved-var (cadr env))
+               (saved-val (caddr env))
+               (saved-env (cadddr env)))
+           (if (eqv? search-var saved-var)
+             saved-val
+             (apply-env saved-env search-var))))
+       (else
+         (report-invalid-env env)))))
+
+(define report-no-binding-found
+  (lambda (search-var)
+    (eopl:error &#x27;apply-env &quot;No binding for ~s&quot; search-var)))
+
+(define report-invalid-env
+  (lambda (env)
+    (eopl:error &#x27;apply-env &quot;Bad environment: ~s&quot; env)))</code></pre></div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>外层保存原环境与查询变量，内层查找时累积已检查的变量名。失败后报告“找哪个名字、走过哪些绑定、原环境是什么”，而不是只报告最后剩下的 <code>empty-env</code>。例如查询 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="z" display="inline"><mi>z</mi></math>，已走过 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="d" display="inline"><mi>d</mi></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="y" display="inline"><mi>y</mi></math>，应保留这两个上下文。</p>
+<p>为了使错误处理本身可靠，读取一条带标签记录之前先确认它是长度为 4 的列表，并且标签正确；否则报告非法记录。诊断中的原环境是教学数据，本例没有将真实用户环境写入日志。</p><!-- EOPL:snippet chapter02.rkt ex-2-7 -->
+<details class="code-details" open><summary>查看实现 · ex-2-7</summary><pre><code class="language-scheme">;; Figure 2.1&#x27;s tagged representation, with full original environment context.
+(define (tag-empty) &#x27;(empty-env))
+(define (tag-extend v x e) (list &#x27;extend-env v x e))
+(define (tag-lookup env v)
+  (define (walk e searched)
+    (cond [(equal? e &#x27;(empty-env))
+           (error &#x27;apply-env &quot;no binding for ~s; searched ~s; original environment ~s&quot;
+                  v (reverse searched) env)]
+          [(and (list? e) (= (length e) 4) (eqv? (car e) &#x27;extend-env))
+           (if (eqv? v (cadr e)) (caddr e)
+               (walk (cadddr e) (cons (cadr e) searched)))]
+          [else (error &#x27;apply-env &quot;invalid frame ~s in original environment ~s&quot; e env)]))
+  (walk env &#x27;()))
+</code></pre></details>
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-8"><summary>习题 2.8 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.39 / PDF 62</p><pre class="original-source" lang="en">Exercise 2.8 [★] Add to the environment interface an observer called empty-env?
+and implement it using the a-list representation.</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p><code>a-list</code> 的空环境恰好是空表，所以 <code>empty-env?</code> 直接使用 <code>null?</code>。无论某条绑定的值是不是空表，含有那条绑定的环境都不是空环境。这个判断只看环境的抽象域是否为空，不能通过“某个值是否为空”推断。</p><!-- EOPL:snippet chapter02.rkt ex-2-8 -->
+<details class="code-details" open><summary>查看实现 · ex-2-8</summary><pre><code class="language-scheme">(define (alist-empty? env) (null? env))
+</code></pre></details>
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-9"><summary>习题 2.9 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.39 / PDF 62</p><pre class="original-source" lang="en">Exercise 2.9 [★] Add to the environment interface an observer called has-binding?
+that takes an environment env and a variable s and tests to see if s has an associated
+value in env. Implement it using the a-list representation.</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>沿 <code>a-list</code> 搜索变量名，找到就返回 #<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="t" display="inline"><mi>t</mi></math>，到空表才返回 #<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math>。不能先调用 <code>apply-env</code> 再把返回值转成真值，因为一个合法绑定可能保存 #<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math>。例：扩展 flag <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="↦" display="inline"><mo>↦</mo></math> #<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math> 后，<code>apply-env</code>(flag) 是 #<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math>，但 <code>has-binding?</code>(flag) 必须是 #<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="t" display="inline"><mi>t</mi></math>。这两个观察器回答的是不同问题。</p><!-- EOPL:snippet chapter02.rkt ex-2-9 -->
+<details class="code-details" open><summary>查看实现 · ex-2-9</summary><pre><code class="language-scheme">(define (alist-has? env v)
+  (and (pair? env) (or (eqv? (caar env) v) (alist-has? (cdr env) v))))
+</code></pre></details>
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-10"><summary>习题 2.10 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.39 / PDF 62</p><pre class="original-source" lang="en">Exercise 2.10 [★] Add to the environment interface a constructor extend-env*, and
+implement it using the a-list representation. This constructor takes a list of variables,
+a list of values of the same length, and an environment, and is specified by
+
+(extend-env* (var₁ ... varₖ) (val₁ ... valₖ) ⌈f⌉) = ⌈g⌉,
+where g(var) = valᵢ if var = varᵢ for some i such that 1 ≤ i ≤ k;
+               f(var) otherwise.</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>先递归扩展尾部，再把当前变量和值放在最前面。输入列表长度为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="k" display="inline"><mi>k</mi></math> 时，构造 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="k" display="inline"><mi>k</mi></math> 个绑定，时间 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="O(k)" display="inline"><mrow><mi>O</mi><mrow><mo>(</mo><mi>k</mi><mo>)</mo></mrow></mrow></math>，并保留旧环境作为尾部。两条输入列表长度必须一致；代码遇到一边先结束便报错。</p>
+<p>原题分段方程在变量互异时唯一确定结果；若同一变量对应两个不同值，它没有指明选择哪个 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="i" display="inline"><mi>i</mi></math>。这里明确采用“左边第一个绑定胜出”的补充约定，与下一题逐肋从左向右查询一致。例如 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(x x)" display="inline"><mrow><mo>(</mo><mi>x</mi><mi>x</mi><mo>)</mo></mrow></math> 配 (1 2) 后 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 为 1。对互异变量，本实现恰好满足原方程；这个补充约定不是原文隐含的定理。</p><!-- EOPL:snippet chapter02.rkt ex-2-10 -->
+<details class="code-details" open><summary>查看实现 · ex-2-10</summary><pre><code class="language-scheme">;; Lists must have equal lengths. Leftmost duplicate wins (explicit extension
+;; to the book&#x27;s equations, which are ambiguous for conflicting duplicates).
+(define (extend-many extend vars vals env)
+  (cond [(and (null? vars) (null? vals)) env]
+        [(or (null? vars) (null? vals)) (error &#x27;extend-env* &quot;unequal lengths&quot;)]
+        [else (extend (car vars) (car vals)
+                      (extend-many extend (cdr vars) (cdr vals) env))]))
+(define (alist-extend* vs vals e) (extend-many alist-extend vs vals e))
+(define alist-api
+  (env-api alist-empty alist-extend alist-lookup alist-empty? alist-has? alist-extend*))
+</code></pre></details>
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-11"><summary>习题 2.11 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.39–40 / PDF 62–63</p><pre class="original-source" lang="en">Exercise 2.11 [★★] A naive implementation of extend-env* from the preceding
+exercise requires time proportional to k to run. It is possible to represent environments so that extend-env* requires only constant time: represent the empty environment by the empty list, and represent a non-empty environment by the data structure
+[Original pointer diagram is reproduced below.]
+
+Such an environment might look like
+[Original ribcage example is reproduced below.]
+
+
+
+             This is called the ribcage representation. The environment is represented as a list of
+             pairs called ribs; each left rib is a list of variables and each right rib is the corresponding list of values.
+             Implement the environment interface, including extend-env*, in this representation.</pre><figure id="question-2-11-figure"><div class="diagram-scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 835 220" role="img" aria-labelledby="question-2-11-figure-title question-2-11-figure-desc" class="eopl-diagram"><title id="question-2-11-figure-title">习题 2.11 原图结构</title><desc id="question-2-11-figure-desc">原题两幅图合并重绘：每个 rib 的 car/cdr 保存平行的变量表和值表，环境脊柱的 cdr 指向下一肋。一般构造中的 saved-vars、saved-vals、saved-env 分别对应这两个列表和后续环境；示例三肋及所有数值与原图一致。</desc><defs><marker id="question-2-11-figure-arrow" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><path d="M0 0 L9 3.5 L0 7 Z" fill="#506679"/></marker></defs><rect x="90" y="25" width="64" height="28" fill="#eaf2f8" stroke="#547a99"/><path d="M122 25 V53" stroke="#547a99"/><rect x="90" y="100" width="64" height="28" fill="#fff2dc" stroke="#b07822"/><path d="M122 100 V128" stroke="#b07822"/><path d="M106 53 L106 98" fill="none" stroke="#506679" marker-end="url(#question-2-11-figure-arrow)"/><text class="hint" x="114.0" y="69.5">car</text><path d="M140 39 L250 39" fill="none" stroke="#506679" marker-end="url(#question-2-11-figure-arrow)"/><text class="hint" x="203.0" y="33.0">cdr</text><path d="M106 128 L60 167" fill="none" stroke="#506679" marker-end="url(#question-2-11-figure-arrow)"/><path d="M138 128 L185 167" fill="none" stroke="#506679" marker-end="url(#question-2-11-figure-arrow)"/><text class="hint" x="60" y="190" text-anchor="middle">(a b c)</text><text class="hint" x="185" y="190" text-anchor="middle">(11 12 13)</text><rect x="315" y="25" width="64" height="28" fill="#eaf2f8" stroke="#547a99"/><path d="M347 25 V53" stroke="#547a99"/><rect x="315" y="100" width="64" height="28" fill="#fff2dc" stroke="#b07822"/><path d="M347 100 V128" stroke="#b07822"/><path d="M331 53 L331 98" fill="none" stroke="#506679" marker-end="url(#question-2-11-figure-arrow)"/><text class="hint" x="339.0" y="69.5">car</text><path d="M365 39 L475 39" fill="none" stroke="#506679" marker-end="url(#question-2-11-figure-arrow)"/><text class="hint" x="428.0" y="33.0">cdr</text><path d="M331 128 L285 167" fill="none" stroke="#506679" marker-end="url(#question-2-11-figure-arrow)"/><path d="M363 128 L410 167" fill="none" stroke="#506679" marker-end="url(#question-2-11-figure-arrow)"/><text class="hint" x="285" y="190" text-anchor="middle">(x z)</text><text class="hint" x="410" y="190" text-anchor="middle">(66 77)</text><rect x="540" y="25" width="64" height="28" fill="#eaf2f8" stroke="#547a99"/><path d="M572 25 V53" stroke="#547a99"/><rect x="540" y="100" width="64" height="28" fill="#fff2dc" stroke="#b07822"/><path d="M572 100 V128" stroke="#b07822"/><path d="M556 53 L556 98" fill="none" stroke="#506679" marker-end="url(#question-2-11-figure-arrow)"/><text class="hint" x="564.0" y="69.5">car</text><path d="M590 39 L700 39" fill="none" stroke="#506679" marker-end="url(#question-2-11-figure-arrow)"/><text class="hint" x="653.0" y="33.0">cdr</text><path d="M556 128 L510 167" fill="none" stroke="#506679" marker-end="url(#question-2-11-figure-arrow)"/><path d="M588 128 L635 167" fill="none" stroke="#506679" marker-end="url(#question-2-11-figure-arrow)"/><text class="hint" x="510" y="190" text-anchor="middle">(x y)</text><text class="hint" x="635" y="190" text-anchor="middle">(88 99)</text><text class="hint" x="710" y="43">rest of env</text></svg></div><figcaption>原题两幅图合并重绘：每个 rib 的 <code>car/cdr</code> 保存平行的变量表和值表，环境脊柱的 <code>cdr</code> 指向下一肋。一般构造中的 <code>saved-vars</code>、<code>saved-vals</code>、<code>saved-env</code> 分别对应这两个列表和后续环境；示例三肋及所有数值与原图一致。</figcaption></figure></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>一个 rib 保存变量列表与值列表的指针，整个环境是 rib 的列表。<code>extend-env*</code> 只做两次 <code>cons</code>：一次把两条现成列表配成 rib，一次把 rib 接到旧环境前面，因此在输入已满足“有限 proper <code>list</code>、长度相等”的契约时为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="O(1)" display="inline"><mrow><mi>O</mi><mrow><mo>(</mo><mn>1</mn><mo>)</mo></mrow></mrow></math>。若同时遍历输入做长度检查，构造器就不再是常数时间，故这里把长度条件列为前提。</p>
+<p>查询先在当前 rib 中同步推进变量表和值表；命中返回同位置的值，当前 rib 用尽才去外层。原图中查询 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 会跳过 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(a b c)" display="inline"><mrow><mo>(</mo><mi>a</mi><mi>b</mi><mi>c</mi><mo>)</mo></mrow></math> 那一肋，在 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(x z)" display="inline"><mrow><mo>(</mo><mi>x</mi><mi>z</mi><mo>)</mo></mrow></math> 找到 66，最外层 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(x y)" display="inline"><mrow><mo>(</mo><mi>x</mi><mi>y</mi><mo>)</mo></mrow></math> 的 88 被遮蔽。普通 <code>extend-env</code> 用长度 1 的 rib 即可。空 rib 不含绑定；扩展空的变量/值列表后，<code>empty-env?</code> 仍应报告真。</p>
+<p>构造的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="O(1)" display="inline"><mrow><mi>O</mi><mrow><mo>(</mo><mn>1</mn><mo>)</mo></mrow></mrow></math> 与查找的时间是两回事；最坏查询仍需检查全部绑定。原图和本实现都共享已有列表，假定客户不对它们做破坏性修改。</p><!-- EOPL:snippet chapter02.rkt ex-2-11 -->
+<details class="code-details" open><summary>查看实现 · ex-2-11</summary><pre><code class="language-scheme">;; Rib = (variable-list . value-list). Proper lists of equal lengths are
+;; a PRECONDITION: checking lengths here would break O(1) construction.
+(define (rib-empty) &#x27;())
+(define (rib-extend* vs xs e) (cons (cons vs xs) e))
+(define (rib-extend v x e) (rib-extend* (list v) (list x) e))
+(define (rib-find e v found absent)
+  (if (null? e) (absent)
+      (let search ([vs (caar e)] [xs (cdar e)])
+        (cond [(null? vs) (rib-find (cdr e) v found absent)]
+              [(eqv? v (car vs)) (found (car xs))]
+              [else (search (cdr vs) (cdr xs))]))))
+(define rib-api
+  (env-api rib-empty rib-extend
+           (lambda (e v) (rib-find e v values (lambda () (missing &#x27;rib v))))
+           (lambda (e) (or (null? e) (and (null? (caar e)) ((env-api-empty? rib-api) (cdr e)))))
+           (lambda (e v) (rib-find e v (lambda (_) #t) (lambda () #f))) rib-extend*))
+</code></pre></details>
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-12"><summary>习题 2.12 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.42 / PDF 65</p><pre class="original-source" lang="en">Exercise 2.12 [★] Implement the stack data type of exercise 2.4 using a procedural
+representation.</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>把栈表示为接收消息的过程。空栈对 <code>empty?</code> 返回真，对 <code>top/pop</code> 报错；<code>push</code> 返回的新闭包保存值 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="v" display="inline"><mi>v</mi></math> 和旧栈 <code>saved</code>，对 <code>top</code> 返回 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="v" display="inline"><mi>v</mi></math>，对 <code>pop</code> 返回 <code>saved</code>，对 <code>empty?</code> 返回假。客户调用 <code>proc-top</code> 等包装器，不需要知道过程内部怎样保存这两个值。</p>
+<p>闭包中的 <code>saved</code> 是构造新栈时的旧栈。连续 <code>push</code> 两次再 <code>pop</code> 一次会恢复第一次 <code>push</code> 后的对象；无需把历史栈复制出来。消息只选观察器，不能把未知消息默默当成 <code>pop</code>。</p><!-- EOPL:snippet chapter02.rkt ex-2-12 -->
+<details class="code-details" open><summary>查看实现 · ex-2-12</summary><pre><code class="language-scheme">;; A stack is a procedure responding to the three observers.
+(define (proc-empty-stack)
+  (lambda (message)
+    (case message [(empty?) #t] [(top pop) (error message &quot;empty stack&quot;)]
+      [else (error &#x27;stack &quot;unknown message&quot;)])) )
+(define (proc-push v saved)
+  (lambda (message)
+    (case message [(empty?) #f] [(top) v] [(pop) saved]
+      [else (error &#x27;stack &quot;unknown message&quot;)])))
+(define (proc-top s) (s &#x27;top))
+(define (proc-pop s) (s &#x27;pop))
+(define (proc-empty-stack? s) (s &#x27;empty?))
+</code></pre></details>
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-13"><summary>习题 2.13 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.42 / PDF 65</p><pre class="original-source" lang="en">Exercise 2.13 [★★] Extend the procedural representation to implement empty-env?
+by representing the environment by a list of two procedures: one that returns the
+value associated with a variable, as before, and one that returns whether or not the
+environment is empty.</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>环境表示为两个过程的列表：第一个接收变量并查值，第二个不接收参数并回答是否为空。空环境的查值过程报错、空判断过程返回真；扩展后的查值闭包先比较新名字，失败再调用旧环境的第一个过程，而空判断恒为假。</p>
+<p>第二个过程捕获的“非空”事实来自 <code>extend-env</code> 本身，所以无需枚举环境中的绑定。代码用 env2 前缀隔开本题与其他表示的同名接口。</p><!-- EOPL:snippet chapter02.rkt ex-2-13 -->
+<details class="code-details" open><summary>查看实现 · ex-2-13</summary><pre><code class="language-scheme">;; Two procedures: lookup and empty?.
+(define (env2-empty) (list (lambda (v) (missing &#x27;env2 v)) (lambda () #t)))
+(define (env2-extend v x e)
+  (list (lambda (w) (if (eqv? v w) x ((car e) w))) (lambda () #f)))
+(define (env2-lookup e v) ((car e) v))
+(define (env2-empty? e) ((cadr e)))
+</code></pre></details>
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-14"><summary>习题 2.14 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.42 / PDF 65</p><pre class="original-source" lang="en">Exercise 2.14 [★★] Extend the representation of the preceding exercise to include a
+third procedure that implements has-binding? (see exercise 2.9).</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>在第二个过程之后增加第三个成员过程。空环境的成员过程对任何变量都返回假；扩展后的成员闭包先比较新名字，匹配即真，不匹配再询问旧环境。它与查值过程共享同一条环境链，却不读取或判断绑定值，因而值为 #<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math> 时仍正确。</p>
+<p><code>env3-api</code> 将三个观察器和构造器接到统一接口上；这展示“一个观察器对应一个过程”的可扩展方案，而不是假定只有一种操作的数据才能使用过程表示。</p><!-- EOPL:snippet chapter02.rkt ex-2-14 -->
+<details class="code-details" open><summary>查看实现 · ex-2-14</summary><pre><code class="language-scheme">;; Third procedure answers membership; it does not infer membership from value.
+(define (env3-empty)
+  (list (lambda (v) (missing &#x27;env3 v)) (lambda () #t) (lambda (v) #f)))
+(define (env3-extend v x e)
+  (list (lambda (w) (if (eqv? v w) x ((car e) w)))
+        (lambda () #f) (lambda (w) (or (eqv? v w) ((caddr e) w)))))
+(define env3-api
+  (env-api env3-empty env3-extend (lambda (e v) ((car e) v))
+           (lambda (e) ((cadr e))) (lambda (e v) ((caddr e) v))
+           (lambda (vs xs e) (extend-many env3-extend vs xs e))))
+</code></pre></details>
+<!-- EOPL:end-snippet --></div></details></section><section id="s2-3"><h2>2.3 递归接口与带上下文的游标</h2>
+<p class="source">原书 §2.3，pp.42–45 / PDF 65–68。</p>
+<p><code>(car (cadr exp))</code> 告诉读者怎样走列表，却没有告诉读者提取的是什么。把它改成 <code>lambda-exp</code>-&gt;<code>bound-var</code> 后，调用方直接表达“读取绑定变量”。为每种构造提供构造器和谓词，为每个字段提供提取器，就能让算法按语义写，而把内存布局留给实现。</p>
+<p>以 LcExp 为例，需要 <code>var-exp</code>、<code>lambda-exp</code>、<code>app-exp</code> 三个构造器，相应三个变体谓词，以及变量名、绑定名、<code>body</code>、<code>rator</code>、<code>rand</code> 五个提取器。自由变量算法的分支仍然与第 1 章完全相同，只是从列表下标改用这些操作。改掉 <code>lambda</code> 形参周围的一层括号，应该只改构造器与对应提取器。</p>
+<!-- EOPL:snippet chapter02.rkt lc-client -->
+<details class="code-details" open><summary>查看实现 · lc-client</summary><pre><code class="language-scheme">(struct lc-api (var lam app var? lam? app? name bound body rator rand) #:transparent)
+;; The same client works with every representation below.
+(define (free?/api a v e)
+  (cond [((lc-api-var? a) e) (eqv? v ((lc-api-name a) e))]
+        [((lc-api-lam? a) e) (and (not (eqv? v ((lc-api-bound a) e)))
+                                 (free?/api a v ((lc-api-body a) e)))]
+        [else (or (free?/api a v ((lc-api-rator a) e))
+                  (free?/api a v ((lc-api-rand a) e)))]))
+</code></pre></details>
+<!-- EOPL:end-snippet -->
+<div class="rn-example" id="example-zipper"><h3>为什么回到父节点需要保存兄弟</h3><p>普通树节点只包含向下的孩子，进入左孩子后，如果没有上下文，就不知道父值和右兄弟是什么。保存“父值、右兄弟、来自左侧”三项，等于保留了一个缺左孩子的父节点。向上时把当前焦点填入这个空位即可。</p><pre><code>焦点： (13 (12 () ()) (14 () ()))；上下文：()
+向左： 焦点 (12 () ())；上下文 ((L 13 (14 () ())))
+插入： 焦点 (12 () (99 () ()))；上下文不变
+向上： 焦点 (13 (12 () (99 () ())) (14 () ()))；上下文 ()</code></pre><p>如果保存的只是原父节点并原样返回，就会丢失插入的 99。上下文保存的是“如何重建其余结构”，当前焦点则保存已经修改的部分。双向序列是同一思想的较简单形式：用反向左表保存已走过的元素。</p></div>
+<div class="exercise-index" role="navigation" aria-label="本节习题索引">本节习题：<a href="#ex-2-15" aria-label="习题 2.15">2.15</a> · <a href="#ex-2-16" aria-label="习题 2.16">2.16</a> · <a href="#ex-2-17" aria-label="习题 2.17">2.17</a> · <a href="#ex-2-18" aria-label="习题 2.18">2.18</a> · <a href="#ex-2-19" aria-label="习题 2.19">2.19</a> · <a href="#ex-2-20" aria-label="习题 2.20">2.20</a></div><details class="exercise" id="ex-2-15"><summary>习题 2.15 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.43 / PDF 66</p><pre class="original-source" lang="en">Exercise 2.15 [★] Implement the lambda-calculus expression interface for the representation specified by the grammar above.</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>按原来的具体语法表示：变量是符号；<code>lambda</code> 是 (<code>lambda</code> (v) <code>body</code>)；应用是 (<code>rator</code> <code>rand</code>)。构造器分别返回这三种值，谓词区分三种合法形态，提取器取出约定字段。提取器只承诺对对应变体使用；非法输入由后面的解析器负责拒绝。</p>
+<p><code>list-lc-api</code> 的字段顺序为：三个构造器、三个谓词、变量名、绑定名、过程体、操作符、操作数。<code>free?</code><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="/api" display="inline"><mrow><mo>/</mo><mi>a</mi><mi>p</mi><mi>i</mi></mrow></math> 只用这些名字和操作，便可保持第 1 章自由变量算法的结构。</p><!-- EOPL:snippet chapter02.rkt ex-2-15 -->
+<details class="code-details" open><summary>查看实现 · ex-2-15</summary><pre><code class="language-scheme">(define (list-lam? e) (and (pair? e) (eqv? (car e) &#x27;lambda)))
+(define (list-app? e) (and (pair? e) (not (list-lam? e))))
+(define list-lc-api
+  (lc-api values (lambda (v b) (list &#x27;lambda (list v) b)) list
+          symbol? list-lam? list-app? values caadr caddr car cadr))
+</code></pre></details>
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-16"><summary>习题 2.16 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.43 / PDF 66</p><pre class="original-source" lang="en">Exercise 2.16 [★] Modify the implementation to use a representation in which there
+are no parentheses around the bound variable in a lambda expression.</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p><code>lambda</code> 的内部表示改成 (<code>lambda</code> <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="v" display="inline"><mi>v</mi></math> <code>body</code>)，因此构造器不再用 <code>list</code> 包住 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="v" display="inline"><mi>v</mi></math>，绑定名提取器由 <code>caadr</code> 改为 <code>cadr</code>。过程体仍在第三项，其余变体和提取器不变。客户只调用 <code>lambda</code> 构造器与 bound 提取器，完全不需要跟着调整 <code>car/cdr</code> 链。</p>
+<p>同一个抽象表达式在两种表示中的打印结果不同，这是表示变化；自由变量查询仍相同，才是接口所要求的观察行为。</p><!-- EOPL:snippet chapter02.rkt ex-2-16 -->
+<details class="code-details" open><summary>查看实现 · ex-2-16</summary><pre><code class="language-scheme">(define flat-lc-api
+  (lc-api values (lambda (v b) (list &#x27;lambda v b)) list
+          symbol? list-lam? list-app? values cadr caddr car cadr))
+</code></pre></details>
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-17"><summary>习题 2.17 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.44 / PDF 67</p><pre class="original-source" lang="en">Exercise 2.17 [★] Invent at least two other representations of the data type of lambda-calculus expressions and implement them.</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>第一种使用带标签的向量：#<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(var v)" display="inline"><mrow><mo>(</mo><mi>v</mi><mi>a</mi><mi>r</mi><mi>v</mi><mo>)</mo></mrow></math>、#<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(lam v" display="inline"><mrow><mo>(</mo><mi>l</mi><mi>a</mi><mi>m</mi><mi>v</mi></mrow></math> <code>body</code>)、#<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(app f x)" display="inline"><mrow><mo>(</mo><mi>a</mi><mi>p</mi><mi>p</mi><mi>f</mi><mi>x</mi><mo>)</mo></mrow></math>。第二种使用消息过程，闭包保存标签和字段，通过 <code>tag/first/second</code> 选择观察结果。两种表示都实现 <code>lc-api</code> 的全部构造器、谓词、提取器。</p>
+<p>向量本身在宿主语言中可变，但本接口不提供修改操作，客户遵守抽象边界时构造后的语法树保持不变。过程表示的字段保存在闭包中。测试用相同自由变量客户处理这两种表示以及前两题的列表表示，检查遮蔽和左右分支上的自由出现。</p><!-- EOPL:snippet chapter02.rkt ex-2-17 -->
+<details class="code-details" open><summary>查看实现 · ex-2-17</summary><pre><code class="language-scheme">(define vector-lc-api
+  (lc-api (lambda (v) (vector &#x27;var v)) (lambda (v b) (vector &#x27;lam v b))
+          (lambda (f x) (vector &#x27;app f x))
+          (lambda (e) (eqv? (vector-ref e 0) &#x27;var))
+          (lambda (e) (eqv? (vector-ref e 0) &#x27;lam))
+          (lambda (e) (eqv? (vector-ref e 0) &#x27;app))
+          (lambda (e) (vector-ref e 1)) (lambda (e) (vector-ref e 1))
+          (lambda (e) (vector-ref e 2)) (lambda (e) (vector-ref e 1))
+          (lambda (e) (vector-ref e 2))))
+(define (dispatch-node tag first [second #f])
+  (lambda (msg) (case msg [(tag) tag] [(first) first] [(second) second]
+                 [else (error &#x27;node &quot;unknown observer&quot;)])) )
+(define procedure-lc-api
+  (lc-api (lambda (v) (dispatch-node &#x27;var v))
+          (lambda (v b) (dispatch-node &#x27;lam v b)) (lambda (f x) (dispatch-node &#x27;app f x))
+          (lambda (e) (eqv? (e &#x27;tag) &#x27;var)) (lambda (e) (eqv? (e &#x27;tag) &#x27;lam))
+          (lambda (e) (eqv? (e &#x27;tag) &#x27;app))
+          (lambda (e) (e &#x27;first)) (lambda (e) (e &#x27;first)) (lambda (e) (e &#x27;second))
+          (lambda (e) (e &#x27;first)) (lambda (e) (e &#x27;second))))
+</code></pre></details>
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-18"><summary>习题 2.18 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.44 / PDF 67</p><pre class="original-source" lang="en">Exercise 2.18 [★] We usually represent a sequence of values as a list. In this representation, it is easy to move from one element in a sequence to the next, but it is hard
+to move from one element to the preceding one without the help of context arguments. Implement non-empty bidirectional sequences of integers, as suggested by
+the grammar
+
+                  NodeInSequence ::= (Int Listof(Int) Listof(Int))
+The first list of numbers is the elements of the sequence preceding the current one,
+in reverse order, and the second list is the elements of the sequence after the current
+one. For example, (6 (5 4 3 2 1) (7 8 9)) represents the list (1 2 3 4 5 6
+7 8 9), with the focus on the element 6.
+In this representation, implement the procedure number-&gt;sequence, which takes
+a number and produces a sequence consisting of exactly that number. Also implement current-element, move-to-left, move-to-right, insert-to-left,
+insert-to-right, at-left-end?, and at-right-end?.
+For example:
+
+  &gt; (number-&gt;sequence 7)
+  (7 () ())
+  &gt; (current-element &#x27;(6 (5 4 3 2 1) (7 8 9)))
+  6
+  &gt; (move-to-left &#x27;(6 (5 4 3 2 1) (7 8 9)))
+  (5 (4 3 2 1) (6 7 8 9))
+  &gt; (move-to-right &#x27;(6 (5 4 3 2 1) (7 8 9)))
+  (7 (6 5 4 3 2 1) (8 9))
+  &gt; (insert-to-left 13 &#x27;(6 (5 4 3 2 1) (7 8 9)))
+  (6 (13 5 4 3 2 1) (7 8 9))
+  &gt; (insert-to-right 13 &#x27;(6 (5 4 3 2 1) (7 8 9)))
+  (6 (5 4 3 2 1) (13 7 8 9))
+
+The procedure move-to-right should fail if its argument is at the right end of the
+sequence, and the procedure move-to-left should fail if its argument is at the left
+end of the sequence.</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>把状态写成 (current,<code>reversed-left</code>,right)。向左移动时，从 <code>reversed-left</code> 弹出新焦点，把旧焦点压入 right；向右则完全对称。左边逆序存储，使紧邻焦点的前驱就在表头，所以两种移动都只改常数个 <code>cons</code>。</p>
+<p>插入不移动焦点：<code>insert-left</code> 只把新值压进 <code>reversed-left</code>，<code>insert-right</code> 只把它压进 right。原例的 13 因而分别出现在 6 的前面或后面，焦点仍是 6。端点检测分别检查左右列表是否为空；在相应端点移动必须报错。源码使用 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="seq-" display="inline"><mrow><mi>s</mi><mi>e</mi><mi>q</mi><mo>−</mo></mrow></math> 前缀，避免与下一题树上的同名操作冲突。</p>
+<p>只要左右移动合法，先向左再向右会恢复原状态。这个性质验证了逆序上下文中的元素位置，不能只检查焦点数字。</p><!-- EOPL:snippet chapter02.rkt ex-2-18 -->
+<details class="code-details" open><summary>查看实现 · ex-2-18</summary><pre><code class="language-scheme">;; Nonempty sequence zipper: (current reversed-left right).
+(define (number-&gt;sequence n) (list n &#x27;() &#x27;()))
+(define (seq-current s) (car s))
+(define (at-left-end? s) (null? (cadr s)))
+(define (at-right-end? s) (null? (caddr s)))
+(define (seq-left s)
+  (if (at-left-end? s) (error &#x27;move-to-left &quot;left end&quot;)
+      (list (caadr s) (cdadr s) (cons (car s) (caddr s)))))
+(define (seq-right s)
+  (if (at-right-end? s) (error &#x27;move-to-right &quot;right end&quot;)
+      (list (caaddr s) (cons (car s) (cadr s)) (cdaddr s))))
+(define (seq-insert-left n s) (list (car s) (cons n (cadr s)) (caddr s)))
+(define (seq-insert-right n s) (list (car s) (cadr s) (cons n (caddr s))))
+</code></pre></details>
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-19"><summary>习题 2.19 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.44–45 / PDF 67–68</p><pre class="original-source" lang="en">Exercise 2.19 [★] A binary tree with empty leaves and with interior nodes labeled
+     with integers could be represented using the grammar
+
+                            Bintree ::= () | (Int Bintree Bintree)
+
+     In this representation, implement the procedure number-&gt;bintree, which takes a
+     number and produces a binary tree consisting of a single node containing that number. Also implement current-element, move-to-left-son, move-to-right-son, at-leaf?, insert-to-left, and insert-to-right. For example,
+
+&gt; (number-&gt;bintree 13)
+        (13 () ())
+        &gt; (define t1 (insert-to-right 14
+                        (insert-to-left 12
+                          (number-&gt;bintree 13)))
+        &gt; t1
+        (13
+           (12 () ())
+           (14 () ()))
+        &gt; (move-to-left t1)
+        (12 () ())
+        &gt; (current-element (move-to-left t1))
+        12
+        &gt; (at-leaf? (move-to-right (move-to-left t1)))
+        #t
+        &gt; (insert-to-left 15 t1)
+        (13
+           (15
+             (12 () ())
+             ())
+           (14 () ()))</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>这里的树定义为 () 或 (整数 左树 右树)，叶子是空表，与第 1 章的“整数叶子、符号内部节点”不同。<code>number-&gt;bintree</code>(n) 返回 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(n () ())" display="inline"><mrow><mo>(</mo><mi>n</mi><mrow><mo>(</mo><mo>)</mo></mrow><mrow><mo>(</mo><mo>)</mo></mrow><mo>)</mo></mrow></math>；<code>current-element</code> 与左右移动分别提取三个字段。</p>
+<p><code>insert-to-left</code><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(n,t)" display="inline"><mrow><mo>(</mo><mi>n</mi><mo>,</mo><mi>t</mi><mo>)</mo></mrow></math> 在当前节点和原左树之间插入新节点：新节点的左树是原左树，右树为空。右插入对称地把原右树放进新节点的右侧。原例因此产生 (13 (15 (12 () ()) ()) (14 () ()))，并没有丢掉 12。</p>
+<p>原书 p.45 / PDF 68 的 define t1 少一个右括号，且示例称 <code>move-to-left/right</code>，题干称 <code>move-to-left/right-son</code>。本答案保留题干接口并提供示例名称的别名，运行输入补齐括号；空叶子上提取整数或继续下降均报错。</p><!-- EOPL:snippet chapter02.rkt ex-2-19 -->
+<details class="code-details" open><summary>查看实现 · ex-2-19</summary><pre><code class="language-scheme">;; Unlike chapter 1: integer interior nodes and empty leaves.
+(define (number-&gt;bintree n) (list n &#x27;() &#x27;()))
+(define at-leaf? null?)
+(define (require-node t who) (when (at-leaf? t) (error who &quot;empty leaf&quot;)))
+(define (current-element t) (require-node t &#x27;current-element) (car t))
+(define (move-to-left-son t) (require-node t &#x27;move-to-left-son) (cadr t))
+(define (move-to-right-son t) (require-node t &#x27;move-to-right-son) (caddr t))
+(define move-to-left move-to-left-son) ; names used in the book&#x27;s examples
+(define move-to-right move-to-right-son)
+(define (insert-to-left n t)
+  (require-node t &#x27;insert-to-left)
+  (list (car t) (list n (cadr t) &#x27;()) (caddr t)))
+(define (insert-to-right n t)
+  (require-node t &#x27;insert-to-right)
+  (list (car t) (cadr t) (list n &#x27;() (caddr t))))
+</code></pre></details>
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-20"><summary>习题 2.20 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.45 / PDF 68</p><pre class="original-source" lang="en">Exercise 2.20 [★★★] In the representation of binary trees in exercise 2.19 it is easy to
+move from a parent node to one of its sons, but it is impossible to move from a son to
+its parent without the help of context arguments. Extend the representation of lists in
+exercise 2.18 to represent nodes in a binary tree. As a hint, consider representing the
+portion of the tree above the current node by a reversed list, as in exercise 2.18.
+In this representation, implement the procedures from exercise 2.19. Also implement
+move-up, at-root?, and at-leaf?.</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>只保存父节点原对象还不够：如果焦点子树已经修改，向上时必须把新子树装回去。状态因此是 (focus,breadcrumbs)。向左下降时压入 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(L" display="inline"><mrow><mo>(</mo><mi>L</mi></mrow></math>,<code>parent-value</code>,<code>right-sibling</code>)，向右下降时压入 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(R" display="inline"><mrow><mo>(</mo><mi>R</mi></mrow></math>,<code>parent-value</code>,<code>left-sibling</code>)。<code>L/R</code> 记录“焦点原来在哪一侧”。</p>
+<p><code>move-up</code> 弹出一条记录：<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="L" display="inline"><mi>L</mi></math> 时重建 (<code>parent-value</code>,focus,<code>right-sibling</code>)，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="R" display="inline"><mi>R</mi></math> 时重建 (<code>parent-value</code>,<code>left-sibling</code>,focus)。这是带洞的父环境被当前焦点填回的过程。其余插入操作只改 focus，保留 breadcrumbs；根检测看上下文是否为空，叶子检测看 focus 是否为空，两者互不等价。</p>
+<p>实际例子从 (13 (12 () ()) (14 () ())) 向左走，在 12 的右侧插入 99，再向上，得到 (13 (12 () (99 () ())) (14 () ()))。兄弟 14 和焦点的新修改同时保留。根上 <code>move-up</code> 报错；可以移动到空叶子并再向上恢复父节点。</p><!-- EOPL:snippet chapter02.rkt ex-2-20 -->
+<details class="code-details" open><summary>查看实现 · ex-2-20</summary><pre><code class="language-scheme">;; Tree zipper: (focus breadcrumbs). Each breadcrumb retains parent and sibling.
+(define (zip-number n) (list (number-&gt;bintree n) &#x27;()))
+(define (zip-leaf? z) (null? (car z)))
+(define (at-root? z) (null? (cadr z)))
+(define (zip-current z) (current-element (car z)))
+(define (zip-left z)
+  (define t (car z)) (require-node t &#x27;zip-left)
+  (list (cadr t) (cons (list &#x27;L (car t) (caddr t)) (cadr z))))
+(define (zip-right z)
+  (define t (car z)) (require-node t &#x27;zip-right)
+  (list (caddr t) (cons (list &#x27;R (car t) (cadr t)) (cadr z))))
+(define (move-up z)
+  (when (at-root? z) (error &#x27;move-up &quot;already at root&quot;))
+  (define crumb (caadr z))
+  (list (if (eqv? (car crumb) &#x27;L) (list (cadr crumb) (car z) (caddr crumb))
+            (list (cadr crumb) (caddr crumb) (car z))) (cdadr z)))
+(define (zip-insert-left n z) (list (insert-to-left n (car z)) (cadr z)))
+(define (zip-insert-right n z) (list (insert-to-right n (car z)) (cadr z)))
+</code></pre></details>
+<!-- EOPL:end-snippet --></div></details></section><section id="s2-4"><h2>2.4 用 <code>define-datatype</code> 声明构造，用 cases 消去构造</h2>
+<p class="source">原书 §2.4，pp.45–51 / PDF 68–74。</p>
+<p>手写构造器、谓词和提取器容易重复。<code>define-datatype</code> 给出一个类型名、总谓词和若干变体，每个变体再列出字段及字段谓词。实际构造值时检查字段；处理值时用 cases 按变体匹配，并把字段绑定到局部名字。</p>
+<!-- EOPL:snippet chapter02.rkt ex-2-23 -->
+<details class="code-details" open><summary>查看实现 · ex-2-23</summary><pre><code class="language-scheme">(define (identifier? x) (and (symbol? x) (not (eqv? x &#x27;lambda))))
+(define-datatype lc-exp lc-exp?
+  (var-exp (var identifier?))
+  (lambda-exp (bound-var identifier?) (body lc-exp?))
+  (app-exp (rator lc-exp?) (rand lc-exp?)))
+</code></pre></details>
+<!-- EOPL:end-snippet -->
+<p>例如 <code>app-exp</code> 的两个字段都必须是 <code>lc-exp?</code>；把整数 7 直接当作它的操作数，会在构造时被拒绝。<code>identifier?</code> 是我们定义的谓词，它排除保留字 <code>lambda</code>。字段检查能验证局部数据形状，但不会自动证明变量是否绑定、程序是否终止、函数调用类型是否正确。</p>
+<p>cases 中写 <code>leaf-node</code> 或 <code>interior-node</code>，是按已声明变体拆解；字段变量按声明次序绑定。这里的 else 只是未列变体的后备分支，不意味着任意损坏的非该类型对象都成为合法输入。嵌套或互递归的数据类型仍需分别定义；<code>list-of</code> 把单元素谓词提升为整个 proper <code>list</code> 的谓词，空表自然通过逐元素检查。</p>
+<p>本页代码通过 Racket 的 eopl 库实际使用 <code>define-datatype/cases</code>。这两个形式是本书工具层提供的语法，不能把它们当作 Scheme 核心的任意解释器都内建的功能。完整文件的 require 行与运行命令放在页末，读者无需猜测缺少的前置定义。</p>
+<div class="exercise-index" role="navigation" aria-label="本节习题索引">本节习题：<a href="#ex-2-21" aria-label="习题 2.21">2.21</a> · <a href="#ex-2-22" aria-label="习题 2.22">2.22</a> · <a href="#ex-2-23" aria-label="习题 2.23">2.23</a> · <a href="#ex-2-24" aria-label="习题 2.24">2.24</a> · <a href="#ex-2-25" aria-label="习题 2.25">2.25</a> · <a href="#ex-2-26" aria-label="习题 2.26">2.26</a></div><details class="exercise" id="ex-2-21"><summary>习题 2.21 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.50 / PDF 73</p><pre class="original-source" lang="en">Exercise 2.21 [★] Implement the data type of environments, as in section 2.2.2, using
+define-datatype. Then include has-binding? of exercise 2.9.</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>两个构造对应空环境和一次扩展。<code>extend-env</code> 的字段分别用 <code>symbol?</code>、<code>any-value?</code>、<code>environment?</code> 检查，其中 <code>any-value?</code> 恒真，因为 SchemeVal 允许 #<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math>、列表和过程等任意值。<code>apply-env</code> 与 <code>has-binding?</code> 各自使用 cases 分出两个变体，再按照环境方程递归。</p>
+<p>字段名由 cases 绑定，不依赖列表第几项的布局。构造器会拒绝不符合字段谓词的值；但它不会自动替我们保证其他更强的语义性质，例如名字是否已存在，这仍由接口规则决定。</p><!-- EOPL:snippet chapter02.rkt ex-2-21 -->
+<details class="code-details" open><summary>查看实现 · ex-2-21</summary><pre><code class="language-scheme">(define (any-value? v) #t)
+(define-datatype environment environment?
+  (empty-env)
+  (extend-env (var symbol?) (val any-value?) (saved environment?)))
+(define (apply-env env v)
+  (cases environment env
+    (empty-env () (missing &#x27;apply-env v))
+    (extend-env (w x old) (if (eqv? v w) x (apply-env old v)))))
+(define (has-binding? env v)
+  (cases environment env
+    (empty-env () #f)
+    (extend-env (w x old) (or (eqv? v w) (has-binding? old v)))))
+(define (empty-env? env) (cases environment env (empty-env () #t) (else #f)))
+(define datatype-env-api
+  (env-api empty-env extend-env apply-env empty-env? has-binding?
+           (lambda (vs xs e) (extend-many extend-env vs xs e))))
+</code></pre></details>
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-22"><summary>习题 2.22 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.50 / PDF 73</p><pre class="original-source" lang="en">Exercise 2.22 [★] Using define-datatype, implement the stack data type of exercise 2.4.</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>定义空栈和压栈两个变体；压栈保存任意值与另一个合法栈。<code>top</code> 在压栈分支返回 value，<code>pop</code> 返回 <code>saved</code>；两者在空栈分支明确报错。<code>empty-stack?</code> 只判断变体。</p>
+<p>这与 2.4 的列表实现、2.12 的过程实现满足相同方程。源码用 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="dt-" display="inline"><mrow><mi>d</mi><mi>t</mi><mo>−</mo></mrow></math> 前缀让三个实现可同时被测试；变体构造器对 <code>saved</code> 使用 <code>stack?</code>，避免误把普通列表塞进这个表示的栈尾。</p><!-- EOPL:snippet chapter02.rkt ex-2-22 -->
+<details class="code-details" open><summary>查看实现 · ex-2-22</summary><pre><code class="language-scheme">(define-datatype stack stack?
+  (dt-empty-stack)
+  (dt-push (value any-value?) (saved stack?)))
+(define (dt-empty-stack? s) (cases stack s (dt-empty-stack () #t) (else #f)))
+(define (dt-top s)
+  (cases stack s (dt-empty-stack () (error &#x27;top &quot;empty stack&quot;)) (dt-push (v old) v)))
+(define (dt-pop s)
+  (cases stack s (dt-empty-stack () (error &#x27;pop &quot;empty stack&quot;)) (dt-push (v old) old)))
+</code></pre></details>
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-23"><summary>习题 2.23 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.50 / PDF 73</p><pre class="original-source" lang="en">Exercise 2.23 [★] The definition of lc-exp ignores the condition in definition 1.1.8
+that says “Identifier is any symbol other than lambda.” Modify the definition of
+identifier? to capture this condition. As a hint, remember that any predicate
+can be used in define-datatype, even ones you define.</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p><code>identifier?</code> 必须同时满足“是符号”和“不等于 <code>lambda</code>”。先调用 <code>symbol?</code> 使整数、列表等也安全地返回假。将此谓词用于 <code>var-exp</code> 的变量字段及 <code>lambda-exp</code> 的绑定字段，构造器便会拒绝 <code>(var-exp 'lambda)</code>。</p>
+<p>保留字限制来自定义 1.1.8 的语言规定，不能仅因宿主 Scheme 允许某个符号就把它当作被定义语言的合法变量。其他未被该定义排除的符号仍然允许。</p><!-- EOPL:snippet chapter02.rkt ex-2-23 -->
+<details class="code-details" open><summary>查看实现 · ex-2-23</summary><pre><code class="language-scheme">(define (identifier? x) (and (symbol? x) (not (eqv? x &#x27;lambda))))
+(define-datatype lc-exp lc-exp?
+  (var-exp (var identifier?))
+  (lambda-exp (bound-var identifier?) (body lc-exp?))
+  (app-exp (rator lc-exp?) (rand lc-exp?)))
+</code></pre></details>
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-24"><summary>习题 2.24 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.50 / PDF 73</p><pre class="original-source" lang="en">Exercise 2.24 [★] Here is a definition of binary trees using define-datatype.
+
+  (define-datatype bintree bintree?
+    (leaf-node
+      (num integer?))
+    (interior-node
+      (key symbol?)
+      (left bintree?)
+      (right bintree?)))
+
+Implement a bintree-to-list procedure for binary trees, so that (bintree-tolist (interior-node &#x27;a (leaf-node 3) (leaf-node 4))) returns the list
+
+  (interior-node
+    a
+    (leaf-node 3)
+    (leaf-node 4))</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>cases 在叶子分支返回 (<code>leaf-node</code> <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n)" display="inline"><mrow><mi>n</mi><mo>)</mo></mrow></math>，在内部节点分支递归转换左右树，并连同标签 key 组成 (<code>interior-node</code> key <code>left-list</code> <code>right-list</code>)。输出中的 <code>leaf-node/interior-node</code> 也必须保留；若只返回 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(a 3 4)" display="inline"><mrow><mo>(</mo><mi>a</mi><mn>3</mn><mn>4</mn><mo>)</mo></mrow></math>，就不是题目要求的带变体标签的外部列表。</p>
+<p>每个输入节点恰好贡献一个对应输出节点，递归结构直接保证形状与字段顺序保留。给出的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math>、3、4 例子已按原输出验证。</p><!-- EOPL:snippet chapter02.rkt ex-2-24 -->
+<details class="code-details" open><summary>查看实现 · ex-2-24</summary><pre><code class="language-scheme">(define-datatype bintree bintree?
+  (leaf-node (num integer?))
+  (interior-node (key symbol?) (left bintree?) (right bintree?)))
+(define (bintree-to-list t)
+  (cases bintree t
+    (leaf-node (n) (list &#x27;leaf-node n))
+    (interior-node (k l r) (list &#x27;interior-node k (bintree-to-list l) (bintree-to-list r)))))
+</code></pre></details>
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-25"><summary>习题 2.25 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.50 / PDF 73</p><pre class="original-source" lang="en">Exercise 2.25 [★★] Use cases to write max-interior, which takes a binary tree of
+integers (as in the preceding exercise) with at least one interior node and returns the
+symbol associated with an interior node with a maximal leaf sum.
+
+  &gt; (define tree-1
+      (interior-node &#x27;foo (leaf-node 2) (leaf-node 3)))
+  &gt; (define tree-2
+      (interior-node &#x27;bar (leaf-node -1) tree-1))
+  &gt; (define tree-3
+      (interior-node &#x27;baz tree-2 (leaf-node 1)))
+  &gt; (max-interior tree-2)
+  foo
+  &gt; (max-interior tree-3)
+  baz
+
+The last invocation of max-interior might also have returned foo, since both the
+foo and baz nodes have a leaf sum of 5.</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>只向上返回“最优标签”会丢掉计算祖先总和所需的信息。因此 <code>walk</code> 同时返回当前树的叶子总和，以及子树内最佳内部节点的 (标签 . 和)。叶子贡献自己的整数，总和可能为负，但没有内部候选，记为 #<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math>。</p>
+<p>内部节点先拿到左右总和与最佳候选，自己的总和等于两边之和；随后在自己、左候选、右候选中取最大。不能把初始最大值设成 0，否则全负数树会没有合法赢家。这里并列时按“当前、左、右”优先，故 <code>tree-3</code> 返回 baz；原题允许同和的 foo。</p>
+<p>每个节点只计算一次，时间线性。递归过程把“给父节点使用的总和”和“本子树内已经找到的最佳答案”分开，这是本题的关键。</p><!-- EOPL:snippet chapter02.rkt ex-2-25 -->
+<details class="code-details" open><summary>查看实现 · ex-2-25</summary><pre><code class="language-scheme">;; walk returns subtree leaf sum and either #f or (key . best interior sum).
+;; Ties choose current, then left, then right. Negative maxima are valid.
+(define (max-interior t)
+  (define (better a b) (if (and b (&gt; (cdr b) (cdr a))) b a))
+  (define (walk t)
+    (cases bintree t
+      (leaf-node (n) (values n #f))
+      (interior-node (k l r)
+        (let-values ([(ls lb) (walk l)] [(rs rb) (walk r)])
+          (define sum (+ ls rs))
+          (values sum (better (better (cons k sum) lb) rb))))))
+  (let-values ([(sum best) (walk t)])
+    (if best (car best) (error &#x27;max-interior &quot;requires an interior node&quot;))))
+</code></pre></details>
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-26"><summary>习题 2.26 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.51 / PDF 74</p><pre class="original-source" lang="en">Exercise 2.26 [★★] Here is another version of exercise 1.33. Consider a set of trees
+given by the following grammar:
+
+        Red-blue-tree    ::= Red-blue-subtree
+        Red-blue-subtree ::= (red-node Red-blue-subtree Red-blue-subtree)
+                         ::= (blue-node {Red-blue-subtree}∗ )
+                         ::= (leaf-node Int)
+
+Write an equivalent definition using define-datatype, and use the resulting interface to write a procedure that takes a tree and builds a tree of the same shape, except
+that each leaf node is replaced by a leaf node that contains the number of red nodes
+on the path between it and the root.</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>为整树加一个根包装构造，为子树定义 <code>red-node</code>、<code>blue-node</code>、<code>rb-leaf</code> 三个变体。<code>red-node</code> 有两个递归字段；<code>blue-node</code> 有一个“递归子树列表”字段，其谓词是 <code>list-of</code>；叶子保存整数。蓝节点允许零个孩子，因为文法使用 Kleene 星号。</p>
+<p><code>walk</code><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(t,d)" display="inline"><mrow><mo>(</mo><mi>t</mi><mo>,</mo><mi>d</mi><mo>)</mo></mrow></math> 的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="d" display="inline"><mi>d</mi></math> 仍表示严格祖先中的红节点数：红节点把 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="d+1" display="inline"><mrow><mi>d</mi><mo>+</mo><mn>1</mn></mrow></math> 交给两个孩子，蓝节点把同一个 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="d" display="inline"><mi>d</mi></math> 用 <code>map</code> 交给全部孩子，叶子用 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="d" display="inline"><mi>d</mi></math> 代替旧整数。根包装只转发，不增加计数。测试含空蓝节点、连续红节点和蓝节点下的红分支，结果保持原形状。</p><!-- EOPL:snippet chapter02.rkt ex-2-26 -->
+<details class="code-details" open><summary>查看实现 · ex-2-26</summary><pre><code class="language-scheme">(define (list-of pred)
+  (lambda (xs) (and (list? xs) (andmap pred xs))))
+(define-datatype red-blue-tree red-blue-tree?
+  (a-red-blue-tree (root red-blue-subtree?)))
+(define-datatype red-blue-subtree red-blue-subtree?
+  (red-node (left red-blue-subtree?) (right red-blue-subtree?))
+  (blue-node (children (list-of red-blue-subtree?)))
+  (rb-leaf (value integer?)))
+(define (mark-red-depth tree)
+  (define (walk t d)
+    (cases red-blue-subtree t
+      (rb-leaf (n) (rb-leaf d))
+      (red-node (l r) (red-node (walk l (+ d 1)) (walk r (+ d 1))))
+      (blue-node (children) (blue-node (map (lambda (c) (walk c d)) children)))))
+  (cases red-blue-tree tree (a-red-blue-tree (root) (a-red-blue-tree (walk root 0)))))
+(define (rb-&gt;list tree)
+  (define (walk t)
+    (cases red-blue-subtree t (rb-leaf (n) n)
+      (red-node (l r) (list &#x27;red (walk l) (walk r)))
+      (blue-node (cs) (cons &#x27;blue (map walk cs)))))
+  (cases red-blue-tree tree (a-red-blue-tree (root) (walk root))))
+</code></pre></details>
+<!-- EOPL:end-snippet --></div></details></section><section id="s2-5"><h2>2.5 从具体语法得到可计算的树</h2>
+<p class="source">原书 §2.5，pp.51–55 / PDF 74–78。</p>
+<p>具体语法决定程序写出来的样子，抽象语法决定分析程序时要保留哪些信息。<code>(lambda (x) (f (f x)))</code> 与 <code>proc x =&gt; f(f(x))</code> 可以表达同样的构造层次。AST 保存 <code>lambda</code> 的绑定名和 <code>body</code>、应用的两个子树、变量的名字；用于分组的括号不必再作为独立字段存进去。</p>
+<p>Scheme reader 先把带括号文本读成 <code>S-expression</code>；<code>parse-expression</code> 再判断它是否属于 LcExp，并为每个构造建立对应 AST。解析 <code>'(lambda (x) (f x))</code> 时，外层先确认 <code>lambda</code> 形状，保存绑定名 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math>；<code>body</code> 是二项列表，于是递归构造 <code>app-exp</code>；两项符号各成为 <code>var-exp</code>。由内而外返回后，整个 <code>lambda-exp</code> 才完整。</p>
+<div class="rn-example" id="example-parse"><h3>解析和求值处在不同阶段</h3><pre><code>输入值：'(lambda (x) (f x))
+构造：  lambda-exp('x,
+          app-exp(var-exp('f), var-exp('x)))
+回写：  '(lambda (x) (f x))</code></pre><p>这里没有查 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math> 的值，也没有调用 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math>。解析阶段只解释“文本形状对应哪种语法构造”；下一章解释器才会规定这些构造如何产生运行结果。</p></div>
+<p>解析器必须消费完整的预期结构。单参数应用只允许两项；多参数版本另有文法，不能把第三项默默忽略。前缀 token 语法又不同：子表达式边界不靠每层括号给出，需要让辅助过程返回“已解析树 + 剩余输入”。这些差别都来自输入文法，复用同一段 <code>car/cadr</code> 代码并不能自动获得正确解析。</p>
+<p>对合法 <code>S-expression</code>，可检查 unparse(parse<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(s)) = s" display="inline"><mrow><mrow><mo>(</mo><mi>s</mi><mo>)</mo></mrow><mo>)</mo><mo>=</mo><mi>s</mi></mrow></math>；对任意合法 AST，也可检查 parse(unparse<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(t))" display="inline"><mrow><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow><mo>)</mo></mrow></math> 保留构造与字段。这是表示转换的性质，不表示任何字符串都合法，也不证明另一套有歧义的文法存在唯一解析。习题 2.28 会专门指出这个边界。</p>
+<div class="exercise-index" role="navigation" aria-label="本节习题索引">本节习题：<a href="#ex-2-27" aria-label="习题 2.27">2.27</a> · <a href="#ex-2-28" aria-label="习题 2.28">2.28</a> · <a href="#ex-2-29" aria-label="习题 2.29">2.29</a> · <a href="#ex-2-30" aria-label="习题 2.30">2.30</a> · <a href="#ex-2-31" aria-label="习题 2.31">2.31</a></div><details class="exercise" id="ex-2-27"><summary>习题 2.27 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.54 / PDF 77</p><pre class="original-source" lang="en">Exercise 2.27 [★] Draw the abstract syntax tree for the lambda calculus expressions
+
+((lambda (a) (a b)) c)
+
+(lambda (x)
+  (lambda (y)
+    ((lambda (x)
+       (x y))
+     x)))</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>两个 AST 如下。每个应用节点有 <code>rator</code> 和 <code>rand</code> 两条边；<code>lambda</code> 节点记录 <code>bound-var</code> 并有 <code>body</code> 子树；变量叶子记录名字。形参名字是字段，不是对该名字进行求值的变量表达式。</p>
+<figure id="ast-1"><div class="diagram-scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 510" role="img" aria-labelledby="ast-1-title ast-1-desc" class="eopl-diagram"><title id="ast-1-title">习题 2.27 抽象语法树 1</title><desc id="ast-1-desc">第一题：根是应用。操作符是绑定 a 的 lambda，body 为 a 对 b 的应用；根的操作数是变量 c。</desc><defs><marker id="ast-1-arrow" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><path d="M0 0 L9 3.5 L0 7 Z" fill="#506679"/></marker></defs><path d="M400 82 L230 140" fill="none" stroke="#506679" marker-end="url(#ast-1-arrow)"/><text class="hint" x="323.0" y="105.0">rator</text><path d="M400 82 L610 140" fill="none" stroke="#506679" marker-end="url(#ast-1-arrow)"/><text class="hint" x="513.0" y="105.0">rand</text><path d="M230 202 L250 280" fill="none" stroke="#506679" marker-end="url(#ast-1-arrow)"/><text class="hint" x="248.0" y="235.0">body</text><path d="M250 342 L130 420" fill="none" stroke="#506679" marker-end="url(#ast-1-arrow)"/><text class="hint" x="198.0" y="375.0">rator</text><path d="M250 342 L370 420" fill="none" stroke="#506679" marker-end="url(#ast-1-arrow)"/><text class="hint" x="318.0" y="375.0">rand</text><rect x="325" y="20" width="150" height="62" rx="9" fill="#eaf2f8" stroke="#547a99"/><text x="400.0" y="45" text-anchor="middle">app-exp</text><text class="hint" x="400.0" y="67" text-anchor="middle"></text><rect x="150" y="140" width="160" height="62" rx="9" fill="#eaf2f8" stroke="#547a99"/><text x="230.0" y="165" text-anchor="middle">lambda-exp</text><text class="hint" x="230.0" y="187" text-anchor="middle">bound-var = a</text><rect x="540" y="140" width="140" height="62" rx="9" fill="#fff2dc" stroke="#b07822"/><text x="610.0" y="165" text-anchor="middle">var-exp</text><text class="hint" x="610.0" y="187" text-anchor="middle">var = c</text><rect x="170" y="280" width="160" height="62" rx="9" fill="#eaf2f8" stroke="#547a99"/><text x="250.0" y="305" text-anchor="middle">app-exp</text><text class="hint" x="250.0" y="327" text-anchor="middle"></text><rect x="60" y="420" width="140" height="62" rx="9" fill="#fff2dc" stroke="#b07822"/><text x="130.0" y="445" text-anchor="middle">var-exp</text><text class="hint" x="130.0" y="467" text-anchor="middle">var = a</text><rect x="300" y="420" width="140" height="62" rx="9" fill="#fff2dc" stroke="#b07822"/><text x="370.0" y="445" text-anchor="middle">var-exp</text><text class="hint" x="370.0" y="467" text-anchor="middle">var = b</text></svg></div><figcaption>第一题：根是应用。操作符是绑定 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math> 的 <code>lambda</code>，<code>body</code> 为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math> 对 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="b" display="inline"><mi>b</mi></math> 的应用；根的操作数是变量 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="c" display="inline"><mi>c</mi></math>。</figcaption></figure><figure id="ast-2"><div class="diagram-scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 690" role="img" aria-labelledby="ast-2-title ast-2-desc" class="eopl-diagram"><title id="ast-2-title">习题 2.27 抽象语法树 2</title><desc id="ast-2-desc">第二题：最外层绑定 x，中间绑定 y，应用的操作符又绑定一个新 x。各变量叶子独立保留；内外标注是伴读对绑定归属的说明。</desc><defs><marker id="ast-2-arrow" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><path d="M0 0 L9 3.5 L0 7 Z" fill="#506679"/></marker></defs><path d="M370 77 L370 120" fill="none" stroke="#506679" marker-end="url(#ast-2-arrow)"/><text class="hint" x="378.0" y="92.5">body</text><path d="M370 182 L370 225" fill="none" stroke="#506679" marker-end="url(#ast-2-arrow)"/><text class="hint" x="378.0" y="197.5">body</text><path d="M370 287 L190 350" fill="none" stroke="#506679" marker-end="url(#ast-2-arrow)"/><text class="hint" x="288.0" y="312.5">rator</text><path d="M370 287 L570 350" fill="none" stroke="#506679" marker-end="url(#ast-2-arrow)"/><text class="hint" x="478.0" y="312.5">rand</text><path d="M190 412 L190 475" fill="none" stroke="#506679" marker-end="url(#ast-2-arrow)"/><text class="hint" x="198.0" y="437.5">body</text><path d="M190 537 L95 600" fill="none" stroke="#506679" marker-end="url(#ast-2-arrow)"/><text class="hint" x="150.5" y="562.5">rator</text><path d="M190 537 L330 600" fill="none" stroke="#506679" marker-end="url(#ast-2-arrow)"/><text class="hint" x="268.0" y="562.5">rand</text><rect x="280" y="15" width="180" height="62" rx="9" fill="#eaf2f8" stroke="#547a99"/><text x="370.0" y="40" text-anchor="middle">lambda-exp</text><text class="hint" x="370.0" y="62" text-anchor="middle">bound-var = x（外）</text><rect x="280" y="120" width="180" height="62" rx="9" fill="#eaf2f8" stroke="#547a99"/><text x="370.0" y="145" text-anchor="middle">lambda-exp</text><text class="hint" x="370.0" y="167" text-anchor="middle">bound-var = y</text><rect x="280" y="225" width="180" height="62" rx="9" fill="#eaf2f8" stroke="#547a99"/><text x="370.0" y="250" text-anchor="middle">app-exp</text><text class="hint" x="370.0" y="272" text-anchor="middle"></text><rect x="100" y="350" width="180" height="62" rx="9" fill="#eaf2f8" stroke="#547a99"/><text x="190.0" y="375" text-anchor="middle">lambda-exp</text><text class="hint" x="190.0" y="397" text-anchor="middle">bound-var = x（内）</text><rect x="500" y="350" width="140" height="62" rx="9" fill="#fff2dc" stroke="#b07822"/><text x="570.0" y="375" text-anchor="middle">var-exp</text><text class="hint" x="570.0" y="397" text-anchor="middle">var = x（外）</text><rect x="110" y="475" width="160" height="62" rx="9" fill="#eaf2f8" stroke="#547a99"/><text x="190.0" y="500" text-anchor="middle">app-exp</text><text class="hint" x="190.0" y="522" text-anchor="middle"></text><rect x="25" y="600" width="140" height="62" rx="9" fill="#fff2dc" stroke="#b07822"/><text x="95.0" y="625" text-anchor="middle">var-exp</text><text class="hint" x="95.0" y="647" text-anchor="middle">var = x（内）</text><rect x="260" y="600" width="140" height="62" rx="9" fill="#fff2dc" stroke="#b07822"/><text x="330.0" y="625" text-anchor="middle">var-exp</text><text class="hint" x="330.0" y="647" text-anchor="middle">var = y</text></svg></div><figcaption>第二题：最外层绑定 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math>，中间绑定 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="y" display="inline"><mi>y</mi></math>，应用的操作符又绑定一个新 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math>。各变量叶子独立保留；内外标注是伴读对绑定归属的说明。</figcaption></figure>
+<p>第二棵树最内层 <code>lambda</code> 重新绑定 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math>：其 <code>body</code> 中的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 属于内层绑定；该 <code>lambda</code> 作为操作符之后，外侧那个操作数 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 属于最外层 <code>lambda</code>。<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="y" display="inline"><mi>y</mi></math> 则由中间的 <code>lambda</code> 绑定。语法树本身保存结构和名字；这些绑定关系是沿结构分析得到的，图中不把两个同名 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 合并成一个节点。</p><!-- EOPL:snippet chapter02.rkt ex-2-27 -->
+<details class="code-details" open><summary>查看实现 · ex-2-27</summary><pre><code class="language-scheme">(define ast-example-1 (parse-expression &#x27;((lambda (a) (a b)) c)))
+(define ast-example-2 (parse-expression &#x27;(lambda (x) (lambda (y) ((lambda (x) (x y)) x)))))
+</code></pre></details>
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-28"><summary>习题 2.28 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.54 / PDF 77</p><pre class="original-source" lang="en">Exercise 2.28 [★] Write an unparser that converts the abstract syntax of an lc-exp into
+a string that matches the second grammar in this section (page 52).</pre><div id="source-context-alternate-grammar"><p class="source">题目引用的原书程序/文法：p.51 / PDF 74。保留原逻辑供比较，解答实现列在下方。</p><pre><code class="language-scheme">Lc-exp ::= Identifier
+       ::= proc Identifier =&gt; Lc-exp
+       ::= Lc-exp(Lc-exp)</code></pre></div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>变量转换为符号对应的字符串；<code>lambda</code> 输出 <code>proc 变量 =&gt; 过程体</code>；应用输出“操作符字符串(操作数字符串)”。三种分支逐个对应原书另一套文法。原书题目所说的 p.52 应回看 p.51 / PDF 74 的第二套文法。</p>
+<p>例如 <code>(lambda (x) (f (f x)))</code> 输出 <code>proc x =&gt; f(f(x))</code>。不过那套文法本身有歧义：<code>((lambda (x) x) y)</code> 和 <code>(lambda (x) (x y))</code> 都可生成 <code>proc x =&gt; x(y)</code>。所以这里只保证输出字符串符合文法，不声称能由字符串唯一还原 AST。若额外加入分组括号与优先级规则，应明确那是在扩充文法；本答案保持题目原文法。</p><!-- EOPL:snippet chapter02.rkt ex-2-28 -->
+<details class="code-details" open><summary>查看实现 · ex-2-28</summary><pre><code class="language-scheme">;; Exactly the alternate grammar&#x27;s strings; grammar is ambiguous for lambda
+;; operators, so this is not claimed to have a unique parse inverse.
+(define (unparse/string exp)
+  (cases lc-exp exp
+    (var-exp (v) (symbol-&gt;string v))
+    (lambda-exp (v b) (string-append &quot;proc &quot; (symbol-&gt;string v) &quot; =&gt; &quot; (unparse/string b)))
+    (app-exp (f x) (string-append (unparse/string f) &quot;(&quot; (unparse/string x) &quot;)&quot;))))
+</code></pre></details>
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-29"><summary>习题 2.29 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.54 / PDF 77</p><pre class="original-source" lang="en">Exercise 2.29 [★] Where a Kleene star or plus (page 7) is used in concrete syntax, it
+is most convenient to use a list of associated subtrees when constructing an abstract
+syntax tree. For example, if the grammar for lambda-calculus expressions had been
+
+                 Lc-exp ::= Identifier
+                             var-exp (var)
+
+                        ::= (lambda ({Identifier}∗ ) Lc-exp)
+                            lambda-exp (bound-vars body)
+
+                        ::= (Lc-exp {Lc-exp}∗ )
+                            app-exp (rator rands)
+
+
+then the predicate for the bound-vars field could be (list-of identifier?),
+and the predicate for the rands field could be (list-of lc-exp?). Write a
+define-datatype and a parser for this grammar that works in this way.</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>把单个 <code>bound-var</code> 改成变量列表，把单个 <code>rand</code> 改成表达式列表；相应字段谓词用 <code>list-of</code> <code>identifier?</code> 与 <code>list-of</code> <code>multi-exp?</code>。解析 <code>lambda</code> 时检查长度为 3，第二项是合法标识符列表，再解析 <code>body</code>；解析应用时，<code>car</code> 是操作符，<code>cdr</code> 经 <code>map</code> 变为操作数列表。</p>
+<p>星号允许零项，所以 <code>(lambda () x)</code> 与 <code>(f)</code> 都是这个文法的合法语法；空表本身缺少操作符，仍非法。重复形参也没有被这份文法禁止，解析器保留它们，实际绑定语义须在定义语言时再决定。不要把自己偏好的函数调用规则偷偷添加成原题语法限制。</p><!-- EOPL:snippet chapter02.rkt ex-2-29 -->
+<details class="code-details" open><summary>查看实现 · ex-2-29</summary><pre><code class="language-scheme">(define-datatype multi-exp multi-exp?
+  (m-var (v identifier?))
+  (m-lambda (vars (list-of identifier?)) (body multi-exp?))
+  (m-app (rator multi-exp?) (rands (list-of multi-exp?))))
+(define (parse-multi d)
+  (define (bad) (error &#x27;parse-multi &quot;invalid syntax: ~s&quot; d))
+  (cond [(identifier? d) (m-var d)]
+        [(not (and (list? d) (pair? d))) (bad)]
+        [(eqv? (car d) &#x27;lambda)
+         (if (and (= (length d) 3) ((list-of identifier?) (cadr d)))
+             (m-lambda (cadr d) (parse-multi (caddr d))) (bad))]
+        [else (m-app (parse-multi (car d)) (map parse-multi (cdr d)))]))
+(define (unparse-multi exp)
+  (cases multi-exp exp
+    (m-var (v) v)
+    (m-lambda (vs b) (list &#x27;lambda vs (unparse-multi b)))
+    (m-app (f xs) (cons (unparse-multi f) (map unparse-multi xs)))))
+</code></pre></details>
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-30"><summary>习题 2.30 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.54 / PDF 77</p><pre class="original-source" lang="en">Exercise 2.30 [★★] The procedure parse-expression as defined above is fragile:
+it does not detect several possible syntactic errors, such as (a b c), and aborts with
+inappropriate error messages for other expressions, such as (lambda). Modify it so
+that it is robust, accepting any s-exp and issuing an appropriate error message if the
+s-exp does not represent a lambda-calculus expression.</pre><div id="source-context-parse-expression"><p class="source">题目引用的原书程序/文法：p.53 / PDF 76。保留原逻辑供比较，解答实现列在下方。</p><pre><code class="language-scheme">(define parse-expression
+  (lambda (datum)
+     (cond
+        ((symbol? datum) (var-exp datum))
+        ((pair? datum)
+         (if (eqv? (car datum) &#x27;lambda)
+           (lambda-exp
+              (car (cadr datum))
+              (parse-expression (caddr datum)))
+           (app-exp
+              (parse-expression (car datum))
+              (parse-expression (cadr datum)))))
+        (else (report-invalid-concrete-syntax datum)))))</code></pre></div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>先判断合法标识符；其余输入必须是非空 proper <code>list</code>，才能安全使用 <code>length</code>、<code>car</code>、<code>cadr</code>。若表头为 <code>lambda</code>，要求总长度恰好 3、形参表恰好含一个合法标识符；否则要求应用总长度恰好 2。每个子表达式继续同样检查。</p>
+<p>这样 <code>(a b c)</code> 不会被默默丢掉第三项，<code>(lambda)</code> 不会在 <code>cadr</code> 中产生无关错误，<code>(x . y)</code> 也会在访问列表长度前被拒绝。错误消息包含当前非法 datum；对于嵌套错误，它指向失败的子表达式。宿主 reader 把文本读成 <code>S-expression</code> 是更早的一步，本解析器的输入已经是值，不执行 <code>eval</code>。</p><!-- EOPL:snippet chapter02.rkt ex-2-30 -->
+<details class="code-details" open><summary>查看实现 · ex-2-30</summary><pre><code class="language-scheme">;; Any Scheme value -&gt; LcExp or a syntax error with the offending datum.
+(define (parse-expression datum)
+  (define (bad) (error &#x27;parse-expression &quot;invalid lambda-calculus syntax: ~s&quot; datum))
+  (cond [(identifier? datum) (var-exp datum)]
+        [(not (and (list? datum) (pair? datum))) (bad)]
+        [(eqv? (car datum) &#x27;lambda)
+         (if (and (= (length datum) 3) (list? (cadr datum))
+                  (= (length (cadr datum)) 1) (identifier? (caadr datum)))
+             (lambda-exp (caadr datum) (parse-expression (caddr datum))) (bad))]
+        [(= (length datum) 2)
+         (app-exp (parse-expression (car datum)) (parse-expression (cadr datum)))]
+        [else (bad)]))
+(define (unparse-expression exp)
+  (cases lc-exp exp
+    (var-exp (v) v)
+    (lambda-exp (v b) (list &#x27;lambda (list v) (unparse-expression b)))
+    (app-exp (f x) (list (unparse-expression f) (unparse-expression x)))))
+</code></pre></details>
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-31"><summary>习题 2.31 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.55 / PDF 78</p><pre class="original-source" lang="en">Exercise 2.31 [★★] Sometimes it is useful to specify a concrete syntax as a sequence
+of symbols and integers, surrounded by parentheses. For example, one might define
+the set of prefix lists by
+
+ Prefix-list ::= (Prefix-exp)
+ Prefix-exp ::= Int
+            ::= - Prefix-exp Prefix-exp
+
+so that (- - 3 2 - 4 - 12 7) is a legal prefix list. This is sometimes called Polish
+prefix notation, after its inventor, Jan Łukasiewicz. Write a parser to convert a prefixlist to the abstract syntax
+
+  (define-datatype prefix-exp prefix-exp?
+    (const-exp
+      (num integer?))
+    (diff-exp
+      (operand1 prefix-exp?)
+      (operand2 prefix-exp?)))
+
+so that the example above produces the same abstract syntax tree as the sequence of
+constructors
+
+  (diff-exp
+    (diff-exp
+      (const-exp 3)
+      (const-exp 2))
+    (diff-exp
+      (const-exp 4)
+      (diff-exp
+        (const-exp 12)
+        (const-exp 7))))
+
+As a hint, consider writing a procedure that takes a list and produces a prefix-exp
+and the list of leftover list elements.</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>辅助过程解析“恰好一个表达式”，同时返回尚未消费的 token。遇整数，构造 <code>const-exp</code> 并返回 <code>cdr</code>；遇减号，先从余下输入解析左操作数，再把左侧留下的 rest1 交给右侧，最后返回 <code>diff-exp</code> 与 rest2。读到结尾却仍期待表达式时报告截断错误。</p>
+<p>原例先消费 <code>- 3 2</code> 形成左树，再消费 <code>- 4 - 12 7</code> 形成右树，最终没有剩余项。其值是 (3−2)−(4−(12−7)) = 1−(−1) = 2。顶层包装器检查剩余列表为空，因此 <code>(3 4)</code> 会因多余 token 而失败，不能仅返回第一个常量。</p>
+<p>每个 token 被读一次；用返回剩余尾部的方式避免反复截取/计算整个列表长度。源码还提供按 AST 回写 token 的过程，独立核对解析后的形状与先后顺序。</p><!-- EOPL:snippet chapter02.rkt ex-2-31 -->
+<details class="code-details" open><summary>查看实现 · ex-2-31</summary><pre><code class="language-scheme">(define-datatype prefix-exp prefix-exp?
+  (const-exp (num integer?))
+  (diff-exp (operand1 prefix-exp?) (operand2 prefix-exp?)))
+;; Returns the parsed tree AND tokens not consumed by that tree.
+(define (parse-prefix-part tokens)
+  (cond [(null? tokens) (error &#x27;parse-prefix &quot;unexpected end&quot;)]
+        [(integer? (car tokens)) (values (const-exp (car tokens)) (cdr tokens))]
+        [(eqv? (car tokens) &#x27;-)
+         (let*-values ([(left rest1) (parse-prefix-part (cdr tokens))]
+                       [(right rest2) (parse-prefix-part rest1)])
+           (values (diff-exp left right) rest2))]
+        [else (error &#x27;parse-prefix &quot;invalid token: ~s&quot; (car tokens))]))
+(define (parse-prefix tokens)
+  (unless (list? tokens) (error &#x27;parse-prefix &quot;proper token list required&quot;))
+  (let-values ([(exp rest) (parse-prefix-part tokens)])
+    (unless (null? rest) (error &#x27;parse-prefix &quot;unused tokens: ~s&quot; rest)) exp))
+(define (prefix-value exp)
+  (cases prefix-exp exp
+    (const-exp (n) n)
+    (diff-exp (l r) (- (prefix-value l) (prefix-value r)))))
+(define (prefix-&gt;tokens exp)
+  (define (walk e tail)
+    (cases prefix-exp e
+      (const-exp (n) (cons n tail))
+      (diff-exp (l r) (cons &#x27;- (walk l (walk r tail))))))
+  (walk exp &#x27;()))
+</code></pre></details>
+<!-- EOPL:end-snippet --></div></details></section><section id="programs"><h2>运行本章程序</h2><p>本章完整示例使用 Racket 8.17 执行。第 2 章通过 eopl 库提供书中的 <code>define-datatype</code> 与 cases，回归使用 rackunit；它们不是本页自行模拟的宏。下载两章源文件及测试文件，放在同一目录，然后在安装了这些库的 Racket 中执行：</p><pre><code>racket chapter02.rkt
+racket test_chapters.rkt</code></pre><p><a href="../code/chapter01.rkt" download>第 1 章完整程序</a> · <a href="../code/chapter02.rkt" download>第 2 章完整程序</a> · <a href="../code/test_chapters.rkt" download>两章回归程序</a> · <a href="../code/benchmark_bigits.rkt" download>bigits 计时程序</a></p><p>运行本章主程序得到：</p><pre><code>(2 0 1)
+((lambda (a) (a b)) c)
+2
+(13 (12 () (99 () ())) ())</code></pre><p>回归另外比较独立的宿主列表运算、不同环境/AST 表示、错误输入与解析回写；样本运行验证具体行为，一般正确性仍由各题的归纳论证和契约说明承担。前面的局部代码块来自以下完整文件，某题调用的共享辅助过程也包含在内。</p><details class="code-details" id="complete-program"><summary>展开本章完整可运行源码</summary><!-- EOPL:program chapter02.rkt --><pre><code id="chapter02-code" class="language-scheme">#lang racket/base
+;; EOPL 3e chapter 2. Racket hosts the Scheme examples; eopl supplies
+;; define-datatype and cases. No evaluation of reader-provided code.
+(require (only-in eopl define-datatype cases))
+(provide (all-defined-out))
+
+;; BEGIN ex-2-1
+(struct number-api (zero zero? succ pred encode decode) #:transparent)
+;; Canonical little-endian base-N digits; zero is (). N &gt;= 2.
+(define (make-bigits base)
+  (unless (and (exact-integer? base) (&gt;= base 2)) (error &#x27;make-bigits &quot;base &gt;= 2 required&quot;))
+  (define (successor ds)
+    (cond [(null? ds) &#x27;(1)]
+          [(= (car ds) (- base 1)) (cons 0 (successor (cdr ds)))]
+          [else (cons (+ 1 (car ds)) (cdr ds))]))
+  (define (predecessor ds)
+    (cond [(null? ds) (error &#x27;predecessor &quot;zero is outside the contract&quot;)]
+          [(zero? (car ds)) (cons (- base 1) (predecessor (cdr ds)))]
+          [(and (= (car ds) 1) (null? (cdr ds))) &#x27;()]
+          [else (cons (- (car ds) 1) (cdr ds))]))
+  (define (encode n)
+    (if (zero? n) &#x27;() (cons (remainder n base) (encode (quotient n base)))))
+  (define (decode ds)
+    (if (null? ds) 0 (+ (car ds) (* base (decode (cdr ds))))))
+  (number-api (lambda () &#x27;()) null? successor predecessor encode decode))
+;; Clients use only the four abstract operations. The loops are tail calls.
+(define (nat-plus a x y)
+  (if ((number-api-zero? a) x) y
+      (nat-plus a ((number-api-pred a) x) ((number-api-succ a) y))))
+(define (nat-times a x y)
+  (let loop ([k x] [acc ((number-api-zero a))])
+    (if ((number-api-zero? a) k) acc
+        (loop ((number-api-pred a) k) (nat-plus a y acc)))))
+(define (nat-factorial a n)
+  (let loop ([k n] [acc ((number-api-succ a) ((number-api-zero a)))])
+    (if ((number-api-zero? a) k) acc
+        (loop ((number-api-pred a) k) (nat-times a k acc)))))
+;; END ex-2-1
+
+;; BEGIN ex-2-2
+(define unary-api
+  (number-api (lambda () &#x27;()) null? (lambda (xs) (cons #t xs)) cdr
+              (lambda (n) (make-list/true n)) length))
+(define (make-list/true n)
+  (if (= n 0) &#x27;() (cons #t (make-list/true (- n 1)))))
+(define native-api (number-api (lambda () 0) zero? add1 sub1 values values))
+;; END ex-2-2
+
+;; BEGIN ex-2-3
+;; DiffTree = (one) | (diff DiffTree DiffTree); may represent any integer.
+(define (dt-zero) &#x27;(diff (one) (one)))
+(define (dt-value t)
+  (if (eqv? (car t) &#x27;one) 1 (- (dt-value (cadr t)) (dt-value (caddr t)))))
+(define (dt-zero? t) (zero? (dt-value t)))
+(define (dt-succ t) (list &#x27;diff t (list &#x27;diff (dt-zero) &#x27;(one))))
+(define (dt-pred t) (list &#x27;diff t &#x27;(one)))
+(define (diff-tree-plus a b) (list &#x27;diff a (list &#x27;diff (dt-zero) b)))
+;; END ex-2-3
+
+;; BEGIN ex-2-4
+;; Stack equations: top(push(v,s))=v; pop(push(v,s))=s;
+;; empty?(empty)=#t; empty?(push(v,s))=#f. Empty top/pop are errors here.
+(define (empty-stack) &#x27;())
+(define (push v s) (cons v s))
+(define (empty-stack? s) (null? s))
+(define (top s) (if (null? s) (error &#x27;top &quot;empty stack&quot;) (car s)))
+(define (pop s) (if (null? s) (error &#x27;pop &quot;empty stack&quot;) (cdr s)))
+;; END ex-2-4
+
+;; BEGIN ex-2-5
+(struct env-api (empty extend lookup empty? has? extend*) #:transparent)
+(define (missing who v) (error who &quot;no binding for ~s&quot; v))
+(define (alist-empty) &#x27;())
+(define (alist-extend v val env) (cons (cons v val) env))
+(define (alist-lookup env v)
+  (cond [(null? env) (missing &#x27;apply-env v)]
+        [(eqv? (caar env) v) (cdar env)]
+        [else (alist-lookup (cdr env) v)]))
+;; END ex-2-5
+
+;; BEGIN ex-2-8
+(define (alist-empty? env) (null? env))
+;; END ex-2-8
+
+;; BEGIN ex-2-9
+(define (alist-has? env v)
+  (and (pair? env) (or (eqv? (caar env) v) (alist-has? (cdr env) v))))
+;; END ex-2-9
+
+;; BEGIN ex-2-10
+;; Lists must have equal lengths. Leftmost duplicate wins (explicit extension
+;; to the book&#x27;s equations, which are ambiguous for conflicting duplicates).
+(define (extend-many extend vars vals env)
+  (cond [(and (null? vars) (null? vals)) env]
+        [(or (null? vars) (null? vals)) (error &#x27;extend-env* &quot;unequal lengths&quot;)]
+        [else (extend (car vars) (car vals)
+                      (extend-many extend (cdr vars) (cdr vals) env))]))
+(define (alist-extend* vs vals e) (extend-many alist-extend vs vals e))
+(define alist-api
+  (env-api alist-empty alist-extend alist-lookup alist-empty? alist-has? alist-extend*))
+;; END ex-2-10
+
+;; BEGIN ex-2-6
+;; Three additional persistent representations; all keep #f as a legal value.
+;; Parallel variable/value lists.
+(define (parallel-empty) (list &#x27;() &#x27;()))
+(define (parallel-extend v x e) (list (cons v (car e)) (cons x (cadr e))))
+(define (parallel-find e v found absent)
+  (let loop ([vs (car e)] [xs (cadr e)])
+    (cond [(null? vs) (absent)] [(eqv? v (car vs)) (found (car xs))]
+          [else (loop (cdr vs) (cdr xs))])))
+(define parallel-api
+  (env-api parallel-empty parallel-extend
+           (lambda (e v) (parallel-find e v values (lambda () (missing &#x27;parallel v))))
+           (lambda (e) (null? (car e)))
+           (lambda (e v) (parallel-find e v (lambda (_) #t) (lambda () #f)))
+           (lambda (vs xs e) (extend-many parallel-extend vs xs e))))
+;; Flat alternating sequence: (var value var value ...).
+(define (flat-extend v x e) (cons v (cons x e)))
+(define (flat-find e v found absent)
+  (cond [(null? e) (absent)] [(eqv? v (car e)) (found (cadr e))]
+        [else (flat-find (cddr e) v found absent)]))
+(define flat-api
+  (env-api (lambda () &#x27;()) flat-extend
+           (lambda (e v) (flat-find e v values (lambda () (missing &#x27;flat v)))) null?
+           (lambda (e v) (flat-find e v (lambda (_) #t) (lambda () #f)))
+           (lambda (vs xs e) (extend-many flat-extend vs xs e))))
+;; Immutable hash table: old environments retain their bindings.
+(define (hash-extend v x e) (hash-set e v x))
+(define hash-api
+  (env-api hasheqv hash-extend
+           (lambda (e v) (hash-ref e v (lambda () (missing &#x27;hash v))))
+           hash-empty? hash-has-key?
+           (lambda (vs xs e) (extend-many hash-extend vs xs e))))
+;; END ex-2-6
+
+;; BEGIN ex-2-7
+;; Figure 2.1&#x27;s tagged representation, with full original environment context.
+(define (tag-empty) &#x27;(empty-env))
+(define (tag-extend v x e) (list &#x27;extend-env v x e))
+(define (tag-lookup env v)
+  (define (walk e searched)
+    (cond [(equal? e &#x27;(empty-env))
+           (error &#x27;apply-env &quot;no binding for ~s; searched ~s; original environment ~s&quot;
+                  v (reverse searched) env)]
+          [(and (list? e) (= (length e) 4) (eqv? (car e) &#x27;extend-env))
+           (if (eqv? v (cadr e)) (caddr e)
+               (walk (cadddr e) (cons (cadr e) searched)))]
+          [else (error &#x27;apply-env &quot;invalid frame ~s in original environment ~s&quot; e env)]))
+  (walk env &#x27;()))
+;; END ex-2-7
+
+;; BEGIN ex-2-11
+;; Rib = (variable-list . value-list). Proper lists of equal lengths are
+;; a PRECONDITION: checking lengths here would break O(1) construction.
+(define (rib-empty) &#x27;())
+(define (rib-extend* vs xs e) (cons (cons vs xs) e))
+(define (rib-extend v x e) (rib-extend* (list v) (list x) e))
+(define (rib-find e v found absent)
+  (if (null? e) (absent)
+      (let search ([vs (caar e)] [xs (cdar e)])
+        (cond [(null? vs) (rib-find (cdr e) v found absent)]
+              [(eqv? v (car vs)) (found (car xs))]
+              [else (search (cdr vs) (cdr xs))]))))
+(define rib-api
+  (env-api rib-empty rib-extend
+           (lambda (e v) (rib-find e v values (lambda () (missing &#x27;rib v))))
+           (lambda (e) (or (null? e) (and (null? (caar e)) ((env-api-empty? rib-api) (cdr e)))))
+           (lambda (e v) (rib-find e v (lambda (_) #t) (lambda () #f))) rib-extend*))
+;; END ex-2-11
+
+;; BEGIN ex-2-12
+;; A stack is a procedure responding to the three observers.
+(define (proc-empty-stack)
+  (lambda (message)
+    (case message [(empty?) #t] [(top pop) (error message &quot;empty stack&quot;)]
+      [else (error &#x27;stack &quot;unknown message&quot;)])) )
+(define (proc-push v saved)
+  (lambda (message)
+    (case message [(empty?) #f] [(top) v] [(pop) saved]
+      [else (error &#x27;stack &quot;unknown message&quot;)])))
+(define (proc-top s) (s &#x27;top))
+(define (proc-pop s) (s &#x27;pop))
+(define (proc-empty-stack? s) (s &#x27;empty?))
+;; END ex-2-12
+
+;; BEGIN ex-2-13
+;; Two procedures: lookup and empty?.
+(define (env2-empty) (list (lambda (v) (missing &#x27;env2 v)) (lambda () #t)))
+(define (env2-extend v x e)
+  (list (lambda (w) (if (eqv? v w) x ((car e) w))) (lambda () #f)))
+(define (env2-lookup e v) ((car e) v))
+(define (env2-empty? e) ((cadr e)))
+;; END ex-2-13
+
+;; BEGIN ex-2-14
+;; Third procedure answers membership; it does not infer membership from value.
+(define (env3-empty)
+  (list (lambda (v) (missing &#x27;env3 v)) (lambda () #t) (lambda (v) #f)))
+(define (env3-extend v x e)
+  (list (lambda (w) (if (eqv? v w) x ((car e) w)))
+        (lambda () #f) (lambda (w) (or (eqv? v w) ((caddr e) w)))))
+(define env3-api
+  (env-api env3-empty env3-extend (lambda (e v) ((car e) v))
+           (lambda (e) ((cadr e))) (lambda (e v) ((caddr e) v))
+           (lambda (vs xs e) (extend-many env3-extend vs xs e))))
+;; END ex-2-14
+
+;; BEGIN lc-client
+(struct lc-api (var lam app var? lam? app? name bound body rator rand) #:transparent)
+;; The same client works with every representation below.
+(define (free?/api a v e)
+  (cond [((lc-api-var? a) e) (eqv? v ((lc-api-name a) e))]
+        [((lc-api-lam? a) e) (and (not (eqv? v ((lc-api-bound a) e)))
+                                 (free?/api a v ((lc-api-body a) e)))]
+        [else (or (free?/api a v ((lc-api-rator a) e))
+                  (free?/api a v ((lc-api-rand a) e)))]))
+;; END lc-client
+
+;; BEGIN ex-2-15
+(define (list-lam? e) (and (pair? e) (eqv? (car e) &#x27;lambda)))
+(define (list-app? e) (and (pair? e) (not (list-lam? e))))
+(define list-lc-api
+  (lc-api values (lambda (v b) (list &#x27;lambda (list v) b)) list
+          symbol? list-lam? list-app? values caadr caddr car cadr))
+;; END ex-2-15
+
+;; BEGIN ex-2-16
+(define flat-lc-api
+  (lc-api values (lambda (v b) (list &#x27;lambda v b)) list
+          symbol? list-lam? list-app? values cadr caddr car cadr))
+;; END ex-2-16
+
+;; BEGIN ex-2-17
+(define vector-lc-api
+  (lc-api (lambda (v) (vector &#x27;var v)) (lambda (v b) (vector &#x27;lam v b))
+          (lambda (f x) (vector &#x27;app f x))
+          (lambda (e) (eqv? (vector-ref e 0) &#x27;var))
+          (lambda (e) (eqv? (vector-ref e 0) &#x27;lam))
+          (lambda (e) (eqv? (vector-ref e 0) &#x27;app))
+          (lambda (e) (vector-ref e 1)) (lambda (e) (vector-ref e 1))
+          (lambda (e) (vector-ref e 2)) (lambda (e) (vector-ref e 1))
+          (lambda (e) (vector-ref e 2))))
+(define (dispatch-node tag first [second #f])
+  (lambda (msg) (case msg [(tag) tag] [(first) first] [(second) second]
+                 [else (error &#x27;node &quot;unknown observer&quot;)])) )
+(define procedure-lc-api
+  (lc-api (lambda (v) (dispatch-node &#x27;var v))
+          (lambda (v b) (dispatch-node &#x27;lam v b)) (lambda (f x) (dispatch-node &#x27;app f x))
+          (lambda (e) (eqv? (e &#x27;tag) &#x27;var)) (lambda (e) (eqv? (e &#x27;tag) &#x27;lam))
+          (lambda (e) (eqv? (e &#x27;tag) &#x27;app))
+          (lambda (e) (e &#x27;first)) (lambda (e) (e &#x27;first)) (lambda (e) (e &#x27;second))
+          (lambda (e) (e &#x27;first)) (lambda (e) (e &#x27;second))))
+;; END ex-2-17
+
+;; BEGIN ex-2-18
+;; Nonempty sequence zipper: (current reversed-left right).
+(define (number-&gt;sequence n) (list n &#x27;() &#x27;()))
+(define (seq-current s) (car s))
+(define (at-left-end? s) (null? (cadr s)))
+(define (at-right-end? s) (null? (caddr s)))
+(define (seq-left s)
+  (if (at-left-end? s) (error &#x27;move-to-left &quot;left end&quot;)
+      (list (caadr s) (cdadr s) (cons (car s) (caddr s)))))
+(define (seq-right s)
+  (if (at-right-end? s) (error &#x27;move-to-right &quot;right end&quot;)
+      (list (caaddr s) (cons (car s) (cadr s)) (cdaddr s))))
+(define (seq-insert-left n s) (list (car s) (cons n (cadr s)) (caddr s)))
+(define (seq-insert-right n s) (list (car s) (cadr s) (cons n (caddr s))))
+;; END ex-2-18
+
+;; BEGIN ex-2-19
+;; Unlike chapter 1: integer interior nodes and empty leaves.
+(define (number-&gt;bintree n) (list n &#x27;() &#x27;()))
+(define at-leaf? null?)
+(define (require-node t who) (when (at-leaf? t) (error who &quot;empty leaf&quot;)))
+(define (current-element t) (require-node t &#x27;current-element) (car t))
+(define (move-to-left-son t) (require-node t &#x27;move-to-left-son) (cadr t))
+(define (move-to-right-son t) (require-node t &#x27;move-to-right-son) (caddr t))
+(define move-to-left move-to-left-son) ; names used in the book&#x27;s examples
+(define move-to-right move-to-right-son)
+(define (insert-to-left n t)
+  (require-node t &#x27;insert-to-left)
+  (list (car t) (list n (cadr t) &#x27;()) (caddr t)))
+(define (insert-to-right n t)
+  (require-node t &#x27;insert-to-right)
+  (list (car t) (cadr t) (list n &#x27;() (caddr t))))
+;; END ex-2-19
+
+;; BEGIN ex-2-20
+;; Tree zipper: (focus breadcrumbs). Each breadcrumb retains parent and sibling.
+(define (zip-number n) (list (number-&gt;bintree n) &#x27;()))
+(define (zip-leaf? z) (null? (car z)))
+(define (at-root? z) (null? (cadr z)))
+(define (zip-current z) (current-element (car z)))
+(define (zip-left z)
+  (define t (car z)) (require-node t &#x27;zip-left)
+  (list (cadr t) (cons (list &#x27;L (car t) (caddr t)) (cadr z))))
+(define (zip-right z)
+  (define t (car z)) (require-node t &#x27;zip-right)
+  (list (caddr t) (cons (list &#x27;R (car t) (cadr t)) (cadr z))))
+(define (move-up z)
+  (when (at-root? z) (error &#x27;move-up &quot;already at root&quot;))
+  (define crumb (caadr z))
+  (list (if (eqv? (car crumb) &#x27;L) (list (cadr crumb) (car z) (caddr crumb))
+            (list (cadr crumb) (caddr crumb) (car z))) (cdadr z)))
+(define (zip-insert-left n z) (list (insert-to-left n (car z)) (cadr z)))
+(define (zip-insert-right n z) (list (insert-to-right n (car z)) (cadr z)))
+;; END ex-2-20
+
+;; BEGIN ex-2-21
+(define (any-value? v) #t)
+(define-datatype environment environment?
+  (empty-env)
+  (extend-env (var symbol?) (val any-value?) (saved environment?)))
+(define (apply-env env v)
+  (cases environment env
+    (empty-env () (missing &#x27;apply-env v))
+    (extend-env (w x old) (if (eqv? v w) x (apply-env old v)))))
+(define (has-binding? env v)
+  (cases environment env
+    (empty-env () #f)
+    (extend-env (w x old) (or (eqv? v w) (has-binding? old v)))))
+(define (empty-env? env) (cases environment env (empty-env () #t) (else #f)))
+(define datatype-env-api
+  (env-api empty-env extend-env apply-env empty-env? has-binding?
+           (lambda (vs xs e) (extend-many extend-env vs xs e))))
+;; END ex-2-21
+
+;; BEGIN ex-2-22
+(define-datatype stack stack?
+  (dt-empty-stack)
+  (dt-push (value any-value?) (saved stack?)))
+(define (dt-empty-stack? s) (cases stack s (dt-empty-stack () #t) (else #f)))
+(define (dt-top s)
+  (cases stack s (dt-empty-stack () (error &#x27;top &quot;empty stack&quot;)) (dt-push (v old) v)))
+(define (dt-pop s)
+  (cases stack s (dt-empty-stack () (error &#x27;pop &quot;empty stack&quot;)) (dt-push (v old) old)))
+;; END ex-2-22
+
+;; BEGIN ex-2-23
+(define (identifier? x) (and (symbol? x) (not (eqv? x &#x27;lambda))))
+(define-datatype lc-exp lc-exp?
+  (var-exp (var identifier?))
+  (lambda-exp (bound-var identifier?) (body lc-exp?))
+  (app-exp (rator lc-exp?) (rand lc-exp?)))
+;; END ex-2-23
+
+;; BEGIN ex-2-24
+(define-datatype bintree bintree?
+  (leaf-node (num integer?))
+  (interior-node (key symbol?) (left bintree?) (right bintree?)))
+(define (bintree-to-list t)
+  (cases bintree t
+    (leaf-node (n) (list &#x27;leaf-node n))
+    (interior-node (k l r) (list &#x27;interior-node k (bintree-to-list l) (bintree-to-list r)))))
+;; END ex-2-24
+
+;; BEGIN ex-2-25
+;; walk returns subtree leaf sum and either #f or (key . best interior sum).
+;; Ties choose current, then left, then right. Negative maxima are valid.
+(define (max-interior t)
+  (define (better a b) (if (and b (&gt; (cdr b) (cdr a))) b a))
+  (define (walk t)
+    (cases bintree t
+      (leaf-node (n) (values n #f))
+      (interior-node (k l r)
+        (let-values ([(ls lb) (walk l)] [(rs rb) (walk r)])
+          (define sum (+ ls rs))
+          (values sum (better (better (cons k sum) lb) rb))))))
+  (let-values ([(sum best) (walk t)])
+    (if best (car best) (error &#x27;max-interior &quot;requires an interior node&quot;))))
+;; END ex-2-25
+
+;; BEGIN ex-2-26
+(define (list-of pred)
+  (lambda (xs) (and (list? xs) (andmap pred xs))))
+(define-datatype red-blue-tree red-blue-tree?
+  (a-red-blue-tree (root red-blue-subtree?)))
+(define-datatype red-blue-subtree red-blue-subtree?
+  (red-node (left red-blue-subtree?) (right red-blue-subtree?))
+  (blue-node (children (list-of red-blue-subtree?)))
+  (rb-leaf (value integer?)))
+(define (mark-red-depth tree)
+  (define (walk t d)
+    (cases red-blue-subtree t
+      (rb-leaf (n) (rb-leaf d))
+      (red-node (l r) (red-node (walk l (+ d 1)) (walk r (+ d 1))))
+      (blue-node (children) (blue-node (map (lambda (c) (walk c d)) children)))))
+  (cases red-blue-tree tree (a-red-blue-tree (root) (a-red-blue-tree (walk root 0)))))
+(define (rb-&gt;list tree)
+  (define (walk t)
+    (cases red-blue-subtree t (rb-leaf (n) n)
+      (red-node (l r) (list &#x27;red (walk l) (walk r)))
+      (blue-node (cs) (cons &#x27;blue (map walk cs)))))
+  (cases red-blue-tree tree (a-red-blue-tree (root) (walk root))))
+;; END ex-2-26
+
+;; BEGIN ex-2-30
+;; Any Scheme value -&gt; LcExp or a syntax error with the offending datum.
+(define (parse-expression datum)
+  (define (bad) (error &#x27;parse-expression &quot;invalid lambda-calculus syntax: ~s&quot; datum))
+  (cond [(identifier? datum) (var-exp datum)]
+        [(not (and (list? datum) (pair? datum))) (bad)]
+        [(eqv? (car datum) &#x27;lambda)
+         (if (and (= (length datum) 3) (list? (cadr datum))
+                  (= (length (cadr datum)) 1) (identifier? (caadr datum)))
+             (lambda-exp (caadr datum) (parse-expression (caddr datum))) (bad))]
+        [(= (length datum) 2)
+         (app-exp (parse-expression (car datum)) (parse-expression (cadr datum)))]
+        [else (bad)]))
+(define (unparse-expression exp)
+  (cases lc-exp exp
+    (var-exp (v) v)
+    (lambda-exp (v b) (list &#x27;lambda (list v) (unparse-expression b)))
+    (app-exp (f x) (list (unparse-expression f) (unparse-expression x)))))
+;; END ex-2-30
+
+;; BEGIN ex-2-27
+(define ast-example-1 (parse-expression &#x27;((lambda (a) (a b)) c)))
+(define ast-example-2 (parse-expression &#x27;(lambda (x) (lambda (y) ((lambda (x) (x y)) x)))))
+;; END ex-2-27
+
+;; BEGIN ex-2-28
+;; Exactly the alternate grammar&#x27;s strings; grammar is ambiguous for lambda
+;; operators, so this is not claimed to have a unique parse inverse.
+(define (unparse/string exp)
+  (cases lc-exp exp
+    (var-exp (v) (symbol-&gt;string v))
+    (lambda-exp (v b) (string-append &quot;proc &quot; (symbol-&gt;string v) &quot; =&gt; &quot; (unparse/string b)))
+    (app-exp (f x) (string-append (unparse/string f) &quot;(&quot; (unparse/string x) &quot;)&quot;))))
+;; END ex-2-28
+
+;; BEGIN ex-2-29
+(define-datatype multi-exp multi-exp?
+  (m-var (v identifier?))
+  (m-lambda (vars (list-of identifier?)) (body multi-exp?))
+  (m-app (rator multi-exp?) (rands (list-of multi-exp?))))
+(define (parse-multi d)
+  (define (bad) (error &#x27;parse-multi &quot;invalid syntax: ~s&quot; d))
+  (cond [(identifier? d) (m-var d)]
+        [(not (and (list? d) (pair? d))) (bad)]
+        [(eqv? (car d) &#x27;lambda)
+         (if (and (= (length d) 3) ((list-of identifier?) (cadr d)))
+             (m-lambda (cadr d) (parse-multi (caddr d))) (bad))]
+        [else (m-app (parse-multi (car d)) (map parse-multi (cdr d)))]))
+(define (unparse-multi exp)
+  (cases multi-exp exp
+    (m-var (v) v)
+    (m-lambda (vs b) (list &#x27;lambda vs (unparse-multi b)))
+    (m-app (f xs) (cons (unparse-multi f) (map unparse-multi xs)))))
+;; END ex-2-29
+
+;; BEGIN ex-2-31
+(define-datatype prefix-exp prefix-exp?
+  (const-exp (num integer?))
+  (diff-exp (operand1 prefix-exp?) (operand2 prefix-exp?)))
+;; Returns the parsed tree AND tokens not consumed by that tree.
+(define (parse-prefix-part tokens)
+  (cond [(null? tokens) (error &#x27;parse-prefix &quot;unexpected end&quot;)]
+        [(integer? (car tokens)) (values (const-exp (car tokens)) (cdr tokens))]
+        [(eqv? (car tokens) &#x27;-)
+         (let*-values ([(left rest1) (parse-prefix-part (cdr tokens))]
+                       [(right rest2) (parse-prefix-part rest1)])
+           (values (diff-exp left right) rest2))]
+        [else (error &#x27;parse-prefix &quot;invalid token: ~s&quot; (car tokens))]))
+(define (parse-prefix tokens)
+  (unless (list? tokens) (error &#x27;parse-prefix &quot;proper token list required&quot;))
+  (let-values ([(exp rest) (parse-prefix-part tokens)])
+    (unless (null? rest) (error &#x27;parse-prefix &quot;unused tokens: ~s&quot; rest)) exp))
+(define (prefix-value exp)
+  (cases prefix-exp exp
+    (const-exp (n) n)
+    (diff-exp (l r) (- (prefix-value l) (prefix-value r)))))
+(define (prefix-&gt;tokens exp)
+  (define (walk e tail)
+    (cases prefix-exp e
+      (const-exp (n) (cons n tail))
+      (diff-exp (l r) (cons &#x27;- (walk l (walk r tail))))))
+  (walk exp &#x27;()))
+;; END ex-2-31
+
+(module+ main
+  (define a (make-bigits 16))
+  (write ((number-api-encode a) 258)) (newline)
+  (write (unparse-expression ast-example-1)) (newline)
+  (write (prefix-value (parse-prefix &#x27;(- - 3 2 - 4 - 12 7)))) (newline)
+  (write (car (move-up (zip-insert-right 99 (zip-left (zip-insert-left 12 (zip-number 13)))))))
+  (newline))
+</code></pre><!-- EOPL:end-program --></details></section><footer><p class="chapter-nav"><a href="chapter01_inductive_data.html">← 第 1 章</a><a href="book_overview.html#chapter-3">回到全书地图 →</a></p><p>EOPL · 第三版伴读。继续阅读时，可从目录回到对应原题与执行示例。</p></footer></main>
+<aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top">本节理解与补充</a></p><div id="annotation-content"></div></aside>
+</div>
+<script>
+(() => {
+  document.documentElement.classList.add('toc-enhanced');
+  const panel = document.getElementById('toc-panel');
+  const nav = document.getElementById('chapter-toc');
+  const wide = matchMedia('(min-width:1100px)');
+  const links = Array.from(nav.querySelectorAll('li a[href^="#"]'));
+  const entries = links.map(link => ({link, section: document.getElementById(link.hash.slice(1))})).filter(item => item.section);
+  let current = null, scheduled = false;
+  const fit = () => { panel.open = wide.matches; };
+  fit();
+  wide.addEventListener('change', fit);
+  const reveal = () => {
+    let target;
+    try { target = document.getElementById(decodeURIComponent(location.hash.slice(1))); } catch { return; }
+    for (let node = target; node; node = node.parentElement) {
+      if (node.tagName === 'DETAILS') node.open = true;
+    }
+  };
+  const mark = () => {
+    scheduled = false;
+    let next = entries[0];
+    for (const entry of entries) {
+      if (entry.section.getBoundingClientRect().top <= (wide.matches ? 100 : 110)) next = entry;
+    }
+    if (window.scrollY + innerHeight >= document.documentElement.scrollHeight - 2) next = entries[entries.length - 1];
+    if (next && next.link !== current) {
+      if (current) current.removeAttribute('aria-current');
+      current = next.link; current.setAttribute('aria-current', 'location');
+    }
+  };
+  const schedule = () => { if (!scheduled) { scheduled = true; requestAnimationFrame(mark); } };
+  nav.addEventListener('click', event => {
+    if (event.target.closest('a[href^="#"]') && !wide.matches) panel.open = false;
+  });
+  addEventListener('scroll', schedule, {passive:true});
+  addEventListener('resize', schedule);
+  addEventListener('hashchange', () => { reveal(); schedule(); });
+  document.addEventListener('toggle', schedule, true);
+  reveal(); mark();
+})();
+</script>
+<script id="reading-notes-controller">
+(() => {
+  const rail = document.getElementById('annotation-rail');
+  const content = document.getElementById('annotation-content');
+  const context = document.getElementById('annotation-context-link');
+  const groups = Array.from(document.querySelectorAll('main .reading-notes')).map(notes => ({
+    notes, section: document.getElementById(notes.dataset.notesFor)
+  })).filter(item => item.section);
+  if (!rail || !content || !context || !groups.length) return;
+  const wide = matchMedia('(min-width:1440px)');
+  let current = null, scheduled = false;
+  const update = () => {
+    scheduled = false;
+    if (!wide.matches) return;
+    let next = groups[0];
+    for (const item of groups) {
+      if (item.section.getBoundingClientRect().top <= 110) next = item;
+    }
+    if (scrollY + innerHeight >= document.documentElement.scrollHeight - 2) next = groups[groups.length - 1];
+    if (current === next) return;
+    const body = next.notes.querySelector('.reading-notes-body');
+    const heading = next.section.querySelector('h2');
+    if (!body || !heading) return;
+    content.replaceChildren(...Array.from(body.children, node => node.cloneNode(true)));
+    context.textContent = heading.textContent;
+    context.href = '#' + next.section.id;
+    rail.dataset.activeSection = next.section.id;
+    rail.scrollTop = 0;
+    current = next;
+  };
+  const schedule = () => {
+    if (!scheduled) { scheduled = true; requestAnimationFrame(update); }
+  };
+  const fit = () => {
+    rail.hidden = !wide.matches;
+    current = null;
+    if (wide.matches) {
+      document.documentElement.classList.add('notes-enhanced');
+      update();
+    } else {
+      document.documentElement.classList.remove('notes-enhanced');
+    }
+  };
+  wide.addEventListener('change', fit);
+  addEventListener('scroll', schedule, {passive:true});
+  addEventListener('resize', schedule);
+  addEventListener('hashchange', schedule);
+  document.addEventListener('toggle', schedule, true);
+  fit();
+})();
+</script>
+<script data-purpose="print-details">
+(() => {
+  let saved=[];
+  addEventListener('beforeprint',()=>{
+    if(saved.length)return;
+    saved=[...document.querySelectorAll('main details')].map(node=>[node,node.open]);
+    saved.forEach(([node])=>{node.open=true;});
+  });
+  addEventListener('afterprint',()=>{
+    saved.forEach(([node,open])=>{node.open=open;});saved=[];
+  });
+})();
+</script>
+</body></html>
