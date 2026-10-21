@@ -1,0 +1,3727 @@
+{
+  "schema_version": 1,
+  "issue": "I052",
+  "status": "passed",
+  "source_manifest_sha256": "37de5257504214fcf80deac235241cce820ee1f6ca88d921547dcd68cd810f0b",
+  "project_check": {
+    "started_at": "2026-10-21T15:33:16.451629+00:00",
+    "recorded_at": "2026-10-21T15:49:13.944027+00:00",
+    "method": "23 full-check entries passed; the final review-binding entry failed on one stale output SHA, then passed unchanged after that single binding was corrected against the already reviewed output. The original failed run is retained; this is not a claim of one all-pass run.",
+    "original_run_status": "failed",
+    "initial_passed": 23,
+    "targeted_rechecked_passed": 1,
+    "full_book_checks": true,
+    "benchmarks_requested": false,
+    "checks": [
+      {
+        "command": [
+          "python3.14",
+          "tools/check_structure.py"
+        ],
+        "exit_code": 0,
+        "log": "tmp/project-check/20261021T233316-1un5sf_s/check-01.log",
+        "log_sha256": "a2548feeb80f4e111acc27579d03d3e28f98b759029f711b30455ab400779263"
+      },
+      {
+        "command": [
+          "python3.14",
+          "tools/test_release_support.py"
+        ],
+        "exit_code": 0,
+        "log": "tmp/project-check/20261021T233316-1un5sf_s/check-02.log",
+        "log_sha256": "37d8a0769d6c800296764c21f8e08feca52d770d400afabe65713604062cf749"
+      },
+      {
+        "command": [
+          "python3.14",
+          "tools/test_reader_views.py"
+        ],
+        "exit_code": 0,
+        "log": "tmp/project-check/20261021T233316-1un5sf_s/check-03.log",
+        "log_sha256": "0b04adf0ce23d52f60e9ff6d81d0c518bccee8861fca37cb3751e882beac2fb9"
+      },
+      {
+        "command": [
+          "python3.14",
+          "tools/test_publish_durability.py"
+        ],
+        "exit_code": 0,
+        "log": "tmp/project-check/20261021T233316-1un5sf_s/check-04.log",
+        "log_sha256": "c1dffb70dba98c39f6d3160dd8d69611f73e43edb30cec9880171bd2fc48adf8"
+      },
+      {
+        "command": [
+          "python3.14",
+          "tools/test_publish_policy.py"
+        ],
+        "exit_code": 0,
+        "log": "tmp/project-check/20261021T233316-1un5sf_s/check-05.log",
+        "log_sha256": "4190e6532da5d52050bd5ea71ff40310f4ffe0846610b4b159650675a5a9c2b2"
+      },
+      {
+        "command": [
+          "python3.14",
+          "tools/test_cache_delivery.py"
+        ],
+        "exit_code": 0,
+        "log": "tmp/project-check/20261021T233316-1un5sf_s/check-06.log",
+        "log_sha256": "99c0da505c93ece9d768e9c59ac20dffb1dd211308116203a59c4e68b4e729eb"
+      },
+      {
+        "command": [
+          "python3.14",
+          "tools/test_http_verification.py"
+        ],
+        "exit_code": 0,
+        "log": "tmp/project-check/20261021T233316-1un5sf_s/check-07.log",
+        "log_sha256": "0fbab6892346ecb604d7f463256faa7c0c5acd591e2541babd57be6da2c08a35"
+      },
+      {
+        "command": [
+          "python3.14",
+          "books/stochastic/tools/check_review_records.py"
+        ],
+        "exit_code": 0,
+        "log": "tmp/project-check/20261021T233316-1un5sf_s/check-08.log",
+        "log_sha256": "427b26b288dd3e551b44e9fefc6fa93201f7e85460ab282cf17b5fab664d6620"
+      },
+      {
+        "command": [
+          "python3.14",
+          "test/test_stochastic_derivations.py"
+        ],
+        "exit_code": 0,
+        "log": "tmp/project-check/20261021T233316-1un5sf_s/check-09.log",
+        "log_sha256": "844be281d55c3c7198fd28dd04a5b42f6dd21df8101313539bc54ac607f4d7fb"
+      },
+      {
+        "command": [
+          "python3.14",
+          "books/stochastic/tools/check_notes.py",
+          "--extract-only",
+          "--run-dir",
+          "tmp/project-check/20261021T233316-1un5sf_s/stochastic-structure"
+        ],
+        "exit_code": 0,
+        "log": "tmp/project-check/20261021T233316-1un5sf_s/check-10.log",
+        "log_sha256": "f65ad0f1839dd57b7df357cfb3d7cf50cc09e507634ae68ff5523e27450c157e"
+      },
+      {
+        "command": [
+          "python3.14",
+          "books/stochastic/tools/check_notes.py",
+          "--run-dir",
+          "tmp/project-check/20261021T233316-1un5sf_s/stochastic"
+        ],
+        "exit_code": 0,
+        "log": "tmp/project-check/20261021T233316-1un5sf_s/check-11.log",
+        "log_sha256": "67d64f92644f4009df7e0882219687a648e7b50f00b83932953f37c25fe568dc"
+      },
+      {
+        "command": [
+          "python3.14",
+          "books/weiss/notes/tools/check_notes.py"
+        ],
+        "exit_code": 0,
+        "log": "tmp/project-check/20261021T233316-1un5sf_s/check-12.log",
+        "log_sha256": "7e0c0079bb941b09c3c4510c5258db770b68dab6d110ae4904b07e51e2ebf594"
+      },
+      {
+        "command": [
+          "make",
+          "-C",
+          "books/weiss/c",
+          "check"
+        ],
+        "exit_code": 0,
+        "log": "tmp/project-check/20261021T233316-1un5sf_s/check-13.log",
+        "log_sha256": "44e8890ba098dc16d512b8c9e400c412c0f0483982c833fcf73868cda3e2ecd3"
+      },
+      {
+        "command": [
+          "python3.14",
+          "books/weiss/notes/tools/check_notes.py",
+          "--verify",
+          "tmp/project-check/20261021T233316-1un5sf_s/weiss"
+        ],
+        "exit_code": 0,
+        "log": "tmp/project-check/20261021T233316-1un5sf_s/check-14.log",
+        "log_sha256": "8cb4c2ed1bee5c019b7f77ef7d07ef6467e8c5da447c7330842040a12b7ab2ac"
+      },
+      {
+        "command": [
+          "python3.14",
+          "books/csapp/tools/check_notes.py",
+          "--run-dir",
+          "tmp/project-check/20261021T233316-1un5sf_s/csapp"
+        ],
+        "exit_code": 0,
+        "log": "tmp/project-check/20261021T233316-1un5sf_s/check-15.log",
+        "log_sha256": "8813effe913bd92e99169709bf056fd6c053ff3abb4b5bd1f831804deceae70e"
+      },
+      {
+        "command": [
+          "python3.14",
+          "test/test_vgt_source_diagram.py"
+        ],
+        "exit_code": 0,
+        "log": "tmp/project-check/20261021T233316-1un5sf_s/check-16.log",
+        "log_sha256": "d1a3bdcaa925bbf92cc120237c5ab1078f911832e5f3bbdd16fd82aab85d59fa"
+      },
+      {
+        "command": [
+          "python3.14",
+          "books/visual-group-theory/tools/check_notes.py",
+          "--run-dir",
+          "tmp/project-check/20261021T233316-1un5sf_s/visual-group-theory"
+        ],
+        "exit_code": 0,
+        "log": "tmp/project-check/20261021T233316-1un5sf_s/check-17.log",
+        "log_sha256": "f6ac1ad4f0b8cc2d3ecdd2130707f1c779b9e795db9398ee1858cbcec794dd6a"
+      },
+      {
+        "command": [
+          "python3.14",
+          "books/measure-probability/tools/check_notes.py",
+          "--run-dir",
+          "tmp/project-check/20261021T233316-1un5sf_s/measure-probability"
+        ],
+        "exit_code": 0,
+        "log": "tmp/project-check/20261021T233316-1un5sf_s/check-18.log",
+        "log_sha256": "f90399761bd3f398e3707bc1fa6a3640aab36cb706bfce8d68d82e3aff4ff9f9"
+      },
+      {
+        "command": [
+          "python3.14",
+          "books/eopl/tools/check_notes.py",
+          "--run-dir",
+          "tmp/project-check/20261021T233316-1un5sf_s/eopl"
+        ],
+        "exit_code": 0,
+        "log": "tmp/project-check/20261021T233316-1un5sf_s/check-19.log",
+        "log_sha256": "7b495f403743b71d3b7fb243c34da08e96d89b2b105571a67cc063fb483f5cb4"
+      },
+      {
+        "command": [
+          "node",
+          "tools/reading-components/check.mjs"
+        ],
+        "exit_code": 0,
+        "log": "tmp/project-check/20261021T233316-1un5sf_s/check-20.log",
+        "log_sha256": "b5476a43652ba1dcd580cf27b0f69136b810647aba4c367d913f9117708caa6f"
+      },
+      {
+        "command": [
+          "node",
+          "tools/reader-contract/check.mjs"
+        ],
+        "exit_code": 0,
+        "log": "tmp/project-check/20261021T233316-1un5sf_s/check-21.log",
+        "log_sha256": "66f0ebe4e7f869a40d9662e339f6b70d4bae56d9069c5e7bcb69430e6518ab5a"
+      },
+      {
+        "command": [
+          "node",
+          "tools/reading-typography/check.mjs"
+        ],
+        "exit_code": 0,
+        "log": "tmp/project-check/20261021T233316-1un5sf_s/check-22.log",
+        "log_sha256": "b32c0af43330deda96781838578d05e6593cd021426e0f2f5638da41a5fbe796"
+      },
+      {
+        "command": [
+          "node",
+          "tools/reading-presentation/check.mjs"
+        ],
+        "exit_code": 0,
+        "log": "tmp/project-check/20261021T233316-1un5sf_s/check-23.log",
+        "log_sha256": "2e1e80add8c74a1fe0582acdc26e2aa57dc46ad472158602eed92559c5488eeb"
+      },
+      {
+        "command": [
+          "python3.14",
+          "tools/check_astro_records.py"
+        ],
+        "exit_code": 0,
+        "method": "targeted_recheck_after_single_output_binding_correction",
+        "initial_exit_code": 1,
+        "initial_log": "tmp/project-check/20261021T233316-1un5sf_s/check-24.log",
+        "initial_log_sha256": "4aa94cf1cf04be6064380392891b73fa0021ec5e7353bd6746c2b7d3dd414df6",
+        "log": "tmp/reader-audit-20261021/final-output-binding-recheck.log",
+        "log_sha256": "f57c175381355937052470ed1268c14ba363aab20bdef24ef02990382a51e3b8",
+        "independent_closeout": "tmp/reader-audit-20261021/final-validator/final-output-binding-closeout.json",
+        "independent_closeout_sha256": "fbc18b7a91037c473538c790858ab54eaeb8354af61ae51e70d43bca77813f7b"
+      }
+    ],
+    "report": "tmp/project-check/20261021T233316-1un5sf_s/report.json",
+    "report_sha256": "1f7feada8caeb677cf3cd78847bde54ebaadc08db78f2cdb6dbe8b354d9027e5"
+  },
+  "javascript": {
+    "tests": 95,
+    "passed": 95,
+    "failed": 0,
+    "log": "tmp/reader-audit-20261021/final-js-regressions-4.log",
+    "log_sha256": "c33c4f9bdda68d1e14dfd5ebbe125424a4da84662b588c88cfccf90149ab1297"
+  },
+  "books": {
+    "stochastic": {
+      "report": "tmp/project-check/20261021T233316-1un5sf_s/stochastic/report.json",
+      "sha256": "dd2c4fc053109acdcfea09fa434990c1cb9036ef05930f3ff437d807d5d43bb2",
+      "results": {
+        "html_pages": 9,
+        "exercises": 236,
+        "code_pairs": 7,
+        "standalone_source_files": 14,
+        "numerical_fixtures": 159,
+        "simulation_runs": 4,
+        "crr_periods": [
+          16,
+          32,
+          64,
+          128,
+          256,
+          512
+        ],
+        "c11_strict": "pass",
+        "asan_ubsan": "pass",
+        "python": "pass",
+        "cross_language": "pass",
+        "invalid_inputs": 46,
+        "content_regressions": "pass",
+        "tooling_regressions": "pass",
+        "additional_seed_checks": {
+          "status": "pass",
+          "extra_simulation_runs": 12,
+          "checks": [
+            {
+              "program": "poisson",
+              "seed": 1,
+              "status": "pass"
+            },
+            {
+              "program": "poisson",
+              "seed": 42,
+              "status": "pass"
+            },
+            {
+              "program": "poisson",
+              "seed": 4294967295,
+              "status": "pass"
+            },
+            {
+              "program": "renewal",
+              "seed": 1,
+              "status": "pass"
+            },
+            {
+              "program": "renewal",
+              "seed": 42,
+              "status": "pass"
+            },
+            {
+              "program": "renewal",
+              "seed": 4294967295,
+              "status": "pass"
+            },
+            {
+              "program": "ctmc",
+              "seed": 1,
+              "status": "pass"
+            },
+            {
+              "program": "ctmc",
+              "seed": 42,
+              "status": "pass"
+            },
+            {
+              "program": "ctmc",
+              "seed": 4294967295,
+              "status": "pass"
+            },
+            {
+              "program": "stopping",
+              "seed": 1,
+              "status": "pass"
+            },
+            {
+              "program": "stopping",
+              "seed": 42,
+              "status": "pass"
+            },
+            {
+              "program": "stopping",
+              "seed": 4294967295,
+              "status": "pass"
+            }
+          ],
+          "scope": "Isolated seed substitutions; original displayed fixed-seed sources remain unchanged. Finite statistical checks do not prove distributional correctness."
+        }
+      }
+    },
+    "weiss": {
+      "report": "tmp/project-check/20261021T233316-1un5sf_s/weiss/validation.json",
+      "sha256": "78bc4cbd55055dfc5138283dd2cc189cb6e9551af0e74c0fded4e7c3f48ff2b1",
+      "results": {
+        "pages": 13,
+        "exercises": 362,
+        "pairs": 205,
+        "errors": [],
+        "status": "passed",
+        "extracted_blocks": 410,
+        "builds": [
+          "chapter01_selection",
+          "chapter02_loops",
+          "chapter02_permutation",
+          "chapter03_find",
+          "chapter04_delete",
+          "chapter04_splay",
+          "chapter04_trees",
+          "chapter05_build_count",
+          "chapter05_build_time",
+          "chapter05_delete",
+          "chapter06_sorting",
+          "chapter07",
+          "chapter08",
+          "chapter09",
+          "chapter10",
+          "chapter11",
+          "chapter12"
+        ],
+        "syntax": {
+          "chapters": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "c_blocks": 205,
+          "python_blocks": 205,
+          "python_library_definition_loads": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "library_warning_exception": "unused-function only for collections without complete callers"
+        },
+        "smoke": [
+          {
+            "program": "chapter04_splay",
+            "args": [],
+            "matched": true
+          },
+          {
+            "program": "chapter07",
+            "args": [
+              "demo"
+            ],
+            "matched": true
+          },
+          {
+            "program": "chapter08",
+            "args": [
+              "demo"
+            ],
+            "matched": true
+          },
+          {
+            "program": "chapter09",
+            "args": [
+              "dijkstra",
+              "0"
+            ],
+            "matched": true
+          },
+          {
+            "program": "chapter10",
+            "args": [
+              "chain"
+            ],
+            "matched": true
+          },
+          {
+            "program": "chapter10",
+            "args": [
+              "lcs"
+            ],
+            "matched": true
+          },
+          {
+            "program": "chapter11",
+            "args": [
+              "demo"
+            ],
+            "matched": true
+          },
+          {
+            "program": "chapter11",
+            "args": [
+              "graph"
+            ],
+            "matched": true
+          },
+          {
+            "program": "chapter12",
+            "args": [
+              "selftest"
+            ],
+            "matched": true
+          }
+        ],
+        "regressions": [
+          {
+            "case": "encoding",
+            "valid": 4,
+            "invalid_python": 7,
+            "invalid_c": 1
+          },
+          {
+            "case": "maxsum",
+            "arrays": 1094,
+            "algorithms_per_language": 4
+          },
+          {
+            "case": "infix_without_postfix_import",
+            "valid": 1,
+            "invalid_python": 5,
+            "invalid_c": 2
+          },
+          {
+            "case": "find_calls",
+            "calls_per_method": 600,
+            "python_modes": [
+              "default",
+              "-O"
+            ],
+            "depth_probe": "stubbed; this check measures invocation preservation"
+          }
+        ],
+        "chapter10_exercises": {
+          "drivers": 13,
+          "driver_modes": "C, C NDEBUG, Python, Python -O",
+          "layout_dp_partitions": 6756,
+          "linear_printer_partitions": 2213,
+          "linear_printer_large_words": 100000,
+          "hull_gift_wrapping": 665,
+          "tournament_winner_paths": 1130,
+          "karatsuba_integer_products": 1049,
+          "circle_cases": 83,
+          "circle_integer_position_enumerations": 40,
+          "round_robin_player_counts": [
+            1,
+            2,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024
+          ],
+          "invalid_input_cases": 20,
+          "batch_cases": 11908,
+          "layout_spacing_reconstructions": 9,
+          "c_memory_checks": "AddressSanitizer and UndefinedBehaviorSanitizer"
+        }
+      }
+    },
+    "csapp": {
+      "report": "tmp/project-check/20261021T233316-1un5sf_s/csapp/report.json",
+      "sha256": "4b198ea89ae44b80344033c68f7a0461c71dbce6ce15e30073170be527d8a53d",
+      "results": {
+        "status": "passed",
+        "quick": false,
+        "source_exercise_page_checks": 419,
+        "source_subsection_checks": 261,
+        "source_heading_page_checks": 117,
+        "program_checks": {
+          "program_groups": 42,
+          "program_pairs": 32,
+          "standalone_c_programs": 8,
+          "standalone_python_programs": 2,
+          "c11_strict": "pass (GNU may_alias used by word-fill; POSIX interfaces declared by feature macros)",
+          "asan_ubsan": "all native C programs; x86 assembly checked separately",
+          "cross_language": "all declared pairs pass",
+          "eight_bit_patterns": 256,
+          "reduction_lengths": 11,
+          "cache_reference_traces": 33,
+          "invalid_inputs_per_language": 8,
+          "host_layout": "LP64 sample observed",
+          "x86_64_assembly": "cross-target generation and executable classification via Rosetta; not Linux execution",
+          "compiler": "Apple clang version 17.0.0 (clang-1700.6.3.2)",
+          "python": "3.14.6",
+          "maintained_regressions": {
+            "allocations": {
+              "cases": 24,
+              "size_t_max": 18446744073709551615,
+              "python_length_max": 9223372036854775807,
+              "large_allocations": 0,
+              "injected_failures": [
+                "MemoryError",
+                "OverflowError"
+              ]
+            },
+            "cache_policies": {
+              "hand_calculated_cases": 9,
+              "sampled_configurations": 48,
+              "cases_per_language": 57,
+              "operations_per_language": 3964,
+              "oracle": "block-ID maps, interval intersections and last-reference positions",
+              "write_policies": "all four write-back/write-through and allocation combinations",
+              "dirty_mutation": {
+                "detected_by": "write-back-allocate",
+                "expected": "operations=2 hits=0 misses=2 evictions=1 writebacks=1\nread_bytes=4 write_bytes=2 dirty_lines=0\n",
+                "observed": "operations=2 hits=0 misses=2 evictions=1 writebacks=0\nread_bytes=4 write_bytes=0 dirty_lines=0\n"
+              }
+            },
+            "fill_ndebug": {
+              "ndebug_cases": 3120,
+              "ndebug_sanitizers": "ASan/UBSan",
+              "byte_mutation": {
+                "exit_code": 1,
+                "diagnostic": "fill byte differs: offset=0 n=1 c=-257 index=0"
+              }
+            }
+          },
+          "part_two_regressions": {
+            "relocation_integer_reference_cases": 262,
+            "allocator_live_interval_operations": 24490,
+            "allocator_conditions": "first/next fit x full/free-only footers; live-interval complement and cursor reference; C payload and failure arena/control preservation; -DNDEBUG ASan/UBSan",
+            "allocator_modes": [
+              {
+                "policy": "first-fit",
+                "footers": "full",
+                "seed": 937713,
+                "random_operations": 6000,
+                "operations": 6122,
+                "allocation_attempts": 4033,
+                "successful_allocations": 2039,
+                "frees": 2039,
+                "null_frees": 50,
+                "failed_allocations": {
+                  "zero": 258,
+                  "overlarge": 1515,
+                  "exhaustion": 221
+                },
+                "next_fit_wraps": 0,
+                "different_from_first_fit": 0,
+                "cursor_repairs": 1155,
+                "coalescing_cases": [
+                  574,
+                  1044,
+                  101,
+                  320
+                ],
+                "directed_scenarios": [
+                  "coalescing-0",
+                  "coalescing-1",
+                  "coalescing-2",
+                  "coalescing-3",
+                  "policy-selection",
+                  "wrap-to-low-hole",
+                  "cursor-right-then-both-merge",
+                  "failure-state-preservation"
+                ]
+              },
+              {
+                "policy": "next-fit",
+                "footers": "full",
+                "seed": 937714,
+                "random_operations": 6000,
+                "operations": 6123,
+                "allocation_attempts": 4011,
+                "successful_allocations": 2062,
+                "frees": 2062,
+                "null_frees": 50,
+                "failed_allocations": {
+                  "zero": 267,
+                  "overlarge": 1466,
+                  "exhaustion": 216
+                },
+                "next_fit_wraps": 1,
+                "different_from_first_fit": 379,
+                "cursor_repairs": 1248,
+                "coalescing_cases": [
+                  485,
+                  1031,
+                  177,
+                  369
+                ],
+                "directed_scenarios": [
+                  "coalescing-0",
+                  "coalescing-1",
+                  "coalescing-2",
+                  "coalescing-3",
+                  "policy-selection",
+                  "wrap-to-low-hole",
+                  "cursor-right-then-both-merge",
+                  "failure-state-preservation"
+                ]
+              },
+              {
+                "policy": "first-fit",
+                "footers": "free-only",
+                "seed": 937715,
+                "random_operations": 6000,
+                "operations": 6122,
+                "allocation_attempts": 3955,
+                "successful_allocations": 2117,
+                "frees": 2117,
+                "null_frees": 50,
+                "failed_allocations": {
+                  "zero": 264,
+                  "overlarge": 957,
+                  "exhaustion": 617
+                },
+                "next_fit_wraps": 0,
+                "different_from_first_fit": 0,
+                "cursor_repairs": 1083,
+                "coalescing_cases": [
+                  756,
+                  987,
+                  84,
+                  290
+                ],
+                "directed_scenarios": [
+                  "coalescing-0",
+                  "coalescing-1",
+                  "coalescing-2",
+                  "coalescing-3",
+                  "policy-selection",
+                  "wrap-to-low-hole",
+                  "cursor-right-then-both-merge",
+                  "failure-state-preservation"
+                ]
+              },
+              {
+                "policy": "next-fit",
+                "footers": "free-only",
+                "seed": 937716,
+                "random_operations": 6000,
+                "operations": 6123,
+                "allocation_attempts": 3949,
+                "successful_allocations": 2124,
+                "frees": 2124,
+                "null_frees": 50,
+                "failed_allocations": {
+                  "zero": 253,
+                  "overlarge": 971,
+                  "exhaustion": 601
+                },
+                "next_fit_wraps": 1,
+                "different_from_first_fit": 575,
+                "cursor_repairs": 1055,
+                "coalescing_cases": [
+                  630,
+                  871,
+                  227,
+                  396
+                ],
+                "directed_scenarios": [
+                  "coalescing-0",
+                  "coalescing-1",
+                  "coalescing-2",
+                  "coalescing-3",
+                  "policy-selection",
+                  "wrap-to-low-hole",
+                  "cursor-right-then-both-merge",
+                  "failure-state-preservation"
+                ]
+              }
+            ],
+            "allocator_trace_steps": 24562,
+            "allocator_mutation_results": [
+              {
+                "mutation": "missing backward coalescing",
+                "exit_code": 1,
+                "stderr": "step=8 mode=0 op=F allocator invariant"
+              },
+              {
+                "mutation": "next-fit replaced by first-fit",
+                "exit_code": 1,
+                "stderr": "step=6193 mode=1 op=A address differs from live-interval reference"
+              },
+              {
+                "mutation": "next-fit cursor not repaired after free",
+                "exit_code": 1,
+                "stderr": "step=6150 mode=1 op=F cursor differs from independent reference"
+              }
+            ],
+            "vm_hand_derived_cases": 5,
+            "vm_invalid_inputs_per_language": 10,
+            "detected_mutations": [
+              "wrong PC-relative place sign",
+              "missing backward coalescing",
+              "next-fit replaced by first-fit",
+              "next-fit cursor not repaired after free"
+            ],
+            "native_linker_probe": "separate compile, archive, rejected unresolved symbol, dynamic loading and failures",
+            "native_mmap_cases": 6,
+            "native_shell_pty": "background, stop, jobs, bg, fg, SIGINT forwarding, reap, invalid job, quit"
+          },
+          "part_two_signal_regressions": {
+            "status": "passed",
+            "cleanup_exit_cases": 10,
+            "retained_exited_leader": "passed",
+            "signal_error_path": "passed",
+            "html_template_cases": 2,
+            "detected_mutations": 8,
+            "guard_seconds": 1.0,
+            "shell_source_sha256": "94d6d4984244b9e7b0c791a6df193f8a96106877192ad161c3cfbbcc8aa59487",
+            "html_template_sha256": "212444e362c9b63b298ee9d215644d95b1e76d320f32a7fd9c94b3ac0369a783"
+          },
+          "part_three_regressions": {
+            "status": "passed",
+            "rio_prefix_and_write_cases_per_language": 520,
+            "binary_copy_cases": 55,
+            "fstat_inherited_and_invalid_cases": 7,
+            "eintr_mutant_rejected": true,
+            "address_cases_per_language": 22,
+            "http_core": "GET/HEAD/POST, every partial prefix, duplicate length, path rejection, slow-reader deadline and descriptor flag restoration",
+            "counter_schedules": 20,
+            "counter_outcomes": {
+              "1": 18,
+              "2": 2
+            },
+            "lock_references": [
+              {
+                "programs": [
+                  "abAB",
+                  "abAB"
+                ],
+                "reachable_states": 18,
+                "deadlock_pc": []
+              },
+              {
+                "programs": [
+                  "abAB",
+                  "abBA"
+                ],
+                "reachable_states": 17,
+                "deadlock_pc": []
+              },
+              {
+                "programs": [
+                  "abBA",
+                  "abAB"
+                ],
+                "reachable_states": 17,
+                "deadlock_pc": []
+              },
+              {
+                "programs": [
+                  "abBA",
+                  "abBA"
+                ],
+                "reachable_states": 16,
+                "deadlock_pc": []
+              },
+              {
+                "programs": [
+                  "abBcCA",
+                  "cbBC"
+                ],
+                "reachable_states": 31,
+                "deadlock_pc": []
+              },
+              {
+                "programs": [
+                  "abBcCA",
+                  "cbBCaA",
+                  "cCbaAB"
+                ],
+                "reachable_states": 197,
+                "deadlock_pc": [
+                  [
+                    1,
+                    1,
+                    3
+                  ],
+                  [
+                    1,
+                    4,
+                    3
+                  ],
+                  [
+                    1,
+                    6,
+                    3
+                  ],
+                  [
+                    3,
+                    1,
+                    3
+                  ]
+                ]
+              }
+            ],
+            "tfgets_immediate_cases": 9,
+            "tfgets_partial_deadlines": 3,
+            "tfgets_signal_mask_restoration": true,
+            "tfgets_cleanup": {
+              "status": "passed",
+              "ready_input_cases": [
+                {
+                  "variant": "ignored",
+                  "elapsed_seconds": 0.060875,
+                  "output_ok": true,
+                  "mask_preserved": true,
+                  "actions_preserved": true,
+                  "no_children": true,
+                  "unexpected_signal": 0,
+                  "returncode": 0,
+                  "stderr": ""
+                },
+                {
+                  "variant": "blocked",
+                  "elapsed_seconds": 0.060723,
+                  "output_ok": true,
+                  "mask_preserved": true,
+                  "actions_preserved": true,
+                  "no_children": true,
+                  "unexpected_signal": 0,
+                  "returncode": 0,
+                  "stderr": ""
+                }
+              ],
+              "sigterm_mutant_rejected": true,
+              "sigterm_mutant_cases": [
+                {
+                  "variant": "ignored",
+                  "elapsed_seconds": 5.059471,
+                  "output_ok": true,
+                  "mask_preserved": true,
+                  "actions_preserved": true,
+                  "no_children": true,
+                  "unexpected_signal": 0,
+                  "returncode": 2,
+                  "stderr": ""
+                },
+                {
+                  "variant": "blocked",
+                  "elapsed_seconds": 5.059354,
+                  "output_ok": true,
+                  "mask_preserved": true,
+                  "actions_preserved": true,
+                  "no_children": true,
+                  "unexpected_signal": 0,
+                  "returncode": 2,
+                  "stderr": ""
+                }
+              ]
+            },
+            "boundaries": [
+              "Injected EINTR is loop behavior, not host signal-delivery proof.",
+              "Finite sequential interleavings model instructions; they do not make C data races defined."
+            ]
+          },
+          "part_three_http_review": {
+            "status": "passed",
+            "cases": 150,
+            "passed": 150,
+            "results": [
+              {
+                "mode": "process",
+                "case": "expect_headers_only",
+                "status": 417,
+                "seconds": 0.0226,
+                "body_bytes": 18,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "process",
+                "case": "expect_split_header",
+                "status": 417,
+                "seconds": 0.0002,
+                "body_bytes": 18,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "process",
+                "case": "expect_complete_message",
+                "status": 417,
+                "seconds": 0.0243,
+                "body_bytes": 18,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "process",
+                "case": "expect_mixed_case",
+                "status": 417,
+                "seconds": 0.0257,
+                "body_bytes": 18,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "process",
+                "case": "expect_unsupported_value",
+                "status": 417,
+                "seconds": 0.0258,
+                "body_bytes": 18,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "process",
+                "case": "expect_head_response",
+                "status": 417,
+                "seconds": 0.0266,
+                "body_bytes": 0,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "process",
+                "case": "ordinary_split_post",
+                "status": 200,
+                "seconds": 0.0003,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "process",
+                "case": "ordinary_split_header",
+                "status": 200,
+                "seconds": 0.0005,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "process",
+                "case": "ordinary_complete_post",
+                "status": 200,
+                "seconds": 0.0492,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "process",
+                "case": "length_trailing_sp",
+                "status": 200,
+                "seconds": 0.0402,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "process",
+                "case": "length_trailing_tab",
+                "status": 200,
+                "seconds": 0.0409,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "process",
+                "case": "length_both_ows",
+                "status": 200,
+                "seconds": 0.0364,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "process",
+                "case": "type_trailing_sp",
+                "status": 200,
+                "seconds": 0.0385,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "process",
+                "case": "type_trailing_tab",
+                "status": 200,
+                "seconds": 0.0357,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "process",
+                "case": "expect_ows",
+                "status": 417,
+                "seconds": 0.0349,
+                "body_bytes": 18,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "process",
+                "case": "expect_no_host",
+                "status": 400,
+                "seconds": 0.0352,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "process",
+                "case": "expect_empty_host",
+                "status": 400,
+                "seconds": 0.0398,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "process",
+                "case": "expect_duplicate_host",
+                "status": 400,
+                "seconds": 0.0374,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "process",
+                "case": "bad_whitespace_before_colon",
+                "status": 400,
+                "seconds": 0.0373,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "process",
+                "case": "bad_value_control",
+                "status": 400,
+                "seconds": 0.0411,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "process",
+                "case": "expect_bad_length",
+                "status": 400,
+                "seconds": 0.0414,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "process",
+                "case": "bad_length_interior_space",
+                "status": 400,
+                "seconds": 0.0411,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "process",
+                "case": "duplicate_length",
+                "status": 400,
+                "seconds": 0.0383,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "process",
+                "case": "invalid_field",
+                "status": 400,
+                "seconds": 0.04,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "process",
+                "case": "nul_in_header",
+                "status": 400,
+                "seconds": 0.035,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "process",
+                "case": "extra_body",
+                "status": 400,
+                "seconds": 0.0366,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "process",
+                "case": "duplicate_expect",
+                "status": 417,
+                "seconds": 0.0346,
+                "body_bytes": 18,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "process",
+                "case": "transfer_encoding",
+                "status": 400,
+                "seconds": 0.0334,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "process",
+                "case": "oversize_length",
+                "status": 400,
+                "seconds": 0.0353,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "process",
+                "case": "oversize_header",
+                "status": 400,
+                "seconds": 0.0349,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "select",
+                "case": "expect_headers_only",
+                "status": 417,
+                "seconds": 0.0001,
+                "body_bytes": 18,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "select",
+                "case": "expect_split_header",
+                "status": 417,
+                "seconds": 0.0003,
+                "body_bytes": 18,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "select",
+                "case": "expect_complete_message",
+                "status": 417,
+                "seconds": 0.0001,
+                "body_bytes": 18,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "select",
+                "case": "expect_mixed_case",
+                "status": 417,
+                "seconds": 0.0001,
+                "body_bytes": 18,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "select",
+                "case": "expect_unsupported_value",
+                "status": 417,
+                "seconds": 0.0001,
+                "body_bytes": 18,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "select",
+                "case": "expect_head_response",
+                "status": 417,
+                "seconds": 0.0001,
+                "body_bytes": 0,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "select",
+                "case": "ordinary_split_post",
+                "status": 200,
+                "seconds": 0.0002,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "select",
+                "case": "ordinary_split_header",
+                "status": 200,
+                "seconds": 0.0003,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "select",
+                "case": "ordinary_complete_post",
+                "status": 200,
+                "seconds": 0.0002,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "select",
+                "case": "length_trailing_sp",
+                "status": 200,
+                "seconds": 0.0002,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "select",
+                "case": "length_trailing_tab",
+                "status": 200,
+                "seconds": 0.0001,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "select",
+                "case": "length_both_ows",
+                "status": 200,
+                "seconds": 0.0001,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "select",
+                "case": "type_trailing_sp",
+                "status": 200,
+                "seconds": 0.0001,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "select",
+                "case": "type_trailing_tab",
+                "status": 200,
+                "seconds": 0.0001,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "select",
+                "case": "expect_ows",
+                "status": 417,
+                "seconds": 0.0001,
+                "body_bytes": 18,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "select",
+                "case": "expect_no_host",
+                "status": 400,
+                "seconds": 0.0002,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "select",
+                "case": "expect_empty_host",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "select",
+                "case": "expect_duplicate_host",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "select",
+                "case": "bad_whitespace_before_colon",
+                "status": 400,
+                "seconds": 0.0004,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "select",
+                "case": "bad_value_control",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "select",
+                "case": "expect_bad_length",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "select",
+                "case": "bad_length_interior_space",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "select",
+                "case": "duplicate_length",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "select",
+                "case": "invalid_field",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "select",
+                "case": "nul_in_header",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "select",
+                "case": "extra_body",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "select",
+                "case": "duplicate_expect",
+                "status": 417,
+                "seconds": 0.0001,
+                "body_bytes": 18,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "select",
+                "case": "transfer_encoding",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "select",
+                "case": "oversize_length",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "select",
+                "case": "oversize_header",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "thread",
+                "case": "expect_headers_only",
+                "status": 417,
+                "seconds": 0.0002,
+                "body_bytes": 18,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "thread",
+                "case": "expect_split_header",
+                "status": 417,
+                "seconds": 0.0003,
+                "body_bytes": 18,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "thread",
+                "case": "expect_complete_message",
+                "status": 417,
+                "seconds": 0.0002,
+                "body_bytes": 18,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "thread",
+                "case": "expect_mixed_case",
+                "status": 417,
+                "seconds": 0.0001,
+                "body_bytes": 18,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "thread",
+                "case": "expect_unsupported_value",
+                "status": 417,
+                "seconds": 0.0001,
+                "body_bytes": 18,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "thread",
+                "case": "expect_head_response",
+                "status": 417,
+                "seconds": 0.0001,
+                "body_bytes": 0,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "thread",
+                "case": "ordinary_split_post",
+                "status": 200,
+                "seconds": 0.0002,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "thread",
+                "case": "ordinary_split_header",
+                "status": 200,
+                "seconds": 0.0003,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "thread",
+                "case": "ordinary_complete_post",
+                "status": 200,
+                "seconds": 0.0002,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "thread",
+                "case": "length_trailing_sp",
+                "status": 200,
+                "seconds": 0.0002,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "thread",
+                "case": "length_trailing_tab",
+                "status": 200,
+                "seconds": 0.0001,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "thread",
+                "case": "length_both_ows",
+                "status": 200,
+                "seconds": 0.0001,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "thread",
+                "case": "type_trailing_sp",
+                "status": 200,
+                "seconds": 0.0003,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "thread",
+                "case": "type_trailing_tab",
+                "status": 200,
+                "seconds": 0.0002,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "thread",
+                "case": "expect_ows",
+                "status": 417,
+                "seconds": 0.0002,
+                "body_bytes": 18,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "thread",
+                "case": "expect_no_host",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "thread",
+                "case": "expect_empty_host",
+                "status": 400,
+                "seconds": 0.0013,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "thread",
+                "case": "expect_duplicate_host",
+                "status": 400,
+                "seconds": 0.0002,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "thread",
+                "case": "bad_whitespace_before_colon",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "thread",
+                "case": "bad_value_control",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "thread",
+                "case": "expect_bad_length",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "thread",
+                "case": "bad_length_interior_space",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "thread",
+                "case": "duplicate_length",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "thread",
+                "case": "invalid_field",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "thread",
+                "case": "nul_in_header",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "thread",
+                "case": "extra_body",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "thread",
+                "case": "duplicate_expect",
+                "status": 417,
+                "seconds": 0.0001,
+                "body_bytes": 18,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "thread",
+                "case": "transfer_encoding",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "thread",
+                "case": "oversize_length",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "thread",
+                "case": "oversize_header",
+                "status": 400,
+                "seconds": 0.0002,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "pool",
+                "case": "expect_headers_only",
+                "status": 417,
+                "seconds": 0.0001,
+                "body_bytes": 18,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "pool",
+                "case": "expect_split_header",
+                "status": 417,
+                "seconds": 0.0002,
+                "body_bytes": 18,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "pool",
+                "case": "expect_complete_message",
+                "status": 417,
+                "seconds": 0.0001,
+                "body_bytes": 18,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "pool",
+                "case": "expect_mixed_case",
+                "status": 417,
+                "seconds": 0.0001,
+                "body_bytes": 18,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "pool",
+                "case": "expect_unsupported_value",
+                "status": 417,
+                "seconds": 0.0001,
+                "body_bytes": 18,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "pool",
+                "case": "expect_head_response",
+                "status": 417,
+                "seconds": 0.0001,
+                "body_bytes": 0,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "pool",
+                "case": "ordinary_split_post",
+                "status": 200,
+                "seconds": 0.0002,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "pool",
+                "case": "ordinary_split_header",
+                "status": 200,
+                "seconds": 0.0005,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "pool",
+                "case": "ordinary_complete_post",
+                "status": 200,
+                "seconds": 0.0003,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "pool",
+                "case": "length_trailing_sp",
+                "status": 200,
+                "seconds": 0.0002,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "pool",
+                "case": "length_trailing_tab",
+                "status": 200,
+                "seconds": 0.0002,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "pool",
+                "case": "length_both_ows",
+                "status": 200,
+                "seconds": 0.0002,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "pool",
+                "case": "type_trailing_sp",
+                "status": 200,
+                "seconds": 0.0001,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "pool",
+                "case": "type_trailing_tab",
+                "status": 200,
+                "seconds": 0.0002,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "pool",
+                "case": "expect_ows",
+                "status": 417,
+                "seconds": 0.0001,
+                "body_bytes": 18,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "pool",
+                "case": "expect_no_host",
+                "status": 400,
+                "seconds": 0.0003,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "pool",
+                "case": "expect_empty_host",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "pool",
+                "case": "expect_duplicate_host",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "pool",
+                "case": "bad_whitespace_before_colon",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "pool",
+                "case": "bad_value_control",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "pool",
+                "case": "expect_bad_length",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "pool",
+                "case": "bad_length_interior_space",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "pool",
+                "case": "duplicate_length",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "pool",
+                "case": "invalid_field",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "pool",
+                "case": "nul_in_header",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "pool",
+                "case": "extra_body",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "pool",
+                "case": "duplicate_expect",
+                "status": 417,
+                "seconds": 0.0001,
+                "body_bytes": 18,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "pool",
+                "case": "transfer_encoding",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "pool",
+                "case": "oversize_length",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "pool",
+                "case": "oversize_header",
+                "status": 400,
+                "seconds": 0.0002,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "Python",
+                "case": "expect_headers_only",
+                "status": 417,
+                "seconds": 0.0002,
+                "body_bytes": 18,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "Python",
+                "case": "expect_split_header",
+                "status": 417,
+                "seconds": 0.0002,
+                "body_bytes": 18,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "Python",
+                "case": "expect_complete_message",
+                "status": 417,
+                "seconds": 0.0001,
+                "body_bytes": 18,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "Python",
+                "case": "expect_mixed_case",
+                "status": 417,
+                "seconds": 0.0001,
+                "body_bytes": 18,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "Python",
+                "case": "expect_unsupported_value",
+                "status": 417,
+                "seconds": 0.0001,
+                "body_bytes": 18,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "Python",
+                "case": "expect_head_response",
+                "status": 417,
+                "seconds": 0.0001,
+                "body_bytes": 0,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "Python",
+                "case": "ordinary_split_post",
+                "status": 200,
+                "seconds": 0.0387,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "Python",
+                "case": "ordinary_split_header",
+                "status": 200,
+                "seconds": 0.0379,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "Python",
+                "case": "ordinary_complete_post",
+                "status": 200,
+                "seconds": 0.0375,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "Python",
+                "case": "length_trailing_sp",
+                "status": 200,
+                "seconds": 0.039,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "Python",
+                "case": "length_trailing_tab",
+                "status": 200,
+                "seconds": 0.0398,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "Python",
+                "case": "length_both_ows",
+                "status": 200,
+                "seconds": 0.0431,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "Python",
+                "case": "type_trailing_sp",
+                "status": 200,
+                "seconds": 0.0431,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "Python",
+                "case": "type_trailing_tab",
+                "status": 200,
+                "seconds": 0.0415,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "Python",
+                "case": "expect_ows",
+                "status": 417,
+                "seconds": 0.0002,
+                "body_bytes": 18,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "Python",
+                "case": "expect_no_host",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "Python",
+                "case": "expect_empty_host",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "Python",
+                "case": "expect_duplicate_host",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "Python",
+                "case": "bad_whitespace_before_colon",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "Python",
+                "case": "bad_value_control",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "Python",
+                "case": "expect_bad_length",
+                "status": 413,
+                "seconds": 0.0001,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "Python",
+                "case": "bad_length_interior_space",
+                "status": 413,
+                "seconds": 0.0001,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "Python",
+                "case": "duplicate_length",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "Python",
+                "case": "invalid_field",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "Python",
+                "case": "nul_in_header",
+                "status": 400,
+                "seconds": 0.0,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "Python",
+                "case": "extra_body",
+                "status": 400,
+                "seconds": 0.0,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "Python",
+                "case": "duplicate_expect",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "Python",
+                "case": "transfer_encoding",
+                "status": 501,
+                "seconds": 0.0001,
+                "body_bytes": 15,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "Python",
+                "case": "oversize_length",
+                "status": 413,
+                "seconds": 0.0001,
+                "body_bytes": 17,
+                "write_side_remained_open": true,
+                "passed": true
+              },
+              {
+                "mode": "Python",
+                "case": "oversize_header",
+                "status": 400,
+                "seconds": 0.0001,
+                "body_bytes": 11,
+                "write_side_remained_open": true,
+                "passed": true
+              }
+            ],
+            "errors": [],
+            "source_sha256": {
+              "code/ch11_http.c": "35060b7dee8fd6f34748ca8fe2f882a58d48186c9669993c21c090f6fdcc2412",
+              "code/ch11_http.py": "293ce29c1f456be15f417c0542196416022b89d7d4f84783b4e515003be2083c",
+              "code/ch12_servers.c": "04ef8b295d53ba8cb67cdfb52cbcc3be82dc7abb6e6196b494378d2ee63cb1b6"
+            },
+            "framing_compatibility": "all header prefixes, partial/complete body, duplicate length passed",
+            "scope": "actual loopback sockets, no client half-close, four C modes plus Python; ASan/UBSan C"
+          },
+          "part_three_cgi_review": {
+            "status": "passed",
+            "cases": 8,
+            "results": [
+              {
+                "cgi": "C",
+                "overlap": {
+                  "status": 200,
+                  "body_bytes": 25,
+                  "eof": true,
+                  "seconds_while_cgi_waited": 0.001
+                },
+                "inherited_descriptors": [
+                  {
+                    "pid": 17468,
+                    "parent": 17466,
+                    "sockets": [
+                      1
+                    ],
+                    "query": "a=11&b=3"
+                  },
+                  {
+                    "pid": 17469,
+                    "parent": 17466,
+                    "sockets": [
+                      1
+                    ],
+                    "query": "a=12&b=3"
+                  },
+                  {
+                    "pid": 17467,
+                    "parent": 17466,
+                    "sockets": [
+                      1
+                    ],
+                    "query": "a=10&b=3"
+                  }
+                ],
+                "parent_stopped_eof": true,
+                "coalesced_reap_batch": 3,
+                "stdout": "CGI accepted=5 spawned=4 reaped=4 max-batch=3\nLIFECYCLE children=none descriptors=restored SIGCHLD=restored\n",
+                "stderr": "",
+                "passed": true
+              },
+              {
+                "cgi": "Python",
+                "overlap": {
+                  "status": 200,
+                  "body_bytes": 25,
+                  "eof": true,
+                  "seconds_while_cgi_waited": 0.0008
+                },
+                "inherited_descriptors": [
+                  {
+                    "pid": 17474,
+                    "parent": 17472,
+                    "sockets": [
+                      1
+                    ],
+                    "query": "a=11&b=3"
+                  },
+                  {
+                    "pid": 17475,
+                    "parent": 17472,
+                    "sockets": [
+                      1
+                    ],
+                    "query": "a=12&b=3"
+                  },
+                  {
+                    "pid": 17473,
+                    "parent": 17472,
+                    "sockets": [
+                      1
+                    ],
+                    "query": "a=10&b=3"
+                  }
+                ],
+                "parent_stopped_eof": true,
+                "coalesced_reap_batch": 3,
+                "stdout": "CGI accepted=5 spawned=4 reaped=4 max-batch=3\nLIFECYCLE children=none descriptors=restored SIGCHLD=restored\n",
+                "stderr": "",
+                "passed": true
+              },
+              {
+                "case": "GET_cgi_closes_stdin_first",
+                "response": {
+                  "status": 200,
+                  "body_bytes": 17,
+                  "eof": true
+                },
+                "cgi_input": {
+                  "method": "GET",
+                  "content_length": "0",
+                  "stdin_closed": true
+                },
+                "passed": true,
+                "stdout": "CGI accepted=1 spawned=1 reaped=1 max-batch=1\nLIFECYCLE children=none descriptors=restored SIGCHLD=restored\n"
+              },
+              {
+                "case": "HEAD_cgi_closes_stdin_first",
+                "response": {
+                  "status": 200,
+                  "body_bytes": 0,
+                  "eof": true
+                },
+                "cgi_input": {
+                  "method": "HEAD",
+                  "content_length": "0",
+                  "stdin_closed": true
+                },
+                "passed": true,
+                "stdout": "CGI accepted=1 spawned=1 reaped=1 max-batch=1\nLIFECYCLE children=none descriptors=restored SIGCHLD=restored\n"
+              },
+              {
+                "case": "POST_cgi_closes_stdin_first",
+                "response": {
+                  "status": 400,
+                  "body_bytes": 17,
+                  "eof": true
+                },
+                "cgi_input": {
+                  "method": "POST",
+                  "content_length": "7",
+                  "stdin_closed": true
+                },
+                "passed": true,
+                "stdout": "CGI accepted=1 spawned=1 reaped=1 max-batch=1\nLIFECYCLE children=none descriptors=restored SIGCHLD=restored\n"
+              },
+              {
+                "case": "published_cli_head_peer_close_recovery",
+                "passed": true,
+                "stdout": "CGI accepted=3 spawned=3 reaped=3 max-batch=1\n"
+              },
+              {
+                "case": "exec_failure_recovery",
+                "passed": true,
+                "stdout": "CGI accepted=2 spawned=1 reaped=1 max-batch=1\nLIFECYCLE children=none descriptors=restored SIGCHLD=restored\n"
+              },
+              {
+                "case": "cgi_alarm_bound_recovery",
+                "seconds": 5.406,
+                "passed": true,
+                "stdout": "CGI accepted=2 spawned=1 reaped=1 max-batch=1\nLIFECYCLE children=none descriptors=restored SIGCHLD=restored\n"
+              }
+            ],
+            "scope": "C parent with actual C and Python CGI exec; POSIX loopback, ASan/UBSan; explicit lifecycle and signal restoration",
+            "source_sha256": {
+              "code/ch11_http.c": "35060b7dee8fd6f34748ca8fe2f882a58d48186c9669993c21c090f6fdcc2412",
+              "code/ch11_http.py": "293ce29c1f456be15f417c0542196416022b89d7d4f84783b4e515003be2083c"
+            }
+          },
+          "content_review_regressions": {
+            "status": "passed",
+            "checked_at": "2026-10-21T15:39:53.747606+00:00",
+            "environment": {
+              "system": "Darwin",
+              "release": "24.6.0",
+              "machine": "arm64",
+              "MallocMaxMagazines": "1"
+            },
+            "source_sha256": {
+              "code/ch03_procprob_alias.c": "a794572a71b65b3d828ca1fcc511e09cad6d1c837f0a2b03f1bcf24f3bbf6523",
+              "code/ch09_space.c": "f3798426fb55a624f8aa098f0b50131cf0a5184f7f9180fa7d818e18d3c0ed9d",
+              "code/ch09_allocator.c": "2f27f100c77d48b7712e0703adae0f7de23cfce89fa93ea39f7f897f73d41276",
+              "tools/content_review_regressions.py": "7e2608f6cecd2eb239bbd4cb9e26507ac30b22b53f74147427bed2e43c22fae9"
+            },
+            "math": {
+              "complete_negative_t_powers": 2,
+              "complete_equalities": [
+                "M",
+                "f"
+              ],
+              "mutations_rejected": [
+                "missing exponent t",
+                "positive exponent",
+                "wrong base",
+                "external t",
+                "wrong M constant",
+                "external superscript"
+              ],
+              "missing_exponent_mutation_rejected": true
+            },
+            "space_reading_copy_equal": true,
+            "alias": {
+              "status": "passed",
+              "assumptions": "little-endian LP64, 8-bit signed char",
+              "source_order": 1,
+              "assembly_order_model": 257,
+              "independent_objects_equal": true,
+              "reorder_mutation_rejected": true
+            },
+            "space": {
+              "status": "passed",
+              "repeats": [
+                {
+                  "repeat": 1,
+                  "rows": [
+                    {
+                      "backend": "toy-first",
+                      "blocks": 64,
+                      "page_bytes": 16384,
+                      "peak_payload": 4280,
+                      "max_heap": 65536,
+                      "final_heap": 65536,
+                      "operations": 128,
+                      "samples": 129,
+                      "peak_utilization": 0.065307617
+                    },
+                    {
+                      "backend": "toy-next",
+                      "blocks": 64,
+                      "page_bytes": 16384,
+                      "peak_payload": 4280,
+                      "max_heap": 65536,
+                      "final_heap": 65536,
+                      "operations": 128,
+                      "samples": 129,
+                      "peak_utilization": 0.065307617
+                    },
+                    {
+                      "backend": "libc-private-zone",
+                      "blocks": 64,
+                      "page_bytes": 16384,
+                      "peak_payload": 4280,
+                      "max_heap": 1048576,
+                      "final_heap": 1048576,
+                      "operations": 128,
+                      "samples": 129,
+                      "peak_utilization": 0.004081726
+                    },
+                    {
+                      "backend": "toy-first",
+                      "blocks": 512,
+                      "page_bytes": 16384,
+                      "peak_payload": 34424,
+                      "max_heap": 65536,
+                      "final_heap": 65536,
+                      "operations": 1024,
+                      "samples": 1025,
+                      "peak_utilization": 0.525268555
+                    },
+                    {
+                      "backend": "toy-next",
+                      "blocks": 512,
+                      "page_bytes": 16384,
+                      "peak_payload": 34424,
+                      "max_heap": 65536,
+                      "final_heap": 65536,
+                      "operations": 1024,
+                      "samples": 1025,
+                      "peak_utilization": 0.525268555
+                    },
+                    {
+                      "backend": "libc-private-zone",
+                      "blocks": 512,
+                      "page_bytes": 16384,
+                      "peak_payload": 34424,
+                      "max_heap": 1048576,
+                      "final_heap": 1048576,
+                      "operations": 1024,
+                      "samples": 1025,
+                      "peak_utilization": 0.032829285
+                    }
+                  ]
+                },
+                {
+                  "repeat": 2,
+                  "rows": [
+                    {
+                      "backend": "toy-first",
+                      "blocks": 64,
+                      "page_bytes": 16384,
+                      "peak_payload": 4280,
+                      "max_heap": 65536,
+                      "final_heap": 65536,
+                      "operations": 128,
+                      "samples": 129,
+                      "peak_utilization": 0.065307617
+                    },
+                    {
+                      "backend": "toy-next",
+                      "blocks": 64,
+                      "page_bytes": 16384,
+                      "peak_payload": 4280,
+                      "max_heap": 65536,
+                      "final_heap": 65536,
+                      "operations": 128,
+                      "samples": 129,
+                      "peak_utilization": 0.065307617
+                    },
+                    {
+                      "backend": "libc-private-zone",
+                      "blocks": 64,
+                      "page_bytes": 16384,
+                      "peak_payload": 4280,
+                      "max_heap": 1048576,
+                      "final_heap": 1048576,
+                      "operations": 128,
+                      "samples": 129,
+                      "peak_utilization": 0.004081726
+                    },
+                    {
+                      "backend": "toy-first",
+                      "blocks": 512,
+                      "page_bytes": 16384,
+                      "peak_payload": 34424,
+                      "max_heap": 65536,
+                      "final_heap": 65536,
+                      "operations": 1024,
+                      "samples": 1025,
+                      "peak_utilization": 0.525268555
+                    },
+                    {
+                      "backend": "toy-next",
+                      "blocks": 512,
+                      "page_bytes": 16384,
+                      "peak_payload": 34424,
+                      "max_heap": 65536,
+                      "final_heap": 65536,
+                      "operations": 1024,
+                      "samples": 1025,
+                      "peak_utilization": 0.525268555
+                    },
+                    {
+                      "backend": "libc-private-zone",
+                      "blocks": 512,
+                      "page_bytes": 16384,
+                      "peak_payload": 34424,
+                      "max_heap": 1048576,
+                      "final_heap": 1048576,
+                      "operations": 1024,
+                      "samples": 1025,
+                      "peak_utilization": 0.032829285
+                    }
+                  ]
+                },
+                {
+                  "repeat": 3,
+                  "rows": [
+                    {
+                      "backend": "toy-first",
+                      "blocks": 64,
+                      "page_bytes": 16384,
+                      "peak_payload": 4280,
+                      "max_heap": 65536,
+                      "final_heap": 65536,
+                      "operations": 128,
+                      "samples": 129,
+                      "peak_utilization": 0.065307617
+                    },
+                    {
+                      "backend": "toy-next",
+                      "blocks": 64,
+                      "page_bytes": 16384,
+                      "peak_payload": 4280,
+                      "max_heap": 65536,
+                      "final_heap": 65536,
+                      "operations": 128,
+                      "samples": 129,
+                      "peak_utilization": 0.065307617
+                    },
+                    {
+                      "backend": "libc-private-zone",
+                      "blocks": 64,
+                      "page_bytes": 16384,
+                      "peak_payload": 4280,
+                      "max_heap": 1048576,
+                      "final_heap": 1048576,
+                      "operations": 128,
+                      "samples": 129,
+                      "peak_utilization": 0.004081726
+                    },
+                    {
+                      "backend": "toy-first",
+                      "blocks": 512,
+                      "page_bytes": 16384,
+                      "peak_payload": 34424,
+                      "max_heap": 65536,
+                      "final_heap": 65536,
+                      "operations": 1024,
+                      "samples": 1025,
+                      "peak_utilization": 0.525268555
+                    },
+                    {
+                      "backend": "toy-next",
+                      "blocks": 512,
+                      "page_bytes": 16384,
+                      "peak_payload": 34424,
+                      "max_heap": 65536,
+                      "final_heap": 65536,
+                      "operations": 1024,
+                      "samples": 1025,
+                      "peak_utilization": 0.525268555
+                    },
+                    {
+                      "backend": "libc-private-zone",
+                      "blocks": 512,
+                      "page_bytes": 16384,
+                      "peak_payload": 34424,
+                      "max_heap": 1048576,
+                      "final_heap": 1048576,
+                      "operations": 1024,
+                      "samples": 1025,
+                      "peak_utilization": 0.032829285
+                    }
+                  ]
+                }
+              ],
+              "metric": "peak requested bytes / maximum block-region reserved bytes",
+              "region_check": "page union of MALLOC_PTR_REGION_RANGE_TYPE and MALLOC_ADMIN_REGION_RANGE_TYPE equals size_allocated at every sample",
+              "excluded": [
+                "out-of-region allocator controllers on both backends",
+                "shared process state"
+              ],
+              "scope": "Darwin private scalable zone; not default malloc dispatch or physical RSS",
+              "sanitizer": "disabled for space measurement to preserve libc backend"
+            },
+            "commands": [
+              {
+                "command": [
+                  "clang",
+                  "-std=c11",
+                  "-Wall",
+                  "-Wextra",
+                  "-Werror",
+                  "-pedantic",
+                  "-O2",
+                  "-DNDEBUG",
+                  "BOOK/code/ch03_procprob_alias.c",
+                  "-o",
+                  "RUN/alias-release"
+                ],
+                "exit_code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              {
+                "command": [
+                  "RUN/alias-release"
+                ],
+                "exit_code": 0,
+                "stdout": "alias source-order=1 assembly-order=257 independent-long=256 independent-char=0 checks=2\n",
+                "stderr": ""
+              },
+              {
+                "command": [
+                  "clang",
+                  "-std=c11",
+                  "-Wall",
+                  "-Wextra",
+                  "-Werror",
+                  "-pedantic",
+                  "-O2",
+                  "-DNDEBUG",
+                  "-fsanitize=address,undefined",
+                  "-fno-omit-frame-pointer",
+                  "BOOK/code/ch03_procprob_alias.c",
+                  "-o",
+                  "RUN/alias-sanitized"
+                ],
+                "exit_code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              {
+                "command": [
+                  "RUN/alias-sanitized"
+                ],
+                "exit_code": 0,
+                "stdout": "alias source-order=1 assembly-order=257 independent-long=256 independent-char=0 checks=2\n",
+                "stderr": ""
+              },
+              {
+                "command": [
+                  "clang",
+                  "-std=c11",
+                  "-Wall",
+                  "-Wextra",
+                  "-Werror",
+                  "-pedantic",
+                  "-O2",
+                  "-DNDEBUG",
+                  "-fsanitize=address,undefined",
+                  "RUN/alias-reordered.c",
+                  "-o",
+                  "RUN/alias-reordered"
+                ],
+                "exit_code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              {
+                "command": [
+                  "RUN/alias-reordered"
+                ],
+                "exit_code": 1,
+                "stdout": "",
+                "stderr": "alias mismatch: source=257 assembly=257\n"
+              },
+              {
+                "command": [
+                  "clang",
+                  "-std=c11",
+                  "-Wall",
+                  "-Wextra",
+                  "-Werror",
+                  "-pedantic",
+                  "-O2",
+                  "-DNDEBUG",
+                  "BOOK/code/ch09_space.c",
+                  "-o",
+                  "RUN/space"
+                ],
+                "exit_code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              {
+                "command": [
+                  "RUN/space"
+                ],
+                "exit_code": 0,
+                "stdout": "{\"backend\":\"toy-first\",\"blocks\":64,\"page_bytes\":16384,\"peak_payload\":4280,\"max_heap\":65536,\"final_heap\":65536,\"operations\":128,\"samples\":129,\"peak_utilization\":0.065307617}\n{\"backend\":\"toy-next\",\"blocks\":64,\"page_bytes\":16384,\"peak_payload\":4280,\"max_heap\":65536,\"final_heap\":65536,\"operations\":128,\"samples\":129,\"peak_utilization\":0.065307617}\n{\"backend\":\"libc-private-zone\",\"blocks\":64,\"page_bytes\":16384,\"peak_payload\":4280,\"max_heap\":1048576,\"final_heap\":1048576,\"operations\":128,\"samples\":129,\"peak_utilization\":0.004081726}\n{\"backend\":\"toy-first\",\"blocks\":512,\"page_bytes\":16384,\"peak_payload\":34424,\"max_heap\":65536,\"final_heap\":65536,\"operations\":1024,\"samples\":1025,\"peak_utilization\":0.525268555}\n{\"backend\":\"toy-next\",\"blocks\":512,\"page_bytes\":16384,\"peak_payload\":34424,\"max_heap\":65536,\"final_heap\":65536,\"operations\":1024,\"samples\":1025,\"peak_utilization\":0.525268555}\n{\"backend\":\"libc-private-zone\",\"blocks\":512,\"page_bytes\":16384,\"peak_payload\":34424,\"max_heap\":1048576,\"final_heap\":1048576,\"operations\":1024,\"samples\":1025,\"peak_utilization\":0.032829285}\n",
+                "stderr": ""
+              },
+              {
+                "command": [
+                  "RUN/space"
+                ],
+                "exit_code": 0,
+                "stdout": "{\"backend\":\"toy-first\",\"blocks\":64,\"page_bytes\":16384,\"peak_payload\":4280,\"max_heap\":65536,\"final_heap\":65536,\"operations\":128,\"samples\":129,\"peak_utilization\":0.065307617}\n{\"backend\":\"toy-next\",\"blocks\":64,\"page_bytes\":16384,\"peak_payload\":4280,\"max_heap\":65536,\"final_heap\":65536,\"operations\":128,\"samples\":129,\"peak_utilization\":0.065307617}\n{\"backend\":\"libc-private-zone\",\"blocks\":64,\"page_bytes\":16384,\"peak_payload\":4280,\"max_heap\":1048576,\"final_heap\":1048576,\"operations\":128,\"samples\":129,\"peak_utilization\":0.004081726}\n{\"backend\":\"toy-first\",\"blocks\":512,\"page_bytes\":16384,\"peak_payload\":34424,\"max_heap\":65536,\"final_heap\":65536,\"operations\":1024,\"samples\":1025,\"peak_utilization\":0.525268555}\n{\"backend\":\"toy-next\",\"blocks\":512,\"page_bytes\":16384,\"peak_payload\":34424,\"max_heap\":65536,\"final_heap\":65536,\"operations\":1024,\"samples\":1025,\"peak_utilization\":0.525268555}\n{\"backend\":\"libc-private-zone\",\"blocks\":512,\"page_bytes\":16384,\"peak_payload\":34424,\"max_heap\":1048576,\"final_heap\":1048576,\"operations\":1024,\"samples\":1025,\"peak_utilization\":0.032829285}\n",
+                "stderr": ""
+              },
+              {
+                "command": [
+                  "RUN/space"
+                ],
+                "exit_code": 0,
+                "stdout": "{\"backend\":\"toy-first\",\"blocks\":64,\"page_bytes\":16384,\"peak_payload\":4280,\"max_heap\":65536,\"final_heap\":65536,\"operations\":128,\"samples\":129,\"peak_utilization\":0.065307617}\n{\"backend\":\"toy-next\",\"blocks\":64,\"page_bytes\":16384,\"peak_payload\":4280,\"max_heap\":65536,\"final_heap\":65536,\"operations\":128,\"samples\":129,\"peak_utilization\":0.065307617}\n{\"backend\":\"libc-private-zone\",\"blocks\":64,\"page_bytes\":16384,\"peak_payload\":4280,\"max_heap\":1048576,\"final_heap\":1048576,\"operations\":128,\"samples\":129,\"peak_utilization\":0.004081726}\n{\"backend\":\"toy-first\",\"blocks\":512,\"page_bytes\":16384,\"peak_payload\":34424,\"max_heap\":65536,\"final_heap\":65536,\"operations\":1024,\"samples\":1025,\"peak_utilization\":0.525268555}\n{\"backend\":\"toy-next\",\"blocks\":512,\"page_bytes\":16384,\"peak_payload\":34424,\"max_heap\":65536,\"final_heap\":65536,\"operations\":1024,\"samples\":1025,\"peak_utilization\":0.525268555}\n{\"backend\":\"libc-private-zone\",\"blocks\":512,\"page_bytes\":16384,\"peak_payload\":34424,\"max_heap\":1048576,\"final_heap\":1048576,\"operations\":1024,\"samples\":1025,\"peak_utilization\":0.032829285}\n",
+                "stderr": ""
+              },
+              {
+                "command": [
+                  "clang",
+                  "-std=c11",
+                  "-Wall",
+                  "-Wextra",
+                  "-Werror",
+                  "-pedantic",
+                  "-O2",
+                  "-DNDEBUG",
+                  "-I",
+                  "BOOK/code",
+                  "RUN/space-live-denominator.c",
+                  "-o",
+                  "RUN/space-live-denominator"
+                ],
+                "exit_code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              {
+                "command": [
+                  "RUN/space-live-denominator"
+                ],
+                "exit_code": 1,
+                "stdout": "{\"backend\":\"toy-first\",\"blocks\":64,\"page_bytes\":16384,\"peak_payload\":4280,\"max_heap\":65536,\"final_heap\":65536,\"operations\":128,\"samples\":129,\"peak_utilization\":0.065307617}\n{\"backend\":\"toy-next\",\"blocks\":64,\"page_bytes\":16384,\"peak_payload\":4280,\"max_heap\":65536,\"final_heap\":65536,\"operations\":128,\"samples\":129,\"peak_utilization\":0.065307617}\n",
+                "stderr": "allocator invariant failed\n"
+              }
+            ]
+          },
+          "explanation_regressions": {
+            "status": "passed",
+            "source": "notes/chapter05_optimization.html#alias-functions",
+            "extracted_code_sha256": "ceae5fd040e3e552b1ae69d1551ff8615ad93bbf39c19b28aca9be69cbe5df48",
+            "configurations": [
+              "O0",
+              "O3",
+              "sanitized"
+            ],
+            "ndebug": true,
+            "alias_cases_per_run": 33,
+            "distinct_cases_per_run": 1089,
+            "initial_two": {
+              "twice": 8,
+              "once": 6
+            },
+            "side_effect_calls": [
+              4,
+              1
+            ],
+            "unsafe_merge_rejected": true,
+            "const_write_rejected": true,
+            "scope": "Small representable long values; no signed-overflow or performance claim.",
+            "commands": [
+              {
+                "command": [
+                  "clang",
+                  "-std=c11",
+                  "-Wall",
+                  "-Wextra",
+                  "-Werror",
+                  "-pedantic",
+                  "-DNDEBUG",
+                  "-O0",
+                  "RUN/alias.c",
+                  "-o",
+                  "RUN/O0"
+                ],
+                "exit_code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              {
+                "command": [
+                  "RUN/O0"
+                ],
+                "exit_code": 0,
+                "stdout": "initial=2 twice=8 once=6 alias-cases=33 distinct-cases=1089\nside-effects: sums=28,28 calls=4,1\n",
+                "stderr": ""
+              },
+              {
+                "command": [
+                  "clang",
+                  "-std=c11",
+                  "-Wall",
+                  "-Wextra",
+                  "-Werror",
+                  "-pedantic",
+                  "-DNDEBUG",
+                  "-O3",
+                  "RUN/alias.c",
+                  "-o",
+                  "RUN/O3"
+                ],
+                "exit_code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              {
+                "command": [
+                  "RUN/O3"
+                ],
+                "exit_code": 0,
+                "stdout": "initial=2 twice=8 once=6 alias-cases=33 distinct-cases=1089\nside-effects: sums=28,28 calls=4,1\n",
+                "stderr": ""
+              },
+              {
+                "command": [
+                  "clang",
+                  "-std=c11",
+                  "-Wall",
+                  "-Wextra",
+                  "-Werror",
+                  "-pedantic",
+                  "-DNDEBUG",
+                  "-O2",
+                  "-fsanitize=address,undefined",
+                  "-fno-omit-frame-pointer",
+                  "RUN/alias.c",
+                  "-o",
+                  "RUN/sanitized"
+                ],
+                "exit_code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              {
+                "command": [
+                  "RUN/sanitized"
+                ],
+                "exit_code": 0,
+                "stdout": "initial=2 twice=8 once=6 alias-cases=33 distinct-cases=1089\nside-effects: sums=28,28 calls=4,1\n",
+                "stderr": ""
+              },
+              {
+                "command": [
+                  "clang",
+                  "-std=c11",
+                  "-Wall",
+                  "-Wextra",
+                  "-Werror",
+                  "-pedantic",
+                  "-DNDEBUG",
+                  "-O3",
+                  "RUN/merged.c",
+                  "-o",
+                  "RUN/merged"
+                ],
+                "exit_code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              {
+                "command": [
+                  "RUN/merged"
+                ],
+                "exit_code": 1,
+                "stdout": "",
+                "stderr": "alias mismatch at -16: -48 -48\n"
+              },
+              {
+                "command": [
+                  "clang",
+                  "-std=c11",
+                  "-Wall",
+                  "-Wextra",
+                  "-Werror",
+                  "-pedantic",
+                  "-DNDEBUG",
+                  "-fsyntax-only",
+                  "RUN/const-write.c"
+                ],
+                "exit_code": 1,
+                "stdout": "",
+                "stderr": "tmp/project-check/20261021T233316-1un5sf_s/csapp/explanations/const-write.c:1:36: error: read-only variable is not assignable\n    1 | void invalid(const long *yp) { *yp = 4; }\n      |                                ~~~ ^\n1 error generated.\n"
+              }
+            ]
+          },
+          "assertion_regressions": {
+            "status": "passed",
+            "normal_and_disabled_runs": 24,
+            "wrong_variant_runs": 42,
+            "report": "tmp/project-check/20261021T233316-1un5sf_s/csapp/assertion-regressions/report.json"
+          }
+        }
+      }
+    },
+    "visual-group-theory": {
+      "report": "tmp/project-check/20261021T233316-1un5sf_s/visual-group-theory/report.json",
+      "sha256": "f6ac1ad4f0b8cc2d3ecdd2130707f1c779b9e795db9398ee1858cbcec794dd6a",
+      "results": {
+        "structure": {
+          "pages": 12,
+          "original_exercises": 302,
+          "numbered_statements": 62,
+          "excerpts": 63,
+          "links": 1067,
+          "mathml": 9270,
+          "svg": 198,
+          "source_diagrams": {
+            "ex718-h-before": 48,
+            "ex718-h-after": 24
+          },
+          "synchronized_sources": 20,
+          "review_binding": "file hashes match; semantic and browser evidence recorded separately",
+          "source_pdf": "hash and inventory checked"
+        },
+        "reading_consistency": {
+          "chapter_map_rows": 10,
+          "inline_mathml": 9239,
+          "display_mathml": 31,
+          "total_mathml": 9270,
+          "distinct_formulas": 3256,
+          "protected_semantic_references": 49,
+          "mutations_rejected": [
+            "Sylow count exponent instead of subscript",
+            "division instead of divisibility",
+            "wrong radical denominator",
+            "multiplicative group subscript instead of superscript",
+            "wrong excluded zero in multiplicative group",
+            "lost semidirect action",
+            "display formula missing accessible name",
+            "display formula mismatched fallback",
+            "quadratic formula wrong denominator"
+          ],
+          "new_reading_notes": 16,
+          "scoped_excerpts": 19,
+          "reviewed_cross_references": 7
+        },
+        "programs": {
+          "python_state_word_cases": 1530,
+          "cli_word_cases": 384,
+          "c_build_commands": [
+            "clang -std=c11 -Wall -Wextra -Werror -pedantic -O2 code/actions.c -o actions-0",
+            "clang -std=c11 -Wall -Wextra -Werror -pedantic -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer code/actions.c -o actions-1"
+          ],
+          "mutations_rejected": [
+            "wrong_swap",
+            "reverse_time_order"
+          ],
+          "platform": "darwin",
+          "python": "3.14.6"
+        },
+        "chapters_2_4": {
+          "source_math": {
+            "a4_entries": 144,
+            "q4_entries": 64,
+            "polygon_table_entries": 200,
+            "source_input_tables": 9,
+            "equation_and_false_diagram_witnesses": 7
+          },
+          "polygon_edge_cases": 300,
+          "frieze_point_cases": 4372,
+          "all_tables_up_to_order_3": 19700,
+          "labelled_group_counts": {
+            "1": 1,
+            "2": 2,
+            "3": 3
+          },
+          "cli_runs": 543,
+          "c_build_commands": [
+            "clang -std=c11 -Wall -Wextra -Werror -pedantic -O2 books/visual-group-theory/code/cayley.c -o tmp/project-check/20261021T233316-1un5sf_s/visual-group-theory/cayley-o2",
+            "clang -std=c11 -Wall -Wextra -Werror -pedantic -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer books/visual-group-theory/code/cayley.c -o tmp/project-check/20261021T233316-1un5sf_s/visual-group-theory/cayley-san",
+            "clang -std=c11 -Wall -Wextra -Werror -pedantic -O2 books/visual-group-theory/code/frieze.c -o tmp/project-check/20261021T233316-1un5sf_s/visual-group-theory/frieze-o2",
+            "clang -std=c11 -Wall -Wextra -Werror -pedantic -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer books/visual-group-theory/code/frieze.c -o tmp/project-check/20261021T233316-1un5sf_s/visual-group-theory/frieze-san",
+            "clang -std=c11 -Wall -Wextra -Werror -pedantic -O2 books/visual-group-theory/code/tables.c -o tmp/project-check/20261021T233316-1un5sf_s/visual-group-theory/tables-o2",
+            "clang -std=c11 -Wall -Wextra -Werror -pedantic -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer books/visual-group-theory/code/tables.c -o tmp/project-check/20261021T233316-1un5sf_s/visual-group-theory/tables-san"
+          ],
+          "mutations_rejected": [
+            "cayley: incorrect reflection rejected",
+            "frieze: incorrect reflection rejected"
+          ]
+        },
+        "chapters_5_8": {
+          "permutations": {
+            "permutations": 5913,
+            "distinct_squares_by_degree": {
+              "1": 1,
+              "2": 1,
+              "3": 3,
+              "4": 12,
+              "5": 60,
+              "6": 270,
+              "7": 1890
+            }
+          },
+          "subgroups": {
+            "vertex_products": 364,
+            "subgroups_by_n": {
+              "1": 2,
+              "2": 5,
+              "3": 6,
+              "4": 10,
+              "5": 8,
+              "6": 16
+            }
+          },
+          "products": {
+            "parameter_sets": 64,
+            "faithful_action_products": 16483
+          },
+          "homomorphisms": {
+            "cyclic_pairs": 144,
+            "additive_equations": 18430,
+            "exhaustive_functions": 494
+          },
+          "source": {
+            "displayed_source_arrows": {
+              "ex718-h-before": 48,
+              "ex718-h-after": 24
+            },
+            "invalid_7_18fg_action_order": 64,
+            "valid_7_18h_group_order": 16,
+            "source_matrix_orders": [
+              4,
+              8
+            ],
+            "a4_displayed_entries": 144,
+            "source_orbits": 2,
+            "literal_5_33e": true
+          },
+          "diagrams": {
+            "c24_nodes": 8,
+            "c24_cover_edges": 10,
+            "unrelated_node_crossings": 0
+          },
+          "mutations": [
+            {
+              "fault": "reverse temporal composition",
+              "rejected_by": "temporal composition reverses (12) then (23)"
+            },
+            {
+              "fault": "drop semidirect action",
+              "rejected_by": "semidirect product differs from grid action"
+            },
+            {
+              "fault": "omit trivial homomorphism",
+              "rejected_by": "Hom count differs from gcd"
+            },
+            {
+              "fault": "wrong C24 lattice node",
+              "rejected_by": "C24 lattice node labels changed"
+            }
+          ],
+          "cli": {
+            "process_runs": 1028,
+            "c_builds": [
+              "clang -std=c11 -Wall -Wextra -Werror -pedantic -O2 books/visual-group-theory/code/permutations.c -o tmp/project-check/20261021T233316-1un5sf_s/visual-group-theory/permutations-release",
+              "clang -std=c11 -Wall -Wextra -Werror -pedantic -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer books/visual-group-theory/code/permutations.c -o tmp/project-check/20261021T233316-1un5sf_s/visual-group-theory/permutations-sanitized",
+              "clang -std=c11 -Wall -Wextra -Werror -pedantic -O2 books/visual-group-theory/code/subgroups.c -o tmp/project-check/20261021T233316-1un5sf_s/visual-group-theory/subgroups-release",
+              "clang -std=c11 -Wall -Wextra -Werror -pedantic -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer books/visual-group-theory/code/subgroups.c -o tmp/project-check/20261021T233316-1un5sf_s/visual-group-theory/subgroups-sanitized",
+              "clang -std=c11 -Wall -Wextra -Werror -pedantic -O2 books/visual-group-theory/code/products.c -o tmp/project-check/20261021T233316-1un5sf_s/visual-group-theory/products-release",
+              "clang -std=c11 -Wall -Wextra -Werror -pedantic -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer books/visual-group-theory/code/products.c -o tmp/project-check/20261021T233316-1un5sf_s/visual-group-theory/products-sanitized",
+              "clang -std=c11 -Wall -Wextra -Werror -pedantic -O2 books/visual-group-theory/code/homomorphisms.c -o tmp/project-check/20261021T233316-1un5sf_s/visual-group-theory/homomorphisms-release",
+              "clang -std=c11 -Wall -Wextra -Werror -pedantic -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer books/visual-group-theory/code/homomorphisms.c -o tmp/project-check/20261021T233316-1un5sf_s/visual-group-theory/homomorphisms-sanitized"
+            ],
+            "sanitizers": "ASan and UBSan in all four programs"
+          }
+        },
+        "chapters_9_10": {
+          "sylow": [
+            {
+              "n": 2,
+              "p": 2,
+              "order": 2,
+              "count": 1,
+              "all_subgroups": 2
+            },
+            {
+              "n": 3,
+              "p": 2,
+              "order": 2,
+              "count": 3,
+              "all_subgroups": 6
+            },
+            {
+              "n": 3,
+              "p": 3,
+              "order": 3,
+              "count": 1,
+              "all_subgroups": 6
+            },
+            {
+              "n": 4,
+              "p": 2,
+              "order": 8,
+              "count": 3,
+              "all_subgroups": 30
+            },
+            {
+              "n": 4,
+              "p": 3,
+              "order": 3,
+              "count": 4,
+              "all_subgroups": 30
+            },
+            {
+              "n": 5,
+              "p": 2,
+              "order": 8,
+              "count": 15,
+              "all_subgroups": 156
+            },
+            {
+              "n": 5,
+              "p": 3,
+              "order": 3,
+              "count": 10,
+              "all_subgroups": 156
+            },
+            {
+              "n": 5,
+              "p": 5,
+              "order": 5,
+              "count": 6,
+              "all_subgroups": 156
+            }
+          ],
+          "galois": {
+            "multiplication_and_composition_cases": 600,
+            "basis_dimension": 6
+          },
+          "source_math": {
+            "polynomial_divisions": 4,
+            "quintic_real_roots": {
+              "one_real": 1,
+              "three_real": 3,
+              "five_real": 5
+            },
+            "source_10_26_order": 24,
+            "A5_class_sizes": [
+              1,
+              12,
+              12,
+              15,
+              20
+            ],
+            "finite_fields": [
+              {
+                "order": 3,
+                "multiplicative_cycle": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "order": 4,
+                "multiplicative_cycle": [
+                  1,
+                  2,
+                  3
+                ]
+              },
+              {
+                "order": 7,
+                "multiplicative_cycle": [
+                  1,
+                  3,
+                  2,
+                  6,
+                  4,
+                  5
+                ]
+              },
+              {
+                "order": 8,
+                "multiplicative_cycle": [
+                  1,
+                  2,
+                  4,
+                  3,
+                  6,
+                  7,
+                  5
+                ]
+              },
+              {
+                "order": 11,
+                "multiplicative_cycle": [
+                  1,
+                  2,
+                  4,
+                  8,
+                  5,
+                  10,
+                  9,
+                  7,
+                  3,
+                  6
+                ]
+              }
+            ]
+          },
+          "mutations_rejected": [
+            "sylow: tuple(b[x] for x in a)",
+            "sylow: length = 4 if p == 2 and n >= 4 else p",
+            "galois: factor *= -3",
+            "galois: factor *= 2"
+          ],
+          "cli": {
+            "cases": 177,
+            "builds": [
+              "clang -std=c11 -Wall -Wextra -Werror -pedantic -O2 books/visual-group-theory/code/sylow.c -o tmp/project-check/20261021T233316-1un5sf_s/visual-group-theory/sylow-O2",
+              "clang -std=c11 -Wall -Wextra -Werror -pedantic -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer books/visual-group-theory/code/sylow.c -o tmp/project-check/20261021T233316-1un5sf_s/visual-group-theory/sylow-san",
+              "clang -std=c11 -Wall -Wextra -Werror -pedantic -O2 books/visual-group-theory/code/galois.c -o tmp/project-check/20261021T233316-1un5sf_s/visual-group-theory/galois-O2",
+              "clang -std=c11 -Wall -Wextra -Werror -pedantic -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer books/visual-group-theory/code/galois.c -o tmp/project-check/20261021T233316-1un5sf_s/visual-group-theory/galois-san"
+            ]
+          }
+        }
+      }
+    },
+    "measure-probability": {
+      "report": "tmp/project-check/20261021T233316-1un5sf_s/measure-probability/report.json",
+      "sha256": "f90399761bd3f398e3707bc1fa6a3640aab36cb706bfce8d68d82e3aff4ff9f9",
+      "results": {
+        "structure": {
+          "pages": 8,
+          "original_exercises": 170,
+          "numbered_statements": 203,
+          "numbered_examples": 33,
+          "mathml": 6140,
+          "svg": 6,
+          "local_links": 1097,
+          "quotation_status": {
+            "statements": 203,
+            "quoted": 12,
+            "location_only": 191
+          },
+          "annotated_core_formulae": 14,
+          "synchronized_sources": 8,
+          "source_parser_mutations_rejected": [
+            "nested_tag",
+            "missing_end",
+            "duplicate_source",
+            "wrong_source"
+          ],
+          "mutations_rejected": [
+            "excerpt_status",
+            "excerpt_page",
+            "exercise_number",
+            "question_condition",
+            "chapter_3_question_condition",
+            "chapter_4_question_condition",
+            "chapter_5_question_condition",
+            "chapter_6_question_condition",
+            "source_page",
+            "displayed_source"
+          ],
+          "source_pdf": "local hash verified; page inventory read from scan",
+          "review_binding": "current files match recorded review; semantic and browser evidence are separate"
+        },
+        "programs": {
+          "sigma_closure_cases": 343,
+          "cover_subfamily_cases": 47,
+          "exact_rational_cases": 96,
+          "cli_executions": 852,
+          "builds": [
+            [
+              "clang",
+              "-std=c11",
+              "-Wall",
+              "-Wextra",
+              "-Werror",
+              "-pedantic",
+              "-O2",
+              "code/finite_spaces.c",
+              "-o",
+              "finite_spaces-release"
+            ],
+            [
+              "clang",
+              "-std=c11",
+              "-Wall",
+              "-Wextra",
+              "-Werror",
+              "-pedantic",
+              "-O1",
+              "-g",
+              "-fsanitize=address,undefined",
+              "-fno-omit-frame-pointer",
+              "code/finite_spaces.c",
+              "-o",
+              "finite_spaces-sanitized"
+            ],
+            [
+              "clang",
+              "-std=c11",
+              "-Wall",
+              "-Wextra",
+              "-Werror",
+              "-pedantic",
+              "-O2",
+              "code/simple_approx.c",
+              "-o",
+              "simple_approx-release"
+            ],
+            [
+              "clang",
+              "-std=c11",
+              "-Wall",
+              "-Wextra",
+              "-Werror",
+              "-pedantic",
+              "-O1",
+              "-g",
+              "-fsanitize=address,undefined",
+              "-fno-omit-frame-pointer",
+              "code/simple_approx.c",
+              "-o",
+              "simple_approx-sanitized"
+            ]
+          ],
+          "invalid_cases": {
+            "finite_spaces": 68,
+            "simple_approx": 42
+          },
+          "lexical_tokens": [
+            "1 ",
+            " 1",
+            "\t1",
+            "1\n",
+            "１",
+            "١",
+            "1_0",
+            "+1",
+            "",
+            "-",
+            "−1"
+          ],
+          "correction_regressions": [
+            "missing empty intersection",
+            "missing global cover",
+            "probability Cesaro counterexample"
+          ],
+          "scope": "finite models and numerical boundaries; general proofs are reviewed in HTML"
+        },
+        "integration_program": {
+          "cases": 79,
+          "invalid_cases": 19,
+          "cli_executions": 294,
+          "builds": [
+            [
+              "clang",
+              "-std=c11",
+              "-Wall",
+              "-Wextra",
+              "-Werror",
+              "-pedantic",
+              "-O2",
+              "books/measure-probability/code/finite_integrals.c",
+              "-o",
+              "tmp/project-check/20261021T233316-1un5sf_s/measure-probability/integration/finite_integrals-release"
+            ],
+            [
+              "clang",
+              "-std=c11",
+              "-Wall",
+              "-Wextra",
+              "-Werror",
+              "-pedantic",
+              "-O1",
+              "-g",
+              "-fsanitize=address,undefined",
+              "-fno-omit-frame-pointer",
+              "books/measure-probability/code/finite_integrals.c",
+              "-o",
+              "tmp/project-check/20261021T233316-1un5sf_s/measure-probability/integration/finite_integrals-sanitized"
+            ]
+          ],
+          "oracles": [
+            "level-set integral",
+            "all-subset Jordan extrema",
+            "all conditioning-event identities",
+            "RN defining integral",
+            "L2 projection"
+          ],
+          "mutations_rejected": [
+            "zero-point conditional measurability",
+            "integral",
+            "positive_integral",
+            "negative_integral",
+            "jordan_positive",
+            "jordan_negative",
+            "density",
+            "block_mass",
+            "AC_flag",
+            "paired_decomposition",
+            "second_moment",
+            "variation_total",
+            "expectation"
+          ],
+          "scope": "finite exact models only; infinite-space proofs reviewed separately"
+        },
+        "product_limits_program": {
+          "valid_cases": 298,
+          "invalid_cases": 35,
+          "cli_executions": 999,
+          "builds": [
+            [
+              "clang",
+              "-std=c11",
+              "-Wall",
+              "-Wextra",
+              "-Werror",
+              "-pedantic",
+              "-O2",
+              "books/measure-probability/code/product_limits.c",
+              "-lm",
+              "-o",
+              "tmp/project-check/20261021T233316-1un5sf_s/measure-probability/product-limits/product_limits-release"
+            ],
+            [
+              "clang",
+              "-std=c11",
+              "-Wall",
+              "-Wextra",
+              "-Werror",
+              "-pedantic",
+              "-O1",
+              "-g",
+              "-fsanitize=address,undefined",
+              "-fno-omit-frame-pointer",
+              "books/measure-probability/code/product_limits.c",
+              "-lm",
+              "-o",
+              "tmp/project-check/20261021T233316-1un5sf_s/measure-probability/product-limits/product_limits-sanitized"
+            ]
+          ],
+          "oracles": [
+            "exact atom fractions and all-atom independence",
+            "layer-cake finite expectation",
+            "binomial coefficients",
+            "all binary paths for n<=6",
+            "centered one-step CF product"
+          ],
+          "mutations_rejected": [
+            "kernel_mass",
+            "conditional_weight",
+            "kernel_independence",
+            "binomial_coefficient",
+            "binomial_variance",
+            "normalization"
+          ],
+          "scope": "Finite models and correction fixtures; no simulation is used as proof of an infinite limit."
+        }
+      }
+    },
+    "eopl": {
+      "report": "tmp/project-check/20261021T233316-1un5sf_s/eopl/report.json",
+      "sha256": "7b495f403743b71d3b7fb243c34da08e96d89b2b105571a67cc063fb483f5cb4",
+      "results": {
+        "status": "passed",
+        "stage": "chapters-1-2",
+        "pages": 4,
+        "answered_exercises": 68,
+        "source_check": "independent_inventory_verified",
+        "quick": false,
+        "semantic_tests": {
+          "status": "passed",
+          "hand_calculated_cases": 10,
+          "error_cases": 10,
+          "scope_grid": 125,
+          "scope_discriminating_cases": 100
+        },
+        "racket_execution": {
+          "chapter01.rkt": "((0 a) (1 b) (2 c))\n((x b) (c (x)))\n(red (bar 1 1) (red 2 (quux 2 2)))\n(foo (bar 0 1) (baz 2 (quux 3 4)))\n",
+          "chapter02.rkt": "(2 0 1)\n((lambda (a) (a b)) c)\n2\n(13 (12 () (99 () ())) ())\n",
+          "test_chapters.rkt": {
+            "assertions": 6269,
+            "failures": 0,
+            "racket": "8.17",
+            "status": "passed"
+          }
+        },
+        "textbook_context_execution": {
+          "status": "passed",
+          "textbook_code_cases": 6,
+          "stdout": "6 success(es) 0 failure(s) 0 error(s) 6 test(s) run\n",
+          "scope": "Six exact code excerpts with typographic quotes normalized. Parser constructor stubs preserve AST shape; its known acceptance of (a b c) is explicitly demonstrated."
+        }
+      }
+    }
+  },
+  "build": {
+    "result": {
+      "status": "passed",
+      "mode": "book_migration",
+      "books": [
+        "measure-probability",
+        "visual-group-theory",
+        "stochastic",
+        "weiss",
+        "csapp",
+        "eopl"
+      ],
+      "pages": 60,
+      "public_html": 82,
+      "seconds": 100.31863650000001,
+      "output": "dist"
+    },
+    "report": "tmp/reader-audit-20261021/final-local-build/build.json",
+    "report_sha256": "11c2abd29e465e2fa9bee974d15506a69337b447f2d19c2f806f610a03bf4a3f",
+    "parity_report": "tmp/reader-audit-20261021/final-local-build/parity.json",
+    "parity_sha256": "4d15b551caf4684fe57b6af99a2219f3e67d7bb711ec6a258482e598cd61c963",
+    "performance_budget_pages": 82,
+    "performance_budget_status": "passed",
+    "performance_report_sha256": "48bc90e167c39032ff2d33decbfb2442bf54ed5ec38d12a4d7dbecfcd3e09af7",
+    "csp": {
+      "pages": 9,
+      "script_hashes": 12,
+      "tampered_script": "blocked",
+      "report": "tmp/reading-notes-migration/csp/runs/2026-10-21T15-30-33-367Z-a74fec3e/report.json",
+      "report_sha256": "f625e3e56551276e749125d3d095b55162bbb6b906abcc752095e53edc361466",
+      "manifest": "tmp/reading-notes-migration/csp/runs/2026-10-21T15-30-33-367Z-a74fec3e/manifest.json",
+      "manifest_sha256": "eca747b05c2dc78e20d4bfb3d812edad890200390772a29614cd859ce2644523"
+    },
+    "build_log": "tmp/reader-audit-20261021/final-build-9.log",
+    "build_log_sha256": "93873c33868297307ff1c698649ade2756fba467520d0604c9ac6b40912671a0"
+  },
+  "additional_semantic_regression": {
+    "vgt_complete_formulas": "tmp/reader-audit-20261021/vgt-composite-regression-2.log",
+    "independent_delta": "tmp/reader-audit-20261021/final-validator/vgt-composite-checker-delta-readback.json",
+    "protected_original_references": 49,
+    "checker_mutations_rejected": 9,
+    "additional_independent_mutations_rejected": 7
+  },
+  "additional_csapp_semantic_regression": {
+    "complete_M_and_f_equalities": "tmp/reader-audit-20261021/csapp-composite-regression.json",
+    "independent_delta": "tmp/reader-audit-20261021/final-validator/csapp-composite-checker-delta-readback.json",
+    "checker_mutations_rejected": 6,
+    "additional_independent_mutations_rejected": 12
+  },
+  "signal_guard_diagnosis": {
+    "report": "tmp/reader-audit-20261021/final-validator/signal-guard-diagnosis.json",
+    "guard_seconds_unchanged": 1.0,
+    "watchdog_seconds_unchanged": 0.25,
+    "exact_source_probes": 27,
+    "stage_probes": 4,
+    "observed": "Fresh process initialization before main consumed a substantial part of the external guard; the historical failure processes have no phase trace, so their exact cause remains unproven."
+  },
+  "previous_attempts": [
+    {
+      "report": "tmp/project-check/20261021T233316-1un5sf_s/report.json",
+      "result": "failed_last_entry_then_targeted_recheck_passed",
+      "reason": "VGT chapter9 output hash in the review record still referenced the build before the final sylow code marker. Only that reviewed output binding changed; all content, programs and checkers retained identical hashes. Original failure and independent closure remain recorded."
+    },
+    {
+      "log": "tmp/reader-audit-20261021/final-build-4.log",
+      "result": "failed",
+      "reason": "Stochastic derivation inventory required reviewed digest and readable-text-length refresh; item identities, links, steps and gap classifications remained unchanged."
+    },
+    {
+      "log": "tmp/reader-audit-20261021/final-build-5.log",
+      "result": "failed",
+      "reason": "VGT original-excerpt labels and required MathML semantics metadata needed preservation after whole-formula consolidation."
+    },
+    {
+      "log": "tmp/reader-audit-20261021/final-build-6.log",
+      "result": "interrupted",
+      "reason": "The task browser space was no longer available. Recreated its independent space under the user authorization and reran CSP."
+    },
+    {
+      "report": "tmp/project-check/20261021T221027-1k6tz8m1/report.json",
+      "result": "failed",
+      "reason": "The CSAPP 2.85 regression assumed an isolated power wrapper. Replaced this layout assumption with complete M/f equality and exponent-tree checks; six persisted and twelve independent wrong-formula mutations were rejected."
+    },
+    {
+      "report": "tmp/project-check/20261021T221941-x5g7a5_w/report.json",
+      "result": "failed",
+      "reason": "CSAPP sigsuspend-wrong-restore 0 exceeded the existing one-second guard. The failure is retained; the guard and semantic assertions were not relaxed."
+    },
+    {
+      "report": "tmp/project-check/20261021T215905-97386zu0/report.json",
+      "result": "failed",
+      "reason": "One CSAPP signal mutant exceeded the existing one-second guard. Same binary/arguments/guard passed three immediate diagnostic retries; the cause is not conclusively identified and the complete unchanged suite was rerun.",
+      "diagnostic": "tmp/reader-audit-20261021/signal-timeout-diagnostic.json"
+    }
+  ],
+  "boundaries": [
+    "Program execution, source consistency, finite reference models and mutation tests are recorded separately from mathematical proof review.",
+    "CS:APP 12.39 real browser through the proxy remains unexecuted under its existing record.",
+    "Performance budgets cover static size and DOM limits; this run does not claim a new performance benchmark.",
+    "Browser interactions, actual image observations and production publication have separate records."
+  ]
+}

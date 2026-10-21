@@ -10,3 +10,5 @@
 - 原书陈述、短引文、译义、伴读例子分开标识；习题保留原编号、完整题干、提示、印刷页与 PDF 页序。
 - 默认组件来自现有测度书与共享阅读样式，具体资源见 `notes/README.md`。本书已在 I044 以地图与序言范围登记，运行 `python3 tools/project.py check --book eopl` 或书内 checker；后续章节按阅读计划逐批验收。
 - 来源读回、程序、静态结构和实际浏览器阅读分别记录于 `review/`；输出、截图和提取件只放忽略的 `tmp/`。
+
+本书的当前阅读契约以 RN-001 v1.10 为准：完整中文题干和来源、逐节注解、共同版心、代码等宽与原生折叠、命名明确的索引、直达登记 PDF 的原文入口。逐页义务在根目录 `docs/reader-contract.json`，原书发布身份在 `docs/reader-sources.json`；历史批次记录保留当时的范围，当前复查执行 `python3 tools/project.py check` 及完整浏览器矩阵。

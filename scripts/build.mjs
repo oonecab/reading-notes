@@ -10,6 +10,7 @@ import { checkCsp } from './check-csp.mjs';
 import { checkBudgets } from './performance-budget.mjs';
 import { checkSource } from '../src/lib/source-revisions.mjs';
 import { requireReaderCopy, requireCodeFolding } from '../tools/reading-presentation/check.mjs';
+import { checkAll as checkReaderContract } from '../tools/reader-contract/check.mjs';
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 process.chdir(root);
@@ -35,6 +36,9 @@ function run(command,args) {
 let pages=[];
 if(!shell) {
   pages=entries();if(!pages.length)throw new Error('No migrated content');
+  const readerContract=checkReaderContract();
+  fs.writeFileSync(path.join(stage,'reader-contract.json'),JSON.stringify(readerContract,null,2)+'\n');
+  if(readerContract.errors.length)throw new Error('Reader contract failed: '+JSON.stringify(readerContract.errors));
   for(const entry of pages)checkSource(entry);
   syncMirrors(pages,{write:true});
   for(const folder of ['legacy','prepared','canonical'])fs.rmSync(path.join(stage,folder),{recursive:true,force:true});

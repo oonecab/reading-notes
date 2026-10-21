@@ -151,8 +151,8 @@ def main():
                                  capture_output=True, text=True, check=True)
         book_validations['visual-group-theory'] = json.loads(checked.stdout)['structure']
         group_source = json.loads((group_book / 'notes/source_manifest.json').read_text())
-        if group_source['publication']['include_source_pdf'] is not False:
-            raise ValueError('Visual Group Theory is registered for reference-only source use')
+        if group_source['publication']['include_source_pdf'] is not True:
+            raise ValueError('Visual Group Theory reader references require the registered PDF')
         group_paths = sorted((group_book / 'notes').glob('*.html')) + sorted((group_book / 'notes').glob('*.json'))
         group_paths += [group_book / 'code/README.md', group_book / 'code/programs.json']
         for program in json.loads((group_book / 'code/programs.json').read_text())['programs']:
@@ -165,8 +165,8 @@ def main():
                                  capture_output=True, text=True, check=True)
         book_validations['measure-probability'] = json.loads(checked.stdout)['structure']
         measure_source = json.loads((measure_book / 'notes/source_manifest.json').read_text())
-        if measure_source['publication']['include_source_pdf'] is not False:
-            raise ValueError('Measure and Probability is registered for reference-only source use')
+        if measure_source['publication']['include_source_pdf'] is not True:
+            raise ValueError('Measure and Probability reader references require the registered PDF')
         measure_paths = sorted((measure_book / 'notes').glob('*.html')) + sorted((measure_book / 'notes').glob('*.json'))
         measure_paths += [measure_book / 'code/README.md', measure_book / 'code/programs.json']
         for program in json.loads((measure_book / 'code/programs.json').read_text())['programs']:
@@ -190,6 +190,16 @@ def main():
         if p.is_file():
             sources[p.name] = p
 
+    # Reader references share one identity registry. The exact publication
+    # allowlist independently verifies both the paths and the bytes below.
+    reader_sources = json.loads((ROOT / 'docs/reader-sources.json').read_text())['books']
+    if set(reader_sources) != set(BOOKS):
+        raise ValueError('Reader source registry does not cover the catalog')
+    for item in reader_sources.values():
+        source = local_path(ROOT, item['file'])
+        if hashlib.sha256(source.read_bytes()).hexdigest() != item['sha256']:
+            raise ValueError('Reader PDF identity differs: ' + item['route'])
+        sources[item['route']] = source
     original = {name: p.read_bytes() for name, p in sources.items()}
     blobs = dict(original)
     documents, document_views = build_reader_views(blobs)

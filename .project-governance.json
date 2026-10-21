@@ -63,7 +63,8 @@
       "pnpm test",
       "pnpm check:parity",
       "pnpm check:offline",
-      "pnpm check:performance"
+      "pnpm check:performance",
+      "node tools/reader-contract/check.mjs"
     ],
     "lint": [
       "python3 tools/project.py check --quick"
@@ -72,9 +73,6 @@
     "build": [
       "pnpm build",
       "python3 tools/project.py build"
-    ],
-    "preview": [
-      "python3 tools/project.py preview-components"
     ]
   },
   "agents": {
@@ -120,10 +118,28 @@
     "保留单文件 HTML 的章节顺序、锚点、离线能力与桌面/窄屏阅读行为。",
     "审阅文件的历史哈希保持历史事实；改变当前文件绑定时注明范围、原因和原值。",
     "新增书籍按 docs/adding-a-book.md 与 docs/templates/reading-notes/ 执行，先核对原书、规划全书并验收样章；同步 catalog、首页、构建路由、验证与来源说明，只维护一份正式内容。",
-    "统一部署的操作说明以 deploy/README.md 为准；各书 deploy/ 为保留的单书工具与历史材料。"
+    "统一部署的操作说明以 deploy/README.md 为准；各书 deploy/ 为保留的单书工具与历史材料。",
+    "RN-001 v1.10 固定完整中文题干、独立注解覆盖、原文 PDF 直达和逐页阅读验收；docs/reader-contract.json 与 docs/reader-sources.json 为可执行登记。全站检查须报告实际范围与未执行项；禁止零覆盖自动跳过。",
+    "内容组件预览命令：python3 tools/project.py preview-components（生成物仅写入 tmp/）。"
   ],
+  "adoption": {
+    "external_files": [
+      ".env.example",
+      ".gitignore",
+      "README.md"
+    ]
+  },
   "generator": {
     "name": "init-project-governance",
-    "version": "0.2.1"
+    "version": "0.5.0",
+    "paths": {
+      "tech": "TECH.md",
+      "docs": "docs",
+      "issues": "issues",
+      "plans": "plan",
+      "milestones": "milestone",
+      "test_designs": "test",
+      "rules": "docs/rules"
+    }
   }
 }

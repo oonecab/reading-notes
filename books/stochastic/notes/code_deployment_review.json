@@ -1406,48 +1406,48 @@
   },
   "files": {
     "notes/appendix_a_probability_review.html": {
-      "bytes": 323047,
-      "sha256": "5ad81c1c7740bbfe52d2c4558107d120d88c84e0ee14841df2c12f38d970ea80"
+      "bytes": 324043,
+      "sha256": "4c9c6b85da94cd9175c1d2431e548d7c7c75ea486e3b61962e05f0f705d32c21"
     },
     "notes/book_overview.html": {
-      "bytes": 62857,
-      "sha256": "cfbcf13fd3adbbc0aafd695a720e3c5d70eb0ab5044877dc011cdc8511a85791"
+      "bytes": 64106,
+      "sha256": "dae3f1e713eeaa542922b7929dbe772b0e43c720177a9a37c13ea9bdca0fd658"
     },
     "notes/chapter01_markov_chains.html": {
-      "bytes": 2296176,
-      "sha256": "c25e5feac97e8c08593424264efe0287aa396df4893e44aa260f1c7e078f2752"
+      "bytes": 2282894,
+      "sha256": "af56495eaa7e0b1de444e4a1273a60131d97d31e3deb6bc5fd08962923be76c4"
     },
     "notes/chapter02_poisson_processes.html": {
-      "bytes": 795842,
-      "sha256": "077cb79472c8ef3c156acfbc838395f148979732509d69d5e22e6e1442894dd4"
+      "bytes": 786943,
+      "sha256": "0bbb879f59d3159994dae0180920c0c6f44cb96f6ec898e4bdd7a582edbda755"
     },
     "notes/chapter03_renewal_processes.html": {
-      "bytes": 432328,
-      "sha256": "46c6e6d806b819c948fe070bbfe03d88e3b7c21201e6dc1e481efcc824c5809a"
+      "bytes": 431196,
+      "sha256": "0781d2155e4d4ad10e175d0543374127f876cc9e4435e051ba999b151c9aa53e"
     },
     "notes/chapter04_continuous_time_markov_chains.html": {
-      "bytes": 1113330,
-      "sha256": "963da84f6ab6e2516c707b296df4378922cf0b5c6a62254bc5b87d28bdd7557d"
+      "bytes": 1108535,
+      "sha256": "7434e4b58134e90b8880844b53f23636a980263731543dbe7106396f236cfcb4"
     },
     "notes/chapter05_martingales.html": {
-      "bytes": 536723,
-      "sha256": "2fbe2a353db34d59ca21f30bf208f6cc831beb24206612a60fb80e6113fbdf75"
+      "bytes": 536445,
+      "sha256": "b50c459d9ac8a56202faad0f3f84c8581767521aa22244cf5dbc6ef1ce47a159"
     },
     "notes/chapter06_mathematical_finance.html": {
-      "bytes": 1340356,
-      "sha256": "bcf4b79b0c82cd642702a3a97fb4bdc6dc3cbbe9dd98d23854f9dfe349753c36"
+      "bytes": 1343622,
+      "sha256": "660db4514bd5170d0993c8aac77406b09c2ada74ef98e61d4777d8fe3201c4d1"
     },
     "notes/preface.html": {
-      "bytes": 51336,
-      "sha256": "d0133e58134e9caeffdf210cde02cbcb5cf5c3d6158672138d0e25f732e2ccce"
+      "bytes": 52350,
+      "sha256": "490839844686587c47492d2c0baa059b8bf66fe91a1bb0a815bd255bff88bdf7"
     },
     "agent.md": {
-      "bytes": 7102,
-      "sha256": "ac845c60605089b7db9d6e421446de3666039923e493e9e9818c5affd083a31a"
+      "bytes": 7533,
+      "sha256": "bee7808182ee00a8fb7b35ba10ec3872e50cc3e59b43342adaee5146841bf122"
     },
     "notes/README.md": {
-      "bytes": 14024,
-      "sha256": "e255b6e8ed79126c2cacdfcaececd18cc4607a37b9f09789e0696273f1c3f887"
+      "bytes": 14455,
+      "sha256": "e4906d8ca0d336799a3884b2095a95d99ed97aeec82f230985a4f5220c6091de"
     },
     "notes/source_manifest.json": {
       "bytes": 36372,
@@ -1570,8 +1570,8 @@
       "sha256": "2232660e1909b42c6df8b5aca8eba12cdb383bf3741ecb53add49f6c26c6a0e7"
     },
     "notes/audit_fix_review.json": {
-      "bytes": 265190,
-      "sha256": "44c07dd8280eec36dc78e492e52c8f955e8c69f08f7a976ca3245e70690427b6"
+      "bytes": 266324,
+      "sha256": "f9483d900b38eaa369385700e7a00004d60b48f77acec3ff7706138eab7e4cb1"
     }
   },
   "review_history": [
@@ -6591,5 +6591,11 @@
     "prior_record_git": "34c4fcc150aea4112fb9f4ffa1600e2e4253d524:books/stochastic/notes/code_deployment_review.json",
     "prior_record_sha256": "1c73898784983feed62c56bbdb8e3c7fcf51cb5e0cfa24b63592b50488682a2c",
     "scope": "Current mathematical-presentation bindings: reviewed variable products, named functions, complete scripts and TeX conversion remnants. All source changes match the exact replacement ledger; preformatted program bytes, diagrams, links, scripts and anchors are preserved. Historical source/proof/execution claims retain their original scope; new presentation acceptance is recorded in docs/math-notation-review.json"
+  },
+  "I052_reader_contract_revision": {
+    "issue": "I052",
+    "prior_record_git": "a4d646e3f0c3a61d28ee38b10664f0fc8fc4c404:books/stochastic/notes/code_deployment_review.json",
+    "prior_record_sha256": "88f8a0c7eccc88c3b2e831b08c93c733334c19f8bc71608f1b7657c1fc2115e4",
+    "scope": "Current reader-contract bindings: Chinese task completeness, section annotations, direct PDF references, disclosure indexes and shared reader behavior. Existing program text is preserved; explicitly sourced question inputs are added. SVG labels, geometry and topology are preserved except the two 7.18(h) source corrections, independently checked against all source actions; 35 reviewed diagrams add explicit shared CSS roles, and eight single-column diagrams receive compact viewports and sizing; two also have fitted node bounds and line layouts, retaining label text and topology, with exact changes recorded in docs/reader-diagram-review.json. Historical source/proof/execution claims retain their scope; current acceptance is recorded in docs/reader-contract-review.json"
   }
 }

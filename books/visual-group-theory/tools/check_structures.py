@@ -1,5 +1,6 @@
 """Source-based and independent finite checks for chapters 5--8."""
 import itertools
+from html.parser import HTMLParser
 import json
 import math
 from pathlib import Path
@@ -160,6 +161,47 @@ def hom_checks():
     return {'cyclic_pairs':144,'additive_equations':pairs,'exhaustive_functions':exhaustive}
 
 
+def source_diagram_checks(text=None):
+    """Bind the rendered 7.18(h) arrows to independently transcribed source input."""
+    text = text or (ROOT/'notes/chapter07_products_and_quotients.html').read_text()
+    source = json.loads((ROOT/'notes/structures_inputs.json').read_text())['figures']['7.18h']
+    class Tags(HTMLParser):
+        def __init__(self, html):
+            super().__init__(); self.paths=[]; self.nodes=[]; self.feed(html)
+        def handle_starttag(self, tag, attrs):
+            a=dict(attrs)
+            if tag=='path' and a.get('class')=='edge': self.paths.append(a)
+            if tag=='circle' and a.get('class')=='node': self.nodes.append(a)
+    counts={}
+    colors={'red':'#b54332','blue':'#3263a4','green':'#2c8149'}
+    for figure, mode, count in [('ex718-h-before','node',16),('ex718-h-after','block',8)]:
+        match=re.search(r'<figure id="'+figure+r'">(.*?)</figure>',text,re.S)
+        need(match is not None,'7.18h source diagram absent: '+figure)
+        drawn=Tags(match[1]);need(len(drawn.nodes)==count,'7.18h node count differs')
+        observed=set()
+        centers=[(float(n['cx']),float(n['cy'])) for n in drawn.nodes]
+        for a in drawn.paths:
+            c=a['data-source-color'];i=int(a['data-source-'+mode]);j=int(a['data-target-'+mode])
+            need(0<=i<count and 0<=j<count,'7.18h invalid drawn endpoint')
+            need(a.get('stroke')==colors[c],'7.18h source color mapping differs')
+            need((c,i,j) not in observed,'7.18h duplicate drawn edge')
+            observed.add((c,i,j))
+            if mode=='node' and c=='red': observed.add((c,j,i))
+            else: need('marker-end' in a,'7.18h directional arrow has no arrowhead')
+            # Metadata alone is insufficient: path endpoints must meet those nodes.
+            numbers=list(map(float,re.findall(r'-?(?:\d+(?:\.\d*)?|\.\d+)',a['d'])))
+            need(len(numbers)>=4,'7.18h path has no endpoints')
+            for point,k in [((numbers[0],numbers[1]),i),((numbers[-2],numbers[-1]),j)]:
+                nearest=min(range(count),key=lambda n:math.dist(point,centers[n]))
+                need(nearest==k and math.dist(point,centers[k])<=float(drawn.nodes[k]['r'])+6,
+                     '7.18h path geometry does not meet declared node')
+        expected={(c,i,source[c][i]) for c in colors for i in range(16)} if mode=='node' else {
+            (c,i%8,source[c][i]%8) for c in colors for i in range(16)}
+        need(observed==expected,'7.18h displayed arrows differ from original source action')
+        counts[figure]=len(observed)
+    return counts
+
+
 def source_checks():
     data=json.loads((ROOT/'notes/structures_inputs.json').read_text())
     f=data['figures']['7.18fg'];r,b,t=[f[k] for k in ('red','blue','green')]
@@ -219,7 +261,7 @@ def source_checks():
     op=lambda a,b:((a[0]+b[0])%4,(a[1]+b[1])%2)
     a,b=(1,0),(1,1)
     need(op(a,a)==op(b,b) and op(op(b,a),b)==(3,0),'5.33e literal presentation failed')
-    return {'invalid_7_18fg_action_order':64,'valid_7_18h_group_order':16,'source_matrix_orders':counts,'a4_displayed_entries':144,'source_orbits':2,'literal_5_33e':True}
+    return {'displayed_source_arrows':source_diagram_checks(),'invalid_7_18fg_action_order':64,'valid_7_18h_group_order':16,'source_matrix_orders':counts,'a4_displayed_entries':144,'source_orbits':2,'literal_5_33e':True}
 
 
 def diagram_checks(text=None):
@@ -232,7 +274,7 @@ def diagram_checks(text=None):
         nodes[(float(x),float(y)-5)]=generator
     need(set(nodes.values())=={1,2,3,4,6,8,12,24},'C24 lattice node labels changed')
     edges=set()
-    for x,y,X,Y in re.findall(r'<path d="M([\d.]+) ([\d.]+)L([\d.]+) ([\d.]+)"',svg):
+    for x,y,X,Y in re.findall(r'<path\b[^>]*\sd="M([\d.]+) ([\d.]+)L([\d.]+) ([\d.]+)"',svg):
         a,b=(float(x),float(y)),(float(X),float(Y))
         need(a in nodes and b in nodes,'C24 lattice edge misses a node')
         edges.add((nodes[a],nodes[b]))

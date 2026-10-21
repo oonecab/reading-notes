@@ -27,13 +27,14 @@ test('code fold rejects controls that cannot expose and hide their program', () 
 
 test('reading copy rejects maintenance status even when split across inline elements', () => {
   for (const html of ['<td>14 题<span>已完成本地验收</span></td>', '<p>本批<span>审阅</span>记录</p>',
-    '<summary>已有程序核对摘要</summary>', '<p><a href="validation.json">验证摘要</a></p>']) {
+    '<summary>已有程序核对摘要</summary>', '<p><a href="validation.json">验证摘要</a></p>',
+    '<a href="chapter02.html">下一站：第 2 章规划 →</a>']) {
     assert.throws(() => requireReaderCopy(html), /maintenance status/);
   }
 });
 
 test('reading copy retains mathematical checks, execution limits and program literals', () => {
-  assert.doesNotThrow(() => requireReaderCopy('<p>解平稳流量并检验收敛。范围检查通过后计算分配字节数。</p><p>所列运行结果来自协议驱动，尚未收录真实浏览器经代理的实测结果。</p><pre><code>print("本地验收")</code></pre>'));
+  assert.doesNotThrow(() => requireReaderCopy('<p>解平稳流量并检验收敛。范围检查通过后计算分配字节数。</p><p>所列运行结果来自协议驱动，尚未收录真实浏览器经代理的实测结果。</p><a href="chapter10.html">动态规划与区间状态</a><pre><code>print("本地验收")</code></pre>'));
 });
 
 test('complete program syntax is distinct from a code block and fragmented mathematical arguments', () => {

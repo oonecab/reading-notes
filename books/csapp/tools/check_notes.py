@@ -86,8 +86,11 @@ def validate_pages(sources, manifest, programs):
         typography = shared_asset('styles/reading-typography.css').strip()
         shared_ok = (len(style) == 2 and style[1].strip().startswith(shared_style)
                      and style[1].strip()[len(shared_style):].strip() == typography)
-        if not shared_ok or len(script) != 1:
-            raise ValueError(name + ': expected book style, exact RN-001 shared style, and one script')
+        controllers = [n for n in nodes if n.tag == 'script' and n.attrs.get('id') == 'reading-notes-controller']
+        annotation_script = shared_asset('scripts/54f30fc1f5e1cbcd699a.js').strip()
+        if (not shared_ok or len(script) != 2 or len(controllers) != 1
+                or controllers[0].text().strip() != annotation_script):
+            raise ValueError(name + ': expected book style, exact RN-001 shared style, navigation and shared annotation controller')
         if common_style is None:
             common_style, common_script = style, script
         if style != common_style or script != common_script:

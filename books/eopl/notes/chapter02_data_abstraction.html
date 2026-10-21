@@ -305,6 +305,28 @@ main[id],main [id]{scroll-margin-top:24px}
   padding: .1rem .25rem;
   font-variant-numeric: tabular-nums;
 }
+.rn-components .exercise-index-panel {
+  margin: 1.2rem 0;
+  padding: .65rem .9rem;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: var(--paper, #fffefa);
+}
+.rn-components .exercise-index-panel > summary {
+  cursor: pointer;
+  color: var(--green);
+  font-weight: 600;
+}
+.rn-components .exercise-index { margin: .75rem 0 0; line-height: 1.8; }
+.rn-components .exercise-index a { margin: .15rem .5rem .15rem 0; }
+.rn-components .original-question {
+  margin: 1.2rem 0 0;
+  border-top: 1px solid var(--rule);
+  padding-top: .65rem;
+  color: var(--sub);
+}
+.rn-components .original-question > summary { cursor: pointer; color: var(--green); }
+.rn-components .question-translation { margin-top: .7rem; }
 /* Align the reading column independently of annotation enhancement. */
 @media (min-width: 1440px) {
   .rn-components .reading-layout {
@@ -405,18 +427,27 @@ body.rn-components :is(.scroll,.diagram):has(>svg.rn-diagram){background:transpa
 
 </style>
 </head>
-<body class="rn-components"><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="章节目录"><details class="toc-panel" id="toc-panel" open><summary>目录</summary><nav class="chapter-toc" id="chapter-toc"><a class="toc-home" href="book_overview.html">EOPL · 全书地图</a><ul><li><a href="#s2-1">2.1 先规定观察结果，再选择表示</a></li><li><a href="#s2-2">2.2 环境：一套方程，多种实现</a></li><li><a href="#s2-3">2.3 递归接口与带上下文的游标</a></li><li><a href="#s2-4">2.4 用 <code>define-datatype</code> 声明构造，用 <code>cases</code> 消去构造</a></li><li><a href="#s2-5">2.5 从具体语法得到可计算的树</a></li><li><a href="#programs">运行本章程序</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">EOPL 第三版 · 第 2 章</p><h1>第 2 章 · 数据抽象与抽象语法</h1><p class="intro">用接口固定意义，用多种表示检验独立性，再把程序文本变成树。</p><p class="source">原书 pp.31–55 / PDF 54–78。题目按原编号排列；英文原题保留全部小问、示例与提示，中文解答解释推理和执行。题中原图按结构重绘，排版疑点在对应解答说明。</p><p class="chapter-nav"><a href="chapter01_inductive_data.html">← 第 1 章</a><a href="book_overview.html#chapter-3">回到全书地图 →</a></p></header><section id="s2-1"><h2>2.1 先规定观察结果，再选择表示</h2>
-<p class="source">原书 §2.1，pp.31–35 / PDF 54–58。</p>
+<body class="rn-components"><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="章节目录"><details class="toc-panel" id="toc-panel" open><summary>目录</summary><nav class="chapter-toc" id="chapter-toc"><a class="toc-home" href="book_overview.html">EOPL · 全书地图</a><ul><li><a href="#s2-1">2.1 先规定观察结果，再选择表示</a></li><li><a href="#s2-2">2.2 环境：一套方程，多种实现</a></li><li><a href="#s2-3">2.3 递归接口与带上下文的游标</a></li><li><a href="#s2-4">2.4 用 <code>define-datatype</code> 声明构造，用 <code>cases</code> 消去构造</a></li><li><a href="#s2-5">2.5 从具体语法得到可计算的树</a></li><li><a href="#programs">运行本章程序</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">EOPL 第三版 · 第 2 章</p><h1>第 2 章 · 数据抽象与抽象语法</h1><p class="intro">用接口固定意义，用多种表示检验独立性，再把程序文本变成树。</p><p class="source">原书 pp.31–55 / <a href="../assets/source.pdf#page=54">PDF 54–78</a>。题目按原编号排列；中文题面保留小问、条件、示例与提示，英文原题可展开对照，解答说明推理和执行。题中原图按结构重绘，排版疑点在对应解答说明。</p><p class="chapter-nav"><a href="chapter01_inductive_data.html">← 第 1 章</a><a href="book_overview.html#chapter-3">回到全书地图 →</a></p></header><section id="s2-1"><h2>2.1 先规定观察结果，再选择表示</h2>
+<p class="source">原书 §2.1，pp.31–35 / <a href="../assets/source.pdf#page=54">PDF 54–58</a>。</p>
 <p>第 1 章把文法映射成递归结构；第 2 章把“一个值是什么意思”与“它在内存里长什么样”分开。以自然数为例，客户需要零、判零、后继、前驱四个操作。可以用整数，也可以用 <code>#t</code> 的列表或一串数位；只要操作满足同一组关系，遵守接口的客户就能继续工作。</p>
 <div class="rn-statement" id="nat-interface"><h3>自然数接口的规格</h3><div class="statement-body"><p>用 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="⌈n⌉" display="inline"><mrow><mo>⌈</mo><mi>n</mi><mo>⌉</mo></mrow></math> 表示自然数 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 的某种实现值；这里的上角括号表示“数据的表示”。接口满足以下方程：</p><ul class="interface-laws"><li><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(zero) = ⌈0⌉" display="inline"><mrow><mrow><mo>(</mo><mi mathvariant="monospace">zero</mi><mo>)</mo></mrow><mo>=</mo><mrow><mo>⌈</mo><mn>0</mn><mo>⌉</mo></mrow></mrow></math>。</li><li><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(is-zero? ⌈n⌉) = #t ⇔ n = 0" display="inline"><mrow><mrow><mo>(</mo><mi mathvariant="monospace">is-zero?</mi><mspace width=".35em"/><mrow><mo>⌈</mo><mi>n</mi><mo>⌉</mo></mrow><mo>)</mo></mrow><mo>=</mo><mi mathvariant="monospace">#t</mi></mrow><mo>⇔</mo><mrow><mi>n</mi><mo>=</mo><mn>0</mn></mrow></math>；其他合法自然数返回 <code>#f</code>。</li><li><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(successor ⌈n⌉) = ⌈n + 1⌉" display="inline"><mrow><mrow><mo>(</mo><mi mathvariant="monospace">successor</mi><mspace width=".35em"/><mrow><mo>⌈</mo><mi>n</mi><mo>⌉</mo></mrow><mo>)</mo></mrow><mo>=</mo><mrow><mo>⌈</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo>⌉</mo></mrow></mrow></math>。</li><li>当 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n &gt; 0" display="inline"><mrow><mi>n</mi><mo>&gt;</mo><mn>0</mn></mrow></math> 时，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(predecessor ⌈n⌉) = ⌈n − 1⌉" display="inline"><mrow><mrow><mo>(</mo><mi mathvariant="monospace">predecessor</mi><mspace width=".35em"/><mrow><mo>⌈</mo><mi>n</mi><mo>⌉</mo></mrow><mo>)</mo></mrow><mo>=</mo><mrow><mo>⌈</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo>⌉</mo></mrow></mrow></math>。</li></ul><p>零的前驱不在这组接口方程规定的范围内。</p></div></div>
 <p>客户加法可以这样推导：若第一个数为零，结果就是第二个数；否则先将第一个数减一，把递归加法的结果加一。程序只需要四个接口操作，不需要知道列表长度、数位顺序或宿主整数运算。下面沿用原书的过程调用顺序推演 <code>plus</code>；上角括号中的数字表示抽象数值，每一行都说明上一行怎样继续求值：</p>
 <div class="equation" aria-label="抽象自然数加法推演"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="对抽象数值 3 与 2 逐步求和，得到 5"><mtable columnalign="right left"><mtr><mtd></mtd><mtd><mrow><mo>(</mo><mi mathvariant="monospace">plus</mi><mspace width=".35em"/><mrow><mo>⌈</mo><mn>3</mn><mo>⌉</mo></mrow><mspace width=".35em"/><mrow><mo>⌈</mo><mn>2</mn><mo>⌉</mo></mrow><mo>)</mo></mrow></mtd></mtr><mtr><mtd><mo>=</mo></mtd><mtd><mrow><mo>(</mo><mi mathvariant="monospace">successor</mi><mspace width=".35em"/><mrow><mo>(</mo><mi mathvariant="monospace">plus</mi><mspace width=".35em"/><mrow><mo>⌈</mo><mn>2</mn><mo>⌉</mo></mrow><mspace width=".35em"/><mrow><mo>⌈</mo><mn>2</mn><mo>⌉</mo></mrow><mo>)</mo></mrow><mo>)</mo></mrow></mtd></mtr><mtr><mtd><mo>=</mo></mtd><mtd><mrow><mo>(</mo><mi mathvariant="monospace">successor</mi><mspace width=".35em"/><mrow><mo>(</mo><mi mathvariant="monospace">successor</mi><mspace width=".35em"/><mrow><mo>(</mo><mi mathvariant="monospace">plus</mi><mspace width=".35em"/><mrow><mo>⌈</mo><mn>1</mn><mo>⌉</mo></mrow><mspace width=".35em"/><mrow><mo>⌈</mo><mn>2</mn><mo>⌉</mo></mrow><mo>)</mo></mrow><mo>)</mo></mrow><mo>)</mo></mrow></mtd></mtr><mtr><mtd><mo>=</mo></mtd><mtd><mrow><mo>(</mo><mi mathvariant="monospace">successor</mi><mspace width=".35em"/><mrow><mo>(</mo><mi mathvariant="monospace">successor</mi><mspace width=".35em"/><mrow><mo>(</mo><mi mathvariant="monospace">successor</mi><mspace width=".35em"/><mrow><mo>(</mo><mi mathvariant="monospace">plus</mi><mspace width=".35em"/><mrow><mo>⌈</mo><mn>0</mn><mo>⌉</mo></mrow><mspace width=".35em"/><mrow><mo>⌈</mo><mn>2</mn><mo>⌉</mo></mrow><mo>)</mo></mrow><mo>)</mo></mrow><mo>)</mo></mrow><mo>)</mo></mrow></mtd></mtr><mtr><mtd><mo>=</mo></mtd><mtd><mrow><mo>(</mo><mi mathvariant="monospace">successor</mi><mspace width=".35em"/><mrow><mo>(</mo><mi mathvariant="monospace">successor</mi><mspace width=".35em"/><mrow><mo>(</mo><mi mathvariant="monospace">successor</mi><mspace width=".35em"/><mrow><mo>⌈</mo><mn>2</mn><mo>⌉</mo></mrow><mo>)</mo></mrow><mo>)</mo></mrow><mo>)</mo></mrow></mtd></mtr><mtr><mtd><mo>=</mo></mtd><mtd><mrow><mo>⌈</mo><mn>5</mn><mo>⌉</mo></mrow></mtd></mtr></mtable></math></div>
 <p>接口方程还支持等价的尾递归写法：把一单位从第一个参数移到第二个参数，直到第一个为零。习题的计时代码采用这一形式，避免把尚未完成的 <code>successor</code> 全压在返回链上。它仍是逐单位加法，因此不会自动获得宿主大整数乘法的效率。</p>
 <p>数据抽象首先是一条程序依赖原则；表示透明与否还取决于语言和封装机制。本书在当时的 Scheme 背景下主要依靠客户遵守接口约定。我们的 Racket 模块为教学导出实现，便于比较与测试，不能把这种组织说成已经证明所有客户都无法观察表示。</p>
-<div class="exercise-index" role="navigation" aria-label="本节习题索引">本节习题：<a href="#ex-2-1" aria-label="习题 2.1">2.1</a> · <a href="#ex-2-2" aria-label="习题 2.2">2.2</a> · <a href="#ex-2-3" aria-label="习题 2.3">2.3</a></div><details class="exercise" id="ex-2-1"><summary>习题 2.1 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.34 / PDF 57</p><div class="original-source" lang="en" data-exercise="2.1">Exercise 2.1 [★] Implement the four required operations for bigits. Then use your
+
+<details class="reading-notes" id="notes-s2-1" data-notes-for="s2-1" open><summary>阅读注解</summary><div class="reading-notes-body">
+<div class="annotation-card"><span class="annotation-kind">表示与数值</span><h3>先确认“代表什么”，再检查操作</h3><p>读接口方程时，可以在草稿上给每个实现值标一个“它所代表的数”。例如基数 16 的 <code>(15)</code> 表示 15，后继返回 <code>(0 1)</code>，它表示 16；一元表示则从十五个 <code>#t</code> 变成十六个。两段过程改变的数据形状不同，但都把所代表的数增加 1。证明时应检查输入是否合法、输出是否仍合法，以及输出所代表的数是否满足方程。</p><p>这也解释了差分树题为何强调“任意合法表示”：<code>(diff (one) (one))</code> 与更大的零值差分树都应使 <code>is-zero?</code> 返回 <code>#t</code>。只认出一种零的外形，无法满足这条观察器规格。</p></div>
+<div class="annotation-card"><span class="annotation-kind">递归的依据</span><h3>加法递归沿抽象数值下降</h3><p>证明正文的 <code>plus</code> 时，归纳参数是第一个输入所代表的自然数。为零时直接返回第二个输入；为正时，<code>predecessor</code> 使这个数减少 1，因而可以使用归纳假设，再由 <code>successor</code> 把一单位补回。</p><p>这个证明不要求某种表示的列表长度每次都减小。bigits 从 16 减到 15 时数位数会变化，许多相邻数却保持相同位数；差分树的前驱甚至可以增加节点。抽象数值严格下降，才是这个客户递归终止的共同依据。</p></div>
+</div></details>
+<details class="exercise-index-panel"><summary>习题索引 · 3 题</summary><div class="exercise-index" role="navigation" aria-label="本节习题索引">本节习题：<a href="#ex-2-1" aria-label="习题 2.1">2.1</a> · <a href="#ex-2-2" aria-label="习题 2.2">2.2</a> · <a href="#ex-2-3" aria-label="习题 2.3">2.3</a></div></details><details class="exercise" id="ex-2-1"><summary>习题 2.1 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p>
+<div class="question-translation" lang="zh-CN" data-exercise="2.1">
+<p>为 bigits（大整数数位）表示实现所需的四个操作：<code>zero</code>、<code>is-zero?</code>、<code>successor</code>、<code>predecessor</code>。然后用你的实现计算 10 的阶乘。参数改变时，执行时间怎样变化？基数改变时，执行时间怎样变化？解释产生这些变化的原因。</p><p>题目沿用本节的大整数表示（p.34 / <a href="../assets/source.pdf#page=57">PDF 57</a>）：选择基数 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" aria-label="N"><mi>N</mi></math>，把数写成由 0 到 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" aria-label="N − 1"><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></math> 的数位组成的列表，最低有效位在表头。零表示为 <code>()</code>；对非零自然数，若 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" aria-label="n = qN + r，0 ≤ r &lt; N"><mrow><mi>n</mi><mo>=</mo><mi>q</mi><mi>N</mi><mo>+</mo><mi>r</mi><mo>,</mo><mn>0</mn><mo>≤</mo><mi>r</mi><mo>&lt;</mo><mi>N</mi></mrow></math>，则表头为余数 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" aria-label="r"><mi>r</mi></math>，表尾递归表示商 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" aria-label="q"><mi>q</mi></math>。例如基数为 16 时，33 表示为 <code>(1 2)</code>，258 表示为 <code>(2 0 1)</code>。四个操作须满足<a href="#nat-interface">自然数接口的规格</a>。</p>
+</div>
+<p class="source">印刷 p.34 / <a href="../assets/source.pdf#page=57">PDF 57</a></p><details class="original-question"><summary>英文原题</summary><div class="original-source" lang="en" data-exercise="2.1">Exercise 2.1 [★] Implement the four required operations for bigits. Then use your
 implementation to calculate the factorial of 10. How does the execution time vary
 as this argument changes? How does the execution time vary as the base changes?
-Explain why.</div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>选择基数 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="N ≥ 2" display="inline"><mrow><mi>N</mi><mo>≥</mo><mn>2</mn></mrow></math>，最低位放在表头。零唯一表示为 <code>()</code>；非零数的最高位必须非零，避免 <code>(0)</code>、<code>(0 0)</code> 这样的伪零。<code>successor</code> 遇到小于 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="N−1" display="inline"><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></math> 的位就加 1 并共享剩余尾部，遇到 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="N−1" display="inline"><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></math> 则写 0 并向后进位。<code>predecessor</code> 遇到 0 就写 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="N−1" display="inline"><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></math> 并向后借位；从单独的 <code>(1)</code> 减一必须得到 <code>()</code>，以保持规范形式。</p>
+Explain why.</div></details></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>选择基数 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="N ≥ 2" display="inline"><mrow><mi>N</mi><mo>≥</mo><mn>2</mn></mrow></math>，最低位放在表头。零唯一表示为 <code>()</code>；非零数的最高位必须非零，避免 <code>(0)</code>、<code>(0 0)</code> 这样的伪零。<code>successor</code> 遇到小于 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="N−1" display="inline"><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></math> 的位就加 1 并共享剩余尾部，遇到 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="N−1" display="inline"><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></math> 则写 0 并向后进位。<code>predecessor</code> 遇到 0 就写 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="N−1" display="inline"><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></math> 并向后借位；从单独的 <code>(1)</code> 减一必须得到 <code>()</code>，以保持规范形式。</p>
 <p>以 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="N = 16" display="inline"><mrow><mi>N</mi><mo>=</mo><mn>16</mn></mrow></math> 为例，255 的 <code>(15 15)</code> 加一变成 <code>(0 0 1)</code>；256 的 <code>(0 0 1)</code> 减一，借位链返回 <code>(15 15)</code>。10! 的十进制结果为 3628800，十六进制 bigits 是 <code>(0 0 15 5 7 3)</code>。<code>encode/decode</code> 只用于建立输入与检查结果；阶乘客户程序只调用题目指定的四个操作。</p>
 <p>下面的实测表来自本机 Racket 8.17，先预热一次，再在每次计时前回收垃圾，取三次单调时钟测量的中位数。加法使用尾递归形式把 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 的单位逐个移给 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="y" display="inline"><mi>y</mi></math>，乘法重复加法，阶乘重复乘法；这不是高效大整数乘法。</p>
 <table aria-label="不同参数与基数的阶乘运行中位数"><thead><tr><th scope="col">参数 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math></th><th scope="col">基数 2 / ms</th><th scope="col">基数 10 / ms</th><th scope="col">基数 16 / ms</th><th scope="col">基数 256 / ms</th></tr></thead><tbody><tr><th scope="row">6</th><td>0.027</td><td>0.017</td><td>0.017</td><td>0.016</td></tr><tr><th scope="row">8</th><td>1.227</td><td>0.813</td><td>0.830</td><td>0.768</td></tr><tr><th scope="row">10</th><td>113.206</td><td>74.737</td><td>75.520</td><td>71.672</td></tr></tbody></table>
@@ -452,8 +483,12 @@ Explain why.</div></div><div class="answer"><p class="rn-exercise-label">解答�
     (if ((number-api-zero? a) k) acc
         (loop ((number-api-pred a) k) (nat-times a k acc)))))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-2"><summary>习题 2.2 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.34 / PDF 57</p><div class="original-source" lang="en" data-exercise="2.2">Exercise 2.2 [★★] Analyze each of these proposed representations critically. To what
-extent do they succeed or fail in satisfying the specification of the data type?</div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>四条接口方程只约束合法自然数表示，且 <code>predecessor</code> 的参数必须非零。第一种一元列表表示能满足这些方程；数字越大，空间越多，解码长度为线性，但加一和删表头可为常数时间。第二种宿主整数表示也满足方程；本次 Racket 的精确整数会自动扩展，不能以固定机器字溢出批评这份实际实现。如果换成固定宽度整数，越过上界才会破坏无界自然数规格。</p>
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-2"><summary>习题 2.2 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p>
+<div class="question-translation" lang="zh-CN" data-exercise="2.2">
+<p>逐一、审慎地分析本节提出的各个表示方案。它们在多大程度上满足这个数据类型的规格？哪些地方成立，哪些地方不成立？</p><p>这里的三个方案来自 p.33–34 / <a href="../assets/source.pdf#page=56">PDF 56–57</a>，均应对照<a href="#nat-interface">自然数接口的四条方程</a>：</p><ol><li>一元列表表示：自然数 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" aria-label="n"><mi>n</mi></math> 用含有 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" aria-label="n"><mi>n</mi></math> 个 <code>#t</code> 的列表表示，例如 0 为 <code>()</code>，1 为 <code>(#t)</code>，2 为 <code>(#t #t)</code>。<code>zero</code> 返回空表，<code>is-zero?</code> 用 <code>null?</code> 判定，<code>successor</code> 用 <code>cons</code> 在表头加一个 <code>#t</code>，<code>predecessor</code> 取 <code>cdr</code>。</li><li>Scheme 数表示：直接用 Scheme 整数 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" aria-label="n"><mi>n</mi></math> 表示自然数 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" aria-label="n"><mi>n</mi></math>；四个操作依次是返回 0、用 <code>zero?</code> 判零、加 1、减 1。</li><li>bigits 表示：以 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" aria-label="N"><mi>N</mi></math> 为基数，用最低有效位在前的数位列表表示自然数；表示规则和例子见 <a href="#ex-2-1">习题 2.1</a> 的题面。</li></ol>
+</div>
+<p class="source">印刷 p.34 / <a href="../assets/source.pdf#page=57">PDF 57</a></p><details class="original-question"><summary>英文原题</summary><div class="original-source" lang="en" data-exercise="2.2">Exercise 2.2 [★★] Analyze each of these proposed representations critically. To what
+extent do they succeed or fail in satisfying the specification of the data type?</div></details></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>四条接口方程只约束合法自然数表示，且 <code>predecessor</code> 的参数必须非零。第一种一元列表表示能满足这些方程；数字越大，空间越多，解码长度为线性，但加一和删表头可为常数时间。第二种宿主整数表示也满足方程；本次 Racket 的精确整数会自动扩展，不能以固定机器字溢出批评这份实际实现。如果换成固定宽度整数，越过上界才会破坏无界自然数规格。</p>
 <p>第三种 bigits 表示在 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="N ≥ 2" display="inline"><mrow><mi>N</mi><mo>≥</mo><mn>2</mn></mrow></math>、数位合法、最高位非零的规范域内满足规格，空间按位数增长；进位和借位的最坏时间随位数增加。若允许 <code>(0)</code> 进入表示域，却用 <code>null?</code> 判断零，就会失败，因此合法表示域是证明的一部分。</p>
 <p>三者都没有仅凭接口约定阻止客户窥看内部。抽象意义上的等价要求客户只使用接口；透明打印、<code>car</code> 或直接算术可能区分表示。<code>predecessor</code><code>(0)</code> 不在书中契约内，返回 −1 或报错都不能单凭这一点判定实现不符合原规格。</p><!-- EOPL:snippet chapter02.rkt ex-2-2 -->
 <details class="code-details" open><summary>查看实现 · ex-2-2</summary><pre><code class="language-scheme">(define unary-api
@@ -463,7 +498,11 @@ extent do they succeed or fail in satisfying the specification of the data type?
   (if (= n 0) &#x27;() (cons #t (make-list/true (- n 1)))))
 (define native-api (number-api (lambda () 0) zero? add1 sub1 values values))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-3"><summary>习题 2.3 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.34–35 / PDF 57–58</p><div class="original-source" lang="en" data-exercise="2.3">Exercise 2.3 [★★] Define a representation of all the integers (negative and nonnegative) as diff-trees, where a diff-tree is a list defined by the grammar
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-3"><summary>习题 2.3 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p>
+<div class="question-translation" lang="zh-CN" data-exercise="2.3">
+<p>用差分树（diff-tree）表示所有整数，包括负整数和非负整数。差分树是由下列文法定义的列表：</p><pre><code class="language-scheme">                      Diff-tree ::= (one) | (diff Diff-tree Diff-tree)</code></pre><p>列表 <code>(one)</code> 表示 1。若 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" aria-label="t₁"><msub><mi>t</mi><mn>1</mn></msub></math> 表示 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" aria-label="n₁"><msub><mi>n</mi><mn>1</mn></msub></math>，<math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" aria-label="t₂"><msub><mi>t</mi><mn>2</mn></msub></math> 表示 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" aria-label="n₂"><msub><mi>n</mi><mn>2</mn></msub></math>，那么 <code>(diff t1 t2)</code> 表示 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" aria-label="n₁ − n₂"><mrow><msub><mi>n</mi><mn>1</mn></msub><mo>−</mo><msub><mi>n</mi><mn>2</mn></msub></mrow></math>。因此，<code>(one)</code> 和 <code>(diff (one) (diff (one) (one)))</code> 都表示 1；<code>(diff (diff (one) (one)) (one))</code> 表示 −1。</p><ol><li>证明：在这个表示系统中，每个整数都有无穷多个表示。</li><li>按照 p.32 / <a href="../assets/source.pdf#page=55">PDF 55</a> 的<a href="#nat-interface">接口规格</a>编写 <code>zero</code>、<code>is-zero?</code>、<code>successor</code>、<code>predecessor</code>，把这一整数表示变成可用的实现；现在表示范围还包括负整数。过程必须接受某个整数的任意合法表示。例如，把 1 的无穷多个合法表示中的任何一个交给 <code>successor</code>，都应得到 2 的某个合法表示。允许 1 的不同合法表示产生 2 的不同合法表示。</li><li>编写过程 <code>diff-tree-plus</code>，在这一表示下完成加法。应针对差分树表示进行优化，使运行时间为常数，与输入大小无关；特别地，该过程应当是非递归的。</li></ol>
+</div>
+<p class="source">印刷 p.34–35 / <a href="../assets/source.pdf#page=57">PDF 57–58</a></p><details class="original-question"><summary>英文原题</summary><div class="original-source" lang="en" data-exercise="2.3">Exercise 2.3 [★★] Define a representation of all the integers (negative and nonnegative) as diff-trees, where a diff-tree is a list defined by the grammar
 
 <code class="source-example">                      Diff-tree ::= (one) | (diff Diff-tree Diff-tree)</code>
 
@@ -483,7 +522,7 @@ The list (one) represents 1. If <math xmlns="http://www.w3.org/1998/Math/MathML"
       3. Write a procedure <code>diff-tree-plus</code> that does addition in this representation.
          Your procedure should be optimized for the diff-tree representation, and should
          do its work in a constant amount of time (independent of the size of its inputs). In
-         particular, it should not be recursive.</div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>① 任意树 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="t" display="inline"><mi>t</mi></math> 都可以改写为 <code>(diff t z)</code>，其中 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="z =" display="inline"><mrow><mi>z</mi><mo>=</mo></mrow></math> <code>(diff (one) (one))</code> 表示零。每做一次都增加节点数而保持数值，因此得到无限多个不同的有限树。所有整数都可从 <code>one</code> 经有限次加一/减一到达，所以论证适用于每个整数。</p>
+         particular, it should not be recursive.</div></details></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>① 任意树 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="t" display="inline"><mi>t</mi></math> 都可以改写为 <code>(diff t z)</code>，其中 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="z =" display="inline"><mrow><mi>z</mi><mo>=</mo></mrow></math> <code>(diff (one) (one))</code> 表示零。每做一次都增加节点数而保持数值，因此得到无限多个不同的有限树。所有整数都可从 <code>one</code> 经有限次加一/减一到达，所以论证适用于每个整数。</p>
 <p>② <code>zero</code> 返回 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="z" display="inline"><mi>z</mi></math>；<code>is-zero?</code> 递归计算树值后比较零，不能只比较它是否长得像 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="z" display="inline"><mi>z</mi></math>。令 <code>neg-one</code> = <code>(diff z (one))</code>；<code>(successor t)</code> = <code>(diff t neg-one)</code>，<code>(predecessor t)</code> = <code>(diff t (one))</code>。对任何合法表示，取值方程分别给出 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="value(t) + 1" display="inline"><mrow><mtext>value</mtext><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow><mo>+</mo><mn>1</mn></mrow></math> 和 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="value(t) − 1" display="inline"><mrow><mtext>value</mtext><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow><mo>−</mo><mn>1</mn></mrow></math>，所以不需要先规范化输入。</p>
 <p>③ <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a+b = a−(0−b)" display="inline"><mrow><mi>a</mi><mo>+</mo><mi>b</mi><mo>=</mo><mi>a</mi><mo>−</mo><mrow><mo>(</mo><mn>0</mn><mo>−</mo><mi>b</mi><mo>)</mo></mrow></mrow></math>，因此只构造 <code>(diff a (diff z b))</code>。代码不递归，也不复制输入树，只保留对 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="b" display="inline"><mi>b</mi></math> 的引用；构造节点数是常数。随后打印或计算整棵树的数值仍可能很贵，不能把“加法构造常数时间”误解为所有观察操作都常数时间。共享输入形成的实际对象图也可能比展开后的打印树小得多。</p><!-- EOPL:snippet chapter02.rkt ex-2-3 -->
 <details class="code-details" open><summary>查看实现 · ex-2-3</summary><pre><code class="language-scheme">;; DiffTree = (one) | (diff DiffTree DiffTree); may represent any integer.
@@ -496,7 +535,7 @@ The list (one) represents 1. If <math xmlns="http://www.w3.org/1998/Math/MathML"
 (define (diff-tree-plus a b) (list &#x27;diff a (list &#x27;diff (dt-zero) b)))
 </code></pre></details>
 <!-- EOPL:end-snippet --></div></details></section><section id="s2-2"><h2>2.2 环境：一套方程，多种实现</h2>
-<p class="source">原书 §2.2，pp.35–42 / PDF 58–65。</p>
+<p class="source">原书 §2.2，pp.35–42 / <a href="../assets/source.pdf#page=58">PDF 58–65</a>。</p>
 <p>环境把有限个变量名关联到值。它是一个有限函数；查询已绑定变量返回对应值，查询未绑定变量报告失败。<code>(extend-env var val env)</code> 产生一个新环境：查 <code>var</code> 得 <code>val</code>，查其他名字则沿用 <code>env</code>。这个“先比较当前名字，否则交给旧环境”的方程，同时决定了链表实现与闭包实现的行为。</p>
 <div class="rn-example" id="example-env-trace"><h3>查询 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="y" display="inline"><mi>y</mi></math> 时，旧 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="y" display="inline"><mi>y</mi></math> 为什么不会被读到</h3><pre><code>E0 = empty-env()
 E1 = extend-env(y,14,E0)
@@ -511,9 +550,18 @@ apply-env(E2,y): x ≠ y → E1 → 14</code></pre><p>新环境中的 <math xmln
 <p>带标签的数据表示把 <code>empty-env</code> 和 <code>extend-env</code> 的构造历史直接保存成记录。<code>apply-env</code> 读标签、取字段、再决定下一步，这就是原书的解释器模式。过程表示把这些判断移到构造时：<code>empty-env</code> 返回一个总是报未绑定的过程；<code>extend-env</code> 返回一个闭包，保存 <code>saved-var</code>、<code>saved-val</code>、<code>saved-env</code>，查询时比较名字，失败则调用旧闭包。</p>
 <p>这两个表示都在解释同一套环境方程。数据表示让结构可直接遍历，过程表示让查询成为一次函数调用。要比较它们，应用相同客户：扩展 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 为 7，再扩展 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 为 99；新环境查 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 得 99，旧环境查 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 仍得 7。绑定值为 <code>#f</code> 时，“值是假”与“根本没绑定”必须由不同观察器区分。</p>
 <p>本节代码的 <code>env-api</code> 只是在 Racket 中把同名操作装成一组，方便同一测试切换实现；原书的抽象思想不依赖这个辅助结构。所有展示的列表、ribcage、闭包及 <code>define-datatype</code> 环境都采用持久式扩展，后续章节引入可变存储时才会增加另一类语义问题。</p>
-<div class="exercise-index" role="navigation" aria-label="本节习题索引">本节习题：<a href="#ex-2-4" aria-label="习题 2.4">2.4</a> · <a href="#ex-2-5" aria-label="习题 2.5">2.5</a> · <a href="#ex-2-6" aria-label="习题 2.6">2.6</a> · <a href="#ex-2-7" aria-label="习题 2.7">2.7</a> · <a href="#ex-2-8" aria-label="习题 2.8">2.8</a> · <a href="#ex-2-9" aria-label="习题 2.9">2.9</a> · <a href="#ex-2-10" aria-label="习题 2.10">2.10</a> · <a href="#ex-2-11" aria-label="习题 2.11">2.11</a> · <a href="#ex-2-12" aria-label="习题 2.12">2.12</a> · <a href="#ex-2-13" aria-label="习题 2.13">2.13</a> · <a href="#ex-2-14" aria-label="习题 2.14">2.14</a></div><details class="exercise" id="ex-2-4"><summary>习题 2.4 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.37 / PDF 60</p><div class="original-source" lang="en" data-exercise="2.4">Exercise 2.4 [★★] Consider the data type of stacks of values, with an interface consisting of the procedures <code>empty-stack</code>, <code>push</code>, <code>pop</code>, <code>top</code>, and <code>empty-stack?</code>. Write a
+
+<details class="reading-notes" id="notes-s2-2" data-notes-for="s2-2" open><summary>阅读注解</summary><div class="reading-notes-body">
+<div class="annotation-card"><span class="annotation-kind">观察行为</span><h3>环境的等价由查询决定</h3><p>考虑先绑定 <code>x</code> 为 7、再绑定同名变量为 99 的环境。关联表可以保存两条记录，不可变映射也可以只保存当前可见的 99。只要从新环境查 <code>x</code> 得到 99、其他名字仍按原环境查询，它们就实现了同一个可见映射。若还持有旧环境，从旧环境查询 <code>x</code> 应继续得到 7。</p><p>比较实现时要分别检查新环境和旧环境，并把“缺少绑定”作为独立结果。尤其当合法值为 <code>#f</code> 时，<code>apply-env</code> 返回假值并不能回答绑定是否存在；<code>has-binding?</code> 必须检查名字是否命中。</p></div>
+<div class="annotation-card"><span class="annotation-kind">复杂度前提</span><h3>肋骨式把哪一步变成常数时间</h3><p>若变量表、值表已经建立并满足等长前提，<code>extend-env*</code> 只需把这两条表配成一肋，再把这一肋接到旧环境前面。它保存已有表的引用，因此新增的点对数与这一批变量的数量无关。</p><p>若把逐项检查两表等长也计入调用成本，就必须遍历这一批元素；题目中的常数时间结论针对满足接口前提的构造步骤。查找仍可能逐个比较肋中的变量，再进入下一肋，因此扩展变快并不同时给出常数时间查询。</p></div>
+</div></details>
+<details class="exercise-index-panel"><summary>习题索引 · 11 题</summary><div class="exercise-index" role="navigation" aria-label="本节习题索引">本节习题：<a href="#ex-2-4" aria-label="习题 2.4">2.4</a> · <a href="#ex-2-5" aria-label="习题 2.5">2.5</a> · <a href="#ex-2-6" aria-label="习题 2.6">2.6</a> · <a href="#ex-2-7" aria-label="习题 2.7">2.7</a> · <a href="#ex-2-8" aria-label="习题 2.8">2.8</a> · <a href="#ex-2-9" aria-label="习题 2.9">2.9</a> · <a href="#ex-2-10" aria-label="习题 2.10">2.10</a> · <a href="#ex-2-11" aria-label="习题 2.11">2.11</a> · <a href="#ex-2-12" aria-label="习题 2.12">2.12</a> · <a href="#ex-2-13" aria-label="习题 2.13">2.13</a> · <a href="#ex-2-14" aria-label="习题 2.14">2.14</a></div></details><details class="exercise" id="ex-2-4"><summary>习题 2.4 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p>
+<div class="question-translation" lang="zh-CN" data-exercise="2.4">
+<p>考虑由值组成的栈这一数据类型，其接口包含 <code>empty-stack</code>、<code>push</code>、<code>pop</code>、<code>top</code>、<code>empty-stack?</code>。仿照<a href="#s2-2">上文环境接口</a>给操作写规格的方式，为这些栈操作写出规格。其中哪些操作是构造器，哪些是观察器？</p>
+</div>
+<p class="source">印刷 p.37 / <a href="../assets/source.pdf#page=60">PDF 60</a></p><details class="original-question"><summary>英文原题</summary><div class="original-source" lang="en" data-exercise="2.4">Exercise 2.4 [★★] Consider the data type of stacks of values, with an interface consisting of the procedures <code>empty-stack</code>, <code>push</code>, <code>pop</code>, <code>top</code>, and <code>empty-stack?</code>. Write a
 specification for these operations in the style of the example above. Which operations
-are constructors and which are observers?</div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>令 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="ε" display="inline"><mi>ε</mi></math> 表示空栈，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="P(v,s)" display="inline"><mrow><mi>P</mi><mrow><mo>(</mo><mi>v</mi><mo>,</mo><mi>s</mi><mo>)</mo></mrow></mrow></math> 表示把 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="v" display="inline"><mi>v</mi></math> 压入 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="s" display="inline"><mi>s</mi></math>。接口方程是 <code>(empty-stack)</code> <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="= ε" display="inline"><mrow><mo>=</mo><mi>ε</mi></mrow></math>；<code>(push v s)</code> <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="= P(v,s)" display="inline"><mrow><mo>=</mo><mi>P</mi><mrow><mo>(</mo><mi>v</mi><mo>,</mo><mi>s</mi><mo>)</mo></mrow></mrow></math>；<code>(top (push v s))</code> <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="= v" display="inline"><mrow><mo>=</mo><mi>v</mi></mrow></math>；<code>(pop (push v s))</code> <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="= s" display="inline"><mrow><mo>=</mo><mi>s</mi></mrow></math>；<code>(empty-stack? (empty-stack))</code> = <code>#t</code>；<code>(empty-stack? (push v s))</code> = <code>#f</code>。<code>top</code>、<code>pop</code> 对空栈的结果须另行约定，本答案统一报错。</p>
+are constructors and which are observers?</div></details></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>令 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="ε" display="inline"><mi>ε</mi></math> 表示空栈，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="P(v,s)" display="inline"><mrow><mi>P</mi><mrow><mo>(</mo><mi>v</mi><mo>,</mo><mi>s</mi><mo>)</mo></mrow></mrow></math> 表示把 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="v" display="inline"><mi>v</mi></math> 压入 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="s" display="inline"><mi>s</mi></math>。接口方程是 <code>(empty-stack)</code> <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="= ε" display="inline"><mrow><mo>=</mo><mi>ε</mi></mrow></math>；<code>(push v s)</code> <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="= P(v,s)" display="inline"><mrow><mo>=</mo><mi>P</mi><mrow><mo>(</mo><mi>v</mi><mo>,</mo><mi>s</mi><mo>)</mo></mrow></mrow></math>；<code>(top (push v s))</code> <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="= v" display="inline"><mrow><mo>=</mo><mi>v</mi></mrow></math>；<code>(pop (push v s))</code> <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="= s" display="inline"><mrow><mo>=</mo><mi>s</mi></mrow></math>；<code>(empty-stack? (empty-stack))</code> = <code>#t</code>；<code>(empty-stack? (push v s))</code> = <code>#f</code>。<code>top</code>、<code>pop</code> 对空栈的结果须另行约定，本答案统一报错。</p>
 <p>按本章“返回抽象类型值”的分类，<code>empty-stack</code>、<code>push</code>、<code>pop</code> 是构造器，<code>top</code>、<code>empty-stack?</code> 是观察器。<code>pop</code> 虽然不一定新分配节点，仍返回一个栈；构造器的分类不等于内存分配行为。列表实现直接对应这些方程，后三种程序表示也应接受同一组栈客户测试。</p><!-- EOPL:snippet chapter02.rkt ex-2-4 -->
 <details class="code-details" open><summary>查看实现 · ex-2-4</summary><pre><code class="language-scheme">;; Stack equations: top(push(v,s))=v; pop(push(v,s))=s;
 ;; empty?(empty)=#t; empty?(push(v,s))=#f. Empty top/pop are errors here.
@@ -523,14 +571,18 @@ are constructors and which are observers?</div></div><div class="answer"><p clas
 (define (top s) (if (null? s) (error &#x27;top &quot;empty stack&quot;) (car s)))
 (define (pop s) (if (null? s) (error &#x27;pop &quot;empty stack&quot;) (cdr s)))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-5"><summary>习题 2.5 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.39 / PDF 62</p><div class="original-source" lang="en" data-exercise="2.5">Exercise 2.5 [★] We can use any data structure for representing environments, if we
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-5"><summary>习题 2.5 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p>
+<div class="question-translation" lang="zh-CN" data-exercise="2.5">
+<p>只要一种数据结构能区分空环境与非空环境，并且能从非空环境中取出它的各个组成部分，就可以用它表示环境。请实现环境接口，采用如下表示：空环境由空表表示，<code>extend-env</code> 构造的环境具有<a href="#question-2-5-figure">下方原题指针图</a>所示的结构。</p><p>图中外层点对的 <code>car</code> 指向保存 <code>saved-var</code> 与 <code>saved-val</code> 的点对，<code>cdr</code> 指向 <code>saved-env</code>。这种表示称为 a-list，也就是关联表（association list）表示。</p>
+</div>
+<p class="source">印刷 p.39 / <a href="../assets/source.pdf#page=62">PDF 62</a></p><details class="original-question"><summary>英文原题</summary><div class="original-source" lang="en" data-exercise="2.5">Exercise 2.5 [★] We can use any data structure for representing environments, if we
 can distinguish empty environments from non-empty ones, and in which one can
 extract the pieces of a non-empty environment. Implement environments using a
 representation in which the empty environment is represented as the empty list, and
 in which <code>extend-env</code> builds an environment that looks like
 [Original pointer diagram is reproduced below.]
 
-This is called an a-list or association-list representation.</div><figure id="question-2-5-figure"><div class="diagram-scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 385 220" role="img" aria-labelledby="question-2-5-figure-title question-2-5-figure-desc" class="eopl-diagram rn-diagram"><title id="question-2-5-figure-title">习题 2.5 原图结构</title><desc id="question-2-5-figure-desc">原题指针关系重绘：外层表的 car 指向一对，cdr 指向旧环境；下层点对的 car/cdr 分别保存变量与值。</desc><defs><marker id="question-2-5-figure-arrow" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><path d="M0 0 L9 3.5 L0 7 Z" fill="#506679" class="rn-arrow"/></marker></defs><rect x="90" y="25" width="64" height="28" fill="#eaf2f8" stroke="#547a99" class="rn-memory-cell"/><path d="M122 25 V53" stroke="#547a99"/><rect x="90" y="100" width="64" height="28" fill="#fff2dc" stroke="#b07822" class="rn-memory-cell rn-node-accent"/><path d="M122 100 V128" stroke="#b07822"/><path d="M106 53 L106 98" fill="none" stroke="#506679" marker-end="url(#question-2-5-figure-arrow)" class="rn-edge"/><text class="hint" x="114.0" y="69.5">car</text><path d="M140 39 L250 39" fill="none" stroke="#506679" marker-end="url(#question-2-5-figure-arrow)" class="rn-edge"/><text class="hint" x="203.0" y="33.0">cdr</text><path d="M106 128 L60 167" fill="none" stroke="#506679" marker-end="url(#question-2-5-figure-arrow)" class="rn-edge"/><path d="M138 128 L185 167" fill="none" stroke="#506679" marker-end="url(#question-2-5-figure-arrow)" class="rn-edge"/><text class="hint" x="60" y="190" text-anchor="middle">saved-var</text><text class="hint" x="185" y="190" text-anchor="middle">saved-val</text><text class="hint edge-target" x="266" y="43">saved-env</text></svg></div><figcaption>原题指针关系重绘：外层表的 <code>car</code> 指向一对，<code>cdr</code> 指向旧环境；下层点对的 <code>car/cdr</code> 分别保存变量与值。</figcaption></figure></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>一条绑定使用点对 <code>(var . val)</code>，环境是这些绑定组成的列表。<code>extend-env</code> 在最前端 <code>cons</code> 一条绑定；查询从表头向后，第一次匹配就返回该点对的 <code>cdr</code>。<code>saved-val</code> 可以是列表，所以不能一律用 <code>cadr</code> 提取值：<code>(cons 'x '(1 2))</code> 的 <code>cdr</code> 才是完整的 <code>'(1 2)</code>。</p>
+This is called an a-list or association-list representation.</div></details><figure id="question-2-5-figure"><div class="diagram-scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 385 220" role="img" aria-labelledby="question-2-5-figure-title question-2-5-figure-desc" class="eopl-diagram rn-diagram"><title id="question-2-5-figure-title">习题 2.5 原图结构</title><desc id="question-2-5-figure-desc">原题指针关系重绘：外层表的 car 指向一对，cdr 指向旧环境；下层点对的 car/cdr 分别保存变量与值。</desc><defs><marker id="question-2-5-figure-arrow" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><path d="M0 0 L9 3.5 L0 7 Z" fill="#506679" class="rn-arrow"/></marker></defs><rect x="90" y="25" width="64" height="28" fill="#eaf2f8" stroke="#547a99" class="rn-memory-cell"/><path d="M122 25 V53" stroke="#547a99"/><rect x="90" y="100" width="64" height="28" fill="#fff2dc" stroke="#b07822" class="rn-memory-cell rn-node-accent"/><path d="M122 100 V128" stroke="#b07822"/><path d="M106 53 L106 98" fill="none" stroke="#506679" marker-end="url(#question-2-5-figure-arrow)" class="rn-edge"/><text class="hint" x="114.0" y="69.5">car</text><path d="M140 39 L250 39" fill="none" stroke="#506679" marker-end="url(#question-2-5-figure-arrow)" class="rn-edge"/><text class="hint" x="203.0" y="33.0">cdr</text><path d="M106 128 L60 167" fill="none" stroke="#506679" marker-end="url(#question-2-5-figure-arrow)" class="rn-edge"/><path d="M138 128 L185 167" fill="none" stroke="#506679" marker-end="url(#question-2-5-figure-arrow)" class="rn-edge"/><text class="hint" x="60" y="190" text-anchor="middle">saved-var</text><text class="hint" x="185" y="190" text-anchor="middle">saved-val</text><text class="hint edge-target" x="266" y="43">saved-env</text></svg></div><figcaption>原题指针关系重绘：外层表的 <code>car</code> 指向一对，<code>cdr</code> 指向旧环境；下层点对的 <code>car/cdr</code> 分别保存变量与值。</figcaption></figure></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>一条绑定使用点对 <code>(var . val)</code>，环境是这些绑定组成的列表。<code>extend-env</code> 在最前端 <code>cons</code> 一条绑定；查询从表头向后，第一次匹配就返回该点对的 <code>cdr</code>。<code>saved-val</code> 可以是列表，所以不能一律用 <code>cadr</code> 提取值：<code>(cons 'x '(1 2))</code> 的 <code>cdr</code> 才是完整的 <code>'(1 2)</code>。</p>
 <p>新同名绑定位于前面，旧绑定仍保留在旧环境和尾部中；因此遮蔽成立，持有旧环境的客户不会看到后来扩展的值。查找缺失变量到空表时报错。下面代码与题中指针图的 <code>car/cdr</code> 方向一一对应。</p><!-- EOPL:snippet chapter02.rkt ex-2-5 -->
 <details class="code-details" open><summary>查看实现 · ex-2-5</summary><pre><code class="language-scheme">(struct env-api (empty extend lookup empty? has? extend*) #:transparent)
 (define (missing who v) (error who &quot;no binding for ~s&quot; v))
@@ -541,8 +593,12 @@ This is called an a-list or association-list representation.</div><figure id="qu
         [(eqv? (caar env) v) (cdar env)]
         [else (alist-lookup (cdr env) v)]))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-6"><summary>习题 2.6 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.39 / PDF 62</p><div class="original-source" lang="en" data-exercise="2.6">Exercise 2.6 [★] Invent at least three different representations of the environment
-interface and implement them.</div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>给出三种额外表示。第一种保存两条平行列表 <code>(vars,vals)</code>，同一位置组成一条绑定；第二种保存交替序列 <code>(var val var val …)</code>，查找每次跳两项；第三种使用不可变 hash 表，以新表表示扩展后的有限映射。前两者直接保留历史绑定；hash 表只保留当前可见绑定，但旧表仍可被引用，因此三个实现都保持持久性。</p>
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-6"><summary>习题 2.6 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p>
+<div class="question-translation" lang="zh-CN" data-exercise="2.6">
+<p>为环境接口设计至少三种不同的表示，并分别实现它们。接口的含义沿用<a href="#s2-2">§2.2 的环境规格</a>。</p>
+</div>
+<p class="source">印刷 p.39 / <a href="../assets/source.pdf#page=62">PDF 62</a></p><details class="original-question"><summary>英文原题</summary><div class="original-source" lang="en" data-exercise="2.6">Exercise 2.6 [★] Invent at least three different representations of the environment
+interface and implement them.</div></details></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>给出三种额外表示。第一种保存两条平行列表 <code>(vars,vals)</code>，同一位置组成一条绑定；第二种保存交替序列 <code>(var val var val …)</code>，查找每次跳两项；第三种使用不可变 hash 表，以新表表示扩展后的有限映射。前两者直接保留历史绑定；hash 表只保留当前可见绑定，但旧表仍可被引用，因此三个实现都保持持久性。</p>
 <p>下面把每个实现的操作装入 <code>env-api</code>，客户只通过该接口扩展与查询。同一组测试检查遮蔽、旧环境不变、缺失变量、批量扩展和绑定值为 <code>#f</code>。平行表和交替表通常线性查询；hash 表的具体时间依赖宿主实现，不能仅凭名称承诺所有操作严格 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="O(1)" display="inline"><mrow><mi>O</mi><mrow><mo>(</mo><mn>1</mn><mo>)</mo></mrow></mrow></math>。客户不能以打印内部结构的结果作为抽象行为规格。</p><!-- EOPL:snippet chapter02.rkt ex-2-6 -->
 <details class="code-details" open><summary>查看实现 · ex-2-6</summary><pre><code class="language-scheme">;; Three additional persistent representations; all keep #f as a legal value.
 ;; Parallel variable/value lists.
@@ -576,8 +632,12 @@ interface and implement them.</div></div><div class="answer"><p class="rn-exerci
            hash-empty? hash-has-key?
            (lambda (vs xs e) (extend-many hash-extend vs xs e))))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-7"><summary>习题 2.7 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.39 / PDF 62</p><div class="original-source" lang="en" data-exercise="2.7">Exercise 2.7 [★] Rewrite <code>apply-env</code> in figure 2.1 to give a more informative error
-message.</div><div id="source-context-figure-2-1"><p class="source">题目引用的原书程序/文法：p.38 / PDF 61。保留原逻辑供比较，解答实现列在下方。</p><pre><code class="language-scheme">(define empty-env
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-7"><summary>习题 2.7 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p>
+<div class="question-translation" lang="zh-CN" data-exercise="2.7">
+<p>改写原书图 2.1 中的 <code>apply-env</code>，使它给出信息更充分的错误消息。题目引用的<a href="#source-context-figure-2-1">图 2.1 程序</a>完整列在下方（p.38 / <a href="../assets/source.pdf#page=61">PDF 61</a>）。</p>
+</div>
+<p class="source">印刷 p.39 / <a href="../assets/source.pdf#page=62">PDF 62</a></p><details class="original-question"><summary>英文原题</summary><div class="original-source" lang="en" data-exercise="2.7">Exercise 2.7 [★] Rewrite <code>apply-env</code> in figure 2.1 to give a more informative error
+message.</div></details><div id="source-context-figure-2-1"><p class="source">题目引用的原书程序/文法：p.38 / <a href="../assets/source.pdf#page=61">PDF 61</a>。保留原逻辑供比较，解答实现列在下方。</p><pre><code class="language-scheme">(define empty-env
   (lambda () (list &#x27;empty-env)))
 (define extend-env
    (lambda (var val env)
@@ -619,23 +679,35 @@ message.</div><div id="source-context-figure-2-1"><p class="source">题目引用
           [else (error &#x27;apply-env &quot;invalid frame ~s in original environment ~s&quot; e env)]))
   (walk env &#x27;()))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-8"><summary>习题 2.8 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.39 / PDF 62</p><div class="original-source" lang="en" data-exercise="2.8">Exercise 2.8 [★] Add to the environment interface an observer called <code>empty-env?</code>
-and implement it using the a-list representation.</div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p><code>a-list</code> 的空环境恰好是空表，所以 <code>empty-env?</code> 直接使用 <code>null?</code>。无论某条绑定的值是不是空表，含有那条绑定的环境都不是空环境。这个判断只看环境的抽象域是否为空，不能通过“某个值是否为空”推断。</p><!-- EOPL:snippet chapter02.rkt ex-2-8 -->
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-8"><summary>习题 2.8 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p>
+<div class="question-translation" lang="zh-CN" data-exercise="2.8">
+<p>在环境接口中增加一个名为 <code>empty-env?</code> 的观察器，并采用 a-list（关联表）表示实现它。</p>
+</div>
+<p class="source">印刷 p.39 / <a href="../assets/source.pdf#page=62">PDF 62</a></p><details class="original-question"><summary>英文原题</summary><div class="original-source" lang="en" data-exercise="2.8">Exercise 2.8 [★] Add to the environment interface an observer called <code>empty-env?</code>
+and implement it using the a-list representation.</div></details></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p><code>a-list</code> 的空环境恰好是空表，所以 <code>empty-env?</code> 直接使用 <code>null?</code>。无论某条绑定的值是不是空表，含有那条绑定的环境都不是空环境。这个判断只看环境的抽象域是否为空，不能通过“某个值是否为空”推断。</p><!-- EOPL:snippet chapter02.rkt ex-2-8 -->
 <details class="code-details" open><summary>查看实现 · ex-2-8</summary><pre><code class="language-scheme">(define (alist-empty? env) (null? env))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-9"><summary>习题 2.9 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.39 / PDF 62</p><div class="original-source" lang="en" data-exercise="2.9">Exercise 2.9 [★] Add to the environment interface an observer called <code>has-binding?</code>
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-9"><summary>习题 2.9 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p>
+<div class="question-translation" lang="zh-CN" data-exercise="2.9">
+<p>在环境接口中增加一个名为 <code>has-binding?</code> 的观察器。它接收环境 <code>env</code> 和变量 <code>s</code>，检查 <code>s</code> 在 <code>env</code> 中是否关联了某个值。使用 a-list（关联表）表示实现它。</p>
+</div>
+<p class="source">印刷 p.39 / <a href="../assets/source.pdf#page=62">PDF 62</a></p><details class="original-question"><summary>英文原题</summary><div class="original-source" lang="en" data-exercise="2.9">Exercise 2.9 [★] Add to the environment interface an observer called <code>has-binding?</code>
 that takes an environment env and a variable s and tests to see if s has an associated
-value in env. Implement it using the a-list representation.</div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>沿 <code>a-list</code> 搜索变量名，找到就返回 <code>#t</code>，到空表才返回 <code>#f</code>。不能先调用 <code>apply-env</code> 再把返回值转成真值，因为一个合法绑定可能保存 <code>#f</code>。例：扩展 <code>flag</code> <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="↦" display="inline"><mo>↦</mo></math> <code>#f</code> 后，<code>(apply-env env 'flag)</code> 是 <code>#f</code>，但 <code>(has-binding? env 'flag)</code> 必须是 <code>#t</code>。这两个观察器回答的是不同问题。</p><!-- EOPL:snippet chapter02.rkt ex-2-9 -->
+value in env. Implement it using the a-list representation.</div></details></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>沿 <code>a-list</code> 搜索变量名，找到就返回 <code>#t</code>，到空表才返回 <code>#f</code>。不能先调用 <code>apply-env</code> 再把返回值转成真值，因为一个合法绑定可能保存 <code>#f</code>。例：扩展 <code>flag</code> <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="↦" display="inline"><mo>↦</mo></math> <code>#f</code> 后，<code>(apply-env env 'flag)</code> 是 <code>#f</code>，但 <code>(has-binding? env 'flag)</code> 必须是 <code>#t</code>。这两个观察器回答的是不同问题。</p><!-- EOPL:snippet chapter02.rkt ex-2-9 -->
 <details class="code-details" open><summary>查看实现 · ex-2-9</summary><pre><code class="language-scheme">(define (alist-has? env v)
   (and (pair? env) (or (eqv? (caar env) v) (alist-has? (cdr env) v))))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-10"><summary>习题 2.10 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.39 / PDF 62</p><div class="original-source" lang="en" data-exercise="2.10">Exercise 2.10 [★] Add to the environment interface a constructor <code>extend-env*</code>, and
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-10"><summary>习题 2.10 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p>
+<div class="question-translation" lang="zh-CN" data-exercise="2.10">
+<p>在环境接口中增加构造器 <code>extend-env*</code>，并采用 a-list（关联表）表示实现它。这个构造器接收一个变量列表、一个与变量列表等长的值列表，以及一个环境；它的规格如下：</p><div class="equation"><span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" aria-label="(extend-env* (var₁ ... varₖ) (val₁ ... valₖ) ⌈f⌉) = ⌈g⌉,"><mrow><mo>(</mo><mtext mathvariant="monospace">extend-env*</mtext><mspace width=".3em"/><mrow><mo>(</mo><msub><mi mathvariant="italic">var</mi><mn>1</mn></msub><mo lspace=".2em" rspace=".2em">...</mo><msub><mi mathvariant="italic">var</mi><mi>k</mi></msub><mo>)</mo></mrow><mspace width=".3em"/><mrow><mo>(</mo><msub><mi mathvariant="italic">val</mi><mn>1</mn></msub><mo lspace=".2em" rspace=".2em">...</mo><msub><mi mathvariant="italic">val</mi><mi>k</mi></msub><mo>)</mo></mrow><mspace width=".3em"/><mrow><mo>⌈</mo><mi>f</mi><mo>⌉</mo></mrow><mo>)</mo><mrow><mo>=</mo><mo>⌈</mo><mi>g</mi><mo>⌉</mo></mrow><mo>,</mo></mrow></math></span></div><p>其中，若存在某个满足 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="1 ≤ i ≤ k" display="inline"><mrow><mn>1</mn><mo>≤</mo><mi>i</mi><mo>≤</mo><mi>k</mi></mrow></math> 的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="i" display="inline"><mi>i</mi></math>，使得 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="var = varᵢ" display="inline"><mrow><mi mathvariant="italic">var</mi><mo>=</mo><msub><mi mathvariant="italic">var</mi><mi>i</mi></msub></mrow></math>，则 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="g(var) = valᵢ" display="inline"><mrow><mi>g</mi><mrow><mo>(</mo><mi mathvariant="italic">var</mi><mo>)</mo></mrow><mo>=</mo><msub><mi mathvariant="italic">val</mi><mi>i</mi></msub></mrow></math>；否则，<math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" aria-label="g(var)"><mrow><mi>g</mi><mo>(</mo><mi mathvariant="italic">var</mi><mo>)</mo></mrow></math> 的值为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f(var)" display="inline"><mrow><mi>f</mi><mrow><mo>(</mo><mi mathvariant="italic">var</mi><mo>)</mo></mrow></mrow></math>。</p>
+</div>
+<p class="source">印刷 p.39 / <a href="../assets/source.pdf#page=62">PDF 62</a></p><details class="original-question"><summary>英文原题</summary><div class="original-source" lang="en" data-exercise="2.10">Exercise 2.10 [★] Add to the environment interface a constructor <code>extend-env*</code>, and
 implement it using the a-list representation. This constructor takes a list of variables,
 a list of values of the same length, and an environment, and is specified by
 
-<span class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" aria-label="(extend-env* (var₁ ... varₖ) (val₁ ... valₖ) ⌈f⌉) = ⌈g⌉,"><mrow><mo>(</mo><mtext mathvariant="monospace">extend-env*</mtext><mspace width=".3em"/><mrow><mo>(</mo><msub><mi mathvariant="italic">var</mi><mn>1</mn></msub><mo lspace=".2em" rspace=".2em">...</mo><msub><mi mathvariant="italic">var</mi><mi>k</mi></msub><mo>)</mo></mrow><mspace width=".3em"/><mrow><mo>(</mo><msub><mi mathvariant="italic">val</mi><mn>1</mn></msub><mo lspace=".2em" rspace=".2em">...</mo><msub><mi mathvariant="italic">val</mi><mi>k</mi></msub><mo>)</mo></mrow><mspace width=".3em"/><mrow><mo>⌈</mo><mi>f</mi><mo>⌉</mo></mrow><mo>)</mo><mrow><mo>=</mo><mo>⌈</mo><mi>g</mi><mo>⌉</mo></mrow><mo>,</mo></mrow></math></span>
+<span class="equation"><span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" aria-label="(extend-env* (var₁ ... varₖ) (val₁ ... valₖ) ⌈f⌉) = ⌈g⌉,"><mrow><mo>(</mo><mtext mathvariant="monospace">extend-env*</mtext><mspace width=".3em"/><mrow><mo>(</mo><msub><mi mathvariant="italic">var</mi><mn>1</mn></msub><mo lspace=".2em" rspace=".2em">...</mo><msub><mi mathvariant="italic">var</mi><mi>k</mi></msub><mo>)</mo></mrow><mspace width=".3em"/><mrow><mo>(</mo><msub><mi mathvariant="italic">val</mi><mn>1</mn></msub><mo lspace=".2em" rspace=".2em">...</mo><msub><mi mathvariant="italic">val</mi><mi>k</mi></msub><mo>)</mo></mrow><mspace width=".3em"/><mrow><mo>⌈</mo><mi>f</mi><mo>⌉</mo></mrow><mo>)</mo><mrow><mo>=</mo><mo>⌈</mo><mi>g</mi><mo>⌉</mo></mrow><mo>,</mo></mrow></math></span></span>
 where <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="g(var) = valᵢ" display="inline"><mrow><mi>g</mi><mrow><mo>(</mo><mi mathvariant="italic">var</mi><mo>)</mo></mrow><mo>=</mo><msub><mi mathvariant="italic">val</mi><mi>i</mi></msub></mrow></math> if <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="var = varᵢ" display="inline"><mrow><mi mathvariant="italic">var</mi><mo>=</mo><msub><mi mathvariant="italic">var</mi><mi>i</mi></msub></mrow></math> for some <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="i" display="inline"><mi>i</mi></math> such that <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="1 ≤ i ≤ k" display="inline"><mrow><mn>1</mn><mo>≤</mo><mi>i</mi><mo>≤</mo><mi>k</mi></mrow></math>;
-               <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f(var)" display="inline"><mrow><mi>f</mi><mrow><mo>(</mo><mi mathvariant="italic">var</mi><mo>)</mo></mrow></mrow></math> otherwise.</div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>先递归扩展尾部，再把当前变量和值放在最前面。输入列表长度为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="k" display="inline"><mi>k</mi></math> 时，构造 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="k" display="inline"><mi>k</mi></math> 个绑定，时间 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="O(k)" display="inline"><mrow><mi>O</mi><mrow><mo>(</mo><mi>k</mi><mo>)</mo></mrow></mrow></math>，并保留旧环境作为尾部。两条输入列表长度必须一致；代码遇到一边先结束便报错。</p>
+               <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f(var)" display="inline"><mrow><mi>f</mi><mrow><mo>(</mo><mi mathvariant="italic">var</mi><mo>)</mo></mrow></mrow></math> otherwise.</div></details></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>先递归扩展尾部，再把当前变量和值放在最前面。输入列表长度为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="k" display="inline"><mi>k</mi></math> 时，构造 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="k" display="inline"><mi>k</mi></math> 个绑定，时间 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="O(k)" display="inline"><mrow><mi>O</mi><mrow><mo>(</mo><mi>k</mi><mo>)</mo></mrow></mrow></math>，并保留旧环境作为尾部。两条输入列表长度必须一致；代码遇到一边先结束便报错。</p>
 <p>原题分段方程在变量互异时唯一确定结果；若同一变量对应两个不同值，它没有指明选择哪个 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="i" display="inline"><mi>i</mi></math>。这里明确采用“左边第一个绑定胜出”的补充约定，与下一题逐肋从左向右查询一致。例如 <code>(x x)</code> 配 <code>(1 2)</code> 后 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 为 1。对互异变量，本实现恰好满足原方程；这个补充约定不是原文隐含的定理。</p><!-- EOPL:snippet chapter02.rkt ex-2-10 -->
 <details class="code-details" open><summary>查看实现 · ex-2-10</summary><pre><code class="language-scheme">;; Lists must have equal lengths. Leftmost duplicate wins (explicit extension
 ;; to the book&#x27;s equations, which are ambiguous for conflicting duplicates).
@@ -648,7 +720,11 @@ where <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="g(var) = val�
 (define alist-api
   (env-api alist-empty alist-extend alist-lookup alist-empty? alist-has? alist-extend*))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-11"><summary>习题 2.11 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.39–40 / PDF 62–63</p><div class="original-source" lang="en" data-exercise="2.11">Exercise 2.11 [★★] A naive implementation of <code>extend-env*</code> from the preceding
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-11"><summary>习题 2.11 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p>
+<div class="question-translation" lang="zh-CN" data-exercise="2.11">
+<p>上一题中，<code>extend-env*</code> 的朴素实现需要与变量个数 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" aria-label="k"><mi>k</mi></math> 成正比的运行时间。可以采用另一种环境表示，使 <code>extend-env*</code> 只需要常数时间：空环境仍表示为空表，非空环境则采用<a href="#question-2-11-figure">下方原题图</a>中的数据结构。</p><p>一般构造中的 <code>saved-vars</code>、<code>saved-vals</code> 分别是对应的变量列表和值列表，<code>saved-env</code> 是后续环境。图中给出一个这样的环境实例：三肋依次将 <code>(a b c)</code> 与 <code>(11 12 13)</code>、<code>(x z)</code> 与 <code>(66 77)</code>、<code>(x y)</code> 与 <code>(88 99)</code> 配对，并连接到其余环境。</p><p>这称为肋骨式（ribcage）表示。环境是由称为“肋”（rib）的点对组成的列表：每条左肋是变量列表，每条右肋是对应的值列表。使用这种表示实现环境接口，其中应包括 <code>extend-env*</code>。</p>
+</div>
+<p class="source">印刷 p.39–40 / <a href="../assets/source.pdf#page=62">PDF 62–63</a></p><details class="original-question"><summary>英文原题</summary><div class="original-source" lang="en" data-exercise="2.11">Exercise 2.11 [★★] A naive implementation of <code>extend-env*</code> from the preceding
 exercise requires time proportional to k to run. It is possible to represent environments so that <code>extend-env*</code> requires only constant time: represent the empty environment by the empty list, and represent a non-empty environment by the data structure
 [Original pointer diagram is reproduced below.]
 
@@ -659,7 +735,7 @@ Such an environment might look like
 
              This is called the ribcage representation. The environment is represented as a list of
              pairs called ribs; each left rib is a list of variables and each right rib is the corresponding list of values.
-             Implement the environment interface, including <code>extend-env*</code>, in this representation.</div><figure id="question-2-11-figure"><div class="diagram-scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 835 220" role="img" aria-labelledby="question-2-11-figure-title question-2-11-figure-desc" class="eopl-diagram rn-diagram"><title id="question-2-11-figure-title">习题 2.11 原图结构</title><desc id="question-2-11-figure-desc">原题两幅图合并重绘：每个 rib 的 car/cdr 保存平行的变量表和值表，环境脊柱的 cdr 指向下一肋。一般构造中的 saved-vars、saved-vals、saved-env 分别对应这两个列表和后续环境；示例三肋及所有数值与原图一致。</desc><defs><marker id="question-2-11-figure-arrow" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><path d="M0 0 L9 3.5 L0 7 Z" fill="#506679" class="rn-arrow"/></marker></defs><rect x="90" y="25" width="64" height="28" fill="#eaf2f8" stroke="#547a99" class="rn-memory-cell"/><path d="M122 25 V53" stroke="#547a99"/><rect x="90" y="100" width="64" height="28" fill="#fff2dc" stroke="#b07822" class="rn-memory-cell rn-node-accent"/><path d="M122 100 V128" stroke="#b07822"/><path d="M106 53 L106 98" fill="none" stroke="#506679" marker-end="url(#question-2-11-figure-arrow)" class="rn-edge"/><text class="hint" x="114.0" y="69.5">car</text><path d="M140 39 L313 39" fill="none" stroke="#506679" marker-end="url(#question-2-11-figure-arrow)" class="rn-edge"/><text class="hint" x="203.0" y="33.0">cdr</text><path d="M106 128 L60 167" fill="none" stroke="#506679" marker-end="url(#question-2-11-figure-arrow)" class="rn-edge"/><path d="M138 128 L185 167" fill="none" stroke="#506679" marker-end="url(#question-2-11-figure-arrow)" class="rn-edge"/><text class="hint" x="60" y="190" text-anchor="middle">(a b c)</text><text class="hint" x="185" y="190" text-anchor="middle">(11 12 13)</text><rect x="315" y="25" width="64" height="28" fill="#eaf2f8" stroke="#547a99" class="rn-memory-cell"/><path d="M347 25 V53" stroke="#547a99"/><rect x="315" y="100" width="64" height="28" fill="#fff2dc" stroke="#b07822" class="rn-memory-cell rn-node-accent"/><path d="M347 100 V128" stroke="#b07822"/><path d="M331 53 L331 98" fill="none" stroke="#506679" marker-end="url(#question-2-11-figure-arrow)" class="rn-edge"/><text class="hint" x="339.0" y="69.5">car</text><path d="M365 39 L538 39" fill="none" stroke="#506679" marker-end="url(#question-2-11-figure-arrow)" class="rn-edge"/><text class="hint" x="428.0" y="33.0">cdr</text><path d="M331 128 L285 167" fill="none" stroke="#506679" marker-end="url(#question-2-11-figure-arrow)" class="rn-edge"/><path d="M363 128 L410 167" fill="none" stroke="#506679" marker-end="url(#question-2-11-figure-arrow)" class="rn-edge"/><text class="hint" x="285" y="190" text-anchor="middle">(x z)</text><text class="hint" x="410" y="190" text-anchor="middle">(66 77)</text><rect x="540" y="25" width="64" height="28" fill="#eaf2f8" stroke="#547a99" class="rn-memory-cell"/><path d="M572 25 V53" stroke="#547a99"/><rect x="540" y="100" width="64" height="28" fill="#fff2dc" stroke="#b07822" class="rn-memory-cell rn-node-accent"/><path d="M572 100 V128" stroke="#b07822"/><path d="M556 53 L556 98" fill="none" stroke="#506679" marker-end="url(#question-2-11-figure-arrow)" class="rn-edge"/><text class="hint" x="564.0" y="69.5">car</text><path d="M590 39 L700 39" fill="none" stroke="#506679" marker-end="url(#question-2-11-figure-arrow)" class="rn-edge"/><text class="hint" x="653.0" y="33.0">cdr</text><path d="M556 128 L510 167" fill="none" stroke="#506679" marker-end="url(#question-2-11-figure-arrow)" class="rn-edge"/><path d="M588 128 L635 167" fill="none" stroke="#506679" marker-end="url(#question-2-11-figure-arrow)" class="rn-edge"/><text class="hint" x="510" y="190" text-anchor="middle">(x y)</text><text class="hint" x="635" y="190" text-anchor="middle">(88 99)</text><text class="hint edge-target" x="716" y="43">rest of env</text></svg></div><figcaption>原题两幅图合并重绘：每个 rib 的 <code>car/cdr</code> 保存平行的变量表和值表，环境脊柱的 <code>cdr</code> 指向下一肋。一般构造中的 <code>saved-vars</code>、<code>saved-vals</code>、<code>saved-env</code> 分别对应这两个列表和后续环境；示例三肋及所有数值与原图一致。</figcaption></figure></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>一个 rib 保存变量列表与值列表的指针，整个环境是 rib 的列表。<code>extend-env*</code> 只做两次 <code>cons</code>：一次把两条现成列表配成 rib，一次把 rib 接到旧环境前面，因此在输入已满足“有限正规列表（proper list）、长度相等”的契约时为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="O(1)" display="inline"><mrow><mi>O</mi><mrow><mo>(</mo><mn>1</mn><mo>)</mo></mrow></mrow></math>。若同时遍历输入做长度检查，构造器就不再是常数时间，故这里把长度条件列为前提。</p>
+             Implement the environment interface, including <code>extend-env*</code>, in this representation.</div></details><figure id="question-2-11-figure"><div class="diagram-scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 835 220" role="img" aria-labelledby="question-2-11-figure-title question-2-11-figure-desc" class="eopl-diagram rn-diagram"><title id="question-2-11-figure-title">习题 2.11 原图结构</title><desc id="question-2-11-figure-desc">原题两幅图合并重绘：每个 rib 的 car/cdr 保存平行的变量表和值表，环境脊柱的 cdr 指向下一肋。一般构造中的 saved-vars、saved-vals、saved-env 分别对应这两个列表和后续环境；示例三肋及所有数值与原图一致。</desc><defs><marker id="question-2-11-figure-arrow" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><path d="M0 0 L9 3.5 L0 7 Z" fill="#506679" class="rn-arrow"/></marker></defs><rect x="90" y="25" width="64" height="28" fill="#eaf2f8" stroke="#547a99" class="rn-memory-cell"/><path d="M122 25 V53" stroke="#547a99"/><rect x="90" y="100" width="64" height="28" fill="#fff2dc" stroke="#b07822" class="rn-memory-cell rn-node-accent"/><path d="M122 100 V128" stroke="#b07822"/><path d="M106 53 L106 98" fill="none" stroke="#506679" marker-end="url(#question-2-11-figure-arrow)" class="rn-edge"/><text class="hint" x="114.0" y="69.5">car</text><path d="M140 39 L313 39" fill="none" stroke="#506679" marker-end="url(#question-2-11-figure-arrow)" class="rn-edge"/><text class="hint" x="203.0" y="33.0">cdr</text><path d="M106 128 L60 167" fill="none" stroke="#506679" marker-end="url(#question-2-11-figure-arrow)" class="rn-edge"/><path d="M138 128 L185 167" fill="none" stroke="#506679" marker-end="url(#question-2-11-figure-arrow)" class="rn-edge"/><text class="hint" x="60" y="190" text-anchor="middle">(a b c)</text><text class="hint" x="185" y="190" text-anchor="middle">(11 12 13)</text><rect x="315" y="25" width="64" height="28" fill="#eaf2f8" stroke="#547a99" class="rn-memory-cell"/><path d="M347 25 V53" stroke="#547a99"/><rect x="315" y="100" width="64" height="28" fill="#fff2dc" stroke="#b07822" class="rn-memory-cell rn-node-accent"/><path d="M347 100 V128" stroke="#b07822"/><path d="M331 53 L331 98" fill="none" stroke="#506679" marker-end="url(#question-2-11-figure-arrow)" class="rn-edge"/><text class="hint" x="339.0" y="69.5">car</text><path d="M365 39 L538 39" fill="none" stroke="#506679" marker-end="url(#question-2-11-figure-arrow)" class="rn-edge"/><text class="hint" x="428.0" y="33.0">cdr</text><path d="M331 128 L285 167" fill="none" stroke="#506679" marker-end="url(#question-2-11-figure-arrow)" class="rn-edge"/><path d="M363 128 L410 167" fill="none" stroke="#506679" marker-end="url(#question-2-11-figure-arrow)" class="rn-edge"/><text class="hint" x="285" y="190" text-anchor="middle">(x z)</text><text class="hint" x="410" y="190" text-anchor="middle">(66 77)</text><rect x="540" y="25" width="64" height="28" fill="#eaf2f8" stroke="#547a99" class="rn-memory-cell"/><path d="M572 25 V53" stroke="#547a99"/><rect x="540" y="100" width="64" height="28" fill="#fff2dc" stroke="#b07822" class="rn-memory-cell rn-node-accent"/><path d="M572 100 V128" stroke="#b07822"/><path d="M556 53 L556 98" fill="none" stroke="#506679" marker-end="url(#question-2-11-figure-arrow)" class="rn-edge"/><text class="hint" x="564.0" y="69.5">car</text><path d="M590 39 L700 39" fill="none" stroke="#506679" marker-end="url(#question-2-11-figure-arrow)" class="rn-edge"/><text class="hint" x="653.0" y="33.0">cdr</text><path d="M556 128 L510 167" fill="none" stroke="#506679" marker-end="url(#question-2-11-figure-arrow)" class="rn-edge"/><path d="M588 128 L635 167" fill="none" stroke="#506679" marker-end="url(#question-2-11-figure-arrow)" class="rn-edge"/><text class="hint" x="510" y="190" text-anchor="middle">(x y)</text><text class="hint" x="635" y="190" text-anchor="middle">(88 99)</text><text class="hint edge-target" x="716" y="43">rest of env</text></svg></div><figcaption>原题两幅图合并重绘：每个 rib 的 <code>car/cdr</code> 保存平行的变量表和值表，环境脊柱的 <code>cdr</code> 指向下一肋。一般构造中的 <code>saved-vars</code>、<code>saved-vals</code>、<code>saved-env</code> 分别对应这两个列表和后续环境；示例三肋及所有数值与原图一致。</figcaption></figure></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>一个 rib 保存变量列表与值列表的指针，整个环境是 rib 的列表。<code>extend-env*</code> 只做两次 <code>cons</code>：一次把两条现成列表配成 rib，一次把 rib 接到旧环境前面，因此在输入已满足“有限正规列表（proper list）、长度相等”的契约时为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="O(1)" display="inline"><mrow><mi>O</mi><mrow><mo>(</mo><mn>1</mn><mo>)</mo></mrow></mrow></math>。若同时遍历输入做长度检查，构造器就不再是常数时间，故这里把长度条件列为前提。</p>
 <p>查询先在当前 rib 中同步推进变量表和值表；命中返回同位置的值，当前 rib 用尽才去外层。原图中查询 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 会跳过 <code>(a b c)</code> 那一肋，在 <code>(x z)</code> 找到 66，最外层 <code>(x y)</code> 的 88 被遮蔽。普通 <code>extend-env</code> 用长度 1 的 rib 即可。空 rib 不含绑定；扩展空的变量/值列表后，<code>empty-env?</code> 仍应报告真。</p>
 <p>构造的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="O(1)" display="inline"><mrow><mi>O</mi><mrow><mo>(</mo><mn>1</mn><mo>)</mo></mrow></mrow></math> 与查找的时间是两回事；最坏查询仍需检查全部绑定。原图和本实现都共享已有列表，假定客户不对它们做破坏性修改。</p><!-- EOPL:snippet chapter02.rkt ex-2-11 -->
 <details class="code-details" open><summary>查看实现 · ex-2-11</summary><pre><code class="language-scheme">;; Rib = (variable-list . value-list). Proper lists of equal lengths are
@@ -679,8 +755,12 @@ Such an environment might look like
            (lambda (e) (or (null? e) (and (null? (caar e)) ((env-api-empty? rib-api) (cdr e)))))
            (lambda (e v) (rib-find e v (lambda (_) #t) (lambda () #f))) rib-extend*))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-12"><summary>习题 2.12 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.42 / PDF 65</p><div class="original-source" lang="en" data-exercise="2.12">Exercise 2.12 [★] Implement the stack data type of exercise 2.4 using a procedural
-representation.</div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>把栈表示为接收消息的过程。空栈对 <code>empty?</code> 返回真，对 <code>top/pop</code> 报错；<code>push</code> 返回的新闭包保存值 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="v" display="inline"><mi>v</mi></math> 和旧栈 <code>saved</code>，对 <code>top</code> 返回 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="v" display="inline"><mi>v</mi></math>，对 <code>pop</code> 返回 <code>saved</code>，对 <code>empty?</code> 返回假。客户调用 <code>proc-top</code> 等包装器，不需要知道过程内部怎样保存这两个值。</p>
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-12"><summary>习题 2.12 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p>
+<div class="question-translation" lang="zh-CN" data-exercise="2.12">
+<p>使用过程表示，实现 <a href="#ex-2-4">习题 2.4</a> 的栈数据类型，即提供 <code>empty-stack</code>、<code>push</code>、<code>pop</code>、<code>top</code>、<code>empty-stack?</code> 并满足该题的接口规格。</p>
+</div>
+<p class="source">印刷 p.42 / <a href="../assets/source.pdf#page=65">PDF 65</a></p><details class="original-question"><summary>英文原题</summary><div class="original-source" lang="en" data-exercise="2.12">Exercise 2.12 [★] Implement the stack data type of exercise 2.4 using a procedural
+representation.</div></details></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>把栈表示为接收消息的过程。空栈对 <code>empty?</code> 返回真，对 <code>top/pop</code> 报错；<code>push</code> 返回的新闭包保存值 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="v" display="inline"><mi>v</mi></math> 和旧栈 <code>saved</code>，对 <code>top</code> 返回 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="v" display="inline"><mi>v</mi></math>，对 <code>pop</code> 返回 <code>saved</code>，对 <code>empty?</code> 返回假。客户调用 <code>proc-top</code> 等包装器，不需要知道过程内部怎样保存这两个值。</p>
 <p>闭包中的 <code>saved</code> 是构造新栈时的旧栈。连续 <code>push</code> 两次再 <code>pop</code> 一次会恢复第一次 <code>push</code> 后的对象；无需把历史栈复制出来。消息只选观察器，不能把未知消息默默当成 <code>pop</code>。</p><!-- EOPL:snippet chapter02.rkt ex-2-12 -->
 <details class="code-details" open><summary>查看实现 · ex-2-12</summary><pre><code class="language-scheme">;; A stack is a procedure responding to the three observers.
 (define (proc-empty-stack)
@@ -695,10 +775,14 @@ representation.</div></div><div class="answer"><p class="rn-exercise-label">解�
 (define (proc-pop s) (s &#x27;pop))
 (define (proc-empty-stack? s) (s &#x27;empty?))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-13"><summary>习题 2.13 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.42 / PDF 65</p><div class="original-source" lang="en" data-exercise="2.13">Exercise 2.13 [★★] Extend the procedural representation to implement <code>empty-env?</code>
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-13"><summary>习题 2.13 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p>
+<div class="question-translation" lang="zh-CN" data-exercise="2.13">
+<p>扩展环境的过程表示，使其实现 <code>empty-env?</code>。具体做法是用含有两个过程的列表表示一个环境：第一个过程与此前一样，返回某个变量所关联的值；第二个过程返回这个环境是否为空。</p>
+</div>
+<p class="source">印刷 p.42 / <a href="../assets/source.pdf#page=65">PDF 65</a></p><details class="original-question"><summary>英文原题</summary><div class="original-source" lang="en" data-exercise="2.13">Exercise 2.13 [★★] Extend the procedural representation to implement <code>empty-env?</code>
 by representing the environment by a list of two procedures: one that returns the
 value associated with a variable, as before, and one that returns whether or not the
-environment is empty.</div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>环境表示为两个过程的列表：第一个接收变量并查值，第二个不接收参数并回答是否为空。空环境的查值过程报错、空判断过程返回真；扩展后的查值闭包先比较新名字，失败再调用旧环境的第一个过程，而空判断恒为假。</p>
+environment is empty.</div></details></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>环境表示为两个过程的列表：第一个接收变量并查值，第二个不接收参数并回答是否为空。空环境的查值过程报错、空判断过程返回真；扩展后的查值闭包先比较新名字，失败再调用旧环境的第一个过程，而空判断恒为假。</p>
 <p>第二个过程捕获的“非空”事实来自 <code>extend-env</code> 本身，所以无需枚举环境中的绑定。代码用 <code>env2</code> 前缀隔开本题与其他表示的同名接口。</p><!-- EOPL:snippet chapter02.rkt ex-2-13 -->
 <details class="code-details" open><summary>查看实现 · ex-2-13</summary><pre><code class="language-scheme">;; Two procedures: lookup and empty?.
 (define (env2-empty) (list (lambda (v) (missing &#x27;env2 v)) (lambda () #t)))
@@ -707,8 +791,12 @@ environment is empty.</div></div><div class="answer"><p class="rn-exercise-label
 (define (env2-lookup e v) ((car e) v))
 (define (env2-empty? e) ((cadr e)))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-14"><summary>习题 2.14 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.42 / PDF 65</p><div class="original-source" lang="en" data-exercise="2.14">Exercise 2.14 [★★] Extend the representation of the preceding exercise to include a
-third procedure that implements <code>has-binding?</code> (see exercise 2.9).</div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>在第二个过程之后增加第三个成员过程。空环境的成员过程对任何变量都返回假；扩展后的成员闭包先比较新名字，匹配即真，不匹配再询问旧环境。它与查值过程共享同一条环境链，却不读取或判断绑定值，因而值为 <code>#f</code> 时仍正确。</p>
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-14"><summary>习题 2.14 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p>
+<div class="question-translation" lang="zh-CN" data-exercise="2.14">
+<p>扩展 <a href="#ex-2-13">习题 2.13</a> 的表示，在列表中加入第三个过程，用它实现 <code>has-binding?</code>；这个观察器的含义见 <a href="#ex-2-9">习题 2.9</a>。</p>
+</div>
+<p class="source">印刷 p.42 / <a href="../assets/source.pdf#page=65">PDF 65</a></p><details class="original-question"><summary>英文原题</summary><div class="original-source" lang="en" data-exercise="2.14">Exercise 2.14 [★★] Extend the representation of the preceding exercise to include a
+third procedure that implements <code>has-binding?</code> (see exercise 2.9).</div></details></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>在第二个过程之后增加第三个成员过程。空环境的成员过程对任何变量都返回假；扩展后的成员闭包先比较新名字，匹配即真，不匹配再询问旧环境。它与查值过程共享同一条环境链，却不读取或判断绑定值，因而值为 <code>#f</code> 时仍正确。</p>
 <p><code>env3-api</code> 将三个观察器和构造器接到统一接口上；这展示“一个观察器对应一个过程”的可扩展方案，而不是假定只有一种操作的数据才能使用过程表示。</p><!-- EOPL:snippet chapter02.rkt ex-2-14 -->
 <details class="code-details" open><summary>查看实现 · ex-2-14</summary><pre><code class="language-scheme">;; Third procedure answers membership; it does not infer membership from value.
 (define (env3-empty)
@@ -722,7 +810,7 @@ third procedure that implements <code>has-binding?</code> (see exercise 2.9).</d
            (lambda (vs xs e) (extend-many env3-extend vs xs e))))
 </code></pre></details>
 <!-- EOPL:end-snippet --></div></details></section><section id="s2-3"><h2>2.3 递归接口与带上下文的游标</h2>
-<p class="source">原书 §2.3，pp.42–45 / PDF 65–68。</p>
+<p class="source">原书 §2.3，pp.42–45 / <a href="../assets/source.pdf#page=65">PDF 65–68</a>。</p>
 <p><code>(car (cadr exp))</code> 告诉读者怎样走列表，却没有告诉读者提取的是什么。把它改成 <code>lambda-exp-&gt;bound-var</code> 后，调用方直接表达“读取绑定变量”。为每种构造提供构造器和谓词，为每个字段提供提取器，就能让算法按语义写，而把内存布局留给实现。</p>
 <p>以 <code>LcExp</code> 为例，需要 <code>var-exp</code>、<code>lambda-exp</code>、<code>app-exp</code> 三个构造器，相应三个变体谓词，以及变量名、绑定名、<code>body</code>、<code>rator</code>、<code>rand</code> 五个提取器。自由变量算法的分支仍然与第 1 章完全相同，只是从列表下标改用这些操作。改掉 <code>lambda</code> 形参周围的一层括号，应该只改构造器与对应提取器。</p>
 <!-- EOPL:snippet chapter02.rkt lc-client -->
@@ -740,7 +828,18 @@ third procedure that implements <code>has-binding?</code> (see exercise 2.9).</d
 向左： 焦点 (12 () ())；上下文 ((L 13 (14 () ())))
 插入： 焦点 (12 () (99 () ()))；上下文不变
 向上： 焦点 (13 (12 () (99 () ())) (14 () ()))；上下文 ()</code></pre><p>如果保存的只是原父节点并原样返回，就会丢失插入的 99。上下文保存的是“如何重建其余结构”，当前焦点则保存已经修改的部分。双向序列是同一思想的较简单形式：用反向左表保存已走过的元素。</p></div>
-<div class="exercise-index" role="navigation" aria-label="本节习题索引">本节习题：<a href="#ex-2-15" aria-label="习题 2.15">2.15</a> · <a href="#ex-2-16" aria-label="习题 2.16">2.16</a> · <a href="#ex-2-17" aria-label="习题 2.17">2.17</a> · <a href="#ex-2-18" aria-label="习题 2.18">2.18</a> · <a href="#ex-2-19" aria-label="习题 2.19">2.19</a> · <a href="#ex-2-20" aria-label="习题 2.20">2.20</a></div><details class="exercise" id="ex-2-15"><summary>习题 2.15 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.43 / PDF 66</p><div class="original-source" lang="en" data-exercise="2.15">Exercise 2.15 [★] Implement the lambda-calculus expression interface for the representation specified by the grammar above.</div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>按原来的具体语法表示：变量是符号；<code>lambda</code> 是 <code>(lambda (v) body)</code>；应用是 <code>(rator rand)</code>。构造器分别返回这三种值，谓词区分三种合法形态，提取器取出约定字段。提取器只承诺对对应变体使用；非法输入由后面的解析器负责拒绝。</p>
+
+<details class="reading-notes" id="notes-s2-3" data-notes-for="s2-3" open><summary>阅读注解</summary><div class="reading-notes-body">
+<div class="annotation-card"><span class="annotation-kind">接口的使用条件</span><h3>提取器依赖已经识别出的变体</h3><p>调用 <code>lambda-exp-&gt;body</code> 之前，算法应先知道当前值满足 <code>lambda-exp?</code>。这条条件使提取器可以只负责取字段；自由变量算法的三个分支，恰好为各自的提取器建立前提。</p><p>修改绑定变量外层括号时，检查客户是否仍通过 <code>lambda-exp-&gt;bound-var</code> 取名字。若客户中还残留 <code>(car (cadr exp))</code>，它就同时依赖了语义接口与旧列表布局，表示变更会暴露这种依赖。</p></div>
+<div class="annotation-card"><span class="annotation-kind">游标不变量</span><h3>移动要保全整条序列</h3><p>把状态 <code>(6 (5 4 3) (7 8))</code> 还原成完整序列，要先反转左表，再接上当前元素和右表，得到 <code>(3 4 5 6 7 8)</code>。向左后状态为 <code>(5 (4 3) (6 7 8))</code>；按同样的方法还原，序列仍相同，只是焦点改变了。</p><p>树游标也要维护这样的重建不变量。下降时保存方向、父节点的值和未进入的兄弟；上升时用当前子树填回留下的空位。只有重建时使用当前子树，游标在深处完成的插入才会一路保留到根。</p></div>
+</div></details>
+<details class="exercise-index-panel"><summary>习题索引 · 6 题</summary><div class="exercise-index" role="navigation" aria-label="本节习题索引">本节习题：<a href="#ex-2-15" aria-label="习题 2.15">2.15</a> · <a href="#ex-2-16" aria-label="习题 2.16">2.16</a> · <a href="#ex-2-17" aria-label="习题 2.17">2.17</a> · <a href="#ex-2-18" aria-label="习题 2.18">2.18</a> · <a href="#ex-2-19" aria-label="习题 2.19">2.19</a> · <a href="#ex-2-20" aria-label="习题 2.20">2.20</a></div></details><details class="exercise" id="ex-2-15"><summary>习题 2.15 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p>
+<div class="question-translation" lang="zh-CN" data-exercise="2.15">
+<p>为上文文法所规定的表示实现 λ 演算表达式接口。所指文法为（p.42 / <a href="../assets/source.pdf#page=65">PDF 65</a>）：</p><pre><code class="language-scheme">Lc-exp ::= Identifier
+       ::= (lambda (Identifier) Lc-exp)
+       ::= (Lc-exp Lc-exp)</code></pre><p>按原书定义 1.1.8，<code>Identifier</code> 是除 <code>lambda</code> 以外的任意符号。</p><p>接口包括三个构造器 <code>var-exp</code>、<code>lambda-exp</code>、<code>app-exp</code>，分别构造变量表达式、带绑定变量和过程体的表达式、带操作符和操作数的应用表达式；三个变体谓词为 <code>var-exp?</code>、<code>lambda-exp?</code>、<code>app-exp?</code>。</p><p>还需实现五个字段提取器（p.43 / <a href="../assets/source.pdf#page=66">PDF 66</a>）：<code>var-exp-&gt;var</code>、<code>lambda-exp-&gt;bound-var</code>、<code>lambda-exp-&gt;body</code>、<code>app-exp-&gt;rator</code>、<code>app-exp-&gt;rand</code>，分别取出变量名、绑定变量、过程体、操作符和操作数。</p>
+</div>
+<p class="source">印刷 p.43 / <a href="../assets/source.pdf#page=66">PDF 66</a></p><details class="original-question"><summary>英文原题</summary><div class="original-source" lang="en" data-exercise="2.15">Exercise 2.15 [★] Implement the lambda-calculus expression interface for the representation specified by the grammar above.</div></details></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>按原来的具体语法表示：变量是符号；<code>lambda</code> 是 <code>(lambda (v) body)</code>；应用是 <code>(rator rand)</code>。构造器分别返回这三种值，谓词区分三种合法形态，提取器取出约定字段。提取器只承诺对对应变体使用；非法输入由后面的解析器负责拒绝。</p>
 <p><code>list-lc-api</code> 的字段顺序为：三个构造器、三个谓词、变量名、绑定名、过程体、操作符、操作数。<code>free?/api</code> 只用这些名字和操作，便可保持第 1 章自由变量算法的结构。</p><!-- EOPL:snippet chapter02.rkt ex-2-15 -->
 <details class="code-details" open><summary>查看实现 · ex-2-15</summary><pre><code class="language-scheme">(define (list-lam? e) (and (pair? e) (eqv? (car e) &#x27;lambda)))
 (define (list-app? e) (and (pair? e) (not (list-lam? e))))
@@ -748,14 +847,22 @@ third procedure that implements <code>has-binding?</code> (see exercise 2.9).</d
   (lc-api values (lambda (v b) (list &#x27;lambda (list v) b)) list
           symbol? list-lam? list-app? values caadr caddr car cadr))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-16"><summary>习题 2.16 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.43 / PDF 66</p><div class="original-source" lang="en" data-exercise="2.16">Exercise 2.16 [★] Modify the implementation to use a representation in which there
-are no parentheses around the bound variable in a <code>lambda</code> expression.</div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p><code>lambda</code> 的内部表示改成 <code>(lambda v body)</code>，因此构造器不再用 <code>list</code> 包住 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="v" display="inline"><mi>v</mi></math>，绑定名提取器由 <code>caadr</code> 改为 <code>cadr</code>。过程体仍在第三项，其余变体和提取器不变。客户只调用 <code>lambda</code> 构造器与 bound 提取器，完全不需要跟着调整 <code>car/cdr</code> 链。</p>
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-16"><summary>习题 2.16 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p>
+<div class="question-translation" lang="zh-CN" data-exercise="2.16">
+<p>修改 <a href="#ex-2-15">习题 2.15</a> 的实现，采用一种在 <code>lambda</code> 表达式的绑定变量外不加括号的表示。也就是把 <code>(lambda (Identifier) Lc-exp)</code> 这一形态改为 <code>(lambda Identifier Lc-exp)</code>，仍提供相同的 λ 演算表达式接口。</p>
+</div>
+<p class="source">印刷 p.43 / <a href="../assets/source.pdf#page=66">PDF 66</a></p><details class="original-question"><summary>英文原题</summary><div class="original-source" lang="en" data-exercise="2.16">Exercise 2.16 [★] Modify the implementation to use a representation in which there
+are no parentheses around the bound variable in a <code>lambda</code> expression.</div></details></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p><code>lambda</code> 的内部表示改成 <code>(lambda v body)</code>，因此构造器不再用 <code>list</code> 包住 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="v" display="inline"><mi>v</mi></math>，绑定名提取器由 <code>caadr</code> 改为 <code>cadr</code>。过程体仍在第三项，其余变体和提取器不变。客户只调用 <code>lambda</code> 构造器与 bound 提取器，完全不需要跟着调整 <code>car/cdr</code> 链。</p>
 <p>同一个抽象表达式在两种表示中的打印结果不同，这是表示变化；自由变量查询仍相同，才是接口所要求的观察行为。</p><!-- EOPL:snippet chapter02.rkt ex-2-16 -->
 <details class="code-details" open><summary>查看实现 · ex-2-16</summary><pre><code class="language-scheme">(define flat-lc-api
   (lc-api values (lambda (v b) (list &#x27;lambda v b)) list
           symbol? list-lam? list-app? values cadr caddr car cadr))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-17"><summary>习题 2.17 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.44 / PDF 67</p><div class="original-source" lang="en" data-exercise="2.17">Exercise 2.17 [★] Invent at least two other representations of the data type of lambda-calculus expressions and implement them.</div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>第一种使用带标签的向量：<code>#(var v)</code>、<code>#(lam v body)</code>、<code>#(app f x)</code>。第二种使用消息过程，闭包保存标签和字段，通过 <code>tag/first/second</code> 选择观察结果。两种表示都实现 <code>lc-api</code> 的全部构造器、谓词、提取器。</p>
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-17"><summary>习题 2.17 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p>
+<div class="question-translation" lang="zh-CN" data-exercise="2.17">
+<p>为 λ 演算表达式数据类型另外设计至少两种表示，并分别实现它们；接口沿用 <a href="#ex-2-15">习题 2.15</a>。</p>
+</div>
+<p class="source">印刷 p.44 / <a href="../assets/source.pdf#page=67">PDF 67</a></p><details class="original-question"><summary>英文原题</summary><div class="original-source" lang="en" data-exercise="2.17">Exercise 2.17 [★] Invent at least two other representations of the data type of lambda-calculus expressions and implement them.</div></details></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>第一种使用带标签的向量：<code>#(var v)</code>、<code>#(lam v body)</code>、<code>#(app f x)</code>。第二种使用消息过程，闭包保存标签和字段，通过 <code>tag/first/second</code> 选择观察结果。两种表示都实现 <code>lc-api</code> 的全部构造器、谓词、提取器。</p>
 <p>向量本身在宿主语言中可变，但本接口不提供修改操作，客户遵守抽象边界时构造后的语法树保持不变。过程表示的字段保存在闭包中。测试用相同自由变量客户处理这两种表示以及前两题的列表表示，检查遮蔽和左右分支上的自由出现。</p><!-- EOPL:snippet chapter02.rkt ex-2-17 -->
 <details class="code-details" open><summary>查看实现 · ex-2-17</summary><pre><code class="language-scheme">(define vector-lc-api
   (lc-api (lambda (v) (vector &#x27;var v)) (lambda (v b) (vector &#x27;lam v b))
@@ -777,7 +884,22 @@ are no parentheses around the bound variable in a <code>lambda</code> expression
           (lambda (e) (e &#x27;first)) (lambda (e) (e &#x27;first)) (lambda (e) (e &#x27;second))
           (lambda (e) (e &#x27;first)) (lambda (e) (e &#x27;second))))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-18"><summary>习题 2.18 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.44 / PDF 67</p><div class="original-source" lang="en" data-exercise="2.18">Exercise 2.18 [★] We usually represent a sequence of values as a list. In this representation, it is easy to move from one element in a sequence to the next, but it is hard
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-18"><summary>习题 2.18 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p>
+<div class="question-translation" lang="zh-CN" data-exercise="2.18">
+<p>我们通常把一串值表示为列表。在这种表示中，从一个元素移动到下一个元素很容易；如果没有上下文参数的帮助，从一个元素回到它的前一个元素则很困难。请按下列文法所提示的表示，实现非空的整数双向序列：</p><pre><code class="language-scheme">                  NodeInSequence ::= (Int Listof(Int) Listof(Int))</code></pre><p>两个数列表中，第一个保存当前元素之前的所有元素，按逆序排列；第二个保存当前元素之后的所有元素。例如，<code>(6 (5 4 3 2 1) (7 8 9))</code> 表示列表 <code>(1 2 3 4 5 6 7 8 9)</code>，当前焦点是元素 6。</p><p>在这种表示下实现 <code>number-&gt;sequence</code>：它接收一个数，生成恰好只包含该数的序列。还要实现 <code>current-element</code>、<code>move-to-left</code>、<code>move-to-right</code>、<code>insert-to-left</code>、<code>insert-to-right</code>、<code>at-left-end?</code>、<code>at-right-end?</code>。例如：</p><pre><code class="language-scheme">  &gt; (number-&gt;sequence 7)
+  (7 () ())
+  &gt; (current-element '(6 (5 4 3 2 1) (7 8 9)))
+  6
+  &gt; (move-to-left '(6 (5 4 3 2 1) (7 8 9)))
+  (5 (4 3 2 1) (6 7 8 9))
+  &gt; (move-to-right '(6 (5 4 3 2 1) (7 8 9)))
+  (7 (6 5 4 3 2 1) (8 9))
+  &gt; (insert-to-left 13 '(6 (5 4 3 2 1) (7 8 9)))
+  (6 (13 5 4 3 2 1) (7 8 9))
+  &gt; (insert-to-right 13 '(6 (5 4 3 2 1) (7 8 9)))
+  (6 (5 4 3 2 1) (13 7 8 9))</code></pre><p>如果参数已经位于序列最右端，<code>move-to-right</code> 应当失败；如果参数已经位于最左端，<code>move-to-left</code> 应当失败。</p>
+</div>
+<p class="source">印刷 p.44 / <a href="../assets/source.pdf#page=67">PDF 67</a></p><details class="original-question"><summary>英文原题</summary><div class="original-source" lang="en" data-exercise="2.18">Exercise 2.18 [★] We usually represent a sequence of values as a list. In this representation, it is easy to move from one element in a sequence to the next, but it is hard
 to move from one element to the preceding one without the help of context arguments. Implement non-empty bidirectional sequences of integers, as suggested by
 the grammar
 
@@ -806,7 +928,7 @@ For example:
 
 The procedure <code>move-to-right</code> should fail if its argument is at the right end of the
 sequence, and the procedure <code>move-to-left</code> should fail if its argument is at the left
-end of the sequence.</div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>把状态写成 <code>(current reversed-left right)</code>。向左移动时，从 <code>reversed-left</code> 弹出新焦点，把旧焦点压入 <code>right</code>；向右则完全对称。左边逆序存储，使紧邻焦点的前驱就在表头，所以两种移动都只改常数个 <code>cons</code>。</p>
+end of the sequence.</div></details></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>把状态写成 <code>(current reversed-left right)</code>。向左移动时，从 <code>reversed-left</code> 弹出新焦点，把旧焦点压入 <code>right</code>；向右则完全对称。左边逆序存储，使紧邻焦点的前驱就在表头，所以两种移动都只改常数个 <code>cons</code>。</p>
 <p>插入不移动焦点：<code>insert-left</code> 只把新值压进 <code>reversed-left</code>，<code>insert-right</code> 只把它压进 <code>right</code>。原例的 13 因而分别出现在 6 的前面或后面，焦点仍是 6。端点检测分别检查左右列表是否为空；在相应端点移动必须报错。源码使用 <code>seq-</code> 前缀，避免与下一题树上的同名操作冲突。</p>
 <p>只要左右移动合法，先向左再向右会恢复原状态。这个性质验证了逆序上下文中的元素位置，不能只检查焦点数字。</p><!-- EOPL:snippet chapter02.rkt ex-2-18 -->
 <details class="code-details" open><summary>查看实现 · ex-2-18</summary><pre><code class="language-scheme">;; Nonempty sequence zipper: (current reversed-left right).
@@ -823,7 +945,31 @@ end of the sequence.</div></div><div class="answer"><p class="rn-exercise-label"
 (define (seq-insert-left n s) (list (car s) (cons n (cadr s)) (caddr s)))
 (define (seq-insert-right n s) (list (car s) (cadr s) (cons n (caddr s))))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-19"><summary>习题 2.19 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.44–45 / PDF 67–68</p><div class="original-source" lang="en" data-exercise="2.19">Exercise 2.19 [★] A binary tree with empty leaves and with interior nodes labeled
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-19"><summary>习题 2.19 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p>
+<div class="question-translation" lang="zh-CN" data-exercise="2.19">
+<p>叶子为空、内部节点用整数标记的二叉树，可以用下面的文法表示：</p><pre><code class="language-scheme">                            Bintree ::= () | (Int Bintree Bintree)</code></pre><p>在这种表示下实现 <code>number-&gt;bintree</code>：它接收一个数，生成只含一个保存该数的节点的二叉树。还要实现 <code>current-element</code>、<code>move-to-left-son</code>、<code>move-to-right-son</code>、<code>at-leaf?</code>、<code>insert-to-left</code>、<code>insert-to-right</code>。例如：</p><pre><code class="language-scheme">&gt; (number-&gt;bintree 13)
+        (13 () ())
+        &gt; (define t1 (insert-to-right 14
+                        (insert-to-left 12
+                          (number-&gt;bintree 13)))
+        &gt; t1
+        (13
+           (12 () ())
+           (14 () ()))
+        &gt; (move-to-left t1)
+        (12 () ())
+        &gt; (current-element (move-to-left t1))
+        12
+        &gt; (at-leaf? (move-to-right (move-to-left t1)))
+        #t
+        &gt; (insert-to-left 15 t1)
+        (13
+           (15
+             (12 () ())
+             ())
+           (14 () ()))</code></pre><p>以上示例保留原书的过程名与括号；与题干接口名称的对应关系及括号校注见下方解答。</p>
+</div>
+<p class="source">印刷 p.44–45 / <a href="../assets/source.pdf#page=67">PDF 67–68</a></p><details class="original-question"><summary>英文原题</summary><div class="original-source" lang="en" data-exercise="2.19">Exercise 2.19 [★] A binary tree with empty leaves and with interior nodes labeled
      with integers could be represented using the grammar
 
 <code class="source-example">                            Bintree ::= () | (Int Bintree Bintree)</code>
@@ -851,8 +997,8 @@ end of the sequence.</div></div><div class="answer"><p class="rn-exercise-label"
            (15
              (12 () ())
              ())
-           (14 () ()))</code></div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>这里的树定义为 <code>()</code> 或 <code>(整数 左树 右树)</code>，叶子是空表，与第 1 章的“整数叶子、符号内部节点”不同。<code>(number-&gt;bintree n)</code> 返回 <code>(n () ())</code>；<code>current-element</code> 与左右移动分别提取三个字段。</p>
-<p><code>insert-to-left</code><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(n,t)" display="inline"><mrow><mo>(</mo><mi>n</mi><mo>,</mo><mi>t</mi><mo>)</mo></mrow></math> 在当前节点和原左树之间插入新节点：新节点的左树是原左树，右树为空。右插入对称地把原右树放进新节点的右侧。原例因此产生 <code>(13 (15 (12 () ()) ()) (14 () ()))</code>，并没有丢掉 12。</p>
+           (14 () ()))</code></div></details></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>这里的树定义为 <code>()</code> 或 <code>(整数 左树 右树)</code>，叶子是空表，与第 1 章的“整数叶子、符号内部节点”不同。<code>(number-&gt;bintree n)</code> 返回 <code>(n () ())</code>；<code>current-element</code> 与左右移动分别提取三个字段。</p>
+<p><code>(insert-to-left n t)</code> 在当前节点和原左树之间插入新节点：新节点的左树是原左树，右树为空。右插入对称地把原右树放进新节点的右侧。原例因此产生 <code>(13 (15 (12 () ()) ()) (14 () ()))</code>，并没有丢掉 12。</p>
 <p>原书 p.45 / PDF 68 的 define t1 少一个右括号，且示例称 <code>move-to-left/right</code>，题干称 <code>move-to-left/right-son</code>。本答案保留题干接口并提供示例名称的别名，运行输入补齐括号；空叶子上提取整数或继续下降均报错。</p><!-- EOPL:snippet chapter02.rkt ex-2-19 -->
 <details class="code-details" open><summary>查看实现 · ex-2-19</summary><pre><code class="language-scheme">;; Unlike chapter 1: integer interior nodes and empty leaves.
 (define (number-&gt;bintree n) (list n &#x27;() &#x27;()))
@@ -870,13 +1016,17 @@ end of the sequence.</div></div><div class="answer"><p class="rn-exercise-label"
   (require-node t &#x27;insert-to-right)
   (list (car t) (cadr t) (list n &#x27;() (caddr t))))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-20"><summary>习题 2.20 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.45 / PDF 68</p><div class="original-source" lang="en" data-exercise="2.20">Exercise 2.20 [★★★] In the representation of binary trees in exercise 2.19 it is easy to
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-20"><summary>习题 2.20 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p>
+<div class="question-translation" lang="zh-CN" data-exercise="2.20">
+<p>在 <a href="#ex-2-19">习题 2.19</a> 的二叉树表示中，从父节点走到某个孩子很容易；没有上下文参数的帮助，却无法从孩子回到父节点。请扩展 <a href="#ex-2-18">习题 2.18</a> 的列表表示，用它表示二叉树中的节点。</p><p>提示：可以像 <a href="#ex-2-18">习题 2.18</a> 那样，用一个逆序列表保存树中位于当前节点上方的部分。</p><p>在新的表示下实现 <a href="#ex-2-19">习题 2.19</a> 要求的过程：<code>number-&gt;bintree</code>、<code>current-element</code>、<code>move-to-left-son</code>、<code>move-to-right-son</code>、<code>at-leaf?</code>、<code>insert-to-left</code>、<code>insert-to-right</code>。还要实现 <code>move-up</code>、<code>at-root?</code>，并提供 <code>at-leaf?</code> 来判断当前是否在叶子处。</p>
+</div>
+<p class="source">印刷 p.45 / <a href="../assets/source.pdf#page=68">PDF 68</a></p><details class="original-question"><summary>英文原题</summary><div class="original-source" lang="en" data-exercise="2.20">Exercise 2.20 [★★★] In the representation of binary trees in exercise 2.19 it is easy to
 move from a parent node to one of its sons, but it is impossible to move from a son to
 its parent without the help of context arguments. Extend the representation of lists in
 exercise 2.18 to represent nodes in a binary tree. As a hint, consider representing the
 portion of the tree above the current node by a reversed list, as in exercise 2.18.
 In this representation, implement the procedures from exercise 2.19. Also implement
-<code>move-up</code>, <code>at-root?</code>, and <code>at-leaf?</code>.</div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>只保存父节点原对象还不够：如果焦点子树已经修改，向上时必须把新子树装回去。状态因此是 <code>(focus,breadcrumbs)</code>。向左下降时压入 <code>(L,parent-value,right-sibling)</code>，向右下降时压入 <code>(R,parent-value,left-sibling)</code>。<code>L/R</code> 记录“焦点原来在哪一侧”。</p>
+<code>move-up</code>, <code>at-root?</code>, and <code>at-leaf?</code>.</div></details></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>只保存父节点原对象还不够：如果焦点子树已经修改，向上时必须把新子树装回去。状态因此是 <code>(focus,breadcrumbs)</code>。向左下降时压入 <code>(L,parent-value,right-sibling)</code>，向右下降时压入 <code>(R,parent-value,left-sibling)</code>。<code>L/R</code> 记录“焦点原来在哪一侧”。</p>
 <p><code>move-up</code> 弹出一条记录：<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="L" display="inline"><mi>L</mi></math> 时重建 (<code>parent-value</code>,<code>focus</code>,<code>right-sibling</code>)，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="R" display="inline"><mi>R</mi></math> 时重建 (<code>parent-value</code>,<code>left-sibling</code>,<code>focus</code>)。这是带洞的父环境被当前焦点填回的过程。其余插入操作只改 <code>focus</code>，保留 <code>breadcrumbs</code>；根检测看上下文是否为空，叶子检测看 <code>focus</code> 是否为空，两者互不等价。</p>
 <p>实际例子从 <code>(13 (12 () ()) (14 () ()))</code> 向左走，在 12 的右侧插入 99，再向上，得到 <code>(13 (12 () (99 () ())) (14 () ()))</code>。兄弟 14 和焦点的新修改同时保留。根上 <code>move-up</code> 报错；可以移动到空叶子并再向上恢复父节点。</p><!-- EOPL:snippet chapter02.rkt ex-2-20 -->
 <details class="code-details" open><summary>查看实现 · ex-2-20</summary><pre><code class="language-scheme">;; Tree zipper: (focus breadcrumbs). Each breadcrumb retains parent and sibling.
@@ -899,7 +1049,7 @@ In this representation, implement the procedures from exercise 2.19. Also implem
 (define (zip-insert-right n z) (list (insert-to-right n (car z)) (cadr z)))
 </code></pre></details>
 <!-- EOPL:end-snippet --></div></details></section><section id="s2-4"><h2>2.4 用 <code>define-datatype</code> 声明构造，用 <code>cases</code> 消去构造</h2>
-<p class="source">原书 §2.4，pp.45–51 / PDF 68–74。</p>
+<p class="source">原书 §2.4，pp.45–51 / <a href="../assets/source.pdf#page=68">PDF 68–74</a>。</p>
 <p>手写构造器、谓词和提取器容易重复。<code>define-datatype</code> 给出一个类型名、总谓词和若干变体，每个变体再列出字段及字段谓词。实际构造值时检查字段；处理值时用 <code>cases</code> 按变体匹配，并把字段绑定到局部名字。</p>
 <!-- EOPL:snippet chapter02.rkt ex-2-23 -->
 <details class="code-details" open><summary>查看实现 · ex-2-23</summary><pre><code class="language-scheme">(define (identifier? x) (and (symbol? x) (not (eqv? x &#x27;lambda))))
@@ -912,8 +1062,17 @@ In this representation, implement the procedures from exercise 2.19. Also implem
 <p>例如 <code>app-exp</code> 的两个字段都必须是 <code>lc-exp?</code>；把整数 7 直接当作它的操作数，会在构造时被拒绝。<code>identifier?</code> 是我们定义的谓词，它排除保留字 <code>lambda</code>。字段检查能验证局部数据形状，但不会自动证明变量是否绑定、程序是否终止、函数调用类型是否正确。</p>
 <p><code>cases</code> 中写 <code>leaf-node</code> 或 <code>interior-node</code>，是按已声明变体拆解；字段变量按声明次序绑定。这里的 <code>else</code> 只是未列变体的后备分支，不意味着任意损坏的非该类型对象都成为合法输入。嵌套或互递归的数据类型仍需分别定义；<code>list-of</code> 把单元素谓词提升为整个正规列表（proper list） 的谓词，空表自然通过逐元素检查。</p>
 <p>本页代码通过 Racket 的 eopl 库实际使用 <code>define-datatype/cases</code>。这两个形式是本书工具层提供的语法，不能把它们当作 Scheme 核心的任意解释器都内建的功能。完整文件的 <code>require</code> 行与运行命令放在页末，读者无需猜测缺少的前置定义。</p>
-<div class="exercise-index" role="navigation" aria-label="本节习题索引">本节习题：<a href="#ex-2-21" aria-label="习题 2.21">2.21</a> · <a href="#ex-2-22" aria-label="习题 2.22">2.22</a> · <a href="#ex-2-23" aria-label="习题 2.23">2.23</a> · <a href="#ex-2-24" aria-label="习题 2.24">2.24</a> · <a href="#ex-2-25" aria-label="习题 2.25">2.25</a> · <a href="#ex-2-26" aria-label="习题 2.26">2.26</a></div><details class="exercise" id="ex-2-21"><summary>习题 2.21 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.50 / PDF 73</p><div class="original-source" lang="en" data-exercise="2.21">Exercise 2.21 [★] Implement the data type of environments, as in section 2.2.2, using
-<code>define-datatype</code>. Then include <code>has-binding?</code> of exercise 2.9.</div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>两个构造对应空环境和一次扩展。<code>extend-env</code> 的字段分别用 <code>symbol?</code>、<code>any-value?</code>、<code>environment?</code> 检查，其中 <code>any-value?</code> 恒真，因为 <code>SchemeVal</code> 允许 <code>#f</code>、列表和过程等任意值。<code>apply-env</code> 与 <code>has-binding?</code> 各自使用 <code>cases</code> 分出两个变体，再按照环境方程递归。</p>
+
+<details class="reading-notes" id="notes-s2-4" data-notes-for="s2-4" open><summary>阅读注解</summary><div class="reading-notes-body">
+<div class="annotation-card"><span class="annotation-kind">构造与递归</span><h3>声明字段以后，递归仍需自己安排</h3><p>在 <code>define-datatype</code> 中写 <code>(left bintree?)</code>，说明构造器要检查 <code>left</code> 是一棵二叉树。进入 <code>cases</code> 的内部节点分支后，得到的 <code>left</code> 和 <code>right</code> 是两棵子树本身；宏不会替调用方计算它们的叶子和。</p><p>因此，处理结构的算法仍沿第 1 章的归纳定义设计：叶子给出基本结果，内部节点递归处理相应子树，再组合结果。<code>cases</code> 把“识别构造并取字段”集中表达，递归调用和组合规则仍然体现当前算法的含义。</p></div>
+<div class="annotation-card"><span class="annotation-kind">递归返回信息</span><h3>最大叶子和需要保留两种结果</h3><p><a href="#ex-2-25">习题 2.25</a> 的父节点既要知道子树的叶子总和，又要知道子树内目前最好的内部节点。两种信息要一起向上传递：前者用于计算父节点的总和，后者用于比较候选者。只返回最佳节点的名字，会使父节点无法完成自己的计算。</p><p>例如节点 <code>a</code> 的两个叶子为 −4 和 −2，叶子和为 −6；父节点 <code>b</code> 再接一个值为 −3 的叶子，总和是 −9。最大候选是 <code>a</code>。把初始最大值设成 0 会丢失所有合法候选，所以“尚无内部节点候选”应由单独状态表达。</p></div>
+</div></details>
+<details class="exercise-index-panel"><summary>习题索引 · 6 题</summary><div class="exercise-index" role="navigation" aria-label="本节习题索引">本节习题：<a href="#ex-2-21" aria-label="习题 2.21">2.21</a> · <a href="#ex-2-22" aria-label="习题 2.22">2.22</a> · <a href="#ex-2-23" aria-label="习题 2.23">2.23</a> · <a href="#ex-2-24" aria-label="习题 2.24">2.24</a> · <a href="#ex-2-25" aria-label="习题 2.25">2.25</a> · <a href="#ex-2-26" aria-label="习题 2.26">2.26</a></div></details><details class="exercise" id="ex-2-21"><summary>习题 2.21 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p>
+<div class="question-translation" lang="zh-CN" data-exercise="2.21">
+<p>使用 <code>define-datatype</code> 实现环境数据类型，接口同原书 §2.2.2（参见本页<a href="#s2-2">§2.2</a>），包括 <code>empty-env</code>、<code>extend-env</code> 和 <code>apply-env</code>。然后加入 <a href="#ex-2-9">习题 2.9</a> 的 <code>has-binding?</code>。</p>
+</div>
+<p class="source">印刷 p.50 / <a href="../assets/source.pdf#page=73">PDF 73</a></p><details class="original-question"><summary>英文原题</summary><div class="original-source" lang="en" data-exercise="2.21">Exercise 2.21 [★] Implement the data type of environments, as in section 2.2.2, using
+<code>define-datatype</code>. Then include <code>has-binding?</code> of exercise 2.9.</div></details></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>两个构造对应空环境和一次扩展。<code>extend-env</code> 的字段分别用 <code>symbol?</code>、<code>any-value?</code>、<code>environment?</code> 检查，其中 <code>any-value?</code> 恒真，因为 <code>SchemeVal</code> 允许 <code>#f</code>、列表和过程等任意值。<code>apply-env</code> 与 <code>has-binding?</code> 各自使用 <code>cases</code> 分出两个变体，再按照环境方程递归。</p>
 <p>字段名由 <code>cases</code> 绑定，不依赖列表第几项的布局。构造器会拒绝不符合字段谓词的值；但它不会自动替我们保证其他更强的语义性质，例如名字是否已存在，这仍由接口规则决定。</p><!-- EOPL:snippet chapter02.rkt ex-2-21 -->
 <details class="code-details" open><summary>查看实现 · ex-2-21</summary><pre><code class="language-scheme">(define (any-value? v) #t)
 (define-datatype environment environment?
@@ -932,7 +1091,11 @@ In this representation, implement the procedures from exercise 2.19. Also implem
   (env-api empty-env extend-env apply-env empty-env? has-binding?
            (lambda (vs xs e) (extend-many extend-env vs xs e))))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-22"><summary>习题 2.22 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.50 / PDF 73</p><div class="original-source" lang="en" data-exercise="2.22">Exercise 2.22 [★] Using <code>define-datatype</code>, implement the stack data type of exercise 2.4.</div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>定义空栈和压栈两个变体；压栈保存任意值与另一个合法栈。<code>top</code> 在压栈分支返回 value，<code>pop</code> 返回 <code>saved</code>；两者在空栈分支明确报错。<code>empty-stack?</code> 只判断变体。</p>
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-22"><summary>习题 2.22 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p>
+<div class="question-translation" lang="zh-CN" data-exercise="2.22">
+<p>使用 <code>define-datatype</code> 实现 <a href="#ex-2-4">习题 2.4</a> 的栈数据类型，包括 <code>empty-stack</code>、<code>push</code>、<code>pop</code>、<code>top</code>、<code>empty-stack?</code>。</p>
+</div>
+<p class="source">印刷 p.50 / <a href="../assets/source.pdf#page=73">PDF 73</a></p><details class="original-question"><summary>英文原题</summary><div class="original-source" lang="en" data-exercise="2.22">Exercise 2.22 [★] Using <code>define-datatype</code>, implement the stack data type of exercise 2.4.</div></details></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>定义空栈和压栈两个变体；压栈保存任意值与另一个合法栈。<code>top</code> 在压栈分支返回 value，<code>pop</code> 返回 <code>saved</code>；两者在空栈分支明确报错。<code>empty-stack?</code> 只判断变体。</p>
 <p>这与 2.4 的列表实现、2.12 的过程实现满足相同方程。源码用 <code>dt-</code> 前缀让三个实现可同时被测试；变体构造器对 <code>saved</code> 使用 <code>stack?</code>，避免误把普通列表塞进这个表示的栈尾。</p><!-- EOPL:snippet chapter02.rkt ex-2-22 -->
 <details class="code-details" open><summary>查看实现 · ex-2-22</summary><pre><code class="language-scheme">(define-datatype stack stack?
   (dt-empty-stack)
@@ -943,10 +1106,14 @@ In this representation, implement the procedures from exercise 2.19. Also implem
 (define (dt-pop s)
   (cases stack s (dt-empty-stack () (error &#x27;pop &quot;empty stack&quot;)) (dt-push (v old) old)))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-23"><summary>习题 2.23 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.50 / PDF 73</p><div class="original-source" lang="en" data-exercise="2.23">Exercise 2.23 [★] The definition of <code>lc-exp</code> ignores the condition in definition 1.1.8
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-23"><summary>习题 2.23 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p>
+<div class="question-translation" lang="zh-CN" data-exercise="2.23">
+<p>本节 <code>lc-exp</code> 的定义忽略了原书定义 1.1.8 的条件：“<code>Identifier</code> 是除 <code>lambda</code> 以外的任意符号。”请修改 <code>identifier?</code> 的定义，使它反映这个条件。</p><p>提示：<code>define-datatype</code> 中可以使用任意谓词，包括你自己定义的谓词。</p>
+</div>
+<p class="source">印刷 p.50 / <a href="../assets/source.pdf#page=73">PDF 73</a></p><details class="original-question"><summary>英文原题</summary><div class="original-source" lang="en" data-exercise="2.23">Exercise 2.23 [★] The definition of <code>lc-exp</code> ignores the condition in definition 1.1.8
 that says “Identifier is any symbol other than <code>lambda</code>.” Modify the definition of
 <code>identifier?</code> to capture this condition. As a hint, remember that any predicate
-can be used in <code>define-datatype</code>, even ones you define.</div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p><code>identifier?</code> 必须同时满足“是符号”和“不等于 <code>lambda</code>”。先调用 <code>symbol?</code> 使整数、列表等也安全地返回假。将此谓词用于 <code>var-exp</code> 的变量字段及 <code>lambda-exp</code> 的绑定字段，构造器便会拒绝 <code>(var-exp 'lambda)</code>。</p>
+can be used in <code>define-datatype</code>, even ones you define.</div></details></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p><code>identifier?</code> 必须同时满足“是符号”和“不等于 <code>lambda</code>”。先调用 <code>symbol?</code> 使整数、列表等也安全地返回假。将此谓词用于 <code>var-exp</code> 的变量字段及 <code>lambda-exp</code> 的绑定字段，构造器便会拒绝 <code>(var-exp 'lambda)</code>。</p>
 <p>保留字限制来自定义 1.1.8 的语言规定，不能仅因宿主 Scheme 允许某个符号就把它当作被定义语言的合法变量。其他未被该定义排除的符号仍然允许。</p><!-- EOPL:snippet chapter02.rkt ex-2-23 -->
 <details class="code-details" open><summary>查看实现 · ex-2-23</summary><pre><code class="language-scheme">(define (identifier? x) (and (symbol? x) (not (eqv? x &#x27;lambda))))
 (define-datatype lc-exp lc-exp?
@@ -954,7 +1121,20 @@ can be used in <code>define-datatype</code>, even ones you define.</div></div><d
   (lambda-exp (bound-var identifier?) (body lc-exp?))
   (app-exp (rator lc-exp?) (rand lc-exp?)))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-24"><summary>习题 2.24 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.50 / PDF 73</p><div class="original-source" lang="en" data-exercise="2.24">Exercise 2.24 [★] Here is a definition of binary trees using <code>define-datatype</code>.
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-24"><summary>习题 2.24 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p>
+<div class="question-translation" lang="zh-CN" data-exercise="2.24">
+<p>下面给出一个用 <code>define-datatype</code> 编写的二叉树定义：</p><pre><code class="language-scheme">  (define-datatype bintree bintree?
+    (leaf-node
+      (num integer?))
+    (interior-node
+      (key symbol?)
+      (left bintree?)
+      (right bintree?)))</code></pre><p>为这种二叉树实现 <code>bintree-to-list</code> 过程，使 <code>(bintree-to-list (interior-node 'a (leaf-node 3) (leaf-node 4)))</code> 返回如下列表：</p><pre><code class="language-scheme">  (interior-node
+    a
+    (leaf-node 3)
+    (leaf-node 4))</code></pre>
+</div>
+<p class="source">印刷 p.50 / <a href="../assets/source.pdf#page=73">PDF 73</a></p><details class="original-question"><summary>英文原题</summary><div class="original-source" lang="en" data-exercise="2.24">Exercise 2.24 [★] Here is a definition of binary trees using <code>define-datatype</code>.
 
 <code class="source-example">  (define-datatype bintree bintree?
     (leaf-node
@@ -969,7 +1149,7 @@ Implement a <code>bintree-to-list</code> procedure for binary trees, so that <co
 <code class="source-example">  (interior-node
     a
     (leaf-node 3)
-    (leaf-node 4))</code></div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p><code>cases</code> 在叶子分支返回 <code>(leaf-node n)</code>，在内部节点分支递归转换左右树，并连同标签 <code>key</code> 组成 <code>(interior-node key left-list right-list)</code>。输出中的 <code>leaf-node/interior-node</code> 也必须保留；若只返回 <code>(a 3 4)</code>，就不是题目要求的带变体标签的外部列表。</p>
+    (leaf-node 4))</code></div></details></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p><code>cases</code> 在叶子分支返回 <code>(leaf-node n)</code>，在内部节点分支递归转换左右树，并连同标签 <code>key</code> 组成 <code>(interior-node key left-list right-list)</code>。输出中的 <code>leaf-node/interior-node</code> 也必须保留；若只返回 <code>(a 3 4)</code>，就不是题目要求的带变体标签的外部列表。</p>
 <p>每个输入节点恰好贡献一个对应输出节点，递归结构直接保证形状与字段顺序保留。给出的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math>、3、4 例子已按原输出验证。</p><!-- EOPL:snippet chapter02.rkt ex-2-24 -->
 <details class="code-details" open><summary>查看实现 · ex-2-24</summary><pre><code class="language-scheme">(define-datatype bintree bintree?
   (leaf-node (num integer?))
@@ -979,7 +1159,20 @@ Implement a <code>bintree-to-list</code> procedure for binary trees, so that <co
     (leaf-node (n) (list &#x27;leaf-node n))
     (interior-node (k l r) (list &#x27;interior-node k (bintree-to-list l) (bintree-to-list r)))))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-25"><summary>习题 2.25 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.50 / PDF 73</p><div class="original-source" lang="en" data-exercise="2.25">Exercise 2.25 [★★] Use <code>cases</code> to write <code>max-interior</code>, which takes a binary tree of
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-25"><summary>习题 2.25 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p>
+<div class="question-translation" lang="zh-CN" data-exercise="2.25">
+<p>使用 <code>cases</code> 编写 <code>max-interior</code>。它接收 <a href="#ex-2-24">习题 2.24</a> 所定义的整数叶子二叉树，要求树中至少有一个内部节点；返回某个内部节点所关联的符号，该节点下方所有叶子数值之和应当最大。</p><pre><code class="language-scheme">  &gt; (define tree-1
+      (interior-node 'foo (leaf-node 2) (leaf-node 3)))
+  &gt; (define tree-2
+      (interior-node 'bar (leaf-node -1) tree-1))
+  &gt; (define tree-3
+      (interior-node 'baz tree-2 (leaf-node 1)))
+  &gt; (max-interior tree-2)
+  foo
+  &gt; (max-interior tree-3)
+  baz</code></pre><p>最后一次调用 <code>max-interior</code> 也可以返回 <code>foo</code>，因为 <code>foo</code> 和 <code>baz</code> 两个节点的叶子和都等于 5。</p>
+</div>
+<p class="source">印刷 p.50 / <a href="../assets/source.pdf#page=73">PDF 73</a></p><details class="original-question"><summary>英文原题</summary><div class="original-source" lang="en" data-exercise="2.25">Exercise 2.25 [★★] Use <code>cases</code> to write <code>max-interior</code>, which takes a binary tree of
 integers (as in the preceding exercise) with at least one interior node and returns the
 symbol associated with an interior node with a maximal <code>leaf</code> sum.
 
@@ -995,7 +1188,7 @@ symbol associated with an interior node with a maximal <code>leaf</code> sum.
   baz</code>
 
 The last invocation of <code>max-interior</code> might also have returned foo, since both the
-foo and baz nodes have a <code>leaf</code> sum of 5.</div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>只向上返回“最优标签”会丢掉计算祖先总和所需的信息。因此 <code>walk</code> 同时返回当前树的叶子总和，以及子树内最佳内部节点的 <code>(标签 . 和)</code>。叶子贡献自己的整数，总和可能为负，但没有内部候选，记为 <code>#f</code>。</p>
+foo and baz nodes have a <code>leaf</code> sum of 5.</div></details></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>只向上返回“最优标签”会丢掉计算祖先总和所需的信息。因此 <code>walk</code> 同时返回当前树的叶子总和，以及子树内最佳内部节点的 <code>(标签 . 和)</code>。叶子贡献自己的整数，总和可能为负，但没有内部候选，记为 <code>#f</code>。</p>
 <p>内部节点先拿到左右总和与最佳候选，自己的总和等于两边之和；随后在自己、左候选、右候选中取最大。不能把初始最大值设成 0，否则全负数树会没有合法赢家。这里并列时按“当前、左、右”优先，故 <code>tree-3</code> 返回 baz；原题允许同和的 foo。</p>
 <p>每个节点只计算一次，时间线性。递归过程把“给父节点使用的总和”和“本子树内已经找到的最佳答案”分开，这是本题的关键。</p><!-- EOPL:snippet chapter02.rkt ex-2-25 -->
 <details class="code-details" open><summary>查看实现 · ex-2-25</summary><pre><code class="language-scheme">;; walk returns subtree leaf sum and either #f or (key . best interior sum).
@@ -1012,7 +1205,14 @@ foo and baz nodes have a <code>leaf</code> sum of 5.</div></div><div class="answ
   (let-values ([(sum best) (walk t)])
     (if best (car best) (error &#x27;max-interior &quot;requires an interior node&quot;))))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-26"><summary>习题 2.26 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.51 / PDF 74</p><div class="original-source" lang="en" data-exercise="2.26">Exercise 2.26 [★★] Here is another version of exercise 1.33. Consider a set of trees
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-26"><summary>习题 2.26 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p>
+<div class="question-translation" lang="zh-CN" data-exercise="2.26">
+<p>这是 <a href="chapter01_inductive_data.html#ex-1-33">习题 1.33</a> 的另一个版本。考虑由下列文法给出的树集合：</p><pre><code class="language-scheme">        Red-blue-tree    ::= Red-blue-subtree
+        Red-blue-subtree ::= (red-node Red-blue-subtree Red-blue-subtree)
+                         ::= (blue-node {Red-blue-subtree}∗ )
+                         ::= (leaf-node Int)</code></pre><p>用 <code>define-datatype</code> 写出等价定义，再利用得到的接口编写一个过程：它接收一棵树，构造出形状相同的树，其中每个叶子节点都被替换成一个新叶子；新叶子保存从该叶子到树根的路径上红色节点的数量。文法中红色节点有两个子树，蓝色节点可以有零个或多个子树，叶子保存整数。</p>
+</div>
+<p class="source">印刷 p.51 / <a href="../assets/source.pdf#page=74">PDF 74</a></p><details class="original-question"><summary>英文原题</summary><div class="original-source" lang="en" data-exercise="2.26">Exercise 2.26 [★★] Here is another version of exercise 1.33. Consider a set of trees
 given by the following grammar:
 
 <code class="source-example">        Red-blue-tree    ::= Red-blue-subtree
@@ -1022,7 +1222,7 @@ given by the following grammar:
 
 Write an equivalent definition using <code>define-datatype</code>, and use the resulting interface to write a procedure that takes a tree and builds a tree of the same shape, except
 that each <code>leaf</code> node is replaced by a <code>leaf</code> node that contains the number of red nodes
-on the <code>path</code> between it and the root.</div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>为整树加一个根包装构造，为子树定义 <code>red-node</code>、<code>blue-node</code>、<code>rb-leaf</code> 三个变体。<code>red-node</code> 有两个递归字段；<code>blue-node</code> 有一个“递归子树列表”字段，其谓词是 <code>list-of</code>；叶子保存整数。蓝节点允许零个孩子，因为文法使用 Kleene 星号。</p>
+on the <code>path</code> between it and the root.</div></details></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>为整树加一个根包装构造，为子树定义 <code>red-node</code>、<code>blue-node</code>、<code>rb-leaf</code> 三个变体。<code>red-node</code> 有两个递归字段；<code>blue-node</code> 有一个“递归子树列表”字段，其谓词是 <code>list-of</code>；叶子保存整数。蓝节点允许零个孩子，因为文法使用 Kleene 星号。</p>
 <p><code>(walk t d)</code> 的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="d" display="inline"><mi>d</mi></math> 仍表示严格祖先中的红节点数：红节点把 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="d+1" display="inline"><mrow><mi>d</mi><mo>+</mo><mn>1</mn></mrow></math> 交给两个孩子，蓝节点把同一个 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="d" display="inline"><mi>d</mi></math> 用 <code>map</code> 交给全部孩子，叶子用 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="d" display="inline"><mi>d</mi></math> 代替旧整数。根包装只转发，不增加计数。测试含空蓝节点、连续红节点和蓝节点下的红分支，结果保持原形状。</p><!-- EOPL:snippet chapter02.rkt ex-2-26 -->
 <details class="code-details" open><summary>查看实现 · ex-2-26</summary><pre><code class="language-scheme">(define (list-of pred)
   (lambda (xs) (and (list? xs) (andmap pred xs))))
@@ -1047,7 +1247,7 @@ on the <code>path</code> between it and the root.</div></div><div class="answer"
   (cases red-blue-tree tree (a-red-blue-tree (root) (walk root))))
 </code></pre></details>
 <!-- EOPL:end-snippet --></div></details></section><section id="s2-5"><h2>2.5 从具体语法得到可计算的树</h2>
-<p class="source">原书 §2.5，pp.51–55 / PDF 74–78。</p>
+<p class="source">原书 §2.5，pp.51–55 / <a href="../assets/source.pdf#page=74">PDF 74–78</a>。</p>
 <p>具体语法决定程序写出来的样子，抽象语法决定分析程序时要保留哪些信息。<code>(lambda (x) (f (f x)))</code> 与 <code>proc x =&gt; f(f(x))</code> 可以表达同样的构造层次。AST 保存 <code>lambda</code> 的绑定名和 <code>body</code>、应用的两个子树、变量的名字；用于分组的括号不必再作为独立字段存进去。</p>
 <p>Scheme reader 先把带括号文本读成 <code>S-expression</code>；<code>parse-expression</code> 再判断它是否属于 <code>LcExp</code>，并为每个构造建立对应 AST。解析 <code>'(lambda (x) (f x))</code> 时，外层先确认 <code>lambda</code> 形状，保存绑定名 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math>；<code>body</code> 是二项列表，于是递归构造 <code>app-exp</code>；两项符号各成为 <code>var-exp</code>。由内而外返回后，整个 <code>lambda-exp</code> 才完整。</p>
 <div class="rn-example" id="example-parse"><h3>解析和求值处在不同阶段</h3><pre><code>输入值：'(lambda (x) (f x))
@@ -1056,7 +1256,20 @@ on the <code>path</code> between it and the root.</div></div><div class="answer"
 回写：  '(lambda (x) (f x))</code></pre><p>这里没有查 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math> 的值，也没有调用 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math>。解析阶段只解释“文本形状对应哪种语法构造”；下一章解释器才会规定这些构造如何产生运行结果。</p></div>
 <p>解析器必须消费完整的预期结构。单参数应用只允许两项；多参数版本另有文法，不能把第三项默默忽略。前缀 token 语法又不同：子表达式边界不靠每层括号给出，需要让辅助过程返回“已解析树 + 剩余输入”。这些差别都来自输入文法，复用同一段 <code>car/cadr</code> 代码并不能自动获得正确解析。</p>
 <p>对合法 <code>S-expression</code>，可检查 <code>(unparse-expression (parse-expression s))</code> 返回 <code>s</code>；对任意合法 AST，也可检查 <code>(parse-expression (unparse-expression t))</code> 保留构造与字段。这是表示转换的性质，不表示任何字符串都合法，也不证明另一套有歧义的文法存在唯一解析。习题 2.28 会专门指出这个边界。</p>
-<div class="exercise-index" role="navigation" aria-label="本节习题索引">本节习题：<a href="#ex-2-27" aria-label="习题 2.27">2.27</a> · <a href="#ex-2-28" aria-label="习题 2.28">2.28</a> · <a href="#ex-2-29" aria-label="习题 2.29">2.29</a> · <a href="#ex-2-30" aria-label="习题 2.30">2.30</a> · <a href="#ex-2-31" aria-label="习题 2.31">2.31</a></div><details class="exercise" id="ex-2-27"><summary>习题 2.27 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.54 / PDF 77</p><div class="original-source" lang="en" data-exercise="2.27">Exercise 2.27 [★] Draw the abstract syntax tree for the <code>lambda</code> calculus expressions
+
+<details class="reading-notes" id="notes-s2-5" data-notes-for="s2-5" open><summary>阅读注解</summary><div class="reading-notes-body">
+<div class="annotation-card"><span class="annotation-kind">消费输入</span><h3>局部解析与完整输入各守一条约定</h3><p>前缀解析的辅助过程只解析一个表达式。例如输入 <code>(- 8 3 99)</code>，读到 <code>-</code> 后依次解析 8 和 3，便能返回相应的 <code>diff-exp</code> 与剩余列表 <code>(99)</code>。剩余部分让外层递归继续寻找下一个操作数。</p><p>最外层入口承担另一条条件：一个 <code>Prefix-list</code> 只包含一个 <code>Prefix-exp</code>，所以完整输入解析结束后必须没有剩余项。对这个例子，入口应指出多余的 99；对 <code>(- 8)</code>，辅助过程则应在寻找第二个操作数时指出输入已结束。</p></div>
+<div class="annotation-card"><span class="annotation-kind">转换的契约</span><h3>往返检查要说明比较哪一种对象</h3><p>从 S 表达式构造 AST，再把 AST 转回同一套 S 表达式，可以比较列表结构和符号是否恢复；若输入是字符串，空格与换行通常不保存在 AST 中，就不能据此要求逐字符恢复原文本。</p><p>对另一套 <code>proc</code> 字符串文法，还要检查文法是否允许唯一解析。<a href="#ex-2-28">习题 2.28</a> 的输出满足该文法，但不同树可能产生同一字符串。若要建立“先打印再解析恢复原树”的性质，必须先让分组与优先级规则足够明确。</p></div>
+</div></details>
+<details class="exercise-index-panel"><summary>习题索引 · 5 题</summary><div class="exercise-index" role="navigation" aria-label="本节习题索引">本节习题：<a href="#ex-2-27" aria-label="习题 2.27">2.27</a> · <a href="#ex-2-28" aria-label="习题 2.28">2.28</a> · <a href="#ex-2-29" aria-label="习题 2.29">2.29</a> · <a href="#ex-2-30" aria-label="习题 2.30">2.30</a> · <a href="#ex-2-31" aria-label="习题 2.31">2.31</a></div></details><details class="exercise" id="ex-2-27"><summary>习题 2.27 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p>
+<div class="question-translation" lang="zh-CN" data-exercise="2.27">
+<p>为下列两个 λ 演算表达式分别画出抽象语法树：</p><pre><code class="language-scheme">((lambda (a) (a b)) c)</code></pre><pre><code class="language-scheme">(lambda (x)
+  (lambda (y)
+    ((lambda (x)
+       (x y))
+     x)))</code></pre>
+</div>
+<p class="source">印刷 p.54 / <a href="../assets/source.pdf#page=77">PDF 77</a></p><details class="original-question"><summary>英文原题</summary><div class="original-source" lang="en" data-exercise="2.27">Exercise 2.27 [★] Draw the abstract syntax tree for the <code>lambda</code> calculus expressions
 
 <code class="source-example">((lambda (a) (a b)) c)</code>
 
@@ -1064,14 +1277,18 @@ on the <code>path</code> between it and the root.</div></div><div class="answer"
   (lambda (y)
     ((lambda (x)
        (x y))
-     x)))</code></div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>两个 AST 如下。每个应用节点有 <code>rator</code> 和 <code>rand</code> 两条边；<code>lambda</code> 节点记录 <code>bound-var</code> 并有 <code>body</code> 子树；变量叶子记录名字。形参名字是字段，不是对该名字进行求值的变量表达式。</p>
+     x)))</code></div></details></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>两个 AST 如下。每个应用节点有 <code>rator</code> 和 <code>rand</code> 两条边；<code>lambda</code> 节点记录 <code>bound-var</code> 并有 <code>body</code> 子树；变量叶子记录名字。形参名字是字段，不是对该名字进行求值的变量表达式。</p>
 <figure id="ast-1"><div class="diagram-scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 510" role="img" aria-labelledby="ast-1-title ast-1-desc" class="eopl-diagram rn-diagram"><title id="ast-1-title">习题 2.27 抽象语法树 1</title><desc id="ast-1-desc">第一题：根是应用。操作符是绑定 a 的 lambda，body 为 a 对 b 的应用；根的操作数是变量 c。</desc><defs><marker id="ast-1-arrow" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><path d="M0 0 L9 3.5 L0 7 Z" fill="#506679" class="rn-arrow"/></marker></defs><path d="M400 73 L230 140" fill="none" stroke="#506679" marker-end="url(#ast-1-arrow)" class="rn-edge"/><text class="hint" x="323.0" y="105.0">rator</text><path d="M400 73 L610 140" fill="none" stroke="#506679" marker-end="url(#ast-1-arrow)" class="rn-edge"/><text class="hint" x="513.0" y="105.0">rand</text><path d="M230 202 L250 289" fill="none" stroke="#506679" marker-end="url(#ast-1-arrow)" class="rn-edge"/><text class="hint" x="248.0" y="235.0">body</text><path d="M250 333 L130 420" fill="none" stroke="#506679" marker-end="url(#ast-1-arrow)" class="rn-edge"/><text class="hint" x="198.0" y="375.0">rator</text><path d="M250 333 L370 420" fill="none" stroke="#506679" marker-end="url(#ast-1-arrow)" class="rn-edge"/><text class="hint" x="318.0" y="375.0">rand</text><rect x="335" y="29" width="130" height="44" rx="9" fill="#eaf2f8" stroke="#547a99" data-node-kind="app-exp" class="rn-node"/><text x="400.0" y="57" text-anchor="middle">app-exp</text><rect x="140" y="140" width="180" height="62" rx="9" fill="#eaf2f8" stroke="#547a99" data-node-kind="lambda-exp" class="rn-node"/><text x="230.0" y="165" text-anchor="middle">lambda-exp</text><text class="hint" x="230.0" y="187" text-anchor="middle">bound-var = a</text><rect x="540" y="140" width="140" height="62" rx="9" fill="#fff2dc" stroke="#b07822" data-node-kind="var-exp" class="rn-node rn-node-accent"/><text x="610.0" y="165" text-anchor="middle">var-exp</text><text class="hint" x="610.0" y="187" text-anchor="middle">var = c</text><rect x="185" y="289" width="130" height="44" rx="9" fill="#eaf2f8" stroke="#547a99" data-node-kind="app-exp" class="rn-node"/><text x="250.0" y="317" text-anchor="middle">app-exp</text><rect x="60" y="420" width="140" height="62" rx="9" fill="#fff2dc" stroke="#b07822" data-node-kind="var-exp" class="rn-node rn-node-accent"/><text x="130.0" y="445" text-anchor="middle">var-exp</text><text class="hint" x="130.0" y="467" text-anchor="middle">var = a</text><rect x="300" y="420" width="140" height="62" rx="9" fill="#fff2dc" stroke="#b07822" data-node-kind="var-exp" class="rn-node rn-node-accent"/><text x="370.0" y="445" text-anchor="middle">var-exp</text><text class="hint" x="370.0" y="467" text-anchor="middle">var = b</text></svg></div><figcaption>第一题：根是应用。操作符是绑定 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math> 的 <code>lambda</code>，<code>body</code> 为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math> 对 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="b" display="inline"><mi>b</mi></math> 的应用；根的操作数是变量 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="c" display="inline"><mi>c</mi></math>。</figcaption></figure><figure id="ast-2"><div class="diagram-scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 690" role="img" aria-labelledby="ast-2-title ast-2-desc" class="eopl-diagram rn-diagram"><title id="ast-2-title">习题 2.27 抽象语法树 2</title><desc id="ast-2-desc">第二题：最外层绑定 x，中间绑定 y，应用的操作符又绑定一个新 x。各变量叶子独立保留；内外标注是伴读对绑定归属的说明。</desc><defs><marker id="ast-2-arrow" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><path d="M0 0 L9 3.5 L0 7 Z" fill="#506679" class="rn-arrow"/></marker></defs><path d="M370 77 L370 120" fill="none" stroke="#506679" marker-end="url(#ast-2-arrow)" class="rn-edge"/><text class="hint" x="378.0" y="92.5">body</text><path d="M370 182 L370 234" fill="none" stroke="#506679" marker-end="url(#ast-2-arrow)" class="rn-edge"/><text class="hint" x="378.0" y="197.5">body</text><path d="M370 278 L190 350" fill="none" stroke="#506679" marker-end="url(#ast-2-arrow)" class="rn-edge"/><text class="hint" x="288.0" y="312.5">rator</text><path d="M370 278 L570 350" fill="none" stroke="#506679" marker-end="url(#ast-2-arrow)" class="rn-edge"/><text class="hint" x="478.0" y="312.5">rand</text><path d="M190 412 L190 484" fill="none" stroke="#506679" marker-end="url(#ast-2-arrow)" class="rn-edge"/><text class="hint" x="198.0" y="437.5">body</text><path d="M190 528 L95 600" fill="none" stroke="#506679" marker-end="url(#ast-2-arrow)" class="rn-edge"/><text class="hint" x="150.5" y="562.5">rator</text><path d="M190 528 L330 600" fill="none" stroke="#506679" marker-end="url(#ast-2-arrow)" class="rn-edge"/><text class="hint" x="268.0" y="562.5">rand</text><rect x="280" y="15" width="180" height="62" rx="9" fill="#eaf2f8" stroke="#547a99" data-node-kind="lambda-exp" class="rn-node"/><text x="370.0" y="40" text-anchor="middle">lambda-exp</text><text class="hint" x="370.0" y="62" text-anchor="middle">bound-var = x（外）</text><rect x="280" y="120" width="180" height="62" rx="9" fill="#eaf2f8" stroke="#547a99" data-node-kind="lambda-exp" class="rn-node"/><text x="370.0" y="145" text-anchor="middle">lambda-exp</text><text class="hint" x="370.0" y="167" text-anchor="middle">bound-var = y</text><rect x="305" y="234" width="130" height="44" rx="9" fill="#eaf2f8" stroke="#547a99" data-node-kind="app-exp" class="rn-node"/><text x="370.0" y="262" text-anchor="middle">app-exp</text><rect x="100" y="350" width="180" height="62" rx="9" fill="#eaf2f8" stroke="#547a99" data-node-kind="lambda-exp" class="rn-node"/><text x="190.0" y="375" text-anchor="middle">lambda-exp</text><text class="hint" x="190.0" y="397" text-anchor="middle">bound-var = x（内）</text><rect x="500" y="350" width="140" height="62" rx="9" fill="#fff2dc" stroke="#b07822" data-node-kind="var-exp" class="rn-node rn-node-accent"/><text x="570.0" y="375" text-anchor="middle">var-exp</text><text class="hint" x="570.0" y="397" text-anchor="middle">var = x（外）</text><rect x="125" y="484" width="130" height="44" rx="9" fill="#eaf2f8" stroke="#547a99" data-node-kind="app-exp" class="rn-node"/><text x="190.0" y="512" text-anchor="middle">app-exp</text><rect x="25" y="600" width="140" height="62" rx="9" fill="#fff2dc" stroke="#b07822" data-node-kind="var-exp" class="rn-node rn-node-accent"/><text x="95.0" y="625" text-anchor="middle">var-exp</text><text class="hint" x="95.0" y="647" text-anchor="middle">var = x（内）</text><rect x="260" y="600" width="140" height="62" rx="9" fill="#fff2dc" stroke="#b07822" data-node-kind="var-exp" class="rn-node rn-node-accent"/><text x="330.0" y="625" text-anchor="middle">var-exp</text><text class="hint" x="330.0" y="647" text-anchor="middle">var = y</text></svg></div><figcaption>第二题：最外层绑定 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math>，中间绑定 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="y" display="inline"><mi>y</mi></math>，应用的操作符又绑定一个新 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math>。各变量叶子独立保留；内外标注是伴读对绑定归属的说明。</figcaption></figure>
 <p>第二棵树最内层 <code>lambda</code> 重新绑定 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math>：其 <code>body</code> 中的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 属于内层绑定；该 <code>lambda</code> 作为操作符之后，外侧那个操作数 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 属于最外层 <code>lambda</code>。<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="y" display="inline"><mi>y</mi></math> 则由中间的 <code>lambda</code> 绑定。语法树本身保存结构和名字；这些绑定关系是沿结构分析得到的，图中不把两个同名 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 合并成一个节点。</p><!-- EOPL:snippet chapter02.rkt ex-2-27 -->
 <details class="code-details" open><summary>查看实现 · ex-2-27</summary><pre><code class="language-scheme">(define ast-example-1 (parse-expression &#x27;((lambda (a) (a b)) c)))
 (define ast-example-2 (parse-expression &#x27;(lambda (x) (lambda (y) ((lambda (x) (x y)) x)))))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-28"><summary>习题 2.28 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.54 / PDF 77</p><div class="original-source" lang="en" data-exercise="2.28">Exercise 2.28 [★] Write an unparser that converts the abstract syntax of an <code>lc-exp</code> into
-a string that matches the second grammar in this section (page 52).</div><div id="source-context-alternate-grammar"><p class="source">题目引用的原书程序/文法：p.51 / PDF 74。保留原逻辑供比较，解答实现列在下方。</p><pre><code class="language-scheme">Lc-exp ::= Identifier
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-28"><summary>习题 2.28 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p>
+<div class="question-translation" lang="zh-CN" data-exercise="2.28">
+<p>编写一个反解析器，把 <code>lc-exp</code> 的抽象语法转换成符合本节第二套文法的字符串。原题将这套文法标为 p.52；它实际列在 p.51 / <a href="../assets/source.pdf#page=74">PDF 74</a>，下方保留了<a href="#source-context-alternate-grammar">所引用的完整文法</a>。</p>
+</div>
+<p class="source">印刷 p.54 / <a href="../assets/source.pdf#page=77">PDF 77</a></p><details class="original-question"><summary>英文原题</summary><div class="original-source" lang="en" data-exercise="2.28">Exercise 2.28 [★] Write an unparser that converts the abstract syntax of an <code>lc-exp</code> into
+a string that matches the second grammar in this section (page 52).</div></details><div id="source-context-alternate-grammar"><p class="source">题目引用的原书程序/文法：p.51 / <a href="../assets/source.pdf#page=74">PDF 74</a>。保留原逻辑供比较，解答实现列在下方。</p><pre><code class="language-scheme">Lc-exp ::= Identifier
        ::= proc Identifier =&gt; Lc-exp
        ::= Lc-exp(Lc-exp)</code></pre></div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>变量转换为符号对应的字符串；<code>lambda</code> 输出 <code>proc 变量 =&gt; 过程体</code>；应用输出“操作符字符串(操作数字符串)”。三种分支逐个对应原书另一套文法。原书题目所说的 p.52 应回看 p.51 / PDF 74 的第二套文法。</p>
 <p>例如 <code>(lambda (x) (f (f x)))</code> 输出 <code>proc x =&gt; f(f(x))</code>。不过那套文法本身有歧义：<code>((lambda (x) x) y)</code> 和 <code>(lambda (x) (x y))</code> 都可生成 <code>proc x =&gt; x(y)</code>。所以这里只保证输出字符串符合文法，不声称能由字符串唯一还原 AST。若额外加入分组括号与优先级规则，应明确那是在扩充文法；本答案保持题目原文法。</p><!-- EOPL:snippet chapter02.rkt ex-2-28 -->
@@ -1083,7 +1300,14 @@ a string that matches the second grammar in this section (page 52).</div><div id
     (lambda-exp (v b) (string-append &quot;proc &quot; (symbol-&gt;string v) &quot; =&gt; &quot; (unparse/string b)))
     (app-exp (f x) (string-append (unparse/string f) &quot;(&quot; (unparse/string x) &quot;)&quot;))))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-29"><summary>习题 2.29 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.54 / PDF 77</p><div class="original-source" lang="en" data-exercise="2.29">Exercise 2.29 [★] Where a Kleene star or plus (page 7) is used in concrete syntax, it
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-29"><summary>习题 2.29 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p>
+<div class="question-translation" lang="zh-CN" data-exercise="2.29">
+<p>具体语法中出现 Kleene 星号或加号时（p.7 / <a href="../assets/source.pdf#page=30">PDF 30</a>，分别表示零次或多次、一次或多次重复），构造抽象语法树时，最方便的做法是用一个列表保存相应的各棵子树。例如，假设 λ 演算表达式文法如下；每条产生式下方同时标明变体名和字段名：</p><pre><code class="language-scheme">                 Lc-exp ::= Identifier
+                             var-exp (var)</code></pre><pre><code class="language-scheme">                        ::= (lambda ({Identifier}∗ ) Lc-exp)
+                            lambda-exp (bound-vars body)</code></pre><pre><code class="language-scheme">                        ::= (Lc-exp {Lc-exp}∗ )
+                            app-exp (rator rands)</code></pre><p>那么，<code>bound-vars</code> 字段的谓词可以是 <code>(list-of identifier?)</code>，<code>rands</code> 字段的谓词可以是 <code>(list-of lc-exp?)</code>。请按这种方式为该文法编写 <code>define-datatype</code> 声明和解析器。</p>
+</div>
+<p class="source">印刷 p.54 / <a href="../assets/source.pdf#page=77">PDF 77</a></p><details class="original-question"><summary>英文原题</summary><div class="original-source" lang="en" data-exercise="2.29">Exercise 2.29 [★] Where a Kleene star or plus (page 7) is used in concrete syntax, it
 is most convenient to use a list of associated subtrees when constructing an abstract
 syntax tree. For example, if the grammar for lambda-calculus expressions had been
 
@@ -1099,7 +1323,7 @@ syntax tree. For example, if the grammar for lambda-calculus expressions had bee
 
 then the predicate for the <code>bound-vars</code> field could be <code>(list-of identifier?)</code>,
 and the predicate for the <code>rands</code> field could be <code>(list-of lc-exp?)</code>. Write a
-<code>define-datatype</code> and a parser for this grammar that works in this way.</div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>把单个 <code>bound-var</code> 改成变量列表，把单个 <code>rand</code> 改成表达式列表；相应字段谓词用 <code>(list-of identifier?)</code> 与 <code>(list-of multi-exp?)</code>。解析 <code>lambda</code> 时检查长度为 3，第二项是合法标识符列表，再解析 <code>body</code>；解析应用时，<code>car</code> 是操作符，<code>cdr</code> 经 <code>map</code> 变为操作数列表。</p>
+<code>define-datatype</code> and a parser for this grammar that works in this way.</div></details></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>把单个 <code>bound-var</code> 改成变量列表，把单个 <code>rand</code> 改成表达式列表；相应字段谓词用 <code>(list-of identifier?)</code> 与 <code>(list-of multi-exp?)</code>。解析 <code>lambda</code> 时检查长度为 3，第二项是合法标识符列表，再解析 <code>body</code>；解析应用时，<code>car</code> 是操作符，<code>cdr</code> 经 <code>map</code> 变为操作数列表。</p>
 <p>星号允许零项，所以 <code>(lambda () x)</code> 与 <code>(f)</code> 都是这个文法的合法语法；空表本身缺少操作符，仍非法。重复形参也没有被这份文法禁止，解析器保留它们，实际绑定语义须在定义语言时再决定。</p><!-- EOPL:snippet chapter02.rkt ex-2-29 -->
 <details class="code-details" open><summary>查看实现 · ex-2-29</summary><pre><code class="language-scheme">(define-datatype multi-exp multi-exp?
   (m-var (v identifier?))
@@ -1119,11 +1343,15 @@ and the predicate for the <code>rands</code> field could be <code>(list-of lc-ex
     (m-lambda (vs b) (list &#x27;lambda vs (unparse-multi b)))
     (m-app (f xs) (cons (unparse-multi f) (map unparse-multi xs)))))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-30"><summary>习题 2.30 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.54 / PDF 77</p><div class="original-source" lang="en" data-exercise="2.30">Exercise 2.30 [★★] The procedure <code>parse-expression</code> as defined above is fragile:
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-30"><summary>习题 2.30 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p>
+<div class="question-translation" lang="zh-CN" data-exercise="2.30">
+<p>上文定义的 <code>parse-expression</code> 很脆弱：它不能发现若干可能的语法错误，例如 <code>(a b c)</code>；对于另一些表达式，例如 <code>(lambda)</code>，它又会以不恰当的错误消息中止。请修改它，使它足够健壮：接受任意 S 表达式作为输入，并在输入不代表 λ 演算表达式时给出适当的错误消息。</p><p>题目所指的<a href="#source-context-parse-expression">原解析器</a>列在下方（p.53 / <a href="../assets/source.pdf#page=76">PDF 76</a>），使用的是本章单参数 λ 演算文法。</p>
+</div>
+<p class="source">印刷 p.54 / <a href="../assets/source.pdf#page=77">PDF 77</a></p><details class="original-question"><summary>英文原题</summary><div class="original-source" lang="en" data-exercise="2.30">Exercise 2.30 [★★] The procedure <code>parse-expression</code> as defined above is fragile:
 it does not detect several possible syntactic errors, such as <code>(a b c)</code>, and aborts with
 inappropriate error messages for other expressions, such as <code>(lambda)</code>. Modify it so
 that it is robust, accepting any s-exp and issuing an appropriate error message if the
-s-exp does not represent a lambda-calculus expression.</div><div id="source-context-parse-expression"><p class="source">题目引用的原书程序/文法：p.53 / PDF 76。保留原逻辑供比较，解答实现列在下方。</p><pre><code class="language-scheme">(define parse-expression
+s-exp does not represent a lambda-calculus expression.</div></details><div id="source-context-parse-expression"><p class="source">题目引用的原书程序/文法：p.53 / <a href="../assets/source.pdf#page=76">PDF 76</a>。保留原逻辑供比较，解答实现列在下方。</p><pre><code class="language-scheme">(define parse-expression
   (lambda (datum)
      (cond
         ((symbol? datum) (var-exp datum))
@@ -1155,7 +1383,26 @@ s-exp does not represent a lambda-calculus expression.</div><div id="source-cont
     (lambda-exp (v b) (list &#x27;lambda (list v) (unparse-expression b)))
     (app-exp (f x) (list (unparse-expression f) (unparse-expression x)))))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-31"><summary>习题 2.31 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.55 / PDF 78</p><div class="original-source" lang="en" data-exercise="2.31">Exercise 2.31 [★★] Sometimes it is useful to specify a concrete syntax as a sequence
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-2-31"><summary>习题 2.31 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p>
+<div class="question-translation" lang="zh-CN" data-exercise="2.31">
+<p>有时，把具体语法规定为由括号围住的一串符号和整数很有用。例如，可以这样定义前缀列表集合：</p><pre><code class="language-scheme"> Prefix-list ::= (Prefix-exp)
+ Prefix-exp ::= Int
+            ::= - Prefix-exp Prefix-exp</code></pre><p>于是，<code>(- - 3 2 - 4 - 12 7)</code> 是一个合法的前缀列表。这种记法有时称为波兰前缀记法，以其发明者 Jan Łukasiewicz 的国籍命名。请编写解析器，把前缀列表转换为如下抽象语法：</p><pre><code class="language-scheme">  (define-datatype prefix-exp prefix-exp?
+    (const-exp
+      (num integer?))
+    (diff-exp
+      (operand1 prefix-exp?)
+      (operand2 prefix-exp?)))</code></pre><p>上面的例子应当产生与下列构造器调用序列相同的抽象语法树：</p><pre><code class="language-scheme">  (diff-exp
+    (diff-exp
+      (const-exp 3)
+      (const-exp 2))
+    (diff-exp
+      (const-exp 4)
+      (diff-exp
+        (const-exp 12)
+        (const-exp 7))))</code></pre><p>提示：可以先写一个过程，它接收一个列表，同时产生一个 <code>prefix-exp</code> 和由尚未使用的列表元素构成的剩余列表。</p>
+</div>
+<p class="source">印刷 p.55 / <a href="../assets/source.pdf#page=78">PDF 78</a></p><details class="original-question"><summary>英文原题</summary><div class="original-source" lang="en" data-exercise="2.31">Exercise 2.31 [★★] Sometimes it is useful to specify a concrete syntax as a sequence
 of symbols and integers, surrounded by parentheses. For example, one might define
 the set of prefix lists by
 
@@ -1187,7 +1434,7 @@ constructors
         (const-exp 7))))</code>
 
 As a hint, consider writing a procedure that takes a list and produces a prefix-exp
-and the list of leftover list elements.</div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>辅助过程解析“恰好一个表达式”，同时返回尚未消费的 token。遇整数，构造 <code>const-exp</code> 并返回 <code>cdr</code>；遇减号，先从余下输入解析左操作数，再把左侧留下的 <code>rest1</code> 交给右侧，最后返回 <code>diff-exp</code> 与 <code>rest2</code>。读到结尾却仍期待表达式时报告截断错误。</p>
+and the list of leftover list elements.</div></details></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>辅助过程解析“恰好一个表达式”，同时返回尚未消费的 token。遇整数，构造 <code>const-exp</code> 并返回 <code>cdr</code>；遇减号，先从余下输入解析左操作数，再把左侧留下的 <code>rest1</code> 交给右侧，最后返回 <code>diff-exp</code> 与 <code>rest2</code>。读到结尾却仍期待表达式时报告截断错误。</p>
 <p>原例先消费 <code>- 3 2</code> 形成左树，再消费 <code>- 4 - 12 7</code> 形成右树，最终没有剩余项。其值是 (3−2)−(4−(12−7)) = 1−(−1) = 2。顶层包装器检查剩余列表为空，因此 <code>(3 4)</code> 会因多余 token 而失败，不能仅返回第一个常量。</p>
 <p>每个 token 被读一次；用返回剩余尾部的方式避免反复截取/计算整个列表长度。源码还提供按 AST 回写 token 的过程，独立核对解析后的形状与先后顺序。</p><!-- EOPL:snippet chapter02.rkt ex-2-31 -->
 <details class="code-details" open><summary>查看实现 · ex-2-31</summary><pre><code class="language-scheme">(define-datatype prefix-exp prefix-exp?
@@ -1217,7 +1464,7 @@ and the list of leftover list elements.</div></div><div class="answer"><p class=
       (diff-exp (l r) (cons &#x27;- (walk l (walk r tail))))))
   (walk exp &#x27;()))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details></section><section id="programs"><h2>运行本章程序</h2><p>本章完整示例使用 Racket 8.17 执行。第 2 章通过 eopl 库提供书中的 <code>define-datatype</code> 与 <code>cases</code>，回归使用 rackunit；它们不是本页自行模拟的宏。下载两章源文件及测试文件，放在同一目录，然后在安装了这些库的 Racket 中执行：</p><pre><code>racket chapter02.rkt
+<!-- EOPL:end-snippet --></div></details></section><section id="programs"><h2>运行本章程序</h2><p>本章完整示例使用 Racket 8.17 执行。第 2 章通过 <code>eopl</code> 库提供书中的 <code>define-datatype</code> 与 <code>cases</code>，回归使用 <code>rackunit</code>；它们不是本页自行模拟的宏。下载两章源文件及测试文件，放在同一目录，然后在安装了这些库的 Racket 中执行：</p><pre><code>racket chapter02.rkt
 racket test_chapters.rkt</code></pre><p><a href="../code/chapter01.rkt" download>第 1 章完整程序</a> · <a href="../code/chapter02.rkt" download>第 2 章完整程序</a> · <a href="../code/test_chapters.rkt" download>两章回归程序</a> · <a href="../code/benchmark_bigits.rkt" download>bigits 计时程序</a></p><p>运行本章主程序得到：</p><pre><code>(2 0 1)
 ((lambda (a) (a b)) c)
 2
@@ -1736,7 +1983,7 @@ racket test_chapters.rkt</code></pre><p><a href="../code/chapter01.rkt" download
     scheduled = false;
     let next = entries[0];
     for (const entry of entries) {
-      if (entry.section.getBoundingClientRect().top <= (wide.matches ? 100 : 110)) next = entry;
+      if (entry.section.getBoundingClientRect().top <= Math.max(110, wide.matches ? 100 : 110, wide.matches ? 0 : panel.querySelector('summary').getBoundingClientRect().bottom + 12) + 1) next = entry;
     }
     if (window.scrollY + innerHeight >= document.documentElement.scrollHeight - 2) next = entries[entries.length - 1];
     if (next && next.link !== current) {
@@ -1765,21 +2012,35 @@ racket test_chapters.rkt</code></pre><p><a href="../code/chapter01.rkt" download
   })).filter(item => item.section);
   if (!rail || !content || !context || !groups.length) return;
   const wide = matchMedia('(min-width:1440px)');
+  const sections = Array.from(document.querySelectorAll('main > section[id]'));
   let current = null, scheduled = false;
   const update = () => {
     scheduled = false;
     if (!wide.matches) return;
-    let next = groups[0];
-    for (const item of groups) {
-      if (item.section.getBoundingClientRect().top <= 110) next = item;
+    let active = sections[0];
+    for (const section of sections) {
+      if (section.getBoundingClientRect().top <= 111) active = section;
     }
-    if (scrollY + innerHeight >= document.documentElement.scrollHeight - 2) next = groups[groups.length - 1];
+    // A short final section cannot always reach the usual reading-position line.
+    if (scrollY > 0 && scrollY + innerHeight >= document.documentElement.scrollHeight - 1) {
+      active = sections.findLast(section => section.getBoundingClientRect().top < innerHeight - 100) ?? active;
+    }
+    const next = groups.find(item => item.section === active);
+    rail.hidden = !next;
+    if (!next) {
+      content.replaceChildren();
+      delete rail.dataset.activeSection;
+      current = null;
+      return;
+    }
     if (current === next) return;
     const body = next.notes.querySelector('.reading-notes-body');
     const heading = next.section.querySelector('h2');
     if (!body || !heading) return;
     content.replaceChildren(...Array.from(body.children, node => node.cloneNode(true)));
-    context.textContent = heading.textContent;
+    const label = heading.cloneNode(true);
+    label.querySelectorAll('.english-title,math annotation').forEach(node => node.remove());
+    context.textContent = label.textContent;
     context.href = '#' + next.section.id;
     rail.dataset.activeSection = next.section.id;
     rail.scrollTop = 0;

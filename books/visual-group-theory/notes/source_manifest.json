@@ -9,17 +9,20 @@
   "print_isbn": "978-0-88385-757-1",
   "electronic_isbn": "978-1-61444-102-1",
   "source_pdf": {
-    "path": "tmp/source.pdf",
+    "path": "assets/source.pdf",
     "sha256": "f82d041ad301baa07b1ec17f495805e17c49852a772c770a28afeb29de7ecf2a",
     "bytes": 7636742,
     "pages": 312,
-    "provenance": "User-provided Zotero PDF; local reference copy only",
+    "provenance": "User-provided source PDF; identity preserved for reader references",
     "typesetting_stamp": "2011-10-18",
     "metadata_creation_year": 2012
   },
   "publication": {
-    "include_source_pdf": false,
-    "reason": "Source supplied for reading; redistribution not part of this task"
+    "include_source_pdf": true,
+    "public_path": "visual-group-theory/assets/source.pdf",
+    "source_file": "books/visual-group-theory/assets/source.pdf",
+    "review": "issues/I052-reader-contract.md",
+    "reason": "2026-10-21 用户要求统一原文链接直达对应 PDF 并部署；登记原文件哈希、页序、发布白名单与回滚单元。"
   },
   "page_mapping": [
     {

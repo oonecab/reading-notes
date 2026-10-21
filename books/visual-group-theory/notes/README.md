@@ -17,7 +17,7 @@
 | [第 9 章](chapter09_sylow_theory.html) | 193—220 / PDF 208—235 | 28 题全部小问；作用、Sylow 三定理、阶 12 分类 |
 | [第 10 章](chapter10_galois_theory.html) | 221—260 / PDF 236—275 | 30 题全部小问；域、自同构、Galois 对应、根式可解性 |
 
-原 PDF 只作本地对照，来源标签保留印刷页与 PDF 页序并链接地图的来源说明。源码维护于 `../code/`；执行 `python3 books/visual-group-theory/tools/sync_code.py --write` 同步 HTML 阅读副本。图表、正文与数学陈述在 `src/content/books/visual-group-theory/` 的受控 HTML 维护，本目录是独立检查用兼容镜像。维护与同步见 [Astro 说明](../../../docs/astro-authoring.md)。
+原 PDF 的正式副本为 `../assets/source.pdf`；来源标签保留印刷页与 PDF 页序，直接链接对应 PDF 页，身份由根 `docs/reader-sources.json` 固定。源码维护于 `../code/`；执行 `python3 books/visual-group-theory/tools/sync_code.py --write` 同步 HTML 阅读副本。图表、正文与数学陈述在 `src/content/books/visual-group-theory/` 的受控 HTML 维护，本目录是独立检查用兼容镜像。维护与同步见 [Astro 说明](../../../docs/astro-authoring.md)。
 
 样式和导航复用 `books/stochastic/notes/preface.html` 的纸色、绿色、17px/1.9、860px 主栏、240px 左目录和 280px 阅读注解栏；保留 1100/1440 断点和窄屏局部横滚。编号项有独立锚点；习题使用 `details.exercise`、`div.exercise-question`、`div.answer`；来源摘录和中文解释分别标明。
 
@@ -29,7 +29,7 @@
 
 第 9—10 章原图、子问与精确多项式输入见 [sylow_galois_inputs.json](sylow_galois_inputs.json)，本批证据见 [chapters09-10](../review/chapters09-10.md)，附录校注及证明边界见正式章节。
 
-全书一致性修订见 [I026](../../../issues/I026-visual-group-theory-polish.md) / [T026](../../../test/T026-visual-group-theory-polish.md)。十章地图使用统一的“已完成本地验收”标签；第 2—4 章增加 15 组阅读注解，宽屏随章节显示，窄屏与无 JS 阅读保留正文中的原生折叠块。6.5 的六张表、9.28 和 10.26 的证明步骤及 4.1、6.4 的小问均有稳定锚点。
+全书一致性修订见 [I026](../../../issues/I026-visual-group-theory-polish.md) / [T026](../../../test/T026-visual-group-theory-polish.md)。十章地图列出章节主题、页码与习题数量；第 2—4 章增加 15 组阅读注解，宽屏随章节显示，窄屏与无 JS 阅读保留正文中的原生折叠块。6.5 的六张表、9.28 和 10.26 的证明步骤及 4.1、6.4 的小问均有稳定锚点。
 
 关键行内公式使用静态语义 MathML：356 处、140 种表达式，与原有 31 个显示公式并存。全部 387 个 MathML 均有一致的 aria-label 与 text/plain annotation；31 个显示公式保留原呈现树，文本回退对复合指数及分母明确加括号。上下标、逆元、根式、分式及运算符各使用相应结构，保留原记号的 annotation 与可访问名称；公式不能只包进 mtext。关键语义回归在 `../tools/check_reading.py`，数学条件仍由正式正文说明。程序文本、英文引语与 SVG 的文字标签按各自语境保留。
 
@@ -42,3 +42,5 @@
 页面外提取公式时，可读取 `math.getAttribute("aria-label")` 或 `math.querySelector('annotation[encoding="text/plain"]').textContent`，两者给出同一连续记号，不依赖页面 JavaScript。原生 `Selection.toString()` 的逐节点换行取决于浏览器；复制增强不改写这一原生接口。显示公式回退与复制追加验收见 [审阅记录](../review/polish.md)。
 
 2026-10-20 起，四类教学组件统一遵循 [RN-001 v1.1](../../../docs/reading-notes-standard.md)；共享维护源为 `src/styles/reading-components.css`。陈述保持可见，证明默认展开并可折叠，习题默认收起，题干、解答与来源共用排版。具体覆盖与本轮内容修正见 [I040](../../../issues/I040-unified-reading-components.md)，原数学审阅和历史执行证据保留。
+
+本书的当前阅读契约以 RN-001 v1.10 为准：完整中文题干和来源、逐节注解、共同版心、代码等宽与原生折叠、命名明确的索引、直达登记 PDF 的原文入口。逐页义务在根目录 `docs/reader-contract.json`，原书发布身份在 `docs/reader-sources.json`；历史批次记录保留当时的范围，当前复查执行 `python3 tools/project.py check` 及完整浏览器矩阵。

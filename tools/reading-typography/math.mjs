@@ -10,7 +10,7 @@ for(const c of 'ᴬᴮᴰᴱᴳᴴᴵᴶᴷᴸᴹᴺᴼᴾᴿᵀᵁⱽᵂ')scrip
 export const rawScript = new RegExp(`[${[...scripts.keys()].join('')}]`, 'u');
 const functions = new Set('B2U B2T T2U U2T TMin TMax Bias limsup liminf deg log ln exp sin cos tan cot sec csc sinh cosh tanh lim sup inf max min mod gcd lcm det dim rank ker Ker im Im sgn Sym Stab Orb Perm Gal Aut Hom End GL SL SO SU O Pr Var Cov E P Re Im diag trace tr span CF ZF SF OF'.split(' '));
 const ordinary = new Set('the and for not in of to is as or if at on an by be so int let def all new get set end sub add mul xor pop mov cmp ret out bit map was has can any one two ten die its are may but you our via use per sum CPU PDF EOF TCP UDP GET PUT URL URI API AST SSA CPS LET'.split(' '));
-const operator = /^[+\-−=<>≤≥≠≈≡≅≃∼∝±∓×÷·⋅*/\\∕∈∉∋⊂⊆⊃⊇⊊⊋∪∩∅∞↦→←↔⇒⇐⇔∘√∣|∧∨¬∀∃∑Σ∏⋂⋃∫∮∂∇!%:;,′″‴⋯…⊕⊗⊙◁▷⊲⊳⊥∥∤∴∵≔≜≪≫⌊⌋⌈⌉()[\]{}⟨⟩〈〉]$/u;
+const operator = /^[+\-−=<>≤≥≠≈≡≢≅≃∼∝±∓×÷·⋅*/\\∕∈∉∋⊂⊆⊃⊇⊊⊋∪∩∅∞↦→←↔⇒⇐⇔∘√∣|∧∨¬∀∃∑Σ∏⋂⋃∫∮∂∇!%:;,′″‴⋯…⊕⊗⊙⋊⋉◁▷⊲⊳⊥∥∤∴∵≔≜≪≫⌊⌋⌈⌉()[\]{}⟨⟩〈〉]$/u;
 const atom = (tag,value,attrs='')=>`<${tag}${attrs}>${escape(value)}</${tag}>`;
 const row = parts=>parts.length===1?parts[0]:`<mrow>${parts.join('')}</mrow>`;
 
@@ -37,7 +37,7 @@ function lex(text, {products=[], mathContext=false}={}) {
     if(['\u0304','\u0305','\u0302','\u0303'].includes(text[i])){
       result.push({kind:'accent',raw:text[i],value:{'\u0304':'¯','\u0305':'¯','\u0302':'ˆ','\u0303':'~'}[text[i++]]});continue;
     }
-    if((m=rest.match(/^(?:\d+(?:\.\d+)?(?:[eE][+−-]?\d+)?)/))){
+    if((m=rest.match(/^(?:0[xX][0-9a-fA-F]+|\d+(?:\.\d+)?(?:[eE][+−-]?\d+)?)/))){
       result.push({kind:'number',raw:m[0]});i+=m[0].length;continue;
     }
     if((m=rest.match(/^[A-Za-z][A-Za-z0-9]*(?:_[A-Za-z0-9]+)*/))){
@@ -94,6 +94,10 @@ export function presentation(text, options={}) {
       base='<msqrt>'+unit()+'</msqrt>';
     }else if(t.kind==='number')base=atom('mn',t.raw);
     else if(t.kind==='identifier')base=atom('mi',t.raw);
+    else if(t.raw==='mod'){
+      const prefix=pos===1||['(','[','{'].includes(tokens[pos-2]?.raw);
+      base=atom('mo',t.raw,` form="${prefix?'prefix':'infix'}" lspace="${prefix?'0em':'0.278em'}" rspace="0.278em"`);
+    }
     else if(t.kind==='function')base=atom('mi',t.raw,' mathvariant="normal"');
     else if(t.kind==='word')base=atom('mtext',t.raw);
     else base=atom('mo',t.raw==='-'?'−':t.raw==='\\'?'∖':t.raw);

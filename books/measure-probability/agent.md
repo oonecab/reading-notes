@@ -16,3 +16,5 @@
 Astro 维护、镜像同步与冻结基线规则见 [构建维护说明](../../docs/astro-authoring.md)。
 
 第五、六章维护约定：乘积 sigma 域与完全化分开；转移核采用共同有限分块；Fubini 的有符号条件不以累次积分存在替代。三级数、强弱律和 CLT 分别写明独立、有限矩、截断尺度及收敛方式。分布归一化与原式校注以正文和 source_issues.json 为权威。有限核/二项卷积输入范围见 code/README.md，独立回归由 tools/check_products.py 负责。
+
+本书的当前阅读契约以 RN-001 v1.10 为准：完整中文题干和来源、逐节注解、共同版心、代码等宽与原生折叠、命名明确的索引、直达登记 PDF 的原文入口。逐页义务在根目录 `docs/reader-contract.json`，原书发布身份在 `docs/reader-sources.json`；历史批次记录保留当时的范围，当前复查执行 `python3 tools/project.py check` 及完整浏览器矩阵。

@@ -41,7 +41,7 @@ python3 tools/test_static_publish.py --release-dir deploy/portal-releases/YYYYMM
 
 ## 发布白名单与 Ubuntu
 
-[精确白名单](publish-allowlist.json) 登记精确公开文件路径，构建和发布两次核对；新增文件必须明确登记。受控预压缩另生成 gzip sidecar，文件数量与内容散列以本版 release.json 为准。正文、源码下载及公开的来源/习题索引保留，37 个历史审阅/校验 JSON URL 返回固定公开摘要。原审阅记录、夹具、截图和内容基线继续由仓库保存，不作为站点文件。两份原已授权 PDF 按原路径及冻结散列保留：随机过程的 assets PDF 和 CS:APP 的 csapp.pdf。其余原 PDF 只用于本地对照。来源资料 URL 和正文页码链接保持；修改 PDF 收录属于新的兼容性变更，必须重新审阅，不能只翻转旧开关。
+[精确白名单](publish-allowlist.json) 登记精确公开文件路径，构建和发布两次核对；新增文件必须明确登记。受控预压缩另生成 gzip sidecar，文件数量与内容散列以本版 release.json 为准。正文、源码下载及公开的来源/习题索引保留，37 个历史审阅/校验 JSON URL 返回固定公开摘要。原审阅记录、夹具、截图和内容基线继续由仓库保存，不作为站点文件。六份原书 PDF 按 `docs/reader-sources.json` 的路径及冻结散列发布：随机过程和 CS:APP 沿用原路径，Weiss、视觉群论、测度概率和 EOPL 使用各书的 `assets/source.pdf`。I052 记录此次收录范围的授权与兼容性审阅。后续修改 PDF 身份或收录范围须重新审阅。
 
 [Ubuntu 安装与操作](UBUNTU.md) 规定 `/srv/reading-notes/releases/<id>/{site,SHA256SUMS,release.json}` 和 `current`。`publish.sh` 持 flock、验证归档及 allowlist，用 rsync 写新版本，再创建临时链接并 atomic rename 到 current。受限 root 安装器校验队列并写入版本树，再由固定 Nginx helper 完成 test/reload，失败恢复旧链接。完整 Nginx 配置由 root 审核安装，发布用户不能修改；新增脚本须先安装相应 CSP。Web 主机无需 Node。
 
@@ -52,3 +52,7 @@ Weiss 的正式阅读入口为 [主站 Weiss 笔记](https://notes.zzzping.top/w
 当前维护入口见 [Astro 编写说明](../docs/astro-authoring.md)，迁移验证见 [T028](../test/T028-static-first-astro.md)。本地浏览、静态检查、程序执行、发布模拟与公网验收各自独立。
 
 I033 已将生产更新到 `20261017T210828`，实测固定 root 安装器、systemd 发布、root-owned 只读版本和回滚恢复；SSH/FTP/UFW/fail2ban 已应用。当前证书的 DNS 自动续期仍待配置，见 [当前发布报告](../docs/browser-stability-report.md)与 [DNS 续期步骤](DNS-RENEWAL.md)。
+
+### I052 原书 PDF 收录更新
+
+2026-10-21 用户明确要求原文链接直达 PDF 并部署。此次兼容性变更将其余四书接入原书发布，同时保留随机过程与 CS:APP 原 URL。`docs/reader-sources.json` 和 `publish-allowlist.json` 双重约束六份 PDF 的路径、原始 SHA-256 与页数，构建不改写原文件。I029–I051 只收录两份；当前以六书登记为准。新路径均使用 `assets/source.pdf`，Weiss 构建输入复用已跟踪的原文件，其余三份原文件存入书籍 assets。发布时核对 MIME、Range、完整哈希、页序与实际点击；回滚使用 I051 release 和配套配置恢复旧收录范围。

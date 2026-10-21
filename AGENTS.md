@@ -45,3 +45,5 @@
 新增或修改书籍内容前读取 [规则职责索引](docs/rules/README.md)与 [RN-001 读书笔记共同标准](docs/reading-notes-standard.md)，再读取该书 `agent.md` 与 `notes/README.md`。新增书籍按[接入步骤](docs/adding-a-book.md)和[工作模板](docs/templates/reading-notes/README.md)执行，先完成原书清单、全书地图与样章验收，再按批次扩写。从根目录使用 `tools/project.py` 运行检查和构建，输出只放忽略目录。对话默认使用自然、连续的中文，先直接说明结果，再讲必要依据，避免重复总结。
 
 各书原有说明中的“项目/仓库根目录”按子项目根目录解释；公共命令从 Reading Notes 主仓库根目录执行。
+
+全站内容与布局检查必须执行 RN-001 §6.1 的逐页阅读契约，使用 `docs/reader-contract.json` 和 `docs/reader-sources.json` 独立核对中文题干、注解覆盖、索引及 PDF 目标；完整检查清单与例外只在 RN-001 维护。

@@ -65,7 +65,7 @@
 <h1>全书地图</h1>
 <p class="intro">把语言规则写成程序，再看一条规则怎样改变程序的含义。</p>
 <p>这份地图串起原书九章与两个附录。当前可阅读的伴读包括本页、<a href="preface.html">导读与作者序言</a>、<a href="chapter01_inductive_data.html">第 1 章</a>与<a href="chapter02_data_abstraction.html">第 2 章</a>；九章与附录的条目说明原书的问题、依赖和阅读落点。</p>
-<p class="source">MIT Press，2008 · 目录 v–vii（PDF 6–8）· 作者序言 xv–xix（PDF 16–20）</p>
+<p class="source">MIT Press，2008 · 目录 v–vii（<a href="../assets/source.pdf#page=6">PDF 6–8</a>）· 作者序言 xv–xix（<a href="../assets/source.pdf#page=16">PDF 16–20</a>）</p>
 <p class="chapter-nav"><a href="preface.html">导读与作者序言 →</a></p>
 </header>
 
@@ -74,7 +74,7 @@
 <p>我们平时用语言写程序，通常把变量查找、过程调用、赋值和异常当成已经规定好的规则。EOPL 把这些规则本身变成研究对象：同一个变量名究竟指向哪次绑定？过程返回以后，它创建的局部变量为什么还能被另一个过程使用？赋值改变了名字、值，还是存放值的位置？异常发生以后，原本剩下的计算去了哪里？</p>
 <p>作者的办法是设计一系列足够小的语言，为它们写解释器。解释器接受程序的抽象语法树，按照明确规则逐步求出结果。这样，“这个语言采用词法作用域”就能落到一个具体选择上：调用过程时，使用过程创建时保存的环境。把这一处改为调用者的环境，就得到另一种作用域规则；<a href="preface.html#scope-example">序言的闭包例子</a>会把两种结果算出来。</p>
 <p>全书不断重复同一种研究动作：先分清要描述的行为，再选一种表示，把规则写成可运行的程序，最后用小程序检验差异。第 1、2 章让我们能够处理语法树和抽象数据；第 3、4 章建立“名字、值、位置”的运行模型；第 5、6 章把控制过程显式化；第 7 章在运行以前推断一些性质；第 8、9 章把这些工具组合成模块和对象系统。</p>
-<p>因此，读这本书最有用的收获，是能从一个语言特性追到它的规则和实现位置。词法分析、语法分析在附录 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="B" display="inline"><mi>B</mi></math> 中提供必要工具，控制变换、名字消除和类型分析也涉及编译思想；完整编译器后端、机器码生成与工业优化不在本书的主讲范围内。</p>
+<p>因此，读这本书最有用的收获，是能从一个语言特性追到它的规则和实现位置。词法分析、语法分析在附录 B 中提供必要工具，控制变换、名字消除和类型分析也涉及编译思想；完整编译器后端、机器码生成与工业优化不在本书的主讲范围内。</p>
 <details class="reading-notes" id="notes-thread" data-notes-for="thread" open>
 <summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card">
 <span class="annotation-kind">先分清两层语言</span><h3>谁在解释谁</h3>
@@ -125,7 +125,7 @@
 <p>下面沿原书顺序说明每章解决的问题。页码给出实际内容范围，章间空白页另见来源清单。每一项的“读完应能解释”是伴读归纳的学习目标。</p>
 <div class="chapter-map" id="chapter-1">
 <h3>1 · 归纳定义的数据集</h3>
-<p class="source">Inductive Sets of Data · pp.1–30 / PDF 24–53 · 习题 1.1–1.36</p>
+<p class="source">Inductive Sets of Data · pp.1–30 / <a href="../assets/source.pdf#page=24">PDF 24–53</a> · 习题 1.1–1.36</p>
 <p>解释器要处理的是层层嵌套的程序，因此先要知道“合法的数据怎样构造”。作者从归纳定义、推理规则和语法产生式出发，展示数据结构怎样给出递归程序的骨架：处理列表时区分空表与非空表，处理语法树时按构造分支，递归调用对应更小的子结构。</p>
 <p>结构归纳同时解释这种程序为什么正确。辅助参数用来记录当前子问题之外的上下文，例如元素编号的起点；它的含义需要独立说明，才能看懂递归调用怎样保持约定。</p>
 <p><span class="map-key">读完应能解释：</span>为什么每个递归分支都对应合法构造，为什么子问题确实变小，以及 <code>occurs-free?</code> 如何区分自由出现与被绑定的变量。</p>
@@ -134,7 +134,7 @@
 </div>
 <div class="chapter-map" id="chapter-2">
 <h3>2 · 数据抽象</h3>
-<p class="source">Data Abstraction · pp.31–55 / PDF 54–78 · 习题 2.1–2.31</p>
+<p class="source">Data Abstraction · pp.31–55 / <a href="../assets/source.pdf#page=54">PDF 54–78</a> · 习题 2.1–2.31</p>
 <p>同一种数据可以有不同表示。自然数可以用整数或一元结构表示；环境可以用带标签的数据结构，也可以用接收变量名并返回绑定值的过程表示。只要构造和查询操作满足相同规格，使用它们的解释器就能保持不变。</p>
 <p>环境由此成为后续全书的第一个核心抽象：<code>empty-env</code>、<code>extend-env</code>、<code>apply-env</code> 规定空环境、增加绑定与查询的行为。再用递归数据类型、构造器和模式分支表示 AST，解释器就能直接处理结构，而不必反复辨认字符串。</p>
 <p><span class="map-key">读完应能解释：</span>“抽象接口不变”和“内部表示不变”有什么差别；为什么具体语法中的括号、关键字不必全部出现在 AST 中。书中的 <code>define-datatype</code> 与 <code>cases</code> 是配套工具，不能直接当作所有 Scheme 实现都内置的语法。</p>
@@ -143,7 +143,7 @@
 </div>
 <div class="chapter-map" id="chapter-3">
 <h3>3 · 表达式</h3>
-<p class="source">Expressions · pp.57–101 / PDF 80–124 · 习题 3.1–3.44</p>
+<p class="source">Expressions · pp.57–101 / <a href="../assets/source.pdf#page=80">PDF 80–124</a> · 习题 3.1–3.44</p>
 <p>LET 先引入整数、差、零测试、条件、变量和局部绑定。表达式的意义由它的结构和当前环境决定：<code>let</code> 的右侧在旧环境求值，主体在加入新绑定的环境求值。PROC 再把过程变为可以传递和返回的值，过程体的自由变量由闭包保存的创建环境解释。LETREC 则让过程在自己的主体里找到自身，形成递归绑定。</p>
 <p>章末进一步问：既然变量绑定由程序文本决定，能否在运行前把名字换成位置？词法地址翻译器用静态环境计算位置，运行时环境只保存值。这里既要保持绑定关系，又要区分“翻译时的名字表”和“运行时的值表”。</p>
 <p><span class="map-key">读完应能解释：</span>为什么调用点附近的新同名变量不会改写旧闭包的自由变量；为什么删除变量名以后还能得到相同结果。这里的“环境”是名字与绑定的关系，尚不需要第 4 章可变的存储。</p>
@@ -151,7 +151,7 @@
 </div>
 <div class="chapter-map" id="chapter-4">
 <h3>4 · 状态</h3>
-<p class="source">State · pp.103–138 / PDF 126–161 · 习题 4.1–4.42</p>
+<p class="source">State · pp.103–138 / <a href="../assets/source.pdf#page=126">PDF 126–161</a> · 习题 4.1–4.42</p>
 <p>纯表达式中，求值主要产生一个值；加入赋值后，还会改变之后计算能观察到的状态。作者用存储把“位置”和“位置上当前的值”分开。EXPLICIT-REFS 让引用作为值显式出现，通过 <code>newref</code>、<code>deref</code>、<code>setref</code> 操作；IMPLICIT-REFS 则让变量绑定到位置，普通变量读取自动取出该位置中的值。</p>
 <p>这种分离使别名与共享可以被追踪。两个名字若最终指向同一位置，修改其中一个就可能影响另一个；过程若捕获同一个位置，多次调用便能共享计数器状态。随后，原书比较可变对、按值/按引用传参、按名/按需传参，重点是参数何时求值、传入什么，以及求值结果是否缓存。</p>
 <p><span class="map-key">读完应能解释：</span>遮蔽新建绑定与赋值更新位置的区别。按值传递可变对象仍可能共享对象，这不等于把调用者的变量位置按引用传入；按需对结果缓存，在存在副作用时也不能简单视为按名的等价优化。</p>
@@ -159,7 +159,7 @@
 </div>
 <div class="chapter-map" id="chapter-5">
 <h3>5 · 传递续文的解释器</h3>
-<p class="source">Continuation-Passing Interpreters · pp.139–191 / PDF 162–214 · 习题 5.1–5.58</p>
+<p class="source">Continuation-Passing Interpreters · pp.139–191 / <a href="../assets/source.pdf#page=162">PDF 162–214</a> · 习题 5.1–5.58</p>
 <p>求 <code>-(e1,e2)</code> 的左操作数时，后面还要保存左值、求右值并做减法。普通递归把这些待办工作藏在宿主语言的调用链里；续文（continuation）把“拿到当前值之后做什么”表示成显式参数。它可以是过程，也可以是带标签的数据结构。</p>
 <p>待办工作一旦成为数据，解释器就能决定什么时候恢复、丢弃或保存它。异常沿续文寻找处理器，线程调度保存可恢复的计算，蹦床由循环驱动下一步；寄存器化又把参数变为显式寄存器，展示离低层控制结构更近的实现。</p>
 <p><span class="map-key">读完应能解释：</span>尾位置复用同一个续文，非尾位置为什么需要保存额外工作。控制栈不继续增长，不等于所有数据都只占常量空间；显式续文仍可能形成长链。书中线程是在解释器内调度的模型。</p>
@@ -167,15 +167,15 @@
 </div>
 <div class="chapter-map" id="chapter-6">
 <h3>6 · 续文传递风格</h3>
-<p class="source">Continuation-Passing Style · pp.193–232 / PDF 216–255 · 习题 6.1–6.40</p>
-<p>上一章是把一个熟悉的解释器改为 CPS；这一章把同样的方法推广为一个程序变换：输入 CPS<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="-IN" display="inline"><mrow><mo>−</mo><mi>I</mi><mi>N</mi></mrow></math> 的 AST，输出 CPS<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="-OUT" display="inline"><mrow><mo>−</mo><mi>O</mi><mi>U</mi><mi>T</mi></mrow></math> 的 AST。变换器为非尾位置的中间结果引入名字，把后续计算装进新的续文，再将调用组织为尾形式。</p>
+<p class="source">Continuation-Passing Style · pp.193–232 / <a href="../assets/source.pdf#page=216">PDF 216–255</a> · 习题 6.1–6.40</p>
+<p>上一章是把一个熟悉的解释器改为 CPS；这一章把同样的方法推广为一个程序变换：输入 CPS-IN 的 AST，输出 CPS-OUT 的 AST。变换器为非尾位置的中间结果引入名字，把后续计算装进新的续文，再将调用组织为尾形式。</p>
 <p>读变换规则时，要追踪求值顺序、生成名字的新鲜性和每个结果交给谁。加入打印、存储等效果后，某些原先可直接使用的表达式也必须按顺序处理；控制效果则解释为何有些跳转直接使用先前捕获的续文。</p>
 <p><span class="map-key">读完应能解释：</span>解释器运行一个程序与变换器输出另一个程序的差别。阶乘的续文链能进一步化为累乘器，依赖乘法组合的特殊结构；一般 CPS 变换本身不会自动获得这种空间压缩。</p>
 <p class="small">原书小节：6.1 写 CPS 程序（193）；6.2 尾形式（203）；6.3 转换为 CPS（212）；6.4 计算效果（226）。</p>
 </div>
 <div class="chapter-map" id="chapter-7">
 <h3>7 · 类型</h3>
-<p class="source">Types · pp.233–274 / PDF 256–297 · 习题 7.1–7.30</p>
+<p class="source">Types · pp.233–274 / <a href="../assets/source.pdf#page=256">PDF 256–297</a> · 习题 7.1–7.30</p>
 <p>如果不运行程序，能否排除“对过程做减法”“调用一个整数”等错误？类型系统给表达式分配类型，并用规则约束子表达式的组合。CHECKED 要求过程参数等位置写出类型；类型检查器使用类型环境，检查过程体与调用是否一致。</p>
 <p>INFERRED 把部分类型留成未知量，从程序结构生成等式，再以合一和替换求解。occurs check 排除某个类型变量必须等于包含自身的有限类型表达式的情况。这里的类型变量是求解中的未知量，和程序中取值的变量属于不同层次。</p>
 <p><span class="map-key">读完应能解释：</span>类型检查如何保守地排除规定的错误，以及为什么“通过检查”不保证终止或满足业务目的。正文的推断器并未完整实现 <code>let</code> 多态；多态绑定、Algorithm <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="W" display="inline"><mi>W</mi></math> 和赋值下的限制在习题 7.28–7.30 中继续展开。</p>
@@ -183,7 +183,7 @@
 </div>
 <div class="chapter-map" id="chapter-8">
 <h3>8 · 模块</h3>
-<p class="source">Modules · pp.275–324 / PDF 298–347 · 习题 8.1–8.27</p>
+<p class="source">Modules · pp.275–324 / <a href="../assets/source.pdf#page=298">PDF 298–347</a> · 习题 8.1–8.27</p>
 <p>程序变大以后，需要把一组绑定组织成单元，并说明外部可以依赖哪些名字与性质。SIMPLE-MODULES 用接口限定可见成员；OPAQUE-TYPES 再把类型表示隐藏起来，让客户只能通过接口操作值。例如两种内部整数编码都能实现同一组自然数操作，客户不应依赖编码细节。</p>
 <p>PROC-MODULES 接着把模块作为参数，构造可复用的模块过程。类型检查必须验证实际模块符合参数接口，并把结果接口中依赖参数的类型名字替换成实际模块对应的名字。接口由此成为可以执行检查的抽象边界。</p>
 <p><span class="map-key">读完应能解释：</span>透明类型与不透明类型怎样改变客户能做的操作；为什么“实现都用整数”不足以说明两个抽象类型可混用。模块过程的参数兼容方向和结果方向不同，也为下一章理解函数子类型做了铺垫。</p>
@@ -191,16 +191,16 @@
 </div>
 <div class="chapter-map" id="chapter-9">
 <h3>9 · 对象与类</h3>
-<p class="source">Objects and Classes · pp.325–371 / PDF 348–394 · 习题 9.1–9.42</p>
+<p class="source">Objects and Classes · pp.325–371 / <a href="../assets/source.pdf#page=348">PDF 348–394</a> · 习题 9.1–9.42</p>
 <p>对象把一组需要协调变化的状态与操作它们的方法放在一起。CLASSES 用类描述字段和方法，通过继承共享实现，并在发送消息时按对象的实际类选择方法。字段位置、方法所属类、接收者 <code>self</code> 与 <code>super</code> 的查找起点需要分别保存，才能解释遮蔽和重写。</p>
-<p>TYPED<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="-OO" display="inline"><mrow><mo>−</mo><mi>O</mi><mi>O</mi></mrow></math> 再组合类型检查、接口和子类型。一个对象只有一个创建它的类，却可以满足多个类型。过程子类型在结果方向协变、参数方向逆变，原因是替代后的过程必须接受调用者原来有权传入的每一个参数，并返回原来承诺的结果种类。</p>
+<p>TYPED-OO 再组合类型检查、接口和子类型。一个对象只有一个创建它的类，却可以满足多个类型。过程子类型在结果方向协变、参数方向逆变，原因是替代后的过程必须接受调用者原来有权传入的每一个参数，并返回原来承诺的结果种类。</p>
 <p><span class="map-key">读完应能解释：</span>普通方法调用为什么动态分派，而 <code>super</code> 从当前方法所属类的父类开始查找，接收者仍是原对象。原书检查器的保证有边界：p.358 明确保留未初始化字段及显式调用 <code>initialize</code> 的问题，转换失败也可能是运行时错误。</p>
 <p class="small">原书小节：9.1 面向对象编程（326）；9.2 继承（329）；9.3 语言（334）；9.4 解释器（336）；9.5 带类型语言（352）；9.6 类型检查器（358）。</p>
 </div>
 <div class="appendix" id="appendices">
 <h3>附录是两种不同的回读入口</h3>
-<p><strong>附录 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="A ·" display="inline"><mrow><mi>A</mi><mo>·</mo></mrow></math> For Further Reading</strong>（pp.373–378 / PDF 396–401）追溯归纳、语义、续文、类型与对象等思想的文献来源。遇到“这个方法从哪里来、还能怎样形式化”时回到这里；文献年代与历史判断按原书 2008 年语境理解。</p>
-<p><strong>附录 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="B ·" display="inline"><mrow><mi>B</mi><mo>·</mo></mrow></math> The SLLGEN Parsing System</strong>（pp.379–391 / PDF 402–414）把文本分成 token，再按语法产生 AST。它介绍 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="LL(1)" display="inline"><mrow><mi>L</mi><mi>L</mi><mrow><mo>(</mo><mn>1</mn><mo>)</mo></mrow></mrow></math> 约束、扫描规格、<code>arbno</code> 与 <code>separated-list</code>，附习题 B.1–B.5。完成第 2 章抽象语法后就可以并行阅读，帮助第 3 章解释器接收文本输入。参考文献在 pp.393–400，索引在 pp.401–410。</p>
+<p><strong>附录 A · For Further Reading</strong>（pp.373–378 / PDF 396–401）追溯归纳、语义、续文、类型与对象等思想的文献来源。遇到“这个方法从哪里来、还能怎样形式化”时回到这里；文献年代与历史判断按原书 2008 年语境理解。</p>
+<p><strong>附录 B · The SLLGEN Parsing System</strong>（pp.379–391 / PDF 402–414）把文本分成 token，再按语法产生 AST。它介绍 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="LL(1)" display="inline"><mrow><mi>L</mi><mi>L</mi><mrow><mo>(</mo><mn>1</mn><mo>)</mo></mrow></mrow></math> 约束、扫描规格、<code>arbno</code> 与 <code>separated-list</code>，附习题 B.1–B.5。完成第 2 章抽象语法后就可以并行阅读，帮助第 3 章解释器接收文本输入。参考文献在 pp.393–400，索引在 pp.401–410。</p>
 </div>
 </section>
 
@@ -244,7 +244,7 @@
 
 <section id="source">
 <h2>来源、页序与可阅读范围</h2>
-<p>本伴读依据 Daniel <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="P" display="inline"><mi>P</mi></math>. Friedman 与 Mitchell Wand 合著的第三版，MIT Press，2008，ISBN 978-0-262-06279-4。所用 PDF 共 433 页，身份摘要与文件大小见<a href="source_manifest.json">来源清单</a>。这是本地对照材料，页面上的印刷页和 PDF 页序可供回查。</p>
+<p>本伴读依据 Daniel P. Friedman 与 Mitchell Wand 合著的第三版，MIT Press，2008，ISBN 978-0-262-06279-4。所用 PDF 共 433 页，身份摘要与文件大小见<a href="source_manifest.json">来源清单</a>。这是本地对照材料，页面上的印刷页和 PDF 页序可供回查。</p>
 <div class="scroll"><table aria-label="原书印刷页与 PDF 页序">
 <thead><tr><th scope="col">范围</th><th scope="col">印刷页</th><th scope="col">PDF 页序（从 1 开始）</th></tr></thead>
 <tbody>
@@ -255,7 +255,7 @@
 <tr><th scope="row">正文、附录、文献与索引</th><td>1–410</td><td>24–433；此段 PDF 页序 = 印刷页 + 23</td></tr>
 </tbody></table></div>
 <p>当前独立伴读页为全书地图、导读与作者序言，完整题解为习题 0.1。本页九章和附录条目提供章意、页码与依赖；逐章伴读和其余题解尚未展开，可按<a href="#routes">阅读路线</a>选读原书。</p>
-<p>原书清单共 356 道编号习题，其中 350 道位于第 1—9 章，1 道位于序言，5 道位于附录 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="B" display="inline"><mi>B</mi></math>。编号定义、定理、Example 与 Figure 另在<a href="source_inventory.json">定位清单</a>中列出。正文中没有编号的程序例子仍按原节和原页追踪。</p>
+<p>原书清单共 356 道编号习题，其中 350 道位于第 1—9 章，1 道位于序言，5 道位于附录 B。编号定义、定理、Example 与 Figure 另在<a href="source_inventory.json">定位清单</a>中列出。正文中没有编号的程序例子仍按原节和原页追踪。</p>
 </section>
 <footer>
 <p>以第三版原书为主线；章节要点与阅读建议为伴读归纳。各章的印刷页与 PDF 页序可用于对照原书。</p>

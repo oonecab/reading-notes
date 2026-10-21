@@ -5206,8 +5206,8 @@
   ],
   "files": {
     "notes/chapter01_markov_chains.html": {
-      "bytes": 2296176,
-      "sha256": "c25e5feac97e8c08593424264efe0287aa396df4893e44aa260f1c7e078f2752"
+      "bytes": 2282894,
+      "sha256": "af56495eaa7e0b1de444e4a1273a60131d97d31e3deb6bc5fd08962923be76c4"
     },
     "notes/source_manifest.json": {
       "bytes": 36372,
@@ -5218,16 +5218,16 @@
       "sha256": "2232660e1909b42c6df8b5aca8eba12cdb383bf3741ecb53add49f6c26c6a0e7"
     },
     "tools/content_baseline.json": {
-      "bytes": 2905887,
-      "sha256": "4d3bdd4b29d24845cd428dbaa8bfb1f10abe04330cbdc5df8e96ad6aae739e08"
+      "bytes": 2840353,
+      "sha256": "916f3f30a2d83608beb35435375c1b3debe5fdf74e55880f3bdef35f732edfe7"
     },
     "../../test/test_stochastic_derivations.py": {
       "bytes": 22548,
       "sha256": "b6da985a6c5effa74d4a29357450a85e6f37da7a0d9a63a91076b080062acdee"
     },
     "notes/derivation_coverage.json": {
-      "bytes": 356352,
-      "sha256": "d7a397da93a3b4e82f02d7be0b74f63fa77339a04ad1a451856a995389c802e9"
+      "bytes": 356351,
+      "sha256": "2db7f807bf46239d926ceecad989f8778b4d2847860465c82202e062ef378b23"
     }
   },
   "publication": {
@@ -5340,5 +5340,11 @@
     "prior_record_git": "34c4fcc150aea4112fb9f4ffa1600e2e4253d524:books/stochastic/notes/chapter01_explanation_review.json",
     "prior_record_sha256": "08b42d8e81f04fae276d7116c05071863ae1a856bfcb5c01e5e80ff6275b80f9",
     "scope": "Current mathematical-presentation bindings: reviewed variable products, named functions, complete scripts and TeX conversion remnants. All source changes match the exact replacement ledger; preformatted program bytes, diagrams, links, scripts and anchors are preserved. Historical source/proof/execution claims retain their original scope; new presentation acceptance is recorded in docs/math-notation-review.json"
+  },
+  "I052_reader_contract_revision": {
+    "issue": "I052",
+    "prior_record_git": "a4d646e3f0c3a61d28ee38b10664f0fc8fc4c404:books/stochastic/notes/chapter01_explanation_review.json",
+    "prior_record_sha256": "a379d23ccd91618c46a70fc9d5338bd4598b1232af5ab190d6745fc1b5a63efa",
+    "scope": "Current reader-contract bindings: Chinese task completeness, section annotations, direct PDF references, disclosure indexes and shared reader behavior. Existing program text is preserved; explicitly sourced question inputs are added. SVG labels, geometry and topology are preserved except the two 7.18(h) source corrections, independently checked against all source actions; 35 reviewed diagrams add explicit shared CSS roles, and eight single-column diagrams receive compact viewports and sizing; two also have fitted node bounds and line layouts, retaining label text and topology, with exact changes recorded in docs/reader-diagram-review.json. Historical source/proof/execution claims retain their scope; current acceptance is recorded in docs/reader-contract-review.json"
   }
 }

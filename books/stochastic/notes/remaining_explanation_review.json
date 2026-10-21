@@ -17506,28 +17506,28 @@
   ],
   "files": {
     "notes/chapter03_renewal_processes.html": {
-      "bytes": 432328,
-      "sha256": "46c6e6d806b819c948fe070bbfe03d88e3b7c21201e6dc1e481efcc824c5809a"
+      "bytes": 431196,
+      "sha256": "0781d2155e4d4ad10e175d0543374127f876cc9e4435e051ba999b151c9aa53e"
     },
     "notes/appendix_a_probability_review.html": {
-      "bytes": 323047,
-      "sha256": "5ad81c1c7740bbfe52d2c4558107d120d88c84e0ee14841df2c12f38d970ea80"
+      "bytes": 324043,
+      "sha256": "4c9c6b85da94cd9175c1d2431e548d7c7c75ea486e3b61962e05f0f705d32c21"
     },
     "notes/chapter06_mathematical_finance.html": {
-      "bytes": 1340356,
-      "sha256": "bcf4b79b0c82cd642702a3a97fb4bdc6dc3cbbe9dd98d23854f9dfe349753c36"
+      "bytes": 1343622,
+      "sha256": "660db4514bd5170d0993c8aac77406b09c2ada74ef98e61d4777d8fe3201c4d1"
     },
     "notes/chapter02_poisson_processes.html": {
-      "bytes": 795842,
-      "sha256": "077cb79472c8ef3c156acfbc838395f148979732509d69d5e22e6e1442894dd4"
+      "bytes": 786943,
+      "sha256": "0bbb879f59d3159994dae0180920c0c6f44cb96f6ec898e4bdd7a582edbda755"
     },
     "notes/chapter04_continuous_time_markov_chains.html": {
-      "bytes": 1113330,
-      "sha256": "963da84f6ab6e2516c707b296df4378922cf0b5c6a62254bc5b87d28bdd7557d"
+      "bytes": 1108535,
+      "sha256": "7434e4b58134e90b8880844b53f23636a980263731543dbe7106396f236cfcb4"
     },
     "notes/chapter05_martingales.html": {
-      "bytes": 536723,
-      "sha256": "2fbe2a353db34d59ca21f30bf208f6cc831beb24206612a60fb80e6113fbdf75"
+      "bytes": 536445,
+      "sha256": "b50c459d9ac8a56202faad0f3f84c8581767521aa22244cf5dbc6ef1ce47a159"
     },
     "notes/source_manifest.json": {
       "bytes": 36372,
@@ -17538,12 +17538,12 @@
       "sha256": "2232660e1909b42c6df8b5aca8eba12cdb383bf3741ecb53add49f6c26c6a0e7"
     },
     "notes/derivation_coverage.json": {
-      "bytes": 356352,
-      "sha256": "d7a397da93a3b4e82f02d7be0b74f63fa77339a04ad1a451856a995389c802e9"
+      "bytes": 356351,
+      "sha256": "2db7f807bf46239d926ceecad989f8778b4d2847860465c82202e062ef378b23"
     },
     "tools/content_baseline.json": {
-      "bytes": 2905887,
-      "sha256": "4d3bdd4b29d24845cd428dbaa8bfb1f10abe04330cbdc5df8e96ad6aae739e08"
+      "bytes": 2840353,
+      "sha256": "916f3f30a2d83608beb35435375c1b3debe5fdf74e55880f3bdef35f732edfe7"
     },
     "tools/derivation_coverage.py": {
       "bytes": 15791,
@@ -17644,5 +17644,11 @@
     "prior_record_git": "34c4fcc150aea4112fb9f4ffa1600e2e4253d524:books/stochastic/notes/remaining_explanation_review.json",
     "prior_record_sha256": "b8c99fb8e0e3551210d8f7bab62142c8efbf19930a139082eecfe1aa21d1cad7",
     "scope": "Current mathematical-presentation bindings: reviewed variable products, named functions, complete scripts and TeX conversion remnants. All source changes match the exact replacement ledger; preformatted program bytes, diagrams, links, scripts and anchors are preserved. Historical source/proof/execution claims retain their original scope; new presentation acceptance is recorded in docs/math-notation-review.json"
+  },
+  "I052_reader_contract_revision": {
+    "issue": "I052",
+    "prior_record_git": "a4d646e3f0c3a61d28ee38b10664f0fc8fc4c404:books/stochastic/notes/remaining_explanation_review.json",
+    "prior_record_sha256": "ea89cd9ef33eb0fbabb813becf05827e1cc31820683ba3bd9651b9fdad7aca6f",
+    "scope": "Current reader-contract bindings: Chinese task completeness, section annotations, direct PDF references, disclosure indexes and shared reader behavior. Existing program text is preserved; explicitly sourced question inputs are added. SVG labels, geometry and topology are preserved except the two 7.18(h) source corrections, independently checked against all source actions; 35 reviewed diagrams add explicit shared CSS roles, and eight single-column diagrams receive compact viewports and sizing; two also have fitted node bounds and line layouts, retaining label text and topology, with exact changes recorded in docs/reader-diagram-review.json. Historical source/proof/execution claims retain their scope; current acceptance is recorded in docs/reader-contract-review.json"
   }
 }

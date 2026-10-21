@@ -376,6 +376,28 @@ main[id],main [id]{scroll-margin-top:24px}
   padding: .1rem .25rem;
   font-variant-numeric: tabular-nums;
 }
+.rn-components .exercise-index-panel {
+  margin: 1.2rem 0;
+  padding: .65rem .9rem;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: var(--paper, #fffefa);
+}
+.rn-components .exercise-index-panel > summary {
+  cursor: pointer;
+  color: var(--green);
+  font-weight: 600;
+}
+.rn-components .exercise-index { margin: .75rem 0 0; line-height: 1.8; }
+.rn-components .exercise-index a { margin: .15rem .5rem .15rem 0; }
+.rn-components .original-question {
+  margin: 1.2rem 0 0;
+  border-top: 1px solid var(--rule);
+  padding-top: .65rem;
+  color: var(--sub);
+}
+.rn-components .original-question > summary { cursor: pointer; color: var(--green); }
+.rn-components .question-translation { margin-top: .7rem; }
 /* Align the reading column independently of annotation enhancement. */
 @media (min-width: 1440px) {
   .rn-components .reading-layout {
@@ -463,7 +485,7 @@ body.rn-components :is(.scroll,.diagram):has(>svg.rn-diagram){background:transpa
 @media print{body.rn-components figure:has(svg.rn-diagram){border-color:#bbb;break-inside:avoid}}
 
 </style>
-</head><body class="rn-components"><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="章节目录"><details class="toc-panel" id="toc-panel" open><summary>目录</summary><nav class="chapter-toc" id="chapter-toc"><a class="toc-home" href="book_overview.html">伴读总览</a><ul><li><a href="#thread">全书主线</a></li><li><a href="#chapters">六章地图</a></li><li><a href="#dependencies">基础与依赖</a></li><li><a href="#scope">当前范围</a></li><li><a href="#index">概念索引</a></li><li><a href="#program-guide">程序入口</a></li><li><a href="#source">来源与页序</a></li><li><a href="#example-index">全六章例子索引</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">程士宏 · 测度论与概率论基础 · 中文伴读</p><h1>全六章伴读总览</h1><p>当前正文覆盖原书六章及全部 170 道习题，包含第五章无穷维乘积与第六章全部星号内容。下表可直接进入各章正文。</p><p class="intro">从“能描述什么”走到“能测量什么”，再建立概率的极限语言</p><p class="source">原书目录 PDF 11—12；正文六章印刷 1—216</p><p class="chapter-nav"><a href="book_overview.html">伴读总览</a><a href="preface.html">序言与前言 →</a></p></header><section id="thread"><h2>这本书在搭一座什么桥</h2>
+</head><body class="rn-components"><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="章节目录"><details class="toc-panel" id="toc-panel" open><summary>目录</summary><nav class="chapter-toc" id="chapter-toc"><a class="toc-home" href="book_overview.html">伴读总览</a><ul><li><a href="#thread">全书主线</a></li><li><a href="#chapters">六章地图</a></li><li><a href="#dependencies">基础与依赖</a></li><li><a href="#scope">当前范围</a></li><li><a href="#index">概念索引</a></li><li><a href="#program-guide">程序入口</a></li><li><a href="#source">来源与页序</a></li><li><a href="#example-index">全六章例子索引</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">程士宏 · 测度论与概率论基础 · 中文伴读</p><h1>全六章伴读总览</h1><p>当前正文覆盖原书六章及全部 170 道习题，包含第五章无穷维乘积与第六章全部星号内容。下表可直接进入各章正文。</p><p class="intro">从“能描述什么”走到“能测量什么”，再建立概率的极限语言</p><p class="source">原书目录 <a href="../assets/source.pdf#page=11">PDF 11—12</a>；正文六章印刷 1—216</p><p class="chapter-nav"><a href="book_overview.html">伴读总览</a><a href="preface.html">序言与前言 →</a></p></header><section id="thread"><h2>这本书在搭一座什么桥</h2>
 <p>初等概率里，我们常直接使用“事件的概率”“随机变量的期望”和“随机变量趋于某个极限”。一旦样本空间无限，三个问题就必须分开回答：哪些集合允许谈概率，哪些函数允许谈期望，哪一种“趋于”足以支持后续运算。本书用测度论把这些对象放进同一套严谨语言。</p>
 <p>先选空间 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>X</mi></mrow></math></span> 和允许讨论的集合系 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi mathvariant="script">F</mi></mrow></math></span>，得到可测空间；再给集合赋予大小 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>&#x003BC;</mi></mrow></math></span>，得到测度空间；再用简单函数把集合上的大小推广成函数的积分。概率空间是 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>P</mi><mo stretchy="false">&#x00028;</mo><mi>X</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><mn>1</mn></mrow></math></span> 的测度空间，数学期望是这种空间上的积分。后半本书继续处理带正负号的测度、多坐标空间及独立随机变量序列。</p>
 <p>前两章是这条路线的地基。第一章解决“能不能描述”，第二章解决“怎样测量、怎样理解极限”。第二章末的分布函数、分位数与 Skorokhod 表示已经把抽象工具接回概率论，因此阅读时不宜把它们拆成互不相干的定义表。</p>
@@ -491,12 +513,12 @@ body.rn-components :is(.scroll,.diagram):has(>svg.rn-diagram){background:transpa
 python3 finite_spaces.py outer 3 3:1 6:1 7:2
 python3 simple_approx.py 13 10 2
 python3 finite_integrals.py 1,2,0,1 -2,1,9,4 0,0,1,1 2,-1,3,0</code></pre><p>这些例子核对有限输入。集合生成、测度扩张与收敛定理的无限结论仍由正文证明，不能从几次运行中推出。</p>
-<p>新增：<a href="chapter03_integration.html#integration-model">有限加权积分与完整源码</a> → <a href="chapter04_signed_measures.html#finite-conditional">分解、密度与条件均值</a>。</p><p><a href="chapter05_product_spaces.html#product-model">转移核与联合分布完整程序</a> → <a href="chapter06_independent_sequences.html#limit-model">二项卷积与标准化特征函数</a>。</p></section>
+<p><a href="chapter03_integration.html#integration-model">有限加权积分与完整源码</a> → <a href="chapter04_signed_measures.html#finite-conditional">分解、密度与条件均值</a>。</p><p><a href="chapter05_product_spaces.html#product-model">转移核与联合分布完整程序</a> → <a href="chapter06_independent_sequences.html#limit-model">二项卷积与标准化特征函数</a>。</p></section>
 <section id="source"><h2 id="rn-table-label-2">原书身份、页序与读法</h2>
 <p>程士宏编著，北京大学出版社，2004 年 2 月第 1 版、第 1 次印刷，ISBN 7-301-06345-8。原 PDF 共 256 页，为扫描图像，缺少可用文本层。正文印刷 1—244 页对应 PDF 13—256 页，即正文页序加 12；封面、版权、序言、前言和目录单独定位。</p>
 <div class="scroll"><table class="" aria-labelledby="rn-table-label-2"><thead><tr><th scope="col">材料</th><th scope="col">印刷页 / PDF 页序</th></tr></thead><tbody><tr><td>丛书序言</td><td><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="I" display="inline"><mi>I</mi></math>—II / 6—7</td></tr><tr><td>作者前言</td><td>III—IV / 8—9</td></tr><tr><td>完整目录</td><td><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="V" display="inline"><mi>V</mi></math>—VI / 11—12</td></tr><tr><td>第一章与习题</td><td>1—<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="22 / 13" display="inline"><mrow><mn>22</mn><mo>/</mo><mn>13</mn></mrow></math>—34</td></tr><tr><td>第二章与习题</td><td>23—<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="59 / 35" display="inline"><mrow><mn>59</mn><mo>/</mo><mn>35</mn></mrow></math>—71</td></tr><tr><td>第三章与习题</td><td>60—<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="93 / 72" display="inline"><mrow><mn>93</mn><mo>/</mo><mn>72</mn></mrow></math>—105</td></tr><tr><td>第四章与习题</td><td>94—<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="128 / 106" display="inline"><mrow><mn>128</mn><mo>/</mo><mn>106</mn></mrow></math>—140</td></tr><tr><td>第五章与习题</td><td>129—<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="166 / 141" display="inline"><mrow><mn>166</mn><mo>/</mo><mn>141</mn></mrow></math>—178</td></tr><tr><td>第六章与习题</td><td>167—<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="216 / 179" display="inline"><mrow><mn>216</mn><mo>/</mo><mn>179</mn></mrow></math>—228</td></tr><tr><td>对应附录提示</td><td>217—<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="239 / 229" display="inline"><mrow><mn>239</mn><mo>/</mo><mn>229</mn></mrow></math>—251</td></tr></tbody></table></div><p>原书在本地对照；本阅读包提供原创解释、必要陈述与题目材料。数学符号以扫描原页为依据，OCR 只用于定位。目录和前置页保留原有定位；正文六章及相应附录提示已按批次核对。第五、六章的扫描 PDF 141—228 与提示 PDF 242—251 经逐页目视，校注同时保留原式、可用结论与推导依据。</p>
 <p><a href="source_manifest.json">来源身份与目录清单</a>　·　<a href="source_inventory.json">当前编号覆盖清单</a>　·　<a href="source_issues.json">原书校注定位</a></p>
-<p>第五、六章校注：<a href="chapter05_product_spaces.html#correction-iterated-existence"><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="MP-013" display="inline"><mrow><mi>M</mi><mi>P</mi><mo>−</mo><mn>013</mn></mrow></math></a>；<a href="chapter05_product_spaces.html#correction-iid-conditional-mean"><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="MP-014" display="inline"><mrow><mi>M</mi><mi>P</mi><mo>−</mo><mn>014</mn></mrow></math></a>；<a href="chapter06_independent_sequences.html#correction-cf-continuity"><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="MP-015" display="inline"><mrow><mi>M</mi><mi>P</mi><mo>−</mo><mn>015</mn></mrow></math></a>；<a href="chapter06_independent_sequences.html#correction-truncated-cf-frequency"><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="MP-016" display="inline"><mrow><mi>M</mi><mi>P</mi><mo>−</mo><mn>016</mn></mrow></math></a>；<a href="chapter06_independent_sequences.html#correction-positive-log-limit"><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="MP-017" display="inline"><mrow><mi>M</mi><mi>P</mi><mo>−</mo><mn>017</mn></mrow></math></a>；<a href="chapter06_independent_sequences.html#correction-chebyshev-scale"><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="MP-018" display="inline"><mrow><mi>M</mi><mi>P</mi><mo>−</mo><mn>018</mn></mrow></math></a>；<a href="chapter06_independent_sequences.html#correction-khinchine-mean"><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="MP-019" display="inline"><mrow><mi>M</mi><mi>P</mi><mo>−</mo><mn>019</mn></mrow></math></a>；<a href="chapter06_independent_sequences.html#correction-empirical-scale"><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="MP-020" display="inline"><mrow><mi>M</mi><mi>P</mi><mo>−</mo><mn>020</mn></mrow></math></a>。各链接直接显示原式、修正与依据。</p></section>
+<p>第五、六章校注：<a href="chapter05_product_spaces.html#correction-iterated-existence">MP-013</a>；<a href="chapter05_product_spaces.html#correction-iid-conditional-mean">MP-014</a>；<a href="chapter06_independent_sequences.html#correction-cf-continuity">MP-015</a>；<a href="chapter06_independent_sequences.html#correction-truncated-cf-frequency">MP-016</a>；<a href="chapter06_independent_sequences.html#correction-positive-log-limit">MP-017</a>；<a href="chapter06_independent_sequences.html#correction-chebyshev-scale">MP-018</a>；<a href="chapter06_independent_sequences.html#correction-khinchine-mean">MP-019</a>；<a href="chapter06_independent_sequences.html#correction-empirical-scale">MP-020</a>。各链接直接显示原式、修正与依据。</p></section>
 <section id="example-index"><h2 id="rn-table-label-3">全六章例子索引</h2><p>原书 33 个节内编号例子中，19 个归为完整例题，14 个为定义性短说明。分类描述阅读用途；常数函数、计数测度等直接检验定义的例子保留简短说明。第三章另有原书未编号的积分实例和伴读有限加权计算例，它们在正文中分别标明类型，不计入下列编号例子索引。</p><div class="scroll"><table aria-labelledby="rn-table-label-3"><thead><tr><th scope="col">原书例子</th><th scope="col">类型</th></tr></thead><tbody><tr><td><a href="chapter01_measurable_spaces.html#example-1-2-1">第 1 章 §2 例 1 · 半直线构成 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="π" display="inline"><mi>π</mi></math> 系</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter01_measurable_spaces.html#example-1-2-2">第 1 章 §2 例 2 · 半开区间怎样切开</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter01_measurable_spaces.html#example-1-2-3">第 1 章 §2 例 3 · 有限空间的单点</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter01_measurable_spaces.html#example-1-2-4">第 1 章 §2 例 4 · 有限个半开区间的并形成环</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter01_measurable_spaces.html#example-1-2-5">第 1 章 §2 例 5 · 有限空间的所有子集</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter01_measurable_spaces.html#example-1-4-1">第 1 章 §4 例 1 · 所有子集都可测</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter01_measurable_spaces.html#example-1-4-2">第 1 章 §4 例 2 · 常数函数</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter01_measurable_spaces.html#example-1-4-3">第 1 章 §4 例 3 · 指示函数</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter01_measurable_spaces.html#example-1-4-4">第 1 章 §4 例 4 · 不交两块上的常数</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter02_measure_spaces.html#example-2-1-1">第 2 章 §1 例 1 · 计数测度</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter02_measure_spaces.html#example-2-1-2">第 2 章 §1 例 2 · 点测度</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter02_measure_spaces.html#example-2-1-3">第 2 章 §1 例 3 · 有限可加却不是测度</a></td><td>完整例题</td></tr><tr><td><a href="chapter02_measure_spaces.html#example-2-1-4">第 2 章 §1 例 4 · 区间长度</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter02_measure_spaces.html#example-2-1-5">第 2 章 §1 例 5 · 可列点的权重</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter02_measure_spaces.html#example-2-1-6">第 2 章 §1 例 6 · 古典概型</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter02_measure_spaces.html#example-2-3-1">第 2 章 §3 例 1 · 有原始测度仍可能缩小集合系</a></td><td>完整例题</td></tr><tr><td><a href="chapter02_measure_spaces.html#example-2-3-2">第 2 章 §3 例 2 · 缺少有限覆盖时的非唯一性</a></td><td>完整例题</td></tr><tr><td><a href="chapter02_measure_spaces.html#example-2-5-1">第 2 章 §5 例 1 · 坏区域逃向无穷远</a></td><td>完整例题</td></tr><tr><td><a href="chapter02_measure_spaces.html#example-2-5-2">第 2 章 §5 例 2 · 越来越窄，却反复扫过每一点</a></td><td>完整例题</td></tr><tr><td><a href="chapter04_signed_measures.html#example-4-3-1">第 4 章 §3 例 1 · 去掉底测度 sigma 有限性会失败</a></td><td>完整例题</td></tr><tr><td><a href="chapter04_signed_measures.html#example-4-5-1">第 4 章 §5 例 1 · 只知道事件 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="B" display="inline"><mi>B</mi></math> 是否发生</a></td><td>完整例题</td></tr><tr><td><a href="chapter05_product_spaces.html#example-5-1-1">第 5 章 §1 例 1 · 计数测度失去 sigma 有限性</a></td><td>完整例题</td></tr><tr><td><a href="chapter05_product_spaces.html#example-5-1-2">第 5 章 §1 例 2 · 两个有限累次积分仍可能不相等</a></td><td>完整例题</td></tr><tr><td><a href="chapter06_independent_sequences.html#example-6-1-1">第 6 章 §1 例 1 · 收敛事件为什么属于尾域</a></td><td>完整例题</td></tr><tr><td><a href="chapter06_independent_sequences.html#example-6-1-2">第 6 章 §1 例 2 · 上下极限是尾随机变量</a></td><td>完整例题</td></tr><tr><td><a href="chapter06_independent_sequences.html#example-6-2-1">第 6 章 §2 例 1 · 二进制数字的频率</a></td><td>完整例题</td></tr><tr><td><a href="chapter06_independent_sequences.html#example-6-2-2">第 6 章 §2 例 2 · 有偏数字序列的典型集合</a></td><td>完整例题</td></tr><tr><td><a href="chapter06_independent_sequences.html#example-6-2-3">第 6 章 §2 例 3 · 连续而奇异的分布</a></td><td>完整例题</td></tr><tr><td><a href="chapter06_independent_sequences.html#example-6-3-1">第 6 章 §3 例 1 · 退化分布的相位</a></td><td>完整例题</td></tr><tr><td><a href="chapter06_independent_sequences.html#example-6-3-2">第 6 章 §3 例 2 · 标准正态的特征函数</a></td><td>完整例题</td></tr><tr><td><a href="chapter06_independent_sequences.html#example-6-3-3">第 6 章 §3 例 3 · Cauchy 特征函数及无一阶矩边界</a></td><td>完整例题</td></tr><tr><td><a href="chapter06_independent_sequences.html#example-6-5-1">第 6 章 §5 例 1 · Cauchy 平均的分布保持不变</a></td><td>完整例题</td></tr><tr><td><a href="chapter06_independent_sequences.html#example-6-5-2">第 6 章 §5 例 2 · 无限方差却仍能有正态极限</a></td><td>完整例题</td></tr></tbody></table></div></section><footer><p>依照 2004 年第 1 版展开。原书陈述、伴读解释与校注分别标明；每节和每题保留印刷页及 PDF 页序。</p><p class="chapter-nav"><a href="book_overview.html">伴读总览</a><a href="preface.html">序言与前言 →</a></p><p><a href="#top">回到页首 ↑</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top">本节理解与补充</a></p><div id="annotation-content"></div></aside></div><script>
 (() => {
   document.documentElement.classList.add('toc-enhanced');
@@ -520,7 +542,7 @@ python3 finite_integrals.py 1,2,0,1 -2,1,9,4 0,0,1,1 2,-1,3,0</code></pre><p>这
     scheduled = false;
     let next = entries[0];
     for (const entry of entries) {
-      if (entry.section.getBoundingClientRect().top <= (wide.matches ? 100 : 110)) next = entry;
+      if (entry.section.getBoundingClientRect().top <= Math.max(110, wide.matches ? 100 : 110, wide.matches ? 0 : panel.querySelector('summary').getBoundingClientRect().bottom + 12) + 1) next = entry;
     }
     if (window.scrollY + innerHeight >= document.documentElement.scrollHeight - 2) next = entries[entries.length - 1];
     if (next && next.link !== current) {
@@ -548,21 +570,35 @@ python3 finite_integrals.py 1,2,0,1 -2,1,9,4 0,0,1,1 2,-1,3,0</code></pre><p>这
   })).filter(item => item.section);
   if (!rail || !content || !context || !groups.length) return;
   const wide = matchMedia('(min-width:1440px)');
+  const sections = Array.from(document.querySelectorAll('main > section[id]'));
   let current = null, scheduled = false;
   const update = () => {
     scheduled = false;
     if (!wide.matches) return;
-    let next = groups[0];
-    for (const item of groups) {
-      if (item.section.getBoundingClientRect().top <= 110) next = item;
+    let active = sections[0];
+    for (const section of sections) {
+      if (section.getBoundingClientRect().top <= 111) active = section;
     }
-    if (scrollY + innerHeight >= document.documentElement.scrollHeight - 2) next = groups[groups.length - 1];
+    // A short final section cannot always reach the usual reading-position line.
+    if (scrollY > 0 && scrollY + innerHeight >= document.documentElement.scrollHeight - 1) {
+      active = sections.findLast(section => section.getBoundingClientRect().top < innerHeight - 100) ?? active;
+    }
+    const next = groups.find(item => item.section === active);
+    rail.hidden = !next;
+    if (!next) {
+      content.replaceChildren();
+      delete rail.dataset.activeSection;
+      current = null;
+      return;
+    }
     if (current === next) return;
     const body = next.notes.querySelector('.reading-notes-body');
     const heading = next.section.querySelector('h2');
     if (!body || !heading) return;
     content.replaceChildren(...Array.from(body.children, node => node.cloneNode(true)));
-    context.textContent = heading.textContent;
+    const label = heading.cloneNode(true);
+    label.querySelectorAll('.english-title,math annotation').forEach(node => node.remove());
+    context.textContent = label.textContent;
     context.href = '#' + next.section.id;
     rail.dataset.activeSection = next.section.id;
     rail.scrollTop = 0;

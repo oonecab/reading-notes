@@ -68,6 +68,7 @@ def check(book_id: str, quick: bool, benchmarks: bool) -> int:
             command.append("--quick")
         commands.append(command)
     if "visual-group-theory" in selected:
+        commands.append([sys.executable, ROOT / "test/test_vgt_source_diagram.py"])
         command = [sys.executable, selected["visual-group-theory"]["root"] / "tools/check_notes.py",
                    "--run-dir", run / "visual-group-theory"]
         if quick:
@@ -86,6 +87,7 @@ def check(book_id: str, quick: bool, benchmarks: bool) -> int:
             command.append("--quick")
         commands.append(command)
     commands.append(["node", ROOT / "tools/reading-components/check.mjs"])
+    commands.append(["node", ROOT / "tools/reader-contract/check.mjs"])
     commands.append(["node", ROOT / "tools/reading-typography/check.mjs"])
     commands.append(["node", ROOT / "tools/reading-presentation/check.mjs"])
     commands.append([sys.executable, ROOT / "tools/check_astro_records.py"])

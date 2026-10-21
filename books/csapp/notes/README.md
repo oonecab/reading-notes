@@ -71,3 +71,5 @@ Part I 开篇在印刷 65 / PDF 66，包含第 2—6 章。第 1 章为进入这
 正文维护入口为 `src/content/books/csapp/`，本目录十四份 HTML 为独立检查使用的展开镜像。样式和脚本由 Astro 构建内联，详见 [Astro 维护说明](../../../docs/astro-authoring.md)。历史程序与数学审阅保持原范围，12.39 代理实验的待验收状态不由静态迁移覆盖。
 
 2026-10-20 起，四类教学组件统一遵循 [RN-001 v1.1](../../../docs/reading-notes-standard.md)；共享维护源为 `src/styles/reading-components.css`。陈述保持可见，证明默认展开并可折叠，习题默认收起，题干、解答与来源共用排版。具体覆盖与本轮内容修正见 [I040](../../../issues/I040-unified-reading-components.md)，原数学审阅和历史执行证据保留。
+
+本书的当前阅读契约以 RN-001 v1.10 为准：完整中文题干和来源、逐节注解、共同版心、代码等宽与原生折叠、命名明确的索引、直达登记 PDF 的原文入口。逐页义务在根目录 `docs/reader-contract.json`，原书发布身份在 `docs/reader-sources.json`；历史批次记录保留当时的范围，当前复查执行 `python3 tools/project.py check` 及完整浏览器矩阵。

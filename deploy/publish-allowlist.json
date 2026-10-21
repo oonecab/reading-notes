@@ -3,8 +3,12 @@
   "source_baseline": "b2aeff3",
   "description": "既有 URL 的显式发布清单；审阅与校验数据的旧入口仅输出公开摘要。",
   "authorized_pdfs": {
-    "stochastic/assets/essentials-of-stochastic-processes.pdf": "books/stochastic/notes/source_manifest.json:web_pdf",
-    "csapp/csapp.pdf": "books/csapp/notes/source_manifest.json:publication.include_source_pdf"
+    "stochastic/assets/essentials-of-stochastic-processes.pdf": "books/stochastic/notes/source_manifest.json",
+    "csapp/csapp.pdf": "books/csapp/notes/source_manifest.json",
+    "weiss/assets/source.pdf": "books/weiss/source_manifest.json",
+    "visual-group-theory/assets/source.pdf": "books/visual-group-theory/notes/source_manifest.json",
+    "measure-probability/assets/source.pdf": "books/measure-probability/notes/source_manifest.json",
+    "eopl/assets/source.pdf": "books/eopl/notes/source_manifest.json"
   },
   "files": [
     {
@@ -648,7 +652,23 @@
       "mode": "public-summary"
     },
     {
+      "path": "eopl/assets/source.pdf",
+      "mode": "copy"
+    },
+    {
       "path": "eopl/code/README.md",
+      "mode": "copy"
+    },
+    {
+      "path": "eopl/code/benchmark_bigits.rkt",
+      "mode": "copy"
+    },
+    {
+      "path": "eopl/code/chapter01.rkt",
+      "mode": "copy"
+    },
+    {
+      "path": "eopl/code/chapter02.rkt",
       "mode": "copy"
     },
     {
@@ -660,11 +680,23 @@
       "mode": "copy"
     },
     {
+      "path": "eopl/code/test_chapters.rkt",
+      "mode": "copy"
+    },
+    {
       "path": "eopl/index.html",
       "mode": "copy"
     },
     {
       "path": "eopl/notes/book_overview.html",
+      "mode": "copy"
+    },
+    {
+      "path": "eopl/notes/chapter01_inductive_data.html",
+      "mode": "copy"
+    },
+    {
+      "path": "eopl/notes/chapter02_data_abstraction.html",
       "mode": "copy"
     },
     {
@@ -689,6 +721,10 @@
     },
     {
       "path": "index.html",
+      "mode": "copy"
+    },
+    {
+      "path": "measure-probability/assets/source.pdf",
       "mode": "copy"
     },
     {
@@ -1028,6 +1064,10 @@
       "mode": "copy"
     },
     {
+      "path": "visual-group-theory/assets/source.pdf",
+      "mode": "copy"
+    },
+    {
       "path": "visual-group-theory/code/README.md",
       "mode": "copy"
     },
@@ -1200,6 +1240,10 @@
       "mode": "public-summary"
     },
     {
+      "path": "weiss/assets/source.pdf",
+      "mode": "copy"
+    },
+    {
       "path": "weiss/c/ch8.c",
       "mode": "copy"
     },
@@ -1270,35 +1314,15 @@
     {
       "path": "weiss/notes/tools/check_notes.py",
       "mode": "copy"
-    },
-    {
-      "path": "eopl/notes/chapter01_inductive_data.html",
-      "mode": "copy"
-    },
-    {
-      "path": "eopl/notes/chapter02_data_abstraction.html",
-      "mode": "copy"
-    },
-    {
-      "path": "eopl/code/chapter01.rkt",
-      "mode": "copy"
-    },
-    {
-      "path": "eopl/code/chapter02.rkt",
-      "mode": "copy"
-    },
-    {
-      "path": "eopl/code/test_chapters.rkt",
-      "mode": "copy"
-    },
-    {
-      "path": "eopl/code/benchmark_bigits.rkt",
-      "mode": "copy"
     }
   ],
   "authorized_pdf_sha256": {
     "stochastic/assets/essentials-of-stochastic-processes.pdf": "2232660e1909b42c6df8b5aca8eba12cdb383bf3741ecb53add49f6c26c6a0e7",
-    "csapp/csapp.pdf": "dcd44c5dd0819af7dbef3ebef088a5012aadb5c82761e4b6603b4fb5d0ff504a"
+    "csapp/csapp.pdf": "dcd44c5dd0819af7dbef3ebef088a5012aadb5c82761e4b6603b4fb5d0ff504a",
+    "weiss/assets/source.pdf": "03e4b6bf05e0fb7f02bd62bb4d918860d6a906342bdcba01b48363492f5eb846",
+    "visual-group-theory/assets/source.pdf": "f82d041ad301baa07b1ec17f495805e17c49852a772c770a28afeb29de7ecf2a",
+    "measure-probability/assets/source.pdf": "93fe7f0ca35155c2f58a5bca90ef6497da96ef1f0fc17660430114e9ccbe24f0",
+    "eopl/assets/source.pdf": "b9e8770a4dc97206bd02230e6b21a878382eb02a340ff69321857d701e7d967c"
   },
   "precompression": {
     "format": "gzip",

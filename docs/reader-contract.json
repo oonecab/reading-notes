@@ -1,0 +1,5811 @@
+{
+  "schema_version": 1,
+  "standard": "RN-001",
+  "baseline": "a4d646e3f0c3a61d28ee38b10664f0fc8fc4c404",
+  "pages": [
+    {
+      "page": "measure-probability/notes/book_overview.html",
+      "source": "src/content/books/measure-probability/book_overview.html",
+      "sections": [
+        {
+          "id": "thread",
+          "title": "这本书在搭一座什么桥",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "chapters",
+          "title": "六章怎样递进",
+          "annotation": "optional",
+          "role": "navigation-or-source",
+          "reason": "全书入口、书目来源或索引，直接提供导航信息。"
+        },
+        {
+          "id": "dependencies",
+          "title": "带着哪些基础开始",
+          "annotation": "optional",
+          "role": "navigation-or-source",
+          "reason": "全书入口、书目来源或索引，直接提供导航信息。"
+        },
+        {
+          "id": "scope",
+          "title": "全六章阅读入口",
+          "annotation": "optional",
+          "role": "navigation-or-source",
+          "reason": "全书入口、书目来源或索引，直接提供导航信息。"
+        },
+        {
+          "id": "index",
+          "title": "概念与定理索引",
+          "annotation": "optional",
+          "role": "navigation-or-source",
+          "reason": "全书入口、书目来源或索引，直接提供导航信息。"
+        },
+        {
+          "id": "program-guide",
+          "title": "用小模型看清抽象结构",
+          "annotation": "optional",
+          "role": "navigation-or-source",
+          "reason": "全书入口、书目来源或索引，直接提供导航信息。"
+        },
+        {
+          "id": "source",
+          "title": "原书身份、页序与读法",
+          "annotation": "optional",
+          "role": "navigation-or-source",
+          "reason": "全书入口、书目来源或索引，直接提供导航信息。"
+        },
+        {
+          "id": "example-index",
+          "title": "全六章例子索引",
+          "annotation": "optional",
+          "role": "navigation-or-source",
+          "reason": "全书入口、书目来源或索引，直接提供导航信息。"
+        }
+      ],
+      "questions": [],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "measure-probability/notes/chapter01_measurable_spaces.html",
+      "source": "src/content/books/measure-probability/chapter01_measurable_spaces.html",
+      "sections": [
+        {
+          "id": "s1-1",
+          "title": "§1 集合及其运算",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s1-2",
+          "title": "§2 集合系",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s1-3",
+          "title": "§3σ 域的生成",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s1-4",
+          "title": "§4 可测映射和可测函数",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s1-5",
+          "title": "§5 可测函数的运算",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "exercises",
+          "title": "习题 1 · 全部 25 题",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        },
+        {
+          "id": "statements",
+          "title": "本章编号陈述索引",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "运行步骤、代码或章节衔接；相应概念的注解绑定正文小节。"
+        }
+      ],
+      "questions": [
+        "ex-1-1",
+        "ex-1-2",
+        "ex-1-3",
+        "ex-1-4",
+        "ex-1-5",
+        "ex-1-6",
+        "ex-1-7",
+        "ex-1-8",
+        "ex-1-9",
+        "ex-1-10",
+        "ex-1-11",
+        "ex-1-12",
+        "ex-1-13",
+        "ex-1-14",
+        "ex-1-15",
+        "ex-1-16",
+        "ex-1-17",
+        "ex-1-18",
+        "ex-1-19",
+        "ex-1-20",
+        "ex-1-21",
+        "ex-1-22",
+        "ex-1-23",
+        "ex-1-24",
+        "ex-1-25"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "measure-probability/notes/chapter02_measure_spaces.html",
+      "source": "src/content/books/measure-probability/chapter02_measure_spaces.html",
+      "sections": [
+        {
+          "id": "s2-1",
+          "title": "§1 测度的定义及性质",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s2-2",
+          "title": "§2 外测度",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s2-3",
+          "title": "§3 测度的扩张",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s2-4",
+          "title": "§4 测度空间的完全化",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s2-5",
+          "title": "§5 可测函数的收敛性",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "exercises",
+          "title": "习题 2 · 全部 32 题",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        },
+        {
+          "id": "statements",
+          "title": "本章编号陈述索引",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "运行步骤、代码或章节衔接；相应概念的注解绑定正文小节。"
+        }
+      ],
+      "questions": [
+        "ex-2-1",
+        "ex-2-2",
+        "ex-2-3",
+        "ex-2-4",
+        "ex-2-5",
+        "ex-2-6",
+        "ex-2-7",
+        "ex-2-8",
+        "ex-2-9",
+        "ex-2-10",
+        "ex-2-11",
+        "ex-2-12",
+        "ex-2-13",
+        "ex-2-14",
+        "ex-2-15",
+        "ex-2-16",
+        "ex-2-17",
+        "ex-2-18",
+        "ex-2-19",
+        "ex-2-20",
+        "ex-2-21",
+        "ex-2-22",
+        "ex-2-23",
+        "ex-2-24",
+        "ex-2-25",
+        "ex-2-26",
+        "ex-2-27",
+        "ex-2-28",
+        "ex-2-29",
+        "ex-2-30",
+        "ex-2-31",
+        "ex-2-32"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "measure-probability/notes/chapter03_integration.html",
+      "source": "src/content/books/measure-probability/chapter03_integration.html",
+      "sections": [
+        {
+          "id": "thread",
+          "title": "本章主线：给积分一个能承受极限的定义",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "运行步骤、代码或章节衔接；相应概念的注解绑定正文小节。"
+        },
+        {
+          "id": "s3-1",
+          "title": "§1 积分的定义",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s3-2",
+          "title": "§2 积分的性质",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s3-3",
+          "title": "§3 空间 Lp：大小、收敛与完备性",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s3-4",
+          "title": "§4 概率空间的积分",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "integration-model",
+          "title": "计算例：同一个有限空间里的积分",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "运行步骤、代码或章节衔接；相应概念的注解绑定正文小节。"
+        },
+        {
+          "id": "exercises",
+          "title": "习题 3：全部 30 题",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        },
+        {
+          "id": "review",
+          "title": "回读与衔接",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "运行步骤、代码或章节衔接；相应概念的注解绑定正文小节。"
+        }
+      ],
+      "questions": [
+        "ex-3-1",
+        "ex-3-2",
+        "ex-3-3",
+        "ex-3-4",
+        "ex-3-5",
+        "ex-3-6",
+        "ex-3-7",
+        "ex-3-8",
+        "ex-3-9",
+        "ex-3-10",
+        "ex-3-11",
+        "ex-3-12",
+        "ex-3-13",
+        "ex-3-14",
+        "ex-3-15",
+        "ex-3-16",
+        "ex-3-17",
+        "ex-3-18",
+        "ex-3-19",
+        "ex-3-20",
+        "ex-3-21",
+        "ex-3-22",
+        "ex-3-23",
+        "ex-3-24",
+        "ex-3-25",
+        "ex-3-26",
+        "ex-3-27",
+        "ex-3-28",
+        "ex-3-29",
+        "ex-3-30"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "measure-probability/notes/chapter04_signed_measures.html",
+      "source": "src/content/books/measure-probability/chapter04_signed_measures.html",
+      "sections": [
+        {
+          "id": "thread",
+          "title": "本章主线：从带符号的质量到条件期望",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "运行步骤、代码或章节衔接；相应概念的注解绑定正文小节。"
+        },
+        {
+          "id": "s4-1",
+          "title": "§1 符号测度",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s4-2",
+          "title": "§2 Hahn 分解和 Jordan 分解",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s4-3",
+          "title": "§3 Radon–Nikodym 定理",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s4-4",
+          "title": "§4 Lebesgue 分解",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s4-5",
+          "title": "*§5 条件期望和条件概率",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "finite-conditional",
+          "title": "计算例：分解、密度与条件均值",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "运行步骤、代码或章节衔接；相应概念的注解绑定正文小节。"
+        },
+        {
+          "id": "exercises",
+          "title": "习题 4：全部 28 题",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        },
+        {
+          "id": "review",
+          "title": "回读与衔接",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "运行步骤、代码或章节衔接；相应概念的注解绑定正文小节。"
+        }
+      ],
+      "questions": [
+        "ex-4-1",
+        "ex-4-2",
+        "ex-4-3",
+        "ex-4-4",
+        "ex-4-5",
+        "ex-4-6",
+        "ex-4-7",
+        "ex-4-8",
+        "ex-4-9",
+        "ex-4-10",
+        "ex-4-11",
+        "ex-4-12",
+        "ex-4-13",
+        "ex-4-14",
+        "ex-4-15",
+        "ex-4-16",
+        "ex-4-17",
+        "ex-4-18",
+        "ex-4-19",
+        "ex-4-20",
+        "ex-4-21",
+        "ex-4-22",
+        "ex-4-23",
+        "ex-4-24",
+        "ex-4-25",
+        "ex-4-26",
+        "ex-4-27",
+        "ex-4-28"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "measure-probability/notes/chapter05_product_spaces.html",
+      "source": "src/content/books/measure-probability/chapter05_product_spaces.html",
+      "sections": [
+        {
+          "id": "thread",
+          "title": "本章主线：先构造联合空间，再读出独立性",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "运行步骤、代码或章节衔接；相应概念的注解绑定正文小节。"
+        },
+        {
+          "id": "s5-1",
+          "title": "§1 有限维乘积空间",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s5-2",
+          "title": "§2 多维 Lebesgue–Stieltjes 测度",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s5-3",
+          "title": "*§3 可列维乘积空间的概率测度",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s5-4",
+          "title": "*§4 任意无穷维乘积空间的概率测度",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "product-model",
+          "title": "计算例：转移核、联合表与累次期望",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "运行步骤、代码或章节衔接；相应概念的注解绑定正文小节。"
+        },
+        {
+          "id": "exercises",
+          "title": "习题 5 · 28 题",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        },
+        {
+          "id": "review",
+          "title": "回读与第六章衔接",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "运行步骤、代码或章节衔接；相应概念的注解绑定正文小节。"
+        }
+      ],
+      "questions": [
+        "ex-5-1",
+        "ex-5-2",
+        "ex-5-3",
+        "ex-5-4",
+        "ex-5-5",
+        "ex-5-6",
+        "ex-5-7",
+        "ex-5-8",
+        "ex-5-9",
+        "ex-5-10",
+        "ex-5-11",
+        "ex-5-12",
+        "ex-5-13",
+        "ex-5-14",
+        "ex-5-15",
+        "ex-5-16",
+        "ex-5-17",
+        "ex-5-18",
+        "ex-5-19",
+        "ex-5-20",
+        "ex-5-21",
+        "ex-5-22",
+        "ex-5-23",
+        "ex-5-24",
+        "ex-5-25",
+        "ex-5-26",
+        "ex-5-27",
+        "ex-5-28"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "measure-probability/notes/chapter06_independent_sequences.html",
+      "source": "src/content/books/measure-probability/chapter06_independent_sequences.html",
+      "sections": [
+        {
+          "id": "thread",
+          "title": "本章主线：尾部、截断与归一化",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "运行步骤、代码或章节衔接；相应概念的注解绑定正文小节。"
+        },
+        {
+          "id": "s6-1",
+          "title": "§1 零壹律和三级数定理",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s6-2",
+          "title": "§2 强大数律",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s6-3",
+          "title": "§3 特征函数",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s6-4",
+          "title": "§4 弱大数律",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s6-5",
+          "title": "§5 中心极限定理",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "limit-model",
+          "title": "计算例：从独立路径到标准化特征函数",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "运行步骤、代码或章节衔接；相应概念的注解绑定正文小节。"
+        },
+        {
+          "id": "exercises",
+          "title": "习题 6 · 27 题",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        },
+        {
+          "id": "review",
+          "title": "回读：三种极限的条件各在哪里",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "运行步骤、代码或章节衔接；相应概念的注解绑定正文小节。"
+        }
+      ],
+      "questions": [
+        "ex-6-1",
+        "ex-6-2",
+        "ex-6-3",
+        "ex-6-4",
+        "ex-6-5",
+        "ex-6-6",
+        "ex-6-7",
+        "ex-6-8",
+        "ex-6-9",
+        "ex-6-10",
+        "ex-6-11",
+        "ex-6-12",
+        "ex-6-13",
+        "ex-6-14",
+        "ex-6-15",
+        "ex-6-16",
+        "ex-6-17",
+        "ex-6-18",
+        "ex-6-19",
+        "ex-6-20",
+        "ex-6-21",
+        "ex-6-22",
+        "ex-6-23",
+        "ex-6-24",
+        "ex-6-25",
+        "ex-6-26",
+        "ex-6-27"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "measure-probability/notes/preface.html",
+      "source": "src/content/books/measure-probability/preface.html",
+      "sections": [
+        {
+          "id": "series",
+          "title": "先区分丛书序言与作者前言",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "bridge",
+          "title": "作者要连接两种概率论",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "course",
+          "title": "54 学时为何仍要坚持严格",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "background",
+          "title": "实变函数不是先修门槛",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "practice",
+          "title": "习题、星号与回读",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        }
+      ],
+      "questions": [],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "visual-group-theory/notes/book_overview.html",
+      "source": "src/content/books/visual-group-theory/book_overview.html",
+      "sections": [
+        {
+          "id": "thread",
+          "title": "先看见动作，再认识结构",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "whole-book-map",
+          "title": "十章怎样接起来",
+          "annotation": "optional",
+          "role": "navigation-or-source",
+          "reason": "全书入口、书目来源或索引，直接提供导航信息。"
+        },
+        {
+          "id": "dependencies",
+          "title": "哪些地方应顺读，哪些可以回读",
+          "annotation": "optional",
+          "role": "navigation-or-source",
+          "reason": "全书入口、书目来源或索引，直接提供导航信息。"
+        },
+        {
+          "id": "current-batch",
+          "title": "从哪里开始读",
+          "annotation": "optional",
+          "role": "navigation-or-source",
+          "reason": "全书入口、书目来源或索引，直接提供导航信息。"
+        },
+        {
+          "id": "program-guide",
+          "title": "十组程序怎样配合阅读",
+          "annotation": "optional",
+          "role": "navigation-or-source",
+          "reason": "全书入口、书目来源或索引，直接提供导航信息。"
+        },
+        {
+          "id": "source",
+          "title": "原书版本与位置怎样核对",
+          "annotation": "optional",
+          "role": "navigation-or-source",
+          "reason": "全书入口、书目来源或索引，直接提供导航信息。"
+        }
+      ],
+      "questions": [],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "visual-group-theory/notes/chapter01_what_is_a_group.html",
+      "source": "src/content/books/visual-group-theory/chapter01_what_is_a_group.html",
+      "sections": [
+        {
+          "id": "s1-1",
+          "title": "1.1 一件著名的玩具 ·A· A famous toy",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s1-2",
+          "title": "1.2 观察魔方 · Considering the cube",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s1-3",
+          "title": "1.3 研究对称 · The study of symmetry",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s1-4",
+          "title": "1.4 群的规则 · Rules of aa group",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s1-5",
+          "title": "1.5 习题 · Exercises",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        }
+      ],
+      "questions": [
+        "ex-1-1",
+        "ex-1-2",
+        "ex-1-3",
+        "ex-1-4",
+        "ex-1-5",
+        "ex-1-6",
+        "ex-1-7",
+        "ex-1-8",
+        "ex-1-9",
+        "ex-1-10",
+        "ex-1-11",
+        "ex-1-12",
+        "ex-1-13",
+        "ex-1-14"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "visual-group-theory/notes/chapter02_what_do_groups_look_like.html",
+      "source": "src/content/books/visual-group-theory/chapter02_what_do_groups_look_like.html",
+      "sections": [
+        {
+          "id": "s2-1",
+          "title": "2.1 制作地图：把“怎么走”变成可查的关系",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s2-2",
+          "title": "2.2 一个简单玩具：固定位置中的矩形",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s2-3",
+          "title": "2.3 系统探索：新状态入队，旧状态只补边",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s2-4",
+          "title": "2.4 Cayley 图：沿路径读动作",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s2-5",
+          "title": "2.5 抽去外观：矩形与双开关是同一个结构",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s2-6",
+          "title": "2.6 全部习题：从边的含义走到一般证明",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        },
+        {
+          "id": "program-cayley",
+          "title": "程序：枚举正多边形的全部动作",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "group-explorer",
+          "title": "Group Explorer：把图的连接关系逐项对应",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "运行步骤、代码或章节衔接；相应概念的注解绑定正文小节。"
+        }
+      ],
+      "questions": [
+        "ex-2-1",
+        "ex-2-2",
+        "ex-2-3",
+        "ex-2-4",
+        "ex-2-5",
+        "ex-2-6",
+        "ex-2-7",
+        "ex-2-8",
+        "ex-2-9",
+        "ex-2-10",
+        "ex-2-11",
+        "ex-2-12",
+        "ex-2-13",
+        "ex-2-14",
+        "ex-2-15",
+        "ex-2-16",
+        "ex-2-17",
+        "ex-2-18",
+        "ex-2-19"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "visual-group-theory/notes/chapter03_why_study_groups.html",
+      "source": "src/content/books/visual-group-theory/chapter03_why_study_groups.html",
+      "sections": [
+        {
+          "id": "s3-1",
+          "title": "3.1 对称群：把“看起来一样”写成操作规则",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s3-2",
+          "title": "3.2 动作群：离开刚体，仍保留合成",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s3-3",
+          "title": "3.3 群为什么会反复出现",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s3-4",
+          "title": "3.4 全部习题：把模型、计数和图连起来",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "program-frieze",
+          "title": "程序：用坐标检查无限饰带的关系",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        }
+      ],
+      "questions": [
+        "ex-3-1",
+        "ex-3-2",
+        "ex-3-3",
+        "ex-3-4",
+        "ex-3-5",
+        "ex-3-6",
+        "ex-3-7",
+        "ex-3-8",
+        "ex-3-9",
+        "ex-3-10",
+        "ex-3-11",
+        "ex-3-12",
+        "ex-3-13",
+        "ex-3-14",
+        "ex-3-15",
+        "ex-3-16"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "visual-group-theory/notes/chapter04_algebra_at_last.html",
+      "source": "src/content/books/visual-group-theory/chapter04_algebra_at_last.html",
+      "sections": [
+        {
+          "id": "s4-1",
+          "title": "4.1 动作到哪里去了：把节点也读成动作",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s4-2",
+          "title": "4.2 合成：沿图计算长字词",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s4-3",
+          "title": "4.3 乘法表：把每一对合成放到一个格子",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s4-4",
+          "title": "4.4 经典定义：从图中经验到精确条件",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s4-5",
+          "title": "4.5 全部习题：逐表、逐式核查",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        },
+        {
+          "id": "program-tables",
+          "title": "程序：从整张运算表检查群公理",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        }
+      ],
+      "questions": [
+        "ex-4-1",
+        "ex-4-2",
+        "ex-4-3",
+        "ex-4-4",
+        "ex-4-5",
+        "ex-4-6",
+        "ex-4-7",
+        "ex-4-8",
+        "ex-4-9",
+        "ex-4-10",
+        "ex-4-11",
+        "ex-4-12",
+        "ex-4-13",
+        "ex-4-14",
+        "ex-4-15",
+        "ex-4-16",
+        "ex-4-17",
+        "ex-4-18",
+        "ex-4-19",
+        "ex-4-20",
+        "ex-4-21",
+        "ex-4-22",
+        "ex-4-23",
+        "ex-4-24",
+        "ex-4-25",
+        "ex-4-26",
+        "ex-4-27",
+        "ex-4-28",
+        "ex-4-29",
+        "ex-4-30",
+        "ex-4-31",
+        "ex-4-32",
+        "ex-4-33"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "visual-group-theory/notes/chapter05_five_families.html",
+      "source": "src/content/books/visual-group-theory/chapter05_five_families.html",
+      "sections": [
+        {
+          "id": "s5-1",
+          "title": "5.1 循环群：重复一个动作会得到什么",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s5-2",
+          "title": "5.2 阿贝尔群：先后顺序能否交换",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s5-3",
+          "title": "5.3 二面体群：翻面会倒转旋转方向",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s5-4",
+          "title": "5.4 置换、交错群与 Cayley 定理",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s5-5",
+          "title": "5.5 全部习题与解答",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "program-permutations",
+          "title": "程序：把置换的每一步算出来",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "software",
+          "title": "Group Explorer：从库到图的观察",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        }
+      ],
+      "questions": [
+        "ex-5-1",
+        "ex-5-2",
+        "ex-5-3",
+        "ex-5-4",
+        "ex-5-5",
+        "ex-5-6",
+        "ex-5-7",
+        "ex-5-8",
+        "ex-5-9",
+        "ex-5-10",
+        "ex-5-11",
+        "ex-5-12",
+        "ex-5-13",
+        "ex-5-14",
+        "ex-5-15",
+        "ex-5-16",
+        "ex-5-17",
+        "ex-5-18",
+        "ex-5-19",
+        "ex-5-20",
+        "ex-5-21",
+        "ex-5-22",
+        "ex-5-23",
+        "ex-5-24",
+        "ex-5-25",
+        "ex-5-26",
+        "ex-5-27",
+        "ex-5-28",
+        "ex-5-29",
+        "ex-5-30",
+        "ex-5-31",
+        "ex-5-32",
+        "ex-5-33",
+        "ex-5-34",
+        "ex-5-35",
+        "ex-5-36",
+        "ex-5-37",
+        "ex-5-38",
+        "ex-5-39",
+        "ex-5-40",
+        "ex-5-41",
+        "ex-5-42",
+        "ex-5-43",
+        "ex-5-44"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "visual-group-theory/notes/chapter06_subgroups.html",
+      "source": "src/content/books/visual-group-theory/chapter06_subgroups.html",
+      "sections": [
+        {
+          "id": "s6-1",
+          "title": "6.1 群的乘法为什么要求图处处一致",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s6-2",
+          "title": "6.2 子群：在原运算下仍然是群的部分",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s6-3",
+          "title": "6.3 让子群在图表中显现",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s6-4",
+          "title": "6.4 左右陪集：同一个子群的两种平移",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s6-5",
+          "title": "6.5 Lagrange 定理：先分块，再数块",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s6-6",
+          "title": "6.6 全部习题与解答",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "program-subgroups",
+          "title": "程序：穷尽 DnDₙ 的子群与左右陪集",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        }
+      ],
+      "questions": [
+        "ex-6-1",
+        "ex-6-2",
+        "ex-6-3",
+        "ex-6-4",
+        "ex-6-5",
+        "ex-6-6",
+        "ex-6-7",
+        "ex-6-8",
+        "ex-6-9",
+        "ex-6-10",
+        "ex-6-11",
+        "ex-6-12",
+        "ex-6-13",
+        "ex-6-14",
+        "ex-6-15",
+        "ex-6-16",
+        "ex-6-17",
+        "ex-6-18",
+        "ex-6-19",
+        "ex-6-20",
+        "ex-6-21",
+        "ex-6-22",
+        "ex-6-23",
+        "ex-6-24",
+        "ex-6-25",
+        "ex-6-26",
+        "ex-6-27",
+        "ex-6-28",
+        "ex-6-29",
+        "ex-6-30",
+        "ex-6-31"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "visual-group-theory/notes/chapter07_products_and_quotients.html",
+      "source": "src/content/books/visual-group-theory/chapter07_products_and_quotients.html",
+      "sections": [
+        {
+          "id": "s7-1",
+          "title": "7.1 直积：两个坐标彼此独立",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s7-2",
+          "title": "7.2 半直积预览：副本可以被自同构扭转",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s7-3",
+          "title": "7.3 正规子群与商：为什么折叠需要一致的出口",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s7-4",
+          "title": "7.4 正规化子：在哪个最大子群中 HH 会正规",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s7-5",
+          "title": "7.5 共轭：把同一个动作搬到另一个位置",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s7-6",
+          "title": "7.6 全部习题与解答",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "program-products",
+          "title": "程序：用同一套坐标比较直积与半直积",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "software",
+          "title": "Group Explorer：共轭类与循环图",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        }
+      ],
+      "questions": [
+        "ex-7-1",
+        "ex-7-2",
+        "ex-7-3",
+        "ex-7-4",
+        "ex-7-5",
+        "ex-7-6",
+        "ex-7-7",
+        "ex-7-8",
+        "ex-7-9",
+        "ex-7-10",
+        "ex-7-11",
+        "ex-7-12",
+        "ex-7-13",
+        "ex-7-14",
+        "ex-7-15",
+        "ex-7-16",
+        "ex-7-17",
+        "ex-7-18",
+        "ex-7-19",
+        "ex-7-20",
+        "ex-7-21",
+        "ex-7-22",
+        "ex-7-23",
+        "ex-7-24",
+        "ex-7-25",
+        "ex-7-26",
+        "ex-7-27",
+        "ex-7-28",
+        "ex-7-29",
+        "ex-7-30",
+        "ex-7-31",
+        "ex-7-32",
+        "ex-7-33",
+        "ex-7-34",
+        "ex-7-35",
+        "ex-7-36",
+        "ex-7-37"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "source": "src/content/books/visual-group-theory/chapter08_homomorphisms.html",
+      "sections": [
+        {
+          "id": "s8-1",
+          "title": "8.1 嵌入与商映射",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s8-2",
+          "title": "8.2 同态基本定理：先折叠，再改名",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s8-3",
+          "title": "8.3 模运算来自整数的商群",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s8-4",
+          "title": "8.4 互素与循环直积",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s8-5",
+          "title": "8.5 有限阿贝尔群的基本定理",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s8-6",
+          "title": "8.6 用同态控制半直积的改接线",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s8-7",
+          "title": "8.7 全部 50 道习题与解答",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "program-homomorphisms",
+          "title": "程序：枚举循环群间的全部同态",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "review",
+          "title": "本章回看",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        }
+      ],
+      "questions": [
+        "ex-8-1",
+        "ex-8-2",
+        "ex-8-3",
+        "ex-8-4",
+        "ex-8-5",
+        "ex-8-6",
+        "ex-8-7",
+        "ex-8-8",
+        "ex-8-9",
+        "ex-8-10",
+        "ex-8-11",
+        "ex-8-12",
+        "ex-8-13",
+        "ex-8-14",
+        "ex-8-15",
+        "ex-8-16",
+        "ex-8-17",
+        "ex-8-18",
+        "ex-8-19",
+        "ex-8-20",
+        "ex-8-21",
+        "ex-8-22",
+        "ex-8-23",
+        "ex-8-24",
+        "ex-8-25",
+        "ex-8-26",
+        "ex-8-27",
+        "ex-8-28",
+        "ex-8-29",
+        "ex-8-30",
+        "ex-8-31",
+        "ex-8-32",
+        "ex-8-33",
+        "ex-8-34",
+        "ex-8-35",
+        "ex-8-36",
+        "ex-8-37",
+        "ex-8-38",
+        "ex-8-39",
+        "ex-8-40",
+        "ex-8-41",
+        "ex-8-42",
+        "ex-8-43",
+        "ex-8-44",
+        "ex-8-45",
+        "ex-8-46",
+        "ex-8-47",
+        "ex-8-48",
+        "ex-8-49",
+        "ex-8-50"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "visual-group-theory/notes/chapter09_sylow_theory.html",
+      "source": "src/content/books/visual-group-theory/chapter09_sylow_theory.html",
+      "sections": [
+        {
+          "id": "s9-1",
+          "title": "9.1 群作用：把群元素解释成置换",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s9-2",
+          "title": "9.2 从固定点计数到 Cauchy 定理",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s9-3",
+          "title": "9.3p9.3 p 群与正规化子的计数",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s9-4",
+          "title": "9.4 Sylow 三定理及小阶群分类",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s9-5",
+          "title": "9.5 全部 28 道习题与解答",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "program-sylow",
+          "title": "程序：列出 SnSₙ 的 Sylow 子群",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        }
+      ],
+      "questions": [
+        "ex-9-1",
+        "ex-9-2",
+        "ex-9-3",
+        "ex-9-4",
+        "ex-9-5",
+        "ex-9-6",
+        "ex-9-7",
+        "ex-9-8",
+        "ex-9-9",
+        "ex-9-10",
+        "ex-9-11",
+        "ex-9-12",
+        "ex-9-13",
+        "ex-9-14",
+        "ex-9-15",
+        "ex-9-16",
+        "ex-9-17",
+        "ex-9-18",
+        "ex-9-19",
+        "ex-9-20",
+        "ex-9-21",
+        "ex-9-22",
+        "ex-9-23",
+        "ex-9-24",
+        "ex-9-25",
+        "ex-9-26",
+        "ex-9-27",
+        "ex-9-28"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "visual-group-theory/notes/chapter10_galois_theory.html",
+      "source": "src/content/books/visual-group-theory/chapter10_galois_theory.html",
+      "sections": [
+        {
+          "id": "s10-1",
+          "title": "10.1 大问题：根式的表达能力",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s10-2",
+          "title": "10.2 运算能把我们带到哪些数",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s10-3",
+          "title": "10.3 画根、画域与复共轭",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s10-4",
+          "title": "10.4 不可约多项式与 Eisenstein 判别",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s10-5",
+          "title": "10.5 计算 Galois 群",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s10-6",
+          "title": "10.6 反向对应与根式可解判据",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s10-7",
+          "title": "10.7 为什么五次方程没有通用根式公式",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s10-8",
+          "title": "10.8 全部 30 道习题与解答",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "program-galois",
+          "title": "程序：六维基底中的精确自同构",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        }
+      ],
+      "questions": [
+        "ex-10-1",
+        "ex-10-2",
+        "ex-10-3",
+        "ex-10-4",
+        "ex-10-5",
+        "ex-10-6",
+        "ex-10-7",
+        "ex-10-8",
+        "ex-10-9",
+        "ex-10-10",
+        "ex-10-11",
+        "ex-10-12",
+        "ex-10-13",
+        "ex-10-14",
+        "ex-10-15",
+        "ex-10-16",
+        "ex-10-17",
+        "ex-10-18",
+        "ex-10-19",
+        "ex-10-20",
+        "ex-10-21",
+        "ex-10-22",
+        "ex-10-23",
+        "ex-10-24",
+        "ex-10-25",
+        "ex-10-26",
+        "ex-10-27",
+        "ex-10-28",
+        "ex-10-29",
+        "ex-10-30"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "visual-group-theory/notes/preface.html",
+      "source": "src/content/books/visual-group-theory/preface.html",
+      "sections": [
+        {
+          "id": "purpose",
+          "title": "作者希望你真正认识群",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "visual-reading",
+          "title": "图上应该看什么",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "finite",
+          "title": "为什么先从有限群学起",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "route",
+          "title": "把动作语言带到代数语言",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "practice",
+          "title": "动手与习题怎样配合",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        }
+      ],
+      "questions": [],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "stochastic/notes/appendix_a_probability_review.html",
+      "source": "src/content/books/stochastic/appendix_a_probability_review.html",
+      "sections": [
+        {
+          "id": "a1",
+          "title": "A.1 概率、条件与独立",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "a2",
+          "title": "A.2 分布与联合密度",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "a3",
+          "title": "A.3 期望、矩与生成函数",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "a4",
+          "title": "A.4 极限与积分：为什么停止不能随便取极限",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        }
+      ],
+      "questions": [],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "stochastic/notes/book_overview.html",
+      "source": "src/content/books/stochastic/book_overview.html",
+      "sections": [
+        {
+          "id": "book",
+          "title": "这本书研究什么",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "map",
+          "title": "全书地图与各章入口",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "reading",
+          "title": "怎样伴着原书读",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "notation",
+          "title": "全书的符号约定",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "program-guide",
+          "title": "程序与实验怎么使用",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "source-notes",
+          "title": "版本、页码与题干校注",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        }
+      ],
+      "questions": [],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "stochastic/notes/chapter01_markov_chains.html",
+      "source": "src/content/books/stochastic/chapter01_markov_chains.html",
+      "sections": [
+        {
+          "id": "s11",
+          "title": "1.1 定义与例子：状态为什么足够",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s12",
+          "title": "1.2 多步转移：矩阵乘法汇总路径",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s13",
+          "title": "1.3 状态分类：会不会回来",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s14",
+          "title": "1.4 平稳分布：流量守恒",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s15",
+          "title": "1.5 细致平衡、反向链与 Metropolis–Hastings",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s16",
+          "title": "1.6 极限行为：时刻分布与时间平均",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s17",
+          "title": "1.7 返回固定状态：周期产生平稳分布",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s18",
+          "title": "1.8 收敛定理的证明：让两条链相遇",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s19",
+          "title": "1.9 退出分布：边界调和方程",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s110",
+          "title": "1.10 退出时间：多出一个单位成本",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s111",
+          "title": "1.11 无限空间：常返还不够",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s112",
+          "title": "1.12 本章总结（Chapter Summary）：解题路线",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "experiment",
+          "title": "计算实验：转移、平稳与边界方程",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "exercises",
+          "title": "1.13 习题（Exercises）· 77 题",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        }
+      ],
+      "questions": [
+        "ex-1-1",
+        "ex-1-2",
+        "ex-1-3",
+        "ex-1-4",
+        "ex-1-5",
+        "ex-1-6",
+        "ex-1-7",
+        "ex-1-8",
+        "ex-1-9",
+        "ex-1-10",
+        "ex-1-11",
+        "ex-1-12",
+        "ex-1-13",
+        "ex-1-14",
+        "ex-1-15",
+        "ex-1-16",
+        "ex-1-17",
+        "ex-1-18",
+        "ex-1-19",
+        "ex-1-20",
+        "ex-1-21",
+        "ex-1-22",
+        "ex-1-23",
+        "ex-1-24",
+        "ex-1-25",
+        "ex-1-26",
+        "ex-1-27",
+        "ex-1-28",
+        "ex-1-29",
+        "ex-1-30",
+        "ex-1-31",
+        "ex-1-32",
+        "ex-1-33",
+        "ex-1-34",
+        "ex-1-35",
+        "ex-1-36",
+        "ex-1-37",
+        "ex-1-38",
+        "ex-1-39",
+        "ex-1-40",
+        "ex-1-41",
+        "ex-1-42",
+        "ex-1-43",
+        "ex-1-44",
+        "ex-1-45",
+        "ex-1-46",
+        "ex-1-47",
+        "ex-1-48",
+        "ex-1-49",
+        "ex-1-50",
+        "ex-1-51",
+        "ex-1-52",
+        "ex-1-53",
+        "ex-1-54",
+        "ex-1-55",
+        "ex-1-56",
+        "ex-1-57",
+        "ex-1-58",
+        "ex-1-59",
+        "ex-1-60",
+        "ex-1-61",
+        "ex-1-62",
+        "ex-1-63",
+        "ex-1-64",
+        "ex-1-65",
+        "ex-1-66",
+        "ex-1-67",
+        "ex-1-68",
+        "ex-1-69",
+        "ex-1-70",
+        "ex-1-71",
+        "ex-1-72",
+        "ex-1-73",
+        "ex-1-74",
+        "ex-1-75",
+        "ex-1-76",
+        "ex-1-77"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "stochastic/notes/chapter02_poisson_processes.html",
+      "source": "src/content/books/stochastic/chapter02_poisson_processes.html",
+      "sections": [
+        {
+          "id": "s21",
+          "title": "2.1 指数分布：等过多久不改变剩余等待",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s22",
+          "title": "2.2 泊松过程：计数与到达时间互为表里",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s23",
+          "title": "2.3 复合泊松：计数随机，单次金额也随机",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s24",
+          "title": "2.4 稀疏化、叠加与条件化",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s25",
+          "title": "2.5 本章总结（Chapter Summary）：条件与单位",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "experiment",
+          "title": "计算实验：指数间隔产生泊松计数",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "exercises",
+          "title": "2.6 习题（Exercises）· 61 题",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        }
+      ],
+      "questions": [
+        "ex-2-1",
+        "ex-2-2",
+        "ex-2-3",
+        "ex-2-4",
+        "ex-2-5",
+        "ex-2-6",
+        "ex-2-7",
+        "ex-2-8",
+        "ex-2-9",
+        "ex-2-10",
+        "ex-2-11",
+        "ex-2-12",
+        "ex-2-13",
+        "ex-2-14",
+        "ex-2-15",
+        "ex-2-16",
+        "ex-2-17",
+        "ex-2-18",
+        "ex-2-19",
+        "ex-2-20",
+        "ex-2-21",
+        "ex-2-22",
+        "ex-2-23",
+        "ex-2-24",
+        "ex-2-25",
+        "ex-2-26",
+        "ex-2-27",
+        "ex-2-28",
+        "ex-2-29",
+        "ex-2-30",
+        "ex-2-31",
+        "ex-2-32",
+        "ex-2-33",
+        "ex-2-34",
+        "ex-2-35",
+        "ex-2-36",
+        "ex-2-37",
+        "ex-2-38",
+        "ex-2-39",
+        "ex-2-40",
+        "ex-2-41",
+        "ex-2-42",
+        "ex-2-43",
+        "ex-2-44",
+        "ex-2-45",
+        "ex-2-46",
+        "ex-2-47",
+        "ex-2-48",
+        "ex-2-49",
+        "ex-2-50",
+        "ex-2-51",
+        "ex-2-52",
+        "ex-2-53",
+        "ex-2-54",
+        "ex-2-55",
+        "ex-2-56",
+        "ex-2-57",
+        "ex-2-58",
+        "ex-2-59",
+        "ex-2-60",
+        "ex-2-61"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "stochastic/notes/chapter03_renewal_processes.html",
+      "source": "src/content/books/stochastic/chapter03_renewal_processes.html",
+      "sections": [
+        {
+          "id": "s31",
+          "title": "3.1 更新大数律：把时间拆成周期",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s32",
+          "title": "3.2 排队应用：用面积把人数和等待联系起来",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s33",
+          "title": "3.3 年龄与剩余寿命：观察时刻会偏爱长周期",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s34",
+          "title": "3.4 本章总结（Chapter Summary）：分子与分母",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "experiment",
+          "title": "计算实验：长间隔在随机时间中占更多位置",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "exercises",
+          "title": "3.5 习题（Exercises）· 24 题",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        }
+      ],
+      "questions": [
+        "ex-3-1",
+        "ex-3-2",
+        "ex-3-3",
+        "ex-3-4",
+        "ex-3-5",
+        "ex-3-6",
+        "ex-3-7",
+        "ex-3-8",
+        "ex-3-9",
+        "ex-3-10",
+        "ex-3-11",
+        "ex-3-12",
+        "ex-3-13",
+        "ex-3-14",
+        "ex-3-15",
+        "ex-3-16",
+        "ex-3-17",
+        "ex-3-18",
+        "ex-3-19",
+        "ex-3-20",
+        "ex-3-21",
+        "ex-3-22",
+        "ex-3-23",
+        "ex-3-24"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "stochastic/notes/chapter04_continuous_time_markov_chains.html",
+      "source": "src/content/books/stochastic/chapter04_continuous_time_markov_chains.html",
+      "sections": [
+        {
+          "id": "s41",
+          "title": "4.1 生成矩阵：跳转规则加停留时钟",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s42",
+          "title": "4.2 转移概率：两个 Kolmogorov 方程",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s43",
+          "title": "4.3 平稳分布：真实时间改变权重",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s44",
+          "title": "4.4 退出分布与退出时间",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s45",
+          "title": "4.5 马尔可夫排队：稳定、拒绝与实际到达率",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s46",
+          "title": "4.6 队列网络：先解交通方程",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s47",
+          "title": "4.7 本章总结（Chapter Summary）：建模与守恒",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "experiment",
+          "title": "计算实验：跳转日志不等于时间分布",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "exercises",
+          "title": "4.8 习题（Exercises）· 39 题",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        }
+      ],
+      "questions": [
+        "ex-4-1",
+        "ex-4-2",
+        "ex-4-3",
+        "ex-4-4",
+        "ex-4-5",
+        "ex-4-6",
+        "ex-4-7",
+        "ex-4-8",
+        "ex-4-9",
+        "ex-4-10",
+        "ex-4-11",
+        "ex-4-12",
+        "ex-4-13",
+        "ex-4-14",
+        "ex-4-15",
+        "ex-4-16",
+        "ex-4-17",
+        "ex-4-18",
+        "ex-4-19",
+        "ex-4-20",
+        "ex-4-21",
+        "ex-4-22",
+        "ex-4-23",
+        "ex-4-24",
+        "ex-4-25",
+        "ex-4-26",
+        "ex-4-27",
+        "ex-4-28",
+        "ex-4-29",
+        "ex-4-30",
+        "ex-4-31",
+        "ex-4-32",
+        "ex-4-33",
+        "ex-4-34",
+        "ex-4-35",
+        "ex-4-36",
+        "ex-4-37",
+        "ex-4-38",
+        "ex-4-39"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "stochastic/notes/chapter05_martingales.html",
+      "source": "src/content/books/stochastic/chapter05_martingales.html",
+      "sections": [
+        {
+          "id": "s51",
+          "title": "5.1 条件期望：把现有信息压缩为预测",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s52",
+          "title": "5.2 鞅：公平写在条件期望里",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s53",
+          "title": "5.3 下注与停时：能提前决定，却不能看未来",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s54",
+          "title": "5.4 应用：退出、灭绝与正再生",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "experiment",
+          "title": "计算实验：停止边界与翻倍尾部",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "exercises",
+          "title": "5.5 习题（Exercises）· 10 题",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        }
+      ],
+      "questions": [
+        "ex-5-1",
+        "ex-5-2",
+        "ex-5-3",
+        "ex-5-4",
+        "ex-5-5",
+        "ex-5-6",
+        "ex-5-7",
+        "ex-5-8",
+        "ex-5-9",
+        "ex-5-10"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "stochastic/notes/chapter06_mathematical_finance.html",
+      "source": "src/content/books/stochastic/chapter06_mathematical_finance.html",
+      "sections": [
+        {
+          "id": "s61",
+          "title": "6.1 两个例子：从复制组合得到价格",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s62",
+          "title": "6.2 多期二叉模型：从终点向后推",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s63",
+          "title": "6.3 路径依赖期权：价格相同，信息未必相同",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s64",
+          "title": "6.4 美式期权：停止与继续的比较",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s65",
+          "title": "6.5 Black–Scholes：二叉模型的连续极限",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s66",
+          "title": "6.6 看涨与看跌（Calls and Puts）：量纲与比较",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "experiment-tree",
+          "title": "计算实验：同一后向程序处理不同支付",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "experiment-bs",
+          "title": "计算实验：二叉树趋向 Black–Scholes",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "exercises",
+          "title": "6.7 习题（Exercises）· 25 题",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        }
+      ],
+      "questions": [
+        "ex-6-1",
+        "ex-6-2",
+        "ex-6-3",
+        "ex-6-4",
+        "ex-6-5",
+        "ex-6-6",
+        "ex-6-7",
+        "ex-6-8",
+        "ex-6-9",
+        "ex-6-10",
+        "ex-6-11",
+        "ex-6-12",
+        "ex-6-13",
+        "ex-6-14",
+        "ex-6-15",
+        "ex-6-16",
+        "ex-6-17",
+        "ex-6-18",
+        "ex-6-19",
+        "ex-6-20",
+        "ex-6-21",
+        "ex-6-22",
+        "ex-6-23",
+        "ex-6-24",
+        "ex-6-25"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "stochastic/notes/preface.html",
+      "source": "src/content/books/stochastic/preface.html",
+      "sections": [
+        {
+          "id": "preface-purpose",
+          "title": "序言：本书写给谁，怎样讲清“为什么”",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "preface-history",
+          "title": "从 Cornell 课堂讲义到第二版",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "preface-structure",
+          "title": "六章的顺序为什么这样安排",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "preface-third",
+          "title": "第三版的修订与两种证明方法",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "preface-reading",
+          "title": "带着序言进入正文",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        }
+      ],
+      "questions": [],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "weiss/notes/book_overview.html",
+      "source": "src/content/books/weiss/book_overview.html",
+      "sections": [
+        {
+          "id": "program-guide",
+          "title": "阅读与程序使用说明",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "thesis",
+          "title": "一、全书在解决什么问题？",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "classic",
+          "title": "二、它经典在何处？",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "chapters",
+          "title": "三、十二章的内容地图",
+          "annotation": "optional",
+          "role": "navigation-or-source",
+          "reason": "全书入口、书目来源或索引，直接提供导航信息。"
+        },
+        {
+          "id": "topology",
+          "title": "四、章节之间的拓扑关系",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "reading",
+          "title": "五、建议的阅读路径",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        }
+      ],
+      "questions": [],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "weiss/notes/chapter01_introduction.html",
+      "source": "src/content/books/weiss/chapter01_introduction.html",
+      "sections": [
+        {
+          "id": "selection",
+          "title": "一、§1.1：正确答案只是起点",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "puzzle",
+          "title": "二、同一个字谜，为什么可以把循环倒过来？",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "recursion",
+          "title": "三、§1.2：把当前问题写成更小的问题",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "printing",
+          "title": "四、打印整数：输出顺序就是递归结构",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "rules",
+          "title": "五、四条规则是一条设计流程",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "exercises",
+          "title": "习题解答 · 1.1–1.5",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        },
+        {
+          "id": "verification",
+          "title": "实测与复习",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        }
+      ],
+      "questions": [
+        "ex1-1",
+        "ex1-2",
+        "ex1-3",
+        "ex1-4",
+        "ex1-5"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "weiss/notes/chapter02_algorithm_analysis.html",
+      "source": "src/content/books/weiss/chapter02_algorithm_analysis.html",
+      "sections": [
+        {
+          "id": "notation",
+          "title": "一、§2.1：比较增长率，不是比较某一次计时",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "model",
+          "title": "二、§2.2–§2.3：一个单位究竟是什么？",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "counting",
+          "title": "三、§2.4.1–§2.4.2：先问语句执行了几次",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "maxsum",
+          "title": "四、§2.4.3：四种算法逐步拿掉什么重复工作？",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "logarithms",
+          "title": "五、§2.4.4：对数来自规模下降，不来自递归这个词",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "measurement",
+          "title": "六、§2.4.5–§2.4.6：数据能检查分析，但不能替代证明",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "exercises",
+          "title": "习题解答 · 2.1–2.25",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        },
+        {
+          "id": "verification",
+          "title": "复习路线",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        }
+      ],
+      "questions": [
+        "ex2-1",
+        "ex2-2",
+        "ex2-3",
+        "ex2-4",
+        "ex2-5",
+        "ex2-6",
+        "ex2-7",
+        "ex2-8",
+        "ex2-9",
+        "ex2-10",
+        "ex2-11",
+        "ex2-12",
+        "ex2-13",
+        "ex2-14",
+        "ex2-15",
+        "ex2-16",
+        "ex2-17",
+        "ex2-18",
+        "ex2-19",
+        "ex2-20",
+        "ex2-21",
+        "ex2-22",
+        "ex2-23",
+        "ex2-24",
+        "ex2-25"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "weiss/notes/chapter03_lists_stacks_queues.html",
+      "source": "src/content/books/weiss/chapter03_lists_stacks_queues.html",
+      "sections": [
+        {
+          "id": "begin",
+          "title": "一、作者为什么先谈 ADT，而不是先画链表？",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "array",
+          "title": "二、数组怎样把我们带到链表",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "linked",
+          "title": "三、跟着图 3.1–3.15 读链表",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "variants",
+          "title": "四、§3.2 后半段：同一个链接思想能走多远",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "stack",
+          "title": "五、栈：把自由度收起来，反而得到一种强大的结构",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "queue",
+          "title": "六、队列：另一种限制，另一种时间顺序",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "end",
+          "title": "合上书之后：本章值得带走的三件事",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "exercises",
+          "title": "习题解答 · 3.1–3.26",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        }
+      ],
+      "questions": [
+        "ex3-1",
+        "ex3-2",
+        "ex3-3",
+        "ex3-4",
+        "ex3-5",
+        "ex3-6",
+        "ex3-7",
+        "ex3-8",
+        "ex3-9",
+        "ex3-10",
+        "ex3-11",
+        "ex3-12",
+        "ex3-13",
+        "ex3-14",
+        "ex3-15",
+        "ex3-16",
+        "ex3-17",
+        "ex3-18",
+        "ex3-19",
+        "ex3-20",
+        "ex3-21",
+        "ex3-22",
+        "ex3-23",
+        "ex3-24",
+        "ex3-25",
+        "ex3-26"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "weiss/notes/chapter04_trees.html",
+      "source": "src/content/books/weiss/chapter04_trees.html",
+      "sections": [
+        {
+          "id": "opening",
+          "title": "一、第三章留下的问题：找到位置仍然太慢",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "general",
+          "title": "二、§4.1：先把关系说清，再决定指针怎样放",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "binary",
+          "title": "三、§4.2：表达式树，把第三章的栈接到树上",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "traversal",
+          "title": "四、§4.2.3：遍历顺序就是计算依赖顺序",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "bst",
+          "title": "五、§4.3：有序约束让查找只走一条路",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "average",
+          "title": "六、§4.3.6：平均 O(logN)，究竟平均了什么？",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "avl",
+          "title": "七、§4.4：AVL 把平衡变成每个节点的不变量",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "splay",
+          "title": "八、§4.5：伸展树关心的是下一次访问",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "btree",
+          "title": "九、§4.6：当读取一个节点需要访问磁盘",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "closing",
+          "title": "十、合上书之后：四类查找结构各保护什么？",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "exercises",
+          "title": "习题解答 · 4.1–4.46",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        }
+      ],
+      "questions": [
+        "ex4-1",
+        "ex4-2",
+        "ex4-3",
+        "ex4-4",
+        "ex4-5",
+        "ex4-6",
+        "ex4-7",
+        "ex4-8",
+        "ex4-9",
+        "ex4-10",
+        "ex4-11",
+        "ex4-12",
+        "ex4-13",
+        "ex4-14",
+        "ex4-15",
+        "ex4-16",
+        "ex4-17",
+        "ex4-18",
+        "ex4-19",
+        "ex4-20",
+        "ex4-21",
+        "ex4-22",
+        "ex4-23",
+        "ex4-24",
+        "ex4-25",
+        "ex4-26",
+        "ex4-27",
+        "ex4-28",
+        "ex4-29",
+        "ex4-30",
+        "ex4-31",
+        "ex4-32",
+        "ex4-33",
+        "ex4-34",
+        "ex4-35",
+        "ex4-36",
+        "ex4-37",
+        "ex4-38",
+        "ex4-39",
+        "ex4-40",
+        "ex4-41",
+        "ex4-42",
+        "ex4-43",
+        "ex4-44",
+        "ex4-45",
+        "ex4-46"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "weiss/notes/chapter05_priority_queues.html",
+      "source": "src/content/books/weiss/chapter05_priority_queues.html",
+      "sections": [
+        {
+          "id": "model",
+          "title": "一、§5.1–5.2：队列顺序来自问题，而不总是到达时间",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "binary",
+          "title": "二、§5.3.1–5.3.2：形状负责高度，堆序负责根",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "operations",
+          "title": "三、§5.3.3：先保持形状，再沿一条路径修复堆序",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "build",
+          "title": "四、§5.3.4：已知位置的更新，与一次性建堆",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "applications",
+          "title": "五、§5.4：堆只保存应用真正需要的候选状态",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "dheap",
+          "title": "六、§5.5：多一些孩子，就少一些层",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "leftist",
+          "title": "七、§5.6：左式堆只保证工作路径短",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "skew",
+          "title": "八、§5.7：斜堆为什么能省掉 Npl",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "binomial",
+          "title": "九、§5.8：把合并变成二进制加法",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "closing",
+          "title": "十、从“下一项”回看整个结构",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "exercises",
+          "title": "习题解答 · 5.1–5.36",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        }
+      ],
+      "questions": [
+        "ex5-1",
+        "ex5-2",
+        "ex5-3",
+        "ex5-4",
+        "ex5-5",
+        "ex5-6",
+        "ex5-7",
+        "ex5-8",
+        "ex5-9",
+        "ex5-10",
+        "ex5-11",
+        "ex5-12",
+        "ex5-13",
+        "ex5-14",
+        "ex5-15",
+        "ex5-16",
+        "ex5-17",
+        "ex5-18",
+        "ex5-19",
+        "ex5-20",
+        "ex5-21",
+        "ex5-22",
+        "ex5-23",
+        "ex5-24",
+        "ex5-25",
+        "ex5-26",
+        "ex5-27",
+        "ex5-28",
+        "ex5-29",
+        "ex5-30",
+        "ex5-31",
+        "ex5-32",
+        "ex5-33",
+        "ex5-34",
+        "ex5-35",
+        "ex5-36"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "weiss/notes/chapter06_sorting.html",
+      "source": "src/content/books/weiss/chapter06_sorting.html",
+      "sections": [
+        {
+          "id": "model",
+          "title": "一、§6.1：先明确可以使用哪些信息",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "insertion",
+          "title": "二、§6.2–6.3：把“几乎有序”变成可以计数的量",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "shell",
+          "title": "三、§6.4：先让远处的元素交流，再缩小间隔",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "heap",
+          "title": "四、§6.5：把输出放在堆刚腾出来的位置",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "merge",
+          "title": "五、§6.6：先取得两份有序输入，合并就只需向前走",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "quick",
+          "title": "六、§6.7：划分质量与扫描规则共同决定效率",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "indirect",
+          "title": "七、§6.8：排序的是位置，最后才移动大记录",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "lower",
+          "title": "八、§6.9：任何比较排序都要区分 N! 种可能",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "radix",
+          "title": "九、§6.10：用键的结构换取更少的比较",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "external",
+          "title": "十、§6.11：当访问代价变了，排序的组织方式也要变",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "experiments",
+          "title": "十一、总结与实测：输入决定算法表现",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "exercises",
+          "title": "习题解答 · 6.1–6.44",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        }
+      ],
+      "questions": [
+        "ex6-1",
+        "ex6-2",
+        "ex6-3",
+        "ex6-4",
+        "ex6-5",
+        "ex6-6",
+        "ex6-7",
+        "ex6-8",
+        "ex6-9",
+        "ex6-10",
+        "ex6-11",
+        "ex6-12",
+        "ex6-13",
+        "ex6-14",
+        "ex6-15",
+        "ex6-16",
+        "ex6-17",
+        "ex6-18",
+        "ex6-19",
+        "ex6-20",
+        "ex6-21",
+        "ex6-22",
+        "ex6-23",
+        "ex6-24",
+        "ex6-25",
+        "ex6-26",
+        "ex6-27",
+        "ex6-28",
+        "ex6-29",
+        "ex6-30",
+        "ex6-31",
+        "ex6-32",
+        "ex6-33",
+        "ex6-34",
+        "ex6-35",
+        "ex6-36",
+        "ex6-37",
+        "ex6-38",
+        "ex6-39",
+        "ex6-40",
+        "ex6-41",
+        "ex6-42",
+        "ex6-43",
+        "ex6-44"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "weiss/notes/chapter07_hashing.html",
+      "source": "src/content/books/weiss/chapter07_hashing.html",
+      "sections": [
+        {
+          "id": "general",
+          "title": "一、§7.1：先问查找是否只能依赖比较",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "hash-functions",
+          "title": "二、§7.2：散列函数要面对实际的键分布",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "chaining",
+          "title": "三、§7.3：把冲突集中到一条可以遍历的短链",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "probing",
+          "title": "四、§7.4：探测规则决定冲突与后续查找",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "rehashing",
+          "title": "五、§7.5：容量改变后，地址必须重新计算",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "extendible",
+          "title": "六、§7.6：目录可以增长，记录只在目标桶里分裂",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "applications",
+          "title": "七、总结：用精确键查询解决具体任务",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "reproduce",
+          "title": "八、本章示例与实验驱动",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "exercises",
+          "title": "习题解答 · 7.1–7.15",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        }
+      ],
+      "questions": [
+        "ex7-1",
+        "ex7-2",
+        "ex7-3",
+        "ex7-4",
+        "ex7-5",
+        "ex7-6",
+        "ex7-7",
+        "ex7-8",
+        "ex7-9",
+        "ex7-10",
+        "ex7-11",
+        "ex7-12",
+        "ex7-13",
+        "ex7-14",
+        "ex7-15"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "weiss/notes/chapter08_disjoint_sets.html",
+      "source": "src/content/books/weiss/chapter08_disjoint_sets.html",
+      "sections": [
+        {
+          "id": "equivalence",
+          "title": "一、§8.1–8.2：要维护的是等价类的划分",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "forest",
+          "title": "二、§8.3：用森林延迟改写整组成员",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "weighted-union",
+          "title": "三、§8.4：限制树高，控制一次查找的代价",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "compression",
+          "title": "四、§8.5：压缩查找路径以后，高度变成秩",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "amortized",
+          "title": "五、§8.6：为什么总成本接近线性",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "connectivity",
+          "title": "六、§8.7：每读入一条边，就更新连通分量",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "driver",
+          "title": "七、共同示例与实验驱动",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "exercises",
+          "title": "习题解答 · 8.1–8.14",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        }
+      ],
+      "questions": [
+        "ex8-1",
+        "ex8-2",
+        "ex8-3",
+        "ex8-4",
+        "ex8-5",
+        "ex8-6",
+        "ex8-7",
+        "ex8-8",
+        "ex8-9",
+        "ex8-10",
+        "ex8-11",
+        "ex8-12",
+        "ex8-13",
+        "ex8-14"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "weiss/notes/chapter09_graph_algorithms.html",
+      "source": "src/content/books/weiss/chapter09_graph_algorithms.html",
+      "sections": [
+        {
+          "id": "representation",
+          "title": "一、§9.1：图的语义决定数据表示",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "topological",
+          "title": "二、§9.2：只保存新变为可选的顶点",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "shortest",
+          "title": "三、§9.3.1–9.3.2：从按层搜索走到最小距离",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "negative-dag",
+          "title": "四、§9.3.3–9.3.5：允许改主意，或者利用无环顺序",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "flow",
+          "title": "五、§9.4：反向残余边让增广可以撤销",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "spanning",
+          "title": "六、§9.5：最小生成树的两种安全边选择",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "depth-first",
+          "title": "七、§9.6：一次深入访问，保存进入与退出时的信息",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "complexity",
+          "title": "八、§9.7：归约解释哪些问题共享困难",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "driver",
+          "title": "九、共同输入与驱动",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "exercises",
+          "title": "习题解答 · 9.1–9.41",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        }
+      ],
+      "questions": [
+        "ex9-1",
+        "ex9-2",
+        "ex9-3",
+        "ex9-4",
+        "ex9-5",
+        "ex9-6",
+        "ex9-7",
+        "ex9-8",
+        "ex9-9",
+        "ex9-10",
+        "ex9-11",
+        "ex9-12",
+        "ex9-13",
+        "ex9-14",
+        "ex9-15",
+        "ex9-16",
+        "ex9-17",
+        "ex9-18",
+        "ex9-19",
+        "ex9-20",
+        "ex9-21",
+        "ex9-22",
+        "ex9-23",
+        "ex9-24",
+        "ex9-25",
+        "ex9-26",
+        "ex9-27",
+        "ex9-28",
+        "ex9-29",
+        "ex9-30",
+        "ex9-31",
+        "ex9-32",
+        "ex9-33",
+        "ex9-34",
+        "ex9-35",
+        "ex9-36",
+        "ex9-37",
+        "ex9-38",
+        "ex9-39",
+        "ex9-40",
+        "ex9-41"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "weiss/notes/chapter10_algorithm_design.html",
+      "source": "src/content/books/weiss/chapter10_algorithm_design.html",
+      "sections": [
+        {
+          "id": "greedy",
+          "title": "一、§10.1：贪心必须有交换理由",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "coding",
+          "title": "二、§10.1.2–10.1.3：同一种局部选择，得到两种保证",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "recurrences",
+          "title": "三、§10.2.1：递推式让分治成本可比较",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "geometry",
+          "title": "四、§10.2.2–10.2.3：控制合并量，也控制留下来的量",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "arithmetic",
+          "title": "五、§10.2.4–10.2.5：减少递归乘法的次数",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "dynamic",
+          "title": "六、§10.3：相同的子问题只求解一次",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "randomized",
+          "title": "七、§10.4：随机性有不同的作用",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "backtracking",
+          "title": "八、§10.5：探索之后，准确撤销",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "connection",
+          "title": "九、把状态、结构与证明连起来",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "exercises",
+          "title": "习题解答 · 10.1–10.60",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        },
+        {
+          "id": "programs",
+          "title": "程序接口与本章驱动",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        }
+      ],
+      "questions": [
+        "ex10-1",
+        "ex10-2",
+        "ex10-3",
+        "ex10-4",
+        "ex10-5",
+        "ex10-6",
+        "ex10-7",
+        "ex10-8",
+        "ex10-9",
+        "ex10-10",
+        "ex10-11",
+        "ex10-12",
+        "ex10-13",
+        "ex10-14",
+        "ex10-15",
+        "ex10-16",
+        "ex10-17",
+        "ex10-18",
+        "ex10-19",
+        "ex10-20",
+        "ex10-21",
+        "ex10-22",
+        "ex10-23",
+        "ex10-24",
+        "ex10-25",
+        "ex10-26",
+        "ex10-27",
+        "ex10-28",
+        "ex10-29",
+        "ex10-30",
+        "ex10-31",
+        "ex10-32",
+        "ex10-33",
+        "ex10-34",
+        "ex10-35",
+        "ex10-36",
+        "ex10-37",
+        "ex10-38",
+        "ex10-39",
+        "ex10-40",
+        "ex10-41",
+        "ex10-42",
+        "ex10-43",
+        "ex10-44",
+        "ex10-45",
+        "ex10-46",
+        "ex10-47",
+        "ex10-48",
+        "ex10-49",
+        "ex10-50",
+        "ex10-51",
+        "ex10-52",
+        "ex10-53",
+        "ex10-54",
+        "ex10-55",
+        "ex10-56",
+        "ex10-57",
+        "ex10-58",
+        "ex10-59",
+        "ex10-60"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "weiss/notes/chapter11_amortized_analysis.html",
+      "source": "src/content/books/weiss/chapter11_amortized_analysis.html",
+      "sections": [
+        {
+          "id": "amortized",
+          "title": "一、从单次代价转向整个序列",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "cats",
+          "title": "二、11.1：猫的往返，为什么时间更容易求",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "binomial",
+          "title": "三、11.2：二项队列，把连接看成进位",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "skew",
+          "title": "四、11.3：斜堆，长路径用重节点支付",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "fibonacci",
+          "title": "五、11.4：延迟连接，再用标记控制剪切",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "splay",
+          "title": "六、11.5：伸展树的访问引理",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "connection",
+          "title": "七、回看全书：操作、状态与总代价",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "exercises",
+          "title": "习题解答 · 11.1–11.14",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        },
+        {
+          "id": "programs",
+          "title": "共享定义与本章驱动",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        }
+      ],
+      "questions": [
+        "ex11-1",
+        "ex11-2",
+        "ex11-3",
+        "ex11-4",
+        "ex11-5",
+        "ex11-6",
+        "ex11-7",
+        "ex11-8",
+        "ex11-9",
+        "ex11-10",
+        "ex11-11",
+        "ex11-12",
+        "ex11-13",
+        "ex11-14"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "weiss/notes/chapter12_advanced_data_structures.html",
+      "source": "src/content/books/weiss/chapter12_advanced_data_structures.html",
+      "sections": [
+        {
+          "id": "practical",
+          "title": "从分析转向实现：每一种保证如何落到指针上",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "splay",
+          "title": "12.1：边搜索边拆树，再把三部分接回去",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "redblack",
+          "title": "12.2：下降前拆开 4 节点，删除前补足黑高度",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "skip",
+          "title": "12.3：用间隙控制高度，把期望保证改成最坏保证",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "aa",
+          "title": "12.4：只允许向右的水平链接",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "treap",
+          "title": "12.5：键决定中序，优先级决定根",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "kd",
+          "title": "12.6：二维搜索不等于两棵一维树",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "pairing",
+          "title": "12.7：删除最小根以后，合并次序成为核心",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "connection",
+          "title": "读完全书：把保证、状态与操作序列放在一起",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "exercises",
+          "title": "习题解答 · 12.1–12.36",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        },
+        {
+          "id": "programs",
+          "title": "共享定义、检查方法与实验驱动",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        }
+      ],
+      "questions": [
+        "ex12-1",
+        "ex12-2",
+        "ex12-3",
+        "ex12-4",
+        "ex12-5",
+        "ex12-6",
+        "ex12-7",
+        "ex12-8",
+        "ex12-9",
+        "ex12-10",
+        "ex12-11",
+        "ex12-12",
+        "ex12-13",
+        "ex12-14",
+        "ex12-15",
+        "ex12-16",
+        "ex12-17",
+        "ex12-18",
+        "ex12-19",
+        "ex12-20",
+        "ex12-21",
+        "ex12-22",
+        "ex12-23",
+        "ex12-24",
+        "ex12-25",
+        "ex12-26",
+        "ex12-27",
+        "ex12-28",
+        "ex12-29",
+        "ex12-30",
+        "ex12-31",
+        "ex12-32",
+        "ex12-33",
+        "ex12-34",
+        "ex12-35",
+        "ex12-36"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "csapp/notes/book_overview.html",
+      "source": "src/content/books/csapp/book_overview.html",
+      "sections": [
+        {
+          "id": "map",
+          "title": "十二章与三个部分Contents · Program Structure and Execution · Running Programs · Interaction",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "part-ii",
+          "title": "第二部分：程序怎样获得运行环境Part II · Running Programs on a System",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "part-iii",
+          "title": "第三部分：程序怎样交换信息并共同推进Part III · Interaction and Communication between Programs",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "connections",
+          "title": "从一段数组代码看章节之间的联系A program across representations and execution layers",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "reading-path",
+          "title": "怎样安排第一轮阅读和回读How to Read the Book · Course Paths",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "source-reading",
+          "title": "经典原文与重要原理Source Passages and Principles",
+          "annotation": "optional",
+          "role": "navigation-or-source",
+          "reason": "全书入口、书目来源或索引，直接提供导航信息。"
+        },
+        {
+          "id": "program-guide",
+          "title": "阅读与程序使用说明Programs, models and reproducible observations",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "edition",
+          "title": "版次、页码与校注Source and edition",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        }
+      ],
+      "questions": [],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "csapp/notes/chapter01_tour.html",
+      "source": "src/content/books/csapp/chapter01_tour.html",
+      "sections": [
+        {
+          "id": "s1-1",
+          "title": "1.1 信息的含义来自位和解释规则Information Is Bits + Context",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s1-2",
+          "title": "1.2 编译工具链怎样改变程序的表示Programs Are Translated by Other Programs into Different Forms",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s1-3",
+          "title": "1.3 理解工具链怎样帮助判断程序It Pays to Understand How Compilation Systems Work",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s1-4",
+          "title": "1.4 从输入命令到执行helloProcessors Read and Interpret Instructions Stored in Memory",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s1-5",
+          "title": "1.5 快速计算为什么还要等待数据Caches Matter",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s1-6",
+          "title": "1.6 存储层次把容量和速度组合起来Storage Devices Form a Hierarchy",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s1-7",
+          "title": "1.7 操作系统给程序提供怎样的环境The Operating System Manages the Hardware",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s1-8",
+          "title": "1.8 将hello的输入输出延伸到另一台机器Systems Communicate with Other Systems Using Networks",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s1-9",
+          "title": "1.9 三条贯穿全书的判断线Important Themes",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s1-10",
+          "title": "1.10 带着hello进入第一部分Summary",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "experiment",
+          "title": "计算实验：从输出到整体加速比",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "运行步骤、代码或章节衔接；相应概念的注解绑定正文小节。"
+        },
+        {
+          "id": "exercises",
+          "title": "习题解答 · 1.1—1.2",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        },
+        {
+          "id": "self-check",
+          "title": "补充自测与解答",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        }
+      ],
+      "questions": [
+        "ex-1-1",
+        "ex-1-2",
+        "q1-1",
+        "q1-2",
+        "q1-3"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "csapp/notes/chapter02_information.html",
+      "source": "src/content/books/csapp/chapter02_information.html",
+      "sections": [
+        {
+          "id": "s2-1",
+          "title": "2.1 · 从字节到位操作Information Storage",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s2-2",
+          "title": "2.2 · 用权值建立整数模型Integer Representations",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s2-3",
+          "title": "2.3 · 有限位宽上的整数运算Integer Arithmetic",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s2-4",
+          "title": "2.4 · 在浮点网格上表示与舍入Floating Point",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s2-5",
+          "title": "2.5 · 把表示、运算和语言规则连起来Summary",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "exercises",
+          "title": "习题解答",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        },
+        {
+          "id": "programs",
+          "title": "完整程序与运行",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "运行步骤、代码或章节衔接；相应概念的注解绑定正文小节。"
+        },
+        {
+          "id": "experiment",
+          "title": "动手验证 · 8 位表示与浮点反例",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "运行步骤、代码或章节衔接；相应概念的注解绑定正文小节。"
+        },
+        {
+          "id": "self-check",
+          "title": "原创自测与解答",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        }
+      ],
+      "questions": [
+        "ex-2-1",
+        "ex-2-2",
+        "ex-2-3",
+        "ex-2-4",
+        "ex-2-5",
+        "ex-2-6",
+        "ex-2-7",
+        "ex-2-8",
+        "ex-2-9",
+        "ex-2-10",
+        "ex-2-11",
+        "ex-2-12",
+        "ex-2-13",
+        "ex-2-14",
+        "ex-2-15",
+        "ex-2-16",
+        "ex-2-17",
+        "ex-2-18",
+        "ex-2-19",
+        "ex-2-20",
+        "ex-2-21",
+        "ex-2-22",
+        "ex-2-23",
+        "ex-2-24",
+        "ex-2-25",
+        "ex-2-26",
+        "ex-2-27",
+        "ex-2-28",
+        "ex-2-29",
+        "ex-2-30",
+        "ex-2-31",
+        "ex-2-32",
+        "ex-2-33",
+        "ex-2-34",
+        "ex-2-35",
+        "ex-2-36",
+        "ex-2-37",
+        "ex-2-38",
+        "ex-2-39",
+        "ex-2-40",
+        "ex-2-41",
+        "ex-2-42",
+        "ex-2-43",
+        "ex-2-44",
+        "ex-2-45",
+        "ex-2-46",
+        "ex-2-47",
+        "ex-2-48",
+        "ex-2-49",
+        "ex-2-50",
+        "ex-2-51",
+        "ex-2-52",
+        "ex-2-53",
+        "ex-2-54",
+        "ex-2-55",
+        "ex-2-56",
+        "ex-2-57",
+        "ex-2-58",
+        "ex-2-59",
+        "ex-2-60",
+        "ex-2-61",
+        "ex-2-62",
+        "ex-2-63",
+        "ex-2-64",
+        "ex-2-65",
+        "ex-2-66",
+        "ex-2-67",
+        "ex-2-68",
+        "ex-2-69",
+        "ex-2-70",
+        "ex-2-71",
+        "ex-2-72",
+        "ex-2-73",
+        "ex-2-74",
+        "ex-2-75",
+        "ex-2-76",
+        "ex-2-77",
+        "ex-2-78",
+        "ex-2-79",
+        "ex-2-80",
+        "ex-2-81",
+        "ex-2-82",
+        "ex-2-83",
+        "ex-2-84",
+        "ex-2-85",
+        "ex-2-86",
+        "ex-2-87",
+        "ex-2-88",
+        "ex-2-89",
+        "ex-2-90",
+        "ex-2-91",
+        "ex-2-92",
+        "ex-2-93",
+        "ex-2-94",
+        "ex-2-95",
+        "ex-2-96",
+        "ex-2-97",
+        "q2-1",
+        "q2-2",
+        "q2-3"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "csapp/notes/chapter03_machine_level.html",
+      "source": "src/content/books/csapp/chapter03_machine_level.html",
+      "sections": [
+        {
+          "id": "s3-1",
+          "title": "3.1 · 名字带着历史，执行遵守当前的指令集A Historical Perspective",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s3-2",
+          "title": "3.2 · 从C、汇编到真正的机器字节Program Encodings",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s3-3",
+          "title": "3.3 · 宽度是每一次读写的组成部分Data Formats",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s3-4",
+          "title": "3.4 · 从操作数一路算到内存中的字节Accessing Information",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s3-5",
+          "title": "3.5 · 把每条算术指令当成状态变换Arithmetic and Logical Operations",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s3-6",
+          "title": "3.6 · 条件改变控制流，也能改变数据流Control",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s3-7",
+          "title": "3.7 · 一次调用要同时传控制、传数据和保存状态Procedures",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s3-8",
+          "title": "3.8 · 数组的类型决定地址算式Array Allocation and Access",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s3-9",
+          "title": "3.9 · 结构体字段是编译期确定的偏移Heterogeneous Data Structures",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s3-10",
+          "title": "3.10 · 当数据字节碰到控制状态Combining Control and Data in Machine-Level Programs",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s3-11",
+          "title": "3.11 · 浮点值进入XMM寄存器与浮点条件Floating-Point Code",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s3-12",
+          "title": "3.12 · 把整段程序连成一条可验证的状态链Summary",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "experiment",
+          "title": "动手验证 · 地址、布局与简单函数",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "运行步骤、代码或章节衔接；相应概念的注解绑定正文小节。"
+        },
+        {
+          "id": "exercises",
+          "title": "习题解答 · 3.1—3.75",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        },
+        {
+          "id": "self-check",
+          "title": "原创自测与解答",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        }
+      ],
+      "questions": [
+        "ex-3-1",
+        "ex-3-2",
+        "ex-3-3",
+        "ex-3-4",
+        "ex-3-5",
+        "ex-3-6",
+        "ex-3-7",
+        "ex-3-8",
+        "ex-3-9",
+        "ex-3-10",
+        "ex-3-11",
+        "ex-3-12",
+        "ex-3-13",
+        "ex-3-14",
+        "ex-3-15",
+        "ex-3-16",
+        "ex-3-17",
+        "ex-3-18",
+        "ex-3-19",
+        "ex-3-20",
+        "ex-3-21",
+        "ex-3-22",
+        "ex-3-23",
+        "ex-3-24",
+        "ex-3-25",
+        "ex-3-26",
+        "ex-3-27",
+        "ex-3-28",
+        "ex-3-29",
+        "ex-3-30",
+        "ex-3-31",
+        "ex-3-32",
+        "ex-3-33",
+        "ex-3-34",
+        "ex-3-35",
+        "ex-3-36",
+        "ex-3-37",
+        "ex-3-38",
+        "ex-3-39",
+        "ex-3-40",
+        "ex-3-41",
+        "ex-3-42",
+        "ex-3-43",
+        "ex-3-44",
+        "ex-3-45",
+        "ex-3-46",
+        "ex-3-47",
+        "ex-3-48",
+        "ex-3-49",
+        "ex-3-50",
+        "ex-3-51",
+        "ex-3-52",
+        "ex-3-53",
+        "ex-3-54",
+        "ex-3-55",
+        "ex-3-56",
+        "ex-3-57",
+        "ex-3-58",
+        "ex-3-59",
+        "ex-3-60",
+        "ex-3-61",
+        "ex-3-62",
+        "ex-3-63",
+        "ex-3-64",
+        "ex-3-65",
+        "ex-3-66",
+        "ex-3-67",
+        "ex-3-68",
+        "ex-3-69",
+        "ex-3-70",
+        "ex-3-71",
+        "ex-3-72",
+        "ex-3-73",
+        "ex-3-74",
+        "ex-3-75",
+        "q3-1",
+        "q3-2",
+        "q3-3"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "csapp/notes/chapter04_architecture.html",
+      "source": "src/content/books/csapp/chapter04_architecture.html",
+      "sections": [
+        {
+          "id": "s4-1",
+          "title": "4.1 · 把 ISA 写成可检验的状态变化The Y86-64 Instruction Set Architecture",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s4-2",
+          "title": "4.2 · 让控制表达式变成有时序的电路Logic Design and the Hardware Control Language HCL",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s4-3",
+          "title": "4.3 · 用一条组合通路完成整条指令Sequential Y86-64 Implementations",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s4-4",
+          "title": "4.4 · 把延迟与连续产出分开计算General Principles of Pipelining",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s4-5",
+          "title": "4.5 · 让并发执行保持顺序语义Pipelined Y86-64 Implementations",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s4-6",
+          "title": "4.6 · 实现可以变，程序含义必须稳定Summary",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "simulator-experiment",
+          "title": "官方 SEQ / PIPE 模拟器实验",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "运行步骤、代码或章节衔接；相应概念的注解绑定正文小节。"
+        },
+        {
+          "id": "machine-model",
+          "title": "可运行模型 · 指令状态与控制选择",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "运行步骤、代码或章节衔接；相应概念的注解绑定正文小节。"
+        },
+        {
+          "id": "algorithm-model",
+          "title": "可运行程序 · 指针排序与 switch 参考结果",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "运行步骤、代码或章节衔接；相应概念的注解绑定正文小节。"
+        },
+        {
+          "id": "experiment",
+          "title": "补充实验 · 理想流水线时间模型",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "运行步骤、代码或章节衔接；相应概念的注解绑定正文小节。"
+        },
+        {
+          "id": "self-check",
+          "title": "自测与解答",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        },
+        {
+          "id": "exercises",
+          "title": "习题解答 · 4.1—4.59",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        }
+      ],
+      "questions": [
+        "q4-1",
+        "q4-2",
+        "q4-3",
+        "ex-4-1",
+        "ex-4-2",
+        "ex-4-3",
+        "ex-4-4",
+        "ex-4-5",
+        "ex-4-6",
+        "ex-4-7",
+        "ex-4-8",
+        "ex-4-9",
+        "ex-4-10",
+        "ex-4-11",
+        "ex-4-12",
+        "ex-4-13",
+        "ex-4-14",
+        "ex-4-15",
+        "ex-4-16",
+        "ex-4-17",
+        "ex-4-18",
+        "ex-4-19",
+        "ex-4-20",
+        "ex-4-21",
+        "ex-4-22",
+        "ex-4-23",
+        "ex-4-24",
+        "ex-4-25",
+        "ex-4-26",
+        "ex-4-27",
+        "ex-4-28",
+        "ex-4-29",
+        "ex-4-30",
+        "ex-4-31",
+        "ex-4-32",
+        "ex-4-33",
+        "ex-4-34",
+        "ex-4-35",
+        "ex-4-36",
+        "ex-4-37",
+        "ex-4-38",
+        "ex-4-39",
+        "ex-4-40",
+        "ex-4-41",
+        "ex-4-42",
+        "ex-4-43",
+        "ex-4-44",
+        "ex-4-45",
+        "ex-4-46",
+        "ex-4-47",
+        "ex-4-48",
+        "ex-4-49",
+        "ex-4-50",
+        "ex-4-51",
+        "ex-4-52",
+        "ex-4-53",
+        "ex-4-54",
+        "ex-4-55",
+        "ex-4-56",
+        "ex-4-57",
+        "ex-4-58",
+        "ex-4-59"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "source": "src/content/books/csapp/chapter05_optimization.html",
+      "sections": [
+        {
+          "id": "s5-1",
+          "title": "5.1 · 编译器必须保留程序实际表达的语义Capabilities and Limitations of Optimizing Compilers",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s5-2",
+          "title": "5.2 · 用斜率区分固定开销与每元素成本Expressing Program Performance",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s5-3",
+          "title": "5.3 · 把抽象接口写成可以追踪的归约循环Program Example",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s5-4",
+          "title": "5.4 · 把不变的工作移出循环Eliminating Loop Inefficiencies",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s5-5",
+          "title": "5.5 · 在可信边界内减少过程调用Reducing Procedure Calls",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s5-6",
+          "title": "5.6 · 用局部累积器缩短读改写链Eliminating Unneeded Memory References",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s5-7",
+          "title": "5.7 · 从数据依赖预测性能下界Understanding Modern Processors",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s5-8",
+          "title": "5.8 · 循环展开减少控制工作，却保留原来的累积链Loop Unrolling",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s5-9",
+          "title": "5.9 · 改变依赖图，让独立运算同时进行Enhancing Parallelism",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s5-10",
+          "title": "5.10 · 用原书数据核对模型Summary of Results for Optimizing Combining Code",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s5-11",
+          "title": "5.11 · 独立链足够之后，检查寄存器与分支Some Limiting Factors",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s5-12",
+          "title": "5.12 · 理解载入、存储以及它们之间的相关Understanding Memory Performance",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s5-13",
+          "title": "5.13 · 把优化组织成可以检验的假设Life in the Real World: Performance Improvement Techniques",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s5-14",
+          "title": "5.14 · 剖析先找到大头，再解释它为什么慢Identifying and Eliminating Performance Bottlenecks",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s5-15",
+          "title": "5.15 · 把本章收束成两条下界和一套验证方法Summary",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "exercises",
+          "title": "原书习题与解答 · 5.1—5.19",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        },
+        {
+          "id": "experiment",
+          "title": "动手验证 · 从语义到实际运行",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "运行步骤、代码或章节衔接；相应概念的注解绑定正文小节。"
+        },
+        {
+          "id": "self-check",
+          "title": "补充自测与解答",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        }
+      ],
+      "questions": [
+        "ex-5-1",
+        "ex-5-2",
+        "ex-5-3",
+        "ex-5-4",
+        "ex-5-5",
+        "ex-5-6",
+        "ex-5-7",
+        "ex-5-8",
+        "ex-5-9",
+        "ex-5-10",
+        "ex-5-11",
+        "ex-5-12",
+        "ex-5-13",
+        "ex-5-14",
+        "ex-5-15",
+        "ex-5-16",
+        "ex-5-17",
+        "ex-5-18",
+        "ex-5-19",
+        "q5-1",
+        "q5-2",
+        "q5-3"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "csapp/notes/chapter06_memory.html",
+      "source": "src/content/books/csapp/chapter06_memory.html",
+      "sections": [
+        {
+          "id": "s6-1",
+          "title": "6.1 · 从存储单元推到访问成本Storage Technologies",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s6-2",
+          "title": "6.2 · 把循环展开成地址顺序Locality",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s6-3",
+          "title": "6.3 · 用块传输摊销慢存储的代价The Memory Hierarchy",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s6-4",
+          "title": "6.4 · 从地址分解推到替换和写策略Cache Memories",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s6-5",
+          "title": "6.5 · 让已带入的数据在被淘汰前用足Writing Cache-Friendly Code",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s6-6",
+          "title": "6.6 · 让局部性解释曲线和优化收益Putting It Together: The Impact of Caches on Program Performance",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s6-7",
+          "title": "6.7 · 把指令执行与数据移动接起来Summary",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "models",
+          "title": "可运行模型与实验",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "运行步骤、代码或章节衔接；相应概念的注解绑定正文小节。"
+        },
+        {
+          "id": "experiment",
+          "title": "动手验证 · 缓存轨迹与行列访问",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "运行步骤、代码或章节衔接；相应概念的注解绑定正文小节。"
+        },
+        {
+          "id": "self-check",
+          "title": "自测与解答",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        },
+        {
+          "id": "exercises",
+          "title": "原书习题 · 6.1—6.46",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        }
+      ],
+      "questions": [
+        "q6-1",
+        "q6-2",
+        "q6-3",
+        "ex-6-1",
+        "ex-6-2",
+        "ex-6-3",
+        "ex-6-4",
+        "ex-6-5",
+        "ex-6-6",
+        "ex-6-7",
+        "ex-6-8",
+        "ex-6-9",
+        "ex-6-10",
+        "ex-6-11",
+        "ex-6-12",
+        "ex-6-13",
+        "ex-6-14",
+        "ex-6-15",
+        "ex-6-16",
+        "ex-6-17",
+        "ex-6-18",
+        "ex-6-19",
+        "ex-6-20",
+        "ex-6-21",
+        "ex-6-22",
+        "ex-6-23",
+        "ex-6-24",
+        "ex-6-25",
+        "ex-6-26",
+        "ex-6-27",
+        "ex-6-28",
+        "ex-6-29",
+        "ex-6-30",
+        "ex-6-31",
+        "ex-6-32",
+        "ex-6-33",
+        "ex-6-34",
+        "ex-6-35",
+        "ex-6-36",
+        "ex-6-37",
+        "ex-6-38",
+        "ex-6-39",
+        "ex-6-40",
+        "ex-6-41",
+        "ex-6-42",
+        "ex-6-43",
+        "ex-6-44",
+        "ex-6-45",
+        "ex-6-46"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "csapp/notes/chapter07_linking.html",
+      "source": "src/content/books/csapp/chapter07_linking.html",
+      "sections": [
+        {
+          "id": "s7-1",
+          "title": "7.1 · 从两份源文件到一次可执行调用Compiler Drivers",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s7-2",
+          "title": "7.2 · 先决定引用谁，再决定写入什么地址Static Linking",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s7-3",
+          "title": "7.3 · 识别要合并、要运行、要共享的文件Object Files",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s7-4",
+          "title": "7.4 · 把文件读成若干有职责的节Relocatable Object Files",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s7-5",
+          "title": "7.5·C 作用域怎样投影到链接符号Symbols and Symbol Tables",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s7-6",
+          "title": "7.6 · 让名字匹配、重名规则与库顺序一致Symbol Resolution",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s7-7",
+          "title": "7.7 · 逐字节算出链接器要修补的值Relocation",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s7-8",
+          "title": "7.8 · 用段描述装载，用节描述链接Executable Object Files",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s7-9",
+          "title": "7.9 · 从文件映射到 main 前的启动过程Loading Executable Object Files",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s7-10",
+          "title": "7.10 · 把部分绑定推迟到装载时Dynamic Linking with Shared Libraries",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s7-11",
+          "title": "7.11 · 程序自己选择何时加载一个库Loading and Linking Shared Libraries from Applications",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s7-12",
+          "title": "7.12 · 用不变的相对距离访问会变的地址Position-Independent Code (PIC)",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s7-13",
+          "title": "7.13 · 在三个时机把调用导向包装函数Library Interpositioning",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s7-14",
+          "title": "7.14 · 从一个错误选出能回答问题的工具Tools for Manipulating Object Files",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s7-15",
+          "title": "7.15 · 把链接放回程序运行的全程Summary",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "models",
+          "title": "可运行模型与真实链接实验",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "运行步骤、代码或章节衔接；相应概念的注解绑定正文小节。"
+        },
+        {
+          "id": "self-check",
+          "title": "原创自测：先猜，再验证",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        },
+        {
+          "id": "exercises",
+          "title": "原书习题 · 7.1—7.13",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        }
+      ],
+      "questions": [
+        "q7-1",
+        "q7-2",
+        "q7-3",
+        "ex-7-1",
+        "ex-7-2",
+        "ex-7-3",
+        "ex-7-4",
+        "ex-7-5",
+        "ex-7-6",
+        "ex-7-7",
+        "ex-7-8",
+        "ex-7-9",
+        "ex-7-10",
+        "ex-7-11",
+        "ex-7-12",
+        "ex-7-13"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "csapp/notes/chapter08_exceptional.html",
+      "source": "src/content/books/csapp/chapter08_exceptional.html",
+      "sections": [
+        {
+          "id": "s8-1",
+          "title": "8.1 · 先确定事件、入口和返回位置Exceptions",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s8-2",
+          "title": "8.2 · 用上下文维持独立执行的表象Processes",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s8-3",
+          "title": "8.3 · 让返回值决定后续路径System Call Error Handling",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s8-4",
+          "title": "8.4 · 从复制进程到运行另一份程序Process Control",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s8-5",
+          "title": "8.5 · 把通知与可靠状态分开Signals",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s8-6",
+          "title": "8.6 · 绕过返回链也会绕过清理Nonlocal Jumps",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s8-7",
+          "title": "8.7 · 用工具核对状态，不用样本代替证明Tools for Manipulating Processes",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s8-8",
+          "title": "8.8 · 把控制流与状态约束一起读Summary",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "models",
+          "title": "可运行机制与实现",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "运行步骤、代码或章节衔接；相应概念的注解绑定正文小节。"
+        },
+        {
+          "id": "self-check",
+          "title": "原创自测",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        },
+        {
+          "id": "exercises",
+          "title": "本版原书习题 · 8.1—8.26",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        }
+      ],
+      "questions": [
+        "q8-1",
+        "q8-2",
+        "q8-3",
+        "ex-8-1",
+        "ex-8-2",
+        "ex-8-3",
+        "ex-8-4",
+        "ex-8-5",
+        "ex-8-6",
+        "ex-8-7",
+        "ex-8-8",
+        "ex-8-9",
+        "ex-8-10",
+        "ex-8-11",
+        "ex-8-12",
+        "ex-8-13",
+        "ex-8-14",
+        "ex-8-15",
+        "ex-8-16",
+        "ex-8-17",
+        "ex-8-18",
+        "ex-8-19",
+        "ex-8-20",
+        "ex-8-21",
+        "ex-8-22",
+        "ex-8-23",
+        "ex-8-24",
+        "ex-8-25",
+        "ex-8-26"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "csapp/notes/chapter09_virtual_memory.html",
+      "source": "src/content/books/csapp/chapter09_virtual_memory.html",
+      "sections": [
+        {
+          "id": "s9-1",
+          "title": "9.1 · CPU 给出的地址为何还要翻译Physical and Virtual Addressing",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s9-2",
+          "title": "9.2 · 把地址空间与实际存储容量分开Address Spaces",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s9-3",
+          "title": "9.3 · 从驻留、缺页到工作集VM as a Tool for Caching",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s9-4",
+          "title": "9.4 · 连续空间是页表提供的服务VM as a Tool for Memory Management",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s9-5",
+          "title": "9.5 · 同一次翻译同时回答能否访问VM as a Tool for Memory Protection",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s9-6",
+          "title": "9.6 · 一条访存从虚址走到返回字节Address Translation",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s9-7",
+          "title": "9.7 · 用原书平台落实翻译与异常Case Study: The Intel Core i7/Linux Memory System",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s9-8",
+          "title": "9.8 · 把文件、fork与装载连到虚拟区域Memory Mapping",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s9-9",
+          "title": "9.9 · 从malloc契约到可检查的堆Dynamic Memory Allocation",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s9-10",
+          "title": "9.10 · 让引用图决定何时释放Garbage Collection",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s9-11",
+          "title": "9.11 · 从页权限回到对象生命周期Common Memory-Related Bugs in C Programs",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s9-12",
+          "title": "9.12 · 用同一条因果链串起本章Summary",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "experiment",
+          "title": "可执行实验：同一状态，手算与程序读回",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "运行步骤、代码或章节衔接；相应概念的注解绑定正文小节。"
+        },
+        {
+          "id": "exercises",
+          "title": "本版练习与作业：9.1—9.20",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        },
+        {
+          "id": "self-check",
+          "title": "原创自测：先预测，再展开",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        }
+      ],
+      "questions": [
+        "ex-9-1",
+        "ex-9-2",
+        "ex-9-3",
+        "ex-9-4",
+        "ex-9-5",
+        "ex-9-6",
+        "ex-9-7",
+        "ex-9-8",
+        "ex-9-9",
+        "ex-9-10",
+        "ex-9-11",
+        "ex-9-12",
+        "ex-9-13",
+        "ex-9-14",
+        "ex-9-15",
+        "ex-9-16",
+        "ex-9-17",
+        "ex-9-18",
+        "ex-9-19",
+        "ex-9-20",
+        "q9-1",
+        "q9-2",
+        "q9-3"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "csapp/notes/chapter10_system_io.html",
+      "source": "src/content/books/csapp/chapter10_system_io.html",
+      "sections": [
+        {
+          "id": "s10-1",
+          "title": "10.1 · 把外设访问统一为描述符上的操作Unix I/O",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s10-2",
+          "title": "10.2 · 文件类型、目录与路径是不同层次Files",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s10-3",
+          "title": "10.3 · 打开创建状态，关闭释放一条引用Opening and Closing Files",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s10-4",
+          "title": "10.4 · 请求长度与实际传输量必须分别保存Reading and Writing Files",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s10-5",
+          "title": "10.5 · Rio 把传输进度与缓冲状态显式化Robust Reading and Writing with the Rio Package",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s10-6",
+          "title": "10.6 · 元数据说明对象，不读取文件正文Reading File Metadata",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s10-7",
+          "title": "10.7 · 目录读取的末尾和失败共享一个返回值Reading Directory Contents",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s10-8",
+          "title": "10.8 · 看清三张表，才能判断偏移是否共享Sharing Files",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s10-9",
+          "title": "10.9 · 重定向改变表项关系，复制循环不变I/O Redirection",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s10-10",
+          "title": "10.10 · 标准 I/O 在描述符上增加流与格式Standard I/O",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s10-11",
+          "title": "10.11 · 按对象与协议选择合适的输入输出层Putting It Together: Which I/O Functions Should I Use?",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s10-12",
+          "title": "10.12 · 把一次请求从描述符追到应用缓冲Summary",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "models",
+          "title": "可运行机制：计数、缓冲与共享偏移",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "运行步骤、代码或章节衔接；相应概念的注解绑定正文小节。"
+        },
+        {
+          "id": "self-check",
+          "title": "原创自测：先猜，再跟踪状态",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        },
+        {
+          "id": "exercises",
+          "title": "原书习题 · 10.1—10.10",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        }
+      ],
+      "questions": [
+        "q10-1",
+        "q10-2",
+        "q10-3",
+        "ex-10-1",
+        "ex-10-2",
+        "ex-10-3",
+        "ex-10-4",
+        "ex-10-5",
+        "ex-10-6",
+        "ex-10-7",
+        "ex-10-8",
+        "ex-10-9",
+        "ex-10-10"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "csapp/notes/chapter11_network.html",
+      "source": "src/content/books/csapp/chapter11_network.html",
+      "sections": [
+        {
+          "id": "s11-1",
+          "title": "11.1 · 一次请求与响应，把资源变成服务The Client-Server Programming Model",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s11-2",
+          "title": "11.2 · 封装让异构链路承载同一种通信Networks",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s11-3",
+          "title": "11.3 · 程序看见地址、名字与连接The Global IP Internet",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s11-4",
+          "title": "11.4 · 沿一个连接的生存期理解接口The Sockets Interface",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s11-5",
+          "title": "11.5 · 把字节流上的协议接到文件与程序Web Servers",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s11-6",
+          "title": "11.6 · 沿doit走完静态与动态两条路径Putting It Together: The Tiny Web Server",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s11-7",
+          "title": "11.7 · 把资源、协议与生命周期放在同一条线上Summary",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "experiment",
+          "title": "可执行实验：地址、流与HTTP",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "运行步骤、代码或章节衔接；相应概念的注解绑定正文小节。"
+        },
+        {
+          "id": "exercises",
+          "title": "本版练习与作业：11.1—11.13",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        },
+        {
+          "id": "self-check",
+          "title": "原创自测：先预测，再展开",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        }
+      ],
+      "questions": [
+        "ex-11-1",
+        "ex-11-2",
+        "ex-11-3",
+        "ex-11-4",
+        "ex-11-5",
+        "ex-11-6",
+        "ex-11-7",
+        "ex-11-8",
+        "ex-11-9",
+        "ex-11-10",
+        "ex-11-11",
+        "ex-11-12",
+        "ex-11-13",
+        "q11-1",
+        "q11-2",
+        "q11-3"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "csapp/notes/chapter12_concurrency.html",
+      "source": "src/content/books/csapp/chapter12_concurrency.html",
+      "sections": [
+        {
+          "id": "s12-1",
+          "title": "12.1 · 用进程隔开每个客户Concurrent Programming with Processes",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s12-2",
+          "title": "12.2 · 让一次就绪只推进有限一步Concurrent Programming with I/O Multiplexing",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s12-3",
+          "title": "12.3 · 共享进程，但单独管理执行与回收Concurrent Programming with Threads",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s12-4",
+          "title": "12.4 · 先找到对象，再判断是否需要同步Shared Variables in Threaded Programs",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s12-5",
+          "title": "12.5 · 同步必须保护不变量并安排等待Synchronizing Threads with Semaphores",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s12-6",
+          "title": "12.6 · 先消除共享写，再测量并行收益Using Threads for Parallelism",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s12-7",
+          "title": "12.7 · 把安全性、生存期、公平性和死锁分开Other Concurrency Issues",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s12-8",
+          "title": "12.8 · 把并发设计落到资源与状态Summary",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "experiment",
+          "title": "可执行实验：从交错模型到真实并发",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "运行步骤、代码或章节衔接；相应概念的注解绑定正文小节。"
+        },
+        {
+          "id": "source-programs",
+          "title": "题用原书程序：保留输入与行号",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "运行步骤、代码或章节衔接；相应概念的注解绑定正文小节。"
+        },
+        {
+          "id": "exercises",
+          "title": "本版练习与作业：12.1—12.39",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        },
+        {
+          "id": "self-check",
+          "title": "原创自测：先判断谁拥有资源",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        }
+      ],
+      "questions": [
+        "ex-12-1",
+        "ex-12-2",
+        "ex-12-3",
+        "ex-12-4",
+        "ex-12-5",
+        "ex-12-6",
+        "ex-12-7",
+        "ex-12-8",
+        "ex-12-9",
+        "ex-12-10",
+        "ex-12-11",
+        "ex-12-12",
+        "ex-12-13",
+        "ex-12-14",
+        "ex-12-15",
+        "ex-12-16",
+        "ex-12-17",
+        "ex-12-18",
+        "ex-12-19",
+        "ex-12-20",
+        "ex-12-21",
+        "ex-12-22",
+        "ex-12-23",
+        "ex-12-24",
+        "ex-12-25",
+        "ex-12-26",
+        "ex-12-27",
+        "ex-12-28",
+        "ex-12-29",
+        "ex-12-30",
+        "ex-12-31",
+        "ex-12-32",
+        "ex-12-33",
+        "ex-12-34",
+        "ex-12-35",
+        "ex-12-36",
+        "ex-12-37",
+        "ex-12-38",
+        "ex-12-39",
+        "q12-1",
+        "q12-2",
+        "q12-3"
+      ],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "csapp/notes/preface.html",
+      "source": "src/content/books/csapp/preface.html",
+      "sections": [
+        {
+          "id": "perspective",
+          "title": "一、程序员视角怎样决定全书的选材A Programmer’s Perspective",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "background",
+          "title": "二、作者的机器背景也是例子的前提Assumptions about the Reader’s Background",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "method",
+          "title": "三、把阅读变成一轮可检验的推演How to Read the Book",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "overview",
+          "title": "四、十二章围绕同一个程序逐渐扩展Book Overview",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "edition-history",
+          "title": "五、版次、课程和实验怎样塑造这本书New to This Edition · Origins · Courses · Labs · Acknowledgments",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        }
+      ],
+      "questions": [],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "eopl/notes/book_overview.html",
+      "source": "src/content/books/eopl/book_overview.html",
+      "sections": [
+        {
+          "id": "thread",
+          "title": "一个程序为什么会得到这个结果",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "dependencies",
+          "title": "先走共同基础，再分成两条路线",
+          "annotation": "optional",
+          "role": "navigation-or-source",
+          "reason": "全书入口、书目来源或索引，直接提供导航信息。"
+        },
+        {
+          "id": "chapters",
+          "title": "九章各向前推进了什么",
+          "annotation": "optional",
+          "role": "navigation-or-source",
+          "reason": "全书入口、书目来源或索引，直接提供导航信息。"
+        },
+        {
+          "id": "models",
+          "title": "始终分清这四种对象",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "routes",
+          "title": "第一次怎样读，之后回到哪里",
+          "annotation": "optional",
+          "role": "navigation-or-source",
+          "reason": "全书入口、书目来源或索引，直接提供导航信息。"
+        },
+        {
+          "id": "program-guide",
+          "title": "从一个闭包实验开始",
+          "annotation": "optional",
+          "role": "navigation-or-source",
+          "reason": "全书入口、书目来源或索引，直接提供导航信息。"
+        },
+        {
+          "id": "source",
+          "title": "来源、页序与可阅读范围",
+          "annotation": "optional",
+          "role": "navigation-or-source",
+          "reason": "全书入口、书目来源或索引，直接提供导航信息。"
+        }
+      ],
+      "questions": [],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "eopl/notes/chapter01_inductive_data.html",
+      "source": "src/content/books/eopl/chapter01_inductive_data.html",
+      "sections": [
+        {
+          "id": "s1-1",
+          "title": "1.1 数据怎样由有限规则长出来",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s1-2",
+          "title": "1.2 从数据分支推导递归程序",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s1-3",
+          "title": "1.3 上下文向下传，结果怎样向上传",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s1-4",
+          "title": "1.4 练习：把结构、契约与执行连起来",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "programs",
+          "title": "运行本章程序",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "运行步骤、代码或章节衔接；相应概念的注解绑定正文小节。"
+        }
+      ],
+      "questions": [
+        "ex-1-1",
+        "ex-1-2",
+        "ex-1-3",
+        "ex-1-4",
+        "ex-1-5",
+        "ex-1-6",
+        "ex-1-7",
+        "ex-1-8",
+        "ex-1-9",
+        "ex-1-10",
+        "ex-1-11",
+        "ex-1-12",
+        "ex-1-13",
+        "ex-1-14",
+        "ex-1-15",
+        "ex-1-16",
+        "ex-1-17",
+        "ex-1-18",
+        "ex-1-19",
+        "ex-1-20",
+        "ex-1-21",
+        "ex-1-22",
+        "ex-1-23",
+        "ex-1-24",
+        "ex-1-25",
+        "ex-1-26",
+        "ex-1-27",
+        "ex-1-28",
+        "ex-1-29",
+        "ex-1-30",
+        "ex-1-31",
+        "ex-1-32",
+        "ex-1-33",
+        "ex-1-34",
+        "ex-1-35",
+        "ex-1-36"
+      ],
+      "chinese_translation_required": true
+    },
+    {
+      "page": "eopl/notes/chapter02_data_abstraction.html",
+      "source": "src/content/books/eopl/chapter02_data_abstraction.html",
+      "sections": [
+        {
+          "id": "s2-1",
+          "title": "2.1 先规定观察结果，再选择表示",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s2-2",
+          "title": "2.2 环境：一套方程，多种实现",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s2-3",
+          "title": "2.3 递归接口与带上下文的游标",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s2-4",
+          "title": "2.4 用 define-datatype 声明构造，用 cases 消去构造",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "s2-5",
+          "title": "2.5 从具体语法得到可计算的树",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "programs",
+          "title": "运行本章程序",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "运行步骤、代码或章节衔接；相应概念的注解绑定正文小节。"
+        }
+      ],
+      "questions": [
+        "ex-2-1",
+        "ex-2-2",
+        "ex-2-3",
+        "ex-2-4",
+        "ex-2-5",
+        "ex-2-6",
+        "ex-2-7",
+        "ex-2-8",
+        "ex-2-9",
+        "ex-2-10",
+        "ex-2-11",
+        "ex-2-12",
+        "ex-2-13",
+        "ex-2-14",
+        "ex-2-15",
+        "ex-2-16",
+        "ex-2-17",
+        "ex-2-18",
+        "ex-2-19",
+        "ex-2-20",
+        "ex-2-21",
+        "ex-2-22",
+        "ex-2-23",
+        "ex-2-24",
+        "ex-2-25",
+        "ex-2-26",
+        "ex-2-27",
+        "ex-2-28",
+        "ex-2-29",
+        "ex-2-30",
+        "ex-2-31"
+      ],
+      "chinese_translation_required": true
+    },
+    {
+      "page": "eopl/notes/preface.html",
+      "source": "src/content/books/eopl/preface.html",
+      "sections": [
+        {
+          "id": "foreword",
+          "title": "Abelson 导读：解释器也是一个程序",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "goal",
+          "title": "作者的目标：对“它做了什么”给出可执行回答",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "scope-example",
+          "title": "先算一个例子：闭包记住哪一个 x",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "method",
+          "title": "六项方法怎样共同支持理解",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "edition",
+          "title": "第三版做了什么，全书怎样展开",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "usage",
+          "title": "怎样使用这本书",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念、方法或阅读关系，需要对应的补充注解。"
+        },
+        {
+          "id": "exercise",
+          "title": "原书习题 0.1：给语言特性找正例和反例",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "题干与解答在本节就地展示；按题核对中文和来源。"
+        }
+      ],
+      "questions": [
+        "ex-0-1"
+      ],
+      "chinese_translation_required": false
+    }
+  ]
+}

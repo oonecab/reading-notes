@@ -24,23 +24,33 @@ def check_ex285_math(page: str):
     exercise = page[start:end]
     if 'ᵗ' in exercise:
         raise ValueError('2.85 must not split t into an external Unicode superscript')
-    powers = re.findall(r'<span\b[^>]*data-tex="2\^\{-t\}"[^>]*>(<math\b.*?</math>)</span>',
-                        exercise, re.S)
-    if len(powers) != 2:
-        raise ValueError('2.85 must contain two complete negative-t powers')
     ns = {'m': 'http://www.w3.org/1998/Math/MathML'}
-    for power in powers:
-        root = ET.fromstring(power)
+    prefix = '{' + ns['m'] + '}'
+    # The powers now belong to the complete M and f equalities. Inspect the
+    # presentation tree, not an obsolete span around the isolated power.
+    forms = {}
+    for source in re.findall(r'<math\b.*?</math>', exercise, re.S):
+        root = ET.fromstring(source)
+        tokens = [node for node in root.iter() if node.tag in
+                  {prefix + name for name in ('mi', 'mn', 'mo', 'mtext')}]
         superscripts = root.findall('.//m:msup', ns)
+        if not superscripts or not tokens or tokens[0].text not in ('M', 'f'):
+            continue
+        name = tokens[0].text
+        expected = {'M': 'M=2−2−t', 'f': 'f=1−2−t'}[name]
+        if name in forms or ''.join(node.text or '' for node in tokens) != expected:
+            raise ValueError('2.85 complete M/f equality differs from its mathematical definition')
         if len(superscripts) != 1 or len(superscripts[0]) != 2:
             raise ValueError('2.85 malformed MathML power')
         base, exponent = superscripts[0]
-        prefix = '{' + ns['m'] + '}'
         if (''.join(base.itertext()) != '2' or exponent.tag != prefix + 'mrow' or
                 [child.tag for child in exponent] != [prefix + 'mo', prefix + 'mi'] or
                 ''.join(exponent.itertext()) != '−t'):
             raise ValueError('2.85 exponent must contain minus and t inside MathML')
-    return {'complete_negative_t_powers': len(powers)}
+        forms[name] = root
+    if set(forms) != {'M', 'f'}:
+        raise ValueError('2.85 must contain both complete M/f equalities with negative-t powers')
+    return {'complete_negative_t_powers': len(forms), 'complete_equalities': sorted(forms)}
 
 
 def check_content_review(base: Path, run: Path, compiler: str = 'clang'):
@@ -51,16 +61,32 @@ def check_content_review(base: Path, run: Path, compiler: str = 'clang'):
 
     information_page = (base / 'notes/chapter02_information.html').read_text()
     math = check_ex285_math(information_page)
-    broken = information_page.replace('<mo>&#x02212;</mo><mi>t</mi></mrow></msup>',
-                                      '<mo>&#x02212;</mo></mrow></msup>', 1)
-    if broken == information_page:
-        raise ValueError('MathML mutation anchor disappeared')
-    try:
-        check_ex285_math(broken)
-    except ValueError:
-        math['missing_exponent_mutation_rejected'] = True
-    else:
-        raise ValueError('missing t escaped MathML regression')
+    start = information_page.index('id="ex-2-85"')
+    end = information_page.index('id="ex-2-86"', start)
+    exercise = information_page[start:end]
+    negative_t = '<mo>&#x02212;</mo><mi>t</mi></mrow></msup>'
+    mutations = {
+        'missing exponent t': (negative_t, '<mo>&#x02212;</mo></mrow></msup>'),
+        'positive exponent': (negative_t, '<mo>+</mo><mi>t</mi></mrow></msup>'),
+        'wrong base': ('<msup><mn>2</mn><mrow><mo>&#x02212;</mo><mi>t</mi>',
+                       '<msup><mn>3</mn><mrow><mo>&#x02212;</mo><mi>t</mi>'),
+        'external t': (negative_t, '<mo>&#x02212;</mo></mrow></msup><mi>t</mi>'),
+        'wrong M constant': ('<mi>M</mi><mo>=</mo><mn>2</mn><mo>−</mo>',
+                             '<mi>M</mi><mo>=</mo><mn>3</mn><mo>−</mo>'),
+        'external superscript': (negative_t, '<mo>&#x02212;</mo></mrow></msup>ᵗ'),
+    }
+    math['mutations_rejected'] = []
+    for label, (old, new) in mutations.items():
+        if old not in exercise:
+            raise ValueError('MathML mutation anchor disappeared: ' + label)
+        broken = information_page[:start] + exercise.replace(old, new, 1) + information_page[end:]
+        try:
+            check_ex285_math(broken)
+        except ValueError:
+            math['mutations_rejected'].append(label)
+        else:
+            raise ValueError('MathML mutation escaped: ' + label)
+    math['missing_exponent_mutation_rejected'] = True
     space_page = (base / 'notes/chapter09_virtual_memory.html').read_text()
     match = re.search(r'<code\b[^>]*\bid="ch09_space-c"[^>]*>(.*?)</code>', space_page, re.S)
     if not match or html.unescape(match[1]) != (base / 'code/ch09_space.c').read_text():

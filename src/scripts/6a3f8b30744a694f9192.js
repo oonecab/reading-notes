@@ -21,7 +21,7 @@
     scheduled = false;
     let next = entries[0];
     for (const entry of entries) {
-      if (entry.section.getBoundingClientRect().top <= (wide.matches ? 100 : 110)) next = entry;
+      if (entry.section.getBoundingClientRect().top <= Math.max(110, wide.matches ? 100 : 110, wide.matches ? 0 : panel.querySelector('summary').getBoundingClientRect().bottom + 12) + 1) next = entry;
     }
     if (window.scrollY + innerHeight >= document.documentElement.scrollHeight - 2) next = entries[entries.length - 1];
     if (next && next.link !== current) {

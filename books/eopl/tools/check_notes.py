@@ -179,7 +179,12 @@ def check(quick: bool) -> dict:
                 continue
             destination = (BOOK / "notes" / unquote(url.path)).resolve() if url.path else BOOK / "notes" / name
             need(destination.is_file(), f"broken link: {name} -> {target}")
-            if url.fragment:
+            if destination.suffix == '.pdf':
+                need(destination == BOOK / 'assets/source.pdf', 'wrong source PDF: ' + target)
+                need(bool(re.fullmatch(r'page=[1-9][0-9]*', url.fragment)) and
+                     1 <= int(url.fragment[5:]) <= manifest['source']['pdf_pages'],
+                     'invalid source PDF page: ' + target)
+            elif url.fragment:
                 other = Page(destination.read_text()) if destination.name not in pages else pages[destination.name]
                 need(unquote(url.fragment) in other.ids, f"missing anchor: {name} -> {target}")
     overview = (BOOK / "notes/book_overview.html").read_text()

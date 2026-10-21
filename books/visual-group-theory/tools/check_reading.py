@@ -72,6 +72,15 @@ DISPLAY_EXPECTED = {
     'x=(−b±√(b²−4ac))/(2a)': 'x=frac(−b±sqrt(b^{2}−4ac),2a)',
 }
 
+# A protected expression may occur inside one complete inline formula. Check
+# the complete presentation spelling in that case, including both operands;
+# retaining a fragment only to satisfy the old label inventory would split it
+# again in the reader view.
+COMPOSITE_EXPECTED = {
+    'F×': (r'F^{\times}=F\setminus\{0\}', 'F^{×}=F∖{0}'),
+    '√2/2': (r'±\frac{\sqrt{2}}{2}±i\sqrt{2}/2', '±frac(sqrt(2),2)±isqrt(2)/2'),
+}
+
 
 def require(ok, message):
     if not ok:
@@ -139,7 +148,8 @@ def check_math(source):
             require(any(tag(x) in ('mi', 'mn', 'mo', 'msup', 'msub', 'msqrt', 'mfrac') for x in tree.iter()),
                     'inline formula cannot be only mtext')
             count += 1
-        expected = {**EXPECTED, **DISPLAY_EXPECTED}
+        expected = {**EXPECTED, **DISPLAY_EXPECTED,
+                    **dict(COMPOSITE_EXPECTED.values())}
         if label in expected:
             require(value == expected[label], f'MathML meaning differs: {label}: {value}')
         require(label not in formulas or formulas[label] == value, 'inconsistent repeated formula')
@@ -183,7 +193,12 @@ def run(root=ROOT):
         require(len(copy_script) == 1, name + ': formula copy controller missing')
         copy_scripts.add(source[copy_script[0].content_start:copy_script[0].content_end])
     require(len(copy_scripts) == 1, 'formula copy controllers differ between pages')
-    require(EXPECTED.keys() <= formulas.keys(), 'missing protected key formula')
+    for label in EXPECTED:
+        composite = COMPOSITE_EXPECTED.get(label)
+        require(label in formulas or (composite and composite[0] in formulas),
+                'missing protected key formula: ' + label)
+    require(all(label in formulas for label, _ in COMPOSITE_EXPECTED.values()),
+            'missing protected complete formula')
     require(DISPLAY_EXPECTED.keys() <= formulas.keys(), 'missing protected display formula')
     require(display_total == 31, 'display formula coverage changed')
     chapters = json.loads((notes/'source_manifest.json').read_text())['chapters']
@@ -254,12 +269,18 @@ def run(root=ROOT):
     for text in texts.values():
         for n in Document(text).root.walk('math'):
             if n.attrs.get('aria-label') in ('nₚ∣|G|', '√2/2', 'G⋊αH', '(ab)⁻¹=b⁻¹a⁻¹',
-                                           'x=(−b±√(b²−4ac))/(2a)'):
+                                           'x=(−b±√(b²−4ac))/(2a)',
+                                           *(row[0] for row in COMPOSITE_EXPECTED.values())):
                 samples[n.attrs['aria-label']] = text[n.start:n.end]
+    radical_sample = samples.get('√2/2') or samples[COMPOSITE_EXPECTED['√2/2'][0]]
     mutations = {
         'Sylow count exponent instead of subscript': samples['nₚ∣|G|'].replace('msub', 'msup'),
         'division instead of divisibility': samples['nₚ∣|G|'].replace('<mo>∣</mo>', '<mo>/</mo>'),
-        'wrong radical denominator': samples['√2/2'].replace('</msqrt><mn>2</mn>', '</msqrt><mn>3</mn>'),
+        'wrong radical denominator': radical_sample.replace('</msqrt><mn>2</mn>', '</msqrt><mn>3</mn>'),
+        'multiplicative group subscript instead of superscript':
+            samples[COMPOSITE_EXPECTED['F×'][0]].replace('msup', 'msub'),
+        'wrong excluded zero in multiplicative group':
+            samples[COMPOSITE_EXPECTED['F×'][0]].replace('<mn>0</mn>', '<mn>1</mn>'),
         'lost semidirect action': samples['G⋊αH'].replace('<mi>α</mi>', '<mi>β</mi>'),
         'display formula missing accessible name': samples['x=(−b±√(b²−4ac))/(2a)'].replace('aria-label=', 'data-old-label='),
         'display formula mismatched fallback': samples['x=(−b±√(b²−4ac))/(2a)'].replace('text/plain">x=', 'text/plain">y='),

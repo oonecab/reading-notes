@@ -3,7 +3,7 @@
 <!-- project-governance:managed:start -->
 ## 项目目的
 
-统一管理 Durrett 随机过程、Weiss 数据结构、CS:APP 系统、Carter 视觉群论、程士宏测度概率及 EOPL 程序设计语言笔记，保留正式 HTML、可运行示例、来源与验证记录，共用阅读入口和静态发布流程。
+统一管理 Durrett 随机过程、Weiss 数据结构、CS:APP 系统、Carter 视觉群论与程士宏测度概率及 EOPL 程序设计语言笔记，保留正式 HTML、可运行示例、来源与验证记录，共用阅读入口和静态发布流程。
 
 ## 项目分类
 
@@ -23,7 +23,7 @@
 ### 框架与核心库
 
 - Python 标准库独立检查
-- Astro 7.4.0 静态构建；受控 HTML 与局部交互（五书迁移已分批验收，见 ADR-002）
+- Astro 7.4.0 静态构建；受控 HTML 与局部交互
 
 ### 运行时与工具链
 
@@ -31,9 +31,9 @@
 - Clang（C11、AddressSanitizer、UndefinedBehaviorSanitizer）
 - Make
 - Poppler pdftotext / pdfinfo
+- Nginx（服务器静态 HTTPS 服务）
 - Node.js 24.21.0 LTS（仅构建）
 - pnpm 11.21.0（锁定依赖）
-- Nginx（服务器静态 HTTPS 服务）
 - Ego Lite / ego-browser（构建 CSP 冒烟与离线浏览器验收）
 - Racket 8.17 + eopl / rackunit（本地教材示例验证）
 
@@ -53,11 +53,14 @@
 
 ## 架构事实
 
-- books/catalog.json 登记书籍入口、目录和发布前缀；src/content/books/<book>/ 逐章维护受控 HTML，books/<book>/notes/*.html 保留为独立检查使用的兼容镜像。
+- books/catalog.json 登记书籍与原 URL；src/content/books/<book>/ 逐章维护受控 HTML，books/<book>/notes/*.html 为独立 Python 检查使用的兼容镜像。
 - 随机过程、CS:APP、视觉群论和测度概率以 code/ 下 C/Python 为维护源并同步 HTML；Weiss 教学代码以正式 HTML 为维护源，c/ 为原书图例的独立 C 实现。
 - 根目录工具统一调用各书既有校验器，输出写入被忽略的 tmp/ 或 deploy/portal-releases/。
 - 统一构建保留 /stochastic/、/weiss/、/csapp/ 并接入 /visual-group-theory/、/measure-probability/ URL；部署使用独立版本目录和 current 原子切换，同时维护本版 CSP。
 - 根 Git 历史与远端沿用；原 Weiss 工作目录保留，合并后的维护入口为本仓库。
+- 五书 Astro 迁移已逐批验收；根 build 生成纯静态 dist 与不可变包，旧 HTML、旧构建器和历史审阅保留。Ubuntu /srv/reading-notes 生产发布已在 I029 实机验收，Node 只用于本地构建。
+- I044 登记 EOPL 地图与序言两页，统一 /eopl/ 前缀、allowlist 和根检查；共 58 阅读页。共享 Times New Roman、MathML 和 SVG 样式保持内联，不新增技术栈。
+- I048 增加 EOPL 第 1、2 章，累计 60 阅读页；Scheme 示例由已有本地 Racket 执行，站点仍为纯静态 HTML。
 
 ## 项目类型约束
 
@@ -71,6 +74,8 @@
 - 审阅文件的历史哈希保持历史事实；改变当前文件绑定时注明范围、原因和原值。
 - 新增书籍按 docs/adding-a-book.md 与 docs/templates/reading-notes/ 执行，先核对原书、规划全书并验收样章；同步 catalog、首页、构建路由、验证与来源说明，只维护一份正式内容。
 - 统一部署的操作说明以 deploy/README.md 为准；各书 deploy/ 为保留的单书工具与历史材料。
+- RN-001 v1.10 固定完整中文题干、独立注解覆盖、原文 PDF 直达和逐页阅读验收；docs/reader-contract.json 与 docs/reader-sources.json 为可执行登记。全站检查须报告实际范围与未执行项；禁止零覆盖自动跳过。
+- 内容组件预览命令：python3 tools/project.py preview-components（生成物仅写入 tmp/）。
 <!-- project-governance:managed:end -->
 
 ## 已确认的技术细节
@@ -218,3 +223,7 @@ EOPL 增加第 1、2 章受控 HTML 与 67 道完整原题解答，书级共 4 �
 构建为六书 60 阅读页、82 HTML、519 文件；需更新发布白名单，原 I050 政策逐字归档供恢复使用。技术栈、变量名、服务和端口沿用现状；发布以 [T051](test/T051-eopl-merge-review.md) 的实测结果为准。
 
 I051 已从干净合并提交 `561e978` / `v2026.10.21-eopl-chapters-reviewed` 发布 `20261021T135233`，当前包为 60 阅读页、82 HTML、519 文件。固定发布器和内容健康检查成功，前版 `20261021T125632` 及其政策保留。两条 Git 历史保全；临时工作树已归档清理，主目录保留。发布读回见 [T051](test/T051-eopl-merge-review.md)。
+
+## I052 逐页阅读契约与原文入口（2026-10-21）
+
+六书 60 页的教学小节、注解义务和习题锚点登记于 `docs/reader-contract.json`。原书 PDF 的身份、页数、输入文件与发布路径统一登记于 `docs/reader-sources.json`，在保留既有两条 PDF URL 的同时接入其余四书的原文入口；新的收录范围与兼容性审查见 I052。共享注解控制器覆盖六书，中文题干/英文对照和题号索引使用原生 HTML 折叠，技术栈、运行服务和端口不变。

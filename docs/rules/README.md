@@ -68,3 +68,5 @@ CS:APP 全书解释复核见 [I018](../../issues/I018-csapp-explanations.md) / [
 EOPL 第三版准备批：词法/动态作用域、闭包创建环境、按值求值与错误条件由[序言闭包例子](../../books/eopl/notes/preface.html#scope-example)及[程序说明](../../books/eopl/code/README.md)维护；原书语义与 Python 教学子集分开标明。全书来源定位及准备阶段边界见[阅读计划](../../books/eopl/reading-plan.md)，执行和阅读证据见 [T042](../../test/T042-eopl-map-preface.md)。
 
 EOPL 基础两章：递归终止度量、编号上下文、自然数表示、环境遮蔽、重复变量约定、zipper 重建和解析输入边界由[第 1 章](../../books/eopl/notes/chapter01_inductive_data.html)、[第 2 章](../../books/eopl/notes/chapter02_data_abstraction.html)及[程序接口](../../books/eopl/code/README.md)维护。原题及修正依据保留，实际 Racket 回归和计时口径见 [T048](../../test/T048-eopl-ch01-02.md)。
+
+2026-10-21 的 [I052](../../issues/I052-reader-contract.md) 将 [RN-001 v1.10](../reading-notes-standard.md) 的完整中文题干、必需注解、统一索引和直接 PDF 定位固化为独立阅读契约。题干里的分布、独立性、任务动词、原程序与前置定理已按来源补齐，详情与验证边界见 [T052](../../test/T052-reader-contract.md)。视觉群论 [7.18(h)](../../books/visual-group-theory/notes/chapter07_products_and_quotients.html#ex-7-18) 以原书 PDF 第 166 页的 48 个动作终点为准，商图按同一作用诱导；可执行检查同时核对数据端点、箭头标记和实际 SVG 路径，避免用另一个 16 阶群代替原图。

@@ -16,24 +16,24 @@
   },
   "file_sha256": {
     "README.md": "1e4767eabb1f2c0a8728e151d72e4219dea7b2f13f7fb18e1fdce4d4f696bcb4",
-    "agent.md": "bb13a5d585ac12f78e989b9cd4a248d19f2e62598520af1225830162e206ff50",
+    "agent.md": "755f1540669bb8b21f2562c1a0e07fe6557af85a09add5e4c178cf404a436849",
     "code/README.md": "cab116bfb0b42bdd4d5f9629c92a20b12b1220200afd7e8fdd470cccf37b782c",
     "code/benchmark_bigits.rkt": "f75903c4eb555084dd3297cdfb86412b11008e1351d1b03e77bd2ee5c3cc9988",
     "code/chapter01.rkt": "b3447c764a14b1889da9e90e73e409d783944795f126e3d3d17cc23e0cf16a70",
     "code/chapter02.rkt": "85cb64c82abdb908b3bba498e3960a130016fa323d461a27560b0abaadac178d",
     "code/scope_demo.py": "737f05ece44f0859864f74e98ef4f38ed3884cf23d2ff54a9ad89d4ad719da37",
     "code/test_chapters.rkt": "0dafdff5c5c825ffd8ad76b69331e5b24a7cd391f6ef037742d5edbc31946689",
-    "notes/README.md": "8b759373d9bfb93faeb0d132d23c0b3244d36208ec485d1b29c697def45fcd08",
+    "notes/README.md": "8b76e9db961711e52ef6321deb8ad66fbf4d65cb8bf27ff778d547b58476c462",
     "notes/question_contexts.json": "026abe54b15cf1951a2bd69f27a80cf7af0063a643e7feaa1532e873e95e3123",
     "notes/questions_ch01_02.json": "9900740befe2775b2dd5fb49778aad171a282284d75f3ee3503cf53262a8ad2f",
     "notes/source_excerpts.json": "8a4bb92a917d9cb68cf56a847b6c67f015ee3fa31b872677af894f52521795f8",
     "notes/source_inventory.json": "87023b0a3ff2ab1e880d8181f6318deaef354b8a6664c53b0c024a7f63168538",
     "notes/source_issues.json": "355d8d0d26b98157c0361cc9ef49685f807755a1ce1cb93da22ce48c698785b3",
-    "notes/source_manifest.json": "ae69632f4dc6964df141b2a6b7ffc9a6c1aa338a0a3b7196dd68a54b879dbbe1",
+    "notes/source_manifest.json": "f6fd7891beedf13035e0cb4c422eb8b7c83913b24b9ce8058be7f9b460b8a608",
     "reading-plan.md": "7b774f9a1857495269e28035eb90de0d36b82fc7d9a2d89f0d12b2cff2947371",
     "review/ch01-02-benchmark.json": "7a314c0afc369b194fd878b824fa8bedd5966554750f32e97281924d0bc48b7c",
     "review/ch01-02.md": "9e114cefc083c1b2b00109a41cc0f28ae672754e44e0077bab2f39e65401d9bb",
-    "tools/check_notes.py": "6b447685b6f9ac89a295aa47279de9164ca731bac641caf9e64e33e67bc88c41",
+    "tools/check_notes.py": "6cd44e9f8c30d4d89d5f1d07315153390fc104ff3cf1fd8f84de9ea9d1d215f7",
     "tools/sync_notes.py": "ff44ee96ae7ed0a75323ecda8befd1759ba32cd2abdc0f9904374bcb948afe86",
     "tools/test_chapter_mutations.py": "21354cc839c9c5df505e4964297066fece9c88573a83060e9145ed5b29ac9317",
     "tools/test_checker.py": "61a06cd27a44043e4a4f378c30ce1a785eaa54512d9ba5fc1c38f243b42a160f",
@@ -61,5 +61,11 @@
     "prior_git": "f113a0e:books/eopl/review/validation.json",
     "prior_sha256": "c1ad7fa47f1c379775fd9166527eca7c2dc02f9cd9e7f666b4d8c6a41325f562",
     "scope": "Current maintained file bindings; I048 execution/source records are unchanged and new verification is in merge-review.json."
+  },
+  "I052_reader_contract_revision": {
+    "issue": "I052",
+    "prior_record_git": "a4d646e3f0c3a61d28ee38b10664f0fc8fc4c404:books/eopl/review/validation.json",
+    "prior_record_sha256": "c2a4680e1191ba4005ce7663596c2f49558e7a5b86880bea6b18a50e4462a2e2",
+    "scope": "Current reader-contract bindings: Chinese task completeness, section annotations, direct PDF references, disclosure indexes and shared reader behavior. Existing program text is preserved; explicitly sourced question inputs are added. SVG labels, geometry and topology are preserved except the two 7.18(h) source corrections, independently checked against all source actions; 35 reviewed diagrams add explicit shared CSS roles, and eight single-column diagrams receive compact viewports and sizing; two also have fitted node bounds and line layouts, retaining label text and topology, with exact changes recorded in docs/reader-diagram-review.json. Historical source/proof/execution claims retain their scope; current acceptance is recorded in docs/reader-contract-review.json"
   }
 }

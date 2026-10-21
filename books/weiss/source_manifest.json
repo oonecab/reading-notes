@@ -872,5 +872,12 @@
   ],
   "maintenance_entry": "notes/book_overview.html",
   "code_authority": "Formal teaching implementations in src/content/books/weiss/*.html; notes/*.html are expanded mirrors for independent Python checks; original figure conversions in c/.",
-  "astro_maintenance_entry": "src/content/books/weiss/book_overview.html"
+  "astro_maintenance_entry": "src/content/books/weiss/book_overview.html",
+  "publication": {
+    "include_source_pdf": true,
+    "public_path": "weiss/assets/source.pdf",
+    "source_file": "books/weiss/Data structure and algorithm analysis C language (English) (2) (Adapted China Edition) (Mark Allen Weiss) (z-library.sk, 1lib.sk, z-lib.sk).pdf",
+    "review": "issues/I052-reader-contract.md",
+    "reason": "2026-10-21 用户要求统一原文链接直达对应 PDF 并部署；登记原文件哈希、页序、发布白名单与回滚单元。"
+  }
 }

@@ -23,3 +23,5 @@
 - 每个行内和显示 MathML 都保留非空且相同的 aria-label 与 text/plain annotation；semantics 中先放呈现树、再放回退。纯文本对复合指数和整个分母加括号。完整公式复制覆盖两种 display，局部选区保持原生行为；显示公式既有 mtext 呈现不在仅补回退的修订中重写。
 
 Astro 维护、镜像同步与冻结基线规则见 [构建维护说明](../../docs/astro-authoring.md)。
+
+本书的当前阅读契约以 RN-001 v1.10 为准：完整中文题干和来源、逐节注解、共同版心、代码等宽与原生折叠、命名明确的索引、直达登记 PDF 的原文入口。逐页义务在根目录 `docs/reader-contract.json`，原书发布身份在 `docs/reader-sources.json`；历史批次记录保留当时的范围，当前复查执行 `python3 tools/project.py check` 及完整浏览器矩阵。

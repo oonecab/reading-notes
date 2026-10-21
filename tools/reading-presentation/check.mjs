@@ -37,7 +37,7 @@ export function requireReaderCopy(html) {
   const blocks = new Set(['p', 'li', 'th', 'td', 'summary', 'figcaption', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']);
   const prose = n => ['script', 'style', 'pre', 'code', 'math'].includes(n.tagName) ? ''
     : n.nodeName === '#text' ? n.value : (n.childNodes ?? []).map(prose).join('') + (blocks.has(n.tagName) ? '\n' : '');
-  const processCopy = /(?<!检)验收|本批(?:次)?(?:审阅|测试记录)|(?:本轮|本次)(?:修订|校订|审阅)|本地验证目录|验证摘要|已有程序核对摘要/;
+  const processCopy = /(?<!检)验收|本批(?:次)?(?:审阅|测试记录)|(?:本轮|本次)(?:修订|校订|审阅)|本地验证目录|验证摘要|已有程序核对摘要|第\s*\d+\s*章规划/;
   const document = parse(html);
   for (const value of [prose(document), ...walk(document).flatMap(n =>
     (n.attrs ?? []).filter(a => ['aria-label', 'title', 'alt'].includes(a.name)).map(a => a.value))]) {
@@ -93,6 +93,11 @@ export function checkAll() {
     requireReaderCopy(page.html);
     codeFolds += requireCodeFolding(page.html);
     const nodes = walk(parse(page.html));
+    for(const svg of nodes.filter(n=>n.tagName==='svg')){
+      const title=text(walk(svg).find(n=>n.tagName==='title')??{});
+      if(/流程|调用路径|证明路线|依赖链|四步关系|四个可复算步骤|等待、发送|同步异常处理|全部子群|包含图|同态的三个步骤/.test(title))
+        assert(hasClass(svg,'rn-diagram'),`Concept diagram must use shared node/edge style: ${title}`);
+    }
     const styles = nodes.filter(n => n.tagName === 'style').map(text).join('\n');
     assert(styles.includes('code:not(pre code)'), `${page.metadata.route}: missing inline program style`);
     assert(styles.includes('max-width:100%;vertical-align:baseline'), 'Long code must fit its text column');

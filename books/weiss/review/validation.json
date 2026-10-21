@@ -4,8 +4,8 @@
   "status": "migration_verified",
   "historical_review_entry": "notes/README.md",
   "file_sha256": {
-    "agent.md": "c9d4c9d6a7b945559adb83d31631e72a7a2f0541ab440d885fee37a71d5763ca",
-    "notes/README.md": "b6312f66ff1107c9f224993cb43a971df796739adb8dd5660964814032134f48",
+    "agent.md": "dbea4073ed6eb20b607cac80d07f7f0139b039a13cead4910934e9e30aaba931",
+    "notes/README.md": "fc0b4331c2a9363ce591315f3fbb7fb5f6b080ff853f55914d9cb81e4a7bc874",
     "review/browser.json": "6f67fc11648b74c329715e9259d8fe7aa1562bb288067f97b541cda12e0cca77"
   },
   "open_findings": [],
@@ -119,5 +119,11 @@
     "prior_record_git": "3064e29e84f5e2ba60fdfbb4bb7389dfcb9ff084:books/weiss/review/validation.json",
     "prior_record_sha256": "da4c20e1de5410c059383e645a7fb51ddbe08cfd2924c1b4195cdc89683fa0b6",
     "scope": "Current reader-copy bindings: maintenance wording moved out of reading pages. Programs, original questions, formulas, diagrams, source links and anchors preserved. Historical execution claims retain their original scope; new acceptance is recorded in docs/reader-copy-review.json"
+  },
+  "I052_reader_contract_revision": {
+    "issue": "I052",
+    "prior_record_git": "a4d646e3f0c3a61d28ee38b10664f0fc8fc4c404:books/weiss/review/validation.json",
+    "prior_record_sha256": "afd6204feba771abe3a36345f35c1e55fd0e5d6c4f2f9659fa195833f67936b8",
+    "scope": "Current reader-contract bindings: Chinese task completeness, section annotations, direct PDF references, disclosure indexes and shared reader behavior. Existing program text is preserved; explicitly sourced question inputs are added. SVG labels, geometry and topology are preserved except the two 7.18(h) source corrections, independently checked against all source actions; 35 reviewed diagrams add explicit shared CSS roles, and eight single-column diagrams receive compact viewports and sizing; two also have fitted node bounds and line layouts, retaining label text and topology, with exact changes recorded in docs/reader-diagram-review.json. Historical source/proof/execution claims retain their scope; current acceptance is recorded in docs/reader-contract-review.json"
   }
 }

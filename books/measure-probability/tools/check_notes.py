@@ -117,7 +117,9 @@ def structure():
         require(all(len(r['review']) >= 16 and '论证见对应题目' not in r['review'] for r in rows), 'generic review placeholder')
     require(manifest['source_pdf']['pages'] == 256 and len(manifest['chapters']) == 6, 'edition identity changed')
     require([c['source_exercise_count'] for c in manifest['chapters']] == [25, 32, 30, 28, 28, 27], 'source chapter totals changed')
-    require(manifest['publication']['include_source_pdf'] is False, 'full source PDF is outside publication scope')
+    require(manifest['publication']['include_source_pdf'] is True and
+            manifest['publication']['public_path'] == 'measure-probability/assets/source.pdf',
+            'registered reader PDF publication differs')
     pdf = ROOT / manifest['source_pdf']['path']
     if pdf.exists():
         require(hashlib.sha256(pdf.read_bytes()).hexdigest() == manifest['source_pdf']['sha256'], 'source PDF hash changed')

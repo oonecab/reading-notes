@@ -9,15 +9,18 @@
     "series": "北京大学数学教学系列丛书"
   },
   "source_pdf": {
-    "path": "tmp/source.pdf",
+    "path": "assets/source.pdf",
     "pages": 256,
     "bytes": 6587216,
     "sha256": "93fe7f0ca35155c2f58a5bca90ef6497da96ef1f0fc17660430114e9ccbe24f0",
     "kind": "image-only scan; local OCR is a locator, not a mathematical authority"
   },
   "publication": {
-    "include_source_pdf": false,
-    "reason": "用户提供的本地对照原书；本任务交付原创伴读与必要题目材料"
+    "include_source_pdf": true,
+    "public_path": "measure-probability/assets/source.pdf",
+    "source_file": "books/measure-probability/assets/source.pdf",
+    "review": "issues/I052-reader-contract.md",
+    "reason": "2026-10-21 用户要求统一原文链接直达对应 PDF 并部署；登记原文件哈希、页序、发布白名单与回滚单元。"
   },
   "page_mapping": [
     {

@@ -18,7 +18,7 @@ import xml.etree.ElementTree as ET
 from inventory_source import inventory
 from sync_code import synchronize
 from check_algebra import run as check_algebra
-from check_structures import run as check_structures
+from check_structures import run as check_structures, source_diagram_checks
 from check_sylow_galois import run as check_sylow_galois
 from check_reading import run as check_reading
 
@@ -84,8 +84,9 @@ def structure():
     source_items = json.loads((notes / 'source_inventory.json').read_text())
     require(len(manifest['chapters']) == 10 and manifest['source_pdf']['pages'] == 312,
             'source edition or chapter count changed')
-    require(manifest['publication']['include_source_pdf'] is False,
-            'this book is registered for source-reference-only publication')
+    require(manifest['publication']['include_source_pdf'] is True and
+            manifest['publication']['public_path'] == 'visual-group-theory/assets/source.pdf',
+            'registered reader PDF publication differs')
     require(sum(c['source_exercise_count'] for c in manifest['chapters']) == 302,
             'independent source exercise total changed')
     local_pdf = ROOT / manifest['source_pdf']['path']
@@ -207,6 +208,7 @@ def structure():
         binding = 'file hashes match; semantic and browser evidence recorded separately'
     return {'pages': len(files), 'original_exercises': len(exercise_data), 'numbered_statements': len(statements),
             'excerpts': len(excerpts), 'links': links, 'mathml': maths, 'svg': diagrams,
+            'source_diagrams': source_diagram_checks(),
             'synchronized_sources': synchronize(),
             'review_binding': binding,
             'source_pdf': 'hash and inventory checked' if local_pdf.exists() else 'not installed; recorded identity only'}

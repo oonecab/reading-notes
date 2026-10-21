@@ -8,10 +8,16 @@
 ### 环境准备
 
 - `python3 tools/project.py doctor`
+- `pnpm install --frozen-lockfile`
 
 ### 测试
 
 - `python3 tools/project.py check`
+- `pnpm test`
+- `pnpm check:parity`
+- `pnpm check:offline`
+- `pnpm check:performance`
+- `node tools/reader-contract/check.mjs`
 
 ### 静态检查
 
@@ -23,6 +29,7 @@
 
 ### 构建
 
+- `pnpm build`
 - `python3 tools/project.py build`
 
 ## 业务与计算规则测试
@@ -55,3 +62,7 @@
 具体命令、证据目录与验证边界见 [根 README](../../README.md)，本次迁移场景见 [T001](../../test/T001-project-merge.md)。构建检查与完整程序检查分别执行；发布前补充本地 HTTPS 和公网浏览器验收。
 
 读书笔记的来源/内容、静态结构、程序/计算、真实阅读、本地集成和线上发布分层要求统一见 [RN-001](../reading-notes-standard.md)。逐章记录可使用[审阅模板](../templates/reading-notes/chapter-review.md.template)；未执行项保持待验收，变更绑定以实际读回和复测为依据。
+
+I052 起，`node tools/reader-contract/check.mjs` 为逐页阅读契约门禁，`scripts/reader-contract.test.mjs` 验证错误输入能被拒绝。浏览器按登记的全部必需注解逐节检查，实际范围与人工观察记录按 [RN-001 §6.1](../reading-notes-standard.md) 保存。
+
+逐页浏览器验收另在 390px 将每页正文中的全部原生折叠块展开，分别检查启用和关闭页面脚本时的整页宽度；该检查与首末题的实际点击、代码开合和人工截图阅读分别记录。复用既有证据须同时满足 HTML 与截图散列一致、该视图必需的检查字段齐全；旧记录缺少新增检查项时应重跑。

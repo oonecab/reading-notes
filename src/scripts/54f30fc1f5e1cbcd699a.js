@@ -8,21 +8,35 @@
   })).filter(item => item.section);
   if (!rail || !content || !context || !groups.length) return;
   const wide = matchMedia('(min-width:1440px)');
+  const sections = Array.from(document.querySelectorAll('main > section[id]'));
   let current = null, scheduled = false;
   const update = () => {
     scheduled = false;
     if (!wide.matches) return;
-    let next = groups[0];
-    for (const item of groups) {
-      if (item.section.getBoundingClientRect().top <= 110) next = item;
+    let active = sections[0];
+    for (const section of sections) {
+      if (section.getBoundingClientRect().top <= 111) active = section;
     }
-    if (scrollY + innerHeight >= document.documentElement.scrollHeight - 2) next = groups[groups.length - 1];
+    // A short final section cannot always reach the usual reading-position line.
+    if (scrollY > 0 && scrollY + innerHeight >= document.documentElement.scrollHeight - 1) {
+      active = sections.findLast(section => section.getBoundingClientRect().top < innerHeight - 100) ?? active;
+    }
+    const next = groups.find(item => item.section === active);
+    rail.hidden = !next;
+    if (!next) {
+      content.replaceChildren();
+      delete rail.dataset.activeSection;
+      current = null;
+      return;
+    }
     if (current === next) return;
     const body = next.notes.querySelector('.reading-notes-body');
     const heading = next.section.querySelector('h2');
     if (!body || !heading) return;
     content.replaceChildren(...Array.from(body.children, node => node.cloneNode(true)));
-    context.textContent = heading.textContent;
+    const label = heading.cloneNode(true);
+    label.querySelectorAll('.english-title,math annotation').forEach(node => node.remove());
+    context.textContent = label.textContent;
     context.href = '#' + next.section.id;
     rail.dataset.activeSection = next.section.id;
     rail.scrollTop = 0;

@@ -11,12 +11,12 @@
   "publication_year": 2008,
   "isbn": "978-0-262-06279-4",
   "source": {
-    "file": "books/eopl/tmp/eopl.pdf",
+    "file": "books/eopl/assets/source.pdf",
     "supplied_filename": "Essentials of Programming Languages by Daniel P. Friedman, Mitchell Wand (z-lib.org).pdf",
     "sha256": "b9e8770a4dc97206bd02230e6b21a878382eb02a340ff69321857d701e7d967c",
     "bytes": 3579255,
     "pdf_pages": 433,
-    "publication_scope": "local_reference_only",
+    "publication_scope": "published_reader_reference",
     "text_note": "Text PDF; pdftotext loses some ligatures, star glyphs, primes, arrows and diagram relationships. Render quoted pages for inspection."
   },
   "front_matter": [
@@ -651,5 +651,12 @@
     ],
     "question_inventory": "questions_ch01_02.json",
     "note": "All chapter text read; selected mathematical inference, diagrams and malformed example pages visually checked. Not a claim of visual proofread of all 55 pages."
+  },
+  "publication": {
+    "include_source_pdf": true,
+    "public_path": "eopl/assets/source.pdf",
+    "source_file": "books/eopl/assets/source.pdf",
+    "review": "issues/I052-reader-contract.md",
+    "reason": "2026-10-21 用户要求统一原文链接直达对应 PDF 并部署；登记原文件哈希、页序、发布白名单与回滚单元。"
   }
 }

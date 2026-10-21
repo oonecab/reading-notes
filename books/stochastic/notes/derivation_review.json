@@ -2324,16 +2324,16 @@
   ],
   "files": {
     "notes/remaining_explanation_review.json": {
-      "bytes": 835332,
-      "sha256": "ea89cd9ef33eb0fbabb813becf05827e1cc31820683ba3bd9651b9fdad7aca6f"
+      "bytes": 836406,
+      "sha256": "5963f8cd25e81a93921b5ae011161af490312283851a3b0af2d778f805544bc0"
     },
     "notes/chapter01_explanation_review.json": {
-      "bytes": 189307,
-      "sha256": "a379d23ccd91618c46a70fc9d5338bd4598b1232af5ab190d6745fc1b5a63efa"
+      "bytes": 190381,
+      "sha256": "68db047fc1e9db39ec5451333692acd2d22d3b27c69b4c47fd701b0a7f0d9709"
     },
     "notes/derivation_coverage.json": {
-      "bytes": 356352,
-      "sha256": "d7a397da93a3b4e82f02d7be0b74f63fa77339a04ad1a451856a995389c802e9"
+      "bytes": 356351,
+      "sha256": "2db7f807bf46239d926ceecad989f8778b4d2847860465c82202e062ef378b23"
     },
     "tools/derivation_coverage.py": {
       "bytes": 15791,
@@ -2344,8 +2344,8 @@
       "sha256": "0abcb345d1665a5759c23eaefe4b1c0a63730d14dd201b83bd12b94fded09681"
     },
     "tools/content_baseline.json": {
-      "bytes": 2905887,
-      "sha256": "4d3bdd4b29d24845cd428dbaa8bfb1f10abe04330cbdc5df8e96ad6aae739e08"
+      "bytes": 2840353,
+      "sha256": "916f3f30a2d83608beb35435375c1b3debe5fdf74e55880f3bdef35f732edfe7"
     }
   },
   "publication": "Local review only; no commit, push or deployment.",
@@ -6032,5 +6032,11 @@
     "prior_record_git": "34c4fcc150aea4112fb9f4ffa1600e2e4253d524:books/stochastic/notes/derivation_review.json",
     "prior_record_sha256": "d34d4eeb8828ea3cefa8ade586662d0f7b6e5433e4674b6f9f354ca0f278b04a",
     "scope": "Current mathematical-presentation bindings: reviewed variable products, named functions, complete scripts and TeX conversion remnants. All source changes match the exact replacement ledger; preformatted program bytes, diagrams, links, scripts and anchors are preserved. Historical source/proof/execution claims retain their original scope; new presentation acceptance is recorded in docs/math-notation-review.json"
+  },
+  "I052_reader_contract_revision": {
+    "issue": "I052",
+    "prior_record_git": "a4d646e3f0c3a61d28ee38b10664f0fc8fc4c404:books/stochastic/notes/derivation_review.json",
+    "prior_record_sha256": "b1d43d2022dbce0ac46459acc84820bd8ef8c62be00cffd668e15a1a376f68eb",
+    "scope": "Current reader-contract bindings: Chinese task completeness, section annotations, direct PDF references, disclosure indexes and shared reader behavior. Existing program text is preserved; explicitly sourced question inputs are added. SVG labels, geometry and topology are preserved except the two 7.18(h) source corrections, independently checked against all source actions; 35 reviewed diagrams add explicit shared CSS roles, and eight single-column diagrams receive compact viewports and sizing; two also have fitted node bounds and line layouts, retaining label text and topology, with exact changes recorded in docs/reader-diagram-review.json. Historical source/proof/execution claims retain their scope; current acceptance is recorded in docs/reader-contract-review.json"
   }
 }

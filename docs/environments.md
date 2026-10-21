@@ -3,24 +3,25 @@
 <!-- project-governance:managed:start -->
 ## 环境变量名
 
-- `ASTRO_TELEMETRY_DISABLED`：构建子进程强制为 `1`，禁用 Astro 遥测；`.env.example` 记录安全值。
-- `READING_NOTES_CSP_SPACE`：可选的 Ego 任务空间正整数 ID，CSP 与离线验收共用。显式指定的空间不可用即失败；默认缓存仅在精确 not-found 时重建，恢复与互斥规则见 [Astro 编写说明](astro-authoring.md)。
-- `READING_NOTES_TEST_CRASH`：仅隔离 dry-run 故障测试使用，选择强制终止阶段；生产路径不读取它作为故障开关。
+- ASTRO_TELEMETRY_DISABLED
+- READING_NOTES_CSP_SPACE
+- READING_NOTES_TEST_CRASH
 
 ## 服务
 
 - 本地预览：Python 静态 HTTP 服务，绑定 127.0.0.1
 - 正式阅读站点：notes.zzzping.top，Nginx + TLS；部署步骤见 deploy/README.md
-- Ubuntu reading-notes-deploy.service 以 reading-notes 调用固定 sudo root 安装器，当前发布 20261021T135233（I051）；deploy timer 保持 disabled，构建服务及构建 tmpfiles 模板留给独立构建主机
-- I033 已应用 root-owned 只读 release、固定 helper/sudoers，unit 已移除整目录 Nginx 日志写例外；实机证据见 [本轮报告](browser-stability-report.md)
-- 宿主机历史 MySQL 服务及数据已于 2026-10-17 按 I030 卸载；mailutils 依赖的 mysql-common 与 libmysqlclient21 保留为共享客户端组件
+- Ubuntu reading-notes-deploy.service 以 reading-notes 执行，通过固定 sudo root 安装器发布；deploy timer 保持 disabled；本地构建，Web 主机无需构建用户。
+- 宿主机历史 MySQL 服务及数据已于 2026-10-17 按 I030 卸载；mailutils 依赖的 mysql-common 与 libmysqlclient21 保留为共享客户端组件。
+- I033 已应用 root 安装器、root-owned 只读 release、SSH 仅公钥、FTP masked、UFW 22/80/443 和 fail2ban sshd；I051 当前 release 为 20261021T135233，I050 的 20261021T125632 及对应配置保留为恢复单元。DNS 自动续期与用户自行轮换 root 密码仍待处理，见 docs/browser-stability-report.md。
+- I035 已启用 reading-notes-health.service/.timer：15 分钟回环 HTTPS 内容核对；I051 发布与健康检查成功，timer 保持 active，现有端口和服务配置沿用，证据见 T035/T051。
 
 ## 端口与端点
 
 - 本地预览默认 8000，仅 127.0.0.1；可用 --port 指定
-- 生产 Nginx 80 / 443；HTTPS 已验收，源站 HTTP 返回 301，当前公网 HTTP 返回 403（见 I029）
-- 原 MySQL 3306 / 33060 监听已随 I030 服务卸载关闭
-- Weiss 正式入口：[Reading Notes · Weiss](https://notes.zzzping.top/weiss/notes/book_overview.html)；原 weiss.zzzping.top 独立域名已停用并删除 DNS，服务器旧站文件、Nginx vhost 和专属证书续期条目已于 2026-10-17 按 [I031](../issues/I031-retire-weiss-site.md) 清理
+- 生产 Nginx 80 / 443；HTTPS 已验收，源站 HTTP 返回 301，当前公网 HTTP 返回 403，见 I029。
+- 原 MySQL 3306 / 33060 监听已随 I030 服务卸载关闭。
+- Weiss 正式入口为 https://notes.zzzping.top/weiss/notes/book_overview.html；原独立域名已停用并删除 DNS，服务器旧站文件、Nginx vhost 和专属证书续期条目已于 2026-10-17 按 I031 清理。
 
 本文件严禁写入凭据或生产数据。`.env.example` 必须与环境变量名清单同步。
 <!-- project-governance:managed:end -->
@@ -60,3 +61,7 @@ I044 新增静态 `/eopl/` 路由，范围为地图、序言、来源摘要和 P
 2026-10-21 I050 实机：current 为 releases/20261021T125632，干净提交 64d359b，标签 `v2026.10.21-math-notation`；恢复单元 `20261021T112119` 已逐项核验并保留。新旧版本各 511 文件及 root 只读权限通过，391 个未变文件保留 mtime，120 个变更文件使用不同 mtime。发布与健康检查成功，timer active；Nginx 片段、发布策略、脚本 CSP、服务、端口和变量名保持，`.env.example` 无需调整。正常域名字体和折叠证据见 [T050](../test/T050-math-notation.md)。
 
 2026-10-21 I051 实机：current 为 releases/20261021T135233，干净提交 561e978，标签 `v2026.10.21-eopl-chapters-reviewed`。本版 519 文件及前版 `20261021T125632` 的 511 文件逐项校验，均为 root 只读版本树；499 个未变文件保留 mtime，12 个变更文件使用不同 mtime，新增 8 文件。部署和内容健康检查成功，队列为空、无待恢复事务，健康 timer active。发布策略更新为 `375100f1`，新旧政策由管理员归档；Nginx 片段、12 个脚本 CSP、服务、端口和变量名保持，`.env.example` 无需调整。完整公网验证通过，证据见 [T051](../test/T051-eopl-merge-review.md)。
+
+## 构建与测试变量用法
+
+`ASTRO_TELEMETRY_DISABLED` 在 Astro 子进程强制为 1。`READING_NOTES_CSP_SPACE` 是 CSP 与离线验收共用的 Ego 任务空间正整数 ID；显式指定的空间不可用即失败，互斥与恢复按 [Astro 编写说明](astro-authoring.md) 执行。`READING_NOTES_TEST_CRASH` 只用于隔离 dry-run 故障测试，生产路径不使用它作为故障开关。`.env.example` 是保留的人工安全示例，不包含凭据。

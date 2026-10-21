@@ -305,6 +305,28 @@ main[id],main [id]{scroll-margin-top:24px}
   padding: .1rem .25rem;
   font-variant-numeric: tabular-nums;
 }
+.rn-components .exercise-index-panel {
+  margin: 1.2rem 0;
+  padding: .65rem .9rem;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: var(--paper, #fffefa);
+}
+.rn-components .exercise-index-panel > summary {
+  cursor: pointer;
+  color: var(--green);
+  font-weight: 600;
+}
+.rn-components .exercise-index { margin: .75rem 0 0; line-height: 1.8; }
+.rn-components .exercise-index a { margin: .15rem .5rem .15rem 0; }
+.rn-components .original-question {
+  margin: 1.2rem 0 0;
+  border-top: 1px solid var(--rule);
+  padding-top: .65rem;
+  color: var(--sub);
+}
+.rn-components .original-question > summary { cursor: pointer; color: var(--green); }
+.rn-components .question-translation { margin-top: .7rem; }
 /* Align the reading column independently of annotation enhancement. */
 @media (min-width: 1440px) {
   .rn-components .reading-layout {
@@ -422,7 +444,7 @@ body.rn-components :is(.scroll,.diagram):has(>svg.rn-diagram){background:transpa
 <h1>导读与作者序言</h1>
 <p class="intro">从会使用一门语言，走到能说明、实现和比较它的规则。</p>
 <p>本页依次解读 Hal Abelson 的 Foreword 和 Friedman / Wand 的 Preface。前者说明理解解释器为何会改变编程方式，后者说明作者怎样用小语言组织这场研究。中间的闭包实验是伴读原创，用来把两篇序文的主张落实成一次可追踪的计算。</p>
-<p class="source">Foreword：ix–xiii / PDF 10–14；Preface：xv–xix / PDF 16–20。PDF 15 为两篇之间的空白页。</p>
+<p class="source">Foreword：ix–xiii / <a href="../assets/source.pdf#page=10">PDF 10–14</a>；Preface：xv–xix / <a href="../assets/source.pdf#page=16">PDF 16–20</a>。<a href="../assets/source.pdf#page=15">PDF 15</a> 为两篇之间的空白页。</p>
 <p class="chapter-nav"><a href="book_overview.html">← 全书地图</a><a href="chapter01_inductive_data.html">第 1 章：归纳数据 →</a></p>
 </header>
 
@@ -431,7 +453,7 @@ body.rn-components :is(.scroll,.diagram):has(>svg.rn-diagram){background:transpa
 <div class="passage" id="quote-interpreter">
 <p class="english" lang="en">“The interpreter for a computer language is just another program.”</p>
 <p><strong>译义：</strong>一门计算机语言的解释器，本身也只是一个程序。</p>
-<p class="source">Foreword，p.ix / PDF 10，开篇独立句。</p>
+<p class="source">Foreword，p.ix / <a href="../assets/source.pdf#page=10">PDF 10</a>，开篇独立句。</p>
 </div>
 <p>这句话首先改变了规则的地位。站在语言使用者一侧，我们接受别人规定的语法和行为；站到解释器内部，规则变成了可以阅读、修改和检验的程序。变量查找是一段代码，过程调用是一段代码，异常传播也是一段代码。设计语言的能力由此变得具体：先决定希望程序怎样运作，再把这个决定落实为解释器的行为。</p>
 <p>Abelson 用自己早年编写大型系统的经历说明这种转变。若只把现成语言当成固定功能菜单，程序容易成为大量特殊情况的拼接。若能识别系统里的小语言，就可以为数据组合、任务编排或规则表达设计一致的语法与含义，使功能通过共同规则组合起来。这里的小语言不一定是完整的通用语言；一种查询表达式、配置规则或操作序列，都可能需要名字、组合方式和执行含义。</p>
@@ -449,19 +471,21 @@ body.rn-components :is(.scroll,.diagram):has(>svg.rn-diagram){background:transpa
 <div class="passage" id="quote-question">
 <p class="english" lang="en">“What does it do?”</p>
 <p><strong>译义：</strong>它会做什么？</p>
-<p class="source">Preface · Goal，p.xv / PDF 16，作者提出的核心问题。</p>
+<p class="source">Preface · Goal，p.xv / <a href="../assets/source.pdf#page=16">PDF 16</a>，作者提出的核心问题。</p>
 </div>
 <p>语法说明哪些文本是合法程序；语义说明这些程序会怎样运行、产生什么值或效果。作者希望读者获得一种能够实际使用的理解：遇到陌生语言特性时，能分析它的行为，而不只记住术语。解释器之所以适合承担这一任务，是因为它必须把每一种语法构造的处理方式写清楚，而且这些规定可以真的执行。</p>
 <p>例如，“局部变量有作用域”仍不足以解释过程体里的自由变量。变量该在过程定义处查找，还是在调用处查找？过程创建后，外围绑定的生命周期又怎样影响它？若只用口头描述，很容易把两个问题混在一起；解释器则必须明确保存什么、调用时又从哪里查询。</p>
 <p>本书把 Scheme 用作<strong>实现语言</strong>，把 LET、PROC 等用作<strong>被定义语言</strong>。前端把源文本变成 AST，解释器再按 AST 的构造求值。作者还讨论把一种程序结构变成另一种结构的翻译器，以及在运行以前检查类型的分析器；它们分别回答“怎样换一种表达仍保留行为”和“哪些错误可以提前排除”。</p>
 <p>有了可执行实现，也仍然需要推理。跑通十个程序只能说明这十个结果符合预期；要理解一条规则为什么适用于所有合法输入，仍要分析语法分支、递归结构和所保持的不变量。作者强调代数推演和小步骤变换，正是为了让运行观察和一般解释互相支持。</p>
+
+<details class="reading-notes" data-notes-for="goal" open><summary>本节理解与补充</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与联系</span><h3>用求值规则回答程序做了什么</h3><p>说明一段程序的含义，需要给定语法、值的种类和求值环境，再沿规则计算。只给最后结果会掩盖作用域、求值顺序和错误发生的位置。遇到两个解释器结果不同，先找出它们在哪一条规则上作了不同选择。</p></div></div></details>
 </section>
 
 <section id="scope-example">
 <h2>先算一个例子：闭包记住哪一个 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math></h2>
 <div class="rn-example" id="example-closure">
 <h3>伴读原创例子 · 同一个调用，两个作用域规则</h3>
-<p class="source">机制依据：§3.3，pp.74–80 / PDF 97–103；动态绑定变体见习题 3.28，p.82 / PDF 105。本例不是原书编号例题。</p>
+<p class="source">机制依据：§3.3，pp.74–80 / <a href="../assets/source.pdf#page=97">PDF 97–103</a>；动态绑定变体见习题 3.28，p.82 / <a href="../assets/source.pdf#page=105">PDF 105</a>。本例不是原书编号例题。</p>
 <p>下面使用 PROC 风格的写法。<code>-(a,b)</code> 表示 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math> 减 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="b" display="inline"><mi>b</mi></math>；<code>proc (y) body</code> 创建一个以 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="y" display="inline"><mi>y</mi></math> 为形参的过程；<code>(f 25)</code> 调用 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math>。</p>
 <pre><code>let x = 10
 in let f = proc (y) -(y,x)
@@ -636,7 +660,7 @@ if __name__ == &quot;__main__&quot;:
 
 <section id="method">
 <h2>六项方法怎样共同支持理解</h2>
-<p class="source">Preface · Goal 后的六项方法，p.xvi / PDF 17。下表为逐项释义与伴读说明。</p>
+<p class="source">Preface · Goal 后的六项方法，p.xvi / <a href="../assets/source.pdf#page=17">PDF 17</a>。下表为逐项释义与伴读说明。</p>
 <p>作者的六项方法可以沿一次实验连起来：先把问题缩小到一种语言，再给出可执行规则；用接口隔开表示，才能尝试不同实现；通过逐步变换连接高层解释和低层机制；最后以推演和习题检验每个选择。</p>
 <div class="scroll"><table aria-label="作者序言的六项方法与阅读动作">
 <thead><tr><th scope="col">原序言的方法</th><th scope="col">为什么需要它</th><th scope="col">本例中的落点</th></tr></thead>
@@ -650,26 +674,32 @@ if __name__ == &quot;__main__&quot;:
 </tbody></table></div>
 <p>其中数据抽象会反复出现。第 2 章比较环境的不同表示，第 3 章表示过程，第 5 章表示续文，第 8 章用类型系统约束模块客户。每一次都要先问：外部可观察的操作是什么？哪些内部细节可以换掉？这种连续性，是把整本书读成一条主线的关键。</p>
 <p>也不必把“少用数学符号”理解成不需要严谨性。程序的输入输出约定、递归终止所依据的更小结构、分支是否穷尽合法情况，都承担着数学约束的作用。代码短只是起点，能说明它为什么这样写才是阅读目标。</p>
+
+<details class="reading-notes" data-notes-for="method" open><summary>本节理解与补充</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与联系</span><h3>小语言与测试程序要成对阅读</h3><p>每增加一个构造，就同时检查语法树、值域和求值分支发生了什么变化。测试程序应能区分新规则与旧规则，例如让同名变量出现在两个环境中；仅运行一个两种规则都返回相同值的例子，无法说明设计差异。</p></div></div></details>
 </section>
 
 <section id="edition">
 <h2>第三版做了什么，全书怎样展开</h2>
-<p class="source">Preface，p.xvii–xviii / PDF 18–19。</p>
+<p class="source">Preface，p.xvii–xviii / <a href="../assets/source.pdf#page=18">PDF 18–19</a>。</p>
 <p>第三版特别说明：为非平凡定义加入非正式的输入输出契约；模块章为新内容；第 6 章改用一阶、组合式的 CPS 变换方法。这里“一阶”说的是变换算法所采用的方法，不意味着被研究的语言取消了高阶过程。</p>
 <p>为了突出机制，第三版第 3、4、5、7、8 章的主体语言把过程简化为单参数，多参数扩展放入习题。第 6 章和第 9 章则使用多参数过程。阅读代码或找习题答案时需要先核对版次及语言，不能把不同章节的语法假设直接拼在一起。</p>
 <p>作者的组织安排是先准备工具，再解释行为，最后组合机制。前两章讨论归纳数据和抽象表示；第 3 章建立带词法作用域、一等过程和递归的解释器，并引入词法地址；第 4 章加入存储；第 5、6 章研究控制与 CPS；第 7 章加入类型检查和推断；第 8 章建立模块边界；第 9 章把状态、分派与类型组合成对象系统。</p>
 <p>两条容易读混的线需要先分开。第 5 章把“解释器自身”改成续文传递形式，第 6 章则写一个转换器，把一般源程序转成 CPS。第 7 章研究静态分析时，回到第 3 章语言建立类型规则，并不要求先把所有控制扩展合并。完整依赖关系与每章落点见<a href="book_overview.html#dependencies">全书依赖图</a>。</p>
-<p>附录 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="A" display="inline"><mi>A</mi></math> 说明思想来源，适合带着概念回查文献；附录 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="B" display="inline"><mi>B</mi></math> 介绍 SLLGEN，帮助把输入字符串变成 AST。两者分别支持追根溯源和动手实现。</p>
+<p>附录 A 说明思想来源，适合带着概念回查文献；附录 B 介绍 SLLGEN，帮助把输入字符串变成 AST。两者分别支持追根溯源和动手实现。</p>
+
+<details class="reading-notes" data-notes-for="edition" open><summary>本节理解与补充</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与联系</span><h3>共同基础服务于不同的后续问题</h3><p>递归数据表示和解释器是后续章节的共同基础。存储、控制和类型分别回答值如何变化、计算如何继续、哪些表达式可以接受等问题。阅读时保留这些问题的边界，再沿依赖关系回到需要的前章。</p></div></div></details>
 </section>
 
 <section id="usage">
 <h2>怎样使用这本书</h2>
-<p class="source">Preface · Usage，p.xix / PDF 20。</p>
+<p class="source">Preface · Usage，p.xix / <a href="../assets/source.pdf#page=20">PDF 20</a>。</p>
 <p>作者面向有数据结构基础、具有命令式语言经验，并接触过 Scheme、ML、Python 或 Haskell 这类语言的读者。原因很实际：你既要理解变量更新和控制执行，也要把过程当作可传递、可返回的数据。若这两方面有一方面不熟，先用很小的程序补齐，再进入解释器。</p>
 <p>习题是正文的一部分。作者建议每题都至少读过并思考；一星到三星表示从理解相关内容即可解决，到需要较多思考和编程的不同难度，不是严格的耗时配额。有些习题改变语言设计，有些改变实现表示，还有些把同一机制带到后续语言中。只读主文会错过这些比较。</p>
 <p>一个可持续的读法是：先给程序的输入、输出和语法分支做标记，再手算一个正常例子及一个能区分错误实现的例子，随后运行，最后改变一处规则。例如本页用同名遮蔽区分创建环境和调用环境；若程序没有这处遮蔽，两种实现可能输出相同值，就不足以检验闭包规则。</p>
-<p>作者说明，支持一等过程和赋值的语言都可用于完成习题。原书配套实现使用当时的 PLT Scheme，代码大体兼容 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="R" display="inline"><mi>R</mi></math><sup>5</sup>RS。本页可运行的程序是前述 Python 教学模型；原书 Scheme 全套解释器尚未在本伴读中执行，其运行环境需按对应代码另行配置。</p>
+<p>作者说明，支持一等过程和赋值的语言都可用于完成习题。原书配套实现使用当时的 PLT Scheme，代码大体兼容 R<sup>5</sup>RS。本页可运行的程序是前述 Python 教学模型；原书 Scheme 全套解释器尚未在本伴读中执行，其运行环境需按对应代码另行配置。</p>
 <p>现在可以带着三个具体问题进入第 1 章：输入数据有哪些合法构造？每种构造对应哪个程序分支？递归调用为什么可以只处理更小的部分？它们随后会成为写解释器、检查器和转换器的共同方法。</p>
+
+<details class="reading-notes" data-notes-for="usage" open><summary>本节理解与补充</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与联系</span><h3>修改解释器前先写下可观察结果</h3><p>做一个扩展时，可以先列出合法输入、预期返回值与应拒绝的输入，再修改语法和求值分支。数据表示变化后，还要检查使用接口的客户是否仍工作；这种顺序能把语义设计和表示细节分别检验。</p></div></div></details>
 </section>
 
 <section id="exercise">
@@ -677,10 +707,11 @@ if __name__ == &quot;__main__&quot;:
 <details class="exercise" id="ex-0-1">
 <summary>习题 0.1 ★ · 让“有些语言……”成为可核查的比较</summary>
 <div class="exercise-question">
-<p class="rn-exercise-label">原书题目</p>
-<p class="source">Preface · Usage，p.xix / PDF 20；序言唯一编号习题，无编号小问。</p>
-<p class="original-question" lang="en">We often use phrases like “some languages have property X.” For each such phrase, find one or more languages that have the property and one or more languages that do not have the property. Feel <code>free</code> to ferret out this information from any descriptive book on programming languages (say Scott (2005), Sebesta (2007), or Pratt &amp; Zelkowitz (2001)).</p>
-<p><strong>完整译义：</strong>我们经常使用“有些语言具有性质 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="X" display="inline"><mi>X</mi></math>”这样的说法。对每一处这样的说法，找出一种或多种具有该性质的语言，再找出一种或多种不具有该性质的语言。可以从任何介绍程序设计语言的书中寻找这些信息，例如 Scott（2005）、Sebesta（2007），或 Pratt 与 Zelkowitz（2001）。</p>
+<p class="rn-exercise-label">原题（中文翻译）</p>
+<p class="source">Preface · Usage，p.xix / <a href="../assets/source.pdf#page=20">PDF 20</a>；序言唯一编号习题，无编号小问。</p>
+
+<div class="question-translation" lang="zh-CN"><p>我们经常使用“有些语言具有性质 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="X" display="inline"><mi>X</mi></math>”这样的说法。对每一处这样的说法，找出一种或多种具有该性质的语言，再找出一种或多种不具有该性质的语言。可以从任何介绍程序设计语言的书中寻找这些信息，例如 Scott（2005）、Sebesta（2007），或 Pratt 与 Zelkowitz（2001）。</p></div>
+<details class="original-question"><summary>英文原题</summary><p lang="en">We often use phrases like “some languages have property X.” For each such phrase, find one or more languages that have the property and one or more languages that do not have the property. Feel free to ferret out this information from any descriptive book on programming languages (say Scott (2005), Sebesta (2007), or Pratt &amp; Zelkowitz (2001)).</p></details>
 </div>
 <div class="answer">
 <p class="rn-exercise-label">参考解答</p>
@@ -690,7 +721,7 @@ if __name__ == &quot;__main__&quot;:
 <tbody>
 <tr><th scope="row">过程可以作为表达式的值</th><td>PROC</td><td>LET</td><td>§3.2 p.61；§3.3 p.75</td></tr>
 <tr><th scope="row">引用本身可以作为表达式的值</th><td>EXPLICIT-REFS</td><td>IMPLICIT-REFS</td><td>§4.2 p.104；§4.3 p.113</td></tr>
-<tr><th scope="row">未用到的过程实参可以不求值</th><td>CALL<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="-BY-" display="inline"><mrow><mo>−</mo><mi>B</mi><mi>Y</mi><mo>−</mo></mrow></math>NEED</td><td>按值传参的 IMPLICIT-REFS</td><td>§4.5 pp.130、136–138</td></tr>
+<tr><th scope="row">未用到的过程实参可以不求值</th><td>CALL-BY-NEED</td><td>按值传参的 IMPLICIT-REFS</td><td>§4.5 pp.130、136–138</td></tr>
 <tr><th scope="row">允许省去形式参数的显式类型并由分析推断</th><td>INFERRED，用 ? 留空</td><td>CHECKED，参数处须写类型</td><td>§7.3 p.240；§7.4 pp.248–249</td></tr>
 </tbody></table></div>
 <p><strong>第一组：</strong>在 PROC 中，<code>proc (x) x</code> 求值得到一个过程，可以把它绑定给变量、传入另一个过程或作为返回值。LET 的值域只有整数和布尔值，语法中也没有过程构造。因此反例的依据是这门小语言的定义，而不是“暂时没有使用过程”。</p>
@@ -734,7 +765,7 @@ in (f -(proc (y) y, 1))</code></pre>
     scheduled = false;
     let next = entries[0];
     for (const entry of entries) {
-      if (entry.section.getBoundingClientRect().top <= (wide.matches ? 100 : 110)) next = entry;
+      if (entry.section.getBoundingClientRect().top <= Math.max(110, wide.matches ? 100 : 110, wide.matches ? 0 : panel.querySelector('summary').getBoundingClientRect().bottom + 12) + 1) next = entry;
     }
     if (window.scrollY + innerHeight >= document.documentElement.scrollHeight - 2) next = entries[entries.length - 1];
     if (next && next.link !== current) {
@@ -763,21 +794,35 @@ in (f -(proc (y) y, 1))</code></pre>
   })).filter(item => item.section);
   if (!rail || !content || !context || !groups.length) return;
   const wide = matchMedia('(min-width:1440px)');
+  const sections = Array.from(document.querySelectorAll('main > section[id]'));
   let current = null, scheduled = false;
   const update = () => {
     scheduled = false;
     if (!wide.matches) return;
-    let next = groups[0];
-    for (const item of groups) {
-      if (item.section.getBoundingClientRect().top <= 110) next = item;
+    let active = sections[0];
+    for (const section of sections) {
+      if (section.getBoundingClientRect().top <= 111) active = section;
     }
-    if (scrollY + innerHeight >= document.documentElement.scrollHeight - 2) next = groups[groups.length - 1];
+    // A short final section cannot always reach the usual reading-position line.
+    if (scrollY > 0 && scrollY + innerHeight >= document.documentElement.scrollHeight - 1) {
+      active = sections.findLast(section => section.getBoundingClientRect().top < innerHeight - 100) ?? active;
+    }
+    const next = groups.find(item => item.section === active);
+    rail.hidden = !next;
+    if (!next) {
+      content.replaceChildren();
+      delete rail.dataset.activeSection;
+      current = null;
+      return;
+    }
     if (current === next) return;
     const body = next.notes.querySelector('.reading-notes-body');
     const heading = next.section.querySelector('h2');
     if (!body || !heading) return;
     content.replaceChildren(...Array.from(body.children, node => node.cloneNode(true)));
-    context.textContent = heading.textContent;
+    const label = heading.cloneNode(true);
+    label.querySelectorAll('.english-title,math annotation').forEach(node => node.remove());
+    context.textContent = label.textContent;
     context.href = '#' + next.section.id;
     rail.dataset.activeSection = next.section.id;
     rail.scrollTop = 0;
