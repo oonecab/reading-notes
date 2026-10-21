@@ -62,7 +62,25 @@ def synchronize(write=False):
         original = path.read_text()
         seen = set()
         edits = []
-        for block in Document(original).root.walk('code'):
+        document = Document(original)
+        inline = set()
+
+        def collect_inline(node, ancestors=()):
+            if node.tag == 'code' and 'pre' not in ancestors and any(
+                    tag in {'p', 'li', 'td', 'th', 'figcaption', 'summary',
+                            'h1', 'h2', 'h3', 'h4', 'h5', 'h6'} for tag in ancestors):
+                if not node.attrs.get('id') and not node.attrs.get('data-language'):
+                    inline.add(id(node))
+            for child in node.children:
+                if not isinstance(child, str):
+                    collect_inline(child, ancestors + (node.tag,))
+
+        collect_inline(document.root)
+        for block in document.root.walk('code'):
+            # Prose references such as a filename are not executable listings.
+            # Every preformatted or explicitly identified program stays registered.
+            if id(block) in inline:
+                continue
             identity = block.attrs.get('id')
             if identity in seen:
                 raise ValueError(f'Duplicate code block: {relative}#{identity}')

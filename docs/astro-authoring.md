@@ -56,6 +56,6 @@ CS:APP 共享横滚脚本的此次修订通过正常 source revision 链登记�
 
 ## I044 字体与数学标记维护
 
-每页最后一个 head 样式块末尾引入一次 `<!-- RN:include styles/reading-typography.css -->`。共同约定以 RN-001 v1.4 为准；普通英文数字使用 Times New Roman，运算符和语义字体仍由 MathML 正确表示。`tools/reading-typography/math.mjs` 提供作者使用的静态表达式构造，`check.mjs` 检查全站字体、原始上下标泄漏、MathML 参数与 EOPL 环境关系。`normalize.mjs` / `repair-fences.mjs` 是迁移辅助工具，批量写入前必须保存基线并审阅差异，不能把任意程序片段自动当成公式。
+每页最后一个 head 样式块末尾引入一次 `<!-- RN:include styles/reading-typography.css -->`。共同约定以 RN-001 v1.8 为准；普通英文数字使用 Times New Roman，程序文本通过 `reading-code-typography.css` 恢复原有等宽字体，辅助程序指南也内联这份代码样式。运算符和语义字体仍由 MathML 正确表示。`tools/reading-typography/math.mjs` 提供作者使用的静态表达式构造，`check.mjs` 检查全站字体、原始上下标泄漏、MathML 参数与 EOPL 环境关系。`normalize.mjs` / `repair-fences.mjs` 是迁移辅助工具，批量写入前必须保存基线并审阅差异，不能把任意程序片段自动当成公式。
 
 EOPL 以地图与序言两页接入，基线 `7e9d2ea` 是保留的原始源码，`release-astro.json` 中的归档身份不表示历史生产发布。当前发布页、浏览器检查和来源修订分别记录。新增页继续执行独立基线和完整验收流程。

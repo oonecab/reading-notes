@@ -14,7 +14,7 @@
       "anchor": "theorem-1-5-5-proof",
       "math_index": 1,
       "label": "s_n(x) 等于 2 的 n 次方乘 min(f(x),n) 后向下取整，再除以 2 的 n 次方。",
-      "presentation_sha256": "7cde068806e45107d60c0af9e8248cbf9ae9dda9a693cf30725244ddd4686418"
+      "presentation_sha256": "a96d784ba4a8ef4178e49371eaabf8f5d0f626669c5b5d4c3599a268efc4097f"
     },
     {
       "page": "chapter02_measure_spaces.html",
@@ -122,5 +122,11 @@
         "to_sha256": "4914b4d2d36ca942d525a8af3ac3df9f5a28dc56c60fa95bd8ad8db4eb9703bc"
       }
     ]
+  },
+  "I050_math_notation_revision": {
+    "issue": "I050",
+    "prior_record_git": "34c4fcc150aea4112fb9f4ffa1600e2e4253d524:books/measure-probability/review/mathml-accessibility.json",
+    "prior_record_sha256": "cb4b147a3e6b4e9ae6c51edd44c9b61859f65b6548796975391ff24693339162",
+    "scope": "Current mathematical-presentation bindings: reviewed variable products, named functions, complete scripts and TeX conversion remnants. All source changes match the exact replacement ledger; preformatted program bytes, diagrams, links, scripts and anchors are preserved. Historical source/proof/execution claims retain their original scope; new presentation acceptance is recorded in docs/math-notation-review.json"
   }
 }

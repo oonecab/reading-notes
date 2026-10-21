@@ -23,9 +23,9 @@
     "code/chapter02.rkt": "85cb64c82abdb908b3bba498e3960a130016fa323d461a27560b0abaadac178d",
     "code/scope_demo.py": "737f05ece44f0859864f74e98ef4f38ed3884cf23d2ff54a9ad89d4ad719da37",
     "code/test_chapters.rkt": "0dafdff5c5c825ffd8ad76b69331e5b24a7cd391f6ef037742d5edbc31946689",
-    "notes/README.md": "1539514c3a6c1b3fa90a88349ad7917458f11b2c35b2a18fdb9b02c34946a488",
+    "notes/README.md": "8b759373d9bfb93faeb0d132d23c0b3244d36208ec485d1b29c697def45fcd08",
     "notes/question_contexts.json": "026abe54b15cf1951a2bd69f27a80cf7af0063a643e7feaa1532e873e95e3123",
-    "notes/questions_ch01_02.json": "88cfdcdb37200cc9b59681bc2effa371a68265ba35ec7a684d09055ee3b17e9e",
+    "notes/questions_ch01_02.json": "9900740befe2775b2dd5fb49778aad171a282284d75f3ee3503cf53262a8ad2f",
     "notes/source_excerpts.json": "8a4bb92a917d9cb68cf56a847b6c67f015ee3fa31b872677af894f52521795f8",
     "notes/source_inventory.json": "87023b0a3ff2ab1e880d8181f6318deaef354b8a6664c53b0c024a7f63168538",
     "notes/source_issues.json": "355d8d0d26b98157c0361cc9ef49685f807755a1ce1cb93da22ce48c698785b3",
@@ -33,10 +33,10 @@
     "reading-plan.md": "7b774f9a1857495269e28035eb90de0d36b82fc7d9a2d89f0d12b2cff2947371",
     "review/ch01-02-benchmark.json": "7a314c0afc369b194fd878b824fa8bedd5966554750f32e97281924d0bc48b7c",
     "review/ch01-02.md": "9e114cefc083c1b2b00109a41cc0f28ae672754e44e0077bab2f39e65401d9bb",
-    "tools/check_notes.py": "36157b6d8b651205b5c64b14edf402980e3d53dd9039c026f66b05a75faf940a",
+    "tools/check_notes.py": "6b447685b6f9ac89a295aa47279de9164ca731bac641caf9e64e33e67bc88c41",
     "tools/sync_notes.py": "ff44ee96ae7ed0a75323ecda8befd1759ba32cd2abdc0f9904374bcb948afe86",
     "tools/test_chapter_mutations.py": "21354cc839c9c5df505e4964297066fece9c88573a83060e9145ed5b29ac9317",
-    "tools/test_checker.py": "0e96259f8fbe8000da356e8fa59048a00082839c962e743668b659fa8abdaf66",
+    "tools/test_checker.py": "61a06cd27a44043e4a4f378c30ce1a785eaa54512d9ba5fc1c38f243b42a160f",
     "tools/test_source_contexts.py": "3c940083229782c15da585677c1b0e6e96515084564ef399784c1c68c003f301"
   },
   "previous_file_sha256": {
@@ -55,5 +55,11 @@
   "semantics": "tmp/eopl-ch12-work/book-check-final-metadata/report.json",
   "checker_mutations": "tmp/eopl-ch12-work/checker-regression-final/report.json",
   "program_mutations": "tmp/eopl-ch12-mutations/report.json",
-  "benchmark": "review/ch01-02-benchmark.json"
+  "benchmark": "review/ch01-02-benchmark.json",
+  "I051_current_binding": {
+    "record": "books/eopl/review/merge-review.json",
+    "prior_git": "f113a0e:books/eopl/review/validation.json",
+    "prior_sha256": "c1ad7fa47f1c379775fd9166527eca7c2dc02f9cd9e7f666b4d8c6a41325f562",
+    "scope": "Current maintained file bindings; I048 execution/source records are unchanged and new verification is in merge-review.json."
+  }
 }

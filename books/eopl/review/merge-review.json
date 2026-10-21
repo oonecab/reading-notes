@@ -1,0 +1,294 @@
+{
+  "schema_version": 1,
+  "issue": "I051",
+  "status": "locally_verified_publication_pending",
+  "scope": "Merge local EOPL chapters 1 and 2 with main typography; review all 67 new exercise questions and solutions, program contracts, diagrams and reader interactions.",
+  "parents": {
+    "local": "f113a0e",
+    "remote": "bc4154e"
+  },
+  "historical_review": "books/eopl/review/ch01-02.json",
+  "source_sha256": {
+    "eopl/notes/book_overview.html": "4c306c48f9c8bfcc8ae9880d8e240ef98a2fa864770b7b24949a4fced96c4ebb",
+    "eopl/notes/chapter01_inductive_data.html": "edd507167d91d49a39cebae25e4f81912ad0c354a4f4883955ec7227b968b0bd",
+    "eopl/notes/chapter02_data_abstraction.html": "f0edddcd085cb074000e04779a3f17672a9a2af6ea6a34e0045a47c317c36977",
+    "eopl/notes/preface.html": "8edbddb0fcc0f02b83df4865ac4f21deb02b7b205b71f1fde6132bfb3cc1cb40"
+  },
+  "output_sha256": {
+    "eopl/notes/book_overview.html": "479efe9c9683900e4c32517cc72f7b6548405cda43f3b9da51c6e704291dd320",
+    "eopl/notes/chapter01_inductive_data.html": "836563c2478b80f0533ad4baec9254d9c663e59d785015f63610ce8c847f0ac1",
+    "eopl/notes/chapter02_data_abstraction.html": "0c642d9279a9ef32b4d424b2d2979257cc539534f0bfb7293dd4260648e7dd28",
+    "eopl/notes/preface.html": "ca7803f5650f59ac1438c9b8bdae0fad57ff03aaaa1b032711b31f1198e30cb8"
+  },
+  "source_review": {
+    "pdf_sha256": "b9e8770a4dc97206bd02230e6b21a878382eb02a340ff69321857d701e7d967c",
+    "question_solution_review": {
+      "chapter_1": 36,
+      "chapter_2": 31
+    },
+    "rendered_pdf_pages_viewed": [
+      28,
+      52,
+      55,
+      62,
+      63,
+      68,
+      73,
+      74,
+      77
+    ],
+    "basis": "Read both chapter narratives, all 67 preserved original questions and solutions, and all maintained Racket implementations/test clients. Revisited nine source images for notation, pointer diagrams, AST grammar and reported errata. The broader I048 PDF review retains its original scope."
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "status": "fixed",
+      "finding": "Shared code-font rule styled plain original questions as monospace.",
+      "change": "Semantic prose containers with independent code runs and native mathematical conditions; preserve original source text exactly."
+    },
+    {
+      "id": "F2",
+      "status": "fixed",
+      "finding": "Mixed function-call spelling, split identifiers, bare list values, and the typo 下标题.",
+      "change": "Complete Scheme expressions and inline code; distinguish mathematical variables and program tokens. Compound metavariables var/val retain one base under subscripts; complete environment calls use one math expression."
+    },
+    {
+      "id": "F3",
+      "status": "fixed",
+      "finding": "Natural-number trace mentioned absent angle brackets and mixed concrete numbers with abstract interface calls.",
+      "change": "Use source-style Scheme operand order, explicit abstract-value notation and aligned MathML derivation."
+    },
+    {
+      "id": "F4",
+      "status": "fixed",
+      "finding": "Exercise 2.24 lost the hyphen across the source line break.",
+      "change": "Restore bintree-to-list after visual comparison with PDF 73; record transcription correction in question inventory."
+    },
+    {
+      "id": "F5",
+      "status": "fixed",
+      "finding": "AST application boxes had inconsistent widths and unused second lines; ribcage links ended before the next cell and terminal labels overlapped arrows.",
+      "change": "Size nodes by role, center application labels, reconnect ribcage links and separate target labels."
+    }
+  ],
+  "program_review": {
+    "implementation_changes": false,
+    "reason": "The maintained algorithms match the reviewed contracts and source tasks. Full execution and independent finite comparisons passed; changes address transcription, notation and reading presentation."
+  },
+  "limitations": [
+    "Browser verification uses Chromium desktop emulation; no physical handset, Safari, Firefox or screen-reader run is claimed.",
+    "No claim is made that finite program tests prove correctness for all inputs. Contracts and reasoning remain in the chapter answers."
+  ],
+  "execution": {
+    "status": "passed",
+    "stage": "chapters-1-2",
+    "pages": 4,
+    "source_exercises": 356,
+    "answered_exercises": 68,
+    "source_check": "independent_inventory_verified",
+    "quick": false,
+    "page_sha256": {
+      "book_overview.html": "4c306c48f9c8bfcc8ae9880d8e240ef98a2fa864770b7b24949a4fced96c4ebb",
+      "preface.html": "8edbddb0fcc0f02b83df4865ac4f21deb02b7b205b71f1fde6132bfb3cc1cb40",
+      "chapter01_inductive_data.html": "21ca73a43c528f22d59a6f40ee1813f79b22596c2420b75ee92ce1402ffa2fd1",
+      "chapter02_data_abstraction.html": "7b9f3044fcb51179edd41caf3690129b24d3d5e33bf0793f199a7c2e2dc953ad"
+    },
+    "checked_at": "2026-10-21T05:25:21.250540+00:00",
+    "semantic_tests": {
+      "status": "passed",
+      "hand_calculated_cases": 10,
+      "error_cases": 10,
+      "scope_grid": 125,
+      "scope_discriminating_cases": 100
+    },
+    "demo_stdout": "lexical: 15\ndynamic: 5\n",
+    "python": "3.14.6",
+    "racket_execution": {
+      "chapter01.rkt": "((0 a) (1 b) (2 c))\n((x b) (c (x)))\n(red (bar 1 1) (red 2 (quux 2 2)))\n(foo (bar 0 1) (baz 2 (quux 3 4)))\n",
+      "chapter02.rkt": "(2 0 1)\n((lambda (a) (a b)) c)\n2\n(13 (12 () (99 () ())) ())\n",
+      "test_chapters.rkt": {
+        "assertions": 6269,
+        "failures": 0,
+        "racket": "8.17",
+        "status": "passed"
+      }
+    },
+    "textbook_context_execution": {
+      "status": "passed",
+      "textbook_code_cases": 6,
+      "stdout": "6 success(es) 0 failure(s) 0 error(s) 6 test(s) run\n",
+      "scope": "Six exact code excerpts with typographic quotes normalized. Parser constructor stubs preserve AST shape; its known acceptance of (a b c) is explicitly demonstrated."
+    }
+  },
+  "checker_regressions": {
+    "status": "passed",
+    "cases": [
+      {
+        "name": "unchanged_fixture",
+        "status": "passed",
+        "checker_status": "passed",
+        "observed_error": null
+      },
+      {
+        "name": "missing_anchor",
+        "status": "passed",
+        "checker_status": "failed",
+        "observed_error": "missing anchor: book_overview.html -> #missing-anchor"
+      },
+      {
+        "name": "page_mapping_shift",
+        "status": "passed",
+        "checker_status": "failed",
+        "observed_error": "page mapping differs"
+      },
+      {
+        "name": "inventory_header_drift",
+        "status": "passed",
+        "checker_status": "failed",
+        "observed_error": "source inventory metadata differs"
+      },
+      {
+        "name": "program_copy_drift",
+        "status": "passed",
+        "checker_status": "failed",
+        "observed_error": "preface code copy differs; run sync_notes.py --write"
+      },
+      {
+        "name": "missing_chapter_exercise",
+        "status": "passed",
+        "checker_status": "failed",
+        "observed_error": "missing anchor: chapter01_inductive_data.html -> #ex-1-36"
+      },
+      {
+        "name": "truncated_original_question",
+        "status": "passed",
+        "checker_status": "failed",
+        "observed_error": "complete original question differs: 1.1"
+      },
+      {
+        "name": "original_math_condition_drift",
+        "status": "passed",
+        "checker_status": "failed",
+        "observed_error": "original question math differs from source spelling"
+      },
+      {
+        "name": "original_visible_math_drift",
+        "status": "passed",
+        "checker_status": "failed",
+        "observed_error": "original question math differs from source spelling"
+      },
+      {
+        "name": "original_exponent_flattened",
+        "status": "passed",
+        "checker_status": "failed",
+        "observed_error": "original question math differs from source spelling"
+      },
+      {
+        "name": "original_math_source_spelling_missing",
+        "status": "passed",
+        "checker_status": "failed",
+        "observed_error": "original question math needs its source spelling"
+      },
+      {
+        "name": "chapter_program_copy_drift",
+        "status": "passed",
+        "checker_status": "failed",
+        "observed_error": "program copy differs: chapter01_inductive_data.html"
+      }
+    ],
+    "fixture_note": "Source PDF omitted from isolated fixture; full source validation runs separately."
+  },
+  "validation": {
+    "root_quick": "tmp/project-check/20261021T132911-666c9me5/report.json",
+    "eopl_full": "tmp/project-check/20261021T135029-3tfydljo/report.json",
+    "node_tests": {
+      "passed": 54,
+      "log": "tmp/eopl-merge-review-20261021/node-tests.log"
+    },
+    "checker_mutations": {
+      "cases": 12,
+      "status": "passed",
+      "report": "tmp/eopl-merge-review-20261021/checker-final/report.json"
+    },
+    "program_mutations": {
+      "cases": 5,
+      "status": "passed",
+      "report": "tmp/eopl-merge-review-20261021/program-mutations.log"
+    },
+    "build": {
+      "status": "passed",
+      "reading_pages": 60,
+      "public_html": 82,
+      "files": 519,
+      "log": "tmp/eopl-merge-review-20261021/build-release-final.log"
+    },
+    "offline_browser": {
+      "status": "passed",
+      "pages": 6,
+      "js_views": 24,
+      "no_js_views": 12,
+      "external_requests": [],
+      "evidence": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-21T05-50-30-357Z-dd8fe1e8",
+      "report": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-21T05-50-30-357Z-dd8fe1e8/report.json"
+    },
+    "visual_review": {
+      "report": "tmp/eopl-merge-review-20261021/release-focused-browser.json",
+      "views": 8,
+      "screenshots_viewed": 14,
+      "source_fonts": [
+        "Times New Roman",
+        "Menlo"
+      ],
+      "scope": "Two chapters at 1800, 1440, 1024 and 390 CSS pixels; all 67 questions open for geometry, 14 AST nodes checked for label clipping.",
+      "correction_recheck": "tmp/eopl-merge-review-20261021/accepted-focused-browser.json",
+      "screenshots_generated": 16,
+      "visual_inspection": "All 14 initial screenshots viewed; corrected English/code boundaries and the final environment equation rechecked in desktop and narrow views."
+    },
+    "source_and_public_secret_scan": {
+      "status": "passed",
+      "findings": 0,
+      "reports": [
+        "tmp/eopl-merge-review-20261021/gitleaks-source.json",
+        "tmp/eopl-merge-review-20261021/gitleaks-public.json"
+      ]
+    },
+    "release_delta": {
+      "status": "passed",
+      "same_files": 499,
+      "changed": [
+        "eopl/code/README.md",
+        "eopl/code/README.md.gz",
+        "eopl/code/index.html",
+        "eopl/code/index.html.gz",
+        "eopl/index.html",
+        "eopl/index.html.gz",
+        "eopl/notes/book_overview.html",
+        "eopl/notes/book_overview.html.gz",
+        "eopl/notes/preface.html",
+        "eopl/notes/preface.html.gz",
+        "eopl/notes/source_manifest.json",
+        "eopl/notes/source_manifest.json.gz"
+      ],
+      "added": [
+        "eopl/code/benchmark_bigits.rkt",
+        "eopl/code/chapter01.rkt",
+        "eopl/code/chapter02.rkt",
+        "eopl/code/test_chapters.rkt",
+        "eopl/notes/chapter01_inductive_data.html",
+        "eopl/notes/chapter01_inductive_data.html.gz",
+        "eopl/notes/chapter02_data_abstraction.html",
+        "eopl/notes/chapter02_data_abstraction.html.gz"
+      ],
+      "removed": [],
+      "new_files": 519
+    },
+    "original_formula_guard": "Visible coefficients and exponent/subscript roles agree with the source spelling; missing labels, changed conditions and flattened exponents are rejected.",
+    "resolved_failures": [
+      {
+        "finding": "2.10 complete environment equation overflowed at 390px when all exercise panels were opened.",
+        "report": "tmp/eopl-merge-review-20261021/release-focused-overflow-browser.json",
+        "fix": "Scoped existing equation scroll container; same expanded-question matrix repeated."
+      }
+    ]
+  }
+}

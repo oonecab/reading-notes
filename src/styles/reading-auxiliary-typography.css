@@ -1,2 +1,2 @@
 /* Public source/program summaries share the reading typography. */
-body,body :not(math):not(math *){font-family:"Times New Roman",Times,system-ui,-apple-system,"PingFang SC","Microsoft YaHei",serif!important}
+body,body :not(math):not(math *):not(:where(pre,pre *,code,code *,kbd,kbd *,samp,samp *)){font-family:"Times New Roman",Times,system-ui,-apple-system,"PingFang SC","Microsoft YaHei",serif!important}

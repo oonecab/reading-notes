@@ -8,8 +8,9 @@ FROZEN_BOOKS = frozenset(legacy.BOOKS)
 registered = {}
 
 def with_auxiliary_typography(blob):
-    css = (Path(__file__).resolve().parents[1] /
-           'src/styles/reading-auxiliary-typography.css').read_bytes()
+    styles = Path(__file__).resolve().parents[1] / 'src/styles'
+    css = b'\n'.join((styles / name).read_bytes() for name in
+                     ('reading-auxiliary-typography.css', 'reading-code-typography.css'))
     return blob.replace(b'</head>', b'<style>' + css + b'</style></head>', 1)
 
 

@@ -5206,8 +5206,8 @@
   ],
   "files": {
     "notes/chapter01_markov_chains.html": {
-      "bytes": 2294454,
-      "sha256": "1bbafd05e41b0cdaacd9fa5323053c74b21023d0318115e6857b25dbed3a2a2d"
+      "bytes": 2296176,
+      "sha256": "c25e5feac97e8c08593424264efe0287aa396df4893e44aa260f1c7e078f2752"
     },
     "notes/source_manifest.json": {
       "bytes": 36372,
@@ -5218,8 +5218,8 @@
       "sha256": "2232660e1909b42c6df8b5aca8eba12cdb383bf3741ecb53add49f6c26c6a0e7"
     },
     "tools/content_baseline.json": {
-      "bytes": 2889428,
-      "sha256": "a951a5f0724359dc1212dd43f5a8525739f791c40fb45c21f715c389c7ed6f57"
+      "bytes": 2905887,
+      "sha256": "4d3bdd4b29d24845cd428dbaa8bfb1f10abe04330cbdc5df8e96ad6aae739e08"
     },
     "../../test/test_stochastic_derivations.py": {
       "bytes": 22548,
@@ -5227,7 +5227,7 @@
     },
     "notes/derivation_coverage.json": {
       "bytes": 356352,
-      "sha256": "2a77444204c1a2324a1c6f1eb28db9623493e6aed38b83260d01af6003065e65"
+      "sha256": "d7a397da93a3b4e82f02d7be0b74f63fa77339a04ad1a451856a995389c802e9"
     }
   },
   "publication": {
@@ -5328,5 +5328,17 @@
     "prior_record_git": "3064e29e84f5e2ba60fdfbb4bb7389dfcb9ff084:books/stochastic/notes/chapter01_explanation_review.json",
     "prior_record_sha256": "42d99bab2cd9c11ed12d81aefe61479ba3d1a938d7874ef867e632004dc48207",
     "scope": "Current reader-copy bindings: maintenance wording moved out of reading pages. Programs, original questions, formulas, diagrams, source links and anchors preserved. Historical execution claims retain their original scope; new acceptance is recorded in docs/reader-copy-review.json"
+  },
+  "I049_code_font_revision": {
+    "issue": "I049",
+    "prior_record_git": "5435131c1e6e78c1d56383a8ee513eaddfeaa29f:books/stochastic/notes/chapter01_explanation_review.json",
+    "prior_record_sha256": "5f109cf2f856f1769c91a5ecb0387e03a2b3eb250eb88609ef382b4ee2c51dc2",
+    "scope": "Current code-font bindings: restored original monospace families and code sizing. All changes are inside expanded styles; controlled HTML, programs, questions, formulas, diagrams, source links, scripts and anchors are byte-identical. Historical execution claims retain their original scope; new acceptance is recorded in docs/code-font-review.json"
+  },
+  "I050_math_notation_revision": {
+    "issue": "I050",
+    "prior_record_git": "34c4fcc150aea4112fb9f4ffa1600e2e4253d524:books/stochastic/notes/chapter01_explanation_review.json",
+    "prior_record_sha256": "08b42d8e81f04fae276d7116c05071863ae1a856bfcb5c01e5e80ff6275b80f9",
+    "scope": "Current mathematical-presentation bindings: reviewed variable products, named functions, complete scripts and TeX conversion remnants. All source changes match the exact replacement ledger; preformatted program bytes, diagrams, links, scripts and anchors are preserved. Historical source/proof/execution claims retain their original scope; new presentation acceptance is recorded in docs/math-notation-review.json"
   }
 }

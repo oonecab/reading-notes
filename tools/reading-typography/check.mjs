@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import {parse} from 'parse5';
 import {entries,walk,attr} from '../../src/lib/controlled-html.mjs';
 import {rawScript} from './math.mjs';
+import {checkMathNotation} from './notation-check.mjs';
 const text=n=>n.nodeName==='#text'?n.value:(n.childNodes??[]).map(text).join('');
 const ancestors=n=>n.parentNode?[n.parentNode,...ancestors(n.parentNode)]:[];
 
@@ -43,7 +44,7 @@ export function checkAll(){
     const source=fs.readFileSync(entry.filename,'utf8');
     assert.equal(source.split('RN:include styles/reading-typography.css').length,2,'Typography must be included once');
     assert(/RN:include styles\/reading-typography.css -->\s*<\/style>/.test(source),'Typography must close the cascade');
-    try{pages.push({page:entry.metadata.route,...checkTypography(entry.html)});}
+    try{pages.push({page:entry.metadata.route,...checkTypography(entry.html),...checkMathNotation(entry.html,entry.metadata.book)});}
     catch(error){throw new Error(entry.metadata.route+': '+error.message,{cause:error});}
   }
   const scope=entries().find(e=>e.metadata.route==='eopl/notes/preface.html');

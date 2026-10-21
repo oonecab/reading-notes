@@ -1,6 +1,6 @@
 # 统一笔记站点的构建与部署
 
-六本书的 58 个正式阅读页及统一书架通过 Astro 7.4.0 构建。Node 24.21.0 LTS 与 pnpm 11.21.0 只用于构建，运行时为 Nginx 静态文件。数学、习题和程序由原 Python 检查器独立验证；读者下载的 C/Python 程序在自己的电脑运行。
+六本书的 60 个正式阅读页及统一书架通过 Astro 7.4.0 构建。Node 24.21.0 LTS 与 pnpm 11.21.0 只用于构建，运行时为 Nginx 静态文件。数学、习题和程序由原 Python 检查器独立验证；读者下载的 C/Python/Racket 程序在自己的电脑运行。
 
 ## 构建与预览
 
@@ -16,7 +16,7 @@ pnpm check:offline
 python3 tools/project.py build
 ```
 
-`pnpm build` 输出 `dist/`，同时写入 `tmp/reading-notes-migration/dist-SHA256SUMS`。58 页和书架均内联资源，可直接 file 协议打开；其他资料页和下载链接需要保留整个发布目录。Ego Lite 离线验收独立运行四种宽度和 no-JS；构建成功不能替代阅读验收。
+`pnpm build` 输出 `dist/`，同时写入 `tmp/reading-notes-migration/dist-SHA256SUMS`。60 页和书架均内联资源，可直接 file 协议打开；其他资料页和下载链接需要保留整个发布目录。Ego Lite 离线验收独立运行四种宽度和 no-JS；构建成功不能替代阅读验收。
 
 `tools/project.py build` 调用同一个 Node 构建，在持有构建锁时打包，并拒绝覆盖已有版本号。可指定 `--release-id YYYYMMDDTHHMMSS`。完整包位于 `deploy/portal-releases/<id>/`：
 

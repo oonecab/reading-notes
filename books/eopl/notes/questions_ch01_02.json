@@ -536,10 +536,11 @@
       "number": "2.24",
       "printed_page": 50,
       "pdf_page": 73,
-      "question_text": "Exercise 2.24 [★] Here is a definition of binary trees using define-datatype.\n\n  (define-datatype bintree bintree?\n    (leaf-node\n      (num integer?))\n    (interior-node\n      (key symbol?)\n      (left bintree?)\n      (right bintree?)))\n\nImplement a bintree-to-list procedure for binary trees, so that (bintree-tolist (interior-node 'a (leaf-node 3) (leaf-node 4))) returns the list\n\n  (interior-node\n    a\n    (leaf-node 3)\n    (leaf-node 4))",
+      "question_text": "Exercise 2.24 [★] Here is a definition of binary trees using define-datatype.\n\n  (define-datatype bintree bintree?\n    (leaf-node\n      (num integer?))\n    (interior-node\n      (key symbol?)\n      (left bintree?)\n      (right bintree?)))\n\nImplement a bintree-to-list procedure for binary trees, so that (bintree-to-list (interior-node 'a (leaf-node 3) (leaf-node 4))) returns the list\n\n  (interior-node\n    a\n    (leaf-node 3)\n    (leaf-node 4))",
       "anchor": "ex-2-24",
       "source_kind": "complete original exercise; OCR ligatures normalized; equations and diagrams separately restored",
-      "pdf_end": 73
+      "pdf_end": 73,
+      "transcription_correction": "I051: PDF 73 / printed 50 visually confirms bintree-to-list; preserve the source hyphen across its line break."
     },
     {
       "number": "2.25",

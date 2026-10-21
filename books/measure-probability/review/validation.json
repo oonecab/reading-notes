@@ -1163,15 +1163,15 @@
     "code/simple_approx.c": "7b1c7d94efc3b1e51340860863c07e2ba2368a87ca4de91b310bf80322b831ce",
     "code/simple_approx.py": "397b091accdde866a7ccd628d5099660d7864dffd0a0d9fd1e895dd40c4e57f7",
     "notes/README.md": "4424cbca4dab3ffdae5d29273b32ad2453518b7a10cdf130d34a4b4acf89139b",
-    "notes/book_overview.html": "ddaf0620210acbaaaaa781ffd88b64bc6515073c8ad93d6c42d592170f746e4b",
-    "notes/chapter01_measurable_spaces.html": "4b1dc41a86f938eb1173a811a3f11b3ee1bc11b5db107621ae2dc5f5218ee495",
-    "notes/chapter02_measure_spaces.html": "839c186ecc4d418172070cf9b46a048cc99ffdf052c681f2ea9909db4dc5a396",
-    "notes/chapter03_integration.html": "cbb761fb65cd7468df80f569e7ed92374ce672b837ec8e5de02fa705f1ea4b02",
-    "notes/chapter04_signed_measures.html": "cd2fb94a98c41e1183869b33016e236745d45bff902f697110c01a07ab185314",
-    "notes/chapter05_product_spaces.html": "7b20f4a628205bd260cf889803840f143f19a13ddf68fe69cc5c4ed456dadbd6",
-    "notes/chapter06_independent_sequences.html": "80b33bfc64ed7c5a3506b182e49c125f3851200c01b3b9cd93b1853634b73742",
-    "notes/exercise_manifest.json": "f887dc087c53c6cffeae42eb90ac0114b427b17e493e4e7f2bfdb6192ca12d03",
-    "notes/preface.html": "8756afbcf1d5c48adccc4203eaf2bb19841871eeefa9873b51bffcde26d4def3",
+    "notes/book_overview.html": "ca63ac589a0a09d41ff699bc8bfc49d961ccc04854e6d52a9aedf47c29259519",
+    "notes/chapter01_measurable_spaces.html": "d0e7f979f6de925b66b6f3dcb6ab1e1368dc5bebe4ea9caee931399c0abcc75c",
+    "notes/chapter02_measure_spaces.html": "326bf3efad20ef3b5798885b2ea23efe6024c3de452bdff4a66d29005fc04e00",
+    "notes/chapter03_integration.html": "af92ef1ec43fe0ebf736c8ea79a8608a5ba0ab659f829731455c807ba1d2828e",
+    "notes/chapter04_signed_measures.html": "d676a9eb9ec10e49d95efc79a4e1ca53487960d3f3ff42d5d589fa2c75c69070",
+    "notes/chapter05_product_spaces.html": "2f8428e7e64b91a8b57e8b92657753077a4173913340c989cf29f1a84e20db9a",
+    "notes/chapter06_independent_sequences.html": "213a9065a11b4627a96a170bc52fbeeb49b91b09f80e829b4513304047448de3",
+    "notes/exercise_manifest.json": "080f50aa0108d18156ea39a18533b73e8310a627eb49de2d134a84f88a799c29",
+    "notes/preface.html": "ded4082617567dd4d0b4c0a0f44a2213336af111ee48e50cbb96965e791a49f9",
     "notes/source_excerpts.json": "a18f7592851836ed455df245098df139c0ab6090e7df14d9825d19f9ba871b12",
     "notes/source_inventory.json": "559b11cde9795bdb32eba170c79b52bc100a62b2b23f0a494a4691227aeeb881",
     "notes/source_issues.json": "60789cee2874f4435696c955f1ce3aa71a18be40ea6c39bab12fae0f0aa3db3e",
@@ -1184,7 +1184,7 @@
     "review/final-assessment.json": "1d6ee5e6928a9ca24fdb61c318bb49a03fee2cb6f627ae9641d7213f78e2cedf",
     "review/history/20261017-first-batch-source-reading.json": "ce12a90eead4af5dd906dc7b5186c65e617103ec69338bad29f5364900e9968e",
     "review/history/20261017-first-batch-validation.json": "017c0f6cbf2dfc479f99a248eb06a41dd39f771fc0a6b71f8ada1335cbf0a58a",
-    "review/mathml-accessibility.json": "cb4b147a3e6b4e9ae6c51edd44c9b61859f65b6548796975391ff24693339162",
+    "review/mathml-accessibility.json": "42d6b4e0f8abab025a5cf6b9aaa36e444560697481642497c87a42952cd696cb",
     "review/source-inventory-ch56.json": "f097183698f9947e9a945cad260b42152713c90b7f18ac0e443d1745a8dbf6c7",
     "review/source-reading.json": "8eae9e0dd7c03ba4cde48e4f223e78439b61b483797dff8f151981baebfd18be",
     "tools/check_excerpts.py": "8139cdd6480aa6ed80bf3ac49a10e1c9aab524324ce7910d767b749aec8e9159",
@@ -1955,5 +1955,17 @@
     "prior_record_git": "09759945a0ad27e73f42c291e6b121a76fa6ce7a:books/measure-probability/review/validation.json",
     "prior_record_sha256": "86cd874050ab9189db4241b21daa655ee90a975fed16882863a3c7c5911b6949",
     "scope": "Current representation bindings: complete inline program syntax, shared code treatment and content-aware SVG node sizing. Program blocks, readable meaning and exercise IDs preserved. Historical execution claims retain their original scope; new acceptance is recorded in docs/reading-presentation-review.json"
+  },
+  "I049_code_font_revision": {
+    "issue": "I049",
+    "prior_record_git": "5435131c1e6e78c1d56383a8ee513eaddfeaa29f:books/measure-probability/review/validation.json",
+    "prior_record_sha256": "b92a96902b295d671bc1491a20e9b65b077bbf5c6bd8e626a05d17ae9fc2e36f",
+    "scope": "Current code-font bindings: restored original monospace families and code sizing. All changes are inside expanded styles; controlled HTML, programs, questions, formulas, diagrams, source links, scripts and anchors are byte-identical. Historical execution claims retain their original scope; new acceptance is recorded in docs/code-font-review.json"
+  },
+  "I050_math_notation_revision": {
+    "issue": "I050",
+    "prior_record_git": "34c4fcc150aea4112fb9f4ffa1600e2e4253d524:books/measure-probability/review/validation.json",
+    "prior_record_sha256": "a4cd74e78fa1395153f3c8c2311757079934d76382a043642c3f7f4a627a7223",
+    "scope": "Current mathematical-presentation bindings: reviewed variable products, named functions, complete scripts and TeX conversion remnants. All source changes match the exact replacement ledger; preformatted program bytes, diagrams, links, scripts and anchors are preserved. Historical source/proof/execution claims retain their original scope; new presentation acceptance is recorded in docs/math-notation-review.json"
   }
 }

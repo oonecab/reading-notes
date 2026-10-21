@@ -337,12 +337,19 @@ main[id],main [id]{scroll-margin-top:24px}
 }
 
 
-/* RN-001: a single Latin/digit face across prose, code, tables and diagrams.
+/* RN-001: a single Latin/digit face across prose, tables and diagrams.
    CJK glyphs use the local Chinese fallback; no proprietary fonts are shipped. */
 :root{--rn-text-font:"Times New Roman",Times,system-ui,-apple-system,"PingFang SC","Microsoft YaHei",serif;--rn-diagram-blue:#edf5fd;--rn-diagram-blue-line:#a9bfd5;--rn-diagram-amber:#fff6e4;--rn-diagram-amber-line:#d6bd87;--rn-diagram-ink:#303b46;--rn-diagram-edge:#8c969f}
-body.rn-components,body.rn-components :not(math):not(math *){
+body.rn-components,body.rn-components :not(math):not(math *):not(:where(pre,pre *,code,code *,kbd,kbd *,samp,samp *)){
   font-family:var(--rn-text-font)!important
 }
+/* Program text uses the original local monospace family across reading pages
+   and source/program guides. Mathematical descendants keep their own fonts. */
+:root{--rn-code-font:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+body :is(pre,code,kbd,samp),body :is(pre,code,kbd,samp) :not(math):not(math *){
+  font-family:var(--rn-code-font)!important
+}
+
 body.rn-components math{font-family:"STIX Two Math","Cambria Math",math;font-size:1em}
 body.rn-components math :is(mi,mn,mtext,ms){font-family:var(--rn-text-font)!important}
 body.rn-components math mi:not([mathvariant]),body.rn-components math mi[mathvariant="italic"]{font-style:italic;text-transform:none}
@@ -350,19 +357,20 @@ body.rn-components math :is(mn,mtext,ms),body.rn-components math mi[mathvariant=
 body.rn-components math mi:is([mathvariant="bold"],[mathvariant="bold-italic"]){font-weight:700;text-transform:none}
 body.rn-components math mi[mathvariant="bold-italic"]{font-style:italic}
 body.rn-components math mi:is([mathvariant="double-struck"],[mathvariant="script"],[mathvariant="bold-script"],[mathvariant="fraktur"],[mathvariant="bold-fraktur"]){font-family:"STIX Two Math","Cambria Math",math!important}
+body.rn-components math [mathvariant="monospace"]{font-family:var(--rn-code-font)!important;font-style:normal;text-transform:none}
 body.rn-components :is(p,li,td,th,summary,figcaption,h1,h2,h3,h4) math{vertical-align:baseline}
 body.rn-components .rn-math-inline{display:inline-block;max-width:100%;overflow-x:auto;overflow-y:hidden;vertical-align:middle}
-body.rn-components pre{font-size:16px;line-height:1.65;tab-size:4;white-space:pre}
+body.rn-components pre{line-height:1.65;tab-size:4;white-space:pre}
 body.rn-components pre code{font-size:inherit;white-space:inherit}
 /* Keep short expressions together; long statements wrap within the text column. */
 body.rn-components code:not(pre code){
   display:inline-block;max-width:100%;vertical-align:baseline;
-  font-size:.96em;font-style:normal;font-weight:400;line-height:1.45;
+  font-size:.9em;font-style:normal;font-weight:400;line-height:1.45;
   color:#294553;background:#eef2f4;border:1px solid #dfe6e9;border-radius:4px;
   padding:.08em .3em;box-decoration-break:clone;-webkit-box-decoration-break:clone;
   white-space:normal;overflow-wrap:anywhere;word-break:normal
 }
-body.rn-components :is(h1,h2,h3,h4,summary,th) code:not(pre code){font-size:.94em;font-weight:inherit}
+body.rn-components :is(h1,h2,h3,h4,summary,th) code:not(pre code){font-size:.9em;font-weight:inherit}
 body.rn-components a code:not(pre code){color:inherit}
 body.rn-components pre code{background:none;border:0;border-radius:0;padding:0;box-decoration-break:slice;overflow-wrap:normal}
 body.rn-components svg text{fill:var(--rn-diagram-ink)}

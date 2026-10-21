@@ -13,6 +13,7 @@ import re
 import subprocess
 import shutil
 import sys
+import xml.etree.ElementTree as ET
 from urllib.parse import unquote, urlsplit
 
 from inventory_source import COUNTS, SOURCE_SHA256, inventory
@@ -35,6 +36,60 @@ class Page(HTMLParser):
             self.ids.append(attrs["id"])
         if tag == "a" and "href" in attrs:
             self.links.append(attrs["href"])
+
+
+class OriginalQuestion(HTMLParser):
+    """Recover source spelling while allowing code and native mathematical layout."""
+    def __init__(self, markup: str):
+        super().__init__(convert_charrefs=True)
+        self.parts: list[str] = []
+        self.math_depth = 0
+        for formula in re.findall(r'<math\b.*?</math>', markup, re.S):
+            tree = ET.fromstring(formula)
+            source = tree.get("aria-label")
+            need(bool(source), "original question math needs its source spelling")
+            # Preserve exponent/subscript roles while comparing visible math to
+            # the original spelling. OCR spells t1/n1 without subscript glyphs.
+            spelling = source.translate(str.maketrans({
+                "²": "^2", "₁": "_1", "ₖ": "_k", "ᵢ": "_i"}))
+            spelling = re.sub(r"\b([tn])([12])\b", r"\1_\2", spelling)
+            need(re.sub(r"\s+", "", self.math_text(tree)) ==
+                 re.sub(r"\s+", "", spelling),
+                 "original question math differs from source spelling")
+        self.feed(markup)
+
+    @classmethod
+    def math_text(cls, node):
+        tag = node.tag.rsplit("}", 1)[-1]
+        if tag in {"msub", "msup"}:
+            need(len(node) == 2, "original question math script needs two operands")
+            marker = "_" if tag == "msub" else "^"
+            return cls.math_text(node[0]) + marker + cls.math_text(node[1])
+        need(tag in {"math", "mrow", "mi", "mn", "mo", "mtext", "mspace"},
+             "unsupported original question math structure: " + tag)
+        return (node.text or "") + "".join(cls.math_text(n) + (n.tail or "") for n in node)
+
+    def handle_starttag(self, tag, pairs):
+        attrs = dict(pairs)
+        if tag == "math":
+            need(self.math_depth == 0 and bool(attrs.get("aria-label")),
+                 "original question math needs its source spelling")
+            self.parts.append(attrs["aria-label"])
+        if tag == "math" or self.math_depth:
+            self.math_depth += 1
+
+    def handle_endtag(self, tag):
+        if self.math_depth:
+            self.math_depth -= 1
+
+    def handle_data(self, text):
+        if not self.math_depth:
+            self.parts.append(text)
+
+    @property
+    def text(self):
+        need(self.math_depth == 0, "unclosed original question math")
+        return "".join(self.parts)
 
 
 def need(condition: bool, label: str) -> None:
@@ -155,11 +210,12 @@ def check(quick: bool) -> dict:
         text = (BOOK / "notes" / names[c]).read_text()
         ids = re.findall(r'<details class="exercise" id="([^"]+)"', text)
         need(ids == [f"ex-{c}-{n}" for n in range(1, total + 1)], "chapter exercise sequence")
-        originals = re.findall(r'<pre class="original-source" lang="en">(.*?)</pre>', text, re.S)
+        originals = re.findall(r'<div class="original-source" lang="en" data-exercise="[^"]+">(.*?)</div>', text, re.S)
         rows = [r for r in questions["items"] if r["number"].startswith(str(c) + ".")]
         need(len(originals) == total, "full original question count")
         for content, row in zip(originals, rows):
-            need(unescape(content) == row["question_text"], "complete original question differs: " + row["number"])
+            need(OriginalQuestion(content).text == row["question_text"],
+                 "complete original question differs: " + row["number"])
             need(row["pdf_page"] == positions[row["number"]]["pdf_page"] and
                  row["printed_page"] == row["pdf_page"] - 23, "question locator differs")
         blocks = re.findall(r'<details class="exercise" id="ex-[^"]+">(.*?)(?=<details class="exercise"|</section>)', text, re.S)

@@ -340,15 +340,22 @@ main[id],main [id]{scroll-margin-top:24px}
 
 
 
-body.rn-components pre.original-source{white-space:pre-wrap;overflow-wrap:anywhere;font-family:"Times New Roman",serif;line-height:1.75;margin:1rem 0;background:none;border:0;padding:0;max-height:none;overflow:visible}
+.original-source{white-space:pre-wrap;overflow-wrap:anywhere;font-size:1rem;line-height:1.8;margin:1rem 0}body.rn-components .original-source code.source-example{display:block;white-space:pre;overflow-x:auto;max-width:100%;line-height:1.65;padding:.8rem 1rem}.original-source math{white-space:normal}
 .eopl-diagram{min-width:640px;width:100%;height:auto}.eopl-diagram text{font-size:17px}.eopl-diagram .hint{font-size:14px}
 .diagram-scroll{overflow-x:auto}.table-scroll{max-width:100%;overflow-x:auto}.table-scroll table{min-width:580px}.code-details pre{max-height:36rem;overflow:auto}.exercise-links{line-height:2}
-/* RN-001: a single Latin/digit face across prose, code, tables and diagrams.
+/* RN-001: a single Latin/digit face across prose, tables and diagrams.
    CJK glyphs use the local Chinese fallback; no proprietary fonts are shipped. */
 :root{--rn-text-font:"Times New Roman",Times,system-ui,-apple-system,"PingFang SC","Microsoft YaHei",serif;--rn-diagram-blue:#edf5fd;--rn-diagram-blue-line:#a9bfd5;--rn-diagram-amber:#fff6e4;--rn-diagram-amber-line:#d6bd87;--rn-diagram-ink:#303b46;--rn-diagram-edge:#8c969f}
-body.rn-components,body.rn-components :not(math):not(math *){
+body.rn-components,body.rn-components :not(math):not(math *):not(:where(pre,pre *,code,code *,kbd,kbd *,samp,samp *)){
   font-family:var(--rn-text-font)!important
 }
+/* Program text uses the original local monospace family across reading pages
+   and source/program guides. Mathematical descendants keep their own fonts. */
+:root{--rn-code-font:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+body :is(pre,code,kbd,samp),body :is(pre,code,kbd,samp) :not(math):not(math *){
+  font-family:var(--rn-code-font)!important
+}
+
 body.rn-components math{font-family:"STIX Two Math","Cambria Math",math;font-size:1em}
 body.rn-components math :is(mi,mn,mtext,ms){font-family:var(--rn-text-font)!important}
 body.rn-components math mi:not([mathvariant]),body.rn-components math mi[mathvariant="italic"]{font-style:italic;text-transform:none}
@@ -356,19 +363,20 @@ body.rn-components math :is(mn,mtext,ms),body.rn-components math mi[mathvariant=
 body.rn-components math mi:is([mathvariant="bold"],[mathvariant="bold-italic"]){font-weight:700;text-transform:none}
 body.rn-components math mi[mathvariant="bold-italic"]{font-style:italic}
 body.rn-components math mi:is([mathvariant="double-struck"],[mathvariant="script"],[mathvariant="bold-script"],[mathvariant="fraktur"],[mathvariant="bold-fraktur"]){font-family:"STIX Two Math","Cambria Math",math!important}
+body.rn-components math [mathvariant="monospace"]{font-family:var(--rn-code-font)!important;font-style:normal;text-transform:none}
 body.rn-components :is(p,li,td,th,summary,figcaption,h1,h2,h3,h4) math{vertical-align:baseline}
 body.rn-components .rn-math-inline{display:inline-block;max-width:100%;overflow-x:auto;overflow-y:hidden;vertical-align:middle}
-body.rn-components pre{font-size:16px;line-height:1.65;tab-size:4;white-space:pre}
+body.rn-components pre{line-height:1.65;tab-size:4;white-space:pre}
 body.rn-components pre code{font-size:inherit;white-space:inherit}
 /* Keep short expressions together; long statements wrap within the text column. */
 body.rn-components code:not(pre code){
   display:inline-block;max-width:100%;vertical-align:baseline;
-  font-size:.96em;font-style:normal;font-weight:400;line-height:1.45;
+  font-size:.9em;font-style:normal;font-weight:400;line-height:1.45;
   color:#294553;background:#eef2f4;border:1px solid #dfe6e9;border-radius:4px;
   padding:.08em .3em;box-decoration-break:clone;-webkit-box-decoration-break:clone;
   white-space:normal;overflow-wrap:anywhere;word-break:normal
 }
-body.rn-components :is(h1,h2,h3,h4,summary,th) code:not(pre code){font-size:.94em;font-weight:inherit}
+body.rn-components :is(h1,h2,h3,h4,summary,th) code:not(pre code){font-size:.9em;font-weight:inherit}
 body.rn-components a code:not(pre code){color:inherit}
 body.rn-components pre code{background:none;border:0;border-radius:0;padding:0;box-decoration-break:slice;overflow-wrap:normal}
 body.rn-components svg text{fill:var(--rn-diagram-ink)}
@@ -411,27 +419,27 @@ Bintree ::= Int | (Symbol Bintree Bintree)
 LcExp ::= Identifier
         | (lambda (Identifier) LcExp)
         | (LcExp LcExp)
-Identifier = any symbol other than lambda</code></pre><p><code>S-list</code> 中只有符号和同类子表；Bintree 的叶子是整数，内部节点有符号标签与两个孩子；LcExp 有变量、抽象、应用三种构造。应用必须恰好有操作符和一个操作数。</p></div></div>
+Identifier = any symbol other than lambda</code></pre><p><code>S-list</code> 中只有符号和同类子表；<code>Bintree</code> 的叶子是整数，内部节点有符号标签与两个孩子；<code>LcExp</code> 有变量、抽象、应用三种构造。应用必须恰好有操作符和一个操作数。</p></div></div>
 <p>例如 <code>'(a (b c) ())</code> 是 <code>S-list</code>，而 <code>'(a 7)</code> 不是，因为 7 既不是符号也不是 <code>S-list</code>。<code>'(lambda (x) (x y))</code> 是一个 <code>lambda</code> 节点，其过程体是应用节点，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 和 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="y" display="inline"><mi>y</mi></math> 是变量节点。相同的括号外观可以属于不同数据类型；必须先选定契约，才能决定如何拆它。</p>
 <div class="rn-statement" id="theorem-1-1-1"><h3>定理 1.1.1 · 每棵这样的二叉树都有奇数个节点</h3><div class="statement-body"><p>这里每个内部节点恰有两个子树，并且整数叶子也计作一个节点。结论不适用于随意允许单孩子的树。</p></div></div>
 <details class="rn-proof" id="theorem-1-1-1-proof" open><summary>证明：顺着树的构造归纳</summary><div class="rn-proof-body"><p>叶子有 1 个节点，是奇数。内部节点的左右子树严格小于整棵树；归纳假设允许分别把它们的节点数写成 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="2a+1" display="inline"><mrow><mn>2</mn><mi>a</mi><mo>+</mo><mn>1</mn></mrow></math> 与 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="2b+1" display="inline"><mrow><mn>2</mn><mi>b</mi><mo>+</mo><mn>1</mn></mrow></math>。整棵树再加上当前根，得到：</p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="两子树节点数加根仍为奇数"><mrow><mo>(</mo><mn>2</mn><mi>a</mi><mo>+</mo><mn>1</mn><mo>)</mo><mo>+</mo><mo>(</mo><mn>2</mn><mi>b</mi><mo>+</mo><mn>1</mn><mo>)</mo><mo>+</mo><mn>1</mn><mo>=</mo><mn>2</mn><mo>(</mo><mi>a</mi><mo>+</mo><mi>b</mi><mo>+</mo><mn>1</mn><mo>)</mo><mo>+</mo><mn>1</mn></mrow></math><p>所以内部构造也保持性质。叶子/内部节点覆盖全部生成方式，证明完成。不是先相信所有树都成立，而是在严格更小的两棵子树上使用归纳假设。</p></div></details>
-<div class="exercise-index" role="navigation" aria-label="本节习题索引">本节习题：<a href="#ex-1-1" aria-label="习题 1.1">1.1</a> · <a href="#ex-1-2" aria-label="习题 1.2">1.2</a> · <a href="#ex-1-3" aria-label="习题 1.3">1.3</a> · <a href="#ex-1-4" aria-label="习题 1.4">1.4</a> · <a href="#ex-1-5" aria-label="习题 1.5">1.5</a></div><details class="exercise" id="ex-1-1"><summary>习题 1.1 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.5 / PDF 28</p><pre class="original-source" lang="en">Exercise 1.1 [★] Write inductive definitions of the following sets. Write each definition in all three styles (top-down, bottom-up, and rules of inference). Using your
+<div class="exercise-index" role="navigation" aria-label="本节习题索引">本节习题：<a href="#ex-1-1" aria-label="习题 1.1">1.1</a> · <a href="#ex-1-2" aria-label="习题 1.2">1.2</a> · <a href="#ex-1-3" aria-label="习题 1.3">1.3</a> · <a href="#ex-1-4" aria-label="习题 1.4">1.4</a> · <a href="#ex-1-5" aria-label="习题 1.5">1.5</a></div><details class="exercise" id="ex-1-1"><summary>习题 1.1 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.5 / PDF 28</p><div class="original-source" lang="en" data-exercise="1.1">Exercise 1.1 [★] Write inductive definitions of the following sets. Write each definition in all three styles (top-down, bottom-up, and rules of inference). Using your
 rules, show the derivation of some sample elements of each set.
 
-1. {3n + 2 | n ∈ N }
-2. {2n + 3m + 1 | n , m ∈ N }
-3. {(n , 2n + 1) | n ∈ N }
-4. {(n , n²) | n ∈ N } Do not mention squaring in your rules. As a hint, remember the
-   equation (n + 1)² = n² + 2n + 1.</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>设每个集合都取满足规则的最小集合。四个小问不能只写“基例 + 闭包”，还须排除凭空加入的元素。下面每一行同时给出自顶向下、自底向上和推理规则三种写法。</p>
+1. <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="{3n + 2 | n ∈ N }" display="inline"><mrow><mo>{</mo><mn>3</mn><mi>n</mi><mo>+</mo><mn>2</mn><mo>|</mo><mi>n</mi><mo>∈</mo><mi>N</mi><mo>}</mo></mrow></math>
+2. <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="{2n + 3m + 1 | n , m ∈ N }" display="inline"><mrow><mo>{</mo><mn>2</mn><mi>n</mi><mo>+</mo><mn>3</mn><mi>m</mi><mo>+</mo><mn>1</mn><mo>|</mo><mi>n</mi><mo>,</mo><mi>m</mi><mo>∈</mo><mi>N</mi><mo>}</mo></mrow></math>
+3. <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="{(n , 2n + 1) | n ∈ N }" display="inline"><mrow><mo>{</mo><mrow><mo>(</mo><mi>n</mi><mo>,</mo><mn>2</mn><mi>n</mi><mo>+</mo><mn>1</mn><mo>)</mo></mrow><mo>|</mo><mi>n</mi><mo>∈</mo><mi>N</mi><mo>}</mo></mrow></math>
+4. <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="{(n , n²) | n ∈ N }" display="inline"><mrow><mo>{</mo><mrow><mo>(</mo><mi>n</mi><mo>,</mo><msup><mi>n</mi><mn>2</mn></msup><mo>)</mo></mrow><mo>|</mo><mi>n</mi><mo>∈</mo><mi>N</mi><mo>}</mo></mrow></math> Do not mention squaring in your rules. As a hint, remember the
+   equation <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(n + 1)² = n² + 2n + 1" display="inline"><mrow><msup><mrow><mo>(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo>)</mo></mrow><mn>2</mn></msup><mo>=</mo><msup><mi>n</mi><mn>2</mn></msup><mo>+</mo><mn>2</mn><mi>n</mi><mo>+</mo><mn>1</mn></mrow></math>.</div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>设每个集合都取满足规则的最小集合。四个小问不能只写“基例 + 闭包”，还须排除凭空加入的元素。下面每一行同时给出自顶向下、自底向上和推理规则三种写法。</p>
 <div class="table-scroll" id="table-1-1" role="region" aria-label="习题 1.1 定义对照表，可横向滚动" tabindex="0"><table aria-label="习题 1.1 的三种归纳定义"><thead><tr><th scope="col">集合</th><th scope="col">自顶向下：成员当且仅当</th><th scope="col">自底向上</th><th scope="col">推理规则</th></tr></thead><tbody><tr><td>①</td><td><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="m = 2" display="inline"><mrow><mi>m</mi><mo>=</mo><mn>2</mn></mrow></math>，或 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="m − 3" display="inline"><mrow><mi>m</mi><mo>−</mo><mn>3</mn></mrow></math> 已在集合内</td><td>包含 2，且对加 3 封闭的最小自然数集</td><td>无前提得 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="2 ∈ S" display="inline"><mrow><mn>2</mn><mo>∈</mo><mi>S</mi></mrow></math>；由 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="m ∈ S" display="inline"><mrow><mi>m</mi><mo>∈</mo><mi>S</mi></mrow></math> 得 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="m + 3 ∈ S" display="inline"><mrow><mi>m</mi><mo>+</mo><mn>3</mn><mo>∈</mo><mi>S</mi></mrow></math></td></tr><tr><td>②</td><td><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="m = 1" display="inline"><mrow><mi>m</mi><mo>=</mo><mn>1</mn></mrow></math>，或 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="m − 2 ∈ S" display="inline"><mrow><mi>m</mi><mo>−</mo><mn>2</mn><mo>∈</mo><mi>S</mi></mrow></math>，或 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="m − 3 ∈ S" display="inline"><mrow><mi>m</mi><mo>−</mo><mn>3</mn><mo>∈</mo><mi>S</mi></mrow></math></td><td>包含 1，且对加 2、加 3 封闭的最小自然数集</td><td>无前提得 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="1 ∈ S" display="inline"><mrow><mn>1</mn><mo>∈</mo><mi>S</mi></mrow></math>；由 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="m ∈ S" display="inline"><mrow><mi>m</mi><mo>∈</mo><mi>S</mi></mrow></math> 分别得 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="m + 2 ∈ S" display="inline"><mrow><mi>m</mi><mo>+</mo><mn>2</mn><mo>∈</mo><mi>S</mi></mrow></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="m + 3 ∈ S" display="inline"><mrow><mi>m</mi><mo>+</mo><mn>3</mn><mo>∈</mo><mi>S</mi></mrow></math></td></tr><tr><td>③</td><td><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(n,k) = (0,1)" display="inline"><mrow><mrow><mo>(</mo><mi>n</mi><mo>,</mo><mi>k</mi><mo>)</mo></mrow><mo>=</mo><mrow><mo>(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>)</mo></mrow></mrow></math>，或 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n ≥ 1" display="inline"><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow></math> 且 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(n − 1,k − 2) ∈ S" display="inline"><mrow><mrow><mo>(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo>,</mo><mi>k</mi><mo>−</mo><mn>2</mn><mo>)</mo></mrow><mo>∈</mo><mi>S</mi></mrow></math></td><td>包含 (0,1)，对 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(n,k) ↦ (n + 1,k + 2)" display="inline"><mrow><mrow><mo>(</mo><mi>n</mi><mo>,</mo><mi>k</mi><mo>)</mo></mrow><mo>↦</mo><mrow><mo>(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo>,</mo><mi>k</mi><mo>+</mo><mn>2</mn><mo>)</mo></mrow></mrow></math> 封闭的最小集</td><td>无前提得 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(0,1) ∈ S" display="inline"><mrow><mrow><mo>(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>)</mo></mrow><mo>∈</mo><mi>S</mi></mrow></math>；由 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(n,k) ∈ S" display="inline"><mrow><mrow><mo>(</mo><mi>n</mi><mo>,</mo><mi>k</mi><mo>)</mo></mrow><mo>∈</mo><mi>S</mi></mrow></math> 得 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(n + 1,k + 2) ∈ S" display="inline"><mrow><mrow><mo>(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo>,</mo><mi>k</mi><mo>+</mo><mn>2</mn><mo>)</mo></mrow><mo>∈</mo><mi>S</mi></mrow></math></td></tr><tr><td>④</td><td><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(n,k) = (0,0)" display="inline"><mrow><mrow><mo>(</mo><mi>n</mi><mo>,</mo><mi>k</mi><mo>)</mo></mrow><mo>=</mo><mrow><mo>(</mo><mn>0</mn><mo>,</mo><mn>0</mn><mo>)</mo></mrow></mrow></math>，或 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n ≥ 1" display="inline"><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow></math> 且 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(n − 1,k − 2n + 1) ∈ S" display="inline"><mrow><mrow><mo>(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo>,</mo><mi>k</mi><mo>−</mo><mn>2</mn><mi>n</mi><mo>+</mo><mn>1</mn><mo>)</mo></mrow><mo>∈</mo><mi>S</mi></mrow></math></td><td>包含 (0,0)，对 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(n,k) ↦ (n + 1,k + 2n + 1)" display="inline"><mrow><mrow><mo>(</mo><mi>n</mi><mo>,</mo><mi>k</mi><mo>)</mo></mrow><mo>↦</mo><mrow><mo>(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo>,</mo><mi>k</mi><mo>+</mo><mn>2</mn><mi>n</mi><mo>+</mo><mn>1</mn><mo>)</mo></mrow></mrow></math> 封闭的最小集</td><td>无前提得 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(0,0) ∈ S" display="inline"><mrow><mrow><mo>(</mo><mn>0</mn><mo>,</mo><mn>0</mn><mo>)</mo></mrow><mo>∈</mo><mi>S</mi></mrow></math>；由 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(n,k) ∈ S" display="inline"><mrow><mrow><mo>(</mo><mi>n</mi><mo>,</mo><mi>k</mi><mo>)</mo></mrow><mo>∈</mo><mi>S</mi></mrow></math> 得 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(n + 1,k + 2n + 1) ∈ S" display="inline"><mrow><mrow><mo>(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo>,</mo><mi>k</mi><mo>+</mo><mn>2</mn><mi>n</mi><mo>+</mo><mn>1</mn><mo>)</mo></mrow><mo>∈</mo><mi>S</mi></mrow></math></td></tr></tbody></table></div>
-<p>四条样本推导分别为：2 → 5 → 8；1 → 3 → 6；(0,1) → (1,3) → (2,5)；(0,0) → (1,1) → (2,4) → (3,9)。② 中按加 2 走 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 次、按加 3 走 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="m" display="inline"><mi>m</mi></math> 次，恰好生成题目中的数；反过来，每次推导只可能增加这两个计数，因此没有多生成元素。③ 的第二坐标每次增加 2。④ 的规则本身只用加法；证明其正确时才用恒等式 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(n + 1)² = n² + 2n + 1" display="inline"><mrow><msup><mrow><mo>(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo>)</mo></mrow><mn>2</mn></msup><mo>=</mo><msup><mi>n</mi><mn>2</mn></msup><mo>+</mo><mn>2</mn><mi>n</mi><mo>+</mo><mn>1</mn></mrow></math>。自顶向下的负数候选不属于自然数域，不能继续递归。</p></div></details><details class="exercise" id="ex-1-2"><summary>习题 1.2 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.5–6 / PDF 28–29</p><pre class="original-source" lang="en">Exercise 1.2 [★★] What sets are defined by the following pairs of rules? Explain why.
-1. (0,1) ∈ S; from (n,k) ∈ S infer (n+1,k+7) ∈ S.
-2. (0,1) ∈ S; from (n,k) ∈ S infer (n+1,2k) ∈ S.
-3. (0,0,1) ∈ S; from (n,i,j) ∈ S infer (n+1,j,i+j) ∈ S.
-4. [★★★] (0,1,0) ∈ S; from (n,i,j) ∈ S infer (n+1,i+2,i+j) ∈ S.</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>四个集合依次为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="{(n,7n + 1)}" display="inline"><mrow><mo>{</mo><mrow><mo>(</mo><mi>n</mi><mo>,</mo><mn>7</mn><mi>n</mi><mo>+</mo><mn>1</mn><mo>)</mo></mrow><mo>}</mo></mrow></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="{(n,2ⁿ)}" display="inline"><mrow><mo>{</mo><mrow><mo>(</mo><mi>n</mi><mo>,</mo><msup><mn>2</mn><mi>n</mi></msup><mo>)</mo></mrow><mo>}</mo></mrow></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="{(n,Fₙ,Fₙ₊₁)}" display="inline"><mrow><mo>{</mo><mrow><mo>(</mo><mi>n</mi><mo>,</mo><msub><mi>F</mi><mi>n</mi></msub><mo>,</mo><msub><mi>F</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>)</mo></mrow><mo>}</mo></mrow></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="{(n,2n + 1,n²)}" display="inline"><mrow><mo>{</mo><mrow><mo>(</mo><mi>n</mi><mo>,</mo><mn>2</mn><mi>n</mi><mo>+</mo><mn>1</mn><mo>,</mo><msup><mi>n</mi><mn>2</mn></msup><mo>)</mo></mrow><mo>}</mo></mrow></math>，其中 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 遍历自然数，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="F₀ = 0" display="inline"><mrow><msub><mi>F</mi><mn>0</mn></msub><mo>=</mo><mn>0</mn></mrow></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="F₁ = 1" display="inline"><mrow><msub><mi>F</mi><mn>1</mn></msub><mo>=</mo><mn>1</mn></mrow></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="Fₙ₊₂ = Fₙ + Fₙ₊₁" display="inline"><mrow><msub><mi>F</mi><mrow><mi>n</mi><mo>+</mo><mn>2</mn></mrow></msub><mo>=</mo><msub><mi>F</mi><mi>n</mi></msub><mo>+</mo><msub><mi>F</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow></math>。</p>
+<p>四条样本推导分别为：2 → 5 → 8；1 → 3 → 6；(0,1) → (1,3) → (2,5)；(0,0) → (1,1) → (2,4) → (3,9)。② 中按加 2 走 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 次、按加 3 走 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="m" display="inline"><mi>m</mi></math> 次，恰好生成题目中的数；反过来，每次推导只可能增加这两个计数，因此没有多生成元素。③ 的第二坐标每次增加 2。④ 的规则本身只用加法；证明其正确时才用恒等式 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(n + 1)² = n² + 2n + 1" display="inline"><mrow><msup><mrow><mo>(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo>)</mo></mrow><mn>2</mn></msup><mo>=</mo><msup><mi>n</mi><mn>2</mn></msup><mo>+</mo><mn>2</mn><mi>n</mi><mo>+</mo><mn>1</mn></mrow></math>。自顶向下的负数候选不属于自然数域，不能继续递归。</p></div></details><details class="exercise" id="ex-1-2"><summary>习题 1.2 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.5–6 / PDF 28–29</p><div class="original-source" lang="en" data-exercise="1.2">Exercise 1.2 [★★] What sets are defined by the following pairs of rules? Explain why.
+1. <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(0,1) ∈ S" display="inline"><mrow><mrow><mo>(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>)</mo></mrow><mo>∈</mo><mi>S</mi></mrow></math>; from <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(n,k) ∈ S" display="inline"><mrow><mrow><mo>(</mo><mi>n</mi><mo>,</mo><mi>k</mi><mo>)</mo></mrow><mo>∈</mo><mi>S</mi></mrow></math> infer <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(n+1,k+7) ∈ S" display="inline"><mrow><mrow><mo>(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo>,</mo><mi>k</mi><mo>+</mo><mn>7</mn><mo>)</mo></mrow><mo>∈</mo><mi>S</mi></mrow></math>.
+2. <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(0,1) ∈ S" display="inline"><mrow><mrow><mo>(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>)</mo></mrow><mo>∈</mo><mi>S</mi></mrow></math>; from <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(n,k) ∈ S" display="inline"><mrow><mrow><mo>(</mo><mi>n</mi><mo>,</mo><mi>k</mi><mo>)</mo></mrow><mo>∈</mo><mi>S</mi></mrow></math> infer <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(n+1,2k) ∈ S" display="inline"><mrow><mrow><mo>(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo>,</mo><mn>2</mn><mi>k</mi><mo>)</mo></mrow><mo>∈</mo><mi>S</mi></mrow></math>.
+3. <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(0,0,1) ∈ S" display="inline"><mrow><mrow><mo>(</mo><mn>0</mn><mo>,</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>)</mo></mrow><mo>∈</mo><mi>S</mi></mrow></math>; from <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(n,i,j) ∈ S" display="inline"><mrow><mrow><mo>(</mo><mi>n</mi><mo>,</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo>)</mo></mrow><mo>∈</mo><mi>S</mi></mrow></math> infer <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(n+1,j,i+j) ∈ S" display="inline"><mrow><mrow><mo>(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo>,</mo><mi>j</mi><mo>,</mo><mi>i</mi><mo>+</mo><mi>j</mi><mo>)</mo></mrow><mo>∈</mo><mi>S</mi></mrow></math>.
+4. [★★★] <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(0,1,0) ∈ S" display="inline"><mrow><mrow><mo>(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>,</mo><mn>0</mn><mo>)</mo></mrow><mo>∈</mo><mi>S</mi></mrow></math>; from <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(n,i,j) ∈ S" display="inline"><mrow><mrow><mo>(</mo><mi>n</mi><mo>,</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo>)</mo></mrow><mo>∈</mo><mi>S</mi></mrow></math> infer <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(n+1,i+2,i+j) ∈ S" display="inline"><mrow><mrow><mo>(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo>,</mo><mi>i</mi><mo>+</mo><mn>2</mn><mo>,</mo><mi>i</mi><mo>+</mo><mi>j</mi><mo>)</mo></mrow><mo>∈</mo><mi>S</mi></mrow></math>.</div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>四个集合依次为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="{(n,7n + 1)}" display="inline"><mrow><mo>{</mo><mrow><mo>(</mo><mi>n</mi><mo>,</mo><mn>7</mn><mi>n</mi><mo>+</mo><mn>1</mn><mo>)</mo></mrow><mo>}</mo></mrow></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="{(n,2ⁿ)}" display="inline"><mrow><mo>{</mo><mrow><mo>(</mo><mi>n</mi><mo>,</mo><msup><mn>2</mn><mi>n</mi></msup><mo>)</mo></mrow><mo>}</mo></mrow></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="{(n,Fₙ,Fₙ₊₁)}" display="inline"><mrow><mo>{</mo><mrow><mo>(</mo><mi>n</mi><mo>,</mo><msub><mi>F</mi><mi>n</mi></msub><mo>,</mo><msub><mi>F</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>)</mo></mrow><mo>}</mo></mrow></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="{(n,2n + 1,n²)}" display="inline"><mrow><mo>{</mo><mrow><mo>(</mo><mi>n</mi><mo>,</mo><mn>2</mn><mi>n</mi><mo>+</mo><mn>1</mn><mo>,</mo><msup><mi>n</mi><mn>2</mn></msup><mo>)</mo></mrow><mo>}</mo></mrow></math>，其中 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 遍历自然数，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="F₀ = 0" display="inline"><mrow><msub><mi>F</mi><mn>0</mn></msub><mo>=</mo><mn>0</mn></mrow></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="F₁ = 1" display="inline"><mrow><msub><mi>F</mi><mn>1</mn></msub><mo>=</mo><mn>1</mn></mrow></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="Fₙ₊₂ = Fₙ + Fₙ₊₁" display="inline"><mrow><msub><mi>F</mi><mrow><mi>n</mi><mo>+</mo><mn>2</mn></mrow></msub><mo>=</mo><msub><mi>F</mi><mi>n</mi></msub><mo>+</mo><msub><mi>F</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow></math>。</p>
 <p>证明必须有两个方向。先对推导步数归纳，说明规则生成的每个元组满足上述公式；再对 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 归纳，说明公式列出的每个元组都能从基例走 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 步得到。① 的递推是 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="7n + 1" display="inline"><mrow><mn>7</mn><mi>n</mi><mo>+</mo><mn>1</mn></mrow></math> 再加 7；② 是 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="2ⁿ" display="inline"><msup><mn>2</mn><mi>n</mi></msup></math> 再乘 2；③ 将相邻 Fibonacci 数 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(Fₙ,Fₙ₊₁)" display="inline"><mrow><mo>(</mo><msub><mi>F</mi><mi>n</mi></msub><mo>,</mo><msub><mi>F</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>)</mo></mrow></math> 移到 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(Fₙ₊₁,Fₙ + Fₙ₊₁)" display="inline"><mrow><mo>(</mo><msub><mi>F</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>,</mo><msub><mi>F</mi><mi>n</mi></msub><mo>+</mo><msub><mi>F</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>)</mo></mrow></math>。④ 中 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="i" display="inline"><mi>i</mi></math> 的递推给出 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="i = 2n + 1" display="inline"><mrow><mi>i</mi><mo>=</mo><mn>2</mn><mi>n</mi><mo>+</mo><mn>1</mn></mrow></math>，而新 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="j = i + j = 2n + 1 + n² = (n + 1)²" display="inline"><mrow><mi>j</mi><mo>=</mo><mi>i</mi><mo>+</mo><mi>j</mi><mo>=</mo><mn>2</mn><mi>n</mi><mo>+</mo><mn>1</mn><mo>+</mo><msup><mi>n</mi><mn>2</mn></msup><mo>=</mo><msup><mrow><mo>(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo>)</mo></mrow><mn>2</mn></msup></mrow></math>。所有初值都分别符合原基例，因此两个方向成立。</p>
-<p>核对前几项：① (0,1),(1,8),(2,15)；② (0,1),(1,2),(2,4)；③ (0,0,1),(1,1,1),(2,1,2)；④ (0,1,0),(1,3,1),(2,5,4),(3,7,9)。尤其④ 第三坐标用的是旧 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="i" display="inline"><mi>i</mi></math>，不能误写成更新后的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="i + 2" display="inline"><mrow><mi>i</mi><mo>+</mo><mn>2</mn></mrow></math>。</p></div></details><details class="exercise" id="ex-1-3"><summary>习题 1.3 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.6 / PDF 29</p><pre class="original-source" lang="en">Exercise 1.3 [★] Find a set T of natural numbers such that 0 ∈ T, and whenever n ∈ T,
-then n + 3 ∈ T, but T ≠ S, where S is the set defined in definition 1.1.2.</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>取 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="T" display="inline"><mi>T</mi></math> 为全部自然数。它包含 0，且任何自然数加 3 仍是自然数；但 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="1 ∈ T" display="inline"><mrow><mn>1</mn><mo>∈</mo><mi>T</mi></mrow></math>，而定义 1.1.2 的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="S" display="inline"><mi>S</mi></math> 只包含 0,3,6,…，所以 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="T ≠ S" display="inline"><mrow><mi>T</mi><mo>≠</mo><mi>S</mi></mrow></math>。这说明“包含基例、对规则封闭”还不足以唯一规定集合；定义中“最小”一词负责排除这些多出的元素。</p></div></details><details class="exercise" id="ex-1-4"><summary>习题 1.4 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.8 / PDF 31</p><pre class="original-source" lang="en">Exercise 1.4 [★] Write a derivation from List-of-Int to (-7 . (3 . (14 . ()))).</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>每次只替换一个非终结符，完整推导为：</p>
+<p>核对前几项：① (0,1),(1,8),(2,15)；② (0,1),(1,2),(2,4)；③ (0,0,1),(1,1,1),(2,1,2)；④ (0,1,0),(1,3,1),(2,5,4),(3,7,9)。尤其④ 第三坐标用的是旧 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="i" display="inline"><mi>i</mi></math>，不能误写成更新后的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="i + 2" display="inline"><mrow><mi>i</mi><mo>+</mo><mn>2</mn></mrow></math>。</p></div></details><details class="exercise" id="ex-1-3"><summary>习题 1.3 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.6 / PDF 29</p><div class="original-source" lang="en" data-exercise="1.3">Exercise 1.3 [★] Find a set <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="T" display="inline"><mi>T</mi></math> of natural numbers such that <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="0 ∈ T" display="inline"><mrow><mn>0</mn><mo>∈</mo><mi>T</mi></mrow></math>, and whenever <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n ∈ T" display="inline"><mrow><mi>n</mi><mo>∈</mo><mi>T</mi></mrow></math>,
+then <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n + 3 ∈ T" display="inline"><mrow><mi>n</mi><mo>+</mo><mn>3</mn><mo>∈</mo><mi>T</mi></mrow></math>, but <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="T ≠ S" display="inline"><mrow><mi>T</mi><mo>≠</mo><mi>S</mi></mrow></math>, where <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="S" display="inline"><mi>S</mi></math> is the set defined in definition 1.1.2.</div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>取 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="T" display="inline"><mi>T</mi></math> 为全部自然数。它包含 0，且任何自然数加 3 仍是自然数；但 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="1 ∈ T" display="inline"><mrow><mn>1</mn><mo>∈</mo><mi>T</mi></mrow></math>，而定义 1.1.2 的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="S" display="inline"><mi>S</mi></math> 只包含 0,3,6,…，所以 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="T ≠ S" display="inline"><mrow><mi>T</mi><mo>≠</mo><mi>S</mi></mrow></math>。这说明“包含基例、对规则封闭”还不足以唯一规定集合；定义中“最小”一词负责排除这些多出的元素。</p></div></details><details class="exercise" id="ex-1-4"><summary>习题 1.4 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.8 / PDF 31</p><div class="original-source" lang="en" data-exercise="1.4">Exercise 1.4 [★] Write a derivation from <code>List-of-Int</code> to <code>(-7 . (3 . (14 . ())))</code>.</div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>每次只替换一个非终结符，完整推导为：</p>
 <pre><code>List-of-Int
 ⇒ (Int . List-of-Int)
 ⇒ (-7 . List-of-Int)
@@ -440,11 +448,11 @@ then n + 3 ∈ T, but T ≠ S, where S is the set defined in definition 1.1.2.</
 ⇒ (-7 . (3 . (Int . List-of-Int)))
 ⇒ (-7 . (3 . (14 . List-of-Int)))
 ⇒ (-7 . (3 . (14 . ())))</code></pre>
-<p>负整数 −7 合法，因为这里的终结类别是 Int。原书 p.5 / PDF 28 的汇总推导树把这一位置标为 “<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="−7 ∈ N" display="inline"><mrow><mo>−</mo><mn>7</mn><mo>∈</mo><mi>N</mi></mrow></math>”；应按同页正文及定义 1.1.5 改为 “<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="−7 ∈" display="inline"><mrow><mo>−</mo><mn>7</mn><mo>∈</mo></mrow></math> Int”，另外两个整数前提也应统一标为 Int。</p></div></details><details class="exercise" id="ex-1-5"><summary>习题 1.5 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.12 / PDF 35</p><pre class="original-source" lang="en">Exercise 1.5 [★★] Prove that if e ∈ LcExp, then there are the same number of left and
-right parentheses in e.</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>令 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="P(e)" display="inline"><mrow><mi>P</mi><mrow><mo>(</mo><mi>e</mi><mo>)</mo></mrow></mrow></math> 表示表达式 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="e" display="inline"><mi>e</mi></math> 的左右括号数相等。对 LcExp 的构造作结构归纳。变量没有括号，两边都是 0。若 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="e =" display="inline"><mrow><mi>e</mi><mo>=</mo></mrow></math> <code>(lambda (x) b)</code>，归纳假设给出 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="b" display="inline"><mi>b</mi></math> 内两边相等；外层括号和形参括号各增加一对，因此仍相等。若 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="e =" display="inline"><mrow><mi>e</mi><mo>=</mo></mrow></math> <code>(f a)</code>，由两个归纳假设，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math> 各自平衡；再增加外层一对，仍平衡。三种构造互斥且覆盖文法，所以结论对所有合法表达式成立。</p>
-<p>这里证明的是总数相等。任意字符串即使左右括号总数相等也未必是合法 LcExp，例如 <code>)(</code>。我们从“已由文法生成”的前提出发，不能倒用结论充当解析器。</p></div></details></section><section id="s1-2"><h2>1.2 从数据分支推导递归程序</h2>
+<p>负整数 −7 合法，因为这里的终结类别是 <code>Int</code>。原书 p.5 / PDF 28 的汇总推导树把这一位置标为 “<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="−7 ∈ N" display="inline"><mrow><mo>−</mo><mn>7</mn><mo>∈</mo><mi>N</mi></mrow></math>”；应按同页正文及定义 1.1.5 改为 “<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="−7 ∈" display="inline"><mrow><mo>−</mo><mn>7</mn><mo>∈</mo></mrow></math> <code>Int</code>”，另外两个整数前提也应统一标为 <code>Int</code>。</p></div></details><details class="exercise" id="ex-1-5"><summary>习题 1.5 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.12 / PDF 35</p><div class="original-source" lang="en" data-exercise="1.5">Exercise 1.5 [★★] Prove that if <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="e ∈ LcExp" display="inline"><mrow><mi>e</mi><mo>∈</mo><mtext>LcExp</mtext></mrow></math>, then there are the same number of left and
+right parentheses in <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="e" display="inline"><mi>e</mi></math>.</div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>令 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="P(e)" display="inline"><mrow><mi>P</mi><mrow><mo>(</mo><mi>e</mi><mo>)</mo></mrow></mrow></math> 表示表达式 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="e" display="inline"><mi>e</mi></math> 的左右括号数相等。对 <code>LcExp</code> 的构造作结构归纳。变量没有括号，两边都是 0。若 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="e =" display="inline"><mrow><mi>e</mi><mo>=</mo></mrow></math> <code>(lambda (x) b)</code>，归纳假设给出 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="b" display="inline"><mi>b</mi></math> 内两边相等；外层括号和形参括号各增加一对，因此仍相等。若 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="e =" display="inline"><mrow><mi>e</mi><mo>=</mo></mrow></math> <code>(f a)</code>，由两个归纳假设，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math> 各自平衡；再增加外层一对，仍平衡。三种构造互斥且覆盖文法，所以结论对所有合法表达式成立。</p>
+<p>这里证明的是总数相等。任意字符串即使左右括号总数相等也未必是合法 <code>LcExp</code>，例如 <code>)(</code>。我们从“已由文法生成”的前提出发，不能倒用结论充当解析器。</p></div></details></section><section id="s1-2"><h2>1.2 从数据分支推导递归程序</h2>
 <p class="source">原书 §1.2，pp.12–22 / PDF 35–45。</p>
-<p>写递归程序时，先给函数一个独立契约，再在更小输入上使用这个契约。比如 <code>list-length</code> 接受任意有限 proper <code>list</code>，返回顶层元素个数。空表长度 0；非空表的长度是尾部长度加 1。这里不需要先进入 <code>car</code> 内部，因为嵌套列表也只是一个顶层元素。</p>
+<p>写递归程序时，先给函数一个独立契约，再在更小输入上使用这个契约。比如 <code>list-length</code> 接受任意有限正规列表（proper list），返回顶层元素个数。空表长度 0；非空表的长度是尾部长度加 1。这里不需要先进入 <code>car</code> 内部，因为嵌套列表也只是一个顶层元素。</p>
 <div class="rn-example" id="example-list-length"><h3>调用向下走，待办的加法在回程完成</h3><pre><code>list-length '(a (b c) d)
 = 1 + list-length '((b c) d)
 = 1 + (1 + list-length '(d))
@@ -456,7 +464,7 @@ right parentheses in e.</pre></div><div class="answer"><p class="rn-exercise-lab
 = cons 'a (remove-first 'b '(b c b))
 = cons 'a '(c b)
 = '(a c b)</code></pre><p>第一次命中后不再递归，因此后一个 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="b" display="inline"><mi>b</mi></math> 保留。若始终没有命中，每层都会接回自己的 <code>car</code>，最终得到相同的元素序列。新的前缀与可共享的尾部要分开理解。</p></div>
-<p>自由变量判断把递归对象换成 LcExp。变量节点比较名字；<code>lambda</code> 节点若绑定的就是目标名字，整个过程体中这个名字的出现都被本层挡住，返回假，否则递归 <code>body</code>；应用节点检查 <code>rator</code> 或 <code>rand</code>。对 <code>'((lambda (x) x) (x y))</code> 查询 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math>，左边因绑定而返回假，右边的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 返回真，整体为真。这个过程在分析语法，并没有调用里面的 <code>lambda</code>。</p>
+<p>自由变量判断把递归对象换成 <code>LcExp</code>。变量节点比较名字；<code>lambda</code> 节点若绑定的就是目标名字，整个过程体中这个名字的出现都被本层挡住，返回假，否则递归 <code>body</code>；应用节点检查 <code>rator</code> 或 <code>rand</code>。对 <code>'((lambda (x) x) (x y))</code> 查询 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math>，左边因绑定而返回假，右边的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 返回真，整体为真。这个过程在分析语法，并没有调用里面的 <code>lambda</code>。</p>
 <div class="rn-example" id="example-subst"><h3>嵌套替换需要两个方向的递归</h3><p>把 <code>'((a b) (c (a)))</code> 中的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math> 替换为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math>：外层第一项是子表，递归得 <code>(x b)</code>；外层第二项也是子表，其 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="c" display="inline"><mi>c</mi></math> 保留，内部 <code>(a)</code> 变成 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(x)" display="inline"><mrow><mo>(</mo><mi>x</mi><mo>)</mo></mrow></math>。最后重建得到 <code>'((x b) (c (x)))</code>。一个方向进入 <code>car</code> 子结构，另一个方向处理 <code>cdr</code> 的后续元素；只有 <code>cdr</code> 递归会漏掉嵌套处。</p></div>
 <p>原书的“跟随文法”方法是：每个非终结符配一个处理过程，每个产生式配一个分支，产生式右侧的递归非终结符配递归调用。它帮助我们覆盖全部情况；真正的终止论证仍要指出下降的对象或秩。下面同一维护源包含列表长度、删除首项、自由变量、嵌套替换和辅助参数示例。</p>
 <!-- EOPL:snippet chapter01.rkt basics -->
@@ -491,8 +499,8 @@ right parentheses in e.</pre></div><div class="answer"><p class="rn-exercise-lab
   (if (= (vector-length v) 0) 0 (partial (- (vector-length v) 1))))
 </code></pre></details>
 <!-- EOPL:end-snippet -->
-<div class="exercise-index" role="navigation" aria-label="本节习题索引">本节习题：<a href="#ex-1-6" aria-label="习题 1.6">1.6</a> · <a href="#ex-1-7" aria-label="习题 1.7">1.7</a> · <a href="#ex-1-8" aria-label="习题 1.8">1.8</a> · <a href="#ex-1-9" aria-label="习题 1.9">1.9</a> · <a href="#ex-1-10" aria-label="习题 1.10">1.10</a> · <a href="#ex-1-11" aria-label="习题 1.11">1.11</a> · <a href="#ex-1-12" aria-label="习题 1.12">1.12</a> · <a href="#ex-1-13" aria-label="习题 1.13">1.13</a></div><details class="exercise" id="ex-1-6"><summary>习题 1.6 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.16 / PDF 39</p><pre class="original-source" lang="en">Exercise 1.6 [★] If we reversed the order of the tests in nth-element, what would
-go wrong?</pre><div id="source-context-nth-element"><p class="source">题目引用的原书程序/文法：p.15 / PDF 38。保留原逻辑供比较，解答实现列在下方。</p><pre><code class="language-scheme">(define nth-element
+<div class="exercise-index" role="navigation" aria-label="本节习题索引">本节习题：<a href="#ex-1-6" aria-label="习题 1.6">1.6</a> · <a href="#ex-1-7" aria-label="习题 1.7">1.7</a> · <a href="#ex-1-8" aria-label="习题 1.8">1.8</a> · <a href="#ex-1-9" aria-label="习题 1.9">1.9</a> · <a href="#ex-1-10" aria-label="习题 1.10">1.10</a> · <a href="#ex-1-11" aria-label="习题 1.11">1.11</a> · <a href="#ex-1-12" aria-label="习题 1.12">1.12</a> · <a href="#ex-1-13" aria-label="习题 1.13">1.13</a></div><details class="exercise" id="ex-1-6"><summary>习题 1.6 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.16 / PDF 39</p><div class="original-source" lang="en" data-exercise="1.6">Exercise 1.6 [★] If we reversed the order of the tests in <code>nth-element</code>, what would
+go wrong?</div><div id="source-context-nth-element"><p class="source">题目引用的原书程序/文法：p.15 / PDF 38。保留原逻辑供比较，解答实现列在下方。</p><pre><code class="language-scheme">(define nth-element
   (lambda (lst n)
      (if (null? lst)
        (report-list-too-short n)
@@ -503,9 +511,9 @@ go wrong?</pre><div id="source-context-nth-element"><p class="source">题目引�
 (define report-list-too-short
   (lambda (n)
     (eopl:error &#x27;nth-element
-      &quot;List too short by ~s elements.~%&quot; (+ n 1))))</code></pre></div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>考虑 <code>(nth-element '() 0)</code>。若先判断索引为零，就进入 <code>(car '())</code>，于是得到 <code>car</code> 的低层错误，原本用于解释越界的分支没有机会执行。递归走到列表末端时也可能出现同一状态，例如单元素表取索引 1。应先确认列表非空，再判断当前元素是不是目标。合法索引从 0 开始；负索引不在题目所用的自然数契约内。</p></div></details><details class="exercise" id="ex-1-7"><summary>习题 1.7 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.16 / PDF 39</p><pre class="original-source" lang="en">Exercise 1.7 [★★] The error message from nth-element is uninformative. Rewrite
-nth-element so that it produces a more informative error message, such as “(a b
-c) does not have 8 elements.”</pre><p>本题引用的原过程见<a href="#source-context-nth-element">习题 1.6 前的原书代码</a>。</p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>递归中的剩余列表和剩余索引会改变，因此不能用出错那一刻的局部参数解释原请求。外层保留原表 xs 和原索引 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math>，内层 <code>walk</code> 只移动 rest、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="k" display="inline"><mi>k</mi></math>。索引 7 表示第 8 个元素，故错误消息使用 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n + 1" display="inline"><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></math>。调用 <code>(nth-element '(a b c) 7)</code> 时，<code>walk</code> 依次收到 <code>((a b c),7)</code>、<code>((b c),6)</code>、<code>((c),5)</code>、((),4)，最终仍报告原表与 8。</p>
+      &quot;List too short by ~s elements.~%&quot; (+ n 1))))</code></pre></div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>考虑 <code>(nth-element '() 0)</code>。若先判断索引为零，就进入 <code>(car '())</code>，于是得到 <code>car</code> 的低层错误，原本用于解释越界的分支没有机会执行。递归走到列表末端时也可能出现同一状态，例如单元素表取索引 1。应先确认列表非空，再判断当前元素是不是目标。合法索引从 0 开始；负索引不在题目所用的自然数契约内。</p></div></details><details class="exercise" id="ex-1-7"><summary>习题 1.7 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.16 / PDF 39</p><div class="original-source" lang="en" data-exercise="1.7">Exercise 1.7 [★★] The error message from <code>nth-element</code> is uninformative. Rewrite
+<code>nth-element</code> so that it produces a more informative error message, such as “<code>(a b
+c)</code> does not have 8 elements.”</div><p>本题引用的原过程见<a href="#source-context-nth-element">习题 1.6 前的原书代码</a>。</p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>递归中的剩余列表和剩余索引会改变，因此不能用出错那一刻的局部参数解释原请求。外层保留原表 xs 和原索引 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math>，内层 <code>walk</code> 只移动 <code>rest</code>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="k" display="inline"><mi>k</mi></math>。索引 7 表示第 8 个元素，故错误消息使用 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n + 1" display="inline"><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></math>。调用 <code>(nth-element '(a b c) 7)</code> 时，<code>walk</code> 依次收到 <code>((a b c),7)</code>、<code>((b c),6)</code>、<code>((c),5)</code>、(<code>()</code>,4)，最终仍报告原表与 8。</p>
 <p>代码另外明确拒绝负索引；它是伴读的输入检查，不改变原题合法输入上的行为。</p><!-- EOPL:snippet chapter01.rkt ex-1-7 -->
 <details class="code-details" open><summary>查看实现 · ex-1-7</summary><pre><code class="language-scheme">;; Listof(SchemeVal) * Nat -&gt; SchemeVal, or an informative bounds error.
 (define (nth-element xs n)
@@ -517,9 +525,9 @@ c) does not have 8 elements.”</pre><p>本题引用的原过程见<a href="#sou
   (unless (exact-nonnegative-integer? n) (error &#x27;nth-element &quot;index must be a natural&quot;))
   (walk xs n))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-8"><summary>习题 1.8 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.18 / PDF 41</p><pre class="original-source" lang="en">Exercise 1.8 [★] In the definition of remove-first, if the last line were replaced
-by (remove-first s (cdr los)), what function would the resulting procedure
-compute? Give the contract, including the usage statement, for the revised procedure.</pre><div id="source-context-remove-first"><p class="source">题目引用的原书程序/文法：p.18 / PDF 41。保留原逻辑供比较，解答实现列在下方。</p><pre><code class="language-scheme">(define remove-first
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-8"><summary>习题 1.8 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.18 / PDF 41</p><div class="original-source" lang="en" data-exercise="1.8">Exercise 1.8 [★] In the definition of <code>remove-first</code>, if the last line were replaced
+by <code>(remove-first s (cdr los))</code>, what function would the resulting procedure
+compute? Give the contract, including the usage statement, for the revised procedure.</div><div id="source-context-remove-first"><p class="source">题目引用的原书程序/文法：p.18 / PDF 41。保留原逻辑供比较，解答实现列在下方。</p><pre><code class="language-scheme">(define remove-first
   (lambda (s los)
     (if (null? los)
        &#x27;()
@@ -533,18 +541,18 @@ compute? Give the contract, including the usage statement, for the revised proce
         [(eqv? s (car xs)) (cdr xs)]
         [else (suffix-after-first s (cdr xs))]))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-9"><summary>习题 1.9 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.18 / PDF 41</p><pre class="original-source" lang="en">Exercise 1.9 [★★] Define remove, which is like remove-first, except that it
-removes all occurrences of a given symbol from a list of symbols, not just the first.</pre><p>本题引用的原过程见<a href="#source-context-remove-first">习题 1.8 前的原书代码</a>。</p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>命中时仍要递归处理尾部，才能继续删除后面的同名符号；未命中时用 <code>cons</code> 接回当前符号。空表返回空表。对 <code>'(a b a c a)</code>，命中的三个 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math> 均不产生输出节点，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="b" display="inline"><mi>b</mi></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="c" display="inline"><mi>c</mi></math> 各产生一个，结果为 <code>'(b c)</code>。长度每次减一，且每个输入元素只检查一次，时间线性。</p>
-<p>本文件把题目的 remove 命名为 <code>remove-all</code>，避免与宿主语言已有同名函数混淆；输入输出契约就是题目要求的平面符号列表。</p><!-- EOPL:snippet chapter01.rkt ex-1-9 -->
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-9"><summary>习题 1.9 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.18 / PDF 41</p><div class="original-source" lang="en" data-exercise="1.9">Exercise 1.9 [★★] Define <code>remove</code>, which is like <code>remove-first</code>, except that it
+removes all occurrences of a given symbol from a list of symbols, not just the first.</div><p>本题引用的原过程见<a href="#source-context-remove-first">习题 1.8 前的原书代码</a>。</p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>命中时仍要递归处理尾部，才能继续删除后面的同名符号；未命中时用 <code>cons</code> 接回当前符号。空表返回空表。对 <code>'(a b a c a)</code>，命中的三个 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math> 均不产生输出节点，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="b" display="inline"><mi>b</mi></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="c" display="inline"><mi>c</mi></math> 各产生一个，结果为 <code>'(b c)</code>。长度每次减一，且每个输入元素只检查一次，时间线性。</p>
+<p>本文件把题目的 <code>remove</code> 命名为 <code>remove-all</code>，避免与宿主语言已有同名函数混淆；输入输出契约就是题目要求的平面符号列表。</p><!-- EOPL:snippet chapter01.rkt ex-1-9 -->
 <details class="code-details" open><summary>查看实现 · ex-1-9</summary><pre><code class="language-scheme">(define (remove-all s xs)
   (cond [(null? xs) &#x27;()]
         [(eqv? s (car xs)) (remove-all s (cdr xs))]
         [else (cons (car xs) (remove-all s (cdr xs)))]))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-10"><summary>习题 1.10 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.19 / PDF 42</p><pre class="original-source" lang="en">Exercise 1.10 [★] We typically use “or” to mean “inclusive or.” What other meanings
-can “or” have?</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>另一种含义是排他或：恰好一个条件成立。输入真值依次为 (假,假)、(假,真)、(真,假)、(真,真) 时，相容或的结果为 假、真、真、真，排他或的结果为 假、真、真、假。自由出现判断需要相容或：<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 在 <code>(x x)</code> 的两边都自由出现，整个表达式仍应返回真。</p>
-<p>Scheme 的 <code>or</code> 还规定求值过程：左项给出非 <code>#f</code> 值便短路，不再计算右项，并返回该值。这是执行策略，不是第三张布尔真值表；数字 0 在 Scheme 中也是真值。</p></div></details><details class="exercise" id="ex-1-11"><summary>习题 1.11 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.22 / PDF 45</p><pre class="original-source" lang="en">Exercise 1.11 [★] In the last line of subst-in-s-exp, the recursion is on sexp and
-not a smaller substructure. Why is the recursion guaranteed to halt?</pre><div id="source-context-subst"><p class="source">题目引用的原书程序/文法：p.21 / PDF 44。保留原逻辑供比较，解答实现列在下方。</p><pre><code class="language-scheme">(define subst
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-10"><summary>习题 1.10 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.19 / PDF 42</p><div class="original-source" lang="en" data-exercise="1.10">Exercise 1.10 [★] We typically use “or” to mean “inclusive or.” What other meanings
+can “or” have?</div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>另一种含义是排他或：恰好一个条件成立。输入真值依次为 (假,假)、(假,真)、(真,假)、(真,真) 时，相容或的结果为 假、真、真、真，排他或的结果为 假、真、真、假。自由出现判断需要相容或：<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 在 <code>(x x)</code> 的两边都自由出现，整个表达式仍应返回真。</p>
+<p>Scheme 的 <code>or</code> 还规定求值过程：左项给出非 <code>#f</code> 值便短路，不再计算右项，并返回该值。这是执行策略，不是第三张布尔真值表；数字 0 在 Scheme 中也是真值。</p></div></details><details class="exercise" id="ex-1-11"><summary>习题 1.11 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.22 / PDF 45</p><div class="original-source" lang="en" data-exercise="1.11">Exercise 1.11 [★] In the last line of <code>subst-in-s-exp</code>, the recursion is on <code>sexp</code> and
+not a smaller substructure. Why is the recursion guaranteed to halt?</div><div id="source-context-subst"><p class="source">题目引用的原书程序/文法：p.21 / PDF 44。保留原逻辑供比较，解答实现列在下方。</p><pre><code class="language-scheme">(define subst
   (lambda (new old slist)
      (if (null? slist)
        &#x27;()
@@ -556,11 +564,11 @@ not a smaller substructure. Why is the recursion guaranteed to halt?</pre><div i
   (lambda (new old sexp)
      (if (symbol? sexp)
         (if (eqv? sexp old) new sexp)
-        (subst new old sexp))))</code></pre></div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>从 <code>subst-in-s-exp</code> 把一个列表交回 subst，确实没有立即缩小这个对象。但之后 subst 要么在空表停止，要么只处理 <code>car</code> 与 <code>cdr</code> 这样的严格子结构；再回到同类调用时，数据已经变小。不能把“每一次调用都严格变小”当作互递归的必要条件。</p>
-<p>更精确地，令 <code>size(x)</code> 数有限树形对象中的 <code>cons</code> 和原子节点，赋 <code>subst(xs)</code> 秩 <code>2·size(xs)</code>，赋 <code>subst-in-s-exp(x)</code> 秩 <code>2·size(x)+1</code>。<code>S-exp</code> 分支把相同列表交给 <code>subst</code>，秩减少 1；<code>subst</code> 把非空列表的 <code>car</code> 交给 <code>S-exp</code> 过程，<code>size</code> 至少减 1，足以抵消相位增加；对 <code>cdr</code> 的递归也严格下降。秩是非负整数，故不会有无限调用链。这里要求输入有限且无环。</p></div></details><details class="exercise" id="ex-1-12"><summary>习题 1.12 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.22 / PDF 45</p><pre class="original-source" lang="en">Exercise 1.12 [★] Eliminate the one call to subst-in-s-exp in subst by replacing it
+        (subst new old sexp))))</code></pre></div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>从 <code>subst-in-s-exp</code> 把一个列表交回 <code>subst</code>，确实没有立即缩小这个对象。但之后 <code>subst</code> 要么在空表停止，要么只处理 <code>car</code> 与 <code>cdr</code> 这样的严格子结构；再回到同类调用时，数据已经变小。不能把“每一次调用都严格变小”当作互递归的必要条件。</p>
+<p>更精确地，令 <code>size(x)</code> 数有限树形对象中的 <code>cons</code> 和原子节点，赋 <code>subst(xs)</code> 秩 <code>2·size(xs)</code>，赋 <code>subst-in-s-exp(x)</code> 秩 <code>2·size(x)+1</code>。<code>S-exp</code> 分支把相同列表交给 <code>subst</code>，秩减少 1；<code>subst</code> 把非空列表的 <code>car</code> 交给 <code>S-exp</code> 过程，<code>size</code> 至少减 1，足以抵消相位增加；对 <code>cdr</code> 的递归也严格下降。秩是非负整数，故不会有无限调用链。这里要求输入有限且无环。</p></div></details><details class="exercise" id="ex-1-12"><summary>习题 1.12 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.22 / PDF 45</p><div class="original-source" lang="en" data-exercise="1.12">Exercise 1.12 [★] Eliminate the one call to <code>subst-in-s-exp</code> in <code>subst</code> by replacing it
 by its definition and simplifying the resulting procedure. The result will be a version
-of subst that does not need subst-in-s-exp. This technique is called inlining, and
-is used by optimizing compilers.</pre><p>本题引用的原过程见<a href="#source-context-subst">习题 1.11 前的原书代码</a>。</p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>把辅助过程对“符号/列表”的分类直接放到非空表分支。当前 <code>car</code> 若是符号，只做相等比较；若是子列表，对它再调用 <code>subst-inline</code>。无论哪一种，<code>cdr</code> 都独立递归处理。这样保留了原来的两条数据方向：下降到子列表、沿兄弟元素继续走，而不是把所有递归都简化成 <code>cdr</code>。</p>
+of <code>subst</code> that does not need <code>subst-in-s-exp</code>. This technique is called inlining, and
+is used by optimizing compilers.</div><p>本题引用的原过程见<a href="#source-context-subst">习题 1.11 前的原书代码</a>。</p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>把辅助过程对“符号/列表”的分类直接放到非空表分支。当前 <code>car</code> 若是符号，只做相等比较；若是子列表，对它再调用 <code>subst-inline</code>。无论哪一种，<code>cdr</code> 都独立递归处理。这样保留了原来的两条数据方向：下降到子列表、沿兄弟元素继续走，而不是把所有递归都简化成 <code>cdr</code>。</p>
 <p>例如 <code>'((a b) (c (a)))</code> 中把 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math> 换成 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math>，结果为 <code>'((x b) (c (x)))</code>。空子表仍是空子表。内联消除了过程边界，未改变数据文法。</p><!-- EOPL:snippet chapter01.rkt ex-1-12 -->
 <details class="code-details" open><summary>查看实现 · ex-1-12</summary><pre><code class="language-scheme">(define (subst-inline new old xs)
   (cond [(null? xs) &#x27;()]
@@ -570,23 +578,23 @@ is used by optimizing compilers.</pre><p>本题引用的原过程见<a href="#so
         [else (cons (subst-inline new old (car xs))
                     (subst-inline new old (cdr xs)))]))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-13"><summary>习题 1.13 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.22 / PDF 45</p><pre class="original-source" lang="en">Exercise 1.13 [★★] In our example, we began by eliminating the Kleene star in the
-grammar for S-list. Write subst following the original grammar by using map.</pre><p>本题引用的原过程见<a href="#source-context-subst">习题 1.11 前的原书代码</a>。</p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>原文法把 <code>S-list</code> 看成零个或多个 <code>S-exp</code> 的序列。<code>map</code> 恰好承担“依次转换每个元素并保持长度与顺序”的工作；<code>lambda</code> 内只处理一个 <code>S-exp</code>：符号则替换，列表则递归。<code>map</code> 对空序列直接返回空表，因此不再手写列表脊柱的 <code>null?</code>/<code>cdr</code> 分支。它和上一题是同一个转换的两种程序组织方式。</p><!-- EOPL:snippet chapter01.rkt ex-1-13 -->
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-13"><summary>习题 1.13 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.22 / PDF 45</p><div class="original-source" lang="en" data-exercise="1.13">Exercise 1.13 [★★] In our example, we began by eliminating the Kleene star in the
+grammar for <code>S-list</code>. Write <code>subst</code> following the original grammar by using map.</div><p>本题引用的原过程见<a href="#source-context-subst">习题 1.11 前的原书代码</a>。</p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>原文法把 <code>S-list</code> 看成零个或多个 <code>S-exp</code> 的序列。<code>map</code> 恰好承担“依次转换每个元素并保持长度与顺序”的工作；<code>lambda</code> 内只处理一个 <code>S-exp</code>：符号则替换，列表则递归。<code>map</code> 对空序列直接返回空表，因此不再手写列表脊柱的 <code>null?</code>/<code>cdr</code> 分支。它和上一题是同一个转换的两种程序组织方式。</p><!-- EOPL:snippet chapter01.rkt ex-1-13 -->
 <details class="code-details" open><summary>查看实现 · ex-1-13</summary><pre><code class="language-scheme">(define (subst-map new old xs)
   (map (lambda (x) (if (symbol? x) (if (eqv? x old) new x)
                       (subst-map new old x))) xs))
 </code></pre></details>
 <!-- EOPL:end-snippet --></div></details></section><section id="s1-3"><h2>1.3 上下文向下传，结果怎样向上传</h2>
 <p class="source">原书 §1.3，pp.22–25 / PDF 45–48。</p>
-<p>有时“递归处理尾部”得到的信息不够直接使用。<code>number-elements</code> 的尾部默认又从 0 开始编号，所以最外层需要知道当前已经走过几项。把函数推广成 <code>number-elements-from(xs,n)</code>，契约变为“把 <code>xs</code> 从 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 开始编号”，原问题就是 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n = 0" display="inline"><mrow><mi>n</mi><mo>=</mo><mn>0</mn></mrow></math> 的特例。</p>
+<p>有时“递归处理尾部”得到的信息不够直接使用。<code>number-elements</code> 的尾部默认又从 0 开始编号，所以最外层需要知道当前已经走过几项。把函数推广成 <code>(number-elements-from xs n)</code>，契约变为“把 <code>xs</code> 从 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 开始编号”，原问题就是 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n = 0" display="inline"><mrow><mi>n</mi><mo>=</mo><mn>0</mn></mrow></math> 的特例。</p>
 <div class="rn-example" id="example-context"><h3>上下文参数不必变小</h3><pre><code>number-elements-from '(a b c) 0
 → cons '(0 a) [number-elements-from '(b c) 1]
 → cons '(0 a) [cons '(1 b) [number-elements-from '(c) 2]]
 → cons '(0 a) [cons '(1 b) [cons '(2 c) '()]]
 → '((0 a) (1 b) (2 c))</code></pre><p><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 不断增加，但待处理列表严格缩短，终止性看的是后者。<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 表示进入本调用时已经处理过的元素数；这个含义使每一步 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n+1" display="inline"><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></math> 都有依据。</p></div>
 <p>树的编号还需要反向的信息流。仅告诉两个子树“从 0 开始”不够；右子树要等左子树编号结束，拿到新的起点。习题 1.35 的辅助过程因此返回“新树与下一个编号”。相比之下，红祖先计数只依赖上方路径，可以把相同更新后的计数独立交给左右子树。判断信息来自祖先还是前一个子问题，往往比先挑递归语法更重要。</p>
-<p>向量求和说明另一种上下文：向量对象不缩小，但边界 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 缩小。<code>partial-vector-sum(v,n)</code> 只承诺对 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="0 ≤ n &lt;" display="inline"><mrow><mn>0</mn><mo>≤</mo><mi>n</mi><mo>&lt;</mo></mrow></math> <code>length(v)</code> 工作，返回第 0 项到第 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 项的和。递归把 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 减一；当 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n = 0" display="inline"><mrow><mi>n</mi><mo>=</mo><mn>0</mn></mrow></math> 时直接取第 0 项。完整 <code>vector-sum</code> 先处理空向量，避免把 −1 作为合法边界交下去。辅助函数有独立契约，外层函数才有可靠的调用依据。</p>
-<div class="exercise-index" role="navigation" aria-label="本节习题索引">本节习题：<a href="#ex-1-14" aria-label="习题 1.14">1.14</a></div><details class="exercise" id="ex-1-14"><summary>习题 1.14 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.25 / PDF 48</p><pre class="original-source" lang="en">Exercise 1.14 [★★] Given the assumption 0 ≤ n &lt; length(v), prove that partial-vector-sum is correct.</pre><div id="source-context-partial-vector-sum"><p class="source">题目引用的原书程序/文法：p.25 / PDF 48。保留原逻辑供比较，解答实现列在下方。</p><pre><code class="language-scheme">(define partial-vector-sum
+<p>向量求和说明另一种上下文：向量对象不缩小，但边界 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 缩小。<code>(partial-vector-sum v n)</code> 只承诺对 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="0 ≤ n &lt;" display="inline"><mrow><mn>0</mn><mo>≤</mo><mi>n</mi><mo>&lt;</mo></mrow></math> <code>(vector-length v)</code> 工作，返回第 0 项到第 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 项的和。递归把 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 减一；当 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n = 0" display="inline"><mrow><mi>n</mi><mo>=</mo><mn>0</mn></mrow></math> 时直接取第 0 项。完整 <code>vector-sum</code> 先处理空向量，避免把 −1 作为合法边界交下去。辅助函数有独立契约，外层函数才有可靠的调用依据。</p>
+<div class="exercise-index" role="navigation" aria-label="本节习题索引">本节习题：<a href="#ex-1-14" aria-label="习题 1.14">1.14</a></div><details class="exercise" id="ex-1-14"><summary>习题 1.14 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.25 / PDF 48</p><div class="original-source" lang="en" data-exercise="1.14">Exercise 1.14 [★★] Given the assumption <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="0 ≤ n &lt; length(v)" display="inline"><mrow><mn>0</mn><mo>≤</mo><mi>n</mi><mo>&lt;</mo><mtext>length</mtext><mrow><mo>(</mo><mi>v</mi><mo>)</mo></mrow></mrow></math>, prove that <code>partial-vector-sum</code> is correct.</div><div id="source-context-partial-vector-sum"><p class="source">题目引用的原书程序/文法：p.25 / PDF 48。保留原逻辑供比较，解答实现列在下方。</p><pre><code class="language-scheme">(define partial-vector-sum
   (lambda (v n)
     (if (zero? n)
       (vector-ref v 0)
@@ -594,62 +602,62 @@ grammar for S-list. Write subst following the original grammar by using map.</pr
          (partial-vector-sum v (- n 1))))))</code></pre></div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>固定向量 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="v" display="inline"><mi>v</mi></math>，在前提 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="0 ≤ n &lt;" display="inline"><mrow><mn>0</mn><mo>≤</mo><mi>n</mi><mo>&lt;</mo></mrow></math> <code>length(v)</code> 下对 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 归纳。<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n = 0" display="inline"><mrow><mi>n</mi><mo>=</mo><mn>0</mn></mrow></math> 时函数返回 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="v" display="inline"><mi>v</mi></math> 的第 0 项，等于从 0 到 0 的和。<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n &gt; 0" display="inline"><mrow><mi>n</mi><mo>&gt;</mo><mn>0</mn></mrow></math> 时，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n − 1" display="inline"><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></math> 仍在合法范围；归纳假设给出递归调用返回第 0 项至第 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n − 1" display="inline"><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></math> 项的和，再加 <code>vector-ref(v,n)</code>，正好得到第 0 项至第 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 项的和。参数严格下降到 0，故终止，且每次访问均在界内。</p>
 <p>长度为零的向量没有满足这个前提的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math>，因此不能把 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n = −1" display="inline"><mrow><mi>n</mi><mo>=</mo><mo>−</mo><mn>1</mn></mrow></math> 塞给辅助过程。公开的 <code>vector-sum</code> 必须先处理空向量并返回空和 0，再对非空向量调用辅助过程。</p></div></details></section><section id="s1-4"><h2>1.4 练习：把结构、契约与执行连起来</h2>
 <p class="source">原书 §1.4，pp.25–30 / PDF 48–53；本节原题的共同约定来自 pp.25–26。</p>
-<p>以下题目沿用原书输入约定：<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="s" display="inline"><mi>s</mi></math> 表示符号，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 表示非负整数，lst 表示列表，loi 表示整数列表，los 表示符号列表，slist 表示 <code>S-list</code>，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 表示任意 Scheme 值，<code>pred</code> 表示对任意 Scheme 值都返回布尔结果的过程。原书要求定义、测试、调试各过程，并给主要过程与辅助过程写契约；除题目说明外，不额外假设输入的特殊性质。下标题、树字段和排序关系等必要前提在相应解答中单独说明。</p>
+<p>以下题目沿用原书输入约定：<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="s" display="inline"><mi>s</mi></math> 表示符号，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 表示非负整数，<code>lst</code> 表示列表，<code>loi</code> 表示整数列表，<code>los</code> 表示符号列表，<code>slist</code> 表示 <code>S-list</code>，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 表示任意 Scheme 值，<code>pred</code> 表示对任意 Scheme 值都返回布尔结果的过程。原书要求定义、测试、调试各过程，并给主要过程与辅助过程写契约；除题目说明外，不额外假设输入的特殊性质。下标、树字段和排序关系等必要前提在相应解答中单独说明。</p>
 <p>这些题目可以按三条主线阅读：1.15–1.30 练习列表的构造、筛选、展开与排序；1.31–1.35 练习树的接口与路径信息；1.36 回头比较“下传上下文”和“回程修改结果”的成本。先看空输入如何结束，再看每个递归结果负责哪一部分输出。</p>
-<div class="exercise-index" role="navigation" aria-label="本节习题索引">本节习题：<a href="#ex-1-15" aria-label="习题 1.15">1.15</a> · <a href="#ex-1-16" aria-label="习题 1.16">1.16</a> · <a href="#ex-1-17" aria-label="习题 1.17">1.17</a> · <a href="#ex-1-18" aria-label="习题 1.18">1.18</a> · <a href="#ex-1-19" aria-label="习题 1.19">1.19</a> · <a href="#ex-1-20" aria-label="习题 1.20">1.20</a> · <a href="#ex-1-21" aria-label="习题 1.21">1.21</a> · <a href="#ex-1-22" aria-label="习题 1.22">1.22</a> · <a href="#ex-1-23" aria-label="习题 1.23">1.23</a> · <a href="#ex-1-24" aria-label="习题 1.24">1.24</a> · <a href="#ex-1-25" aria-label="习题 1.25">1.25</a> · <a href="#ex-1-26" aria-label="习题 1.26">1.26</a> · <a href="#ex-1-27" aria-label="习题 1.27">1.27</a> · <a href="#ex-1-28" aria-label="习题 1.28">1.28</a> · <a href="#ex-1-29" aria-label="习题 1.29">1.29</a> · <a href="#ex-1-30" aria-label="习题 1.30">1.30</a> · <a href="#ex-1-31" aria-label="习题 1.31">1.31</a> · <a href="#ex-1-32" aria-label="习题 1.32">1.32</a> · <a href="#ex-1-33" aria-label="习题 1.33">1.33</a> · <a href="#ex-1-34" aria-label="习题 1.34">1.34</a> · <a href="#ex-1-35" aria-label="习题 1.35">1.35</a> · <a href="#ex-1-36" aria-label="习题 1.36">1.36</a></div><details class="exercise" id="ex-1-15"><summary>习题 1.15 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.26 / PDF 49</p><pre class="original-source" lang="en">Exercise 1.15 [★] (duple n x) returns a list containing n copies of x.
+<div class="exercise-index" role="navigation" aria-label="本节习题索引">本节习题：<a href="#ex-1-15" aria-label="习题 1.15">1.15</a> · <a href="#ex-1-16" aria-label="习题 1.16">1.16</a> · <a href="#ex-1-17" aria-label="习题 1.17">1.17</a> · <a href="#ex-1-18" aria-label="习题 1.18">1.18</a> · <a href="#ex-1-19" aria-label="习题 1.19">1.19</a> · <a href="#ex-1-20" aria-label="习题 1.20">1.20</a> · <a href="#ex-1-21" aria-label="习题 1.21">1.21</a> · <a href="#ex-1-22" aria-label="习题 1.22">1.22</a> · <a href="#ex-1-23" aria-label="习题 1.23">1.23</a> · <a href="#ex-1-24" aria-label="习题 1.24">1.24</a> · <a href="#ex-1-25" aria-label="习题 1.25">1.25</a> · <a href="#ex-1-26" aria-label="习题 1.26">1.26</a> · <a href="#ex-1-27" aria-label="习题 1.27">1.27</a> · <a href="#ex-1-28" aria-label="习题 1.28">1.28</a> · <a href="#ex-1-29" aria-label="习题 1.29">1.29</a> · <a href="#ex-1-30" aria-label="习题 1.30">1.30</a> · <a href="#ex-1-31" aria-label="习题 1.31">1.31</a> · <a href="#ex-1-32" aria-label="习题 1.32">1.32</a> · <a href="#ex-1-33" aria-label="习题 1.33">1.33</a> · <a href="#ex-1-34" aria-label="习题 1.34">1.34</a> · <a href="#ex-1-35" aria-label="习题 1.35">1.35</a> · <a href="#ex-1-36" aria-label="习题 1.36">1.36</a></div><details class="exercise" id="ex-1-15"><summary>习题 1.15 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.26 / PDF 49</p><div class="original-source" lang="en" data-exercise="1.15">Exercise 1.15 [★] <code>(duple n x)</code> returns a list containing n copies of x.
 
-&gt; (duple 2 3)
+<code class="source-example">&gt; (duple 2 3)
 (3 3)
-&gt; (duple 4 &#x27;(ha ha))
+&gt; (duple 4 '(ha ha))
 ((ha ha) (ha ha) (ha ha) (ha ha))
-&gt; (duple 0 &#x27;(blah))
-()</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n = 0" display="inline"><mrow><mi>n</mi><mo>=</mo><mn>0</mn></mrow></math> 时结果为空；<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n &gt; 0" display="inline"><mrow><mi>n</mi><mo>&gt;</mo><mn>0</mn></mrow></math> 时先假设递归调用能产生 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n − 1" display="inline"><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></math> 个 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math>，再在表头接一个 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math>，于是长度恰好为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math>。<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 可以是列表，<code>cons</code> 接入的是整个值，不会展开其内部。<code>(duple 4 '(ha ha))</code> 得到四个两元素子表。时间与新建外层 <code>cons</code> 数均为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math>；内部值可以共享，不能据此声称做了深复制。</p><!-- EOPL:snippet chapter01.rkt ex-1-15 -->
+&gt; (duple 0 '(blah))
+()</code></div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n = 0" display="inline"><mrow><mi>n</mi><mo>=</mo><mn>0</mn></mrow></math> 时结果为空；<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n &gt; 0" display="inline"><mrow><mi>n</mi><mo>&gt;</mo><mn>0</mn></mrow></math> 时先假设递归调用能产生 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n − 1" display="inline"><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></math> 个 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math>，再在表头接一个 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math>，于是长度恰好为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math>。<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 可以是列表，<code>cons</code> 接入的是整个值，不会展开其内部。<code>(duple 4 '(ha ha))</code> 得到四个两元素子表。时间与新建外层 <code>cons</code> 数均为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math>；内部值可以共享，不能据此声称做了深复制。</p><!-- EOPL:snippet chapter01.rkt ex-1-15 -->
 <details class="code-details" open><summary>查看实现 · ex-1-15</summary><pre><code class="language-scheme">;; Nat * SchemeVal -&gt; Listof(SchemeVal)
 (define (duple n x)
   (if (zero? n) &#x27;() (cons x (duple (- n 1) x))))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-16"><summary>习题 1.16 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.26 / PDF 49</p><pre class="original-source" lang="en">Exercise 1.16 [★] (invert lst), where lst is a list of 2-lists (lists of length two),
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-16"><summary>习题 1.16 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.26 / PDF 49</p><div class="original-source" lang="en" data-exercise="1.16">Exercise 1.16 [★] <code>(invert lst)</code>, where <code>lst</code> is a list of 2-lists (lists of length two),
 returns a list with each 2-list reversed.
 
-  &gt; (invert &#x27;((a 1) (a 2) (1 b) (2 b)))
-  ((1 a) (2 a) (b 1) (b 2))</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>每个元素的契约是恰好两项，所以交换 <code>car</code> 与 <code>cadr</code> 即可；<code>map</code> 保持外层顺序。输入 <code>'((a 1) (a 2) (1 b) (2 b))</code> 的第一个元素变成 <code>'(1 a)</code>，其余同理。空外表返回空表。再次执行 invert 会恢复原输入，这也提供了独立的检查性质。</p><!-- EOPL:snippet chapter01.rkt ex-1-16 -->
+<code class="source-example">  &gt; (invert '((a 1) (a 2) (1 b) (2 b)))
+  ((1 a) (2 a) (b 1) (b 2))</code></div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>每个元素的契约是恰好两项，所以交换 <code>car</code> 与 <code>cadr</code> 即可；<code>map</code> 保持外层顺序。输入 <code>'((a 1) (a 2) (1 b) (2 b))</code> 的第一个元素变成 <code>'(1 a)</code>，其余同理。空外表返回空表。再次执行 <code>invert</code> 会恢复原输入，这也提供了独立的检查性质。</p><!-- EOPL:snippet chapter01.rkt ex-1-16 -->
 <details class="code-details" open><summary>查看实现 · ex-1-16</summary><pre><code class="language-scheme">;; Listof((SchemeVal SchemeVal)) -&gt; Listof((SchemeVal SchemeVal))
 (define (invert pairs)
   (map (lambda (p) (list (cadr p) (car p))) pairs))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-17"><summary>习题 1.17 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.26 / PDF 49</p><pre class="original-source" lang="en">Exercise 1.17 [★] (down lst) wraps parentheses around each top-level element of
-lst.
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-17"><summary>习题 1.17 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.26 / PDF 49</p><div class="original-source" lang="en" data-exercise="1.17">Exercise 1.17 [★] <code>(down lst)</code> wraps parentheses around each top-level element of
+<code>lst</code>.
 
-  &gt; (down &#x27;(1 2 3))
+<code class="source-example">  &gt; (down '(1 2 3))
   ((1) (2) (3))
-  &gt; (down &#x27;((a) (fine) (idea)))
+  &gt; (down '((a) (fine) (idea)))
   (((a)) ((fine)) ((idea)))
-  &gt; (down &#x27;(a (more (complicated)) object))
-  ((a) ((more (complicated))) (object))</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>把每个顶层元素交给单参数 <code>list</code>，得到只有该元素的列表。输入 <code>'(a (more (complicated)) object)</code> 中，第二个顶层元素是整个 <code>'(more (complicated))</code>；包一层后成为 <code>'((more (complicated)))</code>，内部结构不会被逐个改写。外表有多少项，结果就有多少项。</p><!-- EOPL:snippet chapter01.rkt ex-1-17 -->
+  &gt; (down '(a (more (complicated)) object))
+  ((a) ((more (complicated))) (object))</code></div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>把每个顶层元素交给单参数 <code>list</code>，得到只有该元素的列表。输入 <code>'(a (more (complicated)) object)</code> 中，第二个顶层元素是整个 <code>'(more (complicated))</code>；包一层后成为 <code>'((more (complicated)))</code>，内部结构不会被逐个改写。外表有多少项，结果就有多少项。</p><!-- EOPL:snippet chapter01.rkt ex-1-17 -->
 <details class="code-details" open><summary>查看实现 · ex-1-17</summary><pre><code class="language-scheme">(define (down xs) (map list xs))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-18"><summary>习题 1.18 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.27 / PDF 50</p><pre class="original-source" lang="en">Exercise 1.18 [★] (swapper s1 s2 slist) returns a list the same as slist, but
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-18"><summary>习题 1.18 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.27 / PDF 50</p><div class="original-source" lang="en" data-exercise="1.18">Exercise 1.18 [★] <code>(swapper s1 s2 slist)</code> returns a list the same as <code>slist</code>, but
 with all occurrences of s1 replaced by s2 and all occurrences of s2 replaced by s1.
 
-  &gt; (swapper &#x27;a &#x27;d &#x27;(a b c d))
+<code class="source-example">  &gt; (swapper 'a 'd '(a b c d))
   (d b c a)
-  &gt; (swapper &#x27;a &#x27;d &#x27;(a d () c d))
+  &gt; (swapper 'a 'd '(a d () c d))
   (d a () c a)
-  &gt; (swapper &#x27;x &#x27;y &#x27;((x) y (z (x))))
-  ((y) x (z (y)))</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>必须同时交换：遇到 s1 返回 s2，遇到 s2 返回 s1，其他符号不变，子表递归。先执行“s1 换成 s2”再执行“s2 换成 s1”会把原先两类都并成 s1，因此不正确。对 <code>'(a d () c d)</code>，结果为 <code>'(d a () c a)</code>；空表形状保留。如果两个目标符号相同，转换自然成为恒等操作。</p><!-- EOPL:snippet chapter01.rkt ex-1-18 -->
+  &gt; (swapper 'x 'y '((x) y (z (x))))
+  ((y) x (z (y)))</code></div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>必须同时交换：遇到 s1 返回 s2，遇到 s2 返回 s1，其他符号不变，子表递归。先执行“s1 换成 s2”再执行“s2 换成 s1”会把原先两类都并成 s1，因此不正确。对 <code>'(a d () c d)</code>，结果为 <code>'(d a () c a)</code>；空表形状保留。如果两个目标符号相同，转换自然成为恒等操作。</p><!-- EOPL:snippet chapter01.rkt ex-1-18 -->
 <details class="code-details" open><summary>查看实现 · ex-1-18</summary><pre><code class="language-scheme">;; Symbol * Symbol * Slist -&gt; Slist; simultaneous replacement.
 (define (swapper s1 s2 xs)
   (map (lambda (x)
          (cond [(not (symbol? x)) (swapper s1 s2 x)]
                [(eqv? x s1) s2] [(eqv? x s2) s1] [else x])) xs))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-19"><summary>习题 1.19 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.27 / PDF 50</p><pre class="original-source" lang="en">Exercise 1.19 [★★] (list-set lst n x) returns a list like lst, except that the n-th
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-19"><summary>习题 1.19 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.27 / PDF 50</p><div class="original-source" lang="en" data-exercise="1.19">Exercise 1.19 [★★] <code>(list-set lst n x)</code> returns a list like <code>lst</code>, except that the n-th
 element, using zero-based indexing, is x.
 
-  &gt; (list-set &#x27;(a b c d) 2 &#x27;(1 2))
+<code class="source-example">  &gt; (list-set '(a b c d) 2 '(1 2))
   (a b (1 2) d)
-  &gt; (list-ref (list-set &#x27;(a b c d) 3 &#x27;(1 5 10)) 3)
-  (1 5 10)</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n = 0" display="inline"><mrow><mi>n</mi><mo>=</mo><mn>0</mn></mrow></math> 时用新值和旧尾部组成结果；<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n &gt; 0" display="inline"><mrow><mi>n</mi><mo>&gt;</mo><mn>0</mn></mrow></math> 时保留当前 <code>car</code>，递归改写尾部的第 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n − 1" display="inline"><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></math> 项。索引之前的前缀被重建，之后的尾部可以共享，原列表不被原地修改。新值可以是列表，所以把索引 2 换成 <code>'(1 2)</code> 得到的是 <code>'(a b (1 2) d)</code>。</p>
+  &gt; (list-ref (list-set '(a b c d) 3 '(1 5 10)) 3)
+  (1 5 10)</code></div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n = 0" display="inline"><mrow><mi>n</mi><mo>=</mo><mn>0</mn></mrow></math> 时用新值和旧尾部组成结果；<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n &gt; 0" display="inline"><mrow><mi>n</mi><mo>&gt;</mo><mn>0</mn></mrow></math> 时保留当前 <code>car</code>，递归改写尾部的第 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n − 1" display="inline"><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></math> 项。索引之前的前缀被重建，之后的尾部可以共享，原列表不被原地修改。新值可以是列表，所以把索引 2 换成 <code>'(1 2)</code> 得到的是 <code>'(a b (1 2) d)</code>。</p>
 <p>题目正常使用合法索引；本实现对到达空表的越界调用报错。消耗时间与访问到的前缀长度成正比。</p><!-- EOPL:snippet chapter01.rkt ex-1-19 -->
 <details class="code-details" open><summary>查看实现 · ex-1-19</summary><pre><code class="language-scheme">;; Valid zero-based index; preserve every other element.
 (define (list-set xs n x)
@@ -657,104 +665,104 @@ element, using zero-based indexing, is x.
         [(zero? n) (cons x (cdr xs))]
         [else (cons (car xs) (list-set (cdr xs) (- n 1) x))]))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-20"><summary>习题 1.20 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.27 / PDF 50</p><pre class="original-source" lang="en">Exercise 1.20 [★] (count-occurrences s slist) returns the number of occurrences of s in slist.
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-20"><summary>习题 1.20 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.27 / PDF 50</p><div class="original-source" lang="en" data-exercise="1.20">Exercise 1.20 [★] <code>(count-occurrences s slist)</code> returns the number of occurrences of s in <code>slist</code>.
 
-  &gt; (count-occurrences &#x27;x &#x27;((f x) y (((x z) x))))
+<code class="source-example">  &gt; (count-occurrences 'x '((f x) y (((x z) x))))
   3
-  &gt; (count-occurrences &#x27;x &#x27;((f x) y (((x z) () x))))
+  &gt; (count-occurrences 'x '((f x) y (((x z) () x))))
   3
-  &gt; (count-occurrences &#x27;w &#x27;((f x) y (((x z) x))))
-  0</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>先计数当前元素，再加尾部计数。若 <code>car</code> 是符号，相等贡献 1，不等贡献 0；若 <code>car</code> 是子表，贡献它内部的递归计数。以 <code>'((f x) y (((x z) x)))</code> 为例，第一子表贡献 1，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="y" display="inline"><mi>y</mi></math> 贡献 0，最后一子表贡献 2，合计 3。空子表贡献 0，不影响相邻项。这个加法分解的前提是各元素对应的出现位置互不重叠。</p><!-- EOPL:snippet chapter01.rkt ex-1-20 -->
+  &gt; (count-occurrences 'w '((f x) y (((x z) x))))
+  0</code></div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>先计数当前元素，再加尾部计数。若 <code>car</code> 是符号，相等贡献 1，不等贡献 0；若 <code>car</code> 是子表，贡献它内部的递归计数。以 <code>'((f x) y (((x z) x)))</code> 为例，第一子表贡献 1，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="y" display="inline"><mi>y</mi></math> 贡献 0，最后一子表贡献 2，合计 3。空子表贡献 0，不影响相邻项。这个加法分解的前提是各元素对应的出现位置互不重叠。</p><!-- EOPL:snippet chapter01.rkt ex-1-20 -->
 <details class="code-details" open><summary>查看实现 · ex-1-20</summary><pre><code class="language-scheme">(define (count-occurrences s xs)
   (cond [(null? xs) 0]
         [else (+ (if (symbol? (car xs)) (if (eqv? s (car xs)) 1 0)
                      (count-occurrences s (car xs)))
                  (count-occurrences s (cdr xs)))]))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-21"><summary>习题 1.21 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.27 / PDF 50</p><pre class="original-source" lang="en">Exercise 1.21 [★★] (product sos1 sos2), where sos1 and sos2 are each a list
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-21"><summary>习题 1.21 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.27 / PDF 50</p><div class="original-source" lang="en" data-exercise="1.21">Exercise 1.21 [★★] <code>(product sos1 sos2)</code>, where <code>sos1</code> and <code>sos2</code> are each a list
 of symbols without repetitions, returns a list of 2-lists that represents the Cartesian
-product of sos1 and sos2. The 2-lists may appear in any order.
+<code>product</code> of <code>sos1</code> and <code>sos2</code>. The 2-lists may appear in any order.
 
-  &gt; (product &#x27;(a b c) &#x27;(x y))
-  ((a x) (a y) (b x) (b y) (c x) (c y))</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>固定左表第一个元素，与右表的每个元素配对，得到一整行；再接上左表尾部产生的各行。左表中的每个元素只负责自己的行，所以每一对恰好生成一次。任一输入为空，结果都为空。两表长度为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="m" display="inline"><mi>m</mi></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 时，结果有 mn 项，时间至少也需要与 mn 成正比；这里选择左元素优先的次序，原题允许任意次序。</p><!-- EOPL:snippet chapter01.rkt ex-1-21 -->
+<code class="source-example">  &gt; (product '(a b c) '(x y))
+  ((a x) (a y) (b x) (b y) (c x) (c y))</code></div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>固定左表第一个元素，与右表的每个元素配对，得到一整行；再接上左表尾部产生的各行。左表中的每个元素只负责自己的行，所以每一对恰好生成一次。任一输入为空，结果都为空。两表长度为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="m" display="inline"><mi>m</mi></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 时，结果有 mn 项，时间至少也需要与 mn 成正比；这里选择左元素优先的次序，原题允许任意次序。</p><!-- EOPL:snippet chapter01.rkt ex-1-21 -->
 <details class="code-details" open><summary>查看实现 · ex-1-21</summary><pre><code class="language-scheme">(define (product xs ys)
   (if (null? xs) &#x27;()
       (append (map (lambda (y) (list (car xs) y)) ys)
               (product (cdr xs) ys))))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-22"><summary>习题 1.22 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.27 / PDF 50</p><pre class="original-source" lang="en">Exercise 1.22 [★★] (filter-in pred lst) returns the list of those elements in
-lst that satisfy the predicate pred.
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-22"><summary>习题 1.22 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.27 / PDF 50</p><div class="original-source" lang="en" data-exercise="1.22">Exercise 1.22 [★★] <code>(filter-in pred lst)</code> returns the list of those elements in
+<code>lst</code> that satisfy the predicate <code>pred</code>.
 
-  &gt; (filter-in number? &#x27;(a 2 (1 3) b 7))
+<code class="source-example">  &gt; (filter-in number? '(a 2 (1 3) b 7))
   (2 7)
-  &gt; (filter-in symbol? &#x27;(a (b c) 17 foo))
-  (a foo)</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>谓词为真就保留 <code>car</code>，为假就跳过它，两种情况都继续处理 <code>cdr</code>。谓词只应用于顶层元素；<code>'(a 2 (1 3) b 7)</code> 中的 <code>'(1 3)</code> 是一个列表值，不因其内部是数字而被 <code>number?</code> 选中。归纳假设保证尾部已正确过滤，接回一个满足条件的头元素仍保持原顺序。</p><!-- EOPL:snippet chapter01.rkt ex-1-22 -->
+  &gt; (filter-in symbol? '(a (b c) 17 foo))
+  (a foo)</code></div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>谓词为真就保留 <code>car</code>，为假就跳过它，两种情况都继续处理 <code>cdr</code>。谓词只应用于顶层元素；<code>'(a 2 (1 3) b 7)</code> 中的 <code>'(1 3)</code> 是一个列表值，不因其内部是数字而被 <code>number?</code> 选中。归纳假设保证尾部已正确过滤，接回一个满足条件的头元素仍保持原顺序。</p><!-- EOPL:snippet chapter01.rkt ex-1-22 -->
 <details class="code-details" open><summary>查看实现 · ex-1-22</summary><pre><code class="language-scheme">(define (filter-in pred xs)
   (cond [(null? xs) &#x27;()]
         [(pred (car xs)) (cons (car xs) (filter-in pred (cdr xs)))]
         [else (filter-in pred (cdr xs))]))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-23"><summary>习题 1.23 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.27 / PDF 50</p><pre class="original-source" lang="en">Exercise 1.23 [★★] (list-index pred lst) returns the 0-based position of the
-first element of lst that satisfies the predicate pred. If no element of lst satisfies
-the predicate, then list-index returns #f.
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-23"><summary>习题 1.23 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.27 / PDF 50</p><div class="original-source" lang="en" data-exercise="1.23">Exercise 1.23 [★★] <code>(list-index pred lst)</code> returns the 0-based position of the
+first element of <code>lst</code> that satisfies the predicate <code>pred</code>. If no element of <code>lst</code> satisfies
+the predicate, then <code>list-index</code> returns #f.
 
-  &gt; (list-index number? &#x27;(a 2 (1 3) b 7))
+<code class="source-example">  &gt; (list-index number? '(a 2 (1 3) b 7))
   1
-  &gt; (list-index symbol? &#x27;(a (b c) 17 foo))
+  &gt; (list-index symbol? '(a (b c) 17 foo))
   0
-  &gt; (list-index symbol? &#x27;(1 2 (a b) 3))
-  #f</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>辅助参数 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 记录当前元素在原列表中的索引。遇到第一个满足谓词的元素立即返回 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math>；只有遍历到底仍未命中才返回 <code>#f</code>。<code>(list-index symbol? '(a (b c) 17 foo))</code> 返回 0，而不是 <code>#f</code>；调用方必须按 Scheme 真值规则理解这两个结果。每次递归让剩余列表缩短一项，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 同时加一，因此“当前索引 + 剩余列表”的对应关系不变。</p><!-- EOPL:snippet chapter01.rkt ex-1-23 -->
+  &gt; (list-index symbol? '(1 2 (a b) 3))
+  #f</code></div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>辅助参数 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 记录当前元素在原列表中的索引。遇到第一个满足谓词的元素立即返回 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math>；只有遍历到底仍未命中才返回 <code>#f</code>。<code>(list-index symbol? '(a (b c) 17 foo))</code> 返回 0，而不是 <code>#f</code>；调用方必须按 Scheme 真值规则理解这两个结果。每次递归让剩余列表缩短一项，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 同时加一，因此“当前索引 + 剩余列表”的对应关系不变。</p><!-- EOPL:snippet chapter01.rkt ex-1-23 -->
 <details class="code-details" open><summary>查看实现 · ex-1-23</summary><pre><code class="language-scheme">(define (list-index pred xs)
   (define (walk ys n)
     (cond [(null? ys) #f] [(pred (car ys)) n]
           [else (walk (cdr ys) (+ n 1))]))
   (walk xs 0))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-24"><summary>习题 1.24 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.28 / PDF 51</p><pre class="original-source" lang="en">Exercise 1.24 [★★] (every? pred lst) returns #f if any element of lst fails to
-satisfy pred, and returns #t otherwise.
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-24"><summary>习题 1.24 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.28 / PDF 51</p><div class="original-source" lang="en" data-exercise="1.24">Exercise 1.24 [★★] <code>(every? pred lst)</code> returns #f if any element of <code>lst</code> fails to
+satisfy <code>pred</code>, and returns #t otherwise.
 
-  &gt; (every? number? &#x27;(a b c 3 e))
+<code class="source-example">  &gt; (every? number? '(a b c 3 e))
   #f
-  &gt; (every? number? &#x27;(1 2 3 5 4))
-  #t</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>空表上每个元素都满足条件，因为不存在反例，故返回 <code>#t</code>。非空时必须同时满足当前谓词为真和尾部 <code>every?</code> 为真。<code>and</code> 的短路让第一次失败后停止检查。例如第一项 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math> 已使 <code>number?</code> 为假，后面的 3 不能挽回整体结果。不要把空表的结果误设为 <code>#f</code>，否则每个有限列表最终都会失败。</p><!-- EOPL:snippet chapter01.rkt ex-1-24 -->
+  &gt; (every? number? '(1 2 3 5 4))
+  #t</code></div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>空表上每个元素都满足条件，因为不存在反例，故返回 <code>#t</code>。非空时必须同时满足当前谓词为真和尾部 <code>every?</code> 为真。<code>and</code> 的短路让第一次失败后停止检查。例如第一项 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math> 已使 <code>number?</code> 为假，后面的 3 不能挽回整体结果。不要把空表的结果误设为 <code>#f</code>，否则每个有限列表最终都会失败。</p><!-- EOPL:snippet chapter01.rkt ex-1-24 -->
 <details class="code-details" open><summary>查看实现 · ex-1-24</summary><pre><code class="language-scheme">(define (every? pred xs)
   (or (null? xs) (and (pred (car xs)) (every? pred (cdr xs)))))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-25"><summary>习题 1.25 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.28 / PDF 51</p><pre class="original-source" lang="en">Exercise 1.25 [★★] (exists? pred lst) returns #t if any element of lst satisfies
-pred, and returns #f otherwise.
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-25"><summary>习题 1.25 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.28 / PDF 51</p><div class="original-source" lang="en" data-exercise="1.25">Exercise 1.25 [★★] <code>(exists? pred lst)</code> returns #t if any element of <code>lst</code> satisfies
+<code>pred</code>, and returns #f otherwise.
 
-  &gt; (exists? number? &#x27;(a b c 3 e))
+<code class="source-example">  &gt; (exists? number? '(a b c 3 e))
   #t
-  &gt; (exists? number? &#x27;(a b c d e))
-  #f</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>空表不存在见证，返回 <code>#f</code>。非空时当前元素满足谓词就返回真，否则向尾部继续寻找。它与 <code>every?</code> 的空表基例相反，因为一个需要“没有反例”，另一个需要“至少一个见证”。测试用记录访问次序的谓词核对短路：在 <code>'(1 2 3)</code> 中寻找 2，只访问 1、2。</p><!-- EOPL:snippet chapter01.rkt ex-1-25 -->
+  &gt; (exists? number? '(a b c d e))
+  #f</code></div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>空表不存在见证，返回 <code>#f</code>。非空时当前元素满足谓词就返回真，否则向尾部继续寻找。它与 <code>every?</code> 的空表基例相反，因为一个需要“没有反例”，另一个需要“至少一个见证”。测试用记录访问次序的谓词核对短路：在 <code>'(1 2 3)</code> 中寻找 2，只访问 1、2。</p><!-- EOPL:snippet chapter01.rkt ex-1-25 -->
 <details class="code-details" open><summary>查看实现 · ex-1-25</summary><pre><code class="language-scheme">(define (exists? pred xs)
   (and (pair? xs) (or (pred (car xs)) (exists? pred (cdr xs)))))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-26"><summary>习题 1.26 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.28 / PDF 51</p><pre class="original-source" lang="en">Exercise 1.26 [★★] (up lst) removes a pair of parentheses from each top-level element of lst. If a top-level element is not a list, it is included in the result, as is.
-The value of (up (down lst)) is equivalent to lst, but (down (up lst)) is
-not necessarily lst. (See exercise 1.17.)
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-26"><summary>习题 1.26 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.28 / PDF 51</p><div class="original-source" lang="en" data-exercise="1.26">Exercise 1.26 [★★] <code>(up lst)</code> removes a pair of parentheses from each top-level element of <code>lst</code>. If a top-level element is not a list, it is included in the result, as is.
+The value of <code>(up (down lst))</code> is equivalent to <code>lst</code>, but <code>(down (up lst))</code> is
+not necessarily <code>lst</code>. (See exercise 1.17.)
 
-  &gt; (up &#x27;((1 2) (3 4)))
+<code class="source-example">  &gt; (up '((1 2) (3 4)))
   (1 2 3 4)
-  &gt; (up &#x27;((x (y)) z))
-  (x (y) z)</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>当前元素若是列表，就把它的成员接入结果；否则接入仅含该元素的一项。只处理这一层，<code>'((x (y)) z)</code> 因而变成 <code>'(x (y) z)</code>，其中 <code>'(y)</code> 不再展开。空子表贡献零项。</p>
-<p>每个由 down 包出的单元素列表，都会被 up 正好拆回，故 <code>up(down(xs)) = xs</code>。反方向不成立，例如 up 先把两个子列表的边界抹掉后，down 无法恢复原来的分组。一般 Scheme 值还可能是点对；实现用 <code>list?</code> 判断，点对作为单个值保留。</p><!-- EOPL:snippet chapter01.rkt ex-1-26 -->
+  &gt; (up '((x (y)) z))
+  (x (y) z)</code></div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>当前元素若是列表，就把它的成员接入结果；否则接入仅含该元素的一项。只处理这一层，<code>'((x (y)) z)</code> 因而变成 <code>'(x (y) z)</code>，其中 <code>'(y)</code> 不再展开。空子表贡献零项。</p>
+<p>每个由 <code>down</code> 包出的单元素列表，都会被 <code>up</code> 正好拆回，故 <code>(up (down xs))</code> 返回与 <code>xs</code> 相同的列表。反方向不成立，例如 <code>up</code> 先把两个子列表的边界抹掉后，<code>down</code> 无法恢复原来的分组。一般 Scheme 值还可能是点对；实现用 <code>list?</code> 判断，点对作为单个值保留。</p><!-- EOPL:snippet chapter01.rkt ex-1-26 -->
 <details class="code-details" open><summary>查看实现 · ex-1-26</summary><pre><code class="language-scheme">(define (up xs)
   (if (null? xs) &#x27;()
       (append (if (list? (car xs)) (car xs) (list (car xs))) (up (cdr xs)))))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-27"><summary>习题 1.27 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.28 / PDF 51</p><pre class="original-source" lang="en">Exercise 1.27 [★★] (flatten slist) returns a list of the symbols contained in
-slist in the order in which they occur when slist is printed. Intuitively, flatten
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-27"><summary>习题 1.27 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.28 / PDF 51</p><div class="original-source" lang="en" data-exercise="1.27">Exercise 1.27 [★★] <code>(flatten slist)</code> returns a list of the symbols contained in
+<code>slist</code> in the order in which they occur when <code>slist</code> is printed. Intuitively, <code>flatten</code>
 removes all the inner parentheses from its argument.
 
-  &gt; (flatten &#x27;(a b c))
+<code class="source-example">  &gt; (flatten '(a b c))
   (a b c)
-  &gt; (flatten &#x27;((a) () (b ()) () (c)))
+  &gt; (flatten '((a) () (b ()) () (c)))
   (a b c)
-  &gt; (flatten &#x27;((a b) c (((d)) e)))
+  &gt; (flatten '((a b) c (((d)) e)))
   (a b c d e)
-  &gt; (flatten &#x27;(a b (() (c))))
-  (a b c)</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>flatten 要递归去掉所有列表层次，同时按从左到右保留符号。辅助过程 <code>walk(xs,tail)</code> 的契约是“<code>xs</code> 的所有叶子，后接 <code>tail</code>”。处理子列表时，先求好右边结果，作为左子列表的尾部；这使结果次序仍为左在前、右在后，同时避免反复 <code>append</code> 长前缀。</p>
+  &gt; (flatten '(a b (() (c))))
+  (a b c)</code></div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p><code>flatten</code> 要递归去掉所有列表层次，同时按从左到右保留符号。辅助过程 <code>walk(xs,tail)</code> 的契约是“<code>xs</code> 的所有叶子，后接 <code>tail</code>”。处理子列表时，先求好右边结果，作为左子列表的尾部；这使结果次序仍为左在前、右在后，同时避免反复 <code>append</code> 长前缀。</p>
 <p>对 <code>'((a b) c (((d)) e))</code>，空层次只决定递归分支，不产生输出，符号叶子依次为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a,b,c,d,e" display="inline"><mrow><mi>a</mi><mo>,</mo><mi>b</mi><mo>,</mo><mi>c</mi><mo>,</mo><mi>d</mi><mo>,</mo><mi>e</mi></mrow></math>。每个 <code>cons</code> 和符号只访问一次；虽然使用了累积尾部，某些调用位置仍需等待子结果，不能因此宣称整个程序都是尾递归。</p><!-- EOPL:snippet chapter01.rkt ex-1-27 -->
 <details class="code-details" open><summary>查看实现 · ex-1-27</summary><pre><code class="language-scheme">;; walk xs tail = all leaves of xs followed by tail; each pair visited once.
 (define (flatten xs)
@@ -764,36 +772,36 @@ removes all the inner parentheses from its argument.
           [else (walk (car ys) (walk (cdr ys) tail))]))
   (walk xs &#x27;()))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-28"><summary>习题 1.28 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.28 / PDF 51</p><pre class="original-source" lang="en">Exercise 1.28 [★★] (merge loi1 loi2), where loi1 and loi2 are lists of integers
-that are sorted in ascending order, returns a sorted list of all the integers in loi1 and
-loi2.
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-28"><summary>习题 1.28 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.28 / PDF 51</p><div class="original-source" lang="en" data-exercise="1.28">Exercise 1.28 [★★] <code>(merge loi1 loi2)</code>, where <code>loi1</code> and <code>loi2</code> are lists of integers
+that are sorted in ascending order, returns a sorted list of all the integers in <code>loi1</code> and
+<code>loi2</code>.
 
-  &gt; (merge &#x27;(1 4) &#x27;(1 2 8))
+<code class="source-example">  &gt; (merge '(1 4) '(1 2 8))
   (1 1 2 4 8)
-  &gt; (merge &#x27;(35 62 81 90 91) &#x27;(3 83 85 90))
-  (3 35 62 81 83 85 90 90 91)</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>两个输入都已升序，所以全局最小值一定在两个表头之一。选较小者接到结果前面，只递归推进对应的列表；相等时选左表头，下一次仍会保留右边的同值，因此重复项不会丢失。任一输入为空，另一个已排序列表可以直接作为尾部。</p>
-<p>例如合并 (1 4) 与 (1 2 8)：依次选左 1、右 1、右 2、左 4，余下 (8) 直接接入。每一步减少两表总长度，时间为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="O(m+n)" display="inline"><mrow><mi>O</mi><mrow><mo>(</mo><mi>m</mi><mo>+</mo><mi>n</mi><mo>)</mo></mrow></mrow></math>。</p><!-- EOPL:snippet chapter01.rkt ex-1-28 -->
+  &gt; (merge '(35 62 81 90 91) '(3 83 85 90))
+  (3 35 62 81 83 85 90 90 91)</code></div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>两个输入都已升序，所以全局最小值一定在两个表头之一。选较小者接到结果前面，只递归推进对应的列表；相等时选左表头，下一次仍会保留右边的同值，因此重复项不会丢失。任一输入为空，另一个已排序列表可以直接作为尾部。</p>
+<p>例如合并 <code>(1 4)</code> 与 <code>(1 2 8)</code>：依次选左 1、右 1、右 2、左 4，余下 <code>(8)</code> 直接接入。每一步减少两表总长度，时间为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="O(m+n)" display="inline"><mrow><mi>O</mi><mrow><mo>(</mo><mi>m</mi><mo>+</mo><mi>n</mi><mo>)</mo></mrow></mrow></math>。</p><!-- EOPL:snippet chapter01.rkt ex-1-28 -->
 <details class="code-details" open><summary>查看实现 · ex-1-28</summary><pre><code class="language-scheme">;; Inputs ascending; duplicates retained, first input wins ties.
 (define (merge xs ys)
   (cond [(null? xs) ys] [(null? ys) xs]
         [(&lt;= (car xs) (car ys)) (cons (car xs) (merge (cdr xs) ys))]
         [else (cons (car ys) (merge xs (cdr ys)))]))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-29"><summary>习题 1.29 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.29 / PDF 52</p><pre class="original-source" lang="en">Exercise 1.29 [★★] (sort loi) returns a list of the elements of loi in ascending
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-29"><summary>习题 1.29 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.29 / PDF 52</p><div class="original-source" lang="en" data-exercise="1.29">Exercise 1.29 [★★] <code>(sort loi)</code> returns a list of the elements of <code>loi</code> in ascending
 order.
 
-  &gt; (sort &#x27;(8 2 5 2 3))
-  (2 2 3 5 8)</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>本答案选择插入排序：先把尾部排好，再将表头插入已有序列表。对 (8 2 5 2 3)，回程依次得到 (3)、(2 3)、(2 3 5)、(2 2 3 5)、(2 2 3 5 8)。每次插入保持元素多重集不变，也保持升序。</p>
-<p>完整实现调用下一题给出的 <code>sort/predicate</code>，并把比较关系固定为 &lt;。这种实现最坏需要二次时间；上一题的 merge 可以用于归并排序，但仅有 merge 还不等于已经完成分半和递归排序。</p><!-- EOPL:snippet chapter01.rkt ex-1-29 -->
+<code class="source-example">  &gt; (sort '(8 2 5 2 3))
+  (2 2 3 5 8)</code></div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>本答案选择插入排序：先把尾部排好，再将表头插入已有序列表。对 <code>(8 2 5 2 3)</code>，回程依次得到 <code>(3)</code>、<code>(2 3)</code>、<code>(2 3 5)</code>、<code>(2 2 3 5)</code>、<code>(2 2 3 5 8)</code>。每次插入保持元素多重集不变，也保持升序。</p>
+<p>完整实现调用下一题给出的 <code>sort/predicate</code>，并把比较关系固定为 &lt;。这种实现最坏需要二次时间；上一题的 <code>merge</code> 可以用于归并排序，但仅有 <code>merge</code> 还不等于已经完成分半和递归排序。</p><!-- EOPL:snippet chapter01.rkt ex-1-29 -->
 <details class="code-details" open><summary>查看实现 · ex-1-29</summary><pre><code class="language-scheme">(define (sort xs) (sort/predicate &lt; xs))
 </code></pre></details>
-<!-- EOPL:end-snippet --><p>排序主体见<a href="#ex-1-30">习题 1.30</a>的 insert 与 <code>sort/predicate</code>。</p></div></details><details class="exercise" id="ex-1-30"><summary>习题 1.30 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.29 / PDF 52</p><pre class="original-source" lang="en">Exercise 1.30 [★★] (sort/predicate pred loi) returns a list of elements sorted
+<!-- EOPL:end-snippet --><p>排序主体见<a href="#ex-1-30">习题 1.30</a>的 insert 与 <code>sort/predicate</code>。</p></div></details><details class="exercise" id="ex-1-30"><summary>习题 1.30 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.29 / PDF 52</p><div class="original-source" lang="en" data-exercise="1.30">Exercise 1.30 [★★] <code>(sort/predicate pred loi)</code> returns a list of elements sorted
 by the predicate.
 
-  &gt; (sort/predicate &lt; &#x27;(8 2 5 2 3))
+<code class="source-example">  &gt; (sort/predicate &lt; '(8 2 5 2 3))
   (2 2 3 5 8)
-  &gt; (sort/predicate &gt; &#x27;(8 2 5 2 3))
-  (8 5 3 2 2)</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>将“当前值应该排在候选值之前”交给 <code>pred</code>，其他插入逻辑不变。假设 <code>pred</code> 是严格全序：&lt; 给升序，&gt; 给降序。插入 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 时，若当前 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="y" display="inline"><mi>y</mi></math> 不应排在 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 前面，就把 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 放在 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="y" display="inline"><mi>y</mi></math> 前；相等时也如此，使来自原表更靠前的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 保持在相等元素之前。</p>
+  &gt; (sort/predicate &gt; '(8 2 5 2 3))
+  (8 5 3 2 2)</code></div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>将“当前值应该排在候选值之前”交给 <code>pred</code>，其他插入逻辑不变。假设 <code>pred</code> 是严格全序：&lt; 给升序，&gt; 给降序。插入 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 时，若当前 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="y" display="inline"><mi>y</mi></math> 不应排在 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 前面，就把 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 放在 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="y" display="inline"><mi>y</mi></math> 前；相等时也如此，使来自原表更靠前的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 保持在相等元素之前。</p>
 <p>仅有“<code>pred</code> 总返回布尔值”无法保证一般意义的排序：若比较关系不传递，就不存在通常的全局有序性保证。程序仍会终止，但正确性论证需要上述顺序关系条件。</p><!-- EOPL:snippet chapter01.rkt ex-1-30 -->
 <details class="code-details" open><summary>查看实现 · ex-1-30</summary><pre><code class="language-scheme">;; A strict total order is required for the usual sortedness guarantee.
 ;; Insertion sort: insert the earlier element before a later equal element.
@@ -804,10 +812,10 @@ by the predicate.
           [else (cons (car ys) (insert x (cdr ys)))]))
   (if (null? xs) &#x27;() (insert (car xs) (sort/predicate pred (cdr xs)))))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-31"><summary>习题 1.31 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.29 / PDF 52</p><pre class="original-source" lang="en">Exercise 1.31 [★] Write the following procedures for calculating on a bintree (definition 1.1.7): leaf and interior-node, which build bintrees, leaf?, which tests
-whether a bintree is a leaf, and lson, rson, and contents-of, which extract the
-components of a node. contents-of should work on both leaves and interior
-nodes.</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>定义 1.1.7 的叶子直接表示为整数，内部节点表示为三项表 (符号 左树 右树)。因此 leaf 是恒等构造器，<code>interior-node</code> 用 <code>list</code>，<code>leaf?</code> 用 <code>integer?</code>；lson、rson 分别取第二、第三项。<code>contents-of</code> 必须先分类型：叶子返回整数本身，内部节点返回标签。</p>
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-31"><summary>习题 1.31 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.29 / PDF 52</p><div class="original-source" lang="en" data-exercise="1.31">Exercise 1.31 [★] Write the following procedures for calculating on a bintree (definition 1.1.7): <code>leaf</code> and <code>interior-node</code>, which build bintrees, <code>leaf?</code>, which tests
+whether a bintree is a <code>leaf</code>, and <code>lson</code>, <code>rson</code>, and <code>contents-of</code>, which extract the
+components of a node. <code>contents-of</code> should work on both leaves and interior
+nodes.</div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>定义 1.1.7 的叶子直接表示为整数，内部节点表示为三项表 (符号 左树 右树)。因此 <code>leaf</code> 是恒等构造器，<code>interior-node</code> 用 <code>list</code>，<code>leaf?</code> 用 <code>integer?</code>；<code>lson</code>、<code>rson</code> 分别取第二、第三项。<code>contents-of</code> 必须先分类型：叶子返回整数本身，内部节点返回标签。</p>
 <p>这里的叶子不是空表，内部节点也不是整数。下一章 2.19 会换一种二叉树定义，不能混用这两套接口。对子树提取器的合法调用前提是“输入内部节点”。</p><!-- EOPL:snippet chapter01.rkt ex-1-31 -->
 <details class="code-details" open><summary>查看实现 · ex-1-31</summary><pre><code class="language-scheme">;; Bintree = Int | (Symbol Bintree Bintree), definition 1.1.7.
 (define (leaf n) n)
@@ -817,34 +825,34 @@ nodes.</pre></div><div class="answer"><p class="rn-exercise-label">解答与执�
 (define (rson t) (caddr t))
 (define (contents-of t) (if (leaf? t) t (car t)))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-32"><summary>习题 1.32 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.29 / PDF 52</p><pre class="original-source" lang="en">Exercise 1.32 [★] Write a procedure double-tree that takes a bintree, as represented
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-32"><summary>习题 1.32 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.29 / PDF 52</p><div class="original-source" lang="en" data-exercise="1.32">Exercise 1.32 [★] Write a procedure <code>double-tree</code> that takes a bintree, as represented
 in definition 1.1.7, and produces another bintree like the original, but with all the
-integers in the leaves doubled.</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>叶子分支将 <code>contents-of</code> 乘 2，内部节点分支保留标签，并分别递归转换左右子树后重建节点。两个子树相互独立，形状与标签都不变。对 <code>'(foo 3 (bar -2 0))</code> 结果是 <code>'(foo 6 (bar -4 0))</code>。每个节点访问一次；正确性按树的叶子/内部节点两种构造归纳即可。</p><!-- EOPL:snippet chapter01.rkt ex-1-32 -->
+integers in the leaves doubled.</div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>叶子分支将 <code>contents-of</code> 乘 2，内部节点分支保留标签，并分别递归转换左右子树后重建节点。两个子树相互独立，形状与标签都不变。对 <code>'(foo 3 (bar -2 0))</code> 结果是 <code>'(foo 6 (bar -4 0))</code>。每个节点访问一次；正确性按树的叶子/内部节点两种构造归纳即可。</p><!-- EOPL:snippet chapter01.rkt ex-1-32 -->
 <details class="code-details" open><summary>查看实现 · ex-1-32</summary><pre><code class="language-scheme">(define (double-tree t)
   (if (leaf? t) (leaf (* 2 (contents-of t)))
       (interior-node (contents-of t) (double-tree (lson t)) (double-tree (rson t)))))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-33"><summary>习题 1.33 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.29 / PDF 52</p><pre class="original-source" lang="en">Exercise 1.33 [★★] Write a procedure mark-leaves-with-red-depth that takes a
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-33"><summary>习题 1.33 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.29 / PDF 52</p><div class="original-source" lang="en" data-exercise="1.33">Exercise 1.33 [★★] Write a procedure <code>mark-leaves-with-red-depth</code> that takes a
 bintree (definition 1.1.7), and produces a bintree of the same shape as the original,
-except that in the new tree, each leaf contains the integer of nodes between it and the
+except that in the new tree, each <code>leaf</code> contains the integer of nodes between it and the
 root that contain the symbol red. For example, the expression
 
-  (mark-leaves-with-red-depth
-    (interior-node &#x27;red
-      (interior-node &#x27;bar
+<code class="source-example">  (mark-leaves-with-red-depth
+    (interior-node 'red
+      (interior-node 'bar
         (leaf 26)
         (leaf 12))
-      (interior-node &#x27;red
+      (interior-node 'red
         (leaf 11)
-        (interior-node &#x27;quux
+        (interior-node 'quux
           (leaf 117)
-          (leaf 14))
+          (leaf 14))</code>
 
 which is written using the procedures defined in exercise 1.31, should return the bintree
 
-  (red
+<code class="source-example">  (red
     (bar 1 1)
-    (red 2 (quux 2 2)))</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>给辅助过程一个 depth：它表示当前节点严格祖先中 red 的个数。到叶子时输出 depth；到内部节点时，若标签为 red，就把 depth + 1 传给两个孩子，否则原值下传。根节点虽没有祖先，但若根为 red，它对所有后代的计数都会贡献 1。</p>
+    (red 2 (quux 2 2)))</code></div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>给辅助过程一个 depth：它表示当前节点严格祖先中 red 的个数。到叶子时输出 depth；到内部节点时，若标签为 red，就把 depth + 1 传给两个孩子，否则原值下传。根节点虽没有祖先，但若根为 red，它对所有后代的计数都会贡献 1。</p>
 <p>原例根 red 使左边两个叶子成为 1；右子树又经过一个 red，右边三个叶子成为 2。quux 不增加计数。原书 p.29 / PDF 52 的调用在 <code>(leaf 14))</code> 后少了三个右括号；原题照录，运行时补齐，完整合法输入可写成 <code>'(red (bar 26 12) (red 11 (quux 117 14)))</code>。</p><!-- EOPL:snippet chapter01.rkt ex-1-33 -->
 <details class="code-details" open><summary>查看实现 · ex-1-33</summary><pre><code class="language-scheme">(define (mark-leaves-with-red-depth t)
   ;; depth counts red strict ancestors of the current node.
@@ -854,16 +862,16 @@ which is written using the procedures defined in exercise 1.31, should return th
           (interior-node (contents-of t) (walk (lson t) next) (walk (rson t) next)))))
   (walk t 0))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-34"><summary>习题 1.34 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.30 / PDF 53</p><pre class="original-source" lang="en">Exercise 1.34 [★★★] Write a procedure path that takes an integer n and a binary
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-34"><summary>习题 1.34 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.30 / PDF 53</p><div class="original-source" lang="en" data-exercise="1.34">Exercise 1.34 [★★★] Write a procedure <code>path</code> that takes an integer n and a binary
 search tree bst (page 10) that contains the integer n, and returns a list of lefts and
 rights showing how to find the node containing n. If n is found at the root, it returns
 the empty list.
 
-  &gt; (path 17 &#x27;(14 (7 () (12 () ()))
+<code class="source-example">  &gt; (path 17 '(14 (7 () (12 () ()))
                   (26 (20 (17 () ())
                           ())
                       (31 () ()))))
-  (right left left)</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>比较目标与当前整数：相等时已到达，返回空路径；较小时在左子树结果前接 left，较大时接 right。原例的比较链为 17 &gt; 14、17 &lt; 26、17 &lt; 20、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="17 = 17" display="inline"><mrow><mn>17</mn><mo>=</mo><mn>17</mn></mrow></math>，故返回 (right left left)。路径中的每一步对应一次真实下降，不能把最终命中再记成一个方向。</p>
+  (right left left)</code></div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>比较目标与当前整数：相等时已到达，返回空路径；较小时在左子树结果前接 left，较大时接 <code>right</code>。原例的比较链为 17 &gt; 14、17 &lt; 26、17 &lt; 20、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="17 = 17" display="inline"><mrow><mn>17</mn><mo>=</mo><mn>17</mn></mrow></math>，故返回 <code>(right left left)</code>。路径中的每一步对应一次真实下降，不能把最终命中再记成一个方向。</p>
 <p>契约保证目标存在；代码对意外到达空树的输入报错。复杂度取决于树高，最坏可能线性，不能仅因它是搜索树就宣称一定对数。</p><!-- EOPL:snippet chapter01.rkt ex-1-34 -->
 <details class="code-details" open><summary>查看实现 · ex-1-34</summary><pre><code class="language-scheme">;; BST = () | (Int BST BST); root equality is tested before descending.
 (define (path n bst)
@@ -872,28 +880,28 @@ the empty list.
         [(&lt; n (car bst)) (cons &#x27;left (path n (cadr bst)))]
         [else (cons &#x27;right (path n (caddr bst)))]))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-35"><summary>习题 1.35 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.30 / PDF 53</p><pre class="original-source" lang="en">Exercise 1.35 [★★★] Write a procedure number-leaves that takes a bintree, and
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-35"><summary>习题 1.35 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.30 / PDF 53</p><div class="original-source" lang="en" data-exercise="1.35">Exercise 1.35 [★★★] Write a procedure <code>number-leaves</code> that takes a bintree, and
 produces a bintree like the original, except the contents of the leaves are numbered
 starting from 0. For example,
 
-  (number-leaves
-    (interior-node &#x27;foo
-      (interior-node &#x27;bar
+<code class="source-example">  (number-leaves
+    (interior-node 'foo
+      (interior-node 'bar
         (leaf 26)
         (leaf 12))
-      (interior-node &#x27;baz
+      (interior-node 'baz
         (leaf 11)
-        (interior-node &#x27;quux
+        (interior-node 'quux
           (leaf 117)
-          (leaf 14))
+          (leaf 14))</code>
 
 should return
 
-  (foo
+<code class="source-example">  (foo
     (bar 0 1)
     (baz
       2
-      (quux 3 4)))</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>编号与 <code>red-depth</code> 的区别在于：右子树的起始编号依赖左子树用了多少号码。<code>walk(t,next)</code> 返回两个结果——编号后的树，以及下一个未使用的编号。叶子返回 <code>(next,next+1)</code>；内部节点先处理左树，把 <code>after-left</code> 交给右树，再将两棵结果树与 <code>after-right</code> 一起返回。</p>
+      (quux 3 4)))</code></div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>编号与 <code>red-depth</code> 的区别在于：右子树的起始编号依赖左子树用了多少号码。<code>(walk t next)</code> 返回两个结果——编号后的树，以及下一个未使用的编号。叶子返回 <code>(next,next+1)</code>；内部节点先处理左树，把 <code>after-left</code> 交给右树，再将两棵结果树与 <code>after-right</code> 一起返回。</p>
 <p>原例左子树从 0 开始，给出 <code>(bar 0 1)</code> 和 2；右子树从 2 开始，依次用掉 2、3、4，返回 5。若两个子树都拿同一个 <code>next</code>，就会重复编号。原书 p.30 / PDF 53 的示例同样在 <code>(leaf 14))</code> 后少三个右括号；实际输入已补齐。实现用 Racket 的 <code>values/let*-values</code> 表达双返回值，也可以用二元组实现相同契约。</p><!-- EOPL:snippet chapter01.rkt ex-1-35 -->
 <details class="code-details" open><summary>查看实现 · ex-1-35</summary><pre><code class="language-scheme">(define (number-leaves t)
   ;; Returns TWO values: rebuilt tree and the next unused index.
@@ -904,20 +912,20 @@ should return
           (values (interior-node (contents-of t) left right) after-right))))
   (let-values ([(result next) (walk t 0)]) result))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-36"><summary>习题 1.36 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.30 / PDF 53</p><pre class="original-source" lang="en">Exercise 1.36 [★★★] Write a procedure g such that number-elements from page 23
+<!-- EOPL:end-snippet --></div></details><details class="exercise" id="ex-1-36"><summary>习题 1.36 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><p class="source">印刷 p.30 / PDF 53</p><div class="original-source" lang="en" data-exercise="1.36">Exercise 1.36 [★★★] Write a procedure g such that <code>number-elements</code> from page 23
 could be deﬁned as
 
-  (define number-elements
+<code class="source-example">  (define number-elements
     (lambda (lst)
-      (if (null? lst) &#x27;()
-        (g (list 0 (car lst)) (number-elements (cdr lst))))))</pre></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>递归尾部的编号从 0 开始，因此 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="g" display="inline"><mi>g</mi></math> 要先把尾部每一对的第一项加 1，再把当前的 (0,元素) 接在前面。对 <code>(a b c)</code>，底层得到 <code>((0 c))</code>；回一层把它平移成 <code>((1 c))</code>，接上 <code>(0 b)</code>；最外层再把整个尾部平移，得到 <code>((0 a) (1 b) (2 c))</code>。</p>
+      (if (null? lst) '()
+        (g (list 0 (car lst)) (number-elements (cdr lst))))))</code></div></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>递归尾部的编号从 0 开始，因此 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="g" display="inline"><mi>g</mi></math> 要先把尾部每一对的第一项加 1，再把当前的 (0,元素) 接在前面。对 <code>(a b c)</code>，底层得到 <code>((0 c))</code>；回一层把它平移成 <code>((1 c))</code>，接上 <code>(0 b)</code>；最外层再把整个尾部平移，得到 <code>((0 a) (1 b) (2 c))</code>。</p>
 <p>结果正确，但长度为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 的列表需要平移 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="0+1+…+(n−1)" display="inline"><mrow><mn>0</mn><mo>+</mo><mn>1</mn><mo>+</mo><mo>…</mo><mo>+</mo><mrow><mo>(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo>)</mo></mrow></mrow></math> 对，时间为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="O(n²)" display="inline"><mrow><mi>O</mi><mrow><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mo>)</mo></mrow></mrow></math>。正文的 <code>number-elements-from</code> 把上下文向下传，只给每个元素编号一次，因此线性。两种写法的差别来自是否在回程反复修正已经生成的结果。</p><!-- EOPL:snippet chapter01.rkt ex-1-36 -->
 <details class="code-details" open><summary>查看实现 · ex-1-36</summary><pre><code class="language-scheme">(define (g first numbered-tail)
   (cons first (map (lambda (p) (list (+ 1 (car p)) (cadr p))) numbered-tail)))
 (define (number-elements/g xs)
   (if (null? xs) &#x27;() (g (list 0 (car xs)) (number-elements/g (cdr xs)))))
 </code></pre></details>
-<!-- EOPL:end-snippet --></div></details></section><section id="programs"><h2>运行本章程序</h2><p>本章完整示例使用 Racket 8.17 执行。第 2 章通过 eopl 库提供书中的 <code>define-datatype</code> 与 cases，回归使用 rackunit；它们不是本页自行模拟的宏。下载两章源文件及测试文件，放在同一目录，然后在安装了这些库的 Racket 中执行：</p><pre><code>racket chapter01.rkt
+<!-- EOPL:end-snippet --></div></details></section><section id="programs"><h2>运行本章程序</h2><p>本章完整示例使用 Racket 8.17 执行。第 2 章通过 eopl 库提供书中的 <code>define-datatype</code> 与 <code>cases</code>，回归使用 rackunit；它们不是本页自行模拟的宏。下载两章源文件及测试文件，放在同一目录，然后在安装了这些库的 Racket 中执行：</p><pre><code>racket chapter01.rkt
 racket test_chapters.rkt</code></pre><p><a href="../code/chapter01.rkt" download>第 1 章完整程序</a> · <a href="../code/chapter02.rkt" download>第 2 章完整程序</a> · <a href="../code/test_chapters.rkt" download>两章回归程序</a> · <a href="../code/benchmark_bigits.rkt" download>bigits 计时程序</a></p><p>运行本章主程序得到：</p><pre><code>((0 a) (1 b) (2 c))
 ((x b) (c (x)))
 (red (bar 1 1) (red 2 (quux 2 2)))
