@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "issue": "I051",
-  "status": "locally_verified_publication_pending",
+  "status": "published_and_verified",
   "scope": "Merge local EOPL chapters 1 and 2 with main typography; review all 67 new exercise questions and solutions, program contracts, diagrams and reader interactions.",
   "parents": {
     "local": "f113a0e",
@@ -90,10 +90,10 @@
     "page_sha256": {
       "book_overview.html": "4c306c48f9c8bfcc8ae9880d8e240ef98a2fa864770b7b24949a4fced96c4ebb",
       "preface.html": "8edbddb0fcc0f02b83df4865ac4f21deb02b7b205b71f1fde6132bfb3cc1cb40",
-      "chapter01_inductive_data.html": "21ca73a43c528f22d59a6f40ee1813f79b22596c2420b75ee92ce1402ffa2fd1",
-      "chapter02_data_abstraction.html": "7b9f3044fcb51179edd41caf3690129b24d3d5e33bf0793f199a7c2e2dc953ad"
+      "chapter01_inductive_data.html": "edd507167d91d49a39cebae25e4f81912ad0c354a4f4883955ec7227b968b0bd",
+      "chapter02_data_abstraction.html": "f0edddcd085cb074000e04779a3f17672a9a2af6ea6a34e0045a47c317c36977"
     },
-    "checked_at": "2026-10-21T05:25:21.250540+00:00",
+    "checked_at": "2026-10-21T05:50:31.968912+00:00",
     "semantic_tests": {
       "status": "passed",
       "hand_calculated_cases": 10,
@@ -289,6 +289,66 @@
         "report": "tmp/eopl-merge-review-20261021/release-focused-overflow-browser.json",
         "fix": "Scoped existing equation scroll container; same expanded-question matrix repeated."
       }
+    ],
+    "execution_report": "tmp/project-check/20261021T135029-3tfydljo/eopl/report.json"
+  },
+  "publication": {
+    "release_id": "20261021T135233",
+    "previous": "20261021T125632",
+    "source_commit": "561e978121790e2c8375d98af9b6ccdc3e94c8e3",
+    "tag": "v2026.10.21-eopl-chapters-reviewed",
+    "previous_source_commit": "64d359bb2ff7a370e687470550ac65b43a33f777",
+    "previous_archive_sha256": "a41e7454badbf7bab9f457125aee0ca6181216bb0998ce442ddd371acd8e6181",
+    "previous_policy_sha256": "eac0d803f29f69a5399ee2f33fb9a5fb6254ed6e70eaec6662ae631f56dcef69",
+    "policy_sha256": "375100f14135e6432257fad1397ad0ebac846259dc831f3d73075f3f0ff11420",
+    "administrator_snippet_sha256": "8c8a40dd1dcc0a16541a2d47bb38037787e57ad0859bc27ad8ffe5c7f3704dd2",
+    "server_program_sha256": {
+      "/usr/local/sbin/reading-notes-publish": "6be8f867262f53dcaf85c76b45344e826ed0c751ceac4e6cf0d4e2ad2da50a14",
+      "/usr/local/lib/reading-notes/deploy/scripts/publish_release.py": "231323c345424d274dc19bee4df8568d6e9ca555136b8119169af85ba3f2665d"
+    },
+    "archive_sha256": "62f16449dd6e6166a3dabe2a587c39982fe732da556a360cb3b4e8fc95f75584",
+    "status": "passed",
+    "public_http": {
+      "status": "pass",
+      "report": "tmp/eopl-merge-review-20261021/public-http.json",
+      "sha256": "95f7d04c9c6ccd8b15db073bc2daa742cca339362c1a42dbd655428169651c46",
+      "files_checked": 513,
+      "entry_redirects": 18,
+      "pdf_ranges": 2,
+      "precompressed_files": 196,
+      "transport_retries": [
+        {
+          "method": "GET",
+          "path": "/weiss/notes/chapter03_lists_stacks_queues.html",
+          "retry": 1,
+          "error": "TimeoutError"
+        }
+      ]
+    },
+    "server": {
+      "report": "tmp/eopl-merge-review-20261021/server-after.json",
+      "sha256": "3702140d97ab0f9299875637682373bf73dc7108b2a43c4d92eab3d9529c74f3"
+    },
+    "predeploy": {
+      "report": "tmp/eopl-merge-review-20261021/predeploy-acceptance.json",
+      "sha256": "e3f9a74d74d8408c6c8be95fc309b2b7c54879881726b4100dc7ade9b3af2915"
+    },
+    "browser": {
+      "report": "tmp/eopl-merge-review-20261021/public-focused-browser.json",
+      "sha256": "955eda429cbda140688849f07dd18feb9f8f5460862cfe2e9aeac518dd2a7c6a"
+    },
+    "interactions": {
+      "report": "tmp/eopl-merge-review-20261021/public-interactions.json",
+      "sha256": "9529a08e1390b7fe81211e9042614daffb2cd871303b96837eb7b9e1c27604ff"
+    },
+    "public_views": 8,
+    "source_downloads": 4,
+    "native_code_folding_cases": 4,
+    "active_worktrees": "primary main only; managed temporary worktrees archived",
+    "visual_spotchecks": [
+      "public-ex-1-1-390.png",
+      "public-ast-2-1440.png",
+      "public-ex-2-18-390.png"
     ]
   }
 }
