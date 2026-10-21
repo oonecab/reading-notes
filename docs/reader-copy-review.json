@@ -1,6 +1,6 @@
 {
   "issue": "I046",
-  "status": "locally_verified_publication_pending",
+  "status": "published_and_verified",
   "baseline_git": "3064e29e84f5e2ba60fdfbb4bb7389dfcb9ff084",
   "scope": "All 58 reading pages across six books inspected; maintenance wording and links revised in 15 pages; Weiss auxiliary reading guide now presents reading instructions and chapter navigation. All 80 public HTML pages are checked during build.",
   "source_sha256": {
@@ -848,6 +848,26 @@
     "accepted_files": {
       "report": "tmp/reader-copy-20261021/accepted-dist-files.json",
       "sha256": "52f74d0b95be06643812e4c125c970480538a698d7546247bcd3bdfd7edb0f4f"
+    },
+    "predeploy": {
+      "report": "tmp/reader-copy-20261021/predeploy-acceptance.json",
+      "sha256": "40c75e8baeee5a215b72a933802e2a418eef9bf672e3ae069f0a48a0d57855ff"
+    },
+    "server": {
+      "report": "tmp/reader-copy-20261021/server-after.json",
+      "sha256": "dc44f0059e1ed8619492dc486e9a2f4f5ef38499eaa90169f53e2e0289c96d40"
+    },
+    "normal_domain": {
+      "report": "tmp/reader-copy-20261021/public-verification.json",
+      "sha256": "1d1a2cdbbfb945fbfaad1cd49ce5f0c7499d643f82dbd25f83e6f6bd05f305ca"
+    },
+    "public_browser": {
+      "report": "tmp/reader-copy-20261021/public-browser.json",
+      "sha256": "ade64d0e4c3f4954411e88633a3e16f664981e9042cd09dc9de5f4c777b150f6"
+    },
+    "public_auxiliary": {
+      "report": "tmp/reader-copy-20261021/public-auxiliary-browser.json",
+      "sha256": "4d9f1355d5483fe4c6eb75b641c0596701c0891d75a8a70d9f078ba6c076e5fd"
     }
   },
   "auxiliary_output_sha256": {
@@ -861,5 +881,26 @@
     "no_js_chapter_navigation": true,
     "full_program_suite_rerun": false,
     "reason": "Text and reader-guide changes only; all program blocks and maintained program source files unchanged."
+  },
+  "publication": {
+    "release_id": "20261021T095146",
+    "previous": "20261021T024246",
+    "source_commit": "c2784f93af30cc86618585b2d6850e13447f4e3d",
+    "tag": "v2026.10.21-reader-copy",
+    "previous_source_commit": "bc442bb42e679bc8ad448d7dd3cf4b426d506465",
+    "previous_archive_sha256": "c8fcbaf3c0a55e5bb29de649ed0a2ea560f8aeda4b4c271a88827582d867857a",
+    "previous_policy_sha256": "eac0d803f29f69a5399ee2f33fb9a5fb6254ed6e70eaec6662ae631f56dcef69",
+    "policy_sha256": "eac0d803f29f69a5399ee2f33fb9a5fb6254ed6e70eaec6662ae631f56dcef69",
+    "administrator_snippet_sha256": "8c8a40dd1dcc0a16541a2d47bb38037787e57ad0859bc27ad8ffe5c7f3704dd2",
+    "archive_sha256": "74cc053aadedff4a7b11effe06edac8c8ed1ce85f77425afd7cf28e10368c2a7",
+    "normal_domain_files_checked": 505,
+    "public_browser_views": 32,
+    "public_no_js_navigation": true,
+    "rollback_release_retained": true,
+    "unchanged_files_keep_mtime": 477,
+    "changed_files_distinct_mtime": 34,
+    "server_files_verified": 511,
+    "nginx_and_policy_unchanged": true,
+    "deploy_and_health": "passed"
   }
 }
