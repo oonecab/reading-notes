@@ -2324,16 +2324,16 @@
   ],
   "files": {
     "notes/remaining_explanation_review.json": {
-      "bytes": 834622,
-      "sha256": "b8c99fb8e0e3551210d8f7bab62142c8efbf19930a139082eecfe1aa21d1cad7"
+      "bytes": 835332,
+      "sha256": "ea89cd9ef33eb0fbabb813becf05827e1cc31820683ba3bd9651b9fdad7aca6f"
     },
     "notes/chapter01_explanation_review.json": {
-      "bytes": 188597,
-      "sha256": "08b42d8e81f04fae276d7116c05071863ae1a856bfcb5c01e5e80ff6275b80f9"
+      "bytes": 189307,
+      "sha256": "a379d23ccd91618c46a70fc9d5338bd4598b1232af5ab190d6745fc1b5a63efa"
     },
     "notes/derivation_coverage.json": {
       "bytes": 356352,
-      "sha256": "9f83c41bb2eaea83462d749e6a92df2fcb2497cce7f6767d3f9503f68e4c4842"
+      "sha256": "d7a397da93a3b4e82f02d7be0b74f63fa77339a04ad1a451856a995389c802e9"
     },
     "tools/derivation_coverage.py": {
       "bytes": 15791,
@@ -2344,8 +2344,8 @@
       "sha256": "0abcb345d1665a5759c23eaefe4b1c0a63730d14dd201b83bd12b94fded09681"
     },
     "tools/content_baseline.json": {
-      "bytes": 2889428,
-      "sha256": "a951a5f0724359dc1212dd43f5a8525739f791c40fb45c21f715c389c7ed6f57"
+      "bytes": 2905887,
+      "sha256": "4d3bdd4b29d24845cd428dbaa8bfb1f10abe04330cbdc5df8e96ad6aae739e08"
     }
   },
   "publication": "Local review only; no commit, push or deployment.",
@@ -6026,5 +6026,11 @@
     "prior_record_git": "5435131c1e6e78c1d56383a8ee513eaddfeaa29f:books/stochastic/notes/derivation_review.json",
     "prior_record_sha256": "53f5671d94bb5d506b373f3a4b97aac5ae13867e4dd034ce3cd21ec96729dfd9",
     "scope": "Current code-font bindings: restored original monospace families and code sizing. All changes are inside expanded styles; controlled HTML, programs, questions, formulas, diagrams, source links, scripts and anchors are byte-identical. Historical execution claims retain their original scope; new acceptance is recorded in docs/code-font-review.json"
+  },
+  "I050_math_notation_revision": {
+    "issue": "I050",
+    "prior_record_git": "34c4fcc150aea4112fb9f4ffa1600e2e4253d524:books/stochastic/notes/derivation_review.json",
+    "prior_record_sha256": "d34d4eeb8828ea3cefa8ade586662d0f7b6e5433e4674b6f9f354ca0f278b04a",
+    "scope": "Current mathematical-presentation bindings: reviewed variable products, named functions, complete scripts and TeX conversion remnants. All source changes match the exact replacement ledger; preformatted program bytes, diagrams, links, scripts and anchors are preserved. Historical source/proof/execution claims retain their original scope; new presentation acceptance is recorded in docs/math-notation-review.json"
   }
 }

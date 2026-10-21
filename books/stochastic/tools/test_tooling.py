@@ -54,10 +54,13 @@ class RegressionTests(unittest.TestCase):
             (root/'code/programs.json').write_text(json.dumps(manifest))
             valid='<code title="x &gt; y" id="a-c" data-language="c">int a=0;\n</code><code id="a-python" data-language="python">a=0\n</code>'
             with patch.object(sync_code,'ROOT',root):
-                for mutated in [valid+'<code>stale old program</code>',valid.replace('data-language="c"','data-language="python"')]:
+                for mutated in [valid+'<code>stale old program</code>',
+                                valid+'<pre><code>stale old program</code></pre>',
+                                valid+'<p><code id="unknown">a.c</code></p>',
+                                valid.replace('data-language="c"','data-language="python"')]:
                     (root/'notes/a.html').write_text(mutated)
                     with self.assertRaises(ValueError):sync_code.synchronize()
-                (root/'notes/a.html').write_text(valid.replace('&gt;','>'))
+                (root/'notes/a.html').write_text(valid.replace('&gt;','>')+'<p>运行 <code>a.py</code>。</p>')
                 self.assertEqual(sync_code.synchronize()['differences'],[])
 
     def test_content_mutation_and_empty_math_are_detected(self):

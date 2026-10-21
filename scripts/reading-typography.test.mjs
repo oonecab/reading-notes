@@ -48,3 +48,16 @@ test('typography guard rejects raw math, malformed scripts and missing font rule
   assert.throws(()=>checkTypography(style+'<math><msub><mi>E</mi></msub></math>'),/operands/);
   assert.doesNotThrow(()=>checkTypography(style+'<pre><code>x_3 = 1</code></pre>'+math('E₃')));
 });
+
+test('reviewed group products use variables while ordinary words stay prose',()=>{
+  assert.equal(presentation('frf',{products:['frf']}),'<mrow><mi>f</mi><mi>r</mi><mi>f</mi></mrow>');
+  assert.equal(presentation('Group Explorer'),'<mrow><mtext>Group</mtext><mtext>Explorer</mtext></mrow>');
+  assert.match(presentation('bta²'),/<mi>b<\/mi><mi>t<\/mi><msup><mi>a<\/mi><mn>2<\/mn>/);
+});
+test('Greek indices, nested powers and indexed roots keep their real operands',()=>{
+  assert.equal(presentation('α_h^2'),'<msubsup><mi>α</mi><mi>h</mi><mn>2</mn></msubsup>');
+  assert.match(presentation('r^{u^j k}'),/<msup><mi>r<\/mi><mrow><msup><mi>u<\/mi><mi>j<\/mi><\/msup><mi>k<\/mi>/);
+  assert.match(presentation('p^{a_p}'),/<msup><mi>p<\/mi><msub><mi>a<\/mi><mi>p<\/mi>/);
+  assert.equal(presentation('r=⁵√2'),'<mrow><mi>r</mi><mo>=</mo><mroot><mn>2</mn><mn>5</mn></mroot></mrow>');
+  assert.equal(presentation('inf_n'),'<msub><mi mathvariant="normal">inf</mi><mi>n</mi></msub>');
+});

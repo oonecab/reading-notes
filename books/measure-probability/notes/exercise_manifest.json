@@ -418,7 +418,7 @@
       "page": "chapter02_measure_spaces.html",
       "anchor": "ex-2-10",
       "subparts": 0,
-      "question_sha256": "ccf76f60d7c33715c8d31f063b89733e9aaebe62e3b29e9f6322d023cf7a2d4d",
+      "question_sha256": "bfeed4deb513f072a9f5c706a9cfd896aa8c2b70538d389c6da8410b5d47954e",
       "status": "reviewed_locally"
     },
     {
@@ -430,7 +430,7 @@
       "page": "chapter02_measure_spaces.html",
       "anchor": "ex-2-11",
       "subparts": 0,
-      "question_sha256": "7d3a09f619221c95bf00f71a7e2156b1e75ccfc66382e656ffeac0a6f4fdfbaf",
+      "question_sha256": "4441e453445166b0d865c633c67052f16c8492cc282627936292ed86926d5c1f",
       "status": "reviewed_locally"
     },
     {
@@ -1462,7 +1462,7 @@
       "page": "chapter05_product_spaces.html",
       "anchor": "ex-5-7",
       "subparts": 0,
-      "question_sha256": "29c727de61c75933ea9d9447890c5b4c7a23f24b0e0021db2bf96c12ab20a9ca",
+      "question_sha256": "f5a2dbaebd14577070aabb20eb3edca87076430320166c7e0fa2313300d5db67",
       "status": "written"
     },
     {
@@ -1774,7 +1774,7 @@
       "page": "chapter06_independent_sequences.html",
       "anchor": "ex-6-5",
       "subparts": 0,
-      "question_sha256": "551183a0719b89d4fb530028e63216eae07db377147a7c59cc17ecfe3691e425",
+      "question_sha256": "1d295ba1395144664b3801ed8a61f006d40a082b9d5a7cfe45f8c863799badeb",
       "status": "written"
     },
     {
@@ -1810,7 +1810,7 @@
       "page": "chapter06_independent_sequences.html",
       "anchor": "ex-6-8",
       "subparts": 0,
-      "question_sha256": "e26fdb83d57f618d429b707b0088e16282390812cec69d52e1480eefe9d6ccd3",
+      "question_sha256": "3a058829140ed47d8641962ce419e85e783d440b155f5a0ca99cdb8024593597",
       "status": "written"
     },
     {
@@ -1822,7 +1822,7 @@
       "page": "chapter06_independent_sequences.html",
       "anchor": "ex-6-9",
       "subparts": 0,
-      "question_sha256": "0b946f887165730803efe422a2ba0c39bc4e3d511b3efadda7b3c45566f7e30e",
+      "question_sha256": "331fb55a6b2525f198577860b57774843fc12d8ddb32724f4f8d8b2a3e93820d",
       "status": "written"
     },
     {
@@ -1846,7 +1846,7 @@
       "page": "chapter06_independent_sequences.html",
       "anchor": "ex-6-11",
       "subparts": 0,
-      "question_sha256": "bec4d66b9d407eee14d4523e24a486ee8a072a99ef030d8e034af3ee2e6f526e",
+      "question_sha256": "93dd5001e602bba9bfafe19ffab67544af70952c19e48accc50c692a347e9da4",
       "status": "written"
     },
     {
@@ -2060,5 +2060,11 @@
     "prior_record_sha256": "688e7ac95ee50f2ec4e4d55f280abe242e4a65d4eef29fa30352f45a442fc10c",
     "scope": "Rendering-only rebinding after full prose, question identity and program preservation verification. Native MathML and SVG baseline-shift replace plain mathematical text.",
     "review": "docs/reading-typography-review.json"
+  },
+  "I050_math_notation_revision": {
+    "issue": "I050",
+    "prior_record_git": "34c4fcc150aea4112fb9f4ffa1600e2e4253d524:books/measure-probability/notes/exercise_manifest.json",
+    "prior_record_sha256": "f887dc087c53c6cffeae42eb90ac0114b427b17e493e4e7f2bfdb6192ca12d03",
+    "scope": "Current mathematical-presentation bindings: reviewed variable products, named functions, complete scripts and TeX conversion remnants. All source changes match the exact replacement ledger; preformatted program bytes, diagrams, links, scripts and anchors are preserved. Historical source/proof/execution claims retain their original scope; new presentation acceptance is recorded in docs/math-notation-review.json"
   }
 }

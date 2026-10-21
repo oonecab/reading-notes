@@ -1406,40 +1406,40 @@
   },
   "files": {
     "notes/appendix_a_probability_review.html": {
-      "bytes": 318328,
-      "sha256": "fe69a2a80c27d4262e967fdfb6971ab2554920bb9b828f1f77dbdbeee522bc96"
+      "bytes": 323047,
+      "sha256": "5ad81c1c7740bbfe52d2c4558107d120d88c84e0ee14841df2c12f38d970ea80"
     },
     "notes/book_overview.html": {
-      "bytes": 62713,
-      "sha256": "b19af7929f2b7df5d0913489fec3a73469e99239e48a8241428f95e027a3f69a"
+      "bytes": 62857,
+      "sha256": "cfbcf13fd3adbbc0aafd695a720e3c5d70eb0ab5044877dc011cdc8511a85791"
     },
     "notes/chapter01_markov_chains.html": {
-      "bytes": 2294848,
-      "sha256": "f7bf2247b2cd5a473ac29b4ae5f998fc2200c954b43ae0ea47e0651884ab9811"
+      "bytes": 2296176,
+      "sha256": "c25e5feac97e8c08593424264efe0287aa396df4893e44aa260f1c7e078f2752"
     },
     "notes/chapter02_poisson_processes.html": {
-      "bytes": 794536,
-      "sha256": "92885f48edb5b1c8f14814dcc027aab1d054fd421dd2af5676c5502db238e441"
+      "bytes": 795842,
+      "sha256": "077cb79472c8ef3c156acfbc838395f148979732509d69d5e22e6e1442894dd4"
     },
     "notes/chapter03_renewal_processes.html": {
-      "bytes": 431464,
-      "sha256": "1f3c280f52ee89c7e31af64cacdb04cc64802beb1fe2132a306d75184d158217"
+      "bytes": 432328,
+      "sha256": "46c6e6d806b819c948fe070bbfe03d88e3b7c21201e6dc1e481efcc824c5809a"
     },
     "notes/chapter04_continuous_time_markov_chains.html": {
-      "bytes": 1111885,
-      "sha256": "42bfec4604c7f80cf71e20ff01c24a30d2d54df8c5605dd3e9eeb96a8966074e"
+      "bytes": 1113330,
+      "sha256": "963da84f6ab6e2516c707b296df4378922cf0b5c6a62254bc5b87d28bdd7557d"
     },
     "notes/chapter05_martingales.html": {
-      "bytes": 528619,
-      "sha256": "fcca199cdb5adf74bc1616d11e9ce68ea7a4807ad4cd0810058e581b04534ac0"
+      "bytes": 536723,
+      "sha256": "2fbe2a353db34d59ca21f30bf208f6cc831beb24206612a60fb80e6113fbdf75"
     },
     "notes/chapter06_mathematical_finance.html": {
-      "bytes": 1337569,
-      "sha256": "3d31f6ce67ad9dde465da87fd5e41480dd25d6ec883a20ff9daecc857ff620d0"
+      "bytes": 1340356,
+      "sha256": "bcf4b79b0c82cd642702a3a97fb4bdc6dc3cbbe9dd98d23854f9dfe349753c36"
     },
     "notes/preface.html": {
-      "bytes": 51205,
-      "sha256": "f736f72070d2dd480f62b29994a9e4404127361fb6c6b3f32c0e2b9de0d0d1a1"
+      "bytes": 51336,
+      "sha256": "d0133e58134e9caeffdf210cde02cbcb5cf5c3d6158672138d0e25f732e2ccce"
     },
     "agent.md": {
       "bytes": 7102,
@@ -1458,8 +1458,8 @@
       "sha256": "0abcb345d1665a5759c23eaefe4b1c0a63730d14dd201b83bd12b94fded09681"
     },
     "tools/sync_code.py": {
-      "bytes": 4837,
-      "sha256": "f04a7ee6e4f49482128f03cfb996036f7ac6b1107765c3a058f089a4c78efe12"
+      "bytes": 5713,
+      "sha256": "5f1b68976543ac80f13d7090dd323a0b846380fa731182e480009fb56d3b9ea9"
     },
     "deploy/build_release.py": {
       "bytes": 6691,
@@ -1570,8 +1570,8 @@
       "sha256": "2232660e1909b42c6df8b5aca8eba12cdb383bf3741ecb53add49f6c26c6a0e7"
     },
     "notes/audit_fix_review.json": {
-      "bytes": 264348,
-      "sha256": "18e83d24e65396116ec81242ae2da429e67a6a6999db95e16c607618b27b3c2e"
+      "bytes": 265190,
+      "sha256": "44c07dd8280eec36dc78e492e52c8f955e8c69f08f7a976ca3245e70690427b6"
     }
   },
   "review_history": [
@@ -6585,5 +6585,11 @@
     "prior_record_git": "5435131c1e6e78c1d56383a8ee513eaddfeaa29f:books/stochastic/notes/code_deployment_review.json",
     "prior_record_sha256": "4bdb75a1120b28c0df8d56505c2a3245179b9d904424a0aa200f26bab782d7e3",
     "scope": "Current code-font bindings: restored original monospace families and code sizing. All changes are inside expanded styles; controlled HTML, programs, questions, formulas, diagrams, source links, scripts and anchors are byte-identical. Historical execution claims retain their original scope; new acceptance is recorded in docs/code-font-review.json"
+  },
+  "I050_math_notation_revision": {
+    "issue": "I050",
+    "prior_record_git": "34c4fcc150aea4112fb9f4ffa1600e2e4253d524:books/stochastic/notes/code_deployment_review.json",
+    "prior_record_sha256": "1c73898784983feed62c56bbdb8e3c7fcf51cb5e0cfa24b63592b50488682a2c",
+    "scope": "Current mathematical-presentation bindings: reviewed variable products, named functions, complete scripts and TeX conversion remnants. All source changes match the exact replacement ledger; preformatted program bytes, diagrams, links, scripts and anchors are preserved. Historical source/proof/execution claims retain their original scope; new presentation acceptance is recorded in docs/math-notation-review.json"
   }
 }

@@ -8,18 +8,19 @@ const superTo =   '0123456789+−=()niabcdefghjklmoprstuvwxyz';
 const scripts = new Map([...subFrom].map((c,i)=>[c,{kind:'sub',text:subTo[i]}]).concat([...superFrom].map((c,i)=>[c,{kind:'sup',text:superTo[i]}])));
 for(const c of 'ᴬᴮᴰᴱᴳᴴᴵᴶᴷᴸᴹᴺᴼᴾᴿᵀᵁⱽᵂ')scripts.set(c,{kind:'sup',text:c.normalize('NFKC')});
 export const rawScript = new RegExp(`[${[...scripts.keys()].join('')}]`, 'u');
-const functions = new Set('log ln exp sin cos tan cot sec csc sinh cosh tanh lim sup inf max min mod gcd lcm det dim rank ker Ker im Im sgn Sym Gal Aut Hom End GL SL SO SU O Pr Var Cov E P Re Im diag trace tr span CF ZF SF OF'.split(' '));
+const functions = new Set('B2U B2T T2U U2T TMin TMax Bias limsup liminf deg log ln exp sin cos tan cot sec csc sinh cosh tanh lim sup inf max min mod gcd lcm det dim rank ker Ker im Im sgn Sym Stab Orb Perm Gal Aut Hom End GL SL SO SU O Pr Var Cov E P Re Im diag trace tr span CF ZF SF OF'.split(' '));
 const ordinary = new Set('the and for not in of to is as or if at on an by be so int let def all new get set end sub add mul xor pop mov cmp ret out bit map was has can any one two ten die its are may but you our via use per sum CPU PDF EOF TCP UDP GET PUT URL URI API AST SSA CPS LET'.split(' '));
-const operator = /^[+\-−=<>≤≥≠≈≡≅≃∼∝±∓×÷·⋅*/\\∕∈∉∋⊂⊆⊃⊇⊊⊋∪∩∅∞↦→←↔⇒⇐⇔∘√∣|∧∨¬∀∃∑Σ∏∫∮∂∇!%:;,′″‴⋯…⊕⊗⊙◁▷⊲⊳⊥∥∤∴∵≔≜≪≫⌊⌋⌈⌉()[\]{}⟨⟩〈〉]$/u;
+const operator = /^[+\-−=<>≤≥≠≈≡≅≃∼∝±∓×÷·⋅*/\\∕∈∉∋⊂⊆⊃⊇⊊⊋∪∩∅∞↦→←↔⇒⇐⇔∘√∣|∧∨¬∀∃∑Σ∏⋂⋃∫∮∂∇!%:;,′″‴⋯…⊕⊗⊙◁▷⊲⊳⊥∥∤∴∵≔≜≪≫⌊⌋⌈⌉()[\]{}⟨⟩〈〉]$/u;
 const atom = (tag,value,attrs='')=>`<${tag}${attrs}>${escape(value)}</${tag}>`;
 const row = parts=>parts.length===1?parts[0]:`<mrow>${parts.join('')}</mrow>`;
 
 // Keep words, filenames, paths and program identifiers out of mathematical runs.
 // ASCII ^ / _ are interpreted only by this authoring function, never inside code.
-function lex(text) {
+function lex(text, {products=[], mathContext=false}={}) {
   const result=[];
   for(let i=0;i<text.length;){
     const rest=text.slice(i);let m;
+    if((m=rest.match(/^\uE000(\d+)\uE001/))){result.push({kind:'atom',raw:m[0],index:Number(m[1])});i+=m[0].length;continue;}
     if((m=rest.match(/^\s+/))){result.push({kind:'space',raw:m[0]});i+=m[0].length;continue;}
     if((m=rest.match(/^(?:pp?\.\s*(?:\d+(?:[–−-]\d+)?|[ivxlcdm]+)|[A-Z]\.\d+(?:\.\d+)*|C\/Python|I\/O)\b/i))||
        (!text.slice(0,i).trim()&&(m=rest.match(/^(?:\([a-z]\)|[a-z]\.)\s+/)))){
@@ -41,22 +42,23 @@ function lex(text) {
     }
     if((m=rest.match(/^[A-Za-z][A-Za-z0-9]*(?:_[A-Za-z0-9]+)*/))){
       const value=m[0];
-      const singleSub=value.match(/^([A-Za-z])_([A-Za-z0-9]+)$/);
-      if(singleSub){
-        result.push({kind:'identifier',raw:singleSub[1]},{kind:'sub',raw:'_'+singleSub[2],value:singleSub[2]});
+      const singleSub=value.match(/^([A-Za-z][A-Za-z0-9]*)_([A-Za-z0-9]+)$/);
+      if(singleSub&&singleSub[1].length>1&&!functions.has(singleSub[1]))singleSub[0]='';
+      if(singleSub?.[0]){
+        result.push({kind:functions.has(singleSub[1])?'function':'identifier',raw:singleSub[1]},{kind:'sub',raw:'_'+singleSub[2],value:singleSub[2]});
       }else {
-        const adjacent=/^[()[\]{}+\-−=<>≤≥≠≈≡∈×*/^⁰-ⁿ₀-ₜ]/u.test(rest.slice(value.length))||/[()[\]{}+\-−=<>≤≥≠≈≡∈×*/^]$/.test(text.slice(0,i));
+        const adjacent=scripts.has(rest[value.length])||/^[()[\]{}+\-−=<>≤≥≠≈≡∈×*/^⁰-ⁿ₀-ₜ]/u.test(rest.slice(value.length))||/[()[\]{}+\-−=<>≤≥≠≈≡∈×*/^]$/.test(text.slice(0,i));
         const kind=value.length===1?'identifier':functions.has(value)?'function':/^[A-Za-z]{2,3}$/.test(value)&&!ordinary.has(value)&&adjacent?'product':'word';
-        if(kind==='product')result.push(...[...value].map(c=>({kind:'identifier',raw:c})));
+        if(kind==='product'||products.includes(value))result.push(...[...value].map(c=>({kind:'identifier',raw:c})));
         else result.push({kind,raw:value});
       }
       i+=value.length;continue;
     }
-    if(/[Α-ωϑϕϖϵϱℓℝℤℕℚℂℙ𝔼ℱℋ]/u.test(text[i])){
+    if(/[Α-ωϑϕϖϵϱℓℝℤℕℚℂℙ𝔼ℱℋℬ]/u.test(text[i])){
       result.push({kind:'identifier',raw:text[i]});i++;continue;
     }
     if((text[i]==='_'&&(['{','('].includes(text[i+1])||
-       (result.at(-1)?.kind==='identifier'&&/^_[A-Za-z0-9](?![A-Za-z0-9_])/.test(rest))))||text[i]==='^'){
+       ((mathContext||result.at(-1)?.kind==='identifier')&&/^_[A-Za-z0-9](?![A-Za-z0-9_])/.test(rest))))||text[i]==='^'){
       result.push({kind:text[i]==='_'?'submark':'supmark',raw:text[i++]});continue;
     }
     if(operator.test(text[i])){
@@ -67,21 +69,27 @@ function lex(text) {
   return result;
 }
 
-export function presentation(text) {
+export function presentation(text, options={}) {
   // Presentation-only parser: parentheses remain visible; it never reorders terms.
-  const tokens=lex(text).filter(t=>t.kind!=='space');let pos=0;
+  const tokens=lex(text,{...options,mathContext:true}).filter(t=>t.kind!=='space');let pos=0;
   function sequence(stop) {
     const out=[];
     while(pos<tokens.length&&tokens[pos].raw!==stop)out.push(unit());
     return out;
   }
-  function unit(){
+  function unit(allowScripts=true){
     const t=tokens[pos++];let base;
     const pairedBar=['|','∣'].includes(t.raw)&&tokens.slice(pos).some(n=>n.raw===t.raw);
-    if(['(','[','{'].includes(t.raw)||pairedBar){
+    if(t.kind==='atom'){
+      base=options.atoms?.[t.index];if(!base)throw new Error('Missing explicit MathML atom');
+    }else if(['(','[','{'].includes(t.raw)||pairedBar){
       const closing=pairedBar?t.raw:{'(':')','[':']','{':'}'}[t.raw],inside=sequence(closing);
       const end=tokens[pos]?.raw===closing?tokens[pos++].raw:'';
       base=row([atom('mo',t.raw),...inside,...(end?[atom('mo',end)]:[])]);
+    }else if(['∛','∜'].includes(t.raw)&&tokens[pos]){
+      base='<mroot>'+unit()+atom('mn',t.raw==='∛'?'3':'4')+'</mroot>';
+    }else if(t.kind==='sup'&&tokens[pos]?.raw==='√'){
+      pos++;base='<mroot>'+unit()+presentation(t.value,options)+'</mroot>';
     }else if(t.raw==='√'&&tokens[pos]&&!['=',',',';'].includes(tokens[pos].raw)){
       base='<msqrt>'+unit()+'</msqrt>';
     }else if(t.kind==='number')base=atom('mn',t.raw);
@@ -91,13 +99,14 @@ export function presentation(text) {
     else base=atom('mo',t.raw==='-'?'−':t.raw==='\\'?'∖':t.raw);
     while(tokens[pos]?.kind==='accent')base='<mover accent="true">'+base+atom('mo',tokens[pos++].value)+'</mover>';
     let sub=null,sup=null;
-    while(pos<tokens.length&&['sub','sup','submark','supmark'].includes(tokens[pos].kind)){
+    while(allowScripts&&pos<tokens.length&&['sub','sup','submark','supmark'].includes(tokens[pos].kind)){
+      if(tokens[pos].kind==='sup'&&tokens[pos+1]?.raw==='√')break;
       const script=tokens[pos++];let markup;
-      if(script.value!==undefined)markup=presentation(script.value);
+      if(script.value!==undefined)markup=presentation(script.value,options);
       else if(['{','('].includes(tokens[pos]?.raw)){
         const closing=tokens[pos++].raw==='{'?'}':')';
         markup=row(sequence(closing));if(tokens[pos]?.raw===closing)pos++;
-      }else if(tokens[pos])markup=unit();
+      }else if(tokens[pos])markup=unit(false);
       else throw new Error('Missing script argument: '+text);
       if(script.kind.startsWith('sub'))sub=markup;else sup=markup;
     }
@@ -109,8 +118,8 @@ export function presentation(text) {
   return row(sequence(null));
 }
 
-export function math(text,{annotation=false}={}) {
-  const body=presentation(text);
+export function math(text,{annotation=false,...options}={}) {
+  const body=presentation(text,options);
   return `<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="${escape(text)}" display="inline">${annotation?`<semantics>${body}<annotation encoding="text/plain">${escape(text)}</annotation></semantics>`:body}</math>`;
 }
 
