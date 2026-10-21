@@ -1,0 +1,597 @@
+{
+  "issue": "I049",
+  "status": "locally_verified_publication_pending",
+  "baseline_git": "5435131c1e6e78c1d56383a8ee513eaddfeaa29f",
+  "scope": "All 58 published reading pages and their auxiliary program guides: original monospace code typography restored; prose and mathematical font contracts retained.",
+  "source_sha256": {
+    "csapp/notes/book_overview.html": "a49db04cd4dba9eed52261b31828fc9d0632c6e791e708e2f4829fa05dd0c6f8",
+    "csapp/notes/chapter01_tour.html": "975f22e862aa48df0ccb545644ad0a46c8e308a25ffb75aca20d8ca672bc8d16",
+    "csapp/notes/chapter02_information.html": "ad69c0844cfee3bb9256cddced4f5fb1a423ad80007d355a2388b38adc51d46c",
+    "csapp/notes/chapter03_machine_level.html": "d5c3daa8fb22c3fb867858bdfc7db4fde6f013f188673b66fb523e42edc4ce0c",
+    "csapp/notes/chapter04_architecture.html": "fd49d60d1fe33d0835799db123303dcd316d6bad42c98ca2f0f7c75fb9980463",
+    "csapp/notes/chapter05_optimization.html": "520c5e6736e059cced66079eec61a490409afdec8c42fd9a94d0d6233728699d",
+    "csapp/notes/chapter06_memory.html": "add80263288b06f77237f83b71ec8fc383ddac0d09b953ca099a599e89e2ecec",
+    "csapp/notes/chapter07_linking.html": "4d52d39504dee930e1b6c0d3ff190f514719aec6a8d64e265641adf74444de57",
+    "csapp/notes/chapter08_exceptional.html": "6a9d9305fcc3137adf2ff0af4b91a370b06fb4ece0b8f832084673d7a2fa437e",
+    "csapp/notes/chapter09_virtual_memory.html": "ea152dbe474782f47a88579d9979895cfe056ee429567009258964d868ed0b59",
+    "csapp/notes/chapter10_system_io.html": "689e91f1ff0e6abc1a70c7d2248f3aab1657020cf800fd94777eb8de60fae399",
+    "csapp/notes/chapter11_network.html": "c7261659e61268af07c26111a25c7d7cce35554d554ee84c18d05f8874c480fb",
+    "csapp/notes/chapter12_concurrency.html": "2cef5577cab88c9bb9ede66b0c610f0356d5e1923785baa9bbe133728d2c5790",
+    "csapp/notes/preface.html": "79e42aee178eb6e5ab6149177c83a1899892d7f3f6f38846b2dc236322b498f7",
+    "eopl/notes/book_overview.html": "0ca52d31683e1083897e1f355fed74964b4f6978139a12007077f23a0a45c4a6",
+    "eopl/notes/preface.html": "83bc2553e648ef94813e83b03c6239f53dda44c3e24c546d41911bd7a19d8d43",
+    "measure-probability/notes/book_overview.html": "69c3839459bbc380f9dce1841c28ace9c738c2522be8f0b50b887c25b3916bd8",
+    "measure-probability/notes/chapter01_measurable_spaces.html": "bbfe4968d3e662dd29346a2618bc79d9cfea6739f54f64e84cd1173bc14dc9c6",
+    "measure-probability/notes/chapter02_measure_spaces.html": "df33abbf2bfec310d0ecf2e566ef20d1115c87a860469c52bfc02d7b90580f34",
+    "measure-probability/notes/chapter03_integration.html": "542664a52334d842efeda54c91ce395c9ccfddeadde1109cd94f1fedae5b7d99",
+    "measure-probability/notes/chapter04_signed_measures.html": "019cb144419c229843f43e17b776ffd6100e90774606be360bff8b732d1ea29a",
+    "measure-probability/notes/chapter05_product_spaces.html": "16a953bc289e8969310d24fdc6a5452af0e86c57e315f9c54908dbe82d79368e",
+    "measure-probability/notes/chapter06_independent_sequences.html": "7a9b706ecfaf1ed3cc893a5eb0398e43f8d60e92b4bb87b6d175925c245a57d7",
+    "measure-probability/notes/preface.html": "4ec5bc615631b8cd3f651522ebc53442eecfe2e3a73a1bfe5eca7c347747cd9c",
+    "stochastic/notes/appendix_a_probability_review.html": "fe69a2a80c27d4262e967fdfb6971ab2554920bb9b828f1f77dbdbeee522bc96",
+    "stochastic/notes/book_overview.html": "b19af7929f2b7df5d0913489fec3a73469e99239e48a8241428f95e027a3f69a",
+    "stochastic/notes/chapter01_markov_chains.html": "f7bf2247b2cd5a473ac29b4ae5f998fc2200c954b43ae0ea47e0651884ab9811",
+    "stochastic/notes/chapter02_poisson_processes.html": "92885f48edb5b1c8f14814dcc027aab1d054fd421dd2af5676c5502db238e441",
+    "stochastic/notes/chapter03_renewal_processes.html": "1f3c280f52ee89c7e31af64cacdb04cc64802beb1fe2132a306d75184d158217",
+    "stochastic/notes/chapter04_continuous_time_markov_chains.html": "42bfec4604c7f80cf71e20ff01c24a30d2d54df8c5605dd3e9eeb96a8966074e",
+    "stochastic/notes/chapter05_martingales.html": "fcca199cdb5adf74bc1616d11e9ce68ea7a4807ad4cd0810058e581b04534ac0",
+    "stochastic/notes/chapter06_mathematical_finance.html": "3d31f6ce67ad9dde465da87fd5e41480dd25d6ec883a20ff9daecc857ff620d0",
+    "stochastic/notes/preface.html": "f736f72070d2dd480f62b29994a9e4404127361fb6c6b3f32c0e2b9de0d0d1a1",
+    "visual-group-theory/notes/book_overview.html": "4612517b679649ab1d3490749fc4eb12e9449e59191a018963d9fef2edd9b99b",
+    "visual-group-theory/notes/chapter01_what_is_a_group.html": "38970ae1afaf07913f35704095c4fc88af9902c9962841ef94cdd55ec73fbe98",
+    "visual-group-theory/notes/chapter02_what_do_groups_look_like.html": "3181719bb0d2424aac71bb33ad09a1c1cb038651d169ec7811a87a0a4ec6fbca",
+    "visual-group-theory/notes/chapter03_why_study_groups.html": "6c1db096da8efe80521167f197129d59fe074b3bc7d23e7748fea9cf2a05b152",
+    "visual-group-theory/notes/chapter04_algebra_at_last.html": "d007c6ece6a6ec1adb3d1b428787b45cb809636bba53b40f23de17fb831c92e3",
+    "visual-group-theory/notes/chapter05_five_families.html": "f5ddaa3cb27694dfe842e27cf446fc90a424c33f700b55f3a17ea81c23c6f87d",
+    "visual-group-theory/notes/chapter06_subgroups.html": "df48fb620130ae6ad1bd8d65cc1e450de1eff57747d8dd76d91d01be1dc98f03",
+    "visual-group-theory/notes/chapter07_products_and_quotients.html": "57ff321091aec95fe6788038da54186f6ef2488e9cdab1bd4780507709d7e45c",
+    "visual-group-theory/notes/chapter08_homomorphisms.html": "f16ef4f5fc7da87a3eaf73e62dcae4fe63608d4b08b2e3a47cce0077bc006d95",
+    "visual-group-theory/notes/chapter09_sylow_theory.html": "3b3ff74c3f855c1f55a8f62b37ee4f92c315b651bdd36af5b1fb16dd6cc312e7",
+    "visual-group-theory/notes/chapter10_galois_theory.html": "54ce2884510eaab6c46976723ec6e6a58ceb2f8f5dce4fb062582232c5f2477f",
+    "visual-group-theory/notes/preface.html": "bddcb759e75fd46578e38647ec636017119b487351114df05cc6a0df563e7abd",
+    "weiss/notes/book_overview.html": "749733acd8f2acd5477905c72f99f93a2ab9f07664c5dfc54f2637074c2bcdb6",
+    "weiss/notes/chapter01_introduction.html": "cea11756355be175bc71fa4e27b13db4663e34cfd24645b7bf05fe8ea4ebe965",
+    "weiss/notes/chapter02_algorithm_analysis.html": "5ea4b019a9e476b92dc5e244b81dab6688fb8f1411dc103bfcd68d4cf82528bd",
+    "weiss/notes/chapter03_lists_stacks_queues.html": "ef9213ded34b2f41f81b2d199e823b1ffeed6b9c3671772ae34880ee99736bb8",
+    "weiss/notes/chapter04_trees.html": "b9700e49b6cbeebf53f06c403236c2c4cee23d7447fb8274f432df690423b88c",
+    "weiss/notes/chapter05_priority_queues.html": "d45288c3bfd1fa89addca60d9f1bd6f99180f71333b786096be1ead28d3f2f59",
+    "weiss/notes/chapter06_sorting.html": "29d237c152650993d6bc60e299006cf83ca1c219d800909c9f3e17dbd12cb0b6",
+    "weiss/notes/chapter07_hashing.html": "832727f7f87592ac5cfe0055efb1713ace6cc231675be4e36a0ab155195aa162",
+    "weiss/notes/chapter08_disjoint_sets.html": "ca9ad13159ba53e0a8253cfaf1760d4b2d4f3a42af23f7d605bea7addddc96cb",
+    "weiss/notes/chapter09_graph_algorithms.html": "e5bd6c637c33a8e988a09850ad496565112c7bebdf61b5d9e51af1fa78b8236f",
+    "weiss/notes/chapter10_algorithm_design.html": "a2d399d8ca5957bd3251219b319d6f0db83b45f49c6e009504f87ce579a60363",
+    "weiss/notes/chapter11_amortized_analysis.html": "716b67825428a5b4096100e891a81c492caa7f0c00c1d36bcdbb604cfcd55073",
+    "weiss/notes/chapter12_advanced_data_structures.html": "5b5e4ce762d839064cee5ba5ad48e1247bac55f52c15d4e3ac0c057266aa2d4b"
+  },
+  "output_sha256": {
+    "measure-probability/notes/book_overview.html": "789dff029446f42545e7cd6ffa26e0ec2871c926d10a87b19565c8dc3e970505",
+    "measure-probability/notes/chapter01_measurable_spaces.html": "49747e4d10e7a14ca37841b43c19d38d1476f5310a11c62ca57899182f77b1cd",
+    "measure-probability/notes/chapter02_measure_spaces.html": "a7b30df39f11d99b76c98a20e233f0b34c84288ae041c624128a1d0da663c4ef",
+    "measure-probability/notes/chapter03_integration.html": "3ad0d187c425d487b4c75c55dc36927e456ca8ccded96ea96dc124ef609b7fa4",
+    "measure-probability/notes/chapter04_signed_measures.html": "27ac76373750f80bbac40fb456308f3de85bf2a203fd6938f5ede5f5a49b0388",
+    "measure-probability/notes/chapter05_product_spaces.html": "bbf50060e2dfb2c70051bb06b4811e5e482bde10c28d5d46488e26d7e31188c1",
+    "measure-probability/notes/chapter06_independent_sequences.html": "164277e4343d42ead26362a3551e9f6e6c92a32627f771d4ed36eb89eb347c20",
+    "measure-probability/notes/preface.html": "5fb81a7ce0a5bbb29eaeac7102202be8ee90c2a431508102aabb0acc45bcb345",
+    "visual-group-theory/notes/book_overview.html": "939ea93a71f5988cecfad11fbe1d276710888c463eed77aa1346896df4d61de9",
+    "visual-group-theory/notes/chapter01_what_is_a_group.html": "c1a2056e1d941df81dd873efa6d331b3b3dc18eaa4231eb770d65784de2c68aa",
+    "visual-group-theory/notes/chapter02_what_do_groups_look_like.html": "1a9213084320d9474aad5e4a5298f22956c08ce2ec088d6f2b54a419e2e725a1",
+    "visual-group-theory/notes/chapter03_why_study_groups.html": "d56fd2258d9731853e4ebcf83a893beb4157e7eff224e5862e85dcbca0ad533a",
+    "visual-group-theory/notes/chapter04_algebra_at_last.html": "2541714585c3a02af14464f371f9bc7bc405ba4875cf44b71e3091fe8d912298",
+    "visual-group-theory/notes/chapter05_five_families.html": "12781fb5be4f19a3cc24a3d7139d31c80e6e6bae72e276fa7feb9f2199f6f6eb",
+    "visual-group-theory/notes/chapter06_subgroups.html": "630edc651cf5662449d3f39ad7babc29ffe0a91f0e998a0d5200e3980f96aad5",
+    "visual-group-theory/notes/chapter07_products_and_quotients.html": "625014d059567df6656e97a2752fccc018240115cf381eaa9fd86c7b7e2a9e89",
+    "visual-group-theory/notes/chapter08_homomorphisms.html": "f2b1992372150da0edf1e2642a50e3d0e45f3250c6a8fd76d859dc1c140f2af5",
+    "visual-group-theory/notes/chapter09_sylow_theory.html": "3ef197223757acfcbbb2707210b8e91589e6d2c7401cb1b92bc4b517b29db7f7",
+    "visual-group-theory/notes/chapter10_galois_theory.html": "4a9acf4bffd4003e33cf5e13e275b1cc00d7836618b4ffb28a2081848658df79",
+    "visual-group-theory/notes/preface.html": "6328b19184937521a7be213c3395d3fe9394bcfc0f17fa9191a81f2b4961616a",
+    "stochastic/notes/appendix_a_probability_review.html": "76d6f03feddc72fca2db1057f6bc9a92a56f393034465b5c675137d1cc91ae48",
+    "stochastic/notes/book_overview.html": "bdf6caf8322a0e3cb5c161807826f57c75e9de3a332cde931f9d16daefb02af9",
+    "stochastic/notes/chapter01_markov_chains.html": "5cf3cd8043a494ac9283343f13f8d03d96ee12f419bda5d070590c72498f5992",
+    "stochastic/notes/chapter02_poisson_processes.html": "7a6af5b31f7a667e0804831e770763e57bdfcb29044912e3617365788ecf0750",
+    "stochastic/notes/chapter03_renewal_processes.html": "2d67330ef7053a8cecfbca42ff4a5ce9e037e429597e943bb5e877b57a348243",
+    "stochastic/notes/chapter04_continuous_time_markov_chains.html": "cbbf21f11a53c216ff19941fcfd43acb32f1cabf414ba1926d367bdcfd59e048",
+    "stochastic/notes/chapter05_martingales.html": "9982d1cf1758552a96d5ca54bf0e3323a473932f34a5f5717fc71366e2af1584",
+    "stochastic/notes/chapter06_mathematical_finance.html": "8a7cf98ab3479d990f04072dc173e48079b9acaa6b24fa2a1ef9ede16678de90",
+    "stochastic/notes/preface.html": "4f7a935c48f7cd9e7f6446586086efeaf45965b322c844c7e2b141ef4ac460b4",
+    "weiss/notes/book_overview.html": "ebb74a26db870fd543f271b1c41ecc500c0a23f453b5ec1dfe39f2d3b8f854c9",
+    "weiss/notes/chapter01_introduction.html": "50f223dd9bbc944e388e425512f1d88ac5bffa416374e1756876c59dc875b927",
+    "weiss/notes/chapter02_algorithm_analysis.html": "3bc3e380ee4bbf6363b9ee55328b3d6e69ac17e5c2e4b87f6eae60448a0ae165",
+    "weiss/notes/chapter03_lists_stacks_queues.html": "2e35a19a543ee671c0757abed3da4607ff9af486b1848a50baf989f4fd5d8443",
+    "weiss/notes/chapter04_trees.html": "a3bcb028c7de5cf4bc875c7ab657f58f8cd0242551233a1c3e110f70c16f610b",
+    "weiss/notes/chapter05_priority_queues.html": "79d5c8800e2f7abd2ce6d8c294e70d6d414930278c773e30bf04362975759809",
+    "weiss/notes/chapter06_sorting.html": "dbeffec15f0a6f6317756ffbf84468a0075bab6db1fca40631b0dc674c11969d",
+    "weiss/notes/chapter07_hashing.html": "2b995926104256a0ac0fd1daab0e8b9e9f7ce2b0f21af6dc4e5faf65922249b3",
+    "weiss/notes/chapter08_disjoint_sets.html": "5579b88e9d61ef8eb5a0d343bfb55c1727a23f3b61a442a17260faae5e072015",
+    "weiss/notes/chapter09_graph_algorithms.html": "7204e4792e04f3d7d707ce5142fbf3a11b0236de9b6d71ee1c6dee5c517c7854",
+    "weiss/notes/chapter10_algorithm_design.html": "d5b4982d21aacd475372fe5683ade2faf29a391de6d78c82e733cbf7de6cf180",
+    "weiss/notes/chapter11_amortized_analysis.html": "3b62996d71fab06fb1ff9c890653880337c099bc34aecfadbfbf9a1b777960a1",
+    "weiss/notes/chapter12_advanced_data_structures.html": "90231a0229c72caed58c90828cc0e3d6a82ce166f04bbf898a3be218a995a16d",
+    "csapp/notes/book_overview.html": "b1e367e7843a0cfbc846d38266dad6aae6187c8f3977993ede3f622fb21d6b80",
+    "csapp/notes/chapter01_tour.html": "516e54b878feb56c21ca8f3b7263ed2f81e3040402f7971439e3de0937a9134c",
+    "csapp/notes/chapter02_information.html": "d518492386940021926bd2b4eca272744dd0ca07ba4fdfbed77761a41ef0204d",
+    "csapp/notes/chapter03_machine_level.html": "9b64800412d3556e3062bbe05bec4abf251004a41e180d59b5113e6448783279",
+    "csapp/notes/chapter04_architecture.html": "7fde1b94f62d601dc5234d7940bb31399d05019f7a36dfbbbfcbca8d9c3d25a1",
+    "csapp/notes/chapter05_optimization.html": "c987dc8b7f326d26c182b95295b8b51b8a12bb4896d16810e5e4babb48176423",
+    "csapp/notes/chapter06_memory.html": "1e5476816169c55e034d3081a92a517a3eb0dbd2b64ddbdbae0d5abf4e161410",
+    "csapp/notes/chapter07_linking.html": "a8a9a40d01c32aeddb2b7d8db6ae3a4d7f517b40a1ebf29b566673b2db28a82a",
+    "csapp/notes/chapter08_exceptional.html": "a0b146ec37589f78a9c8d564d66398dcbd40a8bb0755fd34121f01b41f4f176c",
+    "csapp/notes/chapter09_virtual_memory.html": "9f1868f2a29ac319cc948225614ecbb574b40cc2cf80cbc057f776c08c0fe851",
+    "csapp/notes/chapter10_system_io.html": "cc406144e4bdab3019dd78f2d4d2a638a16c8ad4a54340459b4bc5628aaaecf1",
+    "csapp/notes/chapter11_network.html": "a4923f23b605969c543fd4c3cff2088e80ade86154a74f26de770264fdfd68be",
+    "csapp/notes/chapter12_concurrency.html": "ecc6991afcb4626665db6b35e45ceba5d1e898f26725316e63ce3f1946d79c6c",
+    "csapp/notes/preface.html": "4cbd965db25ab0449cb2411a6e9d9e8363351a688461458eec0b5c75830df3b6",
+    "eopl/notes/book_overview.html": "f362012fce1371351199e750314f394b3c3af57d776c5d4763f52e6a6b326bfd",
+    "eopl/notes/preface.html": "668c17d514e303b8ea38c02fac8b35057e59c94876b5011626367f39cb0d43e5"
+  },
+  "limitations": [
+    "Font fallback depends on installed platform fonts; the restored original monospace stack was confirmed as Menlo on this Mac.",
+    "Algorithm implementations, prose, MathML, SVG, source links and interaction scripts are byte-preserved; this CSS change does not rerun mathematical or algorithmic correctness reviews.",
+    "Publisher failure and rollback tests are reused from I047 after unchanged-input verification; the new archive receives fresh local HTTPS, server and public checks."
+  ],
+  "preservation": {
+    "status": "passed",
+    "baseline": "5435131c1e6e78c1d56383a8ee513eaddfeaa29f",
+    "pages": 58,
+    "scope": "Controlled HTML sources unchanged; expanded mirrors differ only inside style elements.",
+    "records": [
+      {
+        "route": "csapp/notes/book_overview.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "a174acaa35680c36b95b4b6f2fd68d19d627b29c7cbd8e0db404282ad9e33802",
+        "new_sha256": "a49db04cd4dba9eed52261b31828fc9d0632c6e791e708e2f4829fa05dd0c6f8"
+      },
+      {
+        "route": "csapp/notes/chapter01_tour.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "f70708bd99b72686a9701e3294cc463c254e295b39986c595c727b17a80315d9",
+        "new_sha256": "975f22e862aa48df0ccb545644ad0a46c8e308a25ffb75aca20d8ca672bc8d16"
+      },
+      {
+        "route": "csapp/notes/chapter02_information.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "477a2b0ff54882bec435557d45f9d211928b4bcdcdc70f62582eb43713546581",
+        "new_sha256": "ad69c0844cfee3bb9256cddced4f5fb1a423ad80007d355a2388b38adc51d46c"
+      },
+      {
+        "route": "csapp/notes/chapter03_machine_level.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "80922d8c1510ecfbc889e699662518bc37ba9e5bbf4fd4e1684de08835b2c86d",
+        "new_sha256": "d5c3daa8fb22c3fb867858bdfc7db4fde6f013f188673b66fb523e42edc4ce0c"
+      },
+      {
+        "route": "csapp/notes/chapter04_architecture.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "00b380e455eaed8d75dce45970aba03c758b7fa59dd36f9440422280d7102874",
+        "new_sha256": "fd49d60d1fe33d0835799db123303dcd316d6bad42c98ca2f0f7c75fb9980463"
+      },
+      {
+        "route": "csapp/notes/chapter05_optimization.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "641ee2285102ad26f7b845cdf58097cc3ddf3e2d04ad6ba62b6e98120a6c3599",
+        "new_sha256": "520c5e6736e059cced66079eec61a490409afdec8c42fd9a94d0d6233728699d"
+      },
+      {
+        "route": "csapp/notes/chapter06_memory.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "0d97ad34bb3177e9be0d8d6d0c243b784e2a7bfd3f49816a4ad1862007b3bce2",
+        "new_sha256": "add80263288b06f77237f83b71ec8fc383ddac0d09b953ca099a599e89e2ecec"
+      },
+      {
+        "route": "csapp/notes/chapter07_linking.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "142f14fc5be27dd367dcf540514978e2c066f1e4ce6d645dcb0b742c09edc083",
+        "new_sha256": "4d52d39504dee930e1b6c0d3ff190f514719aec6a8d64e265641adf74444de57"
+      },
+      {
+        "route": "csapp/notes/chapter08_exceptional.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "d899e6f6976b14b1addddbb7c85ef8c4f192e3f8190abc3f5880fbf5bd9eea12",
+        "new_sha256": "6a9d9305fcc3137adf2ff0af4b91a370b06fb4ece0b8f832084673d7a2fa437e"
+      },
+      {
+        "route": "csapp/notes/chapter09_virtual_memory.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "586ce0e29785572d9ef0481e7622c82423705caaa96a82e4f3aa07799a51f9d9",
+        "new_sha256": "ea152dbe474782f47a88579d9979895cfe056ee429567009258964d868ed0b59"
+      },
+      {
+        "route": "csapp/notes/chapter10_system_io.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "fce25bb781eeeb08234d427f6081c4c0384fe7349def6415e4f40ec03b22ce61",
+        "new_sha256": "689e91f1ff0e6abc1a70c7d2248f3aab1657020cf800fd94777eb8de60fae399"
+      },
+      {
+        "route": "csapp/notes/chapter11_network.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "cf320abf4fd82f9cdc16762ec12c79b40ea3901cd1a4b4f0f24def6e63eae322",
+        "new_sha256": "c7261659e61268af07c26111a25c7d7cce35554d554ee84c18d05f8874c480fb"
+      },
+      {
+        "route": "csapp/notes/chapter12_concurrency.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "9e5f04b04803800c1798664f2c7e7bc0fe934d896f9b7036d5c9683ef3005c53",
+        "new_sha256": "2cef5577cab88c9bb9ede66b0c610f0356d5e1923785baa9bbe133728d2c5790"
+      },
+      {
+        "route": "csapp/notes/preface.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "47806100af590ea53c2a11e7632522ae04866f225f9a3692654b9e42fafe6b29",
+        "new_sha256": "79e42aee178eb6e5ab6149177c83a1899892d7f3f6f38846b2dc236322b498f7"
+      },
+      {
+        "route": "eopl/notes/book_overview.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "73a55fd46160a8ecc88050e6333853976b0d45eb984a8716a09eff9496a1a86c",
+        "new_sha256": "0ca52d31683e1083897e1f355fed74964b4f6978139a12007077f23a0a45c4a6"
+      },
+      {
+        "route": "eopl/notes/preface.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "690d69cb42c634f1d2f4cd942aac558f1f4001f4fa076357ec5dadd17d83340f",
+        "new_sha256": "83bc2553e648ef94813e83b03c6239f53dda44c3e24c546d41911bd7a19d8d43"
+      },
+      {
+        "route": "measure-probability/notes/book_overview.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "ddaf0620210acbaaaaa781ffd88b64bc6515073c8ad93d6c42d592170f746e4b",
+        "new_sha256": "69c3839459bbc380f9dce1841c28ace9c738c2522be8f0b50b887c25b3916bd8"
+      },
+      {
+        "route": "measure-probability/notes/chapter01_measurable_spaces.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "4b1dc41a86f938eb1173a811a3f11b3ee1bc11b5db107621ae2dc5f5218ee495",
+        "new_sha256": "bbfe4968d3e662dd29346a2618bc79d9cfea6739f54f64e84cd1173bc14dc9c6"
+      },
+      {
+        "route": "measure-probability/notes/chapter02_measure_spaces.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "839c186ecc4d418172070cf9b46a048cc99ffdf052c681f2ea9909db4dc5a396",
+        "new_sha256": "df33abbf2bfec310d0ecf2e566ef20d1115c87a860469c52bfc02d7b90580f34"
+      },
+      {
+        "route": "measure-probability/notes/chapter03_integration.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "cbb761fb65cd7468df80f569e7ed92374ce672b837ec8e5de02fa705f1ea4b02",
+        "new_sha256": "542664a52334d842efeda54c91ce395c9ccfddeadde1109cd94f1fedae5b7d99"
+      },
+      {
+        "route": "measure-probability/notes/chapter04_signed_measures.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "cd2fb94a98c41e1183869b33016e236745d45bff902f697110c01a07ab185314",
+        "new_sha256": "019cb144419c229843f43e17b776ffd6100e90774606be360bff8b732d1ea29a"
+      },
+      {
+        "route": "measure-probability/notes/chapter05_product_spaces.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "7b20f4a628205bd260cf889803840f143f19a13ddf68fe69cc5c4ed456dadbd6",
+        "new_sha256": "16a953bc289e8969310d24fdc6a5452af0e86c57e315f9c54908dbe82d79368e"
+      },
+      {
+        "route": "measure-probability/notes/chapter06_independent_sequences.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "80b33bfc64ed7c5a3506b182e49c125f3851200c01b3b9cd93b1853634b73742",
+        "new_sha256": "7a9b706ecfaf1ed3cc893a5eb0398e43f8d60e92b4bb87b6d175925c245a57d7"
+      },
+      {
+        "route": "measure-probability/notes/preface.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "8756afbcf1d5c48adccc4203eaf2bb19841871eeefa9873b51bffcde26d4def3",
+        "new_sha256": "4ec5bc615631b8cd3f651522ebc53442eecfe2e3a73a1bfe5eca7c347747cd9c"
+      },
+      {
+        "route": "stochastic/notes/appendix_a_probability_review.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "87088b240d63e8fcf100eeaa0c369c1e7bb7b92104a1bde98aac2228e4252e65",
+        "new_sha256": "fe69a2a80c27d4262e967fdfb6971ab2554920bb9b828f1f77dbdbeee522bc96"
+      },
+      {
+        "route": "stochastic/notes/book_overview.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "a43f7d6c8d20016c6503c2f9ad51c150f4bd3aa8a1a47df441aba01d229ba78e",
+        "new_sha256": "b19af7929f2b7df5d0913489fec3a73469e99239e48a8241428f95e027a3f69a"
+      },
+      {
+        "route": "stochastic/notes/chapter01_markov_chains.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "1bbafd05e41b0cdaacd9fa5323053c74b21023d0318115e6857b25dbed3a2a2d",
+        "new_sha256": "f7bf2247b2cd5a473ac29b4ae5f998fc2200c954b43ae0ea47e0651884ab9811"
+      },
+      {
+        "route": "stochastic/notes/chapter02_poisson_processes.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "d0ad8824c41b2098b3d9835c8dd97dc9f42f79b42c7e4306a8ac67da10905678",
+        "new_sha256": "92885f48edb5b1c8f14814dcc027aab1d054fd421dd2af5676c5502db238e441"
+      },
+      {
+        "route": "stochastic/notes/chapter03_renewal_processes.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "60ccf3b13221329af65ef094bb1059b0b38283a2878fe1ca75526bdd3d42fcf5",
+        "new_sha256": "1f3c280f52ee89c7e31af64cacdb04cc64802beb1fe2132a306d75184d158217"
+      },
+      {
+        "route": "stochastic/notes/chapter04_continuous_time_markov_chains.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "cadfd5c4c6d6559ab691681994aef9fa1948055d9bbf5454233e94e92e99a94b",
+        "new_sha256": "42bfec4604c7f80cf71e20ff01c24a30d2d54df8c5605dd3e9eeb96a8966074e"
+      },
+      {
+        "route": "stochastic/notes/chapter05_martingales.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "c385285dd6e9a1c9e9dca48006e1d75171f2fa48b2aee89e21895a9383e89cea",
+        "new_sha256": "fcca199cdb5adf74bc1616d11e9ce68ea7a4807ad4cd0810058e581b04534ac0"
+      },
+      {
+        "route": "stochastic/notes/chapter06_mathematical_finance.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "9234ad95b3b813d08388949793441310d454c0626fdff11344946b1283a52b1e",
+        "new_sha256": "3d31f6ce67ad9dde465da87fd5e41480dd25d6ec883a20ff9daecc857ff620d0"
+      },
+      {
+        "route": "stochastic/notes/preface.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "ab5ec6e7206e24539b4b2e7809f78378b80d9dc66f349b6eb029756ad933a006",
+        "new_sha256": "f736f72070d2dd480f62b29994a9e4404127361fb6c6b3f32c0e2b9de0d0d1a1"
+      },
+      {
+        "route": "visual-group-theory/notes/book_overview.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "58bc60f7b7966112d643a08f153522fffe040cf8068586f3c5e889ce0ac6dd33",
+        "new_sha256": "4612517b679649ab1d3490749fc4eb12e9449e59191a018963d9fef2edd9b99b"
+      },
+      {
+        "route": "visual-group-theory/notes/chapter01_what_is_a_group.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "c33c8173e4d2a9027a3516c79c256ca661958353c0287f598c4065dedce072d0",
+        "new_sha256": "38970ae1afaf07913f35704095c4fc88af9902c9962841ef94cdd55ec73fbe98"
+      },
+      {
+        "route": "visual-group-theory/notes/chapter02_what_do_groups_look_like.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "23aa821788f19ddfa71497e2ded16e1ba3ff26d1e316c65645649ead25a0427d",
+        "new_sha256": "3181719bb0d2424aac71bb33ad09a1c1cb038651d169ec7811a87a0a4ec6fbca"
+      },
+      {
+        "route": "visual-group-theory/notes/chapter03_why_study_groups.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "8b504b315ed4a897c1b4757727bee59ce7e2c4fd66b15bb2d24501df1d7eac3a",
+        "new_sha256": "6c1db096da8efe80521167f197129d59fe074b3bc7d23e7748fea9cf2a05b152"
+      },
+      {
+        "route": "visual-group-theory/notes/chapter04_algebra_at_last.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "c0d8f31c2837be41d8bef85945da4e7cad0c1326436909ef0e58e7ff8b2a6653",
+        "new_sha256": "d007c6ece6a6ec1adb3d1b428787b45cb809636bba53b40f23de17fb831c92e3"
+      },
+      {
+        "route": "visual-group-theory/notes/chapter05_five_families.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "11aab9f19ec7caf939877406657f6ec19d1992c66db883a123b43e1881872a51",
+        "new_sha256": "f5ddaa3cb27694dfe842e27cf446fc90a424c33f700b55f3a17ea81c23c6f87d"
+      },
+      {
+        "route": "visual-group-theory/notes/chapter06_subgroups.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "2dd6e22e249ac48b22b4412e5720667c6e7b95087d66042496c2179828cff805",
+        "new_sha256": "df48fb620130ae6ad1bd8d65cc1e450de1eff57747d8dd76d91d01be1dc98f03"
+      },
+      {
+        "route": "visual-group-theory/notes/chapter07_products_and_quotients.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "ef2f4480adc5e5985698967068400c1a12efd70ccaebc3f21ff967624b5330f8",
+        "new_sha256": "57ff321091aec95fe6788038da54186f6ef2488e9cdab1bd4780507709d7e45c"
+      },
+      {
+        "route": "visual-group-theory/notes/chapter08_homomorphisms.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "674111d1786023454e01a774e56447ebbf3cd0e46d4b966e1ff91d09605ccdc3",
+        "new_sha256": "f16ef4f5fc7da87a3eaf73e62dcae4fe63608d4b08b2e3a47cce0077bc006d95"
+      },
+      {
+        "route": "visual-group-theory/notes/chapter09_sylow_theory.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "965f89a70e8de48964f516df95107145ea7af9785c8d70d10f9b47658d35d315",
+        "new_sha256": "3b3ff74c3f855c1f55a8f62b37ee4f92c315b651bdd36af5b1fb16dd6cc312e7"
+      },
+      {
+        "route": "visual-group-theory/notes/chapter10_galois_theory.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "951771561222629baa6d671ee3c12e27d15650e04a3f8bd8947cfa7d870b22c1",
+        "new_sha256": "54ce2884510eaab6c46976723ec6e6a58ceb2f8f5dce4fb062582232c5f2477f"
+      },
+      {
+        "route": "visual-group-theory/notes/preface.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "4b161ff5982d06dabcd4ff7dd29c012cc618b66ea0c72831ee8299c7dd5feb77",
+        "new_sha256": "bddcb759e75fd46578e38647ec636017119b487351114df05cc6a0df563e7abd"
+      },
+      {
+        "route": "weiss/notes/book_overview.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "1265a960592a393b66f8e479362a740bdec1f77e83280ffc0a0c322cbc12747f",
+        "new_sha256": "749733acd8f2acd5477905c72f99f93a2ab9f07664c5dfc54f2637074c2bcdb6"
+      },
+      {
+        "route": "weiss/notes/chapter01_introduction.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "dd32e1c464ebef330f02582c4b90be16c89179a270d49b754c646a31b137dd6d",
+        "new_sha256": "cea11756355be175bc71fa4e27b13db4663e34cfd24645b7bf05fe8ea4ebe965"
+      },
+      {
+        "route": "weiss/notes/chapter02_algorithm_analysis.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "7c10ad5c3100bd803fad88b87088ec929a57e8eb0b792bc356e7adb485d17db9",
+        "new_sha256": "5ea4b019a9e476b92dc5e244b81dab6688fb8f1411dc103bfcd68d4cf82528bd"
+      },
+      {
+        "route": "weiss/notes/chapter03_lists_stacks_queues.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "0e372e1d3013201b0e925b9c0d944e184dc656fe24ae88fbe111964c535b9bdf",
+        "new_sha256": "ef9213ded34b2f41f81b2d199e823b1ffeed6b9c3671772ae34880ee99736bb8"
+      },
+      {
+        "route": "weiss/notes/chapter04_trees.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "2cf1b8c2bdf4722b0943ffb45a1a8c6bcfb067434329dac376f9e7e3ecc8ee2e",
+        "new_sha256": "b9700e49b6cbeebf53f06c403236c2c4cee23d7447fb8274f432df690423b88c"
+      },
+      {
+        "route": "weiss/notes/chapter05_priority_queues.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "3429e8fed9c4cee015c7b351d76200c11aa7794c08e21c83defc7f7c6cc58f73",
+        "new_sha256": "d45288c3bfd1fa89addca60d9f1bd6f99180f71333b786096be1ead28d3f2f59"
+      },
+      {
+        "route": "weiss/notes/chapter06_sorting.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "9c85bfc62463b91517e90c16b76c922e49f72721b80a78a685b34812c24e45d8",
+        "new_sha256": "29d237c152650993d6bc60e299006cf83ca1c219d800909c9f3e17dbd12cb0b6"
+      },
+      {
+        "route": "weiss/notes/chapter07_hashing.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "420d353a702fafb10fb22bd0bf41e6de1aa1b1b606bcbb09cf5a0255bb37c2fb",
+        "new_sha256": "832727f7f87592ac5cfe0055efb1713ace6cc231675be4e36a0ab155195aa162"
+      },
+      {
+        "route": "weiss/notes/chapter08_disjoint_sets.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "4f9777701aabaa511b3983f7ad0053336b41b50cd3376ae30fd1debe7b4ff97d",
+        "new_sha256": "ca9ad13159ba53e0a8253cfaf1760d4b2d4f3a42af23f7d605bea7addddc96cb"
+      },
+      {
+        "route": "weiss/notes/chapter09_graph_algorithms.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "4208308ff88a1d1a6a17787b07aef2603d575e9649ea2170087765f0d47bde91",
+        "new_sha256": "e5bd6c637c33a8e988a09850ad496565112c7bebdf61b5d9e51af1fa78b8236f"
+      },
+      {
+        "route": "weiss/notes/chapter10_algorithm_design.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "e9200e97ad9de0cf5e9a57c7ee0b3e10314ea525db0b198b725bd892779f85ca",
+        "new_sha256": "a2d399d8ca5957bd3251219b319d6f0db83b45f49c6e009504f87ce579a60363"
+      },
+      {
+        "route": "weiss/notes/chapter11_amortized_analysis.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "f54736a133d4cf8dc45399340ed09ecfce8961cfb83971745c52695028093c5f",
+        "new_sha256": "716b67825428a5b4096100e891a81c492caa7f0c00c1d36bcdbb604cfcd55073"
+      },
+      {
+        "route": "weiss/notes/chapter12_advanced_data_structures.html",
+        "controlled_source_unchanged": true,
+        "outside_styles_unchanged": true,
+        "old_sha256": "3b20371987896c69a730362a71cc5bfe44850dadca05341ad0cda4211eb8762b",
+        "new_sha256": "5b5e4ce762d839064cee5ba5ad48e1247bac55f52c15d4e3ac0c057266aa2d4b"
+      }
+    ]
+  },
+  "evidence": {
+    "offline_browser": {
+      "report": "tmp/reading-notes-migration/browser-font/all/runs/2026-10-21T03-12-40-759Z-1d26c793/report.json",
+      "sha256": "0f3412b19e4c4489ecd689e98426e236e2e7591abe7efed51b0eb81fb966a60a"
+    },
+    "actual_font_browser": {
+      "report": "tmp/code-font-20261021/local-glyphs.json",
+      "sha256": "9a820498577824628d0625375d8f4fe4e8eb2a8e28983d8eb6ca094204bd564d"
+    },
+    "render_review": {
+      "report": "tmp/code-font-20261021/render-review.json",
+      "sha256": "7a4156b19689341daedf5db6cac622d246ab3a604f7713e8a56671aee4787dfb"
+    },
+    "preservation": {
+      "report": "tmp/code-font-20261021/preservation.json",
+      "sha256": "5bcd5dc89de28c018db0990657bf5adbc3f5717a0d8881e220b93ad7344b10ab"
+    },
+    "root_check": {
+      "report": "tmp/project-check/20261021T110904-9_j7z8na/report.json",
+      "sha256": "8bb0c7da8e342bfe82dcbe7d22a375a0ebef4fafd8cea7c71181b8104eb92208"
+    },
+    "node_tests": {
+      "report": "tmp/code-font-20261021/node-tests.log",
+      "sha256": "82cca9a660012c44110c785cbf7c169ef179579caf971f2661790f560976de5b"
+    },
+    "publisher_reuse": {
+      "report": "tmp/code-font-20261021/publisher-reuse.json",
+      "sha256": "2a7d3a8da9f928f612149cd2de77e6a75dbe3695a40449227e8a48b5422038a7"
+    },
+    "parity": {
+      "report": "tmp/code-font-20261021/preview-parity.json",
+      "sha256": "d831eccc3ffcbff3934131b28d9013795ee08848caafc669362e89eb37897184"
+    },
+    "csp": {
+      "report": "tmp/code-font-20261021/preview-csp.json",
+      "sha256": "58b5a2379852e6893328af1e8b7470d3f8542515333e81e8551eec38383f3f67"
+    }
+  },
+  "local_validation": {
+    "reading_pages": 58,
+    "all_html_pages": 80,
+    "offline_js_views": 320,
+    "offline_no_js_views": 160,
+    "font_checks": 480,
+    "actual_font_views": 24,
+    "screenshots_reviewed": 9,
+    "actual_code_font_on_this_mac": "Menlo",
+    "original_monospace_stack": "ui-monospace,SFMono-Regular,Menlo,Consolas,monospace",
+    "root_quick_checks": 19,
+    "node_tests": 47,
+    "new_browser_font_dependencies": 0
+  }
+}

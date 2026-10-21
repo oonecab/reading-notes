@@ -26,6 +26,8 @@ from assertion_regressions import check_assertions
 from content_review_regressions import check_content_review
 from explanation_regressions import check_explanations
 from reader_navigation_checks import check_reader_navigation, check_navigation_mutations
+sys.path.insert(0, str(ROOT / 'tools'))
+from check_astro_records import shared_asset
 
 
 def sha(path):
@@ -81,7 +83,7 @@ def validate_pages(sources, manifest, programs):
         style = [n.text() for n in nodes if n.tag == 'style']
         script = [n.text() for n in nodes if n.tag == 'script']
         shared_style = (ROOT / 'src/styles/reading-components.css').read_text().strip()
-        typography = (ROOT / 'src/styles/reading-typography.css').read_text().strip()
+        typography = shared_asset('styles/reading-typography.css').strip()
         shared_ok = (len(style) == 2 and style[1].strip().startswith(shared_style)
                      and style[1].strip()[len(shared_style):].strip() == typography)
         if not shared_ok or len(script) != 1:

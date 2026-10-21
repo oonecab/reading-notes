@@ -2324,16 +2324,16 @@
   ],
   "files": {
     "notes/remaining_explanation_review.json": {
-      "bytes": 833982,
-      "sha256": "8f2ccdbb8c5c2972e9813b517bc3613e836a0ada1ef7a7a1484e32077c63da25"
+      "bytes": 834622,
+      "sha256": "b8c99fb8e0e3551210d8f7bab62142c8efbf19930a139082eecfe1aa21d1cad7"
     },
     "notes/chapter01_explanation_review.json": {
-      "bytes": 187957,
-      "sha256": "5f109cf2f856f1769c91a5ecb0387e03a2b3eb250eb88609ef382b4ee2c51dc2"
+      "bytes": 188597,
+      "sha256": "08b42d8e81f04fae276d7116c05071863ae1a856bfcb5c01e5e80ff6275b80f9"
     },
     "notes/derivation_coverage.json": {
       "bytes": 356352,
-      "sha256": "2a77444204c1a2324a1c6f1eb28db9623493e6aed38b83260d01af6003065e65"
+      "sha256": "9f83c41bb2eaea83462d749e6a92df2fcb2497cce7f6767d3f9503f68e4c4842"
     },
     "tools/derivation_coverage.py": {
       "bytes": 15791,
@@ -6020,5 +6020,11 @@
     "prior_record_git": "3064e29e84f5e2ba60fdfbb4bb7389dfcb9ff084:books/stochastic/notes/derivation_review.json",
     "prior_record_sha256": "31d198a40eed60b4dbd22da2239653e8dab653f1080bbdfa5b40de1f37064971",
     "scope": "Current reader-copy bindings: maintenance wording moved out of reading pages. Programs, original questions, formulas, diagrams, source links and anchors preserved. Historical execution claims retain their original scope; new acceptance is recorded in docs/reader-copy-review.json"
+  },
+  "I049_code_font_revision": {
+    "issue": "I049",
+    "prior_record_git": "5435131c1e6e78c1d56383a8ee513eaddfeaa29f:books/stochastic/notes/derivation_review.json",
+    "prior_record_sha256": "53f5671d94bb5d506b373f3a4b97aac5ae13867e4dd034ce3cd21ec96729dfd9",
+    "scope": "Current code-font bindings: restored original monospace families and code sizing. All changes are inside expanded styles; controlled HTML, programs, questions, formulas, diagrams, source links, scripts and anchors are byte-identical. Historical execution claims retain their original scope; new acceptance is recorded in docs/code-font-review.json"
   }
 }

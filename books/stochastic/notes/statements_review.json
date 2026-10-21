@@ -8351,44 +8351,44 @@
       "sha256": "e255b6e8ed79126c2cacdfcaececd18cc4607a37b9f09789e0696273f1c3f887"
     },
     "notes/appendix_a_probability_review.html": {
-      "bytes": 317934,
-      "sha256": "87088b240d63e8fcf100eeaa0c369c1e7bb7b92104a1bde98aac2228e4252e65"
+      "bytes": 318328,
+      "sha256": "fe69a2a80c27d4262e967fdfb6971ab2554920bb9b828f1f77dbdbeee522bc96"
     },
     "notes/book_overview.html": {
-      "bytes": 62319,
-      "sha256": "a43f7d6c8d20016c6503c2f9ad51c150f4bd3aa8a1a47df441aba01d229ba78e"
+      "bytes": 62713,
+      "sha256": "b19af7929f2b7df5d0913489fec3a73469e99239e48a8241428f95e027a3f69a"
     },
     "notes/chapter01_markov_chains.html": {
-      "bytes": 2294454,
-      "sha256": "1bbafd05e41b0cdaacd9fa5323053c74b21023d0318115e6857b25dbed3a2a2d"
+      "bytes": 2294848,
+      "sha256": "f7bf2247b2cd5a473ac29b4ae5f998fc2200c954b43ae0ea47e0651884ab9811"
     },
     "notes/chapter02_poisson_processes.html": {
-      "bytes": 794142,
-      "sha256": "d0ad8824c41b2098b3d9835c8dd97dc9f42f79b42c7e4306a8ac67da10905678"
+      "bytes": 794536,
+      "sha256": "92885f48edb5b1c8f14814dcc027aab1d054fd421dd2af5676c5502db238e441"
     },
     "notes/chapter03_renewal_processes.html": {
-      "bytes": 431070,
-      "sha256": "60ccf3b13221329af65ef094bb1059b0b38283a2878fe1ca75526bdd3d42fcf5"
+      "bytes": 431464,
+      "sha256": "1f3c280f52ee89c7e31af64cacdb04cc64802beb1fe2132a306d75184d158217"
     },
     "notes/chapter04_continuous_time_markov_chains.html": {
-      "bytes": 1111491,
-      "sha256": "cadfd5c4c6d6559ab691681994aef9fa1948055d9bbf5454233e94e92e99a94b"
+      "bytes": 1111885,
+      "sha256": "42bfec4604c7f80cf71e20ff01c24a30d2d54df8c5605dd3e9eeb96a8966074e"
     },
     "notes/chapter05_martingales.html": {
-      "bytes": 528225,
-      "sha256": "c385285dd6e9a1c9e9dca48006e1d75171f2fa48b2aee89e21895a9383e89cea"
+      "bytes": 528619,
+      "sha256": "fcca199cdb5adf74bc1616d11e9ce68ea7a4807ad4cd0810058e581b04534ac0"
     },
     "notes/chapter06_mathematical_finance.html": {
-      "bytes": 1337175,
-      "sha256": "9234ad95b3b813d08388949793441310d454c0626fdff11344946b1283a52b1e"
+      "bytes": 1337569,
+      "sha256": "3d31f6ce67ad9dde465da87fd5e41480dd25d6ec883a20ff9daecc857ff620d0"
     },
     "notes/code_deployment_review.json": {
-      "bytes": 231436,
-      "sha256": "4bdb75a1120b28c0df8d56505c2a3245179b9d904424a0aa200f26bab782d7e3"
+      "bytes": 232070,
+      "sha256": "1c73898784983feed62c56bbdb8e3c7fcf51cb5e0cfa24b63592b50488682a2c"
     },
     "notes/preface.html": {
-      "bytes": 50811,
-      "sha256": "ab5ec6e7206e24539b4b2e7809f78378b80d9dc66f349b6eb029756ad933a006"
+      "bytes": 51205,
+      "sha256": "f736f72070d2dd480f62b29994a9e4404127361fb6c6b3f32c0e2b9de0d0d1a1"
     },
     "notes/source_manifest.json": {
       "bytes": 36372,
@@ -8399,8 +8399,8 @@
       "sha256": "0abcb345d1665a5759c23eaefe4b1c0a63730d14dd201b83bd12b94fded09681"
     },
     "notes/audit_fix_review.json": {
-      "bytes": 264080,
-      "sha256": "ae78639b0338203c286f80ebd5fa220ea4c9c65841adb15f767998b930248235"
+      "bytes": 264348,
+      "sha256": "18e83d24e65396116ec81242ae2da429e67a6a6999db95e16c607618b27b3c2e"
     }
   },
   "review_history": [
@@ -14888,5 +14888,11 @@
     "prior_record_git": "3064e29e84f5e2ba60fdfbb4bb7389dfcb9ff084:books/stochastic/notes/statements_review.json",
     "prior_record_sha256": "19141464b748bfdf737ec52160de3f59976c4582db061614c905ad327a580f3b",
     "scope": "Current reader-copy bindings: maintenance wording moved out of reading pages. Programs, original questions, formulas, diagrams, source links and anchors preserved. Historical execution claims retain their original scope; new acceptance is recorded in docs/reader-copy-review.json"
+  },
+  "I049_code_font_revision": {
+    "issue": "I049",
+    "prior_record_git": "5435131c1e6e78c1d56383a8ee513eaddfeaa29f:books/stochastic/notes/statements_review.json",
+    "prior_record_sha256": "aa015d26ff64fa5135a024e410911888492f872bafb34b1f69cf6bd8252cf0e7",
+    "scope": "Current code-font bindings: restored original monospace families and code sizing. All changes are inside expanded styles; controlled HTML, programs, questions, formulas, diagrams, source links, scripts and anchors are byte-identical. Historical execution claims retain their original scope; new acceptance is recorded in docs/code-font-review.json"
   }
 }
