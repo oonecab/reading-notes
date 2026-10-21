@@ -1,6 +1,6 @@
 {
   "issue": "I049",
-  "status": "locally_verified_publication_pending",
+  "status": "published_and_verified",
   "baseline_git": "5435131c1e6e78c1d56383a8ee513eaddfeaa29f",
   "scope": "All 58 published reading pages and their auxiliary program guides: original monospace code typography restored; prose and mathematical font contracts retained.",
   "source_sha256": {
@@ -578,6 +578,26 @@
     "csp": {
       "report": "tmp/code-font-20261021/preview-csp.json",
       "sha256": "58b5a2379852e6893328af1e8b7470d3f8542515333e81e8551eec38383f3f67"
+    },
+    "predeploy": {
+      "report": "tmp/code-font-20261021/predeploy-acceptance.json",
+      "sha256": "d65e52c1624ea12a87b27e61f9c0fa0775549f66b86e9a3e0d8d75adbe6a958a"
+    },
+    "server": {
+      "report": "tmp/code-font-20261021/server-after.json",
+      "sha256": "f453066e991a59614e535ab4b350ccd98dc19f9813e0f9027c639b0719a97a9f"
+    },
+    "normal_domain": {
+      "report": "tmp/code-font-20261021/public-verification.json",
+      "sha256": "d8787af171c805e63fc2f547190c2750880188e2d486f524c0ba502e325ee1ef"
+    },
+    "public_browser": {
+      "report": "tmp/code-font-20261021/public-glyphs.json",
+      "sha256": "26f1d1a15bd15b77aa512b0051dac076eb41d21c36f0536567148b7ba4b3c210"
+    },
+    "public_render_review": {
+      "report": "tmp/code-font-20261021/public-render-review.json",
+      "sha256": "dcfa9b6a30290255ffa2fa028e5f9ebfc42d608e7542be2acea43f20194d6360"
     }
   },
   "local_validation": {
@@ -593,5 +613,30 @@
     "root_quick_checks": 19,
     "node_tests": 47,
     "new_browser_font_dependencies": 0
+  },
+  "publication": {
+    "release_id": "20261021T112119",
+    "previous": "20261021T103218",
+    "source_commit": "d41f129bfa36cdd893a1e2d7a905834177368f6e",
+    "tag": "v2026.10.21-code-font",
+    "previous_source_commit": "33d34416ff0072e46da44abbcb13dbbeb0592017",
+    "previous_archive_sha256": "7355c583fcda6915a7bbab6eeee5ac48d412731e9a5356286070dad84d68fdad",
+    "previous_policy_sha256": "eac0d803f29f69a5399ee2f33fb9a5fb6254ed6e70eaec6662ae631f56dcef69",
+    "policy_sha256": "eac0d803f29f69a5399ee2f33fb9a5fb6254ed6e70eaec6662ae631f56dcef69",
+    "administrator_snippet_sha256": "8c8a40dd1dcc0a16541a2d47bb38037787e57ad0859bc27ad8ffe5c7f3704dd2",
+    "archive_sha256": "6a7f52049527d84028089f0d5708e8fd8f15b8728ebde27a9582a7211c630cdc",
+    "normal_domain_files_checked": 505,
+    "public_actual_font_views": 24,
+    "public_code_font_on_this_mac": "Menlo",
+    "public_prose_font": "Times New Roman",
+    "rollback_release_retained": true,
+    "unchanged_files_keep_mtime": 363,
+    "changed_files_distinct_mtime": 148,
+    "server_files_verified": 511,
+    "nginx_and_policy_unchanged": true,
+    "deploy_and_health": "passed",
+    "clean_isolated_build": true,
+    "normal_domain_transport_retries": 1,
+    "primary_checkout_sync": "Deferred while concurrent EOPL chapter work remains uncommitted; remote main contains this release. No tracked files in the primary checkout were modified by I049."
   }
 }
