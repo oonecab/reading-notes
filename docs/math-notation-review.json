@@ -1,6 +1,6 @@
 {
   "issue": "I050",
-  "status": "locally_verified_publication_pending",
+  "status": "published_and_verified",
   "baseline_git": "34c4fcc150aea4112fb9f4ffa1600e2e4253d524",
   "scope": "All 58 published reading pages: context-reviewed mathematical notation, normal named functions, complete scripts and retained monospace program text. Auxiliary pages are checked during rendering.",
   "source_sha256": {
@@ -973,6 +973,30 @@
     "csp": {
       "report": "tmp/notation-20261021/preview-csp.json",
       "sha256": "51a62b16c39cf7425a22b17f37a6a1dd9b106647a37fa7b3c317b2c0461d1991"
+    },
+    "predeploy": {
+      "report": "tmp/notation-20261021/predeploy-acceptance.json",
+      "sha256": "ca7d90f92d6386e3601132163b911cb7e3430364cb20e98c333a3983924cc297"
+    },
+    "server": {
+      "report": "tmp/notation-20261021/server-after.json",
+      "sha256": "fa1ed4af1f58f44eb1af854a91a8499c316299354035adb500d9472a3fcafd2a"
+    },
+    "normal_domain": {
+      "report": "tmp/notation-20261021/public-verification.json",
+      "sha256": "2e57a61f47dd99c2cb348118c83ed9409356ed1b79c693d55dc1bc3f1671c223"
+    },
+    "public_browser": {
+      "report": "tmp/notation-20261021/public-glyphs.json",
+      "sha256": "bfe7a28ec42e3b029d7c877655db10662caab581ac28224a33c2b3e0c4278a45"
+    },
+    "public_render_review": {
+      "report": "tmp/notation-20261021/public-render-review.json",
+      "sha256": "2287180921483c51827503712deb49af3be38f2a100dcc238720eb5718b498ba"
+    },
+    "public_math_reading": {
+      "report": "tmp/notation-20261021/public-math-views.json",
+      "sha256": "d314f0f922b19a78d3fa71a050998be1ee8b73891b97e7600a5a1a6a424c219d"
     }
   },
   "local_validation": {
@@ -989,5 +1013,29 @@
     "root_quick_checks": 19,
     "node_tests": 54,
     "stochastic_tooling_tests": 8
+  },
+  "publication": {
+    "release_id": "20261021T125632",
+    "previous": "20261021T112119",
+    "source_commit": "64d359bb2ff7a370e687470550ac65b43a33f777",
+    "tag": "v2026.10.21-math-notation",
+    "previous_source_commit": "d41f129bfa36cdd893a1e2d7a905834177368f6e",
+    "previous_archive_sha256": "6a7f52049527d84028089f0d5708e8fd8f15b8728ebde27a9582a7211c630cdc",
+    "previous_policy_sha256": "eac0d803f29f69a5399ee2f33fb9a5fb6254ed6e70eaec6662ae631f56dcef69",
+    "policy_sha256": "eac0d803f29f69a5399ee2f33fb9a5fb6254ed6e70eaec6662ae631f56dcef69",
+    "administrator_snippet_sha256": "8c8a40dd1dcc0a16541a2d47bb38037787e57ad0859bc27ad8ffe5c7f3704dd2",
+    "archive_sha256": "a41e7454badbf7bab9f457125aee0ca6181216bb0998ce442ddd371acd8e6181",
+    "normal_domain_files_checked": 505,
+    "public_actual_font_views": 24,
+    "public_mathematical_reading_views": 7,
+    "public_code_font_on_this_mac": "Menlo",
+    "public_prose_font": "Times New Roman",
+    "rollback_release_retained": true,
+    "unchanged_files_keep_mtime": 391,
+    "changed_files_distinct_mtime": 120,
+    "server_files_verified": 511,
+    "nginx_and_policy_unchanged": true,
+    "deploy_and_health": "passed",
+    "clean_isolated_build": true
   }
 }

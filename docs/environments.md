@@ -11,7 +11,7 @@
 
 - 本地预览：Python 静态 HTTP 服务，绑定 127.0.0.1
 - 正式阅读站点：notes.zzzping.top，Nginx + TLS；部署步骤见 deploy/README.md
-- Ubuntu reading-notes-deploy.service 以 reading-notes 调用固定 sudo root 安装器，当前发布 20261021T112119（I049）；deploy timer 保持 disabled，构建服务及构建 tmpfiles 模板留给独立构建主机
+- Ubuntu reading-notes-deploy.service 以 reading-notes 调用固定 sudo root 安装器，当前发布 20261021T125632（I050）；deploy timer 保持 disabled，构建服务及构建 tmpfiles 模板留给独立构建主机
 - I033 已应用 root-owned 只读 release、固定 helper/sudoers，unit 已移除整目录 Nginx 日志写例外；实机证据见 [本轮报告](browser-stability-report.md)
 - 宿主机历史 MySQL 服务及数据已于 2026-10-17 按 I030 卸载；mailutils 依赖的 mysql-common 与 libmysqlclient21 保留为共享客户端组件
 
@@ -56,3 +56,5 @@ I044 新增静态 `/eopl/` 路由，范围为地图、序言、来源摘要和 P
 2026-10-21 I047 实机：current 为 releases/20261021T103218，干净提交 33d3441，标签 `v2026.10.21-code-folding`；恢复单元 `20261021T095146` 已逐项核验并保留。新旧版本各 511 文件及 root 只读权限通过，475 个未变文件保留 mtime，36 个变更文件使用不同 mtime。发布与健康检查成功，timer active；Nginx 片段、发布策略、脚本 CSP、服务、端口和变量名保持，`.env.example` 无需调整。正常域名及代码交互证据见 [T047](../test/T047-code-folding.md)。
 
 2026-10-21 I049 实机：current 为 releases/20261021T112119，干净提交 d41f129，标签 `v2026.10.21-code-font`；恢复单元 `20261021T103218` 已逐项核验并保留。新旧版本各 511 文件及 root 只读权限通过，363 个未变文件保留 mtime，148 个变更文件使用不同 mtime。发布与健康检查成功，timer active；Nginx 片段、发布策略、脚本 CSP、服务、端口和变量名保持，`.env.example` 无需调整。正常域名字体和折叠证据见 [T049](../test/T049-code-font.md)。
+
+2026-10-21 I050 实机：current 为 releases/20261021T125632，干净提交 64d359b，标签 `v2026.10.21-math-notation`；恢复单元 `20261021T112119` 已逐项核验并保留。新旧版本各 511 文件及 root 只读权限通过，391 个未变文件保留 mtime，120 个变更文件使用不同 mtime。发布与健康检查成功，timer active；Nginx 片段、发布策略、脚本 CSP、服务、端口和变量名保持，`.env.example` 无需调整。正常域名字体和折叠证据见 [T050](../test/T050-math-notation.md)。
