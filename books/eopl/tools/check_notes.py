@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""检查 EOPL 两页准备批的来源、导航、组件和实际教学程序。"""
+"""检查 EOPL 地图、序言与第 1、2 章的来源、题解和实际教学程序。"""
 from __future__ import annotations
 
 import argparse
@@ -11,6 +11,7 @@ import json
 from pathlib import Path
 import re
 import subprocess
+import shutil
 import sys
 from urllib.parse import unquote, urlsplit
 
@@ -57,6 +58,8 @@ def check(quick: bool) -> dict:
     for row in manifest["chapters"]:
         need(row["pdf_start"] == row["printed_start"] + 23 and
              row["pdf_end"] == row["printed_end"] + 23, "chapter page mapping")
+    need(items["schema_version"] == 1 and items["book"] == "eopl" and
+         items["exercise_counts"] == COUNTS, "source inventory metadata differs")
     actual = Counter(r["chapter"] for r in items["items"] if r["kind"] == "exercise")
     need(actual == COUNTS, "whole-book exercise counts")
     need(len({(r["kind"], r["number"]) for r in items["items"]}) == len(items["items"]),
@@ -66,8 +69,9 @@ def check(quick: bool) -> dict:
                 if r["kind"] == "exercise" and r["chapter"] == chapter}
         need(nums == {f"{chapter}.{n}" for n in range(1, total + 1)},
              f"exercise sequence: {chapter}")
-    need([r["number"] for r in items["items"] if r["coverage"] == "answered"] == ["0.1"],
+    need([r["number"] for r in items["items"] if r["coverage"] == "answered"] == manifest["current_scope"]["answered_exercises"],
          "current answer coverage differs")
+    need(len(manifest["current_scope"]["answered_exercises"]) == 68, "answer count must be 68")
     source_check = "not_available"
     pdf = ROOT / manifest["source"]["file"]
     if pdf.exists():
@@ -75,7 +79,14 @@ def check(quick: bool) -> dict:
         need(hashlib.sha256(pdf.read_bytes()).hexdigest() == SOURCE_SHA256, "PDF hash")
         source_check = "hash_verified"
         if not quick:
-            need(inventory(pdf) == items, "independent PDF inventory differs")
+            independent = inventory(pdf)
+            header = lambda data: {k: v for k, v in data.items()
+                                   if k not in ("items", "scope_note")}
+            need(header(independent) == header(items), "independent PDF metadata differs")
+            # Coverage is authoring state, not a claim inferred from the PDF.
+            locators = lambda rows: [{k: v for k, v in r.items() if k != "coverage"} for r in rows]
+            need(locators(independent["items"]) == locators(items["items"]),
+                 "independent PDF inventory differs")
             source_check = "independent_inventory_verified"
     pages = {}
     for name in manifest["current_scope"]["pages"]:
@@ -103,9 +114,9 @@ def check(quick: bool) -> dict:
         metadata = json.loads((SOURCE / name).read_text().split("---\n")[1])
         baseline = json.loads((BOOK / "review/content-baseline-astro.json").read_text())
         frozen = {row["page"]: row["source_sha256"] for row in baseline["records"]}
-        need(metadata["stage"] == "map-and-preface" and
+        need(metadata["stage"] == ("chapters-1-2" if name.startswith("chapter") else "map-and-preface") and
              metadata.get("original_sha256") == frozen.get("eopl/notes/" + name),
-             "published map and preface must retain the accepted Git baseline")
+             "each page must retain its accepted source baseline")
     for name, page in pages.items():
         for target in page.links:
             url = urlsplit(target)
@@ -134,8 +145,38 @@ def check(quick: bool) -> dict:
     match = re.search(r'<code id="scope-demo-code" class="language-python">(.*?)</code>', preface, re.S)
     need(match is not None, "missing complete program")
     need(unescape(match[1]) == (BOOK / "code/scope_demo.py").read_text(), "program copy drift")
-    report = {"status": "passed", "stage": "map-and-preface", "pages": 2,
-              "source_exercises": sum(COUNTS.values()), "answered_exercises": 1,
+    questions = json.loads((BOOK / "notes/questions_ch01_02.json").read_text())
+    need(questions["source_sha256"] == SOURCE_SHA256, "question source identity")
+    wanted = [f"{c}.{n}" for c, total in [(1, 36), (2, 31)] for n in range(1, total + 1)]
+    need([r["number"] for r in questions["items"]] == wanted, "complete question inventory")
+    positions = {r["number"]: r for r in items["items"] if r["kind"] == "exercise"}
+    names = {1: "chapter01_inductive_data.html", 2: "chapter02_data_abstraction.html"}
+    for c, total in [(1, 36), (2, 31)]:
+        text = (BOOK / "notes" / names[c]).read_text()
+        ids = re.findall(r'<details class="exercise" id="([^"]+)"', text)
+        need(ids == [f"ex-{c}-{n}" for n in range(1, total + 1)], "chapter exercise sequence")
+        originals = re.findall(r'<pre class="original-source" lang="en">(.*?)</pre>', text, re.S)
+        rows = [r for r in questions["items"] if r["number"].startswith(str(c) + ".")]
+        need(len(originals) == total, "full original question count")
+        for content, row in zip(originals, rows):
+            need(unescape(content) == row["question_text"], "complete original question differs: " + row["number"])
+            need(row["pdf_page"] == positions[row["number"]]["pdf_page"] and
+                 row["printed_page"] == row["pdf_page"] - 23, "question locator differs")
+        blocks = re.findall(r'<details class="exercise" id="ex-[^"]+">(.*?)(?=<details class="exercise"|</section>)', text, re.S)
+        for block in blocks:
+            need(block.index('class="exercise-question"') < block.index('class="answer"'),
+                 "question must precede answer")
+        need(f'id="chapter0{c}-code"' in text and '<!-- EOPL:end-program -->' in text,
+             "missing complete chapter program")
+    contexts = json.loads((BOOK / "notes/question_contexts.json").read_text())
+    need(contexts["source_sha256"] == SOURCE_SHA256, "context source identity")
+    for context in contexts["items"]:
+        chapter = int(context["exercises"][0].split(".")[0])
+        text = (BOOK / "notes" / names[chapter]).read_text()
+        need('id="' + context["anchor"] + '"' in text and
+             context["code"] in unescape(text), "referenced source code differs")
+    report = {"status": "passed", "stage": "chapters-1-2", "pages": 4,
+              "source_exercises": sum(COUNTS.values()), "answered_exercises": 68,
               "source_check": source_check, "quick": quick,
               "page_sha256": {name: hashlib.sha256((BOOK / "notes" / name).read_bytes()).hexdigest()
                               for name in pages},
@@ -147,6 +188,27 @@ def check(quick: bool) -> dict:
         need(executed.stdout == "lexical: 15\ndynamic: 5\n", "demonstration output")
         report["demo_stdout"] = executed.stdout
         report["python"] = sys.version.split()[0]
+        racket = shutil.which("racket")
+        if racket is None:
+            installed = sorted(Path("/Applications").glob("Racket*/bin/racket"))
+            racket = str(installed[-1]) if installed else None
+        need(racket is not None, "Racket runtime not found; full example verification is required")
+        results = {}
+        expected = {"chapter01.rkt": "((0 a) (1 b) (2 c))\n((x b) (c (x)))\n(red (bar 1 1) (red 2 (quux 2 2)))\n(foo (bar 0 1) (baz 2 (quux 3 4)))\n",
+                    "chapter02.rkt": "(2 0 1)\n((lambda (a) (a b)) c)\n2\n(13 (12 () (99 () ())) ())\n"}
+        for program in ["chapter01.rkt", "chapter02.rkt", "test_chapters.rkt"]:
+            completed = subprocess.run([racket, str(BOOK / "code" / program)],
+                                       capture_output=True, text=True, check=True, timeout=60)
+            if program in expected:
+                need(completed.stdout == expected[program], "chapter demonstration output: " + program)
+                results[program] = completed.stdout
+            else:
+                results[program] = json.loads(completed.stdout.splitlines()[-1])
+                need(results[program]["status"] == "passed" and results[program]["failures"] == 0,
+                     "Racket semantic failures")
+        report["racket_execution"] = results
+        from test_source_contexts import run as test_source_contexts
+        report["textbook_context_execution"] = test_source_contexts(racket)
     return report
 
 

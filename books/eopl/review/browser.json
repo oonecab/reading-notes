@@ -1,29 +1,45 @@
 {
-  "issue": "I044",
+  "issue": "I048",
   "status": "passed",
-  "scope": "Ego Lite desktop emulation; 1800,1440,1024,390 CSS pixels; no-JS 1440,390. Four public HTML routes including two reading pages.",
+  "scope": "Six public HTML routes; Ego Lite desktop viewport emulation at 1800/1440/1024/390 and no-JS at 1440/390. Four reading pages, code entry and book entry.",
   "astro_migration": {
     "record": "review/astro-migration.json",
-    "sha256": "cb21ca8e8930c5488298e89069de34b0785cd21a0fc4e0ef9ff2b85be80afb9b",
+    "sha256": "e97e20868cf148e55233c158d248ba9610cde811ca54b81ae2145c974a56c52b",
     "open_findings": [],
     "source_sha256": {
       "book_overview.html": "bcee15d3ae5f7b748a93ff07bdffc6eb7fbbb790f4e2af54fce3bc289605720c",
-      "preface.html": "4ffe7b18e4d6bc5b5ba6be871417b061f1896b88885b723a6d46ab2024a25392"
+      "preface.html": "4ffe7b18e4d6bc5b5ba6be871417b061f1896b88885b723a6d46ab2024a25392",
+      "chapter01_inductive_data.html": "375aac6684c71ae9ec73fb3d3e401119c1c33221858b61e02e9638e74b64d31a",
+      "chapter02_data_abstraction.html": "9c58590c094fe03c2e66495ddc144c601f677224452a94866f7e40c6931e0993"
     }
   },
-  "offline_report": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-20T16-50-23-585Z-960a1660/report.json",
-  "offline_sha256": "191128d5d239099d0c0c4fe20d3598fc092cc09e32aa346458dafbb0fdc3f47e",
+  "offline_report": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-21T03-21-38-892Z-3877457f/report.json",
+  "offline_sha256": "948878b129e226a5604a8398734b5e3a7f949eeffc54727266dd6ba62b2467c4",
+  "js_views": 24,
+  "no_js_views": 12,
+  "external_requests": [],
   "screenshots": [
     {
-      "file": "tmp/typography-20261020/eopl-final-desktop.png",
-      "route": "eopl/notes/preface.html",
-      "target": "FIGURE",
-      "sha256": "200b5694b8d1ec6fec551ef0dcac657614ec9ea06b7c84859a06638a5d6c520c"
+      "file": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-21T03-21-38-892Z-3877457f/eopl_code_index-390-top.png",
+      "sha256": "5bc05f6bdd74f33e32380e1d950dc3878bc28e764ac56dbdd712af3a1f47a039"
     },
     {
-      "file": "tmp/typography-20261020/eopl-final-mobile.png",
-      "route": "eopl/notes/preface.html",
-      "sha256": "eb058cbb96f8f5144cfe5019d71869fc7bbc4f1463b4010b43396313bae066a7"
+      "file": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-21T03-21-38-892Z-3877457f/eopl_notes_chapter01_inductive_data-1440-top.png",
+      "sha256": "b9f04030a92f10ddd0ddaa1f47783a20ce019afb0b0fd186a43e5d2da54bc67c"
+    },
+    {
+      "file": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-21T03-21-38-892Z-3877457f/eopl_notes_chapter02_data_abstraction-390-top.png",
+      "sha256": "87e3cfbfbd5901c2079f0e1c99f79b9af6d39025b5cd01544cddeae0d6a726b5"
+    },
+    {
+      "file": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-21T03-21-38-892Z-3877457f/eopl_notes_chapter01_inductive_data-no-js-390.png",
+      "sha256": "0fc0748c11cb6f34ee8ab6f0cef6661baa26f00c0e183e2621b3c1e83d3d79fe"
     }
-  ]
+  ],
+  "navigation_report": "tmp/eopl-ch12-work/navigation-final.json",
+  "historical_record": {
+    "file": "review/history/I044-browser.json",
+    "sha256": "e3e7a25fe7f87e3568032cb00f2c20539ad1078bcd3ff7d90f8283fc97021247",
+    "reason": "I044 two-page browser acceptance preserved; current six-route acceptance is independent."
+  }
 }

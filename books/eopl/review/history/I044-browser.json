@@ -1,0 +1,29 @@
+{
+  "issue": "I044",
+  "status": "passed",
+  "scope": "Ego Lite desktop emulation; 1800,1440,1024,390 CSS pixels; no-JS 1440,390. Four public HTML routes including two reading pages.",
+  "astro_migration": {
+    "record": "review/astro-migration.json",
+    "sha256": "cb21ca8e8930c5488298e89069de34b0785cd21a0fc4e0ef9ff2b85be80afb9b",
+    "open_findings": [],
+    "source_sha256": {
+      "book_overview.html": "bcee15d3ae5f7b748a93ff07bdffc6eb7fbbb790f4e2af54fce3bc289605720c",
+      "preface.html": "4ffe7b18e4d6bc5b5ba6be871417b061f1896b88885b723a6d46ab2024a25392"
+    }
+  },
+  "offline_report": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-20T16-50-23-585Z-960a1660/report.json",
+  "offline_sha256": "191128d5d239099d0c0c4fe20d3598fc092cc09e32aa346458dafbb0fdc3f47e",
+  "screenshots": [
+    {
+      "file": "tmp/typography-20261020/eopl-final-desktop.png",
+      "route": "eopl/notes/preface.html",
+      "target": "FIGURE",
+      "sha256": "200b5694b8d1ec6fec551ef0dcac657614ec9ea06b7c84859a06638a5d6c520c"
+    },
+    {
+      "file": "tmp/typography-20261020/eopl-final-mobile.png",
+      "route": "eopl/notes/preface.html",
+      "sha256": "eb058cbb96f8f5144cfe5019d71869fc7bbc4f1463b4010b43396313bae066a7"
+    }
+  ]
+}

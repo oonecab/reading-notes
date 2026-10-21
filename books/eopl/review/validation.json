@@ -1,18 +1,45 @@
 {
-  "issue": "I044",
+  "issue": "I048",
   "status": "passed",
-  "scope": "Map and preface publication checks; I042 source review remains historical.",
+  "scope": "Local source, 67 new original exercises, Racket execution, checker mutations, static build and content/output binding. Final root wrapper recorded in ch01-02.json.",
   "open_findings": [],
   "astro_migration": {
     "record": "review/astro-migration.json",
-    "sha256": "cb21ca8e8930c5488298e89069de34b0785cd21a0fc4e0ef9ff2b85be80afb9b",
+    "sha256": "e97e20868cf148e55233c158d248ba9610cde811ca54b81ae2145c974a56c52b",
     "open_findings": [],
     "source_sha256": {
       "book_overview.html": "bcee15d3ae5f7b748a93ff07bdffc6eb7fbbb790f4e2af54fce3bc289605720c",
-      "preface.html": "4ffe7b18e4d6bc5b5ba6be871417b061f1896b88885b723a6d46ab2024a25392"
+      "preface.html": "4ffe7b18e4d6bc5b5ba6be871417b061f1896b88885b723a6d46ab2024a25392",
+      "chapter01_inductive_data.html": "375aac6684c71ae9ec73fb3d3e401119c1c33221858b61e02e9638e74b64d31a",
+      "chapter02_data_abstraction.html": "9c58590c094fe03c2e66495ddc144c601f677224452a94866f7e40c6931e0993"
     }
   },
   "file_sha256": {
+    "README.md": "1e4767eabb1f2c0a8728e151d72e4219dea7b2f13f7fb18e1fdce4d4f696bcb4",
+    "agent.md": "bb13a5d585ac12f78e989b9cd4a248d19f2e62598520af1225830162e206ff50",
+    "code/README.md": "cab116bfb0b42bdd4d5f9629c92a20b12b1220200afd7e8fdd470cccf37b782c",
+    "code/benchmark_bigits.rkt": "f75903c4eb555084dd3297cdfb86412b11008e1351d1b03e77bd2ee5c3cc9988",
+    "code/chapter01.rkt": "b3447c764a14b1889da9e90e73e409d783944795f126e3d3d17cc23e0cf16a70",
+    "code/chapter02.rkt": "85cb64c82abdb908b3bba498e3960a130016fa323d461a27560b0abaadac178d",
+    "code/scope_demo.py": "737f05ece44f0859864f74e98ef4f38ed3884cf23d2ff54a9ad89d4ad719da37",
+    "code/test_chapters.rkt": "0dafdff5c5c825ffd8ad76b69331e5b24a7cd391f6ef037742d5edbc31946689",
+    "notes/README.md": "1539514c3a6c1b3fa90a88349ad7917458f11b2c35b2a18fdb9b02c34946a488",
+    "notes/question_contexts.json": "026abe54b15cf1951a2bd69f27a80cf7af0063a643e7feaa1532e873e95e3123",
+    "notes/questions_ch01_02.json": "88cfdcdb37200cc9b59681bc2effa371a68265ba35ec7a684d09055ee3b17e9e",
+    "notes/source_excerpts.json": "8a4bb92a917d9cb68cf56a847b6c67f015ee3fa31b872677af894f52521795f8",
+    "notes/source_inventory.json": "87023b0a3ff2ab1e880d8181f6318deaef354b8a6664c53b0c024a7f63168538",
+    "notes/source_issues.json": "355d8d0d26b98157c0361cc9ef49685f807755a1ce1cb93da22ce48c698785b3",
+    "notes/source_manifest.json": "ae69632f4dc6964df141b2a6b7ffc9a6c1aa338a0a3b7196dd68a54b879dbbe1",
+    "reading-plan.md": "7b774f9a1857495269e28035eb90de0d36b82fc7d9a2d89f0d12b2cff2947371",
+    "review/ch01-02-benchmark.json": "7a314c0afc369b194fd878b824fa8bedd5966554750f32e97281924d0bc48b7c",
+    "review/ch01-02.md": "9e114cefc083c1b2b00109a41cc0f28ae672754e44e0077bab2f39e65401d9bb",
+    "tools/check_notes.py": "36157b6d8b651205b5c64b14edf402980e3d53dd9039c026f66b05a75faf940a",
+    "tools/sync_notes.py": "ff44ee96ae7ed0a75323ecda8befd1759ba32cd2abdc0f9904374bcb948afe86",
+    "tools/test_chapter_mutations.py": "21354cc839c9c5df505e4964297066fece9c88573a83060e9145ed5b29ac9317",
+    "tools/test_checker.py": "0e96259f8fbe8000da356e8fa59048a00082839c962e743668b659fa8abdaf66",
+    "tools/test_source_contexts.py": "3c940083229782c15da585677c1b0e6e96515084564ef399784c1c68c003f301"
+  },
+  "previous_file_sha256": {
     "README.md": "94cd7b30364dd46705d828bfdfb1d6a7bf245f7bf84be603cd102b32b2373ae0",
     "agent.md": "84558906642894adb93914670210969342d9e6a2a5ef369518b1fb05254cbc4b",
     "reading-plan.md": "6f40f6b88fc41ab3c31a695b479eea2d391e84a97db47a90b944074bb4ee1f31",
@@ -24,6 +51,9 @@
     "tools/test_checker.py": "94fb3094221d18aafe5f23c5a42b60c405b6b154bfbf2c38346dada0575d8770",
     "code/scope_demo.py": "737f05ece44f0859864f74e98ef4f38ed3884cf23d2ff54a9ad89d4ad719da37"
   },
-  "semantics": "tmp/typography-20261020/eopl-full/report.json",
-  "checker_mutations": "tmp/typography-20261020/eopl-mutations.log"
+  "previous_binding_reason": "I048 adds two chapters and actual Racket verification; prior values are retained here and in review/history/I044-validation.json.",
+  "semantics": "tmp/eopl-ch12-work/book-check-final-metadata/report.json",
+  "checker_mutations": "tmp/eopl-ch12-work/checker-regression-final/report.json",
+  "program_mutations": "tmp/eopl-ch12-mutations/report.json",
+  "benchmark": "review/ch01-02-benchmark.json"
 }

@@ -3,7 +3,7 @@
 <!-- project-governance:managed:start -->
 ## 项目目的
 
-统一管理 Durrett 随机过程、Weiss 数据结构、CS:APP 系统、Carter 视觉群论与程士宏测度概率笔记，保留正式 HTML、可运行示例、来源与验证记录，共用阅读入口和静态发布流程。
+统一管理 Durrett 随机过程、Weiss 数据结构、CS:APP 系统、Carter 视觉群论、程士宏测度概率及 EOPL 程序设计语言笔记，保留正式 HTML、可运行示例、来源与验证记录，共用阅读入口和静态发布流程。
 
 ## 项目分类
 
@@ -18,6 +18,7 @@
 - 静态 MathML / SVG
 - C11
 - Python 3
+- Scheme / Racket（EOPL 教学程序）
 
 ### 框架与核心库
 
@@ -34,6 +35,7 @@
 - pnpm 11.21.0（锁定依赖）
 - Nginx（服务器静态 HTTPS 服务）
 - Ego Lite / ego-browser（构建 CSP 冒烟与离线浏览器验收）
+- Racket 8.17 + eopl / rackunit（本地教材示例验证）
 
 ## 源码边界
 
@@ -42,6 +44,7 @@
 - books/csapp
 - books/visual-group-theory
 - books/measure-probability
+- books/eopl
 - portal
 - deploy
 - tools
@@ -113,6 +116,8 @@ CS:APP 图表与导航复核见 [I019](issues/I019-csapp-visual-navigation.md) /
 
 | 2026-10-17 | 直接维护单文件 HTML → Astro 7.4.0 静态构建、Node 24.21.0 LTS 与 pnpm 11.21.0 | 共享布局与确定性内联，原数学片段保持；Python 继续独立验证 | 五书分批门禁通过；保留旧 HTML、旧构建器与原 URL，生产仅 Nginx | [I028](issues/I028-static-first-astro.md) / [ADR-002](docs/decisions/ADR-002-static-first-astro.md) |
 | 2026-10-17 | 构建后独立浏览验收 → 构建内必须通过真实浏览器 CSP 冒烟；发布用户持有版本 → root 安装器模板 | 防止脚本 hash 与验证对象漂移，明确版本写权限边界 | 构建需要 Ego Lite/ego-browser；正式 URL 与 Python 验证保持，服务器应用另交运维 | [I032](issues/I032-final-assessment-repairs.md) / [ADR-005](docs/decisions/ADR-005-root-release-installer.md) |
+
+| 2026-10-21 | 序言 Python 教学模型 → 增加 Racket 8.17 与 eopl/rackunit 的第 1、2 章执行验证 | 直接运行 Scheme 风格递归、define-datatype/cases 和多表示客户，保留原有 Python 示例 | 使用本机已有运行时；页面仍为静态 HTML，新程序与章节可独立回退，服务与端口不变 | [I048](issues/I048-eopl-ch01-02.md) |
 
 > 详细论证写入问题单或 ADR；本表保存可追踪索引，不得覆盖历史记录。
 
@@ -189,3 +194,9 @@ I046 的公开文案门禁覆盖全部 80 个 HTML，包含从材料生成的辅
 I046 生产版 `20261021T095146` 由 `c2784f9` / `v2026.10.21-reader-copy` 构建，上一版 `20261021T024246` 保留；511 文件、正常域名、阅读页面和辅助指南的实读证据见 [T046](test/T046-reader-copy.md)。部署配置、发布策略和内联脚本集合保持既有约定。
 
 I047 按 RN-001 v1.7 补齐群论与 CS:APP 的原生代码折叠，根展示检查覆盖六书完整源码及长片段；离线验收分别测试代码摘要的鼠标、键盘和无脚本行为。复用既有页面组件、样式与深链脚本，程序字节、数学内容、技术栈和服务环境保持。具体范围与发布证据见 [T047](test/T047-code-folding.md)。
+
+## I048：EOPL 基础两章与 Scheme 运行验证（2026-10-21）
+
+EOPL 增加第 1、2 章受控 HTML 与 67 道完整原题解答，书级共 4 页、68 题；Reading Notes 共 60 个阅读页。`books/eopl/code/chapter01.rkt`、`chapter02.rkt` 是程序维护源，实际运行使用已有 Racket 8.17 与 eopl/rackunit。Scheme/Racket 是教材示例的本地验证工具，生产站点继续仅分发静态内容。机器可读技术登记、catalog、allowlist、程序说明和检查器同步更新；不改变环境变量、服务、端口或生产版本。
+
+本地来源与阅读证据关联 [I048](issues/I048-eopl-ch01-02.md)、[T048](test/T048-eopl-ch01-02.md)。新增页面使用独立 Git 内容归档 `1e96df2`；现有页面通过追加修订链保留原始哈希。I047 已有代码折叠实现及证据保持其自身范围。

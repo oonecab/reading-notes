@@ -65,11 +65,38 @@ def run(run_dir: Path) -> dict:
         check("page_mapping_shift", "page mapping differs")
         manifest.write_text(original)
 
+        inventory_file = book / "notes/source_inventory.json"
+        original_inventory = inventory_file.read_text()
+        data = json.loads(original_inventory)
+        data["exercise_counts"]["1"] = 35
+        inventory_file.write_text(json.dumps(data))
+        check("inventory_header_drift", "source inventory metadata differs")
+        inventory_file.write_text(original_inventory)
+
         preface = source / "preface.html"
         original = preface.read_text()
         preface.write_text(original.replace("#!/usr/bin/env python3",
                                            "#!/usr/bin/env python3\n# injected drift", 1))
         check("program_copy_drift", "preface code copy differs")
+        preface.write_text(original)
+        sync()
+
+        chapter = source / "chapter01_inductive_data.html"
+        original = chapter.read_text()
+        chapter.write_text(original.replace('id="ex-1-36"', 'id="omitted-exercise"', 1))
+        sync()
+        check("missing_chapter_exercise", "missing anchor")
+        chapter.write_text(original)
+        sync()
+        chapter.write_text(original.replace("Write inductive definitions", "[omitted condition]", 1))
+        sync()
+        check("truncated_original_question", "complete original question differs")
+        chapter.write_text(original)
+        sync()
+        chapter.write_text(original.replace("Counts top-level elements.", "Injected program drift.", 1))
+        check("chapter_program_copy_drift", "program copy differs")
+        chapter.write_text(original)
+        sync()
     report = {"status": "passed", "cases": cases,
               "fixture_note": "Source PDF omitted from isolated fixture; full source validation runs separately."}
     (run_dir / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")

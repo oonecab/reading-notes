@@ -66,3 +66,5 @@ CS:APP 全书解释复核见 [I018](../../issues/I018-csapp-explanations.md) / [
 2026-10-20 的 [I040](../../issues/I040-unified-reading-components.md) 恢复[测度概率习题 6.27](../../books/measure-probability/notes/chapter06_independent_sequences.html#ex-6-27)的原题四阶矩条件，将二阶矩推广放在解答说明；[Weiss 习题 12.1](../../books/weiss/notes/chapter12_advanced_data_structures.html#ex12-1)展开标准双层伸展的局部秩计账，区分简化版本所用论文引理与真实运行成本。有限枚举与显示条件回归见 `scripts/reading-components.test.mjs`，一般证明和外部引理依赖仍由正式正文表达。
 
 EOPL 第三版准备批：词法/动态作用域、闭包创建环境、按值求值与错误条件由[序言闭包例子](../../books/eopl/notes/preface.html#scope-example)及[程序说明](../../books/eopl/code/README.md)维护；原书语义与 Python 教学子集分开标明。全书来源定位及准备阶段边界见[阅读计划](../../books/eopl/reading-plan.md)，执行和阅读证据见 [T042](../../test/T042-eopl-map-preface.md)。
+
+EOPL 基础两章：递归终止度量、编号上下文、自然数表示、环境遮蔽、重复变量约定、zipper 重建和解析输入边界由[第 1 章](../../books/eopl/notes/chapter01_inductive_data.html)、[第 2 章](../../books/eopl/notes/chapter02_data_abstraction.html)及[程序接口](../../books/eopl/code/README.md)维护。原题及修正依据保留，实际 Racket 回归和计时口径见 [T048](../../test/T048-eopl-ch01-02.md)。

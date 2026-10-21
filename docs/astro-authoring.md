@@ -18,7 +18,7 @@ I032 开始，迁移后的明确内容修订在 `src/content-revisions.json` 逐
 
 工具链为 **Node/Astro + Python build helpers**：Node 24.21.0、pnpm 11.21.0、Python 3.10+；Python 的 build_portal、prepare-pages、public_policy 参与构建，原独立验证器另行运行。准备本地来源资料，并安装 C/Make/Poppler（完整验证）、Nginx/OpenSSL（发布演练）和可运行的 Ego Lite / ego-browser CLI（浏览器验收），然后执行 `pnpm install --frozen-lockfile`、`pnpm build`。生产 HTTP 仍只由 Nginx 提供。
 
-`pnpm build` 在临时目录准备来源并构建，对全部公开 HTML（当前 76 页，含辅助页和 5 个旧入口页）内联 CSS、favicon 和脚本；下载文件保留链接。正式页完整 DOM 的标签、命名空间、属性和子节点顺序、习题 ID 序列，以及正文/MathML/SVG/代码指纹和内部锚点一起核对。页面数量来自受控条目清单，新增书籍按 catalog、migration-state 与发布 allowlist 登记，不修改固定页数。
+`pnpm build` 在临时目录准备来源并构建，对全部公开 HTML（当前 82 页，含辅助页和 5 个旧入口页）内联 CSS、favicon 和脚本；下载文件保留链接。正式页完整 DOM 的标签、命名空间、属性和子节点顺序、习题 ID 序列，以及正文/MathML/SVG/代码指纹和内部锚点一起核对。页面数量来自受控条目清单，新增书籍按 catalog、migration-state 与发布 allowlist 登记，不修改固定页数。
 
 I036 在发布适配层为正式阅读页和旧入口补齐站点 favicon；唯一维护源为 `portal/favicon.svg`。所有公开 HTML 的 head 必须包含唯一且内容匹配的内联 SVG 图标，缺失、重复、错位或内容不同会中止构建。单页离线打开无需另取图标文件；新增页面沿用同一门禁。完整 DOM parity 的预期发布视图同样展开已声明资源，不忽略 head 差异。
 

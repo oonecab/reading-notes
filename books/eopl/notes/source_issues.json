@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "scope": "Candidates noticed during whole-book text reading; original page and implementation must be checked when writing the relevant chapter. Not asserted errata.",
+  "scope": "Verified chapter 1–2 source notes plus separately marked later-chapter candidate.",
   "items": [
     {
       "id": "candidate-fact-registerization",
@@ -15,6 +15,76 @@
       "status": "needs_visual_and_execution_review",
       "observation": "Extracted apply-cont for factorial appears to restore n from saved-n without visibly multiplying val. Check the original figures and transformation context before any correction.",
       "affects_current_pages": false
+    },
+    {
+      "id": "ch1-list-int",
+      "printed_pages": [
+        5
+      ],
+      "pdf_pages": [
+        28
+      ],
+      "status": "verified",
+      "original": "Derivation tree labels -7,3,14 as members of N.",
+      "correction": "Use Int, as in definition 1.1.5 and the immediately preceding derivation.",
+      "basis": "PDF 28 viewed; -7 is an integer but not natural.",
+      "affects_current_pages": true
+    },
+    {
+      "id": "ch1-red-brackets",
+      "printed_pages": [
+        29
+      ],
+      "pdf_pages": [
+        52
+      ],
+      "status": "verified",
+      "original": "Exercise 1.33 call ends at (leaf 14)).",
+      "correction": "Add three closing parentheses to the call before running.",
+      "basis": "PDF 52 viewed; balanced Scheme version executed with expected tree.",
+      "affects_current_pages": true
+    },
+    {
+      "id": "ch1-number-brackets",
+      "printed_pages": [
+        30
+      ],
+      "pdf_pages": [
+        53
+      ],
+      "status": "verified",
+      "original": "Exercise 1.35 call ends at (leaf 14)).",
+      "correction": "Add three closing parentheses before running.",
+      "basis": "PDF 53 viewed; expected leaf indices 0–4 executed.",
+      "affects_current_pages": true
+    },
+    {
+      "id": "ch2-tree-interface",
+      "printed_pages": [
+        45
+      ],
+      "pdf_pages": [
+        68
+      ],
+      "status": "verified",
+      "original": "Exercise 2.19 define t1 lacks one closing parenthesis; examples use move-to-left/right.",
+      "correction": "Close define; retain required move-to-left/right-son and provide example aliases.",
+      "basis": "PDF 68 viewed; exact insertion/movement outputs tested.",
+      "affects_current_pages": true
+    },
+    {
+      "id": "ch2-unparser-page",
+      "printed_pages": [
+        54
+      ],
+      "pdf_pages": [
+        77
+      ],
+      "status": "verified",
+      "original": "Exercise 2.28 references alternate grammar on page 52.",
+      "correction": "Alternate concrete grammar is printed on page 51 / PDF 74.",
+      "basis": "PDF 74 and 77 visually viewed; alternate grammar is printed on p.51.",
+      "affects_current_pages": true
     }
   ]
 }

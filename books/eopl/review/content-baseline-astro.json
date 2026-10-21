@@ -13,6 +13,29 @@
       "page": "eopl/notes/preface.html",
       "source_sha256": "4ffe7b18e4d6bc5b5ba6be871417b061f1896b88885b723a6d46ab2024a25392",
       "output_sha256": "4ffe7b18e4d6bc5b5ba6be871417b061f1896b88885b723a6d46ab2024a25392"
+    },
+    {
+      "page": "eopl/notes/chapter01_inductive_data.html",
+      "source_sha256": "375aac6684c71ae9ec73fb3d3e401119c1c33221858b61e02e9638e74b64d31a",
+      "output_sha256": "375aac6684c71ae9ec73fb3d3e401119c1c33221858b61e02e9638e74b64d31a",
+      "created_for": "I048",
+      "baseline_git": "1e96df2376aa34342f23eb089a1cbffb553f46f9",
+      "output_kind": "retained_source_archive; final transformed output bound in review/ch01-02.json"
+    },
+    {
+      "page": "eopl/notes/chapter02_data_abstraction.html",
+      "source_sha256": "9c58590c094fe03c2e66495ddc144c601f677224452a94866f7e40c6931e0993",
+      "output_sha256": "9c58590c094fe03c2e66495ddc144c601f677224452a94866f7e40c6931e0993",
+      "created_for": "I048",
+      "baseline_git": "1e96df2376aa34342f23eb089a1cbffb553f46f9",
+      "output_kind": "retained_source_archive; final transformed output bound in review/ch01-02.json"
+    }
+  ],
+  "extensions": [
+    {
+      "issue": "I048",
+      "baseline_git": "1e96df2376aa34342f23eb089a1cbffb553f46f9",
+      "scope": "Chapters 1 and 2 reviewed source snapshots; preserves the two I044 historical records. Local output is verified separately; no production deployment."
     }
   ]
 }

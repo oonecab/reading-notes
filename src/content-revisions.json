@@ -3775,7 +3775,7 @@
     },
     "eopl/notes/book_overview.html": {
       "original_sha256": "bcee15d3ae5f7b748a93ff07bdffc6eb7fbbb790f4e2af54fce3bc289605720c",
-      "source_sha256": "73a55fd46160a8ecc88050e6333853976b0d45eb984a8716a09eff9496a1a86c",
+      "source_sha256": "d9ea94359635da9f37016785a86c0f43322fbca0d9ee9b9251a082b2b86510e5",
       "history": [
         {
           "revision": "I044",
@@ -3803,13 +3803,24 @@
           "reviewed_anchors": [
             "top"
           ]
+        },
+        {
+          "revision": "I048",
+          "from_sha256": "73a55fd46160a8ecc88050e6333853976b0d45eb984a8716a09eff9496a1a86c",
+          "to_sha256": "d9ea94359635da9f37016785a86c0f43322fbca0d9ee9b9251a082b2b86510e5",
+          "reason": "Reviewed links and reading scope for the completed local chapters 1 and 2; existing text, source excerpts, exercise 0.1 and its executable example preserved.",
+          "reviewed_anchors": [
+            "top",
+            "chapter-1",
+            "chapter-2"
+          ]
         }
       ],
-      "review_record": "docs/reader-copy-review.json"
+      "review_record": "books/eopl/review/ch01-02.json"
     },
     "eopl/notes/preface.html": {
       "original_sha256": "4ffe7b18e4d6bc5b5ba6be871417b061f1896b88885b723a6d46ab2024a25392",
-      "source_sha256": "690d69cb42c634f1d2f4cd942aac558f1f4001f4fa076357ec5dadd17d83340f",
+      "source_sha256": "1cf6fd97fefa1bbc71ba404c9facd10b645beac1653af7d6ba16ef16e52cbddc",
       "history": [
         {
           "revision": "I044",
@@ -3837,9 +3848,53 @@
           "reviewed_anchors": [
             "top"
           ]
+        },
+        {
+          "revision": "I048",
+          "from_sha256": "690d69cb42c634f1d2f4cd942aac558f1f4001f4fa076357ec5dadd17d83340f",
+          "to_sha256": "1cf6fd97fefa1bbc71ba404c9facd10b645beac1653af7d6ba16ef16e52cbddc",
+          "reason": "Reviewed links and reading scope for the completed local chapters 1 and 2; existing text, source excerpts, exercise 0.1 and its executable example preserved.",
+          "reviewed_anchors": [
+            "top"
+          ]
         }
       ],
-      "review_record": "docs/reader-copy-review.json"
+      "review_record": "books/eopl/review/ch01-02.json"
+    },
+    "eopl/notes/chapter01_inductive_data.html": {
+      "original_sha256": "375aac6684c71ae9ec73fb3d3e401119c1c33221858b61e02e9638e74b64d31a",
+      "source_sha256": "e64f49ad9d332f72fc76b1524d82334d43d573d0e423246f896217a41af50658",
+      "history": [
+        {
+          "revision": "I048-reading-notation",
+          "from_sha256": "375aac6684c71ae9ec73fb3d3e401119c1c33221858b61e02e9638e74b64d31a",
+          "to_sha256": "e64f49ad9d332f72fc76b1524d82334d43d573d0e423246f896217a41af50658",
+          "reason": "Final reader review keeps Scheme booleans, vectors, list values and complete call states in code notation; mathematical quantities retain MathML. Original question text, code and all anchors preserved.",
+          "reviewed_anchors": [
+            "ex-1-11",
+            "ex-1-35"
+          ]
+        }
+      ],
+      "review_record": "books/eopl/review/ch01-02.json"
+    },
+    "eopl/notes/chapter02_data_abstraction.html": {
+      "original_sha256": "9c58590c094fe03c2e66495ddc144c601f677224452a94866f7e40c6931e0993",
+      "source_sha256": "c572719d4b7ea853f2368e099b7aecf990ed2d38a9ad8b000b6db8a62ed4db4b",
+      "history": [
+        {
+          "revision": "I048-reading-notation",
+          "from_sha256": "9c58590c094fe03c2e66495ddc144c601f677224452a94866f7e40c6931e0993",
+          "to_sha256": "c572719d4b7ea853f2368e099b7aecf990ed2d38a9ad8b000b6db8a62ed4db4b",
+          "reason": "Final reader review keeps Scheme booleans, vectors, list values and complete call states in code notation; mathematical quantities retain MathML. Original question text, code and all anchors preserved.",
+          "reviewed_anchors": [
+            "ex-2-3",
+            "ex-2-17",
+            "ex-2-25"
+          ]
+        }
+      ],
+      "review_record": "books/eopl/review/ch01-02.json"
     }
   }
 }

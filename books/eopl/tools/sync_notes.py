@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""准备批：复用受控 HTML 展开器，维护两份离线镜像。"""
+"""复用受控 HTML 展开器，同步 EOPL 阅读镜像与可执行源码。"""
 from __future__ import annotations
 
 import argparse
@@ -29,10 +29,39 @@ def sync(write: bool = False) -> dict:
         if not write:
             raise ValueError("preface code copy differs; run sync_notes.py --write")
         preface.write_text(updated)
+    for chapter in sorted(SOURCE.glob("chapter*.html")):
+        source = chapter.read_text()
+        def snippet(match):
+            filename, block = match.group(1), match.group(2)
+            program = (BOOK / "code" / filename).read_text()
+            found = re.search(r"^;; BEGIN " + re.escape(block) + r"\n(.*?)^;; END " +
+                              re.escape(block) + r"$", program, re.S | re.M)
+            if found is None:
+                raise ValueError(f"missing program region: {filename} {block}")
+            return (f'<!-- EOPL:snippet {filename} {block} -->\n'
+                    f'<details class="code-details" open><summary>查看实现 · {block}</summary>'
+                    '<pre><code class="language-scheme">' + html.escape(found[1]) +
+                    '</code></pre></details>\n<!-- EOPL:end-snippet -->')
+        updated = re.sub(r"<!-- EOPL:snippet (\S+) (\S+) -->.*?<!-- EOPL:end-snippet -->",
+                         snippet, source, flags=re.S)
+        def complete(match):
+            filename = match[1]
+            program = (BOOK / "code" / filename).read_text()
+            ident = Path(filename).stem + "-code"
+            return (f'<!-- EOPL:program {filename} --><pre><code id="{ident}" '
+                    'class="language-scheme">' + html.escape(program) +
+                    '</code></pre><!-- EOPL:end-program -->')
+        updated = re.sub(r"<!-- EOPL:program (\S+) -->.*?<!-- EOPL:end-program -->",
+                         complete, updated, flags=re.S)
+        if source != updated:
+            if not write:
+                raise ValueError(f"program copy differs: {chapter.name}")
+            chapter.write_text(updated)
     js = """
 import {readSource,syncMirrors} from './src/lib/controlled-html.mjs';
-const names=['book_overview','preface'];
-const pages=names.map(n=>readSource(`src/content/books/eopl/${n}.html`));
+import fs from 'node:fs';
+const names=fs.readdirSync('src/content/books/eopl').filter(n=>n.endsWith('.html'));
+const pages=names.map(n=>readSource(`src/content/books/eopl/${n}`));
 syncMirrors(pages,{write:process.argv[1]==='write'});
 console.log(JSON.stringify({status:'passed',pages:pages.length}));
 """

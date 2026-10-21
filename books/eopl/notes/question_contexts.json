@@ -1,0 +1,72 @@
+{
+  "source_sha256": "b9e8770a4dc97206bd02230e6b21a878382eb02a340ff69321857d701e7d967c",
+  "items": [
+    {
+      "printed_page": 15,
+      "pdf_page": 38,
+      "exercises": [
+        "1.6",
+        "1.7"
+      ],
+      "code": "(define nth-element\n  (lambda (lst n)\n     (if (null? lst)\n       (report-list-too-short n)\n       (if (zero? n)\n         (car lst)\n         (nth-element (cdr lst) (- n 1))))))\n\n(define report-list-too-short\n  (lambda (n)\n    (eopl:error 'nth-element\n      \"List too short by ~s elements.~%\" (+ n 1))))",
+      "anchor": "source-context-nth-element"
+    },
+    {
+      "printed_page": 18,
+      "pdf_page": 41,
+      "exercises": [
+        "1.8",
+        "1.9"
+      ],
+      "code": "(define remove-first\n  (lambda (s los)\n    (if (null? los)\n       '()\n       (if (eqv? (car los) s)\n         (cdr los)\n         (cons (car los) (remove-first s (cdr los)))))))",
+      "anchor": "source-context-remove-first"
+    },
+    {
+      "printed_page": 21,
+      "pdf_page": 44,
+      "exercises": [
+        "1.11",
+        "1.12",
+        "1.13"
+      ],
+      "code": "(define subst\n  (lambda (new old slist)\n     (if (null? slist)\n       '()\n       (cons\n         (subst-in-s-exp new old (car slist))\n         (subst new old (cdr slist))))))\n\n(define subst-in-s-exp\n  (lambda (new old sexp)\n     (if (symbol? sexp)\n        (if (eqv? sexp old) new sexp)\n        (subst new old sexp))))",
+      "anchor": "source-context-subst"
+    },
+    {
+      "printed_page": 25,
+      "pdf_page": 48,
+      "exercises": [
+        "1.14"
+      ],
+      "code": "(define partial-vector-sum\n  (lambda (v n)\n    (if (zero? n)\n      (vector-ref v 0)\n      (+ (vector-ref v n)\n         (partial-vector-sum v (- n 1))))))",
+      "anchor": "source-context-partial-vector-sum"
+    },
+    {
+      "printed_page": 38,
+      "pdf_page": 61,
+      "exercises": [
+        "2.7"
+      ],
+      "code": "(define empty-env\n  (lambda () (list 'empty-env)))\n(define extend-env\n   (lambda (var val env)\n     (list 'extend-env var val env)))\n(define apply-env\n  (lambda (env search-var)\n     (cond\n       ((eqv? (car env) 'empty-env)\n        (report-no-binding-found search-var))\n       ((eqv? (car env) 'extend-env)\n        (let ((saved-var (cadr env))\n               (saved-val (caddr env))\n               (saved-env (cadddr env)))\n           (if (eqv? search-var saved-var)\n             saved-val\n             (apply-env saved-env search-var))))\n       (else\n         (report-invalid-env env)))))\n\n(define report-no-binding-found\n  (lambda (search-var)\n    (eopl:error 'apply-env \"No binding for ~s\" search-var)))\n\n(define report-invalid-env\n  (lambda (env)\n    (eopl:error 'apply-env \"Bad environment: ~s\" env)))",
+      "anchor": "source-context-figure-2-1"
+    },
+    {
+      "printed_page": 51,
+      "pdf_page": 74,
+      "exercises": [
+        "2.28"
+      ],
+      "code": "Lc-exp ::= Identifier\n       ::= proc Identifier => Lc-exp\n       ::= Lc-exp(Lc-exp)",
+      "anchor": "source-context-alternate-grammar"
+    },
+    {
+      "printed_page": 53,
+      "pdf_page": 76,
+      "exercises": [
+        "2.30"
+      ],
+      "code": "(define parse-expression\n  (lambda (datum)\n     (cond\n        ((symbol? datum) (var-exp datum))\n        ((pair? datum)\n         (if (eqv? (car datum) 'lambda)\n           (lambda-exp\n              (car (cadr datum))\n              (parse-expression (caddr datum)))\n           (app-exp\n              (parse-expression (car datum))\n              (parse-expression (cadr datum)))))\n        (else (report-invalid-concrete-syntax datum)))))",
+      "anchor": "source-context-parse-expression"
+    }
+  ]
+}

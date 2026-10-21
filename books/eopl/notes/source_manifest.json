@@ -76,7 +76,8 @@
       "pdf_start": 24,
       "pdf_end": 53,
       "map_anchor": "chapter-1",
-      "companion_status": "planned"
+      "companion_status": "authored",
+      "companion_page": "chapter01_inductive_data.html"
     },
     {
       "number": "2",
@@ -86,7 +87,8 @@
       "pdf_start": 54,
       "pdf_end": 78,
       "map_anchor": "chapter-2",
-      "companion_status": "planned"
+      "companion_status": "authored",
+      "companion_page": "chapter02_data_abstraction.html"
     },
     {
       "number": "3",
@@ -514,12 +516,82 @@
   "current_scope": {
     "pages": [
       "book_overview.html",
-      "preface.html"
+      "preface.html",
+      "chapter01_inductive_data.html",
+      "chapter02_data_abstraction.html"
     ],
     "answered_exercises": [
-      "0.1"
+      "0.1",
+      "1.1",
+      "1.2",
+      "1.3",
+      "1.4",
+      "1.5",
+      "1.6",
+      "1.7",
+      "1.8",
+      "1.9",
+      "1.10",
+      "1.11",
+      "1.12",
+      "1.13",
+      "1.14",
+      "1.15",
+      "1.16",
+      "1.17",
+      "1.18",
+      "1.19",
+      "1.20",
+      "1.21",
+      "1.22",
+      "1.23",
+      "1.24",
+      "1.25",
+      "1.26",
+      "1.27",
+      "1.28",
+      "1.29",
+      "1.30",
+      "1.31",
+      "1.32",
+      "1.33",
+      "1.34",
+      "1.35",
+      "1.36",
+      "2.1",
+      "2.2",
+      "2.3",
+      "2.4",
+      "2.5",
+      "2.6",
+      "2.7",
+      "2.8",
+      "2.9",
+      "2.10",
+      "2.11",
+      "2.12",
+      "2.13",
+      "2.14",
+      "2.15",
+      "2.16",
+      "2.17",
+      "2.18",
+      "2.19",
+      "2.20",
+      "2.21",
+      "2.22",
+      "2.23",
+      "2.24",
+      "2.25",
+      "2.26",
+      "2.27",
+      "2.28",
+      "2.29",
+      "2.30",
+      "2.31"
     ],
-    "formal_publication_registered": false
+    "formal_publication_registered": true,
+    "publication_note": "Catalog/build registration includes chapters 1–2; I048 is local authoring and validation only, not a production deployment."
   },
   "reading": {
     "date": "2026-10-20",
@@ -557,5 +629,27 @@
       272
     ],
     "note": "Sequential reading of extracted full text, targeted original-page visual inspection. Not a full visual proofreading or execution audit of all textbook code."
+  },
+  "chapter_1_2_reading": {
+    "date": "2026-10-21",
+    "text_read_pdf_ranges": [
+      [
+        24,
+        78
+      ]
+    ],
+    "rendered_and_viewed_pdf_pages": [
+      28,
+      29,
+      52,
+      53,
+      62,
+      63,
+      68,
+      74,
+      77
+    ],
+    "question_inventory": "questions_ch01_02.json",
+    "note": "All chapter text read; selected mathematical inference, diagrams and malformed example pages visually checked. Not a claim of visual proofread of all 55 pages."
   }
 }

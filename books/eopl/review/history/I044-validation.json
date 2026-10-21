@@ -1,0 +1,29 @@
+{
+  "issue": "I044",
+  "status": "passed",
+  "scope": "Map and preface publication checks; I042 source review remains historical.",
+  "open_findings": [],
+  "astro_migration": {
+    "record": "review/astro-migration.json",
+    "sha256": "cb21ca8e8930c5488298e89069de34b0785cd21a0fc4e0ef9ff2b85be80afb9b",
+    "open_findings": [],
+    "source_sha256": {
+      "book_overview.html": "bcee15d3ae5f7b748a93ff07bdffc6eb7fbbb790f4e2af54fce3bc289605720c",
+      "preface.html": "4ffe7b18e4d6bc5b5ba6be871417b061f1896b88885b723a6d46ab2024a25392"
+    }
+  },
+  "file_sha256": {
+    "README.md": "94cd7b30364dd46705d828bfdfb1d6a7bf245f7bf84be603cd102b32b2373ae0",
+    "agent.md": "84558906642894adb93914670210969342d9e6a2a5ef369518b1fb05254cbc4b",
+    "reading-plan.md": "6f40f6b88fc41ab3c31a695b479eea2d391e84a97db47a90b944074bb4ee1f31",
+    "notes/README.md": "b35df50dafec8c0616961225dd6c45ae0785d964daf532f21c4dfac4e57c7bdb",
+    "notes/source_manifest.json": "0b285f06bdc8b1bf61536e61a8eafface4432fcb6daeeab4a3d83e685f3bb3b2",
+    "notes/source_inventory.json": "62dfceed19f2192f3af9f4a96391a3dc91257a68051517b39948a8ba1fc124cc",
+    "notes/source_excerpts.json": "8a4bb92a917d9cb68cf56a847b6c67f015ee3fa31b872677af894f52521795f8",
+    "tools/check_notes.py": "9d981ced457330df427504813f1ab82a7104912736f9e5037194f07105e6b089",
+    "tools/test_checker.py": "94fb3094221d18aafe5f23c5a42b60c405b6b154bfbf2c38346dada0575d8770",
+    "code/scope_demo.py": "737f05ece44f0859864f74e98ef4f38ed3884cf23d2ff54a9ad89d4ad719da37"
+  },
+  "semantics": "tmp/typography-20261020/eopl-full/report.json",
+  "checker_mutations": "tmp/typography-20261020/eopl-mutations.log"
+}

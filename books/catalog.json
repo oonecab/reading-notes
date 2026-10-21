@@ -77,16 +77,16 @@
     },
     {
       "id": "eopl",
-      "title": "EOPL · 程序设计语言要义（地图与导读）",
+      "title": "EOPL · 程序设计语言要义",
       "directory": "books/eopl",
       "entry": "notes/book_overview.html",
       "publish_prefix": "eopl",
       "notes_directory": "notes",
       "code_directory": "code",
       "guidelines": "agent.md",
-      "expected_pages": 2,
-      "expected_exercises": 1,
-      "scope": "Preparation companion: full-book map, preface, exercise 0.1 and one executable lexical/dynamic scope example. Chapters 1–9 are mapped, not authored.",
+      "expected_pages": 4,
+      "expected_exercises": 68,
+      "scope": "Full-book map, preface, chapters 1–2; exercises 0.1, 1.1–1.36, 2.1–2.31; executable Python and Racket companions. Chapters 3–9 remain planned.",
       "code_authority": "standalone_sources",
       "checker": "tools/check_notes.py"
     }
