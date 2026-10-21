@@ -9,7 +9,7 @@ import { sha, offlineDependencies } from './parity-lib.mjs';
 import { checkCsp } from './check-csp.mjs';
 import { checkBudgets } from './performance-budget.mjs';
 import { checkSource } from '../src/lib/source-revisions.mjs';
-import { requireReaderCopy } from '../tools/reading-presentation/check.mjs';
+import { requireReaderCopy, requireCodeFolding } from '../tools/reading-presentation/check.mjs';
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 process.chdir(root);
@@ -68,6 +68,10 @@ if(!shell){
   run('python3',['deploy/public_policy.py',target,'--transform','--sums',path.join(stage,'dist-SHA256SUMS')]);
   for (const route of routes) {
     try { requireReaderCopy(fs.readFileSync(path.join(target, route), 'utf8')); }
+    catch (error) { throw new Error(`${route}: ${error.message}`, {cause: error}); }
+  }
+  for (const {metadata:{route}} of pages) {
+    try { requireCodeFolding(fs.readFileSync(path.join(target, route), 'utf8')); }
     catch (error) { throw new Error(`${route}: ${error.message}`, {cause: error}); }
   }
   verifyParity(target);

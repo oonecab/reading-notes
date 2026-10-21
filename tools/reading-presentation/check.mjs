@@ -6,6 +6,32 @@ import {entries, walk, attr} from '../../src/lib/controlled-html.mjs';
 
 const text = n => n.nodeName === '#text' ? n.value : (n.childNodes ?? []).map(text).join('');
 const parents = n => n.parentNode ? [n.parentNode, ...parents(n.parentNode)] : [];
+const hasClass = (n, name) => (attr(n, 'class') ?? '').split(/\s+/).includes(name);
+
+export function requireCodeFolding(html) {
+  const nodes = walk(parse(html));
+  const folds = nodes.filter(n => hasClass(n, 'code-details') || hasClass(n, 'code-version'));
+  for (const fold of folds) {
+    assert.equal(fold.tagName, 'details', 'Code fold must use native details');
+    const children = (fold.childNodes ?? []).filter(n => n.tagName);
+    const summary = children[0];
+    assert(summary?.tagName === 'summary' && text(summary).trim(), 'Code fold requires a first, named summary');
+    assert.equal(children.filter(n => n.tagName === 'summary').length, 1, 'Code fold requires exactly one summary');
+    assert(!walk(summary).some(n => ['pre', 'details', 'a', 'button', 'input'].includes(n.tagName)),
+      'Code summary must remain an independent toggle');
+    assert(walk(fold).some(n => n.tagName === 'pre' && !parents(n).includes(summary)), 'Code fold requires code outside its summary');
+  }
+  for (const pre of nodes.filter(n => n.tagName === 'pre')) {
+    const ancestors = parents(pre);
+    // Original input programs are part of the full question, not hidden again.
+    if (ancestors.some(n => hasClass(n, 'exercise-question') || hasClass(n, 'program-output'))) continue;
+    const sourced = walk(pre).some(n => /(?:^|\/)code\//.test(attr(n, 'data-source') ?? ''));
+    if (sourced || text(pre).trim().split('\n').length >= 12) {
+      assert(ancestors.some(n => folds.includes(n)), `Program needs its own code fold: ${attr(pre, 'id') ?? text(pre).trim().slice(0,60)}`);
+    }
+  }
+  return folds.length;
+}
 
 export function requireReaderCopy(html) {
   const blocks = new Set(['p', 'li', 'th', 'td', 'summary', 'figcaption', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']);
@@ -62,9 +88,10 @@ export function checkAll() {
     'csapp/notes/chapter08_exceptional.html': ['waitpid(-1,&s,WNOHANG)', 'waitpid(p,&s,0)'],
     'csapp/notes/chapter12_concurrency.html': ['if(!initialized){init(); initialized=1;}'],
   };
-  let codes = 0, fittedNodes = 0;
+  let codes = 0, fittedNodes = 0, codeFolds = 0;
   for (const page of pages) {
     requireReaderCopy(page.html);
+    codeFolds += requireCodeFolding(page.html);
     const nodes = walk(parse(page.html));
     const styles = nodes.filter(n => n.tagName === 'style').map(text).join('\n');
     assert(styles.includes('code:not(pre code)'), `${page.metadata.route}: missing inline program style`);
@@ -79,7 +106,7 @@ export function checkAll() {
       requirePositionedSvgMath(page.html);
     }
   }
-  return {status: 'passed', pages: pages.length, inline_code: codes, fitted_nodes: fittedNodes};
+  return {status: 'passed', pages: pages.length, inline_code: codes, fitted_nodes: fittedNodes, code_folds: codeFolds};
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === new URL(import.meta.url).pathname) {

@@ -984,7 +984,7 @@ for(i=low;i&lt;high;incr(&amp;i,1)) t+=square(i);</code></pre>
 }</code></pre>
 <p class="source">原书：<a class="source-pdf" href="../csapp.pdf#page=608">印刷 607—608 页 / PDF 608—609 页</a></p>
 </div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>先将低字节重复装进 packed，再将空间拆成“对齐前缀、完整字、末尾余数”。每写一段就减少剩余 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math>；条件用 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n≥K" display="inline"><mrow><mi>n</mi><mo>≥</mo><mi>K</mi></mrow></math>，避免先算 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n-K" display="inline"><mrow><mi>n</mi><mo>−</mo><mi>K</mi></mrow></math> 而回绕。完整实现与验证见后面的 <code>ch05_fill</code> 源码，其核心如下。</p>
-<pre><code data-language="c" class="language-c">static void *fill(void *s,int c,size_t n) {
+<details class="code-details" id="code-fold-32" open><summary>C：按字填充的核心实现</summary><pre><code data-language="c" class="language-c">static void *fill(void *s,int c,size_t n) {
     unsigned char *p=s;const unsigned char byte=(unsigned char)c;
     const size_t k=sizeof(unsigned long);
     unsigned long packed=byte;
@@ -1000,14 +1000,14 @@ for(i=low;i&lt;high;incr(&amp;i,1)) t+=square(i);</code></pre>
     }
     while(n&gt;0) {*p++=byte;--n;}
     return s;
-}</code></pre>
+}</code></pre></details>
 <p>类型定义使用 <code>typedef</code> <code>unsigned long</code> <code>alias_word</code> <code>__attribute__((__may_alias__))</code>。<a href="https://gcc.gnu.org/onlinedocs/gcc-13.1.0/gcc/Common-Type-Attributes.html">GCC 的 <code>may_alias</code> 说明</a>明确允许此类访问绕过基于类型的别名限制；本机 Clang 编译与运行也已验证。该扩展支持按字访问其他有效类型；只有地址对齐并不足以让标准 C 的 <code>unsigned long*</code> 任意改写 <code>char</code> 数组变得合法。为了保持任意对象填充语义，纯标准 C 的实现应使用 <code>unsigned char</code> 访问，或由编译器把合法字符写合并为宽存储；本题“任意对象+显式按字写+完全可移植”需要这层条件补充。</p>
 <p>当前验证平台 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="K=8" display="inline"><mrow><mi>K</mi><mo>=</mo><mn>8</mn></mrow></math>，8 位字节且 <code>unsigned long</code> 无填充位。程序覆盖 16 个起始偏移、0—64 的长度、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="c=−257/0/257" display="inline"><mrow><mi>c</mi><mo>=</mo><mo>−</mo><mn>257</mn><mo>/</mo><mn>0</mn><mo>/</mo><mn>257</mn></mrow></math>，共 3120 例，每次检查两侧保护区与返回指针；这覆盖短于对齐前缀、空区域以及整字尾部。原书 0.127 CPE 保留为其参考机观测。</p>
 </div></details>
 <details class="exercise" id="ex-5-18"><summary>5.18 · 八条 Horner 链求多项式</summary><div class="exercise-question" data-original-exercise="5.18" data-source-pdf-pages="609,610"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p>在 5.5、5.6 的多项式求值基础上，组合展开、并行累积与重结合，尝试接近机器吞吐下界。原书最佳版本为 1.07 CPE。给出改进代码并测量。</p>
 <p class="source">原书：<a class="source-pdf" href="../csapp.pdf#page=609">印刷 608—609 页 / PDF 609—610 页</a></p>
 </div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>把指数按模 8 分组：<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="P(x)=Q₀(x⁸)+xQ₁(x⁸)+…+x⁷Q₇(x⁸)" display="inline"><mrow><mi>P</mi><mrow><mo>(</mo><mi>x</mi><mo>)</mo></mrow><mo>=</mo><msub><mi>Q</mi><mn>0</mn></msub><mrow><mo>(</mo><msup><mi>x</mi><mn>8</mn></msup><mo>)</mo></mrow><mo>+</mo><mi>x</mi><msub><mi>Q</mi><mn>1</mn></msub><mrow><mo>(</mo><msup><mi>x</mi><mn>8</mn></msup><mo>)</mo></mrow><mo>+</mo><mo>…</mo><mo>+</mo><msup><mi>x</mi><mn>7</mn></msup><msub><mi>Q</mi><mn>7</mn></msub><mrow><mo>(</mo><msup><mi>x</mi><mn>8</mn></msup><mo>)</mo></mrow></mrow></math></span>，其中 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="Qⱼ(y)=Σₖaⱼ₊₈ₖyᵏ" display="inline"><mrow><msub><mi>Q</mi><mi>j</mi></msub><mrow><mo>(</mo><mi>y</mi><mo>)</mo></mrow><mo>=</mo><msub><mi>Σ</mi><mi>k</mi></msub><msub><mi>a</mi><mrow><mi>j</mi><mo>+</mo><mn>8</mn><mi>k</mi></mrow></msub><msup><mi>y</mi><mi>k</mi></msup></mrow></math>。每个 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="Q" display="inline"><mi>Q</mi></math> 独立用 Horner，八条乘加链可以重叠。最后以 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 再做七步 Horner 合并。代数验证只需把 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="xʲ(x⁸)ᵏ" display="inline"><mrow><msup><mi>x</mi><mi>j</mi></msup><msup><mrow><mo>(</mo><msup><mi>x</mi><mn>8</mn></msup><mo>)</mo></mrow><mi>k</mi></msup></mrow></math> 展开为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="xʲ⁺⁸ᵏ" display="inline"><msup><mi>x</mi><mrow><mi>j</mi><mo>+</mo><mn>8</mn><mi>k</mi></mrow></msup></math>，每个系数恰好出现一次。</p>
-<pre><code data-language="c" class="language-c">static double split8(const double *a,double x,size_t degree) {
+<details class="code-details" id="code-fold-33" open><summary>C：八路多项式求值</summary><pre><code data-language="c" class="language-c">static double split8(const double *a,double x,size_t degree) {
     double x2=x*x,x4=x2*x2,x8=x4*x4,r[8]={0};
     size_t count=degree+1,blocks=count/8,tail=count%8;
     for(size_t j=0;j&lt;tail;++j) r[j]=a[blocks*8+j];
@@ -1018,7 +1018,7 @@ for(i=low;i&lt;high;incr(&amp;i,1)) t+=square(i);</code></pre>
     double result=r[7];
     for(size_t j=7;j&gt;0;--j) result=r[j-1]+x*result;
     return result;
-}</code></pre>
+}</code></pre></details>
 <p>将次数加一得到系数数目，再分成 blocks 和 tail；最高不完整块只初始化存在的余数位置，其他位置从零开始。这里假定 degree+1 可表示且数组足够大。参考模型无 FMA 时，一条 Horner 链反馈 8 周期，八链摊到每系数 1 周期；每系数还需要一次加法、一次乘法和一次载入，参考机加法吞吐也给出 1 的下界。</p>
 <p>实际本机 scalar<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="/no-FMA" display="inline"><mrow><mo>/</mo><mi>n</mi><mi>o</mi><mo>−</mo><mi>F</mi><mi>M</mi><mi>A</mi></mrow></math> 基准三批中位数：直接法 1.049、Horner 1.787、split8 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="0.242 ns/" display="inline"><mrow><mn>0.242</mn><mi>n</mi><mi>s</mi><mo>/</mo></mrow></math>element；条件和范围见实验节。这是时间观测，单位与原书 CPE 不同。Python Fraction 参考检验 645 例；<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x⁸" display="inline"><msup><mi>x</mi><mn>8</mn></msup></math> 的形成和结合顺序会改变舍入，极大/极小 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 还可能使中间值上溢/下溢，超出已列验证范围时应重新检查误差。</p>
 
@@ -1465,7 +1465,7 @@ print(f"fill-cases={cases} word-bytes={K} guards=ok")
 <div class="scroll"><table class="compact-table" aria-labelledby="rn-table-label-9"><thead><tr><th scope="col">算法</th><th scope="col">中位数（<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="ns/" display="inline"><mrow><mi>n</mi><mi>s</mi><mo>/</mo></mrow></math>element）</th><th scope="col">范围（<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="ns/" display="inline"><mrow><mi>n</mi><mi>s</mi><mo>/</mo></mrow></math>element）</th></tr></thead><tbody><tr><td>直接多项式</td><td>1.049</td><td>1.045—1.764</td></tr><tr><td>Horner</td><td>1.787</td><td>1.775—1.907</td></tr><tr><td>八链分组</td><td>0.242</td><td>.239—.243</td></tr><tr><td>串行前缀和</td><td>0.721</td><td>.720—.744</td></tr><tr><td>三项局部前缀</td><td>0.258</td><td>.256—.260</td></tr></tbody></table></div>
 <p>这组观测支持当前条件下八链多项式和三项前缀重组更快，也显示首次直接求值有明显波动。它不能证明原书 Haswell 的 1.07 或 1.67 CPE 已在本机复现。重组浮点结果的正确性由前面的误差与反例分析约束。</p>
 <p><a href="../code/ch05_bench.c" download>下载性能基准 C 源码</a>；与 <code>ch05_loops.c</code>、<code>ch05_polynomial.c</code> 放在同一目录编译。</p>
-<pre><code data-language="c" class="language-c">/* Build: clang -std=c11 -O3 -ffp-contract=off -fno-vectorize
+<details class="code-details" id="code-fold-43"><summary>C：性能基准完整程序</summary><pre><code data-language="c" class="language-c">/* Build: clang -std=c11 -O3 -ffp-contract=off -fno-vectorize
    -fno-slp-vectorize ch05_bench.c -o ch05_bench */
 #define main polynomial_checks
 #include &quot;ch05_polynomial.c&quot;
@@ -1507,7 +1507,7 @@ int main(void) {
         printf(&quot;prefix%u %.3f\n&quot;,j?3u:1u,elapsed*1e9/(N*(double)R));
     }
     return 0;
-}</code></pre>
+}</code></pre></details>
 </section><section id="self-check"><h2>补充自测与解答</h2><p>以下为根据本章机制独立编写的自测。先在纸上写出判断、计算或理由，再展开解答。</p>
 <details class="exercise" id="q5-1"><summary>自测 5-1 · 别名</summary><div class="exercise-question"><p class="rn-exercise-label">问题</p>
 <p>xp、yp 都指向初值为 2 的同一个 <code>long</code>，做两次 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="*xp+=*yp" display="inline"><mrow><mo>*</mo><mi>x</mi><mi>p</mi><mo>+</mo><mo>=</mo><mo>*</mo><mi>y</mi><mi>p</mi></mrow></math>，与一次 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="*xp+=2*(*yp)" display="inline"><mrow><mo>*</mo><mi>x</mi><mi>p</mi><mo>+</mo><mo>=</mo><mn>2</mn><mo>*</mo><mrow><mo>(</mo><mo>*</mo><mi>y</mi><mi>p</mi><mo>)</mo></mrow></mrow></math>，分别得到多少？</p>

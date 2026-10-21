@@ -1733,7 +1733,7 @@ for (; iptr &lt; (int *)buffer+640*480; iptr++)
             dst[j*dim+i] = src[i*dim+j];
 }</code></pre>
 </div><div class="answer"><p class="answer-title rn-exercise-label" id="rn-table-label-57">解答</p><p>在两矩阵不重叠、尺寸乘法与分配均有效的条件下，用<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="16×16" display="inline"><mrow><mn>16</mn><mo>×</mo><mn>16</mn></mrow></math>块让一小片目的行在短时间内反复使用。实际可运行版本见<a href="#ch06_kernels-c">完整C11</a>与<a href="#ch06_kernels-python">Python</a>；C教学文件用<code>uint32_t</code>固定每个元素4字节，下面给原<code>int</code>接口的同一循环。</p>
-<pre><code data-language="c" class="language-c">void transpose_blocked(int *restrict dst, const int *restrict src,
+<details class="code-details" id="code-fold-44" open><summary>C：分块矩阵转置</summary><pre><code data-language="c" class="language-c">void transpose_blocked(int *restrict dst, const int *restrict src,
                        size_t n) {
     const size_t tile = 16;
     for (size_t ii=0; ii&lt;n; ii+=tile)
@@ -1744,7 +1744,7 @@ for (; iptr &lt; (int *)buffer+640*480; iptr++)
                 for (size_t j=jj; j&lt;jmax; ++j)
                     dst[j*n+i] = src[i*n+j];
         }
-}</code></pre>
+}</code></pre></details>
 <p>每个<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(i,j)" display="inline"><mrow><mo>(</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo>)</mo></mrow></math>属于唯一块，仍只复制一次，时间<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="O(n²)" display="inline"><mrow><mi>O</mi><mrow><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mo>)</mo></mrow></mrow></math>、额外空间<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="O(1)" display="inline"><mrow><mi>O</mi><mrow><mo>(</mo><mn>1</mn><mo>)</mo></mrow></mrow></math>。imax/jmax处理<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math>非16倍数的边缘。restrict表达源目的不重叠；若允许重叠，应选择另一种原地转置算法，不能直接调用此版本。</p>
 <div class="scroll"><table aria-labelledby="rn-table-label-57"><thead><tr><th scope="col">版本</th><th scope="col"><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="1024×1024" display="inline"><mrow><mn>1024</mn><mo>×</mo><mn>1024</mn></mrow></math> 最好时间</th><th scope="col">结果校验和</th></tr></thead><tbody><tr><td><code>transpose_plain</code></td><td>3.424 ms</td><td>536346624</td></tr><tr><td><code>transpose_tiled16</code></td><td>0.437 ms</td><td>536346624</td></tr><tr><td><code>transpose_tiled32</code></td><td>0.544 ms</td><td>536346624</td></tr></tbody></table></div>
 <p>同一ARM主机、clang -O2、7次取最快；分配/初始化在计时外。基线3.424 ms，块16为0.437 ms，块32为0.544 ms，块16约7.84倍加速。11个尺寸（含0、1、17、33）<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="×5" display="inline"><mrow><mo>×</mo><mn>5</mn></mrow></math>种块长对照逐元素转置关系，均通过。这个结论只是在所测版本与条件中块16最好，不宣称对任意CPU或<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="N" display="inline"><mi>N</mi></math>全局最优。</p>
@@ -1758,7 +1758,7 @@ for (; iptr &lt; (int *)buffer+640*480; iptr++)
             G[j*dim+i] = G[j*dim+i] || G[i*dim+j];
 }</code></pre>
 <aside class="note"><strong>题干校注：</strong>“邻接矩阵对角总是1”不是一般图论性质，而是本题附加输入约定。转换不应凭空为原图没有的自环置1。</aside></div><div class="answer"><p class="answer-title rn-exercise-label" id="rn-table-label-58">解答</p><p>对每对<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="i&lt;j" display="inline"><mrow><mi>i</mi><mo>&lt;</mo><mi>j</mi></mrow></math>，只需读取原<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="G[i][j]" display="inline"><mrow><mi>G</mi><mrow><mo>[</mo><mi>i</mi><mo>]</mo></mrow><mrow><mo>[</mo><mi>j</mi><mo>]</mo></mrow></mrow></math>与<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="G[j][i]" display="inline"><mrow><mi>G</mi><mrow><mo>[</mo><mi>j</mi><mo>]</mo></mrow><mrow><mo>[</mo><mi>i</mi><mo>]</mo></mrow></mrow></math>、作一次OR，再同时写回两处。不同无序顶点对不共享元素，因此原地执行不会污染未来所需输入。用成对<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="16×16" display="inline"><mrow><mn>16</mn><mo>×</mo><mn>16</mn></mrow></math>块限制两条转置访问流的活跃范围：</p>
-<pre><code data-language="c" class="language-c">void undirect_blocked(int *G, size_t n) {
+<details class="code-details" id="code-fold-46" open><summary>C：邻接矩阵对称化</summary><pre><code data-language="c" class="language-c">void undirect_blocked(int *G, size_t n) {
     const size_t tile = 16;
     for (size_t ii=0; ii&lt;n; ii+=tile)
         for (size_t jj=ii; jj&lt;n; jj+=tile) {
@@ -1773,7 +1773,7 @@ for (; iptr &lt; (int *)buffer+640*480; iptr++)
                 }
             }
         }
-}</code></pre>
+}</code></pre></details>
 <p>输入元素限定为 0 或 1，因此按位 OR 的结果仍是 0 或 1，与逻辑 OR 的结果相同。这里的 <code>|</code> 会求值两个操作数：同一对只处理一次，源码层面非对角元素总读 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n(n−1)" display="inline"><mrow><mi>n</mi><mrow><mo>(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo>)</mo></mrow></mrow></math>、总写 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n(n−1)" display="inline"><mrow><mi>n</mi><mrow><mo>(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo>)</mo></mrow></mrow></math>，对角保持不动；基线对整个<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n²" display="inline"><msup><mi>n</mi><mn>2</mn></msup></math>区域重复计算对称关系。块内first<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="=max(jj,i+1)" display="inline"><mrow><mo>=</mo><mi mathvariant="normal">max</mi><mrow><mo>(</mo><mi>j</mi><mi>j</mi><mo>,</mo><mi>i</mi><mo>+</mo><mn>1</mn><mo>)</mo></mrow></mrow></math>同时排除下三角和对角，尾块取min边界。完整下载版本使用<code>uint32_t</code>的<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="0/1" display="inline"><mrow><mn>0</mn><mo>/</mo><mn>1</mn></mrow></math>元素，按位OR与逻辑OR在该输入域等价。</p>
 <div class="scroll"><table class="compact-table" aria-labelledby="rn-table-label-58"><thead><tr><th scope="col">版本</th><th scope="col"><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="1024×1024" display="inline"><mrow><mn>1024</mn><mo>×</mo><mn>1024</mn></mrow></math> 最好时间</th><th scope="col">结果校验和</th></tr></thead><tbody><tr><td><code>graph_plain</code></td><td>4.704 ms</td><td>181816</td></tr><tr><td><code>graph_triangle</code></td><td>2.324 ms</td><td>181816</td></tr><tr><td><code>graph_tiled16</code></td><td>0.332 ms</td><td>181816</td></tr></tbody></table></div>
 <p>相同主机和7次口径下，原循环4.704 ms，上三角但不分块2.324 ms，16分块0.332 ms，约14.17倍于原循环。55组尺寸/块长逐元素对照原始输入的<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="G₀[i][j]∨G₀[j][i]" display="inline"><mrow><msub><mi>G</mi><mn>0</mn></msub><mrow><mo>[</mo><mi>i</mi><mo>]</mo></mrow><mrow><mo>[</mo><mi>j</mi><mo>]</mo></mrow><mo>∨</mo><msub><mi>G</mi><mn>0</mn></msub><mrow><mo>[</mo><mi>j</mi><mo>]</mo></mrow><mrow><mo>[</mo><mi>i</mi><mo>]</mo></mrow></mrow></math>，验证对称、边集合与对角保留。</p>

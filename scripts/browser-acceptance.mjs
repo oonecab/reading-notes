@@ -4,6 +4,7 @@ const path = await import('node:path');
 const crypto = await import('node:crypto');
 const { pathToFileURL } = await import('node:url');
 const {atomicJson,openSpace,waitDocument,waitTarget,readTarget,exerciseTargets}=await import(config.runtime);
+const {checkCodeFold}=await import(new URL('./browser-code-folding.mjs',config.runtime));
 const task=await openSpace(taskSpace,config.selection);
 atomicJson(config.sessionFile,{spaceId:task.spaceId,page:config.page});
 const page=task.page(config.page);
@@ -111,6 +112,7 @@ try {
         await page.evaluate(()=>document.querySelector('[data-offline-scroll-test]').removeAttribute('data-offline-scroll-test'));
       }else view.local_scroll={applicable:false};
     }
+    view.code_fold=await checkCodeFold(page);
     await save();console.log(JSON.stringify({page:item.route,width,status:'passed'}));
   }
   await page.cdp('Emulation.setScriptExecutionDisabled',{value:true});
@@ -139,7 +141,8 @@ try {
       if(after.question)requireTrue(after.open&&after.question.length>0&&after.question.height>0&&after.answer.length>0&&after.answer.height>0,'No-JS exercise unreadable');
       requireTrue(after.width<=after.viewport+1,'No-JS page overflow');
     }
-    report.no_js.push({page:item.route,width,requests,before,after});
+    const code_fold=await checkCodeFold(page);
+    report.no_js.push({page:item.route,width,requests,before,after,code_fold});
     await screenshot(item.route.replaceAll('/','_').replace('.html','')+'-no-js-'+width);await save();
   }
   report.status='passed';

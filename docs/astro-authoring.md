@@ -4,6 +4,8 @@ I040 将五书的教学组件接入 `src/styles/reading-components.css`；每页
 
 受控正文位于 `src/content/books/<book>/`，一章一份 HTML，文件头为 JSON frontmatter。共享 CSS/JS 在 `src/styles/`、`src/scripts/`，由 `RN:include` 标记按原字节展开。`ReaderLayout` 提供 head/body 骨架，组件保留语义片段边界，静态 MathML/SVG 不经重排。目录、注解与复制是独立的渐进增强脚本；基础阅读和原生 details 使用静态 HTML。
 
+I047 代码折叠直接在受控 HTML 中使用既有 `details.code-details` / `details.code-version`，不在阅读时动态包裹代码。`tools/reading-presentation/check.mjs` 检查完整源码、长片段及摘要结构；离线矩阵使用 `scripts/browser-code-folding.mjs` 实际点击和键盘开合每个有程序页面的代表控件，包含无脚本环境。内容字节和已有深链接继续由原门禁与本批保护比对验证。
+
 I041 将十份书级样式的相同连续段抽到 `reading-base`、`reading-content`、`reading-navigation`、`reading-annotations` 等共享 CSS。书级组合文件用 `/* RN:include styles/名称.css */` 在原层叠位置递归展开；首轮抽取后展开字节完全相同，再单独审阅显示修正。Node 构建与 Python 独立检查均展开此语法并拒绝路径越界、循环和未展开标记。成品仍内联完整 CSS，不引入运行时请求；各书有实际用途的差异保留，不能仅因选择器重名就删除后续覆盖。组件内层、布局与导航约定以 RN-001 v1.2 为准，本轮审阅见 [I041](../issues/I041-review-followup.md)。
 
 I043 继续抽取 `reading-content-core` / `reading-content-tail` 和两份 `reading-graph-*` 连续片段；两个 content 组合文件保留各自的 SVG 边选择器，原层叠位置不变。只删除视觉群论第九、十章各一份相邻且完全相同的重复块，17px Georgia 与 16px system-ui 等有差异的前后覆盖仍保留。抽取及去重共减少 8,180 字节样式维护量，之后单独补上答案 h3 的紧凑字号规则。当前组件语义按 RN-001 v1.3 执行，见 [I043](../issues/I043-five-book-recheck.md)。

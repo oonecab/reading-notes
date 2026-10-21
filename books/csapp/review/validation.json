@@ -5,7 +5,7 @@
   "historical_review_entry": "notes/validation.json",
   "file_sha256": {
     "agent.md": "1e0a672f9b5cd8a96c3d882d4afc8cbd2b36883cf35a229ae84930b23ae62bfd",
-    "notes/README.md": "1c71e93d15ee56dff14fa1dacc30f7bac513a68db0018cdb3291eb0c534b0491",
+    "notes/README.md": "9d4e959533cf30cbd79a63ebe9d25e23909c7df3078afbd06e3efe3eaf4fce8b",
     "review/browser.json": "c4de83ff3bdd37527a0950820d2f62cf81e04d5e2b4d124395ce33de945f6763"
   },
   "open_findings": [],
@@ -96,5 +96,11 @@
         }
       ]
     }
-  ]
+  ],
+  "I047_code_folding_revision": {
+    "issue": "I047",
+    "prior_record_git": "be7ba1895684a914d8cfe77cd535659ddae6f223:books/csapp/review/validation.json",
+    "prior_record_sha256": "dc3419eaa641819fd950af7968912a7f19db71b762879722aa2c7cc4bc94abd0",
+    "scope": "Current native code-folding bindings: reviewed details wrappers and summaries only. Programs, original questions, formulas, diagrams, source links and anchors preserved. Historical execution claims retain their original scope; new acceptance is recorded in docs/code-folding-review.json"
+  }
 }

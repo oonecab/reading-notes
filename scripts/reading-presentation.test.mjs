@@ -1,6 +1,29 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {requireInlinePrograms, checkNodePadding, requirePositionedSvgMath, requireReaderCopy} from '../tools/reading-presentation/check.mjs';
+import {requireInlinePrograms, checkNodePadding, requirePositionedSvgMath, requireReaderCopy, requireCodeFolding} from '../tools/reading-presentation/check.mjs';
+
+test('complete sources and long code need their own native folding control', () => {
+  const source = '<pre><code data-source="code/cayley.py">import sys</code></pre>';
+  const long = '<pre><code>' + Array.from({length:12}, (_,i) => `step_${i}()`).join('\n') + '</code></pre>';
+  for (const code of [source, long]) {
+    assert.throws(() => requireCodeFolding(code), /needs its own code fold/);
+    assert.throws(() => requireCodeFolding(`<details class="exercise"><summary>习题</summary>${code}</details>`), /needs its own code fold/);
+    assert.equal(requireCodeFolding(`<details class="code-details"><summary>Python 3 实现</summary>${code}</details>`), 1);
+    assert.equal(requireCodeFolding(`<details class="code-version" open><summary>C（C11）</summary>${code}</details>`), 1);
+  }
+  assert.doesNotThrow(() => requireCodeFolding(`<div class="exercise-question">${long}</div><div class="program-output">${long}</div><pre>python3 example.py</pre>`));
+});
+
+test('code fold rejects controls that cannot expose and hide their program', () => {
+  for (const html of [
+    '<div class="code-details"><summary>程序</summary><pre>code</pre></div>',
+    '<details class="code-details"><pre>code</pre><summary>程序</summary></details>',
+    '<details class="code-details"><summary></summary><pre>code</pre></details>',
+    '<details class="code-details"><summary>程序<pre>code</pre></summary></details>',
+    '<details class="code-details"><summary><a href="#x">程序</a></summary><pre>code</pre></details>',
+    '<details class="code-details"><summary>程序</summary><summary>重复摘要</summary><pre>code</pre></details>',
+  ]) assert.throws(() => requireCodeFolding(html));
+});
 
 test('reading copy rejects maintenance status even when split across inline elements', () => {
   for (const html of ['<td>14 题<span>已完成本地验收</span></td>', '<p>本批<span>审阅</span>记录</p>',

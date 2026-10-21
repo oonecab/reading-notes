@@ -967,10 +967,22 @@
           "reviewed_anchors": [
             "top"
           ]
+        },
+        {
+          "revision": "I047",
+          "from_sha256": "02bf0845e8ab6fb7cb2887e5278b51df488271d8cad1ef911999c5cc5182ed9e",
+          "to_sha256": "80922d8c1510ecfbc889e699662518bc37ba9e5bbf4fd4e1684de08835b2c86d",
+          "reason": "Reviewed native code folding: complete sources and long teaching snippets retain exact program bytes, existing anchors, original questions and all links.",
+          "reviewed_anchors": [
+            "code-fold-14",
+            "code-fold-15",
+            "code-fold-26",
+            "code-fold-154"
+          ]
         }
       ],
-      "source_sha256": "02bf0845e8ab6fb7cb2887e5278b51df488271d8cad1ef911999c5cc5182ed9e",
-      "review_record": "docs/reader-copy-review.json"
+      "source_sha256": "80922d8c1510ecfbc889e699662518bc37ba9e5bbf4fd4e1684de08835b2c86d",
+      "review_record": "docs/code-folding-review.json"
     },
     "csapp/notes/chapter04_architecture.html": {
       "original_sha256": "602f162d79e0fea454916f45817181113108e84bc1fbc22acc87ce44d74dec66",
@@ -1030,10 +1042,37 @@
           "reviewed_anchors": [
             "top"
           ]
+        },
+        {
+          "revision": "I047",
+          "from_sha256": "2e189c2aa6e06ebafe2f0f85c481d6ef168de9c270b8c47b0ddc89b7e2b817a4",
+          "to_sha256": "00b380e455eaed8d75dce45970aba03c758b7fa59dd36f9440422280d7102874",
+          "reason": "Reviewed native code folding: complete sources and long teaching snippets retain exact program bytes, existing anchors, original questions and all links.",
+          "reviewed_anchors": [
+            "code-fold-1",
+            "code-fold-6",
+            "code-fold-10",
+            "code-fold-11",
+            "code-fold-23",
+            "code-fold-25",
+            "code-fold-26",
+            "code-fold-27",
+            "code-fold-49",
+            "code-fold-50",
+            "code-fold-60",
+            "code-fold-61",
+            "code-fold-62",
+            "code-fold-63",
+            "code-fold-65",
+            "code-fold-66",
+            "code-fold-71",
+            "code-fold-72",
+            "code-fold-76"
+          ]
         }
       ],
-      "source_sha256": "2e189c2aa6e06ebafe2f0f85c481d6ef168de9c270b8c47b0ddc89b7e2b817a4",
-      "review_record": "docs/reader-copy-review.json"
+      "source_sha256": "00b380e455eaed8d75dce45970aba03c758b7fa59dd36f9440422280d7102874",
+      "review_record": "docs/code-folding-review.json"
     },
     "csapp/notes/chapter05_optimization.html": {
       "original_sha256": "611f7c57d8b01b73cd892d0e38ef1c5d176adc0da5a2383798d1bebf46ad523b",
@@ -1084,10 +1123,21 @@
           "reviewed_anchors": [
             "top"
           ]
+        },
+        {
+          "revision": "I047",
+          "from_sha256": "bff1eb10c64fa0f992d6bf7828aa14369dda9297ee6355e3fdc4b4ade36afb2a",
+          "to_sha256": "641ee2285102ad26f7b845cdf58097cc3ddf3e2d04ad6ba62b6e98120a6c3599",
+          "reason": "Reviewed native code folding: complete sources and long teaching snippets retain exact program bytes, existing anchors, original questions and all links.",
+          "reviewed_anchors": [
+            "code-fold-32",
+            "code-fold-33",
+            "code-fold-43"
+          ]
         }
       ],
-      "source_sha256": "bff1eb10c64fa0f992d6bf7828aa14369dda9297ee6355e3fdc4b4ade36afb2a",
-      "review_record": "docs/reading-presentation-review.json"
+      "source_sha256": "641ee2285102ad26f7b845cdf58097cc3ddf3e2d04ad6ba62b6e98120a6c3599",
+      "review_record": "docs/code-folding-review.json"
     },
     "csapp/notes/chapter06_memory.html": {
       "original_sha256": "a396a64df9c0731b3debd690cd179cb25ca39d829c76a279b5685ba5cff301d3",
@@ -1138,10 +1188,20 @@
           "reviewed_anchors": [
             "top"
           ]
+        },
+        {
+          "revision": "I047",
+          "from_sha256": "6ad8e5da1cd8fb89864a10697a46593547e05e63fbc93d1a64a1d8705470a2ae",
+          "to_sha256": "0d97ad34bb3177e9be0d8d6d0c243b784e2a7bfd3f49816a4ad1862007b3bce2",
+          "reason": "Reviewed native code folding: complete sources and long teaching snippets retain exact program bytes, existing anchors, original questions and all links.",
+          "reviewed_anchors": [
+            "code-fold-44",
+            "code-fold-46"
+          ]
         }
       ],
-      "source_sha256": "6ad8e5da1cd8fb89864a10697a46593547e05e63fbc93d1a64a1d8705470a2ae",
-      "review_record": "docs/reading-presentation-review.json"
+      "source_sha256": "0d97ad34bb3177e9be0d8d6d0c243b784e2a7bfd3f49816a4ad1862007b3bce2",
+      "review_record": "docs/code-folding-review.json"
     },
     "csapp/notes/chapter07_linking.html": {
       "original_sha256": "c8e12a0d44d570b29d9733dedbc93f3bf790eb60ca19d868b3261e3373a3003b",
@@ -1191,10 +1251,20 @@
           "reviewed_anchors": [
             "top"
           ]
+        },
+        {
+          "revision": "I047",
+          "from_sha256": "e6e64056967829dfe76ce3a2c9e9e63a3eb24e37197c43bcb3dec57d19b54d4c",
+          "to_sha256": "142f14fc5be27dd367dcf540514978e2c066f1e4ce6d645dcb0b742c09edc083",
+          "reason": "Reviewed native code folding: complete sources and long teaching snippets retain exact program bytes, existing anchors, original questions and all links.",
+          "reviewed_anchors": [
+            "code-fold-1",
+            "code-fold-39"
+          ]
         }
       ],
-      "source_sha256": "e6e64056967829dfe76ce3a2c9e9e63a3eb24e37197c43bcb3dec57d19b54d4c",
-      "review_record": "docs/reading-presentation-review.json"
+      "source_sha256": "142f14fc5be27dd367dcf540514978e2c066f1e4ce6d645dcb0b742c09edc083",
+      "review_record": "docs/code-folding-review.json"
     },
     "csapp/notes/chapter08_exceptional.html": {
       "original_sha256": "5c73e2644b34d07f4483664a1d10a657e10917675e264f6b5f130b28030f8083",
@@ -1310,10 +1380,19 @@
           "reviewed_anchors": [
             "top"
           ]
+        },
+        {
+          "revision": "I047",
+          "from_sha256": "a67a2a7c7b641bb08823637283d625338c9fcb3984c74c7f16859075b65ae036",
+          "to_sha256": "586ce0e29785572d9ef0481e7622c82423705caaa96a82e4f3aa07799a51f9d9",
+          "reason": "Reviewed native code folding: complete sources and long teaching snippets retain exact program bytes, existing anchors, original questions and all links.",
+          "reviewed_anchors": [
+            "code-fold-15"
+          ]
         }
       ],
-      "source_sha256": "a67a2a7c7b641bb08823637283d625338c9fcb3984c74c7f16859075b65ae036",
-      "review_record": "docs/reader-copy-review.json"
+      "source_sha256": "586ce0e29785572d9ef0481e7622c82423705caaa96a82e4f3aa07799a51f9d9",
+      "review_record": "docs/code-folding-review.json"
     },
     "csapp/notes/chapter10_system_io.html": {
       "original_sha256": "c2a4e6c9921aa9ef5443304c924d04d5973dfcb0fa2aa638cfa0fbde4d443f42",
@@ -1382,10 +1461,21 @@
           "reviewed_anchors": [
             "top"
           ]
+        },
+        {
+          "revision": "I047",
+          "from_sha256": "70afccd5de9e468f3a58b16242fdaa65a60929db6cc75187cff06fe3a7403003",
+          "to_sha256": "fce25bb781eeeb08234d427f6081c4c0384fe7349def6415e4f40ec03b22ce61",
+          "reason": "Reviewed native code folding: complete sources and long teaching snippets retain exact program bytes, existing anchors, original questions and all links.",
+          "reviewed_anchors": [
+            "code-fold-4",
+            "code-fold-25",
+            "code-fold-30"
+          ]
         }
       ],
-      "source_sha256": "70afccd5de9e468f3a58b16242fdaa65a60929db6cc75187cff06fe3a7403003",
-      "review_record": "docs/reader-copy-review.json"
+      "source_sha256": "fce25bb781eeeb08234d427f6081c4c0384fe7349def6415e4f40ec03b22ce61",
+      "review_record": "docs/code-folding-review.json"
     },
     "csapp/notes/chapter11_network.html": {
       "original_sha256": "53c0efb1485c8d7d47ea9b8303f32facf3bc56c90b308a1f189ad0985040bccb",
@@ -1445,10 +1535,19 @@
           "reviewed_anchors": [
             "top"
           ]
+        },
+        {
+          "revision": "I047",
+          "from_sha256": "a98cfe7b2b37b90eabfb6ebe937fdcf508c65add2db693e31750a8c1a6615b1b",
+          "to_sha256": "cf320abf4fd82f9cdc16762ec12c79b40ea3901cd1a4b4f0f24def6e63eae322",
+          "reason": "Reviewed native code folding: complete sources and long teaching snippets retain exact program bytes, existing anchors, original questions and all links.",
+          "reviewed_anchors": [
+            "code-fold-23"
+          ]
         }
       ],
-      "source_sha256": "a98cfe7b2b37b90eabfb6ebe937fdcf508c65add2db693e31750a8c1a6615b1b",
-      "review_record": "docs/reader-copy-review.json"
+      "source_sha256": "cf320abf4fd82f9cdc16762ec12c79b40ea3901cd1a4b4f0f24def6e63eae322",
+      "review_record": "docs/code-folding-review.json"
     },
     "csapp/notes/chapter12_concurrency.html": {
       "original_sha256": "bc85d93c6859d8981a6e9668b7f1a4e4779397cdcbf13e4461c94eb91dc24e14",
@@ -1508,10 +1607,20 @@
           "reviewed_anchors": [
             "top"
           ]
+        },
+        {
+          "revision": "I047",
+          "from_sha256": "4fb21cc908a9dd3cfdbb93cb2e1ff95ab269501bc0a4d20baf2f5b43d11977f0",
+          "to_sha256": "9e5f04b04803800c1798664f2c7e7bc0fe934d896f9b7036d5c9683ef3005c53",
+          "reason": "Reviewed native code folding: complete sources and long teaching snippets retain exact program bytes, existing anchors, original questions and all links.",
+          "reviewed_anchors": [
+            "code-fold-27",
+            "code-fold-29"
+          ]
         }
       ],
-      "source_sha256": "4fb21cc908a9dd3cfdbb93cb2e1ff95ab269501bc0a4d20baf2f5b43d11977f0",
-      "review_record": "docs/reader-copy-review.json"
+      "source_sha256": "9e5f04b04803800c1798664f2c7e7bc0fe934d896f9b7036d5c9683ef3005c53",
+      "review_record": "docs/code-folding-review.json"
     },
     "csapp/notes/preface.html": {
       "original_sha256": "6ac27be90cd0d914a57b48734422ef3df1a8cfbb363b99fccd575be798efc977",
@@ -2279,7 +2388,7 @@
     },
     "visual-group-theory/notes/chapter02_what_do_groups_look_like.html": {
       "original_sha256": "683005e2729eb40b9ba13e3958c4159b61e7d29b44718cf2f7042a4e358c02a7",
-      "source_sha256": "d5598458e5170779fb024a1a0cfa80ecc825125313dd8d2d37f461a6169564b5",
+      "source_sha256": "23aa821788f19ddfa71497e2ded16e1ba3ff26d1e316c65645649ead25a0427d",
       "history": [
         {
           "revision": "I040",
@@ -2334,13 +2443,23 @@
           "reviewed_anchors": [
             "top"
           ]
+        },
+        {
+          "revision": "I047",
+          "from_sha256": "d5598458e5170779fb024a1a0cfa80ecc825125313dd8d2d37f461a6169564b5",
+          "to_sha256": "23aa821788f19ddfa71497e2ded16e1ba3ff26d1e316c65645649ead25a0427d",
+          "reason": "Reviewed native code folding: complete sources and long teaching snippets retain exact program bytes, existing anchors, original questions and all links.",
+          "reviewed_anchors": [
+            "code-fold-2",
+            "code-fold-3"
+          ]
         }
       ],
-      "review_record": "docs/reader-copy-review.json"
+      "review_record": "docs/code-folding-review.json"
     },
     "visual-group-theory/notes/chapter03_why_study_groups.html": {
       "original_sha256": "677d4c58de3f14c4870d85377946e7d7c1b55a2eaf7cb3ea40d101b792d86a4b",
-      "source_sha256": "64622185e90e5bee8f59bf6e51cf885fccf5c43c0f1b532be2a6ceb9786e08cb",
+      "source_sha256": "8b504b315ed4a897c1b4757727bee59ce7e2c4fd66b15bb2d24501df1d7eac3a",
       "history": [
         {
           "revision": "I040",
@@ -2386,13 +2505,23 @@
           "reviewed_anchors": [
             "top"
           ]
+        },
+        {
+          "revision": "I047",
+          "from_sha256": "64622185e90e5bee8f59bf6e51cf885fccf5c43c0f1b532be2a6ceb9786e08cb",
+          "to_sha256": "8b504b315ed4a897c1b4757727bee59ce7e2c4fd66b15bb2d24501df1d7eac3a",
+          "reason": "Reviewed native code folding: complete sources and long teaching snippets retain exact program bytes, existing anchors, original questions and all links.",
+          "reviewed_anchors": [
+            "code-fold-2",
+            "code-fold-3"
+          ]
         }
       ],
-      "review_record": "docs/reading-presentation-review.json"
+      "review_record": "docs/code-folding-review.json"
     },
     "visual-group-theory/notes/chapter04_algebra_at_last.html": {
       "original_sha256": "0392ed264f748ae1466b39544acf82f56bcf2b0f5805e2e06b81c27377ed1f24",
-      "source_sha256": "5bd3c168c0dc2240cd3ed8a1dc32d6cb7bd6fda71af568349ae087ed3a3afaf1",
+      "source_sha256": "c0d8f31c2837be41d8bef85945da4e7cad0c1326436909ef0e58e7ff8b2a6653",
       "history": [
         {
           "revision": "I040",
@@ -2438,13 +2567,23 @@
           "reviewed_anchors": [
             "top"
           ]
+        },
+        {
+          "revision": "I047",
+          "from_sha256": "5bd3c168c0dc2240cd3ed8a1dc32d6cb7bd6fda71af568349ae087ed3a3afaf1",
+          "to_sha256": "c0d8f31c2837be41d8bef85945da4e7cad0c1326436909ef0e58e7ff8b2a6653",
+          "reason": "Reviewed native code folding: complete sources and long teaching snippets retain exact program bytes, existing anchors, original questions and all links.",
+          "reviewed_anchors": [
+            "code-fold-3",
+            "code-fold-4"
+          ]
         }
       ],
-      "review_record": "docs/reading-presentation-review.json"
+      "review_record": "docs/code-folding-review.json"
     },
     "visual-group-theory/notes/chapter05_five_families.html": {
       "original_sha256": "2516e98357384a6d37047d2dcfc0f82e66402e6f4a41af7cca8a4b846d1171a2",
-      "source_sha256": "5f0641b68072f80c992553de33b6aae30de57b74848727117ed0efad649e32a9",
+      "source_sha256": "11aab9f19ec7caf939877406657f6ec19d1992c66db883a123b43e1881872a51",
       "history": [
         {
           "revision": "I040",
@@ -2491,13 +2630,23 @@
           "reviewed_anchors": [
             "top"
           ]
+        },
+        {
+          "revision": "I047",
+          "from_sha256": "5f0641b68072f80c992553de33b6aae30de57b74848727117ed0efad649e32a9",
+          "to_sha256": "11aab9f19ec7caf939877406657f6ec19d1992c66db883a123b43e1881872a51",
+          "reason": "Reviewed native code folding: complete sources and long teaching snippets retain exact program bytes, existing anchors, original questions and all links.",
+          "reviewed_anchors": [
+            "code-fold-2",
+            "code-fold-3"
+          ]
         }
       ],
-      "review_record": "docs/reading-presentation-review.json"
+      "review_record": "docs/code-folding-review.json"
     },
     "visual-group-theory/notes/chapter06_subgroups.html": {
       "original_sha256": "637260be65ade2b64f3f21fe4a86a108d2aeef4d78ed42469a88ff20b5218324",
-      "source_sha256": "d4e79380e8a8547793aaf67b9f78e682c66a108348a329572141863e835c7a42",
+      "source_sha256": "2dd6e22e249ac48b22b4412e5720667c6e7b95087d66042496c2179828cff805",
       "history": [
         {
           "revision": "I040",
@@ -2547,13 +2696,23 @@
           "reviewed_anchors": [
             "top"
           ]
+        },
+        {
+          "revision": "I047",
+          "from_sha256": "d4e79380e8a8547793aaf67b9f78e682c66a108348a329572141863e835c7a42",
+          "to_sha256": "2dd6e22e249ac48b22b4412e5720667c6e7b95087d66042496c2179828cff805",
+          "reason": "Reviewed native code folding: complete sources and long teaching snippets retain exact program bytes, existing anchors, original questions and all links.",
+          "reviewed_anchors": [
+            "code-fold-2",
+            "code-fold-3"
+          ]
         }
       ],
-      "review_record": "docs/reading-presentation-review.json"
+      "review_record": "docs/code-folding-review.json"
     },
     "visual-group-theory/notes/chapter07_products_and_quotients.html": {
       "original_sha256": "5cba664803e8489f96a290ec257024e519038961498b258b84e0f7e508c33758",
-      "source_sha256": "ff26c5a6240b6b00299601ce4289585bcf9afb91b81be7de76195569c7378d22",
+      "source_sha256": "ef2f4480adc5e5985698967068400c1a12efd70ccaebc3f21ff967624b5330f8",
       "history": [
         {
           "revision": "I040",
@@ -2602,13 +2761,23 @@
           "reviewed_anchors": [
             "top"
           ]
+        },
+        {
+          "revision": "I047",
+          "from_sha256": "ff26c5a6240b6b00299601ce4289585bcf9afb91b81be7de76195569c7378d22",
+          "to_sha256": "ef2f4480adc5e5985698967068400c1a12efd70ccaebc3f21ff967624b5330f8",
+          "reason": "Reviewed native code folding: complete sources and long teaching snippets retain exact program bytes, existing anchors, original questions and all links.",
+          "reviewed_anchors": [
+            "code-fold-2",
+            "code-fold-3"
+          ]
         }
       ],
-      "review_record": "docs/reading-presentation-review.json"
+      "review_record": "docs/code-folding-review.json"
     },
     "visual-group-theory/notes/chapter08_homomorphisms.html": {
       "original_sha256": "aaeca980fc8e8c32a2126188e997fac2fca704b2ff1745f2474220b2a1b746b5",
-      "source_sha256": "8939322b752fdea6f8ab4360736de177b73a331b452973aae986e20f9f511b9c",
+      "source_sha256": "674111d1786023454e01a774e56447ebbf3cd0e46d4b966e1ff91d09605ccdc3",
       "history": [
         {
           "revision": "I040",
@@ -2659,13 +2828,23 @@
           "reviewed_anchors": [
             "top"
           ]
+        },
+        {
+          "revision": "I047",
+          "from_sha256": "8939322b752fdea6f8ab4360736de177b73a331b452973aae986e20f9f511b9c",
+          "to_sha256": "674111d1786023454e01a774e56447ebbf3cd0e46d4b966e1ff91d09605ccdc3",
+          "reason": "Reviewed native code folding: complete sources and long teaching snippets retain exact program bytes, existing anchors, original questions and all links.",
+          "reviewed_anchors": [
+            "code-fold-2",
+            "code-fold-3"
+          ]
         }
       ],
-      "review_record": "docs/reading-presentation-review.json"
+      "review_record": "docs/code-folding-review.json"
     },
     "visual-group-theory/notes/chapter09_sylow_theory.html": {
       "original_sha256": "090ad2053310e455d4938b1e166dbbbc3cd5eacc6d62352ee792b1e43cad11db",
-      "source_sha256": "df078748d7fd3ea1c28518510afc232a3ee9508f637a437b0ebe767c4d8c6227",
+      "source_sha256": "965f89a70e8de48964f516df95107145ea7af9785c8d70d10f9b47658d35d315",
       "history": [
         {
           "revision": "I040",
@@ -2720,13 +2899,23 @@
           "reviewed_anchors": [
             "top"
           ]
+        },
+        {
+          "revision": "I047",
+          "from_sha256": "df078748d7fd3ea1c28518510afc232a3ee9508f637a437b0ebe767c4d8c6227",
+          "to_sha256": "965f89a70e8de48964f516df95107145ea7af9785c8d70d10f9b47658d35d315",
+          "reason": "Reviewed native code folding: complete sources and long teaching snippets retain exact program bytes, existing anchors, original questions and all links.",
+          "reviewed_anchors": [
+            "code-fold-2",
+            "code-fold-3"
+          ]
         }
       ],
-      "review_record": "docs/reading-presentation-review.json"
+      "review_record": "docs/code-folding-review.json"
     },
     "visual-group-theory/notes/chapter10_galois_theory.html": {
       "original_sha256": "f95c10f25b53fe6eba4e4cb536bd59b5f43b42aa0b51d8316aa5c1ccdb862471",
-      "source_sha256": "9630a02d557b89dbec6c3a0a2440e68eba1c3411232aba46b4eaa03958715c1d",
+      "source_sha256": "951771561222629baa6d671ee3c12e27d15650e04a3f8bd8947cfa7d870b22c1",
       "history": [
         {
           "revision": "I040",
@@ -2780,9 +2969,19 @@
           "reviewed_anchors": [
             "top"
           ]
+        },
+        {
+          "revision": "I047",
+          "from_sha256": "9630a02d557b89dbec6c3a0a2440e68eba1c3411232aba46b4eaa03958715c1d",
+          "to_sha256": "951771561222629baa6d671ee3c12e27d15650e04a3f8bd8947cfa7d870b22c1",
+          "reason": "Reviewed native code folding: complete sources and long teaching snippets retain exact program bytes, existing anchors, original questions and all links.",
+          "reviewed_anchors": [
+            "code-fold-2",
+            "code-fold-3"
+          ]
         }
       ],
-      "review_record": "docs/reading-presentation-review.json"
+      "review_record": "docs/code-folding-review.json"
     },
     "visual-group-theory/notes/preface.html": {
       "original_sha256": "fd91a9f873822512937b889c2fe84a7c128502bf3f2130fa3f09a48e374ca99b",

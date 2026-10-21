@@ -21,6 +21,8 @@
 
 样式和导航复用 `books/stochastic/notes/preface.html` 的纸色、绿色、17px/1.9、860px 主栏、240px 左目录和 280px 阅读注解栏；保留 1100/1440 断点和窄屏局部横滚。编号项有独立锚点；习题使用 `details.exercise`、`div.exercise-question`、`div.answer`；来源摘录和中文解释分别标明。
 
+十章的完整 Python / C11 阅读副本均使用 `details.code-details`，摘要标明语言与程序用途，默认收起；点击或键盘可开合，关闭脚本仍可使用。运行命令和程序解释保留在控件附近，代码 ID、下载和维护源同步不变。共同规范及长片段的处理见 [RN-001 v1.7](../../../docs/reading-notes-standard.md)。
+
 完整编号提取保存在 [source_inventory.json](source_inventory.json)，读回范围覆盖全部十章。当前习题清单为 [exercise_manifest.json](exercise_manifest.json)，引文为 [source_excerpts.json](source_excerpts.json)，首批状态在 [review/chapter01.md](../review/chapter01.md) 及 T021；第 2—4 章证据在 [review/chapters02-04.md](../review/chapters02-04.md) 及 T022。结构、运行、内容和实际阅读分别记录。
 
 前四章验收保留在历史记录；第 5—8 章验收见 [chapters05-08](../review/chapters05-08.md)。第 2—4 章原图与反例输入见 [algebra_inputs.json](algebra_inputs.json)；第 5—8 章题面小问、置换、矩阵和商图输入见 [structures_inputs.json](structures_inputs.json)。当前文件绑定为 [review/validation.json](../review/validation.json)，最终包证据为 [review/release.json](../review/release.json)，前三批历史绑定保留于 review/history/。
