@@ -16,6 +16,8 @@ I043 继续抽取 `reading-content-core` / `reading-content-tail` 和两份 `rea
 
 I032 开始，迁移后的明确内容修订在 `src/content-revisions.json` 逐页登记原始 hash、连续修订链、具体锚点、理由及独立内容审阅记录。原始 frontmatter hash、I028 Git 快照和旧审阅数据保持；当前内容必须同时匹配登记值和审阅记录，并保持原习题 ID 与原锚点顺序。构建 parity 比较当前已审阅源经同一发布转换后的全部 DOM，历史零差异迁移与后续内容修订分开陈述。登记脚本不能自动批准正文；每项实质修改先读回再填写原因和证据。
 
+I056 在共享目录脚本的折叠祖先展开后增加一次延后定位，并为目录的激活位置留出 8px 余量，避免章末索引仍停在上一节的阅读位置。净增 6 字节，保留既有性能预算；正文、公式与程序字节保持。原历史审阅继续保留，共享脚本展开后的当前源与输出单独登记；手机目录实际回归、失败轮次和后续矩阵见 T056。
+
 工具链为 **Node/Astro + Python build helpers**：Node 24.21.0、pnpm 11.21.0、Python 3.10+；Python 的 build_portal、prepare-pages、public_policy 参与构建，原独立验证器另行运行。准备本地来源资料，并安装 C/Make/Poppler（完整验证）、Nginx/OpenSSL（发布演练）和可运行的 Ego Lite / ego-browser CLI（浏览器验收），然后执行 `pnpm install --frozen-lockfile`、`pnpm build`。生产 HTTP 仍只由 Nginx 提供。
 
 `pnpm build` 在临时目录准备来源并构建，对全部公开 HTML（当前 82 页，含辅助页和 5 个旧入口页）内联 CSS、favicon 和脚本；下载文件保留链接。正式页完整 DOM 的标签、命名空间、属性和子节点顺序、习题 ID 序列，以及正文/MathML/SVG/代码指纹和内部锚点一起核对。页面数量来自受控条目清单，新增书籍按 catalog、migration-state 与发布 allowlist 登记，不修改固定页数。

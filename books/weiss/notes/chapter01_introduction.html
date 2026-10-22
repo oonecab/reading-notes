@@ -1444,11 +1444,10 @@ L 111.002559 18.405
   fit();
   wide.addEventListener('change', fit);
   const reveal = () => {
-    let target;
-    try { target = document.getElementById(decodeURIComponent(location.hash.slice(1))); } catch { return; }
-    for (let node = target; node; node = node.parentElement) {
-      if (node.tagName === 'DETAILS') node.open = true;
-    }
+    let node;
+    try {node=document.getElementById(decodeURIComponent(location.hash.slice(1)))} catch {return}
+    for(let n=node;n;n=n.parentElement)if(n.tagName==='DETAILS')n.open=true;
+    if(node)setTimeout(()=>{node.scrollIntoView();scrollBy(0,8)})
   };
   const mark = () => {
     scheduled = false;
