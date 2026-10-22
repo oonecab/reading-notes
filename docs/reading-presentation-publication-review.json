@@ -1,0 +1,371 @@
+{
+  "schema_version": 1,
+  "issue": "I056",
+  "status": "published_and_verified",
+  "verified_at_utc": "2026-10-22T18:48:33.082689+00:00",
+  "authorization": "User explicitly requested commit, push and server deployment in this conversation.",
+  "source_commit": "0b987c309f1a3bc172ea15658c28873a423953d7",
+  "source_tree": "482be68a679e23e96b3790b1c0657b01dc55e2b5",
+  "source_tree_dirty": false,
+  "scope": {
+    "included": [
+      "I053: six-book RN-002 navigation, chapter opening/index placement and Chinese exercise presentation",
+      "I055: EOPL four-page/68-exercise scope, chapter metadata and single-question index cleanup",
+      "I056: post-disclosure anchor placement correction found by offline acceptance"
+    ],
+    "git_cleanup_record": "I054 completed local cleanup was committed separately as 5dd0f2d77a250f7ac71c9cdf4f396eaf41ac7a45.",
+    "content_preservation": {
+      "pages": 60,
+      "complete_english_blocks_archived": 69,
+      "protected_question_math_svg_code_changes": 0,
+      "evidence": {
+        "report": "tmp/reading-publish-20261023/content-delta-review.json",
+        "sha256": "6acb7fbc943875de68798558be6d60b0f66e4f8eaf9be1598c606ef818c20c62"
+      }
+    },
+    "shared_script_correction": {
+      "pages": 46,
+      "net_growth_bytes": 6,
+      "original_budgets": "preserved",
+      "review": "docs/navigation-position-review.json",
+      "evidence": {
+        "report": "tmp/reading-publish-20261023/navigation-output-preservation.json",
+        "sha256": "749bbf6a4dc23216197866213b8898a26157b19b42cd97a1f2ad07bf14745fb6"
+      }
+    }
+  },
+  "git": {
+    "content_publication": {
+      "report": "tmp/reading-publish-20261023/remote-publication.json",
+      "sha256": "f13718be74fe7b53c27ed9c757bb8b6935837ddd2ac4c8cfcabd92b0815730f6"
+    },
+    "implementation_commit": "ae703e8a5a5ca2f63baa055af5ad34f9537d18a1",
+    "navigation_followup_commit": "0b987c309f1a3bc172ea15658c28873a423953d7",
+    "maintenance_followup": "Publication evidence and current environment facts are committed separately after this content release; the server source_commit remains the value above.",
+    "new_tag": false,
+    "new_pull_request": false
+  },
+  "release": {
+    "id": "20261023T020252",
+    "archive_sha256": "b577ccc029a8edda2ddd104c19d686b426ddfb66465d86b3b8daba7d8125a508",
+    "bytes": 78902238,
+    "files": 524,
+    "reading_pages": 60,
+    "html_pages": 82,
+    "html_identical_to_accepted_build": 82,
+    "inline_script_csp_hashes": 12,
+    "evidence": {
+      "report": "tmp/reading-publish-20261023/package-preflight.json",
+      "sha256": "550ca8dcd3a4cc106eac79422090ac1102df288b8eff13b252f0a20ede890eb1"
+    }
+  },
+  "checks_before_publish": {
+    "root_full_checks": {
+      "passed": 25,
+      "evidence": {
+        "report": "tmp/project-check/20261023T010747-9s_on10n/report.json",
+        "sha256": "dd22d9cdb4cdc25c0ee055048ec19094595156d162a7313495f052aaa645407e"
+      },
+      "boundary": "Executed before the final shared JavaScript correction; program sources and inputs remained identical. New JavaScript behavior was covered by the final Node and browser runs."
+    },
+    "node_tests": {
+      "passed": 107,
+      "evidence": {
+        "report": "tmp/reading-publish-20261023/node-tests-final.log",
+        "sha256": "afa39feed78224dc49a9b0813a68fad47e14329922c9911df401e615bf518a67"
+      }
+    },
+    "parity": {
+      "pages": 60,
+      "differences": 0,
+      "evidence": {
+        "report": "tmp/reading-publish-20261023/parity-final.json",
+        "sha256": "d376113a5429f8c25646845879439e5479bb730d094f4a3d150b28e4ecfa6e99"
+      }
+    },
+    "source_mirror_and_review_bindings": {
+      "report": "tmp/reading-publish-20261023/astro-records-final.json",
+      "sha256": "f57c175381355937052470ed1268c14ba363aab20bdef24ef02990382a51e3b8"
+    },
+    "predeploy_acceptance": {
+      "report": "tmp/reading-publish-20261023/predeploy-acceptance.json",
+      "sha256": "4485d8d3d880c7619b593b4ed9adc0b62ccd02d5386203b58a4a436a9f905f6f"
+    },
+    "offline": {
+      "report": "tmp/reading-notes-migration/browser/all/runs/2026-10-22T18-07-06-485Z-addd37c5/report.json",
+      "sha256": "16a9ddf351a547e5512291900ba7938db871c893cd6790129bd7953def034322",
+      "pages": 82,
+      "js_views": 328,
+      "no_js_views": 164,
+      "external_requests": 0,
+      "reused_views": 100
+    },
+    "local_https": {
+      "report": "tmp/release-check/20261023T020252-_y007j65/https-verification.json",
+      "sha256": "4b58990814bd855a0516dbcd060d33376553de5e9c04633ed0dc004a8199623e"
+    },
+    "local_publish_recovery": {
+      "report": "tmp/publish-check/20261023T020252-ny0tnm8c/report.json",
+      "sha256": "1183d6656e4b14bcb59cca57bdc870c7e0fecfb9f56a71cf8feec47467bf3abc",
+      "checks": 24
+    },
+    "secret_scans": [
+      {
+        "report": "tmp/reading-publish-20261023/gitleaks-source.json",
+        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      {
+        "report": "tmp/reading-publish-20261023/gitleaks-followup.json",
+        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      {
+        "report": "tmp/reading-publish-20261023/gitleaks-public.json",
+        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      }
+    ]
+  },
+  "server": {
+    "current": "releases/20261023T020252",
+    "recovery_release": "20261022T000343",
+    "new_files_verified": 524,
+    "recovery_files_verified": 523,
+    "root_owned_read_only": true,
+    "unchanged_mtime_preserved": 399,
+    "changed_mtime_distinct": 124,
+    "publish_policy_sha256": "4d4a5695a06a20832b15e66af8ca3851f7d1cde86061ac34960b73c9a5c14b9f",
+    "recovery_policy_sha256": "33cce00d63265a045a9a60e45f87ad8301f7437065ff116c8b0d01b633c942cc",
+    "both_policies_archived": true,
+    "administrator_configuration_backup": "Retained in the private I056 server backup; see deployment actions evidence.",
+    "final_nginx_snippet_sha256": "3034caedf585ef93a45085874b8e8762e5d027c96e06726b10e16fa38969f74a",
+    "nginx_test": "passed",
+    "deploy_service_result": "success",
+    "health_service_result": "success",
+    "health_timer": "active",
+    "queue_empty": true,
+    "pending_transaction": false,
+    "done_receipt": true,
+    "evidence": {
+      "report": "tmp/reading-publish-20261023/server-after.json",
+      "sha256": "8a4744c239d60bbf73290faf179caf2c24ec1644baa431dfbbd627a66f7c6a2d"
+    },
+    "deployment_actions": {
+      "report": "tmp/reading-publish-20261023/deployment-actions.log",
+      "sha256": "7ad16d4dcff1be12cdaf5590aeb976201ed2f439d854a625ba7179168939ce87"
+    }
+  },
+  "public_http": {
+    "origin": "https://notes.zzzping.top",
+    "release_id": "20261023T020252",
+    "status": "pass",
+    "files_checked": 518,
+    "conditional_requests": 518,
+    "precompressed_checked": 196,
+    "entry_redirects_checked": 18,
+    "pdf_ranges_checked": 6,
+    "transport_retries": [],
+    "evidence": {
+      "report": "tmp/reading-publish-20261023/public-verification.json",
+      "sha256": "c9cccf4c0e5b381cb0474ec261af752ede408000ca9c9d06f8f3b1c9479d7f65"
+    }
+  },
+  "public_browser": {
+    "status": "passed",
+    "widths": [
+      1440,
+      390
+    ],
+    "reading_path": "EOPL map -> preface -> chapter 1 via footer -> chapter 2; both widths.",
+    "verified": [
+      "Four reading pages and 68 exercises",
+      "Chapter 1/2 source and exercise ranges",
+      "Single-question section has no redundant index; ex-1-14 deep link opens",
+      "Ex-1-26 Chinese question, example and answer; no complete English duplication",
+      "Complete chapter code opens with mouse and closes with keyboard",
+      "Stochastic chapter 1 and CSAPP chapter 7 enter body immediately; index after sections and before footer"
+    ],
+    "opened_and_read_screenshots": [
+      {
+        "file": "tmp/reading-publish-20261023/public-shots/eopl-scope-1440.png",
+        "opened_and_read": true,
+        "sha256": "999ddf815bcef507a9a742fde09855d4f7ee93159b12dd49225582fa429a5d6e",
+        "observation": "实际看到四个阅读页、68 题和两章直达链接；页码表与正文分开显示。",
+        "visual_status": "passed"
+      },
+      {
+        "file": "tmp/reading-publish-20261023/public-shots/eopl-chapter1-1440.png",
+        "opened_and_read": true,
+        "sha256": "fe7bf14d81ffe15452ae0346a74d5da3781b87cafaae38149b9794e8e3f5b4b5",
+        "observation": "实际看到第一章章首、来源范围和直接上一页/下一页链接，左栏与正文无重叠。",
+        "visual_status": "passed"
+      },
+      {
+        "file": "tmp/reading-publish-20261023/public-shots/eopl-chapter2-1440.png",
+        "opened_and_read": true,
+        "sha256": "18b0bb5aea6f28619291c0ff51cde3ba6beba64dd4df65506d342964353058d9",
+        "observation": "实际看到第二章章首、习题范围与上一章链接，正文接口定义正常显示。",
+        "visual_status": "passed"
+      },
+      {
+        "file": "tmp/reading-publish-20261023/public-shots/eopl-exercise-1-26-1440.png",
+        "opened_and_read": true,
+        "sha256": "32764b374806025c6dad30673e0c6adb7231841d917e3c527430044bbc448cad",
+        "observation": "实际看到中文题干、PDF 51、示例与解答直接衔接，右栏显示一层展开和递归展平注解。",
+        "visual_status": "passed"
+      },
+      {
+        "file": "tmp/reading-publish-20261023/public-shots/eopl-scope-390.png",
+        "opened_and_read": true,
+        "sha256": "55c9b4539bf309bb1cce94be8c6bbab21ae0b1fc5725f5b41f4104457f082639",
+        "observation": "手机范围说明和链接正常换行；宽页码表在自身容器内横向滚动。",
+        "visual_status": "passed"
+      },
+      {
+        "file": "tmp/reading-publish-20261023/public-shots/eopl-chapter1-390.png",
+        "opened_and_read": true,
+        "sha256": "c0507537017b598626542b58fd45683ae0763f96636538a0100aa8ca602ab68b",
+        "observation": "手机目录收起，章首标题换行，来源与直接下一章入口可见，页面宽度正常。",
+        "visual_status": "passed"
+      },
+      {
+        "file": "tmp/reading-publish-20261023/public-shots/eopl-chapter2-390.png",
+        "opened_and_read": true,
+        "sha256": "09a7fcd1f25480b39ed7e5461ac52dca39abf09a73b2858a10975cbf457743b5",
+        "observation": "手机目录收起，第二章标题、来源、上一章入口和正文正常换行。",
+        "visual_status": "passed"
+      },
+      {
+        "file": "tmp/reading-publish-20261023/public-shots/eopl-exercise-1-26-390.png",
+        "opened_and_read": true,
+        "sha256": "805a2d4f81d40702a0d21031e467ef2a0961e4105609e0755cdf99374baefa69",
+        "observation": "手机题目标题露出固定栏，中文题干和示例可读，随后为解答。",
+        "visual_status": "passed"
+      },
+      {
+        "file": "tmp/reading-publish-20261023/public-shots/stochastic-opening.png",
+        "opened_and_read": true,
+        "sha256": "18ed9466c1d84911598e37027e4dd0c587514d6846b3a3e1a88441e0bc0affbf",
+        "observation": "实际看到章首导航后直接进入 1.1 正文，整章定义定理索引已后置。",
+        "visual_status": "passed"
+      },
+      {
+        "file": "tmp/reading-publish-20261023/public-shots/csapp-opening.png",
+        "opened_and_read": true,
+        "sha256": "3f151c6fbcb233a031a880e5be9b976f10044d72cf37b3016cc206671b4525e3",
+        "observation": "实际看到章首导航后直接进入 7.1 正文，整章摘录索引已后置。",
+        "visual_status": "passed"
+      }
+    ],
+    "evidence": {
+      "report": "tmp/reading-publish-20261023/public-browser.json",
+      "sha256": "f21e687f29543ec4a03e407eadf72f172019c9f5998561b09d95b4b6ad493be8"
+    },
+    "no_js": {
+      "width": 390,
+      "status": "passed",
+      "actions": [
+        "Complete chapter code native mouse open and close",
+        "Ex-1-26 native question open and Chinese source readback"
+      ],
+      "opened_and_read_screenshots": [
+        {
+          "file": "tmp/reading-publish-20261023/public-shots/eopl-nojs-code-390.png",
+          "sha256": "30d04bdccd35d19ff59058ea3827451fa664a6219896a991f9e23babcdffc06c",
+          "opened_and_read": true,
+          "visual_status": "passed",
+          "observation": "关闭页面脚本后，鼠标原生展开完整源码成功；长代码在自身容器内滚动，正文可读。"
+        },
+        {
+          "file": "tmp/reading-publish-20261023/public-shots/eopl-nojs-question-390.png",
+          "sha256": "6c637defc0546bbd6a15e74eacc02ed40c77284f69fd8e7663f2858ce88a4fb6",
+          "opened_and_read": true,
+          "visual_status": "passed",
+          "observation": "关闭页面脚本后原生展开习题 1.26，看到中文题干、页码链接和示例。"
+        }
+      ],
+      "evidence": {
+        "report": "tmp/reading-publish-20261023/public-nojs.json",
+        "sha256": "37577a9565d200f9254956c4b7891ac202d55295f2e1ad995eb7a134a440a3f7"
+      }
+    },
+    "actual_pdf_click": {
+      "status": "passed",
+      "url": "https://notes.zzzping.top/eopl/assets/source.pdf#page=51",
+      "viewer_page": 51,
+      "viewer_total_pages": 433,
+      "printed_page": 28,
+      "exercise": "1.26",
+      "readback": {
+        "log": "tmp/reading-publish-20261023/public-pdf-readback.log",
+        "viewer_page": 51,
+        "viewer_total_pages": 433,
+        "printed_page": 28,
+        "exercise": "1.26",
+        "image": "tmp/reading-publish-20261023/public-shots/eopl-pdf-page51-readback.png",
+        "sha256": "339c112dbeb5d5540c7932b612ca89759057c9fdf3d8f8e9ff93dafc73ea6624",
+        "opened_and_read": true,
+        "observation": "实际 PDF 阅读器显示 51/433，正文印刷页 28，清楚看到 Exercise 1.26 与 up 示例。"
+      },
+      "evidence": {
+        "report": "tmp/reading-publish-20261023/public-pdf.json",
+        "sha256": "44c4218411890d8efbd5041baa26e2c0f80736e4f7cda06bb08b37a2b21cc2c1"
+      }
+    },
+    "total_opened_and_read_screenshots": 13,
+    "browser_task_finished": true,
+    "task_finish_evidence": {
+      "report": "tmp/reading-publish-20261023/browser-finish.log",
+      "sha256": "eb461680e7062ea639617a6c7e2e81e6dff30e90b2c3d077f58328c0fba08216"
+    }
+  },
+  "failures_and_resolution": [
+    {
+      "event": "Initial offline matrix stopped after 168 JavaScript views at stochastic appendix 390px #statement-index: disclosure expansion left the target and TOC activation misplaced.",
+      "evidence": "tmp/reading-notes-migration/browser/all/runs/2026-10-22T17-13-21-037Z-c3b52f5e/report.json",
+      "resolution": "Minimal delayed repositioning plus activation alignment; regression fails on the old controller, passes on the final controller. Full resumed matrix passed; 100 unchanged complete views reused by HTML and screenshot hashes."
+    },
+    {
+      "event": "Whole-helper reuse and a longer local correction exceeded the existing JavaScript budgets.",
+      "evidence": [
+        "tmp/reading-publish-20261023/settle-build.log",
+        "tmp/reading-publish-20261023/navigation-build-accepted.log"
+      ],
+      "resolution": "Discarded larger changes; final common script grows by 6 bytes and all original budgets pass."
+    },
+    {
+      "event": "Final quick check encountered old output-hash bindings during the publication rebuild.",
+      "evidence": "tmp/reading-publish-20261023/quick-check-final.log",
+      "resolution": "Current output bindings refreshed from actual output with previous values and Git provenance retained; source/mirror records, structure and complete parity rechecked."
+    },
+    {
+      "event": "First push of the navigation followup was interrupted by SSH transport closure.",
+      "evidence": "tmp/reading-publish-20261023/git-push-followup-retry.log",
+      "resolution": "Retry succeeded and live remote main was independently verified."
+    },
+    {
+      "event": "The first PDF click observation contained only the viewer iframe.",
+      "resolution": "A following real viewer readback and opened screenshot showed 51/433, print page 28 and Exercise 1.26; navigation URL alone was not counted as completion."
+    }
+  ],
+  "boundaries": [
+    "Offline automation covers 82 public pages at four JavaScript widths and two no-JavaScript widths; it does not constitute rereading every proof.",
+    "The 13 public screenshots listed above were opened and read. Other offline screenshots were not all manually read in this publication task.",
+    "Actual public browser operations used Ego Lite Chromium on macOS, including a 390px viewport; physical iOS/Android and other browser engines were not tested.",
+    "This release preserves the established mathematical explanations, questions and program bodies; it does not claim a fresh proof audit of every chapter."
+  ],
+  "document_impact": {
+    "updated": [
+      ".project-governance.json",
+      "TECH.md",
+      "docs/environments.md",
+      "docs/README.md",
+      "docs/navigation-position-review.json",
+      "issues/I053-reading-presentation.md",
+      "issues/I055-eopl-reading-cleanup.md",
+      "issues/I056-reading-presentation-publication.md",
+      "plan/P056-reading-presentation-publication.md",
+      "test/T056-reading-presentation-publication.md",
+      "milestone/M056-reading-presentation-publication.md"
+    ],
+    "unchanged_reason": "No new runtime, service, port, environment variable name or calculation rule; .env.example and the RN-001/RN-002 authorities keep their accepted definitions. Historical I052 publication review remains unchanged."
+  }
+}

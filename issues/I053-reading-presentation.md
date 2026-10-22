@@ -51,3 +51,5 @@
 
 - `2026-10-22 01:05 +08:00` — 建立 RN-002、呈现契约与检查器；完成六书 60 页导航统一（直接下一页、页脚入口、侧栏“目录”）；派发 EOPL 英文原题移除与随机过程/CS:APP 索引后置。
 - `2026-10-22 01:45 +08:00` — 完成：EOPL 69 个完整英文原题块移除并归档；随机过程 7 页、CS:APP 14 页索引后置；六书侧栏统一“全书地图/序言”；构建注入的“笔记首页”登记为壳层规则并增加 dist 导航检查。`node tools/check-presentation-contract.mjs` 与 `--dist` 均 60/60 通过；`python3 tools/project.py check`、`pnpm build`、`pnpm test`、`pnpm check:parity`、`pnpm check:performance` 通过；浏览器六书路径与 390px/无脚本抽检通过。未执行提交、推送或生产发布。
+
+2026-10-23 后续发布：用户在本地修订完成后明确授权提交、推送及服务器部署。本单已验收的内容纳入 I056，从干净内容提交 `0b987c3` 发布为 `20261023T020252`；实际公网与恢复证据见 [I056](I056-reading-presentation-publication.md)、[T056](../test/T056-reading-presentation-publication.md)及[发布审阅](../docs/reading-presentation-publication-review.json)。本单原有本地范围和历史结果保留。

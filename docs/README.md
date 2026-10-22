@@ -47,3 +47,5 @@
 - [Astro 迁移交付报告](astro-migration-report.md)：全量命令、parity、浏览器、可复现发布与保留范围。
 
 - [Astro 生产发布记录](astro-production-report.md)：I029 的 Git、Ubuntu/systemd、公网验证与旧布局恢复点。
+
+- [阅读呈现与 EOPL 整理生产发布](reading-presentation-publication-review.json)：I056 的干净内容提交、不可变包、全站离线矩阵、服务器恢复单元和公网实际阅读证据；历史 I052 [发布审阅](reader-publication-review.json)保留。

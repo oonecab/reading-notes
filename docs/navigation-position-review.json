@@ -1,6 +1,6 @@
 {
   "issue": "I056",
-  "status": "targeted_browser_verified_matrix_pending",
+  "status": "offline_matrix_and_production_verified",
   "scope": "Shared navigation schedules post-disclosure anchor placement and aligns the TOC activation position; net script growth is 6 bytes. Main text, questions, math, SVG, code, styles and links are preserved.",
   "source_sha256": {
     "measure-probability/notes/book_overview.html": "313338ecb882fe0bbcbf6c5aa78a00ea7e2ce893240510340f1cd046787162c1",
@@ -902,5 +902,20 @@
   "output_preservation": "Replacing the new published navigation script with its exact predecessor restores every byte of the previous output for all 46 pages; the frozen publication marker-threshold substitution is applied identically.",
   "build": "tmp/reading-publish-20261023/navigation-build-accepted.log",
   "targeted_browser": "tmp/reading-publish-20261023/navigation-position-browser.json",
-  "current_binding_changes": "tmp/reading-publish-20261023/navigation-bindings.json"
+  "current_binding_changes": "tmp/reading-publish-20261023/navigation-bindings.json",
+  "verification_completed_at_utc": "2026-10-22T18:48:33.082689+00:00",
+  "offline_matrix": {
+    "report": "tmp/reading-notes-migration/browser/all/runs/2026-10-22T18-07-06-485Z-addd37c5/report.json",
+    "sha256": "16a9ddf351a547e5512291900ba7938db871c893cd6790129bd7953def034322",
+    "pages": 82,
+    "js_views": 328,
+    "no_js_views": 164,
+    "external_requests": 0,
+    "reused_views": 100
+  },
+  "production_publication": {
+    "release_id": "20261023T020252",
+    "source_commit": "0b987c309f1a3bc172ea15658c28873a423953d7",
+    "review": "docs/reading-presentation-publication-review.json"
+  }
 }

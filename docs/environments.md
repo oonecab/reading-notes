@@ -13,8 +13,8 @@
 - 正式阅读站点：notes.zzzping.top，Nginx + TLS；部署步骤见 deploy/README.md
 - Ubuntu reading-notes-deploy.service 以 reading-notes 执行，通过固定 sudo root 安装器发布；deploy timer 保持 disabled；本地构建，Web 主机无需构建用户。
 - 宿主机历史 MySQL 服务及数据已于 2026-10-17 按 I030 卸载；mailutils 依赖的 mysql-common 与 libmysqlclient21 保留为共享客户端组件。
-- I033 已应用 root 安装器、root-owned 只读 release、SSH 仅公钥、FTP masked、UFW 22/80/443 和 fail2ban sshd；I052 当前 release 为 20261022T000343，I051 的 20261021T135233 及对应配置保留为恢复单元。DNS 自动续期与用户自行轮换 root 密码仍待处理，见 docs/browser-stability-report.md。
-- I035 已启用 reading-notes-health.service/.timer：15 分钟回环 HTTPS 内容核对；I052 发布与健康检查成功，timer 保持 active，现有端口和服务配置沿用，证据见 T035/T052。
+- I033 已应用 root 安装器、root-owned 只读 release、SSH 仅公钥、FTP masked、UFW 22/80/443 和 fail2ban sshd；I056 当前 release 为 20261023T020252，I052 的 20261022T000343 及对应配置、发布政策保留为恢复单元。DNS 自动续期与用户自行轮换 root 密码仍待处理，见 docs/browser-stability-report.md。
+- I035 已启用 reading-notes-health.service/.timer：15 分钟回环 HTTPS 内容核对；I056 发布与健康检查成功，timer 保持 active，现有端口和服务配置沿用，证据见 T035/T056。
 
 ## 端口与端点
 
@@ -63,6 +63,8 @@ I044 新增静态 `/eopl/` 路由，范围为地图、序言、来源摘要和 P
 2026-10-21 I051 实机：current 为 releases/20261021T135233，干净提交 561e978，标签 `v2026.10.21-eopl-chapters-reviewed`。本版 519 文件及前版 `20261021T125632` 的 511 文件逐项校验，均为 root 只读版本树；499 个未变文件保留 mtime，12 个变更文件使用不同 mtime，新增 8 文件。部署和内容健康检查成功，队列为空、无待恢复事务，健康 timer active。发布策略更新为 `375100f1`，新旧政策由管理员归档；Nginx 片段、12 个脚本 CSP、服务、端口和变量名保持，`.env.example` 无需调整。完整公网验证通过，证据见 [T051](../test/T051-eopl-merge-review.md)。
 
 2026-10-22 I052 实机：current 为 releases/20261022T000343，干净内容提交 62019e2，标签 `v2026.10.21-reader-contract`。新版本 523 文件和恢复版 `20261021T135233` 的 519 文件逐项校验，均为 root 只读版本树；387 个未变文件保留 mtime，132 个改变文件使用不同 mtime，另新增 4 个 PDF 文件。固定发布与内容健康检查成功，队列为空、无待恢复事务，健康 timer active。新发布策略 `33cce00d` 与旧政策均归档；Nginx 使用最终脚本 CSP。服务、端口和变量名沿用，`.env.example` 无需调整。正常域名 517 文件、18 入口重定向、6 份 PDF Range 及实际浏览器路径通过，见 [T052](../test/T052-reader-contract.md)。
+
+2026-10-23 I056 实机：current 为 releases/20261023T020252，来源为干净内容提交 `0b987c3`。新版本 524 文件和恢复版 `20261022T000343` 的 523 文件已逐项校验，均为 root 只读版本树；399 个未变文件保留 mtime，124 个改变文件使用不同 mtime，新增 1 文件。新旧发布政策均已归档，管理员配置备份保留；Nginx 采用本版 12 个脚本散列的最终 CSP。固定发布和健康检查成功，队列为空，无待恢复事务，健康 timer active。正常域名 518 文件、18 入口重定向、6 份 PDF Range 及 EOPL 桌面/手机/无脚本实际路径通过。环境变量名、服务和端口沿用，`.env.example` 无需调整，见 [T056](../test/T056-reading-presentation-publication.md)和[发布审阅](reading-presentation-publication-review.json)。
 
 ## 构建与测试变量用法
 

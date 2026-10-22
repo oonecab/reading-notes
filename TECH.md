@@ -235,3 +235,9 @@ I052 已从干净内容提交 `62019e2` / `v2026.10.21-reader-contract` 发布 `
 新建 [RN-002](docs/reading-presentation-standard.md)，把页面族、唯一阅读路径、章首顺序、索引位置、题干语言策略与三层检查方法从 RN-001 中拆出并机器化：`docs/reader-presentation.json` 登记六书 60 页顺序与标签，`tools/check-presentation-contract.mjs` 检查导航、章首、索引、题干语言和页面骨架，`scripts/presentation-contract.test.mjs` 覆盖 7 类必须失败的负例。检查器接入 `tools/project.py check` 与 `src/content` 构建门禁；不改变运行时、服务、端口或依赖版本（继续 Node 24.21.0 / parse5）。
 
 阅读规则变化：EOPL 68 题与 1 段共同题设的完整英文原题移出阅读页，归档到 `books/eopl/notes/original_questions.json`；随机过程 7 页、CS:APP 14 页的章首定义/原书摘录索引移到页脚前；六书 60 页导航统一为直接上一页/下一页/全书地图/返回页首，EOPL 序言页脚直达第一章。RN-001 升级 v1.11，不再要求每题英文对照。数学、代码、题号、答案与来源 PDF 保持不变；当前审阅绑定的更新单独记录。发布时门户统一注入的“笔记首页”只在构建产物检查中声明，源 `chapter-nav` 不重复写；`deploy/publication.py` 不再把测度书的“全书地图”改名为“伴读总览”。为允许已审阅的索引整块移动，`src/lib/source-revisions.mjs` 只在修订记录显式列出 `anchor_order_change` 时接受该锚点换序，仍拒绝删除或未声明换序。发布状态与验证结果见 I053/T053。
+
+## I056 阅读呈现生产发布（2026-10-23）
+
+I053 六书 RN-002 与 I055 EOPL 整理已从干净内容提交 `0b987c3` 发布为 `20261023T020252`，包含 60 阅读页、82 HTML 和 524 文件。发布验收另修复共享目录在原生折叠展开后未重新定位的问题，原脚本净增 6 字节，保留体积预算；46 页的正文、题干、数学、SVG、代码、样式和链接均保持。旧源及输出散列与 Git 来源保存在[定位审阅](docs/navigation-position-review.json)。
+
+全量程序检查 25 项、最终 Node 107 项、60 页 parity、本地 HTTPS 和 24 项隔离发布恢复通过；离线矩阵覆盖 82 页、328 个有脚本和 164 个无脚本视图。生产由固定发布器原子切换，前版 `20261022T000343` 和配套政策/配置保留，服务器只读树、缓存验证器及正常域名读回通过。实际浏览器及 13 张已打开阅读的公网截图见[独立发布审阅](docs/reading-presentation-publication-review.json)和 [T056](test/T056-reading-presentation-publication.md)。维护证据另行提交，部署源代码固定为上述内容提交；技术栈、服务、端口和变量名沿用。
