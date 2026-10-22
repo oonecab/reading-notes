@@ -4,8 +4,8 @@
   "status": "migration_verified",
   "historical_review_entry": "notes/validation.json",
   "file_sha256": {
-    "agent.md": "bee7808182ee00a8fb7b35ba10ec3872e50cc3e59b43342adaee5146841bf122",
-    "notes/README.md": "e4906d8ca0d336799a3884b2095a95d99ed97aeec82f230985a4f5220c6091de",
+    "agent.md": "ddf437daed993c3fde25033501f9ec0455c27bdd4cf01fae567f5d24a9aa0cdb",
+    "notes/README.md": "b911e6b7e6533c6c0f13d0f53e8d355008ba2d76c389bb6f233faef658823bc2",
     "review/browser.json": "55204c6858e93eb4bb226e4b6a9fc77e020d6263b6439a8bd6df32ff0332ed5b"
   },
   "open_findings": [],
@@ -97,5 +97,13 @@
     "prior_record_git": "a4d646e3f0c3a61d28ee38b10664f0fc8fc4c404:books/stochastic/review/validation.json",
     "prior_record_sha256": "a5e9156620458ac3645e0cd192eb3d05ecfdc687a40fa499be1d836fd2fff1d9",
     "scope": "Current reader-contract bindings: Chinese task completeness, section annotations, direct PDF references, disclosure indexes and shared reader behavior. Existing program text is preserved; explicitly sourced question inputs are added. SVG labels, geometry and topology are preserved except the two 7.18(h) source corrections, independently checked against all source actions; 35 reviewed diagrams add explicit shared CSS roles, and eight single-column diagrams receive compact viewports and sizing; two also have fitted node bounds and line layouts, retaining label text and topology, with exact changes recorded in docs/reader-diagram-review.json. Historical source/proof/execution claims retain their scope; current acceptance is recorded in docs/reader-contract-review.json"
+  },
+  "I053_revision": {
+    "issue": "I053",
+    "scope": "RN-002 presentation update; current file bindings refreshed, historical review evidence retained.",
+    "changed_files": [
+      "agent.md",
+      "notes/README.md"
+    ]
   }
 }

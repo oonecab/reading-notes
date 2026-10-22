@@ -13,7 +13,7 @@
 | [程士宏 测度论与概率论·全六章伴读](books/measure-probability/README.md) | [伴读总览](books/measure-probability/notes/book_overview.html) | 8 个 HTML 页面：总览、序言与前言、六章及全部 170 题；4 组 C/Python 程序，包含全部星号小节 |
 | [Friedman / Wand · EOPL](books/eopl/README.md) | [全书地图](books/eopl/notes/book_overview.html) | 2 个 HTML 页面：地图、导读与序言；习题 0.1、Python 闭包实验；后续章节规划中 |
 
-EOPL 当前公开[全书地图](books/eopl/notes/book_overview.html)与[导读、作者序言](books/eopl/notes/preface.html)两页，包含习题 0.1 和可运行的闭包实验。后续九章仍按该书阅读计划推进；本批统一排版与上线验收见 [T044](test/T044-reading-typography.md)。
+EOPL 当前有[全书地图](books/eopl/notes/book_overview.html)、[导读与作者序言](books/eopl/notes/preface.html)、[第 1 章](books/eopl/notes/chapter01_inductive_data.html)和[第 2 章](books/eopl/notes/chapter02_data_abstraction.html)四个阅读页，包含习题 0.1、1.1–1.36、2.1–2.31 共 68 道完整题解及 Python/Racket 示例。第 3–9 章与附录目前提供原书导览；阅读呈现修订见 [T053](test/T053-reading-presentation.md)、[T055](test/T055-eopl-reading-cleanup.md)，本次提交与生产发布见 [T056](test/T056-reading-presentation-publication.md)。
 
 CS:APP 全书笔记已接入统一首页与构建：从首页点击“进入 CS:APP 笔记”，进入全书地图后选择序言或第 1—12 章；阅读页顶部可返回书架。统一包收录笔记、教学程序与原书 PDF，点击章节、来源和习题中的页码链接可打开对应 PDF 页序。线上生效另按发布授权和验收记录确认。
 
@@ -64,7 +64,7 @@ AGENTS.md、CLAUDE.md、TECH.md     # Agent 入口与技术事实
 .project-governance.json        # 可重复生成的治理配置
 ```
 
-一书一个子项目、一章一个笔记文件；保持已有章序、文件名、锚点和相对资源路径。共同写作与验收方法由 [RN-001 读书笔记共同标准](docs/reading-notes-standard.md)维护，各书的算法、模型及专项约定见[规则职责索引](docs/rules/README.md)。公共层负责登记、验证、阅读入口和发布。迁入的 PDF 和原代码包用于确定教材版次与来源，验证过程中不自动替换。
+一书一个子项目、一章一个笔记文件；保持已有章序、文件名、锚点和相对资源路径。共同写作与验收方法由 [RN-001 读书笔记共同标准](docs/reading-notes-standard.md)维护，页面族、导航、章首与索引位置、题干语言和检查方法由 [RN-002 阅读呈现、导航与检查规范](docs/reading-presentation-standard.md)维护；各书的算法、模型及专项约定见[规则职责索引](docs/rules/README.md)。公共层负责登记、验证、阅读入口和发布。迁入的 PDF 和原代码包用于确定教材版次与来源，验证过程中不自动替换。
 
 新增书籍按[接入步骤](docs/adding-a-book.md)，使用[阅读计划、书级约定和逐章审阅模板](docs/templates/reading-notes/README.md)：核实原书与覆盖清单，建立全书地图和序言，完成代表章并实际验收，然后分批写作、接入统一书架。可直接提出：“按项目 RN-001 标准接入这本书，资料在……，本次完成……。”共享 Agent 入口已把该标准列为必读。
 

@@ -21,7 +21,7 @@
 
 教材陈述、例题、公式和推导由 src/content/books 中的受控 HTML 维护，原 books 章节路径是同步的检查/阅读镜像，具体流程见 [Astro 内容维护](../astro-authoring.md)；计算实现与数值接口由各书源码/正文及运行说明维护。跨书规则由本目录登记，教材模型保持在对应正文中。
 
-跨书的来源核对、全书规划、伴读方法、题解、代码与阅读验收采用 [RN-001 读书笔记共同标准](../reading-notes-standard.md)（v1，2026-10-14）。[新书接入](../adding-a-book.md)与[模板](../templates/reading-notes/README.md)引用该标准；以下各书文件补充本书模型、范围和具体约定，既有更细要求继续生效。
+跨书的来源核对、全书规划、伴读方法、题解、代码与阅读验收采用 [RN-001 读书笔记共同标准](../reading-notes-standard.md)（v1.11，2026-10-22）；页面族、导航、章首与索引位置、题干语言策略和检查方法采用 [RN-002 阅读呈现、导航与检查规范](../reading-presentation-standard.md)（v1.0.1，2026-10-22）。[新书接入](../adding-a-book.md)与[模板](../templates/reading-notes/README.md)引用该标准；以下各书文件补充本书模型、范围和具体约定，既有更细要求继续生效。
 
 - 随机过程：[维护约定](../../books/stochastic/agent.md)、[章节规范](../../books/stochastic/notes/README.md)、[程序接口](../../books/stochastic/code/README.md)。
 - Weiss：[维护约定](../../books/weiss/agent.md)、[章节规范](../../books/weiss/notes/README.md)、[程序说明](../../books/weiss/notes/book_overview.html#program-guide)、[原图例接口](../../books/weiss/c/README.md)。
@@ -68,5 +68,7 @@ CS:APP 全书解释复核见 [I018](../../issues/I018-csapp-explanations.md) / [
 EOPL 第三版准备批：词法/动态作用域、闭包创建环境、按值求值与错误条件由[序言闭包例子](../../books/eopl/notes/preface.html#scope-example)及[程序说明](../../books/eopl/code/README.md)维护；原书语义与 Python 教学子集分开标明。全书来源定位及准备阶段边界见[阅读计划](../../books/eopl/reading-plan.md)，执行和阅读证据见 [T042](../../test/T042-eopl-map-preface.md)。
 
 EOPL 基础两章：递归终止度量、编号上下文、自然数表示、环境遮蔽、重复变量约定、zipper 重建和解析输入边界由[第 1 章](../../books/eopl/notes/chapter01_inductive_data.html)、[第 2 章](../../books/eopl/notes/chapter02_data_abstraction.html)及[程序接口](../../books/eopl/code/README.md)维护。原题及修正依据保留，实际 Racket 回归和计时口径见 [T048](../../test/T048-eopl-ch01-02.md)。
+
+2026-10-22 的 [I053](../../issues/I053-reading-presentation.md) 将呈现、导航与索引位置固化为 RN-002 和 `docs/reader-presentation.json`；EOPL 逐题英文原题移出阅读页并归档，随机过程/CS:APP 索引后置。
 
 2026-10-21 的 [I052](../../issues/I052-reader-contract.md) 将 [RN-001 v1.10](../reading-notes-standard.md) 的完整中文题干、必需注解、统一索引和直接 PDF 定位固化为独立阅读契约。题干里的分布、独立性、任务动词、原程序与前置定理已按来源补齐，详情与验证边界见 [T052](../../test/T052-reader-contract.md)。视觉群论 [7.18(h)](../../books/visual-group-theory/notes/chapter07_products_and_quotients.html#ex-7-18) 以原书 PDF 第 166 页的 48 个动作终点为准，商图按同一作用诱导；可执行检查同时核对数据端点、箭头标记和实际 SVG 路径，避免用另一个 16 阶群代替原图。

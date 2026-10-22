@@ -27,7 +27,9 @@
 
 从 Reading Notes 仓库根运行 `python3 tools/project.py check --quick` 或 `python3 tools/project.py check --book stochastic`，均会执行全书过程门禁、清单新鲜度检查及反例回归；全部原检查继续执行。单独运行 `python3 books/stochastic/tools/derivation_coverage.py --check` 使用相同的全书范围；`--page` 可限定单页排查。`--write` 只更新覆盖清单，不代表内容已审阅。审阅确认后的内容快照仍由 `content_integrity.py --record` 单独记录。
 
-序言保留原书四段完整英文与逐段中文译文，说明写作目标、版本沿革、六章顺序以及返回周期法和耦合证明的区别。全书地图与各章目录均可进入序言。各章及附录有“定义与定理”索引，正式陈述放在相应小节，可直接按原书编号跳转。
+2026-10-22 按 RN-002 把各章与附录的索引整块移到页脚之前、侧栏索引条目移到小节之后。索引块移动只改变元素位置：正文、公式、代码、题干、解答和 id 均未改（已按每页 `<math>`／`<pre>`／`<code>` 多重集与题干哈希核对）。因为页面哈希随结构位置变化，按既有命令重新记录了 `derivation_coverage.json` 的 `page_sha256` 与 `tools/content_baseline.json` 的正文快照；各审阅记录中的“当前文件绑定”和 36 条 `current_representation_sha256` 也同步到索引后置页面。逐项“原值→当前值”保留在 [index_rebinding_review.json](index_rebinding_review.json)；`files` 之外的既有哈希、历史截图哈希、审阅结论与历史批次记录均未改写。
+
+序言保留原书四段完整英文与逐段中文译文，说明写作目标、版本沿革、六章顺序以及返回周期法和耦合证明的区别。全书地图与各章目录均可进入序言。各章及附录有“定义与定理”索引，正式陈述放在相应小节，可直接按原书编号跳转。索引位置按 [RN-002](../../../docs/reading-presentation-standard.md) §4 后置：放在本章正文与习题之后、页脚之前，侧栏链接排在所有小节之后，不新增 section；这次只移动整块索引和侧栏条目，`#statement-index` 的 id、summary、内部链接与默认折叠状态不变，因此跨页锚点仍可解析。范围与理由：章首只留导语，读者先进入正文；索引作为章末检索入口保留，避免删除已有检索能力。
 
 六章与附录共 150 条正式陈述，包括原书全部 115 条编号定理及引理、两条编号定义，以及其他基础定义、模型假设和未编号公式。共 26 条定义、八条未编号公式与推导，附录 A.1 完整写出概率的三条公理，各章链接回共同基础。编号结果均有英文原文、完整中文条件与结论、推导要点、原书页码及正文详细推导链接。页面共有 146 处英文原文块，其中四处是序言完整段落；其他摘录覆盖编号结果和关键定义。原文措辞、中文陈述和伴读注解分别标明。
 
@@ -71,4 +73,4 @@ make 编译独立 C 程序，sync_code 检查源码与网页逐字一致。check
 
 2026-10-20 起，四类教学组件统一遵循 [RN-001 v1.1](../../../docs/reading-notes-standard.md)；共享维护源为 `src/styles/reading-components.css`。陈述保持可见，证明默认展开并可折叠，习题默认收起，题干、解答与来源共用排版。具体覆盖与本轮内容修正见 [I040](../../../issues/I040-unified-reading-components.md)，原数学审阅和历史执行证据保留。
 
-本书的当前阅读契约以 RN-001 v1.10 为准：完整中文题干和来源、逐节注解、共同版心、代码等宽与原生折叠、命名明确的索引、直达登记 PDF 的原文入口。逐页义务在根目录 `docs/reader-contract.json`，原书发布身份在 `docs/reader-sources.json`；历史批次记录保留当时的范围，当前复查执行 `python3 tools/project.py check` 及完整浏览器矩阵。
+本书的当前阅读契约同时以 RN-001 v1.11 和 [RN-002 v1.0.1](../../../docs/reading-presentation-standard.md) 为准：完整中文题干和来源、逐节注解、共同版心、代码等宽与原生折叠、命名明确的索引、索引后置于章末、直达登记 PDF 的原文入口。逐页义务在根目录 `docs/reader-contract.json` 与 `docs/reader-presentation.json`，原书发布身份在 `docs/reader-sources.json`；历史批次记录保留当时的范围，当前复查执行 `python3 tools/project.py check` 及完整浏览器矩阵。

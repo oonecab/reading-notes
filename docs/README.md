@@ -20,6 +20,7 @@
 - [统一部署与恢复](../deploy/README.md)：实际发布步骤的唯一操作说明。
 - [治理更新流程](governance-updates.md)。
 - [RN-001 读书笔记共同标准](reading-notes-standard.md)：跨书的来源、全书规划、伴读讲解、题解、程序、版式与分层验收方法；[新书模板](templates/reading-notes/README.md)记录书级事实。
+- [RN-002 阅读呈现、导航与检查规范](reading-presentation-standard.md)：页面族、唯一阅读路径、章首与索引位置、题干语言策略、三层检查与结论写法；机器登记在 `reader-presentation.json`，检查器为 `../tools/check-presentation-contract.mjs`。
 - [新增子项目](adding-a-book.md)与 [本次迁移](migration-20261012.md)。
 - [架构决策](decisions/ADR-001-book-subprojects.md)、[问题单](../issues/I001-project-merge.md)、[计划](../plan/P001-project-merge.md)、[测试设计](../test/T001-project-merge.md)与 [里程碑](../milestone/M001-project-merge.md)。
 - [书籍内容与计算规则入口](rules/README.md)；专项正文规范随各书维护。

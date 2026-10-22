@@ -1,0 +1,234 @@
+{
+  "issue": "I055",
+  "status": "completed_locally",
+  "reviewed_at_utc": "2026-10-22T16:42:46.951Z",
+  "scope": [
+    "eopl/notes/book_overview.html",
+    "eopl/notes/chapter01_inductive_data.html",
+    "eopl/notes/chapter02_data_abstraction.html"
+  ],
+  "source_sha256": {
+    "eopl/notes/book_overview.html": "646586e8bdee6eb467a969064a2d748fd804f05d3b9b1de125ce61173fe8796c",
+    "eopl/notes/chapter01_inductive_data.html": "144e88794f77e3f3c6c08286c6a5e3cfb88e119337b298e4aa783c5a2d43c6f8",
+    "eopl/notes/chapter02_data_abstraction.html": "fe408534256851395d75a5584d2103cb488d7a1fc95dd8b5c2439a863a838bbc"
+  },
+  "previous_source_sha256": {
+    "eopl/notes/book_overview.html": "4934f3521a964a371047dfa0387325de078db4390f9e6a43fac1a37e40ad2935",
+    "eopl/notes/chapter01_inductive_data.html": "1a6536fda7ca4e288299bcbb01833a65c248afe9f128f97be3ce679e9665bfaf",
+    "eopl/notes/chapter02_data_abstraction.html": "fbd7887d5fec9a5f9d532d0b358d1662c382c43e4fd4ec5ebfaf7cb4bea49b41"
+  },
+  "output_sha256": {
+    "eopl/notes/book_overview.html": "a4b769424fb3f9347649ddf031d46694b70411172aa364520f68feb07de32b62",
+    "eopl/notes/chapter01_inductive_data.html": "2a5dff24a47bcb3edaf2abc86be14fbf8543d2021165d0f8d00280bd07dfe0c8",
+    "eopl/notes/chapter02_data_abstraction.html": "bacc2243a3fafbac6c99b278acdd2aaa0095d04031c3b197463611965e9d228d"
+  },
+  "changes": [
+    {
+      "file": "book_overview.html",
+      "reason": "地图范围与现有四页及 68 道题解一致，提供两章正文入口，并更新离线阅读说明。",
+      "anchors": [
+        "program-guide",
+        "source"
+      ]
+    },
+    {
+      "file": "chapter01_inductive_data.html",
+      "reason": "章首来源行说明页序与习题范围；§1.3 直接展示唯一习题 1.14 的折叠入口。",
+      "anchors": [
+        "top",
+        "s1-3",
+        "ex-1-14"
+      ]
+    },
+    {
+      "file": "chapter02_data_abstraction.html",
+      "reason": "章首来源行说明页序与习题范围，原图与排版说明保留。",
+      "anchors": [
+        "top"
+      ]
+    }
+  ],
+  "preservation": {
+    "report": "tmp/eopl-reader-fixes-20261023/preservation.json",
+    "exercises": 68,
+    "question_bytes": "unchanged",
+    "answers": "unchanged",
+    "formulas_svg_code_sources_anchors": "unchanged",
+    "question_dependency_changes": [
+      {
+        "page": "eopl/notes/chapter01_inductive_data.html",
+        "before": {
+          "id": "ex-1-36",
+          "sha256": "6772c1b1ed173e4e15288a200b3ac752ae065838970f59e1c4ad58775a03cb73",
+          "dependencies": [
+            {
+              "anchor": "#exercise-common-contract",
+              "sha256": "bd90ea4765ebba4c2f96dc8d1f55d893e6fa8689145e57128c9528b802c75798"
+            },
+            {
+              "anchor": "#s1-3",
+              "sha256": "7695d66fc4c7f718c1b48e90ba38ed523856637de2a258a51f5246f2ddbd107e"
+            }
+          ]
+        },
+        "after": {
+          "id": "ex-1-36",
+          "sha256": "6772c1b1ed173e4e15288a200b3ac752ae065838970f59e1c4ad58775a03cb73",
+          "dependencies": [
+            {
+              "anchor": "#exercise-common-contract",
+              "sha256": "bd90ea4765ebba4c2f96dc8d1f55d893e6fa8689145e57128c9528b802c75798"
+            },
+            {
+              "anchor": "#s1-3",
+              "sha256": "de10b67696cc672841e64ca3740ba3e784328f7e5884df6a1036644f079372db"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "evidence": {
+    "previous_inspection": "tmp/eopl-inspection-20261022/report.md",
+    "current": "tmp/eopl-reader-fixes-20261023",
+    "diagnostics": "tmp/eopl-reader-fixes-20261023/diagnostics.json"
+  },
+  "limits": [
+    "Local revision only; no commit, push or production deployment.",
+    "Contents of all 68 exercises were preserved byte for byte; this is not a fresh proof review of every solution.",
+    "Browser review covers affected pages at 1440 and 390 pixels, with 390-pixel no-JS checks; Safari, Firefox, screen readers and physical phones were not tested."
+  ],
+  "build": {
+    "status": "passed",
+    "release_id": "20261023T004316",
+    "report": "tmp/reading-notes-migration/build.json",
+    "package": "deploy/portal-releases/20261023T004316/release.json",
+    "local_only": true
+  },
+  "completed_at_utc": "2026-10-22T16:58:48.229574+00:00",
+  "checks": {
+    "unified": {
+      "status": "passed",
+      "command": "python3 tools/project.py check --book eopl",
+      "checks": 14,
+      "report": "tmp/project-check/20261023T005125-bnzi9chz/report.json"
+    },
+    "node": {
+      "status": "passed",
+      "command": "pnpm test",
+      "tests": 103,
+      "failures": 0,
+      "log": "tmp/eopl-reader-fixes-20261023/node-tests.log"
+    },
+    "parity": {
+      "status": "passed",
+      "book": "eopl",
+      "pages": 4,
+      "differences": 0
+    },
+    "presentation_source": {
+      "status": "passed",
+      "pages": 4,
+      "report": "tmp/eopl-reader-fixes-20261023/presentation-source.json"
+    },
+    "presentation_dist": {
+      "status": "passed",
+      "pages": 4,
+      "report": "tmp/eopl-reader-fixes-20261023/presentation-dist.json"
+    }
+  },
+  "browser": {
+    "status": "passed",
+    "engine": "Ego Lite Chromium",
+    "viewports": [
+      1440,
+      390
+    ],
+    "affected_pages": 3,
+    "navigation_and_interactions": 22,
+    "nojs": {
+      "viewport": 390,
+      "pages": 3,
+      "all_details_expanded": true,
+      "document_width": 375,
+      "native_code_controls": "close and reopen verified on both chapters"
+    },
+    "reports": [
+      "tmp/eopl-reader-fixes-20261023/browser-round-01.json",
+      "tmp/eopl-reader-fixes-20261023/browser-round-02b-interactions.json",
+      "tmp/eopl-reader-fixes-20261023/browser-round-03-all-open-nojs.json"
+    ],
+    "screenshots": [
+      {
+        "file": "tmp/eopl-reader-fixes-20261023/shots/book_overview-1440.png",
+        "sha256": "999ddf815bcef507a9a742fde09855d4f7ee93159b12dd49225582fa429a5d6e",
+        "opened_and_read": true
+      },
+      {
+        "file": "tmp/eopl-reader-fixes-20261023/shots/book_overview-390-nojs.png",
+        "sha256": "d73ff369d1129c15bd102643a2735ee1a21a8b909f9eada65c169c281662c3a3",
+        "opened_and_read": true
+      },
+      {
+        "file": "tmp/eopl-reader-fixes-20261023/shots/book_overview-390.png",
+        "sha256": "55c9b4539bf309bb1cce94be8c6bbab21ae0b1fc5725f5b41f4104457f082639",
+        "opened_and_read": true
+      },
+      {
+        "file": "tmp/eopl-reader-fixes-20261023/shots/chapter01_inductive_data-1440.png",
+        "sha256": "ee480003ff47c40f022550d961308a4ed33369399e59309d0ff442814a6d4a07",
+        "opened_and_read": true
+      },
+      {
+        "file": "tmp/eopl-reader-fixes-20261023/shots/chapter01_inductive_data-390-nojs.png",
+        "sha256": "70c0a4beae1add8829ad68edb3a70855fb1a9638e0c57547f8483a4e3386f227",
+        "opened_and_read": true
+      },
+      {
+        "file": "tmp/eopl-reader-fixes-20261023/shots/chapter01_inductive_data-390.png",
+        "sha256": "c0507537017b598626542b58fd45683ae0763f96636538a0100aa8ca602ab68b",
+        "opened_and_read": true
+      },
+      {
+        "file": "tmp/eopl-reader-fixes-20261023/shots/chapter02_data_abstraction-1440.png",
+        "sha256": "ee7e1d55c0856bc617b56ebee11be3d496ead461afb4a98f2b6cf9e6ac2b1d14",
+        "opened_and_read": true
+      },
+      {
+        "file": "tmp/eopl-reader-fixes-20261023/shots/chapter02_data_abstraction-390-nojs.png",
+        "sha256": "76fd30ffca08611021c5bafcbac05ef64c36268119d119b70be3d9b5f3a3b6ee",
+        "opened_and_read": true
+      },
+      {
+        "file": "tmp/eopl-reader-fixes-20261023/shots/chapter02_data_abstraction-390.png",
+        "sha256": "09a7fcd1f25480b39ed7e5461ac52dca39abf09a73b2858a10975cbf457743b5",
+        "opened_and_read": true
+      },
+      {
+        "file": "tmp/eopl-reader-fixes-20261023/shots/single-question-1440.png",
+        "sha256": "9b4ebc2b70b0183deffbe2a20cbafbf1dc6f82d97c104fcdb36d9f9a932fa85a",
+        "opened_and_read": true
+      },
+      {
+        "file": "tmp/eopl-reader-fixes-20261023/shots/single-question-390.png",
+        "sha256": "796c344701a2e969fd984e71de41a73ac806e3a9c8d9ce6320e3a13d199341e7",
+        "opened_and_read": true
+      }
+    ]
+  },
+  "index_exception": {
+    "policy": "docs/reader-presentation.json:books.eopl.exceptions",
+    "rule": "exercise-index-single-question-section",
+    "section": "s1-3",
+    "exercise": "ex-1-14",
+    "validation": "exact section and question; one exercise only; direct TOC; multi-question indexes remain complete",
+    "tests": "scripts/reading-components.test.mjs",
+    "before_failure": "tmp/eopl-reader-fixes-20261023/single-question-before.log"
+  },
+  "content_readback": [
+    "map program-guide and source scope paragraphs",
+    "chapter 1 and 2 source lines",
+    "section s1-3 context, annotation and exercise 1.14",
+    "exercise 1.36 and its referenced section"
+  ]
+}

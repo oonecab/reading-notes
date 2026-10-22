@@ -11,6 +11,7 @@ import { checkBudgets } from './performance-budget.mjs';
 import { checkSource } from '../src/lib/source-revisions.mjs';
 import { requireReaderCopy, requireCodeFolding } from '../tools/reading-presentation/check.mjs';
 import { checkAll as checkReaderContract } from '../tools/reader-contract/check.mjs';
+import { checkAll as checkPresentationContract, checkDist as checkPresentationDist } from '../tools/check-presentation-contract.mjs';
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 process.chdir(root);
@@ -39,6 +40,9 @@ if(!shell) {
   const readerContract=checkReaderContract();
   fs.writeFileSync(path.join(stage,'reader-contract.json'),JSON.stringify(readerContract,null,2)+'\n');
   if(readerContract.errors.length)throw new Error('Reader contract failed: '+JSON.stringify(readerContract.errors));
+  const presentationContract=checkPresentationContract();
+  fs.writeFileSync(path.join(stage,'presentation-contract.json'),JSON.stringify(presentationContract,null,2)+'\n');
+  if(presentationContract.errors.length)throw new Error('Presentation contract failed: '+JSON.stringify(presentationContract.errors));
   for(const entry of pages)checkSource(entry);
   syncMirrors(pages,{write:true});
   for(const folder of ['legacy','prepared','canonical'])fs.rmSync(path.join(stage,folder),{recursive:true,force:true});
@@ -84,6 +88,9 @@ if(!shell){
   const previous=path.join(stage,'previous-dist');fs.rmSync(previous,{recursive:true,force:true});
   if(fs.existsSync(path.join(root,'dist')))fs.renameSync(path.join(root,'dist'),previous);
   fs.renameSync(target,path.join(root,'dist'));
+  const presentationDist=checkPresentationDist();
+  fs.writeFileSync(path.join(stage,'presentation-dist.json'),JSON.stringify(presentationDist,null,2)+'\n');
+  if(presentationDist.errors.length)throw new Error('Built presentation contract failed: '+JSON.stringify(presentationDist.errors));
 }
 const report = { status: 'passed', mode: shell?'empty_scaffold':'book_migration', books:[...new Set(pages.map(p=>p.metadata.book))],pages:pages.length,public_html:routes.length,seconds: (performance.now()-start)/1000, output: shell?path.relative(root,target):'dist' };
 fs.writeFileSync(path.join(stage, shell?'scaffold-build.json':'build.json'), JSON.stringify(report,null,2)+'\n');

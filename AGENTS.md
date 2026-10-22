@@ -46,4 +46,4 @@
 
 各书原有说明中的“项目/仓库根目录”按子项目根目录解释；公共命令从 Reading Notes 主仓库根目录执行。
 
-全站内容与布局检查必须执行 RN-001 §6.1 的逐页阅读契约，使用 `docs/reader-contract.json` 和 `docs/reader-sources.json` 独立核对中文题干、注解覆盖、索引及 PDF 目标；完整检查清单与例外只在 RN-001 维护。
+全站内容与阅读呈现检查必须同时执行 RN-001 §6.1 的逐页阅读契约与 [RN-002 阅读呈现、导航与检查规范](docs/reading-presentation-standard.md)：使用 `docs/reader-contract.json`、`docs/reader-sources.json` 和 `docs/reader-presentation.json`，分别核对中文题干/注解/PDF、导航与章首顺序、索引位置及题干语言策略；完整检查清单与例外只在 RN-001、RN-002 维护。

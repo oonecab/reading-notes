@@ -88,6 +88,7 @@ def check(book_id: str, quick: bool, benchmarks: bool) -> int:
         commands.append(command)
     commands.append(["node", ROOT / "tools/reading-components/check.mjs"])
     commands.append(["node", ROOT / "tools/reader-contract/check.mjs"])
+    commands.append(["node", ROOT / "tools/check-presentation-contract.mjs"])
     commands.append(["node", ROOT / "tools/reading-typography/check.mjs"])
     commands.append(["node", ROOT / "tools/reading-presentation/check.mjs"])
     commands.append([sys.executable, ROOT / "tools/check_astro_records.py"])

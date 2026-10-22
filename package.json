@@ -13,7 +13,9 @@
     "check:parity": "node scripts/verify-parity.mjs",
     "check:offline": "node scripts/check-offline.mjs",
     "test": "node --test scripts/*.test.mjs",
-    "check:performance": "node scripts/performance-budget.mjs"
+    "check:performance": "node scripts/performance-budget.mjs",
+    "check:presentation": "node tools/check-presentation-contract.mjs",
+    "check:presentation:dist": "node tools/check-presentation-contract.mjs --dist"
   },
   "devDependencies": {
     "astro": "7.4.0",

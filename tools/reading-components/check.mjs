@@ -22,7 +22,7 @@ export function enclosingHeadingLevel(node) {
   return 0;
 }
 
-export function checkPage(html, book) {
+export function checkPage(html, book, singleQuestionIndexExceptions = []) {
   const nodes = walk(parse(html));
   assert(nodes.some(n => n.tagName === 'body' && has(n, 'rn-components')), 'Missing shared reading scope');
   const toc = nodes.find(n => has(n, 'chapter-toc'));
@@ -110,9 +110,23 @@ export function checkPage(html, book) {
   }
   const originalExercises = nodes.filter(n => has(n, 'exercise') && !/^q\d/.test(attr(n, 'id') ?? ''));
   const indexes = nodes.filter(n => has(n, 'exercise-index'));
+  // RN-002 §8 permits a registered single-question section to use its TOC
+  // entry. Validate the exact section and exercise every time it is reused.
+  const directQuestions = new Set();
+  for (const exception of singleQuestionIndexExceptions) {
+    const section = nodes.find(n => n.tagName === 'section' && attr(n, 'id') === exception.section);
+    const questions = section ? walk(section).filter(n => has(n, 'exercise')) : [];
+    const question = questions[0];
+    assert(section?.parentNode?.tagName === 'main' && questions.length === 1 &&
+      question.parentNode === section && attr(question, 'id') === exception.exercise &&
+      !directQuestions.has(question) && toc && walk(toc).some(n => n.tagName === 'a' &&
+        attr(n, 'href') === '#' + exception.section), 'Invalid single-question index exception');
+    directQuestions.add(question);
+  }
   if (originalExercises.length >= 20) {
     const links = indexes.flatMap(n => walk(n).filter(n => n.tagName === 'a'));
-    assert(originalExercises.every(n => links.some(a => attr(a, 'href') === '#' + attr(n, 'id'))), 'Exercise index incomplete');
+    assert(originalExercises.every(n => directQuestions.has(n) ||
+      links.some(a => attr(a, 'href') === '#' + attr(n, 'id'))), 'Exercise index incomplete');
   }
   for (const index of indexes) {
     assert(attr(index, 'role') === 'navigation' && attr(index, 'aria-label'), 'Exercise index navigation name missing');
@@ -128,11 +142,15 @@ export function checkPage(html, book) {
 
 export function checkAll() {
   const inventory = JSON.parse(fs.readFileSync('docs/reading-components-inventory.json'));
+  const presentation = JSON.parse(fs.readFileSync('docs/reader-presentation.json'));
   const result = [];
   for (const e of entries()) {
     const source = fs.readFileSync(e.filename, 'utf8');
     assert.equal(source.split('RN:include styles/reading-components.css').length, 2, 'Shared CSS must be included once');
-    const counts = checkPage(e.html, e.metadata.book);
+    const singleQuestionIndexExceptions = (presentation.books[e.metadata.book]?.exceptions ?? [])
+      .filter(exception => exception.page === path.basename(e.filename) &&
+        exception.rule === 'exercise-index-single-question-section');
+    const counts = checkPage(e.html, e.metadata.book, singleQuestionIndexExceptions);
     const expected = inventory.pages.find(p => p.page === e.metadata.route);
     assert(expected, 'Missing component inventory');
     assert.deepEqual(counts, expected.counts, 'Component coverage drift: ' + e.metadata.route);

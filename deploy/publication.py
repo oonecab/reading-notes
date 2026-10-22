@@ -47,8 +47,8 @@ def configure(books):
 
 
 def scope_labels(blob, name):
-    if name.startswith('measure-probability/'):
-        return blob.replace('全书地图'.encode(), '伴读总览'.encode())
+    # RN-002 keeps one navigation label across books. Book-specific overview
+    # titles remain in page headings, not in the shared map link.
     return blob
 
 

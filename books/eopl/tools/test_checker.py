@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""在隔离副本注入错误，确认来源、锚点与代码漂移检查实际拒绝错误。"""
+"""在隔离副本注入错误，确认来源、英文原题归档、锚点与代码漂移检查实际拒绝错误。"""
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 import shutil
@@ -40,7 +41,7 @@ def run(run_dir: Path) -> dict:
             report = json.loads(completed.stdout)
             if expected_error is None:
                 assert completed.returncode == 0, report
-                assert report["source_check"] == "not_available", report
+                assert report["source_check"] in ("hash_verified", "not_available"), report
             else:
                 assert completed.returncode != 0, (name, "accepted injected error")
                 assert expected_error in report.get("error", ""), report
@@ -88,32 +89,52 @@ def run(run_dir: Path) -> dict:
         check("missing_chapter_exercise", "missing anchor")
         chapter.write_text(original)
         sync()
-        chapter.write_text(original.replace("Write inductive definitions", "[omitted condition]", 1))
+        archive = book / "notes/original_questions.json"
+        original_archive = archive.read_text()
+
+        def write_archive(data: dict) -> None:
+            data["item_count"] = len(data["items"])
+            data["exercise_count"] = sum(row["kind"] == "exercise" for row in data["items"])
+            archive.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n")
+
+        data = json.loads(original_archive)
+        data["items"] = [row for row in data["items"] if row["number"] != "1.7"]
+        write_archive(data)
+        check("archive_missing_exercise", "original question archive exercise count")
+        archive.write_text(original_archive)
+
+        archive.unlink()
+        check("archive_file_missing", "original question archive missing")
+        archive.write_text(original_archive)
+
+        data = json.loads(original_archive)
+        next(row for row in data["items"] if row["number"] == "1.7")["number"] = "1.8"
+        write_archive(data)
+        check("archive_number_mismatch", "archive exercise sequence")
+        archive.write_text(original_archive)
+
+        data = json.loads(original_archive)
+        row = next(row for row in data["items"] if row["number"] == "1.1")
+        row["html"] = row["html"].replace("Write inductive definitions", "[injected condition]", 1)
+        row["text"] = row["text"].replace("Write inductive definitions", "[injected condition]", 1)
+        row["sha256"] = hashlib.sha256(row["html"].encode()).hexdigest()
+        write_archive(data)
+        check("archive_english_drift", "archived original differs from source JSON")
+        archive.write_text(original_archive)
+
+        data = json.loads(original_archive)
+        row = next(row for row in data["items"] if row["number"] == "1.1")
+        row["html"] = row["html"].replace("Write inductive definitions", "[injected condition]", 1)
+        write_archive(data)
+        check("archive_sha256_drift", "archived original sha256 differs")
+        archive.write_text(original_archive)
+
+        chapter.write_text(original.replace(
+            '<section id="s1-1">',
+            '<section id="s1-1"><details class="original-question"><summary>英文原题</summary>'
+            '<p>Injected.</p></details>', 1))
         sync()
-        check("truncated_original_question", "complete original question differs")
-        chapter.write_text(original)
-        sync()
-        chapter.write_text(original.replace('aria-label="{3n + 2 | n ∈ N }"',
-                                            'aria-label="{3n + 3 | n ∈ N }"', 1))
-        sync()
-        check("original_math_condition_drift", "original question math differs from source spelling")
-        chapter.write_text(original)
-        sync()
-        chapter.write_text(original.replace('<mo>{</mo><mn>3</mn><mi>n</mi>',
-                                            '<mo>{</mo><mn>4</mn><mi>n</mi>', 1))
-        sync()
-        check("original_visible_math_drift", "original question math differs from source spelling")
-        chapter.write_text(original)
-        sync()
-        chapter.write_text(original.replace('<msup><mi>n</mi><mn>2</mn></msup>',
-                                            '<mrow><mi>n</mi><mn>2</mn></mrow>', 1))
-        sync()
-        check("original_exponent_flattened", "original question math differs from source spelling")
-        chapter.write_text(original)
-        sync()
-        chapter.write_text(original.replace('aria-label="{3n + 2 | n ∈ N }"', '', 1))
-        sync()
-        check("original_math_source_spelling_missing", "original question math needs its source spelling")
+        check("page_retains_english_original", "reading page retains a full English original")
         chapter.write_text(original)
         sync()
         chapter.write_text(original.replace("Counts top-level elements.", "Injected program drift.", 1))
@@ -121,7 +142,7 @@ def run(run_dir: Path) -> dict:
         chapter.write_text(original)
         sync()
     report = {"status": "passed", "cases": cases,
-              "fixture_note": "Source PDF omitted from isolated fixture; full source validation runs separately."}
+              "fixture_note": "Isolated fixture includes the book source PDF when present; independent PDF inventory runs only in the full non-quick check."}
     (run_dir / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
     return report
 

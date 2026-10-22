@@ -32,7 +32,6 @@
 <!-- RN:include styles/reading-components.css -->
 .scope-diagram{min-width:680px}
 .scope-diagram text{font-size:18px}.scope-diagram .hint{font-size:14px}
-.original-question{font-family:Georgia,serif;font-size:.97rem;line-height:1.8}
 .code-version{margin:1.4rem 0}.code-version>summary{cursor:pointer;color:var(--green)}
 .step-number{color:var(--green);font-weight:650}
 .contract{padding:.5rem 1rem;border-left:2px solid var(--green)}
@@ -46,8 +45,7 @@
 <div class="reading-layout">
 <aside class="chapter-sidebar" aria-label="章节目录">
 <details class="toc-panel" id="toc-panel" open><summary>目录</summary>
-<nav class="chapter-toc" id="chapter-toc"><a class="toc-home" href="book_overview.html">EOPL · 全书地图</a>
-<ul>
+<nav class="chapter-toc" id="chapter-toc"><a class="toc-home" href="book_overview.html">全书地图</a><a class="toc-home" href="preface.html">序言</a><ul>
 <li><a href="#foreword">导读：解释器也是程序</a></li>
 <li><a href="#goal">目标：理解程序的含义</a></li>
 <li><a href="#scope-example">算完一个闭包例子</a></li>
@@ -64,7 +62,7 @@
 <p class="intro">从会使用一门语言，走到能说明、实现和比较它的规则。</p>
 <p>本页依次解读 Hal Abelson 的 Foreword 和 Friedman / Wand 的 Preface。前者说明理解解释器为何会改变编程方式，后者说明作者怎样用小语言组织这场研究。中间的闭包实验是伴读原创，用来把两篇序文的主张落实成一次可追踪的计算。</p>
 <p class="source">Foreword：ix–xiii / <a href="../assets/source.pdf#page=10">PDF 10–14</a>；Preface：xv–xix / <a href="../assets/source.pdf#page=16">PDF 16–20</a>。<a href="../assets/source.pdf#page=15">PDF 15</a> 为两篇之间的空白页。</p>
-<p class="chapter-nav"><a href="book_overview.html">← 全书地图</a><a href="chapter01_inductive_data.html">第 1 章：归纳数据 →</a></p>
+<p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter01_inductive_data.html">第 1 章 · 归纳数据与递归程序 →</a></p>
 </header>
 
 <section id="foreword">
@@ -330,7 +328,7 @@ if __name__ == &quot;__main__&quot;:
 <p class="source">Preface · Usage，p.xix / <a href="../assets/source.pdf#page=20">PDF 20</a>；序言唯一编号习题，无编号小问。</p>
 
 <div class="question-translation" lang="zh-CN"><p>我们经常使用“有些语言具有性质 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="X" display="inline"><mi>X</mi></math>”这样的说法。对每一处这样的说法，找出一种或多种具有该性质的语言，再找出一种或多种不具有该性质的语言。可以从任何介绍程序设计语言的书中寻找这些信息，例如 Scott（2005）、Sebesta（2007），或 Pratt 与 Zelkowitz（2001）。</p></div>
-<details class="original-question"><summary>英文原题</summary><p lang="en">We often use phrases like “some languages have property X.” For each such phrase, find one or more languages that have the property and one or more languages that do not have the property. Feel free to ferret out this information from any descriptive book on programming languages (say Scott (2005), Sebesta (2007), or Pratt &amp; Zelkowitz (2001)).</p></details>
+
 </div>
 <div class="answer">
 <p class="rn-exercise-label">参考解答</p>
@@ -356,7 +354,7 @@ in (f -(proc (y) y, 1))</code></pre>
 </section>
 <footer>
 <p>本页介绍两篇序文、第三版的阅读方法与习题 0.1；闭包实验为伴读原创。摘录及页码见<a href="source_excerpts.json">来源登记</a>。</p>
-<p class="chapter-nav"><a href="book_overview.html">← 全书地图</a><a href="book_overview.html#chapter-1">第 1 章在全书中的位置</a><a href="#top">回到页首 ↑</a></p>
+<p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter01_inductive_data.html">第 1 章 · 归纳数据与递归程序 →</a><a href="#top">返回页首 ↑</a></p>
 </footer>
 </main>
 <aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top">本节理解与补充</a></p><div id="annotation-content"></div></aside>

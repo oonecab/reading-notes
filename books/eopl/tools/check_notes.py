@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""检查 EOPL 地图、序言与第 1、2 章的来源、题解和实际教学程序。"""
+"""检查 EOPL 地图、序言与第 1、2 章的来源、英文原题归档、题解和实际教学程序。"""
 from __future__ import annotations
 
 import argparse
@@ -101,6 +101,9 @@ def check(quick: bool) -> dict:
     sync()
     manifest = json.loads((BOOK / "notes/source_manifest.json").read_text())
     items = json.loads((BOOK / "notes/source_inventory.json").read_text())
+    archive_path = BOOK / "notes/original_questions.json"
+    need(archive_path.is_file(), "original question archive missing")
+    archive = json.loads(archive_path.read_text())
     need(manifest["source"]["sha256"] == items["source_sha256"] == SOURCE_SHA256,
          "source identity mismatch")
     need(manifest["source"]["pdf_pages"] == 433, "wrong PDF page count")
@@ -152,6 +155,9 @@ def check(quick: bool) -> dict:
         need(len(page.ids) == len(set(page.ids)), f"duplicate ids: {name}")
         need("RN:include" not in text, "unexpanded shared asset")
         need('<body class="rn-components">' in text, "component class missing")
+        need('<details class="original-question"' not in text and
+             'class="original-source"' not in text,
+             f"reading page retains a full English original: {name}")
         need(len([1 for t, _ in page.elements if t == "h1"]) == 1, "h1 count")
         for tag, attrs in page.elements:
             if tag == "th":
@@ -201,6 +207,11 @@ def check(quick: bool) -> dict:
     visible = re.sub(r"\s+", " ", visible)
     for excerpt in json.loads((BOOK / "notes/source_excerpts.json").read_text())["entries"]:
         need(excerpt["anchor"] in pages["preface.html"].ids, "excerpt anchor")
+        if excerpt["role"] == "complete_exercise_and_translation":
+            archived_text = next(row["text"] for row in archive["items"]
+                                 if row["number"] == "0.1")
+            need(excerpt["text"] == archived_text, "archived exercise excerpt differs")
+            continue
         need(re.sub(r"\s+", " ", excerpt["text"]) in visible, "excerpt text differs")
     match = re.search(r'<code id="scope-demo-code" class="language-python">(.*?)</code>', preface, re.S)
     need(match is not None, "missing complete program")
@@ -209,24 +220,70 @@ def check(quick: bool) -> dict:
     need(questions["source_sha256"] == SOURCE_SHA256, "question source identity")
     wanted = [f"{c}.{n}" for c, total in [(1, 36), (2, 31)] for n in range(1, total + 1)]
     need([r["number"] for r in questions["items"]] == wanted, "complete question inventory")
+    for row in questions["items"]:
+        need(row["pdf_page"] == row["printed_page"] + 23, "question locator differs")
+    qmap = {r["number"]: r for r in questions["items"]}
     positions = {r["number"]: r for r in items["items"] if r["kind"] == "exercise"}
     names = {1: "chapter01_inductive_data.html", 2: "chapter02_data_abstraction.html"}
+    need(archive["schema_version"] == 1 and archive["book"] == "eopl" and
+         archive["standard"] == "RN-002", "original question archive metadata differs")
+    need(archive["source_sha256"] == SOURCE_SHA256, "original question archive source identity")
+    archived = archive["items"]
+    need(archive["item_count"] == len(archived), "original question archive item count")
+    archived_exercises = [row for row in archived if row["kind"] == "exercise"]
+    need(archive["exercise_count"] == len(archived_exercises) == 68,
+         "original question archive exercise count")
+    need([row["number"] for row in archived_exercises] == ["0.1", *wanted],
+         "archive exercise sequence")
+    need(next(row["exercise_id"] for row in archived_exercises if row["number"] == "0.1") == "ex-0-1",
+         "preface archived exercise id")
+    need([row["pdf_page"] for row in archived] == sorted(row["pdf_page"] for row in archived),
+         "archive page order")
+    shared = [row for row in archived if row["kind"] == "shared-preamble"]
+    need(len(shared) == 1, "shared original preamble inventory")
+    shared_index = archived.index(shared[0])
+    need(0 < shared_index < len(archived) - 1 and
+         archived[shared_index - 1]["number"] == "1.14" and
+         archived[shared_index + 1]["number"] == "1.15",
+         "shared original preamble position")
+    for row in archived:
+        need(row["sha256"] == hashlib.sha256(row["html"].encode()).hexdigest(),
+             "archived original sha256 differs: " + row["number"])
+        need(OriginalQuestion(row["html"]).text == row["text"],
+             "archived original text differs: " + row["number"])
+        if row["kind"] == "shared-preamble":
+            need(row["number"] == "1.15–1.36" and row["pdf_page"] == 48 and
+                 row["pdf_end"] == 49, "shared original locator differs")
+            continue
+        position = positions[row["number"]]
+        need(row["printed_page"] == position["printed_page"] and
+             row["pdf_page"] == position["pdf_page"],
+             "archived question locator differs: " + row["number"])
+        if row["number"] == "0.1":
+            need(row["pdf_end"] == position["pdf_page"] == 20,
+                 "preface original locator differs")
+            continue
+        source = qmap[row["number"]]
+        need(row["text"] == source["question_text"],
+             "archived original differs from source JSON: " + row["number"])
+        need(row["printed_page"] == source["printed_page"] and
+             row["pdf_page"] == source["pdf_page"] and
+             row["pdf_end"] == source["pdf_end"],
+             "archived question page sequence differs: " + row["number"])
     for c, total in [(1, 36), (2, 31)]:
         text = (BOOK / "notes" / names[c]).read_text()
         ids = re.findall(r'<details class="exercise" id="([^"]+)"', text)
         need(ids == [f"ex-{c}-{n}" for n in range(1, total + 1)], "chapter exercise sequence")
-        originals = re.findall(r'<div class="original-source" lang="en" data-exercise="[^"]+">(.*?)</div>', text, re.S)
-        rows = [r for r in questions["items"] if r["number"].startswith(str(c) + ".")]
-        need(len(originals) == total, "full original question count")
-        for content, row in zip(originals, rows):
-            need(OriginalQuestion(content).text == row["question_text"],
-                 "complete original question differs: " + row["number"])
-            need(row["pdf_page"] == positions[row["number"]]["pdf_page"] and
-                 row["printed_page"] == row["pdf_page"] - 23, "question locator differs")
+        need([row["exercise_id"] for row in archived_exercises
+              if row["chapter"] == str(c)] == ids, "archived exercise ids differ")
+        need(len(re.findall(r'class="question-translation"', text)) == total,
+             "chapter Chinese question count")
         blocks = re.findall(r'<details class="exercise" id="ex-[^"]+">(.*?)(?=<details class="exercise"|</section>)', text, re.S)
         for block in blocks:
-            need(block.index('class="exercise-question"') < block.index('class="answer"'),
+            need('class="exercise-question"' in block and
+                 block.index('class="exercise-question"') < block.index('class="answer"'),
                  "question must precede answer")
+            need('class="question-translation"' in block, "Chinese question missing")
         need(f'id="chapter0{c}-code"' in text and '<!-- EOPL:end-program -->' in text,
              "missing complete chapter program")
     contexts = json.loads((BOOK / "notes/question_contexts.json").read_text())
@@ -238,6 +295,10 @@ def check(quick: bool) -> dict:
              context["code"] in unescape(text), "referenced source code differs")
     report = {"status": "passed", "stage": "chapters-1-2", "pages": 4,
               "source_exercises": sum(COUNTS.values()), "answered_exercises": 68,
+              "original_question_archive": "notes/original_questions.json",
+              "archived_original_items": len(archived),
+              "archived_original_exercises": len(archived_exercises),
+              "archived_original_sha256": hashlib.sha256(archive_path.read_bytes()).hexdigest(),
               "source_check": source_check, "quick": quick,
               "page_sha256": {name: hashlib.sha256((BOOK / "notes" / name).read_bytes()).hexdigest()
                               for name in pages},

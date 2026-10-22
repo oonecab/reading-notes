@@ -5,7 +5,7 @@
 ## 内容与入口
 
 - notes/book_overview.html 为统一入口；序言、六章、概率论复习附录各一 HTML，共九页，文件名及章次以 notes/README.md 为准。
-- 序言保留四段英文原文、逐段中文译文与阅读注解。各章及附录的定义与定理索引按原书编号链接到相应小节的正式陈述。
+- 序言保留四段英文原文、逐段中文译文与阅读注解。各章及附录的“定义与定理”索引按 [RN-002](../../docs/reading-presentation-standard.md) §4 放在本章正文与习题之后、页脚之前，侧栏链接排在所有小节之后，不新增 section；索引按原书编号链接到相应小节的正式陈述，`#statement-index` 的 id、summary 与默认折叠状态保持不变，跨页锚点仍可解析。
 - 原书全部115条编号定理及引理、两条编号定义须保持覆盖；中文陈述集中写全条件、结论及边界，附英文原文、推导要点、原书页码和详细推导入口。其余基础定义与未编号公式标明性质，概率三公理集中在附录A.1，各章引用。英文摘录与中文解释分开，原书笔误在校注中说明，编号按原书保留。
 - 保持原书节次与题号，解释机制、条件、推导与例子。六章全部 236 道习题保留中文题干、全部小问和可核对解答。
 - 每题用 details.exercise，题干在 div.exercise-question，解答在 div.answer；原题条件与题干校注分别写清。矛盾不能静默改成另一道题。
@@ -42,8 +42,10 @@ tmp 中保留本次提取、视觉核对与编写中间件。正文与图数据�
 
 修改内容后先对照原书核实，再运行 `python3 tools/content_integrity.py --record` 记录审阅基线；不得用自动更新基线绕过变更审阅。`tools/content_integrity.py --source-pages` 检查编号及起始页，不能当作题干或证明正确性的替代。独立基准生成器在 tools/generate_cases.py；tools/check_content_regressions.py 保留内容错误的确切复现，tools/test_tooling.py 保留变异、错误退出与资源扫描的回归，tools/check_simulation_seeds.py 检查额外种子。
 
+索引按 RN-002 后置后，页面只发生整块元素移动，但页面哈希会变化。重绑时只更新审阅记录中的当前文件绑定与 `current_representation_sha256`，`files` 之外的既有哈希、历史截图哈希、审阅结论和批次范围保持原样；逐项原值→当前值记录在 notes/index_rebinding_review.json，检查入口为 `python3 tools/check_review_records.py`。
+
 完整程序检查采用 `-ffp-contract=off`，区分输入失败2、数值失败3、资源失败4和信号崩溃。当前环境的C／Python数值程序输出逐字一致，数值另与独立基准比较。原始执行时间与记录整理时间分开；更新复查JSON时保留历史检查点，当前SHA与当前浏览器／运行记录对应。发布元数据只能保存相对路径。
 
 Astro 维护、镜像同步与冻结基线规则见 [构建维护说明](../../docs/astro-authoring.md)。
 
-本书的当前阅读契约以 RN-001 v1.10 为准：完整中文题干和来源、逐节注解、共同版心、代码等宽与原生折叠、命名明确的索引、直达登记 PDF 的原文入口。逐页义务在根目录 `docs/reader-contract.json`，原书发布身份在 `docs/reader-sources.json`；历史批次记录保留当时的范围，当前复查执行 `python3 tools/project.py check` 及完整浏览器矩阵。
+本书的当前阅读契约同时以 RN-001 v1.11 和 [RN-002 v1.0.1](../../docs/reading-presentation-standard.md) 为准：完整中文题干和来源、逐节注解、共同版心、代码等宽与原生折叠、命名明确的索引、索引后置于章末、直达登记 PDF 的原文入口。逐页义务在根目录 `docs/reader-contract.json` 与 `docs/reader-presentation.json`，原书发布身份在 `docs/reader-sources.json`；历史批次记录保留当时的范围，当前复查执行 `python3 tools/project.py check` 及完整浏览器矩阵。

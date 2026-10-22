@@ -2,7 +2,7 @@
 
 来源为本目录 `csapp.pdf`：第三版 Global Edition（Pearson 2016），版本、哈希、页序与正文范围见 `notes/source_manifest.json`。统一构建按该清单的 `publication.include_source_pdf` 收录原 PDF，保留章首、小节、原文及习题的 `#page=` 跳转；当前已启用。构建包准备与实际部署分别验收。
 
-- 正式入口 `notes/book_overview.html`；序言和每章的受控 HTML 维护于 `src/content/books/csapp/`，`notes/*.html` 保留为独立检查用兼容镜像。当前交付序言、第 1 章、Part I 第 2—6 章、Part II 第 7—9 章与 Part III 第 10—12 章，共十四页，章节清单见 `notes/README.md`。
+- 正式入口 `notes/book_overview.html`；序言和每章的受控 HTML 维护于 `src/content/books/csapp/`，`notes/*.html` 保留为独立检查用兼容镜像。当前交付序言、第 1 章、Part I 第 2—6 章、Part II 第 7—9 章与 Part III 第 10—12 章，共十四页，章节清单见 `notes/README.md`。各页 `#source-index`（原书摘录索引）按 [RN-002](../../docs/reading-presentation-standard.md) §4 放在正文与习题之后、页脚之前，不新增 section；id、summary、内部链接与默认折叠状态不变，跨页锚点仍可解析。侧栏原本没有该索引链接，不按规范补建。
 - 按原书大节顺序伴读，保留英文节名、来源的印刷页与 PDF 页序。讲清作者提出的问题、表示/执行机制、关键推导、具体输入输出、成立条件和边界。
 - 全书地图区分本批章节笔记与后续原书章节；依赖图是笔记作者归纳。序言以中文释读组织，引用明确标示。
 - 第 1—12 章全部 419 道本版 practice/homework 按题号连续呈现，清单由原 PDF 独立枚举，见 `notes/exercise_manifest.json`。每题先完整中文题干（小问、输入、表图与程序），再写确定解答、关键推导或完整实现；原题错误保留原说法、校注与依据。原创自测单独标明，保留已有锚点。
@@ -11,7 +11,7 @@
 - 机器专用汇编、Y86-64/HCL 片段标明语言和模型；C/Python 用于复现计算，不能声称 Python 验证了 ABI、实际硬件或汇编执行。
 - 复用 Durrett 的纸色、强调绿、17px/1.9 正文、860px 主栏、240px 左目录，1440px 起显示 280px 阅读注解栏；较窄页面在小节末呈现相同注解，1100px 以下原生折叠目录。单页 HTML 离线可读，MathML/SVG 内嵌，表格、代码、长公式局部滚动。
 - 页头/页尾有全书地图和已有相邻页；统一发布加回首页入口。深链接自动展开目标祖先 `details`，当前目录用 `aria-current="location"`，关闭 JS 时仍可阅读。
-- 根目录运行 `python3 tools/project.py check --book csapp`；完整检查包含来源、章节结构、链接、源码同步、严格 C11、ASan/UBSan、跨语言与独立基准。`--quick` 仅静态检查。
+- 根目录运行 `python3 tools/project.py check --book csapp`；完整检查包含来源、章节结构、链接、源码同步、严格 C11、ASan/UBSan、跨语言与独立基准。`--quick` 仅静态检查。导航断言按 RN-002 执行：序言不以“全书地图”充当上一页箭头，最后一页不伪造“下一章”；索引内部链接和跨页锚点仍由链接检查覆盖。
 - 正文和源码修改后完成相称的执行和桌面/390px 浏览器验证；有限运行与静态通过不是一般证明或原书全部习题覆盖。正式内容、计算约定和验证范围分别以正文、程序说明和测试设计为权威。
 
 - 每个原书二级小节有可定位的实质解释；关键机制沿具体输入、状态变化、结果与边界展开。图和表须由同一例子推导，代码逐段解释其目的与不变量。逐章 review 记录来源和实际审阅，浏览器阅读记录与程序结果分别保存。
@@ -24,4 +24,4 @@
 
 Astro 维护、镜像同步与冻结基线规则见 [构建维护说明](../../docs/astro-authoring.md)。
 
-本书的当前阅读契约以 RN-001 v1.10 为准：完整中文题干和来源、逐节注解、共同版心、代码等宽与原生折叠、命名明确的索引、直达登记 PDF 的原文入口。逐页义务在根目录 `docs/reader-contract.json`，原书发布身份在 `docs/reader-sources.json`；历史批次记录保留当时的范围，当前复查执行 `python3 tools/project.py check` 及完整浏览器矩阵。
+本书的当前阅读契约同时以 RN-001 v1.11 和 [RN-002 v1.0.1](../../docs/reading-presentation-standard.md) 为准：完整中文题干和来源、逐节注解、共同版心、代码等宽与原生折叠、命名明确的索引、索引后置于章末、直达登记 PDF 的原文入口。逐页义务在根目录 `docs/reader-contract.json` 与 `docs/reader-presentation.json`，原书发布身份在 `docs/reader-sources.json`；历史批次记录保留当时的范围，当前复查执行 `python3 tools/project.py check` 及完整浏览器矩阵。

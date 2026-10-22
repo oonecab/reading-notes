@@ -31,6 +31,34 @@ test('exercise references distinguish prose from the compact numbered index', ()
   checkPage(fragment('<a href="#ex9-7">习题 9.7 的分轮证明</a><div class="exercise-index" role="navigation" aria-label="习题索引"><a href="#ex9-7" aria-label="习题 9.7">9.7</a></div>'), 'weiss');
 });
 
+const singleQuestionException = { section: 'single-question', exercise: 'ex-1-20' };
+const indexedExercisesWithSingleSection = () => {
+  const item = i => exercise('<p>完整推理与答案。</p>').replace('class="exercise"', `class="exercise" id="ex-1-${i}"`);
+  const links = Array.from({length: 19}, (_, i) => `<a href="#ex-1-${i + 1}" aria-label="习题 1.${i + 1}">${i + 1}</a>`).join(' ');
+  return `<body class="rn-components"><h1>书</h1><nav class="chapter-toc"><a href="#single-question">单题节</a></nav><main><section id="many-questions"><h2>多题节</h2><div class="exercise-index" role="navigation" aria-label="习题索引">${links}</div>${Array.from({length: 19}, (_, i) => item(i + 1)).join('')}</section><section id="single-question"><h2>单题节</h2>${item(20)}</section></main></body>`;
+};
+
+test('a registered single-question section can use its direct TOC entry', () => {
+  const html = indexedExercisesWithSingleSection();
+  assert.throws(() => checkPage(html, 'eopl'), /Exercise index incomplete/);
+  assert.equal(checkPage(html, 'eopl', [singleQuestionException]).exercise, 20);
+});
+
+test('single-question index exceptions reject stale targets and cannot cover multiple exercises', () => {
+  const html = indexedExercisesWithSingleSection();
+  for (const exception of [
+    { section: 'missing', exercise: 'ex-1-20' },
+    { section: 'single-question', exercise: 'missing' },
+    { section: 'many-questions', exercise: 'ex-1-1' },
+  ]) assert.throws(() => checkPage(html, 'eopl', [exception]), /Invalid single-question index exception/);
+  assert.throws(() => checkPage(html.replace('<a href="#single-question">单题节</a>', ''), 'eopl', [singleQuestionException]), /Invalid single-question index exception/);
+  assert.throws(() => checkPage(html.replace('<a href="#ex-1-1" aria-label="习题 1.1">1</a>', ''), 'eopl', [singleQuestionException]), /Exercise index incomplete/);
+  const two = html.replace('</section></main>', exercise('<p>新增习题的推理。</p>').replace('class="exercise"', 'class="exercise" id="ex-1-21"') + '</section></main>');
+  assert.throws(() => checkPage(two, 'eopl', [singleQuestionException]), /Invalid single-question index exception/);
+  const more = html.replace('</main>', exercise('<p>另一题的推理。</p>').replace('class="exercise"', 'class="exercise" id="ex-1-21"') + '</main>');
+  assert.throws(() => checkPage(more, 'eopl', [singleQuestionException]), /Exercise index incomplete/);
+});
+
 test('table names describe their context and obey accessible-name precedence', () => {
   assert.throws(() => checkPage(fragment('<p id="part">(a)</p><table aria-labelledby="part" aria-label="有效名称"><caption>另一名称</caption></table>'), 'stochastic'), /Table accessible name lacks context/);
   assert.throws(() => checkPage(fragment('<table aria-labelledby="missing" aria-label="有效名称"></table>'), 'stochastic'), /Table label target missing/);

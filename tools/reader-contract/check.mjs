@@ -76,14 +76,17 @@ export function checkReaderPage(html,policy,source,review){
   const chinese=(questionText(q).match(/[\u3400-\u9fff]/g)??[]).length;
   // A complete task can be as short as “证明” followed by a displayed formula.
   assert(chinese>=2,'Chinese question task missing: '+id);
-  if(policy.chinese_translation_required||walk(q).some(n=>(['p','div','blockquote'].includes(n.tagName)&&attr(n,'lang')==='en')||has(n,'original-question'))){
-   const translation=walk(q).find(n=>has(n,'question-translation'));
-   assert(translation&&attr(translation,'lang')==='zh-CN','Chinese translation missing: '+id);
+  // RN-002 forbids full English originals in reader pages; legacy blocks, if any,
+  // must at least stay collapsed and follow the Chinese translation.
+  const translation=walk(q).find(n=>has(n,'question-translation'));
+  if(translation){
+   assert(attr(translation,'lang')==='zh-CN','Chinese translation language missing: '+id);
    assert((questionText(translation).match(/[\u3400-\u9fff]/g)??[]).length>=10,'Empty translation: '+id);
-   const original=walk(q).find(n=>has(n,'original-question'));
-   assert(original?.tagName==='details'&&attr(original,'open')===undefined,'English original disclosure missing: '+id);
-   const order=walk(q);
-   assert(order.indexOf(translation)<order.indexOf(original),'Chinese translation must precede English original: '+id);
+  }
+  const original=walk(q).find(n=>has(n,'original-question'));
+  if(original){
+   assert(original.tagName==='details'&&attr(original,'open')===undefined,'English original disclosure must stay collapsed: '+id);
+   if(translation)assert(walk(q).indexOf(translation)<walk(q).indexOf(original),'Chinese translation must precede English original: '+id);
   }
   if(!/^q\d/.test(id))assert(walk(q).some(n=>n.tagName==='a'&&isPdf(attr(n,'href'),policy,source)),'Question PDF link missing: '+id);
   result.questions++;

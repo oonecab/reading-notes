@@ -1,15 +1,16 @@
 import test from 'node:test';import assert from 'node:assert/strict';
 import {checkReaderPage,isPdf,reviewedQuestions} from '../tools/reader-contract/check.mjs';
-const policy={page:'book/notes/ch.html',sections:[{id:'s1',annotation:'required'}],questions:['ex-1'],chinese_translation_required:true};
+const policy={page:'book/notes/ch.html',sections:[{id:'s1',annotation:'required'}],questions:['ex-1']};
 const source={route:'book/assets/source.pdf',pages:20};
 const html=`<html><body><main><section id="s1"><h2>概念</h2><details class="reading-notes" data-notes-for="s1" open><summary>理解</summary><div class="reading-notes-body">先明确对象与条件，再按定义推导结果。这个补充解释应与当前小节对应，并且在关闭脚本后仍能够直接在正文中阅读，不能留空或借用上一节的说明。</div></details><details class="exercise" id="ex-1"><summary>习题</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN">请证明以下命题，并说明所有必要的条件。</div><details class="original-question"><summary>英文原题</summary><p lang="en">Prove the claim.</p></details><a href="../assets/source.pdf#page=4">PDF 4</a></div></details></section></main><aside id="annotation-rail"><a id="annotation-context-link"></a><div id="annotation-content"></div></aside><script id="reading-notes-controller"></script></body></html>`;
 test('reader contract accepts complete translation, binding and PDF locator',()=>assert.equal(checkReaderPage(html,policy,source).questions,1));
-test('preface and optional translation policies still require Chinese before English',()=>{
- const optional={...policy,chinese_translation_required:false};
+test('Chinese question is required without a full English original',()=>{
+ const chineseOnly=html.replace(/<details class="original-question">[\s\S]*?<\/details>/,'');
+ assert.equal(checkReaderPage(chineseOnly,policy,source).questions,1);
  const translation=html.match(/<div class="question-translation"[\s\S]*?<\/div>/)[0];
  const reversed=html.replace(translation,'').replace('</details><a href="../assets', '</details>'+translation+'<a href="../assets');
- assert.throws(()=>checkReaderPage(reversed,optional,source),/must precede English/);
- assert.throws(()=>checkReaderPage(html.replace('class="original-question"','class="original-question" open'),optional,source),/English original disclosure/);
+ assert.throws(()=>checkReaderPage(reversed,policy,source),/must precede English/);
+ assert.throws(()=>checkReaderPage(html.replace('class="original-question"','class="original-question" open'),policy,source),/English original disclosure/);
 });
 test('a short quoted English word in a Chinese erratum remains in context',()=>{
  const optional={...policy,chinese_translation_required:false};
@@ -24,7 +25,6 @@ for(const [name,change,expected] of [
  ['zero annotations',s=>s.replace(/<details class="reading-notes"[\s\S]*?<\/details>/,''),/Missing reading annotations/],
  ['missing section binding',s=>s.replace('data-notes-for="s1"','data-notes-for="absent"'),/Missing required annotation/],
  ['English-only question',s=>s.replace(/<div class="question-translation"[\s\S]*?<\/div>/,''),/Chinese question task missing/],
- ['missing English disclosure',s=>s.replace('class="original-question"','class="unlabelled"'),/English original disclosure missing/],
  ['source label opens overview',s=>s.replace('../assets/source.pdf#page=4','book_overview.html#source'),/PDF link missing/],
  ['out of range PDF page',s=>s.replace('#page=4','#page=21'),/PDF link missing/],
  ['internal delivery status',s=>s.replace('请证明','已完成本地验收。请证明'),/Internal workflow copy/],

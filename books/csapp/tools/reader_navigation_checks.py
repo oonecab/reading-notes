@@ -47,14 +47,17 @@ def check_reader_navigation(sources, manifest):
 
         index = sequence.index(name)
         prev = sequence[index-1] if index else None
-        following = sequence[index+1] if index+1 < len(sequence) else sequence[0]
+        following = sequence[index+1] if index+1 < len(sequence) else None
+        # RN-002: the map is not a "previous page" arrow, and the last page has no "next".
+        expected_previous = [prev] if prev and prev != 'book_overview.html' else []
+        expected_next = [following] if following else []
         bars = [n for n in doc.root.walk('p') if n.has_class('chapter-nav')]
         if len(bars) != 2:
             raise ValueError(name + ': expected header and footer navigation')
         for bar in bars:
             previous_links = [a.attrs.get('href') for a in bar.walk('a') if '←' in a.text()]
             next_links = [a.attrs.get('href') for a in bar.walk('a') if '→' in a.text()]
-            if previous_links != ([prev] if prev else []) or next_links != [following]:
+            if previous_links != expected_previous or next_links != expected_next:
                 raise ValueError(name + ': previous/next navigation differs from source chapter order')
             navigation_bars += 1
 
@@ -95,8 +98,8 @@ def check_navigation_mutations(sources, manifest):
     mutations.append(('wrong_next_chapter', 'chapter01_tour.html', original.replace(
         'href="chapter02_information.html"', 'href="chapter03_machine_level.html"', 1)))
     mutations.append(('skipped_chapter_with_matching_label', 'chapter01_tour.html', original.replace(
-        '<a href="chapter02_information.html">第 2 章 →</a>',
-        '<a href="chapter03_machine_level.html">第 3 章 →</a>', 1)))
+        '<a href="chapter02_information.html">第 2 章 · 信息的表示和处理 →</a>',
+        '<a href="chapter03_machine_level.html">第 3 章 · 程序的机器级表示 →</a>', 1)))
     mutations.append(('missing_figure_caption', 'chapter01_tour.html', original.replace(
         '<figcaption>', '<div>', 1).replace('</figcaption>', '</div>', 1)))
     mutations.append(('unresolved_svg_label', 'chapter01_tour.html', original.replace(

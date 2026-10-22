@@ -46,6 +46,8 @@ Part I 开篇在印刷 65 / PDF 66，包含第 2—6 章。第 1 章为进入这
 
 第一批八页保留 78 处英文原文与中文陈述，页内索引与[全书摘录索引](book_overview.html#source-reading)可以直接定位。第 2 章覆盖全部 25 条 `PRINCIPLE` 的原标题、条件、结论和原式；原书为公式编号、未给这些原理另编序号，页面沿用这一结构。经典段落放在相关机制旁，接着说明适用条件、推导与例子。印刷页与 PDF 页序、转录文本及原式记录在[原文来源清单](source_excerpts.json)。
 
+2026-10-22 按 [RN-002](../../../docs/reading-presentation-standard.md) §4 统一索引位置：十四页的 `#source-index`（本页原书摘录索引）整块移到本章正文与习题之后、页脚之前，不新增 section；整块只换位置，id、summary、内部链接与默认折叠状态不变，`chapterNN.html#source-index` 形式的跨页锚点仍可解析。CS:APP 侧栏原本没有 `#source-index` 条目，按规范不新增。为配合 RN-002 的导航规则，本书检查器的导航断言同步为：序言不以“全书地图”充当上一页箭头，最后一页不伪造“下一章”；`tools/check_notes.py` 仍逐页校验本地文件与锚点。历史批次记录和历史页面哈希保留原范围，不改写为当前结论。
+
 英文引文、中文翻译或陈述、笔记解释分别标示；组合不同段落时说明摘录范围。定宽等式保留数学模型与 C11 语言规则的边界。`equation` 和 `math-block` 共用块公式样式，长式在自身容器滚动；`math-inline` 用于正文中的变量和短式，代码中的语言运算符保持原样。短值表采用自然宽度；较长的公式和图表出现横向溢出时显示滑动提示，也可以聚焦后使用方向键查看。
 
 本轮原文与模型修订记录见根 I004/P004/T004/M004。源码读取导图连接第 4、6 章模拟器的状态、单步处理、提交/失败路径与统计。程序验证覆盖流水统一寄存器开销、Python 容器长度与失败契约、缓存写策略及关闭断言后的实际填充验证；原文复核与 Chrome DevTools MCP 阅读验收分别记录，历史执行和历史页面哈希保留其原有范围。
@@ -72,4 +74,4 @@ Part I 开篇在印刷 65 / PDF 66，包含第 2—6 章。第 1 章为进入这
 
 2026-10-20 起，四类教学组件统一遵循 [RN-001 v1.1](../../../docs/reading-notes-standard.md)；共享维护源为 `src/styles/reading-components.css`。陈述保持可见，证明默认展开并可折叠，习题默认收起，题干、解答与来源共用排版。具体覆盖与本轮内容修正见 [I040](../../../issues/I040-unified-reading-components.md)，原数学审阅和历史执行证据保留。
 
-本书的当前阅读契约以 RN-001 v1.10 为准：完整中文题干和来源、逐节注解、共同版心、代码等宽与原生折叠、命名明确的索引、直达登记 PDF 的原文入口。逐页义务在根目录 `docs/reader-contract.json`，原书发布身份在 `docs/reader-sources.json`；历史批次记录保留当时的范围，当前复查执行 `python3 tools/project.py check` 及完整浏览器矩阵。
+本书的当前阅读契约同时以 RN-001 v1.11 和 [RN-002 v1.0.1](../../../docs/reading-presentation-standard.md) 为准：完整中文题干和来源、逐节注解、共同版心、代码等宽与原生折叠、命名明确的索引、索引后置于章末、直达登记 PDF 的原文入口。逐页义务在根目录 `docs/reader-contract.json` 与 `docs/reader-presentation.json`，原书发布身份在 `docs/reader-sources.json`；历史批次记录保留当时的范围，当前复查执行 `python3 tools/project.py check` 及完整浏览器矩阵。

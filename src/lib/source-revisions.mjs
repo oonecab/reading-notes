@@ -17,8 +17,17 @@ export function reviewedIdentity(entry,frozen,registry,review){
   if(previous!==current||review.source_sha256?.[entry.metadata.route]!==current)throw new Error('Current content review does not bind source');
   const before=fingerprint(frozen.toString()),after=fingerprint(entry.html);
   if(JSON.stringify(before.exercise_ids)!==JSON.stringify(after.exercise_ids))throw new Error('Original exercise IDs changed');
-  let i=0;for(const anchor of after.anchors)if(anchor===before.anchors[i])i++;
-  if(i!==before.anchors.length)throw new Error('Original anchors removed or reordered');
+  // Historical anchors must not disappear silently. A reviewed change may move
+  // named anchors (for example a chapter index moved from the opening to the end),
+  // but only when the revision record explicitly lists them.
+  const afterSet=new Set(after.anchors);
+  for(const anchor of before.anchors)if(!afterSet.has(anchor))throw new Error('Original anchor removed: '+anchor);
+  const moved=new Set(row.history.flatMap(change=>change.anchor_order_change??[]));
+  for(const anchor of moved)if(!before.anchors.includes(anchor))throw new Error('Undeclared moved anchor: '+anchor);
+  const fixedBefore=before.anchors.filter(anchor=>!moved.has(anchor));
+  const fixedAfter=after.anchors.filter(anchor=>!moved.has(anchor));
+  let i=0;for(const anchor of fixedAfter)if(anchor===fixedBefore[i])i++;
+  if(i!==fixedBefore.length)throw new Error('Original anchors removed or reordered');
   return {source_sha256:current,original_sha256:original,revision:row.history.at(-1).revision};
 }
 

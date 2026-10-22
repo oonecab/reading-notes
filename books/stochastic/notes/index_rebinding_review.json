@@ -1,0 +1,1580 @@
+{
+  "schema_version": 1,
+  "status": "current_bindings_refreshed",
+  "recorded_at_utc": "2026-10-21T17:10:46.120458+00:00",
+  "scope": "RN-002 §4 索引后置：把各章/附录的 details.statement-index 整块移到本章正文与习题之后、页脚之前，并把侧栏 #statement-index 条目移到所有小节之后；未改正文、公式、代码、题干、解答、导航或 id，未新增 section。历史审阅结论、历史截图哈希和原绑定内容保持不变。",
+  "reason": "索引位置改变页面字节，但只是整块元素的移动；审阅记录中的“当前文件绑定”因此失配。按书内既有规则重绑当前绑定，不把历史审阅结论或历史哈希改写成当前结论。",
+  "verification": {
+    "index_blocks_moved": 7,
+    "sidebar_index_links_reordered": 7,
+    "sections_added": 0,
+    "math_pre_code_multiset_unchanged": true,
+    "exercise_question_hashes_unchanged": true,
+    "id_summary_internal_links_collapse_state_unchanged": true
+  },
+  "records_updated": [
+    "annotations_review.json",
+    "audit_fix_review.json",
+    "chapter01_explanation_review.json",
+    "code_deployment_review.json",
+    "derivation_review.json",
+    "readability_review.json",
+    "remaining_explanation_review.json",
+    "review_manifest.json",
+    "statements_review.json",
+    "validation.json"
+  ],
+  "file_bindings": [
+    {
+      "record": "annotations_review.json",
+      "path": "agent.md",
+      "previous": {
+        "sha256": "bee7808182ee00a8fb7b35ba10ec3872e50cc3e59b43342adaee5146841bf122",
+        "bytes": 7533
+      },
+      "current": {
+        "sha256": "4eea4328679572dcef47c344749a8c5c49bbf1da88c787a15e02c1b591dd7730",
+        "bytes": 8354
+      }
+    },
+    {
+      "record": "annotations_review.json",
+      "path": "notes/README.md",
+      "previous": {
+        "sha256": "e4906d8ca0d336799a3884b2095a95d99ed97aeec82f230985a4f5220c6091de",
+        "bytes": 14455
+      },
+      "current": {
+        "sha256": "1ad9abb095080183df6d86b2d163fd55786f6aaefbbad28a7e4cd31099150034",
+        "bytes": 15865
+      }
+    },
+    {
+      "record": "annotations_review.json",
+      "path": "notes/appendix_a_probability_review.html",
+      "previous": {
+        "sha256": "4c9c6b85da94cd9175c1d2431e548d7c7c75ea486e3b61962e05f0f705d32c21",
+        "bytes": 324043
+      },
+      "current": {
+        "sha256": "676bc003948c41ffeb0c693829e25d037a15b9fecdd52431a9b800f3041286c6",
+        "bytes": 323979
+      }
+    },
+    {
+      "record": "annotations_review.json",
+      "path": "notes/book_overview.html",
+      "previous": {
+        "sha256": "dae3f1e713eeaa542922b7929dbe772b0e43c720177a9a37c13ea9bdca0fd658",
+        "bytes": 64106
+      },
+      "current": {
+        "sha256": "6698f867c0954d867ed44188587064419baf1039415d8562b21c08535b2f01e5",
+        "bytes": 63898
+      }
+    },
+    {
+      "record": "annotations_review.json",
+      "path": "notes/chapter01_markov_chains.html",
+      "previous": {
+        "sha256": "af56495eaa7e0b1de444e4a1273a60131d97d31e3deb6bc5fd08962923be76c4",
+        "bytes": 2282894
+      },
+      "current": {
+        "sha256": "82c98df8074e217371ab725b0f855ecbe3c476ee73d2b81ab9d87b0696e0a25d",
+        "bytes": 2282896
+      }
+    },
+    {
+      "record": "annotations_review.json",
+      "path": "notes/chapter02_poisson_processes.html",
+      "previous": {
+        "sha256": "0bbb879f59d3159994dae0180920c0c6f44cb96f6ec898e4bdd7a582edbda755",
+        "bytes": 786943
+      },
+      "current": {
+        "sha256": "eed6f8341273cea8e1c02ccf36313241d99d0d07f0e2b56be682bd537494b2f2",
+        "bytes": 786879
+      }
+    },
+    {
+      "record": "annotations_review.json",
+      "path": "notes/chapter03_renewal_processes.html",
+      "previous": {
+        "sha256": "0781d2155e4d4ad10e175d0543374127f876cc9e4435e051ba999b151c9aa53e",
+        "bytes": 431196
+      },
+      "current": {
+        "sha256": "e5ac2b3540e982f8e7110e90f79f9e46083cfee32cfb7570f37a50cb270c37e9",
+        "bytes": 431132
+      }
+    },
+    {
+      "record": "annotations_review.json",
+      "path": "notes/chapter04_continuous_time_markov_chains.html",
+      "previous": {
+        "sha256": "7434e4b58134e90b8880844b53f23636a980263731543dbe7106396f236cfcb4",
+        "bytes": 1108535
+      },
+      "current": {
+        "sha256": "3a9df2526ade0c7d36aa3baa5e974d0eed83fdc7e736d498301e22aa137bd566",
+        "bytes": 1108471
+      }
+    },
+    {
+      "record": "annotations_review.json",
+      "path": "notes/chapter05_martingales.html",
+      "previous": {
+        "sha256": "b50c459d9ac8a56202faad0f3f84c8581767521aa22244cf5dbc6ef1ce47a159",
+        "bytes": 536445
+      },
+      "current": {
+        "sha256": "a068795ad5ee0f0764c155d1feeb88b8bc5f79c81d2c685ccdf98f14144608a3",
+        "bytes": 536381
+      }
+    },
+    {
+      "record": "annotations_review.json",
+      "path": "notes/chapter06_mathematical_finance.html",
+      "previous": {
+        "sha256": "660db4514bd5170d0993c8aac77406b09c2ada74ef98e61d4777d8fe3201c4d1",
+        "bytes": 1343622
+      },
+      "current": {
+        "sha256": "349ff557ce8bf9da5e4032081d65a010485abf35721bc7aab85f737ae187b2c3",
+        "bytes": 1343558
+      }
+    },
+    {
+      "record": "annotations_review.json",
+      "path": "notes/code_deployment_review.json",
+      "previous": {
+        "sha256": "6f291ff212fd68eb5818ba9d7eba183c19d169ee1a9deb6288827563f1594006",
+        "bytes": 233842
+      },
+      "current": {
+        "sha256": "249cc062f8787566a242634f998c141c3806be747d103250e572b6b7a4cbf0cf",
+        "bytes": 233842
+      }
+    },
+    {
+      "record": "annotations_review.json",
+      "path": "notes/preface.html",
+      "previous": {
+        "sha256": "490839844686587c47492d2c0baa059b8bf66fe91a1bb0a815bd255bff88bdf7",
+        "bytes": 52350
+      },
+      "current": {
+        "sha256": "2f5d20722ef386cc209f3fe185bbb0b4c2a36ac74f41bd618b4a73bd749dd049",
+        "bytes": 52385
+      }
+    },
+    {
+      "record": "annotations_review.json",
+      "path": "notes/statements_review.json",
+      "previous": {
+        "sha256": "7194367090ce94592bcf0991003018866582e4e4f574eb825f6193ff33646ec7",
+        "bytes": 624618
+      },
+      "current": {
+        "sha256": "a2a715eab2cad582ee6d16929f695aed33dcd7496c666539b939c5824a5d7e79",
+        "bytes": 624618
+      }
+    },
+    {
+      "record": "annotations_review.json",
+      "path": "notes/audit_fix_review.json",
+      "previous": {
+        "sha256": "f9483d900b38eaa369385700e7a00004d60b48f77acec3ff7706138eab7e4cb1",
+        "bytes": 266324
+      },
+      "current": {
+        "sha256": "ae314361a7a185e038d6e0b599b0cb3fd36b6b28ad0e753cb88833ce52b9ae3e",
+        "bytes": 266324
+      }
+    },
+    {
+      "record": "audit_fix_review.json",
+      "path": "agent.md",
+      "previous": {
+        "sha256": "bee7808182ee00a8fb7b35ba10ec3872e50cc3e59b43342adaee5146841bf122",
+        "bytes": 7533
+      },
+      "current": {
+        "sha256": "4eea4328679572dcef47c344749a8c5c49bbf1da88c787a15e02c1b591dd7730",
+        "bytes": 8354
+      }
+    },
+    {
+      "record": "audit_fix_review.json",
+      "path": "notes/README.md",
+      "previous": {
+        "sha256": "e4906d8ca0d336799a3884b2095a95d99ed97aeec82f230985a4f5220c6091de",
+        "bytes": 14455
+      },
+      "current": {
+        "sha256": "1ad9abb095080183df6d86b2d163fd55786f6aaefbbad28a7e4cd31099150034",
+        "bytes": 15865
+      }
+    },
+    {
+      "record": "audit_fix_review.json",
+      "path": "notes/appendix_a_probability_review.html",
+      "previous": {
+        "sha256": "4c9c6b85da94cd9175c1d2431e548d7c7c75ea486e3b61962e05f0f705d32c21",
+        "bytes": 324043
+      },
+      "current": {
+        "sha256": "676bc003948c41ffeb0c693829e25d037a15b9fecdd52431a9b800f3041286c6",
+        "bytes": 323979
+      }
+    },
+    {
+      "record": "audit_fix_review.json",
+      "path": "notes/book_overview.html",
+      "previous": {
+        "sha256": "dae3f1e713eeaa542922b7929dbe772b0e43c720177a9a37c13ea9bdca0fd658",
+        "bytes": 64106
+      },
+      "current": {
+        "sha256": "6698f867c0954d867ed44188587064419baf1039415d8562b21c08535b2f01e5",
+        "bytes": 63898
+      }
+    },
+    {
+      "record": "audit_fix_review.json",
+      "path": "notes/chapter01_markov_chains.html",
+      "previous": {
+        "sha256": "af56495eaa7e0b1de444e4a1273a60131d97d31e3deb6bc5fd08962923be76c4",
+        "bytes": 2282894
+      },
+      "current": {
+        "sha256": "82c98df8074e217371ab725b0f855ecbe3c476ee73d2b81ab9d87b0696e0a25d",
+        "bytes": 2282896
+      }
+    },
+    {
+      "record": "audit_fix_review.json",
+      "path": "notes/chapter02_poisson_processes.html",
+      "previous": {
+        "sha256": "0bbb879f59d3159994dae0180920c0c6f44cb96f6ec898e4bdd7a582edbda755",
+        "bytes": 786943
+      },
+      "current": {
+        "sha256": "eed6f8341273cea8e1c02ccf36313241d99d0d07f0e2b56be682bd537494b2f2",
+        "bytes": 786879
+      }
+    },
+    {
+      "record": "audit_fix_review.json",
+      "path": "notes/chapter03_renewal_processes.html",
+      "previous": {
+        "sha256": "0781d2155e4d4ad10e175d0543374127f876cc9e4435e051ba999b151c9aa53e",
+        "bytes": 431196
+      },
+      "current": {
+        "sha256": "e5ac2b3540e982f8e7110e90f79f9e46083cfee32cfb7570f37a50cb270c37e9",
+        "bytes": 431132
+      }
+    },
+    {
+      "record": "audit_fix_review.json",
+      "path": "notes/chapter04_continuous_time_markov_chains.html",
+      "previous": {
+        "sha256": "7434e4b58134e90b8880844b53f23636a980263731543dbe7106396f236cfcb4",
+        "bytes": 1108535
+      },
+      "current": {
+        "sha256": "3a9df2526ade0c7d36aa3baa5e974d0eed83fdc7e736d498301e22aa137bd566",
+        "bytes": 1108471
+      }
+    },
+    {
+      "record": "audit_fix_review.json",
+      "path": "notes/chapter05_martingales.html",
+      "previous": {
+        "sha256": "b50c459d9ac8a56202faad0f3f84c8581767521aa22244cf5dbc6ef1ce47a159",
+        "bytes": 536445
+      },
+      "current": {
+        "sha256": "a068795ad5ee0f0764c155d1feeb88b8bc5f79c81d2c685ccdf98f14144608a3",
+        "bytes": 536381
+      }
+    },
+    {
+      "record": "audit_fix_review.json",
+      "path": "notes/chapter06_mathematical_finance.html",
+      "previous": {
+        "sha256": "660db4514bd5170d0993c8aac77406b09c2ada74ef98e61d4777d8fe3201c4d1",
+        "bytes": 1343622
+      },
+      "current": {
+        "sha256": "349ff557ce8bf9da5e4032081d65a010485abf35721bc7aab85f737ae187b2c3",
+        "bytes": 1343558
+      }
+    },
+    {
+      "record": "audit_fix_review.json",
+      "path": "notes/preface.html",
+      "previous": {
+        "sha256": "490839844686587c47492d2c0baa059b8bf66fe91a1bb0a815bd255bff88bdf7",
+        "bytes": 52350
+      },
+      "current": {
+        "sha256": "2f5d20722ef386cc209f3fe185bbb0b4c2a36ac74f41bd618b4a73bd749dd049",
+        "bytes": 52385
+      }
+    },
+    {
+      "record": "audit_fix_review.json",
+      "path": "tools/content_baseline.json",
+      "previous": {
+        "sha256": "916f3f30a2d83608beb35435375c1b3debe5fdf74e55880f3bdef35f732edfe7",
+        "bytes": 2840353
+      },
+      "current": {
+        "sha256": "9fca88a15404e4ef73d4d8c57465a38f15d4615d230b5954563aaa80b2f1b62f",
+        "bytes": 2840353
+      }
+    },
+    {
+      "record": "chapter01_explanation_review.json",
+      "path": "notes/chapter01_markov_chains.html",
+      "previous": {
+        "sha256": "af56495eaa7e0b1de444e4a1273a60131d97d31e3deb6bc5fd08962923be76c4",
+        "bytes": 2282894
+      },
+      "current": {
+        "sha256": "82c98df8074e217371ab725b0f855ecbe3c476ee73d2b81ab9d87b0696e0a25d",
+        "bytes": 2282896
+      }
+    },
+    {
+      "record": "chapter01_explanation_review.json",
+      "path": "tools/content_baseline.json",
+      "previous": {
+        "sha256": "916f3f30a2d83608beb35435375c1b3debe5fdf74e55880f3bdef35f732edfe7",
+        "bytes": 2840353
+      },
+      "current": {
+        "sha256": "9fca88a15404e4ef73d4d8c57465a38f15d4615d230b5954563aaa80b2f1b62f",
+        "bytes": 2840353
+      }
+    },
+    {
+      "record": "chapter01_explanation_review.json",
+      "path": "notes/derivation_coverage.json",
+      "previous": {
+        "sha256": "2db7f807bf46239d926ceecad989f8778b4d2847860465c82202e062ef378b23",
+        "bytes": 356351
+      },
+      "current": {
+        "sha256": "61d79d99c434f5bf641ae153d0656db22cb1a84403b09988fed71f3239afab59",
+        "bytes": 356351
+      }
+    },
+    {
+      "record": "code_deployment_review.json",
+      "path": "notes/appendix_a_probability_review.html",
+      "previous": {
+        "sha256": "4c9c6b85da94cd9175c1d2431e548d7c7c75ea486e3b61962e05f0f705d32c21",
+        "bytes": 324043
+      },
+      "current": {
+        "sha256": "676bc003948c41ffeb0c693829e25d037a15b9fecdd52431a9b800f3041286c6",
+        "bytes": 323979
+      }
+    },
+    {
+      "record": "code_deployment_review.json",
+      "path": "notes/book_overview.html",
+      "previous": {
+        "sha256": "dae3f1e713eeaa542922b7929dbe772b0e43c720177a9a37c13ea9bdca0fd658",
+        "bytes": 64106
+      },
+      "current": {
+        "sha256": "6698f867c0954d867ed44188587064419baf1039415d8562b21c08535b2f01e5",
+        "bytes": 63898
+      }
+    },
+    {
+      "record": "code_deployment_review.json",
+      "path": "notes/chapter01_markov_chains.html",
+      "previous": {
+        "sha256": "af56495eaa7e0b1de444e4a1273a60131d97d31e3deb6bc5fd08962923be76c4",
+        "bytes": 2282894
+      },
+      "current": {
+        "sha256": "82c98df8074e217371ab725b0f855ecbe3c476ee73d2b81ab9d87b0696e0a25d",
+        "bytes": 2282896
+      }
+    },
+    {
+      "record": "code_deployment_review.json",
+      "path": "notes/chapter02_poisson_processes.html",
+      "previous": {
+        "sha256": "0bbb879f59d3159994dae0180920c0c6f44cb96f6ec898e4bdd7a582edbda755",
+        "bytes": 786943
+      },
+      "current": {
+        "sha256": "eed6f8341273cea8e1c02ccf36313241d99d0d07f0e2b56be682bd537494b2f2",
+        "bytes": 786879
+      }
+    },
+    {
+      "record": "code_deployment_review.json",
+      "path": "notes/chapter03_renewal_processes.html",
+      "previous": {
+        "sha256": "0781d2155e4d4ad10e175d0543374127f876cc9e4435e051ba999b151c9aa53e",
+        "bytes": 431196
+      },
+      "current": {
+        "sha256": "e5ac2b3540e982f8e7110e90f79f9e46083cfee32cfb7570f37a50cb270c37e9",
+        "bytes": 431132
+      }
+    },
+    {
+      "record": "code_deployment_review.json",
+      "path": "notes/chapter04_continuous_time_markov_chains.html",
+      "previous": {
+        "sha256": "7434e4b58134e90b8880844b53f23636a980263731543dbe7106396f236cfcb4",
+        "bytes": 1108535
+      },
+      "current": {
+        "sha256": "3a9df2526ade0c7d36aa3baa5e974d0eed83fdc7e736d498301e22aa137bd566",
+        "bytes": 1108471
+      }
+    },
+    {
+      "record": "code_deployment_review.json",
+      "path": "notes/chapter05_martingales.html",
+      "previous": {
+        "sha256": "b50c459d9ac8a56202faad0f3f84c8581767521aa22244cf5dbc6ef1ce47a159",
+        "bytes": 536445
+      },
+      "current": {
+        "sha256": "a068795ad5ee0f0764c155d1feeb88b8bc5f79c81d2c685ccdf98f14144608a3",
+        "bytes": 536381
+      }
+    },
+    {
+      "record": "code_deployment_review.json",
+      "path": "notes/chapter06_mathematical_finance.html",
+      "previous": {
+        "sha256": "660db4514bd5170d0993c8aac77406b09c2ada74ef98e61d4777d8fe3201c4d1",
+        "bytes": 1343622
+      },
+      "current": {
+        "sha256": "349ff557ce8bf9da5e4032081d65a010485abf35721bc7aab85f737ae187b2c3",
+        "bytes": 1343558
+      }
+    },
+    {
+      "record": "code_deployment_review.json",
+      "path": "notes/preface.html",
+      "previous": {
+        "sha256": "490839844686587c47492d2c0baa059b8bf66fe91a1bb0a815bd255bff88bdf7",
+        "bytes": 52350
+      },
+      "current": {
+        "sha256": "2f5d20722ef386cc209f3fe185bbb0b4c2a36ac74f41bd618b4a73bd749dd049",
+        "bytes": 52385
+      }
+    },
+    {
+      "record": "code_deployment_review.json",
+      "path": "agent.md",
+      "previous": {
+        "sha256": "bee7808182ee00a8fb7b35ba10ec3872e50cc3e59b43342adaee5146841bf122",
+        "bytes": 7533
+      },
+      "current": {
+        "sha256": "4eea4328679572dcef47c344749a8c5c49bbf1da88c787a15e02c1b591dd7730",
+        "bytes": 8354
+      }
+    },
+    {
+      "record": "code_deployment_review.json",
+      "path": "notes/README.md",
+      "previous": {
+        "sha256": "e4906d8ca0d336799a3884b2095a95d99ed97aeec82f230985a4f5220c6091de",
+        "bytes": 14455
+      },
+      "current": {
+        "sha256": "1ad9abb095080183df6d86b2d163fd55786f6aaefbbad28a7e4cd31099150034",
+        "bytes": 15865
+      }
+    },
+    {
+      "record": "code_deployment_review.json",
+      "path": "notes/audit_fix_review.json",
+      "previous": {
+        "sha256": "f9483d900b38eaa369385700e7a00004d60b48f77acec3ff7706138eab7e4cb1",
+        "bytes": 266324
+      },
+      "current": {
+        "sha256": "ae314361a7a185e038d6e0b599b0cb3fd36b6b28ad0e753cb88833ce52b9ae3e",
+        "bytes": 266324
+      }
+    },
+    {
+      "record": "derivation_review.json",
+      "path": "notes/remaining_explanation_review.json",
+      "previous": {
+        "sha256": "5963f8cd25e81a93921b5ae011161af490312283851a3b0af2d778f805544bc0",
+        "bytes": 836406
+      },
+      "current": {
+        "sha256": "2cf11453472629e767701837e6a312414dba280288827b37c40d09c74f63f80c",
+        "bytes": 836406
+      }
+    },
+    {
+      "record": "derivation_review.json",
+      "path": "notes/chapter01_explanation_review.json",
+      "previous": {
+        "sha256": "68db047fc1e9db39ec5451333692acd2d22d3b27c69b4c47fd701b0a7f0d9709",
+        "bytes": 190381
+      },
+      "current": {
+        "sha256": "70b447555139dae64f203295f2119c1da524fa06f932f8af7a49d017cb512922",
+        "bytes": 190381
+      }
+    },
+    {
+      "record": "derivation_review.json",
+      "path": "notes/derivation_coverage.json",
+      "previous": {
+        "sha256": "2db7f807bf46239d926ceecad989f8778b4d2847860465c82202e062ef378b23",
+        "bytes": 356351
+      },
+      "current": {
+        "sha256": "61d79d99c434f5bf641ae153d0656db22cb1a84403b09988fed71f3239afab59",
+        "bytes": 356351
+      }
+    },
+    {
+      "record": "derivation_review.json",
+      "path": "tools/content_baseline.json",
+      "previous": {
+        "sha256": "916f3f30a2d83608beb35435375c1b3debe5fdf74e55880f3bdef35f732edfe7",
+        "bytes": 2840353
+      },
+      "current": {
+        "sha256": "9fca88a15404e4ef73d4d8c57465a38f15d4615d230b5954563aaa80b2f1b62f",
+        "bytes": 2840353
+      }
+    },
+    {
+      "record": "readability_review.json",
+      "path": "notes/appendix_a_probability_review.html",
+      "previous": {
+        "sha256": "4c9c6b85da94cd9175c1d2431e548d7c7c75ea486e3b61962e05f0f705d32c21",
+        "bytes": 324043
+      },
+      "current": {
+        "sha256": "676bc003948c41ffeb0c693829e25d037a15b9fecdd52431a9b800f3041286c6",
+        "bytes": 323979
+      }
+    },
+    {
+      "record": "readability_review.json",
+      "path": "notes/book_overview.html",
+      "previous": {
+        "sha256": "dae3f1e713eeaa542922b7929dbe772b0e43c720177a9a37c13ea9bdca0fd658",
+        "bytes": 64106
+      },
+      "current": {
+        "sha256": "6698f867c0954d867ed44188587064419baf1039415d8562b21c08535b2f01e5",
+        "bytes": 63898
+      }
+    },
+    {
+      "record": "readability_review.json",
+      "path": "notes/chapter01_markov_chains.html",
+      "previous": {
+        "sha256": "af56495eaa7e0b1de444e4a1273a60131d97d31e3deb6bc5fd08962923be76c4",
+        "bytes": 2282894
+      },
+      "current": {
+        "sha256": "82c98df8074e217371ab725b0f855ecbe3c476ee73d2b81ab9d87b0696e0a25d",
+        "bytes": 2282896
+      }
+    },
+    {
+      "record": "readability_review.json",
+      "path": "notes/chapter02_poisson_processes.html",
+      "previous": {
+        "sha256": "0bbb879f59d3159994dae0180920c0c6f44cb96f6ec898e4bdd7a582edbda755",
+        "bytes": 786943
+      },
+      "current": {
+        "sha256": "eed6f8341273cea8e1c02ccf36313241d99d0d07f0e2b56be682bd537494b2f2",
+        "bytes": 786879
+      }
+    },
+    {
+      "record": "readability_review.json",
+      "path": "notes/chapter03_renewal_processes.html",
+      "previous": {
+        "sha256": "0781d2155e4d4ad10e175d0543374127f876cc9e4435e051ba999b151c9aa53e",
+        "bytes": 431196
+      },
+      "current": {
+        "sha256": "e5ac2b3540e982f8e7110e90f79f9e46083cfee32cfb7570f37a50cb270c37e9",
+        "bytes": 431132
+      }
+    },
+    {
+      "record": "readability_review.json",
+      "path": "notes/chapter04_continuous_time_markov_chains.html",
+      "previous": {
+        "sha256": "7434e4b58134e90b8880844b53f23636a980263731543dbe7106396f236cfcb4",
+        "bytes": 1108535
+      },
+      "current": {
+        "sha256": "3a9df2526ade0c7d36aa3baa5e974d0eed83fdc7e736d498301e22aa137bd566",
+        "bytes": 1108471
+      }
+    },
+    {
+      "record": "readability_review.json",
+      "path": "notes/chapter05_martingales.html",
+      "previous": {
+        "sha256": "b50c459d9ac8a56202faad0f3f84c8581767521aa22244cf5dbc6ef1ce47a159",
+        "bytes": 536445
+      },
+      "current": {
+        "sha256": "a068795ad5ee0f0764c155d1feeb88b8bc5f79c81d2c685ccdf98f14144608a3",
+        "bytes": 536381
+      }
+    },
+    {
+      "record": "readability_review.json",
+      "path": "notes/chapter06_mathematical_finance.html",
+      "previous": {
+        "sha256": "660db4514bd5170d0993c8aac77406b09c2ada74ef98e61d4777d8fe3201c4d1",
+        "bytes": 1343622
+      },
+      "current": {
+        "sha256": "349ff557ce8bf9da5e4032081d65a010485abf35721bc7aab85f737ae187b2c3",
+        "bytes": 1343558
+      }
+    },
+    {
+      "record": "readability_review.json",
+      "path": "notes/code_deployment_review.json",
+      "previous": {
+        "sha256": "6f291ff212fd68eb5818ba9d7eba183c19d169ee1a9deb6288827563f1594006",
+        "bytes": 233842
+      },
+      "current": {
+        "sha256": "249cc062f8787566a242634f998c141c3806be747d103250e572b6b7a4cbf0cf",
+        "bytes": 233842
+      }
+    },
+    {
+      "record": "readability_review.json",
+      "path": "notes/preface.html",
+      "previous": {
+        "sha256": "490839844686587c47492d2c0baa059b8bf66fe91a1bb0a815bd255bff88bdf7",
+        "bytes": 52350
+      },
+      "current": {
+        "sha256": "2f5d20722ef386cc209f3fe185bbb0b4c2a36ac74f41bd618b4a73bd749dd049",
+        "bytes": 52385
+      }
+    },
+    {
+      "record": "readability_review.json",
+      "path": "notes/audit_fix_review.json",
+      "previous": {
+        "sha256": "f9483d900b38eaa369385700e7a00004d60b48f77acec3ff7706138eab7e4cb1",
+        "bytes": 266324
+      },
+      "current": {
+        "sha256": "ae314361a7a185e038d6e0b599b0cb3fd36b6b28ad0e753cb88833ce52b9ae3e",
+        "bytes": 266324
+      }
+    },
+    {
+      "record": "remaining_explanation_review.json",
+      "path": "notes/chapter03_renewal_processes.html",
+      "previous": {
+        "sha256": "0781d2155e4d4ad10e175d0543374127f876cc9e4435e051ba999b151c9aa53e",
+        "bytes": 431196
+      },
+      "current": {
+        "sha256": "e5ac2b3540e982f8e7110e90f79f9e46083cfee32cfb7570f37a50cb270c37e9",
+        "bytes": 431132
+      }
+    },
+    {
+      "record": "remaining_explanation_review.json",
+      "path": "notes/appendix_a_probability_review.html",
+      "previous": {
+        "sha256": "4c9c6b85da94cd9175c1d2431e548d7c7c75ea486e3b61962e05f0f705d32c21",
+        "bytes": 324043
+      },
+      "current": {
+        "sha256": "676bc003948c41ffeb0c693829e25d037a15b9fecdd52431a9b800f3041286c6",
+        "bytes": 323979
+      }
+    },
+    {
+      "record": "remaining_explanation_review.json",
+      "path": "notes/chapter06_mathematical_finance.html",
+      "previous": {
+        "sha256": "660db4514bd5170d0993c8aac77406b09c2ada74ef98e61d4777d8fe3201c4d1",
+        "bytes": 1343622
+      },
+      "current": {
+        "sha256": "349ff557ce8bf9da5e4032081d65a010485abf35721bc7aab85f737ae187b2c3",
+        "bytes": 1343558
+      }
+    },
+    {
+      "record": "remaining_explanation_review.json",
+      "path": "notes/chapter02_poisson_processes.html",
+      "previous": {
+        "sha256": "0bbb879f59d3159994dae0180920c0c6f44cb96f6ec898e4bdd7a582edbda755",
+        "bytes": 786943
+      },
+      "current": {
+        "sha256": "eed6f8341273cea8e1c02ccf36313241d99d0d07f0e2b56be682bd537494b2f2",
+        "bytes": 786879
+      }
+    },
+    {
+      "record": "remaining_explanation_review.json",
+      "path": "notes/chapter04_continuous_time_markov_chains.html",
+      "previous": {
+        "sha256": "7434e4b58134e90b8880844b53f23636a980263731543dbe7106396f236cfcb4",
+        "bytes": 1108535
+      },
+      "current": {
+        "sha256": "3a9df2526ade0c7d36aa3baa5e974d0eed83fdc7e736d498301e22aa137bd566",
+        "bytes": 1108471
+      }
+    },
+    {
+      "record": "remaining_explanation_review.json",
+      "path": "notes/chapter05_martingales.html",
+      "previous": {
+        "sha256": "b50c459d9ac8a56202faad0f3f84c8581767521aa22244cf5dbc6ef1ce47a159",
+        "bytes": 536445
+      },
+      "current": {
+        "sha256": "a068795ad5ee0f0764c155d1feeb88b8bc5f79c81d2c685ccdf98f14144608a3",
+        "bytes": 536381
+      }
+    },
+    {
+      "record": "remaining_explanation_review.json",
+      "path": "notes/derivation_coverage.json",
+      "previous": {
+        "sha256": "2db7f807bf46239d926ceecad989f8778b4d2847860465c82202e062ef378b23",
+        "bytes": 356351
+      },
+      "current": {
+        "sha256": "61d79d99c434f5bf641ae153d0656db22cb1a84403b09988fed71f3239afab59",
+        "bytes": 356351
+      }
+    },
+    {
+      "record": "remaining_explanation_review.json",
+      "path": "tools/content_baseline.json",
+      "previous": {
+        "sha256": "916f3f30a2d83608beb35435375c1b3debe5fdf74e55880f3bdef35f732edfe7",
+        "bytes": 2840353
+      },
+      "current": {
+        "sha256": "9fca88a15404e4ef73d4d8c57465a38f15d4615d230b5954563aaa80b2f1b62f",
+        "bytes": 2840353
+      }
+    },
+    {
+      "record": "review_manifest.json",
+      "path": "agent.md",
+      "previous": {
+        "sha256": "bee7808182ee00a8fb7b35ba10ec3872e50cc3e59b43342adaee5146841bf122",
+        "bytes": 7533
+      },
+      "current": {
+        "sha256": "4eea4328679572dcef47c344749a8c5c49bbf1da88c787a15e02c1b591dd7730",
+        "bytes": 8354
+      }
+    },
+    {
+      "record": "review_manifest.json",
+      "path": "notes/README.md",
+      "previous": {
+        "sha256": "e4906d8ca0d336799a3884b2095a95d99ed97aeec82f230985a4f5220c6091de",
+        "bytes": 14455
+      },
+      "current": {
+        "sha256": "1ad9abb095080183df6d86b2d163fd55786f6aaefbbad28a7e4cd31099150034",
+        "bytes": 15865
+      }
+    },
+    {
+      "record": "review_manifest.json",
+      "path": "notes/annotations_review.json",
+      "previous": {
+        "sha256": "ecda281b9c9a3ce5847508ca33b0e51df3278e4e296285418eca939de9d24481",
+        "bytes": 176904
+      },
+      "current": {
+        "sha256": "b3df797342e204dda70cf985d43dc88fe4f2fd78d1d756e65f3e539987bf35a5",
+        "bytes": 176904
+      }
+    },
+    {
+      "record": "review_manifest.json",
+      "path": "notes/appendix_a_probability_review.html",
+      "previous": {
+        "sha256": "4c9c6b85da94cd9175c1d2431e548d7c7c75ea486e3b61962e05f0f705d32c21",
+        "bytes": 324043
+      },
+      "current": {
+        "sha256": "676bc003948c41ffeb0c693829e25d037a15b9fecdd52431a9b800f3041286c6",
+        "bytes": 323979
+      }
+    },
+    {
+      "record": "review_manifest.json",
+      "path": "notes/book_overview.html",
+      "previous": {
+        "sha256": "dae3f1e713eeaa542922b7929dbe772b0e43c720177a9a37c13ea9bdca0fd658",
+        "bytes": 64106
+      },
+      "current": {
+        "sha256": "6698f867c0954d867ed44188587064419baf1039415d8562b21c08535b2f01e5",
+        "bytes": 63898
+      }
+    },
+    {
+      "record": "review_manifest.json",
+      "path": "notes/chapter01_markov_chains.html",
+      "previous": {
+        "sha256": "af56495eaa7e0b1de444e4a1273a60131d97d31e3deb6bc5fd08962923be76c4",
+        "bytes": 2282894
+      },
+      "current": {
+        "sha256": "82c98df8074e217371ab725b0f855ecbe3c476ee73d2b81ab9d87b0696e0a25d",
+        "bytes": 2282896
+      }
+    },
+    {
+      "record": "review_manifest.json",
+      "path": "notes/chapter02_poisson_processes.html",
+      "previous": {
+        "sha256": "0bbb879f59d3159994dae0180920c0c6f44cb96f6ec898e4bdd7a582edbda755",
+        "bytes": 786943
+      },
+      "current": {
+        "sha256": "eed6f8341273cea8e1c02ccf36313241d99d0d07f0e2b56be682bd537494b2f2",
+        "bytes": 786879
+      }
+    },
+    {
+      "record": "review_manifest.json",
+      "path": "notes/chapter03_renewal_processes.html",
+      "previous": {
+        "sha256": "0781d2155e4d4ad10e175d0543374127f876cc9e4435e051ba999b151c9aa53e",
+        "bytes": 431196
+      },
+      "current": {
+        "sha256": "e5ac2b3540e982f8e7110e90f79f9e46083cfee32cfb7570f37a50cb270c37e9",
+        "bytes": 431132
+      }
+    },
+    {
+      "record": "review_manifest.json",
+      "path": "notes/chapter04_continuous_time_markov_chains.html",
+      "previous": {
+        "sha256": "7434e4b58134e90b8880844b53f23636a980263731543dbe7106396f236cfcb4",
+        "bytes": 1108535
+      },
+      "current": {
+        "sha256": "3a9df2526ade0c7d36aa3baa5e974d0eed83fdc7e736d498301e22aa137bd566",
+        "bytes": 1108471
+      }
+    },
+    {
+      "record": "review_manifest.json",
+      "path": "notes/chapter05_martingales.html",
+      "previous": {
+        "sha256": "b50c459d9ac8a56202faad0f3f84c8581767521aa22244cf5dbc6ef1ce47a159",
+        "bytes": 536445
+      },
+      "current": {
+        "sha256": "a068795ad5ee0f0764c155d1feeb88b8bc5f79c81d2c685ccdf98f14144608a3",
+        "bytes": 536381
+      }
+    },
+    {
+      "record": "review_manifest.json",
+      "path": "notes/chapter06_mathematical_finance.html",
+      "previous": {
+        "sha256": "660db4514bd5170d0993c8aac77406b09c2ada74ef98e61d4777d8fe3201c4d1",
+        "bytes": 1343622
+      },
+      "current": {
+        "sha256": "349ff557ce8bf9da5e4032081d65a010485abf35721bc7aab85f737ae187b2c3",
+        "bytes": 1343558
+      }
+    },
+    {
+      "record": "review_manifest.json",
+      "path": "notes/code_deployment_review.json",
+      "previous": {
+        "sha256": "6f291ff212fd68eb5818ba9d7eba183c19d169ee1a9deb6288827563f1594006",
+        "bytes": 233842
+      },
+      "current": {
+        "sha256": "249cc062f8787566a242634f998c141c3806be747d103250e572b6b7a4cbf0cf",
+        "bytes": 233842
+      }
+    },
+    {
+      "record": "review_manifest.json",
+      "path": "notes/preface.html",
+      "previous": {
+        "sha256": "490839844686587c47492d2c0baa059b8bf66fe91a1bb0a815bd255bff88bdf7",
+        "bytes": 52350
+      },
+      "current": {
+        "sha256": "2f5d20722ef386cc209f3fe185bbb0b4c2a36ac74f41bd618b4a73bd749dd049",
+        "bytes": 52385
+      }
+    },
+    {
+      "record": "review_manifest.json",
+      "path": "notes/readability_review.json",
+      "previous": {
+        "sha256": "d15077b89b5d206937a51a9b6b1e791afb77e2dfe689c27e324c958edb9db1d3",
+        "bytes": 296174
+      },
+      "current": {
+        "sha256": "5e76eb8dfa061066109c555294c2e139f9bee53569b00143ab7214fbf26ee97e",
+        "bytes": 296174
+      }
+    },
+    {
+      "record": "review_manifest.json",
+      "path": "notes/statements_review.json",
+      "previous": {
+        "sha256": "7194367090ce94592bcf0991003018866582e4e4f574eb825f6193ff33646ec7",
+        "bytes": 624618
+      },
+      "current": {
+        "sha256": "a2a715eab2cad582ee6d16929f695aed33dcd7496c666539b939c5824a5d7e79",
+        "bytes": 624618
+      }
+    },
+    {
+      "record": "review_manifest.json",
+      "path": "notes/audit_fix_review.json",
+      "previous": {
+        "sha256": "f9483d900b38eaa369385700e7a00004d60b48f77acec3ff7706138eab7e4cb1",
+        "bytes": 266324
+      },
+      "current": {
+        "sha256": "ae314361a7a185e038d6e0b599b0cb3fd36b6b28ad0e753cb88833ce52b9ae3e",
+        "bytes": 266324
+      }
+    },
+    {
+      "record": "statements_review.json",
+      "path": "agent.md",
+      "previous": {
+        "sha256": "bee7808182ee00a8fb7b35ba10ec3872e50cc3e59b43342adaee5146841bf122",
+        "bytes": 7533
+      },
+      "current": {
+        "sha256": "4eea4328679572dcef47c344749a8c5c49bbf1da88c787a15e02c1b591dd7730",
+        "bytes": 8354
+      }
+    },
+    {
+      "record": "statements_review.json",
+      "path": "notes/README.md",
+      "previous": {
+        "sha256": "e4906d8ca0d336799a3884b2095a95d99ed97aeec82f230985a4f5220c6091de",
+        "bytes": 14455
+      },
+      "current": {
+        "sha256": "1ad9abb095080183df6d86b2d163fd55786f6aaefbbad28a7e4cd31099150034",
+        "bytes": 15865
+      }
+    },
+    {
+      "record": "statements_review.json",
+      "path": "notes/appendix_a_probability_review.html",
+      "previous": {
+        "sha256": "4c9c6b85da94cd9175c1d2431e548d7c7c75ea486e3b61962e05f0f705d32c21",
+        "bytes": 324043
+      },
+      "current": {
+        "sha256": "676bc003948c41ffeb0c693829e25d037a15b9fecdd52431a9b800f3041286c6",
+        "bytes": 323979
+      }
+    },
+    {
+      "record": "statements_review.json",
+      "path": "notes/book_overview.html",
+      "previous": {
+        "sha256": "dae3f1e713eeaa542922b7929dbe772b0e43c720177a9a37c13ea9bdca0fd658",
+        "bytes": 64106
+      },
+      "current": {
+        "sha256": "6698f867c0954d867ed44188587064419baf1039415d8562b21c08535b2f01e5",
+        "bytes": 63898
+      }
+    },
+    {
+      "record": "statements_review.json",
+      "path": "notes/chapter01_markov_chains.html",
+      "previous": {
+        "sha256": "af56495eaa7e0b1de444e4a1273a60131d97d31e3deb6bc5fd08962923be76c4",
+        "bytes": 2282894
+      },
+      "current": {
+        "sha256": "82c98df8074e217371ab725b0f855ecbe3c476ee73d2b81ab9d87b0696e0a25d",
+        "bytes": 2282896
+      }
+    },
+    {
+      "record": "statements_review.json",
+      "path": "notes/chapter02_poisson_processes.html",
+      "previous": {
+        "sha256": "0bbb879f59d3159994dae0180920c0c6f44cb96f6ec898e4bdd7a582edbda755",
+        "bytes": 786943
+      },
+      "current": {
+        "sha256": "eed6f8341273cea8e1c02ccf36313241d99d0d07f0e2b56be682bd537494b2f2",
+        "bytes": 786879
+      }
+    },
+    {
+      "record": "statements_review.json",
+      "path": "notes/chapter03_renewal_processes.html",
+      "previous": {
+        "sha256": "0781d2155e4d4ad10e175d0543374127f876cc9e4435e051ba999b151c9aa53e",
+        "bytes": 431196
+      },
+      "current": {
+        "sha256": "e5ac2b3540e982f8e7110e90f79f9e46083cfee32cfb7570f37a50cb270c37e9",
+        "bytes": 431132
+      }
+    },
+    {
+      "record": "statements_review.json",
+      "path": "notes/chapter04_continuous_time_markov_chains.html",
+      "previous": {
+        "sha256": "7434e4b58134e90b8880844b53f23636a980263731543dbe7106396f236cfcb4",
+        "bytes": 1108535
+      },
+      "current": {
+        "sha256": "3a9df2526ade0c7d36aa3baa5e974d0eed83fdc7e736d498301e22aa137bd566",
+        "bytes": 1108471
+      }
+    },
+    {
+      "record": "statements_review.json",
+      "path": "notes/chapter05_martingales.html",
+      "previous": {
+        "sha256": "b50c459d9ac8a56202faad0f3f84c8581767521aa22244cf5dbc6ef1ce47a159",
+        "bytes": 536445
+      },
+      "current": {
+        "sha256": "a068795ad5ee0f0764c155d1feeb88b8bc5f79c81d2c685ccdf98f14144608a3",
+        "bytes": 536381
+      }
+    },
+    {
+      "record": "statements_review.json",
+      "path": "notes/chapter06_mathematical_finance.html",
+      "previous": {
+        "sha256": "660db4514bd5170d0993c8aac77406b09c2ada74ef98e61d4777d8fe3201c4d1",
+        "bytes": 1343622
+      },
+      "current": {
+        "sha256": "349ff557ce8bf9da5e4032081d65a010485abf35721bc7aab85f737ae187b2c3",
+        "bytes": 1343558
+      }
+    },
+    {
+      "record": "statements_review.json",
+      "path": "notes/code_deployment_review.json",
+      "previous": {
+        "sha256": "6f291ff212fd68eb5818ba9d7eba183c19d169ee1a9deb6288827563f1594006",
+        "bytes": 233842
+      },
+      "current": {
+        "sha256": "249cc062f8787566a242634f998c141c3806be747d103250e572b6b7a4cbf0cf",
+        "bytes": 233842
+      }
+    },
+    {
+      "record": "statements_review.json",
+      "path": "notes/preface.html",
+      "previous": {
+        "sha256": "490839844686587c47492d2c0baa059b8bf66fe91a1bb0a815bd255bff88bdf7",
+        "bytes": 52350
+      },
+      "current": {
+        "sha256": "2f5d20722ef386cc209f3fe185bbb0b4c2a36ac74f41bd618b4a73bd749dd049",
+        "bytes": 52385
+      }
+    },
+    {
+      "record": "statements_review.json",
+      "path": "notes/audit_fix_review.json",
+      "previous": {
+        "sha256": "f9483d900b38eaa369385700e7a00004d60b48f77acec3ff7706138eab7e4cb1",
+        "bytes": 266324
+      },
+      "current": {
+        "sha256": "ae314361a7a185e038d6e0b599b0cb3fd36b6b28ad0e753cb88833ce52b9ae3e",
+        "bytes": 266324
+      }
+    },
+    {
+      "record": "validation.json",
+      "path": "agent.md",
+      "previous": {
+        "sha256": "bee7808182ee00a8fb7b35ba10ec3872e50cc3e59b43342adaee5146841bf122",
+        "bytes": 7533
+      },
+      "current": {
+        "sha256": "4eea4328679572dcef47c344749a8c5c49bbf1da88c787a15e02c1b591dd7730",
+        "bytes": 8354
+      }
+    },
+    {
+      "record": "validation.json",
+      "path": "notes/README.md",
+      "previous": {
+        "sha256": "e4906d8ca0d336799a3884b2095a95d99ed97aeec82f230985a4f5220c6091de",
+        "bytes": 14455
+      },
+      "current": {
+        "sha256": "1ad9abb095080183df6d86b2d163fd55786f6aaefbbad28a7e4cd31099150034",
+        "bytes": 15865
+      }
+    },
+    {
+      "record": "validation.json",
+      "path": "notes/annotations_review.json",
+      "previous": {
+        "sha256": "ecda281b9c9a3ce5847508ca33b0e51df3278e4e296285418eca939de9d24481",
+        "bytes": 176904
+      },
+      "current": {
+        "sha256": "b3df797342e204dda70cf985d43dc88fe4f2fd78d1d756e65f3e539987bf35a5",
+        "bytes": 176904
+      }
+    },
+    {
+      "record": "validation.json",
+      "path": "notes/appendix_a_probability_review.html",
+      "previous": {
+        "sha256": "4c9c6b85da94cd9175c1d2431e548d7c7c75ea486e3b61962e05f0f705d32c21",
+        "bytes": 324043
+      },
+      "current": {
+        "sha256": "676bc003948c41ffeb0c693829e25d037a15b9fecdd52431a9b800f3041286c6",
+        "bytes": 323979
+      }
+    },
+    {
+      "record": "validation.json",
+      "path": "notes/book_overview.html",
+      "previous": {
+        "sha256": "dae3f1e713eeaa542922b7929dbe772b0e43c720177a9a37c13ea9bdca0fd658",
+        "bytes": 64106
+      },
+      "current": {
+        "sha256": "6698f867c0954d867ed44188587064419baf1039415d8562b21c08535b2f01e5",
+        "bytes": 63898
+      }
+    },
+    {
+      "record": "validation.json",
+      "path": "notes/chapter01_markov_chains.html",
+      "previous": {
+        "sha256": "af56495eaa7e0b1de444e4a1273a60131d97d31e3deb6bc5fd08962923be76c4",
+        "bytes": 2282894
+      },
+      "current": {
+        "sha256": "82c98df8074e217371ab725b0f855ecbe3c476ee73d2b81ab9d87b0696e0a25d",
+        "bytes": 2282896
+      }
+    },
+    {
+      "record": "validation.json",
+      "path": "notes/chapter02_poisson_processes.html",
+      "previous": {
+        "sha256": "0bbb879f59d3159994dae0180920c0c6f44cb96f6ec898e4bdd7a582edbda755",
+        "bytes": 786943
+      },
+      "current": {
+        "sha256": "eed6f8341273cea8e1c02ccf36313241d99d0d07f0e2b56be682bd537494b2f2",
+        "bytes": 786879
+      }
+    },
+    {
+      "record": "validation.json",
+      "path": "notes/chapter03_renewal_processes.html",
+      "previous": {
+        "sha256": "0781d2155e4d4ad10e175d0543374127f876cc9e4435e051ba999b151c9aa53e",
+        "bytes": 431196
+      },
+      "current": {
+        "sha256": "e5ac2b3540e982f8e7110e90f79f9e46083cfee32cfb7570f37a50cb270c37e9",
+        "bytes": 431132
+      }
+    },
+    {
+      "record": "validation.json",
+      "path": "notes/chapter04_continuous_time_markov_chains.html",
+      "previous": {
+        "sha256": "7434e4b58134e90b8880844b53f23636a980263731543dbe7106396f236cfcb4",
+        "bytes": 1108535
+      },
+      "current": {
+        "sha256": "3a9df2526ade0c7d36aa3baa5e974d0eed83fdc7e736d498301e22aa137bd566",
+        "bytes": 1108471
+      }
+    },
+    {
+      "record": "validation.json",
+      "path": "notes/chapter05_martingales.html",
+      "previous": {
+        "sha256": "b50c459d9ac8a56202faad0f3f84c8581767521aa22244cf5dbc6ef1ce47a159",
+        "bytes": 536445
+      },
+      "current": {
+        "sha256": "a068795ad5ee0f0764c155d1feeb88b8bc5f79c81d2c685ccdf98f14144608a3",
+        "bytes": 536381
+      }
+    },
+    {
+      "record": "validation.json",
+      "path": "notes/chapter06_mathematical_finance.html",
+      "previous": {
+        "sha256": "660db4514bd5170d0993c8aac77406b09c2ada74ef98e61d4777d8fe3201c4d1",
+        "bytes": 1343622
+      },
+      "current": {
+        "sha256": "349ff557ce8bf9da5e4032081d65a010485abf35721bc7aab85f737ae187b2c3",
+        "bytes": 1343558
+      }
+    },
+    {
+      "record": "validation.json",
+      "path": "notes/code_deployment_review.json",
+      "previous": {
+        "sha256": "6f291ff212fd68eb5818ba9d7eba183c19d169ee1a9deb6288827563f1594006",
+        "bytes": 233842
+      },
+      "current": {
+        "sha256": "249cc062f8787566a242634f998c141c3806be747d103250e572b6b7a4cbf0cf",
+        "bytes": 233842
+      }
+    },
+    {
+      "record": "validation.json",
+      "path": "notes/preface.html",
+      "previous": {
+        "sha256": "490839844686587c47492d2c0baa059b8bf66fe91a1bb0a815bd255bff88bdf7",
+        "bytes": 52350
+      },
+      "current": {
+        "sha256": "2f5d20722ef386cc209f3fe185bbb0b4c2a36ac74f41bd618b4a73bd749dd049",
+        "bytes": 52385
+      }
+    },
+    {
+      "record": "validation.json",
+      "path": "notes/readability_review.json",
+      "previous": {
+        "sha256": "d15077b89b5d206937a51a9b6b1e791afb77e2dfe689c27e324c958edb9db1d3",
+        "bytes": 296174
+      },
+      "current": {
+        "sha256": "5e76eb8dfa061066109c555294c2e139f9bee53569b00143ab7214fbf26ee97e",
+        "bytes": 296174
+      }
+    },
+    {
+      "record": "validation.json",
+      "path": "notes/review_manifest.json",
+      "previous": {
+        "sha256": "3f02481650ec678d2e023403ebb40df2e79a0ade4321574494e554b6e1885b42",
+        "bytes": 481498
+      },
+      "current": {
+        "sha256": "da39f032844dc3e082866b49e913c6a8330598747400f3d3b7e20278822d7c99",
+        "bytes": 481498
+      }
+    },
+    {
+      "record": "validation.json",
+      "path": "notes/statements_review.json",
+      "previous": {
+        "sha256": "7194367090ce94592bcf0991003018866582e4e4f574eb825f6193ff33646ec7",
+        "bytes": 624618
+      },
+      "current": {
+        "sha256": "a2a715eab2cad582ee6d16929f695aed33dcd7496c666539b939c5824a5d7e79",
+        "bytes": 624618
+      }
+    },
+    {
+      "record": "validation.json",
+      "path": "notes/audit_fix_review.json",
+      "previous": {
+        "sha256": "f9483d900b38eaa369385700e7a00004d60b48f77acec3ff7706138eab7e4cb1",
+        "bytes": 266324
+      },
+      "current": {
+        "sha256": "ae314361a7a185e038d6e0b599b0cb3fd36b6b28ad0e753cb88833ce52b9ae3e",
+        "bytes": 266324
+      }
+    },
+    {
+      "record": "validation.json",
+      "path": "notes/chapter01_explanation_review.json",
+      "previous": {
+        "sha256": "68db047fc1e9db39ec5451333692acd2d22d3b27c69b4c47fd701b0a7f0d9709",
+        "bytes": 190381
+      },
+      "current": {
+        "sha256": "70b447555139dae64f203295f2119c1da524fa06f932f8af7a49d017cb512922",
+        "bytes": 190381
+      }
+    }
+  ],
+  "current_representation_bindings": [
+    {
+      "file": "book_overview.html",
+      "width": 1800,
+      "previous": "dae3f1e713eeaa542922b7929dbe772b0e43c720177a9a37c13ea9bdca0fd658",
+      "current": "6698f867c0954d867ed44188587064419baf1039415d8562b21c08535b2f01e5"
+    },
+    {
+      "file": "preface.html",
+      "width": 1800,
+      "previous": "490839844686587c47492d2c0baa059b8bf66fe91a1bb0a815bd255bff88bdf7",
+      "current": "2f5d20722ef386cc209f3fe185bbb0b4c2a36ac74f41bd618b4a73bd749dd049"
+    },
+    {
+      "file": "book_overview.html",
+      "width": 1440,
+      "previous": "dae3f1e713eeaa542922b7929dbe772b0e43c720177a9a37c13ea9bdca0fd658",
+      "current": "6698f867c0954d867ed44188587064419baf1039415d8562b21c08535b2f01e5"
+    },
+    {
+      "file": "preface.html",
+      "width": 1440,
+      "previous": "490839844686587c47492d2c0baa059b8bf66fe91a1bb0a815bd255bff88bdf7",
+      "current": "2f5d20722ef386cc209f3fe185bbb0b4c2a36ac74f41bd618b4a73bd749dd049"
+    },
+    {
+      "file": "book_overview.html",
+      "width": 1024,
+      "previous": "dae3f1e713eeaa542922b7929dbe772b0e43c720177a9a37c13ea9bdca0fd658",
+      "current": "6698f867c0954d867ed44188587064419baf1039415d8562b21c08535b2f01e5"
+    },
+    {
+      "file": "preface.html",
+      "width": 1024,
+      "previous": "490839844686587c47492d2c0baa059b8bf66fe91a1bb0a815bd255bff88bdf7",
+      "current": "2f5d20722ef386cc209f3fe185bbb0b4c2a36ac74f41bd618b4a73bd749dd049"
+    },
+    {
+      "file": "book_overview.html",
+      "width": 390,
+      "previous": "dae3f1e713eeaa542922b7929dbe772b0e43c720177a9a37c13ea9bdca0fd658",
+      "current": "6698f867c0954d867ed44188587064419baf1039415d8562b21c08535b2f01e5"
+    },
+    {
+      "file": "preface.html",
+      "width": 390,
+      "previous": "490839844686587c47492d2c0baa059b8bf66fe91a1bb0a815bd255bff88bdf7",
+      "current": "2f5d20722ef386cc209f3fe185bbb0b4c2a36ac74f41bd618b4a73bd749dd049"
+    },
+    {
+      "file": "chapter01_markov_chains.html",
+      "width": 1800,
+      "previous": "af56495eaa7e0b1de444e4a1273a60131d97d31e3deb6bc5fd08962923be76c4",
+      "current": "82c98df8074e217371ab725b0f855ecbe3c476ee73d2b81ab9d87b0696e0a25d"
+    },
+    {
+      "file": "chapter01_markov_chains.html",
+      "width": 1440,
+      "previous": "af56495eaa7e0b1de444e4a1273a60131d97d31e3deb6bc5fd08962923be76c4",
+      "current": "82c98df8074e217371ab725b0f855ecbe3c476ee73d2b81ab9d87b0696e0a25d"
+    },
+    {
+      "file": "chapter01_markov_chains.html",
+      "width": 1024,
+      "previous": "af56495eaa7e0b1de444e4a1273a60131d97d31e3deb6bc5fd08962923be76c4",
+      "current": "82c98df8074e217371ab725b0f855ecbe3c476ee73d2b81ab9d87b0696e0a25d"
+    },
+    {
+      "file": "chapter01_markov_chains.html",
+      "width": 390,
+      "previous": "af56495eaa7e0b1de444e4a1273a60131d97d31e3deb6bc5fd08962923be76c4",
+      "current": "82c98df8074e217371ab725b0f855ecbe3c476ee73d2b81ab9d87b0696e0a25d"
+    },
+    {
+      "file": "chapter02_poisson_processes.html",
+      "width": 1800,
+      "previous": "0bbb879f59d3159994dae0180920c0c6f44cb96f6ec898e4bdd7a582edbda755",
+      "current": "eed6f8341273cea8e1c02ccf36313241d99d0d07f0e2b56be682bd537494b2f2"
+    },
+    {
+      "file": "chapter02_poisson_processes.html",
+      "width": 1440,
+      "previous": "0bbb879f59d3159994dae0180920c0c6f44cb96f6ec898e4bdd7a582edbda755",
+      "current": "eed6f8341273cea8e1c02ccf36313241d99d0d07f0e2b56be682bd537494b2f2"
+    },
+    {
+      "file": "chapter02_poisson_processes.html",
+      "width": 1024,
+      "previous": "0bbb879f59d3159994dae0180920c0c6f44cb96f6ec898e4bdd7a582edbda755",
+      "current": "eed6f8341273cea8e1c02ccf36313241d99d0d07f0e2b56be682bd537494b2f2"
+    },
+    {
+      "file": "chapter02_poisson_processes.html",
+      "width": 390,
+      "previous": "0bbb879f59d3159994dae0180920c0c6f44cb96f6ec898e4bdd7a582edbda755",
+      "current": "eed6f8341273cea8e1c02ccf36313241d99d0d07f0e2b56be682bd537494b2f2"
+    },
+    {
+      "file": "chapter03_renewal_processes.html",
+      "width": 1800,
+      "previous": "0781d2155e4d4ad10e175d0543374127f876cc9e4435e051ba999b151c9aa53e",
+      "current": "e5ac2b3540e982f8e7110e90f79f9e46083cfee32cfb7570f37a50cb270c37e9"
+    },
+    {
+      "file": "chapter03_renewal_processes.html",
+      "width": 1440,
+      "previous": "0781d2155e4d4ad10e175d0543374127f876cc9e4435e051ba999b151c9aa53e",
+      "current": "e5ac2b3540e982f8e7110e90f79f9e46083cfee32cfb7570f37a50cb270c37e9"
+    },
+    {
+      "file": "chapter03_renewal_processes.html",
+      "width": 1024,
+      "previous": "0781d2155e4d4ad10e175d0543374127f876cc9e4435e051ba999b151c9aa53e",
+      "current": "e5ac2b3540e982f8e7110e90f79f9e46083cfee32cfb7570f37a50cb270c37e9"
+    },
+    {
+      "file": "chapter03_renewal_processes.html",
+      "width": 390,
+      "previous": "0781d2155e4d4ad10e175d0543374127f876cc9e4435e051ba999b151c9aa53e",
+      "current": "e5ac2b3540e982f8e7110e90f79f9e46083cfee32cfb7570f37a50cb270c37e9"
+    },
+    {
+      "file": "chapter04_continuous_time_markov_chains.html",
+      "width": 1800,
+      "previous": "7434e4b58134e90b8880844b53f23636a980263731543dbe7106396f236cfcb4",
+      "current": "3a9df2526ade0c7d36aa3baa5e974d0eed83fdc7e736d498301e22aa137bd566"
+    },
+    {
+      "file": "chapter04_continuous_time_markov_chains.html",
+      "width": 1440,
+      "previous": "7434e4b58134e90b8880844b53f23636a980263731543dbe7106396f236cfcb4",
+      "current": "3a9df2526ade0c7d36aa3baa5e974d0eed83fdc7e736d498301e22aa137bd566"
+    },
+    {
+      "file": "chapter04_continuous_time_markov_chains.html",
+      "width": 1024,
+      "previous": "7434e4b58134e90b8880844b53f23636a980263731543dbe7106396f236cfcb4",
+      "current": "3a9df2526ade0c7d36aa3baa5e974d0eed83fdc7e736d498301e22aa137bd566"
+    },
+    {
+      "file": "chapter04_continuous_time_markov_chains.html",
+      "width": 390,
+      "previous": "7434e4b58134e90b8880844b53f23636a980263731543dbe7106396f236cfcb4",
+      "current": "3a9df2526ade0c7d36aa3baa5e974d0eed83fdc7e736d498301e22aa137bd566"
+    },
+    {
+      "file": "chapter05_martingales.html",
+      "width": 1800,
+      "previous": "b50c459d9ac8a56202faad0f3f84c8581767521aa22244cf5dbc6ef1ce47a159",
+      "current": "a068795ad5ee0f0764c155d1feeb88b8bc5f79c81d2c685ccdf98f14144608a3"
+    },
+    {
+      "file": "chapter05_martingales.html",
+      "width": 1440,
+      "previous": "b50c459d9ac8a56202faad0f3f84c8581767521aa22244cf5dbc6ef1ce47a159",
+      "current": "a068795ad5ee0f0764c155d1feeb88b8bc5f79c81d2c685ccdf98f14144608a3"
+    },
+    {
+      "file": "chapter05_martingales.html",
+      "width": 1024,
+      "previous": "b50c459d9ac8a56202faad0f3f84c8581767521aa22244cf5dbc6ef1ce47a159",
+      "current": "a068795ad5ee0f0764c155d1feeb88b8bc5f79c81d2c685ccdf98f14144608a3"
+    },
+    {
+      "file": "chapter05_martingales.html",
+      "width": 390,
+      "previous": "b50c459d9ac8a56202faad0f3f84c8581767521aa22244cf5dbc6ef1ce47a159",
+      "current": "a068795ad5ee0f0764c155d1feeb88b8bc5f79c81d2c685ccdf98f14144608a3"
+    },
+    {
+      "file": "chapter06_mathematical_finance.html",
+      "width": 1800,
+      "previous": "660db4514bd5170d0993c8aac77406b09c2ada74ef98e61d4777d8fe3201c4d1",
+      "current": "349ff557ce8bf9da5e4032081d65a010485abf35721bc7aab85f737ae187b2c3"
+    },
+    {
+      "file": "chapter06_mathematical_finance.html",
+      "width": 1440,
+      "previous": "660db4514bd5170d0993c8aac77406b09c2ada74ef98e61d4777d8fe3201c4d1",
+      "current": "349ff557ce8bf9da5e4032081d65a010485abf35721bc7aab85f737ae187b2c3"
+    },
+    {
+      "file": "chapter06_mathematical_finance.html",
+      "width": 1024,
+      "previous": "660db4514bd5170d0993c8aac77406b09c2ada74ef98e61d4777d8fe3201c4d1",
+      "current": "349ff557ce8bf9da5e4032081d65a010485abf35721bc7aab85f737ae187b2c3"
+    },
+    {
+      "file": "chapter06_mathematical_finance.html",
+      "width": 390,
+      "previous": "660db4514bd5170d0993c8aac77406b09c2ada74ef98e61d4777d8fe3201c4d1",
+      "current": "349ff557ce8bf9da5e4032081d65a010485abf35721bc7aab85f737ae187b2c3"
+    },
+    {
+      "file": "appendix_a_probability_review.html",
+      "width": 1800,
+      "previous": "4c9c6b85da94cd9175c1d2431e548d7c7c75ea486e3b61962e05f0f705d32c21",
+      "current": "676bc003948c41ffeb0c693829e25d037a15b9fecdd52431a9b800f3041286c6"
+    },
+    {
+      "file": "appendix_a_probability_review.html",
+      "width": 1440,
+      "previous": "4c9c6b85da94cd9175c1d2431e548d7c7c75ea486e3b61962e05f0f705d32c21",
+      "current": "676bc003948c41ffeb0c693829e25d037a15b9fecdd52431a9b800f3041286c6"
+    },
+    {
+      "file": "appendix_a_probability_review.html",
+      "width": 1024,
+      "previous": "4c9c6b85da94cd9175c1d2431e548d7c7c75ea486e3b61962e05f0f705d32c21",
+      "current": "676bc003948c41ffeb0c693829e25d037a15b9fecdd52431a9b800f3041286c6"
+    },
+    {
+      "file": "appendix_a_probability_review.html",
+      "width": 390,
+      "previous": "4c9c6b85da94cd9175c1d2431e548d7c7c75ea486e3b61962e05f0f705d32c21",
+      "current": "676bc003948c41ffeb0c693829e25d037a15b9fecdd52431a9b800f3041286c6"
+    }
+  ],
+  "preserved": "各 JSON 中 files 之外的既有哈希、prior_* 历史字段、浏览器截图的 sha256/日期、审阅结论与历史批次范围均未改写。"
+}

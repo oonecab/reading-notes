@@ -1,0 +1,418 @@
+{
+  "schema_version": 1,
+  "standard": "RN-002",
+  "shell": {
+    "sidebar_label": "目录",
+    "required_body_class": "rn-components",
+    "nav_labels": {
+      "overview": "全书地图",
+      "preface": "序言",
+      "top": "返回页首 ↑"
+    },
+    "sidebar": {
+      "summary": "目录",
+      "home": "全书地图",
+      "preface": "序言"
+    },
+    "portal_home": "笔记首页"
+  },
+  "language": {
+    "exercise_original": "prohibited",
+    "excerpt": {
+      "max_chars": 400,
+      "max_sentences": 2,
+      "requires_reason": true
+    }
+  },
+  "books": {
+    "stochastic": {
+      "pages": [
+        {
+          "file": "book_overview.html",
+          "kind": "overview",
+          "label": "全书地图"
+        },
+        {
+          "file": "preface.html",
+          "kind": "preface",
+          "label": "序言"
+        },
+        {
+          "file": "chapter01_markov_chains.html",
+          "kind": "chapter",
+          "label": "第 1 章 · 马尔可夫链",
+          "number": 1
+        },
+        {
+          "file": "chapter02_poisson_processes.html",
+          "kind": "chapter",
+          "label": "第 2 章 · 泊松过程",
+          "number": 2
+        },
+        {
+          "file": "chapter03_renewal_processes.html",
+          "kind": "chapter",
+          "label": "第 3 章 · 更新过程",
+          "number": 3
+        },
+        {
+          "file": "chapter04_continuous_time_markov_chains.html",
+          "kind": "chapter",
+          "label": "第 4 章 · 连续时间马尔可夫链",
+          "number": 4
+        },
+        {
+          "file": "chapter05_martingales.html",
+          "kind": "chapter",
+          "label": "第 5 章 · 鞅",
+          "number": 5
+        },
+        {
+          "file": "chapter06_mathematical_finance.html",
+          "kind": "chapter",
+          "label": "第 6 章 · 数学金融",
+          "number": 6
+        },
+        {
+          "file": "appendix_a_probability_review.html",
+          "kind": "appendix",
+          "label": "附录 A · 概率论复习"
+        }
+      ],
+      "exceptions": []
+    },
+    "weiss": {
+      "pages": [
+        {
+          "file": "book_overview.html",
+          "kind": "overview",
+          "label": "全书地图"
+        },
+        {
+          "file": "chapter01_introduction.html",
+          "kind": "chapter",
+          "label": "第 1 章 · 引论",
+          "number": 1
+        },
+        {
+          "file": "chapter02_algorithm_analysis.html",
+          "kind": "chapter",
+          "label": "第 2 章 · 算法分析",
+          "number": 2
+        },
+        {
+          "file": "chapter03_lists_stacks_queues.html",
+          "kind": "chapter",
+          "label": "第 3 章 · 表、栈和队列",
+          "number": 3
+        },
+        {
+          "file": "chapter04_trees.html",
+          "kind": "chapter",
+          "label": "第 4 章 · 树",
+          "number": 4
+        },
+        {
+          "file": "chapter05_priority_queues.html",
+          "kind": "chapter",
+          "label": "第 5 章 · 优先队列（堆）",
+          "number": 5
+        },
+        {
+          "file": "chapter06_sorting.html",
+          "kind": "chapter",
+          "label": "第 6 章 · 排序",
+          "number": 6
+        },
+        {
+          "file": "chapter07_hashing.html",
+          "kind": "chapter",
+          "label": "第 7 章 · 散列",
+          "number": 7
+        },
+        {
+          "file": "chapter08_disjoint_sets.html",
+          "kind": "chapter",
+          "label": "第 8 章 · 不相交集（并查集）",
+          "number": 8
+        },
+        {
+          "file": "chapter09_graph_algorithms.html",
+          "kind": "chapter",
+          "label": "第 9 章 · 图算法",
+          "number": 9
+        },
+        {
+          "file": "chapter10_algorithm_design.html",
+          "kind": "chapter",
+          "label": "第 10 章 · 算法设计技巧",
+          "number": 10
+        },
+        {
+          "file": "chapter11_amortized_analysis.html",
+          "kind": "chapter",
+          "label": "第 11 章 · 摊还分析",
+          "number": 11
+        },
+        {
+          "file": "chapter12_advanced_data_structures.html",
+          "kind": "chapter",
+          "label": "第 12 章 · 高级数据结构与实现",
+          "number": 12
+        }
+      ],
+      "exceptions": []
+    },
+    "csapp": {
+      "pages": [
+        {
+          "file": "book_overview.html",
+          "kind": "overview",
+          "label": "全书地图"
+        },
+        {
+          "file": "preface.html",
+          "kind": "preface",
+          "label": "序言"
+        },
+        {
+          "file": "chapter01_tour.html",
+          "kind": "chapter",
+          "label": "第 1 章 · 计算机系统漫游",
+          "number": 1
+        },
+        {
+          "file": "chapter02_information.html",
+          "kind": "chapter",
+          "label": "第 2 章 · 信息的表示和处理",
+          "number": 2
+        },
+        {
+          "file": "chapter03_machine_level.html",
+          "kind": "chapter",
+          "label": "第 3 章 · 程序的机器级表示",
+          "number": 3
+        },
+        {
+          "file": "chapter04_architecture.html",
+          "kind": "chapter",
+          "label": "第 4 章 · 处理器体系结构",
+          "number": 4
+        },
+        {
+          "file": "chapter05_optimization.html",
+          "kind": "chapter",
+          "label": "第 5 章 · 优化程序性能",
+          "number": 5
+        },
+        {
+          "file": "chapter06_memory.html",
+          "kind": "chapter",
+          "label": "第 6 章 · 存储器层次结构",
+          "number": 6
+        },
+        {
+          "file": "chapter07_linking.html",
+          "kind": "chapter",
+          "label": "第 7 章 · 链接",
+          "number": 7
+        },
+        {
+          "file": "chapter08_exceptional.html",
+          "kind": "chapter",
+          "label": "第 8 章 · 异常控制流",
+          "number": 8
+        },
+        {
+          "file": "chapter09_virtual_memory.html",
+          "kind": "chapter",
+          "label": "第 9 章 · 虚拟内存",
+          "number": 9
+        },
+        {
+          "file": "chapter10_system_io.html",
+          "kind": "chapter",
+          "label": "第 10 章 · 系统级 I/O",
+          "number": 10
+        },
+        {
+          "file": "chapter11_network.html",
+          "kind": "chapter",
+          "label": "第 11 章 · 网络编程",
+          "number": 11
+        },
+        {
+          "file": "chapter12_concurrency.html",
+          "kind": "chapter",
+          "label": "第 12 章 · 并发编程",
+          "number": 12
+        }
+      ],
+      "exceptions": []
+    },
+    "visual-group-theory": {
+      "pages": [
+        {
+          "file": "book_overview.html",
+          "kind": "overview",
+          "label": "全书地图"
+        },
+        {
+          "file": "preface.html",
+          "kind": "preface",
+          "label": "序言"
+        },
+        {
+          "file": "chapter01_what_is_a_group.html",
+          "kind": "chapter",
+          "label": "第 1 章 · 什么是群",
+          "number": 1
+        },
+        {
+          "file": "chapter02_what_do_groups_look_like.html",
+          "kind": "chapter",
+          "label": "第 2 章 · 群是什么样子",
+          "number": 2
+        },
+        {
+          "file": "chapter03_why_study_groups.html",
+          "kind": "chapter",
+          "label": "第 3 章 · 为什么研究群",
+          "number": 3
+        },
+        {
+          "file": "chapter04_algebra_at_last.html",
+          "kind": "chapter",
+          "label": "第 4 章 · 终于进入代数",
+          "number": 4
+        },
+        {
+          "file": "chapter05_five_families.html",
+          "kind": "chapter",
+          "label": "第 5 章 · 五类群",
+          "number": 5
+        },
+        {
+          "file": "chapter06_subgroups.html",
+          "kind": "chapter",
+          "label": "第 6 章 · 子群与陪集",
+          "number": 6
+        },
+        {
+          "file": "chapter07_products_and_quotients.html",
+          "kind": "chapter",
+          "label": "第 7 章 · 积与商",
+          "number": 7
+        },
+        {
+          "file": "chapter08_homomorphisms.html",
+          "kind": "chapter",
+          "label": "第 8 章 · 同态的力量",
+          "number": 8
+        },
+        {
+          "file": "chapter09_sylow_theory.html",
+          "kind": "chapter",
+          "label": "第 9 章 · Sylow 理论",
+          "number": 9
+        },
+        {
+          "file": "chapter10_galois_theory.html",
+          "kind": "chapter",
+          "label": "第 10 章 · Galois 理论",
+          "number": 10
+        }
+      ],
+      "exceptions": []
+    },
+    "measure-probability": {
+      "pages": [
+        {
+          "file": "book_overview.html",
+          "kind": "overview",
+          "label": "全书地图"
+        },
+        {
+          "file": "preface.html",
+          "kind": "preface",
+          "label": "序言"
+        },
+        {
+          "file": "chapter01_measurable_spaces.html",
+          "kind": "chapter",
+          "label": "第 1 章 · 可测空间和可测映射",
+          "number": 1
+        },
+        {
+          "file": "chapter02_measure_spaces.html",
+          "kind": "chapter",
+          "label": "第 2 章 · 测度空间",
+          "number": 2
+        },
+        {
+          "file": "chapter03_integration.html",
+          "kind": "chapter",
+          "label": "第 3 章 · 积分",
+          "number": 3
+        },
+        {
+          "file": "chapter04_signed_measures.html",
+          "kind": "chapter",
+          "label": "第 4 章 · 符号测度",
+          "number": 4
+        },
+        {
+          "file": "chapter05_product_spaces.html",
+          "kind": "chapter",
+          "label": "第 5 章 · 乘积空间",
+          "number": 5
+        },
+        {
+          "file": "chapter06_independent_sequences.html",
+          "kind": "chapter",
+          "label": "第 6 章 · 独立随机变量序列",
+          "number": 6
+        }
+      ],
+      "exceptions": []
+    },
+    "eopl": {
+      "pages": [
+        {
+          "file": "book_overview.html",
+          "kind": "overview",
+          "label": "全书地图"
+        },
+        {
+          "file": "preface.html",
+          "kind": "preface",
+          "label": "序言"
+        },
+        {
+          "file": "chapter01_inductive_data.html",
+          "kind": "chapter",
+          "label": "第 1 章 · 归纳数据与递归程序",
+          "number": 1
+        },
+        {
+          "file": "chapter02_data_abstraction.html",
+          "kind": "chapter",
+          "label": "第 2 章 · 数据抽象与抽象语法",
+          "number": 2
+        }
+      ],
+      "exceptions": [
+        {
+          "page": "chapter01_inductive_data.html",
+          "rule": "exercise-index-single-question-section",
+          "section": "s1-3",
+          "exercise": "ex-1-14",
+          "reason": "本节仅有习题 1.14，题目摘要直接可见，侧栏目录直达 §1.3；单独题号折叠索引会重复同一入口。",
+          "scope": "仅免除此节唯一习题的额外题号索引；其余题号索引覆盖要求保持。",
+          "review_by": "下一次 §1.3 内容修订；新增第二题前必须恢复题号索引并移除此例外。",
+          "issue": "I055"
+        }
+      ]
+    }
+  }
+}
