@@ -1,0 +1,388 @@
+{
+  "source_sha256": "b9e8770a4dc97206bd02230e6b21a878382eb02a340ff69321857d701e7d967c",
+  "items": [
+    {
+      "number": "4.1",
+      "printed_page": 106,
+      "pdf_page": 129,
+      "pdf_end": 129,
+      "stars": 1,
+      "question_text": "What would have happened had the program been instead\n\n             let g = proc (dummy)\n                      let counter = newref(0)\n                      in begin\n                          setref(counter, -(deref(counter), -1));\n                          deref(counter)\n                         end\n             in let a = (g 11)\n                in let b = (g 11)\n                   in -(a,b)",
+      "chinese_html": "<p>如果把前面的私有计数器程序改成下面这样，会发生什么？</p><pre><code class=\"language-scheme\">let g = proc (dummy)\n         let counter = newref(0)\n         in begin\n             setref(counter, -(deref(counter), -1));\n             deref(counter)\n            end\nin let a = (g 11)\n   in let b = (g 11)\n      in -(a,b)</code></pre>"
+    },
+    {
+      "number": "4.2",
+      "printed_page": 108,
+      "pdf_page": 131,
+      "pdf_end": 131,
+      "stars": 1,
+      "question_text": "Write down the specification for a zero?-exp.",
+      "chinese_html": "<p>写出 <code>zero?-exp</code> 的存储传递语义规格。</p>"
+    },
+    {
+      "number": "4.3",
+      "printed_page": 108,
+      "pdf_page": 131,
+      "pdf_end": 131,
+      "stars": 1,
+      "question_text": "Write down the specification for a call-exp.",
+      "chinese_html": "<p>写出 <code>call-exp</code> 的存储传递语义规格。</p>"
+    },
+    {
+      "number": "4.4",
+      "printed_page": 108,
+      "pdf_page": 131,
+      "pdf_end": 131,
+      "stars": 2,
+      "question_text": "Write down the specification for a begin expresssion.\n\n                            Expression ::= begin Expression {; Expression}∗ end\n\n              A begin expression may contain one or more subexpressions separated by semicolons. These are evaluated in order and the value of the last is returned.",
+      "chinese_html": "<p>写出 begin 表达式的语义规格。其文法为 <code>Expression ::= begin Expression {; Expression}* end</code>。一个 begin 含一个或多个用分号分隔的子表达式；按顺序求值，返回最后一个的值。</p>"
+    },
+    {
+      "number": "4.5",
+      "printed_page": 108,
+      "pdf_page": 131,
+      "pdf_end": 131,
+      "stars": 2,
+      "question_text": "Write down the specification for list (exercise 3.10).",
+      "chinese_html": "<p>为<a href=\"chapter03_expressions.html#ex-3-10\">习题 3.10</a> 的 <code>list</code> 写存储传递规格。该构造接收任意个表达式，依次求值，并返回由这些值构成的列表；零个实参时得到空表。</p>"
+    },
+    {
+      "number": "4.6",
+      "printed_page": 109,
+      "pdf_page": 132,
+      "pdf_end": 132,
+      "stars": 1,
+      "question_text": "Modify the rule given above so that a setref-exp returns the value\n        of the right-hand side.",
+      "chinese_html": "<p>修改本节给出的规则，使 <code>setref-exp</code> 返回右侧表达式的值。</p>"
+    },
+    {
+      "number": "4.7",
+      "printed_page": 109,
+      "pdf_page": 132,
+      "pdf_end": 132,
+      "stars": 1,
+      "question_text": "Modify the rule given above so that a setref-exp returns the old\n        contents of the location.",
+      "chinese_html": "<p>修改本节给出的规则，使 <code>setref-exp</code> 返回目标位置原先的内容。</p>"
+    },
+    {
+      "number": "4.8",
+      "printed_page": 112,
+      "pdf_page": 135,
+      "pdf_end": 135,
+      "stars": 1,
+      "question_text": "Show exactly where in our implementation of the store these operations take linear time rather than constant time.",
+      "chinese_html": "<p>准确指出本书存储实现中的哪些位置使这些操作需要线性时间，而不是常数时间。所指代码为<a href=\"../assets/source.pdf#page=134\">图 4.1（p.111 / PDF 134）</a>及<a href=\"../assets/source.pdf#page=135\">图 4.2（p.112 / PDF 135）</a>。</p>"
+    },
+    {
+      "number": "4.9",
+      "printed_page": 112,
+      "pdf_page": 135,
+      "pdf_end": 135,
+      "stars": 1,
+      "question_text": "Implement the store in constant time by representing it as a Scheme\n      vector. What is lost by using this representation?",
+      "chinese_html": "<p>用 Scheme 向量表示存储，把存储操作实现为常数时间。使用这种表示会失去什么？</p>"
+    },
+    {
+      "number": "4.10",
+      "printed_page": 112,
+      "pdf_page": 135,
+      "pdf_end": 135,
+      "stars": 1,
+      "question_text": "Implement the begin expression as specified in exercise 4.4.",
+      "chinese_html": "<p>实现<a href=\"#ex-4-4\">习题 4.4</a> 所规定的 begin 表达式。</p>"
+    },
+    {
+      "number": "4.11",
+      "printed_page": 112,
+      "pdf_page": 135,
+      "pdf_end": 135,
+      "stars": 1,
+      "question_text": "Implement list from exercise 4.5.",
+      "chinese_html": "<p>请实现<a href=\"#ex-4-5\">习题 4.5</a> 规定的 <code>list</code> 列表构造操作，按其存储传递规格求出各元素并返回列表。</p>"
+    },
+    {
+      "number": "4.12",
+      "printed_page": 112,
+      "pdf_page": 135,
+      "pdf_end": 135,
+      "stars": 3,
+      "question_text": "Our understanding of the store, as expressed in this interpreter,\n      depends on the meaning of effects in Scheme. In particular, it depends on us knowing\n      when these effects take place in a Scheme program. We can avoid this dependency by\n      writing an interpreter that more closely mimics the specification. In this interpreter,\n      value-of would return both a value and a store, just as in the specification. A fragment of this interpreter appears in figure 4.6. We call this a store-passing interpreter.\n      Extend this interpreter to cover all of the language EXPLICIT-REFS.\n      Every procedure that might modify the store returns not just its usual value but also a\n      new store. These are packaged in a data type called answer. Complete this definition\n      of value-of.",
+      "chinese_html": "<p>本解释器对存储的理解依赖 Scheme 副作用的含义，特别是这些效果在 Scheme 程序中何时发生。可以写一个更贴近规格的解释器来避免这种依赖：让 <code>value-of</code> 像规格那样同时返回值和存储。图 4.6 给出这种“存储传递解释器”的片段。请把它扩充为覆盖整个 EXPLICIT-REFS 的解释器。任何可能修改存储的过程，都不仅返回通常的值，还返回新存储，两者用名为 answer 的数据类型打包。完成以下 <code>value-of</code> 定义。</p><p>下面保留原书<a href=\"../assets/source.pdf#page=139\">图 4.6（p.116 / PDF 139）</a>的接口与片段，含原有括号；解答另行解释需要修正的地方。</p><pre><code class=\"language-scheme\">(define-datatype answer answer?\n  (an-answer\n    (val expval?)\n    (store store?)))\n\nvalue-of : Exp × Env × Sto → ExpVal\n(define value-of\n  (lambda (exp env store)\n    (cases expression exp\n      (const-exp (num)\n        (an-answer (num-val num) store))\n      (var-exp (var)\n        (an-answer\n          (apply-store store (apply-env env var))\n          store))\n      (if-exp (exp1 exp2 exp3)\n        (cases answer (value-of exp1 env store)\n          (an-answer (val new-store)\n            (if (expval-&gt;bool val)\n              (value-of exp2 env new-store)\n              (value-of exp3 env new-store)))))\n      (deref-exp (exp1)\n        (cases answer (value-of exp1 env store)\n          (an-answer (v1 new-store)\n            (let ((ref1 (expval-&gt;ref v1)))\n              (an-answer (deref ref1) new-store)))))\n      ...)))</code></pre>"
+    },
+    {
+      "number": "4.13",
+      "printed_page": 113,
+      "pdf_page": 136,
+      "pdf_end": 136,
+      "stars": 3,
+      "question_text": "Extend the interpreter of the preceding exercise to have procedures of multiple arguments.",
+      "chinese_html": "<p>把上一题的解释器扩充为支持多参数过程。</p>"
+    },
+    {
+      "number": "4.14",
+      "printed_page": 118,
+      "pdf_page": 141,
+      "pdf_end": 141,
+      "stars": 1,
+      "question_text": "Write the rule for let.",
+      "chinese_html": "<p>请为隐式引用语言 IMPLICIT-REFS 中的 let 表达式写出完整的存储传递语义规则。</p>"
+    },
+    {
+      "number": "4.15",
+      "printed_page": 121,
+      "pdf_page": 144,
+      "pdf_end": 144,
+      "stars": 1,
+      "question_text": "In figure 4.8, why are variables in the environment bound to plain\nintegers rather than expressed values, as in figure 4.5?",
+      "chinese_html": "<p>为什么<a href=\"#implicit-call-trace\">图 4.8 的环境</a>（<a href=\"../assets/source.pdf#page=143\">p.120 / PDF 143</a>）把变量绑定到普通整数，而不像<a href=\"../assets/source.pdf#page=138\">图 4.5（p.115 / PDF 138）</a>那样绑定到表达值？</p>"
+    },
+    {
+      "number": "4.16",
+      "printed_page": 121,
+      "pdf_page": 144,
+      "pdf_end": 144,
+      "stars": 1,
+      "question_text": "Now that variables are mutable, we can build recursive procedures\nby assignment. For example\n\n        letrec times4(x) = if zero?(x)\n                           then 0\n                           else -((times4 -(x,1)), -4)\n        in (times4 3)\n\ncan be replaced by\n\n        let times4 = 0\n        in begin\n            set times4 = proc (x)\n                          if zero?(x)\n                          then 0\n                          else -((times4 -(x,1)), -4);\n            (times4 3)\n           end\n\nTrace this by hand and verify that this translation works.",
+      "chinese_html": "<p>变量可变以后，可以用赋值构造递归过程。例如下面的 letrec 程序可替换成后面的程序。请手工跟踪并验证该翻译有效。</p><pre><code class=\"language-scheme\">letrec times4(x) = if zero?(x)\n                    then 0\n                    else -((times4 -(x,1)), -4)\nin (times4 3)</code></pre><pre><code class=\"language-scheme\">let times4 = 0\nin begin\n    set times4 = proc (x)\n                  if zero?(x)\n                  then 0\n                  else -((times4 -(x,1)), -4);\n    (times4 3)\n   end</code></pre>"
+    },
+    {
+      "number": "4.17",
+      "printed_page": 121,
+      "pdf_page": 144,
+      "pdf_end": 144,
+      "stars": 2,
+      "question_text": "Write the rules for and implement multiargument procedures and\nlet expressions.",
+      "chinese_html": "<p>写出多参数过程和多声明 let 表达式的规则，并实现它们。</p>"
+    },
+    {
+      "number": "4.18",
+      "printed_page": 121,
+      "pdf_page": 144,
+      "pdf_end": 144,
+      "stars": 2,
+      "question_text": "Write the rule for and implement multiprocedure letrec expressions.",
+      "chinese_html": "<p>写出多过程 letrec 表达式的规则并实现。</p>"
+    },
+    {
+      "number": "4.19",
+      "printed_page": 121,
+      "pdf_page": 144,
+      "pdf_end": 144,
+      "stars": 2,
+      "question_text": "Modify the implementation of multiprocedure letrec so that\neach closure is built only once, and only one location is allocated for it. This is like\nexercise 3.35.",
+      "chinese_html": "<p>修改多过程 letrec 的实现，使每个闭包只创建一次、也只为它分配一个位置。这与<a href=\"chapter03_expressions.html#ex-3-35\">习题 3.35</a> 相似。</p>"
+    },
+    {
+      "number": "4.20",
+      "printed_page": 121,
+      "pdf_page": 144,
+      "pdf_end": 144,
+      "stars": 2,
+      "question_text": "In the language of this section, all variables are mutable, as they\nare in Scheme. Another alternative is to allow both mutable and immutable variable\nbindings:\n                          ExpVal = Int + Bool + Proc\n                          DenVal = Ref(ExpVal) + ExpVal\nVariable assignment should work only when the variable to be assigned to has a\nmutable binding. Dereferencing occurs implicitly when the denoted value is a reference.\nModify the language of this section so that let introduces immutable variables, as\nbefore, but mutable variables are introduced by a letmutable expression, with syntax given by\n\n        Expression ::= letmutable Identifier = Expression in Expression",
+      "chinese_html": "<p>本节语言像 Scheme 一样，所有变量都可变。另一选择是同时允许可变与不可变绑定：<code>ExpVal = Int + Bool + Proc</code>，<code>DenVal = Ref(ExpVal) + ExpVal</code>。变量赋值只能用于可变绑定；当指称值是引用时，读取变量隐式解引用。修改语言，让 let 像以前一样引入不可变变量，而可变变量由以下文法引入：<code>Expression ::= letmutable Identifier = Expression in Expression</code>。</p>"
+    },
+    {
+      "number": "4.21",
+      "printed_page": 122,
+      "pdf_page": 145,
+      "pdf_end": 145,
+      "stars": 2,
+      "question_text": "We suggested earlier the use of assignment to make a program\n      more modular by allowing one procedure to communicate information to a distant\n      procedure without requiring intermediate procedures to be aware of it. Very often\n      such an assignment should only be temporary, lasting for the execution of a procedure call. Add to the language a facility for dynamic assignment (also called fluid\n      binding) to accomplish this. Use the production\n\n           Expression ::= setdynamic Identifier = Expression during Expression\n                          setdynamic-exp (var exp1 body)\n\n      The effect of the setdynamic expression is to assign temporarily the value of exp1 to\n      var, evaluate body, reassign var to its original value, and return the value of body. The\n      variable var must already be bound. For example, in\n\n              let x = 11\n              in let p = proc (y) -(y,x)\n                 in -(setdynamic x = 17 during (p 22),\n                      (p 13))\n\n      the value of x, which is free in procedure p, is 17 in the call (p 22), but is reset to 11\n      in the call (p 13), so the value of the expression is 5 − 2 = 3.",
+      "chinese_html": "<p>此前用赋值让一个过程向远处的过程传递信息，从而不要求中间过程了解该信息。很多时候这种赋值应是临时的，只持续一个过程调用。请增加“动态赋值”（dynamic assignment，又称 fluid binding）：<code>Expression ::= setdynamic Identifier = Expression during Expression</code>，抽象语法为 <code>setdynamic-exp(var,exp1,body)</code>。它把 exp1 的值暂时赋给已有绑定的 var，求 body，再恢复 var 原值，并返回 body 的值；var 必须已经绑定。例如下面 p 中的自由变量 x 在 <code>(p 22)</code> 时为 17，之后恢复为 11，整个式子应为 <code>5-2=3</code>。</p><pre><code class=\"language-scheme\">let x = 11\nin let p = proc (y) -(y,x)\n   in -(setdynamic x = 17 during (p 22),\n        (p 13))</code></pre>"
+    },
+    {
+      "number": "4.22",
+      "printed_page": 122,
+      "pdf_page": 145,
+      "pdf_end": 146,
+      "stars": 2,
+      "question_text": "So far our languages have been expression-oriented: the primary\n      syntactic category of interest has been expressions and we have primarily been interested in their values. Extend the language to model the simple statement-oriented\n      language whose specification is sketched below. Be sure to Follow the Grammar by\n      writing separate procedures to handle programs, statements, and expressions.\n\n      Values As in IMPLICIT-REFS.\n      Syntax Use the following syntax:\n\n                          Program ::= Statement\n                          Statement ::= Identifier = Expression\n                                    ::= print Expression\n                                    ::= {{Statement}∗(;) }\n                                    ::= if Expression Statement Statement\n                                    ::= while Expression Statement\n                                    ::= var {Identifier}∗(,) ; Statement\n\n         The nonterminal Expression refers to the language of expressions of IMPLICIT-\n         REFS, perhaps with some extensions.\n      Semantics A program is a statement. A statement does not return a value, but acts\n        by modifying the store and by printing.\n        Assignment statements work in the usual way. A print statement evaluates its\n        actual parameter and prints the result. The if statement works in the usual way.\n        A block statement, defined in the last production for Statement, binds each of the\n\n\n\n   declared variables to an uninitialized reference and then executes the body of the\n   block. The scope of these bindings is the body.\n   Write the specification for statements using assertions like\n\n                            (result-of stmt ρ σ0 ) = σ1\n\nExamples Here are some examples.\n\n      (run \"var x,y; {x = 3; y = 4; print +(x,y)}\") % Example 1\n      7\n      (run \"var x,y,z; {x = 3;                      % Example 2\n                        y = 4;\n                        z = 0;\n                        while not(zero?(x))\n                          {z = +(z,y); x = -(x,1)};\n                        print z}\")\n      12\n      (run \" var x; {x = 3;                         % Example 3\n                     print x;\n                     var x; {x = 4; print x};\n                     print x}\")\n      3\n      4\n      3\n      (run \"var f,x; {f = proc(x,y) *(x,y);         % Example 4\n                      x = 3;\n                      print (f 4 x)}\")\n      12\n\n   Example 3 illustrates the scoping of the block statement.\n\n   Example 4 illustrates the interaction between statements and expressions. A procedure value is created and stored in the variable f. In the last line, this procedure\n   is applied to the actual parameters 4 and x; since x is bound to a reference, it is\n   dereferenced to obtain 3.",
+      "chinese_html": "<p>此前语言以表达式为中心，主要关心其值。按以下规格扩充为简单的语句语言。请遵循文法，分别编写处理程序、语句和表达式的过程。</p><p>值域与 IMPLICIT-REFS 相同。语法如下；Expression 指 IMPLICIT-REFS 的表达式语言，可作适当扩充。花括号序列中的语句以分号分隔，var 后的标识符以逗号分隔。</p><pre><code class=\"language-scheme\">Program   ::= Statement\nStatement ::= Identifier = Expression\n          ::= print Expression\n          ::= { Statement* separated by ; }\n          ::= if Expression Statement Statement\n          ::= while Expression Statement\n          ::= var Identifier* separated by , ; Statement</code></pre><p>程序是语句。语句不返回值，通过修改存储与打印起作用。赋值、print 和 if 采用通常含义；print 求实参值并打印。最后一条产生式的块为所声明的每个变量绑定一个未初始化位置，再执行主体，作用域仅覆盖主体。用 <code>result-of(stmt,ρ,σ0)=σ1</code> 这样的断言给出语句规格。以下四例的预期输出分别为 7、12、三行 3/4/3、12。例 3 说明块作用域；例 4 中过程值存入 f，最后实参 x 先解引用为 3，再调用过程。</p><pre><code class=\"language-scheme\">var x,y; {x = 3; y = 4; print +(x,y)}</code></pre><pre><code class=\"language-scheme\">var x,y,z; {x = 3;\n            y = 4;\n            z = 0;\n            while not(zero?(x))\n              {z = +(z,y); x = -(x,1)};\n            print z}</code></pre><pre><code class=\"language-scheme\">var x; {x = 3;\n        print x;\n        var x; {x = 4; print x};\n        print x}</code></pre><pre><code class=\"language-scheme\">var f,x; {f = proc(x,y) *(x,y);\n          x = 3;\n          print (f 4 x)}</code></pre>"
+    },
+    {
+      "number": "4.23",
+      "printed_page": 123,
+      "pdf_page": 146,
+      "pdf_end": 146,
+      "stars": 1,
+      "question_text": "Add to the language of exercise 4.22 read statements of the form\nread var. This statement reads a nonnegative integer from the input and stores it in\nthe given variable.",
+      "chinese_html": "<p>为<a href=\"#ex-4-22\">习题 4.22</a> 的语言添加 <code>read var</code> 语句：从输入读取一个非负整数，并存入给定变量。</p>"
+    },
+    {
+      "number": "4.24",
+      "printed_page": 123,
+      "pdf_page": 146,
+      "pdf_end": 146,
+      "stars": 1,
+      "question_text": "A do-while statement is like a while statement, except that the\ntest is performed after the execution of the body. Add do-while statements to the\nlanguage of exercise 4.22.",
+      "chinese_html": "<p>do-while 与 while 类似，但在执行体之后才测试条件。把 do-while 语句加入<a href=\"#ex-4-22\">习题 4.22</a> 的语言。</p>"
+    },
+    {
+      "number": "4.25",
+      "printed_page": 123,
+      "pdf_page": 146,
+      "pdf_end": 146,
+      "stars": 1,
+      "question_text": "Extend the block statement of the language of exercise 4.22 to allow\nvariables to be initialized. In your solution, does the scope of a variable include the\ninitializer for variables declared later in the same block statement?",
+      "chinese_html": "<p>扩充<a href=\"#ex-4-22\">习题 4.22</a> 的块声明，使变量可以初始化。在你的解法中，一个变量的作用域是否包含同一块内较后声明变量的初始化表达式？</p>"
+    },
+    {
+      "number": "4.26",
+      "printed_page": 124,
+      "pdf_page": 147,
+      "pdf_end": 147,
+      "stars": 3,
+      "question_text": "Extend the solution to the preceding exercise so that procedures\n              declared in a single block are mutually recursive. Consider restricting the language so\n              that the variable declarations in a block are followed by the procedure declarations.",
+      "chinese_html": "<p>扩充上一题，使同一块中声明的过程可以互相递归。可以考虑限制语法：块中的变量声明必须排在过程声明之前。</p>"
+    },
+    {
+      "number": "4.27",
+      "printed_page": 124,
+      "pdf_page": 147,
+      "pdf_end": 147,
+      "stars": 2,
+      "question_text": "Extend the language of the preceding exercise to include subroutines. In our usage a subroutine is like a procedure, except that it does not return a\n              value and its body is a statement, rather than an expression. Also, add subroutine\n              calls as a new kind of statement and extend the syntax of blocks so that they may be\n              used to declare both procedures and subroutines. How does this affect the denoted\n              and expressed values? What happens if a procedure is referenced in a subroutine call,\n              or vice versa?",
+      "chinese_html": "<p>在上一题语言中增加子程序（subroutine）。这里子程序类似过程，但不返回值，体是语句而非表达式。增加子程序调用语句，并扩充块语法，使块能同时声明过程和子程序。这怎样影响指称值与表达值？如果在子程序调用中引用过程，或反过来，会怎样？</p>"
+    },
+    {
+      "number": "4.28",
+      "printed_page": 128,
+      "pdf_page": 151,
+      "pdf_end": 151,
+      "stars": 2,
+      "question_text": "Write down the specification rules for the five mutable-pair operations.",
+      "chinese_html": "<p>写出可变序对五种操作 <code>newpair</code>、<code>left</code>、<code>right</code>、<code>setleft</code>、<code>setright</code> 的语义规格。每个序对有两个可独立赋值的位置。</p>"
+    },
+    {
+      "number": "4.29",
+      "printed_page": 128,
+      "pdf_page": 151,
+      "pdf_end": 152,
+      "stars": 2,
+      "question_text": "Add arrays to this language. Introduce new operators newarray,\n      arrayref, and arrayset that create, dereference, and update arrays. This leads to\n\n                               ArrVal = (Ref(ExpVal))∗\n                               ExpVal = Int + Bool + Proc + ArrVal\n                               DenVal = Ref(ExpVal)\n\n      Since the locations in an array are consecutive, use a representation like the second\n      representation above. What should be the result of the following program?\n\n\n\n\n  let a = newarray(2,-99)\n            p = proc (x)\n                 let v = arrayref(x,1)\n                 in arrayset(x,1,-(v,-1))\n        in begin arrayset(a,1,0); (p a); (p a); arrayref(a,1) end\n\nHere newarray(2,-99) is intended to build an array of size 2, with each location\nin the array containing -99. begin expressions are defined in exercise 4.4. Make the\narray indices zero-based, so an array of size 2 has indices 0 and 1.",
+      "chinese_html": "<p>给语言增加数组，提供创建、读取和更新操作 <code>newarray</code>、<code>arrayref</code>、<code>arrayset</code>。值域为 <code>ArrVal = (Ref(ExpVal))*</code>，<code>ExpVal = Int + Bool + Proc + ArrVal</code>，<code>DenVal = Ref(ExpVal)</code>。数组的位置连续分配，采用类似本节第二种序对表示法的表示。下面程序应得到什么结果？<code>newarray(2,-99)</code> 创建长度 2、各元素初值为 −99 的数组。begin 如习题 4.4；下标从 0 开始，长度 2 的合法下标是 0、1。</p><pre><code class=\"language-scheme\">let a = newarray(2,-99)\n    p = proc (x)\n         let v = arrayref(x,1)\n         in arrayset(x,1,-(v,-1))\nin begin arrayset(a,1,0); (p a); (p a); arrayref(a,1) end</code></pre>"
+    },
+    {
+      "number": "4.30",
+      "printed_page": 130,
+      "pdf_page": 153,
+      "pdf_end": 153,
+      "stars": 2,
+      "question_text": "Add to the language of exercise 4.29 a procedure arraylength,\n              which returns the size of an array. Your procedure should work in constant time.\n              Make sure that arrayref and arrayset check to make sure that their indices are\n              within the length of the array.",
+      "chinese_html": "<p>在<a href=\"#ex-4-29\">习题 4.29</a> 的语言中增加 <code>arraylength</code>，要求常数时间返回数组长度，并保证 <code>arrayref</code>、<code>arrayset</code> 检查下标是否在数组长度内。</p>"
+    },
+    {
+      "number": "4.31",
+      "printed_page": 133,
+      "pdf_page": 156,
+      "pdf_end": 156,
+      "stars": 1,
+      "question_text": "Write out the specification rules for CALL-BY-REFERENCE.",
+      "chinese_html": "<p>请写出按引用传参语言 CALL-BY-REFERENCE 的语义规格，说明实参位置的形成与过程应用。</p>"
+    },
+    {
+      "number": "4.32",
+      "printed_page": 133,
+      "pdf_page": 156,
+      "pdf_end": 156,
+      "stars": 1,
+      "question_text": "Extend the language CALL-BY-REFERENCE to have procedures of\nmultiple arguments.",
+      "chinese_html": "<p>扩充 CALL-BY-REFERENCE，使过程支持多个参数。</p>"
+    },
+    {
+      "number": "4.33",
+      "printed_page": 133,
+      "pdf_page": 156,
+      "pdf_end": 156,
+      "stars": 2,
+      "question_text": "Extend the language CALL-BY-REFERENCE to support call-by-value procedures as well.",
+      "chinese_html": "<p>扩充 CALL-BY-REFERENCE，使它也支持按值传参的过程。</p>"
+    },
+    {
+      "number": "4.34",
+      "printed_page": 133,
+      "pdf_page": 156,
+      "pdf_end": 156,
+      "stars": 1,
+      "question_text": "Add a call-by-reference version of let, called letref, to the language. Write the specification and implement it.",
+      "chinese_html": "<p>加入按引用版本的 let，命名为 <code>letref</code>；给出规格并实现。</p>"
+    },
+    {
+      "number": "4.35",
+      "printed_page": 133,
+      "pdf_page": 156,
+      "pdf_end": 156,
+      "stars": 2,
+      "question_text": "We can get some of the benefits of call-by-reference without leaving the call-by-value framework. Extend the language IMPLICIT-REFS by adding a\nnew expression\n                          Expression ::= ref Identifier\n                                         ref-exp (var)\n\nThis differs from the language EXPLICIT-REFS, since references are only of variables.\nThis allows us to write familiar programs such as swap within our call-by-value language. What should be the value of this expression?\n        let a = 3\n        in let b = 4\n           in let swap = proc (x) proc (y)\n                          let temp = deref(x)\n                          in begin\n                              setref(x,deref(y));\n                              setref(y,temp)\n                             end\n              in begin ((swap ref a) ref b); -(a,b) end\nHere we have used a version of let with multiple declarations (exercise 3.16). What\nare the expressed and denoted values of this language?",
+      "chinese_html": "<p>在按值框架中也能获得按引用传参的部分好处。为 IMPLICIT-REFS 增加 <code>Expression ::= ref Identifier</code>，抽象语法为 <code>ref-exp(var)</code>。它不同于 EXPLICIT-REFS：只能取得变量的引用。这样可在按值语言中写 swap。下面表达式应得什么值？题目说明采用多声明 let（习题 3.16）。这个语言的表达值与指称值分别是什么？</p><pre><code class=\"language-scheme\">let a = 3\nin let b = 4\n   in let swap = proc (x) proc (y)\n                  let temp = deref(x)\n                  in begin\n                      setref(x,deref(y));\n                      setref(y,temp)\n                     end\n      in begin ((swap ref a) ref b); -(a,b) end</code></pre>"
+    },
+    {
+      "number": "4.36",
+      "printed_page": 135,
+      "pdf_page": 158,
+      "pdf_end": 158,
+      "stars": 1,
+      "question_text": "Most languages support arrays, in which case array references are\ngenerally treated like variable references under call-by-reference. If an operand is an\narray reference, then the location referred to, rather than its contents, is passed to the\ncalled procedure. This allows, for example, a swap procedure to be used in commonly\noccurring situations in which the values in two array elements are to be exchanged.\nAdd array operators like those of exercise 4.29 to the call-by-reference language of this\nsection, and extend value-of-operand to handle this case, so that, for example, a\nprocedure application like\n\n                 ((swap (arrayref a i)) (arrayref a j))\n\nwill work as expected. What should happen in the case of\n\n       ((swap (arrayref a (arrayref a i))) (arrayref a j)) ?",
+      "chinese_html": "<p>大多数语言支持数组，按引用传参时通常把数组元素引用当作变量引用：若实参是数组元素访问，传入的是该元素位置而非内容。这样 swap 可交换数组两项。请把类似<a href=\"#ex-4-29\">习题 4.29</a> 的数组操作加入 CALL-BY-REFERENCE，并扩充 <code>value-of-operand</code>，使下面调用按预期工作；第二种嵌套数组下标情况应如何处理？</p><pre><code class=\"language-scheme\">((swap (arrayref a i)) (arrayref a j))\n((swap (arrayref a (arrayref a i))) (arrayref a j))</code></pre>"
+    },
+    {
+      "number": "4.37",
+      "printed_page": 135,
+      "pdf_page": 158,
+      "pdf_end": 159,
+      "stars": 2,
+      "question_text": "Call-by-value-result is a variation on call-by-reference. In call-by-value-result, the actual parameter must be a variable. When a parameter is passed,\nthe formal parameter is bound to a new reference initialized to the value of the actual\n\n\n\n              parameter, just as in call-by-value. The procedure body is then executed normally.\n              When the procedure body returns, however, the value in the new reference is copied\n              back into the reference denoted by the actual parameter. This may be more efficient\n              than call-by-reference because it can improve memory locality. Implement call-by-value-result and write a program that produces different answers using call-by-valueresult and call-by-reference.",
+      "chinese_html": "<p>按值结果传参（call-by-value-result）是按引用传参的一种变体：实参必须是变量。调用时像按值传参一样，给形参绑定一个新引用，初值是实参当前的值，正常执行过程体；但在过程返回时，把该新位置中的值复制回实参变量的位置。这样可能改善内存局部性，从而比按引用更有效率。实现这种策略，并写一个在值结果与按引用下得到不同答案的程序。</p>"
+    },
+    {
+      "number": "4.38",
+      "printed_page": 138,
+      "pdf_page": 161,
+      "pdf_end": 161,
+      "stars": 1,
+      "question_text": "The example below shows a variation of exercise 3.25 that works\n      under call-by-need. Does the original program in exercise 3.25 work under call-byneed? What happens if the program below is run under call-by-value? Why?\n\n              let makerec = proc (f)\n                             let d = proc (x) (f (x x))\n                             in (f (d d))\n              in let maketimes4 = proc (f)\n                                   proc (x)\n                                     if zero?(x)\n                                     then 0\n                                     else -((f -(x,1)), -4)\n                 in let times4 = (makerec maketimes4)\n                    in (times4 3)",
+      "chinese_html": "<p>下例是<a href=\"chapter03_expressions.html#ex-3-25\">习题 3.25</a> 的一个变体，它在按需求值下可以工作。原习题 3.25 的程序在按需求值下能否工作？若把下例放在按值解释器中运行会怎样，为什么？</p><pre><code class=\"language-scheme\">let makerec = proc (f)\n               let d = proc (x) (f (x x))\n               in (f (d d))\nin let maketimes4 = proc (f)\n                     proc (x)\n                       if zero?(x)\n                       then 0\n                       else -((f -(x,1)), -4)\n   in let times4 = (makerec maketimes4)\n      in (times4 3)</code></pre>"
+    },
+    {
+      "number": "4.39",
+      "printed_page": 138,
+      "pdf_page": 161,
+      "pdf_end": 161,
+      "stars": 1,
+      "question_text": "In the absence of effects, call-by-name and call-by-need always give\n      the same answer. Construct an example in which call-by-name and call-by-need give\n      different answers.",
+      "chinese_html": "<p>没有副作用时，按名与按需总给出相同答案。构造一个有副作用的例子，使两者得到不同答案。</p>"
+    },
+    {
+      "number": "4.40",
+      "printed_page": 138,
+      "pdf_page": 161,
+      "pdf_end": 161,
+      "stars": 1,
+      "question_text": "Modify value-of-operand so that it avoids making thunks for\n      constants and procedures.",
+      "chinese_html": "<p>修改 <code>value-of-operand</code>，避免为常量和过程创建 thunk。</p>"
+    },
+    {
+      "number": "4.41",
+      "printed_page": 138,
+      "pdf_page": 161,
+      "pdf_end": 161,
+      "stars": 2,
+      "question_text": "Write out the specification rules for call-by-name and call-by-need.",
+      "chinese_html": "<p>写出按名与按需的语义规格。</p>"
+    },
+    {
+      "number": "4.42",
+      "printed_page": 138,
+      "pdf_page": 161,
+      "pdf_end": 161,
+      "stars": 2,
+      "question_text": "Add a lazy let to the call-by-need interpreter.",
+      "chinese_html": "<p>为按需解释器增加一个惰性的 let。</p>"
+    }
+  ],
+  "schema_version": 1,
+  "book": "eopl",
+  "chapter": "4",
+  "source_pdf": "books/eopl/assets/source.pdf",
+  "method": "Sequential text reading of PDF 126–161, all rendered page thumbnails plus full-size exercise/figure pages; numbered question boundaries checked against independent inventory. Supplied Fig.4.6 code retained verbatim in Chinese input and discussed separately."
+}

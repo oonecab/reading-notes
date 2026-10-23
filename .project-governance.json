@@ -50,7 +50,10 @@
       "根 Git 历史与远端沿用；原 Weiss 工作目录保留，合并后的维护入口为本仓库。",
       "五书 Astro 迁移已逐批验收；根 build 生成纯静态 dist 与不可变包，旧 HTML、旧构建器和历史审阅保留。Ubuntu /srv/reading-notes 生产发布已在 I029 实机验收，Node 只用于本地构建。",
       "I044 登记 EOPL 地图与序言两页，统一 /eopl/ 前缀、allowlist 和根检查；共 58 阅读页。共享 Times New Roman、MathML 和 SVG 样式保持内联，不新增技术栈。",
-      "I048 增加 EOPL 第 1、2 章，累计 60 阅读页；Scheme 示例由已有本地 Racket 执行，站点仍为纯静态 HTML。"
+      "I048 增加 EOPL 第 1、2 章，累计 60 阅读页；Scheme 示例由已有本地 Racket 执行，站点仍为纯静态 HTML。",
+      "I058 增加 EOPL 第 3 章，累计 61 阅读页、EOPL 112 题；沿用 Racket 8.17 与 eopl/SLLGEN 验证解释器，静态构建及运行环境不变。",
+      "I059 增加 EOPL 第 4 章，累计 62 阅读页、EOPL 154 题；现有 Racket 验证状态、参数策略和语句语言，技术栈与服务定义保持。",
+      "I060 增加 EOPL 第5、6章，六书64个阅读页，EOPL八页252题。使用既有Racket/eopl、C11和Python运行控制/CPS示例；技术栈、环境和服务不变。"
     ]
   },
   "commands": {
@@ -122,7 +125,7 @@
     "统一部署的操作说明以 deploy/README.md 为准；各书 deploy/ 为保留的单书工具与历史材料。",
     "RN-001 v1.11 固定完整中文题干、独立注解覆盖、原文 PDF 直达和逐页阅读验收；docs/reader-contract.json 与 docs/reader-sources.json 为可执行登记。全站检查须报告实际范围与未执行项；禁止零覆盖自动跳过。",
     "内容组件预览命令：python3 tools/project.py preview-components（生成物仅写入 tmp/）。",
-    "阅读呈现、导航、章首与索引位置、题干语言策略以 docs/reading-presentation-standard.md（RN-002）与 docs/reader-presentation.json 为准；运行 node tools/check-presentation-contract.mjs 或 python3 tools/project.py check，不得以书级检查器各自放行。"
+    "阅读呈现、导航、章节图逐节点语义与可见落点、章首与索引位置、题干语言策略以 docs/reading-presentation-standard.md（RN-002）与 docs/reader-presentation.json 为准；运行 node tools/check-presentation-contract.mjs 或 python3 tools/project.py check，不得以书级检查器各自放行。"
   ],
   "adoption": {
     "external_files": [

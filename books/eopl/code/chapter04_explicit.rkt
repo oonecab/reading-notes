@@ -1,0 +1,103 @@
+#lang racket
+;; A pure store-passing EXPLICIT-REFS interpreter, exercises 4.1–4.13.
+(require eopl (prefix-in s: "chapter04.rkt"))
+(provide (all-defined-out))
+
+;; BEGIN pure-store
+(struct answer (value store) #:transparent)
+(struct recursive-env (names paramss bodies saved) #:transparent)
+(struct procedure (params body env) #:transparent)
+(define (apply-store sigma loc)
+  (unless (and (exact-nonnegative-integer? loc) (< loc (length sigma)))
+    (error 'apply-store "invalid location"))
+  (list-ref sigma loc))
+(define (update-store sigma loc v)
+  (apply-store sigma loc)
+  (let replace ([xs sigma] [i loc])
+    (if (zero? i) (cons v (cdr xs)) (cons (car xs) (replace (cdr xs) (sub1 i))))))
+(define (allocate sigma v) (answer (s:ref-val (length sigma)) (append sigma (list v))))
+(define (lookup env name)
+  (cond [(null? env) (error 'lookup "unbound variable: ~a" name)]
+        [(recursive-env? env)
+         (define pos (index-of (recursive-env-names env) name))
+         (if pos (s:proc-val (procedure (list-ref (recursive-env-paramss env) pos)
+                                       (list-ref (recursive-env-bodies env) pos) env))
+             (lookup (recursive-env-saved env) name))]
+        [(eq? (caar env) name) (cdar env)] [else (lookup (cdr env) name)]))
+(define (extend-many names vals env)
+  (s:unique! names) (s:arity! names vals)
+  ;; A binding chain may end in a recursive environment.
+  (foldr (lambda (p rest) (cons p rest)) env (map cons names vals)))
+(define (evaluate-list exps env sigma return-mode)
+  (if (null? exps) (answer '() sigma)
+      (let* ([a (value-of (car exps) env sigma return-mode)]
+             [b (evaluate-list (cdr exps) env (answer-store a) return-mode)])
+        (answer (cons (answer-value a) (answer-value b)) (answer-store b)))))
+;; END pure-store
+
+;; BEGIN explicit-evaluation
+(define (value-of exp env sigma [return-mode 'constant])
+  (define (ev e st) (value-of e env st return-mode))
+  (cases s:expression exp
+    (s:const-exp (n) (answer (s:num-val n) sigma))
+    (s:var-exp (name) (answer (lookup env name) sigma))
+    (s:unary-exp (op e)
+      (define a (ev e sigma)) (define v (answer-value a)) (define st (answer-store a))
+      (cases s:unary-op op
+        (s:newref-op () (allocate st v))
+        (s:deref-op () (answer (apply-store st (s:reference v)) st))
+        (s:zero-op () (answer (s:bool-val (zero? (s:num v))) st))
+        (s:not-op () (answer (s:bool-val (not (s:bool v))) st))
+        (else (error 'explicit "operator outside EXPLICIT-REFS"))))
+    (s:binary-exp (op e1 e2)
+      (define a (ev e1 sigma)) (define b (ev e2 (answer-store a)))
+      (answer (s:eval-binary op (answer-value a) (answer-value b)) (answer-store b)))
+    (s:list-exp (es)
+      (define a (evaluate-list es env sigma return-mode))
+      (answer (s:list-val (answer-value a)) (answer-store a)))
+    (s:if-exp (test yes no)
+      (define a (ev test sigma))
+      (ev (if (s:bool (answer-value a)) yes no) (answer-store a)))
+    (s:let-exp (names rhss body)
+      (s:unique! names)
+      (define a (evaluate-list rhss env sigma return-mode))
+      (value-of body (extend-many names (answer-value a) env) (answer-store a) return-mode))
+    (s:proc-exp (kind params body)
+      (s:unique! params)
+      (cases s:proc-kind kind
+        (s:default-kind () (answer (s:proc-val (procedure params body env)) sigma))
+        (else (error 'explicit "parameter variant outside EXPLICIT-REFS"))))
+    (s:call-exp (rator operands)
+      (define a (ev rator sigma))
+      (define clos (s:procedure-value (answer-value a)))
+      (s:arity! (procedure-params clos) operands)
+      (define b (evaluate-list operands env (answer-store a) return-mode))
+      (value-of (procedure-body clos)
+                (extend-many (procedure-params clos) (answer-value b) (procedure-env clos))
+                (answer-store b) return-mode))
+    (s:letrec-exp (names paramss bodies body)
+      (s:unique! names) (for-each s:unique! paramss)
+      (value-of body (recursive-env names paramss bodies env) sigma return-mode))
+    (s:begin-exp (first rest)
+      (for/fold ([a (ev first sigma)]) ([e rest]) (ev e (answer-store a))))
+    (s:setref-exp (e1 e2)
+      (define a (ev e1 sigma)) (define loc (s:reference (answer-value a)))
+      (define b (ev e2 (answer-store a))) (define st (answer-store b))
+      ;; Exercise 4.7 returns the contents immediately before the final update,
+      ;; so effects of BOTH operands have already happened.
+      (define old (apply-store st loc))
+      (answer (case return-mode [(rhs) (answer-value b)] [(old) old] [else (s:num-val 23)])
+              (update-store st loc (answer-value b))))
+    (else (error 'explicit "expression outside EXPLICIT-REFS"))))
+;; END explicit-evaluation
+
+(define (run/details text #:setref-result [mode 'constant])
+  (unless (memq mode '(constant rhs old)) (error 'run "unknown setref return mode"))
+  (cases s:program (s:scan&parse text)
+    (s:a-program (e) (value-of e (map cons '(i v x) (map s:num-val '(1 5 10))) '() mode))))
+(define (run text #:setref-result [mode 'constant]) (answer-value (run/details text #:setref-result mode)))
+(module+ main
+  (displayln (s:datum (run "let g = let counter = newref(0) in proc(dummy) begin setref(counter,-(deref(counter),-1)); deref(counter) end in let a = (g 11) in let b = (g 11) in -(a,b)")))
+  (displayln (s:datum (run "let g = proc(dummy) let counter = newref(0) in begin setref(counter,-(deref(counter),-1)); deref(counter) end in let a = (g 11) in let b = (g 11) in -(a,b)")))
+  (displayln (s:datum (run "let x = newref(newref(0)) in begin setref(deref(x),11); deref(deref(x)) end")))
+  (displayln (s:datum (run "let x = newref(22) in let f = proc(z) let zz = newref(-(z,deref(x))) in deref(zz) in -((f 66),(f 55))"))))

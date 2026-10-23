@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "issue": "I061",
+  "status": "passed",
+  "content_review": "passed",
+  "integration_review": "passed",
+  "scope": "EOPL chapters3–6 publication with5/6 semantic corrections; existing shared map navigation changes retained.",
+  "authorization": "User explicitly requested commit/push of local changes followed by server deployment in this conversation.",
+  "recorded_at_utc": "2026-10-23T21:03:25.194342+00:00",
+  "source_sha256": {
+    "eopl/notes/book_overview.html": "8846c60fd43b0078e5dd615e8f449e8bf3fe4fd4f1818c630bb940dd2ee68fa8",
+    "eopl/notes/chapter01_inductive_data.html": "d7d3b96ad503a9c837db0eb59e8488ab849a2a8fcb0626fd98b611913ad1e663",
+    "eopl/notes/chapter02_data_abstraction.html": "4d53d0caf1a949c959cc9e8d6682b4d8606d991a823cfae4ac4c000dbbb34073",
+    "eopl/notes/chapter03_expressions.html": "78bc40d228177a426dd036ef03057a1bfa71be686a2d87594c9e6575702fc136",
+    "eopl/notes/chapter04_state.html": "2645d3b162293cf8288efc38695cde3120aecd6c9f45c88a18b998e7d72a34f2",
+    "eopl/notes/chapter05_continuations.html": "67377dfbd29479a3d0bf3a05a69a4a30e1ea6bafd604604a3287029220c5e780",
+    "eopl/notes/chapter06_cps.html": "14953b8293b234541b5c218c2eab714ab3459f9429e5619094a769145b7221f1",
+    "eopl/notes/preface.html": "c83fc006cd8334acfe0bf72bf657e56ae875082689a5d47d7f70db17cd6fec34"
+  },
+  "output_sha256": {
+    "eopl/notes/book_overview.html": "4e3569600e60a894e716ab6803e039976c58eaf62697a94476474909acf17a76",
+    "eopl/notes/chapter01_inductive_data.html": "a174becfc9cbe59f2c737b6b51f0b4cb7b46f817732d0361a47e3325d27e6178",
+    "eopl/notes/chapter02_data_abstraction.html": "21d012fca61cbd822d76e073db008d5032cc489027bcd5145b87e19041799e06",
+    "eopl/notes/chapter03_expressions.html": "5cdeb03d4116dc2ba618795a9953f58299ec1891339d5d3a5437d46234fe41aa",
+    "eopl/notes/chapter04_state.html": "8b45b234eed29198ef9f82100f192bc89f9ce68c492329dead59b5f908778219",
+    "eopl/notes/chapter05_continuations.html": "8131e2799fecce53d6412f59fbe29af8acf65a9ef756ce189eb393e509ad6116",
+    "eopl/notes/chapter06_cps.html": "127bdb5c17df058ae47c9698628d65aa966e1042a7e7b03baff5731d95789cfd",
+    "eopl/notes/preface.html": "42ceb152e3c0f4f03698daa796612027287a80858076d2e17d78a29db143b791"
+  },
+  "findings": {
+    "EOPL-C01": {
+      "status": "closed",
+      "witness": "nested subtraction and existing atom names preserve -7",
+      "regression": "atomic-name reservations and fault injection"
+    },
+    "EOPL-C02": {
+      "status": "closed",
+      "witness": "implicit letcc returns7; catch returns5",
+      "regression": "three continuation sends, two mutability analyses, shadowing and assignment"
+    },
+    "EOPL-C03": {
+      "status": "closed",
+      "witness": "same THREADS interpreter private stores; counter returns3",
+      "regression": "ownership, aliases, cycles, recursive closures, messages and time-slice matrix"
+    },
+    "CONTENT_SCOPE_STALE": {
+      "status": "closed",
+      "witness": "map opening links chapters1–6"
+    }
+  },
+  "historical_record": {
+    "file": "review/history/I061-before-ch05-06.json",
+    "sha256": "7807f8f4eb8d7183d2ebf3a49394832cde91b64e037b7455abe3ef0d5b84869c"
+  },
+  "prior_audit": {
+    "file": "tmp/eopl-compliance-20261024T034733/report.json",
+    "sha256": "eaeb1853d18e5a20d067634bf165ff67df952bd01232e7c6dbe4382dcebc96cd"
+  },
+  "new_evidence_root": "tmp/eopl-publish-20261024T040028",
+  "open_findings": [],
+  "deployment": "not_performed",
+  "program_verification": {
+    "groups": 11,
+    "assertions": 1335,
+    "examples_assertions": 60,
+    "scheme_assertions": 7,
+    "semantic_faults_rejected": 11,
+    "strict_c_and_sanitizers": "passed",
+    "source_inventory": "independently_verified",
+    "book_report": "tmp/eopl-publish-20261024T040028/book-check/report.json"
+  },
+  "evidence_sha256": {
+    "tmp/eopl-publish-20261024T040028/book-check/report.json": "329acab241bec1c854db8fcefefd74bdb618e078d0a2cd91800c68340387f761",
+    "tmp/eopl-publish-20261024T040028/checker-cases/report.json": "495c600a97dc47e88b26428eb0918593051fa45677249ffcc111e863fdee54b7",
+    "tmp/eopl-publish-20261024T040028/semantic-witnesses-after.json": "4814c0dd1987aa7812a8eda5f13de467bf4c05f0d5c51ab55e008905a0822ea7",
+    "tmp/eopl-publish-20261024T040028/independent-review.json": "b52422a70b1c7a6eebddae25c51d406abe9e4bf41dc3718a2fe935b014938c5e",
+    "tmp/eopl-publish-20261024T040028/previous-evidence-preservation.json": "10b8e90d1c094687d169291ad269a7249cce9b25ecee5477a1a1ab8f0a02efdb",
+    "tmp/eopl-publish-20261024T040028/gitleaks-reviewed3.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "tmp/eopl-publish-20261024T040028/gitleaks-control-final.json": "c2cc94f1629d21abc9656ef03a04312666cdafd00ed40dbe73c202b12386bba3",
+    "books/eopl/review/ch05-06-followup.md": "1f9f386bea4d8037bde841bc80b3be73fea1727a2e6b0e8450846b97ebf6d226",
+    "tmp/reading-notes-migration/browser/all/runs/2026-10-23T20-59-30-430Z-963621d2/report.json": "f60f181ba4a4111c7a6d411bab0e25bab529088024e851c87e4ea21d12b4215f",
+    "tmp/eopl-publish-20261024T040028/local-reader/manual.json": "ba9fb510ac31098a50998041ab790860ed6edd0a72bc3f676c00218bcdb525a6",
+    "tmp/eopl-publish-20261024T040028/local-reader/visual-readback.json": "02e7cff1f65787179181c24b65ff0954fa2da44168cfaba9533b46a967d7ccb6",
+    "tmp/eopl-publish-20261024T040028/automatic-visual-readback.json": "d75370b1938f718eca245e267c0ca4bb0d9264aeb9acf93654462b003ca41093",
+    "tmp/project-check/20261024T042341-s39itfet/report.json": "ede11bd578793d905b8855a6c96397355d2b0f2c61e823a681ac4957241211df",
+    "tmp/eopl-publish-20261024T040028/deployment-recovery-simulation.json": "7e708ead4cc33170081f52bde38ba362d6b78cee48826b753bceafb23d9eaac1",
+    "tmp/eopl-publish-20261024T040028/server-before.json": "cb787bbcf6200e265a9b7dffc9d4505490b747efa3a3be77d28a49c2ca631865",
+    "tmp/eopl-publish-20261024T040028/server-service-limits.log": "bc979638913d0f5a64a363e3f0a1f4d9182916a5b728a10459359c53495e431b",
+    "tmp/project-check/20261024T050325-mp7r85a4/report.json": "cb43a43b8c69fd5e87feebe5e264c0350a066ca49125b1229794de8308774e61",
+    "tmp/eopl-publish-20261024T040028/node-tests-navigation-final.log": "cdc2b38857555fd135dc03b8d0019bf19bf12153db5accef92f6d7909431c2d1",
+    "tmp/eopl-publish-20261024T040028/weiss-wheel-readback.json": "b005a57192de43aa9d5babb9ff1b6eb79b8b67cfdd29767be4a7fb7b327bcb5f",
+    "tmp/eopl-publish-20261024T040028/local-reader/pdf-readback.json": "5f307434b7240923e924f1c837ec68f84021a2ada430d327fdcbf02b98b20ebd",
+    "tmp/eopl-publish-20261024T040028/independent-publication-review.json": "8b5f0fda9c6fc455a9e8f741de448cb405480dc37298a8e7b49e166ec7912aa9"
+  },
+  "privacy": {
+    "raw_findings": 2,
+    "classification": "identical SHA256 bindings of two historical empty JSON reports",
+    "untriaged_findings": 0,
+    "synthetic_positive_control": 1,
+    "triage_record": "tmp/eopl-publish-20261024T040028/gitleaks-triage.json",
+    "final_candidate_record": "tmp/eopl-publish-20261024T040028/candidate-freeze.json",
+    "final_candidate_scan": "tmp/eopl-publish-20261024T040028/gitleaks-final.json"
+  },
+  "root_integration": {
+    "status": "passed",
+    "report": "tmp/project-check/20261024T042341-s39itfet/report.json",
+    "checks": 25,
+    "final_quick": {
+      "report": "tmp/project-check/20261024T050325-mp7r85a4/report.json",
+      "checks": 22,
+      "status": "passed"
+    }
+  },
+  "browser": {
+    "offline_report": "tmp/reading-notes-migration/browser/all/runs/2026-10-23T20-59-30-430Z-963621d2/report.json",
+    "global_routes": 86,
+    "global_js_views": 344,
+    "global_no_js_views": 172,
+    "eopl_js_views": 40,
+    "eopl_no_js_views": 20,
+    "external_requests": 0,
+    "manual_report": "tmp/eopl-publish-20261024T040028/local-reader/manual.json",
+    "screenshots_read": 14,
+    "rendered_exercises": 98,
+    "actual_downloads": 15,
+    "physical_device": "not_tested",
+    "source_pdf_readback": "tmp/eopl-publish-20261024T040028/local-reader/pdf-readback.json"
+  },
+  "node_tests": {
+    "count": 117,
+    "failures": 0,
+    "report": "tmp/eopl-publish-20261024T040028/node-tests-navigation-final.log"
+  },
+  "browser_checker_repairs": {
+    "wheel": "wait for fully visible, stable compositor geometry",
+    "navigation": "empty document roots remain unready; exact title and visible geometry still required",
+    "node_regressions": 5,
+    "failed_runs_retained": [
+      "tmp/reading-notes-migration/browser/all/runs/2026-10-23T20-16-32-907Z-5e59776b/report.json",
+      "tmp/reading-notes-migration/browser/all/runs/2026-10-23T20-46-44-300Z-8afda42e/report.json"
+    ]
+  }
+}

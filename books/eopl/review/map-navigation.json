@@ -1,0 +1,711 @@
+{
+  "issue": "I057",
+  "status": "completed_locally",
+  "reviewed_at_utc": "2026-10-23T01:38:20.362Z",
+  "scope": "EOPL chapter-map navigation targets and summary purposes; no chapter/proof/exercise/program rewrite.",
+  "source_sha256": {
+    "eopl/notes/book_overview.html": "967e528dd456afd774d2ef87d00b1292ffcc6f63a4f6c5628917deacf85c5b34"
+  },
+  "output_sha256": {
+    "eopl/notes/book_overview.html": "d27cbcd0b253811ebbe18c89bff44f3ffc18b173e63dc5b33695931da07fd6ab"
+  },
+  "previous_source_sha256": {
+    "eopl/notes/book_overview.html": "dccf76fbbefd80ab67413f50d0c489a1c3126b6885c10352d892ec067d223859"
+  },
+  "previous_output_sha256": {
+    "eopl/notes/book_overview.html": "e643ad575af2b26ee549efb99a2d49510c9de9297c9b471b257a3cf373f2812f"
+  },
+  "previous_review_record": "docs/navigation-position-review.json",
+  "previous_review_git": "be24d4d6a6de2d0c001025e96a1f8d1b7ab91c45:docs/navigation-position-review.json",
+  "previous_review_sha256": "320984da9782f4eb14d4e9ad8b3829b43095b1bfd573d24b13701588527057e0",
+  "preservation": {
+    "status": "passed",
+    "route": "eopl/notes/book_overview.html",
+    "math_code_css_scripts": "byte-identical",
+    "other_sections": "byte-identical",
+    "anchors": "identical order",
+    "pdf_links": "unchanged",
+    "svg_geometry_and_topology": "byte-identical",
+    "changed": "Two hrefs, seven summary-purpose labels/hints and the dependency-introduction sentence."
+  },
+  "static_registry": "docs/reader-presentation.json",
+  "production": "Previous published release 20261023T020252; this revision is local.",
+  "local_build": {
+    "id": "20261023T093820",
+    "source_commit": "be24d4d6a6de2d0c001025e96a1f8d1b7ab91c45",
+    "source_tree_dirty": true,
+    "report": "tmp/eopl-map-navigation-20261023/build.log",
+    "production": "not published"
+  },
+  "completed_at_utc": "2026-10-23T01:56:43.862512+00:00",
+  "rules": "RN-002 v1.1 section 2.3",
+  "static_inventory": {
+    "books": 6,
+    "diagrams": 5,
+    "nodes": 43,
+    "source": {
+      "report": "tmp/eopl-map-navigation-20261023/static-current.json",
+      "sha256": "d83a126fa2613124b55ae741682b57a1f60f5fd20ffaaef994b9b231afd9405d"
+    },
+    "dist": {
+      "report": "tmp/eopl-map-navigation-20261023/static-dist.json",
+      "sha256": "53d40cf65b55c809b305a1ff1927f2c5b3c247c2e48683fff5d8b7e69c73ab30"
+    }
+  },
+  "old_behavior_rejected": {
+    "old_tests": {
+      "report": "tmp/eopl-map-navigation-20261023/static-before.log",
+      "sha256": "43f0e13ef4714cb3fc9ac1424094a4bc5823ebaf9b24adc177ff4e83c7442c2d"
+    },
+    "registered_old_page": {
+      "report": "tmp/eopl-map-navigation-20261023/registered-before.json",
+      "sha256": "035c84958d9cbac723bdae538d1312ca553a3d3f9bdd95b89de7b8b00f5a98fd"
+    }
+  },
+  "local_acceptance": {
+    "root_quick_checks": 22,
+    "root_quick_evidence": {
+      "report": "tmp/project-check/20261023T094821-918u924i/report.json",
+      "sha256": "ab37c00f0e689c7e7006643abdcc9140a77c187026481634191158671bde7c47"
+    },
+    "node_tests": 113,
+    "node_evidence": {
+      "report": "tmp/eopl-map-navigation-20261023/node-tests-final.log",
+      "sha256": "e677e23c9b847264cd168f50f75a8c27cc9f53d6aba03bb1b6628a29d88b6d7f"
+    },
+    "parity": {
+      "pages": 60,
+      "differences": 0,
+      "evidence": {
+        "report": "tmp/eopl-map-navigation-20261023/parity.log",
+        "sha256": "3c9642d820ea9011243a50159f4b9f6b45739a7585bfdc75f5b7ad808d5eefe1"
+      }
+    },
+    "build": {
+      "report": "tmp/eopl-map-navigation-20261023/build.log",
+      "sha256": "ff98203d01f0332bc040e96bc3b00a4616cbd60d0f5062fad54d06f7ccea7411"
+    },
+    "offline": {
+      "evidence": {
+        "report": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-23T01-47-02-044Z-6ecc5c41/report.json",
+        "sha256": "72e093576394b9a5aea039acfa60cf01cfd50a9d172422acea0ad34fc89ca5c8"
+      },
+      "pages": 6,
+      "js_views": 24,
+      "no_js_views": 12,
+      "external_requests": 0,
+      "reused_complete_views": 7
+    },
+    "map_click_views": [
+      {
+        "kind": "views",
+        "width": 1440,
+        "nodes": [
+          {
+            "number": 1,
+            "kind": "chapter",
+            "href": "chapter01_inductive_data.html",
+            "expected_title": "第 1 章 · 归纳数据与递归程序",
+            "actual_destination": "eopl/notes/chapter01_inductive_data.html",
+            "actual_title": "第 1 章 · 归纳数据与递归程序",
+            "top": 159.625,
+            "bottom": 205.3828125,
+            "blocker_bottom": 57,
+            "title_visible": true,
+            "activation": {
+              "scope": "desktop fully visible nodes, completed by previous attempt"
+            }
+          },
+          {
+            "number": 2,
+            "kind": "chapter",
+            "href": "chapter02_data_abstraction.html",
+            "expected_title": "第 2 章 · 数据抽象与抽象语法",
+            "actual_destination": "eopl/notes/chapter02_data_abstraction.html",
+            "actual_title": "第 2 章 · 数据抽象与抽象语法",
+            "top": 159.625,
+            "bottom": 205.3828125,
+            "blocker_bottom": 57,
+            "title_visible": true,
+            "activation": {
+              "scope": "desktop fully visible nodes, completed by previous attempt"
+            }
+          },
+          {
+            "number": 3,
+            "kind": "chapter-summary",
+            "href": "#chapter-3",
+            "expected_title": "3 · 表达式",
+            "actual_destination": "eopl/notes/book_overview.html#chapter-3",
+            "actual_title": "3 · 表达式",
+            "top": 116.8828125,
+            "bottom": 152.1484375,
+            "blocker_bottom": 57,
+            "title_visible": true,
+            "activation": {
+              "scope": "desktop fully visible nodes, completed by previous attempt"
+            }
+          },
+          {
+            "number": 4,
+            "kind": "chapter-summary",
+            "href": "#chapter-4",
+            "expected_title": "4 · 状态",
+            "actual_destination": "eopl/notes/book_overview.html#chapter-4",
+            "actual_title": "4 · 状态",
+            "top": 116.59375,
+            "bottom": 151.859375,
+            "blocker_bottom": 57,
+            "title_visible": true,
+            "activation": {
+              "scope": "desktop fully visible nodes, completed by previous attempt"
+            }
+          },
+          {
+            "number": 5,
+            "kind": "chapter-summary",
+            "href": "#chapter-5",
+            "expected_title": "5 · 传递续文的解释器",
+            "actual_destination": "eopl/notes/book_overview.html#chapter-5",
+            "actual_title": "5 · 传递续文的解释器",
+            "top": 116.6015625,
+            "bottom": 151.8671875,
+            "blocker_bottom": 57,
+            "title_visible": true,
+            "activation": {
+              "scope": "desktop fully visible nodes, completed by previous attempt"
+            }
+          },
+          {
+            "number": 6,
+            "kind": "chapter-summary",
+            "href": "#chapter-6",
+            "expected_title": "6 · 续文传递风格",
+            "actual_destination": "eopl/notes/book_overview.html#chapter-6",
+            "actual_title": "6 · 续文传递风格",
+            "top": 116.6796875,
+            "bottom": 151.9453125,
+            "blocker_bottom": 57,
+            "title_visible": true,
+            "activation": {
+              "scope": "desktop fully visible nodes, completed by previous attempt"
+            }
+          },
+          {
+            "number": 7,
+            "kind": "chapter-summary",
+            "href": "#chapter-7",
+            "expected_title": "7 · 类型",
+            "actual_destination": "eopl/notes/book_overview.html#chapter-7",
+            "actual_title": "7 · 类型",
+            "top": 116.7578125,
+            "bottom": 152.0234375,
+            "blocker_bottom": 57,
+            "title_visible": true,
+            "activation": {
+              "scope": "desktop fully visible nodes, completed by previous attempt"
+            }
+          },
+          {
+            "number": 8,
+            "kind": "chapter-summary",
+            "href": "#chapter-8",
+            "expected_title": "8 · 模块",
+            "actual_destination": "eopl/notes/book_overview.html#chapter-8",
+            "actual_title": "8 · 模块",
+            "top": 116.6328125,
+            "bottom": 151.8984375,
+            "blocker_bottom": 57,
+            "title_visible": true,
+            "activation": {
+              "scope": "desktop fully visible nodes, completed by previous attempt"
+            }
+          },
+          {
+            "number": 9,
+            "kind": "chapter-summary",
+            "href": "#chapter-9",
+            "expected_title": "9 · 对象与类",
+            "actual_destination": "eopl/notes/book_overview.html#chapter-9",
+            "actual_title": "9 · 对象与类",
+            "top": 117.0078125,
+            "bottom": 152.2734375,
+            "blocker_bottom": 57,
+            "title_visible": true,
+            "activation": {
+              "scope": "desktop fully visible nodes, completed by previous attempt"
+            }
+          }
+        ],
+        "keyboard_nodes": 1,
+        "same_fragment_repeats": 7
+      },
+      {
+        "kind": "views",
+        "width": 390,
+        "nodes": [
+          {
+            "number": 1,
+            "kind": "chapter",
+            "href": "chapter01_inductive_data.html",
+            "expected_title": "第 1 章 · 归纳数据与递归程序",
+            "actual_destination": "eopl/notes/chapter01_inductive_data.html",
+            "actual_title": "第 1 章 · 归纳数据与递归程序",
+            "top": 203.25,
+            "bottom": 276.046875,
+            "blocker_bottom": 109.625,
+            "title_visible": true,
+            "activation": {
+              "horizontal_scroll": true,
+              "before": 0,
+              "after": 0,
+              "node_visible": true
+            }
+          },
+          {
+            "number": 2,
+            "kind": "chapter",
+            "href": "chapter02_data_abstraction.html",
+            "expected_title": "第 2 章 · 数据抽象与抽象语法",
+            "actual_destination": "eopl/notes/chapter02_data_abstraction.html",
+            "actual_title": "第 2 章 · 数据抽象与抽象语法",
+            "top": 203.25,
+            "bottom": 276.046875,
+            "blocker_bottom": 109.625,
+            "title_visible": true,
+            "activation": {
+              "horizontal_scroll": true,
+              "before": 0,
+              "after": 132.5,
+              "node_visible": true
+            }
+          },
+          {
+            "number": 3,
+            "kind": "chapter-summary",
+            "href": "#chapter-3",
+            "expected_title": "3 · 表达式",
+            "actual_destination": "eopl/notes/book_overview.html#chapter-3",
+            "actual_title": "3 · 表达式",
+            "top": 149.03125,
+            "bottom": 184.296875,
+            "blocker_bottom": 109.625,
+            "title_visible": true,
+            "activation": {
+              "horizontal_scroll": true,
+              "before": 0,
+              "after": 373,
+              "node_visible": true
+            }
+          },
+          {
+            "number": 4,
+            "kind": "chapter-summary",
+            "href": "#chapter-4",
+            "expected_title": "4 · 状态",
+            "actual_destination": "eopl/notes/book_overview.html#chapter-4",
+            "actual_title": "4 · 状态",
+            "top": 148.75,
+            "bottom": 184.015625,
+            "blocker_bottom": 109.625,
+            "title_visible": true,
+            "activation": {
+              "horizontal_scroll": true,
+              "before": 0,
+              "after": 132.5,
+              "node_visible": true
+            }
+          },
+          {
+            "number": 5,
+            "kind": "chapter-summary",
+            "href": "#chapter-5",
+            "expected_title": "5 · 传递续文的解释器",
+            "actual_destination": "eopl/notes/book_overview.html#chapter-5",
+            "actual_title": "5 · 传递续文的解释器",
+            "top": 148.765625,
+            "bottom": 184.03125,
+            "blocker_bottom": 109.625,
+            "title_visible": true,
+            "activation": {
+              "horizontal_scroll": true,
+              "before": 0,
+              "after": 0,
+              "node_visible": true
+            }
+          },
+          {
+            "number": 6,
+            "kind": "chapter-summary",
+            "href": "#chapter-6",
+            "expected_title": "6 · 续文传递风格",
+            "actual_destination": "eopl/notes/book_overview.html#chapter-6",
+            "actual_title": "6 · 续文传递风格",
+            "top": 149.0234375,
+            "bottom": 184.2890625,
+            "blocker_bottom": 109.625,
+            "title_visible": true,
+            "activation": {
+              "horizontal_scroll": true,
+              "before": 0,
+              "after": 0,
+              "node_visible": true
+            }
+          },
+          {
+            "number": 7,
+            "kind": "chapter-summary",
+            "href": "#chapter-7",
+            "expected_title": "7 · 类型",
+            "actual_destination": "eopl/notes/book_overview.html#chapter-7",
+            "actual_title": "7 · 类型",
+            "top": 148.6484375,
+            "bottom": 183.9140625,
+            "blocker_bottom": 109.625,
+            "title_visible": true,
+            "activation": {
+              "horizontal_scroll": true,
+              "before": 0,
+              "after": 303.5,
+              "node_visible": true
+            }
+          },
+          {
+            "number": 8,
+            "kind": "chapter-summary",
+            "href": "#chapter-8",
+            "expected_title": "8 · 模块",
+            "actual_destination": "eopl/notes/book_overview.html#chapter-8",
+            "actual_title": "8 · 模块",
+            "top": 148.734375,
+            "bottom": 184,
+            "blocker_bottom": 109.625,
+            "title_visible": true,
+            "activation": {
+              "horizontal_scroll": true,
+              "before": 0,
+              "after": 209,
+              "node_visible": true
+            }
+          },
+          {
+            "number": 9,
+            "kind": "chapter-summary",
+            "href": "#chapter-9",
+            "expected_title": "9 · 对象与类",
+            "actual_destination": "eopl/notes/book_overview.html#chapter-9",
+            "actual_title": "9 · 对象与类",
+            "top": 148.6171875,
+            "bottom": 183.8828125,
+            "blocker_bottom": 109.625,
+            "title_visible": true,
+            "activation": {
+              "horizontal_scroll": true,
+              "before": 0,
+              "after": 373,
+              "node_visible": true
+            }
+          }
+        ],
+        "keyboard_nodes": 1,
+        "same_fragment_repeats": 7
+      },
+      {
+        "kind": "no_js",
+        "width": 390,
+        "nodes": [
+          {
+            "number": 1,
+            "kind": "chapter",
+            "href": "chapter01_inductive_data.html",
+            "expected_title": "第 1 章 · 归纳数据与递归程序",
+            "actual_destination": "eopl/notes/chapter01_inductive_data.html",
+            "actual_title": "第 1 章 · 归纳数据与递归程序",
+            "top": 516.765625,
+            "bottom": 589.5625,
+            "blocker_bottom": 109.625,
+            "title_visible": true,
+            "activation": {
+              "horizontal_scroll": true,
+              "before": 0,
+              "after": 0,
+              "node_visible": true
+            }
+          },
+          {
+            "number": 2,
+            "kind": "chapter",
+            "href": "chapter02_data_abstraction.html",
+            "expected_title": "第 2 章 · 数据抽象与抽象语法",
+            "actual_destination": "eopl/notes/chapter02_data_abstraction.html",
+            "actual_title": "第 2 章 · 数据抽象与抽象语法",
+            "top": 580.3046875,
+            "bottom": 653.1015625,
+            "blocker_bottom": 109.625,
+            "title_visible": true,
+            "activation": {
+              "horizontal_scroll": true,
+              "before": 0,
+              "after": 132.5,
+              "node_visible": true
+            }
+          },
+          {
+            "number": 3,
+            "kind": "chapter-summary",
+            "href": "#chapter-3",
+            "expected_title": "3 · 表达式",
+            "actual_destination": "eopl/notes/book_overview.html#chapter-3",
+            "actual_title": "3 · 表达式",
+            "top": 156.640625,
+            "bottom": 191.90625,
+            "blocker_bottom": 57,
+            "title_visible": true,
+            "activation": {
+              "horizontal_scroll": true,
+              "before": 0,
+              "after": 373,
+              "node_visible": true
+            }
+          },
+          {
+            "number": 4,
+            "kind": "chapter-summary",
+            "href": "#chapter-4",
+            "expected_title": "4 · 状态",
+            "actual_destination": "eopl/notes/book_overview.html#chapter-4",
+            "actual_title": "4 · 状态",
+            "top": 156.859375,
+            "bottom": 192.125,
+            "blocker_bottom": 57,
+            "title_visible": true,
+            "activation": {
+              "horizontal_scroll": true,
+              "before": 0,
+              "after": 132.5,
+              "node_visible": true
+            }
+          },
+          {
+            "number": 5,
+            "kind": "chapter-summary",
+            "href": "#chapter-5",
+            "expected_title": "5 · 传递续文的解释器",
+            "actual_destination": "eopl/notes/book_overview.html#chapter-5",
+            "actual_title": "5 · 传递续文的解释器",
+            "top": 156.875,
+            "bottom": 192.140625,
+            "blocker_bottom": 57,
+            "title_visible": true,
+            "activation": {
+              "horizontal_scroll": true,
+              "before": 0,
+              "after": 0,
+              "node_visible": true
+            }
+          },
+          {
+            "number": 6,
+            "kind": "chapter-summary",
+            "href": "#chapter-6",
+            "expected_title": "6 · 续文传递风格",
+            "actual_destination": "eopl/notes/book_overview.html#chapter-6",
+            "actual_title": "6 · 续文传递风格",
+            "top": 156.6328125,
+            "bottom": 191.8984375,
+            "blocker_bottom": 57,
+            "title_visible": true,
+            "activation": {
+              "horizontal_scroll": true,
+              "before": 0,
+              "after": 0,
+              "node_visible": true
+            }
+          },
+          {
+            "number": 7,
+            "kind": "chapter-summary",
+            "href": "#chapter-7",
+            "expected_title": "7 · 类型",
+            "actual_destination": "eopl/notes/book_overview.html#chapter-7",
+            "actual_title": "7 · 类型",
+            "top": 156.7578125,
+            "bottom": 192.0234375,
+            "blocker_bottom": 57,
+            "title_visible": true,
+            "activation": {
+              "horizontal_scroll": true,
+              "before": 0,
+              "after": 303.5,
+              "node_visible": true
+            }
+          },
+          {
+            "number": 8,
+            "kind": "chapter-summary",
+            "href": "#chapter-8",
+            "expected_title": "8 · 模块",
+            "actual_destination": "eopl/notes/book_overview.html#chapter-8",
+            "actual_title": "8 · 模块",
+            "top": 156.84375,
+            "bottom": 192.109375,
+            "blocker_bottom": 57,
+            "title_visible": true,
+            "activation": {
+              "horizontal_scroll": true,
+              "before": 0,
+              "after": 209,
+              "node_visible": true
+            }
+          },
+          {
+            "number": 9,
+            "kind": "chapter-summary",
+            "href": "#chapter-9",
+            "expected_title": "9 · 对象与类",
+            "actual_destination": "eopl/notes/book_overview.html#chapter-9",
+            "actual_title": "9 · 对象与类",
+            "top": 156.7265625,
+            "bottom": 191.9921875,
+            "blocker_bottom": 57,
+            "title_visible": true,
+            "activation": {
+              "horizontal_scroll": true,
+              "before": 0,
+              "after": 373,
+              "node_visible": true
+            }
+          }
+        ],
+        "keyboard_nodes": 1,
+        "same_fragment_repeats": 7
+      }
+    ],
+    "opened_and_read_local_screenshots": [
+      {
+        "file": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-23T01-41-27-738Z-2358d909/eopl_notes_book_overview-1440-map-node-1.png",
+        "sha256": "57e695bc243ec50787fdfaa33c3ed3102beb1aa3c4b3d10c832b5b9060b8613b",
+        "opened_and_read": true,
+        "status": "passed",
+        "observation": "桌面节点入口落到对应正文或章意标题；标题露出固定栏，正文、目录和来源可读。"
+      },
+      {
+        "file": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-23T01-41-27-738Z-2358d909/eopl_notes_book_overview-1440-map-node-8.png",
+        "sha256": "6f593ec9a6375022dcdadcee0772df489d75310a2d3ab46ada97197078ef78a2",
+        "opened_and_read": true,
+        "status": "passed",
+        "observation": "桌面节点入口落到对应正文或章意标题；标题露出固定栏，正文、目录和来源可读。"
+      },
+      {
+        "file": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-23T01-41-27-738Z-2358d909/eopl_notes_book_overview-1440-map-node-9.png",
+        "sha256": "085eacfec943ea09b3ad12a24a51195ef70bb0962252362d2d01c66d90f5b994",
+        "opened_and_read": true,
+        "status": "passed",
+        "observation": "桌面节点入口落到对应正文或章意标题；标题露出固定栏，正文、目录和来源可读。"
+      },
+      {
+        "file": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-23T01-47-02-044Z-6ecc5c41/eopl_notes_book_overview-390-map-node-1.png",
+        "sha256": "8c6f15757e606f1275a9a52efcf634f3b43b7978d3e2ff2264caa06c6c55c710",
+        "opened_and_read": true,
+        "status": "passed",
+        "observation": "窄屏节点入口落到对应标题，手机目录已收起；标题露出固定栏，正文和来源正常换行。"
+      },
+      {
+        "file": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-23T01-47-02-044Z-6ecc5c41/eopl_notes_book_overview-390-map-node-8.png",
+        "sha256": "2e1418468feb751919f5f19ebdc8cb4e488e1638a4758426e20a9ac40e4676ce",
+        "opened_and_read": true,
+        "status": "passed",
+        "observation": "窄屏节点入口落到对应标题，手机目录已收起；标题露出固定栏，正文和来源正常换行。"
+      },
+      {
+        "file": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-23T01-47-02-044Z-6ecc5c41/eopl_notes_book_overview-390-map-node-9.png",
+        "sha256": "7dff33074424b8782ac3f45faf04145e45360afd244663d1f3c9d62f388fb296",
+        "opened_and_read": true,
+        "status": "passed",
+        "observation": "窄屏节点入口落到对应标题，手机目录已收起；标题露出固定栏，正文和来源正常换行。"
+      },
+      {
+        "file": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-23T01-47-02-044Z-6ecc5c41/eopl_notes_book_overview-no-js-390-map-node-1.png",
+        "sha256": "6914f2c3df81ca767ade6378cff2d7221bb21013d86b5024e9ffe56859fde4d4",
+        "opened_and_read": true,
+        "status": "passed",
+        "observation": "关闭页面脚本后，原生节点入口落到对应标题；来源和正文可见且正常换行。"
+      },
+      {
+        "file": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-23T01-47-02-044Z-6ecc5c41/eopl_notes_book_overview-no-js-390-map-node-8.png",
+        "sha256": "cd8677165f000f8c240c18a532d988a7b53317edfd5b1d7c7e15404213444718",
+        "opened_and_read": true,
+        "status": "passed",
+        "observation": "关闭页面脚本后，原生节点入口落到对应标题；来源和正文可见且正常换行。"
+      },
+      {
+        "file": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-23T01-47-02-044Z-6ecc5c41/eopl_notes_book_overview-no-js-390-map-node-9.png",
+        "sha256": "0d1c5614be742bfe07c8947af3261820daec3100c8d4702d102514edd858adbf",
+        "opened_and_read": true,
+        "status": "passed",
+        "observation": "关闭页面脚本后，原生节点入口落到对应标题；来源和正文可见且正常换行。"
+      },
+      {
+        "file": "tmp/eopl-map-navigation-20261023/map-graph-1440.png",
+        "sha256": "8d4b50e915a7d20324b72b91406ae25572d435a6c90b87373d90e749b068827e",
+        "opened_and_read": true,
+        "status": "passed",
+        "observation": "全图可见，1/2 章为正文入口，3–9 章 hint 可见标为章意，节点、连线和说明没有重叠。"
+      },
+      {
+        "file": "tmp/eopl-map-navigation-20261023/map-graph-390.png",
+        "sha256": "d700ed476d9cf39751963f4c51170a506845249a535f421fc8c9a3e552061fbd",
+        "opened_and_read": true,
+        "status": "passed",
+        "observation": "手机左侧可读 1、5、6 节点，图在自身容器内横滚，页面不横溢。"
+      },
+      {
+        "file": "tmp/eopl-map-navigation-20261023/map-graph-390-right.png",
+        "sha256": "4f7d465179ac0498db4be04723d65e4f2432914231cf2fc59afa100366b38710",
+        "opened_and_read": true,
+        "status": "passed",
+        "observation": "真实横滚后右侧 3、7、9 节点可读，章意标签在节点内；8 节点在左侧边缘的裁切随横滚位置变化，逐节点点击记录另验证其完全可见后可操作。"
+      }
+    ],
+    "diagram_text_bounds": {
+      "report": "tmp/eopl-map-navigation-20261023/diagram-readback.json",
+      "sha256": "4a93514fcffc25837a6d0757ac0cfa39b9fd4269f424f239fd130b67869bc2e5"
+    },
+    "browser_task_finished": true
+  },
+  "observed_public_behavior": {
+    "evidence": {
+      "report": "tmp/eopl-map-navigation-20261023/public-before.json",
+      "sha256": "05f6d9fea0d3b9f98dc5b9b9cf7f1fb15a49874851385db37a594408a8a89741"
+    },
+    "same_fragment": {
+      "report": "tmp/eopl-map-navigation-20261023/public-repeat.json",
+      "sha256": "2cda4221047d38fba49f984345545243fcbbcf44e1ccdf3e569b08e3696b669b"
+    },
+    "finding": "All nine original graph nodes linked to map summaries. Chapter 8 has no standalone page. Actual first and repeated clicks reached its map summary in the current browser. The user screenshot staying on the graph was not stably reproduced; URL changes alone are now rejected as evidence.",
+    "opened_image": {
+      "file": "tmp/eopl-map-navigation-20261023/public-node8-before.png",
+      "sha256": "3af1ea1349eb066584d23dc3193c627338c0e12379f5a6d51735d00e1cf0ba40",
+      "opened_and_read": true
+    }
+  },
+  "failures": [
+    {
+      "report": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-23T01-41-27-738Z-2358d909/report.json",
+      "finding": "Original browser click wrapper did not horizontally expose the map edge nodes at 390px.",
+      "resolution": "Explicit native horizontal wheel input exposes the observed node before activating it. The full resumed matrix passed; seven completed unchanged views retain their report and screenshot hashes."
+    },
+    {
+      "report": "tmp/eopl-map-navigation-20261023/quick-check.log",
+      "finding": "RN-002 reference updates changed current stochastic document digests.",
+      "resolution": "Updated only current file bindings through their dependency graph with original values and Git provenance retained; 22 root quick checks subsequently passed."
+    }
+  ],
+  "boundaries": [
+    "Static node inventory covers all 43 clickable SVG map nodes across six books; actual full new node interactions in this task cover EOPL nine nodes at three required modes.",
+    "Other chapter entrance forms are governed by RN-002 2.3 and still require their individual reader checks; the automated inventory currently covers clickable SVG diagrams.",
+    "No mathematical proofs or program semantics were re-audited; chapter/exercise/program bytes and diagram geometry/topology are preserved.",
+    "Ego Lite Chromium on macOS with narrow viewport emulation; no physical mobile device or additional browser engine tested.",
+    "Local revision only; no commit, push or new production deployment executed in this task. Production remains version 20261023T020252."
+  ]
+}

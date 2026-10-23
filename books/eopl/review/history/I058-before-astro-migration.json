@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "issue": "I048",
+  "book": "eopl",
+  "recorded_at_utc": "2026-10-21T03:31:56.589396+00:00",
+  "status": "Go",
+  "scope": "Four local reading pages, including completed chapters 1 and 2. Six public HTML routes accepted offline; production deployment is outside this task.",
+  "baseline_ref": "7e9d2eaf335b5ebf9109930447b974b9065ee5f7",
+  "page_baselines": {
+    "eopl/notes/chapter01_inductive_data.html": "1e96df2376aa34342f23eb089a1cbffb553f46f9",
+    "eopl/notes/chapter02_data_abstraction.html": "1e96df2376aa34342f23eb089a1cbffb553f46f9"
+  },
+  "baseline_kind": "retained source snapshots, distinct from published output",
+  "pages": 4,
+  "public_pages": 6,
+  "parity_differences": [],
+  "open_findings": [],
+  "external_requests": [],
+  "js_views": 24,
+  "no_js_views": 12,
+  "current_source_sha256": {
+    "eopl/notes/book_overview.html": "d9ea94359635da9f37016785a86c0f43322fbca0d9ee9b9251a082b2b86510e5",
+    "eopl/notes/chapter01_inductive_data.html": "e64f49ad9d332f72fc76b1524d82334d43d573d0e423246f896217a41af50658",
+    "eopl/notes/chapter02_data_abstraction.html": "c572719d4b7ea853f2368e099b7aecf990ed2d38a9ad8b000b6db8a62ed4db4b",
+    "eopl/notes/preface.html": "1cf6fd97fefa1bbc71ba404c9facd10b645beac1653af7d6ba16ef16e52cbddc"
+  },
+  "current_output_sha256": {
+    "eopl/notes/book_overview.html": "43282233678ea6dee6dda5c6724fa55cee28df9cf2647e94bce359a14a53730c",
+    "eopl/notes/chapter01_inductive_data.html": "5f86c74cbf53eefaf602530b2227895ee3e5a0f6d82d9b1f8756a4bb2719cc24",
+    "eopl/notes/chapter02_data_abstraction.html": "b26cc4100ccc40a6678d0061b1b4aba4ce06c139aa6731291e89a535f95df38b",
+    "eopl/notes/preface.html": "836e1381d8cffe22a4bc615fd3a55b5c1bc4e9a214be4277a010bd314b525eb5"
+  },
+  "evidence_sha256": {
+    "tmp/reading-notes-migration/browser/eopl/runs/2026-10-21T03-21-38-892Z-3877457f/report.json": "948878b129e226a5604a8398734b5e3a7f949eeffc54727266dd6ba62b2467c4",
+    "tmp/eopl-ch12-work/book-check-final/report.json": "a74318cb979fe33d09cb7edb4c035a3f3713640f1b6fbd44572aa356f2e5f373",
+    "tmp/reading-notes-migration/csp/report.json": "314d5b60fdc82d0d3517a4aca951410e1c01b9d78b2d16e06bfd892406bc50ad",
+    "tmp/eopl-ch12-work/navigation-final.json": "7efd1eec8bf6096a856f4138623af9158d406c717f2d191309448309a7cb09f1"
+  },
+  "visual_review": "Eight source layout views, six notation-correction views and four representative final packaged screenshots were viewed. Native code controls, no-JS, deep links, table scrolling and real download tested. No physical-device or screen-reader claim.",
+  "historical_record": {
+    "file": "review/history/I044-astro-migration.json",
+    "sha256": "cb21ca8e8930c5488298e89069de34b0785cd21a0fc4e0ef9ff2b85be80afb9b",
+    "reason": "Retains the original I044 two-page acceptance; I048 separately accepts four pages."
+  }
+}

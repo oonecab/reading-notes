@@ -12,6 +12,7 @@ const selected=entries().filter(p=>!book||p.metadata.book===book);
 if(!selected.length)throw new Error('No migrated reading pages');
 const candidates=htmlFiles(path.join(root,'dist')).map(file=>({route:path.relative(path.join(root,'dist'),file)})).filter(p=>!book||p.route.startsWith(book+'/'));
 const readerPolicies=JSON.parse(fs.readFileSync('docs/reader-contract.json')).pages;
+const presentation=JSON.parse(fs.readFileSync('docs/reader-presentation.json'));
 const pages=candidates.map(metadata=>{
   const file=path.join(root,'dist',metadata.route),html=fs.readFileSync(file,'utf8');
   const issues=offlineDependencies(html);
@@ -19,7 +20,9 @@ const pages=candidates.map(metadata=>{
   const redirect=html.match(/<meta http-equiv="refresh" content="0;url=([^"]+)"/);
   const target=redirect?path.resolve(path.dirname(file),redirect[1]):file;
   if(!target.startsWith(path.join(root,'dist')+path.sep)||!fs.existsSync(target))throw new Error('Invalid static redirect: '+metadata.route);
-  return {route:metadata.route,file,reader_policy:readerPolicies.find(p=>p.page===metadata.route)??null,sha256:sha(html),counts:fingerprint(fs.readFileSync(target,'utf8')).counts,redirect_file:redirect?target:null};
+  const bookPolicy=presentation.books[metadata.route.split('/')[0]];
+  const overview=bookPolicy?.pages.some(p=>p.file===path.basename(metadata.route)&&p.kind==='overview');
+  return {route:metadata.route,file,map_navigation:overview?(bookPolicy.overview_maps??[]):null,reader_policy:readerPolicies.find(p=>p.page===metadata.route)??null,sha256:sha(html),counts:fingerprint(fs.readFileSync(target,'utf8')).counts,redirect_file:redirect?target:null};
 });
 const sessionFile=path.join(root,'tmp/final-assessment/browser-session.json');
 const resumeIndex=process.argv.indexOf('--resume');

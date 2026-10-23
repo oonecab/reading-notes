@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "issue": "I058",
+  "book": "eopl",
+  "recorded_at_utc": "2026-10-23T04:33:05.657879+00:00",
+  "status": "Go",
+  "scope": "Five local reading pages and seven public HTML routes. Chapter 3 complete Chinese tasks, interpreters, lexical translation and reader acceptance. Production deployment is separate.",
+  "baseline_ref": "7e9d2eaf335b5ebf9109930447b974b9065ee5f7",
+  "page_baselines": {
+    "eopl/notes/chapter01_inductive_data.html": "1e96df2376aa34342f23eb089a1cbffb553f46f9",
+    "eopl/notes/chapter02_data_abstraction.html": "1e96df2376aa34342f23eb089a1cbffb553f46f9",
+    "eopl/notes/chapter03_expressions.html": "6ab014191cbe20829f946ee9150031156375bc73"
+  },
+  "baseline_kind": "retained source snapshots, distinct from published output",
+  "pages": 5,
+  "public_pages": 7,
+  "parity_differences": [],
+  "open_findings": [],
+  "external_requests": [],
+  "js_views": 28,
+  "no_js_views": 14,
+  "current_source_sha256": {
+    "eopl/notes/book_overview.html": "8e0f716078d93f14c2171436af3e067941fcf14884fa60a3b2b19d83e4f2de38",
+    "eopl/notes/chapter01_inductive_data.html": "d7d3b96ad503a9c837db0eb59e8488ab849a2a8fcb0626fd98b611913ad1e663",
+    "eopl/notes/chapter02_data_abstraction.html": "4d53d0caf1a949c959cc9e8d6682b4d8606d991a823cfae4ac4c000dbbb34073",
+    "eopl/notes/chapter03_expressions.html": "b2312720b18fe45826ec8482e96f4430900b70eb0440ebf763206f0f40ecf79c",
+    "eopl/notes/preface.html": "c83fc006cd8334acfe0bf72bf657e56ae875082689a5d47d7f70db17cd6fec34"
+  },
+  "current_output_sha256": {
+    "eopl/notes/book_overview.html": "acd579679d38a973594b4322ebf7dced97c09438755ae48e85e04a56d1b98c67",
+    "eopl/notes/chapter01_inductive_data.html": "a174becfc9cbe59f2c737b6b51f0b4cb7b46f817732d0361a47e3325d27e6178",
+    "eopl/notes/chapter02_data_abstraction.html": "21d012fca61cbd822d76e073db008d5032cc489027bcd5145b87e19041799e06",
+    "eopl/notes/chapter03_expressions.html": "63c7a55473489599ceccde14648aca76d260fd9e981650cc008a39a193327a4a",
+    "eopl/notes/preface.html": "42ceb152e3c0f4f03698daa796612027287a80858076d2e17d78a29db143b791"
+  },
+  "evidence_sha256": {
+    "tmp/reading-notes-migration/browser/eopl/runs/2026-10-23T04-16-52-462Z-dec4d3c1/report.json": "58ad279d97e1c08e3571bc5385d2597141fd89b3e9f72fcb9876f60f6c4e16ac",
+    "review/ch03.json": "2023fd17c84f7b930d49d6b55ac9f34d2742493e1b64b5f1b88304eaf323d99c",
+    "tmp/project-check/20261023T123439-fvfi97hy/report.json": "131434a0dcb47583bd4dc235c32269da3962dd833a582e52d14b6de47d2e7208",
+    "tmp/project-check/20261023T123707-f3u2xl73/report.json": "3550485ada61fbf9fb265dca1d5799e9ba2f76cce0ce56b708b89113bfb7958b"
+  },
+  "visual_review": "Current chapter sections, 44 rendered Chinese tasks and solutions, recursive cycle, derivation tree, optimization explanation and native code controls read back; desktop/mobile emulation and no-JS matrix passed. No physical-device or screen-reader claim.",
+  "historical_record": {
+    "file": "review/history/I058-before-astro-migration.json",
+    "sha256": "e97e20868cf148e55233c158d248ba9610cde811ca54b81ae2145c974a56c52b",
+    "reason": "Preserves prior I048 four-page acceptance and all its historical bindings."
+  }
+}

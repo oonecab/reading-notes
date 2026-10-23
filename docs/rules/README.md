@@ -21,7 +21,7 @@
 
 教材陈述、例题、公式和推导由 src/content/books 中的受控 HTML 维护，原 books 章节路径是同步的检查/阅读镜像，具体流程见 [Astro 内容维护](../astro-authoring.md)；计算实现与数值接口由各书源码/正文及运行说明维护。跨书规则由本目录登记，教材模型保持在对应正文中。
 
-跨书的来源核对、全书规划、伴读方法、题解、代码与阅读验收采用 [RN-001 读书笔记共同标准](../reading-notes-standard.md)（v1.11，2026-10-22）；页面族、导航、章首与索引位置、题干语言策略和检查方法采用 [RN-002 阅读呈现、导航与检查规范](../reading-presentation-standard.md)（v1.0.1，2026-10-22）。[新书接入](../adding-a-book.md)与[模板](../templates/reading-notes/README.md)引用该标准；以下各书文件补充本书模型、范围和具体约定，既有更细要求继续生效。
+跨书的来源核对、全书规划、伴读方法、题解、代码与阅读验收采用 [RN-001 读书笔记共同标准](../reading-notes-standard.md)（v1.11，2026-10-22）；页面族、导航、章首与索引位置、题干语言策略和检查方法采用 [RN-002 阅读呈现、导航与检查规范](../reading-presentation-standard.md)（v1.1，2026-10-23）。[新书接入](../adding-a-book.md)与[模板](../templates/reading-notes/README.md)引用该标准；以下各书文件补充本书模型、范围和具体约定，既有更细要求继续生效。
 
 - 随机过程：[维护约定](../../books/stochastic/agent.md)、[章节规范](../../books/stochastic/notes/README.md)、[程序接口](../../books/stochastic/code/README.md)。
 - Weiss：[维护约定](../../books/weiss/agent.md)、[章节规范](../../books/weiss/notes/README.md)、[程序说明](../../books/weiss/notes/book_overview.html#program-guide)、[原图例接口](../../books/weiss/c/README.md)。
@@ -72,3 +72,11 @@ EOPL 基础两章：递归终止度量、编号上下文、自然数表示、环
 2026-10-22 的 [I053](../../issues/I053-reading-presentation.md) 将呈现、导航与索引位置固化为 RN-002 和 `docs/reader-presentation.json`；EOPL 逐题英文原题移出阅读页并归档，随机过程/CS:APP 索引后置。
 
 2026-10-21 的 [I052](../../issues/I052-reader-contract.md) 将 [RN-001 v1.10](../reading-notes-standard.md) 的完整中文题干、必需注解、统一索引和直接 PDF 定位固化为独立阅读契约。题干里的分布、独立性、任务动词、原程序与前置定理已按来源补齐，详情与验证边界见 [T052](../../test/T052-reader-contract.md)。视觉群论 [7.18(h)](../../books/visual-group-theory/notes/chapter07_products_and_quotients.html#ex-7-18) 以原书 PDF 第 166 页的 48 个动作终点为准，商图按同一作用诱导；可执行检查同时核对数据端点、箭头标记和实际 SVG 路径，避免用另一个 16 阶群代替原图。
+
+EOPL 第 3 章：LET 的旧/新环境、词法闭包与调用环境、递归组初始化、整数真值与布尔子文法、左至右输出、列表及 unpack 错误、flat/rib 地址、紧缩闭包和已知过程优化的语义条件，由[第三章](../../books/eopl/notes/chapter03_expressions.html)与[程序说明](../../books/eopl/code/README.md)共同维护；期望值、边界及优化计数由 `test_chapter03.rkt` 实际验证，来源与阅读证据见 [T058](../../test/T058-eopl-ch03.md)。
+
+EOPL 第 4 章：存储传递顺序、位置身份、显式与隐式引用、递归闭包一次初始化、动态赋值恢复、对象共享、数组边界、值/引用/值结果/按名/按需规则及语句块作用域，由[第四章](../../books/eopl/notes/chapter04_state.html)和[程序说明](../../books/eopl/code/README.md)维护。错误输入、别名、强制次数与独立状态矩阵由 `test_chapter04.rkt` 验证，范围与校注见 [T059](../../test/T059-eopl-ch04.md)。
+
+EOPL控制批：[第五章](../../books/eopl/notes/chapter05_continuations.html)定义续文帧、异常恢复、抢占计步、互斥直接移交、主/子线程终止与消息队列；[第六章](../../books/eopl/notes/chapter06_cps.html)定义简单/尾形式、鲜名与求值顺序、效果降级、过程数据化、ANF和双续文转换。来源校注、独立基准和执行边界见[程序说明](../../books/eopl/code/README.md)与[T060](../../test/T060-eopl-ch05-06.md)。
+
+EOPL 发布修订 I061：私有线程存储在既有 THREADS 解释器中实现，引用/闭包图按 memo 复制并保留别名和环；控制绑定在隐式引用降级中按可变性建立位置，原子化保留输入名字集合。权威语义和边界仍在[第五章习题5.56](../../books/eopl/notes/chapter05_continuations.html#ex-5-56)、[第六章习题6.18](../../books/eopl/notes/chapter06_cps.html#ex-6-18)及[程序说明](../../books/eopl/code/README.md)，回归见[T061](../../test/T061-eopl-publication.md)。

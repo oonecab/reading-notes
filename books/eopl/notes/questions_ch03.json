@@ -1,0 +1,411 @@
+{
+  "source_sha256": "b9e8770a4dc97206bd02230e6b21a878382eb02a340ff69321857d701e7d967c",
+  "items": [
+    {
+      "number": "3.1",
+      "printed_page": 63,
+      "pdf_page": 86,
+      "pdf_end": 86,
+      "stars": 1,
+      "question_text": "In figure 3.3, list all the places where we used the fact that ⌊⌈n⌉⌋ = n.",
+      "chinese_html": "<p>图 3.3 的推演中，哪些地方使用了 <code>expval-&gt;num(num-val(n)) = n</code> 这一事实？请全部列出。图中初始环境为 <code>[i=1,v=5,x=10]</code>，计算的表达式为 <code>-(-(x,3),-(v,i))</code>。</p>"
+    },
+    {
+      "number": "3.2",
+      "printed_page": 63,
+      "pdf_page": 86,
+      "pdf_end": 86,
+      "stars": 2,
+      "question_text": "Give an expressed value val ∈ ExpVal for which ⌈⌊val⌋⌉ ≠ val.",
+      "chinese_html": "<p>给出一个表达值 <code>val ∈ ExpVal</code>，使 <code>num-val(expval-&gt;num(val))</code> 不等于 <code>val</code>。题目沿用本节 <code>ExpVal = Int + Bool</code> 的带标签表示。</p>"
+    },
+    {
+      "number": "3.3",
+      "printed_page": 70,
+      "pdf_page": 93,
+      "pdf_end": 93,
+      "stars": 1,
+      "question_text": "Why is subtraction a better choice than addition for our single arithmetic operation?",
+      "chinese_html": "<p>如果语言只保留一个算术运算，为什么选择减法比选择加法更适合本章？</p>"
+    },
+    {
+      "number": "3.4",
+      "printed_page": 70,
+      "pdf_page": 93,
+      "pdf_end": 93,
+      "stars": 1,
+      "question_text": "Write out the derivation of figure 3.4 as a derivation tree in the style\n     of the one on page 5.",
+      "chinese_html": "<p>把图 3.4 的推导改写成第 5 页那种推导树。图中环境为 <code>[x=33,y=22]</code>，表达式为 <code>if zero?(-(x,11)) then -(y,2) else -(y,4)</code>。</p>"
+    },
+    {
+      "number": "3.5",
+      "printed_page": 72,
+      "pdf_page": 95,
+      "pdf_end": 95,
+      "stars": 1,
+      "question_text": "Write out the derivation of figure 3.5 as a derivation tree in the style\n     of the one on page 5.",
+      "chinese_html": "<p>把图 3.5 的推导改写成第 5 页那种推导树。初始环境记为 <code>rho0</code>，程序为：</p>\n<pre><code class=\"language-text\">let x = 7\nin let y = 2\n   in let y = let x = -(x,1) in -(x,y)\n      in -(-(x,8),y)</code></pre>"
+    },
+    {
+      "number": "3.6",
+      "printed_page": 72,
+      "pdf_page": 95,
+      "pdf_end": 95,
+      "stars": 1,
+      "question_text": "Extend the language by adding a new operator minus that takes one\n     argument, n, and returns −n. For example, the value of minus(-(minus(5),9))\n     should be 14.",
+      "chinese_html": "<p>为语言增加一元运算 <code>minus</code>。它接收一个整数参数 n 并返回 −n。例如 <code>minus(-(minus(5),9))</code> 应得到 14。给出新增规则并实现。</p>"
+    },
+    {
+      "number": "3.7",
+      "printed_page": 72,
+      "pdf_page": 95,
+      "pdf_end": 95,
+      "stars": 1,
+      "question_text": "Extend the language by adding operators for addition, multiplication, and integer quotient.",
+      "chinese_html": "<p>为语言增加加法、乘法和整数商运算，给出语义规则并扩充解释器。</p>"
+    },
+    {
+      "number": "3.8",
+      "printed_page": 73,
+      "pdf_page": 96,
+      "pdf_end": 96,
+      "stars": 1,
+      "question_text": "Add a numeric equality predicate equal? and numeric order predicates greater? and less? to the set of operations in the defined language.",
+      "chinese_html": "<p>在被定义语言的操作中增加数值相等谓词 <code>equal?</code>，以及数值大小谓词 <code>greater?</code>、<code>less?</code>。</p>"
+    },
+    {
+      "number": "3.9",
+      "printed_page": 73,
+      "pdf_page": 96,
+      "pdf_end": 96,
+      "stars": 2,
+      "question_text": "Add list processing operations to the language, including cons,\ncar, cdr, null? and emptylist. A list should be able to contain any expressed\nvalue, including another list. Give the definitions of the expressed and denoted values of the language, as in section 3.2.2. For example,\n\n        let x = 4\n        in cons(x,\n                cons(cons(-(x,1),\n                          emptylist),\n                     emptylist))\n\nshould return an expressed value that represents the list (4 (3)).",
+      "chinese_html": "<p>给语言增加列表处理操作 <code>cons</code>、<code>car</code>、<code>cdr</code>、<code>null?</code> 和 <code>emptylist</code>。列表可以包含任意表达值，包括另一个列表。像 §3.2.2 那样定义表达值集合与被绑定值集合。以下程序应返回表示 <code>(4 (3))</code> 的表达值：</p>\n<pre><code class=\"language-text\">let x = 4\nin cons(x,cons(cons(-(x,1),emptylist),emptylist))</code></pre>"
+    },
+    {
+      "number": "3.10",
+      "printed_page": 73,
+      "pdf_page": 96,
+      "pdf_end": 96,
+      "stars": 2,
+      "question_text": "Add an operation list to the language. This operation should\ntake any number of arguments, and return an expressed value containing the list of\ntheir values. For example,\n\n        let x = 4\n        in list(x, -(x,1), -(x,3))\n\nshould return an expressed value that represents the list (4 3 1).",
+      "chinese_html": "<p>增加可接收任意多个参数的 <code>list</code> 操作，返回包含所有参数值的列表表达值。例如：</p>\n<pre><code class=\"language-text\">let x = 4\nin list(x, -(x,1), -(x,3))</code></pre>\n<p>应得到表示 <code>(4 3 1)</code> 的表达值。</p>"
+    },
+    {
+      "number": "3.11",
+      "printed_page": 73,
+      "pdf_page": 96,
+      "pdf_end": 96,
+      "stars": 1,
+      "question_text": "In a real language, one might have many operators such as those in\nthe preceding exercises. Rearrange the code in the interpreter so that it is easy to add\nnew operators.",
+      "chinese_html": "<p>实际语言可能有前几题所示的许多运算。重新组织解释器，使增加新运算更加容易。</p>"
+    },
+    {
+      "number": "3.12",
+      "printed_page": 73,
+      "pdf_page": 96,
+      "pdf_end": 96,
+      "stars": 1,
+      "question_text": "Add to the defined language a facility that adds a cond expression.\nUse the grammar\n\n              Expression ::= cond {Expression ==> Expression}∗ end\n\nIn this expression, the expressions on the left-hand sides of the ==>’s are evaluated in\norder until one of them returns a true value. Then the value of the entire expression\nis the value of the corresponding right-hand expression. If none of the tests succeeds,\nthe expression should report an error.",
+      "chinese_html": "<p>增加 cond 表达式，语法为 <code>Expression ::= cond {Expression ==&gt; Expression}* end</code>。按顺序求每个箭头左侧的测试；首次得到真值后，整个 cond 的值为对应右侧表达式的值。如果所有测试都失败，报告错误。</p>"
+    },
+    {
+      "number": "3.13",
+      "printed_page": 73,
+      "pdf_page": 96,
+      "pdf_end": 96,
+      "stars": 1,
+      "question_text": "Change the values of the language so that integers are the only\nexpressed values. Modify if so that the value 0 is treated as false and all other values\nare treated as true. Modify the predicates accordingly.",
+      "chinese_html": "<p>改变语言的值域，使整数成为唯一的表达值。修改 if：0 为假，其他整数为真；相应地修改各谓词。</p>"
+    },
+    {
+      "number": "3.14",
+      "printed_page": 73,
+      "pdf_page": 96,
+      "pdf_end": 96,
+      "stars": 2,
+      "question_text": "As an alternative to the preceding exercise, add a new nonterminal Bool-exp of boolean expressions to the language. Change the production for\nconditional expressions to say\n\n          Expression ::= if Bool-exp then Expression else Expression\n\nWrite suitable productions for Bool-exp and implement value-of-bool-exp.\nWhere do the predicates of exercise 3.8 wind up in this organization?",
+      "chinese_html": "<p>作为前题的另一种方案，增加布尔表达式非终结符 Bool-exp，把条件表达式的产生式改成 <code>Expression ::= if Bool-exp then Expression else Expression</code>。写出合适的 Bool-exp 产生式，实现 <code>value-of-bool-exp</code>。习题 3.8 的那些谓词应放在哪里？</p>"
+    },
+    {
+      "number": "3.15",
+      "printed_page": 74,
+      "pdf_page": 97,
+      "pdf_end": 97,
+      "stars": 1,
+      "question_text": "Extend the language by adding a new operation print that takes\n           one argument, prints it, and returns the integer 1. Why is this operation not expressible in our specification framework?",
+      "chinese_html": "<p>增加一个一元 <code>print</code> 操作：打印参数的值并返回整数 1。为什么这项操作无法用本节的规格框架完整表达？</p>"
+    },
+    {
+      "number": "3.16",
+      "printed_page": 74,
+      "pdf_page": 97,
+      "pdf_end": 97,
+      "stars": 2,
+      "question_text": "Extend the language so that a let declaration can declare an arbitrary number of variables, using the grammar\n\n                       Expression ::= let {Identifier = Expression}∗ in Expression\n\n           As in Scheme’s let, each of the right-hand sides is evaluated in the current environment, and the body is evaluated with each new variable bound to the value of its\n           associated right-hand side. For example,\n\n                   let x = 30\n                   in let x = -(x,1)\n                          y = -(x,2)\n                      in -(x,y)\n\n           should evaluate to 1.",
+      "chinese_html": "<p>用 <code>Expression ::= let {Identifier = Expression}* in Expression</code> 允许一次 let 声明任意多个变量。像 Scheme 的 let 那样，所有右侧都在当前环境求值，然后用所得绑定扩展环境并求主体。例如以下程序应得到 1：</p>\n<pre><code class=\"language-text\">let x = 30\nin let x = -(x,1) y = -(x,2)\n   in -(x,y)</code></pre>"
+    },
+    {
+      "number": "3.17",
+      "printed_page": 74,
+      "pdf_page": 97,
+      "pdf_end": 97,
+      "stars": 2,
+      "question_text": "Extend the language with a let∗ expression that works like\n           Scheme’s let∗ , so that\n\n                   let x = 30\n                   in let∗ x = -(x,1) y = -(x,2)\n                      in -(x,y)\n\n           should evaluate to 2.",
+      "chinese_html": "<p>增加按 Scheme let* 方式工作的 let* 表达式。下面程序应得到 2：</p>\n<pre><code class=\"language-text\">let x = 30\nin let* x = -(x,1) y = -(x,2)\n   in -(x,y)</code></pre>"
+    },
+    {
+      "number": "3.18",
+      "printed_page": 74,
+      "pdf_page": 97,
+      "pdf_end": 97,
+      "stars": 2,
+      "question_text": "Add an expression to the defined language:\n\n                    Expression ::= unpack {Identifier}∗ = Expression in Expression\n\n           so that unpack x y z = lst in ... binds x, y, and z to the elements of lst if\n           lst is a list of exactly three elements, and reports an error otherwise. For example,\n           the value of\n\n                   let u = 7\n                   in unpack x y = cons(u,cons(3,emptylist))\n                      in -(x,y)\n\n           should be 4.",
+      "chinese_html": "<p>增加 <code>Expression ::= unpack {Identifier}* = Expression in Expression</code>。例如 <code>unpack x y z = lst in ...</code> 只在 lst 是恰好三个元素的列表时把各元素绑定给 x、y、z，否则报错。以下程序的值应为 4：</p>\n<pre><code class=\"language-text\">let u = 7\nin unpack x y = cons(u,cons(3,emptylist))\n   in -(x,y)</code></pre>"
+    },
+    {
+      "number": "3.19",
+      "printed_page": 80,
+      "pdf_page": 103,
+      "pdf_end": 103,
+      "stars": 1,
+      "question_text": "In many languages, procedures must be created and named at the\n     same time. Modify the language of this section to have this property by replacing the\n     proc expression with a letproc expression.",
+      "chinese_html": "<p>某些语言要求过程在创建时同时命名。把本节的 proc 表达式替换成 letproc 表达式，使语言具有这一性质。</p>"
+    },
+    {
+      "number": "3.20",
+      "printed_page": 80,
+      "pdf_page": 103,
+      "pdf_end": 103,
+      "stars": 1,
+      "question_text": "In PROC, procedures have only one argument, but one can get the\n     effect of multiple argument procedures by using procedures that return other procedures. For example, one might write code like\n             let f = proc (x) proc (y) ...\n             in ((f 3) 4)\n     This trick is called Currying, and the procedure is said to be Curried. Write a Curried\n     procedure that takes two arguments and returns their sum. You can write x + y in\n     our language by writing −(x, −(0, y)).",
+      "chinese_html": "<p>PROC 的过程只有一个参数，但可通过返回过程来模拟多个参数。例如 <code>let f = proc (x) proc (y) ... in ((f 3) 4)</code>。这种技巧称为 Currying（柯里化）。请写出一个柯里化的两参数加法过程。提示：本语言中可用 <code>-(x,-(0,y))</code> 表达 x+y。</p>"
+    },
+    {
+      "number": "3.21",
+      "printed_page": 80,
+      "pdf_page": 103,
+      "pdf_end": 103,
+      "stars": 2,
+      "question_text": "Extend the language of this section to include procedures with\n     multiple arguments and calls with multiple operands, as suggested by the grammar\n                       Expression ::= proc ({Identifier}∗(,) ) Expression\n                       Expression ::= (Expression {Expression}∗ )",
+      "chinese_html": "<p>用下面的语法把 PROC 扩展为多参数过程与多操作数调用：<code>Expression ::= proc ({Identifier}*(,)) Expression</code>；<code>Expression ::= (Expression {Expression}*)</code>。</p>"
+    },
+    {
+      "number": "3.22",
+      "printed_page": 81,
+      "pdf_page": 104,
+      "pdf_end": 104,
+      "stars": 3,
+      "question_text": "The concrete syntax of this section uses different syntax for a\nbuilt-in operation, such as difference, from a procedure call. Modify the concrete\nsyntax so that the user of this language need not know which operations are built-in\nand which are defined procedures. This exercise may range from very easy to hard,\ndepending on the parsing technology being used.",
+      "chinese_html": "<p>本节对内置减法等操作和用户过程调用使用不同的具体语法。修改具体语法，使使用者不必区分内置操作和自定义过程。题目的难度可能因所用解析技术而有很大差别。</p>"
+    },
+    {
+      "number": "3.23",
+      "printed_page": 81,
+      "pdf_page": 104,
+      "pdf_end": 104,
+      "stars": 2,
+      "question_text": "What is the value of the following PROC program?\n\n        let makemult = proc (maker)\n                         proc (x)\n                          if zero?(x)\n                          then 0\n                          else -(((maker maker) -(x,1)), -4)\n        in let times4 = proc (x) ((makemult makemult) x)\n           in (times4 3)\n\nUse the tricks of this program to write a procedure for factorial in PROC. As a hint,\nremember that you can use Currying (exercise 3.20) to define a two-argument procedure times.",
+      "chinese_html": "<p>下面的 PROC 程序的值是什么？利用它的技巧，在 PROC 中写出阶乘过程。提示：可利用习题 3.20 的柯里化技巧定义两参数 times。</p>\n<pre><code class=\"language-text\">let makemult = proc (maker)\n                 proc (x)\n                  if zero?(x)\n                  then 0\n                  else -(((maker maker) -(x,1)), -4)\nin let times4 = proc (x) ((makemult makemult) x)\n   in (times4 3)</code></pre>"
+    },
+    {
+      "number": "3.24",
+      "printed_page": 81,
+      "pdf_page": 104,
+      "pdf_end": 104,
+      "stars": 2,
+      "question_text": "Use the tricks of the program above to write the pair of mutually\nrecursive procedures, odd and even, as in exercise 3.32.",
+      "chinese_html": "<p>利用上一题程序的技巧，写出像<a href=\"#ex-3-32\">习题 3.32</a> 中那样相互递归的 odd 与 even。</p>"
+    },
+    {
+      "number": "3.25",
+      "printed_page": 81,
+      "pdf_page": 104,
+      "pdf_end": 104,
+      "stars": 1,
+      "question_text": "The tricks of the previous exercises can be generalized to show that\nwe can define any recursive procedure in PROC. Consider the following bit of code:\n\n        let makerec = proc (f)\n                       let d = proc (x)\n                                proc (z) ((f (x x)) z)\n                       in proc (n) ((f (d d)) n)\n        in let maketimes4 = proc (f)\n                             proc (x)\n                              if zero?(x)\n                              then 0\n                              else -((f -(x,1)), -4)\n           in let times4 = (makerec maketimes4)\n              in (times4 3)\n\nShow that it returns 12.",
+      "chinese_html": "<p>前几题的技巧可以推广，从而在 PROC 中定义任意递归过程。考虑下面的程序，证明它返回 12：</p>\n<pre><code class=\"language-text\">let makerec = proc (f)\n                let d = proc (x)\n                           proc (z) ((f (x x)) z)\n                in proc (n) ((f (d d)) n)\nin let maketimes4 = proc (f)\n                      proc (x)\n                       if zero?(x) then 0\n                       else -((f -(x,1)), -4)\n   in let times4 = (makerec maketimes4)\n      in (times4 3)</code></pre>"
+    },
+    {
+      "number": "3.26",
+      "printed_page": 81,
+      "pdf_page": 104,
+      "pdf_end": 104,
+      "stars": 2,
+      "question_text": "In our data-structure representation of procedures, we have kept\nthe entire environment in the closure. But of course all we need are the bindings for\nthe free variables. Modify the representation of procedures to retain only the free\nvariables.",
+      "chinese_html": "<p>过程的数据结构表示保存了整个环境，但真正需要的只是自由变量的绑定。修改过程表示，使其仅保留自由变量。</p>"
+    },
+    {
+      "number": "3.27",
+      "printed_page": 81,
+      "pdf_page": 104,
+      "pdf_end": 104,
+      "stars": 1,
+      "question_text": "Add a new kind of procedure called a traceproc to the language.\nA traceproc works exactly like a proc, except that it prints a trace message on\nentry and on exit.",
+      "chinese_html": "<p>增加一种名为 traceproc 的过程。它与 proc 的行为完全相同，但进入和退出过程时分别打印跟踪信息。</p>"
+    },
+    {
+      "number": "3.28",
+      "printed_page": 82,
+      "pdf_page": 105,
+      "pdf_end": 105,
+      "stars": 2,
+      "question_text": "Dynamic binding (or dynamic scoping) is an alternative design for\n           procedures, in which the procedure body is evaluated in an environment obtained by\n           extending the environment at the point of call. For example in\n                   let a = 3\n                   in let p = proc (x) -(x,a)\n                          a = 5\n                      in -(a,(p 2))\n           the a in the procedure body would be bound to 5, not 3. Modify the language to use\n           dynamic binding. Do this twice, once using a procedural representation for procedures, and once using a data-structure representation.",
+      "chinese_html": "<p>动态绑定（动态作用域）在调用点环境上增加形参绑定，再求过程体。例如以下程序中，过程体内的 a 将取 5 而不是 3。修改语言实现动态绑定，分别使用过程的过程表示和数据结构表示两种方式。</p>\n<pre><code class=\"language-text\">let a = 3\nin let p = proc (x) -(x,a)\n       a = 5\n   in -(a,(p 2))</code></pre>"
+    },
+    {
+      "number": "3.29",
+      "printed_page": 82,
+      "pdf_page": 105,
+      "pdf_end": 105,
+      "stars": 2,
+      "question_text": "Unfortunately, programs that use dynamic binding may be exceptionally difficult to understand. For example, under lexical binding, consistently\n           renaming the bound variables of a procedure can never change the behavior of a program: we can even remove all variables and replace them by their lexical addresses,\n           as in section 3.6. But under dynamic binding, this transformation is unsafe.\n           For example, under dynamic binding, the procedure proc (z) a returns the value\n           of the variable a in its caller’s environment. Thus, the program\n                   let a = 3\n                   in let p = proc (z) a\n                      in let f = proc (x) (p 0)\n                         in let a = 5\n                             in (f 2)\n           returns 5, since a’s value at the call site is 5. What if f’s formal parameter were a?",
+      "chinese_html": "<p>使用动态绑定的程序可能很难理解。词法绑定下，始终一致地重命名一个过程的绑定变量不会改变行为，还能像 §3.6 那样用词法地址替代名字；动态绑定下这样做并不安全。动态绑定中的 <code>proc (z) a</code> 返回调用者环境中的 a。下面程序返回 5；若把 f 的形参改名为 a，结果会怎样？</p>\n<pre><code class=\"language-text\">let a = 3\nin let p = proc (z) a\n   in let f = proc (x) (p 0)\n      in let a = 5\n         in (f 2)</code></pre>"
+    },
+    {
+      "number": "3.30",
+      "printed_page": 83,
+      "pdf_page": 106,
+      "pdf_end": 106,
+      "stars": 1,
+      "question_text": "What is the purpose of the call to proc-val on the next-to-last line\nof apply-env?",
+      "chinese_html": "<p><a href=\"#source-rec-environment\">图 3.12 的 apply-env 代码</a>倒数第二行为什么调用 proc-val？</p>"
+    },
+    {
+      "number": "3.31",
+      "printed_page": 83,
+      "pdf_page": 106,
+      "pdf_end": 106,
+      "stars": 1,
+      "question_text": "Extend the language above to allow the declaration of a recursive\nprocedure of possibly many arguments, as in exercise 3.21.",
+      "chinese_html": "<p>像<a href=\"#ex-3-21\">习题 3.21</a> 那样，把上面的语言扩展为允许声明可能具有多个参数的递归过程。</p>"
+    },
+    {
+      "number": "3.32",
+      "printed_page": 84,
+      "pdf_page": 107,
+      "pdf_end": 107,
+      "stars": 2,
+      "question_text": "Extend the language above to allow the declaration of any number\n     of mututally recursive unary procedures, for example:\n\n              letrec\n                even(x) = if zero?(x) then 1 else (odd -(x,1))\n                odd(x) = if zero?(x) then 0 else (even -(x,1))\n              in (odd 13)",
+      "chinese_html": "<p>把上面的语言扩展为允许同时声明任意多个相互递归的单参数过程。例如：</p>\n<pre><code class=\"language-text\">letrec\n  even(x) = if zero?(x) then 1 else (odd -(x,1))\n  odd(x)  = if zero?(x) then 0 else (even -(x,1))\nin (odd 13)</code></pre>"
+    },
+    {
+      "number": "3.33",
+      "printed_page": 85,
+      "pdf_page": 108,
+      "pdf_end": 108,
+      "stars": 2,
+      "question_text": "Extend the language above to allow the declaration of any number of mutually recursive procedures, each of possibly many arguments, as in exercise 3.21.",
+      "chinese_html": "<p>像<a href=\"#ex-3-21\">习题 3.21</a> 那样，允许同时声明任意多个相互递归的过程，而且每个过程都可以有多个参数。</p>"
+    },
+    {
+      "number": "3.34",
+      "printed_page": 85,
+      "pdf_page": 108,
+      "pdf_end": 108,
+      "stars": 3,
+      "question_text": "Implement extend-env-rec in the procedural representation\nof environments from section 2.2.3.",
+      "chinese_html": "<p>用 §2.2.3 的环境过程表示实现 extend-env-rec。</p>"
+    },
+    {
+      "number": "3.35",
+      "printed_page": 85,
+      "pdf_page": 108,
+      "pdf_end": 109,
+      "stars": 1,
+      "question_text": "The representations we have seen so far are inefficient, because they\nbuild a new closure every time the procedure is retrieved. But the closure is the same\nevery time. We can build the closures only once, by putting the value in a vector of\nlength 1 and building an explicit circular structure, like\n\nHere’s the code to build this data structure.\n\n       (define extend-env-rec\n         (lambda (p-name b-var body saved-env)\n           (let ((vec (make-vector 1)))\n             (let ((new-env (extend-env p-name vec saved-env)))\n               (vector-set! vec 0\n                 (proc-val (procedure b-var body new-env)))\n               new-env))))\n\n     Complete the implementation of this representation by modifying the definitions of\n     the environment data type and apply-env accordingly. Be sure that apply-env\n     always returns an expressed value.",
+      "source_diagram": {
+        "pdf_page": 108,
+        "meaning": "new environment → one-cell vector → proc-val/procedure → same new environment; procedure also records bound variable and body",
+        "reader_anchor": "question-3-35-figure"
+      },
+      "chinese_html": "<p>以上表示每次取出递归过程都会新建闭包，效率较低。可用长度为 1 的向量保存过程值，显式建立循环结构：环境项指向向量，向量内的 proc-val 指向 procedure，procedure 的保存环境再指回该环境。原书给出的构造代码如下；请修改环境数据类型与 apply-env，补全该表示，并保证 apply-env 总返回表达值。</p>\n<figure id=\"question-3-35-figure\"><div class=\"diagram-scroll\"><svg class=\"rn-diagram eopl-diagram\" viewBox=\"0 0 720 260\" role=\"img\" aria-labelledby=\"cycle-title cycle-desc\"><title id=\"cycle-title\">习题 3.35：单元使闭包与环境形成环</title><desc id=\"cycle-desc\">新环境的过程名绑定指向一个长度为一的向量。向量保存过程表达值，其闭包保存参数、主体以及指回新环境的环境字段；新环境还连接旧环境。</desc><defs><marker id=\"cycle-arrow\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><path d=\"M0,0 L8,4 L0,8\" class=\"rn-arrow\"/></marker></defs><rect class=\"rn-node\" x=\"20\" y=\"35\" width=\"170\" height=\"70\" rx=\"8\"/><text x=\"105\" y=\"62\">新环境 R</text><text x=\"105\" y=\"88\">过程名 → 单元</text><rect class=\"rn-node rn-node-accent\" x=\"265\" y=\"35\" width=\"150\" height=\"70\" rx=\"8\"/><text x=\"340\" y=\"63\">向量 [0]</text><text x=\"340\" y=\"88\">proc-val</text><rect class=\"rn-node\" x=\"490\" y=\"20\" width=\"210\" height=\"115\" rx=\"8\"/><text x=\"595\" y=\"49\">procedure</text><text x=\"595\" y=\"76\">参数、主体</text><text x=\"595\" y=\"105\">saved-env = R</text><path class=\"rn-edge\" d=\"M190 70 H265\" marker-end=\"url(#cycle-arrow)\"/><path class=\"rn-edge\" d=\"M415 70 H490\" marker-end=\"url(#cycle-arrow)\"/><path class=\"rn-edge\" d=\"M595 135 V205 H105 V105\" marker-end=\"url(#cycle-arrow)\"/><text class=\"hint\" x=\"365\" y=\"192\">闭包保存整个新环境</text><text class=\"hint\" x=\"105\" y=\"240\">R 的外层链接仍指向 saved-env</text></svg></div><figcaption>原书 p.85 / PDF 108 的结构重绘。向量存的是表达值；外部查询仍返回表达值。</figcaption></figure><pre><code class=\"language-text\">(define extend-env-rec\n  (lambda (p-name b-var body saved-env)\n    (let ((vec (make-vector 1)))\n      (let ((new-env (extend-env p-name vec saved-env)))\n        (vector-set! vec 0\n          (proc-val (procedure b-var body new-env)))\n        new-env))))</code></pre>"
+    },
+    {
+      "number": "3.36",
+      "printed_page": 87,
+      "pdf_page": 110,
+      "pdf_end": 110,
+      "stars": 2,
+      "question_text": "Extend this implementation to handle the language from exercise\n      3.32.",
+      "chinese_html": "<p>把前一题的实现扩展为能处理<a href=\"#ex-3-32\">习题 3.32</a> 的多过程相互递归语言。</p>"
+    },
+    {
+      "number": "3.37",
+      "printed_page": 87,
+      "pdf_page": 110,
+      "pdf_end": 110,
+      "stars": 1,
+      "question_text": "With dynamic binding (exercise 3.28), recursive procedures may be\n      bound by let; no special mechanism is necessary for recursion. This is of historical interest; in the early years of programming language design other approaches to\n      recursion, such as those discussed in section 3.4, were not widely understood. To\n      demonstrate recursion via dynamic binding, test the program\n\n               let fact = proc (n) add1(n)\n               in let fact = proc (n)\n                              if zero?(n)\n                              then 1\n                              else *(n,(fact -(n,1)))\n                  in (fact 5)\n\n      using both lexical and dynamic binding. Write the mutually recursive procedures\n      even and odd as in section 3.4 in the defined language with dynamic binding.",
+      "chinese_html": "<p>动态绑定下，递归过程可由普通 let 绑定，无需特殊递归机制。为展示这一点，分别用词法绑定和动态绑定测试下面程序；再在采用动态绑定的被定义语言中写出 §3.4 那样相互递归的 even、odd。原书说明这种现象在早期语言设计中具有历史意义。</p>\n<pre><code class=\"language-text\">let fact = proc (n) add1(n)\nin let fact = proc (n)\n                 if zero?(n) then 1\n                 else *(n,(fact -(n,1)))\n   in (fact 5)</code></pre>"
+    },
+    {
+      "number": "3.38",
+      "printed_page": 101,
+      "pdf_page": 124,
+      "pdf_end": 124,
+      "stars": 1,
+      "question_text": "Extend the lexical address translator and interpreter to handle cond\nfrom exercise 3.12.",
+      "chinese_html": "<p>扩展词法地址翻译器与解释器，支持<a href=\"#ex-3-12\">习题 3.12</a> 的 cond。</p>"
+    },
+    {
+      "number": "3.39",
+      "printed_page": 101,
+      "pdf_page": 124,
+      "pdf_end": 124,
+      "stars": 1,
+      "question_text": "Extend the lexical address translator and interpreter to handle pack\nand unpack from exercise 3.18.",
+      "chinese_html": "<p>扩展词法地址翻译器与解释器，支持<a href=\"#ex-3-18\">习题 3.18</a> 中的 pack 和 unpack。</p>"
+    },
+    {
+      "number": "3.40",
+      "printed_page": 101,
+      "pdf_page": 124,
+      "pdf_end": 124,
+      "stars": 2,
+      "question_text": "Extend the lexical address translator and interpreter to handle\nletrec. Do this by modifying the context argument to translation-of so that\nit keeps track of not only the name of each bound variable, but also whether it was\nbound by letrec or not. For a reference to a variable that was bound by a letrec,\ngenerate a new kind of reference, called a nameless-letrec-var-exp. You can\nthen continue to use the nameless environment representation above, and the interpreter can do the right thing with a nameless-letrec-var-exp.",
+      "chinese_html": "<p>扩展词法地址翻译器与解释器以支持 letrec。修改 translation-of 的上下文，使之不仅记录变量名，还记录变量是否由 letrec 绑定。对于 letrec 绑定的引用，生成新的 <code>nameless-letrec-var-exp</code>。这样仍可使用已有的无名环境表示，并让解释器对这种引用执行正确处理。</p>"
+    },
+    {
+      "number": "3.41",
+      "printed_page": 101,
+      "pdf_page": 124,
+      "pdf_end": 124,
+      "stars": 2,
+      "question_text": "Modify the lexical address translator and interpreter to handle let\nexpressions, procedures, and procedure calls with multiple arguments, as in exercise 3.21. Do this using a nameless version of the ribcage representation of environments (exercise 2.11). For this representation, the lexical address will consist of two\nnonnegative integers: the lexical depth, to indicate the number of contours crossed,\nas before; and a position, to indicate the position of the variable in the declaration.",
+      "chinese_html": "<p>像<a href=\"#ex-3-21\">习题 3.21</a> 那样，使词法地址翻译器和解释器支持多变量 let、多参数过程及多操作数调用。使用习题 2.11 的 ribcage 环境的无名版本；词法地址由两个非负整数组成：跨越轮廓的深度，以及变量在该次声明中的位置。</p>"
+    },
+    {
+      "number": "3.42",
+      "printed_page": 101,
+      "pdf_page": 124,
+      "pdf_end": 124,
+      "stars": 3,
+      "question_text": "Modify the lexical address translator and interpreter to use the\ntrimmed representation of procedures from exercise 3.26. For this, you will need to\ntranslate the body of the procedure not (extend-senv var senv), but in a new\nstatic environment that tells exactly where each variable will be kept in the trimmed\nrepresentation.",
+      "chinese_html": "<p>修改词法地址翻译器与解释器，采用<a href=\"#ex-3-26\">习题 3.26</a> 的紧缩过程表示。为此，不能只在 <code>(extend-senv var senv)</code> 中翻译过程体，而要建立一个新的静态环境，准确指出每个变量在紧缩表示中的存放位置。</p>"
+    },
+    {
+      "number": "3.43",
+      "printed_page": 101,
+      "pdf_page": 124,
+      "pdf_end": 124,
+      "stars": 3,
+      "question_text": "The translator can do more than just keep track of the names of\nvariables. For example, consider the program\n\n        let x = 3\n        in let f = proc (y) -(y,x)\n           in (f 13)\n\nHere we can tell statically that at the procedure call, f will be bound to a procedure\nwhose body is -(y,x), where x has the same value that it had at the procedurecreation site. Therefore we could avoid looking up f in the environment entirely.\nExtend the translator to keep track of “known procedures” and generate code that\navoids an environment lookup at the call of such a procedure.",
+      "chinese_html": "<p>翻译器可以追踪更多信息。例如在下面程序中，可静态知道调用点的 f 绑定到主体为 <code>-(y,x)</code> 的过程，并且 x 仍具有创建该过程时的值。扩展翻译器，记录“已知过程”，生成调用这些过程时不查询 f 的代码。</p>\n<pre><code class=\"language-text\">let x = 3\nin let f = proc (y) -(y,x)\n   in (f 13)</code></pre>"
+    },
+    {
+      "number": "3.44",
+      "printed_page": 101,
+      "pdf_page": 124,
+      "pdf_end": 124,
+      "stars": 3,
+      "question_text": "In the preceding example, the only use of f is as a known procedure. Therefore the procedure built by the expression proc (y) -(y,x) is never\nused. Modify the translator so that such a procedure is never constructed.",
+      "chinese_html": "<p>在上一题的例子中，f 唯一的用途是作为已知过程被调用，因此 <code>proc (y) -(y,x)</code> 构造的过程值实际上从未使用。修改翻译器，使这个过程值根本不被构造。</p><p>上一题所指的完整输入为：</p><pre><code class=\"language-scheme\">let x = 3\nin let f = proc (y) -(y,x)\n   in (f 13)</code></pre>"
+    }
+  ],
+  "schema_version": 1,
+  "book": "eopl",
+  "chapter": "3",
+  "source_pdf": "books/eopl/assets/source.pdf",
+  "method": "Sequential reading of PDF 80–124; question boundaries exclude adjacent figures; supplied figures and OCR mathematical glyphs restored from rendered pages. Diagram 3.35 is transcribed separately as a source diagram, not original prose."
+}

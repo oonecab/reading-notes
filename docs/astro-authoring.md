@@ -20,7 +20,7 @@ I056 在共享目录脚本的折叠祖先展开后增加一次延后定位，并
 
 工具链为 **Node/Astro + Python build helpers**：Node 24.21.0、pnpm 11.21.0、Python 3.10+；Python 的 build_portal、prepare-pages、public_policy 参与构建，原独立验证器另行运行。准备本地来源资料，并安装 C/Make/Poppler（完整验证）、Nginx/OpenSSL（发布演练）和可运行的 Ego Lite / ego-browser CLI（浏览器验收），然后执行 `pnpm install --frozen-lockfile`、`pnpm build`。生产 HTTP 仍只由 Nginx 提供。
 
-`pnpm build` 在临时目录准备来源并构建，对全部公开 HTML（当前 82 页，含辅助页和 5 个旧入口页）内联 CSS、favicon 和脚本；下载文件保留链接。正式页完整 DOM 的标签、命名空间、属性和子节点顺序、习题 ID 序列，以及正文/MathML/SVG/代码指纹和内部锚点一起核对。页面数量来自受控条目清单，新增书籍按 catalog、migration-state 与发布 allowlist 登记，不修改固定页数。
+`pnpm build` 在临时目录准备来源并构建，对全部公开 HTML（当前 86 页，含辅助页和旧入口页）内联 CSS、favicon 和脚本；下载文件保留链接。正式页完整 DOM 的标签、命名空间、属性和子节点顺序、习题 ID 序列，以及正文/MathML/SVG/代码指纹和内部锚点一起核对。页面数量来自受控条目清单，新增书籍按 catalog、migration-state 与发布 allowlist 登记，不修改固定页数。
 
 I036 在发布适配层为正式阅读页和旧入口补齐站点 favicon；唯一维护源为 `portal/favicon.svg`。所有公开 HTML 的 head 必须包含唯一且内容匹配的内联 SVG 图标，缺失、重复、错位或内容不同会中止构建。单页离线打开无需另取图标文件；新增页面沿用同一门禁。完整 DOM parity 的预期发布视图同样展开已声明资源，不忽略 head 差异。
 
@@ -61,3 +61,7 @@ CS:APP 共享横滚脚本的此次修订通过正常 source revision 链登记�
 每页最后一个 head 样式块末尾引入一次 `<!-- RN:include styles/reading-typography.css -->`。共同约定以 RN-001 v1.8 为准；普通英文数字使用 Times New Roman，程序文本通过 `reading-code-typography.css` 恢复原有等宽字体，辅助程序指南也内联这份代码样式。运算符和语义字体仍由 MathML 正确表示。`tools/reading-typography/math.mjs` 提供作者使用的静态表达式构造，`check.mjs` 检查全站字体、原始上下标泄漏、MathML 参数与 EOPL 环境关系。`normalize.mjs` / `repair-fences.mjs` 是迁移辅助工具，批量写入前必须保存基线并审阅差异，不能把任意程序片段自动当成公式。
 
 EOPL 以地图与序言两页接入，基线 `7e9d2ea` 是保留的原始源码，`release-astro.json` 中的归档身份不表示历史生产发布。当前发布页、浏览器检查和来源修订分别记录。新增页继续执行独立基线和完整验收流程。
+
+I057 在 RN-002 `overview_maps` 独立登记六书地图的可点击 SVG 节点。离线矩阵于 1440/390px 逐节点点击，390px 另验无脚本；同时检查真实标题可见、键盘 Enter 和同一锚点重复点击。复用旧报告时增加清单签名及完整节点结果核对，旧版几何或截图结果不足以覆盖此门禁。详见 [RN-002 §2.3](reading-presentation-standard.md)及 [T057](../test/T057-chapter-map-navigation.md)。
+
+I061 的章节图浏览器检查在原生横滚后等待可见几何稳定；轮询在 Node 端执行，因此适用于页面脚本禁用模式。滚轮返回时仍在移动的中间位置不作最终判定，节点最终完整可见与落点门禁保持。全站首轮的实际中间态与修复回归见 T061。

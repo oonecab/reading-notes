@@ -63,7 +63,7 @@
 <p class="overline">Friedman / Wand · Essentials of Programming Languages · Third Edition</p>
 <h1>全书地图</h1>
 <p class="intro">把语言规则写成程序，再看一条规则怎样改变程序的含义。</p>
-<p>这份地图串起原书九章与两个附录。当前可阅读的伴读包括本页、<a href="preface.html">导读与作者序言</a>、<a href="chapter01_inductive_data.html">第 1 章</a>与<a href="chapter02_data_abstraction.html">第 2 章</a>；九章与附录的条目说明原书的问题、依赖和阅读落点。</p>
+<p>这份地图串起原书九章与两个附录。当前可阅读的伴读包括本页、<a href="preface.html">导读与作者序言</a>、<a href="chapter01_inductive_data.html">第 1 章</a>与<a href="chapter02_data_abstraction.html">第 2 章</a>、<a href="chapter03_expressions.html">第 3 章</a>、<a href="chapter04_state.html">第 4 章</a>、<a href="chapter05_continuations.html">第 5 章</a>与<a href="chapter06_cps.html">第 6 章</a>；九章与附录的条目说明原书的问题、依赖和阅读落点。</p>
 <p class="source">MIT Press，2008 · 目录 v–vii（<a href="../assets/source.pdf#page=6">PDF 6–8</a>）· 作者序言 xv–xix（<a href="../assets/source.pdf#page=16">PDF 16–20</a>）</p>
 <p class="chapter-nav"><a href="preface.html">开始阅读：序言 →</a></p>
 </header>
@@ -84,7 +84,7 @@
 
 <section id="dependencies">
 <h2>先走共同基础，再分成两条路线</h2>
-<p>作者在序言中给出了下面的依赖图。箭头表示学习依赖，节点可以跳到本页对应章意。第 1—4 章是共同干线；之后，控制路线走向第 5、6 章，类型路线走向第 7 章，再通向模块与对象。</p>
+<p>作者在序言中给出了下面的依赖图。箭头表示学习依赖，第 1–6 章节点直达完整笔记；第 7–9 章节点标为“章意”，进入本页摘要与原书页码。第 1—4 章是共同干线；之后，控制路线走向第 5、6 章，类型路线走向第 7 章，再通向模块与对象。</p>
 <figure>
 <div class="scroll" tabindex="0" aria-label="章节依赖图，可横向滚动">
 <svg class="book-diagram rn-diagram" viewBox="0 0 880 510" role="img" aria-labelledby="dependency-title dependency-desc">
@@ -102,15 +102,15 @@
 <path class="rn-edge" data-edge="7-9" d="M670 352V376Q670 384 678 384H752Q760 384 760 392V416"/>
 </g>
 <g class="map-nodes" text-anchor="middle">
-<a href="#chapter-1" aria-label="第 1 章：归纳数据"><rect class="rn-node" x="50" y="32" width="160" height="64" data-rn-fit="flow"/><text x="130" y="57">1 归纳数据</text><text class="hint" x="130" y="80">递归的根据</text></a>
-<a href="#chapter-2" aria-label="第 2 章：数据抽象"><rect class="rn-node" x="350" y="32" width="160" height="64" data-rn-fit="flow"/><text x="430" y="57">2 数据抽象</text><text class="hint" x="430" y="80">表示与接口</text></a>
-<a href="#chapter-3" aria-label="第 3 章：表达式"><rect class="rn-node" x="650" y="32" width="160" height="64" data-rn-fit="flow"/><text x="730" y="57">3 表达式</text><text class="hint" x="730" y="80">环境与过程</text></a>
-<a href="#chapter-4" aria-label="第 4 章：状态"><rect class="rn-node rn-node-accent" x="350" y="160" width="160" height="64" data-rn-fit="flow"/><text x="430" y="185">4 状态</text><text class="hint" x="430" y="208">位置与存储</text></a>
-<a href="#chapter-5" aria-label="第 5 章：续文"><rect class="rn-node" x="140" y="288" width="160" height="64" data-rn-fit="flow"/><text x="220" y="313">5 续文</text><text class="hint" x="220" y="336">剩余的计算</text></a>
-<a href="#chapter-6" aria-label="第 6 章：续文传递"><rect class="rn-node" x="140" y="416" width="160" height="64" data-rn-fit="flow"/><text x="220" y="441">6 续文传递</text><text class="hint" x="220" y="464">控制变换</text></a>
-<a href="#chapter-7" aria-label="第 7 章：类型"><rect class="rn-node rn-node-accent" x="560" y="288" width="160" height="64" data-rn-fit="flow"/><text x="640" y="313">7 类型</text><text class="hint" x="640" y="336">运行前的约束</text></a>
-<a href="#chapter-8" aria-label="第 8 章：模块"><rect class="rn-node" x="440" y="416" width="160" height="64" data-rn-fit="flow"/><text x="520" y="441">8 模块</text><text class="hint" x="520" y="464">接口与封装</text></a>
-<a href="#chapter-9" aria-label="第 9 章：对象"><rect class="rn-node" x="680" y="416" width="160" height="64" data-rn-fit="flow"/><text x="760" y="441">9 对象</text><text class="hint" x="760" y="464">对象与方法</text></a>
+<a href="chapter01_inductive_data.html" aria-label="第 1 章：归纳数据"><rect class="rn-node" x="50" y="32" width="160" height="64" data-rn-fit="flow"/><text x="130" y="57">1 归纳数据</text><text class="hint" x="130" y="80">递归的根据</text></a>
+<a href="chapter02_data_abstraction.html" aria-label="第 2 章：数据抽象"><rect class="rn-node" x="350" y="32" width="160" height="64" data-rn-fit="flow"/><text x="430" y="57">2 数据抽象</text><text class="hint" x="430" y="80">表示与接口</text></a>
+<a href="chapter03_expressions.html" aria-label="第 3 章：表达式"><rect class="rn-node" x="650" y="32" width="160" height="64" data-rn-fit="flow"/><text x="730" y="57">3 表达式</text><text class="hint" x="730" y="80">环境、闭包与地址</text></a>
+<a href="chapter04_state.html" aria-label="第 4 章：状态"><rect class="rn-node rn-node-accent" x="350" y="160" width="160" height="64" data-rn-fit="flow"/><text x="430" y="185">4 状态</text><text class="hint" x="430" y="208">位置、共享与策略</text></a>
+<a href="chapter05_continuations.html" aria-label="第 5 章：续文"><rect class="rn-node" x="140" y="288" width="160" height="64" data-rn-fit="flow"/><text x="220" y="313">5 续文</text><text class="hint" x="220" y="336">续文、异常与线程</text></a>
+<a href="chapter06_cps.html" aria-label="第 6 章：续文传递"><rect class="rn-node" x="140" y="416" width="160" height="64" data-rn-fit="flow"/><text x="220" y="441">6 续文传递</text><text class="hint" x="220" y="464">CPS 转换与效果</text></a>
+<a href="#chapter-7" aria-label="第 7 章：类型 · 章意"><rect class="rn-node rn-node-accent" x="560" y="288" width="160" height="64" data-rn-fit="flow"/><text x="640" y="313">7 类型</text><text class="hint" x="640" y="336">章意 · 运行前的约束</text></a>
+<a href="#chapter-8" aria-label="第 8 章：模块 · 章意"><rect class="rn-node" x="440" y="416" width="160" height="64" data-rn-fit="flow"/><text x="520" y="441">8 模块</text><text class="hint" x="520" y="464">章意 · 接口与封装</text></a>
+<a href="#chapter-9" aria-label="第 9 章：对象 · 章意"><rect class="rn-node" x="680" y="416" width="160" height="64" data-rn-fit="flow"/><text x="760" y="441">9 对象</text><text class="hint" x="760" y="464">章意 · 对象与方法</text></a>
 </g>
 </svg>
 </div>
@@ -146,6 +146,7 @@
 <p>LET 先引入整数、差、零测试、条件、变量和局部绑定。表达式的意义由它的结构和当前环境决定：<code>let</code> 的右侧在旧环境求值，主体在加入新绑定的环境求值。PROC 再把过程变为可以传递和返回的值，过程体的自由变量由闭包保存的创建环境解释。LETREC 则让过程在自己的主体里找到自身，形成递归绑定。</p>
 <p>章末进一步问：既然变量绑定由程序文本决定，能否在运行前把名字换成位置？词法地址翻译器用静态环境计算位置，运行时环境只保存值。这里既要保持绑定关系，又要区分“翻译时的名字表”和“运行时的值表”。</p>
 <p><span class="map-key">读完应能解释：</span>为什么调用点附近的新同名变量不会改写旧闭包的自由变量；为什么删除变量名以后还能得到相同结果。这里的“环境”是名字与绑定的关系，尚不需要第 4 章可变的存储。</p>
+<p><a href="chapter03_expressions.html">阅读第 3 章完整笔记与 44 道习题解答 →</a></p>
 <p class="small">原书小节：3.1 规格与实现（57）；3.2 LET（60）；3.3 PROC（74）；3.4 LETREC（82）；3.5 作用域与绑定（87）；3.6 消除变量名（91）；3.7 实现词法地址（93）。</p>
 </div>
 <div class="chapter-map" id="chapter-4">
@@ -154,6 +155,7 @@
 <p>纯表达式中，求值主要产生一个值；加入赋值后，还会改变之后计算能观察到的状态。作者用存储把“位置”和“位置上当前的值”分开。EXPLICIT-REFS 让引用作为值显式出现，通过 <code>newref</code>、<code>deref</code>、<code>setref</code> 操作；IMPLICIT-REFS 则让变量绑定到位置，普通变量读取自动取出该位置中的值。</p>
 <p>这种分离使别名与共享可以被追踪。两个名字若最终指向同一位置，修改其中一个就可能影响另一个；过程若捕获同一个位置，多次调用便能共享计数器状态。随后，原书比较可变对、按值/按引用传参、按名/按需传参，重点是参数何时求值、传入什么，以及求值结果是否缓存。</p>
 <p><span class="map-key">读完应能解释：</span>遮蔽新建绑定与赋值更新位置的区别。按值传递可变对象仍可能共享对象，这不等于把调用者的变量位置按引用传入；按需对结果缓存，在存在副作用时也不能简单视为按名的等价优化。</p>
+<p><a href="chapter04_state.html">阅读第 4 章完整笔记与 42 道习题解答 →</a></p>
 <p class="small">原书小节：4.1 计算效果（103）；4.2 EXPLICIT-REFS（104）；4.3 IMPLICIT-REFS（113）；4.4 MUTABLE-PAIRS（124）；4.5 参数传递变体（130）。</p>
 </div>
 <div class="chapter-map" id="chapter-5">
@@ -162,6 +164,7 @@
 <p>求 <code>-(e1,e2)</code> 的左操作数时，后面还要保存左值、求右值并做减法。普通递归把这些待办工作藏在宿主语言的调用链里；续文（continuation）把“拿到当前值之后做什么”表示成显式参数。它可以是过程，也可以是带标签的数据结构。</p>
 <p>待办工作一旦成为数据，解释器就能决定什么时候恢复、丢弃或保存它。异常沿续文寻找处理器，线程调度保存可恢复的计算，蹦床由循环驱动下一步；寄存器化又把参数变为显式寄存器，展示离低层控制结构更近的实现。</p>
 <p><span class="map-key">读完应能解释：</span>尾位置复用同一个续文，非尾位置为什么需要保存额外工作。控制栈不继续增长，不等于所有数据都只占常量空间；显式续文仍可能形成长链。书中线程是在解释器内调度的模型。</p>
+<p><a href="chapter05_continuations.html">阅读第 5 章完整笔记与 58 道习题解答 →</a></p>
 <p class="small">原书小节：5.1 续文解释器（141）；5.2 蹦床（155）；5.3 命令式解释器（160）；5.4 异常（171）；5.5 线程（179）。</p>
 </div>
 <div class="chapter-map" id="chapter-6">
@@ -170,6 +173,7 @@
 <p>上一章是把一个熟悉的解释器改为 CPS；这一章把同样的方法推广为一个程序变换：输入 CPS-IN 的 AST，输出 CPS-OUT 的 AST。变换器为非尾位置的中间结果引入名字，把后续计算装进新的续文，再将调用组织为尾形式。</p>
 <p>读变换规则时，要追踪求值顺序、生成名字的新鲜性和每个结果交给谁。加入打印、存储等效果后，某些原先可直接使用的表达式也必须按顺序处理；控制效果则解释为何有些跳转直接使用先前捕获的续文。</p>
 <p><span class="map-key">读完应能解释：</span>解释器运行一个程序与变换器输出另一个程序的差别。阶乘的续文链能进一步化为累乘器，依赖乘法组合的特殊结构；一般 CPS 变换本身不会自动获得这种空间压缩。</p>
+<p><a href="chapter06_cps.html">阅读第 6 章完整笔记与 40 道习题解答 →</a></p>
 <p class="small">原书小节：6.1 写 CPS 程序（193）；6.2 尾形式（203）；6.3 转换为 CPS（212）；6.4 计算效果（226）。</p>
 </div>
 <div class="chapter-map" id="chapter-7">
@@ -253,7 +257,7 @@
 <tr><th scope="row">致谢</th><td>xxi–xxii</td><td>22–23</td></tr>
 <tr><th scope="row">正文、附录、文献与索引</th><td>1–410</td><td>24–433；此段 PDF 页序 = 印刷页 + 23</td></tr>
 </tbody></table></div>
-<p>本伴读提供四个独立阅读页：全书地图、<a href="preface.html">导读与作者序言</a>、<a href="chapter01_inductive_data.html">第 1 章 · 归纳数据与递归程序</a>和<a href="chapter02_data_abstraction.html">第 2 章 · 数据抽象与抽象语法</a>。完整题解包括习题 0.1、1.1–1.36 和 2.1–2.31，共 68 题。第 3–9 章与附录目前提供章意、页码与依赖，可按<a href="#routes">阅读路线</a>选读原书。</p>
+<p>本伴读提供八个独立阅读页：全书地图、<a href="preface.html">导读与作者序言</a>、<a href="chapter01_inductive_data.html">第 1 章 · 归纳数据与递归程序</a>、<a href="chapter02_data_abstraction.html">第 2 章 · 数据抽象与抽象语法</a>、<a href="chapter03_expressions.html">第 3 章 · 表达式、闭包与词法地址</a>、<a href="chapter04_state.html">第 4 章 · 状态、存储与参数传递</a>、<a href="chapter05_continuations.html">第 5 章 · 续文、异常与线程</a>和<a href="chapter06_cps.html">第 6 章 · CPS 转换与计算效果</a>。完整题解包括习题 0.1、1.1–1.36、2.1–2.31、3.1–3.44、4.1–4.42、5.1–5.58 和 6.1–6.40，共 252 题。第 7–9 章与附录目前提供章意、页码与依赖，可按<a href="#routes">阅读路线</a>选读原书。</p>
 <p>原书清单共 356 道编号习题，其中 350 道位于第 1—9 章，1 道位于序言，5 道位于附录 B。编号定义、定理、Example 与 Figure 另在<a href="source_inventory.json">定位清单</a>中列出。正文中没有编号的程序例子仍按原节和原页追踪。</p>
 </section>
 <footer>

@@ -405,7 +405,7 @@ body.rn-components figure:has(svg.rn-diagram){background:#fff;border:1px solid #
 body.rn-components :is(.scroll,.diagram):has(>svg.rn-diagram){background:transparent;border:0}
 @media(max-width:640px){body.rn-components figure:has(svg.rn-diagram){padding:.75rem}}
 @media print{body.rn-components figure:has(svg.rn-diagram){border-color:#bbb;break-inside:avoid}}
-</style></head><body class="rn-components"><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="章节目录"><details class="toc-panel" id="toc-panel" open><summary>目录</summary><nav class="chapter-toc" id="chapter-toc"><a class="toc-home" href="book_overview.html">全书地图</a><a class="toc-home" href="preface.html">序言</a><ul><li><a href="#s5-1">5.1 续文传递解释器：把剩余计算保存下来</a></li><li><a href="#s5-2">5.2 蹦床解释器：让宿主调用链及时返回</a></li><li><a href="#s5-3">5.3 命令式解释器：寄存器与程序计数器</a></li><li><a href="#s5-4">5.4 异常：选择另一条完成路径</a></li><li><a href="#s5-5">5.5 线程：把多个未完成计算交给调度器</a></li><li><a href="#programs">运行本章程序</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">EOPL 第三版 · 第 5 章</p><h1>第 5 章 · 续文、异常与线程</h1><p class="intro">把“值取得以后接着做什么”保存下来，沿同一条控制主线理解蹦床、寄存器、异常与调度。</p><p class="source">原书 pp.139–191 / <a href="../assets/source.pdf#page=162">PDF 162–214</a>。习题 5.1–5.58 的完整中文题干与解答。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter04_state.html">← 第 4 章 · 状态、存储与参数传递</a><a href="chapter06_cps.html">第 6 章 · CPS 转换与计算效果 →</a></p></header><section id="s5-1"><h2>5.1 续文传递解释器：把剩余计算保存下来</h2><p class="source">原书 章首及 §5.1，pp.139–155 / <a href="../assets/source.pdf#page=162">PDF 162–178</a>。</p><p>第三章把数据上下文表示成环境，第四章再用存储记录随时间变化的内容；第五章问的是另一件事：一个子表达式得到值以后，程序还欠哪些工作？这些工作组成控制上下文。续文（continuation）把它抽象成“接收这个值并完成余下计算”的对象。</p><p>先看阶乘。直接递归的 fact(4) 进入 fact(1) 时，还欠乘 2、乘 3、乘 4。尾递归的 fact-iter(1,24) 则只要把后续结果原样返回。代码有没有递归定义，并不能决定运行过程是否需要增长的控制记录；决定因素是调用结果取得后，还要不要做别的工作。</p><pre><code class="language-text">fact(4) = 4 * (3 * (2 * (1 * fact(0))))
+</style></head><body class="rn-components"><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="章节目录"><details class="toc-panel" id="toc-panel" open><summary>目录</summary><nav class="chapter-toc" id="chapter-toc"><a class="toc-home" href="book_overview.html">全书地图</a><a class="toc-home" href="preface.html">序言</a><ul><li><a href="#s5-1">5.1 续文传递解释器：把剩余计算保存下来</a></li><li><a href="#s5-2">5.2 蹦床解释器：让宿主调用链及时返回</a></li><li><a href="#s5-3">5.3 命令式解释器：寄存器与程序计数器</a></li><li><a href="#s5-4">5.4 异常：选择另一条完成路径</a></li><li><a href="#s5-5">5.5 线程：把多个未完成计算交给调度器</a></li><li><a href="#programs">运行本章程序</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">EOPL 第三版 · 第 5 章</p><h1>第 5 章 · 续文、异常与线程</h1><p class="intro">把“值取得以后接着做什么”保存下来，沿同一条控制主线理解蹦床、寄存器、异常与调度。</p><p class="source">原书 pp.139–191 / <a href="../assets/source.pdf#page=162">PDF 162–214</a>。习题 5.1–5.58 的完整中文题干与解答。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter04_state.html">← 第 4 章 · 状态、存储与参数传递</a><a href="chapter06_cps.html">第 6 章 · CPS 转换与计算效果 →</a></p></header><section id="s5-1"><h2>5.1 续文传递解释器：把剩余计算保存下来</h2><p class="source">原书 章首及 §5.1，pp.139–155 / <a href="../assets/source.pdf#page=162">PDF 162–178</a>。</p><p>第三章把数据上下文表示成环境，第四章再用存储记录随时间变化的内容；第五章问的是另一件事：一个子表达式得到值以后，程序还欠哪些工作？这些工作组成控制上下文。续文（continuation）把它抽象成“接收这个值并完成余下计算”的对象。</p><p>先看阶乘。直接递归的 <code>fact(4)</code> 进入 <code>fact(1)</code> 时，还欠乘 2、乘 3、乘 4。尾递归的 <code>fact-iter(1,24)</code> 则只要把后续结果原样返回。代码有没有递归定义，并不能决定运行过程是否需要增长的控制记录；决定因素是调用结果取得后，还要不要做别的工作。</p><pre><code class="language-text">fact(4) = 4 * (3 * (2 * (1 * fact(0))))
 fact-iter(4,1) -&gt; (3,4) -&gt; (2,12) -&gt; (1,24) -&gt; (0,24)</code></pre><div class="rn-statement" id="control-context"><h3>尾位置沿用原续文</h3><div class="statement-body"><p>如果子表达式的值就是整体的值，子表达式使用整体的续文。if 的分支、let 的正文、调用过程的正文都满足这一点；测试式、let 的右端式、运算符和各实参则先产生一个供后续工作使用的中间值，需要适当的等待帧。</p></div></div><p>这句话要结合求值阶段读：调用过程之前，解释器会用临时帧求运算符和实参；这些已经完成并弹出的帧，不应再作为“过程返回后要回到调用点”的新帧保留下来。尾调用的关键是在进入过程体时仍传同一个 k，而不是保证整个调用表达式求值期间从不临时建立任何帧。</p><p>新的接口为 <code>value-of/k(exp,env,k)</code> 和 <code>apply-cont(k,v)</code>。env 告诉解释器名字代表什么；k 告诉它值取得以后继续什么。k 可以表示成单参数闭包，也可以表示成带标签的帧。两种表示的接口规格相同，正好延续第二章的数据抽象方法。</p><div class="rn-example" id="difference-trace"><h3>伴读例：把 −(−(44,11),3) 走完</h3><p class="example-kind">原书 pp.150–151 推演的逐步整理</p><pre><code class="language-scheme">-(-(44,11),3)</code></pre><div class="table-scroll"><table aria-label="嵌套减法的控制轨迹"><thead><tr><th scope="col">当前动作</th><th scope="col">从栈顶到栈底的待续工作</th></tr></thead><tbody><tr><td>求整个表达式</td><td>end</td></tr><tr><td>求 −(44,11)</td><td>等左值后求右式 3；end</td></tr><tr><td>求 44</td><td>等左值后求 11；等左值后求 3；end</td></tr><tr><td>44 已得到，改求 11</td><td>等右值，再用 44 减它；外层帧；end</td></tr><tr><td>内层返回 33，改求 3</td><td>等右值，再用 33 减它；end</td></tr><tr><td>外层返回 30</td><td>end 接到 30，整次计算结束</td></tr></tbody></table></div><p>最大续文大小按原书把 end 也计一个构造器，共 3。等待帧保存的是当时需要的右式和环境；左值取得以后，再用只保存数值的第二阶段帧替换它。这个替换解释了“帧会缩减”，而不仅是画一条不断增长的栈。</p></div><p>let 的 RHS 返回后，在旧环境上扩展绑定，进入正文并交回外层 k；if 的测试返回布尔后，只求被选分支；过程值保存定义环境，但并不保存定义时的调用续文。调用时把当前 k 传给过程体，结果会完成当前调用所在的计算。</p><!-- EOPL:snippet chapter05_cps.rkt procedural-evaluator -->
 <details class="code-details" open><summary>查看实现 · procedural-evaluator</summary><pre><code class="language-scheme"> (define (ev e env k h)
   (match e
@@ -473,7 +473,7 @@ in (fact 4)
 
 letrec fact-iter(n,a) = if zero?(n) then a
                       else (fact-iter -(n,1) *(n,a))
-in (fact-iter 4 1)</code></pre><p>两者实际都返回 24。第一程序进入 fact(1) 的过程体时，续文是“将结果依次乘 2、3、4，再交给 end”；按内层在左的帧栈记为 <code>[mul(2), mul(3), mul(4)]</code>。fact(1) 自己的乘 1 尚未入栈。第二程序尾调时不保留乘法，累乘已经进了 a：<code>(4,1) → (3,4) → (2,12) → (1,24) → (0,24)</code>。</p></div></details><details class="exercise" id="ex-5-14"><summary>习题 5.14 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.14"><p>上一题的追踪输出很多。改为只跟踪计算中出现的最大续文大小，以构造这个续文使用了多少次续文构造器计量。p.150 的最大值是 3。随后对几个不同的输入计算 fact 和 fact-iter，确认前者的最大续文大小随参数线性增长，而后者保持常数。</p></div><p class="source">印刷 p.153 / <a href="../assets/source.pdf#page=176">PDF 176–178</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>空栈计作 end-cont 的 1，其他帧每个加 1。在每次状态转移读取 <code>1 + length(frames)</code>，更新最大值；这样不会把当前帧数误当作累计分配次数。采用本页统一的多实参 collect 帧表示，实际数据如下。</p><div class="table-scroll"><table aria-label="阶乘的最大续文大小"><thead><tr><th scope="col">输入</th><th scope="col">fact</th><th scope="col">fact-iter</th></tr></thead><tbody><tr><td>1</td><td>4</td><td>3</td></tr><tr><td>2</td><td>5</td><td>3</td></tr><tr><td>4</td><td>7</td><td>3</td></tr><tr><td>8</td><td>11</td><td>3</td></tr><tr><td>16</td><td>19</td><td>3</td></tr></tbody></table></div><p>具体常数依赖操作数收集方式，线性/常数的趋势不依赖这点。fact 中每层递归保存一个待乘值；迭代版虽然没有递归返回帧，求当前调用的参数仍临时需要 collect/原语帧。此计量不包含大整数的位数和环境分配。</p></div></details><details class="exercise" id="ex-5-15"><summary>习题 5.15 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.15"><p>本节续文类型只有 end-cont 一个常量，其余构造器恰好各有一个续文参数。把续文实现为列表：end-cont 用空表表示；其他续文用非空表，其 car 是带区别标签的帧（frame，也称 activation record），cdr 是内嵌的续文。观察解释器怎样把它当作帧栈使用。</p></div><p class="source">印刷 p.155 / <a href="../assets/source.pdf#page=178">PDF 178</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>将 <code>(diff1-cont e env k)</code> 写成 <code>(cons (list 'diff1 e env) k)</code>。应用时取 car 分派、把 cdr 作为外层 k；新帧压栈、完成一项弹栈。机器正采用这个表示。</p><p>尾过程调用完成实参收集后直接把已经弹出的 rest 传给过程体；没有额外 return 帧。持久化的列表可以让 letcc 安全保存同一个旧栈：以后 push/pop 只创建新 cons 或改局部指针，不会破坏捕获者看到的节点。</p></div></details><details class="exercise" id="ex-5-16"><summary>习题 5.16 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.16"><p>把续文传递解释器扩展到<a href="chapter04_state.html#ex-4-22">习题 4.22</a> 的语句语言。给 result-of 增加续文参数，确保它的调用不增长控制上下文。语句不返回值，因此区分普通续文和语句续文（通常叫 command continuation）。接口应有只接收命令续文并调用它的 apply-command-cont。分别用数据结构和零参数过程实现命令续文。</p></div><p class="source">印刷 p.155 / <a href="../assets/source.pdf#page=178">PDF 178</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>普通续文接一个表达值；命令续文只表示“这条语句结束后执行什么”，不应伪造一个语句值。赋值右式、print 和条件调用表达式求值器；其值续文完成写入、输出或选择语句后，再调用命令续文。</p><pre><code class="language-text">result-of(sequence(s,rest),env,cc)
+in (fact-iter 4 1)</code></pre><p>两者实际都返回 24。第一程序进入 <code>fact(1)</code> 的过程体时，续文是“将结果依次乘 2、3、4，再交给 end”；按内层在左的帧栈记为 <code>[mul(2), mul(3), mul(4)]</code>。<code>fact(1)</code> 自己的乘 1 尚未入栈。第二程序尾调时不保留乘法，累乘已经进了 a：<code>(4,1) → (3,4) → (2,12) → (1,24) → (0,24)</code>。</p></div></details><details class="exercise" id="ex-5-14"><summary>习题 5.14 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.14"><p>上一题的追踪输出很多。改为只跟踪计算中出现的最大续文大小，以构造这个续文使用了多少次续文构造器计量。p.150 的最大值是 3。随后对几个不同的输入计算 fact 和 fact-iter，确认前者的最大续文大小随参数线性增长，而后者保持常数。</p></div><p class="source">印刷 p.153 / <a href="../assets/source.pdf#page=176">PDF 176–178</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>空栈计作 end-cont 的 1，其他帧每个加 1。在每次状态转移读取 <code>1 + length(frames)</code>，更新最大值；这样不会把当前帧数误当作累计分配次数。采用本页统一的多实参 collect 帧表示，实际数据如下。</p><div class="table-scroll"><table aria-label="阶乘的最大续文大小"><thead><tr><th scope="col">输入</th><th scope="col">fact</th><th scope="col">fact-iter</th></tr></thead><tbody><tr><td>1</td><td>4</td><td>3</td></tr><tr><td>2</td><td>5</td><td>3</td></tr><tr><td>4</td><td>7</td><td>3</td></tr><tr><td>8</td><td>11</td><td>3</td></tr><tr><td>16</td><td>19</td><td>3</td></tr></tbody></table></div><p>具体常数依赖操作数收集方式，线性/常数的趋势不依赖这点。fact 中每层递归保存一个待乘值；迭代版虽然没有递归返回帧，求当前调用的参数仍临时需要 collect/原语帧。此计量不包含大整数的位数和环境分配。</p></div></details><details class="exercise" id="ex-5-15"><summary>习题 5.15 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.15"><p>本节续文类型只有 end-cont 一个常量，其余构造器恰好各有一个续文参数。把续文实现为列表：end-cont 用空表表示；其他续文用非空表，其 car 是带区别标签的帧（frame，也称 activation record），cdr 是内嵌的续文。观察解释器怎样把它当作帧栈使用。</p></div><p class="source">印刷 p.155 / <a href="../assets/source.pdf#page=178">PDF 178</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>将 <code>(diff1-cont e env k)</code> 写成 <code>(cons (list 'diff1 e env) k)</code>。应用时取 car 分派、把 cdr 作为外层 k；新帧压栈、完成一项弹栈。机器正采用这个表示。</p><p>尾过程调用完成实参收集后直接把已经弹出的 rest 传给过程体；没有额外 return 帧。持久化的列表可以让 letcc 安全保存同一个旧栈：以后 push/pop 只创建新 cons 或改局部指针，不会破坏捕获者看到的节点。</p></div></details><details class="exercise" id="ex-5-16"><summary>习题 5.16 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.16"><p>把续文传递解释器扩展到<a href="chapter04_state.html#ex-4-22">习题 4.22</a> 的语句语言。给 result-of 增加续文参数，确保它的调用不增长控制上下文。语句不返回值，因此区分普通续文和语句续文（通常叫 command continuation）。接口应有只接收命令续文并调用它的 apply-command-cont。分别用数据结构和零参数过程实现命令续文。</p></div><p class="source">印刷 p.155 / <a href="../assets/source.pdf#page=178">PDF 178</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>普通续文接一个表达值；命令续文只表示“这条语句结束后执行什么”，不应伪造一个语句值。赋值右式、print 和条件调用表达式求值器；其值续文完成写入、输出或选择语句后，再调用命令续文。</p><pre><code class="language-text">result-of(sequence(s,rest),env,cc)
   -&gt; result-of(s,env,sequence-cc(rest,env,cc))
 result-of(while(t,b),env,cc)
   -&gt; eval(t,env,lambda(v)
@@ -484,7 +484,7 @@ trampoline(bounce):
     bounce = resume(bounce.snapshot)
   return bounce.value</code></pre><p>原书图 5.7 的合同写成 <code>Bounce = ExpVal ∪ (() → Bounce)</code>。expval 必须与宿主 thunk 能可靠区分；定义语言中的过程值不应因为它也代表“过程”，就误被驱动器当作下一步去调用。采用显式标签能把这两个层次分开。</p><!-- EOPL:snippet chapter05.rkt snapshots -->
 <details class="code-details" open><summary>查看实现 · snapshots</summary><pre><code class="language-scheme">(struct state (pc exp env frames value) #:transparent)
-(struct thread (id parent state ticks status mailbox) #:mutable #:transparent)
+(struct thread (id parent state ticks status mailbox store) #:mutable #:transparent)
 (struct result (value output metrics trace threads) #:transparent)
 (define (E e env k) (state &#x27;eval e env k #f))
 (define (A k v) (state &#x27;apply #f #f k v))
@@ -592,7 +592,7 @@ apply-handler(v,k): raised-value := v; k.exceptional()</code></pre><p>这给出�
 in ...</code></pre><p>给语言加入 call-with-current-continuation；再写一个翻译器，把带 letcc/throw 的语言译成不带这两个形式、但带 call-with-current-continuation 的语言。</p></div><p class="source">印刷 p.178 / <a href="../assets/source.pdf#page=201">PDF 201</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>原语实现为：求 p 的值，建立 <code>escape(v)</code>（调用时只跳到当前 k），再以同一个 k 调 p(escape)。翻译器逐语法递归，关键规则只有两条。</p><pre><code class="language-text">T(letcc x in e) = (call-with-current-continuation proc(x) T(e))
 T(throw a to b) = let value = T(a)
                  in let target = T(b)
-                    in (target value)</code></pre><p>value、target 必须新鲜，第二条用两个 let 保留“先值式、后目标式”的次序。其余节点重建，过程正文递归翻译。目标的 escape 已是一元过程，所以无需 throw 原语；不能简单写 <code>(T(b) T(a))</code>，那会先求 b。</p></div></details></section><section id="s5-5"><h2>5.5 线程：把多个未完成计算交给调度器</h2><p class="source">原书 §5.5，pp.179–191 / <a href="../assets/source.pdf#page=202">PDF 202–214</a>。</p><p>线程把“一个待完成计算”变成调度器管理的多个对象。本节 THREADS 基于隐式引用；每个线程保有自己的控制状态，所有线程访问同一个 store。任意时刻只有一个 running，ready 队列存可运行线程，mutex 等待队列存 blocked 线程。这里模拟交错执行，不是用多个物理 CPU 同时运行解释器。</p><p>spawn 先求过程值，再为子线程建立恢复记录并放在 ready 队尾。原书父线程取得任取的 73，子过程接任取的 28；线程 ID 习题改为父子都取得新子 ID。主线程结束时保存 final-answer，子线程结束时只丢弃其返回值；两者都继续运行 ready 队列里的线程。</p><p>抢占点放在 apply-cont 入口：时间片未尽，先减剩余步再分派；已经为零，就保存“仍待执行这个 apply”的快照，放回队尾并换线程。时间片计的是续文应用次数，不是源语句条数或真实毫秒。yield 主动交出 CPU 时，恢复点应是把 99 交给原 k。</p><figure id="scheduler-figure"><div class="diagram-scroll"><svg class="rn-diagram control-diagram" viewBox="0 0 700 300" role="img" aria-labelledby="scheduler-title scheduler-desc"><title id="scheduler-title">线程在运行、就绪和阻塞之间转移</title><desc id="scheduler-desc">调度器从就绪队列选择一个运行线程。耗尽时间片或 yield 使它回到就绪队列。等待关闭的锁使它进入阻塞队列，signal 把等待者送回就绪队列。线程结束离开这三种状态。</desc><defs><marker id="scheduler-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path class="rn-arrow" d="M0,0 L8,4 L0,8"/></marker></defs><rect class="rn-node" x="20" y="95" width="180" height="65" rx="8"/><text x="110" y="133">ready 队列</text><rect class="rn-node rn-node-accent" x="270" y="95" width="160" height="65" rx="8"/><text x="350" y="133">running</text><rect class="rn-node" x="500" y="95" width="180" height="65" rx="8"/><text x="590" y="133">blocked 队列</text><path class="rn-edge" d="M200 112 L270 112" marker-end="url(#scheduler-arrow)"/><text x="235" y="89">调度</text><path class="rn-edge" d="M430 135 L500 135" marker-end="url(#scheduler-arrow)"/><text x="465" y="172">wait</text><path class="rn-edge" d="M350 95 L350 40 L110 40 L110 95" marker-end="url(#scheduler-arrow)"/><text x="230" y="29">时间片耗尽 / yield</text><path class="rn-edge" d="M590 160 L590 240 L110 240 L110 160" marker-end="url(#scheduler-arrow)"/><text x="350" y="267">signal：唤醒后入 ready，不立刻抢走 running</text></svg></div><figcaption>伴读状态图：箭头标的是改变状态的事件；琥珀节点表示唯一正在运行的线程。</figcaption></figure><p>共享计数器的 <code>set x = -(x,-1)</code> 不是单个原子更新：读 x 与最后写回之间可能抢占。两个线程都读到 0，各自计算 1 并写回，便丢了一次增加。mutex 把这段读—改—写包在临界区里；但主线程若不等待子线程，最后返回的也可能是过早的 x。互斥和等待完成各自解决一个问题。</p><p>原书 mutex 允许任意线程 signal：开放时 wait 关闭它并继续；关闭时 wait 排队；signal 有等待者时把最前者送入 ready，mutex 仍保持关闭，等于直接把许可交给那位等待者。若这时错误地开放，新来的线程就可能抢在已唤醒者之前进入。</p><p>本伴读把死锁状态保留在结果中：主线程已经返回 77，而两个子线程互相等待时，最终 ready 为空仍不代表线程池正常完成。消息模型进一步把共享写入改成单一 owner 接收消息；它可以免去部分锁，但消息队列、协议终止和阻塞接收仍须定义。</p><details class="reading-notes" id="notes-s5-5" data-notes-for="s5-5" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">调度原子性</span><h3>检查、入队与唤醒是一件事</h3><p>wait 检查锁状态并把当前恢复点挂到等待队列，必须在一个解释器原子动作中完成；receive 检查 mailbox 和登记阻塞同理。若把它们拆开并在中间允许切换，signal/send 可能落在缝隙里，留下永远等不到通知的线程。</p></div><div class="annotation-card"><span class="annotation-kind">返回与终止</span><h3>主线程答案不能证明线程池完成</h3><p>原书 run-next-thread 在 ready 为空时返回 final-answer；它不自动扫描所有 mutex 队列。伴读结果同时给 blocked 数量，主线程没有答案而仅剩阻塞者时报错。读者检查并发程序时要分别判断互斥、结果已可读、所有参与者完成以及是否有等待环。</p></div></div></details><h3 id="exercises-5-5">本节习题与解答</h3><details class="exercise-index-panel"><summary>本节习题题号索引 · 14 题</summary><nav class="exercise-index" role="navigation" aria-label="本节习题索引"><a href="#ex-5-45" aria-label="习题 5.45">5.45</a> · <a href="#ex-5-46" aria-label="习题 5.46">5.46</a> · <a href="#ex-5-47" aria-label="习题 5.47">5.47</a> · <a href="#ex-5-48" aria-label="习题 5.48">5.48</a> · <a href="#ex-5-49" aria-label="习题 5.49">5.49</a> · <a href="#ex-5-50" aria-label="习题 5.50">5.50</a> · <a href="#ex-5-51" aria-label="习题 5.51">5.51</a> · <a href="#ex-5-52" aria-label="习题 5.52">5.52</a> · <a href="#ex-5-53" aria-label="习题 5.53">5.53</a> · <a href="#ex-5-54" aria-label="习题 5.54">5.54</a> · <a href="#ex-5-55" aria-label="习题 5.55">5.55</a> · <a href="#ex-5-56" aria-label="习题 5.56">5.56</a> · <a href="#ex-5-57" aria-label="习题 5.57">5.57</a> · <a href="#ex-5-58" aria-label="习题 5.58">5.58</a></nav></details><details class="exercise" id="ex-5-45"><summary>习题 5.45 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.45"><p>给本节线程语言添加 yield。线程执行 yield 时进入就绪队列，并运行队首线程；当它恢复时，yield 应像返回了数值 99 一样继续。</p></div><p class="source">印刷 p.189 / <a href="../assets/source.pdf#page=212">PDF 212</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>保存快照 <code>Apply(k,99)</code>，把当前线程追加到队尾，再选择队首。即使没有其他线程，也可把自己放入再取出，返回 99。</p><pre><code class="language-text">current.state := Apply(k,99)
+                    in (target value)</code></pre><p>转换器先在用户作用域之外把标准 call-with-current-continuation 保存到新鲜别名，避免用户同名 let 遮蔽它；这个遮蔽例已实际返回 7。value、target 必须新鲜，第二条用两个 let 保留“先值式、后目标式”的次序。其余节点重建，过程正文递归翻译。目标的 escape 已是一元过程，所以无需 throw 原语；不能简单写 <code>(T(b) T(a))</code>，那会先求 b。</p></div></details></section><section id="s5-5"><h2>5.5 线程：把多个未完成计算交给调度器</h2><p class="source">原书 §5.5，pp.179–191 / <a href="../assets/source.pdf#page=202">PDF 202–214</a>。</p><p>线程把“一个待完成计算”变成调度器管理的多个对象。本节 THREADS 基于隐式引用；每个线程保有自己的控制状态，所有线程访问同一个 store。任意时刻只有一个 running，ready 队列存可运行线程，mutex 等待队列存 blocked 线程。这里模拟交错执行，不是用多个物理 CPU 同时运行解释器。</p><p>spawn 先求过程值，再为子线程建立恢复记录并放在 ready 队尾。原书父线程取得任取的 73，子过程接任取的 28；线程 ID 习题改为父子都取得新子 ID。主线程结束时保存 final-answer，子线程结束时只丢弃其返回值；两者都继续运行 ready 队列里的线程。</p><p>抢占点放在 apply-cont 入口：时间片未尽，先减剩余步再分派；已经为零，就保存“仍待执行这个 apply”的快照，放回队尾并换线程。时间片计的是续文应用次数，不是源语句条数或真实毫秒。yield 主动交出 CPU 时，恢复点应是把 99 交给原 k。</p><figure id="scheduler-figure"><div class="diagram-scroll"><svg class="rn-diagram control-diagram" viewBox="0 0 700 300" role="img" aria-labelledby="scheduler-title scheduler-desc"><title id="scheduler-title">线程在运行、就绪和阻塞之间转移</title><desc id="scheduler-desc">调度器从就绪队列选择一个运行线程。耗尽时间片或 yield 使它回到就绪队列。等待关闭的锁使它进入阻塞队列，signal 把等待者送回就绪队列。线程结束离开这三种状态。</desc><defs><marker id="scheduler-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path class="rn-arrow" d="M0,0 L8,4 L0,8"/></marker></defs><rect class="rn-node" x="20" y="95" width="180" height="65" rx="8"/><text x="110" y="133">ready 队列</text><rect class="rn-node rn-node-accent" x="270" y="95" width="160" height="65" rx="8"/><text x="350" y="133">running</text><rect class="rn-node" x="500" y="95" width="180" height="65" rx="8"/><text x="590" y="133">blocked 队列</text><path class="rn-edge" d="M200 112 L270 112" marker-end="url(#scheduler-arrow)"/><text x="235" y="89">调度</text><path class="rn-edge" d="M430 135 L500 135" marker-end="url(#scheduler-arrow)"/><text x="465" y="172">wait</text><path class="rn-edge" d="M350 95 L350 40 L110 40 L110 95" marker-end="url(#scheduler-arrow)"/><text x="230" y="29">时间片耗尽 / yield</text><path class="rn-edge" d="M590 160 L590 240 L110 240 L110 160" marker-end="url(#scheduler-arrow)"/><text x="350" y="267">signal：唤醒后入 ready，不立刻抢走 running</text></svg></div><figcaption>伴读状态图：箭头标的是改变状态的事件；琥珀节点表示唯一正在运行的线程。</figcaption></figure><p>共享计数器的 <code>set x = -(x,-1)</code> 不是单个原子更新：读 x 与最后写回之间可能抢占。两个线程都读到 0，各自计算 1 并写回，便丢了一次增加。mutex 把这段读—改—写包在临界区里；但主线程若不等待子线程，最后返回的也可能是过早的 x。互斥和等待完成各自解决一个问题。</p><p>原书 mutex 允许任意线程 signal：开放时 wait 关闭它并继续；关闭时 wait 排队；signal 有等待者时把最前者送入 ready，mutex 仍保持关闭，等于直接把许可交给那位等待者。若这时错误地开放，新来的线程就可能抢在已唤醒者之前进入。</p><p>本伴读把死锁状态保留在结果中：主线程已经返回 77，而两个子线程互相等待时，最终 ready 为空仍不代表线程池正常完成。消息模型进一步把共享写入改成单一 owner 接收消息；它可以免去部分锁，但消息队列、协议终止和阻塞接收仍须定义。</p><details class="reading-notes" id="notes-s5-5" data-notes-for="s5-5" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">调度原子性</span><h3>检查、入队与唤醒是一件事</h3><p>wait 检查锁状态并把当前恢复点挂到等待队列，必须在一个解释器原子动作中完成；receive 检查 mailbox 和登记阻塞同理。若把它们拆开并在中间允许切换，signal/send 可能落在缝隙里，留下永远等不到通知的线程。</p></div><div class="annotation-card"><span class="annotation-kind">返回与终止</span><h3>主线程答案不能证明线程池完成</h3><p>原书 run-next-thread 在 ready 为空时返回 final-answer；它不自动扫描所有 mutex 队列。伴读结果同时给 blocked 数量，主线程没有答案而仅剩阻塞者时报错。读者检查并发程序时要分别判断互斥、结果已可读、所有参与者完成以及是否有等待环。</p></div></div></details><h3 id="exercises-5-5">本节习题与解答</h3><details class="exercise-index-panel"><summary>本节习题题号索引 · 14 题</summary><nav class="exercise-index" role="navigation" aria-label="本节习题索引"><a href="#ex-5-45" aria-label="习题 5.45">5.45</a> · <a href="#ex-5-46" aria-label="习题 5.46">5.46</a> · <a href="#ex-5-47" aria-label="习题 5.47">5.47</a> · <a href="#ex-5-48" aria-label="习题 5.48">5.48</a> · <a href="#ex-5-49" aria-label="习题 5.49">5.49</a> · <a href="#ex-5-50" aria-label="习题 5.50">5.50</a> · <a href="#ex-5-51" aria-label="习题 5.51">5.51</a> · <a href="#ex-5-52" aria-label="习题 5.52">5.52</a> · <a href="#ex-5-53" aria-label="习题 5.53">5.53</a> · <a href="#ex-5-54" aria-label="习题 5.54">5.54</a> · <a href="#ex-5-55" aria-label="习题 5.55">5.55</a> · <a href="#ex-5-56" aria-label="习题 5.56">5.56</a> · <a href="#ex-5-57" aria-label="习题 5.57">5.57</a> · <a href="#ex-5-58" aria-label="习题 5.58">5.58</a></nav></details><details class="exercise" id="ex-5-45"><summary>习题 5.45 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.45"><p>给本节线程语言添加 yield。线程执行 yield 时进入就绪队列，并运行队首线程；当它恢复时，yield 应像返回了数值 99 一样继续。</p></div><p class="source">印刷 p.189 / <a href="../assets/source.pdf#page=212">PDF 212</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>保存快照 <code>Apply(k,99)</code>，把当前线程追加到队尾，再选择队首。即使没有其他线程，也可把自己放入再取出，返回 99。</p><pre><code class="language-text">current.state := Apply(k,99)
 enqueue(current)
 goto run-next-thread</code></pre><p><code>yield()</code> 已加入解析和机器；恢复点不能是 yield 表达式本身，否则会不断再次让出，永远无法进入后续程序。就绪队列也不能同时保留两个同 ID 的快照。</p></div></details><details class="exercise" id="ex-5-46"><summary>习题 5.46 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.46"><p>在上一题中，时间片耗尽与主动 yield 都会把线程放回就绪队列。主动 yield 的线程恢复时却获得完整时间片。修改队列，让它保存线程剩余的时间片（如果还有），恢复时只给它剩余时间。</p></div><p class="source">印刷 p.189 / <a href="../assets/source.pdf#page=212">PDF 212</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>队列项改成 <code>(snapshot,remaining)</code>。主动 yield 保留当前剩余值；真正耗尽时间片时，入队前把 next remaining 重置为 quantum；取队时使用项内值。</p><p><code>#:preserve-ticks? #t</code> 实现这一差别。若 yield 时已经为 0，不能反复恢复一个永远无步可走的线程：本实现让下一次 apply 检出 0，把它作为“已耗尽”重排并补足新片。q=1 下也实际正常结束。公平性依赖轮转队列和每个动作最终让出，不能从保存余额本身推出。</p></div></details><details class="exercise" id="ex-5-47"><summary>习题 5.47 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.47"><p>如果最后剩下两个子线程，各自等待另一个子线程持有的 mutex，会怎样？</p></div><p class="source">印刷 p.189 / <a href="../assets/source.pdf#page=212">PDF 212</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>它们形成等待环，两个都 blocked，没有 ready 线程。原书调度器只检查 ready 是否空，因此会返回主线程保存的 final-answer，即使子线程仍死锁；若主线程也未完成，它甚至可能返回未初始化值。这不是所有线程完成的证明。</p><p>运行例中两个子线程各获取 a/b，yield 后等待对方，主线程返回 77；机器保留结果 77，同时报告 blocked=2。若死锁阻止主线程产生答案，伴读实现明确报 <code>deadlock before main result</code>。更严格的运行器可把任何非空阻塞集合都判作失败，这是单独的终止策略。</p></div></details><details class="exercise" id="ex-5-48"><summary>习题 5.48 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.48"><p>本节用过程表示线程。改用数据结构表示。</p></div><p class="source">印刷 p.189 / <a href="../assets/source.pdf#page=212">PDF 212</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>线程记录保存 <code>id,parent,state,ticks,status,mailbox</code>，其中 state 是 EV/AP/INVOKE 之一。新子线程的 state 为“以 end-sub 调用过程”；被抢占线程的 state 为“以原 k 再次应用当前 v”；等待 mutex 的线程保存“取得锁后返回 52”的 AP 状态。</p><p>调度只选择记录并装入寄存器，不执行一个不可检查的宿主闭包。<code>thread</code> 结构是完整实现，状态标签还使 ready/block/done 可独立检查；复制快照不应复制共享存储。</p></div></details><details class="exercise" id="ex-5-49"><summary>习题 5.49 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.49"><p>对 THREADS 完成<a href="#ex-5-15">习题 5.15</a>：把续文表示为帧栈。</p></div><p class="source">印刷 p.189 / <a href="../assets/source.pdf#page=212">PDF 212</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>普通运算仍为同一持久帧栈，补上 spawn、wait、signal、print、set 等一元帧；结束用线程记录的 ID 区分：主线程空栈时保存 final-answer，子线程空栈时只结束并选择下一线程。</p><p>每个线程有自己的帧栈。切换时保存/恢复整个栈指针，而非把两个线程的帧混入同一可变列表。mutex 等待队列保存线程记录，等待者已经持有自己恢复所需的 k；调度器不替它们接入发 signal 者的 k。</p></div></details><details class="exercise" id="ex-5-50"><summary>习题 5.50 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.50"><p>把本节解释器寄存器化。哪些互相尾递归的过程必须一起寄存器化？</p></div><p class="source">印刷 p.189 / <a href="../assets/source.pdf#page=212">PDF 212</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>核心集合包括 value-of/k、apply-cont、apply-procedure/k、run-next-thread、wait-for-mutex 和 signal-mutex；若实现分出 thread-resume 或 apply-handler，且它们与核心互相尾调，也要一起纳入。enqueue、newref 等有限返回的辅助过程无需因此寄存器化。</p><p>共享寄存器放 exp/env/k/val/proc，调度器寄存器放 current/ready/remaining/final；线程记录是这些执行寄存器的暂停快照。一次 wait 操作要先把当前恢复状态安放进锁队列，再跳到调度器。数据版的状态循环就是这一寄存器化后的分派，切换不依赖宿主返回栈。</p></div></details><details class="exercise" id="ex-5-51"><summary>习题 5.51 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.51"><p>希望图 5.17 的消费者不必忙等，而是在生产者把值放入缓冲区后被唤醒。用 mutex 写出这样的程序，或者实现允许这种行为的同步算子。</p></div><p class="source">印刷 p.189 / <a href="../assets/source.pdf#page=212">PDF 212</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>对一次生产、一次消费，用一个事先关闭的 ready mutex 作为一次通知即可；生产者写完 buffer 才 signal，消费者 wait 后才读。</p><pre><code class="language-scheme">let buffer = 0 in let ready = mutex()
 in begin
@@ -613,7 +613,26 @@ in begin
      x
    end</code></pre></details><p>这里用的是原书允许跨线程 signal 的 binary semaphore 语义；不是要求只有加锁者可解锁的操作系统 owner mutex。q=1…30 已逐次执行，全部返回 3、blocked=0；主线程最后读取的位置确实在三次更新之后。</p></div></details><details class="exercise" id="ex-5-53"><summary>习题 5.53 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.53"><p>加入线程标识符：每个新线程有新鲜 ID，spawn 时把子 ID（代替 28）传给子过程，也把该 ID 作为 spawn 的值交给父线程。追踪 ID 创建，检查就绪队列里每个 ID 至多出现一次。子线程如何知道父 ID？原始程序的 ID 应怎样处理？</p></div><p class="source">印刷 p.191 / <a href="../assets/source.pdf#page=214">PDF 214</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>全局单调 next-id，主线程固定 0、父 ID 约定 −1；spawn 原子地分配 ID，子记录存 parent=current.id，然后把子 ID 同时用于过程实参和父线程返回值。增加 <code>self()</code>、<code>parent()</code> 供查询，或在过程参数里传父子二元组；本实现选择前者。</p><p><code>#:thread-ids? #t</code> 开启题目语义。enqueue 会拒绝已在 ready 状态的记录；trace 创建项记录 <code>(create id parent p)</code>。ID 不复用，避免给旧 ID 的消息误投给后来线程；若要复用，须加代际编号。</p></div></details><details class="exercise" id="ex-5-54"><summary>习题 5.54 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.54"><p>给上一题的解释器添加 kill。给定线程号，在就绪队列或任何等待队列中找到它并移除。找到返回真；所有队列中都没有这个线程号则返回假。</p></div><p class="source">印刷 p.191 / <a href="../assets/source.pdf#page=214">PDF 214</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>用 ID 表定位记录，再检查状态是否为 ready/mutex/receive；找到则从 ready 和所有 mutex 等待队列移除，标记 killed。正在运行、已结束、已被杀或不存在的 ID 都按题目“队列中找到”规则返回假。</p><p>实际在大时间片下，刚 spawn 的子线程仍在 ready，kill 返回真；普通模式的 spawn 值 73 不是该子线程 ID，不能误用，开启线程 ID 模式才可写 <code>let c = spawn(...) in kill(c)</code>。kill 不自动释放这个线程此前取得的 mutex；若语言要避免遗留锁，需另设取消清理协议。</p></div></details><details class="exercise" id="ex-5-55"><summary>习题 5.55 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.55"><p>给<a href="#ex-5-53">习题 5.53</a> 的解释器加入线程间通信：线程可用接收方 ID 发送一个值；线程选择接收时，若没有消息则阻塞。</p></div><p class="source">印刷 p.191 / <a href="../assets/source.pdf#page=214">PDF 214</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>每个线程有 FIFO mailbox。send 先求目标和值；若目标阻塞在 receive，直接把消息装进其保存的 AP 快照并放入 ready，否则追加 mailbox。receive 若非空则取队首，否则把 <code>Apply(k,missing)</code> 存好并置 receive 状态。检查/入队必须是一个调度原子动作，避免“检查为空后、登记等待前”丢消息。</p><pre><code class="language-scheme">let p = self()
 in let c = spawn(proc(id) send(p,-(id,-40)))
-   in receive()</code></pre><p>ID 模式下子 ID=1，程序在已测 q=1、2、9、100 均返回 41。消息不替代控制续文；唤醒时恢复的是接收者原来的 k。给已结束 ID 发消息本实现明确报错。</p></div></details><details class="exercise" id="ex-5-56"><summary>习题 5.56 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.56"><p>修改上一题，使各线程有自己的存储，不再共享一个 store。这种语言几乎总能避免 mutex。把本节的例子改写成这种语言。</p></div><p class="source">印刷 p.191 / <a href="../assets/source.pdf#page=214">PDF 214</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>线程记录增加私有 store 指针，切换时一并换入。spawn 要把子过程可达的初始闭包数据复制到子 store；send 传值而非跨 store 的裸引用。含环结构须用旧位置到新位置的 memo 表复制；本章可执行 actor 模型收窄为 JSON 数据消息，明确拒绝共享引用/过程。</p><p>把共享计数器改成一个 owner 线程：它私有 x=0，三次 receive 后各加消息中的 1，再发出/打印 x；其他线程只发消息，不直接读写 owner 的 x。<code>chapter05_sync.py</code> 实际结果为 3；发送者自己的同名 x 都仍为 100。生产者/消费者同样改成发送 44、消费者接收后读取。单个位置只有 owner 写，便不需要围绕这个位置加锁。</p></div></details><details class="exercise" id="ex-5-57"><summary>习题 5.57 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.57"><p>操作系统教材里还有很多同步机制。任选三种，在本框架中实现。</p></div><p class="source">印刷 p.191 / <a href="../assets/source.pdf#page=214">PDF 214</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>选择计数信号量、Mesa 风格条件变量、可重复使用的屏障；完整可运行状态机在 <code>chapter05_sync.py</code>。三个机制都操作暂停线程的队列，而不是忙等。</p><details class="code-details" open><summary>查看推演代码</summary><pre><code class="language-text">down(S): if S.count&gt;0: S.count--; continue
+   in receive()</code></pre><p>ID 模式下子 ID=1，程序在已测 q=1、2、9、100 均返回 41。消息不替代控制续文；唤醒时恢复的是接收者原来的 k。给已结束 ID 发消息本实现明确报错。</p></div></details><details class="exercise" id="ex-5-56"><summary>习题 5.56 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.56"><p>修改上一题，使各线程有自己的存储，不再共享一个 store。这种语言几乎总能避免 mutex。不用 mutex，把本节的例子改写成这种语言。</p></div><p class="source">印刷 p.191 / <a href="../assets/source.pdf#page=214">PDF 214</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p><code>chapter05.rkt</code> 的 <code>#:private-store? #t</code> 直接在上一题的 THREADS 解释器上增加线程私有存储。每个线程记录保存自己的位置集合；切换后，变量解引用与赋值都只接受当前线程的位置。spawn 复制子过程保存的环境图，send 把消息图复制到接收者的存储；消息中的表、过程与引用都保留各自的数据类型。</p><p>复制须同时保持隔离与别名：若两个变量原来指向同一位置，复制后它们仍指向同一个新位置，但这个位置属于接收线程。先在 memo 中登记空位置或闭包，再填充内容，就能处理自引用的位置和互递归闭包。实际回归中，子线程把自己的 x 从 100 改成 9，父线程仍为 100；子线程的 r/s 别名一起变成 9，父线程的原引用仍为 1。带环引用和过程消息也经过独立期望值验证。</p><p>共享计数器改为由一个 owner 线程拥有 x=0：三个工作线程各发送数值 1；owner 逐条接收、更新自己的 x，最后把 3 发给父线程。所有更新都在同一线程内，因此下面的完整程序没有 mutex。</p><!-- EOPL:snippet chapter05.rkt private-store-example -->
+<details class="code-details" open><summary>查看实现 · private-store-example</summary><pre><code class="language-scheme">(define private-counter-program
+ &quot;let owner = spawn(proc(id)
+    let x = 0 in begin
+      set x = +(x,receive());
+      set x = +(x,receive());
+      set x = +(x,receive());
+      send(parent(),x)
+    end)
+  in begin
+    spawn(proc(id) send(owner,1));
+    spawn(proc(id) send(owner,1));
+    spawn(proc(id) send(owner,1));
+    receive()
+  end&quot;)
+(define (run-private-counter [quantum 100])
+ (run private-counter-program #:implicit? #t #:private-store? #t
+      #:thread-ids? #t #:quantum quantum))
+</code></pre></details>
+<!-- EOPL:end-snippet --><p>下载本章程序后，调用 <code>(result-value (run-private-counter 1))</code> 得到 3；时间片 1、2、5、100 均已实际运行，结束时阻塞线程数为 0。生产者/消费者例可直接写成 <code>let child = spawn(proc(id) send(parent(),44)) in receive()</code>，消费者得到 44，整个程序同样不需要锁。</p><p>本模式采用词法作用域。互斥锁及捕获续文与其所属线程的调度、控制状态绑定，跨私有存储复制时明确报错；可传递的过程会复制它保存的环境。存储复制花费与可达位置及数据图大小有关，私有存储也不等于消息队列或总内存有固定上界。</p></div></details><details class="exercise" id="ex-5-57"><summary>习题 5.57 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.57"><p>操作系统教材里还有很多同步机制。任选三种，在本框架中实现。</p></div><p class="source">印刷 p.191 / <a href="../assets/source.pdf#page=214">PDF 214</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>选择计数信号量、Mesa 风格条件变量、可重复使用的屏障；完整可运行状态机在 <code>chapter05_sync.py</code>。三个机制都操作暂停线程的队列，而不是忙等。</p><details class="code-details" open><summary>查看推演代码</summary><pre><code class="language-text">down(S): if S.count&gt;0: S.count--; continue
          else enqueue(S.wait,current); run-next
 up(S):   if S.wait nonempty: enqueue(ready,dequeue(S.wait))
          else S.count++
@@ -627,36 +646,37 @@ signal(C): if C.wait nonempty: enqueue(ready,dequeue(C.wait))
 barrier(B): save current in B.wait
   if length(B.wait)==B.parties:
       B.generation++; wake all saved; clear B.wait
-  else run-next</code></pre></details><p>实测许可数为 2 时，五个工作线程的同时进入峰值为 2；条件变量消费者取得 44；三个参与者跨过两代屏障且代号匹配。条件 signal 只令等待者可运行，不把锁立即交给它；因此等待必须放在谓词 while 中。屏障必须按代清空队列，才不会把下一轮到达者并入上一轮。</p></div></details><details class="exercise" id="ex-5-58"><summary>习题 5.58 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.58"><p>和朋友去吃披萨，但要保证每次只有一个人伸手拿一片！（原书标为“绝对一星”。）</p></div><p class="source">印刷 p.191 / <a href="../assets/source.pdf#page=214">PDF 214</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>把“伸手并拿走一片”作为临界区，门口放一个初始开放的 mutex：每人 wait 后取一片，随即 signal，再在临界区外吃。不能拿着锁吃完整片，否则虽然互斥成立，大家会不必要地排队；也不能先伸手再 wait。若披萨可能吃完，剩余片数的检查和减一必须在同一个临界区。这个题是把本节的互斥规则应用到生活情景，不把真实聚餐伪写成程序运行证据。</p></div></details></section><section id="programs"><h2>运行本章程序</h2><p>程序采用 Racket 8.17 与 eopl/rackunit，语法前端与运行器分开维护；下载文件后保留原文件名并放在同一个目录。共享的测试与第五、六章模块需要一起取得；语句版还使用第四章的语句语法模块。下面源码阅读副本与实际执行的维护文件同步。</p><pre><code class="language-sh">&quot;/Applications/Racket v8.17/bin/racket&quot; books/eopl/code/test_chapter05_06.rkt
+  else run-next</code></pre></details><p>实测许可数为 2 时，五个工作线程的同时进入峰值为 2；条件变量消费者取得 44；三个参与者跨过两代屏障且代号匹配。条件 signal 只令等待者可运行，不把锁立即交给它；因此等待必须放在谓词 while 中。屏障必须按代清空队列，才不会把下一轮到达者并入上一轮。</p></div></details><details class="exercise" id="ex-5-58"><summary>习题 5.58 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.58"><p>和朋友去吃披萨，但要保证每次只有一个人伸手拿一片！（原书标为“绝对一星”。）</p></div><p class="source">印刷 p.191 / <a href="../assets/source.pdf#page=214">PDF 214</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>把“伸手并拿走一片”作为临界区，门口放一个初始开放的 mutex：每人 wait 后取一片，随即 signal，再在临界区外吃。不能拿着锁吃完整片，否则虽然互斥成立，大家会不必要地排队；也不能先伸手再 wait。若披萨可能吃完，剩余片数的检查和减一必须在同一个临界区。这个题把本节的互斥规则应用到生活情景。</p></div></details></section><section id="programs"><h2>运行本章程序</h2><p>程序采用 Racket 8.17 与 eopl/rackunit，语法前端与运行器分开维护；下载文件后保留原文件名并放在同一个目录。共享的测试与第五、六章模块需要一起取得；语句版还使用第四章的语句语法模块。下面源码阅读副本与实际执行的维护文件同步。</p><pre><code class="language-sh">&quot;/Applications/Racket v8.17/bin/racket&quot; books/eopl/code/test_chapter05_06.rkt
 &quot;/Applications/Racket v8.17/bin/racket&quot; books/eopl/code/chapter06_examples.rkt
 &quot;/Applications/Racket v8.17/bin/racket&quot; books/eopl/code/test_chapter06_scheme.rkt</code></pre><pre><code class="language-sh">cc -std=c11 -O0 -fno-optimize-sibling-calls -Wall -Wextra -Werror \
   books/eopl/code/chapter05_machine.c -o /tmp/eopl-machine
 /tmp/eopl-machine 1 20000
 /tmp/eopl-machine 2 20000
-python3 books/eopl/code/chapter05_sync.py</code></pre><div class="program-output"><p>实际结果：嵌套减法 30，最大续文 3；两种阶乘均为 24；恢复型异常 7；加锁并等待完成的计数器为 3；命令续文两版输出 3、2、1。C 的 goto/蹦床尾递减 20,000 次均返回 0。</p></div><p>数值/返回值、输出次序、错误路径、续文大小与各表示之间的比较各自检查。有限运行用于核对实现，归纳和转换不变量在正文与题解中说明。C 固定容量 arena、Python 同步模型的 JSON 消息边界，以及目标解释器的步数上限均在代码中明确。</p><ul><li><a href="../code/chapter05.rkt">下载 chapter05.rkt</a></li><li><a href="../code/chapter05_cps.rkt">下载 chapter05_cps.rkt</a></li><li><a href="../code/chapter05_syntax.rkt">下载 chapter05_syntax.rkt</a></li><li><a href="../code/chapter05_statements.rkt">下载 chapter05_statements.rkt</a></li><li><a href="../code/chapter05_machine.c">下载 chapter05_machine.c</a></li><li><a href="../code/chapter05_sync.py">下载 chapter05_sync.py</a></li><li><a href="../code/test_chapter05_06.rkt">下载 test_chapter05_06.rkt</a></li><li><a href="../code/README.md">完整程序与依赖说明</a></li></ul><details class="code-details" id="chapter05-program"><summary>完整程序 · chapter05.rkt</summary><!-- EOPL:program chapter05.rkt --><pre><code id="chapter05-code" class="language-scheme">#lang racket
+python3 books/eopl/code/chapter05_sync.py</code></pre><div class="program-output"><p>实际结果：嵌套减法 30，最大续文 3；两种阶乘均为 24；恢复型异常 7；加锁并等待完成的计数器为 3；命令续文两版输出 3、2、1。C 的 goto/蹦床尾递减 20,000 次均返回 0。</p></div><p>数值/返回值、输出次序、错误路径、续文大小与各表示之间的比较各自检查。有限运行用于核对实现，归纳和转换不变量在正文与题解中说明。C 固定容量 arena、Python 同步模型的 JSON 消息边界，以及目标解释器的步数上限均在代码中明确。</p><ul><li><a download href="../code/chapter05.rkt">下载 chapter05.rkt</a></li><li><a download href="../code/chapter05_cps.rkt">下载 chapter05_cps.rkt</a></li><li><a download href="../code/chapter05_syntax.rkt">下载 chapter05_syntax.rkt</a></li><li><a download href="../code/chapter05_statements.rkt">下载 chapter05_statements.rkt</a></li><li><a download href="../code/chapter05_machine.c">下载 chapter05_machine.c</a></li><li><a download href="../code/chapter05_sync.py">下载 chapter05_sync.py</a></li><li><a download href="../code/test_chapter05_06.rkt">下载 test_chapter05_06.rkt</a></li><li><a href="../code/README.md">完整程序与依赖说明</a></li></ul><details class="code-details" id="chapter05-program"><summary>完整程序 · chapter05.rkt</summary><!-- EOPL:program chapter05.rkt --><pre><code id="chapter05-code" class="language-scheme">#lang racket
 ;; CEK snapshots, register driver, exceptions, preemptive THREADS and mailboxes.
 (require racket/match &quot;chapter05_syntax.rkt&quot;)
 (provide (all-defined-out))
-(struct closure (params body env) #:transparent)
+(struct closure (params body env) #:mutable #:transparent)
 (struct reference (cell) #:transparent)
 (struct captured (frames) #:transparent)
 (struct callcc-primitive () #:transparent)
 (struct mutex-value (closed? waiting) #:mutable #:transparent)
 ;; BEGIN snapshots
 (struct state (pc exp env frames value) #:transparent)
-(struct thread (id parent state ticks status mailbox) #:mutable #:transparent)
+(struct thread (id parent state ticks status mailbox store) #:mutable #:transparent)
 (struct result (value output metrics trace threads) #:transparent)
 (define (E e env k) (state &#x27;eval e env k #f))
 (define (A k v) (state &#x27;apply #f #f k v))
 (define (I p vs env k) (state &#x27;invoke p env k vs))
 (define (R k v) (state &#x27;raise #f #f k v))
 ;; END snapshots
-(define (run source #:implicit? [implicit? #f] #:quantum [quantum 1000000]
+(define (run source #:implicit? [implicit? #f] #:private-store? [private? #f] #:quantum [quantum 1000000]
              #:preserve-ticks? [preserve-ticks? #f] #:thread-ids? [ids? #f]
              #:exception-mode [exception-mode &#x27;abort] #:scope [scope &#x27;lexical]
              #:driver [driver &#x27;loop] #:handler-lookup [handler-lookup &#x27;search] #:numeric? [numeric? #f]
              #:trace? [trace? #f] #:fuel [fuel 2000000])
  (unless (exact-positive-integer? quantum) (error &#x27;scheduler &quot;positive quantum required&quot;))
+ (when (and private? (eq? scope &#x27;dynamic)) (error &#x27;run &quot;private stores require lexical scope&quot;))
  (define all (make-hash)) (define ready &#x27;()) (define current #f)
  (define next-id 0) (define final #f) (define final? #f) (define output &#x27;())
  (define log &#x27;()) (define max-depth 0) (define steps 0) (define switches 0) (define ends 0)
@@ -666,11 +686,45 @@ python3 books/eopl/code/chapter05_sync.py</code></pre><div class="program-output
  (define (nearest k)
   (hash-ref! handler-cache k (lambda ()
    (cond [(null? k) &#x27;()] [(eq? (caar k) &#x27;try) k] [else (nearest (cdr k))]))))
- (define (newref v) (define b (box v)) (set! locations (cons b locations)) (reference b))
+ (define (newref-for th v)
+  (define b (box v))
+  (if private? (set-thread-store! th (cons b (thread-store th)))
+      (set! locations (cons b locations)))
+  (reference b))
+ (define (newref v) (newref-for current v))
  (define (readref r)
-  (unless (and (reference? r) (memq (reference-cell r) locations)) (error &#x27;deref &quot;reference required&quot;))
+  (unless (and (reference? r) (memq (reference-cell r)
+          (if private? (thread-store current) locations))) (error &#x27;deref &quot;reference required&quot;))
   (unbox (reference-cell r)))
  (define (writeref r v) (readref r) (set-box! (reference-cell r) v))
+ ;; Copy each graph edge once; placeholders preserve aliases and recursive closures.
+ (define (copy-between value sender receiver)
+  (define memo (make-hasheq))
+  (define (cell old)
+   (cond [(hash-ref memo old #f) =&gt; values]
+    [else (define new (box #f)) (hash-set! memo old new)
+     (set-box! new (copy (unbox old))) new]))
+  (define (environment env)
+   (map (lambda (entry) (cons (car entry) (cell (cdr entry)))) env))
+  (define (copy v)
+   (cond
+    [(reference? v)
+     (define old (reference-cell v))
+     (unless (memq old (thread-store sender)) (error &#x27;copy &quot;foreign reference&quot;))
+     (cond [(hash-ref memo v #f) =&gt; values]
+      [(hash-ref memo old #f) =&gt; (lambda (b) (reference b))]
+      [else (define r (newref-for receiver #f))
+       (hash-set! memo old (reference-cell r)) (hash-set! memo v r)
+       (set-box! (reference-cell r) (copy (unbox old))) r])]
+    [(closure? v)
+     (cond [(hash-ref memo v #f) =&gt; values]
+      [else (define p (closure (closure-params v) (closure-body v) #f))
+       (hash-set! memo v p) (set-closure-env! p (environment (closure-env v))) p])]
+    [(or (captured? v) (mutex-value? v))
+     (error &#x27;copy &quot;cannot transfer a mutex or captured continuation between private stores&quot;)]
+    [(pair? v) (cons (copy (car v)) (copy (cdr v)))]
+    [else v]))
+  (copy value))
  (define (extend xs vs env)
   (unique! xs) (arity! xs vs)
   (append (map (lambda (x v) (cons x (box (if implicit? (newref v) v)))) xs vs) env))
@@ -684,7 +738,7 @@ python3 books/eopl/code/chapter05_sync.py</code></pre><div class="program-output
   (set-thread-status! th &#x27;ready) (set! ready (append ready (list th))))
  (define (new-thread! parent s)
   (define id next-id) (set! next-id (add1 next-id))
-  (define th (thread id parent s quantum &#x27;new &#x27;())) (hash-set! all id th)
+  (define th (thread id parent s quantum &#x27;new &#x27;() &#x27;())) (hash-set! all id th)
   (when trace? (set! log (cons `(create ,id parent ,parent) log))) th)
  (define (suspend! s status)
   (set-thread-state! current s) (set-thread-status! current status) #f)
@@ -717,9 +771,10 @@ python3 books/eopl/code/chapter05_sync.py</code></pre><div class="program-output
    [(send)
     (define dest (hash-ref all (car vs) #f))
     (unless (and dest (not (memq (thread-status dest) &#x27;(done killed)))) (error &#x27;send &quot;live thread required&quot;))
+    (define delivered (if private? (copy-between (cadr vs) current dest) (cadr vs)))
     (if (eq? (thread-status dest) &#x27;receive)
-     (begin (set-thread-state! dest (A (state-frames (thread-state dest)) (cadr vs))) (enqueue! dest))
-     (set-thread-mailbox! dest (append (thread-mailbox dest) (list (cadr vs)))))
+     (begin (set-thread-state! dest (A (state-frames (thread-state dest)) delivered)) (enqueue! dest))
+     (set-thread-mailbox! dest (append (thread-mailbox dest) (list delivered))))
     (A k 54)]
    [else (error &#x27;collect &quot;unknown collection ~a&quot; kind)]))
 ;; BEGIN exception-unwind
@@ -816,7 +871,8 @@ python3 books/eopl/code/chapter05_sync.py</code></pre><div class="program-output
          [(list &#x27;spawn)
           (unless (closure? v) (error &#x27;spawn &quot;procedure required&quot;))
           (define child (new-thread! (thread-id current) #f))
-          (set-thread-state! child (I v (list (if ids? (thread-id child) 28)) &#x27;() &#x27;()))
+          (define child-procedure (if private? (copy-between v current child) v))
+          (set-thread-state! child (I child-procedure (list (if ids? (thread-id child) 28)) &#x27;() &#x27;()))
           (enqueue! child) (A rest (if ids? (thread-id child) 73))]
          [(list &#x27;wait)
           (unless (mutex-value? v) (error &#x27;wait &quot;mutex required&quot;))
@@ -864,14 +920,36 @@ python3 books/eopl/code/chapter05_sync.py</code></pre><div class="program-output
                     (error &#x27;scheduler &quot;main thread terminated without value&quot;)))
  (result final (reverse output)
   (hash &#x27;steps steps &#x27;max-continuation max-depth &#x27;end-count ends &#x27;switches switches
-        &#x27;blocked (length blocked) &#x27;handler-hops handler-hops &#x27;locations (length locations))
+        &#x27;blocked (length blocked) &#x27;handler-hops handler-hops
+        &#x27;locations (if private? (for/sum ([th (in-hash-values all)]) (length (thread-store th))) (length locations))
+        &#x27;private-stores private?)
   (reverse log) (for/hash ([(id th) (in-hash all)]) (values id (thread-status th)))))
+;; BEGIN private-store-example
+(define private-counter-program
+ &quot;let owner = spawn(proc(id)
+    let x = 0 in begin
+      set x = +(x,receive());
+      set x = +(x,receive());
+      set x = +(x,receive());
+      send(parent(),x)
+    end)
+  in begin
+    spawn(proc(id) send(owner,1));
+    spawn(proc(id) send(owner,1));
+    spawn(proc(id) send(owner,1));
+    receive()
+  end&quot;)
+(define (run-private-counter [quantum 100])
+ (run private-counter-program #:implicit? #t #:private-store? #t
+      #:thread-ids? #t #:quantum quantum))
+;; END private-store-example
 (define (translate-callcc source)
  (define count 0)
  (define (fresh prefix) (set! count (add1 count)) (string-&gt;symbol (format &quot;~a%cc~a&quot; prefix count)))
+ (define primitive-name (fresh &#x27;callcc))
  (define (go e)
   (match e
-   [`(letcc ,x ,body) `(call (var call-with-current-continuation) ((proc (,x) ,(go body))))]
+   [`(letcc ,x ,body) `(call (var ,primitive-name) ((proc (,x) ,(go body))))]
    [`(throw ,a ,b)
     (define v (fresh &#x27;value)) (define target (fresh &#x27;target))
     `(let (,v) (,(go a)) (let (,target) (,(go b)) (call (var ,target) ((var ,v)))))]
@@ -881,7 +959,8 @@ python3 books/eopl/code/chapter05_sync.py</code></pre><div class="program-output
    [`(letrec ,ns ,pss ,bs ,b) `(letrec ,ns ,pss ,(map go bs) ,(go b))]
    [`(try ,b ,xs ,h) `(try ,(go b) ,xs ,(go h))]
    [(? pair?) (map go e)] [_ e]))
- (go (if (string? source) (parse source) source)))
+ `(let (,primitive-name) ((var call-with-current-continuation))
+    ,(go (if (string? source) (parse source) source))))
 (module+ main
  (define r (run &quot;-(-(44,11),3)&quot; #:trace? #t))
  (printf &quot;machine: ~s; max-continuation=~a; end-count=~a\n&quot; (result-value r)
@@ -1527,6 +1606,30 @@ if __name__ == &quot;__main__&quot;:
    (eq! (c:tail-form? (parse &quot;let f = proc(x) x in (f 3)&quot;)) #t)
    (eq! (c:tail-form? (parse fact)) #f) (eq! (c:tail-form? (parse iter)) #t)
    (bad! (lambda () (t:parse-target &quot;-((f x),1)&quot;)) #rx&quot;parsing&quot;))
+  (test-case &quot;private thread stores, closure graphs and copied messages&quot;
+   (define isolation &quot;let x = 100 in let child = spawn(proc(id) begin set x = 9; send(parent(),x) end) in list(receive(),x)&quot;)
+   (define aliases &quot;let r = newref(1) in let s = r in let child = spawn(proc(id) begin setref(r,9); send(parent(),list(deref(s),deref(r))) end) in let answer = receive() in list(answer,deref(r))&quot;)
+   (define cycles &quot;let r = newref(0) in begin setref(r,r); let child = spawn(proc(id) begin setref(deref(r),7); send(parent(),deref(r)) end) in list(receive(),number?(deref(r))) end&quot;)
+   (define recursive &quot;let x = 100 in letrec even(n) = if zero?(n) then x else (odd -(n,1)) odd(n) = if zero?(n) then x else (even -(n,1)) in let child = spawn(proc(id) begin set x = 8; send(parent(),(even 4)) end) in list(receive(),x)&quot;)
+   (define closure-message &quot;let r = newref(5) in let child = spawn(proc(id) let f = receive() in send(parent(),(f 1))) in begin send(child,proc(n) begin setref(r,-(deref(r),n)); deref(r) end); list(receive(),deref(r)) end&quot;)
+   (define owner m:private-counter-program)
+   (define producer &quot;let child = spawn(proc(id) send(parent(),44)) in receive()&quot;)
+   (for* ([q &#x27;(1 2 5 100)]
+          [example (list (list isolation &#x27;(9 100)) (list aliases &#x27;((9 9) 1))
+                         (list cycles &#x27;(7 #f)) (list recursive &#x27;(8 100))
+                         (list closure-message &#x27;(4 5)) (list owner 3) (list producer 44))])
+    (define result (m:run (car example) #:implicit? #t #:private-store? #t #:thread-ids? #t #:quantum q))
+    (eq! (m:result-value result) (cadr example))
+    (eq! (hash-ref (m:result-metrics result) &#x27;blocked) 0))
+   (eq! (m:result-value (m:run isolation #:implicit? #t #:thread-ids? #t #:quantum 100)) &#x27;(9 9))
+   (eq! (m:result-value (m:run &quot;let child = spawn(proc(id) send(parent(),newref(7))) in deref(receive())&quot;
+                             #:private-store? #t #:thread-ids? #t)) 7)
+   (bad! (lambda () (m:run &quot;let lock = mutex() in spawn(proc(id) lock)&quot; #:private-store? #t))
+         #rx&quot;cannot transfer&quot;)
+   (bad! (lambda () (m:run &quot;letcc escape in spawn(proc(id) escape)&quot; #:private-store? #t))
+         #rx&quot;cannot transfer&quot;)
+   (bad! (lambda () (m:run &quot;1&quot; #:private-store? #t #:scope &#x27;dynamic)) #rx&quot;lexical scope&quot;)
+   (eq! (m:result-value (m:run-private-counter 1)) 3))
   (test-case &quot;four algorithm representations and independent mathematical oracles&quot;
    (for ([rep &#x27;(data procedural inline register)])
     (for ([xs &#x27;(() (1) (1 2 3 4) (9 -2 6))])
@@ -1575,6 +1678,7 @@ if __name__ == &quot;__main__&quot;:
    (eq! (hash-ref (m:result-metrics search) &#x27;handler-hops) 41)
    (eq! (M (m:translate-callcc &quot;letcc out in -(1,throw 7 to out)&quot;)) 7)
    (eq! (M &quot;(call-with-current-continuation proc(out) -(1,(out 7)))&quot;) 7)
+   (eq! (M (m:translate-callcc &quot;let call-with-current-continuation = 0 in letcc out in -(1,throw 7 to out)&quot;)) 7)
    (define notify &quot;let buffer = 0 in let ready = mutex() in begin wait(ready); spawn(proc(d)begin set buffer = 44; signal(ready) end); wait(ready); buffer end&quot;)
    (for ([q &#x27;(1 2 5 100)]) (eq! (m:result-value (m:run notify #:implicit? #t #:quantum q)) 44))
    (for ([mode &#x27;(data procedural)])
@@ -1585,6 +1689,22 @@ if __name__ == &quot;__main__&quot;:
                    &quot;let x = 2 in if zero?(x) then 7 else -(x,1)&quot;)])
     (eq! (x:canonical-target (c:cps-program source))
          (x:canonical-target (c:cps-program (x:anf (parse source)))))))
+  (test-case &quot;implicit control binders and alpha-safe atomicization&quot;
+   (for* ([source &#x27;(&quot;letcc out in throw 7 to out&quot;
+                    &quot;letcc out in begin set out = proc(x) -(x,1); (out 8) end&quot;
+                    &quot;try raise 5 catch(e) e&quot;
+                    &quot;try raise 5 catch(e) begin set e = -(e,-1); e end&quot;
+                    &quot;let f = proc(x) raise x in try (f 9) catch(e) e&quot;
+                    &quot;try try raise 7 catch(e) raise -(e,-1) catch(x) -(x,2)&quot;)]
+          [opt? &#x27;(#f #t)] [send &#x27;(call let substitute)])
+    (define-values (value metrics) (T source #:implicit? #t #:immutable? opt? #:exceptions? #t #:send send))
+    (eq! value (m:result-value (m:run source #:implicit? #t))))
+   (for ([n (in-range 1 13)])
+    (define source (format &quot;let atom = ~a in -(-(5,2),atom)&quot; n))
+    (define original (c:cps-program source))
+    (define atomic (x:atomicize original))
+    (define-values (value metrics) (t:run-target (t:parse-target (t:target-string atomic))))
+    (eq! value (- 3 n))))
   (test-case &quot;defunctionalization, atomicization, ANF and bounded generated programs&quot;
    (for* ([n (in-range 0 30)] [a &#x27;(-2 0 5)])
     (define s (format &quot;let f = proc(x) -(x,~a) in -((f ~a),(f -(~a,1)))&quot; a n n))
@@ -1601,9 +1721,9 @@ if __name__ == &quot;__main__&quot;:
     (define-values (v unused9) (t:run-target (t:parse-target (t:target-string d)))) (eq! v (M s))))))
 (module+ main
  (define failures (run-tests suites))
- (printf &quot;~a\n&quot; (jsexpr-&gt;string (hash &#x27;status (if (zero? failures) &quot;passed&quot; &quot;failed&quot;) &#x27;groups 9 &#x27;assertions assertions &#x27;failures failures)))
+ (printf &quot;~a\n&quot; (jsexpr-&gt;string (hash &#x27;status (if (zero? failures) &quot;passed&quot; &quot;failed&quot;) &#x27;groups 11 &#x27;assertions assertions &#x27;failures failures)))
  (unless (zero? failures) (exit 1)))
-</code></pre><!-- EOPL:end-program --></details></section><footer><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter04_state.html">← 第 4 章 · 状态、存储与参数传递</a><a href="chapter06_cps.html">第 6 章 · CPS 转换与计算效果 →</a><a href="#top">返回页首 ↑</a></p></footer></main></div>
+</code></pre><!-- EOPL:end-program --></details></section><footer><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter04_state.html">← 第 4 章 · 状态、存储与参数传递</a><a href="chapter06_cps.html">第 6 章 · CPS 转换与计算效果 →</a><a href="#top">返回页首 ↑</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top">本节理解与补充</a></p><div id="annotation-content"></div></aside></div><script>
 (() => {
   document.documentElement.classList.add('toc-enhanced');
   const panel = document.getElementById('toc-panel');
@@ -1643,8 +1763,7 @@ if __name__ == &quot;__main__&quot;:
   document.addEventListener('toggle', schedule, true);
   reveal(); mark();
 })();
-
-
+</script><script id="reading-notes-controller">
 (() => {
   const rail = document.getElementById('annotation-rail');
   const content = document.getElementById('annotation-content');
@@ -1708,8 +1827,7 @@ if __name__ == &quot;__main__&quot;:
   document.addEventListener('toggle', schedule, true);
   fit();
 })();
-
-
+</script><script data-purpose="print-details">
 (() => {
   let saved=[];
   addEventListener('beforeprint',()=>{
@@ -1721,4 +1839,4 @@ if __name__ == &quot;__main__&quot;:
     saved.forEach(([node,open])=>{node.open=open;});saved=[];
   });
 })();
-</body></html>
+</script></body></html>

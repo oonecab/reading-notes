@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "issue": "I060",
+  "book": "eopl",
+  "recorded_at_utc": "2026-10-23T19:43:12.260128+00:00",
+  "status": "Go",
+  "scope": "Eight local EOPL reading pages,10 public HTML routes,252 complete Chinese exercise solutions through chapter6; production state separate.",
+  "baseline_ref": "7e9d2eaf335b5ebf9109930447b974b9065ee5f7",
+  "page_baselines": {
+    "eopl/notes/chapter01_inductive_data.html": "1e96df2376aa34342f23eb089a1cbffb553f46f9",
+    "eopl/notes/chapter02_data_abstraction.html": "1e96df2376aa34342f23eb089a1cbffb553f46f9",
+    "eopl/notes/chapter03_expressions.html": "6ab014191cbe20829f946ee9150031156375bc73",
+    "eopl/notes/chapter04_state.html": "101b6c00f2300f9eee70b8b86e20f8c1f715cd65",
+    "eopl/notes/chapter05_continuations.html": "d132ed7f25c06626e090c6c018c4adefb367851a",
+    "eopl/notes/chapter06_cps.html": "d132ed7f25c06626e090c6c018c4adefb367851a"
+  },
+  "baseline_kind": "retained source snapshots, distinct from published output",
+  "pages": 8,
+  "public_pages": 10,
+  "parity_differences": [],
+  "open_findings": [],
+  "external_requests": [],
+  "js_views": 40,
+  "no_js_views": 20,
+  "current_source_sha256": {
+    "eopl/notes/book_overview.html": "5e66b5f0a948bff9afcda9caf863d32e54040d8dba7b58dcb813f5429e8a47bc",
+    "eopl/notes/chapter01_inductive_data.html": "d7d3b96ad503a9c837db0eb59e8488ab849a2a8fcb0626fd98b611913ad1e663",
+    "eopl/notes/chapter02_data_abstraction.html": "4d53d0caf1a949c959cc9e8d6682b4d8606d991a823cfae4ac4c000dbbb34073",
+    "eopl/notes/chapter03_expressions.html": "78bc40d228177a426dd036ef03057a1bfa71be686a2d87594c9e6575702fc136",
+    "eopl/notes/chapter04_state.html": "2645d3b162293cf8288efc38695cde3120aecd6c9f45c88a18b998e7d72a34f2",
+    "eopl/notes/chapter05_continuations.html": "882f7fe49a54c07a6a93d870cdcbc2b34e428be3daa5bb1f40c150289cad4a23",
+    "eopl/notes/chapter06_cps.html": "f12b0f6cb7141956c8e6584b9e1fe5a0a57a05f37d9fa6d599ffe78e167dffae",
+    "eopl/notes/preface.html": "c83fc006cd8334acfe0bf72bf657e56ae875082689a5d47d7f70db17cd6fec34"
+  },
+  "current_output_sha256": {
+    "eopl/notes/book_overview.html": "daa7fa34225e3a679825e755908cce2890f3806fe4db16824492861468102bcf",
+    "eopl/notes/chapter01_inductive_data.html": "a174becfc9cbe59f2c737b6b51f0b4cb7b46f817732d0361a47e3325d27e6178",
+    "eopl/notes/chapter02_data_abstraction.html": "21d012fca61cbd822d76e073db008d5032cc489027bcd5145b87e19041799e06",
+    "eopl/notes/chapter03_expressions.html": "5cdeb03d4116dc2ba618795a9953f58299ec1891339d5d3a5437d46234fe41aa",
+    "eopl/notes/chapter04_state.html": "8b45b234eed29198ef9f82100f192bc89f9ce68c492329dead59b5f908778219",
+    "eopl/notes/chapter05_continuations.html": "3bd97fe5013fda9bed5cc2bba8f20a7156832c63f1549dec37f6be905c442cd6",
+    "eopl/notes/chapter06_cps.html": "0f70c405f591dd5e47ba20a8b58c4be43ade7a6080098adf1d27e91b767c88b5",
+    "eopl/notes/preface.html": "42ceb152e3c0f4f03698daa796612027287a80858076d2e17d78a29db143b791"
+  },
+  "evidence_sha256": {
+    "tmp/reading-notes-migration/browser/eopl/runs/2026-10-23T19-25-46-420Z-b4456bb2/report.json": "d7348ec4cdd82488aa42296511c0a3907031fd94c3c5b8e3b9bc0126b1e29fae",
+    "review/ch05-06.json": "7807f8f4eb8d7183d2ebf3a49394832cde91b64e037b7455abe3ef0d5b84869c"
+  },
+  "visual_review": "Fresh final40 JS and20 no-JS views; all required annotations and open-fold narrow layouts checked. All29 final manual screenshots read,98 rendered questions/answers and15 real HTTP downloads verified; native horizontal wheel revealed diagram right.",
+  "historical_record": {
+    "file": "review/history/I060-before-astro-migration.json",
+    "sha256": "20d250424dd53be6448060b242a6141d97ca08a12eee84f184f00a24b61973ca",
+    "reason": "Preserves preceding I059 acceptance and its source/history evidence exactly."
+  }
+}

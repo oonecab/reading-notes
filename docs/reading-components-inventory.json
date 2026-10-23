@@ -1,6 +1,6 @@
 {
   "issue": "I041",
-  "scope": "All 58 controlled pages; EOPL map and preface added by I044. Explicit teaching blocks, not every occurrence of an example or proof in ordinary prose.",
+  "scope": "All 64 controlled reading pages. Explicit teaching blocks, not ordinary prose. I060 adds EOPL chapters5/6.",
   "pages": [
     {
       "page": "measure-probability/notes/book_overview.html",
@@ -541,13 +541,49 @@
         "proof": 0,
         "exercise": 31
       }
+    },
+    {
+      "page": "eopl/notes/chapter03_expressions.html",
+      "counts": {
+        "statement": 3,
+        "example": 0,
+        "proof": 1,
+        "exercise": 44
+      }
+    },
+    {
+      "page": "eopl/notes/chapter04_state.html",
+      "counts": {
+        "statement": 1,
+        "example": 3,
+        "proof": 0,
+        "exercise": 42
+      }
+    },
+    {
+      "page": "eopl/notes/chapter05_continuations.html",
+      "counts": {
+        "statement": 1,
+        "example": 3,
+        "proof": 0,
+        "exercise": 58
+      }
+    },
+    {
+      "page": "eopl/notes/chapter06_cps.html",
+      "counts": {
+        "statement": 1,
+        "example": 3,
+        "proof": 0,
+        "exercise": 40
+      }
     }
   ],
   "totals": {
-    "statement": 538,
-    "example": 227,
-    "proof": 352,
-    "exercise": 1593
+    "statement": 544,
+    "example": 236,
+    "proof": 353,
+    "exercise": 1777
   },
   "I044_scope_extension": "Two existing EOPL pages; one original exercise and one companion example. Existing 56-page counts preserved.",
   "I048_scope_extension": "EOPL chapters 1–2: 67 original exercises and complete answers."

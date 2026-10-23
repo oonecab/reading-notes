@@ -89,6 +89,63 @@ def run(run_dir: Path) -> dict:
         check("missing_chapter_exercise", "missing anchor")
         chapter.write_text(original)
         sync()
+        third = source / "chapter03_expressions.html"
+        third_original = third.read_text()
+        third.write_text(third_original.replace('id="ex-3-44"', 'id="omitted-last-exercise"', 1))
+        sync()
+        check("missing_chapter3_last_exercise", "missing anchor")
+        third.write_text(third_original)
+        sync()
+        third.write_text(third_original.replace(
+            "修改 if：0 为假，其他整数为真", "修改 if：1 为假，其他整数为真", 1))
+        sync()
+        check("chapter3_chinese_condition_drift", "chapter 3 Chinese question or supplied input differs")
+        third.write_text(third_original)
+        sync()
+        fourth = source / "chapter04_state.html"
+        fourth_original = fourth.read_text()
+        fourth.write_text(fourth_original.replace('id="ex-4-42"', 'id="omitted-chapter4-last"', 1))
+        sync()
+        check("missing_chapter4_last_exercise", "missing anchor")
+        fourth.write_text(fourth_original)
+        sync()
+        fourth.write_text(fourth_original.replace("从输入读取一个非负整数", "从输入读取任意整数", 1))
+        sync()
+        check("chapter4_chinese_condition_drift", "chapter 4 Chinese question or supplied input differs")
+        fourth.write_text(fourth_original)
+        sync()
+        fourth.write_text(fourth_original.replace("EOPL chapter 4: original companion interpreter", "Injected fourth program drift", 1))
+        check("chapter4_program_copy_drift", "program copy differs")
+        fourth.write_text(fourth_original)
+        sync()
+        for filename, control_chapter, last, before, after in [
+            ("chapter05_continuations.html", 5, 58, "每次只有一个人伸手拿一片", "每次允许两个人伸手拿一片"),
+            ("chapter06_cps.html", 6, 40, "分别为成功续文和错误续文", "分别为两个成功续文")]:
+            page_file = source / filename
+            saved = page_file.read_text()
+            page_file.write_text(saved.replace(f'id="ex-{control_chapter}-{last}"', 'id="omitted-final-control-task"', 1))
+            sync()
+            check(f"missing_chapter{control_chapter}_last_exercise", "missing anchor")
+            page_file.write_text(saved)
+            sync()
+            assert before in saved
+            page_file.write_text(saved.replace(before, after, 1))
+            sync()
+            check(f"chapter{control_chapter}_chinese_condition_drift", f"chapter {control_chapter} Chinese question or supplied input differs")
+            page_file.write_text(saved)
+            sync()
+        sixth = source / "chapter06_cps.html"
+        saved = sixth.read_text()
+        assert 'list(6,7,8,9)' in saved
+        sixth.write_text(saved.replace('list(6,7,8,9)', 'list(6,7,8,10)', 1))
+        sync()
+        check("chapter6_supplied_program_drift", "chapter 6 Chinese question or supplied input differs")
+        sixth.write_text(saved)
+        sync()
+        sixth.write_text(saved.replace('with independent target parsing/evaluation.', 'injected target implementation drift', 1))
+        check("chapter6_program_copy_drift", "program copy differs")
+        sixth.write_text(saved)
+        sync()
         archive = book / "notes/original_questions.json"
         original_archive = archive.read_text()
 
@@ -96,6 +153,18 @@ def run(run_dir: Path) -> dict:
             data["item_count"] = len(data["items"])
             data["exercise_count"] = sum(row["kind"] == "exercise" for row in data["items"])
             archive.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n")
+
+        data = json.loads(original_archive)
+        data["items"] = [row for row in data["items"] if row["number"] != "4.42"]
+        write_archive(data)
+        check("archive_missing_chapter4_last_exercise", "original question archive exercise count")
+        archive.write_text(original_archive)
+
+        data = json.loads(original_archive)
+        data["items"] = [row for row in data["items"] if row["number"] != "3.44"]
+        write_archive(data)
+        check("archive_missing_chapter3_last_exercise", "original question archive exercise count")
+        archive.write_text(original_archive)
 
         data = json.loads(original_archive)
         data["items"] = [row for row in data["items"] if row["number"] != "1.7"]

@@ -1,0 +1,945 @@
+{
+  "schema_version": 1,
+  "issue": "I060",
+  "status": "passed",
+  "content_review": "passed",
+  "integration_review": "passed",
+  "recorded_at_utc": "2026-10-23T19:43:12.259096+00:00",
+  "scope": "EOPL chapters5/6: pp139–191,193–232 / PDF162–214,216–255; 98 complete Chinese questions, solutions, nine teaching sections and18 annotation cards. Local batch.",
+  "source_baseline_commit": "d132ed7f25c06626e090c6c018c4adefb367851a",
+  "source_sha256": {
+    "eopl/notes/book_overview.html": "5e66b5f0a948bff9afcda9caf863d32e54040d8dba7b58dcb813f5429e8a47bc",
+    "eopl/notes/chapter01_inductive_data.html": "d7d3b96ad503a9c837db0eb59e8488ab849a2a8fcb0626fd98b611913ad1e663",
+    "eopl/notes/chapter02_data_abstraction.html": "4d53d0caf1a949c959cc9e8d6682b4d8606d991a823cfae4ac4c000dbbb34073",
+    "eopl/notes/chapter03_expressions.html": "78bc40d228177a426dd036ef03057a1bfa71be686a2d87594c9e6575702fc136",
+    "eopl/notes/chapter04_state.html": "2645d3b162293cf8288efc38695cde3120aecd6c9f45c88a18b998e7d72a34f2",
+    "eopl/notes/chapter05_continuations.html": "882f7fe49a54c07a6a93d870cdcbc2b34e428be3daa5bb1f40c150289cad4a23",
+    "eopl/notes/chapter06_cps.html": "f12b0f6cb7141956c8e6584b9e1fe5a0a57a05f37d9fa6d599ffe78e167dffae",
+    "eopl/notes/preface.html": "c83fc006cd8334acfe0bf72bf657e56ae875082689a5d47d7f70db17cd6fec34"
+  },
+  "output_sha256": {
+    "eopl/notes/book_overview.html": "daa7fa34225e3a679825e755908cce2890f3806fe4db16824492861468102bcf",
+    "eopl/notes/chapter01_inductive_data.html": "a174becfc9cbe59f2c737b6b51f0b4cb7b46f817732d0361a47e3325d27e6178",
+    "eopl/notes/chapter02_data_abstraction.html": "21d012fca61cbd822d76e073db008d5032cc489027bcd5145b87e19041799e06",
+    "eopl/notes/chapter03_expressions.html": "5cdeb03d4116dc2ba618795a9953f58299ec1891339d5d3a5437d46234fe41aa",
+    "eopl/notes/chapter04_state.html": "8b45b234eed29198ef9f82100f192bc89f9ce68c492329dead59b5f908778219",
+    "eopl/notes/chapter05_continuations.html": "3bd97fe5013fda9bed5cc2bba8f20a7156832c63f1549dec37f6be905c442cd6",
+    "eopl/notes/chapter06_cps.html": "0f70c405f591dd5e47ba20a8b58c4be43ade7a6080098adf1d27e91b767c88b5",
+    "eopl/notes/preface.html": "42ceb152e3c0f4f03698daa796612027287a80858076d2e17d78a29db143b791"
+  },
+  "source_review": {
+    "pdf_sha256": "b9e8770a4dc97206bd02230e6b21a878382eb02a340ff69321857d701e7d967c",
+    "sequential_text_pdf_ranges": [
+      [
+        162,
+        214
+      ],
+      [
+        216,
+        255
+      ]
+    ],
+    "full_size_viewed_pdf_pages": [
+      176,
+      178,
+      183,
+      189,
+      191,
+      192,
+      194,
+      200,
+      201,
+      212,
+      214,
+      218,
+      219,
+      223,
+      224,
+      225,
+      226,
+      230,
+      233,
+      234,
+      235,
+      244,
+      247,
+      248,
+      249,
+      254,
+      255
+    ],
+    "exercise_numbers": [
+      "5.1",
+      "5.2",
+      "5.3",
+      "5.4",
+      "5.5",
+      "5.6",
+      "5.7",
+      "5.8",
+      "5.9",
+      "5.10",
+      "5.11",
+      "5.12",
+      "5.13",
+      "5.14",
+      "5.15",
+      "5.16",
+      "5.17",
+      "5.18",
+      "5.19",
+      "5.20",
+      "5.21",
+      "5.22",
+      "5.23",
+      "5.24",
+      "5.25",
+      "5.26",
+      "5.27",
+      "5.28",
+      "5.29",
+      "5.30",
+      "5.31",
+      "5.32",
+      "5.33",
+      "5.34",
+      "5.35",
+      "5.36",
+      "5.37",
+      "5.38",
+      "5.39",
+      "5.40",
+      "5.41",
+      "5.42",
+      "5.43",
+      "5.44",
+      "5.45",
+      "5.46",
+      "5.47",
+      "5.48",
+      "5.49",
+      "5.50",
+      "5.51",
+      "5.52",
+      "5.53",
+      "5.54",
+      "5.55",
+      "5.56",
+      "5.57",
+      "5.58",
+      "6.1",
+      "6.2",
+      "6.3",
+      "6.4",
+      "6.5",
+      "6.6",
+      "6.7",
+      "6.8",
+      "6.9",
+      "6.10",
+      "6.11",
+      "6.12",
+      "6.13",
+      "6.14",
+      "6.15",
+      "6.16",
+      "6.17",
+      "6.18",
+      "6.19",
+      "6.20",
+      "6.21",
+      "6.22",
+      "6.23",
+      "6.24",
+      "6.25",
+      "6.26",
+      "6.27",
+      "6.28",
+      "6.29",
+      "6.30",
+      "6.31",
+      "6.32",
+      "6.33",
+      "6.34",
+      "6.35",
+      "6.36",
+      "6.37",
+      "6.38",
+      "6.39",
+      "6.40"
+    ],
+    "complete_chinese_inputs": true,
+    "question_registries": [
+      "notes/questions_ch05.json",
+      "notes/questions_ch06.json"
+    ],
+    "english_maintenance_archive": "notes/original_questions.json",
+    "source_issues": "notes/source_issues.json"
+  },
+  "open_findings": [],
+  "deployment": "not_performed",
+  "release_id": "20261023T192350",
+  "program_verification": {
+    "main_rackunit_assertions": 1189,
+    "example_assertions": 60,
+    "scheme_expression_assertions": 7,
+    "executable_original_and_target_examples": 8,
+    "semantic_faults_rejected": 8,
+    "checker_cases": 26,
+    "checker_faults_rejected": 25,
+    "node_tests": 113,
+    "c_decrement_input": 20000,
+    "c_decrement_steps": 300014,
+    "c_max_active_frames": 2,
+    "c_sanitizers": [
+      "AddressSanitizer",
+      "UndefinedBehaviorSanitizer"
+    ],
+    "boundaries": [
+      "C arithmetic and arena remain bounded; the large-input experiment is a decrement program, not arbitrary integer arithmetic.",
+      "Python synchronization examples use snapshot commands and JSON messages; this is not a second full THREADS frontend.",
+      "The all-procedure data translation covers the pure CPS-IN/list subset and does not claim the6.4 effect interface automatically accepts data continuations."
+    ]
+  },
+  "browser": {
+    "report": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-23T19-25-46-420Z-b4456bb2/report.json",
+    "sha256": "d7348ec4cdd82488aa42296511c0a3907031fd94c3c5b8e3b9bc0126b1e29fae",
+    "public_html_routes": 10,
+    "js_views": 40,
+    "no_js_views": 20,
+    "reused_unchanged_views": 0,
+    "external_requests": 0,
+    "errors": 0,
+    "widths": [
+      1800,
+      1440,
+      1024,
+      390
+    ],
+    "no_js_widths": [
+      1440,
+      390
+    ],
+    "map_nodes": 9,
+    "map_js_widths": [
+      1440,
+      390
+    ],
+    "map_no_js_widths": [
+      390
+    ],
+    "chapter_annotations": [
+      {
+        "page": "eopl/notes/chapter05_continuations.html",
+        "width": 1800,
+        "applicable": true,
+        "required": 5,
+        "checked": 5,
+        "mode": "rail",
+        "observations": [
+          {
+            "id": "s5-1",
+            "active": "s5-1",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          },
+          {
+            "id": "s5-2",
+            "active": "s5-2",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          },
+          {
+            "id": "s5-3",
+            "active": "s5-3",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          },
+          {
+            "id": "s5-4",
+            "active": "s5-4",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          },
+          {
+            "id": "s5-5",
+            "active": "s5-5",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          }
+        ],
+        "exceptions": [
+          {
+            "id": "programs",
+            "rail_hidden": true,
+            "stale_content_cleared": true
+          }
+        ]
+      },
+      {
+        "page": "eopl/notes/chapter05_continuations.html",
+        "width": 1440,
+        "applicable": true,
+        "required": 5,
+        "checked": 5,
+        "mode": "rail",
+        "observations": [
+          {
+            "id": "s5-1",
+            "active": "s5-1",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          },
+          {
+            "id": "s5-2",
+            "active": "s5-2",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          },
+          {
+            "id": "s5-3",
+            "active": "s5-3",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          },
+          {
+            "id": "s5-4",
+            "active": "s5-4",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          },
+          {
+            "id": "s5-5",
+            "active": "s5-5",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          }
+        ],
+        "exceptions": [
+          {
+            "id": "programs",
+            "rail_hidden": true,
+            "stale_content_cleared": true
+          }
+        ]
+      },
+      {
+        "page": "eopl/notes/chapter05_continuations.html",
+        "width": 1024,
+        "applicable": true,
+        "required": 5,
+        "checked": 5,
+        "mode": "inline",
+        "observations": [
+          {
+            "id": "s5-1",
+            "open": true,
+            "visible": true,
+            "text": 235,
+            "overflows": false
+          },
+          {
+            "id": "s5-2",
+            "open": true,
+            "visible": true,
+            "text": 221,
+            "overflows": false
+          },
+          {
+            "id": "s5-3",
+            "open": true,
+            "visible": true,
+            "text": 244,
+            "overflows": false
+          },
+          {
+            "id": "s5-4",
+            "open": true,
+            "visible": true,
+            "text": 259,
+            "overflows": false
+          },
+          {
+            "id": "s5-5",
+            "open": true,
+            "visible": true,
+            "text": 290,
+            "overflows": false
+          }
+        ],
+        "exceptions": []
+      },
+      {
+        "page": "eopl/notes/chapter05_continuations.html",
+        "width": 390,
+        "applicable": true,
+        "required": 5,
+        "checked": 5,
+        "mode": "inline",
+        "observations": [
+          {
+            "id": "s5-1",
+            "open": true,
+            "visible": true,
+            "text": 235,
+            "overflows": false
+          },
+          {
+            "id": "s5-2",
+            "open": true,
+            "visible": true,
+            "text": 221,
+            "overflows": false
+          },
+          {
+            "id": "s5-3",
+            "open": true,
+            "visible": true,
+            "text": 244,
+            "overflows": false
+          },
+          {
+            "id": "s5-4",
+            "open": true,
+            "visible": true,
+            "text": 259,
+            "overflows": false
+          },
+          {
+            "id": "s5-5",
+            "open": true,
+            "visible": true,
+            "text": 290,
+            "overflows": false
+          }
+        ],
+        "exceptions": []
+      },
+      {
+        "page": "eopl/notes/chapter06_cps.html",
+        "width": 1800,
+        "applicable": true,
+        "required": 4,
+        "checked": 4,
+        "mode": "rail",
+        "observations": [
+          {
+            "id": "s6-1",
+            "active": "s6-1",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          },
+          {
+            "id": "s6-2",
+            "active": "s6-2",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          },
+          {
+            "id": "s6-3",
+            "active": "s6-3",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          },
+          {
+            "id": "s6-4",
+            "active": "s6-4",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          }
+        ],
+        "exceptions": [
+          {
+            "id": "programs",
+            "rail_hidden": true,
+            "stale_content_cleared": true
+          }
+        ]
+      },
+      {
+        "page": "eopl/notes/chapter06_cps.html",
+        "width": 1440,
+        "applicable": true,
+        "required": 4,
+        "checked": 4,
+        "mode": "rail",
+        "observations": [
+          {
+            "id": "s6-1",
+            "active": "s6-1",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          },
+          {
+            "id": "s6-2",
+            "active": "s6-2",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          },
+          {
+            "id": "s6-3",
+            "active": "s6-3",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          },
+          {
+            "id": "s6-4",
+            "active": "s6-4",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          }
+        ],
+        "exceptions": [
+          {
+            "id": "programs",
+            "rail_hidden": true,
+            "stale_content_cleared": true
+          }
+        ]
+      },
+      {
+        "page": "eopl/notes/chapter06_cps.html",
+        "width": 1024,
+        "applicable": true,
+        "required": 4,
+        "checked": 4,
+        "mode": "inline",
+        "observations": [
+          {
+            "id": "s6-1",
+            "open": true,
+            "visible": true,
+            "text": 232,
+            "overflows": false
+          },
+          {
+            "id": "s6-2",
+            "open": true,
+            "visible": true,
+            "text": 257,
+            "overflows": false
+          },
+          {
+            "id": "s6-3",
+            "open": true,
+            "visible": true,
+            "text": 296,
+            "overflows": false
+          },
+          {
+            "id": "s6-4",
+            "open": true,
+            "visible": true,
+            "text": 261,
+            "overflows": false
+          }
+        ],
+        "exceptions": []
+      },
+      {
+        "page": "eopl/notes/chapter06_cps.html",
+        "width": 390,
+        "applicable": true,
+        "required": 4,
+        "checked": 4,
+        "mode": "inline",
+        "observations": [
+          {
+            "id": "s6-1",
+            "open": true,
+            "visible": true,
+            "text": 232,
+            "overflows": false
+          },
+          {
+            "id": "s6-2",
+            "open": true,
+            "visible": true,
+            "text": 257,
+            "overflows": false
+          },
+          {
+            "id": "s6-3",
+            "open": true,
+            "visible": true,
+            "text": 296,
+            "overflows": false
+          },
+          {
+            "id": "s6-4",
+            "open": true,
+            "visible": true,
+            "text": 261,
+            "overflows": false
+          }
+        ],
+        "exceptions": []
+      }
+    ],
+    "all_open_mobile": [
+      {
+        "page": "eopl/notes/chapter05_continuations.html",
+        "disclosures": 81,
+        "exercises": 58,
+        "viewport": 390,
+        "width": 375,
+        "all_open": true
+      },
+      {
+        "page": "eopl/notes/chapter06_cps.html",
+        "disclosures": 71,
+        "exercises": 40,
+        "viewport": 390,
+        "width": 375,
+        "all_open": true
+      }
+    ]
+  },
+  "manual_readback": {
+    "record": "tmp/eopl-ch05-06-20261024/final-reader/manual-reader.json",
+    "sha256": "f1471f70ee009b9f5021363e9c3f7d9be7b11befce0e06cc88df52adbe6dd0d2",
+    "viewed_screenshots": [
+      {
+        "file": "tmp/eopl-ch05-06-20261024/final-reader/map-1440.png",
+        "sha256": "32b38c8636794b81fe5997e4fef5608e4aa0ef3eedb56fb3d14eb0f003b3e682"
+      },
+      {
+        "file": "tmp/eopl-ch05-06-20261024/final-reader/map-390.png",
+        "sha256": "f5985422b6a39013e95dc2f1f9b7264367b934605427c07004ad853e753d181b"
+      },
+      {
+        "file": "tmp/eopl-ch05-06-20261024/final-reader/ch04-next-navigation-390.png",
+        "sha256": "05893ae766b59dcfb648c0e29f01de8075c9c59f6e23489f7756eb5d377b5ab9"
+      },
+      {
+        "file": "tmp/eopl-ch05-06-20261024/final-reader/ch05-top-1440.png",
+        "sha256": "78ad098459daaffb6666a016e55f7fcccb0172d0fd546e0ba52f5c6593450f23"
+      },
+      {
+        "file": "tmp/eopl-ch05-06-20261024/final-reader/ch05-difference-1440.png",
+        "sha256": "8fad1e40558e1fa648c8c293ba70acb3ee2f58c823ec743e5bce971ec7132787"
+      },
+      {
+        "file": "tmp/eopl-ch05-06-20261024/final-reader/ch05-growth-390.png",
+        "sha256": "015fa0ebc85332505b0af7e5ab4dc7a6ee870dd10cbea1496d4e9e3da051ad0c"
+      },
+      {
+        "file": "tmp/eopl-ch05-06-20261024/final-reader/ch05-commands-390.png",
+        "sha256": "ff5038a36afa5648084bff793771d0d778da1624a7694e32034beee98fd6866e"
+      },
+      {
+        "file": "tmp/eopl-ch05-06-20261024/final-reader/ch05-exception-1440.png",
+        "sha256": "6f625b323875ffc55864891e296e70cccde6afbd531b6b8fdbda4e1c3bececc1"
+      },
+      {
+        "file": "tmp/eopl-ch05-06-20261024/final-reader/ch05-scheduler-1440.png",
+        "sha256": "01ceda8aea00e9b79b5abeb27ca5a8c0f09968fc9fb1eeaf558d029e981fc289"
+      },
+      {
+        "file": "tmp/eopl-ch05-06-20261024/final-reader/ch05-scheduler-390.png",
+        "sha256": "a7b7ebe6a891d5211ef43cf0974ec1674f2523b5e24154b582c467b351328fe1"
+      },
+      {
+        "file": "tmp/eopl-ch05-06-20261024/final-reader/ch05-join-1440.png",
+        "sha256": "564c6a0d5afd1212432f48d6056d1a74f6513c86d6728fdfa2c6ae637cce12f2"
+      },
+      {
+        "file": "tmp/eopl-ch05-06-20261024/final-reader/ch05-actors-390.png",
+        "sha256": "bf69ec7185694b84b82f871cdc4845fe1cd2864f26e8b93e425b020cb2689c05"
+      },
+      {
+        "file": "tmp/eopl-ch05-06-20261024/final-reader/ch05-last-task-390.png",
+        "sha256": "ce9d2d36bc03617eb387a64931f21c758ee6c096cf2d7a88f6ce2c8715d7c32b"
+      },
+      {
+        "file": "tmp/eopl-ch05-06-20261024/final-reader/ch06-top-1440.png",
+        "sha256": "293974183de4deed711eecd6e5c9716c096e4c35c4f5b5cd629ccacd38b69208"
+      },
+      {
+        "file": "tmp/eopl-ch05-06-20261024/final-reader/ch06-tail-form-1440.png",
+        "sha256": "a8508a893eb8a15642049d0ae18e961dea8332990436e33932121ef844a48fe9"
+      },
+      {
+        "file": "tmp/eopl-ch05-06-20261024/final-reader/ch06-conversion-1440.png",
+        "sha256": "60232e0b612e343ab0c54bc3532f597723cd7d001b16a72f99f924bd1ef5c472"
+      },
+      {
+        "file": "tmp/eopl-ch05-06-20261024/final-reader/ch06-original-eight-1440.png",
+        "sha256": "4702e74382f9fc4db1a5055f036980244cd157ff3c7f0b1ec37f2b209df70853"
+      },
+      {
+        "file": "tmp/eopl-ch05-06-20261024/final-reader/ch06-eight-answer-1440.png",
+        "sha256": "c4da4336d80efcbc33e3e29fe308927d3d0a9d38fe37acb6a8a841c63fc25442"
+      },
+      {
+        "file": "tmp/eopl-ch05-06-20261024/final-reader/ch06-target-program-390.png",
+        "sha256": "fe81548fd5d7bd26ca819ad18b2284525380dc58e9aee0b0788f61e5c329cfea"
+      },
+      {
+        "file": "tmp/eopl-ch05-06-20261024/final-reader/ch06-if-size-1440.png",
+        "sha256": "f12aa57c834b7c1e606fdfc5df396ce3d6f759ab9c1ae89ec2db2d8111212eb9"
+      },
+      {
+        "file": "tmp/eopl-ch05-06-20261024/final-reader/ch06-source-variant-390.png",
+        "sha256": "fe9838634b56db0e60ea88ff482c2482010ce7b79e440c1c822b8d34a6722a83"
+      },
+      {
+        "file": "tmp/eopl-ch05-06-20261024/final-reader/ch06-data-closure-1440.png",
+        "sha256": "44efd051ce65213520906e703440b2a096a590353213b204aaf628fbceee9aeb"
+      },
+      {
+        "file": "tmp/eopl-ch05-06-20261024/final-reader/ch06-anf-390.png",
+        "sha256": "34d831f579f05c48c4ada8575e523334e7f3a59abd53fcab16c6666aec3ce735"
+      },
+      {
+        "file": "tmp/eopl-ch05-06-20261024/final-reader/ch06-store-1440.png",
+        "sha256": "80d9416df0a7ae2c356b277b21e6be0f338f14c789b3a160918603183918744f"
+      },
+      {
+        "file": "tmp/eopl-ch05-06-20261024/final-reader/ch06-dual-continuations-390.png",
+        "sha256": "fd83866435f00ed0201c0f90dba1944365f910cc94990bae2db5adfcd2c95a31"
+      },
+      {
+        "file": "tmp/eopl-ch05-06-20261024/final-reader/ch06-footer-390.png",
+        "sha256": "289657609bbdb4ea41fa7aa4e78ed5a7b88200b05391b4009b4c3eda128941a1"
+      },
+      {
+        "file": "tmp/eopl-ch05-06-20261024/final-reader/ch05-scheduler-right-390.png",
+        "sha256": "458676ecd3b7f35f3d3b30de2e550465b3395976d83215e543001d4c7c07bc32"
+      },
+      {
+        "file": "tmp/eopl-ch05-06-20261024/final-reader/ch05-complete-source.png",
+        "sha256": "c968e5c037cac2dd299057ba815caf07980b9379ae21d102134e0dc466b30fca"
+      },
+      {
+        "file": "tmp/eopl-ch05-06-20261024/final-reader/ch06-complete-source.png",
+        "sha256": "5c3019df67e90864fe64db3709ba0ab91ea2d1a6fb1cc447dbee67632d1ef106"
+      }
+    ],
+    "rendered_exercise_text": "tmp/eopl-ch05-06-20261024/final-reader/rendered-exercises.json",
+    "rendered_exercises": 98,
+    "full_program": [
+      {
+        "chapter": 5,
+        "before": {
+          "open": false,
+          "bytes": 13190
+        },
+        "mouse_open": true,
+        "keyboard_closed": true
+      },
+      {
+        "chapter": 6,
+        "before": {
+          "open": false,
+          "bytes": 9589
+        },
+        "mouse_open": true,
+        "keyboard_closed": true
+      }
+    ],
+    "source_downloads": [
+      {
+        "filename": "chapter05.rkt",
+        "url": "http://127.0.0.1:60100/eopl/code/chapter05.rkt",
+        "bytes": 13190,
+        "sha256": "fdaa17ec0ff5ad804dfa731bde6704e283b8c2f96fd8a8cdf40c545f9fdf2405"
+      },
+      {
+        "filename": "chapter05_cps.rkt",
+        "url": "http://127.0.0.1:60100/eopl/code/chapter05_cps.rkt",
+        "bytes": 3408,
+        "sha256": "d2d3a98f38b0d4245fac52969f4ef622db5a102d5e6c86ec96d6293163a4d910"
+      },
+      {
+        "filename": "chapter05_syntax.rkt",
+        "url": "http://127.0.0.1:60100/eopl/code/chapter05_syntax.rkt",
+        "bytes": 6840,
+        "sha256": "d438164d87fa89dbbb53abb223dbe46a44228436a3a7752ac5ddb8bd3052c736"
+      },
+      {
+        "filename": "chapter05_statements.rkt",
+        "url": "http://127.0.0.1:60100/eopl/code/chapter05_statements.rkt",
+        "bytes": 4531,
+        "sha256": "29ddc95635e4fb43cd1a919f6981a13dde82fd59c42fe1ae64833dbc6ead932f"
+      },
+      {
+        "filename": "chapter05_machine.c",
+        "url": "http://127.0.0.1:60100/eopl/code/chapter05_machine.c",
+        "bytes": 5855,
+        "sha256": "827faed88ea0092abfd2c15939985fd6b3857b2f03d8b26503a48c8bacbf07e5"
+      },
+      {
+        "filename": "chapter05_sync.py",
+        "url": "http://127.0.0.1:60100/eopl/code/chapter05_sync.py",
+        "bytes": 6715,
+        "sha256": "858bc72680d2b9766c95317fe4ee88e0ed1f44e0ceb5925b392e97e7f379f490"
+      },
+      {
+        "filename": "test_chapter05_06.rkt",
+        "url": "http://127.0.0.1:60100/eopl/code/test_chapter05_06.rkt",
+        "bytes": 11347,
+        "sha256": "e342622f47e44b88b4f8458a2860ea62fd272064b9dd3bec98da8a40169d1f1b"
+      },
+      {
+        "filename": "chapter06.rkt",
+        "url": "http://127.0.0.1:60100/eopl/code/chapter06.rkt",
+        "bytes": 9589,
+        "sha256": "0f4968605aeb05080ef62485709eb3973c598109c44688494024eeb899fa03a1"
+      },
+      {
+        "filename": "chapter06_target.rkt",
+        "url": "http://127.0.0.1:60100/eopl/code/chapter06_target.rkt",
+        "bytes": 9586,
+        "sha256": "6074736d900feaff8547ff574996db6c61d3d390b3f4652accbac920bfacddaa"
+      },
+      {
+        "filename": "chapter06_algorithms.rkt",
+        "url": "http://127.0.0.1:60100/eopl/code/chapter06_algorithms.rkt",
+        "bytes": 5229,
+        "sha256": "b59d3d3def9319b90d8b73208fcad12d7033490d6361d5849dfafe6bd68c42e0"
+      },
+      {
+        "filename": "chapter06_examples.rkt",
+        "url": "http://127.0.0.1:60100/eopl/code/chapter06_examples.rkt",
+        "bytes": 4874,
+        "sha256": "b8e6efa584118f58b5406064ad8e52999a628f71956782ac4b05b2c8a2a88deb"
+      },
+      {
+        "filename": "chapter06_transforms.rkt",
+        "url": "http://127.0.0.1:60100/eopl/code/chapter06_transforms.rkt",
+        "bytes": 7327,
+        "sha256": "7adc02a4cefde3137c1719906d39295395f02b671cb985a9f60eb952b04a507a"
+      },
+      {
+        "filename": "chapter06_register.rkt",
+        "url": "http://127.0.0.1:60100/eopl/code/chapter06_register.rkt",
+        "bytes": 3401,
+        "sha256": "098dccc94c09c448efec981718ac7b425be6455e398989cc96cc79728ae7a3af"
+      },
+      {
+        "filename": "test_chapter06_scheme.rkt",
+        "url": "http://127.0.0.1:60100/eopl/code/test_chapter06_scheme.rkt",
+        "bytes": 1511,
+        "sha256": "3d585e451b4b5b58d418b425674cdf2ac3b79652f2d6534405093565e47b899c"
+      },
+      {
+        "filename": "chapter06_outputs.json",
+        "url": "http://127.0.0.1:60100/eopl/code/chapter06_outputs.json",
+        "bytes": 9333,
+        "sha256": "e9335bc81df94119f38575d80358d9910f6dba978798f7fa4bdb303fa0deebad"
+      }
+    ],
+    "pdf_navigation": [
+      {
+        "chapter": 5,
+        "expected": "http://127.0.0.1:60100/eopl/assets/source.pdf#page=162",
+        "url": "http://127.0.0.1:60100/eopl/assets/source.pdf#page=162"
+      },
+      {
+        "chapter": 6,
+        "expected": "http://127.0.0.1:60100/eopl/assets/source.pdf#page=216",
+        "url": "http://127.0.0.1:60100/eopl/assets/source.pdf#page=216"
+      }
+    ],
+    "diagram_right": {
+      "method": "native horizontal wheel",
+      "scrollLeft": 387,
+      "max": 387,
+      "node": "blocked 队列",
+      "left": 187.92333984375,
+      "right": 280.03515625,
+      "clipLeft": 31,
+      "clipRight": 344,
+      "visible": true
+    },
+    "physical_device_or_screen_reader_test": false,
+    "limitations": [
+      "Desktop Chromium viewport emulation was used; no physical mobile device or screen-reader session was executed."
+    ]
+  },
+  "evidence_sha256": {
+    "tmp/eopl-ch05-06-20261024/book-check/report.json": "b197d93e49d67424a98cf12a48d8ac8829da9e2e8ecfd9054c25c97ddde1d9dc",
+    "tmp/eopl-ch05-06-20261024/book-quick-current/report.json": "75b2fa21dcc6f2e58d888a8cd61f02d249a464837cbbb3849e60a7332b66bffa",
+    "tmp/eopl-ch05-06-20261024/checker-mutations-repaired/report.json": "495c600a97dc47e88b26428eb0918593051fa45677249ffcc111e863fdee54b7",
+    "tmp/eopl-ch05-06-20261024/program-mutations/report.json": "d596affde32e66d44167bc1be061516e48c7b0290fd55fc8e7b48e04ba83889e",
+    "tmp/eopl-ch05-06-20261024/c-check/report.json": "e4411f2e2fe7c47515f107cead49555ee77704dfd8fa9487d728e7ad3dcea19e",
+    "tmp/eopl-ch05-06-20261024/node-tests.log": "d4ec643bf6901385caa71c074557bf2695706deeaa82cc3236e541f8e106c589",
+    "tmp/eopl-ch05-06-20261024/parity-final.log": "25410ab5b05f80219b1eda62ebce2cfac8ba345d6094c107702d12921a61c0c1",
+    "tmp/eopl-ch05-06-20261024/performance-final.log": "497fbd3141ed5262868a890d90c5b0b585016e571c9b38e8d8a4cd48cf341b49",
+    "tmp/eopl-ch05-06-20261024/hygiene-final-report.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "tmp/eopl-ch05-06-20261024/question-readback.json": "8b016c68d83c543e11cf3e12c3962e4b8788fe326c3378598864156a5ff5aaaa",
+    "tmp/eopl-ch05-06-20261024/failure-history.json": "d999a4e0b908862dcb69501d1ce417e0878dc030800418c38ee9519f445bff41",
+    "tmp/eopl-ch05-06-20261024/final-reader/attempt1-report.json": "b7828d6a24be28880018c76c044f277563be8230e7fae671b5fa7c1bd56d966c",
+    "tmp/reading-notes-migration/build.json": "16ebf48725ddec96da7ba9c15bf4ba3c2a128ebb9e98293f904642c2bbe5a3f0",
+    "tmp/reading-notes-migration/csp/report.json": "317858e2bce840ab6a12a98d4ff27cf90060012ea66ee294e500a48213b54a7d",
+    "tmp/eopl-ch05-06-20261024/preservation.json": "b700417c4640d854e4dce43bb933a5ab9ea4e1453d432fd5cb9b25df7e941987",
+    "tmp/eopl-ch05-06-20261024/final-package.json": "2fee0a8cf003936b1ae024962b55c7602ea6794e3da6e90f992d3121123fe98b",
+    "tmp/eopl-ch05-06-20261024/final-reader/finish.log": "bae5f1270e8b75da60dc883e33bdbc66adc2f24f3ac36a09b42ede12fc4ec2fa",
+    "tmp/project-check/20261024T033836-j2mbk5aa/report.json": "a555793018ebb047e3f5c69acdc4cc7bfd8c1b6eade392382b79c9276092841c",
+    "tmp/project-check/20261024T033836-j2mbk5aa/eopl/report.json": "a6f05fec0f2d62a798f17aef6f46948fa2e9f4730e74a5775afbcb5ea5cc68d7",
+    "tmp/project-check/20261024T033836-pflqzvv2/report.json": "f14fbdd4e41ffba12b21ab043bb1aa63594a10b30840959040aa57724f4f5f87"
+  },
+  "root_integration": {
+    "status": "passed",
+    "book_full": "tmp/project-check/20261024T033836-j2mbk5aa/report.json",
+    "book_checks": 14,
+    "all_quick": "tmp/project-check/20261024T033836-pflqzvv2/report.json",
+    "quick_checks": 22,
+    "scope": "Local content, executable programs, reader evidence and static package; production deployment not performed."
+  }
+}

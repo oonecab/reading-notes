@@ -1,0 +1,98 @@
+{
+  "issue": "I059",
+  "status": "passed",
+  "scope": "Current local EOPL map, preface, chapters1–4: six reading pages and154 complete Chinese exercises; program, source and eight-route reader evidence. Root integration checks recorded separately.",
+  "astro_migration": {
+    "record": "review/astro-migration.json",
+    "sha256": "20d250424dd53be6448060b242a6141d97ca08a12eee84f184f00a24b61973ca",
+    "open_findings": [],
+    "source_sha256": {
+      "book_overview.html": "bcee15d3ae5f7b748a93ff07bdffc6eb7fbbb790f4e2af54fce3bc289605720c",
+      "preface.html": "4ffe7b18e4d6bc5b5ba6be871417b061f1896b88885b723a6d46ab2024a25392",
+      "chapter01_inductive_data.html": "375aac6684c71ae9ec73fb3d3e401119c1c33221858b61e02e9638e74b64d31a",
+      "chapter02_data_abstraction.html": "9c58590c094fe03c2e66495ddc144c601f677224452a94866f7e40c6931e0993",
+      "chapter03_expressions.html": "d2a408b6f950dc85291ddb3b3c7017877cfbed3f351b05b984f1320597633904",
+      "chapter04_state.html": "7d3e055c14d2658266453fbca4dc0e8fd440c537ef9a33309c9e1cca104c8e38"
+    }
+  },
+  "offline_report": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-23T17-44-56-779Z-342b0c8e/report.json",
+  "offline_sha256": "3dd7974afc9735eb32d319c3eace67a3495d3b8ece38f0254e805f3cb1ce2ffc",
+  "js_views": 32,
+  "no_js_views": 16,
+  "external_requests": [],
+  "screenshots": [
+    {
+      "file": "tmp/eopl-ch04-20261024/final-top-1800.png",
+      "sha256": "a6f05c2cbcb5d415ea6a4c588245c1a8e15c8329aa208d602c60cb33508da044"
+    },
+    {
+      "file": "tmp/eopl-ch04-20261024/final-state-1440.png",
+      "sha256": "267fbf96e2a5fa88c0b18bf1f4276194b0e86776d1fef5dc3616c7ca80a36689"
+    },
+    {
+      "file": "tmp/eopl-ch04-20261024/final-counter-1440.png",
+      "sha256": "6c624c0062e06e8d84b7d6e67c53599b8501acc8fafdb36d2d3c56c41258fee3"
+    },
+    {
+      "file": "tmp/eopl-ch04-20261024/final-source-question-12-1440.png",
+      "sha256": "a7bfbf5a0ff0d0ec363d008a9a9cc8f3cb658e5c66ddee26b7afdb6d75497640"
+    },
+    {
+      "file": "tmp/eopl-ch04-20261024/final-source-answer-12-1440.png",
+      "sha256": "80b3fac63b99cfbbcfaeb052ead5720d84903b71b1fcf5575375df39383a6a89"
+    },
+    {
+      "file": "tmp/eopl-ch04-20261024/final-statement-question-22-1440.png",
+      "sha256": "0cc2633e41e5cc354bea7dfaea612a76dc13bc2af27056d13b90172c843d985c"
+    },
+    {
+      "file": "tmp/eopl-ch04-20261024/final-value-result-37-1440.png",
+      "sha256": "bb9a0a026922527d70c85b473ab2931db0231e8095c6d34bb43ca5df14aac962"
+    },
+    {
+      "file": "tmp/eopl-ch04-20261024/final-lazy-39-390.png",
+      "sha256": "a3ba73346838a86f74a28cdc0db41a22dcde5a9cdb531d1087ab53bc77dba866"
+    },
+    {
+      "file": "tmp/eopl-ch04-20261024/final-lazy-let-42-390.png",
+      "sha256": "4d81892e8baf06af6d4881b630929e749eec10cc0af85d54e6ccdf9720cd5723"
+    },
+    {
+      "file": "tmp/eopl-ch04-20261024/final-state-390.png",
+      "sha256": "c039f47a3e6104677b66edf2ffd221b651faff9e5a8d1914cbb6fa80ff1b3ec1"
+    },
+    {
+      "file": "tmp/eopl-ch04-20261024/final-complete-program-open.png",
+      "sha256": "351ad0cc4da1a013c94644c58f711d76b1a4dc9dd2ae5bbd34dc360e25444d63"
+    },
+    {
+      "file": "tmp/eopl-ch04-20261024/final-state-right-390.png",
+      "sha256": "7a783749c4d3dff7f6b28d0e5df375b13095500cbe5e35a69c0fa9ea8a93fa4b"
+    },
+    {
+      "file": "tmp/eopl-ch04-20261024/final-pdf-page126.png",
+      "sha256": "2aced1c56bc583750cfccca8fbe467b04701f60e837dd4722716e30e6fac2ee4"
+    }
+  ],
+  "navigation_report": "tmp/eopl-ch04-20261024/manual-reader.json",
+  "historical_record": {
+    "file": "review/history/I044-browser.json",
+    "sha256": "e3e7a25fe7f87e3568032cb00f2c20539ad1078bcd3ff7d90f8283fc97021247",
+    "reason": "I044 two-page browser acceptance preserved; current six-route acceptance is independent."
+  },
+  "I058_revision": {
+    "issue": "I058",
+    "record": "review/ch03.json",
+    "prior_record": "review/history/I058-before-browser.json",
+    "prior_sha256": "7c6de24341193081bb3a78029166869236e90a962fcad6c4c81584eb5835b359",
+    "scope": "Current chapter 3 source, program, documentation and reader bindings; prior I057 and earlier evidence retained exactly."
+  },
+  "I059_revision": {
+    "issue": "I059",
+    "record": "review/ch04.json",
+    "prior_record": "review/history/I059-before-browser.json",
+    "prior_sha256": "4f6fc35ba9d853bdb3977236e0a605dbd5fb5a8c708291fbac0d21cd0eb80278",
+    "scope": "Current fourth chapter content/program/reader bindings; preceding history retained exactly.",
+    "integration": "completed_locally; full14 and quick22 passed"
+  }
+}

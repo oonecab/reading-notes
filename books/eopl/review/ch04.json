@@ -1,0 +1,614 @@
+{
+  "schema_version": 1,
+  "issue": "I059",
+  "status": "completed_locally",
+  "content_review": "passed",
+  "integration_review": "passed",
+  "recorded_at_utc": "2026-10-23T17:50:30.380963+00:00",
+  "scope": "EOPL chapter4 printed103–138 / PDF126–161; all42 Chinese questions, solutions, five teaching sections and annotations. Local batch.",
+  "source_baseline_commit": "101b6c00f2300f9eee70b8b86e20f8c1f715cd65",
+  "source_sha256": {
+    "eopl/notes/book_overview.html": "a981574f80c29d68517a5e27ec010640af95a955215e607b4c233d7167bd4870",
+    "eopl/notes/chapter01_inductive_data.html": "d7d3b96ad503a9c837db0eb59e8488ab849a2a8fcb0626fd98b611913ad1e663",
+    "eopl/notes/chapter02_data_abstraction.html": "4d53d0caf1a949c959cc9e8d6682b4d8606d991a823cfae4ac4c000dbbb34073",
+    "eopl/notes/chapter03_expressions.html": "78bc40d228177a426dd036ef03057a1bfa71be686a2d87594c9e6575702fc136",
+    "eopl/notes/chapter04_state.html": "0d8f04d2227a8b4230c14b3cc9b5415d914202cae6e09b9439d7e4d756a0249f",
+    "eopl/notes/preface.html": "c83fc006cd8334acfe0bf72bf657e56ae875082689a5d47d7f70db17cd6fec34"
+  },
+  "output_sha256": {
+    "eopl/notes/book_overview.html": "1c4c2387be1f2bcb80371ef65511a114acf3f679997a0da784e797ca885484a0",
+    "eopl/notes/chapter01_inductive_data.html": "a174becfc9cbe59f2c737b6b51f0b4cb7b46f817732d0361a47e3325d27e6178",
+    "eopl/notes/chapter02_data_abstraction.html": "21d012fca61cbd822d76e073db008d5032cc489027bcd5145b87e19041799e06",
+    "eopl/notes/chapter03_expressions.html": "5cdeb03d4116dc2ba618795a9953f58299ec1891339d5d3a5437d46234fe41aa",
+    "eopl/notes/chapter04_state.html": "a5ed04cd7d7fa07a5335ff7cc4928f89feb0caaa09b1f8b1a97e42ba66483756",
+    "eopl/notes/preface.html": "42ceb152e3c0f4f03698daa796612027287a80858076d2e17d78a29db143b791"
+  },
+  "source_review": {
+    "pdf_sha256": "b9e8770a4dc97206bd02230e6b21a878382eb02a340ff69321857d701e7d967c",
+    "sequential_text_pdf_pages": [
+      126,
+      161
+    ],
+    "rendered_pdf_pages": [
+      126,
+      127,
+      128,
+      129,
+      130,
+      131,
+      132,
+      133,
+      134,
+      135,
+      136,
+      137,
+      138,
+      139,
+      140,
+      141,
+      142,
+      143,
+      144,
+      145,
+      146,
+      147,
+      148,
+      149,
+      150,
+      151,
+      152,
+      153,
+      154,
+      155,
+      156,
+      157,
+      158,
+      159,
+      160,
+      161
+    ],
+    "contact_sheet_viewed_pdf_pages": [
+      126,
+      127,
+      128,
+      129,
+      130,
+      131,
+      132,
+      133,
+      134,
+      135,
+      136,
+      137,
+      138,
+      139,
+      140,
+      141,
+      142,
+      143,
+      144,
+      145,
+      146,
+      147,
+      148,
+      149,
+      150,
+      151,
+      152,
+      153,
+      154,
+      155,
+      156,
+      157,
+      158,
+      159,
+      160,
+      161
+    ],
+    "full_size_viewed_pdf_pages": [
+      139,
+      145,
+      146,
+      158,
+      161
+    ],
+    "exercise_numbers": [
+      "4.1",
+      "4.2",
+      "4.3",
+      "4.4",
+      "4.5",
+      "4.6",
+      "4.7",
+      "4.8",
+      "4.9",
+      "4.10",
+      "4.11",
+      "4.12",
+      "4.13",
+      "4.14",
+      "4.15",
+      "4.16",
+      "4.17",
+      "4.18",
+      "4.19",
+      "4.20",
+      "4.21",
+      "4.22",
+      "4.23",
+      "4.24",
+      "4.25",
+      "4.26",
+      "4.27",
+      "4.28",
+      "4.29",
+      "4.30",
+      "4.31",
+      "4.32",
+      "4.33",
+      "4.34",
+      "4.35",
+      "4.36",
+      "4.37",
+      "4.38",
+      "4.39",
+      "4.40",
+      "4.41",
+      "4.42"
+    ],
+    "complete_chinese_inputs": true,
+    "question_registry": "notes/questions_ch04.json",
+    "english_maintenance_archive": "notes/original_questions.json",
+    "source_issues": "notes/source_issues.json"
+  },
+  "open_findings": [],
+  "program_review": {
+    "status": "passed",
+    "racket": "8.17",
+    "chapter4": {
+      "assertions": 641,
+      "failures": 0,
+      "status": "passed"
+    },
+    "chapter3": {
+      "assertions": 1577,
+      "failures": 0,
+      "groups": 17,
+      "racket": "8.17",
+      "status": "passed"
+    },
+    "chapters1_2": {
+      "assertions": 6269,
+      "failures": 0,
+      "racket": "8.17",
+      "status": "passed"
+    },
+    "semantic_mutations": 8,
+    "checker_cases": 20,
+    "source_contexts": {
+      "status": "passed",
+      "textbook_code_cases": 6,
+      "stdout": "6 success(es) 0 failure(s) 0 error(s) 6 test(s) run\n",
+      "scope": "Six exact code excerpts with typographic quotes normalized. Parser constructor stubs preserve AST shape; its known acceptance of (a b c) is explicitly demonstrated."
+    }
+  },
+  "release_id": "20261023T173600",
+  "deployment": "not_performed",
+  "browser": {
+    "report": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-23T17-44-56-779Z-342b0c8e/report.json",
+    "sha256": "3dd7974afc9735eb32d319c3eace67a3495d3b8ece38f0254e805f3cb1ce2ffc",
+    "public_html_routes": 8,
+    "js_views": 32,
+    "no_js_views": 16,
+    "reused_unchanged_views": 36,
+    "resumed_from": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-23T17-30-51-629Z-24d04c21/report.json",
+    "external_requests": 0,
+    "widths": [
+      1800,
+      1440,
+      1024,
+      390
+    ],
+    "no_js_widths": [
+      1440,
+      390
+    ],
+    "chapter4_annotations": [
+      {
+        "width": 1800,
+        "applicable": true,
+        "required": 5,
+        "checked": 5,
+        "mode": "rail",
+        "observations": [
+          {
+            "id": "s4-1",
+            "active": "s4-1",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          },
+          {
+            "id": "s4-2",
+            "active": "s4-2",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          },
+          {
+            "id": "s4-3",
+            "active": "s4-3",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          },
+          {
+            "id": "s4-4",
+            "active": "s4-4",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          },
+          {
+            "id": "s4-5",
+            "active": "s4-5",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          }
+        ],
+        "exceptions": [
+          {
+            "id": "programs",
+            "rail_hidden": true,
+            "stale_content_cleared": true
+          }
+        ]
+      },
+      {
+        "width": 1440,
+        "applicable": true,
+        "required": 5,
+        "checked": 5,
+        "mode": "rail",
+        "observations": [
+          {
+            "id": "s4-1",
+            "active": "s4-1",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          },
+          {
+            "id": "s4-2",
+            "active": "s4-2",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          },
+          {
+            "id": "s4-3",
+            "active": "s4-3",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          },
+          {
+            "id": "s4-4",
+            "active": "s4-4",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          },
+          {
+            "id": "s4-5",
+            "active": "s4-5",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          }
+        ],
+        "exceptions": [
+          {
+            "id": "programs",
+            "rail_hidden": true,
+            "stale_content_cleared": true
+          }
+        ]
+      },
+      {
+        "width": 1024,
+        "applicable": true,
+        "required": 5,
+        "checked": 5,
+        "mode": "inline",
+        "observations": [
+          {
+            "id": "s4-1",
+            "open": true,
+            "visible": true,
+            "text": 271,
+            "overflows": false
+          },
+          {
+            "id": "s4-2",
+            "open": true,
+            "visible": true,
+            "text": 315,
+            "overflows": false
+          },
+          {
+            "id": "s4-3",
+            "open": true,
+            "visible": true,
+            "text": 272,
+            "overflows": false
+          },
+          {
+            "id": "s4-4",
+            "open": true,
+            "visible": true,
+            "text": 287,
+            "overflows": false
+          },
+          {
+            "id": "s4-5",
+            "open": true,
+            "visible": true,
+            "text": 292,
+            "overflows": false
+          }
+        ],
+        "exceptions": []
+      },
+      {
+        "width": 390,
+        "applicable": true,
+        "required": 5,
+        "checked": 5,
+        "mode": "inline",
+        "observations": [
+          {
+            "id": "s4-1",
+            "open": true,
+            "visible": true,
+            "text": 271,
+            "overflows": false
+          },
+          {
+            "id": "s4-2",
+            "open": true,
+            "visible": true,
+            "text": 315,
+            "overflows": false
+          },
+          {
+            "id": "s4-3",
+            "open": true,
+            "visible": true,
+            "text": 272,
+            "overflows": false
+          },
+          {
+            "id": "s4-4",
+            "open": true,
+            "visible": true,
+            "text": 287,
+            "overflows": false
+          },
+          {
+            "id": "s4-5",
+            "open": true,
+            "visible": true,
+            "text": 292,
+            "overflows": false
+          }
+        ],
+        "exceptions": []
+      }
+    ],
+    "all_open_mobile": {
+      "disclosures": 70,
+      "exercises": 42,
+      "viewport": 390,
+      "width": 375,
+      "all_open": true
+    },
+    "map_nodes": 9,
+    "map_js_widths": [
+      1440,
+      390
+    ],
+    "map_no_js_widths": [
+      390
+    ]
+  },
+  "manual_readback": {
+    "record": "tmp/eopl-ch04-20261024/manual-reader.json",
+    "sha256": "7dac152156e0a4f61d6650e5dbc747677841638b5651cc1a1ca32cfa45048bf7",
+    "viewed_screenshots": [
+      {
+        "file": "tmp/eopl-ch04-20261024/final-top-1800.png",
+        "sha256": "a6f05c2cbcb5d415ea6a4c588245c1a8e15c8329aa208d602c60cb33508da044"
+      },
+      {
+        "file": "tmp/eopl-ch04-20261024/final-state-1440.png",
+        "sha256": "267fbf96e2a5fa88c0b18bf1f4276194b0e86776d1fef5dc3616c7ca80a36689"
+      },
+      {
+        "file": "tmp/eopl-ch04-20261024/final-counter-1440.png",
+        "sha256": "6c624c0062e06e8d84b7d6e67c53599b8501acc8fafdb36d2d3c56c41258fee3"
+      },
+      {
+        "file": "tmp/eopl-ch04-20261024/final-source-question-12-1440.png",
+        "sha256": "a7bfbf5a0ff0d0ec363d008a9a9cc8f3cb658e5c66ddee26b7afdb6d75497640"
+      },
+      {
+        "file": "tmp/eopl-ch04-20261024/final-source-answer-12-1440.png",
+        "sha256": "80b3fac63b99cfbbcfaeb052ead5720d84903b71b1fcf5575375df39383a6a89"
+      },
+      {
+        "file": "tmp/eopl-ch04-20261024/final-statement-question-22-1440.png",
+        "sha256": "0cc2633e41e5cc354bea7dfaea612a76dc13bc2af27056d13b90172c843d985c"
+      },
+      {
+        "file": "tmp/eopl-ch04-20261024/final-value-result-37-1440.png",
+        "sha256": "bb9a0a026922527d70c85b473ab2931db0231e8095c6d34bb43ca5df14aac962"
+      },
+      {
+        "file": "tmp/eopl-ch04-20261024/final-lazy-39-390.png",
+        "sha256": "a3ba73346838a86f74a28cdc0db41a22dcde5a9cdb531d1087ab53bc77dba866"
+      },
+      {
+        "file": "tmp/eopl-ch04-20261024/final-lazy-let-42-390.png",
+        "sha256": "4d81892e8baf06af6d4881b630929e749eec10cc0af85d54e6ccdf9720cd5723"
+      },
+      {
+        "file": "tmp/eopl-ch04-20261024/final-state-390.png",
+        "sha256": "c039f47a3e6104677b66edf2ffd221b651faff9e5a8d1914cbb6fa80ff1b3ec1"
+      },
+      {
+        "file": "tmp/eopl-ch04-20261024/final-complete-program-open.png",
+        "sha256": "351ad0cc4da1a013c94644c58f711d76b1a4dc9dd2ae5bbd34dc360e25444d63"
+      },
+      {
+        "file": "tmp/eopl-ch04-20261024/final-state-right-390.png",
+        "sha256": "7a783749c4d3dff7f6b28d0e5df375b13095500cbe5e35a69c0fa9ea8a93fa4b"
+      },
+      {
+        "file": "tmp/eopl-ch04-20261024/final-pdf-page126.png",
+        "sha256": "2aced1c56bc583750cfccca8fbe467b04701f60e837dd4722716e30e6fac2ee4"
+      }
+    ],
+    "rendered_exercise_text": "tmp/eopl-ch04-20261024/rendered-exercises.json",
+    "rendered_exercises": 42,
+    "full_program": {
+      "before": {
+        "open": false,
+        "bytes": 17815
+      },
+      "mouse_open": true,
+      "keyboard_closed": true
+    },
+    "download_protocol": "HTTP local release preview",
+    "source_downloads": [
+      {
+        "filename": "chapter04.rkt",
+        "bytes": 17815,
+        "sha256": "aeaa3917afab60a5fe92c7bfcab7598dc2c00c3a6b510080105151042bd4d8b8",
+        "url": "http://127.0.0.1:52355/eopl/code/chapter04.rkt"
+      },
+      {
+        "filename": "chapter04_explicit.rkt",
+        "bytes": 5754,
+        "sha256": "40a2ce150d8f292de63e022f1e438cfaa0822f3c19e7751dd270e7343790e19e",
+        "url": "http://127.0.0.1:52355/eopl/code/chapter04_explicit.rkt"
+      },
+      {
+        "filename": "chapter04_statements.rkt",
+        "bytes": 7204,
+        "sha256": "5100dc11252a4bd6086e51a3cc67de460276c2674131e1f13560c93b3afa3690",
+        "url": "http://127.0.0.1:52355/eopl/code/chapter04_statements.rkt"
+      },
+      {
+        "filename": "test_chapter04.rkt",
+        "bytes": 15747,
+        "sha256": "31cf72e4d36520a7a575696093daeb03a68e88d2218570496147f86a7b2f5e7c",
+        "url": "http://127.0.0.1:52355/eopl/code/test_chapter04.rkt"
+      }
+    ],
+    "pdf_navigation": {
+      "url": "http://127.0.0.1:52355/eopl/assets/source.pdf#page=126",
+      "info": {
+        "url": "http://127.0.0.1:52355/eopl/assets/source.pdf#page=126",
+        "title": "",
+        "w": 1440,
+        "h": 1000,
+        "sx": 0,
+        "sy": 0,
+        "pw": 1440,
+        "ph": 1000
+      },
+      "screenshot": "tmp/eopl-ch04-20261024/final-pdf-page126.png",
+      "observed_reader_page": "126 / 433",
+      "observed_printed_chapter": "4 State, 4.1 Computational Effects; printed103"
+    },
+    "diagram_right": {
+      "left": 337,
+      "width": 313,
+      "content": 650,
+      "document_width": 375,
+      "viewport": 390,
+      "scroll_method": "DOM scrollLeft after native wheel left container unchanged"
+    },
+    "physical_device_or_screen_reader_test": false,
+    "limitations": [
+      "Desktop Ego Lite viewport emulation, not physical-device or screen-reader testing.",
+      "Native horizontal wheel left the container unchanged; scrollLeft then exposed and screenshot-verified the right node."
+    ]
+  },
+  "evidence_sha256": {
+    "tmp/eopl-ch04-20261024/book-check/report.json": "86d4e373a06f3206ea03095ae06a0c5f60eb3b95c0f6339b1ac3b5f04b7af802",
+    "tmp/eopl-ch04-20261024/book-quick-final/report.json": "971c39900effebaba45b1ad216f1741e4ffdc7f4d5af930e792cdf950621517f",
+    "tmp/eopl-ch04-20261024/checker-mutations/report.json": "06449e980a521e1d2d11c11889b217dd10eb8a06395f22973d660051549ade6c",
+    "tmp/eopl-ch04-20261024/program-mutations/report.json": "423f09cce80c1c5c43c47ea6b630a7556804820bd3f6a35ca253e38a753a58c5",
+    "tmp/eopl-ch04-20261024/node-tests.log": "eebd75022f488444d9e51f2133de8e7649ed82eb7f6fe5c9bce94b6262c11af2",
+    "tmp/eopl-ch04-20261024/parity-final.log": "84c455227ca289f6a71c7c765e1269ae43a379cbd21ff26bd6ed6a7ffe1d06de",
+    "tmp/eopl-ch04-20261024/performance-final.log": "c0cf1d2810c43abcf6b47b43a880eeebf86cc792e8af50e6d41d60aa216e01c1",
+    "tmp/eopl-ch04-20261024/secret-scan.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "tmp/eopl-ch04-20261024/question-readback.json": "da4c6d0c69fe94ddd69df29c6d81673c0299c61e85285e260e54667aec6b4416",
+    "tmp/eopl-ch04-20261024/failure-history.json": "1c279c8a08fa57675ab75cf26ebc28295370b0e9b3699d2def6186a0b8c2cc6b",
+    "tmp/reading-notes-migration/build.json": "180fc5f792cc1ec3e25d7d00db7f2a5b6b4eddc6dcae277fd434b02b7f5f82f5",
+    "tmp/reading-notes-migration/csp/report.json": "931bb0f9008144cdaa271a63eec372ca247abdc89dfce309812e50d15ffbf805",
+    "tmp/project-check/20261024T015040-nhvwlft9/report.json": "1ec9c5ac5d6987d96c5be17f043625d5a9fe00a31f87ad73720c56a3ed9f3ea1",
+    "tmp/project-check/20261024T015259-xh5_q6wv/report.json": "0a1f78beb11cc663fbfbe9cce5c7c0489e52926b288843264fab6597e86a3382",
+    "tmp/project-check/20261024T015040-nhvwlft9/eopl/report.json": "f9ac2e52983bff7ae5eeecd49a26fae1954c04b89fec1d2754a6a6421b8dd41e",
+    "tmp/eopl-ch04-20261024/checker-mutations-final/report.json": "06449e980a521e1d2d11c11889b217dd10eb8a06395f22973d660051549ade6c",
+    "tmp/eopl-ch04-20261024/node-tests-final.log": "62488138b5bdff0985255b5043c15c61bf8827f8fb8e6de06aa6bcc87a21405b",
+    "test/T059-eopl-ch04.md": "15ad834a7bb9dd5f8089a5cf3b5d1a3239a2d2cb92c979d63546d87e2ee35639",
+    "tmp/eopl-ch04-20261024/source-hygiene-review.json": "7a166fd35b6755be17e1502125d9b1ce71abf9066f213f3a67dffe6fc867b07f"
+  },
+  "completed_at_utc": "2026-10-23T17:56:26.319444+00:00",
+  "root_checks": {
+    "full_eopl": "tmp/project-check/20261024T015040-nhvwlft9/report.json",
+    "full_eopl_checks": 14,
+    "quick_all": "tmp/project-check/20261024T015259-xh5_q6wv/report.json",
+    "quick_all_checks": 22
+  },
+  "source_hygiene_review": {
+    "status": "reviewed",
+    "raw_findings": 1,
+    "confirmed_secrets": 0,
+    "false_positives": [
+      {
+        "rule": "generic-api-key",
+        "file": "books/eopl/review/ch04.json",
+        "line": 578,
+        "kind": "SHA256 evidence digest, not a credential",
+        "basis": "Exact match to the computed SHA256 of the empty JSON scan result at tmp/eopl-ch04-20261024/secret-scan.json; source report is an empty array. Original scanner output preserved.",
+        "raw_report": "tmp/eopl-ch04-20261024/secret-scan-closed.json"
+      }
+    ],
+    "earlier_source_scan": "tmp/eopl-ch04-20261024/secret-scan.json"
+  }
+}

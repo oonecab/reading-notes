@@ -48,9 +48,19 @@ def sync(write: bool = False) -> dict:
             filename = match[1]
             program = (BOOK / "code" / filename).read_text()
             ident = Path(filename).stem + "-code"
+            language = {".py": "python", ".c": "c"}.get(Path(filename).suffix, "scheme")
             return (f'<!-- EOPL:program {filename} --><pre><code id="{ident}" '
-                    'class="language-scheme">' + html.escape(program) +
+                    f'class="language-{language}">' + html.escape(program) +
                     '</code></pre><!-- EOPL:end-program -->')
+        def target_copy(match):
+            outputs = json.loads((BOOK / "code/chapter06_outputs.json").read_text())
+            row = next((r for r in outputs["items"] if r["name"] == match[1]), None)
+            if row is None:
+                raise ValueError("missing maintained CPS output: " + match[1])
+            return (f'<!-- EOPL:target {match[1]} --><pre><code class="language-scheme">' +
+                    html.escape(row["target"]) + '</code></pre><!-- EOPL:end-target -->')
+        updated = re.sub(r"<!-- EOPL:target (\S+) -->.*?<!-- EOPL:end-target -->",
+                         target_copy, updated, flags=re.S)
         updated = re.sub(r"<!-- EOPL:program (\S+) -->.*?<!-- EOPL:end-program -->",
                          complete, updated, flags=re.S)
         if source != updated:

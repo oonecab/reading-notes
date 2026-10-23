@@ -20,11 +20,11 @@
 - [统一部署与恢复](../deploy/README.md)：实际发布步骤的唯一操作说明。
 - [治理更新流程](governance-updates.md)。
 - [RN-001 读书笔记共同标准](reading-notes-standard.md)：跨书的来源、全书规划、伴读讲解、题解、程序、版式与分层验收方法；[新书模板](templates/reading-notes/README.md)记录书级事实。
-- [RN-002 阅读呈现、导航与检查规范](reading-presentation-standard.md)：页面族、唯一阅读路径、章首与索引位置、题干语言策略、三层检查与结论写法；机器登记在 `reader-presentation.json`，检查器为 `../tools/check-presentation-contract.mjs`。
+- [RN-002 阅读呈现、导航与检查规范](reading-presentation-standard.md)：页面族、唯一阅读路径、章节图逐节点落点、章首与索引位置、题干语言策略、三层检查与结论写法；机器登记在 `reader-presentation.json`，检查器为 `../tools/check-presentation-contract.mjs`。
 - [新增子项目](adding-a-book.md)与 [本次迁移](migration-20261012.md)。
 - [架构决策](decisions/ADR-001-book-subprojects.md)、[问题单](../issues/I001-project-merge.md)、[计划](../plan/P001-project-merge.md)、[测试设计](../test/T001-project-merge.md)与 [里程碑](../milestone/M001-project-merge.md)。
 - [书籍内容与计算规则入口](rules/README.md)；专项正文规范随各书维护。
-- [EOPL 地图与序言批](../books/eopl/README.md)：全书地图、两篇序文、习题 0.1；来源清单、当前范围与后续代表章见[阅读计划](../books/eopl/reading-plan.md)，准备批验收见 [T042](../test/T042-eopl-map-preface.md)，统一排版与有限范围发布见 [T044](../test/T044-reading-typography.md)。
+- [EOPL 伴读](../books/eopl/README.md)：全书地图、两篇序文、第 1–6 章和全部 252 题；来源与批次见[阅读计划](../books/eopl/reading-plan.md)。准备批与早期有限范围发布见 [T042](../test/T042-eopl-map-preface.md)、[T044](../test/T044-reading-typography.md)，第 3、4 章本地验收见 [T058](../test/T058-eopl-ch03.md)、[T059](../test/T059-eopl-ch04.md)。
 - [CS:APP 第一批笔记](../books/csapp/README.md)：[I002](../issues/I002-csapp-part-one.md)、[P002](../plan/P002-csapp-part-one.md)、[T002](../test/T002-csapp-part-one.md)、[M002](../milestone/M002-csapp-part-one.md)。
 
 - [CS:APP 全书地图与第一部分伴读](../books/csapp/notes/README.md)：[I003](../issues/I003-csapp-companion.md)、[P003](../plan/P003-csapp-companion.md)、[T003](../test/T003-csapp-companion.md)、[M003](../milestone/M003-csapp-companion.md)。
@@ -49,3 +49,7 @@
 - [Astro 生产发布记录](astro-production-report.md)：I029 的 Git、Ubuntu/systemd、公网验证与旧布局恢复点。
 
 - [阅读呈现与 EOPL 整理生产发布](reading-presentation-publication-review.json)：I056 的干净内容提交、不可变包、全站离线矩阵、服务器恢复单元和公网实际阅读证据；历史 I052 [发布审阅](reader-publication-review.json)保留。
+
+- EOPL 控制批：第五、六章本地来源、程序、静态与浏览器证据见 [T060](../test/T060-eopl-ch05-06.md)。
+
+- [EOPL 章节修订与发布验收](../test/T061-eopl-publication.md)：第3–6章、控制/CPS语义修复、全站章节图及实际发布证据。

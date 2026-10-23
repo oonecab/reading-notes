@@ -29,6 +29,38 @@
       "created_for": "I048",
       "baseline_git": "1e96df2376aa34342f23eb089a1cbffb553f46f9",
       "output_kind": "retained_source_archive; final transformed output bound in review/ch01-02.json"
+    },
+    {
+      "page": "eopl/notes/chapter03_expressions.html",
+      "source_sha256": "d2a408b6f950dc85291ddb3b3c7017877cfbed3f351b05b984f1320597633904",
+      "output_sha256": "d2a408b6f950dc85291ddb3b3c7017877cfbed3f351b05b984f1320597633904",
+      "created_for": "I058",
+      "baseline_git": "6ab014191cbe20829f946ee9150031156375bc73",
+      "output_kind": "retained source archive; current transformed output and subsequent presentation refinement bound in review/ch03.json"
+    },
+    {
+      "page": "eopl/notes/chapter04_state.html",
+      "source_sha256": "7d3e055c14d2658266453fbca4dc0e8fd440c537ef9a33309c9e1cca104c8e38",
+      "output_sha256": "7d3e055c14d2658266453fbca4dc0e8fd440c537ef9a33309c9e1cca104c8e38",
+      "created_for": "I059",
+      "baseline_git": "101b6c00f2300f9eee70b8b86e20f8c1f715cd65",
+      "output_kind": "Retained chapter4 source snapshot, not a production output; current output is separately bound in ch04.json."
+    },
+    {
+      "page": "eopl/notes/chapter05_continuations.html",
+      "source_sha256": "a17d49cc446f5f478a82dd2aa5b16fe429eb11560eee7c9a9817f6eba5e365bc",
+      "output_sha256": "a17d49cc446f5f478a82dd2aa5b16fe429eb11560eee7c9a9817f6eba5e365bc",
+      "created_for": "I060",
+      "baseline_git": "d132ed7f25c06626e090c6c018c4adefb367851a",
+      "output_kind": "Retained reviewed source snapshot; current local output bound in ch05-06.json."
+    },
+    {
+      "page": "eopl/notes/chapter06_cps.html",
+      "source_sha256": "3adf80e690f4999b92caeceeb11011f60b7602ef6f5eb31d88b1d5c1f8ef0d53",
+      "output_sha256": "3adf80e690f4999b92caeceeb11011f60b7602ef6f5eb31d88b1d5c1f8ef0d53",
+      "created_for": "I060",
+      "baseline_git": "d132ed7f25c06626e090c6c018c4adefb367851a",
+      "output_kind": "Retained reviewed source snapshot; current local output bound in ch05-06.json."
     }
   ],
   "extensions": [
@@ -36,6 +68,21 @@
       "issue": "I048",
       "baseline_git": "1e96df2376aa34342f23eb089a1cbffb553f46f9",
       "scope": "Chapters 1 and 2 reviewed source snapshots; preserves the two I044 historical records. Local output is verified separately; no production deployment."
+    },
+    {
+      "issue": "I058",
+      "baseline_git": "6ab014191cbe20829f946ee9150031156375bc73",
+      "scope": "Chapter 3 source snapshot. Source identity is separate from current rendering and publication."
+    },
+    {
+      "issue": "I059",
+      "baseline_git": "101b6c00f2300f9eee70b8b86e20f8c1f715cd65",
+      "scope": "Chapter4 42-task source snapshot; subsequent measured allocation explanation is reviewed separately."
+    },
+    {
+      "issue": "I060",
+      "baseline_git": "d132ed7f25c06626e090c6c018c4adefb367851a",
+      "scope": "Two chapter source archives, before final supplied-contract/readable target-output/hygienic-primitive refinements."
     }
   ]
 }

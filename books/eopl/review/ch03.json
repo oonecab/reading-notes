@@ -1,0 +1,689 @@
+{
+  "schema_version": 1,
+  "issue": "I058",
+  "status": "passed",
+  "content_review": "passed",
+  "integration_review": "passed",
+  "recorded_at_utc": "2026-10-23T04:33:05.652522+00:00",
+  "scope": "EOPL chapter 3 pp.57–101 / PDF 80–124; all 44 Chinese questions and solutions, 7 section annotations, runnable interpreters and lexical translation. Local work.",
+  "source_baseline_commit": "6ab014191cbe20829f946ee9150031156375bc73",
+  "source_sha256": {
+    "eopl/notes/book_overview.html": "8e0f716078d93f14c2171436af3e067941fcf14884fa60a3b2b19d83e4f2de38",
+    "eopl/notes/chapter01_inductive_data.html": "d7d3b96ad503a9c837db0eb59e8488ab849a2a8fcb0626fd98b611913ad1e663",
+    "eopl/notes/chapter02_data_abstraction.html": "4d53d0caf1a949c959cc9e8d6682b4d8606d991a823cfae4ac4c000dbbb34073",
+    "eopl/notes/chapter03_expressions.html": "b2312720b18fe45826ec8482e96f4430900b70eb0440ebf763206f0f40ecf79c",
+    "eopl/notes/preface.html": "c83fc006cd8334acfe0bf72bf657e56ae875082689a5d47d7f70db17cd6fec34"
+  },
+  "output_sha256": {
+    "eopl/notes/book_overview.html": "acd579679d38a973594b4322ebf7dced97c09438755ae48e85e04a56d1b98c67",
+    "eopl/notes/chapter01_inductive_data.html": "a174becfc9cbe59f2c737b6b51f0b4cb7b46f817732d0361a47e3325d27e6178",
+    "eopl/notes/chapter02_data_abstraction.html": "21d012fca61cbd822d76e073db008d5032cc489027bcd5145b87e19041799e06",
+    "eopl/notes/chapter03_expressions.html": "63c7a55473489599ceccde14648aca76d260fd9e981650cc008a39a193327a4a",
+    "eopl/notes/preface.html": "42ceb152e3c0f4f03698daa796612027287a80858076d2e17d78a29db143b791"
+  },
+  "source_review": {
+    "pdf_sha256": "b9e8770a4dc97206bd02230e6b21a878382eb02a340ff69321857d701e7d967c",
+    "sequential_text_pdf_pages": [
+      80,
+      124
+    ],
+    "rendered_and_viewed_pdf_pages": [
+      86,
+      87,
+      89,
+      91,
+      97,
+      99,
+      108,
+      109,
+      113,
+      116,
+      124
+    ],
+    "exercise_numbers": [
+      "3.1",
+      "3.2",
+      "3.3",
+      "3.4",
+      "3.5",
+      "3.6",
+      "3.7",
+      "3.8",
+      "3.9",
+      "3.10",
+      "3.11",
+      "3.12",
+      "3.13",
+      "3.14",
+      "3.15",
+      "3.16",
+      "3.17",
+      "3.18",
+      "3.19",
+      "3.20",
+      "3.21",
+      "3.22",
+      "3.23",
+      "3.24",
+      "3.25",
+      "3.26",
+      "3.27",
+      "3.28",
+      "3.29",
+      "3.30",
+      "3.31",
+      "3.32",
+      "3.33",
+      "3.34",
+      "3.35",
+      "3.36",
+      "3.37",
+      "3.38",
+      "3.39",
+      "3.40",
+      "3.41",
+      "3.42",
+      "3.43",
+      "3.44"
+    ],
+    "complete_chinese_inputs": true,
+    "source_issues": "notes/source_issues.json",
+    "question_registry": "notes/questions_ch03.json",
+    "english_maintenance_archive": "notes/original_questions.json",
+    "original_subsections": [
+      "3.2.1",
+      "3.2.2",
+      "3.2.3",
+      "3.2.4",
+      "3.2.5",
+      "3.2.6",
+      "3.2.7",
+      "3.2.8",
+      "3.3.1",
+      "3.3.2",
+      "3.7.1",
+      "3.7.2"
+    ],
+    "record": "review/ch03.md"
+  },
+  "open_findings": [],
+  "programs": {
+    "runtime": "Racket 8.17",
+    "libraries": [
+      "eopl/SLLGEN",
+      "rackunit"
+    ],
+    "maintained_source_sha256": {
+      "chapter03.rkt": "cf298fe1ef14dc15fd9d1b89e84ae22b974adbb09bbe3ff242882b8ca2a42264",
+      "chapter03_lexical.rkt": "15eae345f2b184c451a74ef8df843614acbd356d93ea7075061c6fd088c8452b",
+      "chapter03_variants.rkt": "74b7d947c54d65821cd7c771d034669b2c974a03b03faabaac2a1812b208ed75",
+      "test_chapter03.rkt": "ee067dc4f3af170974fcff16dfbe40da833b369b86dd041054d2e1a68e020c0c"
+    },
+    "execution": {
+      "chapter01.rkt": "((0 a) (1 b) (2 c))\n((x b) (c (x)))\n(red (bar 1 1) (red 2 (quux 2 2)))\n(foo (bar 0 1) (baz 2 (quux 3 4)))\n",
+      "chapter02.rkt": "(2 0 1)\n((lambda (a) (a b)) c)\n2\n(13 (12 () (99 () ())) ())\n",
+      "test_chapters.rkt": {
+        "assertions": 6269,
+        "failures": 0,
+        "racket": "8.17",
+        "status": "passed"
+      },
+      "chapter03.rkt": "3\n18\n-5\n-100\n12\n120\n",
+      "chapter03_lexical.rkt": "(%let\n (37)\n (%proc 1 #f (%let ((- (%lexref 0) (%lexref 1))) (- (%lexref 2) (%lexref 1)))))\n-100\n12\n",
+      "chapter03_variants.rkt": "7\n10\n",
+      "test_chapter03.rkt": {
+        "assertions": 1577,
+        "failures": 0,
+        "groups": 17,
+        "racket": "8.17",
+        "status": "passed"
+      }
+    },
+    "mutation_report": "tmp/eopl-ch03-20261023/program-mutations/report.json",
+    "mutation_faults_detected": 6,
+    "original_figure_3_4_environment_probe": "tmp/eopl-ch03-20261023/original-environment.log"
+  },
+  "local_build": {
+    "release_id": "20261023T121700",
+    "reading_pages": 61,
+    "public_html_pages": 83,
+    "public_files": 530,
+    "source_commit": "6ab014191cbe20829f946ee9150031156375bc73",
+    "source_tree_dirty": true,
+    "report": "tmp/reading-notes-migration/build.json",
+    "production": "not deployed"
+  },
+  "static_checks": {
+    "node_tests": 113,
+    "components": "tmp/eopl-ch03-20261023/components-refined.json",
+    "reader_contract": "docs/reader-contract.json",
+    "parity": "tmp/eopl-ch03-20261023/parity.log",
+    "performance": "tmp/eopl-ch03-20261023/performance.log",
+    "checker_mutations": "tmp/eopl-ch03-20261023/checker-mutations-final/report.json",
+    "checker_cases": 16
+  },
+  "browser": {
+    "report": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-23T04-16-52-462Z-dec4d3c1/report.json",
+    "sha256": "58ad279d97e1c08e3571bc5385d2597141fd89b3e9f72fcb9876f60f6c4e16ac",
+    "public_html_routes": 7,
+    "js_views": 28,
+    "no_js_views": 14,
+    "external_requests": 0,
+    "widths": [
+      1800,
+      1440,
+      1024,
+      390
+    ],
+    "no_js_widths": [
+      1440,
+      390
+    ],
+    "chapter3_annotations": [
+      {
+        "width": 1800,
+        "applicable": true,
+        "required": 7,
+        "checked": 7,
+        "mode": "rail",
+        "observations": [
+          {
+            "id": "s3-1",
+            "active": "s3-1",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          },
+          {
+            "id": "s3-2",
+            "active": "s3-2",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          },
+          {
+            "id": "s3-3",
+            "active": "s3-3",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          },
+          {
+            "id": "s3-4",
+            "active": "s3-4",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          },
+          {
+            "id": "s3-5",
+            "active": "s3-5",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          },
+          {
+            "id": "s3-6",
+            "active": "s3-6",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          },
+          {
+            "id": "s3-7",
+            "active": "s3-7",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          }
+        ],
+        "exceptions": [
+          {
+            "id": "programs",
+            "rail_hidden": true,
+            "stale_content_cleared": true
+          }
+        ]
+      },
+      {
+        "width": 1440,
+        "applicable": true,
+        "required": 7,
+        "checked": 7,
+        "mode": "rail",
+        "observations": [
+          {
+            "id": "s3-1",
+            "active": "s3-1",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          },
+          {
+            "id": "s3-2",
+            "active": "s3-2",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          },
+          {
+            "id": "s3-3",
+            "active": "s3-3",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          },
+          {
+            "id": "s3-4",
+            "active": "s3-4",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          },
+          {
+            "id": "s3-5",
+            "active": "s3-5",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          },
+          {
+            "id": "s3-6",
+            "active": "s3-6",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          },
+          {
+            "id": "s3-7",
+            "active": "s3-7",
+            "visible": true,
+            "identical": true,
+            "overflows": false,
+            "context": true,
+            "toc": true
+          }
+        ],
+        "exceptions": [
+          {
+            "id": "programs",
+            "rail_hidden": true,
+            "stale_content_cleared": true
+          }
+        ]
+      },
+      {
+        "width": 1024,
+        "applicable": true,
+        "required": 7,
+        "checked": 7,
+        "mode": "inline",
+        "observations": [
+          {
+            "id": "s3-1",
+            "open": true,
+            "visible": true,
+            "text": 412,
+            "overflows": false
+          },
+          {
+            "id": "s3-2",
+            "open": true,
+            "visible": true,
+            "text": 454,
+            "overflows": false
+          },
+          {
+            "id": "s3-3",
+            "open": true,
+            "visible": true,
+            "text": 476,
+            "overflows": false
+          },
+          {
+            "id": "s3-4",
+            "open": true,
+            "visible": true,
+            "text": 468,
+            "overflows": false
+          },
+          {
+            "id": "s3-5",
+            "open": true,
+            "visible": true,
+            "text": 361,
+            "overflows": false
+          },
+          {
+            "id": "s3-6",
+            "open": true,
+            "visible": true,
+            "text": 362,
+            "overflows": false
+          },
+          {
+            "id": "s3-7",
+            "open": true,
+            "visible": true,
+            "text": 479,
+            "overflows": false
+          }
+        ],
+        "exceptions": []
+      },
+      {
+        "width": 390,
+        "applicable": true,
+        "required": 7,
+        "checked": 7,
+        "mode": "inline",
+        "observations": [
+          {
+            "id": "s3-1",
+            "open": true,
+            "visible": true,
+            "text": 412,
+            "overflows": false
+          },
+          {
+            "id": "s3-2",
+            "open": true,
+            "visible": true,
+            "text": 454,
+            "overflows": false
+          },
+          {
+            "id": "s3-3",
+            "open": true,
+            "visible": true,
+            "text": 476,
+            "overflows": false
+          },
+          {
+            "id": "s3-4",
+            "open": true,
+            "visible": true,
+            "text": 468,
+            "overflows": false
+          },
+          {
+            "id": "s3-5",
+            "open": true,
+            "visible": true,
+            "text": 361,
+            "overflows": false
+          },
+          {
+            "id": "s3-6",
+            "open": true,
+            "visible": true,
+            "text": 362,
+            "overflows": false
+          },
+          {
+            "id": "s3-7",
+            "open": true,
+            "visible": true,
+            "text": 479,
+            "overflows": false
+          }
+        ],
+        "exceptions": []
+      }
+    ],
+    "chapter3_no_js_annotations": [
+      {
+        "width": 1440,
+        "applicable": true,
+        "required": 7,
+        "checked": 7,
+        "mode": "inline",
+        "observations": [
+          {
+            "id": "s3-1",
+            "open": true,
+            "visible": true,
+            "text": 412,
+            "overflows": false
+          },
+          {
+            "id": "s3-2",
+            "open": true,
+            "visible": true,
+            "text": 454,
+            "overflows": false
+          },
+          {
+            "id": "s3-3",
+            "open": true,
+            "visible": true,
+            "text": 476,
+            "overflows": false
+          },
+          {
+            "id": "s3-4",
+            "open": true,
+            "visible": true,
+            "text": 468,
+            "overflows": false
+          },
+          {
+            "id": "s3-5",
+            "open": true,
+            "visible": true,
+            "text": 361,
+            "overflows": false
+          },
+          {
+            "id": "s3-6",
+            "open": true,
+            "visible": true,
+            "text": 362,
+            "overflows": false
+          },
+          {
+            "id": "s3-7",
+            "open": true,
+            "visible": true,
+            "text": 479,
+            "overflows": false
+          }
+        ],
+        "exceptions": [],
+        "expanded_layout": null
+      },
+      {
+        "width": 390,
+        "applicable": true,
+        "required": 7,
+        "checked": 7,
+        "mode": "inline",
+        "observations": [
+          {
+            "id": "s3-1",
+            "open": true,
+            "visible": true,
+            "text": 412,
+            "overflows": false
+          },
+          {
+            "id": "s3-2",
+            "open": true,
+            "visible": true,
+            "text": 454,
+            "overflows": false
+          },
+          {
+            "id": "s3-3",
+            "open": true,
+            "visible": true,
+            "text": 476,
+            "overflows": false
+          },
+          {
+            "id": "s3-4",
+            "open": true,
+            "visible": true,
+            "text": 468,
+            "overflows": false
+          },
+          {
+            "id": "s3-5",
+            "open": true,
+            "visible": true,
+            "text": 361,
+            "overflows": false
+          },
+          {
+            "id": "s3-6",
+            "open": true,
+            "visible": true,
+            "text": 362,
+            "overflows": false
+          },
+          {
+            "id": "s3-7",
+            "open": true,
+            "visible": true,
+            "text": 479,
+            "overflows": false
+          }
+        ],
+        "exceptions": [],
+        "expanded_layout": {
+          "disclosures": 70,
+          "exercises": 44,
+          "viewport": 390,
+          "width": 375,
+          "all_open": true
+        }
+      }
+    ],
+    "all_open_mobile": {
+      "disclosures": 70,
+      "exercises": 44,
+      "viewport": 390,
+      "width": 375,
+      "all_open": true
+    },
+    "map_nodes": 9,
+    "map_js_widths": [
+      1440,
+      390
+    ],
+    "map_no_js_widths": [
+      390
+    ]
+  },
+  "manual_readback": {
+    "record": "tmp/eopl-ch03-20261023/manual-reader.json",
+    "sha256": "155898faf61f37feb3b4352eb0a6364cbf34fe9852905060b7d1e2f5fdfef73d",
+    "rendered_exercises": 44,
+    "rendered_exercise_text": "tmp/eopl-ch03-20261023/rendered-exercises.json",
+    "viewed_screenshots": [
+      {
+        "file": "tmp/eopl-ch03-20261023/final-s3-2-1440.png",
+        "sha256": "6fbc0f9068be481280f2ab7d6f5d136952cbfc89ff5cb63636c93dc9a94b6c41"
+      },
+      {
+        "file": "tmp/eopl-ch03-20261023/final-s3-5-1440.png",
+        "sha256": "8456634abadca701a5e4f48dc15c62011173b6379e10c6d0666f68b246ac32c1"
+      },
+      {
+        "file": "tmp/eopl-ch03-20261023/final-s3-7-1440.png",
+        "sha256": "e6dee9d7231e9380b84691028ac28808251a4f1afb8c20a36608d2ecddaad0e6"
+      },
+      {
+        "file": "tmp/eopl-ch03-20261023/final-cycle-1440.png",
+        "sha256": "ea07251f58c93b4d84c9899836b18390d9e1a31826047b197c083a1d9c55c913"
+      },
+      {
+        "file": "tmp/eopl-ch03-20261023/final-optimization-390.png",
+        "sha256": "e40ce4d3e532a3a4d77abfdaa14ee09484d0259942895491b2cae876827dda21"
+      },
+      {
+        "file": "tmp/eopl-ch03-20261023/final-tree-top-390.png",
+        "sha256": "5f0b9a2600854a57793b20de2e89baa09a6ef08335832d851705c88d4c15486a"
+      },
+      {
+        "file": "tmp/eopl-ch03-20261023/final-tree-body-390.png",
+        "sha256": "c27b5c8e9dcb3bc44e0bb58517e89f4e766115b313a4fab4ec4fdd9e7d22791c"
+      }
+    ],
+    "full_program": {
+      "default_open": false,
+      "mouse_open": true,
+      "keyboard_open": false
+    },
+    "source_download": {
+      "protocol": "HTTP local release preview",
+      "filename": "chapter03.rkt",
+      "identical": true,
+      "bytes": 16612
+    },
+    "file_protocol_observation": "The file URL opened the Racket source as text. HTTP preview download was separately received and compared byte for byte.",
+    "physical_device_or_screen_reader_test": false,
+    "browser_task_space": "finished after completed checks"
+  },
+  "evidence_sha256": {
+    "tmp/eopl-ch03-20261023/book-check-final/report.json": "5240c8465ba070dbe40d28dd123c039b5f806b4bc5225951581414972e3d1b62",
+    "tmp/eopl-ch03-20261023/checker-mutations-final/report.json": "60b68fa0f18219b7ad4faa47a02d3a207ae52581e244ff17055b1cb364ff22e6",
+    "tmp/eopl-ch03-20261023/program-mutations/report.json": "226aa42aa5a9f891aef510ee06c5da03c59e550c00e15ed4deb53d8f1bce9551",
+    "tmp/eopl-ch03-20261023/parity.log": "a51a0b1292ba54c23ef3214f3f3005a23de4ce15726503aae0d65b1e29d69888",
+    "tmp/eopl-ch03-20261023/performance.log": "c36a5700506c4e69785f7d23e78368167a3108da572a6d5be95ced1b6d49cd67",
+    "tmp/eopl-ch03-20261023/node-tests.log": "4281613d75b5713e0b84a7bfa2c6eb1163026778a275c9356979bf832bfb590b",
+    "tmp/eopl-ch03-20261023/secret-scan.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "tmp/reading-notes-migration/build.json": "4136f37ee81caf656dcbf5065c38b01ed9961d72af91e1a18d011a999538eb8f",
+    "tmp/reading-notes-migration/csp/report.json": "1fca272d2be47dad97bd0c86fa3d8ce24dc177ba96d84f00afea4329b820ac11"
+  },
+  "completed_at_utc": "2026-10-23T04:45:56.162506+00:00",
+  "project_checks": [
+    {
+      "report": "tmp/project-check/20261023T123439-fvfi97hy/report.json",
+      "sha256": "131434a0dcb47583bd4dc235c32269da3962dd833a582e52d14b6de47d2e7208",
+      "status": "passed",
+      "checks": 14,
+      "quick": false,
+      "book": "eopl"
+    },
+    {
+      "report": "tmp/project-check/20261023T123707-f3u2xl73/report.json",
+      "sha256": "3550485ada61fbf9fb265dca1d5799e9ba2f76cce0ce56b708b89113bfb7958b",
+      "status": "passed",
+      "checks": 22,
+      "quick": true,
+      "book": "all"
+    }
+  ],
+  "preservation": {
+    "report": "tmp/eopl-ch03-20261023/preservation.json",
+    "sha256": "8c6daa42a527896b2c6d1f2cb18f4bafa47cf5c6fc6c08f72352b23225383025",
+    "status": "passed"
+  }
+}

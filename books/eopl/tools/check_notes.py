@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""检查 EOPL 地图、序言与第 1、2 章的来源、英文原题归档、题解和实际教学程序。"""
+"""检查 EOPL 地图、序言与第 1–6 章的来源、原题归档、题解和实际教学程序。"""
 from __future__ import annotations
 
 import argparse
@@ -97,7 +97,8 @@ def need(condition: bool, label: str) -> None:
         raise ValueError(label)
 
 
-def check(quick: bool) -> dict:
+def check(quick: bool, run_dir: Path | None = None) -> dict:
+    execution_dir = (run_dir if run_dir is not None else ROOT / "tmp/eopl-check").resolve()
     sync()
     manifest = json.loads((BOOK / "notes/source_manifest.json").read_text())
     items = json.loads((BOOK / "notes/source_inventory.json").read_text())
@@ -129,7 +130,7 @@ def check(quick: bool) -> dict:
              f"exercise sequence: {chapter}")
     need([r["number"] for r in items["items"] if r["coverage"] == "answered"] == manifest["current_scope"]["answered_exercises"],
          "current answer coverage differs")
-    need(len(manifest["current_scope"]["answered_exercises"]) == 68, "answer count must be 68")
+    need(len(manifest["current_scope"]["answered_exercises"]) == 252, "answer count must be 252")
     source_check = "not_available"
     pdf = ROOT / manifest["source"]["file"]
     if pdf.exists():
@@ -175,7 +176,11 @@ def check(quick: bool) -> dict:
         metadata = json.loads((SOURCE / name).read_text().split("---\n")[1])
         baseline = json.loads((BOOK / "review/content-baseline-astro.json").read_text())
         frozen = {row["page"]: row["source_sha256"] for row in baseline["records"]}
-        need(metadata["stage"] == ("chapters-1-2" if name.startswith("chapter") else "map-and-preface") and
+        stage = ("chapters-5-6" if name.startswith(("chapter05", "chapter06")) else
+                 "chapter-4" if name.startswith("chapter04") else
+                 "chapter-3" if name.startswith("chapter03") else
+                 "chapters-1-2" if name.startswith("chapter") else "map-and-preface")
+        need(metadata["stage"] == stage and
              metadata.get("original_sha256") == frozen.get("eopl/notes/" + name),
              "each page must retain its accepted source baseline")
     for name, page in pages.items():
@@ -220,18 +225,43 @@ def check(quick: bool) -> dict:
     need(questions["source_sha256"] == SOURCE_SHA256, "question source identity")
     wanted = [f"{c}.{n}" for c, total in [(1, 36), (2, 31)] for n in range(1, total + 1)]
     need([r["number"] for r in questions["items"]] == wanted, "complete question inventory")
+    chapter3 = json.loads((BOOK / "notes/questions_ch03.json").read_text())
+    need(chapter3["source_sha256"] == SOURCE_SHA256, "chapter 3 question source identity")
+    chapter3_numbers = [f"3.{n}" for n in range(1, 45)]
+    need([r["number"] for r in chapter3["items"]] == chapter3_numbers,
+         "chapter 3 complete question inventory")
+    questions["items"].extend(chapter3["items"])
+    wanted.extend(chapter3_numbers)
+    chapter4 = json.loads((BOOK / "notes/questions_ch04.json").read_text())
+    need(chapter4["source_sha256"] == SOURCE_SHA256, "chapter 4 question source identity")
+    chapter4_numbers = [f"4.{n}" for n in range(1, 43)]
+    need([r["number"] for r in chapter4["items"]] == chapter4_numbers,
+         "chapter 4 complete question inventory")
+    questions["items"].extend(chapter4["items"])
+    wanted.extend(chapter4_numbers)
+    for chapter, count in [(5, 58), (6, 40)]:
+        new_questions = json.loads((BOOK / f"notes/questions_ch{chapter:02}.json").read_text())
+        need(new_questions["source_sha256"] == SOURCE_SHA256,
+             f"chapter {chapter} question source identity")
+        numbers = [f"{chapter}.{n}" for n in range(1, count + 1)]
+        need([r["number"] for r in new_questions["items"]] == numbers,
+             f"chapter {chapter} complete question inventory")
+        questions["items"].extend(new_questions["items"])
+        wanted.extend(numbers)
     for row in questions["items"]:
         need(row["pdf_page"] == row["printed_page"] + 23, "question locator differs")
     qmap = {r["number"]: r for r in questions["items"]}
     positions = {r["number"]: r for r in items["items"] if r["kind"] == "exercise"}
-    names = {1: "chapter01_inductive_data.html", 2: "chapter02_data_abstraction.html"}
+    names = {1: "chapter01_inductive_data.html", 2: "chapter02_data_abstraction.html",
+             3: "chapter03_expressions.html", 4: "chapter04_state.html",
+             5: "chapter05_continuations.html", 6: "chapter06_cps.html"}
     need(archive["schema_version"] == 1 and archive["book"] == "eopl" and
          archive["standard"] == "RN-002", "original question archive metadata differs")
     need(archive["source_sha256"] == SOURCE_SHA256, "original question archive source identity")
     archived = archive["items"]
     need(archive["item_count"] == len(archived), "original question archive item count")
     archived_exercises = [row for row in archived if row["kind"] == "exercise"]
-    need(archive["exercise_count"] == len(archived_exercises) == 68,
+    need(archive["exercise_count"] == len(archived_exercises) == 252,
          "original question archive exercise count")
     need([row["number"] for row in archived_exercises] == ["0.1", *wanted],
          "archive exercise sequence")
@@ -270,7 +300,7 @@ def check(quick: bool) -> dict:
              row["pdf_page"] == source["pdf_page"] and
              row["pdf_end"] == source["pdf_end"],
              "archived question page sequence differs: " + row["number"])
-    for c, total in [(1, 36), (2, 31)]:
+    for c, total in [(1, 36), (2, 31), (3, 44), (4, 42), (5, 58), (6, 40)]:
         text = (BOOK / "notes" / names[c]).read_text()
         ids = re.findall(r'<details class="exercise" id="([^"]+)"', text)
         need(ids == [f"ex-{c}-{n}" for n in range(1, total + 1)], "chapter exercise sequence")
@@ -286,6 +316,13 @@ def check(quick: bool) -> dict:
             need('class="question-translation"' in block, "Chinese question missing")
         need(f'id="chapter0{c}-code"' in text and '<!-- EOPL:end-program -->' in text,
              "missing complete chapter program")
+    for chapter, count in [(3, 44), (4, 42), (5, 58), (6, 40)]:
+        chapter_text = (BOOK / "notes" / names[chapter]).read_text()
+        chinese = re.findall(r'<div class="question-translation" lang="zh-CN" data-exercise="(' + str(chapter) + r'\.\d+)">(.*?)</div><p class="source">', chapter_text, re.S)
+        need(len(chinese) == count, f"chapter {chapter} independent Chinese input inventory")
+        for number, markup in chinese:
+            need(markup == qmap[number]["chinese_html"],
+                 f"chapter {chapter} Chinese question or supplied input differs: " + number)
     contexts = json.loads((BOOK / "notes/question_contexts.json").read_text())
     need(contexts["source_sha256"] == SOURCE_SHA256, "context source identity")
     for context in contexts["items"]:
@@ -293,8 +330,8 @@ def check(quick: bool) -> dict:
         text = (BOOK / "notes" / names[chapter]).read_text()
         need('id="' + context["anchor"] + '"' in text and
              context["code"] in unescape(text), "referenced source code differs")
-    report = {"status": "passed", "stage": "chapters-1-2", "pages": 4,
-              "source_exercises": sum(COUNTS.values()), "answered_exercises": 68,
+    report = {"status": "passed", "stage": "chapters-1-6", "pages": 8,
+              "source_exercises": sum(COUNTS.values()), "answered_exercises": 252,
               "original_question_archive": "notes/original_questions.json",
               "archived_original_items": len(archived),
               "archived_original_exercises": len(archived_exercises),
@@ -318,7 +355,17 @@ def check(quick: bool) -> dict:
         results = {}
         expected = {"chapter01.rkt": "((0 a) (1 b) (2 c))\n((x b) (c (x)))\n(red (bar 1 1) (red 2 (quux 2 2)))\n(foo (bar 0 1) (baz 2 (quux 3 4)))\n",
                     "chapter02.rkt": "(2 0 1)\n((lambda (a) (a b)) c)\n2\n(13 (12 () (99 () ())) ())\n"}
-        for program in ["chapter01.rkt", "chapter02.rkt", "test_chapters.rkt"]:
+        expected.update({
+            "chapter03.rkt": "3\n18\n-5\n-100\n12\n120\n",
+            "chapter03_lexical.rkt": "(%let\n (37)\n (%proc 1 #f (%let ((- (%lexref 0) (%lexref 1))) (- (%lexref 2) (%lexref 1)))))\n-100\n12\n",
+            "chapter03_variants.rkt": "7\n10\n",
+            "chapter04.rkt": "3\n4\n88\n-1\n0\n",
+            "chapter04_explicit.rkt": "-1\n0\n11\n11\n",
+            "chapter04_statements.rkt": "7\n12\n3\n4\n3\n12\n"})
+        for program in ["chapter01.rkt", "chapter02.rkt", "test_chapters.rkt",
+                        "chapter03.rkt", "chapter03_lexical.rkt", "chapter03_variants.rkt",
+                        "test_chapter03.rkt", "chapter04.rkt", "chapter04_explicit.rkt",
+                        "chapter04_statements.rkt", "test_chapter04.rkt"]:
             completed = subprocess.run([racket, str(BOOK / "code" / program)],
                                        capture_output=True, text=True, check=True, timeout=60)
             if program in expected:
@@ -328,9 +375,38 @@ def check(quick: bool) -> dict:
                 results[program] = json.loads(completed.stdout.splitlines()[-1])
                 need(results[program]["status"] == "passed" and results[program]["failures"] == 0,
                      "Racket semantic failures")
+        additions = {
+            "chapter05.rkt": "machine: 30; max-continuation=3; end-count=1\n",
+            "chapter05_cps.rkt": "procedural-pair: 30; end-count=1\n",
+            "chapter05_statements.rkt": "commands/data: (3 2 1)\ncommands/procedural: (3 2 1)\n",
+            "chapter06.rkt": "CPS-OUT: 12; output=()\n",
+            "chapter06_algorithms.rkt": "factorial-register: fixed=24 original=1 self-jumps-omitted=24\n",
+        }
+        for program, expected_stdout in additions.items():
+            completed = subprocess.run([racket, str(BOOK / "code" / program)],
+                                       capture_output=True, text=True, check=True, timeout=60)
+            need(completed.stdout == expected_stdout, "chapter demonstration output: " + program)
+            results[program] = completed.stdout
+        for program in ["test_chapter05_06.rkt", "chapter06_examples.rkt", "test_chapter06_scheme.rkt"]:
+            completed = subprocess.run([racket, str(BOOK / "code" / program)],
+                                       capture_output=True, text=True, check=True, timeout=60)
+            results[program] = json.loads(completed.stdout.splitlines()[-1])
+            need(results[program]["status"] == "passed" and results[program]["failures"] == 0,
+                 "chapter 5/6 semantic failures: " + program)
+        completed = subprocess.run([sys.executable, BOOK / "code/chapter05_sync.py"],
+                                   capture_output=True, text=True, check=True, timeout=30)
+        report["synchronization_models"] = json.loads(completed.stdout)
+        need(report["synchronization_models"]["models"] == {
+            "counting_semaphore_peak": 2, "condition_value": 44,
+            "barrier_generations": 2, "private_counter": 3}, "synchronization model oracle")
+        from test_chapter05_06_mutations import run as test_chapter05_06_mutations, run_c_drivers
+        report["chapter5_6_semantic_mutations"] = test_chapter05_06_mutations(racket, execution_dir / "control-mutations")
+        report["c_control_drivers"] = run_c_drivers(execution_dir / "c-drivers")
         report["racket_execution"] = results
         from test_source_contexts import run as test_source_contexts
         report["textbook_context_execution"] = test_source_contexts(racket)
+        from test_chapter04_mutations import run as test_chapter04_mutations
+        report["chapter4_semantic_mutations"] = test_chapter04_mutations(racket, execution_dir / "state-mutations")
     return report
 
 
@@ -340,7 +416,7 @@ if __name__ == "__main__":
     parser.add_argument("--run-dir", type=Path, default=ROOT / "tmp/eopl-check")
     args = parser.parse_args()
     try:
-        report = check(args.quick)
+        report = check(args.quick, args.run_dir)
     except Exception as error:
         report = {"status": "failed", "error": str(error)}
     args.run_dir.mkdir(parents=True, exist_ok=True)

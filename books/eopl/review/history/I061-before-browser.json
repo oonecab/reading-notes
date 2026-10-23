@@ -1,0 +1,171 @@
+{
+  "issue": "I060",
+  "status": "passed",
+  "scope": "Current local EOPL map, preface and chapters1–6:8 reading pages,252 complete Chinese exercises and10 public HTML routes. Root integration recorded separately.",
+  "astro_migration": {
+    "record": "review/astro-migration.json",
+    "sha256": "a5bf583a8f744ced45ef43eb75f9d8253ca985b208196ebab0ee73ee802093d9",
+    "open_findings": [],
+    "source_sha256": {
+      "book_overview.html": "bcee15d3ae5f7b748a93ff07bdffc6eb7fbbb790f4e2af54fce3bc289605720c",
+      "preface.html": "4ffe7b18e4d6bc5b5ba6be871417b061f1896b88885b723a6d46ab2024a25392",
+      "chapter01_inductive_data.html": "375aac6684c71ae9ec73fb3d3e401119c1c33221858b61e02e9638e74b64d31a",
+      "chapter02_data_abstraction.html": "9c58590c094fe03c2e66495ddc144c601f677224452a94866f7e40c6931e0993",
+      "chapter03_expressions.html": "d2a408b6f950dc85291ddb3b3c7017877cfbed3f351b05b984f1320597633904",
+      "chapter04_state.html": "7d3e055c14d2658266453fbca4dc0e8fd440c537ef9a33309c9e1cca104c8e38",
+      "chapter05_continuations.html": "a17d49cc446f5f478a82dd2aa5b16fe429eb11560eee7c9a9817f6eba5e365bc",
+      "chapter06_cps.html": "3adf80e690f4999b92caeceeb11011f60b7602ef6f5eb31d88b1d5c1f8ef0d53"
+    }
+  },
+  "offline_report": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-23T19-25-46-420Z-b4456bb2/report.json",
+  "offline_sha256": "d7348ec4cdd82488aa42296511c0a3907031fd94c3c5b8e3b9bc0126b1e29fae",
+  "js_views": 40,
+  "no_js_views": 20,
+  "external_requests": [],
+  "screenshots": [
+    {
+      "file": "tmp/eopl-ch05-06-20261024/final-reader/map-1440.png",
+      "sha256": "32b38c8636794b81fe5997e4fef5608e4aa0ef3eedb56fb3d14eb0f003b3e682"
+    },
+    {
+      "file": "tmp/eopl-ch05-06-20261024/final-reader/map-390.png",
+      "sha256": "f5985422b6a39013e95dc2f1f9b7264367b934605427c07004ad853e753d181b"
+    },
+    {
+      "file": "tmp/eopl-ch05-06-20261024/final-reader/ch04-next-navigation-390.png",
+      "sha256": "05893ae766b59dcfb648c0e29f01de8075c9c59f6e23489f7756eb5d377b5ab9"
+    },
+    {
+      "file": "tmp/eopl-ch05-06-20261024/final-reader/ch05-top-1440.png",
+      "sha256": "78ad098459daaffb6666a016e55f7fcccb0172d0fd546e0ba52f5c6593450f23"
+    },
+    {
+      "file": "tmp/eopl-ch05-06-20261024/final-reader/ch05-difference-1440.png",
+      "sha256": "8fad1e40558e1fa648c8c293ba70acb3ee2f58c823ec743e5bce971ec7132787"
+    },
+    {
+      "file": "tmp/eopl-ch05-06-20261024/final-reader/ch05-growth-390.png",
+      "sha256": "015fa0ebc85332505b0af7e5ab4dc7a6ee870dd10cbea1496d4e9e3da051ad0c"
+    },
+    {
+      "file": "tmp/eopl-ch05-06-20261024/final-reader/ch05-commands-390.png",
+      "sha256": "ff5038a36afa5648084bff793771d0d778da1624a7694e32034beee98fd6866e"
+    },
+    {
+      "file": "tmp/eopl-ch05-06-20261024/final-reader/ch05-exception-1440.png",
+      "sha256": "6f625b323875ffc55864891e296e70cccde6afbd531b6b8fdbda4e1c3bececc1"
+    },
+    {
+      "file": "tmp/eopl-ch05-06-20261024/final-reader/ch05-scheduler-1440.png",
+      "sha256": "01ceda8aea00e9b79b5abeb27ca5a8c0f09968fc9fb1eeaf558d029e981fc289"
+    },
+    {
+      "file": "tmp/eopl-ch05-06-20261024/final-reader/ch05-scheduler-390.png",
+      "sha256": "a7b7ebe6a891d5211ef43cf0974ec1674f2523b5e24154b582c467b351328fe1"
+    },
+    {
+      "file": "tmp/eopl-ch05-06-20261024/final-reader/ch05-join-1440.png",
+      "sha256": "564c6a0d5afd1212432f48d6056d1a74f6513c86d6728fdfa2c6ae637cce12f2"
+    },
+    {
+      "file": "tmp/eopl-ch05-06-20261024/final-reader/ch05-actors-390.png",
+      "sha256": "bf69ec7185694b84b82f871cdc4845fe1cd2864f26e8b93e425b020cb2689c05"
+    },
+    {
+      "file": "tmp/eopl-ch05-06-20261024/final-reader/ch05-last-task-390.png",
+      "sha256": "ce9d2d36bc03617eb387a64931f21c758ee6c096cf2d7a88f6ce2c8715d7c32b"
+    },
+    {
+      "file": "tmp/eopl-ch05-06-20261024/final-reader/ch06-top-1440.png",
+      "sha256": "293974183de4deed711eecd6e5c9716c096e4c35c4f5b5cd629ccacd38b69208"
+    },
+    {
+      "file": "tmp/eopl-ch05-06-20261024/final-reader/ch06-tail-form-1440.png",
+      "sha256": "a8508a893eb8a15642049d0ae18e961dea8332990436e33932121ef844a48fe9"
+    },
+    {
+      "file": "tmp/eopl-ch05-06-20261024/final-reader/ch06-conversion-1440.png",
+      "sha256": "60232e0b612e343ab0c54bc3532f597723cd7d001b16a72f99f924bd1ef5c472"
+    },
+    {
+      "file": "tmp/eopl-ch05-06-20261024/final-reader/ch06-original-eight-1440.png",
+      "sha256": "4702e74382f9fc4db1a5055f036980244cd157ff3c7f0b1ec37f2b209df70853"
+    },
+    {
+      "file": "tmp/eopl-ch05-06-20261024/final-reader/ch06-eight-answer-1440.png",
+      "sha256": "c4da4336d80efcbc33e3e29fe308927d3d0a9d38fe37acb6a8a841c63fc25442"
+    },
+    {
+      "file": "tmp/eopl-ch05-06-20261024/final-reader/ch06-target-program-390.png",
+      "sha256": "fe81548fd5d7bd26ca819ad18b2284525380dc58e9aee0b0788f61e5c329cfea"
+    },
+    {
+      "file": "tmp/eopl-ch05-06-20261024/final-reader/ch06-if-size-1440.png",
+      "sha256": "f12aa57c834b7c1e606fdfc5df396ce3d6f759ab9c1ae89ec2db2d8111212eb9"
+    },
+    {
+      "file": "tmp/eopl-ch05-06-20261024/final-reader/ch06-source-variant-390.png",
+      "sha256": "fe9838634b56db0e60ea88ff482c2482010ce7b79e440c1c822b8d34a6722a83"
+    },
+    {
+      "file": "tmp/eopl-ch05-06-20261024/final-reader/ch06-data-closure-1440.png",
+      "sha256": "44efd051ce65213520906e703440b2a096a590353213b204aaf628fbceee9aeb"
+    },
+    {
+      "file": "tmp/eopl-ch05-06-20261024/final-reader/ch06-anf-390.png",
+      "sha256": "34d831f579f05c48c4ada8575e523334e7f3a59abd53fcab16c6666aec3ce735"
+    },
+    {
+      "file": "tmp/eopl-ch05-06-20261024/final-reader/ch06-store-1440.png",
+      "sha256": "80d9416df0a7ae2c356b277b21e6be0f338f14c789b3a160918603183918744f"
+    },
+    {
+      "file": "tmp/eopl-ch05-06-20261024/final-reader/ch06-dual-continuations-390.png",
+      "sha256": "fd83866435f00ed0201c0f90dba1944365f910cc94990bae2db5adfcd2c95a31"
+    },
+    {
+      "file": "tmp/eopl-ch05-06-20261024/final-reader/ch06-footer-390.png",
+      "sha256": "289657609bbdb4ea41fa7aa4e78ed5a7b88200b05391b4009b4c3eda128941a1"
+    },
+    {
+      "file": "tmp/eopl-ch05-06-20261024/final-reader/ch05-scheduler-right-390.png",
+      "sha256": "458676ecd3b7f35f3d3b30de2e550465b3395976d83215e543001d4c7c07bc32"
+    },
+    {
+      "file": "tmp/eopl-ch05-06-20261024/final-reader/ch05-complete-source.png",
+      "sha256": "c968e5c037cac2dd299057ba815caf07980b9379ae21d102134e0dc466b30fca"
+    },
+    {
+      "file": "tmp/eopl-ch05-06-20261024/final-reader/ch06-complete-source.png",
+      "sha256": "5c3019df67e90864fe64db3709ba0ab91ea2d1a6fb1cc447dbee67632d1ef106"
+    }
+  ],
+  "navigation_report": "tmp/eopl-ch05-06-20261024/final-reader/manual-reader.json",
+  "historical_record": {
+    "file": "review/history/I044-browser.json",
+    "sha256": "e3e7a25fe7f87e3568032cb00f2c20539ad1078bcd3ff7d90f8283fc97021247",
+    "reason": "I044 two-page browser acceptance preserved; current six-route acceptance is independent."
+  },
+  "I058_revision": {
+    "issue": "I058",
+    "record": "review/ch03.json",
+    "prior_record": "review/history/I058-before-browser.json",
+    "prior_sha256": "7c6de24341193081bb3a78029166869236e90a962fcad6c4c81584eb5835b359",
+    "scope": "Current chapter 3 source, program, documentation and reader bindings; prior I057 and earlier evidence retained exactly."
+  },
+  "I059_revision": {
+    "issue": "I059",
+    "record": "review/ch04.json",
+    "prior_record": "review/history/I059-before-browser.json",
+    "prior_sha256": "4f6fc35ba9d853bdb3977236e0a605dbd5fb5a8c708291fbac0d21cd0eb80278",
+    "scope": "Current fourth chapter content/program/reader bindings; preceding history retained exactly.",
+    "integration": "completed_locally; full14 and quick22 passed"
+  },
+  "I060_revision": {
+    "issue": "I060",
+    "record": "review/ch05-06.json",
+    "prior_record": "review/history/I060-before-browser.json",
+    "prior_sha256": "758f2e46f3d357b9a75afa67330ea0df010189b8dd8d2dbf8183b973283e0ce6",
+    "scope": "Chapter5/6 source, execution and final local reading evidence; preceding history retained exactly."
+  }
+}

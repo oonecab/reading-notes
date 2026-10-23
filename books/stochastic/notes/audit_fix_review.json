@@ -2694,8 +2694,8 @@
   },
   "files": {
     "agent.md": {
-      "bytes": 8356,
-      "sha256": "ddf437daed993c3fde25033501f9ec0455c27bdd4cf01fae567f5d24a9aa0cdb"
+      "bytes": 8354,
+      "sha256": "6f0783c198afb8424bdf2ac2e8f127fe8c528dc1cdc262f591706fd1c47c2d88"
     },
     "assets/essentials-of-stochastic-processes.pdf": {
       "bytes": 2579008,
@@ -2806,8 +2806,8 @@
       "sha256": "7977a4f5e1d6b6704b8efd1b8251a963689598d9371e61d58c9d68ac8bf91871"
     },
     "notes/README.md": {
-      "bytes": 15867,
-      "sha256": "b911e6b7e6533c6c0f13d0f53e8d355008ba2d76c389bb6f233faef658823bc2"
+      "bytes": 15865,
+      "sha256": "218909a7a82c7b96a893f7dd433e069683d11c1ae520e5f2db62d43c7803e0dc"
     },
     "notes/appendix_a_probability_review.html": {
       "bytes": 323985,
@@ -7762,5 +7762,21 @@
     "prior_record_git": "a4d646e3f0c3a61d28ee38b10664f0fc8fc4c404:books/stochastic/notes/audit_fix_review.json",
     "prior_record_sha256": "44c07dd8280eec36dc78e492e52c8f955e8c69f08f7a976ca3245e70690427b6",
     "scope": "Current reader-contract bindings: Chinese task completeness, section annotations, direct PDF references, disclosure indexes and shared reader behavior. Existing program text is preserved; explicitly sourced question inputs are added. SVG labels, geometry and topology are preserved except the two 7.18(h) source corrections, independently checked against all source actions; 35 reviewed diagrams add explicit shared CSS roles, and eight single-column diagrams receive compact viewports and sizing; two also have fitted node bounds and line layouts, retaining label text and topology, with exact changes recorded in docs/reader-diagram-review.json. Historical source/proof/execution claims retain their scope; current acceptance is recorded in docs/reader-contract-review.json"
+  },
+  "I057_document_binding": {
+    "issue": "I057",
+    "scope": "RN-002 version-reference documents and dependent current file bindings only. Page content and all historical proofs/programs/browser evidence retain their original scope.",
+    "previous_record_git": "be24d4d6a6de2d0c001025e96a1f8d1b7ab91c45:books/stochastic/notes/audit_fix_review.json",
+    "previous_record_sha256": "679a4948a85b4f4499ad91a142e803f8b1833f6b5ec6c3e2dd1654714ad36803",
+    "previous_files": {
+      "agent.md": {
+        "bytes": 8356,
+        "sha256": "ddf437daed993c3fde25033501f9ec0455c27bdd4cf01fae567f5d24a9aa0cdb"
+      },
+      "notes/README.md": {
+        "bytes": 15867,
+        "sha256": "b911e6b7e6533c6c0f13d0f53e8d355008ba2d76c389bb6f233faef658823bc2"
+      }
+    }
   }
 }

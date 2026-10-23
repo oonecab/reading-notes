@@ -4,6 +4,7 @@ const path = await import('node:path');
 const crypto = await import('node:crypto');
 const { pathToFileURL } = await import('node:url');
 const {atomicJson,openSpace,waitDocument,waitTarget,readTarget,exerciseTargets}=await import(config.runtime);
+const {checkChapterMapNavigation}=await import(new URL('./browser-map-navigation.mjs',config.runtime));
 const {checkCodeFold}=await import(new URL('./browser-code-folding.mjs',config.runtime));
 const {checkAnnotations,positionReadingSection}=await import(new URL('./browser-reader-contract.mjs',config.runtime));
 const {checkReaderFonts}=await import(new URL('./browser-fonts.mjs',config.runtime));
@@ -171,6 +172,7 @@ try {
         await restoreDiagramDisclosures(page);
       }
     }
+    if(item.map_navigation&&[1440,390].includes(width))view.map_navigation=await checkChapterMapNavigation(page,{url,maps:item.map_navigation,screenshot:name=>screenshot(stem+'-'+name)});
     view.code_fold=await checkCodeFold(page);
     if(width===390&&item.reader_policy)view.expanded_layout=await expandedLayout();
     await save();console.log(JSON.stringify({page:item.route,width,status:'passed'}));
@@ -205,7 +207,8 @@ try {
     const code_fold=await checkCodeFold(page);
     const annotations=await checkAnnotations(page,item.reader_policy,width,{script:false});
     const expanded_layout=width===390&&item.reader_policy?await expandedLayout():null;
-    report.no_js.push({page:item.route,width,requests,before,after,code_fold,annotations,expanded_layout});
+    const map_navigation=item.map_navigation&&width===390?await checkChapterMapNavigation(page,{url,maps:item.map_navigation,noJs:true,screenshot:name=>screenshot(item.route.replaceAll('/','_').replace('.html','')+'-no-js-'+width+'-'+name)}):null;
+    report.no_js.push({page:item.route,width,requests,before,after,code_fold,annotations,expanded_layout,map_navigation});
     await screenshot(item.route.replaceAll('/','_').replace('.html','')+'-no-js-'+width);await save();
   }
   report.status='passed';

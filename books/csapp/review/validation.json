@@ -4,8 +4,8 @@
   "status": "migration_verified",
   "historical_review_entry": "notes/validation.json",
   "file_sha256": {
-    "agent.md": "cd123242abd641cc970a212a1912c43296b6e48db4a37ed371587fcab1120a97",
-    "notes/README.md": "63548361fbc62d4e8daaad67d3a41775686195592065f15bbf6ba7609612085e",
+    "agent.md": "d8ea8ba904dca6e87456ddada841636656ef6bdaf44b863d9744cef080500277",
+    "notes/README.md": "7d55ed226edc7dd80e7d8a5fc95c40de3ad865a78c4cd9a0759bdb92d46f8bc8",
     "review/browser.json": "c4de83ff3bdd37527a0950820d2f62cf81e04d5e2b4d124395ce33de945f6763"
   },
   "open_findings": [],
@@ -116,5 +116,15 @@
       "agent.md",
       "notes/README.md"
     ]
+  },
+  "I057_document_binding": {
+    "issue": "I057",
+    "reason": "Current RN-002 version references and EOPL map-entry explanation only; historical source/proof/execution records retain their scope.",
+    "previous_record_git": "be24d4d6a6de2d0c001025e96a1f8d1b7ab91c45:books/csapp/review/validation.json",
+    "previous_record_sha256": "0c070a4b6d89ded72084f97835ec6f82b3f0f6e6f45206e68fe54ef1a909b5e9",
+    "previous_file_sha256": {
+      "agent.md": "cd123242abd641cc970a212a1912c43296b6e48db4a37ed371587fcab1120a97",
+      "notes/README.md": "63548361fbc62d4e8daaad67d3a41775686195592065f15bbf6ba7609612085e"
+    }
   }
 }

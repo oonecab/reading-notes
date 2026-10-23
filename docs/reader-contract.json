@@ -5806,6 +5806,401 @@
         "ex-0-1"
       ],
       "chinese_translation_required": false
+    },
+    {
+      "page": "eopl/notes/chapter03_expressions.html",
+      "source": "src/content/books/eopl/chapter03_expressions.html",
+      "sections": [
+        {
+          "id": "s3-1",
+          "title": "3.1 用解释器给语言规定意义",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "解释求值、环境、作用域或静态翻译机制，需要对应补充注解。"
+        },
+        {
+          "id": "s3-2",
+          "title": "3.2 LET：值、环境与逐步求值",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "解释求值、环境、作用域或静态翻译机制，需要对应补充注解。"
+        },
+        {
+          "id": "s3-3",
+          "title": "3.3 PROC：过程值、闭包与应用",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "解释求值、环境、作用域或静态翻译机制，需要对应补充注解。"
+        },
+        {
+          "id": "s3-4",
+          "title": "3.4 LETREC：让递归环境包含自己",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "解释求值、环境、作用域或静态翻译机制，需要对应补充注解。"
+        },
+        {
+          "id": "s3-5",
+          "title": "3.5 作用域与绑定的生存期",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "解释求值、环境、作用域或静态翻译机制，需要对应补充注解。"
+        },
+        {
+          "id": "s3-6",
+          "title": "3.6 删除名字，保留绑定关系",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "解释求值、环境、作用域或静态翻译机制，需要对应补充注解。"
+        },
+        {
+          "id": "s3-7",
+          "title": "3.7 词法地址翻译与无名求值",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "解释求值、环境、作用域或静态翻译机制，需要对应补充注解。"
+        },
+        {
+          "id": "programs",
+          "title": "运行本章解释器",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "程序入口、实际输出与完整维护副本。"
+        }
+      ],
+      "questions": [
+        "ex-3-1",
+        "ex-3-2",
+        "ex-3-3",
+        "ex-3-4",
+        "ex-3-5",
+        "ex-3-6",
+        "ex-3-7",
+        "ex-3-8",
+        "ex-3-9",
+        "ex-3-10",
+        "ex-3-11",
+        "ex-3-12",
+        "ex-3-13",
+        "ex-3-14",
+        "ex-3-15",
+        "ex-3-16",
+        "ex-3-17",
+        "ex-3-18",
+        "ex-3-19",
+        "ex-3-20",
+        "ex-3-21",
+        "ex-3-22",
+        "ex-3-23",
+        "ex-3-24",
+        "ex-3-25",
+        "ex-3-26",
+        "ex-3-27",
+        "ex-3-28",
+        "ex-3-29",
+        "ex-3-30",
+        "ex-3-31",
+        "ex-3-32",
+        "ex-3-33",
+        "ex-3-34",
+        "ex-3-35",
+        "ex-3-36",
+        "ex-3-37",
+        "ex-3-38",
+        "ex-3-39",
+        "ex-3-40",
+        "ex-3-41",
+        "ex-3-42",
+        "ex-3-43",
+        "ex-3-44"
+      ],
+      "chinese_translation_required": true
+    },
+    {
+      "page": "eopl/notes/chapter04_state.html",
+      "source": "src/content/books/eopl/chapter04_state.html",
+      "sections": [
+        {
+          "id": "s4-1",
+          "title": "4.1 计算效果：把状态纳入结果",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "解释效果、存储、共享或参数传递，需提供对应补充理解。"
+        },
+        {
+          "id": "s4-2",
+          "title": "4.2 EXPLICIT-REFS：显式管理引用",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "解释效果、存储、共享或参数传递，需提供对应补充理解。"
+        },
+        {
+          "id": "s4-3",
+          "title": "4.3 IMPLICIT-REFS：变量背后的可变位置",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "解释效果、存储、共享或参数传递，需提供对应补充理解。"
+        },
+        {
+          "id": "s4-4",
+          "title": "4.4 MUTABLE-PAIRS：共享对象与连续区域",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "解释效果、存储、共享或参数传递，需提供对应补充理解。"
+        },
+        {
+          "id": "s4-5",
+          "title": "4.5 参数传递：位置、求值时机与缓存",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "解释效果、存储、共享或参数传递，需提供对应补充理解。"
+        },
+        {
+          "id": "programs",
+          "title": "运行本章解释器",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "程序入口、实际输出和完整源码副本。"
+        }
+      ],
+      "questions": [
+        "ex-4-1",
+        "ex-4-2",
+        "ex-4-3",
+        "ex-4-4",
+        "ex-4-5",
+        "ex-4-6",
+        "ex-4-7",
+        "ex-4-8",
+        "ex-4-9",
+        "ex-4-10",
+        "ex-4-11",
+        "ex-4-12",
+        "ex-4-13",
+        "ex-4-14",
+        "ex-4-15",
+        "ex-4-16",
+        "ex-4-17",
+        "ex-4-18",
+        "ex-4-19",
+        "ex-4-20",
+        "ex-4-21",
+        "ex-4-22",
+        "ex-4-23",
+        "ex-4-24",
+        "ex-4-25",
+        "ex-4-26",
+        "ex-4-27",
+        "ex-4-28",
+        "ex-4-29",
+        "ex-4-30",
+        "ex-4-31",
+        "ex-4-32",
+        "ex-4-33",
+        "ex-4-34",
+        "ex-4-35",
+        "ex-4-36",
+        "ex-4-37",
+        "ex-4-38",
+        "ex-4-39",
+        "ex-4-40",
+        "ex-4-41",
+        "ex-4-42"
+      ],
+      "chinese_translation_required": true
+    },
+    {
+      "page": "eopl/notes/chapter05_continuations.html",
+      "source": "src/content/books/eopl/chapter05_continuations.html",
+      "sections": [
+        {
+          "id": "s5-1",
+          "title": "5.1 续文传递解释器：把剩余计算保存下来",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "解释控制上下文、续文表示、转换或效果规则；注解补充空间、求值次序和语义边界。"
+        },
+        {
+          "id": "s5-2",
+          "title": "5.2 蹦床解释器：让宿主调用链及时返回",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "解释控制上下文、续文表示、转换或效果规则；注解补充空间、求值次序和语义边界。"
+        },
+        {
+          "id": "s5-3",
+          "title": "5.3 命令式解释器：寄存器与程序计数器",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "解释控制上下文、续文表示、转换或效果规则；注解补充空间、求值次序和语义边界。"
+        },
+        {
+          "id": "s5-4",
+          "title": "5.4 异常：选择另一条完成路径",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "解释控制上下文、续文表示、转换或效果规则；注解补充空间、求值次序和语义边界。"
+        },
+        {
+          "id": "s5-5",
+          "title": "5.5 线程：把多个未完成计算交给调度器",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "解释控制上下文、续文表示、转换或效果规则；注解补充空间、求值次序和语义边界。"
+        },
+        {
+          "id": "programs",
+          "title": "运行本章程序",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "实际输出、运行入口与完整源码阅读副本。"
+        }
+      ],
+      "questions": [
+        "ex-5-1",
+        "ex-5-2",
+        "ex-5-3",
+        "ex-5-4",
+        "ex-5-5",
+        "ex-5-6",
+        "ex-5-7",
+        "ex-5-8",
+        "ex-5-9",
+        "ex-5-10",
+        "ex-5-11",
+        "ex-5-12",
+        "ex-5-13",
+        "ex-5-14",
+        "ex-5-15",
+        "ex-5-16",
+        "ex-5-17",
+        "ex-5-18",
+        "ex-5-19",
+        "ex-5-20",
+        "ex-5-21",
+        "ex-5-22",
+        "ex-5-23",
+        "ex-5-24",
+        "ex-5-25",
+        "ex-5-26",
+        "ex-5-27",
+        "ex-5-28",
+        "ex-5-29",
+        "ex-5-30",
+        "ex-5-31",
+        "ex-5-32",
+        "ex-5-33",
+        "ex-5-34",
+        "ex-5-35",
+        "ex-5-36",
+        "ex-5-37",
+        "ex-5-38",
+        "ex-5-39",
+        "ex-5-40",
+        "ex-5-41",
+        "ex-5-42",
+        "ex-5-43",
+        "ex-5-44",
+        "ex-5-45",
+        "ex-5-46",
+        "ex-5-47",
+        "ex-5-48",
+        "ex-5-49",
+        "ex-5-50",
+        "ex-5-51",
+        "ex-5-52",
+        "ex-5-53",
+        "ex-5-54",
+        "ex-5-55",
+        "ex-5-56",
+        "ex-5-57",
+        "ex-5-58"
+      ],
+      "chinese_translation_required": true
+    },
+    {
+      "page": "eopl/notes/chapter06_cps.html",
+      "source": "src/content/books/eopl/chapter06_cps.html",
+      "sections": [
+        {
+          "id": "s6-1",
+          "title": "6.1 手写 CPS：从上下文到参数",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "解释控制上下文、续文表示、转换或效果规则；注解补充空间、求值次序和语义边界。"
+        },
+        {
+          "id": "s6-2",
+          "title": "6.2 尾形式：用语法约束控制行为",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "解释控制上下文、续文表示、转换或效果规则；注解补充空间、求值次序和语义边界。"
+        },
+        {
+          "id": "s6-3",
+          "title": "6.3 CPS 转换：给中间结果命名并固定次序",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "解释控制上下文、续文表示、转换或效果规则；注解补充空间、求值次序和语义边界。"
+        },
+        {
+          "id": "s6-4",
+          "title": "6.4 计算效果：让打印、存储和控制流显式化",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "解释控制上下文、续文表示、转换或效果规则；注解补充空间、求值次序和语义边界。"
+        },
+        {
+          "id": "programs",
+          "title": "运行本章程序",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "实际输出、运行入口与完整源码阅读副本。"
+        }
+      ],
+      "questions": [
+        "ex-6-1",
+        "ex-6-2",
+        "ex-6-3",
+        "ex-6-4",
+        "ex-6-5",
+        "ex-6-6",
+        "ex-6-7",
+        "ex-6-8",
+        "ex-6-9",
+        "ex-6-10",
+        "ex-6-11",
+        "ex-6-12",
+        "ex-6-13",
+        "ex-6-14",
+        "ex-6-15",
+        "ex-6-16",
+        "ex-6-17",
+        "ex-6-18",
+        "ex-6-19",
+        "ex-6-20",
+        "ex-6-21",
+        "ex-6-22",
+        "ex-6-23",
+        "ex-6-24",
+        "ex-6-25",
+        "ex-6-26",
+        "ex-6-27",
+        "ex-6-28",
+        "ex-6-29",
+        "ex-6-30",
+        "ex-6-31",
+        "ex-6-32",
+        "ex-6-33",
+        "ex-6-34",
+        "ex-6-35",
+        "ex-6-36",
+        "ex-6-37",
+        "ex-6-38",
+        "ex-6-39",
+        "ex-6-40"
+      ],
+      "chinese_translation_required": true
     }
   ]
 }

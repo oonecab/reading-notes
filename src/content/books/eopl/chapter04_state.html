@@ -1,0 +1,1434 @@
+---
+{
+  "book": "eopl",
+  "chapter": "chapter04",
+  "title": "第 4 章 · 状态、存储与参数传递",
+  "printed_start": 103,
+  "printed_end": 138,
+  "pdf_start": 126,
+  "pdf_end": 161,
+  "exercise_range": [
+    "4.1",
+    "4.42"
+  ],
+  "statement_count": 1,
+  "source_manifest": "books/eopl/notes/source_manifest.json",
+  "route": "eopl/notes/chapter04_state.html",
+  "legacy_path": "books/eopl/notes/chapter04_state.html",
+  "stage": "chapter-4",
+  "original_sha256": "7d3e055c14d2658266453fbca4dc0e8fd440c537ef9a33309c9e1cca104c8e38"
+}
+---
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第 4 章 · 状态、存储与参数传递 · EOPL</title><style><!-- RN:include styles/reading-base.css -->
+<!-- RN:include styles/reading-content-2.css -->
+<!-- RN:include styles/reading-navigation.css -->
+<!-- RN:include styles/reading-annotations.css -->
+<!-- RN:include styles/reading-components.css -->
+.eopl-state-diagram{min-width:650px;width:100%;height:auto}.eopl-state-diagram text{font-size:18px}.diagram-scroll,.table-scroll{overflow-x:auto}.code-details pre{max-height:36rem;overflow:auto}
+<!-- RN:include styles/reading-typography.css --></style></head><body class="rn-components"><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="章节目录"><details class="toc-panel" id="toc-panel" open><summary>目录</summary><nav class="chapter-toc" id="chapter-toc"><a class="toc-home" href="book_overview.html">全书地图</a><a class="toc-home" href="preface.html">序言</a><ul><li><a href="#s4-1">4.1 计算效果：把状态纳入结果</a></li><li><a href="#s4-2">4.2 EXPLICIT-REFS：显式管理引用</a></li><li><a href="#s4-3">4.3 IMPLICIT-REFS：变量背后的可变位置</a></li><li><a href="#s4-4">4.4 MUTABLE-PAIRS：共享对象与连续区域</a></li><li><a href="#s4-5">4.5 参数传递：位置、求值时机与缓存</a></li><li><a href="#programs">运行本章解释器</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">EOPL 第三版 · 第 4 章</p><h1>第 4 章 · 状态、存储与参数传递</h1><p class="intro">先找到绑定的位置，再追踪位置里的内容怎样改变；用同一条线理解赋值、共享与惰性。</p><p class="source">原书 pp.103–138 / <a href="../assets/source.pdf#page=126">PDF 126–161</a>。习题 4.1–4.42 的完整中文题干与解答。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter03_expressions.html">← 第 3 章 · 表达式、闭包与词法地址</a><a href="chapter05_continuations.html">第 5 章 · 续文、异常与线程 →</a></p></header><section id="s4-1"><h2>4.1 计算效果：把状态纳入结果</h2><p class="source">原书 §4.1，pp.103–104 / <a href="../assets/source.pdf#page=126">PDF 126–127</a>。</p><p>第三章用环境回答“这个名字绑定什么值”。同一变量在同一环境里被查询，答案不会改变。加入计数器、输入、输出或赋值之后，只有返回值已经不能描述程序发生了什么：一次调用可能返回 1，同时把某个位置从 0 改成 1，后续调用因而得到不同结果。第四章研究的主要效果就是对内存位置的赋值。</p><p>先把三个对象分清：位置是可以存值的抽象单元；引用是指向该位置的数据；存储是“位置到当前内容”的有限映射。一个变量名如何找到位置由环境决定，位置现在装什么由存储决定。原书把可存入位置的值称为 storable values；是否与表达值相同，是语言设计的选择。</p><div class="rn-statement" id="environment-and-store"><h3>环境回答绑定，存储回答当前内容</h3><div class="statement-body"><p>用 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" aria-label="ρ"><mrow><mi>ρ</mi></mrow></math> 记环境，用 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" aria-label="σ"><mrow><mi>σ</mi></mrow></math> 记存储。隐式引用模型中，环境把名字映射到位置，存储把位置映射到表达值；读变量的结果是 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" aria-label="σ(ρ(x))"><mrow><mi>σ</mi><mo>(</mo><mi>ρ</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>)</mo></mrow></math>。建立新绑定扩展环境；给已有变量赋值，通常只更新原位置的内容，不把环境中的名字重新连到一个新位置。</p></div></div><p>原书也把引用称为左值（L-value），用来强调赋值左侧需要找到可写的位置；表达式产生的内容称为右值（R-value）。这两个角色不能混用：读取 x 得到数值 3，并不因此获得“把 3 写回 x”的目标位置。</p><p>设 x 绑定位置 0，存储中该位置为 3。执行 <code>let y = x</code> 时，先读出 3，再给 y 建一个新位置 1；执行 <code>set y = 4</code> 后，x 仍为 3。若采用后面的 <code>letref y = x</code>，两个名字都指向位置 0，更新 y 后 x 也读到 4。数值相同与位置相同是两回事。</p><figure id="environment-store-figure"><div class="diagram-scroll"><svg class="rn-diagram eopl-state-diagram" viewBox="0 0 690 270" role="img" aria-labelledby="state-title state-desc"><title id="state-title">两个名字共享一个位置</title><desc id="state-desc">环境中的 x 和 y 都指向存储位置 0。赋值把位置 0 的内容从 3 改为 4，环境中的两条指向关系保持不变。环境只管绑定，存储记录当前值。</desc><defs><marker id="state-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" class="rn-arrow"/></marker></defs><text x="135" y="28">环境：名字与位置</text><text x="480" y="28">存储：位置与内容</text><rect class="rn-node" x="45" y="60" width="180" height="62" rx="8"/><text x="135" y="98">x → 位置 0</text><rect class="rn-node" x="45" y="155" width="180" height="62" rx="8"/><text x="135" y="193">y → 位置 0</text><rect class="rn-node rn-node-accent" x="385" y="96" width="230" height="85" rx="8"/><text x="500" y="128">位置 0</text><text x="500" y="158">当前值 3 → 4</text><path class="rn-edge" d="M225 91 L385 126" marker-end="url(#state-arrow)"/><path class="rn-edge" d="M225 186 L385 152" marker-end="url(#state-arrow)"/><text x="345" y="249">set y = 4：改内容，两条绑定都保留</text></svg></div><figcaption>伴读模型图：箭头表示引用关系，琥珀单元表示本次赋值改变的位置。此图对应按引用绑定；普通 let 会为 y 另建位置。</figcaption></figure><p>赋值的效果可能跨越相距很远的过程调用，但并不是所有过程都自动看得见所有位置。能观察一个修改，需要能通过环境或对象取得该位置。这一点连接了状态、信息隐藏与闭包：一个位置可以被闭包保留，既跨调用存活，又不暴露给外部名字。</p><details class="reading-notes" id="notes-s4-1" data-notes-for="s4-1" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">绑定身份</span><h3>同名不是同一个位置</h3><p>比较两个读取是否会互相影响，要追踪它们最后找到的位置。同名变量在不同词法层可以对应不同位置；不同名的形参和实参也可能对应同一位置。把变量名直接当成内存格，会同时误判遮蔽和别名。画图时把名字放在环境一侧，把位置及其内容放在存储一侧，赋值的箭头就不容易画错。</p></div><div class="annotation-card"><span class="annotation-kind">效果的范围</span><h3>共享需要一条可达路径</h3><p>原书说赋值的效果可能是全局的，是指它可以被后续无直接调用关系的计算观察，而不是说局部状态一定公开。计数器闭包可以成为唯一保留该位置的对象；外部只能通过过程接口让它变化。位置可达性解释了为什么局部名字离开作用域后，状态仍能活在闭包里。</p></div></div></details></section><section id="s4-2"><h2>4.2 EXPLICIT-REFS：显式管理引用</h2><p class="source">原书 §4.2，pp.104–113 / <a href="../assets/source.pdf#page=127">PDF 127–136</a>。</p><p>EXPLICIT-REFS 把引用作为可传递的表达值。值域为 <code>ExpVal = Int + Bool + Proc + Ref(ExpVal)</code>，<code>DenVal = ExpVal</code>。let 和形参的绑定方式仍像第三章：直接绑定表达值；只有程序明确执行 newref 才分配位置，明确 deref 才读取引用内容，明确 setref 才更新。</p><h3 id="s4-2-1">4.2.1 存储传递规格</h3><p>有了状态，求值结果必须同时描述值与存储。写作 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" aria-label="⟨e,ρ,σ₀⟩ ⇓ ⟨v,σ₁⟩"><mrow><mo>⟨</mo><mi>e</mi><mo>,</mo><mi>ρ</mi><mo>,</mo><msub><mi>σ</mi><mn>0</mn></msub><mo>⟩</mo><mo>⇓</mo><mo>⟨</mo><mi>v</mi><mo>,</mo><msub><mi>σ</mi><mn>1</mn></msub><mo>⟩</mo></mrow></math>，表示表达式在给定环境和初始存储下返回 v，留下可能改变的存储。常量和过程创建返回原存储；复合表达式要明确把哪份存储交给下一步。</p><pre><code class="language-scheme">eval(e1, env, s0) = Answer(v1, s1)
+eval(e2, env, s1) = Answer(v2, s2)
+eval(-(e1,e2), env, s0) = Answer(num(v1)-num(v2), s2)</code></pre><p>环境在两个操作数之间相同，存储却从 s0 变成 s1 再变成 s2。条件先求测试，再只在测试留下的存储中求被选分支。不能把“两个操作数用相同环境”误读成“它们用相同的旧存储”。</p><h3 id="s4-2-2">4.2.2 显式引用操作的规格</h3><div class="table-scroll"><table aria-label="显式引用的三种操作"><thead><tr><th scope="col">操作</th><th scope="col">在操作数结束后做什么</th><th scope="col">返回值</th></tr></thead><tbody><tr><td><code>newref(e)</code></td><td>选一个尚未分配的新位置，放入 e 的值</td><td>新引用表达值</td></tr><tr><td><code>deref(e)</code></td><td>检查结果为引用，从当前存储读其内容</td><td>该位置的表达值</td></tr><tr><td><code>setref(e1,e2)</code></td><td>先求 e1 再求 e2，用 e2 的值覆盖 e1 指向的位置</td><td>原书任取数值 23</td></tr></tbody></table></div><p>新位置必须相对于操作数留下的最终存储选择，因为求操作数本身可能已经分配。引用是表达值，因此位置里也能放引用：<code>newref(newref(0))</code> 先分配装 0 的位置 0，再分配装引用 0 的位置 1；外层变量直接持有引用 1。两次 deref 才能读到最初的数值。</p><div class="rn-example" id="counter-example"><h3>伴读例：计数器怎样跨调用记住次数</h3><p class="example-kind">原书 p.105 私有状态例的逐步展开</p><pre><code class="language-scheme">let g = let counter = newref(0)
+        in proc(dummy)
+             begin
+               setref(counter,-(deref(counter),-1));
+               deref(counter)
+             end
+in let a = (g 11)
+   in let b = (g 11)
+      in -(a,b)</code></pre><p>newref 在创建 g 的闭包之前执行，只分配一个位置。闭包保存 counter 到该引用的绑定；以后每次调用的 dummy 虽不同，保存的 counter 绑定相同。第一次把 0 改成 1，第二次把 1 改成 2，最终 a=1、b=2，返回 −1。</p><div class="table-scroll"><table aria-label="共享计数器的存储轨迹"><thead><tr><th scope="col">步骤</th><th scope="col">闭包中 counter 指向</th><th scope="col">位置内容</th><th scope="col">本步结果</th></tr></thead><tbody><tr><td>闭包创建前</td><td>位置 0</td><td>0</td><td>引用 0</td></tr><tr><td>第一次调用</td><td>位置 0</td><td>1</td><td>1</td></tr><tr><td>第二次调用</td><td>位置 0</td><td>2</td><td>2</td></tr><tr><td>计算差值</td><td>位置 0</td><td>2</td><td>−1</td></tr></tbody></table></div></div><p>原书的 even/odd 共享计数位置 x：每次把 x 减一再调用对方，直到 x 为 0，用当前过程身份给出奇偶结果。对 13 调用 odd 得 1。共享状态替代显式参数传递，但也让每次调用依赖前面的写入；推演时必须把当前位置内容一并列出。</p><h3 id="s4-2-3">4.2.3 实现</h3><p>原书用宿主 Scheme 的全局变量保存存储表，让源语言的一次更新对应宿主的一次更新，便于实现；位置用表下标表示。这个实现策略与前面显式传递存储的规格应表达同一顺序，但接口不同：全局版本只返回值，纯版本返回 Answer。</p><p>本伴读提供两条可执行路径：<code>chapter04_explicit.rkt</code> 是纯存储传递版，用不可变列表返回新存储，完成习题 4.12；<code>chapter04.rkt</code> 的 store 接口提供原书链表、固定容量向量与可增长向量三种后端，用参数化存储隔离每次 run，供后续隐式引用语言使用。它们都不借用宿主 eval 来替代源语言求值。</p><!-- EOPL:snippet chapter04_explicit.rkt pure-store -->
+<details class="code-details" open><summary>查看实现 · pure-store</summary><pre><code class="language-scheme">(struct answer (value store) #:transparent)
+(struct recursive-env (names paramss bodies saved) #:transparent)
+(struct procedure (params body env) #:transparent)
+(define (apply-store sigma loc)
+  (unless (and (exact-nonnegative-integer? loc) (&lt; loc (length sigma)))
+    (error &#x27;apply-store &quot;invalid location&quot;))
+  (list-ref sigma loc))
+(define (update-store sigma loc v)
+  (apply-store sigma loc)
+  (let replace ([xs sigma] [i loc])
+    (if (zero? i) (cons v (cdr xs)) (cons (car xs) (replace (cdr xs) (sub1 i))))))
+(define (allocate sigma v) (answer (s:ref-val (length sigma)) (append sigma (list v))))
+(define (lookup env name)
+  (cond [(null? env) (error &#x27;lookup &quot;unbound variable: ~a&quot; name)]
+        [(recursive-env? env)
+         (define pos (index-of (recursive-env-names env) name))
+         (if pos (s:proc-val (procedure (list-ref (recursive-env-paramss env) pos)
+                                       (list-ref (recursive-env-bodies env) pos) env))
+             (lookup (recursive-env-saved env) name))]
+        [(eq? (caar env) name) (cdar env)] [else (lookup (cdr env) name)]))
+(define (extend-many names vals env)
+  (s:unique! names) (s:arity! names vals)
+  ;; A binding chain may end in a recursive environment.
+  (foldr (lambda (p rest) (cons p rest)) env (map cons names vals)))
+(define (evaluate-list exps env sigma return-mode)
+  (if (null? exps) (answer &#x27;() sigma)
+      (let* ([a (value-of (car exps) env sigma return-mode)]
+             [b (evaluate-list (cdr exps) env (answer-store a) return-mode)])
+        (answer (cons (answer-value a) (answer-value b)) (answer-store b)))))
+</code></pre></details>
+<!-- EOPL:end-snippet --><p>图 4.6 / PDF 139 的题给片段在返回类型、变量分支、deref 接口及 let 括号上与纯 EXPLICIT-REFS 不一致，<a href="#ex-4-12">习题 4.12</a> 保留原片段并给出校注和完整修正实现。原书图 4.4–4.5 的两次 f 调用先产生 44 再产生 33，差值 11；纯解释器实际得到同样的结果。</p><details class="reading-notes" id="notes-s4-2" data-notes-for="s4-2" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">闭包与时间</span><h3>环境可保存，内容仍会改变</h3><p>闭包保存的是定义处的绑定关系。counter 绑定到的引用没有变，引用所指位置却从 0 变成 1、2；因此闭包不等于冻结创建时的全部数值。若在过程体内才分配 counter，每次调用建立新位置，两次结果都为 1，差变成 0。把分配移动进或移出过程体，是可观察的语义变化。</p></div><div class="annotation-card"><span class="annotation-kind">规格与实现</span><h3>把状态串起来才能固定求值次序</h3><p>纯存储传递不是把一个 store 参数加到每个函数签名就结束。减法、实参列表、条件和 begin 都必须使用前一步返回的存储。最容易漏掉的是先求运算符再求实参，以及 newref 的操作数本身分配位置的情形。源码用 Answer 类型强迫调用者显式接收结果和新状态，避免只取值而遗失效果。</p></div></div></details><h3 id="exercises-4-2">本节习题与解答</h3><details class="exercise-index-panel"><summary>本节习题题号索引 · 13 题</summary><nav class="exercise-index" role="navigation" aria-label="本节习题索引"><a href="#ex-4-1" aria-label="习题 4.1">4.1</a> · <a href="#ex-4-2" aria-label="习题 4.2">4.2</a> · <a href="#ex-4-3" aria-label="习题 4.3">4.3</a> · <a href="#ex-4-4" aria-label="习题 4.4">4.4</a> · <a href="#ex-4-5" aria-label="习题 4.5">4.5</a> · <a href="#ex-4-6" aria-label="习题 4.6">4.6</a> · <a href="#ex-4-7" aria-label="习题 4.7">4.7</a> · <a href="#ex-4-8" aria-label="习题 4.8">4.8</a> · <a href="#ex-4-9" aria-label="习题 4.9">4.9</a> · <a href="#ex-4-10" aria-label="习题 4.10">4.10</a> · <a href="#ex-4-11" aria-label="习题 4.11">4.11</a> · <a href="#ex-4-12" aria-label="习题 4.12">4.12</a> · <a href="#ex-4-13" aria-label="习题 4.13">4.13</a></nav></details><details class="exercise" id="ex-4-1"><summary>习题 4.1 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.1"><p>如果把前面的私有计数器程序改成下面这样，会发生什么？</p><pre><code class="language-scheme">let g = proc (dummy)
+         let counter = newref(0)
+         in begin
+             setref(counter, -(deref(counter), -1));
+             deref(counter)
+            end
+in let a = (g 11)
+   in let b = (g 11)
+      in -(a,b)</code></pre></div><p class="source">印刷 p.106 / <a href="../assets/source.pdf#page=129">PDF 129</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>结果为 0。<code>g</code> 的闭包只保存其定义环境，创建闭包时还没有创建 counter 的位置。第一次调用进入过程体，分配位置 0，存 0，再改为 1，返回 1；第二次进入过程体，另分配位置 1，同样返回 1。于是 <code>-(a,b)</code> 是 <code>1-1</code>。原例把 <code>let counter = newref(0)</code> 放在 proc 外，只分配一次，两次调用共享同一位置，返回 1、2，差为 −1。决定状态寿命的是分配动作发生的位置，不是变量名是否相同。</p><p><code>chapter04_explicit.rkt</code> 实际运行两例，存储末态分别有 1 个、2 个位置；程序结果分别为 −1、0。</p></div></details><details class="exercise" id="ex-4-2"><summary>习题 4.2 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.2"><p>写出 <code>zero?-exp</code> 的存储传递语义规格。</p></div><p class="source">印刷 p.108 / <a href="../assets/source.pdf#page=131">PDF 131</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>先求操作数，保留其产生的新存储，再把取出的数值判零；判零本身不再改变存储。若 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" aria-label="⟨e,ρ,σ₀⟩ ⇓ ⟨v,σ₁⟩"><mrow><mo>⟨</mo><mi>e</mi><mo>,</mo><mi>ρ</mi><mo>,</mo><msub><mi>σ</mi><mn>0</mn></msub><mo>⟩</mo><mo>⇓</mo><mo>⟨</mo><mi>v</mi><mo>,</mo><msub><mi>σ</mi><mn>1</mn></msub><mo>⟩</mo></mrow></math>，且 <code>num(v)</code> 成功，则：</p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="⟨zero?(e),ρ,σ₀⟩ ⇓ ⟨num(v)=0,σ₁⟩"><mrow><mo>⟨</mo><mi mathvariant="normal">zero</mi><mo>?</mo><mo>(</mo><mi>e</mi><mo>)</mo><mo>,</mo><mi>ρ</mi><mo>,</mo><msub><mi>σ</mi><mn>0</mn></msub><mo>⟩</mo><mo>⇓</mo><mo>⟨</mo><mi mathvariant="normal">num</mi><mo>(</mo><mi>v</mi><mo>)</mo><mo>=</mo><mn>0</mn><mo>,</mo><msub><mi>σ</mi><mn>1</mn></msub><mo>⟩</mo></mrow></math><p>结论中的布尔值在实现里包成 <code>bool-val</code>。非数值应报错；不能因为判零没有写入，就把操作数产生的效果丢掉。</p></div></details><details class="exercise" id="ex-4-3"><summary>习题 4.3 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.3"><p>写出 <code>call-exp</code> 的存储传递语义规格。</p></div><p class="source">印刷 p.108 / <a href="../assets/source.pdf#page=131">PDF 131</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>先在调用者环境求运算符，得到闭包和新存储；再在同一个调用者环境求实参，但使用运算符留下的存储。最后在闭包保存的定义环境上绑定形参，并把实参留下的存储交给过程体。显式引用的形参直接绑定表达值，不自动分配位置：</p><pre><code class="language-scheme">eval(rator, caller, s0) = Answer(Closure(x, body, saved), s1)
+eval(rand, caller, s1) = Answer(arg, s2)
+eval(body, extend(saved, x, arg), s2) = Answer(result, s3)
+---------------------------------------------------------
+eval(Call(rator, rand), caller, s0) = Answer(result, s3)</code></pre><p>这里的 <code>saved</code> 决定自由变量对应哪个绑定；<code>s2</code> 决定共享位置此刻装的是什么。闭包保存环境，不保存创建时整份存储快照。多参数版按实参出现顺序继续串接存储。</p></div></details><details class="exercise" id="ex-4-4"><summary>习题 4.4 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.4"><p>写出 begin 表达式的语义规格。其文法为 <code>Expression ::= begin Expression {; Expression}* end</code>。一个 begin 含一个或多个用分号分隔的子表达式；按顺序求值，返回最后一个的值。</p></div><p class="source">印刷 p.108 / <a href="../assets/source.pdf#page=131">PDF 131</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>设子表达式依次为 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" aria-label="e₁,…,eₙ"><mrow><msub><mi>e</mi><mn>1</mn></msub><mo>,</mo><mo>…</mo><mo>,</mo><msub><mi>e</mi><mi>n</mi></msub></mrow></math>，且至少一个。从输入存储开始，每次把前一个子表达式的输出存储作为下一个的输入；所有子表达式都使用同一环境。</p><pre><code class="language-scheme">eval(e1,env,s0)=Answer(v1,s1)
+eval(e2,env,s1)=Answer(v2,s2)
+...
+eval(en,env,s[n-1])=Answer(vn,sn)
+eval(Begin(e1,...,en),env,s0)=Answer(vn,sn)</code></pre><p>上式的下标约定可直接读作“第 i 步输入，下一步状态”；整个 begin 返回最后的值和最后的存储。它不建立新绑定层，前面的返回值可以丢弃，效果必须保留。实现见习题 4.10。</p></div></details><details class="exercise" id="ex-4-5"><summary>习题 4.5 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.5"><p>为<a href="chapter03_expressions.html#ex-3-10">习题 3.10</a> 的 <code>list</code> 写存储传递规格。该构造接收任意个表达式，依次求值，并返回由这些值构成的列表；零个实参时得到空表。</p></div><p class="source">印刷 p.108 / <a href="../assets/source.pdf#page=131">PDF 131</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>空表构造返回 <code>List([])</code> 和原存储。非空情形先求第一项，得到的存储用于余下各项；把所有值按原顺序收集，最后输出最后一项留下的存储。</p><pre><code class="language-scheme">eval-list([], env, s) = Answer([], s)
+eval(e, env, s0) = Answer(v, s1)
+eval-list(rest, env, s1) = Answer(vs, s2)
+------------------------------------------------
+eval-list(e :: rest, env, s0) = Answer(v :: vs, s2)</code></pre><p>构造列表不会撤回元素的效果。例如三项依次为“把 r 改为 1 并读 r”“把 r 改为 2 并读 r”“读 r”，结果是 <code>(1 2 2)</code>。不能把三个表达式都放进同一份旧存储求值。</p></div></details><details class="exercise" id="ex-4-6"><summary>习题 4.6 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.6"><p>修改本节给出的规则，使 <code>setref-exp</code> 返回右侧表达式的值。</p></div><p class="source">印刷 p.109 / <a href="../assets/source.pdf#page=132">PDF 132</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>保持“求引用→求右值→写入”三步及其存储传递不变，仅把返回的 <code>num-val(23)</code> 换成右侧得到的表达值。</p><pre><code class="language-scheme">eval(e1, env, s0) = Answer(Ref(l), s1)
+eval(e2, env, s1) = Answer(v, s2)
+eval(SetRef(e1,e2), env, s0) = Answer(v, update(s2,l,v))</code></pre><p>纯解释器入口 <code>run/details</code> 的 <code>#:setref-result &#x27;rhs</code> 实际实现这一分支。返回的 v 可以是布尔、闭包或引用，不应强行转成数值。</p></div></details><details class="exercise" id="ex-4-7"><summary>习题 4.7 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.7"><p>修改本节给出的规则，使 <code>setref-exp</code> 返回目标位置原先的内容。</p></div><p class="source">印刷 p.109 / <a href="../assets/source.pdf#page=132">PDF 132</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>这里明确把“原先”解释为最终写入发生之前的内容：两个操作数都求完后，在输出存储里读取旧值，再覆盖。沿用上一题的记号，返回 <code>Answer(apply-store(s2,l), update(s2,l,v))</code>。若右侧也写了同一位置，读取时必须反映这次副作用。</p><pre><code class="language-scheme">let r = newref(0)
+in setref(r, begin setref(r,9); 7 end)</code></pre><p>在这一约定下返回 9，最后存 7；右值返回策略返回 7，原书策略返回 23，三者最后存储相同。如果选择“开始执行外层赋值前的值”，需要另行规定更早的读取时点；那是不同的语义。实际实现的 <code>&#x27;old</code> 分支测试了右侧重入写同一位置的情况。</p></div></details><details class="exercise" id="ex-4-8"><summary>习题 4.8 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.8"><p>准确指出本书存储实现中的哪些位置使这些操作需要线性时间，而不是常数时间。所指代码为<a href="../assets/source.pdf#page=134">图 4.1（p.111 / PDF 134）</a>及<a href="../assets/source.pdf#page=135">图 4.2（p.112 / PDF 135）</a>。</p></div><p class="source">印刷 p.112 / <a href="../assets/source.pdf#page=135">PDF 135</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>图 4.1 的 <code>newref</code> 先对整表求 <code>length</code>，再用 <code>append</code> 复制原表，二者均随已有位置数增长。<code>deref</code> 的 <code>list-ref</code> 要走到目标下标，耗时随位置下标增长。图 4.2 的 <code>setref-inner</code> 递归走到目标位置，并为前缀重建 cons；最坏到最后一个位置，时间和新分配前缀空间都为线性。</p><p><code>initialize-store!</code> 只是把全局存储变量设为空表，属于常数时间；不能把整个接口笼统说成每次都线性。若只读写表头位置，访问本身也是常数时间，但这不改变最坏情况。维护源的 list 后端保留了这些具体操作。</p></div></details><details class="exercise" id="ex-4-9"><summary>习题 4.9 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.9"><p>用 Scheme 向量表示存储，把存储操作实现为常数时间。使用这种表示会失去什么？</p></div><p class="source">印刷 p.112 / <a href="../assets/source.pdf#page=135">PDF 135</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>先分配固定容量向量，用独立的 used 计数下一个空槽。<code>newref!</code> 写 <code>vector[used]</code> 后加一；<code>deref!</code>、<code>setref!</code> 检查引用在已分配范围后直接索引。三个操作均为常数时间，但需要预先选择容量，耗尽时必须报错，不能像链表那样继续增长。初始化整个向量本身仍与容量成正比。</p><!-- EOPL:snippet chapter04.rkt store-interface -->
+<details class="code-details" open><summary>查看实现 · store-interface</summary><pre><code class="language-scheme">;; list is the textbook model; fixed is exercise 4.9; vector grows geometrically.
+(struct store (cells size backend) #:mutable #:transparent)
+(define current-store (make-parameter #f))
+(define metrics (make-parameter #f))
+(define event-log (make-parameter #f))
+(define (bump! key) (when (metrics) (hash-update! (metrics) key add1 0)))
+(define (event! kind loc value)
+  (when (event-log)
+    (set-box! (event-log) (cons (list kind loc value) (unbox (event-log))))))
+(define (make-store [backend &#x27;vector] [capacity 16])
+  (unless (memq backend &#x27;(list fixed vector)) (error &#x27;store &quot;unknown backend&quot;))
+  (unless (exact-positive-integer? capacity) (error &#x27;store &quot;positive capacity required&quot;))
+  (store (if (eq? backend &#x27;list) &#x27;() (make-vector capacity &#x27;uninitialized)) 0 backend))
+(define (valid-location! loc)
+  (unless (and (exact-nonnegative-integer? loc) (&lt; loc (store-size (current-store))))
+    (error &#x27;store &quot;invalid location: ~s&quot; loc)))
+(define (newref! value)
+  (define s (current-store)) (define next (store-size s))
+  (cond [(eq? (store-backend s) &#x27;list)
+         (set-store-cells! s (append (store-cells s) (list value)))]
+        [else
+         (when (= next (vector-length (store-cells s)))
+           (when (eq? (store-backend s) &#x27;fixed) (error &#x27;store &quot;capacity exhausted&quot;))
+           (define grown (make-vector (* 2 (vector-length (store-cells s))) &#x27;uninitialized))
+           (vector-copy! grown 0 (store-cells s)) (set-store-cells! s grown))
+         (vector-set! (store-cells s) next value)])
+  (set-store-size! s (add1 next)) (bump! &#x27;allocations) (event! &#x27;allocate next value) next)
+(define (deref! loc)
+  (valid-location! loc) (define s (current-store)) (bump! &#x27;reads)
+  (define v (if (eq? (store-backend s) &#x27;list) (list-ref (store-cells s) loc)
+                (vector-ref (store-cells s) loc)))
+  (when (eq? v &#x27;uninitialized) (error &#x27;store &quot;uninitialized location: ~a&quot; loc)) v)
+(define (setref! loc value)
+  (valid-location! loc) (define s (current-store))
+  (if (eq? (store-backend s) &#x27;list)
+      (set-store-cells! s
+        (let replace ([xs (store-cells s)] [i loc])
+          (if (zero? i) (cons value (cdr xs)) (cons (car xs) (replace (cdr xs) (sub1 i))))))
+      (vector-set! (store-cells s) loc value))
+  (bump! &#x27;writes) (event! &#x27;write loc value) (void))
+(define (store-snapshot)
+  (define s (current-store))
+  (if (eq? (store-backend s) &#x27;list) (store-cells s)
+      (vector-&gt;list (vector-copy (store-cells s) 0 (store-size s)))))
+</code></pre></details>
+<!-- EOPL:end-snippet --><p>源码 <code>make-store &#x27;fixed capacity</code> 是本题固定容量解；<code>&#x27;vector</code> 是用于一般示例的可增长版，扩容要复制，分配只有摊还常数时间，单次扩容不是常数时间。不能以“向量访问快”推出无限增长的每次分配都最坏常数。回归覆盖容量耗尽、负引用、未分配槽位及扩容后旧位置稳定。</p></div></details><details class="exercise" id="ex-4-10"><summary>习题 4.10 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.10"><p>实现<a href="#ex-4-4">习题 4.4</a> 所规定的 begin 表达式。</p></div><p class="source">印刷 p.112 / <a href="../assets/source.pdf#page=135">PDF 135</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>文法把首项与后续列表分开，语法上保证非空。纯存储传递版的实现如下；每轮丢弃上一项的值，但使用其存储。单项 begin 直接返回首项的 Answer。</p><pre><code class="language-scheme">(s:begin-exp (first rest)
+  (for/fold ([a (ev first sigma)]) ([e rest])
+    (ev e (answer-store a))))</code></pre><p>带全局/参数化存储的隐式解释器则依次调用 <code>value-of</code>，返回最后一个值。两者都不能先用普通 map 对旧存储求所有项，再只取最后项。实际例子 <code>begin setref(r,8); deref(r) end</code> 得到 8，空 begin 在语法分析时拒绝。</p></div></details><details class="exercise" id="ex-4-11"><summary>习题 4.11 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.11"><p>请实现<a href="#ex-4-5">习题 4.5</a> 规定的 <code>list</code> 列表构造操作，按其存储传递规格求出各元素并返回列表。</p></div><p class="source">印刷 p.112 / <a href="../assets/source.pdf#page=135">PDF 135</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>使用纯解释器的 <code>evaluate-list</code> 同时返回值列表和最后的存储，再把值列表包装成 <code>list-val</code>；环境在各元素之间不变。下面的函数也用于多参数调用和多声明 let 的右侧求值。</p><!-- EOPL:snippet chapter04_explicit.rkt pure-store -->
+<details class="code-details" open><summary>查看实现 · pure-store</summary><pre><code class="language-scheme">(struct answer (value store) #:transparent)
+(struct recursive-env (names paramss bodies saved) #:transparent)
+(struct procedure (params body env) #:transparent)
+(define (apply-store sigma loc)
+  (unless (and (exact-nonnegative-integer? loc) (&lt; loc (length sigma)))
+    (error &#x27;apply-store &quot;invalid location&quot;))
+  (list-ref sigma loc))
+(define (update-store sigma loc v)
+  (apply-store sigma loc)
+  (let replace ([xs sigma] [i loc])
+    (if (zero? i) (cons v (cdr xs)) (cons (car xs) (replace (cdr xs) (sub1 i))))))
+(define (allocate sigma v) (answer (s:ref-val (length sigma)) (append sigma (list v))))
+(define (lookup env name)
+  (cond [(null? env) (error &#x27;lookup &quot;unbound variable: ~a&quot; name)]
+        [(recursive-env? env)
+         (define pos (index-of (recursive-env-names env) name))
+         (if pos (s:proc-val (procedure (list-ref (recursive-env-paramss env) pos)
+                                       (list-ref (recursive-env-bodies env) pos) env))
+             (lookup (recursive-env-saved env) name))]
+        [(eq? (caar env) name) (cdar env)] [else (lookup (cdr env) name)]))
+(define (extend-many names vals env)
+  (s:unique! names) (s:arity! names vals)
+  ;; A binding chain may end in a recursive environment.
+  (foldr (lambda (p rest) (cons p rest)) env (map cons names vals)))
+(define (evaluate-list exps env sigma return-mode)
+  (if (null? exps) (answer &#x27;() sigma)
+      (let* ([a (value-of (car exps) env sigma return-mode)]
+             [b (evaluate-list (cdr exps) env (answer-store a) return-mode)])
+        (answer (cons (answer-value a) (answer-value b)) (answer-store b)))))
+</code></pre></details>
+<!-- EOPL:end-snippet --><p>对空输入直接返回空列表及原存储；对非空输入先求表头，再将新存储递归交给表尾。执行 <code>list()</code> 得空表；具有副作用的三项例子得 <code>(1 2 2)</code>，说明元素顺序与效果都被保留。列表是不可变的值集合，不额外把每个列表节点做成可变位置。</p></div></details><details class="exercise" id="ex-4-12"><summary>习题 4.12 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.12"><p>本解释器对存储的理解依赖 Scheme 副作用的含义，特别是这些效果在 Scheme 程序中何时发生。可以写一个更贴近规格的解释器来避免这种依赖：让 <code>value-of</code> 像规格那样同时返回值和存储。图 4.6 给出这种“存储传递解释器”的片段。请把它扩充为覆盖整个 EXPLICIT-REFS 的解释器。任何可能修改存储的过程，都不仅返回通常的值，还返回新存储，两者用名为 answer 的数据类型打包。完成以下 <code>value-of</code> 定义。</p><p>下面保留原书<a href="../assets/source.pdf#page=139">图 4.6（p.116 / PDF 139）</a>的接口与片段，含原有括号；解答另行解释需要修正的地方。</p><pre><code class="language-scheme">(define-datatype answer answer?
+  (an-answer
+    (val expval?)
+    (store store?)))
+
+value-of : Exp × Env × Sto → ExpVal
+(define value-of
+  (lambda (exp env store)
+    (cases expression exp
+      (const-exp (num)
+        (an-answer (num-val num) store))
+      (var-exp (var)
+        (an-answer
+          (apply-store store (apply-env env var))
+          store))
+      (if-exp (exp1 exp2 exp3)
+        (cases answer (value-of exp1 env store)
+          (an-answer (val new-store)
+            (if (expval-&gt;bool val)
+              (value-of exp2 env new-store)
+              (value-of exp3 env new-store)))))
+      (deref-exp (exp1)
+        (cases answer (value-of exp1 env store)
+          (an-answer (v1 new-store)
+            (let ((ref1 (expval-&gt;ref v1)))
+              (an-answer (deref ref1) new-store)))))
+      ...)))</code></pre></div><p class="source">印刷 p.112 / <a href="../assets/source.pdf#page=135">PDF 135</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>完整可执行解为 <code>chapter04_explicit.rkt</code>。<code>answer</code> 同时携带表达值与不可变存储表；常量、变量、过程创建不改存储，算术/判零/列表/条件/let/调用/递归/三种引用操作逐一按规格串接 Answer。newref 在操作数求完后用表长选择新位置；闭包只保存环境；调用从运算符、各实参到过程体逐步传递。</p><p>原页图 4.6 需要三项接口校正与一项括号修正：返回类型应为 Answer；EXPLICIT-REFS 的变量环境直接存表达值，所以 var 分支应返回 <code>lookup(env,var)</code>，不能再次当位置查询；deref 应读刚返回的 new-store，而不是依赖全局存储；<code>let</code> 的绑定列表后多了一个右括号。题面保留原片段，实际解按本节值域和纯存储接口实现。</p><!-- EOPL:snippet chapter04_explicit.rkt explicit-evaluation -->
+<details class="code-details" open><summary>查看实现 · explicit-evaluation</summary><pre><code class="language-scheme">(define (value-of exp env sigma [return-mode &#x27;constant])
+  (define (ev e st) (value-of e env st return-mode))
+  (cases s:expression exp
+    (s:const-exp (n) (answer (s:num-val n) sigma))
+    (s:var-exp (name) (answer (lookup env name) sigma))
+    (s:unary-exp (op e)
+      (define a (ev e sigma)) (define v (answer-value a)) (define st (answer-store a))
+      (cases s:unary-op op
+        (s:newref-op () (allocate st v))
+        (s:deref-op () (answer (apply-store st (s:reference v)) st))
+        (s:zero-op () (answer (s:bool-val (zero? (s:num v))) st))
+        (s:not-op () (answer (s:bool-val (not (s:bool v))) st))
+        (else (error &#x27;explicit &quot;operator outside EXPLICIT-REFS&quot;))))
+    (s:binary-exp (op e1 e2)
+      (define a (ev e1 sigma)) (define b (ev e2 (answer-store a)))
+      (answer (s:eval-binary op (answer-value a) (answer-value b)) (answer-store b)))
+    (s:list-exp (es)
+      (define a (evaluate-list es env sigma return-mode))
+      (answer (s:list-val (answer-value a)) (answer-store a)))
+    (s:if-exp (test yes no)
+      (define a (ev test sigma))
+      (ev (if (s:bool (answer-value a)) yes no) (answer-store a)))
+    (s:let-exp (names rhss body)
+      (s:unique! names)
+      (define a (evaluate-list rhss env sigma return-mode))
+      (value-of body (extend-many names (answer-value a) env) (answer-store a) return-mode))
+    (s:proc-exp (kind params body)
+      (s:unique! params)
+      (cases s:proc-kind kind
+        (s:default-kind () (answer (s:proc-val (procedure params body env)) sigma))
+        (else (error &#x27;explicit &quot;parameter variant outside EXPLICIT-REFS&quot;))))
+    (s:call-exp (rator operands)
+      (define a (ev rator sigma))
+      (define clos (s:procedure-value (answer-value a)))
+      (s:arity! (procedure-params clos) operands)
+      (define b (evaluate-list operands env (answer-store a) return-mode))
+      (value-of (procedure-body clos)
+                (extend-many (procedure-params clos) (answer-value b) (procedure-env clos))
+                (answer-store b) return-mode))
+    (s:letrec-exp (names paramss bodies body)
+      (s:unique! names) (for-each s:unique! paramss)
+      (value-of body (recursive-env names paramss bodies env) sigma return-mode))
+    (s:begin-exp (first rest)
+      (for/fold ([a (ev first sigma)]) ([e rest]) (ev e (answer-store a))))
+    (s:setref-exp (e1 e2)
+      (define a (ev e1 sigma)) (define loc (s:reference (answer-value a)))
+      (define b (ev e2 (answer-store a))) (define st (answer-store b))
+      ;; Exercise 4.7 returns the contents immediately before the final update,
+      ;; so effects of BOTH operands have already happened.
+      (define old (apply-store st loc))
+      (answer (case return-mode [(rhs) (answer-value b)] [(old) old] [else (s:num-val 23)])
+              (update-store st loc (answer-value b))))
+    (else (error &#x27;explicit &quot;expression outside EXPLICIT-REFS&quot;))))
+</code></pre></details>
+<!-- EOPL:end-snippet --><p>纯版本没有 <code>set!</code>、<code>setref!</code> 或全局 store。测试把旧存储 <code>(7 8)</code> 更新成新存储 <code>(9 8)</code> 后再次读旧存储，仍为 <code>(7 8)</code>；并核验运算符、条件、实参及列表内部的副作用顺序。这个接口可保留多份历史状态，代价是链表访问和更新成本较高。</p></div></details><details class="exercise" id="ex-4-13"><summary>习题 4.13 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.13"><p>把上一题的解释器扩充为支持多参数过程。</p></div><p class="source">印刷 p.113 / <a href="../assets/source.pdf#page=136">PDF 136</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>文法把形参改成逗号分隔的标识符列表，把调用的实参改成表达式列表。求运算符一次，按从左到右顺序用 <code>evaluate-list</code> 求所有实参；环境始终是调用者环境，存储逐次更新。形参与值列表等长后，一起扩充闭包保存环境，再求体。</p><pre><code class="language-scheme">(s:call-exp (rator operands)
+  (define a (ev rator sigma))
+  (define clos (s:procedure-value (answer-value a)))
+  (s:arity! (procedure-params clos) operands)
+  (define b (evaluate-list operands env (answer-store a) return-mode))
+  (value-of (procedure-body clos)
+            (extend-many (procedure-params clos)
+                         (answer-value b) (procedure-env clos))
+            (answer-store b) return-mode))</code></pre><p>这里仍是显式引用语言，绑定形参不自动分配存储槽。<code>(proc(x,y,z) -(-(x,y),z) 20 3 2)</code> 得 15，零参数过程也可调用。重复形参和参数个数不合均报错；本实现先检查个数再执行实参，是对错误输入的明确约定。</p></div></details></section><section id="s4-3"><h2>4.3 IMPLICIT-REFS：变量背后的可变位置</h2><p class="source">原书 §4.3，pp.113–124 / <a href="../assets/source.pdf#page=136">PDF 136–147</a>。</p><p>IMPLICIT-REFS 把常见的分配和解引用收进语言规则中。<code>ExpVal = Int + Bool + Proc</code>，<code>DenVal = Ref(ExpVal)</code>：引用不再直接作为普通表达式结果，而由变量绑定持有。读 x 自动执行“查环境得到位置→从存储读当前值”；<code>set x = e</code> 则把 e 的结果写入已有位置。</p><h3 id="s4-3-1">4.3.1 规格</h3><p>变量读取为 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" aria-label="⟨x,ρ,σ⟩ ⇓ ⟨σ(ρ(x)),σ⟩"><mrow><mo>⟨</mo><mi>x</mi><mo>,</mo><mi>ρ</mi><mo>,</mo><mi>σ</mi><mo>⟩</mo><mo>⇓</mo><mo>⟨</mo><mi>σ</mi><mo>(</mo><mi>ρ</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>)</mo><mo>,</mo><mi>σ</mi><mo>⟩</mo></mrow></math>。赋值先取得 x 的位置，再求右侧并使用其新存储更新，返回原书任取的数值 27。这里的赋值左侧是标识符，不是普通的变量表达式；若把左侧也自动解引用，就会失去要更新的位置。</p><p>按值调用中，先求实参得到表达值，再给形参分配新位置。<code>let y = x</code> 也是先读 x，再给 y 分配；它没有复制环境指针。初始环境、let、过程调用、letrec 都产生绑定，因此都需要明确如何取得位置。</p><div class="rn-example" id="implicit-call-trace"><h3>伴读例：外层调用结束后，参数位置为什么还在</h3><p class="example-kind">原书图 4.8 的轨迹释读</p><pre><code class="language-scheme">let f = proc(x) proc(y)
+          begin set x = -(x,-1); -(x,y) end
+in ((f 44) 33)</code></pre><p>初始 i、v、x 分别占位置 0、1、2；let 为 f 分配位置 3。调用 <code>(f 44)</code> 时为形参 x 新建位置 4，存 44，并返回保存该绑定的内层闭包。外层调用结束后，内层闭包仍保留位置 4。再调用内层过程，为 y 分配位置 5，存 33；赋值把位置 4 从 44 改成 45，差为 12。</p><div class="table-scroll"><table aria-label="图 4.8 的有效位置"><thead><tr><th scope="col">位置</th><th scope="col">内容或作用</th><th scope="col">是否被本例更新</th></tr></thead><tbody><tr><td>0、1、2</td><td>初始 i=1、v=5、x=10</td><td>否</td></tr><tr><td>3</td><td>f 的闭包</td><td>否</td></tr><tr><td>4</td><td>外层形参 x：44→45</td><td>是</td></tr><tr><td>5</td><td>内层形参 y：33</td><td>否</td></tr></tbody></table></div></div><h3 id="s4-3-2">4.3.2 实现</h3><p>把第三章的变量分支改成读取位置，把 let 和调用的参数绑定改成 newref，初始环境也建立三个位置。letrec 还要让每个闭包看见整个递归组；本章默认先分配全部占位槽，再建立所有闭包，最后填入。这样递归名字的槽位身份稳定，每个闭包只建一次。</p><!-- EOPL:snippet chapter04.rkt location-environments -->
+<details class="code-details" open><summary>查看实现 · location-environments</summary><pre><code class="language-scheme">(struct binding (name denotation saved) #:transparent)
+(struct recursive-env (names paramss bodies saved) #:transparent)
+(define (extend-many names denotations env)
+  (unique! names) (arity! names denotations)
+  (foldr (lambda (p rest) (binding (car p) (cdr p) rest)) env (map cons names denotations)))
+(define (lookup env name)
+  (cond [(null? env) (error &#x27;lookup &quot;unbound variable: ~a&quot; name)]
+        [(binding? env)
+         (if (eq? name (binding-name env)) (binding-denotation env) (lookup (binding-saved env) name))]
+        [(recursive-env? env)
+         (define pos (index-of (recursive-env-names env) name))
+         (if pos (newref! (make-closure (list-ref (recursive-env-paramss env) pos)
+                                      (list-ref (recursive-env-bodies env) pos) env (parameter-mode)))
+             (lookup (recursive-env-saved env) name))]
+        [else (error &#x27;lookup &quot;invalid environment&quot;)]))
+(define (make-closure params body env mode)
+  (unique! params) (bump! &#x27;closures) (proc-val (closure params body env mode)))
+(define (initial-environment)
+  (extend-many &#x27;(i v x) (map (lambda (n) (newref! (num-val n))) &#x27;(1 5 10)) &#x27;()))
+(define (extend-rec names paramss bodies env)
+  (unique! names) (for-each unique! paramss)
+  (if (eq? (rec-mode) &#x27;fresh)
+      (recursive-env names paramss bodies env)
+      (let* ([locs (map (lambda (_) (newref! &#x27;uninitialized)) names)]
+             [self (extend-many names locs env)])
+        (for ([loc locs] [ps paramss] [body bodies])
+          (setref! loc (make-closure ps body self (parameter-mode)))) self)))
+(define (mutable-location env name)
+  (define den (lookup env name))
+  (when (immutable? den) (error &#x27;assignment &quot;immutable binding: ~a&quot; name)) den)
+</code></pre></details>
+<!-- EOPL:end-snippet --><p>状态也能形成递归结：先 <code>let times4 = 0</code> 建槽，再把保留该槽绑定的闭包写回去，递归调用便能沿原位置再次找到自己。递归来自共享的可更新单元，而不要求运行环境里预先有 letrec 这个构造；习题 4.16 展开其调用链。</p><p>习题 4.20–4.21 分别试验不可变绑定和临时赋值；4.22–4.27 转向语句语言。它们的共同接口仍是环境决定可见绑定，存储保存当前内容，但语句以效果为结果，不能把 print 或 while 的执行强塞成普通数值表达式。独立语句前端保留了这一层次。</p><details class="reading-notes" id="notes-s4-3" data-notes-for="s4-3" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">按值的含义</span><h3>新参数槽隔离的是变量赋值</h3><p>按值调用建立的是形参自己的位置，因此 set 形参不覆盖实参槽。不过位置中存的表达值可以是指向共享对象的描述符；下一节的可变序对正会展示这一点。判断一次写入能否被调用者看见，要继续追踪写的是形参槽、对象字段槽，还是闭包中的自由变量槽，不能只看“按值”二字。</p></div><div class="annotation-card"><span class="annotation-kind">递归环境</span><h3>先有位置，再把闭包放进去</h3><p>闭包需要整个递归环境，环境又需要绑定闭包；可变占位槽把这条循环拆开。先建立稳定位置，闭包就能保存包含这些位置的环境，再补全内容。若每次查询才新建位置，同名递归过程会不断获得新身份，既浪费空间，又无法可靠地给这个过程名赋值。</p></div></div></details><h3 id="exercises-4-3">本节习题与解答</h3><details class="exercise-index-panel"><summary>本节习题题号索引 · 14 题</summary><nav class="exercise-index" role="navigation" aria-label="本节习题索引"><a href="#ex-4-14" aria-label="习题 4.14">4.14</a> · <a href="#ex-4-15" aria-label="习题 4.15">4.15</a> · <a href="#ex-4-16" aria-label="习题 4.16">4.16</a> · <a href="#ex-4-17" aria-label="习题 4.17">4.17</a> · <a href="#ex-4-18" aria-label="习题 4.18">4.18</a> · <a href="#ex-4-19" aria-label="习题 4.19">4.19</a> · <a href="#ex-4-20" aria-label="习题 4.20">4.20</a> · <a href="#ex-4-21" aria-label="习题 4.21">4.21</a> · <a href="#ex-4-22" aria-label="习题 4.22">4.22</a> · <a href="#ex-4-23" aria-label="习题 4.23">4.23</a> · <a href="#ex-4-24" aria-label="习题 4.24">4.24</a> · <a href="#ex-4-25" aria-label="习题 4.25">4.25</a> · <a href="#ex-4-26" aria-label="习题 4.26">4.26</a> · <a href="#ex-4-27" aria-label="习题 4.27">4.27</a></nav></details><details class="exercise" id="ex-4-14"><summary>习题 4.14 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.14"><p>请为隐式引用语言 IMPLICIT-REFS 中的 let 表达式写出完整的存储传递语义规则。</p></div><p class="source">印刷 p.118 / <a href="../assets/source.pdf#page=141">PDF 141</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>在旧环境求右侧得到值与新存储，然后分配一个不在该新存储定义域内的位置，装入该值；仅在求体时扩充环境。</p><pre><code class="language-scheme">eval(rhs, env, s0) = Answer(v, s1)
+l not in domain(s1)
+eval(body, extend(env,x,l), update(s1,l,v)) = Answer(result,s2)
+----------------------------------------------------------------
+eval(Let(x,rhs,body), env, s0) = Answer(result,s2)</code></pre><p>与第三章的区别是新环境绑定位置，不再直接绑定 v。<code>let y = x</code> 读取 x 的当前值后为 y 创建新槽，因此后续 <code>set y = 9</code> 不改变 x；显式 <code>letref</code> 才引入变量别名。</p></div></details><details class="exercise" id="ex-4-15"><summary>习题 4.15 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.15"><p>为什么<a href="#implicit-call-trace">图 4.8 的环境</a>（<a href="../assets/source.pdf#page=143">p.120 / PDF 143</a>）把变量绑定到普通整数，而不像<a href="../assets/source.pdf#page=138">图 4.5（p.115 / PDF 138）</a>那样绑定到表达值？</p></div><p class="source">印刷 p.121 / <a href="../assets/source.pdf#page=144">PDF 144</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>图 4.8 是 IMPLICIT-REFS，环境的值域是引用；本书把引用实现成存储列表的下标，所以环境里出现 0、1、2 等普通宿主整数。读取变量时先查这个下标，再读存储得到带标签的 <code>num-val</code>、<code>proc-val</code> 等。下标 4 不是被解释语言的数值 4。图 4.5 属于 EXPLICIT-REFS，环境直接存表达值；若该值为引用，还需包一层 <code>ref-val</code>，以区别数值表达值。</p></div></details><details class="exercise" id="ex-4-16"><summary>习题 4.16 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.16"><p>变量可变以后，可以用赋值构造递归过程。例如下面的 letrec 程序可替换成后面的程序。请手工跟踪并验证该翻译有效。</p><pre><code class="language-scheme">letrec times4(x) = if zero?(x)
+                    then 0
+                    else -((times4 -(x,1)), -4)
+in (times4 3)</code></pre><pre><code class="language-scheme">let times4 = 0
+in begin
+    set times4 = proc (x)
+                  if zero?(x)
+                  then 0
+                  else -((times4 -(x,1)), -4);
+    (times4 3)
+   end</code></pre></div><p class="source">印刷 p.121 / <a href="../assets/source.pdf#page=144">PDF 144</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>let 先为 times4 分配位置 L，内容为 0。创建 proc 时，闭包保存的环境中已有 <code>times4 → L</code>；随后赋值只把 L 的内容替换成这个闭包，环境和 L 的身份都不变。调用时读取 L 得闭包，过程体中的递归名字仍沿保存环境找到同一个 L，所以不会读到最初的数值 0。</p><p>调用链为参数 3→2→1→0；参数 0 返回 0，然后每层执行“减去 −4”，依次返回 4、8、12。letrec 版本与赋值版本均实际返回 12。必须在创建闭包前先建立名字到槽位的绑定；若闭包创建于 <code>let times4</code> 外，就没有可回指的绑定。</p></div></details><details class="exercise" id="ex-4-17"><summary>习题 4.17 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.17"><p>写出多参数过程和多声明 let 表达式的规则，并实现它们。</p></div><p class="source">印刷 p.121 / <a href="../assets/source.pdf#page=144">PDF 144</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>多声明 let 采用并行作用域：所有右侧都在旧环境求值；效果仍按从左到右传递，之后为每个结果分配新位置，同时扩充环境求体。多参数调用先求运算符，再依次求各实参，为各形参分配独立位置，在闭包保存环境上一次加入全部形参。</p><p><code>let x = 7 in let x = 3 y = x in -(x,y)</code> 得 −4，因为 y 的右侧看见外层 x。若第一个右侧赋值了已有变量，后面的右侧可以读到该效果；并行说的是新名字的作用域，不是把所有右侧隔离在同一份旧存储中。</p><pre><code class="language-scheme">let x = 0
+in let a = begin set x = 7; 1 end
+       b = x
+   in b</code></pre><p>此例实际得 7。源码 <code>let-exp</code> 先收集 vals，再 <code>map newref!</code>；调用使用 <code>operand-location</code> 的 value 分支。空声明和零参数均有效；重复名字、个数不合明确报错。</p></div></details><details class="exercise" id="ex-4-18"><summary>习题 4.18 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.18"><p>写出多过程 letrec 表达式的规则并实现。</p></div><p class="source">印刷 p.121 / <a href="../assets/source.pdf#page=144">PDF 144</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>共同作用域必须包含本组全部过程名。规格可一次选择互异的新位置，为每个过程名建立绑定，再让每个闭包都保存这个完整环境，最后把闭包装进对应位置，用该环境求体。这样 even 可调用 odd，odd 也可调用 even；不能从左向右只让后面的过程看见前面的。</p><p>原书 pp.119 的直接实现用递归环境描述本组名字、参数和过程体；每次查到本组过程名时，再创建一个保存整个递归环境的闭包和新位置。源码的 <code>#:rec &#x27;fresh</code> 保留这一版本，默认使用下一题的稳定位置版本。</p><pre><code class="language-scheme">letrec even(n) = if zero?(n) then 1 else (odd -(n,1) 0)
+       odd(n,dummy) = if zero?(n) then 0 else (even -(n,1))
+in (odd 13 0)</code></pre><p>两种策略在这个奇偶程序都得到 1。按查询反复分配的版本会产生额外位置，且同名查询不再保持位置身份，不适合给递归过程名赋值；下一题消除这个问题。</p></div></details><details class="exercise" id="ex-4-19"><summary>习题 4.19 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.19"><p>修改多过程 letrec 的实现，使每个闭包只创建一次、也只为它分配一个位置。这与<a href="chapter03_expressions.html#ex-3-35">习题 3.35</a> 相似。</p></div><p class="source">印刷 p.121 / <a href="../assets/source.pdf#page=144">PDF 144</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>先为每个过程名分配未初始化位置；建立包含所有名字和位置的新环境；创建各闭包时保存同一个新环境，再填回位置。查询只返回已有位置，不能在 lookup 中 newref。</p><!-- EOPL:snippet chapter04.rkt location-environments -->
+<details class="code-details" open><summary>查看实现 · location-environments</summary><pre><code class="language-scheme">(struct binding (name denotation saved) #:transparent)
+(struct recursive-env (names paramss bodies saved) #:transparent)
+(define (extend-many names denotations env)
+  (unique! names) (arity! names denotations)
+  (foldr (lambda (p rest) (binding (car p) (cdr p) rest)) env (map cons names denotations)))
+(define (lookup env name)
+  (cond [(null? env) (error &#x27;lookup &quot;unbound variable: ~a&quot; name)]
+        [(binding? env)
+         (if (eq? name (binding-name env)) (binding-denotation env) (lookup (binding-saved env) name))]
+        [(recursive-env? env)
+         (define pos (index-of (recursive-env-names env) name))
+         (if pos (newref! (make-closure (list-ref (recursive-env-paramss env) pos)
+                                      (list-ref (recursive-env-bodies env) pos) env (parameter-mode)))
+             (lookup (recursive-env-saved env) name))]
+        [else (error &#x27;lookup &quot;invalid environment&quot;)]))
+(define (make-closure params body env mode)
+  (unique! params) (bump! &#x27;closures) (proc-val (closure params body env mode)))
+(define (initial-environment)
+  (extend-many &#x27;(i v x) (map (lambda (n) (newref! (num-val n))) &#x27;(1 5 10)) &#x27;()))
+(define (extend-rec names paramss bodies env)
+  (unique! names) (for-each unique! paramss)
+  (if (eq? (rec-mode) &#x27;fresh)
+      (recursive-env names paramss bodies env)
+      (let* ([locs (map (lambda (_) (newref! &#x27;uninitialized)) names)]
+             [self (extend-many names locs env)])
+        (for ([loc locs] [ps paramss] [body bodies])
+          (setref! loc (make-closure ps body self (parameter-mode)))) self)))
+(define (mutable-location env name)
+  (define den (lookup env name))
+  (when (immutable? den) (error &#x27;assignment &quot;immutable binding: ~a&quot; name)) den)
+</code></pre></details>
+<!-- EOPL:end-snippet --><p>实际比较 <code>letrec f(x) = x in begin (f 1); (f 2) end</code>：本实现初始 i/v/x 占 3 槽；稳定版本共创建 1 个闭包、分配 6 槽（三初始、一过程、两参数）；查询分配版创建 2 个闭包、分配 7 槽。保存位置后，<code>set f = proc(x) 99</code> 对后续查找也持续生效。占位单元只用于完成递归结，若真的在填入前读取，应报未初始化错误。</p></div></details><details class="exercise" id="ex-4-20"><summary>习题 4.20 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.20"><p>本节语言像 Scheme 一样，所有变量都可变。另一选择是同时允许可变与不可变绑定：<code>ExpVal = Int + Bool + Proc</code>，<code>DenVal = Ref(ExpVal) + ExpVal</code>。变量赋值只能用于可变绑定；当指称值是引用时，读取变量隐式解引用。修改语言，让 let 像以前一样引入不可变变量，而可变变量由以下文法引入：<code>Expression ::= letmutable Identifier = Expression in Expression</code>。</p></div><p class="source">印刷 p.121 / <a href="../assets/source.pdf#page=144">PDF 144</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>用带标签的两类指称值区分位置和直接值，不能仅用“是不是宿主整数”区分，因为语言整数也会以宿主数据表示。本实现的可变绑定是位置下标，不可变绑定包为 <code>immutable(value)</code>。读变量时前者读取存储，后者直接取值；赋值必须取得可变位置，否则报错。</p><pre><code class="language-scheme">let x = 1
+in letmutable y = 2
+   in begin set y = 3; -(y,x) end</code></pre><p><code>run/details</code> 开启 <code>#:immutable-let? #t</code> 后，此例得 2；<code>let x = 1 in set x = 2</code> 被拒绝。letmutable 总是分配新槽，普通过程的形参按值调用时仍有可变槽。不可变的是绑定本身；若扩展后的值是可变对象，不可变绑定并不自动冻结对象内容。</p></div></details><details class="exercise" id="ex-4-21"><summary>习题 4.21 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.21"><p>此前用赋值让一个过程向远处的过程传递信息，从而不要求中间过程了解该信息。很多时候这种赋值应是临时的，只持续一个过程调用。请增加“动态赋值”（dynamic assignment，又称 fluid binding）：<code>Expression ::= setdynamic Identifier = Expression during Expression</code>，抽象语法为 <code>setdynamic-exp(var,exp1,body)</code>。它把 exp1 的值暂时赋给已有绑定的 var，求 body，再恢复 var 原值，并返回 body 的值；var 必须已经绑定。例如下面 p 中的自由变量 x 在 <code>(p 22)</code> 时为 17，之后恢复为 11，整个式子应为 <code>5-2=3</code>。</p><pre><code class="language-scheme">let x = 11
+in let p = proc (y) -(y,x)
+   in -(setdynamic x = 17 during (p 22),
+        (p 13))</code></pre></div><p class="source">印刷 p.122 / <a href="../assets/source.pdf#page=145">PDF 145</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>查已有位置并保存进入本构造时的旧内容；求临时右值，写入同一位置；求体，保存其结果；恢复该位置旧内容，再返回保存的结果。其他位置在体中产生的改变继续保留。临时赋值没有建立新的词法环境，因此 p 的闭包仍查原来那一个位置，只是该位置此刻内容为 17。</p><pre><code class="language-scheme">(define loc (mutable-location env name))
+(define old (deref! loc))
+(define v (value-of rhs env))
+(dynamic-wind (lambda () (setref! loc v))
+              (lambda () (value-of body env))
+              (lambda () (setref! loc old)))</code></pre><p>原例实际得 3。嵌套临时赋值依进入顺序保存、依退出顺序恢复；测试得 <code>((2 3 2) 1)</code>。本实现还用宿主 dynamic-wind 保证体抛出错误时恢复旧值，错误继续向外传播。它没有撤销其他位置，也没有把词法作用域改成动态作用域。</p></div></details><details class="exercise" id="ex-4-22"><summary>习题 4.22 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.22"><p>此前语言以表达式为中心，主要关心其值。按以下规格扩充为简单的语句语言。请遵循文法，分别编写处理程序、语句和表达式的过程。</p><p>值域与 IMPLICIT-REFS 相同。语法如下；Expression 指 IMPLICIT-REFS 的表达式语言，可作适当扩充。花括号序列中的语句以分号分隔，var 后的标识符以逗号分隔。</p><pre><code class="language-scheme">Program   ::= Statement
+Statement ::= Identifier = Expression
+          ::= print Expression
+          ::= { Statement* separated by ; }
+          ::= if Expression Statement Statement
+          ::= while Expression Statement
+          ::= var Identifier* separated by , ; Statement</code></pre><p>程序是语句。语句不返回值，通过修改存储与打印起作用。赋值、print 和 if 采用通常含义；print 求实参值并打印。最后一条产生式的块为所声明的每个变量绑定一个未初始化位置，再执行主体，作用域仅覆盖主体。用 <code>result-of(stmt,ρ,σ0)=σ1</code> 这样的断言给出语句规格。以下四例的预期输出分别为 7、12、三行 3/4/3、12。例 3 说明块作用域；例 4 中过程值存入 f，最后实参 x 先解引用为 3，再调用过程。</p><pre><code class="language-scheme">var x,y; {x = 3; y = 4; print +(x,y)}</code></pre><pre><code class="language-scheme">var x,y,z; {x = 3;
+            y = 4;
+            z = 0;
+            while not(zero?(x))
+              {z = +(z,y); x = -(x,1)};
+            print z}</code></pre><pre><code class="language-scheme">var x; {x = 3;
+        print x;
+        var x; {x = 4; print x};
+        print x}</code></pre><pre><code class="language-scheme">var f,x; {f = proc(x,y) *(x,y);
+          x = 3;
+          print (f 4 x)}</code></pre></div><p class="source">印刷 p.122 / <a href="../assets/source.pdf#page=145">PDF 145–146</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>完整实现为 <code>chapter04_statements.rkt</code>，程序入口解析 Program 后交给 <code>result-of</code>；表达式由独立前端转换成核心 AST，再调用第四章表达式求值器。语句执行返回 void，最终存储与打印输出单独观察。规则分别为：</p><p>赋值先在原环境求右值、使用它留下的新存储，再更新左侧名字的位置。print 求表达式，追加一条输出，保留表达式效果。序列按顺序传递存储。if 先求测试，只执行选中分支，并使用测试留下的存储。while 先求测试；假则结束，真则执行体后从新存储重新测试。var 为全部声明分配未初始化槽，只对主体扩充环境；离开后外层环境恢复，已产生的存储和输出效果保留。</p><!-- EOPL:snippet chapter04_statements.rkt statement-evaluation -->
+<details class="code-details" open><summary>查看实现 · statement-evaluation</summary><pre><code class="language-scheme">(define (result-of stmt env)
+  (s:tick!)
+  (cases statement stmt
+    (st-assign (v e)
+      (define loc (s:mutable-location env v))
+      (s:setref! loc (value-of-expression e env)))
+    (st-print (e) (displayln (s:datum (value-of-expression e env))))
+    (st-read (v)
+      (define loc (s:mutable-location env v))
+      (define val (parameterize ([read-accept-reader #f] [read-accept-lang #f]
+                                 [read-accept-compiled #f]) (read)))
+      (unless (exact-nonnegative-integer? val) (error &#x27;read-statement &quot;nonnegative integer required&quot;))
+      (s:setref! loc (s:num-val val)))
+    (st-sequence (stmts) (for ([st stmts]) (result-of st env)))
+    (st-if (t y n) (result-of (if (s:bool (value-of-expression t env)) y n) env))
+    (st-while (test body)
+      (let loop ()
+        (when (s:bool (value-of-expression test env)) (result-of body env) (loop))))
+    (st-do (body test)
+      (let loop () (result-of body env) (when (s:bool (value-of-expression test env)) (loop))))
+    (st-vars (names body)
+      (define locs (map (lambda (_) (s:newref! &#x27;uninitialized)) names))
+      (result-of body (s:extend-many names locs env)))
+    (st-initialized (names rhss body) (result-of body (initialize-sequential names rhss env)))
+    (st-block (names rhss pnames paramss pbodies snames sparamss sbodies body)
+      (result-of body (declaration-environment names rhss pnames paramss pbodies
+                                             snames sparamss sbodies env)))
+    (st-call (name args)
+      (define sub (s:read-variable env name))
+      (unless (s:sub-val? sub) (error &#x27;subroutine-call &quot;subroutine required&quot;))
+      (s:arity! (s:sub-val-params sub) args)
+      (define vals (for/list ([e args]) (value-of-expression e env)))
+      (define locs (map s:newref! vals))
+      (result-of (s:sub-val-body sub) (s:extend-many (s:sub-val-params sub) locs (s:sub-val-env sub)))))
+  (void))
+</code></pre></details>
+<!-- EOPL:end-snippet --><p>四个原例已逐个实际运行，输出为 7、12、`3
+4
+3`、12。乘法循环的不变量为“当前 z 加上剩余 x 乘 y 等于初始乘积”，因此从 x=3、y=4、z=0 走三轮后得到 12。未赋值就 print 一个新声明变量会明确报 uninitialized；不把它偷偷初始化为 0。</p></div></details><details class="exercise" id="ex-4-23"><summary>习题 4.23 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.23"><p>为<a href="#ex-4-22">习题 4.22</a> 的语言添加 <code>read var</code> 语句：从输入读取一个非负整数，并存入给定变量。</p></div><p class="source">印刷 p.123 / <a href="../assets/source.pdf#page=146">PDF 146</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>先确认 var 已有可变位置，再从输入端口读取一个 datum，要求它是精确的非负整数，写入该位置。没有输出值；输入耗尽、负数、分数和非数字都报错。本题不引入新绑定。</p><pre><code class="language-scheme">(st-read (v)
+  (define loc (s:mutable-location env v))
+  (define val (parameterize ([read-accept-reader #f]
+                            [read-accept-lang #f]
+                            [read-accept-compiled #f]) (read)))
+  (unless (exact-nonnegative-integer? val)
+    (error &#x27;read-statement &quot;nonnegative integer required&quot;))
+  (s:setref! loc (s:num-val val)))</code></pre><p><code>run</code> 的 <code>#:input &quot;42&quot;</code> 提供可复现输入端口；程序 <code>var x; {read x; print x}</code> 实际输出 42，也接受 0。read 只读取数据，不执行输入中的程序。</p></div></details><details class="exercise" id="ex-4-24"><summary>习题 4.24 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.24"><p>do-while 与 while 类似，但在执行体之后才测试条件。把 do-while 语句加入<a href="#ex-4-22">习题 4.22</a> 的语言。</p></div><p class="source">印刷 p.123 / <a href="../assets/source.pdf#page=146">PDF 146</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>增加 <code>Statement ::= do Statement while Expression</code>。先执行一次体，随后在体留下的存储中求测试；若为真，再执行体并重复测试。测试本身的副作用也必须保留。</p><pre><code class="language-scheme">(st-do (body test)
+  (let loop ()
+    (result-of body env)
+    (when (s:bool (value-of-expression test env))
+      (loop))))</code></pre><p>实际运行 <code>var x; {x = 0; do {x = +(x,1)} while zero?(1); print x}</code> 输出 1。测试开始就是假，体仍执行一次；同条件的 while 会执行零次。循环没有新增词法作用域；体若需要局部变量，使用 var 块。</p></div></details><details class="exercise" id="ex-4-25"><summary>习题 4.25 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.25"><p>扩充<a href="#ex-4-22">习题 4.22</a> 的块声明，使变量可以初始化。在你的解法中，一个变量的作用域是否包含同一块内较后声明变量的初始化表达式？</p></div><p class="source">印刷 p.123 / <a href="../assets/source.pdf#page=146">PDF 146</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>本解选择顺序初始化，补充语法 <code>varinit x = e1 y = e2; Statement</code>。求当前初始化式时使用此前已建立的环境；求完后分配当前变量的位置，再处理下一声明。因此先声明的变量可用于后面初始化式，当前变量自身仍只看外层同名绑定，后声明变量不会提前可见。</p><pre><code class="language-scheme">varinit x = 3 y = +(x,1); print y</code></pre><p>此例实际输出 4。<code>varinit a = b b = 2; print a</code> 中若没有外层 b 则报未绑定；<code>varinit x = 3; varinit x = +(x,1); print x</code> 输出 4，因为新 x 的右侧使用外层 x。题目没有强制初始化次序，因此必须写明选择；这与表达式多声明 let 的并行作用域不同。实现见 <code>initialize-sequential</code>。</p></div></details><details class="exercise" id="ex-4-26"><summary>习题 4.26 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.26"><p>扩充上一题，使同一块中声明的过程可以互相递归。可以考虑限制语法：块中的变量声明必须排在过程声明之前。</p></div><p class="source">印刷 p.124 / <a href="../assets/source.pdf#page=147">PDF 147</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>采用 <code>block</code>：先列变量初始化，再列 <code>procedure f(args) = Expression</code>，用 <code>in Statement end</code> 指定主体。变量顺序初始化完成后，为本组所有过程名一次分配位置，形成完整环境；所有闭包都保存该环境，之后填入位置。这样不需要在初始化过程中求过程体，互递归的结就能一次建立。</p><!-- EOPL:snippet chapter04_statements.rkt statement-blocks -->
+<details class="code-details" open><summary>查看实现 · statement-blocks</summary><pre><code class="language-scheme">(define (initialize-sequential names rhss env)
+  (s:unique! names)
+  (for/fold ([current env]) ([v names] [e rhss])
+    ;; Evaluate this initializer BEFORE adding its own binding; earlier ones are visible.
+    (define val (value-of-expression e current))
+    (s:binding v (s:newref! val) current)))
+(define (declaration-environment names rhss pnames paramss pbodies snames sparamss sbodies env)
+  (s:unique! (append names pnames snames))
+  (define variable-env (initialize-sequential names rhss env))
+  (define all-names (append pnames snames))
+  (define locs (map (lambda (_) (s:newref! &#x27;uninitialized)) all-names))
+  (define self (s:extend-many all-names locs variable-env))
+  (for ([l locs] [params (append paramss sparamss)]) (s:unique! params))
+  (for ([l (take locs (length pnames))] [ps paramss] [body pbodies])
+    (s:setref! l (s:make-closure ps (expression-&gt;core body) self &#x27;value)))
+  (for ([l (drop locs (length pnames))] [ps sparamss] [body sbodies])
+    (s:setref! l (s:sub-val ps body self))) self)
+</code></pre></details>
+<!-- EOPL:end-snippet --><pre><code class="language-scheme">block n = 5
+  procedure even(n) = if zero?(n) then 1 else (odd -(n,1))
+  procedure odd(n) = if zero?(n) then 0 else (even -(n,1))
+in print (odd n) end</code></pre><p>实际输出 1。变量初始化式不在这些过程声明的作用域内，避免尚未填入的过程被过早调用；过程体和块主体能看见全部过程及前面的变量。重复声明名或重复形参会被拒绝。</p></div></details><details class="exercise" id="ex-4-27"><summary>习题 4.27 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.27"><p>在上一题语言中增加子程序（subroutine）。这里子程序类似过程，但不返回值，体是语句而非表达式。增加子程序调用语句，并扩充块语法，使块能同时声明过程和子程序。这怎样影响指称值与表达值？如果在子程序调用中引用过程，或反过来，会怎样？</p></div><p class="source">印刷 p.124 / <a href="../assets/source.pdf#page=147">PDF 147</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>增加带标签的 <code>Subr(params, statement, env)</code> 值。扩展后的 <code>ExpVal = Int + Bool + Proc + Subr</code>，<code>DenVal = Ref(ExpVal)</code>；存储可保存两类调用对象，标签决定执行入口。语句调用 <code>call name(args)</code> 要求 Subr；表达式调用要求 Proc。互相误用必须报类别错误，不能把 void 伪装成表达值。本解允许子程序值经变量传递；若只允许声明名调用，也可将 Subr 仅纳入指称域，但那是另一种设计。</p><pre><code class="language-scheme">block total = 0
+  subroutine add(n) = {total = +(total,n)}
+  subroutine countdown(n) =
+    if zero?(n) {} {call add(n); call countdown(-(n,1))}
+in {call countdown(4); print total} end</code></pre><p>实际输出 10。本组过程与子程序共享完整声明环境，子程序按值接收参数，使用独立形参位置，执行语句体后返回 void。若 <code>procedure f(x) = x</code> 被写作 <code>call f(1)</code>，报 subroutine required；若把子程序 p 写进表达式 <code>(p 1)</code>，报 procedure required。两种失败都已执行验证。</p></div></details></section><section id="s4-4"><h2>4.4 MUTABLE-PAIRS：共享对象与连续区域</h2><p class="source">原书 §4.4，pp.124–130 / <a href="../assets/source.pdf#page=147">PDF 147–153</a>。</p><p>第三章的列表不能原地改 car/cdr；MUTABLE-PAIRS 在隐式引用语言中增加可变序对。值域扩为 <code>ExpVal = Int + Bool + Proc + MutPair</code>，<code>DenVal = Ref(ExpVal)</code>，<code>MutPair = Ref(ExpVal) × Ref(ExpVal)</code>。变量位置保存一个序对值，序对值再指向左右两个可独立更新的位置。</p><h3 id="s4-4-1">4.4.1 实现</h3><p>最直接的表示是左右位置的二元组。构造 <code>pair(a,b)</code> 先按顺序求 a、b，再连续分配两格；left/right 读相应格，setleft/setright 写相应格，原书分别返回 82、83。为形参新建的变量槽只复制这个二元描述符，不复制那两个字段单元。</p><div class="rn-example" id="shared-pair-example"><h3>伴读例：新形参槽为什么仍能改调用者的序对</h3><p class="example-kind">原书图 4.11–4.12 的共享轨迹</p><pre><code class="language-scheme">let glo = pair(11,22)
+in let f = proc(loc)
+             let d1 = setright(loc,left(loc))
+             in let d2 = setleft(glo,99)
+                in -(left(loc),right(loc))
+   in (f glo)</code></pre><p>glo 的变量槽和 loc 的形参槽是两个位置，但都装着指向同一对字段的序对值。先读 left(loc)=11，并把共享的右字段改成 11；再经 glo 把共享左字段改成 99。因此 loc 最后读到 99、11，差为 88。若把 <code>setleft(loc,99)</code> 换成 <code>set loc = pair(99,11)</code>，改变的只是形参槽，glo 仍保存原序对值。</p></div><h3 id="s4-4-2">4.4.2 可变序对的另一种表示</h3><p>两个字段总在一次构造中连续分配，因此只保存左字段基址，右字段位置用基址加一取得。客户程序仍只经 make-pair/left/right/setleft/setright 访问，因此更换表示不影响结果；源码 <code>#:pairs &#x27;two</code> 和 <code>&#x27;base</code> 都把上例求成 88。关键前提是两次字段分配之间不能插入别的分配，且所有访问仍经过同一个接口。</p><!-- EOPL:snippet chapter04.rkt aggregate-locations -->
+<details class="code-details" open><summary>查看实现 · aggregate-locations</summary><pre><code class="language-scheme">(define (make-pair-value a b)
+  (define left (newref! a)) (define right (newref! b))
+  (pair-val (if (eq? (pair-layout) &#x27;base) left (cons left right))))
+(define (pair-left-loc p)
+  (unless (pair-val? p) (error &#x27;pair &quot;pair required&quot;))
+  (define rep (pair-val-representation p)) (if (pair? rep) (car rep) rep))
+(define (pair-right-loc p)
+  (define rep (pair-val-representation p))
+  (if (pair? rep) (cdr rep) (add1 (pair-left-loc p))))
+(define (make-array-value n value)
+  (unless (exact-nonnegative-integer? n) (error &#x27;array &quot;nonnegative length required&quot;))
+  (define base (store-size (current-store)))
+  (for ([_ (in-range n)]) (newref! value)) (array-val base n))
+(define (array-location a i)
+  (unless (array-val? a) (error &#x27;array &quot;array required&quot;))
+  (unless (and (exact-nonnegative-integer? i) (&lt; i (array-val-length a)))
+    (error &#x27;array &quot;index out of bounds: ~s&quot; i))
+  (+ (array-val-base a) i))
+</code></pre></details>
+<!-- EOPL:end-snippet --><p>把这种连续区域推广到数组时，仅有基址已经不够：长度决定合法边界。<code>array-val(base,length)</code> 同时保存两项；arraylength 直接读取长度，arrayref/arrayset 在形成地址前检查精确整数下标。按值传递数组也共享区域，所以习题 4.29 的两次自增会作用在同一元素上。</p><details class="reading-notes" id="notes-s4-4" data-notes-for="s4-4" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">两层间接</span><h3>共享对象不等于共享变量</h3><p>可把每次写入画成两种不同箭头：set loc 改变 loc 变量槽中的描述符；setleft(loc,v) 沿描述符改对象的左字段。按值参数隔离前一种写入，保留后一种对象共享。许多语言里“修改参数对象被外面看见，重新给参数赋值却看不见”的行为，都可以用这两层位置解释。</p></div><div class="annotation-card"><span class="annotation-kind">表示与边界</span><h3>基址不能代替区域大小</h3><p>当数组后面恰好还有其他已分配对象时，base+i 可能仍是合法存储地址，却已经不是这个数组的合法元素。检查整个 store 的范围不能保护对象边界。数组描述符必须保存长度，并在解引用前验证下标属于本数组；底层向量边界与语言层数组边界承担不同职责。</p></div></div></details><h3 id="exercises-4-4">本节习题与解答</h3><details class="exercise-index-panel"><summary>本节习题题号索引 · 3 题</summary><nav class="exercise-index" role="navigation" aria-label="本节习题索引"><a href="#ex-4-28" aria-label="习题 4.28">4.28</a> · <a href="#ex-4-29" aria-label="习题 4.29">4.29</a> · <a href="#ex-4-30" aria-label="习题 4.30">4.30</a></nav></details><details class="exercise" id="ex-4-28"><summary>习题 4.28 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.28"><p>写出可变序对五种操作 <code>newpair</code>、<code>left</code>、<code>right</code>、<code>setleft</code>、<code>setright</code> 的语义规格。每个序对有两个可独立赋值的位置。</p></div><p class="source">印刷 p.128 / <a href="../assets/source.pdf#page=151">PDF 151</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>先求参数，并按出现次序传递存储。newpair 的两个实参都求完后，在最终存储中选择两个互异的新位置，分别装入左右值，返回保存这两个位置的 Pair 值及扩充存储。注意抽象操作名为 newpair，原书例子中的具体构造语法写 <code>pair(e1,e2)</code>。</p><details class="code-details" open><summary>查看解答实现</summary><pre><code class="language-scheme">eval(e1,env,s0)=Answer(v1,s1)
+eval(e2,env,s1)=Answer(v2,s2)
+l1,l2 fresh and distinct in s2
+pair(e1,e2) =&gt; Answer(Pair(l1,l2), update(update(s2,l1,v1),l2,v2))
+
+left(e):  eval e =&gt; Answer(Pair(l1,l2),s1); return Answer(s1[l1],s1)
+right(e): eval e =&gt; Answer(Pair(l1,l2),s1); return Answer(s1[l2],s1)
+
+setleft(e1,e2):  evaluate e1 then e2 =&gt; Pair(l1,l2),v,s2
+                 return Answer(82,update(s2,l1,v))
+setright(e1,e2): evaluate e1 then e2 =&gt; Pair(l1,l2),v,s2
+                 return Answer(83,update(s2,l2,v))</code></pre></details><p>82、83 都应包装为数值表达值，只是原书选择的无实质意义返回值。读取不分配新位置，更新不改变另一侧的位置；传递 Pair 值可以复制描述符，但两份描述符仍指向同一对单元。</p></div></details><details class="exercise" id="ex-4-29"><summary>习题 4.29 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.29"><p>给语言增加数组，提供创建、读取和更新操作 <code>newarray</code>、<code>arrayref</code>、<code>arrayset</code>。值域为 <code>ArrVal = (Ref(ExpVal))*</code>，<code>ExpVal = Int + Bool + Proc + ArrVal</code>，<code>DenVal = Ref(ExpVal)</code>。数组的位置连续分配，采用类似本节第二种序对表示法的表示。下面程序应得到什么结果？<code>newarray(2,-99)</code> 创建长度 2、各元素初值为 −99 的数组。begin 如习题 4.4；下标从 0 开始，长度 2 的合法下标是 0、1。</p><pre><code class="language-scheme">let a = newarray(2,-99)
+    p = proc (x)
+         let v = arrayref(x,1)
+         in arrayset(x,1,-(v,-1))
+in begin arrayset(a,1,0); (p a); (p a); arrayref(a,1) end</code></pre></div><p class="source">印刷 p.128 / <a href="../assets/source.pdf#page=151">PDF 151–152</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>结果为 2。创建时两项都是 −99；先把下标 1 改成 0；每次调用 p 都读取同一个数组的下标 1，再加一并写回。两次调用后该项依次为 1、2。虽然参数 x 的变量槽是新建的，槽内复制的数组值仍指向原数组区域；这属于共享对象，并非把变量槽直接按引用传入。</p><p>连续分配 n 个位置，数组基址为第一位置；第 i 项的位置是 <code>base+i</code>。长度与初值表达式各求一次，然后分配，避免在元素之间重算可能有副作用的初值。下一题加入长度描述符；本伴读的共同实现从一开始使用 <code>array-val(base,length)</code>，长度访问及越界检查也一并提供。</p><!-- EOPL:snippet chapter04.rkt aggregate-locations -->
+<details class="code-details" open><summary>查看实现 · aggregate-locations</summary><pre><code class="language-scheme">(define (make-pair-value a b)
+  (define left (newref! a)) (define right (newref! b))
+  (pair-val (if (eq? (pair-layout) &#x27;base) left (cons left right))))
+(define (pair-left-loc p)
+  (unless (pair-val? p) (error &#x27;pair &quot;pair required&quot;))
+  (define rep (pair-val-representation p)) (if (pair? rep) (car rep) rep))
+(define (pair-right-loc p)
+  (define rep (pair-val-representation p))
+  (if (pair? rep) (cdr rep) (add1 (pair-left-loc p))))
+(define (make-array-value n value)
+  (unless (exact-nonnegative-integer? n) (error &#x27;array &quot;nonnegative length required&quot;))
+  (define base (store-size (current-store)))
+  (for ([_ (in-range n)]) (newref! value)) (array-val base n))
+(define (array-location a i)
+  (unless (array-val? a) (error &#x27;array &quot;array required&quot;))
+  (unless (and (exact-nonnegative-integer? i) (&lt; i (array-val-length a)))
+    (error &#x27;array &quot;index out of bounds: ~s&quot; i))
+  (+ (array-val-base a) i))
+</code></pre></details>
+<!-- EOPL:end-snippet --><p>若初值本身是可变序对，所有元素最初持有同一个序对值；“每项相同的值”不等于深拷贝该对象。空数组合法但没有可读取下标。</p></div></details><details class="exercise" id="ex-4-30"><summary>习题 4.30 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.30"><p>在<a href="#ex-4-29">习题 4.29</a> 的语言中增加 <code>arraylength</code>，要求常数时间返回数组长度，并保证 <code>arrayref</code>、<code>arrayset</code> 检查下标是否在数组长度内。</p></div><p class="source">印刷 p.130 / <a href="../assets/source.pdf#page=153">PDF 153</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>把数组值表示成二元描述符 <code>(base,length)</code>，长度在创建时已知，无需遍历存储。<code>arraylength</code> 直接取 length；访问前要求下标为精确整数，且 <code>0 ≤ i &lt; length</code>，然后才用 <code>base+i</code> 访问。不能只检查所得地址是否处于整个存储内，否则越过数组尾部可能误读另一个对象。</p><pre><code class="language-scheme">(define (array-location a i)
+  (unless (array-val? a) (error &#x27;array &quot;array required&quot;))
+  (unless (and (exact-nonnegative-integer? i)
+               (&lt; i (array-val-length a)))
+    (error &#x27;array &quot;index out of bounds&quot;))
+  (+ (array-val-base a) i))</code></pre><p>此处常数时间以向量存储为前提；若底层仍用链表，地址计算及长度读取虽为常数时间，真正读写单元仍是线性的。实际回归包括长度 0、负下标、恰等于长度和很大下标，也特意在相邻处再分配数组，确认不能跨对象读取。</p></div></details></section><section id="s4-5"><h2>4.5 参数传递：位置、求值时机与缓存</h2><p class="source">原书 §4.5，pp.130–138 / <a href="../assets/source.pdf#page=153">PDF 153–161</a>。</p><p>过程体中的形参总要得到某种指称值；参数传递机制决定它从实参怎样产生。第三章把表达值直接作为指称值，原书称 natural parameter passing；本章的按值调用把表达值装进新位置；接下来改变的是调用时是否共享位置、何时求实参，以及是否记录第一次结果。自由变量依旧由闭包的定义环境解析。</p><h3 id="s4-5-1">4.5.1 CALL-BY-REFERENCE</h3><pre><code class="language-scheme">let p = proc(x) set x = 4
+in let a = 3
+   in begin (p a); a end</code></pre><p>按值传参，新槽 x 初值为 3，更新为 4 后 a 的原槽仍为 3。按引用传参，实参 a 是变量，直接把它的位置交给 x，更新后 a 读到 4。若实参为 <code>-(a,0)</code>，即使结果也是 3，仍需建临时槽，因为这个表达式本身不是可更新的变量位置。</p><table aria-label="同一赋值程序的实测分配差异"><thead><tr><th scope="col">调用策略</th><th scope="col">程序结果</th><th scope="col">本次 run 分配位置数</th></tr></thead><tbody><tr><td>按值</td><td>3</td><td>6</td></tr><tr><td>按引用</td><td>4</td><td>5</td></tr></tbody></table><p>这里的分配数包括三个初始绑定、p 和 a；按值额外为 x 分配一槽，按引用直接复用 a 的槽。数字来自上面这个固定输入的 <code>run/details</code>，不代表一般程序的分配上界。</p><p>位置选择要在调用点完成，因为那里仍看得见实参 AST 是变量还是其他表达式。<code>apply-closure</code> 只接收已形成的形参位置或负责调用 <code>operand-location</code>；不能等实参已经变成裸数值后再猜它来自哪个变量。普通 let 仍按值分配，以保留显式选择独立绑定的能力。</p><!-- EOPL:snippet chapter04.rkt parameter-locations -->
+<details class="code-details" open><summary>查看实现 · parameter-locations</summary><pre><code class="language-scheme">(define (operand-location exp env mode)
+  (cond [(eq? mode &#x27;value) (newref! (value-of exp env))]
+        [(memq mode &#x27;(reference name need))
+         (cases expression exp
+           (var-exp (name) (mutable-location env name))
+           (arrayref-exp (a i)
+             (if (eq? mode &#x27;reference)
+                 (let* ([av (value-of a env)] [iv (num (value-of i env))]) (array-location av iv))
+                 (newref! (frozen-value exp env))))
+           (else (newref! (if (eq? mode &#x27;reference) (value-of exp env) (frozen-value exp env)))))]
+        [else (error &#x27;parameter &quot;unsupported parameter mode&quot;)]))
+(define (apply-closure clos operands caller-env)
+  (define params (closure-params clos)) (arity! params operands)
+  (define mode (closure-mode clos))
+  (cond [(eq? mode &#x27;value-result)
+         ;; Destinations are captured before entering the body. Copy-out is left to right.
+         (define targets
+           (for/list ([e operands])
+             (cases expression e (var-exp (v) (mutable-location caller-env v))
+               (else (error &#x27;value-result &quot;variable operand required&quot;)))))
+         (define locals (map (lambda (l) (newref! (force-location l))) targets))
+         (define answer (value-of (closure-body clos) (extend-many params locals (closure-env clos))))
+         (define final-values (map force-location locals))
+         (for ([target targets] [v final-values]) (setref! target v)) answer]
+        [else
+         (define locs (for/list ([e operands]) (operand-location e caller-env mode)))
+         (value-of (closure-body clos) (extend-many params locs (closure-env clos)))]))
+</code></pre></details>
+<!-- EOPL:end-snippet --><p>本节习题还讨论按值结果：先复制到新形参槽，返回时再复制回原槽。它与按引用的差异发生在执行过程体期间；两个位置在体中是否相同，会影响别名和自由变量读取。正文中的共享序对则是第三条轴：即使参数变量槽不同，其内容仍能指向同一对象。</p><h3 id="s4-5-2">4.5.2 惰性求值：CALL-BY-NAME 与 CALL-BY-NEED</h3><p>急切调用在进入体前求出每个实参。惰性调用把尚未求值的实参表达式及其调用者环境打包成 thunk，只有读到形参才求它。若体根本不读该形参，一个无限递归或错误表达式也不会被求值。原书 p.136 的 infinite-loop 示例意在展示此点；本书具体调用文法要求括号，运行版使用 <code>(infinite-loop -(x,-1))</code>，原页的那行写法另作校注。</p><pre><code class="language-scheme">letrec infinite-loop(x) = (infinite-loop -(x,-1))
+in let f = proc(z) 11
+   in (f (infinite-loop 0))</code></pre><p>按名和按需都得到 11。thunk 保存环境以保持词法绑定，不能在强制时改用过程体此刻的环境；但它不保存旧存储快照，强制时应使用当前状态。原书方案还规定：变量实参直接复用原位置，其余实参才放进含 thunk 的新位置；普通 let 此时仍急切。</p><p>按名每次读到 thunk 都重新求值；按需第一次求出后把表达值写回同一位置，以后直接读取，称为记忆化。没有效果时，这两者对终止计算的值一致；有赋值时，重复执行次数会改变结果，习题 4.39 的计数器把差别显式展示出来。</p><!-- EOPL:snippet chapter04.rkt lazy-force -->
+<details class="code-details" open><summary>查看实现 · lazy-force</summary><pre><code class="language-scheme">(define (force-location loc)
+  (define value (deref! loc))
+  (if (thunk? value)
+      (let ([answer (begin (bump! &#x27;forces)
+                           (value-of (thunk-expression value) (thunk-env value)))])
+        (when (eq? (parameter-mode) &#x27;need) (setref! loc answer)) answer)
+      value))
+(define (read-variable env name)
+  (define den (lookup env name))
+  (if (immutable? den) (immutable-value den) (force-location den)))
+(define (frozen-value exp env)
+  (if (and (optimize-thunks?)
+           (cases expression exp (const-exp (n) #t) (proc-exp (k ps b) #t) (else #f)))
+      (value-of exp env)
+      (begin (bump! &#x27;thunks) (thunk exp env))))
+</code></pre></details>
+<!-- EOPL:end-snippet --><div class="table-scroll"><p>没有副作用时，还能用替换来理解调用：把过程体里对形参的自由使用替换为实参，这就是本节联系到的 β 归约。替换必须尊重绑定，不能把形参名在另一层同名声明里的出现也一并替掉，也不能让实参的自由变量被体内新名字捕获。闭包和 thunk 保存的两份环境，正是运行时维护这些绑定关系的办法。</p><p>有状态以后，单凭替换后的文字已经不足以判断结果：一个实参展开几次、在哪个时点读取位置，都可能改变后续状态。按名的重复强制与按需的首次缓存，因而必须分别给出规则，不能只当作相同结果下的速度优化。</p><table aria-label="参数策略的三个问题"><thead><tr><th scope="col">策略</th><th scope="col">形参得到什么</th><th scope="col">什么时候求非变量实参</th><th scope="col">结果或状态会怎样返回</th></tr></thead><tbody><tr><td>按值</td><td>装有实参值的新位置</td><td>调用前一次</td><td>形参赋值不覆盖实参槽</td></tr><tr><td>按引用</td><td>变量/数组元素的原位置；否则新位置</td><td>非左值在调用前一次</td><td>体中直接写共享位置</td></tr><tr><td>按值结果</td><td>装初值的新位置，另记实参位置</td><td>调用前一次</td><td>正常返回时复制回去</td></tr><tr><td>按名</td><td>变量原位置；否则装 thunk 的新位置</td><td>每次读取可能重求</td><td>不缓存 thunk 结果</td></tr><tr><td>按需</td><td>变量原位置；否则装 thunk 的新位置</td><td>首次读取时</td><td>把首次结果写回槽</td></tr></tbody></table></div><p>源码给各实验统一前端以便比较，不表示原书把全部扩充同时加入一个语言：默认 run 是按值隐式引用，<code>#:mode</code> 选择引用、值结果、按名或按需；显式引用的纯语言使用独立入口。每个题解说明新增语法与值域，避免把实现方便造成的联合语法误当成原书各语言共同的规则。</p><details class="reading-notes" id="notes-s4-5" data-notes-for="s4-5" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">两份环境</span><h3>thunk 和闭包分别保存哪一边</h3><p>闭包保存过程定义处的环境，决定体里的自由变量；thunk 保存实参出现处的环境，决定被推迟表达式里的自由变量。例如调用者 x=7，体中再 let x=99，实参 -(x,1) 强制时仍应得到 6。惰性只改变求值时机，不能让形参表达式自动改用体内的同名绑定。</p></div><div class="annotation-card"><span class="annotation-kind">有状态的惰性</span><h3>记忆化保存的是第一次结果</h3><p>若 thunk 首次求值得到一个数值，后来的读取复用该数值，即使其依赖的某个源变量已改变；若结果是共享对象，则缓存的是同一对象描述符，后续对该对象字段的更新仍能被观察。把“缓存表达值”和“冻结对象内容”区分开，才能判断按需程序里的赋值到底作用在哪一层。</p></div></div></details><h3 id="exercises-4-5">本节习题与解答</h3><details class="exercise-index-panel"><summary>本节习题题号索引 · 12 题</summary><nav class="exercise-index" role="navigation" aria-label="本节习题索引"><a href="#ex-4-31" aria-label="习题 4.31">4.31</a> · <a href="#ex-4-32" aria-label="习题 4.32">4.32</a> · <a href="#ex-4-33" aria-label="习题 4.33">4.33</a> · <a href="#ex-4-34" aria-label="习题 4.34">4.34</a> · <a href="#ex-4-35" aria-label="习题 4.35">4.35</a> · <a href="#ex-4-36" aria-label="习题 4.36">4.36</a> · <a href="#ex-4-37" aria-label="习题 4.37">4.37</a> · <a href="#ex-4-38" aria-label="习题 4.38">4.38</a> · <a href="#ex-4-39" aria-label="习题 4.39">4.39</a> · <a href="#ex-4-40" aria-label="习题 4.40">4.40</a> · <a href="#ex-4-41" aria-label="习题 4.41">4.41</a> · <a href="#ex-4-42" aria-label="习题 4.42">4.42</a></nav></details><details class="exercise" id="ex-4-31"><summary>习题 4.31 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.31"><p>请写出按引用传参语言 CALL-BY-REFERENCE 的语义规格，说明实参位置的形成与过程应用。</p></div><p class="source">印刷 p.133 / <a href="../assets/source.pdf#page=156">PDF 156</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>变量读取、赋值、let 与 IMPLICIT-REFS 保持一致；只改变实参形成指称值的规则。若实参是变量，直接返回调用者环境中已有的位置，不读取其内容，也不分配新槽。其他表达式按当前环境求值，再把结果放进新槽。</p><pre><code class="language-scheme">operand(Var(x),env,s) = Answer(env[x],s)
+operand(e,env,s0) = Answer(fresh l, update(s1,l,v))
+    when e is not a variable and eval(e,env,s0)=Answer(v,s1)
+
+call: evaluate rator -&gt; Closure(x,body,saved),s1
+      operand(rand,caller,s1) -&gt; l,s2
+      evaluate body in extend(saved,x,l),s2</code></pre><p>闭包保存的环境仍是词法环境，不因传参变成动态作用域。调用 <code>p a</code> 时形参和 a 指向同一个位置；<code>p -(a,0)</code> 的数值即使相同，也只是新临时槽。多参数版依次产生位置，可能有两个形参得到同一个位置，这就是变量别名。</p></div></details><details class="exercise" id="ex-4-32"><summary>习题 4.32 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.32"><p>扩充 CALL-BY-REFERENCE，使过程支持多个参数。</p></div><p class="source">印刷 p.133 / <a href="../assets/source.pdf#page=156">PDF 156</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>把形参与实参都改为列表，对每个实参调用上一题的 operand 规则，按从左到右顺序收集位置。检查参数个数后，把形参与位置列表一起加到闭包环境。变量实参复用原位置，非变量实参分别分配临时位置，不能统一先求值再全部 newref。</p><!-- EOPL:snippet chapter04.rkt parameter-locations -->
+<details class="code-details" open><summary>查看实现 · parameter-locations</summary><pre><code class="language-scheme">(define (operand-location exp env mode)
+  (cond [(eq? mode &#x27;value) (newref! (value-of exp env))]
+        [(memq mode &#x27;(reference name need))
+         (cases expression exp
+           (var-exp (name) (mutable-location env name))
+           (arrayref-exp (a i)
+             (if (eq? mode &#x27;reference)
+                 (let* ([av (value-of a env)] [iv (num (value-of i env))]) (array-location av iv))
+                 (newref! (frozen-value exp env))))
+           (else (newref! (if (eq? mode &#x27;reference) (value-of exp env) (frozen-value exp env)))))]
+        [else (error &#x27;parameter &quot;unsupported parameter mode&quot;)]))
+(define (apply-closure clos operands caller-env)
+  (define params (closure-params clos)) (arity! params operands)
+  (define mode (closure-mode clos))
+  (cond [(eq? mode &#x27;value-result)
+         ;; Destinations are captured before entering the body. Copy-out is left to right.
+         (define targets
+           (for/list ([e operands])
+             (cases expression e (var-exp (v) (mutable-location caller-env v))
+               (else (error &#x27;value-result &quot;variable operand required&quot;)))))
+         (define locals (map (lambda (l) (newref! (force-location l))) targets))
+         (define answer (value-of (closure-body clos) (extend-many params locals (closure-env clos))))
+         (define final-values (map force-location locals))
+         (for ([target targets] [v final-values]) (setref! target v)) answer]
+        [else
+         (define locs (for/list ([e operands]) (operand-location e caller-env mode)))
+         (value-of (closure-body clos) (extend-many params locs (closure-env clos)))]))
+</code></pre></details>
+<!-- EOPL:end-snippet --><pre><code class="language-scheme">let a = 3
+in let f = proc(x,y) begin set x = 4; y end
+   in (f a a)</code></pre><p>按引用得到 4，因为 x、y、a 同指一槽；按值得到 3，因为两个新形参槽各存初值 3。实际执行均已核验。若实参求值有副作用，后面的实参位置计算使用前面留下的当前状态。</p></div></details><details class="exercise" id="ex-4-33"><summary>习题 4.33 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.33"><p>扩充 CALL-BY-REFERENCE，使它也支持按值传参的过程。</p></div><p class="source">印刷 p.133 / <a href="../assets/source.pdf#page=156">PDF 156</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>在过程语法和闭包中记录策略。本解新增 <code>procval(...) body</code> 和 <code>procref(...) body</code>；普通 proc 使用 run 选择的语言策略。调用时由被调用闭包的策略决定如何处理整个实参列表，而不是由调用位置或调用者当前过程的策略决定。</p><pre><code class="language-scheme">let a = 3
+in let f = procval(x) set x = 4
+   in begin (f a); a end</code></pre><p>即使整段程序按引用模式运行，此例也返回 3；把 procval 改成 procref，即使默认按值也返回 4。按值分支求值并 newref，按引用分支复用变量位置。完整实现见 <code>closure</code> 的 mode 字段、<code>kind-mode</code> 和 <code>apply-closure</code>。混合传参不改变自由变量的词法解析。</p></div></details><details class="exercise" id="ex-4-34"><summary>习题 4.34 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.34"><p>加入按引用版本的 let，命名为 <code>letref</code>；给出规格并实现。</p></div><p class="source">印刷 p.133 / <a href="../assets/source.pdf#page=156">PDF 156</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>先按 CALL-BY-REFERENCE 的 operand 规则处理右侧，再用得到的位置直接扩充环境求体。变量右侧复用旧位置，其他右侧求值后建立临时位置。</p><pre><code class="language-scheme">operand(rhs,env,s0) = Answer(l,s1)
+eval(body,extend(env,x,l),s1) = Answer(v,s2)
+-------------------------------------------------
+eval(LetRef(x,rhs,body),env,s0) = Answer(v,s2)
+
+(letref-exp (name rhs body)
+  (value-of body
+    (binding name (operand-location rhs env &#x27;reference) env)))</code></pre><p><code>let a = 3 in letref b = a in begin set b = 9; a end</code> 得 9；右侧换成 <code>-(a,0)</code> 后得 3。普通 let 继续分配新槽，读者可以显式选择是否共享变量位置。</p></div></details><details class="exercise" id="ex-4-35"><summary>习题 4.35 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.35"><p>在按值框架中也能获得按引用传参的部分好处。为 IMPLICIT-REFS 增加 <code>Expression ::= ref Identifier</code>，抽象语法为 <code>ref-exp(var)</code>。它不同于 EXPLICIT-REFS：只能取得变量的引用。这样可在按值语言中写 swap。下面表达式应得什么值？题目说明采用多声明 let（习题 3.16）。这个语言的表达值与指称值分别是什么？</p><pre><code class="language-scheme">let a = 3
+in let b = 4
+   in let swap = proc (x) proc (y)
+                  let temp = deref(x)
+                  in begin
+                      setref(x,deref(y));
+                      setref(y,temp)
+                     end
+      in begin ((swap ref a) ref b); -(a,b) end</code></pre></div><p class="source">印刷 p.133 / <a href="../assets/source.pdf#page=156">PDF 156</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>得到 1：a、b 最初为 3、4，交换后为 4、3，最后相减为 1。<code>ref a</code> 返回指向 a 变量槽的表达值；按值调用仍给形参 x 分配新槽，但新槽装的是这份引用值。<code>deref(x)</code> 先隐式读取 x 得引用，再显式读取引用指向的 a；setref 最终更新 a/b 的原槽。</p><p>最小扩展为 <code>ExpVal = Int + Bool + Proc + Ref(ExpVal)</code>，<code>DenVal = Ref(ExpVal)</code>。与纯 IMPLICIT-REFS 相比，引用现在也能作为表达值流动；与 EXPLICIT-REFS 相比，程序只能从已有变量取 ref，绑定仍隐式分配，普通变量读取仍隐式解引用。题给程序实际是嵌套 let，原文提到多声明 let 不影响此例含义。完整执行使用默认按值模式，结果为 1。</p></div></details><details class="exercise" id="ex-4-36"><summary>习题 4.36 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.36"><p>大多数语言支持数组，按引用传参时通常把数组元素引用当作变量引用：若实参是数组元素访问，传入的是该元素位置而非内容。这样 swap 可交换数组两项。请把类似<a href="#ex-4-29">习题 4.29</a> 的数组操作加入 CALL-BY-REFERENCE，并扩充 <code>value-of-operand</code>，使下面调用按预期工作；第二种嵌套数组下标情况应如何处理？</p><pre><code class="language-scheme">((swap (arrayref a i)) (arrayref a j))
+((swap (arrayref a (arrayref a i))) (arrayref a j))</code></pre></div><p class="source">印刷 p.135 / <a href="../assets/source.pdf#page=158">PDF 158</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>新增数组元素左值分支：先求数组表达式，再求下标表达式并检查边界，返回目标元素位置；不能在此返回元素值。嵌套情形中，内层 <code>arrayref a i</code> 是计算外层下标的普通右值，读取一次；外层 arrayref 才产生要传给 swap 的位置。位置一旦选定，过程体后来改变下标变量或数组内容，不会重新选择目的地。</p><p>题面使用前缀示意写法；本伴读数组前端采用前题的 <code>arrayref(a,i)</code> 语法，同一调用写成 <code>((swap arrayref(a,arrayref(a,i))) arrayref(a,j))</code>。取数组初值 <code>[1,7,9]</code>，i=0、j=2：内层读出 1，交换第 1、2 项后为 <code>[1,9,7]</code>。实际返回两项列表 <code>(9 7)</code>；另测过程体把 i 从 0 改成 1 后仍只更新最初选定的第 0 项，结果 <code>(9 0)</code>。</p></div></details><details class="exercise" id="ex-4-37"><summary>习题 4.37 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.37"><p>按值结果传参（call-by-value-result）是按引用传参的一种变体：实参必须是变量。调用时像按值传参一样，给形参绑定一个新引用，初值是实参当前的值，正常执行过程体；但在过程返回时，把该新位置中的值复制回实参变量的位置。这样可能改善内存局部性，从而比按引用更有效率。实现这种策略，并写一个在值结果与按引用下得到不同答案的程序。</p></div><p class="source">印刷 p.135 / <a href="../assets/source.pdf#page=158">PDF 158–159</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>调用前记录每个实参原位置，创建独立形参槽；正常执行体，保存返回值；取得所有形参最终值，再写回记录的原位置，最后返回已保存的结果。体抛错时本实现不执行写回；多个形参对应同一实参时明确按从左到右写回，后者覆盖前者。题目未规定这两种边界，必须声明。</p><pre><code class="language-scheme">let x = 3
+in let f = proc(y) begin set x = 4; y end
+   in begin (f x); x end</code></pre><p>按引用时 y 就是 x，体先把共享槽写成 4，返回后 x 为 4。按值结果时 y 的新槽初值为 3，体通过自由变量把原 x 改成 4，返回前又把 y 的 3 写回原 x，因此结果为 3。两者已实际执行。不要用只交换两个独立变量的程序作区分例，因为两种策略在那种简单场景可能相同。</p></div></details><details class="exercise" id="ex-4-38"><summary>习题 4.38 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.38"><p>下例是<a href="chapter03_expressions.html#ex-3-25">习题 3.25</a> 的一个变体，它在按需求值下可以工作。原习题 3.25 的程序在按需求值下能否工作？若把下例放在按值解释器中运行会怎样，为什么？</p><pre><code class="language-scheme">let makerec = proc (f)
+               let d = proc (x) (f (x x))
+               in (f (d d))
+in let maketimes4 = proc (f)
+                     proc (x)
+                       if zero?(x)
+                       then 0
+                       else -((f -(x,1)), -4)
+   in let times4 = (makerec maketimes4)
+      in (times4 3)</code></pre></div><p class="source">印刷 p.138 / <a href="../assets/source.pdf#page=161">PDF 161</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>原习题 3.25 的程序在按需下也能工作，结果仍为 12。原程序在自应用外加了 <code>proc(z)</code> 和 <code>proc(n)</code>，把展开递归推迟到真正收到数值参数时；这些延迟在按值下是必需的，在按需下只是额外包装，不破坏结果。</p><p>本题简化版按需返回 12：调用 f 时 <code>(d d)</code> 作为 thunk 保存；maketimes4 返回一个过程，直到非零分支真的调用递归参数时才迫使自应用展开。按值则要先算 <code>(d d)</code> 才能把它交给 f，而 <code>(d d)</code> 又要求先算 <code>(x x)</code>，不断展开，尚未进入计算 times4 的主体就不终止。</p><p>实际验证：本题简化版按需得 12；原版按值、按需都得 12。对简化版按值执行设置 500 个求值步骤的上限，实际触发 fuel exhausted；这是有界执行证据，不以超时当作一般证明，不终止的理由是前述无限自应用展开。</p></div></details><details class="exercise" id="ex-4-39"><summary>习题 4.39 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.39"><p>没有副作用时，按名与按需总给出相同答案。构造一个有副作用的例子，使两者得到不同答案。</p></div><p class="source">印刷 p.138 / <a href="../assets/source.pdf#page=161">PDF 161</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><pre><code class="language-scheme">let c = 0
+in let f = proc(x) -(x,x)
+   in (f begin set c = -(c,-1); c end)</code></pre><p>按名每次读取 x 都重新执行 thunk：第一次 c 变为 1、x 得 1；第二次 c 变为 2、x 得 2，相减为 −1。按需第一次读取把结果 1 写回 x 的 thunk 槽，第二次直接读取 1，结果为 0，c 最终为 1。实际统计的强制次数分别为 2、1。</p><p>这说明“同样的表达式结果可以缓存”在有状态时是语义选择。按需缓存的是第一次强制得到的表达值，不是以后每次都去读取某个源变量的最新内容；而本书对变量实参直接传位置的特殊规则仍会形成别名。</p></div></details><details class="exercise" id="ex-4-40"><summary>习题 4.40 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.40"><p>修改 <code>value-of-operand</code>，避免为常量和过程创建 thunk。</p></div><p class="source">印刷 p.138 / <a href="../assets/source.pdf#page=161">PDF 161</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>常量求值不产生效果，结果可立即放进新槽；过程表达式只创建闭包，不执行体，使用此刻的调用者环境创建它也不会提前执行体中副作用。因此这两类实参可直接存表达值，其余非变量实参保留 thunk，变量仍复用原位置。</p><pre><code class="language-scheme">(define (frozen-value exp env)
+  (if (and (optimize-thunks?)
+           (cases expression exp
+             (const-exp (n) #t)
+             (proc-exp (k ps b) #t)
+             (else #f)))
+      (value-of exp env)
+      (begin (bump! &#x27;thunks) (thunk exp env))))</code></pre><p><code>let f = proc(x,y) 11 in (f 7 proc(z) z)</code> 在未优化按需模式创建 2 个 thunk，开启 <code>#:optimize-thunks? #t</code> 后为 0，结果同为 11。不能把 <code>newref(...)</code>、变量读取以外的任意算式也一概提前：它们可能有副作用、错误或不终止。过程的定义环境仍取实参所在环境。</p></div></details><details class="exercise" id="ex-4-41"><summary>习题 4.41 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.41"><p>写出按名与按需的语义规格。</p></div><p class="source">印刷 p.138 / <a href="../assets/source.pdf#page=161">PDF 161</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>两者的指称值都是 <code>Ref(ExpVal + Thunk)</code>。调用仍先求运算符；实参是变量时直接传已有位置，其他实参在新位置中存 <code>Thunk(expression,caller-env)</code>，不求实参。体在闭包的保存环境加上形参到该位置的绑定后执行。</p><pre><code class="language-scheme">read-variable(x,env,s0):
+  l = env[x]
+  w = s0[l]
+  if w is ExpVal: return Answer(w,s0)
+  if w = Thunk(e,saved):
+    eval(e,saved,s0) = Answer(v,s1)
+    by-name: return Answer(v,s1)
+    by-need: return Answer(v,update(s1,l,v))</code></pre><p>强制 thunk 用保存的环境，但使用强制发生时的当前存储；不是冻结整份存储。按名保留原 thunk，下一次可能再次求值；按需将第一次结果写回同一个槽。<code>let</code> 在本节仍急切，赋值直接替换内容而不用先迫使旧 thunk。若采用多参数调用，各实参描述符按顺序建立，但未被要求的表达式效果尚不发生。</p><!-- EOPL:snippet chapter04.rkt lazy-force -->
+<details class="code-details" open><summary>查看实现 · lazy-force</summary><pre><code class="language-scheme">(define (force-location loc)
+  (define value (deref! loc))
+  (if (thunk? value)
+      (let ([answer (begin (bump! &#x27;forces)
+                           (value-of (thunk-expression value) (thunk-env value)))])
+        (when (eq? (parameter-mode) &#x27;need) (setref! loc answer)) answer)
+      value))
+(define (read-variable env name)
+  (define den (lookup env name))
+  (if (immutable? den) (immutable-value den) (force-location den)))
+(define (frozen-value exp env)
+  (if (and (optimize-thunks?)
+           (cases expression exp (const-exp (n) #t) (proc-exp (k ps b) #t) (else #f)))
+      (value-of exp env)
+      (begin (bump! &#x27;thunks) (thunk exp env))))
+</code></pre></details>
+<!-- EOPL:end-snippet --><p>存储传递规格在按需最后更新的是求 thunk 后的 s1，不能回到 s0，否则会丢掉 thunk 自己产生的效果。复杂语言还需处理求值中的循环 thunk；本章实现用明确步骤上限报告非终止实验，不把上限当成语言中的值。</p></div></details><details class="exercise" id="ex-4-42"><summary>习题 4.42 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="4.42"><p>为按需解释器增加一个惰性的 let。</p></div><p class="source">印刷 p.138 / <a href="../assets/source.pdf#page=161">PDF 161</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>补充语法 <code>lazylet x = e1 y = e2 in body</code>。这里明确采用与普通并行 let 相同的作用域，并给每个名字分配一个新槽；槽内保存右侧表达式和旧环境构成的 thunk。即使右侧仅为变量，也不直接复用其位置，以保持普通 let 的绑定独立性。求体时再扩充环境，读取时复用按需的强制与记忆化逻辑。</p><pre><code class="language-scheme">(lazylet-exp (names rhss body)
+  (unique! names)
+  (define locs
+    (for/list ([e rhss])
+      (newref! (frozen-value e env))))
+  (value-of body (extend-many names locs env)))</code></pre><p><code>lazylet x = missing in 7</code> 实际返回 7，未使用的右侧不会求值；有副作用的右侧只迫使一次，<code>let c = 0 in lazylet x = begin set c = -(c,-1); c end in list(x,x,c)</code> 得 <code>(1 1 1)</code>。<code>let a = 3 in lazylet b = a in begin set b = 9; a end</code> 得 3，说明 b 有独立槽。若希望右侧名字与变量实参一样成为别名，应另取语法并声明，这里没有把两种选择混在一起。</p></div></details></section><section id="programs"><h2>运行本章解释器</h2><p>使用 Racket 8.17 与自带 eopl、rackunit。在仓库根目录依次运行；若 racket 未加入 PATH，使用本机安装目录下的可执行文件。</p><pre><code class="language-scheme">racket books/eopl/code/chapter04_explicit.rkt
+racket books/eopl/code/chapter04.rkt
+racket books/eopl/code/chapter04_statements.rkt
+racket books/eopl/code/test_chapter04.rkt</code></pre><p>纯显式引用程序按“共享计数器、每次重建计数器、双层引用、两次 f 调用”的顺序实际输出：</p><div class="program-output"><pre><code class="language-scheme">-1
+0
+11
+11</code></pre></div><p>隐式引用程序按“按值赋值、按引用赋值、共享序对、按名重复效果、按需缓存”的顺序实际输出：</p><div class="program-output"><pre><code class="language-scheme">3
+4
+88
+-1
+0</code></pre></div><p>语句程序的四个原例分别输出 7、12、三行 3/4/3、12。回归含 21 组、641 项断言；49 组小整数输入分别跨三种存储后端核验状态更新与独立宿主算式，并覆盖类型/元数/未绑定、未初始化、固定容量耗尽、数组边界、错误调用种类、动态恢复与惰性步骤上限。有限矩阵是具体实现的核验，递归和策略的解释仍以本章规则为依据。</p><p><code>run</code> 返回带标签的表达值，<code>datum</code> 只转换外部显示形式；<code>run/details</code> 返回最终值、当前存储、操作计数和事件列表，便于自行追踪位置。纯显式版本返回 Answer；语句入口返回打印文本与最终存储。源码说明中列出各选项和返回约定。</p><details class="code-details" id="complete-chapter04"><summary>完整程序 · 隐式引用、对象与参数策略</summary><!-- EOPL:program chapter04.rkt --><pre><code id="chapter04-code" class="language-scheme">#lang racket
+;; EOPL chapter 4: original companion interpreter; no host eval.
+(require eopl)
+(provide (all-defined-out))
+
+;; BEGIN state-grammar
+(define lexical-spec
+  &#x27;((white-space (whitespace) skip)
+    (comment (&quot;%&quot; (arbno (not #\newline))) skip)
+    (identifier (letter (arbno (or letter digit &quot;_&quot; &quot;-&quot; &quot;?&quot;))) symbol)
+    (number (digit (arbno digit)) number)
+    (number (&quot;-&quot; digit (arbno digit)) number)))
+(define grammar
+  &#x27;((program (expression) a-program)
+    (expression (number) const-exp) (expression (identifier) var-exp)
+    (expression (unary-op &quot;(&quot; expression &quot;)&quot;) unary-exp)
+    (expression (binary-op &quot;(&quot; expression &quot;,&quot; expression &quot;)&quot;) binary-exp)
+    (expression (&quot;list&quot; &quot;(&quot; (separated-list expression &quot;,&quot;) &quot;)&quot;) list-exp)
+    (expression (&quot;if&quot; expression &quot;then&quot; expression &quot;else&quot; expression) if-exp)
+    (expression (&quot;let&quot; (arbno identifier &quot;=&quot; expression) &quot;in&quot; expression) let-exp)
+    (expression (&quot;letmutable&quot; identifier &quot;=&quot; expression &quot;in&quot; expression) letmutable-exp)
+    (expression (&quot;letref&quot; identifier &quot;=&quot; expression &quot;in&quot; expression) letref-exp)
+    (expression (&quot;lazylet&quot; (arbno identifier &quot;=&quot; expression) &quot;in&quot; expression) lazylet-exp)
+    (expression (proc-kind &quot;(&quot; (separated-list identifier &quot;,&quot;) &quot;)&quot; expression) proc-exp)
+    (expression (&quot;(&quot; expression (arbno expression) &quot;)&quot;) call-exp)
+    (expression (&quot;letrec&quot; (arbno identifier &quot;(&quot; (separated-list identifier &quot;,&quot;) &quot;)&quot; &quot;=&quot; expression) &quot;in&quot; expression) letrec-exp)
+    (expression (&quot;begin&quot; expression (arbno &quot;;&quot; expression) &quot;end&quot;) begin-exp)
+    (expression (&quot;set&quot; identifier &quot;=&quot; expression) assign-exp)
+    (expression (&quot;setdynamic&quot; identifier &quot;=&quot; expression &quot;during&quot; expression) dynamic-exp)
+    (expression (&quot;ref&quot; identifier) ref-exp)
+    (expression (&quot;setref&quot; &quot;(&quot; expression &quot;,&quot; expression &quot;)&quot;) setref-exp)
+    (expression (&quot;pair&quot; &quot;(&quot; expression &quot;,&quot; expression &quot;)&quot;) pair-exp)
+    (expression (&quot;setleft&quot; &quot;(&quot; expression &quot;,&quot; expression &quot;)&quot;) setleft-exp)
+    (expression (&quot;setright&quot; &quot;(&quot; expression &quot;,&quot; expression &quot;)&quot;) setright-exp)
+    (expression (&quot;newarray&quot; &quot;(&quot; expression &quot;,&quot; expression &quot;)&quot;) array-exp)
+    (expression (&quot;arrayref&quot; &quot;(&quot; expression &quot;,&quot; expression &quot;)&quot;) arrayref-exp)
+    (expression (&quot;arrayset&quot; &quot;(&quot; expression &quot;,&quot; expression &quot;,&quot; expression &quot;)&quot;) arrayset-exp)
+    (proc-kind (&quot;proc&quot;) default-kind) (proc-kind (&quot;procval&quot;) value-kind)
+    (proc-kind (&quot;procref&quot;) reference-kind)
+    (unary-op (&quot;zero?&quot;) zero-op) (unary-op (&quot;not&quot;) not-op)
+    (unary-op (&quot;newref&quot;) newref-op) (unary-op (&quot;deref&quot;) deref-op)
+    (unary-op (&quot;left&quot;) left-op) (unary-op (&quot;right&quot;) right-op)
+    (unary-op (&quot;arraylength&quot;) length-op)
+    (binary-op (&quot;-&quot;) diff-op) (binary-op (&quot;+&quot;) add-op)
+    (binary-op (&quot;*&quot;) times-op)))
+(sllgen:make-define-datatypes lexical-spec grammar)
+(define scan&amp;parse (sllgen:make-string-parser lexical-spec grammar))
+;; END state-grammar
+
+;; BEGIN state-values
+(struct num-val (n) #:transparent)
+(struct bool-val (b) #:transparent)
+(struct proc-val (p) #:transparent)
+(struct ref-val (loc) #:transparent)
+(struct pair-val (representation) #:transparent)
+(struct array-val (base length) #:transparent)
+(struct list-val (elements) #:transparent)
+(struct sub-val (params body env) #:transparent)
+(struct closure (params body env mode) #:transparent)
+(struct thunk (expression env) #:transparent)
+(struct immutable (value) #:transparent)
+(define (expval? v)
+  (or (num-val? v) (bool-val? v) (proc-val? v) (ref-val? v)
+      (pair-val? v) (array-val? v) (list-val? v) (sub-val? v)))
+(define (num v) (if (num-val? v) (num-val-n v) (error &#x27;number &quot;number required&quot;)))
+(define (bool v) (if (bool-val? v) (bool-val-b v) (error &#x27;boolean &quot;boolean required&quot;)))
+(define (reference v) (if (ref-val? v) (ref-val-loc v) (error &#x27;reference &quot;reference required&quot;)))
+(define (procedure-value v) (if (proc-val? v) (proc-val-p v) (error &#x27;call &quot;procedure required&quot;)))
+(define (datum v)
+  (cond [(num-val? v) (num-val-n v)] [(bool-val? v) (bool-val-b v)]
+        [(list-val? v) (map datum (list-val-elements v))]
+        [(proc-val? v) &#x27;&lt;procedure&gt;] [(sub-val? v) &#x27;&lt;subroutine&gt;]
+        [(ref-val? v) (list &#x27;ref (ref-val-loc v))]
+        [(pair-val? v) (list &#x27;pair (pair-left-loc v) (pair-right-loc v))]
+        [(array-val? v) (list &#x27;array (array-val-base v) (array-val-length v))]
+        [else (error &#x27;datum &quot;expressed value required&quot;)]))
+;; END state-values
+
+;; BEGIN store-interface
+;; list is the textbook model; fixed is exercise 4.9; vector grows geometrically.
+(struct store (cells size backend) #:mutable #:transparent)
+(define current-store (make-parameter #f))
+(define metrics (make-parameter #f))
+(define event-log (make-parameter #f))
+(define (bump! key) (when (metrics) (hash-update! (metrics) key add1 0)))
+(define (event! kind loc value)
+  (when (event-log)
+    (set-box! (event-log) (cons (list kind loc value) (unbox (event-log))))))
+(define (make-store [backend &#x27;vector] [capacity 16])
+  (unless (memq backend &#x27;(list fixed vector)) (error &#x27;store &quot;unknown backend&quot;))
+  (unless (exact-positive-integer? capacity) (error &#x27;store &quot;positive capacity required&quot;))
+  (store (if (eq? backend &#x27;list) &#x27;() (make-vector capacity &#x27;uninitialized)) 0 backend))
+(define (valid-location! loc)
+  (unless (and (exact-nonnegative-integer? loc) (&lt; loc (store-size (current-store))))
+    (error &#x27;store &quot;invalid location: ~s&quot; loc)))
+(define (newref! value)
+  (define s (current-store)) (define next (store-size s))
+  (cond [(eq? (store-backend s) &#x27;list)
+         (set-store-cells! s (append (store-cells s) (list value)))]
+        [else
+         (when (= next (vector-length (store-cells s)))
+           (when (eq? (store-backend s) &#x27;fixed) (error &#x27;store &quot;capacity exhausted&quot;))
+           (define grown (make-vector (* 2 (vector-length (store-cells s))) &#x27;uninitialized))
+           (vector-copy! grown 0 (store-cells s)) (set-store-cells! s grown))
+         (vector-set! (store-cells s) next value)])
+  (set-store-size! s (add1 next)) (bump! &#x27;allocations) (event! &#x27;allocate next value) next)
+(define (deref! loc)
+  (valid-location! loc) (define s (current-store)) (bump! &#x27;reads)
+  (define v (if (eq? (store-backend s) &#x27;list) (list-ref (store-cells s) loc)
+                (vector-ref (store-cells s) loc)))
+  (when (eq? v &#x27;uninitialized) (error &#x27;store &quot;uninitialized location: ~a&quot; loc)) v)
+(define (setref! loc value)
+  (valid-location! loc) (define s (current-store))
+  (if (eq? (store-backend s) &#x27;list)
+      (set-store-cells! s
+        (let replace ([xs (store-cells s)] [i loc])
+          (if (zero? i) (cons value (cdr xs)) (cons (car xs) (replace (cdr xs) (sub1 i))))))
+      (vector-set! (store-cells s) loc value))
+  (bump! &#x27;writes) (event! &#x27;write loc value) (void))
+(define (store-snapshot)
+  (define s (current-store))
+  (if (eq? (store-backend s) &#x27;list) (store-cells s)
+      (vector-&gt;list (vector-copy (store-cells s) 0 (store-size s)))))
+;; END store-interface
+
+(define parameter-mode (make-parameter &#x27;value))
+(define rec-mode (make-parameter &#x27;cached))
+(define immutable-lets? (make-parameter #f))
+(define optimize-thunks? (make-parameter #f))
+(define pair-layout (make-parameter &#x27;two))
+(define fuel (make-parameter #f))
+(define (tick!)
+  (when (fuel)
+    (when (zero? (unbox (fuel))) (error &#x27;evaluation &quot;fuel exhausted&quot;))
+    (set-box! (fuel) (sub1 (unbox (fuel))))))
+(define (unique! names)
+  (unless (= (length names) (length (remove-duplicates names))) (error &#x27;bindings &quot;duplicate names&quot;)))
+(define (arity! names vals)
+  (unless (= (length names) (length vals)) (error &#x27;call &quot;arity mismatch&quot;)))
+
+;; BEGIN location-environments
+(struct binding (name denotation saved) #:transparent)
+(struct recursive-env (names paramss bodies saved) #:transparent)
+(define (extend-many names denotations env)
+  (unique! names) (arity! names denotations)
+  (foldr (lambda (p rest) (binding (car p) (cdr p) rest)) env (map cons names denotations)))
+(define (lookup env name)
+  (cond [(null? env) (error &#x27;lookup &quot;unbound variable: ~a&quot; name)]
+        [(binding? env)
+         (if (eq? name (binding-name env)) (binding-denotation env) (lookup (binding-saved env) name))]
+        [(recursive-env? env)
+         (define pos (index-of (recursive-env-names env) name))
+         (if pos (newref! (make-closure (list-ref (recursive-env-paramss env) pos)
+                                      (list-ref (recursive-env-bodies env) pos) env (parameter-mode)))
+             (lookup (recursive-env-saved env) name))]
+        [else (error &#x27;lookup &quot;invalid environment&quot;)]))
+(define (make-closure params body env mode)
+  (unique! params) (bump! &#x27;closures) (proc-val (closure params body env mode)))
+(define (initial-environment)
+  (extend-many &#x27;(i v x) (map (lambda (n) (newref! (num-val n))) &#x27;(1 5 10)) &#x27;()))
+(define (extend-rec names paramss bodies env)
+  (unique! names) (for-each unique! paramss)
+  (if (eq? (rec-mode) &#x27;fresh)
+      (recursive-env names paramss bodies env)
+      (let* ([locs (map (lambda (_) (newref! &#x27;uninitialized)) names)]
+             [self (extend-many names locs env)])
+        (for ([loc locs] [ps paramss] [body bodies])
+          (setref! loc (make-closure ps body self (parameter-mode)))) self)))
+(define (mutable-location env name)
+  (define den (lookup env name))
+  (when (immutable? den) (error &#x27;assignment &quot;immutable binding: ~a&quot; name)) den)
+;; END location-environments
+
+;; BEGIN lazy-force
+(define (force-location loc)
+  (define value (deref! loc))
+  (if (thunk? value)
+      (let ([answer (begin (bump! &#x27;forces)
+                           (value-of (thunk-expression value) (thunk-env value)))])
+        (when (eq? (parameter-mode) &#x27;need) (setref! loc answer)) answer)
+      value))
+(define (read-variable env name)
+  (define den (lookup env name))
+  (if (immutable? den) (immutable-value den) (force-location den)))
+(define (frozen-value exp env)
+  (if (and (optimize-thunks?)
+           (cases expression exp (const-exp (n) #t) (proc-exp (k ps b) #t) (else #f)))
+      (value-of exp env)
+      (begin (bump! &#x27;thunks) (thunk exp env))))
+;; END lazy-force
+
+;; BEGIN aggregate-locations
+(define (make-pair-value a b)
+  (define left (newref! a)) (define right (newref! b))
+  (pair-val (if (eq? (pair-layout) &#x27;base) left (cons left right))))
+(define (pair-left-loc p)
+  (unless (pair-val? p) (error &#x27;pair &quot;pair required&quot;))
+  (define rep (pair-val-representation p)) (if (pair? rep) (car rep) rep))
+(define (pair-right-loc p)
+  (define rep (pair-val-representation p))
+  (if (pair? rep) (cdr rep) (add1 (pair-left-loc p))))
+(define (make-array-value n value)
+  (unless (exact-nonnegative-integer? n) (error &#x27;array &quot;nonnegative length required&quot;))
+  (define base (store-size (current-store)))
+  (for ([_ (in-range n)]) (newref! value)) (array-val base n))
+(define (array-location a i)
+  (unless (array-val? a) (error &#x27;array &quot;array required&quot;))
+  (unless (and (exact-nonnegative-integer? i) (&lt; i (array-val-length a)))
+    (error &#x27;array &quot;index out of bounds: ~s&quot; i))
+  (+ (array-val-base a) i))
+;; END aggregate-locations
+
+;; BEGIN parameter-locations
+(define (operand-location exp env mode)
+  (cond [(eq? mode &#x27;value) (newref! (value-of exp env))]
+        [(memq mode &#x27;(reference name need))
+         (cases expression exp
+           (var-exp (name) (mutable-location env name))
+           (arrayref-exp (a i)
+             (if (eq? mode &#x27;reference)
+                 (let* ([av (value-of a env)] [iv (num (value-of i env))]) (array-location av iv))
+                 (newref! (frozen-value exp env))))
+           (else (newref! (if (eq? mode &#x27;reference) (value-of exp env) (frozen-value exp env)))))]
+        [else (error &#x27;parameter &quot;unsupported parameter mode&quot;)]))
+(define (apply-closure clos operands caller-env)
+  (define params (closure-params clos)) (arity! params operands)
+  (define mode (closure-mode clos))
+  (cond [(eq? mode &#x27;value-result)
+         ;; Destinations are captured before entering the body. Copy-out is left to right.
+         (define targets
+           (for/list ([e operands])
+             (cases expression e (var-exp (v) (mutable-location caller-env v))
+               (else (error &#x27;value-result &quot;variable operand required&quot;)))))
+         (define locals (map (lambda (l) (newref! (force-location l))) targets))
+         (define answer (value-of (closure-body clos) (extend-many params locals (closure-env clos))))
+         (define final-values (map force-location locals))
+         (for ([target targets] [v final-values]) (setref! target v)) answer]
+        [else
+         (define locs (for/list ([e operands]) (operand-location e caller-env mode)))
+         (value-of (closure-body clos) (extend-many params locs (closure-env clos)))]))
+;; END parameter-locations
+
+(define (kind-mode k)
+  (cases proc-kind k (default-kind () (parameter-mode))
+    (value-kind () &#x27;value) (reference-kind () &#x27;reference)))
+(define (eval-unary op v)
+  (cases unary-op op
+    (zero-op () (bool-val (zero? (num v)))) (not-op () (bool-val (not (bool v))))
+    (newref-op () (ref-val (newref! v))) (deref-op () (deref! (reference v)))
+    (left-op () (deref! (pair-left-loc v))) (right-op () (deref! (pair-right-loc v)))
+    (length-op () (unless (array-val? v) (error &#x27;arraylength &quot;array required&quot;))
+      (num-val (array-val-length v)))))
+(define (eval-binary op a b)
+  (num-val ((cases binary-op op (diff-op () -) (add-op () +) (times-op () *)) (num a) (num b))))
+
+;; BEGIN implicit-evaluation
+(define (value-of exp env)
+  (tick!)
+  (cases expression exp
+    (const-exp (n) (num-val n)) (var-exp (v) (read-variable env v))
+    (unary-exp (op e) (eval-unary op (value-of e env)))
+    (binary-exp (op a b)
+      (define av (value-of a env)) (define bv (value-of b env)) (eval-binary op av bv))
+    (list-exp (es) (list-val (for/list ([e es]) (value-of e env))))
+    (if-exp (t y n) (value-of (if (bool (value-of t env)) y n) env))
+    (let-exp (names rhss body)
+      (unique! names)
+      (define vals (for/list ([e rhss]) (value-of e env)))
+      (define ds (map (if (immutable-lets?) immutable newref!) vals))
+      (value-of body (extend-many names ds env)))
+    (letmutable-exp (name rhs body)
+      (define v (value-of rhs env)) (value-of body (binding name (newref! v) env)))
+    (letref-exp (name rhs body)
+      (value-of body (binding name (operand-location rhs env &#x27;reference) env)))
+    (lazylet-exp (names rhss body)
+      (unique! names)
+      (define locs (for/list ([e rhss]) (newref! (frozen-value e env))))
+      (value-of body (extend-many names locs env)))
+    (proc-exp (kind ps body) (make-closure ps body env (kind-mode kind)))
+    (call-exp (f args)
+      (define clos (procedure-value (value-of f env))) (apply-closure clos args env))
+    (letrec-exp (names paramss bodies body) (value-of body (extend-rec names paramss bodies env)))
+    (begin-exp (first rest)
+      (for/fold ([answer (value-of first env)]) ([e rest]) (value-of e env)))
+    (assign-exp (name rhs)
+      (define loc (mutable-location env name)) (define v (value-of rhs env))
+      (setref! loc v) (num-val 27))
+    (dynamic-exp (name rhs body)
+      (define loc (mutable-location env name)) (define old (deref! loc))
+      (define v (value-of rhs env))
+      (dynamic-wind (lambda () (setref! loc v)) (lambda () (value-of body env))
+                    (lambda () (setref! loc old))))
+    (ref-exp (name) (ref-val (mutable-location env name)))
+    (setref-exp (a b)
+      (define loc (reference (value-of a env))) (define v (value-of b env))
+      (setref! loc v) (num-val 23))
+    (pair-exp (a b)
+      (define av (value-of a env)) (define bv (value-of b env)) (make-pair-value av bv))
+    (setleft-exp (a b)
+      (define p (value-of a env)) (define v (value-of b env))
+      (setref! (pair-left-loc p) v) (num-val 82))
+    (setright-exp (a b)
+      (define p (value-of a env)) (define v (value-of b env))
+      (setref! (pair-right-loc p) v) (num-val 83))
+    (array-exp (n e)
+      (define size (num (value-of n env))) (define v (value-of e env)) (make-array-value size v))
+    (arrayref-exp (a i)
+      (define av (value-of a env)) (define iv (num (value-of i env))) (deref! (array-location av iv)))
+    (arrayset-exp (a i e)
+      (define av (value-of a env)) (define iv (num (value-of i env)))
+      (define loc (array-location av iv)) (define v (value-of e env))
+      (setref! loc v) (num-val 73))))
+;; END implicit-evaluation
+
+(struct execution (value store metrics events) #:transparent)
+(define (run/details text #:mode [mode &#x27;value] #:backend [backend &#x27;vector]
+                     #:capacity [capacity 16] #:rec [rec &#x27;cached] #:immutable-let? [imm #f]
+                     #:optimize-thunks? [opt #f] #:pairs [pairs &#x27;two] #:fuel [limit 100000])
+  (unless (memq mode &#x27;(value reference value-result name need)) (error &#x27;run &quot;unknown mode&quot;))
+  (define counts (make-hash)) (define events (box &#x27;()))
+  (parameterize ([current-store (make-store backend capacity)] [parameter-mode mode]
+                 [rec-mode rec] [immutable-lets? imm] [optimize-thunks? opt]
+                 [pair-layout pairs] [metrics counts] [event-log events] [fuel (box limit)])
+    (define env (initial-environment))
+    (define v (cases program (scan&amp;parse text) (a-program (e) (value-of e env))))
+    (execution v (store-snapshot) (hash-copy counts) (reverse (unbox events)))))
+(define (run text #:mode [mode &#x27;value]) (execution-value (run/details text #:mode mode)))
+
+(module+ main
+  (define assign-example &quot;let p = proc(x) set x = 4 in let a = 3 in begin (p a); a end&quot;)
+  (displayln (datum (run assign-example)))
+  (displayln (datum (run assign-example #:mode &#x27;reference)))
+  (displayln (datum (run &quot;let glo = pair(11,22) in let f = proc(loc) let d1 = setright(loc,left(loc)) in let d2 = setleft(glo,99) in -(left(loc),right(loc)) in (f glo)&quot;)))
+  (define lazy-example &quot;let c = 0 in let f = proc(x) -(x,x) in (f begin set c = -(c,-1); c end)&quot;)
+  (displayln (datum (run lazy-example #:mode &#x27;name)))
+  (displayln (datum (run lazy-example #:mode &#x27;need))))
+</code></pre><!-- EOPL:end-program --></details><details class="code-details" id="complete-chapter04-explicit"><summary>完整程序 · 纯存储传递的显式引用</summary><!-- EOPL:program chapter04_explicit.rkt --><pre><code id="chapter04_explicit-code" class="language-scheme">#lang racket
+;; A pure store-passing EXPLICIT-REFS interpreter, exercises 4.1–4.13.
+(require eopl (prefix-in s: &quot;chapter04.rkt&quot;))
+(provide (all-defined-out))
+
+;; BEGIN pure-store
+(struct answer (value store) #:transparent)
+(struct recursive-env (names paramss bodies saved) #:transparent)
+(struct procedure (params body env) #:transparent)
+(define (apply-store sigma loc)
+  (unless (and (exact-nonnegative-integer? loc) (&lt; loc (length sigma)))
+    (error &#x27;apply-store &quot;invalid location&quot;))
+  (list-ref sigma loc))
+(define (update-store sigma loc v)
+  (apply-store sigma loc)
+  (let replace ([xs sigma] [i loc])
+    (if (zero? i) (cons v (cdr xs)) (cons (car xs) (replace (cdr xs) (sub1 i))))))
+(define (allocate sigma v) (answer (s:ref-val (length sigma)) (append sigma (list v))))
+(define (lookup env name)
+  (cond [(null? env) (error &#x27;lookup &quot;unbound variable: ~a&quot; name)]
+        [(recursive-env? env)
+         (define pos (index-of (recursive-env-names env) name))
+         (if pos (s:proc-val (procedure (list-ref (recursive-env-paramss env) pos)
+                                       (list-ref (recursive-env-bodies env) pos) env))
+             (lookup (recursive-env-saved env) name))]
+        [(eq? (caar env) name) (cdar env)] [else (lookup (cdr env) name)]))
+(define (extend-many names vals env)
+  (s:unique! names) (s:arity! names vals)
+  ;; A binding chain may end in a recursive environment.
+  (foldr (lambda (p rest) (cons p rest)) env (map cons names vals)))
+(define (evaluate-list exps env sigma return-mode)
+  (if (null? exps) (answer &#x27;() sigma)
+      (let* ([a (value-of (car exps) env sigma return-mode)]
+             [b (evaluate-list (cdr exps) env (answer-store a) return-mode)])
+        (answer (cons (answer-value a) (answer-value b)) (answer-store b)))))
+;; END pure-store
+
+;; BEGIN explicit-evaluation
+(define (value-of exp env sigma [return-mode &#x27;constant])
+  (define (ev e st) (value-of e env st return-mode))
+  (cases s:expression exp
+    (s:const-exp (n) (answer (s:num-val n) sigma))
+    (s:var-exp (name) (answer (lookup env name) sigma))
+    (s:unary-exp (op e)
+      (define a (ev e sigma)) (define v (answer-value a)) (define st (answer-store a))
+      (cases s:unary-op op
+        (s:newref-op () (allocate st v))
+        (s:deref-op () (answer (apply-store st (s:reference v)) st))
+        (s:zero-op () (answer (s:bool-val (zero? (s:num v))) st))
+        (s:not-op () (answer (s:bool-val (not (s:bool v))) st))
+        (else (error &#x27;explicit &quot;operator outside EXPLICIT-REFS&quot;))))
+    (s:binary-exp (op e1 e2)
+      (define a (ev e1 sigma)) (define b (ev e2 (answer-store a)))
+      (answer (s:eval-binary op (answer-value a) (answer-value b)) (answer-store b)))
+    (s:list-exp (es)
+      (define a (evaluate-list es env sigma return-mode))
+      (answer (s:list-val (answer-value a)) (answer-store a)))
+    (s:if-exp (test yes no)
+      (define a (ev test sigma))
+      (ev (if (s:bool (answer-value a)) yes no) (answer-store a)))
+    (s:let-exp (names rhss body)
+      (s:unique! names)
+      (define a (evaluate-list rhss env sigma return-mode))
+      (value-of body (extend-many names (answer-value a) env) (answer-store a) return-mode))
+    (s:proc-exp (kind params body)
+      (s:unique! params)
+      (cases s:proc-kind kind
+        (s:default-kind () (answer (s:proc-val (procedure params body env)) sigma))
+        (else (error &#x27;explicit &quot;parameter variant outside EXPLICIT-REFS&quot;))))
+    (s:call-exp (rator operands)
+      (define a (ev rator sigma))
+      (define clos (s:procedure-value (answer-value a)))
+      (s:arity! (procedure-params clos) operands)
+      (define b (evaluate-list operands env (answer-store a) return-mode))
+      (value-of (procedure-body clos)
+                (extend-many (procedure-params clos) (answer-value b) (procedure-env clos))
+                (answer-store b) return-mode))
+    (s:letrec-exp (names paramss bodies body)
+      (s:unique! names) (for-each s:unique! paramss)
+      (value-of body (recursive-env names paramss bodies env) sigma return-mode))
+    (s:begin-exp (first rest)
+      (for/fold ([a (ev first sigma)]) ([e rest]) (ev e (answer-store a))))
+    (s:setref-exp (e1 e2)
+      (define a (ev e1 sigma)) (define loc (s:reference (answer-value a)))
+      (define b (ev e2 (answer-store a))) (define st (answer-store b))
+      ;; Exercise 4.7 returns the contents immediately before the final update,
+      ;; so effects of BOTH operands have already happened.
+      (define old (apply-store st loc))
+      (answer (case return-mode [(rhs) (answer-value b)] [(old) old] [else (s:num-val 23)])
+              (update-store st loc (answer-value b))))
+    (else (error &#x27;explicit &quot;expression outside EXPLICIT-REFS&quot;))))
+;; END explicit-evaluation
+
+(define (run/details text #:setref-result [mode &#x27;constant])
+  (unless (memq mode &#x27;(constant rhs old)) (error &#x27;run &quot;unknown setref return mode&quot;))
+  (cases s:program (s:scan&amp;parse text)
+    (s:a-program (e) (value-of e (map cons &#x27;(i v x) (map s:num-val &#x27;(1 5 10))) &#x27;() mode))))
+(define (run text #:setref-result [mode &#x27;constant]) (answer-value (run/details text #:setref-result mode)))
+(module+ main
+  (displayln (s:datum (run &quot;let g = let counter = newref(0) in proc(dummy) begin setref(counter,-(deref(counter),-1)); deref(counter) end in let a = (g 11) in let b = (g 11) in -(a,b)&quot;)))
+  (displayln (s:datum (run &quot;let g = proc(dummy) let counter = newref(0) in begin setref(counter,-(deref(counter),-1)); deref(counter) end in let a = (g 11) in let b = (g 11) in -(a,b)&quot;)))
+  (displayln (s:datum (run &quot;let x = newref(newref(0)) in begin setref(deref(x),11); deref(deref(x)) end&quot;)))
+  (displayln (s:datum (run &quot;let x = newref(22) in let f = proc(z) let zz = newref(-(z,deref(x))) in deref(zz) in -((f 66),(f 55))&quot;))))
+</code></pre><!-- EOPL:end-program --></details><details class="code-details" id="complete-chapter04-statements"><summary>完整程序 · 语句、声明与子程序</summary><!-- EOPL:program chapter04_statements.rkt --><pre><code id="chapter04_statements-code" class="language-scheme">#lang racket
+;; Exercises 4.22–4.27: a statement language with a separate expression front end.
+(require eopl (prefix-in s: &quot;chapter04.rkt&quot;))
+(provide (all-defined-out))
+
+;; BEGIN statement-grammar
+(define lexical
+  &#x27;((space (whitespace) skip) (comment (&quot;%&quot; (arbno (not #\newline))) skip)
+    (identifier (letter (arbno (or letter digit &quot;_&quot; &quot;-&quot; &quot;?&quot;))) symbol)
+    (number (digit (arbno digit)) number) (number (&quot;-&quot; digit (arbno digit)) number)))
+(define grammar
+  &#x27;((st-program (statement) st-pgm)
+    (statement (identifier &quot;=&quot; sx) st-assign)
+    (statement (&quot;print&quot; sx) st-print)
+    (statement (&quot;read&quot; identifier) st-read)
+    (statement (&quot;{&quot; (separated-list statement &quot;;&quot;) &quot;}&quot;) st-sequence)
+    (statement (&quot;if&quot; sx statement statement) st-if)
+    (statement (&quot;while&quot; sx statement) st-while)
+    (statement (&quot;do&quot; statement &quot;while&quot; sx) st-do)
+    (statement (&quot;var&quot; (separated-list identifier &quot;,&quot;) &quot;;&quot; statement) st-vars)
+    (statement (&quot;varinit&quot; (arbno identifier &quot;=&quot; sx) &quot;;&quot; statement) st-initialized)
+    (statement (&quot;block&quot; (arbno identifier &quot;=&quot; sx)
+                (arbno &quot;procedure&quot; identifier &quot;(&quot; (separated-list identifier &quot;,&quot;) &quot;)&quot; &quot;=&quot; sx)
+                (arbno &quot;subroutine&quot; identifier &quot;(&quot; (separated-list identifier &quot;,&quot;) &quot;)&quot; &quot;=&quot; statement)
+                &quot;in&quot; statement &quot;end&quot;) st-block)
+    (statement (&quot;call&quot; identifier &quot;(&quot; (separated-list sx &quot;,&quot;) &quot;)&quot;) st-call)
+    (sx (number) sx-number) (sx (identifier) sx-variable)
+    (sx (&quot;-&quot; &quot;(&quot; sx &quot;,&quot; sx &quot;)&quot;) sx-difference)
+    (sx (&quot;+&quot; &quot;(&quot; sx &quot;,&quot; sx &quot;)&quot;) sx-addition)
+    (sx (&quot;*&quot; &quot;(&quot; sx &quot;,&quot; sx &quot;)&quot;) sx-multiplication)
+    (sx (&quot;zero?&quot; &quot;(&quot; sx &quot;)&quot;) sx-zero)
+    (sx (&quot;not&quot; &quot;(&quot; sx &quot;)&quot;) sx-not)
+    (sx (&quot;if&quot; sx &quot;then&quot; sx &quot;else&quot; sx) sx-if)
+    (sx (&quot;let&quot; (arbno identifier &quot;=&quot; sx) &quot;in&quot; sx) sx-let)
+    (sx (&quot;proc&quot; &quot;(&quot; (separated-list identifier &quot;,&quot;) &quot;)&quot; sx) sx-proc)
+    (sx (&quot;(&quot; sx (arbno sx) &quot;)&quot;) sx-call)
+    (sx (&quot;begin&quot; sx (arbno &quot;;&quot; sx) &quot;end&quot;) sx-begin)
+    (sx (&quot;set&quot; identifier &quot;=&quot; sx) sx-set)))
+(sllgen:make-define-datatypes lexical grammar)
+(define scan&amp;parse (sllgen:make-string-parser lexical grammar))
+;; END statement-grammar
+
+(define (expression-&gt;core e)
+  (cases sx e
+    (sx-number (n) (s:const-exp n)) (sx-variable (v) (s:var-exp v))
+    (sx-difference (a b) (s:binary-exp (s:diff-op) (expression-&gt;core a) (expression-&gt;core b)))
+    (sx-addition (a b) (s:binary-exp (s:add-op) (expression-&gt;core a) (expression-&gt;core b)))
+    (sx-multiplication (a b) (s:binary-exp (s:times-op) (expression-&gt;core a) (expression-&gt;core b)))
+    (sx-zero (e) (s:unary-exp (s:zero-op) (expression-&gt;core e)))
+    (sx-not (e) (s:unary-exp (s:not-op) (expression-&gt;core e)))
+    (sx-if (t y n) (s:if-exp (expression-&gt;core t) (expression-&gt;core y) (expression-&gt;core n)))
+    (sx-let (names rhss body) (s:let-exp names (map expression-&gt;core rhss) (expression-&gt;core body)))
+    (sx-proc (ps body) (s:proc-exp (s:default-kind) ps (expression-&gt;core body)))
+    (sx-call (f args) (s:call-exp (expression-&gt;core f) (map expression-&gt;core args)))
+    (sx-begin (first rest) (s:begin-exp (expression-&gt;core first) (map expression-&gt;core rest)))
+    (sx-set (v e) (s:assign-exp v (expression-&gt;core e)))))
+(define (value-of-expression e env) (s:value-of (expression-&gt;core e) env))
+
+;; BEGIN statement-blocks
+(define (initialize-sequential names rhss env)
+  (s:unique! names)
+  (for/fold ([current env]) ([v names] [e rhss])
+    ;; Evaluate this initializer BEFORE adding its own binding; earlier ones are visible.
+    (define val (value-of-expression e current))
+    (s:binding v (s:newref! val) current)))
+(define (declaration-environment names rhss pnames paramss pbodies snames sparamss sbodies env)
+  (s:unique! (append names pnames snames))
+  (define variable-env (initialize-sequential names rhss env))
+  (define all-names (append pnames snames))
+  (define locs (map (lambda (_) (s:newref! &#x27;uninitialized)) all-names))
+  (define self (s:extend-many all-names locs variable-env))
+  (for ([l locs] [params (append paramss sparamss)]) (s:unique! params))
+  (for ([l (take locs (length pnames))] [ps paramss] [body pbodies])
+    (s:setref! l (s:make-closure ps (expression-&gt;core body) self &#x27;value)))
+  (for ([l (drop locs (length pnames))] [ps sparamss] [body sbodies])
+    (s:setref! l (s:sub-val ps body self))) self)
+;; END statement-blocks
+
+;; BEGIN statement-evaluation
+(define (result-of stmt env)
+  (s:tick!)
+  (cases statement stmt
+    (st-assign (v e)
+      (define loc (s:mutable-location env v))
+      (s:setref! loc (value-of-expression e env)))
+    (st-print (e) (displayln (s:datum (value-of-expression e env))))
+    (st-read (v)
+      (define loc (s:mutable-location env v))
+      (define val (parameterize ([read-accept-reader #f] [read-accept-lang #f]
+                                 [read-accept-compiled #f]) (read)))
+      (unless (exact-nonnegative-integer? val) (error &#x27;read-statement &quot;nonnegative integer required&quot;))
+      (s:setref! loc (s:num-val val)))
+    (st-sequence (stmts) (for ([st stmts]) (result-of st env)))
+    (st-if (t y n) (result-of (if (s:bool (value-of-expression t env)) y n) env))
+    (st-while (test body)
+      (let loop ()
+        (when (s:bool (value-of-expression test env)) (result-of body env) (loop))))
+    (st-do (body test)
+      (let loop () (result-of body env) (when (s:bool (value-of-expression test env)) (loop))))
+    (st-vars (names body)
+      (define locs (map (lambda (_) (s:newref! &#x27;uninitialized)) names))
+      (result-of body (s:extend-many names locs env)))
+    (st-initialized (names rhss body) (result-of body (initialize-sequential names rhss env)))
+    (st-block (names rhss pnames paramss pbodies snames sparamss sbodies body)
+      (result-of body (declaration-environment names rhss pnames paramss pbodies
+                                             snames sparamss sbodies env)))
+    (st-call (name args)
+      (define sub (s:read-variable env name))
+      (unless (s:sub-val? sub) (error &#x27;subroutine-call &quot;subroutine required&quot;))
+      (s:arity! (s:sub-val-params sub) args)
+      (define vals (for/list ([e args]) (value-of-expression e env)))
+      (define locs (map s:newref! vals))
+      (result-of (s:sub-val-body sub) (s:extend-many (s:sub-val-params sub) locs (s:sub-val-env sub)))))
+  (void))
+;; END statement-evaluation
+
+(struct statement-result (output store) #:transparent)
+(define (run text #:input [input &quot;&quot;] #:fuel [limit 100000])
+  (define out (open-output-string))
+  (parameterize ([s:current-store (s:make-store)] [s:parameter-mode &#x27;value]
+                 [s:rec-mode &#x27;cached] [s:fuel (box limit)]
+                 [current-output-port out] [current-input-port (open-input-string input)])
+    (define env (s:initial-environment))
+    (cases st-program (scan&amp;parse text) (st-pgm (stmt) (result-of stmt env)))
+    (statement-result (get-output-string out) (s:store-snapshot))))
+(module+ main
+  (for ([text (list &quot;var x,y; {x = 3; y = 4; print +(x,y)}&quot;
+                    &quot;var x,y,z; {x = 3; y = 4; z = 0; while not(zero?(x)) {z = +(z,y); x = -(x,1)}; print z}&quot;
+                    &quot;var x; {x = 3; print x; var x; {x = 4; print x}; print x}&quot;
+                    &quot;var f,x; {f = proc(x,y) *(x,y); x = 3; print (f 4 x)}&quot;)])
+    (display (statement-result-output (run text)))))
+</code></pre><!-- EOPL:end-program --></details><details class="code-details" id="complete-test-chapter04"><summary>完整程序 · 可执行回归与独立期望值</summary><!-- EOPL:program test_chapter04.rkt --><pre><code id="test_chapter04-code" class="language-scheme">#lang racket
+(require rackunit rackunit/text-ui json
+         (prefix-in s: &quot;chapter04.rkt&quot;)
+         (prefix-in e: &quot;chapter04_explicit.rkt&quot;)
+         (prefix-in t: &quot;chapter04_statements.rkt&quot;))
+(define assertions 0)
+(define (same got expected) (set! assertions (add1 assertions)) (check-equal? got expected))
+(define (fails thunk [pattern #rx&quot;.&quot;])
+  (set! assertions (add1 assertions)) (check-exn pattern thunk))
+(define (N text [mode &#x27;value]) (s:datum (s:run text #:mode mode)))
+(define (E text [mode &#x27;constant]) (s:datum (e:run text #:setref-result mode)))
+(define (S text #:input [input &quot;&quot;]) (t:statement-result-output (t:run text #:input input)))
+(define counter &quot;let g = let counter = newref(0) in proc(dummy) begin setref(counter,-(deref(counter),-1)); deref(counter) end in let a = (g 11) in let b = (g 11) in -(a,b)&quot;)
+(define reset-counter &quot;let g = proc(dummy) let counter = newref(0) in begin setref(counter,-(deref(counter),-1)); deref(counter) end in let a = (g 11) in let b = (g 11) in -(a,b)&quot;)
+(define swap &quot;let swap = proc(x) proc(y) let temp = x in begin set x = y; set y = temp end in let a = 33 in let b = 44 in begin ((swap a) b); -(a,b) end&quot;)
+(define lazy-effects &quot;let c = 0 in let f = proc(x) -(x,x) in (f begin set c = -(c,-1); c end)&quot;)
+(define lazy-fixed &quot;let makerec = proc(f) let d = proc(x) (f (x x)) in (f (d d)) in let maketimes4 = proc(f) proc(x) if zero?(x) then 0 else -((f -(x,1)),-4) in let times4 = (makerec maketimes4) in (times4 3)&quot;)
+(define eager-fixed &quot;let makerec = proc(f) let d = proc(x) proc(z) ((f (x x)) z) in proc(n) ((f (d d)) n) in let maketimes4 = proc(f) proc(x) if zero?(x) then 0 else -((f -(x,1)),-4) in let times4 = (makerec maketimes4) in (times4 3)&quot;)
+(define tests
+  (test-suite &quot;EOPL chapter 4&quot;
+    (test-case &quot;explicit source examples, lifetime and reference chains&quot;
+      (same (E counter) -1) (same (E reset-counter) 0)
+      (same (length (e:answer-store (e:run/details counter))) 1)
+      (same (length (e:answer-store (e:run/details reset-counter))) 2)
+      (same (E &quot;let x = newref(newref(0)) in begin setref(deref(x),11); deref(deref(x)) end&quot;) 11)
+      (define nested (e:run/details &quot;let x = newref(newref(0)) in x&quot;))
+      (same (map s:datum (e:answer-store nested)) &#x27;(0 (ref 0)))
+      (same (E &quot;let x = newref(22) in let f = proc(z) let zz = newref(-(z,deref(x))) in deref(zz) in -((f 66),(f 55))&quot;) 11)
+      (same (E &quot;let x = newref(0) in letrec even(dummy) = if zero?(deref(x)) then 1 else begin setref(x,-(deref(x),1)); (odd 888) end odd(dummy) = if zero?(deref(x)) then 0 else begin setref(x,-(deref(x),1)); (even 888) end in begin setref(x,13); (odd 888) end&quot;) 1))
+    (test-case &quot;pure store sequencing: test, rator, operands, list, begin&quot;
+      (same (E &quot;let r = newref(0) in -(begin setref(r,1); deref(r) end,begin setref(r,2); deref(r) end)&quot;) -1)
+      (same (E &quot;let r = newref(0) in if zero?(begin setref(r,7); 0 end) then deref(r) else missing&quot;) 7)
+      (same (E &quot;let r = newref(0) in (begin setref(r,9); proc(x) -(x,deref(r)) end begin setref(r,11); 20 end)&quot;) 9)
+      (same (E &quot;let r = newref(0) in list(begin setref(r,1); deref(r) end,begin setref(r,2); deref(r) end,deref(r))&quot;) &#x27;(1 2 2))
+      (same (E &quot;list()&quot;) &#x27;()) (same (E &quot;begin 7 end&quot;) 7)
+      (same (E &quot;let r = newref(0) in begin setref(r,8); zero?(deref(r)) end&quot;) #f))
+    (test-case &quot;setref results including operand side effects&quot;
+      (define text &quot;let r = newref(0) in setref(r,begin setref(r,9); 7 end)&quot;)
+      (same (E text) 23) (same (E text &#x27;rhs) 7) (same (E text &#x27;old) 9)
+      (for ([mode &#x27;(constant rhs old)])
+        (same (map s:datum (e:answer-store (e:run/details text #:setref-result mode))) &#x27;(7))))
+    (test-case &quot;explicit many arguments and immutable store histories&quot;
+      (same (E &quot;let f = proc(x,y,z) -(-(x,y),z) in (f 20 3 2)&quot;) 15)
+      (same (E &quot;let f = proc() 8 in (f)&quot;) 8)
+      (define old (list (s:num-val 7) (s:num-val 8)))
+      (define new (e:update-store old 0 (s:num-val 9)))
+      (same (map s:datum old) &#x27;(7 8)) (same (map s:datum new) &#x27;(9 8))
+      (fails (lambda () (E &quot;let f = proc(x) x in (f)&quot;)) #rx&quot;arity&quot;)
+      (fails (lambda () (E &quot;deref(1)&quot;)) #rx&quot;reference&quot;)
+      (fails (lambda () (e:apply-store old 2)) #rx&quot;invalid&quot;))
+    (test-case &quot;store representations, bounds, growth and capacity&quot;
+      (for ([backend &#x27;(list fixed vector)])
+        (parameterize ([s:current-store (s:make-store backend 3)])
+          (same (s:newref! (s:num-val 7)) 0)
+          (same (s:newref! (s:num-val 8)) 1)
+          (s:setref! 1 (s:num-val 9)) (same (s:num (s:deref! 1)) 9)
+          (same (map s:datum (s:store-snapshot)) &#x27;(7 9))
+          (fails (lambda () (s:deref! -1))) (fails (lambda () (s:setref! 2 (s:num-val 0))))
+          (fails (lambda () (s:deref! 1/2)))))
+      (parameterize ([s:current-store (s:make-store &#x27;fixed 1)])
+        (s:newref! (s:num-val 0)) (fails (lambda () (s:newref! (s:num-val 1))) #rx&quot;capacity&quot;))
+      (parameterize ([s:current-store (s:make-store &#x27;vector 1)])
+        (for ([i (in-range 100)]) (same (s:newref! (s:num-val i)) i))
+        (for ([i (in-range 100)]) (same (s:num (s:deref! i)) i))))
+    (test-case &quot;implicit source closures and assignment-built recursion&quot;
+      (same (N &quot;let f = proc(x) proc(y) begin set x = -(x,-1); -(x,y) end in ((f 44) 33)&quot;) 12)
+      (same (N &quot;let g = let count = 0 in proc(dummy) begin set count = -(count,-1); count end in let a = (g 11) in let b = (g 11) in -(a,b)&quot;) -1)
+      (same (N &quot;let times4 = 0 in begin set times4 = proc(x) if zero?(x) then 0 else -((times4 -(x,1)),-4); (times4 3) end&quot;) 12)
+      (same (N &quot;let x = 11 in let f = proc(y) -(y,x) in let x = 99 in (f 22)&quot;) 11)
+      (same (N &quot;let x = 7 in let y = x in begin set y = 9; x end&quot;) 7))
+    (test-case &quot;parallel let and multiargument effect order&quot;
+      (same (N &quot;let x = 7 in let x = 3 y = x in -(x,y)&quot;) -4)
+      (same (N &quot;let x = 0 in let a = begin set x = 7; 1 end b = x in b&quot;) 7)
+      (same (N &quot;let x = 0 in let f = proc(a,b) -(a,b) in (f begin set x = 1; x end begin set x = 2; x end)&quot;) -1)
+      (same (N &quot;let f = proc() 8 in (f)&quot;) 8)
+      (fails (lambda () (N &quot;let x = 1 x = 2 in x&quot;)) #rx&quot;duplicate&quot;)
+      (fails (lambda () (N &quot;(proc(x,y) x 1)&quot;)) #rx&quot;arity&quot;))
+    (test-case &quot;mutual recursion and one persistent location per closure&quot;
+      (define text &quot;letrec even(n) = if zero?(n) then 1 else (odd -(n,1) 0) odd(n,dummy) = if zero?(n) then 0 else (even -(n,1)) in (odd 13 0)&quot;)
+      (for ([rec &#x27;(fresh cached)])
+        (same (s:datum (s:execution-value (s:run/details text #:rec rec))) 1))
+      (define stable (s:run/details &quot;letrec f(x) = x in begin (f 1); (f 2) end&quot;))
+      (define fresh (s:run/details &quot;letrec f(x) = x in begin (f 1); (f 2) end&quot; #:rec &#x27;fresh))
+      (same (hash-ref (s:execution-metrics stable) &#x27;closures) 1)
+      (same (hash-ref (s:execution-metrics fresh) &#x27;closures) 2)
+      (same (hash-ref (s:execution-metrics stable) &#x27;allocations) 6)
+      (same (hash-ref (s:execution-metrics fresh) &#x27;allocations) 7)
+      (same (N &quot;letrec f(x) = x in begin set f = proc(x) 99; (f 0) end&quot;) 99))
+    (test-case &quot;mixed bindings and dynamic assignment restoration&quot;
+      (same (s:datum (s:execution-value (s:run/details &quot;let x = 1 in letmutable y = 2 in begin set y = 3; -(y,x) end&quot; #:immutable-let? #t))) 2)
+      (fails (lambda () (s:run/details &quot;let x = 1 in set x = 2&quot; #:immutable-let? #t)) #rx&quot;immutable&quot;)
+      (same (N &quot;let x = 11 in let p = proc(y) -(y,x) in -(setdynamic x = 17 during (p 22),(p 13))&quot;) 3)
+      (same (N &quot;let x = 1 in list(setdynamic x = 2 during list(x,setdynamic x = 3 during x,x),x)&quot;) &#x27;((2 3 2) 1))
+      (parameterize ([s:current-store (s:make-store)])
+        (define env (s:binding &#x27;x (s:newref! (s:num-val 11)) &#x27;()))
+        (fails (lambda () (s:value-of (s:dynamic-exp &#x27;x (s:const-exp 17) (s:var-exp &#x27;missing)) env)) #rx&quot;unbound&quot;)
+        (same (s:num (s:read-variable env &#x27;x)) 11)))
+    (test-case &quot;statement language exact four source examples&quot;
+      (same (S &quot;var x,y; {x = 3; y = 4; print +(x,y)}&quot;) &quot;7\n&quot;)
+      (same (S &quot;var x,y,z; {x = 3; y = 4; z = 0; while not(zero?(x)) {z = +(z,y); x = -(x,1)}; print z}&quot;) &quot;12\n&quot;)
+      (same (S &quot;var x; {x = 3; print x; var x; {x = 4; print x}; print x}&quot;) &quot;3\n4\n3\n&quot;)
+      (same (S &quot;var f,x; {f = proc(x,y) *(x,y); x = 3; print (f 4 x)}&quot;) &quot;12\n&quot;)
+      (fails (lambda () (S &quot;var q; print q&quot;)) #rx&quot;uninitialized&quot;)
+      (same (S &quot;{}&quot;) &quot;&quot;))
+    (test-case &quot;read, post-test loop and sequential initializers&quot;
+      (same (S &quot;var x; {read x; print x}&quot; #:input &quot;42&quot;) &quot;42\n&quot;)
+      (same (S &quot;var x; {read x; print x}&quot; #:input &quot;0&quot;) &quot;0\n&quot;)
+      (for ([input &#x27;(&quot;-1&quot; &quot;1/2&quot; &quot;word&quot; &quot;&quot;)])
+        (fails (lambda () (S &quot;var q; read q&quot; #:input input)) #rx&quot;nonnegative&quot;))
+      (same (S &quot;var x; {x = 0; do {x = +(x,1)} while zero?(1); print x}&quot;) &quot;1\n&quot;)
+      (same (S &quot;varinit x = 3 y = +(x,1); print y&quot;) &quot;4\n&quot;)
+      (fails (lambda () (S &quot;varinit a = b b = 2; print a&quot;)) #rx&quot;unbound&quot;)
+      (same (S &quot;varinit x = 3; varinit x = +(x,1); print x&quot;) &quot;4\n&quot;))
+    (test-case &quot;mutually recursive statement declarations and callable kinds&quot;
+      (same (S &quot;block n = 5 procedure even(n) = if zero?(n) then 1 else (odd -(n,1)) procedure odd(n) = if zero?(n) then 0 else (even -(n,1)) in print (odd n) end&quot;) &quot;1\n&quot;)
+      (same (S &quot;block total = 0 subroutine add(n) = {total = +(total,n)} subroutine countdown(n) = if zero?(n) {} {call add(n); call countdown(-(n,1))} in {call countdown(4); print total} end&quot;) &quot;10\n&quot;)
+      (fails (lambda () (S &quot;block procedure f(x) = x in call f(1) end&quot;)) #rx&quot;subroutine required&quot;)
+      (fails (lambda () (S &quot;block subroutine p(x) = print x in print (p 1) end&quot;)) #rx&quot;procedure required&quot;)
+      (fails (lambda () (S &quot;block subroutine p(x) = print x in call p() end&quot;)) #rx&quot;arity&quot;))
+    (test-case &quot;pairs: variable cell vs shared object, both representations&quot;
+      (define text &quot;let glo = pair(11,22) in let f = proc(loc) let d1 = setright(loc,left(loc)) in let d2 = setleft(glo,99) in -(left(loc),right(loc)) in (f glo)&quot;)
+      (for ([layout &#x27;(two base)])
+        (same (s:datum (s:execution-value (s:run/details text #:pairs layout))) 88))
+      (same (N &quot;let p = pair(1,2) in let f = proc(q) setleft(q,9) in begin (f p); left(p) end&quot;) 9)
+      (same (N &quot;let p = pair(1,2) in let f = proc(q) set q = pair(8,9) in begin (f p); left(p) end&quot;) 1)
+      (same (N &quot;let p = pair(1,2) in list(setleft(p,3),setright(p,4),left(p),right(p))&quot;) &#x27;(82 83 3 4)))
+    (test-case &quot;arrays, bounds and source increment example&quot;
+      (same (N &quot;let a = newarray(2,-99) p = proc(x) let v = arrayref(x,1) in arrayset(x,1,-(v,-1)) in begin arrayset(a,1,0); (p a); (p a); arrayref(a,1) end&quot;) 2)
+      (same (N &quot;arraylength(newarray(0,9))&quot;) 0)
+      (same (N &quot;let a = newarray(2,7) in begin arrayset(a,1,9); list(arrayref(a,0),arrayref(a,1),arraylength(a)) end&quot;) &#x27;(7 9 2))
+      (for ([i &#x27;(-1 2 100)])
+        (fails (lambda () (N (format &quot;let a = newarray(2,0) b = newarray(3,99) in arrayref(a,~a)&quot; i))) #rx&quot;bounds&quot;)
+        (fails (lambda () (N (format &quot;let a = newarray(2,0) in arrayset(a,~a,7)&quot; i))) #rx&quot;bounds&quot;))
+      (fails (lambda () (N &quot;newarray(-1,0)&quot;)) #rx&quot;nonnegative&quot;)
+      (fails (lambda () (N &quot;arrayref(1,0)&quot;)) #rx&quot;array required&quot;))
+    (test-case &quot;reference parameters, temporary operands, aliasing, mixed modes and letref&quot;
+      (same (N swap) -11) (same (N swap &#x27;reference) 11)
+      (same (N &quot;let f = proc(x) set x = 44 in let g = proc(y) (f y) in let z = 55 in begin (g z); z end&quot; &#x27;reference) 44)
+      (same (N &quot;let b = 3 in let p = proc(x) proc(y) begin set x = 4; y end in ((p b) b)&quot; &#x27;reference) 4)
+      (same (N &quot;let a = 3 in let p = proc(x) set x = 4 in begin (p -(a,0)); a end&quot; &#x27;reference) 3)
+      (same (N &quot;let a = 3 in let f = procval(x) set x = 4 in begin (f a); a end&quot; &#x27;reference) 3)
+      (same (N &quot;let a = 3 in let f = procref(x) set x = 4 in begin (f a); a end&quot;) 4)
+      (same (N &quot;let a = 3 in letref b = a in begin set b = 9; a end&quot;) 9)
+      (same (N &quot;let a = 3 in letref b = -(a,0) in begin set b = 9; a end&quot;) 3)
+      (same (N &quot;let a = 3 in let f = proc(x,y) begin set x = 4; y end in (f a a)&quot; &#x27;reference) 4))
+    (test-case &quot;explicit variable references in a value language&quot;
+      (same (N &quot;let a = 3 in let b = 4 in let swap = proc(x) proc(y) let temp = deref(x) in begin setref(x,deref(y)); setref(y,temp) end in begin ((swap ref a) ref b); -(a,b) end&quot;) 1)
+      (same (N &quot;let a = 3 in let r = ref a in begin set a = 9; deref(r) end&quot;) 9))
+    (test-case &quot;reference array operands resolve nested indices once&quot;
+      (same (N &quot;let a = newarray(3,0) in let swap = proc(x) proc(y) let temp = x in begin set x = y; set y = temp end in begin arrayset(a,0,1); arrayset(a,1,7); arrayset(a,2,9); ((swap arrayref(a,arrayref(a,0))) arrayref(a,2)); list(arrayref(a,1),arrayref(a,2)) end&quot; &#x27;reference) &#x27;(9 7))
+      (same (N &quot;let a = newarray(2,0) i = 0 in let f = proc(x) begin set i = 1; set x = 9 end in begin (f arrayref(a,i)); list(arrayref(a,0),arrayref(a,1)) end&quot; &#x27;reference) &#x27;(9 0)))
+    (test-case &quot;value-result isolation, copy-out and same-destination order&quot;
+      (define text &quot;let x = 3 in let f = proc(y) begin set x = 4; y end in begin (f x); x end&quot;)
+      (same (N text &#x27;reference) 4) (same (N text &#x27;value-result) 3)
+      (same (N &quot;let a = 0 in let f = proc(x,y) begin set x = 1; set y = 2 end in begin (f a a); a end&quot; &#x27;value-result) 2)
+      (fails (lambda () (N &quot;(proc(x) x 7)&quot; &#x27;value-result)) #rx&quot;variable operand&quot;))
+    (test-case &quot;lazy effects, closure environments, skipped divergence and fixed points&quot;
+      (same (N lazy-effects &#x27;name) -1) (same (N lazy-effects &#x27;need) 0)
+      (same (N &quot;let x = 7 in let f = proc(z) let x = 99 in z in (f -(x,1))&quot; &#x27;need) 6)
+      (define skip &quot;letrec loop(x) = (loop -(x,-1)) in let f = proc(z) 11 in (f (loop 0))&quot;)
+      (same (N skip &#x27;name) 11) (same (N skip &#x27;need) 11)
+      (fails (lambda () (s:run/details skip #:mode &#x27;value #:fuel 300)) #rx&quot;fuel exhausted&quot;)
+      (same (N lazy-fixed &#x27;need) 12)
+      (same (N eager-fixed &#x27;value) 12) (same (N eager-fixed &#x27;need) 12)
+      (fails (lambda () (s:run/details lazy-fixed #:mode &#x27;value #:fuel 500)) #rx&quot;fuel exhausted&quot;)
+      (define name-result (s:run/details lazy-effects #:mode &#x27;name))
+      (define need-result (s:run/details lazy-effects #:mode &#x27;need))
+      (same (hash-ref (s:execution-metrics name-result) &#x27;forces) 2)
+      (same (hash-ref (s:execution-metrics need-result) &#x27;forces) 1))
+    (test-case &quot;thunk optimization and lazy let uses fresh cells&quot;
+      (define text &quot;let f = proc(x,y) 11 in (f 7 proc(z) z)&quot;)
+      (define plain (s:run/details text #:mode &#x27;need))
+      (define opt (s:run/details text #:mode &#x27;need #:optimize-thunks? #t))
+      (same (hash-ref (s:execution-metrics plain) &#x27;thunks) 2)
+      (same (hash-ref (s:execution-metrics opt) &#x27;thunks 0) 0)
+      (same (s:datum (s:execution-value opt)) 11)
+      (same (N &quot;lazylet x = missing in 7&quot; &#x27;need) 7)
+      (same (N &quot;let c = 0 in lazylet x = begin set c = -(c,-1); c end in list(x,x,c)&quot; &#x27;need) &#x27;(1 1 1))
+      (same (N &quot;let a = 3 in lazylet b = a in begin set b = 9; a end&quot; &#x27;need) 3))
+    (test-case &quot;independent finite arithmetic/state matrix across store backends&quot;
+      (for* ([x (in-range -3 4)] [y (in-range -3 4)] [backend &#x27;(list fixed vector)])
+        (define text (format &quot;let x = ~a in let f = proc(y) begin set x = +(x,y); -(x,y) end in (f ~a)&quot; x y))
+        (same (s:datum (s:execution-value (s:run/details text #:backend backend #:capacity 100))) x)
+        (define result (e:run/details (format &quot;let r = newref(~a) in begin setref(r,+(deref(r),~a)); deref(r) end&quot; x y)))
+        (same (s:num (e:answer-value result)) (+ x y))))))
+(define failures (run-tests tests))
+(write-json (hash &#x27;status (if (zero? failures) &quot;passed&quot; &quot;failed&quot;) &#x27;failures failures &#x27;assertions assertions))
+(newline) (exit (if (zero? failures) 0 1))
+</code></pre><!-- EOPL:end-program --></details><p>下载维护源：<a download href="../code/chapter04.rkt">隐式引用、对象与参数策略</a> · <a download href="../code/chapter04_explicit.rkt">纯存储传递的显式引用</a> · <a download href="../code/chapter04_statements.rkt">语句、声明与子程序</a> · <a download href="../code/test_chapter04.rkt">可执行回归与独立期望值</a></p><p>语法、选项与错误约定见<a href="../code/README.md">程序说明</a>；后续续文解释器在第 5 章讨论。</p></section><footer><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter03_expressions.html">← 第 3 章 · 表达式、闭包与词法地址</a><a href="chapter05_continuations.html">第 5 章 · 续文、异常与线程 →</a><a href="#top">返回页首 ↑</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top">本节理解与补充</a></p><div id="annotation-content"></div></aside></div><script><!-- RN:include scripts/6a3f8b30744a694f9192.js --></script><script id="reading-notes-controller"><!-- RN:include scripts/54f30fc1f5e1cbcd699a.js --></script><script data-purpose="print-details"><!-- RN:include scripts/3497ba81d7e642909037.js --></script></body></html>

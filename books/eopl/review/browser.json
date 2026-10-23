@@ -1,45 +1,124 @@
 {
-  "issue": "I048",
+  "issue": "I061",
   "status": "passed",
-  "scope": "Six public HTML routes; Ego Lite desktop viewport emulation at 1800/1440/1024/390 and no-JS at 1440/390. Four reading pages, code entry and book entry.",
+  "scope": "Current local EOPL map,preface and chapters1–6:8 reading pages,252 complete Chinese exercises and10 public HTML routes; actual current source/output and reading verification. Production state is separate.",
   "astro_migration": {
     "record": "review/astro-migration.json",
-    "sha256": "e97e20868cf148e55233c158d248ba9610cde811ca54b81ae2145c974a56c52b",
+    "sha256": "caf143d05fbbcd0da72cf6d29011c8b4a12ad1761dffeae1cb5f9ae28457f754",
     "open_findings": [],
     "source_sha256": {
       "book_overview.html": "bcee15d3ae5f7b748a93ff07bdffc6eb7fbbb790f4e2af54fce3bc289605720c",
       "preface.html": "4ffe7b18e4d6bc5b5ba6be871417b061f1896b88885b723a6d46ab2024a25392",
       "chapter01_inductive_data.html": "375aac6684c71ae9ec73fb3d3e401119c1c33221858b61e02e9638e74b64d31a",
-      "chapter02_data_abstraction.html": "9c58590c094fe03c2e66495ddc144c601f677224452a94866f7e40c6931e0993"
+      "chapter02_data_abstraction.html": "9c58590c094fe03c2e66495ddc144c601f677224452a94866f7e40c6931e0993",
+      "chapter03_expressions.html": "d2a408b6f950dc85291ddb3b3c7017877cfbed3f351b05b984f1320597633904",
+      "chapter04_state.html": "7d3e055c14d2658266453fbca4dc0e8fd440c537ef9a33309c9e1cca104c8e38",
+      "chapter05_continuations.html": "a17d49cc446f5f478a82dd2aa5b16fe429eb11560eee7c9a9817f6eba5e365bc",
+      "chapter06_cps.html": "3adf80e690f4999b92caeceeb11011f60b7602ef6f5eb31d88b1d5c1f8ef0d53"
     }
   },
-  "offline_report": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-21T03-21-38-892Z-3877457f/report.json",
-  "offline_sha256": "948878b129e226a5604a8398734b5e3a7f949eeffc54727266dd6ba62b2467c4",
-  "js_views": 24,
-  "no_js_views": 12,
+  "offline_report": "tmp/reading-notes-migration/browser/all/runs/2026-10-23T20-59-30-430Z-963621d2/report.json",
+  "offline_sha256": "f60f181ba4a4111c7a6d411bab0e25bab529088024e851c87e4ea21d12b4215f",
+  "js_views": 40,
+  "no_js_views": 20,
   "external_requests": [],
   "screenshots": [
     {
-      "file": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-21T03-21-38-892Z-3877457f/eopl_code_index-390-top.png",
-      "sha256": "5bc05f6bdd74f33e32380e1d950dc3878bc28e764ac56dbdd712af3a1f47a039"
+      "file": "tmp/eopl-publish-20261024T040028/local-reader/map-1440.png",
+      "sha256": "32b38c8636794b81fe5997e4fef5608e4aa0ef3eedb56fb3d14eb0f003b3e682"
     },
     {
-      "file": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-21T03-21-38-892Z-3877457f/eopl_notes_chapter01_inductive_data-1440-top.png",
-      "sha256": "b9f04030a92f10ddd0ddaa1f47783a20ce019afb0b0fd186a43e5d2da54bc67c"
+      "file": "tmp/eopl-publish-20261024T040028/local-reader/map-390.png",
+      "sha256": "27d589c1f9d2615cdff87fdbbc83ac6c4deffd6a4091e784eb43230bd99de2b6"
     },
     {
-      "file": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-21T03-21-38-892Z-3877457f/eopl_notes_chapter02_data_abstraction-390-top.png",
-      "sha256": "87e3cfbfbd5901c2079f0e1c99f79b9af6d39025b5cd01544cddeae0d6a726b5"
+      "file": "tmp/eopl-publish-20261024T040028/local-reader/closure-1440.png",
+      "sha256": "2984421be1e4f04f7b82cce3e02698192e89a5fe631fa3bf626efc7e32f022ed"
     },
     {
-      "file": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-21T03-21-38-892Z-3877457f/eopl_notes_chapter01_inductive_data-no-js-390.png",
-      "sha256": "0fc0748c11cb6f34ee8ab6f0cef6661baa26f00c0e183e2621b3c1e83d3d79fe"
+      "file": "tmp/eopl-publish-20261024T040028/local-reader/lexical-address-390.png",
+      "sha256": "bc91340e4829945b8710a6f679b3def236b5e439bd913695dfac850f36ad24d0"
+    },
+    {
+      "file": "tmp/eopl-publish-20261024T040028/local-reader/store-1440.png",
+      "sha256": "267fbf96e2a5fa88c0b18bf1f4276194b0e86776d1fef5dc3616c7ca80a36689"
+    },
+    {
+      "file": "tmp/eopl-publish-20261024T040028/local-reader/implicit-call-390.png",
+      "sha256": "d0f4a333045949851990eb94472abb9031880c3de37ebd0c90f2e755653f4e75"
+    },
+    {
+      "file": "tmp/eopl-publish-20261024T040028/local-reader/private-question-390.png",
+      "sha256": "186fbdd4192a28ad90fd391dd3c2209eb4ed31ed88cb42f480ce1297bd01ca2f"
+    },
+    {
+      "file": "tmp/eopl-publish-20261024T040028/local-reader/private-answer-1440.png",
+      "sha256": "27cf8f691c3c55c5f2574ff6185ba47176be0131c4db3829707b8ccf2839ea53"
+    },
+    {
+      "file": "tmp/eopl-publish-20261024T040028/local-reader/atomic-names-390.png",
+      "sha256": "82d3a86e61a5119b105357553c551dec69e9aa3c0c344b4a63934af2448e1654"
+    },
+    {
+      "file": "tmp/eopl-publish-20261024T040028/local-reader/implicit-control-1440.png",
+      "sha256": "b36ab93549cb51d1ee888ab57099f7911e73f93f75ac56f8e6fb61e24946be18"
+    },
+    {
+      "file": "tmp/eopl-publish-20261024T040028/local-reader/dual-continuations-390.png",
+      "sha256": "818733dbaf256c428d5db9f47d087e66a5b5673a7371f4a241e29fe782d3b518"
+    },
+    {
+      "file": "tmp/eopl-publish-20261024T040028/local-reader/private-code-390.png",
+      "sha256": "f8147fd8cd35df5f5870d12b50f7970194d624d3693ed22777bface7788d2f83"
+    },
+    {
+      "file": "tmp/eopl-publish-20261024T040028/local-reader/ch05-complete-source.png",
+      "sha256": "126cbee7adf119129613553cfbcc1d567a694187bf65ecdc21390e0ed2410615"
+    },
+    {
+      "file": "tmp/eopl-publish-20261024T040028/local-reader/ch06-complete-source.png",
+      "sha256": "f08eaececcaeed2d8ab6a83f9a93500f46f48242ad6c284ea56c8e3b4134c493"
     }
   ],
-  "navigation_report": "tmp/eopl-ch12-work/navigation-final.json",
+  "navigation_report": "tmp/eopl-publish-20261024T040028/local-reader/manual.json",
   "historical_record": {
     "file": "review/history/I044-browser.json",
     "sha256": "e3e7a25fe7f87e3568032cb00f2c20539ad1078bcd3ff7d90f8283fc97021247",
     "reason": "I044 two-page browser acceptance preserved; current six-route acceptance is independent."
+  },
+  "I058_revision": {
+    "issue": "I058",
+    "record": "review/ch03.json",
+    "prior_record": "review/history/I058-before-browser.json",
+    "prior_sha256": "7c6de24341193081bb3a78029166869236e90a962fcad6c4c81584eb5835b359",
+    "scope": "Current chapter 3 source, program, documentation and reader bindings; prior I057 and earlier evidence retained exactly."
+  },
+  "I059_revision": {
+    "issue": "I059",
+    "record": "review/ch04.json",
+    "prior_record": "review/history/I059-before-browser.json",
+    "prior_sha256": "4f6fc35ba9d853bdb3977236e0a605dbd5fb5a8c708291fbac0d21cd0eb80278",
+    "scope": "Current fourth chapter content/program/reader bindings; preceding history retained exactly.",
+    "integration": "completed_locally; full14 and quick22 passed"
+  },
+  "I060_revision": {
+    "issue": "I060",
+    "record": "review/ch05-06.json",
+    "prior_record": "review/history/I060-before-browser.json",
+    "prior_sha256": "758f2e46f3d357b9a75afa67330ea0df010189b8dd8d2dbf8183b973283e0ce6",
+    "scope": "Chapter5/6 source, execution and final local reading evidence; preceding history retained exactly."
+  },
+  "I061_revision": {
+    "issue": "I061",
+    "prior_record": "review/history/I061-before-browser.json",
+    "prior_sha256": "3dc33b39ed55c05fbf94cf18939877f097b67e23db11e7b241a7be75dc88c18f",
+    "record": "review/ch05-06-followup.json",
+    "scope": "Current six-book matrix and targeted repair reading; preceding current browser record preserved exactly."
+  },
+  "full_site_browser": {
+    "global_routes": 86,
+    "global_js_views": 344,
+    "global_no_js_views": 172,
+    "external_requests": 0
   }
 }

@@ -1,0 +1,532 @@
+{
+  "schema_version": 1,
+  "book": "eopl",
+  "chapter": "5",
+  "source_pdf": "books/eopl/assets/source.pdf",
+  "source_sha256": "b9e8770a4dc97206bd02230e6b21a878382eb02a340ff69321857d701e7d967c",
+  "method": "Independent page-by-page source extraction before authoring; Chinese tasks read back against complete source, supplied code and referenced interfaces. Full English kept outside reading pages.",
+  "items": [
+    {
+      "number": "5.1",
+      "printed_page": 153,
+      "pdf_page": 176,
+      "pdf_end": 176,
+      "stars": 1,
+      "question_text": "Implement this data type of continuations using the procedural rep-\nresentation.",
+      "chinese_html": "<p>用过程表示实现本节的续文数据类型。</p>"
+    },
+    {
+      "number": "5.2",
+      "printed_page": 153,
+      "pdf_page": 176,
+      "pdf_end": 176,
+      "stars": 1,
+      "question_text": "Implement this data type of continuations using a data-structure rep-\nresentation.",
+      "chinese_html": "<p>用数据结构表示实现本节的续文数据类型。</p>"
+    },
+    {
+      "number": "5.3",
+      "printed_page": 153,
+      "pdf_page": 176,
+      "pdf_end": 176,
+      "stars": 1,
+      "question_text": "Add let2 to this interpreter. A let2 expression is like a let expres-\nsion, except that it defines exactly two variables.",
+      "chinese_html": "<p>给这个解释器添加 let2。它与 let 相似，但恰好定义两个变量。</p>"
+    },
+    {
+      "number": "5.4",
+      "printed_page": 153,
+      "pdf_page": 176,
+      "pdf_end": 176,
+      "stars": 1,
+      "question_text": "Add let3 to this interpreter. A let3 expression is like a let expres-\nsion, except that it defines exactly three variables.",
+      "chinese_html": "<p>给这个解释器添加 let3。它与 let 相似，但恰好定义三个变量。</p>"
+    },
+    {
+      "number": "5.5",
+      "printed_page": 153,
+      "pdf_page": 176,
+      "pdf_end": 176,
+      "stars": 1,
+      "question_text": "Add lists to the language, as in exercise 3.9.",
+      "chinese_html": "<p>像<a href=\"chapter03_expressions.html#ex-3-9\">习题 3.9</a>那样，给语言添加列表：空表、cons、car、cdr 与 null?。</p>"
+    },
+    {
+      "number": "5.6",
+      "printed_page": 153,
+      "pdf_page": 176,
+      "pdf_end": 176,
+      "stars": 2,
+      "question_text": "Add a list expression to the language, as in exercise 3.10. As\na hint, consider adding two new continuation-builders, one for evaluating the first\nelement of the list and one for evaluating the rest of the list.",
+      "chinese_html": "<p>像<a href=\"chapter03_expressions.html#ex-3-10\">习题 3.10</a>那样，给语言添加 list 表达式。提示：考虑加入两个新续文构造器，一个负责求列表首元素，一个负责求其余元素。</p>"
+    },
+    {
+      "number": "5.7",
+      "printed_page": 153,
+      "pdf_page": 176,
+      "pdf_end": 176,
+      "stars": 2,
+      "question_text": "Add multideclaration let (exercise 3.16) to this interpreter.",
+      "chinese_html": "<p>给解释器添加多声明 let，见<a href=\"chapter03_expressions.html#ex-3-16\">习题 3.16</a>；声明数可以任意。</p>"
+    },
+    {
+      "number": "5.8",
+      "printed_page": 153,
+      "pdf_page": 176,
+      "pdf_end": 176,
+      "stars": 2,
+      "question_text": "Add multiargument procedures (exercise 3.21) to this interpreter.",
+      "chinese_html": "<p>给解释器添加多参数过程，见<a href=\"chapter03_expressions.html#ex-3-21\">习题 3.21</a>。</p>"
+    },
+    {
+      "number": "5.9",
+      "printed_page": 153,
+      "pdf_page": 176,
+      "pdf_end": 176,
+      "stars": 2,
+      "question_text": "Modify this interpreter to implement the IMPLICIT-REFS lan-\nguage. As a hint, consider including a new continuation-builder (set-rhs-cont\nenv var cont).",
+      "chinese_html": "<p>把解释器改为实现 IMPLICIT-REFS。提示：考虑新增续文构造器 <code>(set-rhs-cont env var cont)</code>。</p>"
+    },
+    {
+      "number": "5.10",
+      "printed_page": 153,
+      "pdf_page": 176,
+      "pdf_end": 176,
+      "stars": 2,
+      "question_text": "Modify the solution to the previous exercise so that the environ-\nment is not kept in the continuation.",
+      "chinese_html": "<p>修改上一题的解答，使赋值续文不必保存环境。</p>"
+    },
+    {
+      "number": "5.11",
+      "printed_page": 153,
+      "pdf_page": 176,
+      "pdf_end": 176,
+      "stars": 2,
+      "question_text": "Add the begin expression of exercise 4.4 to the continuation-\npassing interpreter. Be sure that no call to value-of or value-of-rands occurs\nin a position that would build control context.",
+      "chinese_html": "<p>给续文传递解释器添加<a href=\"chapter04_state.html#ex-4-4\">习题 4.4</a> 的 begin 表达式。确保 value-of 或 value-of-rands 的调用都不出现在会增长控制上下文的位置。</p>"
+    },
+    {
+      "number": "5.12",
+      "printed_page": 153,
+      "pdf_page": 176,
+      "pdf_end": 176,
+      "stars": 1,
+      "question_text": "Instrument the interpreter of figures 5.4–5.6 to produce output sim-\nilar to that of the calculation on page 150.",
+      "chinese_html": "<p>给图 5.4–5.6 的解释器加上追踪输出，使它产生与 p.150 推演相似的记录。</p>"
+    },
+    {
+      "number": "5.13",
+      "printed_page": 153,
+      "pdf_page": 176,
+      "pdf_end": 176,
+      "stars": 1,
+      "question_text": "Translate the definitions of fact and fact-iter into the LETREC\nlanguage. You may add a multiplication operator to the language. Then, using\nthe instrumented interpreter of the previous exercise, compute (fact 4) and\n(fact-iter 4). Compare them to the calculations at the beginning of this chap-\nter. Find (* 4 (* 3 (* 2 (fact 1)))) in the trace of (fact 4). What is the\ncontinuation of apply-procedure/k for this call of (fact 1)?",
+      "chinese_html": "<p>把本章开头的 fact 与 fact-iter 定义译成 LETREC；可以加入乘法。用上一题的追踪解释器计算 <code>(fact 4)</code> 和 <code>(fact-iter 4)</code>，与章首推演比较。在 fact 的轨迹中找出 <code>(* 4 (* 3 (* 2 (fact 1))))</code>；这次 <code>(fact 1)</code> 调用对应的 apply-procedure/k 的续文是什么？</p>"
+    },
+    {
+      "number": "5.14",
+      "printed_page": 153,
+      "pdf_page": 176,
+      "pdf_end": 178,
+      "stars": 1,
+      "question_text": "The instrumentation of the preceding exercise produces volu-\nminous output. Modify the instrumentation to track instead only the size of the\nlargest continuation used during the calculation. We measure the size of a contin-\nuation by the number of continuation-builders employed in its construction, so the\n\n\n\n\n\n      size of the largest continuation in the calculation on page 150 is 3. Then calculate the\n      values of fact and fact-iter applied to several operands. Confirm that the size of\n      the largest continuation used by fact grows linearly with its argument, but the size\n      of the largest continuation used by fact-iter is a constant.",
+      "chinese_html": "<p>上一题的追踪输出很多。改为只跟踪计算中出现的最大续文大小，以构造这个续文使用了多少次续文构造器计量。p.150 的最大值是 3。随后对几个不同的输入计算 fact 和 fact-iter，确认前者的最大续文大小随参数线性增长，而后者保持常数。</p>"
+    },
+    {
+      "number": "5.15",
+      "printed_page": 155,
+      "pdf_page": 178,
+      "pdf_end": 178,
+      "stars": 1,
+      "question_text": "Our continuation data type contains just the single constant,\n      end-cont, and all the other continuation-builders have a single continuation argu-\n      ment. Implement continuations by representing them as lists, where (end-cont) is\n      represented by the empty list, and each other continuation is represented by a non-\n      empty list whose car contains a distinctive data structure (called frame or activation\n      record) and whose cdr contains the embedded continuation. Observe that the inter-\n      preter treats these lists like a stack (of frames).",
+      "chinese_html": "<p>本节续文类型只有 end-cont 一个常量，其余构造器恰好各有一个续文参数。把续文实现为列表：end-cont 用空表表示；其他续文用非空表，其 car 是带区别标签的帧（frame，也称 activation record），cdr 是内嵌的续文。观察解释器怎样把它当作帧栈使用。</p>"
+    },
+    {
+      "number": "5.16",
+      "printed_page": 155,
+      "pdf_page": 178,
+      "pdf_end": 178,
+      "stars": 2,
+      "question_text": "Extend the continuation-passing interpreter to the language of\n      exercise 4.22. Pass a continuation argument to result-of, and make sure that no\n      call to result-of occurs in a position that grows a control context. Since a statement\n      does not return a value, distinguish between ordinary continuations and continua-\n      tions for statements; the latter are usually called command continuations. The interface\n      should include a procedure apply-command-cont that takes a command continu-\n      ation and invokes it. Implement command continuations both as data structures and\n      as zero-argument procedures.",
+      "chinese_html": "<p>把续文传递解释器扩展到<a href=\"chapter04_state.html#ex-4-22\">习题 4.22</a> 的语句语言。给 result-of 增加续文参数，确保它的调用不增长控制上下文。语句不返回值，因此区分普通续文和语句续文（通常叫 command continuation）。接口应有只接收命令续文并调用它的 apply-command-cont。分别用数据结构和零参数过程实现命令续文。</p>"
+    },
+    {
+      "number": "5.17",
+      "printed_page": 160,
+      "pdf_page": 183,
+      "pdf_end": 183,
+      "stars": 1,
+      "question_text": "Modify the trampolined interpreter to wrap (lambda () ...)\n            around each call (there’s only one) to apply-procedure/k. Does this modification\n            require changing the contracts?",
+      "chinese_html": "<p>修改蹦床解释器，把 <code>(lambda () ...)</code> 包在 apply-procedure/k 的每次调用外面（只有一个调用处）。这是否需要改变契约？</p>"
+    },
+    {
+      "number": "5.18",
+      "printed_page": 160,
+      "pdf_page": 183,
+      "pdf_end": 183,
+      "stars": 1,
+      "question_text": "The trampoline system in figure 5.7 uses a procedural representation\n            of a Bounce. Replace this by a data structure representation.",
+      "chinese_html": "<p>图 5.7 的蹦床对 Bounce 使用过程表示。把它换成数据结构表示。</p>"
+    },
+    {
+      "number": "5.19",
+      "printed_page": 160,
+      "pdf_page": 183,
+      "pdf_end": 183,
+      "stars": 1,
+      "question_text": "Instead of placing the (lambda () ...) around the body of\n            apply-procedure/k, place it around the body of apply-cont. Modify the con-\n            tracts to match this change. Does the definition of Bounce need to change? Then\n            replace the procedural representation of Bounce with a data-structure representation,\n            as in exercise 5.18.",
+      "chinese_html": "<p>不把 lambda 包在 apply-procedure/k 的本体外，而改为包在 apply-cont 的本体外。修改相应契约。Bounce 的定义需要改变吗？随后像<a href=\"#ex-5-18\">习题 5.18</a>那样把 Bounce 改用数据结构表示。</p>"
+    },
+    {
+      "number": "5.20",
+      "printed_page": 160,
+      "pdf_page": 183,
+      "pdf_end": 183,
+      "stars": 1,
+      "question_text": "In exercise 5.19, the last bounce before trampoline returns a\n            FinalAnswer is always something like (apply-cont (end-cont) val), where val\n            is some ExpVal. Optimize your representation of bounces in exercise 5.19 to take\n            advantage of this fact.",
+      "chinese_html": "<p>在<a href=\"#ex-5-19\">习题 5.19</a> 中，trampoline 返回 FinalAnswer 前的最后一次 bounce 总像 <code>(apply-cont (end-cont) val)</code>，其中 val 是 ExpVal。利用这个事实优化 bounce 的表示。</p>"
+    },
+    {
+      "number": "5.21",
+      "printed_page": 160,
+      "pdf_page": 183,
+      "pdf_end": 183,
+      "stars": 2,
+      "question_text": "Implement a trampolining interpreter in an ordinary procedural\n            language. Use a data structure representation of the snapshots as in exercise 5.18, and\n            replace the recursive call to trampoline in its own body by an ordinary while or\n            other looping construct.",
+      "chinese_html": "<p>在普通过程式语言中实现蹦床解释器。像<a href=\"#ex-5-18\">习题 5.18</a>那样用数据结构表示快照，并把 trampoline 的自递归调用改成普通 while 或其他循环。</p>"
+    },
+    {
+      "number": "5.22",
+      "printed_page": 160,
+      "pdf_page": 183,
+      "pdf_end": 183,
+      "stars": 3,
+      "question_text": "One could also attempt to transcribe the environment-passing\n            interpreters of chapter 3 in an ordinary procedural language. Such a transcription\n            would fail in all but the simplest cases, for the same reasons as suggested above. Can\n            the technique of trampolining be used in this situation as well?",
+      "chinese_html": "<p>也可以尝试把第三章的环境传递解释器抄写成普通过程式语言，但除了最简单的情形，它也会因上文的原因失败。蹦床技术也能用于这种情况吗？</p>"
+    },
+    {
+      "number": "5.23",
+      "printed_page": 166,
+      "pdf_page": 189,
+      "pdf_end": 189,
+      "stars": 1,
+      "question_text": "What happens if you remove the “goto” line in one of the branches\n      of this interpreter? Exactly how does the interpreter fail?",
+      "chinese_html": "<p>如果删除本节命令式解释器某个分支的“goto”行，会发生什么？请准确解释它怎样失败。</p>"
+    },
+    {
+      "number": "5.24",
+      "printed_page": 166,
+      "pdf_page": 189,
+      "pdf_end": 189,
+      "stars": 1,
+      "question_text": "Devise examples to illustrate each of the complications mentioned\n      above.",
+      "chinese_html": "<p>为前文列出的每一种寄存器化复杂情况分别设计例子。</p>"
+    },
+    {
+      "number": "5.25",
+      "printed_page": 166,
+      "pdf_page": 189,
+      "pdf_end": 189,
+      "stars": 2,
+      "question_text": "Registerize the interpreter for multiargument procedures (exer-\n      cise 3.21).",
+      "chinese_html": "<p>把多参数过程的解释器寄存器化，见<a href=\"chapter03_expressions.html#ex-3-21\">习题 3.21</a>。</p>"
+    },
+    {
+      "number": "5.26",
+      "printed_page": 166,
+      "pdf_page": 189,
+      "pdf_end": 189,
+      "stars": 1,
+      "question_text": "Convert this interpreter to a trampoline by replacing each call to\n      apply-procedure/k with (set! pc apply-procedure/k) and using a driver\n      that looks like\n\n        (define trampoline\n          (lambda (pc)\n            (if pc (trampoline (pc)) val)))",
+      "chinese_html": "<p>把本节解释器改成蹦床：每个 apply-procedure/k 调用都替换为 <code>(set! pc apply-procedure/k)</code>，驱动器采用下面的形式。</p><pre><code class=\"language-scheme\">(define trampoline\n  (lambda (pc)\n    (if pc (trampoline (pc)) val)))</code></pre>"
+    },
+    {
+      "number": "5.27",
+      "printed_page": 168,
+      "pdf_page": 191,
+      "pdf_end": 191,
+      "stars": 1,
+      "question_text": "Invent a language feature for which setting the cont variable last\n      requires a temporary variable.",
+      "chinese_html": "<p>设计一种语言特性，使得如果最后才给 cont 赋值，就必须使用临时变量。</p>"
+    },
+    {
+      "number": "5.28",
+      "printed_page": 168,
+      "pdf_page": 191,
+      "pdf_end": 191,
+      "stars": 1,
+      "question_text": "Instrument this interpreter as in exercise 5.12. Since continuations\n      are represented the same way, reuse that code. Verify that the imperative interpreter\n      of this section generates exactly the same traces as the interpreter in exercise 5.12.",
+      "chinese_html": "<p>像<a href=\"#ex-5-12\">习题 5.12</a> 那样给解释器加追踪。续文表示相同，所以复用原追踪代码。验证本节命令式解释器与<a href=\"#ex-5-12\">习题 5.12</a> 的解释器产生完全相同的轨迹。</p>"
+    },
+    {
+      "number": "5.29",
+      "printed_page": 168,
+      "pdf_page": 191,
+      "pdf_end": 191,
+      "stars": 1,
+      "question_text": "Apply the transformation of this section to fact-iter (page 139).",
+      "chinese_html": "<p>把本节的转换应用到 p.139 所述的 fact-iter。</p>"
+    },
+    {
+      "number": "5.30",
+      "printed_page": 168,
+      "pdf_page": 191,
+      "pdf_end": 191,
+      "stars": 2,
+      "question_text": "Modify the interpreter of this section so that procedures rely on\n      dynamic binding, as in exercise 3.28. As a hint, consider transforming the interpreter\n      of exercise 3.28 as we did in this chapter; it will differ from the interpreter of this\n      section only for those portions of the original interpreter that are different. Instrument\n      the interpreter as in exercise 5.28. Observe that just as there is only one continuation in\n      the state, there is only one environment that is pushed and popped, and furthermore,\n      it is pushed and popped in parallel with the continuation. We can conclude that\n      dynamic bindings have dynamic extent: that is, a binding to a formal parameter lasts\n      exactly until that procedure returns. This is different from lexical bindings, which can\n      persist indefinitely if they wind up in a closure.",
+      "chinese_html": "<p>像<a href=\"chapter03_expressions.html#ex-3-28\">习题 3.28</a>那样，把本节解释器的过程改成动态绑定。提示：把第三章该题的解释器做同样的转换，只有原先不同的部分需要改变。像<a href=\"#ex-5-28\">习题 5.28</a>那样追踪，观察状态中只有一个被推入、弹出的环境，并与续文平行变化。由此说明动态绑定具有动态生存期：形参绑定恰好持续到过程返回；词法绑定若被闭包保存则可无限期存在。</p>"
+    },
+    {
+      "number": "5.31",
+      "printed_page": 169,
+      "pdf_page": 192,
+      "pdf_end": 192,
+      "stars": 1,
+      "question_text": "Eliminate the remaining let expressions in this code by using addi-\ntional global registers.",
+      "chinese_html": "<p>用更多全局寄存器消除代码里剩下的 let 表达式。</p>"
+    },
+    {
+      "number": "5.32",
+      "printed_page": 169,
+      "pdf_page": 192,
+      "pdf_end": 192,
+      "stars": 2,
+      "question_text": "Improve your solution to the preceding exercise by minimizing\nthe number of global registers used. You can get away with fewer than 5. You may\nuse no data structures other than those already used by the interpreter.",
+      "chinese_html": "<p>改进上一题，尽量减少全局寄存器。可以少于 5 个，而且不得引入解释器原先没有的数据结构。</p>"
+    },
+    {
+      "number": "5.33",
+      "printed_page": 169,
+      "pdf_page": 192,
+      "pdf_end": 192,
+      "stars": 2,
+      "question_text": "Translate the interpreter of this section into an imperative lan-\nguage. Do this twice: once using zero-argument procedure calls in the host language,\nand once replacing each zero-argument procedure call by a goto. How do these\nalternatives perform as the computation gets longer?",
+      "chinese_html": "<p>把本节解释器译成命令式语言两次：第一次保留宿主的零参数过程调用，第二次把每个零参数调用换成 goto。随着计算变长，两种方案表现如何？</p>"
+    },
+    {
+      "number": "5.34",
+      "printed_page": 171,
+      "pdf_page": 194,
+      "pdf_end": 194,
+      "stars": 2,
+      "question_text": "As noted on page 157, most imperative languages make it difficult\n      to do this translation, because they use the stack for all procedure calls, even tail\n      calls. Furthermore, for large interpreters, the pieces of code linked by goto’s may\n      be too large for some compilers to handle. Translate the interpreter of this section\n      into an imperative language, circumventing this difficulty by using the technique of\n      trampolining, as in exercise 5.26.",
+      "chinese_html": "<p>如 p.157 所述，多数命令式语言会为每次过程调用（包括尾调用）用栈，直接翻译会困难；大型解释器的 goto 连通代码块也可能大到某些编译器难以处理。把本节解释器译成命令式语言，并像<a href=\"#ex-5-26\">习题 5.26</a>那样用蹦床绕开这个困难。</p>"
+    },
+    {
+      "number": "5.35",
+      "printed_page": 177,
+      "pdf_page": 200,
+      "pdf_end": 200,
+      "stars": 2,
+      "question_text": "This implementation is inefficient, because when an exception is\nraised, apply-handler must search linearly through the continuation to find a han-\ndler. Avoid this search by making the try-cont continuation available directly in\neach continuation.",
+      "chinese_html": "<p>本节实现效率不高，因为异常抛出时，apply-handler 必须沿续文线性搜索处理器。让每个续文都能直接访问 try-cont，以避免这个搜索。</p>"
+    },
+    {
+      "number": "5.36",
+      "printed_page": 177,
+      "pdf_page": 200,
+      "pdf_end": 200,
+      "stars": 1,
+      "question_text": "An alternative design that also avoids the linear search in apply-\nhandler is to use two continuations, a normal continuation and an exception con-\ntinuation. Achieve this goal by modifying the interpreter of this section to take two\ncontinuations instead of one.",
+      "chinese_html": "<p>另一种避免 apply-handler 线性搜索的设计，是使用正常续文和异常续文两个续文。把本节解释器改成接收两个续文。</p>"
+    },
+    {
+      "number": "5.37",
+      "printed_page": 177,
+      "pdf_page": 200,
+      "pdf_end": 200,
+      "stars": 1,
+      "question_text": "Modify the defined language to raise an exception when a proce-\ndure is called with the wrong number of arguments.",
+      "chinese_html": "<p>修改定义语言，让过程在参数个数不正确时抛出异常。</p>"
+    },
+    {
+      "number": "5.38",
+      "printed_page": 177,
+      "pdf_page": 200,
+      "pdf_end": 200,
+      "stars": 1,
+      "question_text": "Modify the defined language to add a division expression. Raise an\nexception on division by zero.",
+      "chinese_html": "<p>给定义语言增加除法表达式，除数为零时抛出异常。</p>"
+    },
+    {
+      "number": "5.39",
+      "printed_page": 178,
+      "pdf_page": 201,
+      "pdf_end": 201,
+      "stars": 2,
+      "question_text": "So far, an exception handler can propagate the exception by re-\n      raising it, or it can return a value that becomes the value of the try expression. One\n      might instead design the language to allow the computation to resume from the point\n      at which the exception was raised. Modify the interpreter of this section to accom-\n      plish this by running the body of the handler with the continuation from the point at\n      which the raise was invoked.",
+      "chinese_html": "<p>目前异常处理器可以重抛，或者返回一个作为 try 表达式值的结果。也可以设计成从抛出异常的地点继续计算：修改解释器，让处理器正文在 raise 调用点的续文中运行。</p>"
+    },
+    {
+      "number": "5.40",
+      "printed_page": 178,
+      "pdf_page": 201,
+      "pdf_end": 201,
+      "stars": 3,
+      "question_text": "Give the exception handlers in the defined language the ability\n      to either return or resume. Do this by passing the continuation from the raise excep-\n      tion as a second argument. This may require adding continuations as a new kind of\n      expressed value. Devise suitable syntax for invoking a continuation on a value.",
+      "chinese_html": "<p>让处理器既可以返回，也可以恢复。把 raise 处的续文作为第二个参数传给处理器；这可能要求把续文加入表达值。设计一种把续文应用于值的语法。</p>"
+    },
+    {
+      "number": "5.41",
+      "printed_page": 178,
+      "pdf_page": 201,
+      "pdf_end": 201,
+      "stars": 3,
+      "question_text": "We have shown how to implement exceptions using a data-\n      structure representation of continuations. We can’t immediately apply the recipe of\n      section 2.2.3 to get a procedural representation, because we now have two observers:\n      apply-handler and apply-cont. Implement the continuations of this section as a\n      pair of procedures: a one-argument procedure representing the action of the contin-\n      uation under apply-cont, and a zero-argument procedure representing its action\n      under apply-handler.",
+      "chinese_html": "<p>已经用数据结构续文实现异常。因为有 apply-handler 和 apply-cont 两个观察器，不能直接套用 §2.2.3 的单观察器过程表示。把续文表示成两个过程：一个单参数过程表示 apply-cont 的动作，另一个零参数过程表示 apply-handler 的动作。</p>"
+    },
+    {
+      "number": "5.42",
+      "printed_page": 178,
+      "pdf_page": 201,
+      "pdf_end": 201,
+      "stars": 2,
+      "question_text": "The preceding exercise captures the continuation only when an\n      exception is raised. Add to the language the ability to capture a continuation any-\n      where by adding the form letcc Identifier in Expression with the specification\n        (value-of/k (letcc var body) ρ cont)\n        = (value-of/k body (extend-env var cont ρ ) cont)\n      Such a captured continuation may be invoked with throw: the expression throw\n      Expression to Expression evaluates the two subexpressions. The second expression\n      should return a continuation, which is applied to the value of the first expression.\n      The current continuation of the throw expression is ignored.",
+      "chinese_html": "<p>上一题只在抛异常时捕获续文。添加 <code>letcc Identifier in Expression</code>，使任何位置都可捕获；规格如下。</p><pre><code class=\"language-text\">eval(letcc var in body, rho, cont)\n= eval(body, extend(var,cont,rho), cont)</code></pre><p>再加入 <code>throw Expression to Expression</code>：求两个子式，第二式必须得到续文；把第一式的值交给它，忽略当前 throw 的续文。</p>"
+    },
+    {
+      "number": "5.43",
+      "printed_page": 178,
+      "pdf_page": 201,
+      "pdf_end": 201,
+      "stars": 2,
+      "question_text": "Modify letcc as defined in the preceding exercise so that the\n      captured continuation becomes a new kind of procedure, so instead of writing throw\n      exp1 to exp2 , one would write (exp2 exp1 ).",
+      "chinese_html": "<p>修改上一题的 letcc，使捕获的续文成为一种新过程：原先写 <code>throw exp1 to exp2</code> 的地方可以改写成 <code>(exp2 exp1)</code>。</p>"
+    },
+    {
+      "number": "5.44",
+      "printed_page": 178,
+      "pdf_page": 201,
+      "pdf_end": 201,
+      "stars": 2,
+      "question_text": "An alternative to letcc and throw of the preceding exer-\n      cises is to add a single procedure to the language. This procedure, which in\n      Scheme is called call-with-current-continuation, takes a one-argument\n      procedure, p, and passes to p a procedure that when invoked with one argu-\n      ment, passes that argument to the current continuation, cont. We could define\n      call-with-current-continuation in terms of letcc and throw as follows:\n              let call-with-current-continuation\n                    = proc (p)\n                        letcc cont\n                        in (p proc (v) throw v to cont)\n              in ...\n      Add call-with-current-continuation to the language. Then write a transla-\n      tor that takes the language with letcc and throw and translates it into the language\n      without letcc and throw, but with call-with-current-continuation.",
+      "chinese_html": "<p>可以用单个过程替代前两题的 letcc 和 throw。Scheme 的 call-with-current-continuation 接受一元过程 p，并把一个一元过程传给它；该过程被调用时把实参交给当前续文 cont。它可由下面的定义表达。</p><pre><code class=\"language-scheme\">let call-with-current-continuation\n      = proc (p)\n          letcc cont\n          in (p proc (v) throw v to cont)\nin ...</code></pre><p>给语言加入 call-with-current-continuation；再写一个翻译器，把带 letcc/throw 的语言译成不带这两个形式、但带 call-with-current-continuation 的语言。</p>"
+    },
+    {
+      "number": "5.45",
+      "printed_page": 189,
+      "pdf_page": 212,
+      "pdf_end": 212,
+      "stars": 1,
+      "question_text": "Add to the language of this section a construct called yield. When-\never a thread executes a yield, it is placed on the ready queue, and the thread at the\nhead of the ready queue is run. When the thread is resumed, it should appear as if\nthe call to yield had returned the number 99.",
+      "chinese_html": "<p>给本节线程语言添加 yield。线程执行 yield 时进入就绪队列，并运行队首线程；当它恢复时，yield 应像返回了数值 99 一样继续。</p>"
+    },
+    {
+      "number": "5.46",
+      "printed_page": 189,
+      "pdf_page": 212,
+      "pdf_end": 212,
+      "stars": 2,
+      "question_text": "In the system of exercise 5.45, a thread may be placed on the ready\nqueue either because its time slot has been exhausted or because it chose to yield. In\nthe latter case, it will be restarted with a full time slice. Modify the system so that\nthe ready queue keeps track of the remaining time slice (if any) of each thread, and\nrestarts the thread only with the time it has remaining.",
+      "chinese_html": "<p>在上一题中，时间片耗尽与主动 yield 都会把线程放回就绪队列。主动 yield 的线程恢复时却获得完整时间片。修改队列，让它保存线程剩余的时间片（如果还有），恢复时只给它剩余时间。</p>"
+    },
+    {
+      "number": "5.47",
+      "printed_page": 189,
+      "pdf_page": 212,
+      "pdf_end": 212,
+      "stars": 1,
+      "question_text": "What happens if we are left with two subthreads, each waiting for\na mutex held by the other subthread?",
+      "chinese_html": "<p>如果最后剩下两个子线程，各自等待另一个子线程持有的 mutex，会怎样？</p>"
+    },
+    {
+      "number": "5.48",
+      "printed_page": 189,
+      "pdf_page": 212,
+      "pdf_end": 212,
+      "stars": 1,
+      "question_text": "We have used a procedural representation of threads. Replace this\nby a data-structure representation.",
+      "chinese_html": "<p>本节用过程表示线程。改用数据结构表示。</p>"
+    },
+    {
+      "number": "5.49",
+      "printed_page": 189,
+      "pdf_page": 212,
+      "pdf_end": 212,
+      "stars": 1,
+      "question_text": "Do exercise 5.15 (continuations as a stack of frames) for THREADS.",
+      "chinese_html": "<p>对 THREADS 完成<a href=\"#ex-5-15\">习题 5.15</a>：把续文表示为帧栈。</p>"
+    },
+    {
+      "number": "5.50",
+      "printed_page": 189,
+      "pdf_page": 212,
+      "pdf_end": 212,
+      "stars": 2,
+      "question_text": "Registerize the interpreter of this section. What is the set of mutu-\nally tail-recursive procedures that must be registerized?",
+      "chinese_html": "<p>把本节解释器寄存器化。哪些互相尾递归的过程必须一起寄存器化？</p>"
+    },
+    {
+      "number": "5.51",
+      "printed_page": 189,
+      "pdf_page": 212,
+      "pdf_end": 212,
+      "stars": 3,
+      "question_text": "We would like to be able to organize our program so that the con-\nsumer in figure 5.17 doesn’t have to busy-wait. Instead, it should be able to put itself\nto sleep and be awakened when the producer has put a value in the buffer. Either\nwrite a program with mutexes to do this, or implement a synchronization operator\nthat makes this possible.",
+      "chinese_html": "<p>希望图 5.17 的消费者不必忙等，而是在生产者把值放入缓冲区后被唤醒。用 mutex 写出这样的程序，或者实现允许这种行为的同步算子。</p>"
+    },
+    {
+      "number": "5.52",
+      "printed_page": 189,
+      "pdf_page": 212,
+      "pdf_end": 212,
+      "stars": 3,
+      "question_text": "Write a program using mutexes that will be like the program\nin figure 5.21, except that the main thread waits for all three of the subthreads to\nterminate, and then returns the value of x.",
+      "chinese_html": "<p>用 mutex 写一个类似图 5.21 的程序，不过主线程须等三个子线程全部结束后再返回 x。</p>"
+    },
+    {
+      "number": "5.53",
+      "printed_page": 191,
+      "pdf_page": 214,
+      "pdf_end": 214,
+      "stars": 3,
+      "question_text": "Modify the thread package to include thread identifiers. Each new\nthread is associated with a fresh thread identifier. When the child thread is spawned,\nit is passed its thread identifier as a value, rather than the arbitrary value 28 used\nin this section. The child’s number is also returned to the parent as the value of the\nspawn expression. Instrument the interpreter to trace the creation of thread identi-\nfiers. Check to see that the ready queue contains at most one thread for each thread\nidentifier. How can a child thread know its parent’s identifier? What should be done\nabout the thread identifier of the original program?",
+      "chinese_html": "<p>加入线程标识符：每个新线程有新鲜 ID，spawn 时把子 ID（代替 28）传给子过程，也把该 ID 作为 spawn 的值交给父线程。追踪 ID 创建，检查就绪队列里每个 ID 至多出现一次。子线程如何知道父 ID？原始程序的 ID 应怎样处理？</p>"
+    },
+    {
+      "number": "5.54",
+      "printed_page": 191,
+      "pdf_page": 214,
+      "pdf_end": 214,
+      "stars": 2,
+      "question_text": "Add to the interpreter of exercise 5.53 a kill facility. The kill\nconstruct, when given a thread number, finds the corresponding thread on the ready\nqueue or any of the waiting queues and removes it. In addition, kill should return\na true value if the target thread is found and false if the thread number is not found\non any queue.",
+      "chinese_html": "<p>给上一题的解释器添加 kill。给定线程号，在就绪队列或任何等待队列中找到它并移除。找到返回真；所有队列中都没有这个线程号则返回假。</p>"
+    },
+    {
+      "number": "5.55",
+      "printed_page": 191,
+      "pdf_page": 214,
+      "pdf_end": 214,
+      "stars": 2,
+      "question_text": "Add to the interpreter of exercise 5.53 an interthread communica-\ntion facility, in which each thread can send a value to another thread using its thread\nidentifier. A thread can receive messages when it chooses, blocking if no message has\nbeen sent to it.",
+      "chinese_html": "<p>给<a href=\"#ex-5-53\">习题 5.53</a> 的解释器加入线程间通信：线程可用接收方 ID 发送一个值；线程选择接收时，若没有消息则阻塞。</p>"
+    },
+    {
+      "number": "5.56",
+      "printed_page": 191,
+      "pdf_page": 214,
+      "pdf_end": 214,
+      "stars": 2,
+      "question_text": "Modify the interpreter of exercise 5.55 so that rather than sharing a\nstore, each thread has its own store. In such a language, mutexes can almost always be\navoided. Rewrite the example of this section in this language, without using mutexes.",
+      "chinese_html": "<p>修改上一题，使各线程有自己的存储，不再共享一个 store。这种语言几乎总能避免 mutex。不用 mutex，把本节的例子改写成这种语言。</p>"
+    },
+    {
+      "number": "5.57",
+      "printed_page": 191,
+      "pdf_page": 214,
+      "pdf_end": 214,
+      "stars": 3,
+      "question_text": "There are lots of different synchronization mechanisms in your\nfavorite OS book. Pick three and implement them in this framework.",
+      "chinese_html": "<p>操作系统教材里还有很多同步机制。任选三种，在本框架中实现。</p>"
+    },
+    {
+      "number": "5.58",
+      "printed_page": 191,
+      "pdf_page": 214,
+      "pdf_end": 214,
+      "stars": 1,
+      "question_text": "Go off with your friends and have some pizza, but make\nsure only one person at a time grabs a piece!",
+      "chinese_html": "<p>和朋友去吃披萨，但要保证每次只有一个人伸手拿一片！（原书标为“绝对一星”。）</p>"
+    }
+  ]
+}

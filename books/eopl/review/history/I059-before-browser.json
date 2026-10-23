@@ -1,0 +1,69 @@
+{
+  "issue": "I058",
+  "status": "passed",
+  "scope": "Current local EOPL map, preface and chapters 1–3: five reading pages, 112 complete Chinese exercise solutions, actual program execution and seven-route browser acceptance.",
+  "astro_migration": {
+    "record": "review/astro-migration.json",
+    "sha256": "5b32509a6348e00da1d555534f6a31baaa9b22ed1f062a39628733abefbe8861",
+    "open_findings": [],
+    "source_sha256": {
+      "book_overview.html": "bcee15d3ae5f7b748a93ff07bdffc6eb7fbbb790f4e2af54fce3bc289605720c",
+      "preface.html": "4ffe7b18e4d6bc5b5ba6be871417b061f1896b88885b723a6d46ab2024a25392",
+      "chapter01_inductive_data.html": "375aac6684c71ae9ec73fb3d3e401119c1c33221858b61e02e9638e74b64d31a",
+      "chapter02_data_abstraction.html": "9c58590c094fe03c2e66495ddc144c601f677224452a94866f7e40c6931e0993",
+      "chapter03_expressions.html": "d2a408b6f950dc85291ddb3b3c7017877cfbed3f351b05b984f1320597633904"
+    }
+  },
+  "offline_report": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-23T04-16-52-462Z-dec4d3c1/report.json",
+  "offline_sha256": "58ad279d97e1c08e3571bc5385d2597141fd89b3e9f72fcb9876f60f6c4e16ac",
+  "js_views": 28,
+  "no_js_views": 14,
+  "external_requests": [],
+  "screenshots": [
+    {
+      "file": "tmp/eopl-ch03-20261023/final-s3-2-1440.png",
+      "sha256": "6fbc0f9068be481280f2ab7d6f5d136952cbfc89ff5cb63636c93dc9a94b6c41"
+    },
+    {
+      "file": "tmp/eopl-ch03-20261023/final-s3-5-1440.png",
+      "sha256": "8456634abadca701a5e4f48dc15c62011173b6379e10c6d0666f68b246ac32c1"
+    },
+    {
+      "file": "tmp/eopl-ch03-20261023/final-s3-7-1440.png",
+      "sha256": "e6dee9d7231e9380b84691028ac28808251a4f1afb8c20a36608d2ecddaad0e6"
+    },
+    {
+      "file": "tmp/eopl-ch03-20261023/final-cycle-1440.png",
+      "sha256": "ea07251f58c93b4d84c9899836b18390d9e1a31826047b197c083a1d9c55c913"
+    },
+    {
+      "file": "tmp/eopl-ch03-20261023/final-tree-390.png",
+      "sha256": "5dbb7fdde56d03ab3ac532f95ba32ad1707f86980eca461daba95ac681fda327"
+    },
+    {
+      "file": "tmp/eopl-ch03-20261023/final-optimization-390.png",
+      "sha256": "e40ce4d3e532a3a4d77abfdaa14ee09484d0259942895491b2cae876827dda21"
+    },
+    {
+      "file": "tmp/eopl-ch03-20261023/final-tree-top-390.png",
+      "sha256": "5f0b9a2600854a57793b20de2e89baa09a6ef08335832d851705c88d4c15486a"
+    },
+    {
+      "file": "tmp/eopl-ch03-20261023/final-tree-body-390.png",
+      "sha256": "c27b5c8e9dcb3bc44e0bb58517e89f4e766115b313a4fab4ec4fdd9e7d22791c"
+    }
+  ],
+  "navigation_report": "tmp/eopl-ch03-20261023/manual-reader.json",
+  "historical_record": {
+    "file": "review/history/I044-browser.json",
+    "sha256": "e3e7a25fe7f87e3568032cb00f2c20539ad1078bcd3ff7d90f8283fc97021247",
+    "reason": "I044 two-page browser acceptance preserved; current six-route acceptance is independent."
+  },
+  "I058_revision": {
+    "issue": "I058",
+    "record": "review/ch03.json",
+    "prior_record": "review/history/I058-before-browser.json",
+    "prior_sha256": "7c6de24341193081bb3a78029166869236e90a962fcad6c4c81584eb5835b359",
+    "scope": "Current chapter 3 source, program, documentation and reader bindings; prior I057 and earlier evidence retained exactly."
+  }
+}

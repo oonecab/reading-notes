@@ -1,0 +1,370 @@
+{
+  "schema_version": 1,
+  "book": "eopl",
+  "chapter": "6",
+  "source_pdf": "books/eopl/assets/source.pdf",
+  "source_sha256": "b9e8770a4dc97206bd02230e6b21a878382eb02a340ff69321857d701e7d967c",
+  "method": "Independent page-by-page source extraction before authoring; Chinese tasks read back against complete source, supplied code and referenced interfaces. Full English kept outside reading pages.",
+  "items": [
+    {
+      "number": "6.1",
+      "printed_page": 200,
+      "pdf_page": 223,
+      "pdf_end": 223,
+      "stars": 1,
+      "question_text": "Consider figure 6.2 without (set! pc fact/k) in the definition of\n      fact/k and without (set! pc apply-cont) in the definition of apply-cont.\n      Why does the program still work?",
+      "chinese_html": "<p>考虑图 6.2：从 fact/k 中删掉 <code>(set! pc fact/k)</code>，从 apply-cont 中删掉 <code>(set! pc apply-cont)</code>。为什么程序仍能工作？</p>"
+    },
+    {
+      "number": "6.2",
+      "printed_page": 200,
+      "pdf_page": 223,
+      "pdf_end": 223,
+      "stars": 1,
+      "question_text": "Prove by induction on n that for any g, (fib/k n g) = (g (fib n)).",
+      "chinese_html": "<p>对 n 作归纳，证明任意 g 都有 <code>(fib/k n g) = (g (fib n))</code>。</p>"
+    },
+    {
+      "number": "6.3",
+      "printed_page": 201,
+      "pdf_page": 224,
+      "pdf_end": 224,
+      "stars": 1,
+      "question_text": "Rewrite each of the following Scheme expressions in continuation-\npassing style. Assume that any unknown functions have also been rewritten in CPS.\n\n1. (lambda (x y) (p (+ 8 x) (q y)))\n2. (lambda (x y u v) (+ 1 (f (g x y) (+ u v))))\n3. (+ 1 (f (g x y) (+ u (h v))))\n4. (zero? (if a (p x) (p y)))\n5. (zero? (if (f a) (p x) (p y)))\n6. (let ((x (let ((y 8)) (p y)))) x)\n7. (let ((x (if a (p x) (p y)))) x)",
+      "chinese_html": "<p>把下面每个 Scheme 表达式改写成 CPS。假定所有未知函数也已经改成 CPS。</p><ol><li><pre><code class=\"language-scheme\">(lambda (x y) (p (+ 8 x) (q y)))</code></pre></li><li><pre><code class=\"language-scheme\">(lambda (x y u v) (+ 1 (f (g x y) (+ u v))))</code></pre></li><li><pre><code class=\"language-scheme\">(+ 1 (f (g x y) (+ u (h v))))</code></pre></li><li><pre><code class=\"language-scheme\">(zero? (if a (p x) (p y)))</code></pre></li><li><pre><code class=\"language-scheme\">(zero? (if (f a) (p x) (p y)))</code></pre></li><li><pre><code class=\"language-scheme\">(let ((x (let ((y 8)) (p y)))) x)</code></pre></li><li><pre><code class=\"language-scheme\">(let ((x (if a (p x) (p y)))) x)</code></pre></li></ol>"
+    },
+    {
+      "number": "6.4",
+      "printed_page": 201,
+      "pdf_page": 224,
+      "pdf_end": 224,
+      "stars": 2,
+      "question_text": "Rewrite each of the following procedures in continuation-passing\nstyle. For each procedure, do this first using a data-structure representation of contin-\nuations, then with a procedural representation, and then with the inlined procedural\nrepresentation. Last, write the registerized version. For each of these four versions,\ntest to see that your implementation is tail-recursive by defining end-cont by\n\n  (apply-cont (end-cont) val)\n  = (begin\n      (eopl:printf \"End of computation.~%\")\n      (eopl:printf \"This sentence should appear only once.~%\")\n      val)\n\nas we did in chapter 5.\n\n1. remove-first (section 1.2.3).\n2. list-sum (section 1.3).\n3. occurs-free? (section 1.2.4).\n4. subst (section 1.2.5).",
+      "chinese_html": "<p>把以下过程分别改成 CPS：先用数据结构表示续文，再用过程表示，再把过程表示内联，最后写寄存器化版本。每种版本都使用下述 end-cont，测试整个尾递归计算中结束信息只出现一次。</p><pre><code class=\"language-scheme\">(apply-cont (end-cont) val)\n= (begin\n    (eopl:printf &quot;End of computation.~%&quot;)\n    (eopl:printf &quot;This sentence should appear only once.~%&quot;)\n    val)</code></pre><ol><li>remove-first（§1.2.3）。</li><li>list-sum（§1.3）。</li><li>occurs-free?（§1.2.4）。</li><li>subst（§1.2.5）。</li></ol>"
+    },
+    {
+      "number": "6.5",
+      "printed_page": 201,
+      "pdf_page": 224,
+      "pdf_end": 224,
+      "stars": 1,
+      "question_text": "When we rewrite an expression in CPS, we choose an evaluation\norder for the procedure calls in the expression. Rewrite each of the preceding exam-\nples in CPS so that all the procedure calls are evaluated from right to left.",
+      "chinese_html": "<p>把表达式改写成 CPS 时会选择其中过程调用的求值次序。把前面的各例改写成所有过程调用都按从右到左求值的 CPS。</p>"
+    },
+    {
+      "number": "6.6",
+      "printed_page": 201,
+      "pdf_page": 224,
+      "pdf_end": 224,
+      "stars": 1,
+      "question_text": "How many different evaluation orders are possible for the proce-\ndure calls in (lambda (x y) (+ (f (g x)) (h (j y))))? For each evalua-\ntion order, write a CPS expression that calls the procedures in that order.",
+      "chinese_html": "<p>表达式 <code>(lambda (x y) (+ (f (g x)) (h (j y))))</code> 中的过程调用有多少种求值次序？逐一写出按该顺序调用的 CPS 表达式。</p>"
+    },
+    {
+      "number": "6.7",
+      "printed_page": 201,
+      "pdf_page": 224,
+      "pdf_end": 224,
+      "stars": 2,
+      "question_text": "Write out the procedural and the inlined representations for the\ninterpreter in figures 5.4, 5.5, and 5.6.",
+      "chinese_html": "<p>写出图 5.4、5.5、5.6 的解释器对应的过程表示及内联表示。</p>"
+    },
+    {
+      "number": "6.8",
+      "printed_page": 202,
+      "pdf_page": 225,
+      "pdf_end": 225,
+      "stars": 3,
+      "question_text": "Rewrite the interpreter of section 5.4 using a procedural and\n      inlined representation. This is challenging because we effectively have two observers,\n      apply-cont and apply-handler. As a hint, consider modifying the recipe on\n      page 6.1 so that we add to each procedure two extra arguments, one representing the\n      behavior of the continuation under apply-cont and one representing its behavior\n      under apply-handler.",
+      "chinese_html": "<p>把 §5.4 的异常解释器改为过程表示和内联表示。难点是有 apply-cont 与 apply-handler 两个观察器。提示：修改前面 §6.1 的方法，给每个过程增加两个参数，分别表示这两个观察器下的续文行为。</p>"
+    },
+    {
+      "number": "6.9",
+      "printed_page": 203,
+      "pdf_page": 226,
+      "pdf_end": 226,
+      "stars": 1,
+      "question_text": "What property of multiplication makes this program optimization\n      possible?",
+      "chinese_html": "<p>乘法的什么性质使前面的续文压缩优化成为可能？</p>"
+    },
+    {
+      "number": "6.10",
+      "printed_page": 203,
+      "pdf_page": 226,
+      "pdf_end": 226,
+      "stars": 1,
+      "question_text": "For list-sum, formulate a succinct representation of the continua-\n      tions, like the one for fact/k above.",
+      "chinese_html": "<p>为 list-sum 的续文设计一个像前面 fact/k 那样简洁的表示。</p>"
+    },
+    {
+      "number": "6.11",
+      "printed_page": 207,
+      "pdf_page": 230,
+      "pdf_end": 230,
+      "stars": 1,
+      "question_text": "Complete the interpreter of figure 6.6 by writing value-of-\nsimple-exp.",
+      "chinese_html": "<p>补全图 6.6 中的解释器，写出简单表达式求值过程 value-of-simple-exp。</p>"
+    },
+    {
+      "number": "6.12",
+      "printed_page": 207,
+      "pdf_page": 230,
+      "pdf_end": 230,
+      "stars": 1,
+      "question_text": "Determine whether each of the following expressions is simple.\n\n1. -((f -(x,1)),1)\n2. (f -(-(x,y),1))\n3. if zero?(x) then -(x,y) else -(-(x,y),1)\n4. let x = proc (y) (y x) in -(x,3)\n5. let f = proc (x) x in (f 3)",
+      "chinese_html": "<p>判断下列每个表达式是否为简单表达式。</p><ol><li><pre><code class=\"language-scheme\">-((f -(x,1)),1)</code></pre></li><li><pre><code class=\"language-scheme\">(f -(-(x,y),1))</code></pre></li><li><pre><code class=\"language-scheme\">if zero?(x) then -(x,y) else -(-(x,y),1)</code></pre></li><li><pre><code class=\"language-scheme\">let x = proc (y) (y x) in -(x,3)</code></pre></li><li><pre><code class=\"language-scheme\">let f = proc (x) x in (f 3)</code></pre></li></ol>"
+    },
+    {
+      "number": "6.13",
+      "printed_page": 210,
+      "pdf_page": 233,
+      "pdf_end": 235,
+      "stars": 1,
+      "question_text": "Translate each of these expressions in CPS-IN into continuation-\n      passing style using the CPS recipe on page 200 above. Test your transformed pro-\n      grams by running them using the interpreter of figure 6.6. Be sure that the original\n      and transformed versions give the same answer on each input.\n\n      1. removeall.\n                 letrec\n                  removeall(n,s) =\n                   if null?(s)\n                   then emptylist\n                   else if number?(car(s))\n                        then if equal?(n,car(s))\n                             then (removeall n cdr(s))\n                             else cons(car(s),\n                                        (removeall n cdr(s)))\n                        else cons((removeall n car(s)),\n                                   (removeall n cdr(s)))\n      2. occurs-in?.\n                 letrec\n                  occurs-in?(n,s) =\n                   if null?(s)\n                   then 0\n                   else if number?(car(s))\n                        then if equal?(n,car(s))\n                             then 1\n                             else (occurs-in? n cdr(s))\n                        else if (occurs-in? n car(s))\n                             then 1\n                             else (occurs-in? n cdr(s))\n\n      3. remfirst. This uses occurs-in? from the preceding example.\n                 letrec\n                  remfirst(n,s) =\n                   letrec\n                    loop(s) =\n                     if null?(s)\n                     then emptylist\n                     else if number?(car(s))\n                          then if equal?(n,car(s))\n                               then cdr(s)\n                               else cons(car(s),(loop cdr(s)))\n                          else if (occurs-in? n car(s))\n                               then cons((remfirst n car(s)),\n                                         cdr(s))\n                               else cons(car(s),\n                                         (remfirst n cdr(s)))\n                 in (loop s)\n\n\n\n4. depth.\n             letrec\n              depth(s) =\n               if null?(s)\n               then 1\n               else if number?(car(s))\n                    then (depth cdr(s))\n                    else if less?(add1((depth car(s))),\n                                  (depth cdr(s)))\n                         then (depth cdr(s))\n                         else add1((depth car(s)))\n5. depth-with-let.\n             letrec\n              depth(s) =\n               if null?(s)\n               then 1\n               else if number?(car(s))\n                    then (depth cdr(s))\n                    else let dfirst = add1((depth car(s)))\n                             drest = (depth cdr(s))\n                         in if less?(dfirst,drest)\n                            then drest\n                            else dfirst\n6. map.\n             letrec\n              map(f, l) = if null?(l)\n                          then emptylist\n                          else cons((f car(l)),\n                                    (map f cdr(l)))\n              square(n) = *(n,n)\n             in (map square list(1,2,3,4,5))\n7. fnlrgtn. This procedure takes an n-list, like an s-list (page 9), but with numbers\n   instead of symbols, and a number n and returns the first number in the list (in left-\n   to-right order) that is greater than n. Once the result is found, no further elements\n   in the list are examined. For example,\n             (fnlrgtn list(1,list(3,list(2),7,list(9)))\n              6)\n   finds 7.\n\n\n\n            8. every. This procedure takes a predicate and a list and returns a true value if and\n               only if the predicate holds for each list element.\n                       letrec\n                        every(pred, l) =\n                         if null?(l)\n                         then 1\n                         else if (pred car(l))\n                              then (every pred cdr(l))\n                              else 0\n                        in (every proc(n)greater?(n,5) list(6,7,8,9))",
+      "chinese_html": "<p>按 p.200 的 CPS 方法，把下列 CPS-IN 程序逐个译为 CPS。用图 6.6 的解释器运行转换结果；每个输入都要确认原程序与转换后程序答案相同。</p><ol><li><p><code>removeall</code></p><pre><code class=\"language-scheme\">letrec\n                  removeall(n,s) =\n                   if null?(s)\n                   then emptylist\n                   else if number?(car(s))\n                        then if equal?(n,car(s))\n                             then (removeall n cdr(s))\n                             else cons(car(s),\n                                        (removeall n cdr(s)))\n                        else cons((removeall n car(s)),\n                                   (removeall n cdr(s)))</code></pre></li><li><p><code>occurs-in?</code></p><pre><code class=\"language-scheme\">letrec\n                  occurs-in?(n,s) =\n                   if null?(s)\n                   then 0\n                   else if number?(car(s))\n                        then if equal?(n,car(s))\n                             then 1\n                             else (occurs-in? n cdr(s))\n                        else if (occurs-in? n car(s))\n                             then 1\n                             else (occurs-in? n cdr(s))</code></pre></li><li><p><code>remfirst</code> 使用前一项的 occurs-in?。</p><details class=\"code-details\" open><summary>查看推演代码</summary><pre><code class=\"language-scheme\">letrec\n                  remfirst(n,s) =\n                   letrec\n                    loop(s) =\n                     if null?(s)\n                     then emptylist\n                     else if number?(car(s))\n                          then if equal?(n,car(s))\n                               then cdr(s)\n                               else cons(car(s),(loop cdr(s)))\n                          else if (occurs-in? n car(s))\n                               then cons((remfirst n car(s)),\n                                         cdr(s))\n                               else cons(car(s),\n                                         (remfirst n cdr(s)))\n                 in (loop s)</code></pre></details></li><li><p><code>depth</code></p><pre><code class=\"language-scheme\">letrec\n              depth(s) =\n               if null?(s)\n               then 1\n               else if number?(car(s))\n                    then (depth cdr(s))\n                    else if less?(add1((depth car(s))),\n                                  (depth cdr(s)))\n                         then (depth cdr(s))\n                         else add1((depth car(s)))</code></pre></li><li><p><code>depth-with-let</code></p><pre><code class=\"language-scheme\">letrec\n              depth(s) =\n               if null?(s)\n               then 1\n               else if number?(car(s))\n                    then (depth cdr(s))\n                    else let dfirst = add1((depth car(s)))\n                             drest = (depth cdr(s))\n                         in if less?(dfirst,drest)\n                            then drest\n                            else dfirst</code></pre></li><li><p><code>map</code></p><pre><code class=\"language-scheme\">letrec\n              map(f, l) = if null?(l)\n                          then emptylist\n                          else cons((f car(l)),\n                                    (map f cdr(l)))\n              square(n) = *(n,n)\n             in (map square list(1,2,3,4,5))</code></pre></li><li><p><code>fnlrgtn</code></p><p>输入一张 n-list（像 p.9 的 s-list，但叶子为数），再输入一个数 n，返回按从左到右顺序遇到的第一个大于 n 的数；一旦找到就不再查看后面的元素。例如下面调用找到 7。</p><pre><code class=\"language-scheme\">(fnlrgtn list(1,list(3,list(2),7,list(9))) 6)</code></pre></li><li><p><code>every</code></p><p>every 接受谓词和表；当且仅当每个元素都满足谓词时返回真值。</p><pre><code class=\"language-scheme\">letrec\n                        every(pred, l) =\n                         if null?(l)\n                         then 1\n                         else if (pred car(l))\n                              then (every pred cdr(l))\n                              else 0\n                        in (every proc(n)greater?(n,5) list(6,7,8,9))</code></pre></li></ol>"
+    },
+    {
+      "number": "6.14",
+      "printed_page": 212,
+      "pdf_page": 235,
+      "pdf_end": 235,
+      "stars": 1,
+      "question_text": "Complete the interpreter of figure 6.6 by supplying definitions for\n            value-of-program and apply-cont.",
+      "chinese_html": "<p>补全图 6.6 的解释器，给出 value-of-program 和 apply-cont 的定义。</p>"
+    },
+    {
+      "number": "6.15",
+      "printed_page": 212,
+      "pdf_page": 235,
+      "pdf_end": 235,
+      "stars": 1,
+      "question_text": "Observe that in the interpreter of the preceding exercise, there is\n            only one possible value for cont. Use this observation to remove the cont argument\n            entirely.",
+      "chinese_html": "<p>观察上一题的解释器，cont 只有一个可能的值。利用这一点把 cont 参数完全消去。</p>"
+    },
+    {
+      "number": "6.16",
+      "printed_page": 212,
+      "pdf_page": 235,
+      "pdf_end": 235,
+      "stars": 1,
+      "question_text": "Registerize the interpreter of figure 6.6.",
+      "chinese_html": "<p>把图 6.6 的解释器寄存器化。</p>"
+    },
+    {
+      "number": "6.17",
+      "printed_page": 212,
+      "pdf_page": 235,
+      "pdf_end": 235,
+      "stars": 1,
+      "question_text": "Trampoline the interpreter of figure 6.6.",
+      "chinese_html": "<p>把图 6.6 的解释器改成蹦床解释器。</p>"
+    },
+    {
+      "number": "6.18",
+      "printed_page": 212,
+      "pdf_page": 235,
+      "pdf_end": 235,
+      "stars": 2,
+      "question_text": "Modify the grammar of CPS-OUT so that a simple diff-exp or\n            zero?-exp can have only a constant or variable as an argument. Thus in the result-\n            ing language value-of-simple-exp can be made nonrecursive.",
+      "chinese_html": "<p>修改 CPS-OUT 语法，使简单差值式和 zero? 的操作数只能是常量或变量。这样 value-of-simple-exp 就可以写成非递归的。</p>"
+    },
+    {
+      "number": "6.19",
+      "printed_page": 212,
+      "pdf_page": 235,
+      "pdf_end": 235,
+      "stars": 2,
+      "question_text": "Write a Scheme procedure tail-form? that takes the syntax tree\n            of a program in CPS-IN, expressed in the grammar of figure 6.3, and determines\n            whether the same string would be in tail form according to the grammar of figure 6.5.",
+      "chinese_html": "<p>写 Scheme 过程 tail-form?：输入按图 6.3 文法表示的 CPS-IN 程序语法树，判断同一个字符串能否按图 6.5 的文法被解析为尾形式。</p>"
+    },
+    {
+      "number": "6.20",
+      "printed_page": 221,
+      "pdf_page": 244,
+      "pdf_end": 244,
+      "stars": 1,
+      "question_text": "Our procedure cps-of-exps causes subexpressions to be evalu-\nated from left to right. Modify cps-of-exps so that subexpressions are evaluated\nfrom right to left.",
+      "chinese_html": "<p>本节 cps-of-exps 使子表达式从左到右求值。修改它，使子表达式从右到左求值。</p>"
+    },
+    {
+      "number": "6.21",
+      "printed_page": 221,
+      "pdf_page": 244,
+      "pdf_end": 244,
+      "stars": 1,
+      "question_text": "Modify cps-of-call-exp so that the operands are evaluated\nfrom left to right, followed by the operator.",
+      "chinese_html": "<p>修改 cps-of-call-exp，使实参先从左到右求值，最后才求运算符。</p>"
+    },
+    {
+      "number": "6.22",
+      "printed_page": 221,
+      "pdf_page": 244,
+      "pdf_end": 244,
+      "stars": 1,
+      "question_text": "Sometimes, when we generate (K simp), K is already a proc-exp.\nSo instead of generating\n\n        (proc (var1 ) ...       simp)\n\nwe could generate\n\n        let var1 = simp\n        in ...\n\nThis leads to CPS code with the property that it never contains a subexpression of the\nform\n\n        (proc (var) exp1\n         simp)\n\nunless that subexpression was in the original expression.\nModify make-send-to-cont to generate this better code. When does the new rule\napply?",
+      "chinese_html": "<p>生成 <code>(K simp)</code> 时，K 有时已经是 proc 表达式。于是可以把下面形式改成 let，并使 CPS 代码不再含这种新生成的立即过程应用（原输入中本来有的除外）。修改 make-send-to-cont。新规则何时适用？</p><pre><code class=\"language-scheme\">(proc (var1) ... simp)\n=&gt; let var1 = simp in ...\n\n% eliminated new shape:\n(proc (var) exp1 simp)</code></pre>"
+    },
+    {
+      "number": "6.23",
+      "printed_page": 221,
+      "pdf_page": 244,
+      "pdf_end": 244,
+      "stars": 2,
+      "question_text": "Observe that our rule for if makes two copies of the continuation\nK, so in a nested if the size of the transformed program can grow exponentially.\nRun an example to confirm this observation. Then show how this may be avoided by\nchanging the transformation to bind a fresh variable to K.",
+      "chinese_html": "<p>if 的转换会复制 K 两次，嵌套 if 可能使目标程序指数膨胀。运行例子确认，再修改转换：用新鲜变量绑定 K，避免复制。</p>"
+    },
+    {
+      "number": "6.24",
+      "printed_page": 221,
+      "pdf_page": 244,
+      "pdf_end": 244,
+      "stars": 2,
+      "question_text": "Add lists to the language (exercise 3.10). Remember that the argu-\nments to a list are not in tail position.",
+      "chinese_html": "<p>给语言添加列表，见<a href=\"chapter03_expressions.html#ex-3-10\">习题 3.10</a>。注意 list 的各实参不在尾位置。</p>"
+    },
+    {
+      "number": "6.25",
+      "printed_page": 221,
+      "pdf_page": 244,
+      "pdf_end": 244,
+      "stars": 2,
+      "question_text": "Extend CPS-IN so that a let expression can declare an arbitrary\nnumber of variables (exercise 3.16).",
+      "chinese_html": "<p>扩展 CPS-IN，使一个 let 表达式可以声明任意多个变量，见<a href=\"chapter03_expressions.html#ex-3-16\">习题 3.16</a>。</p>"
+    },
+    {
+      "number": "6.26",
+      "printed_page": 221,
+      "pdf_page": 244,
+      "pdf_end": 244,
+      "stars": 2,
+      "question_text": "A continuation variable introduced by cps-of-exps will only\noccur once in the continuation. Modify make-send-to-cont so that instead of gen-\nerating\n\n        let var1 = simp1\n        in T\n\nas in exercise 6.22, it generates T[simp1 /var1], where the notation E1 [E2 /var] means\nexpression E1 with every free occurrence of the variable var replaced by E2 .",
+      "chinese_html": "<p>cps-of-exps 引入的续文变量在续文中只出现一次。修改 make-send-to-cont：不生成<a href=\"#ex-6-22\">习题 6.22</a> 的 <code>let var1 = simp1 in T</code>，而生成 <code>T[simp1/var1]</code>。这里 <code>E1[E2/var]</code> 表示用 E2 替换 E1 中 var 的每个自由出现。</p>"
+    },
+    {
+      "number": "6.27",
+      "printed_page": 224,
+      "pdf_page": 247,
+      "pdf_end": 247,
+      "stars": 2,
+      "question_text": "As it stands, cps-of-let-exp will generate a useless let\n      expression. (Why?) Modify this procedure so that the continuation variable is the\n      same as the let variable. Then if exp1 is nonsimple,\n\n       (cps-of-exp <<let var1 = exp1 in exp2 >> K)\n       = (cps-of-exp exp1 <<proc (var1 ) (cps-of-exp exp2 K)>>",
+      "chinese_html": "<p>当前 cps-of-let-exp 会生成没有必要的 let（为什么？）。让续文变量与源 let 变量相同；当右式非简单时应满足下面规则。</p><pre><code class=\"language-text\">C(let var1 = exp1 in exp2,K)\n= C(exp1, proc(var1) C(exp2,K))</code></pre>"
+    },
+    {
+      "number": "6.28",
+      "printed_page": 224,
+      "pdf_page": 247,
+      "pdf_end": 247,
+      "stars": 1,
+      "question_text": "Food for thought: imagine a CPS transformer for Scheme programs,\n      and imagine that you apply it to the first interpreter from chapter 3. What would the\n      result look like?",
+      "chinese_html": "<p>思考：设想有一个 Scheme 程序的 CPS 转换器，把第三章的第一个解释器输入其中，结果会像什么？</p>"
+    },
+    {
+      "number": "6.29",
+      "printed_page": 224,
+      "pdf_page": 247,
+      "pdf_end": 247,
+      "stars": 2,
+      "question_text": "Consider this variant of cps-of-exps.\n\n        (define cps-of-exps\n          (lambda (exps builder)\n            (let cps-of-rest ((exps exps) (acc ’()))\n              cps-of-rest : Listof(InpExp) × Listof(SimpleExp) → TfExp\n              (cond\n                ((null? exps) (builder (reverse acc)))\n                ((inp-exp-simple? (car exps))\n                  (cps-of-rest (cdr exps)\n                     (cons\n                       (cps-of-simple-exp (car exps))\n                       acc)))\n                (else\n                  (let ((var (fresh-identifier ’var)))\n                     (cps-of-exp (car exps)\n                       (cps-proc-exp (list var)\n                          (cps-of-rest (cdr exps)\n                            (cons\n                               (cps-of-simple-exp (var-exp var))\n                               acc))))))))))\n\n      Why is this variant of cps-of-exp more efficient than the one in figure 6.8?",
+      "chinese_html": "<p>考虑下面这个 cps-of-exps 变体。为什么它比图 6.8 的版本更高效？</p><details class=\"code-details\" open><summary>查看推演代码</summary><pre><code class=\"language-scheme\">(define cps-of-exps\n          (lambda (exps builder)\n            (let cps-of-rest ((exps exps) (acc ’()))\n              cps-of-rest : Listof(InpExp) × Listof(SimpleExp) → TfExp\n              (cond\n                ((null? exps) (builder (reverse acc)))\n                ((inp-exp-simple? (car exps))\n                  (cps-of-rest (cdr exps)\n                     (cons\n                       (cps-of-simple-exp (car exps))\n                       acc)))\n                (else\n                  (let ((var (fresh-identifier ’var)))\n                     (cps-of-exp (car exps)\n                       (cps-proc-exp (list var)\n                          (cps-of-rest (cdr exps)\n                            (cons\n                               (cps-of-simple-exp (var-exp var))\n                               acc))))))))))</code></pre></details>"
+    },
+    {
+      "number": "6.30",
+      "printed_page": 225,
+      "pdf_page": 248,
+      "pdf_end": 248,
+      "stars": 2,
+      "question_text": "A call to cps-of-exps with a list of expressions of length one can\nbe simplified as follows:\n\n  (cps-of-exps (list exp) builder)\n  = (cps-of-exp/ctx exp (lambda (simp) (builder (list simp))))\n\nwhere\n\n  cps-of-exp/ctx : InpExp × (SimpleExp → TfExp) → TfExp\n  (define cps-of-exp/ctx\n    (lambda (exp context)\n       (if (inp-exp-simple? exp)\n          (context (cps-of-simple-exp exp))\n          (let ((var (fresh-identifier ’var)))\n            (cps-of-exp exp\n               (cps-proc-exp (list var)\n                  (context (cps-var-exp var))))))))\n\nThus, we can simplify occurrences of (cps-of-exps (list ...)), since the\nnumber of arguments to list is known. Therefore the definition of, for exam-\nple, cps-of-diff-exp could be defined with cps-of-exp/ctx instead of with\ncps-of-exps.\n\n  (define cps-of-diff-exp\n    (lambda (exp1 exp2 k-exp)\n      (cps-of-exp/ctx exp1\n        (lambda (simp1)\n          (cps-of-exp/ctx exp2\n            (lambda (simp2)\n              (make-send-to-cont k-exp\n                (cps-diff-exp simp1 simp2))))))))\n\nFor the use of cps-of-exps in cps-of-call-exp, we can use cps-of-exp/ctx\non the rator, but we still need cps-of-exps for the rands. Remove all other\noccurrences of cps-of-exps from the translator.",
+      "chinese_html": "<p>单元素列表的 cps-of-exps 可以化简成以下形式，并使用 cps-of-exp/ctx。</p><pre><code class=\"language-scheme\">(cps-of-exps (list exp) builder)\n= (cps-of-exp/ctx exp (lambda (simp) (builder (list simp))))\n\n(define cps-of-exp/ctx\n  (lambda (exp context)\n    (if (inp-exp-simple? exp)\n        (context (cps-of-simple-exp exp))\n        (let ((var (fresh-identifier &#x27;var)))\n          (cps-of-exp exp\n            (cps-proc-exp (list var)\n              (context (cps-var-exp var))))))))</code></pre><p>此辅助的类型契约为 <code>cps-of-exp/ctx : InpExp × (SimpleExp → TfExp) → TfExp</code>。</p><p>因为 list 的参数数目已知，可相应化简所有单元素用法；例如差值式可写成下面形式。</p><pre><code class=\"language-scheme\">(define cps-of-diff-exp\n  (lambda (exp1 exp2 k-exp)\n    (cps-of-exp/ctx exp1\n      (lambda (simp1)\n        (cps-of-exp/ctx exp2\n          (lambda (simp2)\n            (make-send-to-cont k-exp\n              (cps-diff-exp simp1 simp2))))))))</code></pre><p>对于 cps-of-call-exp，运算符可用 cps-of-exp/ctx，但任意长的实参表仍要 cps-of-exps。请从转换器中消除其余所有 cps-of-exps 的出现。</p>"
+    },
+    {
+      "number": "6.31",
+      "printed_page": 225,
+      "pdf_page": 248,
+      "pdf_end": 248,
+      "stars": 3,
+      "question_text": "Write a translator that takes the output of cps-of-program\nand produces an equivalent program in which all the continuations are represented\nby data structures, as in chapter 5. Represent data structures like those constructed\nusing define-datatype as lists. Since our language does not have symbols, you\ncan use an integer tag in the car position to distinguish the variants of a data type.",
+      "chinese_html": "<p>写一个翻译器，输入 cps-of-program 的输出，产生等价程序，把所有续文都改成第五章的数据结构表示。用列表表示类似 define-datatype 的结构；因为目标语言没有符号，可以用 car 中的整数标签区分变体。</p>"
+    },
+    {
+      "number": "6.32",
+      "printed_page": 225,
+      "pdf_page": 248,
+      "pdf_end": 248,
+      "stars": 3,
+      "question_text": "Write a translator like the one in exercise 6.31, except that it rep-\nresents all procedures by data structures.",
+      "chinese_html": "<p>写一个类似<a href=\"#ex-6-31\">习题 6.31</a> 的翻译器，不过把所有过程都用数据结构表示。</p>"
+    },
+    {
+      "number": "6.33",
+      "printed_page": 225,
+      "pdf_page": 248,
+      "pdf_end": 248,
+      "stars": 3,
+      "question_text": "Write a translator that takes the output from exercise 6.32 and\nconverts it to a register program like the one in figure 6.1.",
+      "chinese_html": "<p>写一个翻译器，输入<a href=\"#ex-6-32\">习题 6.32</a> 的输出，产生类似图 6.1 的寄存器程序。</p>"
+    },
+    {
+      "number": "6.34",
+      "printed_page": 226,
+      "pdf_page": 249,
+      "pdf_end": 249,
+      "stars": 2,
+      "question_text": "When we convert a program to CPS, we do more than produce a\n            program in which the control contexts become explicit. We also choose the exact order\n            in which the operations are done, and choose names for each intermediate result. The\n            latter is called sequentialization. If we don’t care about obtaining iterative behavior,\n            we can sequentialize a program by converting it to A-normal form or ANF. Here’s an\n            example of a program in ANF.\n\n              (define fib/anf\n                (lambda (n)\n                  (if (< n 2)\n                    1\n                    (let ((val1 (fib/anf (- n 1))))\n                      (let ((val2 (fib/anf (- n 2))))\n                        (+ val1 val2))))))\n\n            Whereas a program in CPS sequentializes computation by passing continuations that\n            name intermediate results, a program in ANF sequentializes computation by using\n            let expressions that name all of the intermediate results.\n            Retarget cps-of-exp so that it generates programs in ANF instead of CPS. (For\n            conditional expressions occurring in nontail position, use the ideas in exercise 6.23.)\n            Then, show that applying the revised cps-of-exp to, e.g., the definition of fib\n            yields the definition of fib/anf. Finally, show that given an input program which is\n            already in ANF, your translator produces the same program except for the names of\n            bound variables.",
+      "chinese_html": "<p>CPS 不只把控制上下文显式化，还决定操作次序，并给中间结果起名，这叫顺序化。若不要求迭代控制行为，可以改为 A-normal form（ANF）。下面是一个例子。</p><pre><code class=\"language-scheme\">(define fib/anf\n  (lambda (n)\n    (if (&lt; n 2)\n        1\n        (let ((val1 (fib/anf (- n 1))))\n          (let ((val2 (fib/anf (- n 2))))\n            (+ val1 val2))))))</code></pre><p>CPS 用续文形参给中间结果命名，ANF 用 let。修改 cps-of-exp，让它输出 ANF；非尾位置的条件式可借鉴<a href=\"#ex-6-23\">习题 6.23</a>。说明转换 fib 如何得到上面的 fib/anf，并证明输入已经是 ANF 时输出只可能改变绑定变量名。</p>"
+    },
+    {
+      "number": "6.35",
+      "printed_page": 226,
+      "pdf_page": 249,
+      "pdf_end": 249,
+      "stars": 1,
+      "question_text": "Verify on a few examples that if the optimization of exercise 6.27 is\n            installed, CPS-transforming the output of your ANF transformer (exercise 6.34) on a\n            program yields the same result as CPS-transforming the program.",
+      "chinese_html": "<p>在几个例子上验证：安装<a href=\"#ex-6-27\">习题 6.27</a> 的优化以后，先对程序做 ANF，再做 CPS，与直接做 CPS 的结果相同。</p>"
+    },
+    {
+      "number": "6.36",
+      "printed_page": 231,
+      "pdf_page": 254,
+      "pdf_end": 254,
+      "stars": 2,
+      "question_text": "Add a begin expression (exercise 4.4) to CPS-IN. You should not\nneed to add anything to CPS-OUT.",
+      "chinese_html": "<p>给 CPS-IN 增加 begin 表达式，见<a href=\"chapter04_state.html#ex-4-4\">习题 4.4</a>。应该不必扩展 CPS-OUT。</p>"
+    },
+    {
+      "number": "6.37",
+      "printed_page": 231,
+      "pdf_page": 254,
+      "pdf_end": 254,
+      "stars": 3,
+      "question_text": "Add implicit references (section 4.3) to CPS-IN. Use the same\nversion of CPS-OUT, with explicit references, and make sure your translator inserts\nallocation and dereference where necessary. As a hint, recall that in the presence of\nimplicit references, a var-exp is no longer simple, since it reads from the store.",
+      "chinese_html": "<p>给 CPS-IN 增加 §4.3 的隐式引用。CPS-OUT 继续使用显式引用版本，转换器须在必要位置插入分配和解引用。提示：有隐式引用后 var-exp 会读存储，因此不再是简单表达式。</p>"
+    },
+    {
+      "number": "6.38",
+      "printed_page": 232,
+      "pdf_page": 255,
+      "pdf_end": 255,
+      "stars": 3,
+      "question_text": "If a variable never appears on the left-hand side of a set expres-\n      sion, then it is immutable, and could be treated as simple. Extend your solution to\n      the preceding exercise so that all such variables are treated as simple.",
+      "chinese_html": "<p>如果一个变量从不出现在 set 的左边，它就是不可变的，可以当作简单值。扩展上一题，让所有这种变量都按简单值处理。</p>"
+    },
+    {
+      "number": "6.39",
+      "printed_page": 232,
+      "pdf_page": 255,
+      "pdf_end": 255,
+      "stars": 1,
+      "question_text": "Implement letcc and throw in the CPS translator.",
+      "chinese_html": "<p>在 CPS 转换器中实现续文捕获 letcc 和续文调用 throw 这两种控制形式。</p>"
+    },
+    {
+      "number": "6.40",
+      "printed_page": 232,
+      "pdf_page": 255,
+      "pdf_end": 255,
+      "stars": 2,
+      "question_text": "Implement try/catch and throw from section 5.4 by adding\n      them to the CPS translator. You should not need to add anything to CPS-OUT.\n      Instead, modify cps-of-exp to take two continuations: a success continuation and\n      an error continuation.",
+      "chinese_html": "<p>把 §5.4 的 try/catch 和 throw 加进 CPS 转换器。CPS-OUT 不应需要新语法；把 cps-of-exp 改成接两个续文，分别为成功续文和错误续文。</p>"
+    }
+  ]
+}

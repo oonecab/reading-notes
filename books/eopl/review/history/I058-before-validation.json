@@ -1,0 +1,100 @@
+{
+  "issue": "I048",
+  "status": "passed",
+  "scope": "Local source, 67 new original exercises, Racket execution, checker mutations, static build and content/output binding. Final root wrapper recorded in ch01-02.json.",
+  "open_findings": [],
+  "astro_migration": {
+    "record": "review/astro-migration.json",
+    "sha256": "e97e20868cf148e55233c158d248ba9610cde811ca54b81ae2145c974a56c52b",
+    "open_findings": [],
+    "source_sha256": {
+      "book_overview.html": "bcee15d3ae5f7b748a93ff07bdffc6eb7fbbb790f4e2af54fce3bc289605720c",
+      "preface.html": "4ffe7b18e4d6bc5b5ba6be871417b061f1896b88885b723a6d46ab2024a25392",
+      "chapter01_inductive_data.html": "375aac6684c71ae9ec73fb3d3e401119c1c33221858b61e02e9638e74b64d31a",
+      "chapter02_data_abstraction.html": "9c58590c094fe03c2e66495ddc144c601f677224452a94866f7e40c6931e0993"
+    }
+  },
+  "file_sha256": {
+    "README.md": "1e4767eabb1f2c0a8728e151d72e4219dea7b2f13f7fb18e1fdce4d4f696bcb4",
+    "agent.md": "5c03210b88b28c16463b813a571abcffc451384b67cbd531776268742ef871b6",
+    "code/README.md": "cab116bfb0b42bdd4d5f9629c92a20b12b1220200afd7e8fdd470cccf37b782c",
+    "code/benchmark_bigits.rkt": "f75903c4eb555084dd3297cdfb86412b11008e1351d1b03e77bd2ee5c3cc9988",
+    "code/chapter01.rkt": "b3447c764a14b1889da9e90e73e409d783944795f126e3d3d17cc23e0cf16a70",
+    "code/chapter02.rkt": "85cb64c82abdb908b3bba498e3960a130016fa323d461a27560b0abaadac178d",
+    "code/scope_demo.py": "737f05ece44f0859864f74e98ef4f38ed3884cf23d2ff54a9ad89d4ad719da37",
+    "code/test_chapters.rkt": "0dafdff5c5c825ffd8ad76b69331e5b24a7cd391f6ef037742d5edbc31946689",
+    "notes/README.md": "f9f97d3d7f8189de4d8499b01ecfaa7684beb4dbe9d583f660f47ca294a0a53b",
+    "notes/question_contexts.json": "026abe54b15cf1951a2bd69f27a80cf7af0063a643e7feaa1532e873e95e3123",
+    "notes/questions_ch01_02.json": "9900740befe2775b2dd5fb49778aad171a282284d75f3ee3503cf53262a8ad2f",
+    "notes/source_excerpts.json": "8a4bb92a917d9cb68cf56a847b6c67f015ee3fa31b872677af894f52521795f8",
+    "notes/source_inventory.json": "87023b0a3ff2ab1e880d8181f6318deaef354b8a6664c53b0c024a7f63168538",
+    "notes/source_issues.json": "355d8d0d26b98157c0361cc9ef49685f807755a1ce1cb93da22ce48c698785b3",
+    "notes/source_manifest.json": "f6fd7891beedf13035e0cb4c422eb8b7c83913b24b9ce8058be7f9b460b8a608",
+    "reading-plan.md": "bc31d53c9656ce11aa339e60ac2b5734d3d2a7d963530629b5d2c456ee936eb5",
+    "review/ch01-02-benchmark.json": "7a314c0afc369b194fd878b824fa8bedd5966554750f32e97281924d0bc48b7c",
+    "review/ch01-02.md": "9e114cefc083c1b2b00109a41cc0f28ae672754e44e0077bab2f39e65401d9bb",
+    "tools/check_notes.py": "54a44d317f0feb52f9bae7b520da318e429e475e4f1d0de2a409dfad207a1e74",
+    "tools/sync_notes.py": "ff44ee96ae7ed0a75323ecda8befd1759ba32cd2abdc0f9904374bcb948afe86",
+    "tools/test_chapter_mutations.py": "21354cc839c9c5df505e4964297066fece9c88573a83060e9145ed5b29ac9317",
+    "tools/test_checker.py": "d8c10c0dd8e012a27c1e2cbcead6cb99ea25ceba102036c94a86f50535525d12",
+    "tools/test_source_contexts.py": "3c940083229782c15da585677c1b0e6e96515084564ef399784c1c68c003f301"
+  },
+  "previous_file_sha256": {
+    "README.md": "94cd7b30364dd46705d828bfdfb1d6a7bf245f7bf84be603cd102b32b2373ae0",
+    "agent.md": "84558906642894adb93914670210969342d9e6a2a5ef369518b1fb05254cbc4b",
+    "reading-plan.md": "6f40f6b88fc41ab3c31a695b479eea2d391e84a97db47a90b944074bb4ee1f31",
+    "notes/README.md": "b35df50dafec8c0616961225dd6c45ae0785d964daf532f21c4dfac4e57c7bdb",
+    "notes/source_manifest.json": "0b285f06bdc8b1bf61536e61a8eafface4432fcb6daeeab4a3d83e685f3bb3b2",
+    "notes/source_inventory.json": "62dfceed19f2192f3af9f4a96391a3dc91257a68051517b39948a8ba1fc124cc",
+    "notes/source_excerpts.json": "8a4bb92a917d9cb68cf56a847b6c67f015ee3fa31b872677af894f52521795f8",
+    "tools/check_notes.py": "9d981ced457330df427504813f1ab82a7104912736f9e5037194f07105e6b089",
+    "tools/test_checker.py": "94fb3094221d18aafe5f23c5a42b60c405b6b154bfbf2c38346dada0575d8770",
+    "code/scope_demo.py": "737f05ece44f0859864f74e98ef4f38ed3884cf23d2ff54a9ad89d4ad719da37"
+  },
+  "previous_binding_reason": "I048 adds two chapters and actual Racket verification; prior values are retained here and in review/history/I044-validation.json.",
+  "semantics": "tmp/eopl-ch12-work/book-check-final-metadata/report.json",
+  "checker_mutations": "tmp/eopl-ch12-work/checker-regression-final/report.json",
+  "program_mutations": "tmp/eopl-ch12-mutations/report.json",
+  "benchmark": "review/ch01-02-benchmark.json",
+  "I051_current_binding": {
+    "record": "books/eopl/review/merge-review.json",
+    "prior_git": "f113a0e:books/eopl/review/validation.json",
+    "prior_sha256": "c1ad7fa47f1c379775fd9166527eca7c2dc02f9cd9e7f666b4d8c6a41325f562",
+    "scope": "Current maintained file bindings; I048 execution/source records are unchanged and new verification is in merge-review.json."
+  },
+  "I052_reader_contract_revision": {
+    "issue": "I052",
+    "prior_record_git": "a4d646e3f0c3a61d28ee38b10664f0fc8fc4c404:books/eopl/review/validation.json",
+    "prior_record_sha256": "c2a4680e1191ba4005ce7663596c2f49558e7a5b86880bea6b18a50e4462a2e2",
+    "scope": "Current reader-contract bindings: Chinese task completeness, section annotations, direct PDF references, disclosure indexes and shared reader behavior. Existing program text is preserved; explicitly sourced question inputs are added. SVG labels, geometry and topology are preserved except the two 7.18(h) source corrections, independently checked against all source actions; 35 reviewed diagrams add explicit shared CSS roles, and eight single-column diagrams receive compact viewports and sizing; two also have fitted node bounds and line layouts, retaining label text and topology, with exact changes recorded in docs/reader-diagram-review.json. Historical source/proof/execution claims retain their scope; current acceptance is recorded in docs/reader-contract-review.json"
+  },
+  "I053_revision": {
+    "issue": "I053",
+    "scope": "RN-002 presentation update; current file bindings refreshed, historical review evidence retained.",
+    "changed_files": [
+      "agent.md",
+      "notes/README.md",
+      "reading-plan.md",
+      "tools/check_notes.py",
+      "tools/test_checker.py"
+    ]
+  },
+  "I055_revision": {
+    "issue": "I055",
+    "record": "review/reader-cleanup.json",
+    "scope": "Current README binding and three presentation-only source revisions.",
+    "previous_file_sha256": {
+      "notes/README.md": "19c8228f76f99b048ee4a917ece4c799f94c5777d991ef74fb948b8350d91cb6"
+    }
+  },
+  "I057_document_binding": {
+    "issue": "I057",
+    "reason": "Current RN-002 version references and EOPL map-entry explanation only; historical source/proof/execution records retain their scope.",
+    "previous_record_git": "be24d4d6a6de2d0c001025e96a1f8d1b7ab91c45:books/eopl/review/validation.json",
+    "previous_record_sha256": "7df5943cf7d84006729ddff565ed1b8333861a2042971d864d6bc10a425b6a0d",
+    "previous_file_sha256": {
+      "agent.md": "7260e3334a182d0f68bf23c4512fd1fa476cc088d83a5e15122b5fb114df5c66",
+      "notes/README.md": "1c16251433faea500cf6baeba5bf792bcc8c5cb9835ca8c7df432bf42b71ea87"
+    }
+  }
+}

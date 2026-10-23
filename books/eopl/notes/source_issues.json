@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "scope": "Verified chapter 1–2 source notes plus separately marked later-chapter candidate.",
+  "scope": "Verified source notes and explicit companion conventions for chapters 1–6.",
   "items": [
     {
       "id": "candidate-fact-registerization",
@@ -12,9 +12,12 @@
         218,
         219
       ],
-      "status": "needs_visual_and_execution_review",
+      "status": "verified",
       "observation": "Extracted apply-cont for factorial appears to restore n from saved-n without visibly multiplying val. Check the original figures and transformation context before any correction.",
-      "affects_current_pages": false
+      "affects_current_pages": true,
+      "original": "Figures6.1/6.2 apply-cont restores n from saved-n but never multiplies val.",
+      "correction": "Update val := saved-n * val before continuing; restoring n alone cannot apply a factorial continuation.",
+      "basis": "PDF218/219 original figures visually read; original transcription fact(4)=1, repaired=24. Repaired variant omitting the two self-PC assignments also returns24."
     },
     {
       "id": "ch1-list-int",
@@ -84,6 +87,110 @@
       "original": "Exercise 2.28 references alternate grammar on page 52.",
       "correction": "Alternate concrete grammar is printed on page 51 / PDF 74.",
       "basis": "PDF 74 and 77 visually viewed; alternate grammar is printed on p.51.",
+      "affects_current_pages": true
+    },
+    {
+      "id": "ch3-rewrapping-partial-domain",
+      "printed_pages": [
+        63
+      ],
+      "pdf_pages": [
+        86
+      ],
+      "status": "semantic_clarification",
+      "original": "Exercise 3.2 asks for a value whose numeric rewrapping differs from the original.",
+      "correction": "A boolean witnesses failure of totality: numeric extraction is undefined. If both sides must be defined, no unequal counterexample exists in Int+Bool.",
+      "basis": "Chapter 3 value-domain and extractor definitions read; bool-val extraction is rejected by actual Racket regression.",
+      "affects_current_pages": true
+    },
+    {
+      "id": "ch3-pack-reference",
+      "printed_pages": [
+        74,
+        101
+      ],
+      "pdf_pages": [
+        97,
+        124
+      ],
+      "status": "verified_wording_with_explicit_companion_convention",
+      "original": "Exercise 3.39 says pack and unpack from exercise 3.18; exercise 3.18 only explicitly gives unpack.",
+      "correction": "Retain the original wording. Companion defines pack as list construction, and states this supplemental syntax in the solution.",
+      "basis": "PDF 97 and 124 rendered and visually read; flat and rib pack/unpack programs executed.",
+      "affects_current_pages": true
+    },
+    {
+      "id": "ch4-pure-store-fragment",
+      "printed_pages": [
+        116
+      ],
+      "pdf_pages": [
+        139
+      ],
+      "status": "verified",
+      "original": "Figure4.6 labels value-of as returning ExpVal, looks up var through apply-store, calls deref without an explicit store, and closes the let binding list with one extra parenthesis.",
+      "correction": "For the requested pure EXPLICIT-REFS: return Answer; var returns environment ExpVal directly; deref reads the returned new-store; remove the extra closing parenthesis. Original fragment preserved in exercise4.12.",
+      "basis": "Full-size PDF139 visually read against sections4.2.1/4.2.2; independent pure interpreter runs all cases and preserves old store history.",
+      "affects_current_pages": true
+    },
+    {
+      "id": "ch4-lazy-loop-concrete-syntax",
+      "printed_pages": [
+        136
+      ],
+      "pdf_pages": [
+        159
+      ],
+      "status": "verified_source_spelling_with_companion_repair",
+      "original": "The infinite-loop example body is printed as infinite-loop(-(x,-1)), and its explanatory paragraph later refers to argument1 while the call uses0.",
+      "correction": "Runnable source uses the established call syntax (infinite-loop -(x,-1)); ignored operand remains (infinite-loop 0). The laziness argument is unchanged.",
+      "basis": "PDF159 rendered and read; lazy execution returns11, eager bounded execution exhausts fuel.",
+      "affects_current_pages": true
+    },
+    {
+      "id": "ch4-setref-old-time",
+      "printed_pages": [
+        109
+      ],
+      "pdf_pages": [
+        132
+      ],
+      "status": "explicit_companion_convention",
+      "original": "Exercise4.7 asks for old contents without fixing an observation instant if operands themselves update the same location.",
+      "correction": "Companion returns contents immediately before final write, after both operands. A nested update witness returns9 and leaves7.",
+      "basis": "Source rule and effect order read; three return conventions executed against the same program.",
+      "affects_current_pages": true
+    },
+    {
+      "id": "ch6-exception-keyword",
+      "printed_pages": [
+        232
+      ],
+      "pdf_pages": [
+        255
+      ],
+      "status": "verified_wording_with_contextual_interpretation",
+      "original": "Exercise6.40 refers to try/catch and throw from section5.4, whose exception keyword is raise.",
+      "correction": "Keep throw in the translated question; solution explicitly interprets it as exception raising from5.4, distinct from throw-to-captured-continuation in6.39.",
+      "basis": "PDF255 and PDF194–201 read against exception syntax; dual-continuation conversion executed.",
+      "affects_current_pages": true
+    },
+    {
+      "id": "ch6-numeric-truth-list-exercises",
+      "printed_pages": [
+        210,
+        211,
+        212
+      ],
+      "pdf_pages": [
+        233,
+        234,
+        235
+      ],
+      "status": "explicit_companion_convention",
+      "original": "Exercise6.13 list examples use extra number/list primitives and numeric0/1 truth, beyond the base CPS-IN grammar.",
+      "correction": "Preserve all input fragments; runnable exercise frontend explicitly includes list primitives and accepts boolean or numeric truth. No-match fnlrgtn returns emptylist by companion convention.",
+      "basis": "All three source pages visually read; all eight original/transformed examples executed with explicit expected results.",
       "affects_current_pages": true
     }
   ]

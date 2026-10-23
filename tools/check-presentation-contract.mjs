@@ -5,6 +5,7 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import { parse } from 'parse5';
 import { entries, walk, attr } from '../src/lib/controlled-html.mjs';
+import { checkMapNavigation } from '../src/lib/map-navigation.mjs';
 
 const contractPath = 'docs/reader-presentation.json';
 const contract = () => JSON.parse(fs.readFileSync(contractPath, 'utf8'));
@@ -216,6 +217,7 @@ export function checkPage(page, pages, index) {
   checkExerciseLanguage(page, errors);
   checkShell(page, errors);
   checkOverviewLinks(page, pages, errors);
+  errors.push(...checkMapNavigation(page, pages));
   return errors;
 }
 
@@ -245,6 +247,7 @@ export function checkAll({ book = null } = {}) {
       const page = ordered[i];
       if (!page.html) continue;
       page.exceptions = (registered.exceptions ?? []).filter(e => e.page === page.file);
+      page.map_navigation = registered.overview_maps ?? [];
       const errors = checkPage(page, ordered, i);
       if (errors.length) {
         bookReport.errors.push({ page: page.file, errors });
@@ -266,6 +269,7 @@ export function checkDist({ book = null } = {}) {
   for (const id of books) {
     const registered = policy.books[id];
     const rows = [];
+    const builtPages = registered.pages.map(p => ({ ...p, html: fs.existsSync(path.join('dist', id, 'notes', p.file)) ? fs.readFileSync(path.join('dist', id, 'notes', p.file), 'utf8') : '' }));
     for (let i = 0; i < registered.pages.length; i++) {
       const page = registered.pages[i];
       const file = path.join('dist', id, 'notes', page.file);
@@ -273,7 +277,7 @@ export function checkDist({ book = null } = {}) {
       const nodes = walk(parse(fs.readFileSync(file, 'utf8')));
       const navs = nodes.filter(n => n.tagName === 'p' && hasClass(n, 'chapter-nav'));
       const expected = expectedNavigation(registered.pages, i);
-      const errors = [];
+      const errors = checkMapNavigation({ ...page, html: builtPages[i].html, map_navigation: registered.overview_maps ?? [] }, builtPages);
       if (navs.length !== 2) errors.push(`expected two chapter-nav blocks, got ${navs.length}`);
       const header = navs.find(inHeader), footer = navs.find(inFooter);
       // The portal shell prepends one declared global home link to both chapter-nav

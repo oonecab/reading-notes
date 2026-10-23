@@ -74,7 +74,7 @@
 - 审阅文件的历史哈希保持历史事实；改变当前文件绑定时注明范围、原因和原值。
 - 新增书籍按 docs/adding-a-book.md 与 docs/templates/reading-notes/ 执行，先核对原书、规划全书并验收样章；同步 catalog、首页、构建路由、验证与来源说明，只维护一份正式内容。
 - 统一部署的操作说明以 deploy/README.md 为准；各书 deploy/ 为保留的单书工具与历史材料。
-- RN-001 v1.10 固定完整中文题干、独立注解覆盖、原文 PDF 直达和逐页阅读验收；docs/reader-contract.json 与 docs/reader-sources.json 为可执行登记。全站检查须报告实际范围与未执行项；禁止零覆盖自动跳过。
+- RN-001 v1.11 固定完整中文题干、独立注解覆盖、原文 PDF 直达和逐页阅读验收；docs/reader-contract.json 与 docs/reader-sources.json 为可执行登记。全站检查须报告实际范围与未执行项；禁止零覆盖自动跳过。
 - 内容组件预览命令：python3 tools/project.py preview-components（生成物仅写入 tmp/）。
 <!-- project-governance:managed:end -->
 
@@ -241,3 +241,21 @@ I052 已从干净内容提交 `62019e2` / `v2026.10.21-reader-contract` 发布 `
 I053 六书 RN-002 与 I055 EOPL 整理已从干净内容提交 `0b987c3` 发布为 `20261023T020252`，包含 60 阅读页、82 HTML 和 524 文件。发布验收另修复共享目录在原生折叠展开后未重新定位的问题，原脚本净增 6 字节，保留体积预算；46 页的正文、题干、数学、SVG、代码、样式和链接均保持。旧源及输出散列与 Git 来源保存在[定位审阅](docs/navigation-position-review.json)。
 
 全量程序检查 25 项、最终 Node 107 项、60 页 parity、本地 HTTPS 和 24 项隔离发布恢复通过；离线矩阵覆盖 82 页、328 个有脚本和 164 个无脚本视图。生产由固定发布器原子切换，前版 `20261022T000343` 和配套政策/配置保留，服务器只读树、缓存验证器及正常域名读回通过。实际浏览器及 13 张已打开阅读的公网截图见[独立发布审阅](docs/reading-presentation-publication-review.json)和 [T056](test/T056-reading-presentation-publication.md)。维护证据另行提交，部署源代码固定为上述内容提交；技术栈、服务、端口和变量名沿用。
+
+## I057 章节图入口与落点（2026-10-23）
+
+RN-002 v1.1 增加逐入口语义与最终可见落点要求，独立清单在 `docs/reader-presentation.json` 的 `overview_maps`。`src/lib/map-navigation.mjs` 为源及 dist 检查全部可点击章节图，`scripts/browser-map-navigation.mjs` 逐节点执行鼠标、键盘、窄屏及无脚本验证；旧报告缺少新字段或清单版本不同即不能复用。EOPL 已有两章的图节点直达正文，其余节点明确为章意，教材内容与依赖拓扑保持。验证范围及当前发布状态见 [T057](test/T057-chapter-map-navigation.md)；运行时、服务、端口、变量名和计算规则沿用。
+
+## EOPL 第 3 章本地扩展（I058）
+
+第 3 章加入 LET/PROC/LETREC、闭包、作用域与词法地址笔记及 44 道完整中文原题解答。EOPL 共五个阅读页、112 题，受控阅读页总数为 61。`chapter03.rkt`、`chapter03_lexical.rkt`、`chapter03_variants.rkt` 和 `test_chapter03.rkt` 使用现有 Racket 8.17、eopl/SLLGEN 与 rackunit，生产内容仍为静态 HTML/MathML/SVG。来源清单、公开文件登记、中文题干契约和程序说明同步；没有核心技术栈、环境、端口或服务变化。当前本地验证见 [I058](issues/I058-eopl-ch03.md) / [T058](test/T058-eopl-ch03.md)。
+
+## EOPL 第 4 章本地扩展（I059）
+
+EOPL 增加状态/存储、显式/隐式引用、可变序对/数组、参数传递与惰性求值，含 42 道完整中文题干及解答。当前六个阅读页、154 题，六书合计 62 个受控阅读页。`chapter04.rkt`、`chapter04_explicit.rkt`、`chapter04_statements.rkt`、`test_chapter04.rkt` 使用现有 Racket 8.17、eopl/SLLGEN 与 rackunit。正文、来源与程序规则、公开文件和阅读契约同步；技术栈、环境变量、服务与端口定义不变。范围和本地证据见 [I059](issues/I059-eopl-ch04.md) / [T059](test/T059-eopl-ch04.md)。
+
+## EOPL 第 5、6 章本地扩展（I060）
+
+新增续文、蹦床/寄存器、异常/线程、CPS转换与效果两章，覆盖九节与98题；当前EOPL八页252题，六书64个受控阅读页。运行依旧用Racket8.17/eopl/rackunit、C11、Python3；CPS-IN/OUT各自解析，标签驱动不使用宿主eval。正文、程序、来源与阅读契约同步；无技术栈、环境、端口或服务变化。本地范围与证据见[I060](issues/I060-eopl-ch05-06.md)、[T060](test/T060-eopl-ch05-06.md)。
+
+I061 将 EOPL 控制批的私有线程存储、控制绑定位置与原子化鲜名修订后发布；运行时仍为既有Racket、C11/Python教学程序和Nginx静态站点。修订与发布证据见[T061](test/T061-eopl-publication.md)。

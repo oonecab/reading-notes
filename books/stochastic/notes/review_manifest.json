@@ -7561,16 +7561,16 @@
   "validation_file": "validation.json",
   "files": {
     "agent.md": {
-      "bytes": 8356,
-      "sha256": "ddf437daed993c3fde25033501f9ec0455c27bdd4cf01fae567f5d24a9aa0cdb"
+      "bytes": 8354,
+      "sha256": "6f0783c198afb8424bdf2ac2e8f127fe8c528dc1cdc262f591706fd1c47c2d88"
     },
     "notes/README.md": {
-      "bytes": 15867,
-      "sha256": "b911e6b7e6533c6c0f13d0f53e8d355008ba2d76c389bb6f233faef658823bc2"
+      "bytes": 15865,
+      "sha256": "218909a7a82c7b96a893f7dd433e069683d11c1ae520e5f2db62d43c7803e0dc"
     },
     "notes/annotations_review.json": {
-      "bytes": 176904,
-      "sha256": "2007f7f9abc8b6f72221fc52bca743bb1f8ee336c4dae2fe2cbd5c2f710aeb87"
+      "bytes": 178154,
+      "sha256": "ae3b6cdd5037eb836aa0cafd38abc2e2445c07c42bde2afc58f13e2dc549af91"
     },
     "notes/appendix_a_probability_review.html": {
       "bytes": 323985,
@@ -7605,24 +7605,24 @@
       "sha256": "6721ee9f82f9ea15a62461ac38594c5868a94d9380ea2d09dae5e5bf5f75afda"
     },
     "notes/code_deployment_review.json": {
-      "bytes": 233842,
-      "sha256": "d69d5e2bda319fc7293a3275b3cdd58fca2578391ffaf750825c865d1f8d4e24"
+      "bytes": 234773,
+      "sha256": "832817538e21a61c83cf71bde3fbc45a0170967533111092e9a393704a4db35e"
     },
     "notes/preface.html": {
       "bytes": 52441,
       "sha256": "fa8587e36f053f121d9af8bd7ad3f51352215ee96d3697712cd49eaa47bee940"
     },
     "notes/readability_review.json": {
-      "bytes": 296174,
-      "sha256": "6d8ada5e7950adc30ce30a8fa2e03c7a4ad1dc43b651fec344c0ac3a775c239f"
+      "bytes": 296983,
+      "sha256": "35719eb3408229dbb42d0b1cf0e6f096e590263ca943a09642af7b5f7b462d3e"
     },
     "notes/source_manifest.json": {
       "bytes": 36372,
       "sha256": "f139c6dfedbf36be0b24bbae20b3f5af15482c4db068906a629bb6e29aafe23f"
     },
     "notes/statements_review.json": {
-      "bytes": 624618,
-      "sha256": "e94ea9874f1b5342d463b7a72fcc46ac9da36281934abda2a1c1a74883321cfd"
+      "bytes": 625708,
+      "sha256": "a04474f2305839cb14d3069e7ef4040eee840a6e51cce55eca582401d70669b0"
     },
     "tools/check_notes.py": {
       "bytes": 26794,
@@ -7637,8 +7637,8 @@
       "sha256": "9cd18a8d68169aa32d93b45954ee386ed4ae732742ee9913909c08291b03f603"
     },
     "notes/audit_fix_review.json": {
-      "bytes": 266468,
-      "sha256": "679a4948a85b4f4499ad91a142e803f8b1833f6b5ec6c3e2dd1654714ad36803"
+      "bytes": 267235,
+      "sha256": "fffbc15e66b124ff9a8f8ce857941595d396c2de6187a898dc016712ecfcf2e1"
     }
   },
   "review_history": [
@@ -13277,5 +13277,41 @@
     "prior_record_git": "a4d646e3f0c3a61d28ee38b10664f0fc8fc4c404:books/stochastic/notes/review_manifest.json",
     "prior_record_sha256": "a4fc24b394781a19f0590897d87231488cd939f54191c1f68c7f58aab5cd3b71",
     "scope": "Current reader-contract bindings: Chinese task completeness, section annotations, direct PDF references, disclosure indexes and shared reader behavior. Existing program text is preserved; explicitly sourced question inputs are added. SVG labels, geometry and topology are preserved except the two 7.18(h) source corrections, independently checked against all source actions; 35 reviewed diagrams add explicit shared CSS roles, and eight single-column diagrams receive compact viewports and sizing; two also have fitted node bounds and line layouts, retaining label text and topology, with exact changes recorded in docs/reader-diagram-review.json. Historical source/proof/execution claims retain their scope; current acceptance is recorded in docs/reader-contract-review.json"
+  },
+  "I057_document_binding": {
+    "issue": "I057",
+    "scope": "RN-002 version-reference documents and dependent current file bindings only. Page content and all historical proofs/programs/browser evidence retain their original scope.",
+    "previous_record_git": "be24d4d6a6de2d0c001025e96a1f8d1b7ab91c45:books/stochastic/notes/review_manifest.json",
+    "previous_record_sha256": "7e4b2b297cf5b3a631c28a628dfc18846e5c674c9ba044a01a82b5d5ecf1ab63",
+    "previous_files": {
+      "agent.md": {
+        "bytes": 8356,
+        "sha256": "ddf437daed993c3fde25033501f9ec0455c27bdd4cf01fae567f5d24a9aa0cdb"
+      },
+      "notes/README.md": {
+        "bytes": 15867,
+        "sha256": "b911e6b7e6533c6c0f13d0f53e8d355008ba2d76c389bb6f233faef658823bc2"
+      },
+      "notes/annotations_review.json": {
+        "bytes": 176904,
+        "sha256": "2007f7f9abc8b6f72221fc52bca743bb1f8ee336c4dae2fe2cbd5c2f710aeb87"
+      },
+      "notes/code_deployment_review.json": {
+        "bytes": 233842,
+        "sha256": "d69d5e2bda319fc7293a3275b3cdd58fca2578391ffaf750825c865d1f8d4e24"
+      },
+      "notes/readability_review.json": {
+        "bytes": 296174,
+        "sha256": "6d8ada5e7950adc30ce30a8fa2e03c7a4ad1dc43b651fec344c0ac3a775c239f"
+      },
+      "notes/statements_review.json": {
+        "bytes": 624618,
+        "sha256": "e94ea9874f1b5342d463b7a72fcc46ac9da36281934abda2a1c1a74883321cfd"
+      },
+      "notes/audit_fix_review.json": {
+        "bytes": 266468,
+        "sha256": "679a4948a85b4f4499ad91a142e803f8b1833f6b5ec6c3e2dd1654714ad36803"
+      }
+    }
   }
 }
