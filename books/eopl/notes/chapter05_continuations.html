@@ -1,0 +1,1724 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第 5 章 · 续文、异常与线程 · EOPL</title><style>
+:root{--ink:#252b29;--sub:#58615d;--rule:#d9dfda;--green:#285a4e;--paper:#fffefa;--tint:#f4f6f2}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.9 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}main{max-width:860px;margin:auto;padding:48px 24px 90px}h1{font-size:2.2rem;line-height:1.3;margin:.2rem 0}h2{font-size:1.55rem;margin:3.4rem 0 1.2rem;padding-bottom:.45rem;border-bottom:1px solid var(--rule)}h3{font-size:1.16rem;margin:2rem 0 .6rem}p{margin:.7rem 0 1.1rem}header{padding-bottom:22px;border-bottom:1px solid var(--rule)}.overline,.source,.small,figcaption{color:var(--sub);font-size:.85rem}.intro{font-size:1.08rem}a{color:var(--green);text-underline-offset:3px}nav{border-left:3px solid var(--green);padding:.6rem 1.3rem;margin:2rem 0;background:var(--tint)}nav ul{margin:.3rem 0;padding-left:1.2rem;columns:2}nav li{break-inside:avoid}.passage{border-left:2px solid var(--green);padding:.15rem 0 .15rem 1.2rem;margin:1.5rem 0}.english{font:italic 1.05rem/1.7 Georgia,serif}.passage p{margin:.25rem 0}pre{background:var(--tint);border:1px solid var(--rule);padding:1rem 1.1rem;overflow:auto;font:14px/1.65 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}code{font:.9em ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}pre code{font:inherit}.callout{background:var(--tint);padding:.8rem 1.1rem;margin:1.4rem 0;border-left:2px solid var(--green)}.scroll{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:.91rem;margin:1.1rem 0}th,td{padding:.6rem .7rem;text-align:left;vertical-align:top;border-bottom:1px solid var(--rule)}th{border-top:1px solid var(--rule);background:var(--tint)}.wide{min-width:640px}figure{margin:1.5rem 0}figure .scroll{padding:12px 8px;border:1px solid var(--rule);background:var(--tint)}figcaption{margin-top:.6rem}svg{display:block;width:100%;height:auto;min-width:620px}svg text{font-family:system-ui,-apple-system,"PingFang SC",sans-serif;text-anchor:middle;fill:var(--ink);font-size:16px}svg .n{fill:var(--paper);stroke:var(--green);stroke-width:1.3}svg .e{fill:none;stroke:#7b8f85;stroke-width:1.4}svg .hint{font-size:13px;fill:var(--sub)}ul,ol{padding-left:1.5rem}li{margin:.35rem 0}footer{border-top:1px solid var(--rule);padding-top:1rem;margin-top:4rem;color:var(--sub);font-size:.85rem}@media(max-width:640px){main{padding:30px 18px 60px}h1{font-size:1.75rem}nav ul{columns:1}h2{font-size:1.3rem}}
+.exercise{margin:.8rem 0;border:1px solid var(--rule);padding:.75rem 1rem;scroll-margin-top:16px}.exercise summary{cursor:pointer;color:var(--green);font-weight:600}.exercise summary:focus-visible{outline:2px solid var(--green);outline-offset:4px}.exercise-index{display:flex;flex-wrap:wrap;gap:.4rem 1rem;margin:1rem 0}.exercise .answer{margin-top:1rem}.tree-code{overflow-wrap:anywhere;word-break:break-word}.exercise .scroll table{min-width:620px}
+
+/* Native, static MathML: no network resources or runtime typesetting. */
+math{font-family:"STIX Two Math","Cambria Math",math;font-size:1.04em}
+.math-inline{display:inline-block;max-width:100%;overflow-x:auto;overflow-y:hidden;vertical-align:middle;margin:0 .08em;padding:0 .02em}
+.equation{overflow-x:auto;max-width:100%;padding:.65rem .2rem;margin:1rem 0;text-align:center}
+.equation math{display:block;width:max-content;margin:0 auto;font-size:1.08em}
+.answer :is(h3,h4){margin:1.35rem 0 .5rem;font-size:1rem}
+:not(pre)>code{overflow-wrap:anywhere}
+pre code{overflow-wrap:normal;white-space:pre}
+
+.comparison,.benchmark{min-width:800px}.array-values{min-width:620px}.array-values th,.array-values td{text-align:center;padding:.4rem .55rem}.forest-label{font-weight:600}svg .hint{font-size:12px}.answer pre{font-size:13px}.exercise{scroll-margin-top:20px}
+
+.code-pair{margin:1.2rem 0;border-left:2px solid var(--rule);padding-left:1rem}.code-version{margin:.5rem 0;padding:.35rem 0}.code-version>summary{cursor:pointer;font-weight:600;color:var(--green)}.code-version>summary:focus-visible{outline:2px solid var(--green);outline-offset:3px}.code-version pre{margin:.7rem 0 1rem}.code-reference{font-size:.92rem}.pair-note{font-size:.9rem;color:var(--sub)}.chapter-nav{display:flex;flex-wrap:wrap;gap:.4rem 1rem}.exercise>summary{line-height:1.65}.experiment{margin:1.2rem 0;padding:.7rem 1rem;border-left:2px solid var(--green);background:var(--tint)}
+
+.meta,.caption{color:var(--sub);font-size:.85rem}
+.scroll,.table-scroll,.diagram{max-width:100%;overflow-x:auto}
+main,header,section,.answer,.code-pair,.code-version{min-width:0}
+.math-inline{padding:.20em .05em}
+.chapter-nav{display:flex;flex-wrap:wrap;gap:.4rem 1rem}
+.scroll>table{min-width:620px}
+.puzzle{width:auto;margin:1.2rem auto}
+.scroll>table.puzzle{min-width:0}
+.puzzle th,.puzzle td{text-align:center;min-width:44px}
+.verification-table,.state-table,.benchmark{font-variant-numeric:tabular-nums}
+.diagram{margin:1.2rem 0;padding:1rem 1.1rem;border:1px solid var(--rule);background:var(--tint)}
+.diagram figcaption{margin:0 0 .65rem}
+.chain{display:flex;align-items:center;gap:.55rem;min-width:max-content;font-size:.92rem}
+.diagram>.chain+.chain{margin-top:.7rem}
+.chain .node{border:1px solid #9caaa2;background:var(--paper);padding:.3rem .6rem;white-space:nowrap}
+.chain .edge{color:var(--green);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;white-space:nowrap}
+.diagram-notes{margin:.75rem 0 0;padding-left:1.2rem;font-size:.92rem}
+.diagram-notes li{margin:0}
+.step-table th:first-child,.step-table td:first-child{width:5.3rem;white-space:nowrap}
+.step-table th:nth-child(2){width:14rem}
+.step-table code{white-space:nowrap}
+.step-table .chain{gap:.35rem}
+.step-table .node{padding:.1rem .4rem}
+.state-table{table-layout:fixed}
+.state-table th:first-child{width:37%}
+.state-table td:not(:first-child),.state-table th:not(:first-child){text-align:center}
+.state-table td:last-child{white-space:nowrap}
+svg .node{fill:var(--paper);stroke:var(--green);stroke-width:1.3}
+svg .edge{fill:none;stroke:#7b8f85;stroke-width:1.4;marker-end:url(#arrow)}
+svg .small{font-size:12px;fill:var(--sub)}
+svg .chapter-link{cursor:pointer}
+svg .chapter-link:hover .node,svg .chapter-link:focus-visible .node{fill:var(--tint);stroke-width:2.5}
+blockquote{margin:1.4rem 0;padding:.5rem 1.2rem;border-left:2px solid var(--green);background:var(--tint)}
+hr{border:0;border-top:1px solid var(--rule);margin:2.6rem 0}
+@media(max-width:640px){.diagram{padding:.8rem}.state-table{table-layout:auto;min-width:570px}}
+
+/* Reading rail: one table of contents beside the book page. */
+.reading-layout{display:grid;grid-template-columns:240px minmax(0,860px);gap:32px;max-width:1200px;margin:0 auto;padding:0 24px;align-items:start}
+.reading-layout>main{width:100%;min-width:0;margin:0}
+.chapter-sidebar{position:sticky;top:32px;max-height:calc(100dvh - 64px);overflow-y:auto;overscroll-behavior:contain;padding:8px 16px 12px 0;margin-top:40px;border-right:1px solid var(--rule);scrollbar-width:thin}
+.toc-panel>summary{display:flex;align-items:center;justify-content:space-between;gap:1rem;list-style:none;padding:.45rem .55rem;color:var(--green);font-size:.9rem;font-weight:650;cursor:pointer}
+.toc-panel>summary::-webkit-details-marker{display:none}
+.toc-panel>summary::after{content:"+";font-size:1.1rem;font-weight:400}
+.toc-panel[open]>summary::after{content:"−"}
+.toc-panel>summary:focus-visible,.chapter-toc a:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+.chapter-toc{border:0;background:transparent;margin:.45rem 0 0;padding:0;font-size:.84rem;line-height:1.65}
+.chapter-toc ul{columns:1;list-style:none;margin:0;padding:0}
+.chapter-toc li{margin:.18rem 0}
+.chapter-toc a{display:block;padding:.5rem .6rem;border-left:2px solid transparent;text-decoration:none;overflow-wrap:anywhere;color:var(--sub)}
+.chapter-toc a:hover{color:var(--green);background:var(--tint)}
+.chapter-toc a[aria-current="location"]{color:var(--green);border-left-color:var(--green);background:var(--tint);font-weight:600}
+.chapter-toc .toc-home{margin-bottom:.55rem;font-size:.8rem;color:var(--green)}
+.skip-link{position:fixed;left:16px;top:-100px;z-index:100;padding:.5rem 1rem;background:var(--paper);border:1px solid var(--green)}
+.skip-link:focus{top:12px}
+main[id],main [id]{scroll-margin-top:24px}
+@media(max-width:1099px){
+ .reading-layout{display:block;padding:0;max-width:860px}
+ .reading-layout>main{margin:auto}
+ .chapter-sidebar{position:static;top:0;z-index:10;margin:0;padding:8px 24px;border-right:0;border-bottom:1px solid var(--rule);background:var(--paper);max-height:none;overflow:visible}
+ .toc-enhanced .chapter-sidebar{position:sticky}
+ .toc-panel>summary{padding:.35rem 0;font-size:.88rem}
+ .chapter-toc{max-height:60dvh;overflow-y:auto;overscroll-behavior:contain;padding-bottom:.4rem}
+ main[id],main [id]{scroll-margin-top:80px}
+}
+@media(max-width:640px){.chapter-sidebar{padding:8px 18px}}
+@media print{.reading-layout{display:block;max-width:860px;padding:0}.chapter-sidebar,.skip-link{display:none}.reading-layout>main{padding:24px}}
+
+.result{font-variant-numeric:tabular-nums}.source-link{white-space:normal}
+.book-card{padding:1rem 0;border-bottom:1px solid var(--rule)}
+.book-card h3{margin:.2rem 0}.book-card p{margin:.4rem 0}
+.chart-svg{min-width:0} .chart-svg text{font-size:13px}
+.exercise-index a{font-variant-numeric:tabular-nums}.solution-link{font-size:.9rem}
+.exercise-question .scroll>table{min-width:480px}
+.question-note strong{color:var(--green)}
+
+/* Supplementary reading notes share the page's type and color palette. */
+.reading-notes{margin:2rem 0 0;padding:0.8rem 1rem;border-left:2px solid var(--green);background:var(--tint);font-size:0.92rem;line-height:1.85}
+.reading-notes>summary{color:var(--green);font-weight:650;cursor:pointer;list-style:none}
+.reading-notes>summary::-webkit-details-marker{display:none}
+.reading-notes>summary::after{content:"＋";float:right;font-weight:400}
+.reading-notes[open]>summary::after{content:"−"}
+.reading-notes>summary:focus-visible,.annotation-context a:focus-visible{outline:2px solid var(--green);outline-offset:4px}
+.annotation-card{min-width:0;margin:1.15rem 0 0;padding:1rem 0 0;border-top:1px solid var(--rule)}
+.annotation-card:first-child{border-top:0;padding-top:0}
+.annotation-kind{display:block;font-size:0.73rem;font-weight:600;letter-spacing:0.05em;color:var(--green);margin-bottom:0.25rem}
+.annotation-card h3{font-size:0.97rem;line-height:1.65;margin:0 0 0.5rem;font-weight:650}
+.annotation-card p{margin:0.4rem 0 0.7rem}
+.annotation-card p:last-child{margin-bottom:0}
+.annotation-card .equation{padding:0.5rem 0;margin:0.65rem 0}
+.annotation-card math{font-size:1em}
+.annotation-sidebar{display:none}
+@media(min-width:1440px){
+ .notes-enhanced .reading-layout{grid-template-columns:240px minmax(0,860px) 280px;max-width:1524px;gap:32px}
+ .notes-enhanced main .reading-notes{display:none}
+ .notes-enhanced .annotation-sidebar:not([hidden]){display:block;position:sticky;top:32px;max-height:calc(100dvh - 64px);overflow-y:auto;overscroll-behavior:contain;min-width:0;margin-top:40px;padding:8px 0 12px 22px;border-left:1px solid var(--rule);font-size:0.9rem;line-height:1.85;scrollbar-width:thin}
+ .annotation-label{color:var(--green);font-size:0.87rem;font-weight:650;margin:0 0 0.75rem}
+ .annotation-context{font-size:0.85rem;line-height:1.65;margin:0 0 1.25rem}
+ .annotation-context a{color:var(--sub);text-decoration:none}
+ .annotation-context a:hover{color:var(--green);text-decoration:underline}
+ .annotation-sidebar .annotation-card{margin-top:1.5rem;padding-top:1.35rem}
+ .annotation-sidebar .annotation-card:first-child{margin-top:0;padding-top:0}
+ .annotation-sidebar .annotation-card h3{font-size:0.95rem}
+}
+@media print{.annotation-sidebar{display:none!important}main .reading-notes{display:block!important;break-inside:avoid}}
+
+/* RN-001 shared teaching components. Inlined in every controlled reading page. */
+.rn-components {
+  --rn-space: 1rem;
+  --rn-label-size: .95rem;
+  --rn-title-size: 1.05rem;
+}
+.rn-components :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
+  min-width: 0;
+  scroll-margin-top: 24px;
+}
+.rn-components .rn-statement {
+  margin: 1.5rem 0;
+  padding: 1rem 1.15rem;
+  border: 0;
+  border-left: 3px solid var(--green);
+  background: var(--tint);
+}
+.rn-components :is(.rn-statement, .rn-example) > :is(h3, h4, .rn-title) {
+  margin: 0 0 .8rem;
+  padding: 0;
+  border: 0;
+  font-size: var(--rn-title-size);
+  line-height: 1.7;
+  font-weight: 650;
+  color: var(--green);
+}
+.rn-components .rn-statement > .statement-body {
+  padding: 0;
+  border: 0;
+}
+.rn-components .statement-body > :first-child { margin-top: 0; }
+.rn-components .statement-body > :last-child { margin-bottom: 0; }
+.rn-components .rn-statement .original-excerpt {
+  margin: .5rem 0 1rem;
+  padding: .1rem 0 .1rem .85rem;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-statement .statement-label {
+  margin: .8rem 0 .3rem;
+  color: var(--sub);
+  font-size: .85rem;
+  font-weight: 600;
+}
+.rn-components .rn-example {
+  margin: 1.75rem 0;
+  padding: 1rem 0 .25rem;
+  border: 0;
+  border-top: 1px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-proof {
+  margin: 1.1rem 0 1.75rem;
+  padding: 0 0 .2rem 1rem;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-proof > summary {
+  cursor: pointer;
+  margin: 0;
+  padding: .35rem 0;
+  color: var(--green);
+  font-size: var(--rn-label-size);
+  font-weight: 650;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .rn-proof > .rn-proof-body { margin-top: .7rem; }
+.rn-components .rn-proof-body p { margin: .85rem 0; }
+.rn-components .rn-proof-body > :first-child:not(.rn-example):not(.rn-statement):not(.rn-proof) {
+  margin-top: 0;
+}
+.rn-components :is(.rn-proof-body, .rn-statement, .rn-example) > :last-child:not(.rn-example):not(.rn-statement):not(.rn-proof) {
+  margin-bottom: 0;
+}
+.rn-components .exercise {
+  margin: 1rem 0;
+  padding: 0;
+  border: 1px solid var(--rule);
+  background: transparent;
+}
+.rn-components .exercise > summary {
+  margin: 0;
+  padding: .85rem 1rem;
+  color: var(--green);
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .exercise[open] > summary {
+  border-bottom: 1px solid var(--rule);
+  background: var(--tint);
+}
+.rn-components .exercise > :is(.exercise-question, .answer) {
+  margin: 0;
+  padding: 1rem;
+  border: 0;
+  background: transparent;
+  min-width: 0;
+}
+.rn-components .exercise > .answer {
+  border-top: 1px solid var(--rule);
+}
+.rn-components .exercise :is(.exercise-question, .answer) > :first-child {
+  margin: 0 0 .75rem;
+  padding: 0;
+  border: 0;
+  color: var(--green);
+  font-size: var(--rn-label-size);
+  font-weight: 650;
+  line-height: 1.75;
+}
+.rn-components .exercise :is(.exercise-question, .answer) > :first-child > strong { font-weight: inherit; }
+.rn-components :is(.exercise-question, .answer) > :last-child { margin-bottom: 0; }
+.rn-components :is(.rn-statement, .rn-example, .rn-proof, .exercise) .source {
+  margin-top: 1rem;
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components .exercise > .source {
+  margin: 0;
+  padding: 0 1rem 1rem;
+}
+.rn-components .rn-statement .source-status {
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components :is(.derivation-steps, .proof-steps, .solution-steps) {
+  margin: .75rem 0 1rem;
+  padding-left: 1.5rem;
+}
+.rn-components :is(.derivation-steps, .proof-steps, .solution-steps) > li {
+  padding-left: .15rem;
+  margin: .9rem 0;
+}
+.rn-components :is(.rn-proof, .exercise) > summary:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+.rn-components :is(.rn-proof-body, .rn-example, .rn-statement, .exercise-question, .answer) {
+  overflow-wrap: break-word;
+}
+.rn-components .code-details {
+  margin: 1.2rem 0;
+  padding: .35rem 0 .35rem 1rem;
+  border-left: 2px solid var(--rule);
+}
+.rn-components :is(.code-details, .code-version) > summary {
+  cursor: pointer;
+  color: var(--green);
+  font-size: .95rem;
+  font-weight: 600;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .code-details pre { margin: .7rem 0 1rem; }
+.rn-components :is(.code-details, .code-version) > summary:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+.rn-components .example-kind {
+  margin: .5rem 0 1rem;
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components .exercise-index a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: .1rem .25rem;
+  font-variant-numeric: tabular-nums;
+}
+.rn-components .exercise-index-panel {
+  margin: 1.2rem 0;
+  padding: .65rem .9rem;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: var(--paper, #fffefa);
+}
+.rn-components .exercise-index-panel > summary {
+  cursor: pointer;
+  color: var(--green);
+  font-weight: 600;
+}
+.rn-components .exercise-index { margin: .75rem 0 0; line-height: 1.8; }
+.rn-components .exercise-index a { margin: .15rem .5rem .15rem 0; }
+.rn-components .original-question {
+  margin: 1.2rem 0 0;
+  border-top: 1px solid var(--rule);
+  padding-top: .65rem;
+  color: var(--sub);
+}
+.rn-components .original-question > summary { cursor: pointer; color: var(--green); }
+.rn-components .question-translation { margin-top: .7rem; }
+/* Align the reading column independently of annotation enhancement. */
+@media (min-width: 1440px) {
+  .rn-components .reading-layout {
+    grid-template-columns: 240px minmax(0, 860px) 280px;
+    max-width: 1524px;
+    gap: 32px;
+  }
+}
+@media (max-width: 1100px) {
+  .rn-components:not(.portal-reader):not(.sample-fragment) :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
+    scroll-margin-top: 90px;
+  }
+}
+@media (max-width: 640px) {
+  .rn-components .rn-statement { padding: .85rem .8rem; }
+  .rn-components .rn-proof { padding-left: .75rem; }
+  .rn-components .exercise > :is(summary, .exercise-question, .answer) {
+    padding: .85rem .8rem;
+  }
+  .rn-components .exercise > .source { padding: 0 .8rem .85rem; }
+}
+@media print {
+  .rn-components .rn-proof::details-content { content-visibility: visible !important; }
+}
+
+.diagram-scroll,.table-scroll{overflow-x:auto}.control-diagram{min-width:700px;width:100%;height:auto}.control-diagram text{font-size:17px}.code-details pre{max-height:36rem;overflow:auto}
+/* RN-001: a single Latin/digit face across prose, tables and diagrams.
+   CJK glyphs use the local Chinese fallback; no proprietary fonts are shipped. */
+:root{--rn-text-font:"Times New Roman",Times,system-ui,-apple-system,"PingFang SC","Microsoft YaHei",serif;--rn-diagram-blue:#edf5fd;--rn-diagram-blue-line:#a9bfd5;--rn-diagram-amber:#fff6e4;--rn-diagram-amber-line:#d6bd87;--rn-diagram-ink:#303b46;--rn-diagram-edge:#8c969f}
+body.rn-components,body.rn-components :not(math):not(math *):not(:where(pre,pre *,code,code *,kbd,kbd *,samp,samp *)){
+  font-family:var(--rn-text-font)!important
+}
+/* Program text uses the original local monospace family across reading pages
+   and source/program guides. Mathematical descendants keep their own fonts. */
+:root{--rn-code-font:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+body :is(pre,code,kbd,samp),body :is(pre,code,kbd,samp) :not(math):not(math *){
+  font-family:var(--rn-code-font)!important
+}
+
+body.rn-components math{font-family:"STIX Two Math","Cambria Math",math;font-size:1em}
+body.rn-components math :is(mi,mn,mtext,ms){font-family:var(--rn-text-font)!important}
+body.rn-components math mi:not([mathvariant]),body.rn-components math mi[mathvariant="italic"]{font-style:italic;text-transform:none}
+body.rn-components math :is(mn,mtext,ms),body.rn-components math mi[mathvariant="normal"]{font-style:normal}
+body.rn-components math mi:is([mathvariant="bold"],[mathvariant="bold-italic"]){font-weight:700;text-transform:none}
+body.rn-components math mi[mathvariant="bold-italic"]{font-style:italic}
+body.rn-components math mi:is([mathvariant="double-struck"],[mathvariant="script"],[mathvariant="bold-script"],[mathvariant="fraktur"],[mathvariant="bold-fraktur"]){font-family:"STIX Two Math","Cambria Math",math!important}
+body.rn-components math [mathvariant="monospace"]{font-family:var(--rn-code-font)!important;font-style:normal;text-transform:none}
+body.rn-components :is(p,li,td,th,summary,figcaption,h1,h2,h3,h4) math{vertical-align:baseline}
+body.rn-components .rn-math-inline{display:inline-block;max-width:100%;overflow-x:auto;overflow-y:hidden;vertical-align:middle}
+body.rn-components pre{line-height:1.65;tab-size:4;white-space:pre}
+body.rn-components pre code{font-size:inherit;white-space:inherit}
+/* Keep short expressions together; long statements wrap within the text column. */
+body.rn-components code:not(pre code){
+  display:inline-block;max-width:100%;vertical-align:baseline;
+  font-size:.9em;font-style:normal;font-weight:400;line-height:1.45;
+  color:#294553;background:#eef2f4;border:1px solid #dfe6e9;border-radius:4px;
+  padding:.08em .3em;box-decoration-break:clone;-webkit-box-decoration-break:clone;
+  white-space:normal;overflow-wrap:anywhere;word-break:normal
+}
+body.rn-components :is(h1,h2,h3,h4,summary,th) code:not(pre code){font-size:.9em;font-weight:inherit}
+body.rn-components a code:not(pre code){color:inherit}
+body.rn-components pre code{background:none;border:0;border-radius:0;padding:0;box-decoration-break:slice;overflow-wrap:normal}
+body.rn-components svg text{fill:var(--rn-diagram-ink)}
+body.rn-components svg.rn-diagram{background:transparent;border:0}
+body.rn-components svg tspan[baseline-shift]{font-size:70%}
+/* Node roles are explicit. Coordinate plots, data series, cells and generator
+   colours keep their original encodings. */
+body.rn-components svg.rn-diagram :is(.rn-node,.node,rect.n,circle.n,ellipse.n,.n rect,.n circle,.n ellipse){
+  fill:var(--rn-diagram-blue);stroke:var(--rn-diagram-blue-line);stroke-width:1.15;
+  vector-effect:non-scaling-stroke
+}
+body.rn-components svg.rn-diagram rect:is(.rn-node,.node),
+body.rn-components svg.rn-diagram .n rect,
+body.rn-components svg.rn-diagram rect.n{rx:10px;ry:10px}
+body.rn-components svg.rn-diagram .rn-node.rn-node-accent{fill:var(--rn-diagram-amber);stroke:var(--rn-diagram-amber-line)}
+body.rn-components svg.rn-diagram .rn-edge{
+  fill:none;stroke:var(--rn-diagram-edge);stroke-width:1.15;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke
+}
+body.rn-components svg.rn-diagram .rn-arrow{fill:var(--rn-diagram-edge);stroke:none}
+body.rn-components svg.rn-diagram .hint{fill:#626d77}
+body.rn-components svg.rn-diagram text{font-weight:400}
+body.rn-components figure:has(svg.rn-diagram){background:#fff;border:1px solid #e5e9ed;border-radius:12px;padding:1.25rem}
+body.rn-components :is(.scroll,.diagram):has(>svg.rn-diagram){background:transparent;border:0}
+@media(max-width:640px){body.rn-components figure:has(svg.rn-diagram){padding:.75rem}}
+@media print{body.rn-components figure:has(svg.rn-diagram){border-color:#bbb;break-inside:avoid}}
+</style></head><body class="rn-components"><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="章节目录"><details class="toc-panel" id="toc-panel" open><summary>目录</summary><nav class="chapter-toc" id="chapter-toc"><a class="toc-home" href="book_overview.html">全书地图</a><a class="toc-home" href="preface.html">序言</a><ul><li><a href="#s5-1">5.1 续文传递解释器：把剩余计算保存下来</a></li><li><a href="#s5-2">5.2 蹦床解释器：让宿主调用链及时返回</a></li><li><a href="#s5-3">5.3 命令式解释器：寄存器与程序计数器</a></li><li><a href="#s5-4">5.4 异常：选择另一条完成路径</a></li><li><a href="#s5-5">5.5 线程：把多个未完成计算交给调度器</a></li><li><a href="#programs">运行本章程序</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">EOPL 第三版 · 第 5 章</p><h1>第 5 章 · 续文、异常与线程</h1><p class="intro">把“值取得以后接着做什么”保存下来，沿同一条控制主线理解蹦床、寄存器、异常与调度。</p><p class="source">原书 pp.139–191 / <a href="../assets/source.pdf#page=162">PDF 162–214</a>。习题 5.1–5.58 的完整中文题干与解答。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter04_state.html">← 第 4 章 · 状态、存储与参数传递</a><a href="chapter06_cps.html">第 6 章 · CPS 转换与计算效果 →</a></p></header><section id="s5-1"><h2>5.1 续文传递解释器：把剩余计算保存下来</h2><p class="source">原书 章首及 §5.1，pp.139–155 / <a href="../assets/source.pdf#page=162">PDF 162–178</a>。</p><p>第三章把数据上下文表示成环境，第四章再用存储记录随时间变化的内容；第五章问的是另一件事：一个子表达式得到值以后，程序还欠哪些工作？这些工作组成控制上下文。续文（continuation）把它抽象成“接收这个值并完成余下计算”的对象。</p><p>先看阶乘。直接递归的 fact(4) 进入 fact(1) 时，还欠乘 2、乘 3、乘 4。尾递归的 fact-iter(1,24) 则只要把后续结果原样返回。代码有没有递归定义，并不能决定运行过程是否需要增长的控制记录；决定因素是调用结果取得后，还要不要做别的工作。</p><pre><code class="language-text">fact(4) = 4 * (3 * (2 * (1 * fact(0))))
+fact-iter(4,1) -&gt; (3,4) -&gt; (2,12) -&gt; (1,24) -&gt; (0,24)</code></pre><div class="rn-statement" id="control-context"><h3>尾位置沿用原续文</h3><div class="statement-body"><p>如果子表达式的值就是整体的值，子表达式使用整体的续文。if 的分支、let 的正文、调用过程的正文都满足这一点；测试式、let 的右端式、运算符和各实参则先产生一个供后续工作使用的中间值，需要适当的等待帧。</p></div></div><p>这句话要结合求值阶段读：调用过程之前，解释器会用临时帧求运算符和实参；这些已经完成并弹出的帧，不应再作为“过程返回后要回到调用点”的新帧保留下来。尾调用的关键是在进入过程体时仍传同一个 k，而不是保证整个调用表达式求值期间从不临时建立任何帧。</p><p>新的接口为 <code>value-of/k(exp,env,k)</code> 和 <code>apply-cont(k,v)</code>。env 告诉解释器名字代表什么；k 告诉它值取得以后继续什么。k 可以表示成单参数闭包，也可以表示成带标签的帧。两种表示的接口规格相同，正好延续第二章的数据抽象方法。</p><div class="rn-example" id="difference-trace"><h3>伴读例：把 −(−(44,11),3) 走完</h3><p class="example-kind">原书 pp.150–151 推演的逐步整理</p><pre><code class="language-scheme">-(-(44,11),3)</code></pre><div class="table-scroll"><table aria-label="嵌套减法的控制轨迹"><thead><tr><th scope="col">当前动作</th><th scope="col">从栈顶到栈底的待续工作</th></tr></thead><tbody><tr><td>求整个表达式</td><td>end</td></tr><tr><td>求 −(44,11)</td><td>等左值后求右式 3；end</td></tr><tr><td>求 44</td><td>等左值后求 11；等左值后求 3；end</td></tr><tr><td>44 已得到，改求 11</td><td>等右值，再用 44 减它；外层帧；end</td></tr><tr><td>内层返回 33，改求 3</td><td>等右值，再用 33 减它；end</td></tr><tr><td>外层返回 30</td><td>end 接到 30，整次计算结束</td></tr></tbody></table></div><p>最大续文大小按原书把 end 也计一个构造器，共 3。等待帧保存的是当时需要的右式和环境；左值取得以后，再用只保存数值的第二阶段帧替换它。这个替换解释了“帧会缩减”，而不仅是画一条不断增长的栈。</p></div><p>let 的 RHS 返回后，在旧环境上扩展绑定，进入正文并交回外层 k；if 的测试返回布尔后，只求被选分支；过程值保存定义环境，但并不保存定义时的调用续文。调用时把当前 k 传给过程体，结果会完成当前调用所在的计算。</p><!-- EOPL:snippet chapter05_cps.rkt procedural-evaluator -->
+<details class="code-details" open><summary>查看实现 · procedural-evaluator</summary><pre><code class="language-scheme"> (define (ev e env k h)
+  (match e
+   [`(num ,n) (normal k n)] [`(var ,x) (normal k (lookup env x))]
+   [`(proc ,xs ,b) (unique! xs) (normal k (closure xs b env))]
+   [`(prim ,op . ,es)
+    (evs es env (mk (lambda (vs)
+     (if (and (eq? op &#x27;/) (zero? (cadr vs))) (h 1002)
+         (normal k (primitive op vs)))) h) h)]
+   [`(list . ,es) (evs es env k h)]
+   [`(if ,t ,a ,b) (ev t env (mk (lambda (v) (ev (if (truth v numeric?) a b) env k h)) h) h)]
+   [`(let ,xs ,es ,b)
+    (evs es env (mk (lambda (vs) (ev b (extend xs vs env) k h)) h) h)]
+   [`(letrec ,ns ,pss ,bs ,b)
+    (define rho (extend ns (map (lambda (_) #f) ns) env))
+    (for ([n ns] [ps pss] [body bs])
+     (set-box! (cdr (assq n rho)) (closure ps body rho)))
+    (ev b rho k h)]
+   [`(call ,f ,es)
+    (ev f env (mk (lambda (p) (evs es env (mk (lambda (vs) (invoke p vs k h)) h) h)) h) h)]
+   [`(begin ,e1 . ,rest)
+    (if (null? rest) (ev e1 env k h)
+     (ev e1 env (mk (lambda (_) (ev `(begin ,@rest) env k h)) h) h))]
+   [`(print ,arg)
+    (ev arg env (mk (lambda (v) (set! output (cons v output)) (normal k 38)) h) h)]
+   [`(try ,body (,x) ,handler)
+    (ev body env k (lambda (v) (ev handler (extend (list x) (list v) env) k h)))]
+   [`(raise ,arg) (ev arg env (mk (lambda (v) (h v)) h) h)]
+   [`(letcc ,x ,body) (ev body (extend (list x) (list (captured k h)) env) k h)]
+   [`(throw ,arg ,target)
+    (ev arg env (mk (lambda (v) (ev target env (mk (lambda (c) (invoke c (list v) k h)) h) h)) h) h)]
+   [_ (error &#x27;run-cps &quot;unsupported procedural-core form: ~s&quot; e)]))
+</code></pre></details>
+<!-- EOPL:end-snippet --><p>原书选择 LETREC 作为起点。伴读前端同时包含习题需要的列表、多声明与多参数形式，便于对照同一条转移原则；增加语法时仍逐个识别“需要一个中间值”与“直接产生整体值”的位置。</p><details class="reading-notes" id="notes-s5-1" data-notes-for="s5-1" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">控制与数据</span><h3>环境、闭包、续文各保存什么</h3><p>环境保存名字的绑定；闭包保存过程正文与定义环境；续文保存某次计算之后要完成的工作。普通过程值可以被调用多次，每次用调用处传来的续文。捕获续文则保存某次具体执行的未来；它与保存过程定义不是同一件事。</p></div><div class="annotation-card"><span class="annotation-kind">空间计量</span><h3>尾调用不会消灭所有占用</h3><p>CPS 把原来隐含在宿主栈的待续工作变成对象。递归阶乘仍会建立随输入增长的乘法续文链；迭代阶乘才可把这类工作压缩进累乘器。环境、大整数、输入与已分配对象也占空间，不能把“控制栈有界”改写成“程序总内存恒定”。</p></div></div></details><h3 id="exercises-5-1">本节习题与解答</h3><details class="exercise-index-panel"><summary>本节习题题号索引 · 16 题</summary><nav class="exercise-index" role="navigation" aria-label="本节习题索引"><a href="#ex-5-1" aria-label="习题 5.1">5.1</a> · <a href="#ex-5-2" aria-label="习题 5.2">5.2</a> · <a href="#ex-5-3" aria-label="习题 5.3">5.3</a> · <a href="#ex-5-4" aria-label="习题 5.4">5.4</a> · <a href="#ex-5-5" aria-label="习题 5.5">5.5</a> · <a href="#ex-5-6" aria-label="习题 5.6">5.6</a> · <a href="#ex-5-7" aria-label="习题 5.7">5.7</a> · <a href="#ex-5-8" aria-label="习题 5.8">5.8</a> · <a href="#ex-5-9" aria-label="习题 5.9">5.9</a> · <a href="#ex-5-10" aria-label="习题 5.10">5.10</a> · <a href="#ex-5-11" aria-label="习题 5.11">5.11</a> · <a href="#ex-5-12" aria-label="习题 5.12">5.12</a> · <a href="#ex-5-13" aria-label="习题 5.13">5.13</a> · <a href="#ex-5-14" aria-label="习题 5.14">5.14</a> · <a href="#ex-5-15" aria-label="习题 5.15">5.15</a> · <a href="#ex-5-16" aria-label="习题 5.16">5.16</a></nav></details><details class="exercise" id="ex-5-1"><summary>习题 5.1 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.1"><p>用过程表示实现本节的续文数据类型。</p></div><p class="source">印刷 p.153 / <a href="../assets/source.pdf#page=176">PDF 176</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>把每种续文表示成接收一个表达值的过程：它接到值后完成余下计算。空续文返回值并只记录一次结束；其他构造器捕获原来需要保存的表达式、环境或已得的值。</p><pre><code class="language-scheme">(define (end-cont) (lambda (v) v))
+(define (zero1-cont k) (lambda (v) (k (zero? v))))
+(define (diff1-cont e2 env k)
+  (lambda (v1) (value-of/k e2 env (diff2-cont v1 k))))
+(define (diff2-cont v1 k) (lambda (v2) (k (- v1 v2))))
+(define (rator-cont rand env k)
+  (lambda (p) (value-of/k rand env (rand-cont p k))))
+(define (rand-cont p k)
+  (lambda (arg) (apply-procedure/k p arg k)))</code></pre><p>这里写的是直接值版本的接口等式；完整实现还对数值、布尔和过程作类型检查。<code>chapter05_cps.rkt</code> 的内联模式实际计算嵌套减法得 30，结束计数为 1。let、if 的构造器分别在接值后进入新环境的正文、所选分支；两者都沿用外层 k。</p></div></details><details class="exercise" id="ex-5-2"><summary>习题 5.2 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.2"><p>用数据结构表示实现本节的续文数据类型。</p></div><p class="source">印刷 p.153 / <a href="../assets/source.pdf#page=176">PDF 176</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>每个过程闭包改为带标签的记录，字段就是前题 lambda 的自由变量；<code>apply-cont</code> 按标签分派。对于减法，第一帧保存“右式、原环境”，第二帧保存“左值”；对调用则先保存实参式，再保存过程值。</p><pre><code class="language-text">(diff1 e2 env k) + v1  -&gt; eval(e2, env, diff2(v1,k))
+(diff2 v1 k)     + v2  -&gt; apply(k, v1-v2)
+(rator rand env k)+ p  -&gt; eval(rand, env, rand(p,k))
+(rand p k)      + arg -&gt; invoke(p,arg,k)</code></pre><p><code>chapter05.rkt</code> 用帧列表实现同一分派，<code>state</code> 保存当前阶段；过程调用正文获得原 k。两种表示在数值、列表、let、递归过程上逐例比较，结果与唯一结束次数一致。</p></div></details><details class="exercise" id="ex-5-3"><summary>习题 5.3 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.3"><p>给这个解释器添加 let2。它与 let 相似，但恰好定义两个变量。</p></div><p class="source">印刷 p.153 / <a href="../assets/source.pdf#page=176">PDF 176</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>两个右端式依次求值，但都在进入 let2 前的环境中。先保存第二个右端式、两个名字和正文；拿到第一个值后继续求第二式，最后一次扩展两个绑定。不能在第二式之前安装第一个新绑定。</p><pre><code class="language-text">let2 x = e1 y = e2 in body
+  eval e1 in env
+  eval e2 in the same env
+  eval body in extend*(x,y ; v1,v2 ; env)</code></pre><p>实现归一化成通用多声明 let，用 collect 帧保存未求的式和已得值。<code>let2 a = 7 b = 4 in -(a,b)</code> 返回 3；若外层 x=10，<code>let2 x = 2 y = x in -(y,x)</code> 返回 8。</p></div></details><details class="exercise" id="ex-5-4"><summary>习题 5.4 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.4"><p>给这个解释器添加 let3。它与 let 相似，但恰好定义三个变量。</p></div><p class="source">印刷 p.153 / <a href="../assets/source.pdf#page=176">PDF 176</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>在前题的 collect 帧中再保留一个未求右端式即可。每一步都恢复原环境；只有三个值全部取得，才用三个新绑定进入正文。</p><pre><code class="language-text">eval e1 -&gt; collect(e2,e3; []; env)
+eval e2 -&gt; collect(e3; [v1]; env)
+eval e3 -&gt; enter body with [v1,v2,v3]</code></pre><p><code>let3 a = 7 b = 4 c = 2 in -(-(a,b),c)</code> 返回 1。解析器恰好接收三组声明，未给足或多给一组都不属于 let3 的语法。</p></div></details><details class="exercise" id="ex-5-5"><summary>习题 5.5 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.5"><p>像<a href="chapter03_expressions.html#ex-3-9">习题 3.9</a>那样，给语言添加列表：空表、cons、car、cdr 与 null?。</p></div><p class="source">印刷 p.153 / <a href="../assets/source.pdf#page=176">PDF 176</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>空表是可立即交给 k 的值。cons 有两个非尾操作数，按减法的两阶段办法先求头再求尾，并检查尾是表；car、cdr、null? 各用一帧等操作数返回。</p><pre><code class="language-text">eval(cons(a,b),env,k) -&gt; eval(a,env,cons1(b,env,k))
+apply(cons1(b,env,k),v) -&gt; eval(b,env,cons2(v,k))
+apply(cons2(v,k),vs) -&gt; apply(k, cons(v,vs))</code></pre><p>空表取 car/cdr 是错误；null? 不能把任意数值当非空表。实现把原语列表放入 collect，仍然逐个尾转移；嵌套列表的值不会被当作待执行语法。</p></div></details><details class="exercise" id="ex-5-6"><summary>习题 5.6 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.6"><p>像<a href="chapter03_expressions.html#ex-3-10">习题 3.10</a>那样，给语言添加 list 表达式。提示：考虑加入两个新续文构造器，一个负责求列表首元素，一个负责求其余元素。</p></div><p class="source">印刷 p.153 / <a href="../assets/source.pdf#page=176">PDF 176</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>可定义 <code>list-first(rest,env,k)</code> 和 <code>list-rest(v1,k)</code>：前者接到首值后求剩余表，后者接到其余值表后 cons。空的 list 直接交付空表。这样不会把“求剩余元素”嵌在宿主 cons 的操作数里。通用 collect 版本把已经得到的值逆序暂存，到终点只反转一次；时间线性，帧中的临时值量线性。</p><p><code>list(1,2,3)</code> 返回 <code>(1 2 3)</code>；带打印的元素按左到右执行，不能借用未指定次序的宿主 map 来定义源语言效果顺序。</p></div></details><details class="exercise" id="ex-5-7"><summary>习题 5.7 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.7"><p>给解释器添加多声明 let，见<a href="chapter03_expressions.html#ex-3-16">习题 3.16</a>；声明数可以任意。</p></div><p class="source">印刷 p.153 / <a href="../assets/source.pdf#page=176">PDF 176</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>使用一张名字表、一张未求右端式表和一张已得值表。所有右端式在同一个旧环境中从左到右求值；末尾检查名字和值数目相同、名字无重复，再建立正文环境。零声明直接进入正文。</p><p>源码 <code>collect</code>/<code>finish</code> 的 let 分支就是完整实现。它与 let* 的区别可用外层 x=10 的例子检验：<code>let x = 2 y = x in -(y,x)</code> 为 8，而顺序安装绑定会错误地得到 0。</p></div></details><details class="exercise" id="ex-5-8"><summary>习题 5.8 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.8"><p>给解释器添加多参数过程，见<a href="chapter03_expressions.html#ex-3-21">习题 3.21</a>。</p></div><p class="source">印刷 p.153 / <a href="../assets/source.pdf#page=176">PDF 176</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>先求运算符，再在调用环境求各实参；collect 保留过程值和已经得到的实参。收集结束检查实参数与形参数相同，随后把形参与值同时绑定到闭包保存的定义环境。过程体直接使用调用表达式原来的 k。</p><pre><code class="language-text">invoke(closure(params,body,saved-env), args, k)
+  check length(params) = length(args)
+  eval(body, extend*(params,args,saved-env), k)</code></pre><p>零参数过程也适用。少参数、多参数均产生参数个数异常 1001；重复形参在建立过程时拒绝。代码没有为进入过程体额外保留“返回这一调用”的帧。</p></div></details><details class="exercise" id="ex-5-9"><summary>习题 5.9 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.9"><p>把解释器改为实现 IMPLICIT-REFS。提示：考虑新增续文构造器 <code>(set-rhs-cont env var cont)</code>。</p></div><p class="source">印刷 p.153 / <a href="../assets/source.pdf#page=176">PDF 176</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>环境从名字映射到位置；读变量要解引用，新 let/形参绑定分配新位置。赋值先在原环境求右式，之后找到变量的位置、写入值，并把任取的赋值结果 27 交给原 k。递归组先分配全部位置，再安装捕获同一组环境的闭包。</p><pre><code class="language-text">eval(set x = rhs, env, k)
+  -&gt; eval(rhs,env,set-rhs(env,x,k))
+apply(set-rhs(env,x,k),v)
+  -&gt; store[lookup(env,x)] := v; apply(k,27)</code></pre><p><code>run</code> 的 <code>#:implicit? #t</code> 实现这些规则。<code>let x = 0 in begin set x = 9; x end</code> 返回 9；闭包捕获位置，能看到后来的写入。</p></div></details><details class="exercise" id="ex-5-10"><summary>习题 5.10 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.10"><p>修改上一题的解答，使赋值续文不必保存环境。</p></div><p class="source">印刷 p.153 / <a href="../assets/source.pdf#page=176">PDF 176</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>建立赋值帧时就把 x 查成位置，帧只保存该位置和外层 k。环境在右式求值期间不改变 x 的绑定身份，因此预先查位置与事后查相同；右式可能改变位置的内容，所以不能提前读取其旧值。</p><pre><code class="language-text">eval(set x = rhs,env,k)
+  -&gt; eval(rhs,env,set-location(lookup-location(env,x),k))
+apply(set-location(loc,k),v) -&gt; store[loc] := v; apply(k,27)</code></pre><p>完整机器实际采用这个版本，赋值帧为 <code>(set loc)</code>；右式自己的局部遮蔽不会改掉已保存的目标位置。</p></div></details><details class="exercise" id="ex-5-11"><summary>习题 5.11 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.11"><p>给续文传递解释器添加<a href="chapter04_state.html#ex-4-4">习题 4.4</a> 的 begin 表达式。确保 value-of 或 value-of-rands 的调用都不出现在会增长控制上下文的位置。</p></div><p class="source">印刷 p.153 / <a href="../assets/source.pdf#page=176">PDF 176</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>对非最后一式建立“继续求剩余序列”的帧，忽略其返回值，但保留效果；最后一式直接用原 k 求值。</p><pre><code class="language-text">eval(begin e1; ...; en end,env,k)
+  n=1: eval(e1,env,k)
+  n&gt;1: eval(e1,env,begin-frame([e2,...,en],env,k))
+apply(begin-frame(rest,env,k),ignored) -&gt; eval(begin rest end,env,k)</code></pre><p>源码 begin 分支的转移均为尾调用/状态返回。实际 <code>begin print(1); print(2); 9 end</code> 依次打印 1、2，结果 9；序列必须至少有一式。</p></div></details><details class="exercise" id="ex-5-12"><summary>习题 5.12 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.12"><p>给图 5.4–5.6 的解释器加上追踪输出，使它产生与 p.150 推演相似的记录。</p></div><p class="source">印刷 p.153 / <a href="../assets/source.pdf#page=176">PDF 176</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>在 eval、apply、invoke 入口记录阶段、待求表达式、当前值与帧栈；为避免闭包的递归环境无穷打印，环境只记身份或绑定名，帧则展开标签和必要字段。记录不改变控制状态。</p><p><code>#:trace? #t</code> 返回可检查的记录。对嵌套减法，帧依次从空栈到“外层右式 3”、再到“内层右式 11，外层右式 3”；收到 44 后第一帧改为“左值 44”，得到 33 后只剩外层帧，最后将 30 送到空栈。该轨迹与正文表逐步对应。</p></div></details><details class="exercise" id="ex-5-13"><summary>习题 5.13 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.13"><p>把本章开头的 fact 与 fact-iter 定义译成 LETREC；可以加入乘法。用上一题的追踪解释器计算 <code>(fact 4)</code> 和 <code>(fact-iter 4)</code>，与章首推演比较。在 fact 的轨迹中找出 <code>(* 4 (* 3 (* 2 (fact 1))))</code>；这次 <code>(fact 1)</code> 调用对应的 apply-procedure/k 的续文是什么？</p></div><p class="source">印刷 p.153 / <a href="../assets/source.pdf#page=176">PDF 176</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><pre><code class="language-scheme">letrec fact(n) = if zero?(n) then 1
+                 else *(n,(fact -(n,1)))
+in (fact 4)
+
+letrec fact-iter(n,a) = if zero?(n) then a
+                      else (fact-iter -(n,1) *(n,a))
+in (fact-iter 4 1)</code></pre><p>两者实际都返回 24。第一程序进入 fact(1) 的过程体时，续文是“将结果依次乘 2、3、4，再交给 end”；按内层在左的帧栈记为 <code>[mul(2), mul(3), mul(4)]</code>。fact(1) 自己的乘 1 尚未入栈。第二程序尾调时不保留乘法，累乘已经进了 a：<code>(4,1) → (3,4) → (2,12) → (1,24) → (0,24)</code>。</p></div></details><details class="exercise" id="ex-5-14"><summary>习题 5.14 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.14"><p>上一题的追踪输出很多。改为只跟踪计算中出现的最大续文大小，以构造这个续文使用了多少次续文构造器计量。p.150 的最大值是 3。随后对几个不同的输入计算 fact 和 fact-iter，确认前者的最大续文大小随参数线性增长，而后者保持常数。</p></div><p class="source">印刷 p.153 / <a href="../assets/source.pdf#page=176">PDF 176–178</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>空栈计作 end-cont 的 1，其他帧每个加 1。在每次状态转移读取 <code>1 + length(frames)</code>，更新最大值；这样不会把当前帧数误当作累计分配次数。采用本页统一的多实参 collect 帧表示，实际数据如下。</p><div class="table-scroll"><table aria-label="阶乘的最大续文大小"><thead><tr><th scope="col">输入</th><th scope="col">fact</th><th scope="col">fact-iter</th></tr></thead><tbody><tr><td>1</td><td>4</td><td>3</td></tr><tr><td>2</td><td>5</td><td>3</td></tr><tr><td>4</td><td>7</td><td>3</td></tr><tr><td>8</td><td>11</td><td>3</td></tr><tr><td>16</td><td>19</td><td>3</td></tr></tbody></table></div><p>具体常数依赖操作数收集方式，线性/常数的趋势不依赖这点。fact 中每层递归保存一个待乘值；迭代版虽然没有递归返回帧，求当前调用的参数仍临时需要 collect/原语帧。此计量不包含大整数的位数和环境分配。</p></div></details><details class="exercise" id="ex-5-15"><summary>习题 5.15 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.15"><p>本节续文类型只有 end-cont 一个常量，其余构造器恰好各有一个续文参数。把续文实现为列表：end-cont 用空表表示；其他续文用非空表，其 car 是带区别标签的帧（frame，也称 activation record），cdr 是内嵌的续文。观察解释器怎样把它当作帧栈使用。</p></div><p class="source">印刷 p.155 / <a href="../assets/source.pdf#page=178">PDF 178</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>将 <code>(diff1-cont e env k)</code> 写成 <code>(cons (list 'diff1 e env) k)</code>。应用时取 car 分派、把 cdr 作为外层 k；新帧压栈、完成一项弹栈。机器正采用这个表示。</p><p>尾过程调用完成实参收集后直接把已经弹出的 rest 传给过程体；没有额外 return 帧。持久化的列表可以让 letcc 安全保存同一个旧栈：以后 push/pop 只创建新 cons 或改局部指针，不会破坏捕获者看到的节点。</p></div></details><details class="exercise" id="ex-5-16"><summary>习题 5.16 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.16"><p>把续文传递解释器扩展到<a href="chapter04_state.html#ex-4-22">习题 4.22</a> 的语句语言。给 result-of 增加续文参数，确保它的调用不增长控制上下文。语句不返回值，因此区分普通续文和语句续文（通常叫 command continuation）。接口应有只接收命令续文并调用它的 apply-command-cont。分别用数据结构和零参数过程实现命令续文。</p></div><p class="source">印刷 p.155 / <a href="../assets/source.pdf#page=178">PDF 178</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>普通续文接一个表达值；命令续文只表示“这条语句结束后执行什么”，不应伪造一个语句值。赋值右式、print 和条件调用表达式求值器；其值续文完成写入、输出或选择语句后，再调用命令续文。</p><pre><code class="language-text">result-of(sequence(s,rest),env,cc)
+  -&gt; result-of(s,env,sequence-cc(rest,env,cc))
+result-of(while(t,b),env,cc)
+  -&gt; eval(t,env,lambda(v)
+       if v then result-of(b,env,while-cc(t,b,env,cc))
+            else apply-command-cont(cc))</code></pre><p><code>chapter05_statements.rkt</code> 给出两种完整表示；数据版序列帧含“其余语句、环境、外层 cc”，过程版是相同自由变量组成的零参闭包。两版实际运行从 3 递减的 while 都输出 <code>(3 2 1)</code>；未初始化变量读取报错，var 的局部绑定不会泄漏到块外。</p></div></details></section><section id="s5-2"><h2>5.2 蹦床解释器：让宿主调用链及时返回</h2><p class="source">原书 §5.2，pp.155–160 / <a href="../assets/source.pdf#page=178">PDF 178–183</a>。</p><p>经过 CPS 后，解释器的主要调用都在尾位置。在支持正确尾调用的 Scheme/Racket 中，它们可以复用宿主控制栈；许多普通过程式实现仍会为每个尾调用压入返回地址。若把相同代码逐行翻译过去，这条调用链可能一直到程序结束都不返回。</p><p>蹦床（trampoline）把“立刻继续”改成“先把下一步还给驱动器”。遇到过程应用时返回零参 thunk；驱动器拿到 thunk，调用它获得下一项，再重复。用数据表示则返回一个带 PC、环境、续文和值的快照；最终值用单独的 Done 标签表示。</p><pre><code class="language-text">Bounce = Done(value) | Next(snapshot)
+trampoline(bounce):
+  while bounce is Next:
+    bounce = resume(bounce.snapshot)
+  return bounce.value</code></pre><p>原书图 5.7 的合同写成 <code>Bounce = ExpVal ∪ (() → Bounce)</code>。expval 必须与宿主 thunk 能可靠区分；定义语言中的过程值不应因为它也代表“过程”，就误被驱动器当作下一步去调用。采用显式标签能把这两个层次分开。</p><!-- EOPL:snippet chapter05.rkt snapshots -->
+<details class="code-details" open><summary>查看实现 · snapshots</summary><pre><code class="language-scheme">(struct state (pc exp env frames value) #:transparent)
+(struct thread (id parent state ticks status mailbox) #:mutable #:transparent)
+(struct result (value output metrics trace threads) #:transparent)
+(define (E e env k) (state &#x27;eval e env k #f))
+(define (A k v) (state &#x27;apply #f #f k v))
+(define (I p vs env k) (state &#x27;invoke p env k vs))
+(define (R k v) (state &#x27;raise #f #f k v))
+</code></pre></details>
+<!-- EOPL:end-snippet --><p>只在 apply-procedure/k 处切开，已经足以阻止跨无界源过程调用的宿主链；本伴读把 eval/apply/invoke 每个转移都切成状态，控制步长更容易观察。无论切在哪里，记录必须含恢复需要的全部数据；只保存“要调用哪个函数”却漏 env/k，就不是完整快照。</p><p>实现的 loop 和 thunk 两种驱动使用同一转移关系，实际比较的不仅是最终 30/24，还包括完整语义轨迹。蹦床改变的是宿主怎样驱动这些状态；源语言的操作数次序、异常目标与词法环境都保持原规定。</p><details class="reading-notes" id="notes-s5-2" data-notes-for="s5-2" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">两层执行</span><h3>源程序的尾调用与宿主调用</h3><p>源程序尾调用可不增加源续文，但实现它的宿主函数仍可能压栈。数据驱动器让宿主每步先返回，再进入下一步，才把两种控制行为分开。这也是为什么只把 value-of 最外层放进循环，却仍在内部递归计算操作数，不能解决问题。</p></div><div class="annotation-card"><span class="annotation-kind">暂停点</span><h3>快照不是存储的备份</h3><p>快照保存控制位置和恢复数据。第四章引入的可变存储若是共享的，恢复快照会观察当前内容，不会回到暂停瞬间的旧内容。把暂停误做成整个内存复制，会改变后面的线程通信与捕获续文语义。</p></div></div></details><h3 id="exercises-5-2">本节习题与解答</h3><details class="exercise-index-panel"><summary>本节习题题号索引 · 6 题</summary><nav class="exercise-index" role="navigation" aria-label="本节习题索引"><a href="#ex-5-17" aria-label="习题 5.17">5.17</a> · <a href="#ex-5-18" aria-label="习题 5.18">5.18</a> · <a href="#ex-5-19" aria-label="习题 5.19">5.19</a> · <a href="#ex-5-20" aria-label="习题 5.20">5.20</a> · <a href="#ex-5-21" aria-label="习题 5.21">5.21</a> · <a href="#ex-5-22" aria-label="习题 5.22">5.22</a></nav></details><details class="exercise" id="ex-5-17"><summary>习题 5.17 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.17"><p>修改蹦床解释器，把 <code>(lambda () ...)</code> 包在 apply-procedure/k 的每次调用外面（只有一个调用处）。这是否需要改变契约？</p></div><p class="source">印刷 p.160 / <a href="../assets/source.pdf#page=183">PDF 183</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>把延迟从过程定义移到调用点：rand-cont 分支返回一个零参过程；apply-procedure/k 本体恢复为直接求正文。</p><pre><code class="language-scheme">;; in apply-cont, rand-cont branch:
+(lambda () (apply-procedure/k proc1 arg saved-cont))
+;; apply-procedure/k itself:
+(value-of/k body (extend-env var arg saved-env) cont)</code></pre><p>value-of/k、apply-cont 和 apply-procedure/k 的结果仍都可能是值或后继延迟过程，因此它们的 Bounce 契约无需改变。需要保留其中一层 lambda；两处都包会多一次 bounce，两处都去掉则重新形成宿主调用链。</p></div></details><details class="exercise" id="ex-5-18"><summary>习题 5.18 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.18"><p>图 5.7 的蹦床对 Bounce 使用过程表示。把它换成数据结构表示。</p></div><p class="source">印刷 p.160 / <a href="../assets/source.pdf#page=183">PDF 183</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>用 <code>Done(v)</code> 或 <code>Call(proc,args,k)</code>。蹦床看标签：Done 返回 v；Call 从字段恢复下一步计算，拿到新 Bounce 后继续循环。</p><pre><code class="language-text">while bounce.tag != Done:
+    bounce = resume(bounce)
+return bounce.value</code></pre><p>本书可运行版把更细的 eval/apply/invoke 都表示成 state；因此每次宿主调用至多完成一次转移便返回，驱动器取得下一状态。状态数据不包含“回到 resume 之后继续算”的隐蔽控制工作。</p></div></details><details class="exercise" id="ex-5-19"><summary>习题 5.19 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.19"><p>不把 lambda 包在 apply-procedure/k 的本体外，而改为包在 apply-cont 的本体外。修改相应契约。Bounce 的定义需要改变吗？随后像<a href="#ex-5-18">习题 5.18</a>那样把 Bounce 改用数据结构表示。</p></div><p class="source">印刷 p.160 / <a href="../assets/source.pdf#page=183">PDF 183</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>Bounce 的集合仍是 <code>ExpVal ∪ (() → Bounce)</code>；value-of/k 和 apply-procedure/k 返回 Bounce，而 apply-cont 更精确地总返回零参 thunk。进入 apply-cont 时先不分派，真正分派由 thunk 在下一轮完成。</p><pre><code class="language-scheme">(define (apply-cont k v)
+  (lambda () (dispatch-cont k v)))
+;; data version of the delayed call:
+(Continue k v)
+resume(Continue(k,v)) = dispatch-cont(k,v)</code></pre><p>最后一次 Continue(end,v) 的恢复产生 v。任何递归过程求体和任何操作数接值都会经过 apply-cont，因而能不断把宿主栈交还给驱动器；若语法递归有极深的连续下降，细粒度 state 版本还可在 eval 入口一并切断。</p></div></details><details class="exercise" id="ex-5-20"><summary>习题 5.20 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.20"><p>在<a href="#ex-5-19">习题 5.19</a> 中，trampoline 返回 FinalAnswer 前的最后一次 bounce 总像 <code>(apply-cont (end-cont) val)</code>，其中 val 是 ExpVal。利用这个事实优化 bounce 的表示。</p></div><p class="source">印刷 p.160 / <a href="../assets/source.pdf#page=183">PDF 183</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>生成 Continue 之前检查 k 是否为空：空续文直接返回 Done(v)，其他情况才分配 Continue(k,v)。驱动器不必再为“把 v 交给空续文”恢复一次。结束日志仍由这个 Done 分支负责，不能连同冗余 bounce 一起丢掉或输出两次。对每个正常终止程序恰好节省一个快照和一次分派，渐近复杂度不变。</p></div></details><details class="exercise" id="ex-5-21"><summary>习题 5.21 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.21"><p>在普通过程式语言中实现蹦床解释器。像<a href="#ex-5-18">习题 5.18</a>那样用数据结构表示快照，并把 trampoline 的自递归调用改成普通 while 或其他循环。</p></div><p class="source">印刷 p.160 / <a href="../assets/source.pdf#page=183">PDF 183</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p><code>chapter05_machine.c</code> 是 C11 的完整 LETREC 核心转移器，驱动模式 2 用 while 迭代 EV/AP/INVOKE/HALT；环境和帧用每次运行独立的有界 arena，耗尽明确报错。输入直接构造 AST，没有依赖宿主 eval 或藏在递归解析器中的执行。</p><pre><code class="language-c">while (pc != HALT) pc = step();
+return val_reg;</code></pre><p>实际跑 20,000 次尾递减需要 300,014 次机器转移，结果 0，最大活动帧数 2。arena 保存本轮已分配对象直到结束，所以这个简明 C 实现的总分配量仍线性增长；它验证的是宿主控制栈有界。</p></div></details><details class="exercise" id="ex-5-22"><summary>习题 5.22 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.22"><p>也可以尝试把第三章的环境传递解释器抄写成普通过程式语言，但除了最简单的情形，它也会因上文的原因失败。蹦床技术也能用于这种情况吗？</p></div><p class="source">印刷 p.160 / <a href="../assets/source.pdf#page=183">PDF 183</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>可以，但不能只把非尾调用包装成“稍后做这个调用”。例如 <code>v1 = value-of(e1)</code> 返回后还要去求 e2、相减；这个剩余工作必须变成数据或闭包，连同快照交给蹦床。那正是本章先做的 CPS 转换。另一种实现是把宿主调用栈显式化为栈帧并保存返回地址，本质上仍保存了续文。仅在旧 value-of 外套一个 while，而让内部嵌套调用照旧递归，并不会消除宿主栈增长。</p></div></details></section><section id="s5-3"><h2>5.3 命令式解释器：寄存器与程序计数器</h2><p class="source">原书 §5.3，pp.160–171 / <a href="../assets/source.pdf#page=183">PDF 183–194</a>。</p><p>CPS 之后，一组过程之间只剩尾调用。这时可以用共享寄存器代替形参：调用前把参数写入 exp/env/cont/val/proc 等寄存器，再进入零参数代码块。零参尾调用的动作只剩“换到那个代码位置”，所以可以用跳转代替。</p><pre><code class="language-text">eval-block -&gt; apply-block -&gt; invoke-block -&gt; eval-block
+state = (pc, exp, env, cont, val)</code></pre><p>原书 even/odd 例的三种形式——传 x 的互递归、共享 x 的零参互递归、标签与 goto——有相同状态序列。它们都在尾位置进入下一个过程；直接递归 fact 却不能未经 CPS 就这样改，因为它还欠一串乘法。</p><p>寄存器赋值必须模拟原调用的“先取得全部实参，再同时绑定”。若先覆盖 x，再用 x 构造保存旧值的续文，旧值就丢了。通常先构造 cont、后改 exp/env 能减少冲突；交换 x/y 的参数仍需要临时变量。字段名也要避开全局寄存器名，否则 cases 的局部绑定会遮蔽寄存器。</p><!-- EOPL:snippet chapter05.rkt register-driver -->
+<details class="code-details" open><summary>查看实现 · register-driver</summary><pre><code class="language-scheme"> (define (continue s)
+  (define next (or s (next!)))
+  (cond [(not next) (void)]
+   [(eq? driver &#x27;thunk)
+    (let trampoline ([bounce (lambda () (step next))])
+     (define b (bounce))
+     (define ns (or b (next!)))
+     (when ns (trampoline (lambda () (step ns)))))]
+   [else (continue (step next))]))
+ (continue initial)
+</code></pre></details>
+<!-- EOPL:end-snippet --><div class="rn-example" id="drivers-example"><h3>伴读例：三种 C 驱动走同一条解释器轨迹</h3><p class="example-kind">普通宿主实现的运行比较</p><p><code>chapter05_machine.c</code> 以 AST 直接输入 LETREC；模式 0 是零参宿主调用，模式 1 是真实 goto，模式 2 是返回下一 PC 的 while 蹦床。为了观察源语义，不把解析时间混入执行。</p><div class="table-scroll"><table aria-label="三种 C 驱动的实测步骤"><thead><tr><th scope="col">输入 n</th><th scope="col">驱动</th><th scope="col">转移步数</th><th scope="col">结果 / 最大活动帧</th></tr></thead><tbody><tr><td>100</td><td>三种</td><td>1,514</td><td>0 / 2</td></tr><tr><td>1,000</td><td>三种</td><td>15,014</td><td>0 / 2</td></tr><tr><td>20,000</td><td>goto、蹦床</td><td>300,014</td><td>0 / 2</td></tr></tbody></table></div><p>每组执行都明确检查返回值；Racket 回归另比较数据/延迟驱动的逐步快照。这里的 C arena 把对象保留到整次运行结束，不是垃圾收集实现，因而不能用最大活动帧 2 推断总分配量为常数。</p></div><details class="reading-notes" id="notes-s5-3" data-notes-for="s5-3" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">并行绑定</span><h3>先保全旧值，再覆盖寄存器</h3><p>原调用 f(y,x) 的两个实参都在旧环境取得；改成 x:=y 后再 y:=x 会把两者都变成旧 y。寄存器化正确性必须逐条检查数据依赖，而不只是把形参名改成全局变量。临时寄存器承担的是原本由宿主调用机制提供的并行绑定。</p></div><div class="annotation-card"><span class="annotation-kind">机器边界</span><h3>程序计数器并不等于源语法树</h3><p>PC 是解释器当前执行哪个阶段/标签；exp 则是正在解释的源 AST。一个源调用要经过 EV、AP、INVOKE 多步。把两者混称为“执行到哪行”容易漏掉正在等待的操作数和值，也无法准确解释恢复快照。</p></div></div></details><h3 id="exercises-5-3">本节习题与解答</h3><details class="exercise-index-panel"><summary>本节习题题号索引 · 12 题</summary><nav class="exercise-index" role="navigation" aria-label="本节习题索引"><a href="#ex-5-23" aria-label="习题 5.23">5.23</a> · <a href="#ex-5-24" aria-label="习题 5.24">5.24</a> · <a href="#ex-5-25" aria-label="习题 5.25">5.25</a> · <a href="#ex-5-26" aria-label="习题 5.26">5.26</a> · <a href="#ex-5-27" aria-label="习题 5.27">5.27</a> · <a href="#ex-5-28" aria-label="习题 5.28">5.28</a> · <a href="#ex-5-29" aria-label="习题 5.29">5.29</a> · <a href="#ex-5-30" aria-label="习题 5.30">5.30</a> · <a href="#ex-5-31" aria-label="习题 5.31">5.31</a> · <a href="#ex-5-32" aria-label="习题 5.32">5.32</a> · <a href="#ex-5-33" aria-label="习题 5.33">5.33</a> · <a href="#ex-5-34" aria-label="习题 5.34">5.34</a></nav></details><details class="exercise" id="ex-5-23"><summary>习题 5.23 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.23"><p>如果删除本节命令式解释器某个分支的“goto”行，会发生什么？请准确解释它怎样失败。</p></div><p class="source">印刷 p.166 / <a href="../assets/source.pdf#page=189">PDF 189</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>在图中以零参调用模拟 goto 的版本里，删除尾调用使当前宿主过程直接返回，刚写好的 exp/env/cont/val 不再被后继阶段消费。例如常量分支已把 val 设成 3，却没有 apply-cont，外层待减法的帧不会弹出，end 也不会执行。若运行器仍返回 val，读者只看到了中间值。</p><p>真实 goto 版本若允许语句顺序落入另一标签，则会执行错误的阶段，而非安全停止。PC 循环版漏更新 pc 还可能反复执行当前分支。故确切症状取决于实现；共同错误是本应显式转移的边消失了。</p></div></details><details class="exercise" id="ex-5-24"><summary>习题 5.24 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.24"><p>为前文列出的每一种寄存器化复杂情况分别设计例子。</p></div><p class="source">印刷 p.166 / <a href="../assets/source.pdf#page=189">PDF 189</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>三种情况如下：<code>apply-cont(k,v)</code> 转成寄存器赋值后出现 <code>k := k</code>，可删；把 <code>cases</code> 字段也叫 exp 会遮住 exp 寄存器，应改名 expr1；把调用 <code>f(car(x), frame(x,k))</code> 按先写 x 的顺序转换，会让帧保存新 x 而不是原表。</p><pre><code class="language-text">;; preserve the old x in the frame first
+cont := frame(x,cont)
+x := car(x)
+goto f
+
+;; swapping two actual parameters needs a temporary
+tmp := x
+x := y
+y := tmp
+goto f</code></pre><p>后一例形成真实的数据依赖环，仅靠交换赋值顺序无法完成。局部临时值或并行赋值是必要的。</p></div></details><details class="exercise" id="ex-5-25"><summary>习题 5.25 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.25"><p>把多参数过程的解释器寄存器化，见<a href="chapter03_expressions.html#ex-3-21">习题 3.21</a>。</p></div><p class="source">印刷 p.166 / <a href="../assets/source.pdf#page=189">PDF 189</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>除 exp/env/k/val/proc 寄存器外，可以把未求实参表和逆序值表放进 collect 帧，而不再增加全局寄存器。每次取一式进入 EV，返回后把值 cons 到帧里，最后反转并检查 arity。</p><p><code>chapter05.rkt</code> 的 state 把这组寄存器装成记录，collect 中的 <code>kind=call</code> 完成参数收集；INVOKE 状态保存过程和值表，随后一次扩展闭包环境。机器与过程 CPS 版已比较零/一/多实参；操作数不在宿主调用表达式里递归求值。</p></div></details><details class="exercise" id="ex-5-26"><summary>习题 5.26 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.26"><p>把本节解释器改成蹦床：每个 apply-procedure/k 调用都替换为 <code>(set! pc apply-procedure/k)</code>，驱动器采用下面的形式。</p><pre><code class="language-scheme">(define trampoline
+  (lambda (pc)
+    (if pc (trampoline (pc)) val)))</code></pre></div><p class="source">印刷 p.166 / <a href="../assets/source.pdf#page=189">PDF 189</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>这里 pc 应理解为“下一块代码”，不是停在赋值表达式的返回值上。每个块完成寄存器写入后返回后继块，终点返回 #f；trampoline 重复调用后继，最后读取 val。</p><pre><code class="language-text">rand-block:  proc1 := saved-proc; cont := saved-cont
+             return apply-procedure/k
+end-block:   return #f
+trampoline:  while pc != #f: pc := pc()</code></pre><p>若采用全局 pc，驱动器须每次执行块之后重新读全局 pc，而不能又用局部形参 pc 遮蔽它。C 模式 2 直接保存枚举型 PC，并通过返回下一标签的数据实现这个版本。</p></div></details><details class="exercise" id="ex-5-27"><summary>习题 5.27 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.27"><p>设计一种语言特性，使得如果最后才给 cont 赋值，就必须使用临时变量。</p></div><p class="source">印刷 p.168 / <a href="../assets/source.pdf#page=191">PDF 191</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>取一个二元结构构造式 <code>pair(e1,e2)</code>，其左式调用需要 <code>eval(e1,env,pair1(e2,env,cont))</code>。若先把 exp 寄存器从整棵 pair AST 改成 e1，再从 exp 取 e2 构造 cont，就丢了 e2。因此“最后设置 cont”的转换必须先用临时值保存 e2（或整棵旧 AST）。</p><pre><code class="language-text">tmp := right(exp)
+exp := left(exp)
+cont := pair1(tmp,env,cont)
+goto eval</code></pre><p>先构造 cont 再改 exp 则不需这个临时值。局部 pattern 字段若已经复制了 e2，也是在承担同一个保存职责。</p></div></details><details class="exercise" id="ex-5-28"><summary>习题 5.28 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.28"><p>像<a href="#ex-5-12">习题 5.12</a> 那样给解释器加追踪。续文表示相同，所以复用原追踪代码。验证本节命令式解释器与<a href="#ex-5-12">习题 5.12</a> 的解释器产生完全相同的轨迹。</p></div><p class="source">印刷 p.168 / <a href="../assets/source.pdf#page=191">PDF 191</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>比较语义阶段边界上的快照：EV 的表达式和环境、AP 的值和帧、INVOKE 的过程及参数；不把宿主调用栈、内存地址或 driver 本身计入轨迹。相同状态应经同一条转移规则到达下一状态，因此可按步归纳得到整条轨迹相同。</p><p>程序实际逐条比较数据驱动与 thunk 蹦床驱动的完整记录，覆盖嵌套减法、两种阶乘、let2/let3 与列表，未只比较最后答案。环境身份相同的比较在同一源 AST 上完成；跨独立实现比较时使用规范化绑定/闭包投影。</p></div></details><details class="exercise" id="ex-5-29"><summary>习题 5.29 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.29"><p>把本节的转换应用到 p.139 所述的 fact-iter。</p></div><p class="source">印刷 p.168 / <a href="../assets/source.pdf#page=191">PDF 191</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><pre><code class="language-text">n := input
+a := 1
+loop:
+  if n = 0: return a
+  a := n * a
+  n := n - 1
+  goto loop</code></pre><p>n 和 a 替代形参，loop 替代尾递归入口。先计算 <code>n*a</code> 再改 n，确保用到旧 n；若颠倒，n=4 会从 3 开始乘，最后乘到 0。状态依次为 <code>(4,1),(3,4),(2,12),(1,24),(0,24)</code>，结果 24。这里寄存器数有界，但 a 的整数位数随输入增长。</p></div></details><details class="exercise" id="ex-5-30"><summary>习题 5.30 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.30"><p>像<a href="chapter03_expressions.html#ex-3-28">习题 3.28</a>那样，把本节解释器的过程改成动态绑定。提示：把第三章该题的解释器做同样的转换，只有原先不同的部分需要改变。像<a href="#ex-5-28">习题 5.28</a>那样追踪，观察状态中只有一个被推入、弹出的环境，并与续文平行变化。由此说明动态绑定具有动态生存期：形参绑定恰好持续到过程返回；词法绑定若被闭包保存则可无限期存在。</p></div><p class="source">印刷 p.168 / <a href="../assets/source.pdf#page=191">PDF 191</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>创建过程时只需保存形参和正文；调用时在调用者当前环境上扩展形参，代替闭包定义环境。会在调用后继续计算的帧保存调用前环境；返回到该帧时恢复它，形参绑定随之退出。</p><p>实际例子外层 x=10、f(y)=x−y，调用处再令 x=3：词法版 <code>(f 1)</code> 得 9，<code>#:scope 'dynamic</code> 得 2。若 f 尾调用 g，动态解释器仍必须让 g 看得见 f 的动态绑定；“尾调用不增长控制续文”不等于可以任意删除仍可被动态查名访问的绑定。词法闭包可以把定义环境带出调用，而动态作用域单靠调用链不提供这种永久词法捕获。</p></div></details><details class="exercise" id="ex-5-31"><summary>习题 5.31 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.31"><p>用更多全局寄存器消除代码里剩下的 let 表达式。</p></div><p class="source">印刷 p.169 / <a href="../assets/source.pdf#page=192">PDF 192</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>差值分支的局部 num1/num2 改成临时寄存器，rand 分支的局部 rator-proc 改成 proc1。先从仍存活的帧读取所需字段，再弹出 cont，最后跳到下一块。</p><pre><code class="language-text">num1 := number(saved-left)
+num2 := number(val)
+cont := saved-cont
+val := num1 - num2
+goto apply-cont
+
+proc1 := procedure(saved-rator)
+cont := saved-cont
+goto apply-procedure</code></pre><p>数值提取不再含解释器递归调用，所以也可直接内联其结果。局部记录解构只是取字段，若目标语言不支持局部名，字段读取使用寄存器中的帧指针即可。</p></div></details><details class="exercise" id="ex-5-32"><summary>习题 5.32 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.32"><p>改进上一题，尽量减少全局寄存器。可以少于 5 个，而且不得引入解释器原先没有的数据结构。</p></div><p class="source">印刷 p.169 / <a href="../assets/source.pdf#page=192">PDF 192</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>四个寄存器 <code>exp, env, cont, val</code> 足够：删去 proc1，把待调用的过程值保留在原有 rand 帧里。rand 分支直接从该帧读过程正文与定义环境，用 val 中的实参扩展环境，然后才弹帧并进入 EV。</p><pre><code class="language-text">;; cont points to rand(saved-procedure, outer-cont)
+exp := body(procedure(rator-field(cont)))
+env := extend(param(procedure(rator-field(cont))), val,
+              saved-env(procedure(rator-field(cont))))
+cont := rest(cont)
+goto eval
+
+;; difference: use the left value in the current frame
+val := number(left-value(cont)) - number(val)
+cont := rest(cont)
+goto apply-cont</code></pre><p>这些赋值在弹帧前已经取完其字段，未另造栈、元组或过程寄存器。exp 在 AP 阶段的旧内容已死，进入下一 EV 前正好装入过程正文。</p></div></details><details class="exercise" id="ex-5-33"><summary>习题 5.33 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.33"><p>把本节解释器译成命令式语言两次：第一次保留宿主的零参数过程调用，第二次把每个零参数调用换成 goto。随着计算变长，两种方案表现如何？</p></div><p class="source">印刷 p.169 / <a href="../assets/source.pdf#page=192">PDF 192</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>C 文件提供模式 0 的零参 <code>value_of/apply_cont/apply_procedure</code> 与模式 1 的真实 C goto。它们使用同一转移规则；编译用 <code>-O0 -fno-optimize-sibling-calls</code>，避免编译器自行把尾调消成跳转。</p><p>实际 n=100、1000 时，两版分别都经过 1,514、15,014 步并返回 0，活动续文帧最多 2。零参版每一步还留一层宿主返回链，栈空间随总步数增长；goto 版没有这条链，并成功运行 n=20,000。所记录 CPU 时间只是本机单次观测，不能作为可迁移的速度排名；未把没有实测的溢出阈值写成固定数字。</p></div></details><details class="exercise" id="ex-5-34"><summary>习题 5.34 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.34"><p>如 p.157 所述，多数命令式语言会为每次过程调用（包括尾调用）用栈，直接翻译会困难；大型解释器的 goto 连通代码块也可能大到某些编译器难以处理。把本节解释器译成命令式语言，并像<a href="#ex-5-26">习题 5.26</a>那样用蹦床绕开这个困难。</p></div><p class="source">印刷 p.171 / <a href="../assets/source.pdf#page=194">PDF 194</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>把每个标签独立成有界执行时间的块函数；它只修改寄存器并返回下一个标签枚举，不直接调用下一个块。主 while 根据 PC 调用一个块，再更新 PC。C 模式 2 即为此实现。它既不形成长宿主返回链，也不要求把所有代码放在同一函数的 goto 区域。</p><p>n=20,000 实测同样 300,014 步、结果 0、最大活动帧 2。完整代码有 arena 容量限制与类型/未绑定错误；这些实现边界与源语言尾递归的语义性质分别说明。</p></div></details></section><section id="s5-4"><h2>5.4 异常：选择另一条完成路径</h2><p class="source">原书 §5.4，pp.171–178 / <a href="../assets/source.pdf#page=194">PDF 194–201</a>。</p><p>普通续文规定一条正常完成路径。异常改变的是：某个值取得后，不再完成当前所有待续工作，而是寻找最近仍有效的处理器。try 安装一个处理器；正常返回时拆掉它；raise 先求出异常值，再沿异常路径转移。</p><div class="rn-example" id="exception-example"><h3>伴读例：同一个 raise，三种完成方式</h3><p class="example-kind">原异常规则与恢复扩展的对照</p><pre><code class="language-scheme">try -(10,raise 99) catch(e) 3
+try -(10,raise 99) catch(e,k) (k 3)</code></pre><p>普通异常语义下，第一式跳过减法，整个 try 的值是 3。恢复型语义让 handler 返回的 3 成为 raise 的值，接着算 10−3，得到 7。第二式把选择权明确交给 handler：它调用 k(3) 时恢复，直接返回 3 时则退出 try。三种路径已分别运行。</p></div><p>数据续文实现把 try 做成特殊帧；raise 从当前栈向外找第一个 try，丢弃它之前的算术、实参和普通等待帧。处理器正文必须用安装 try 时的词法环境，并在异常变量上扩展；它正常返回使用 try 外层的 k，重抛则交给更外层处理器。</p><!-- EOPL:snippet chapter05.rkt exception-unwind -->
+<details class="code-details" open><summary>查看实现 · exception-unwind</summary><pre><code class="language-scheme"> (define (handle k v)
+  (define resume k)
+  (let search ([frames (if (eq? handler-lookup &#x27;cached) (nearest k) k)])
+   (set! handler-hops (add1 handler-hops))
+   (cond [(null? frames) (error &#x27;raise &quot;uncaught exception: ~s&quot; v)]
+    [else
+     (match (car frames)
+      [`(try ,xs ,handler ,saved-env)
+       (define outer (cdr frames))
+       (define vals (if (= (length xs) 2) (list v (captured resume)) (list v)))
+       (E handler (extend xs vals saved-env)
+         (if (eq? exception-mode &#x27;resume) resume outer))]
+      [_ (search (cdr frames))])])) )
+</code></pre></details>
+<!-- EOPL:end-snippet --><p>原书 index 例中查不到元素时 raise 99，许多“递归返回后加一”的差值帧被一并跳过，handler 返回 −1。若没有异常，所有待加一都会执行。这使续文不仅是实现细节：它准确说明哪些工作在异常后不再发生。</p><p>逐栈搜索可通过每帧缓存最近 try 或显式传正常/异常两个续文避免。两个续文的版本使控制更直接：<code>eval(e,env,k,h)</code>，成功调用 k，异常调用 h；try 只暂时替换 h。过程体接调用时的 h，而闭包保存词法 env，动态处理器与词法数据上下文仍是两套机制。</p><p>letcc 再把当前正常续文变成可传递的值；throw 求完值式和目标式后，把值送到捕获点，抛弃即时 k。<code>letcc out in -(1,throw 7 to out)</code> 运行得 7。它恢复控制路径，不回滚已经完成的打印和赋值；保存的帧须保持不可变才能安全重复使用。</p><details class="reading-notes" id="notes-s5-4" data-notes-for="s5-4" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">处理器作用域</span><h3>在处理器中重抛要向外走</h3><p>找到 try 后，handler 在该 try 外面的异常通道执行。若把原 try 又作为最近处理器传进去，handler 的 raise 会被自己接住，造成错误重复甚至循环。恢复型异常还要同时保存恢复点的正常续文和 handler 的外层异常通道。</p></div><div class="annotation-card"><span class="annotation-kind">非局部跳转</span><h3>值先求完，才改变去向</h3><p>raise 的参数可以自己计算、输出甚至抛异常；throw 的两个操作数也都在即时上下文求值。只有当这些值取得，才选择新的续文。提前跳转或重复恢复 raise 参数，会更改源程序效果，不能视作同一种实现。</p></div></div></details><h3 id="exercises-5-4">本节习题与解答</h3><details class="exercise-index-panel"><summary>本节习题题号索引 · 10 题</summary><nav class="exercise-index" role="navigation" aria-label="本节习题索引"><a href="#ex-5-35" aria-label="习题 5.35">5.35</a> · <a href="#ex-5-36" aria-label="习题 5.36">5.36</a> · <a href="#ex-5-37" aria-label="习题 5.37">5.37</a> · <a href="#ex-5-38" aria-label="习题 5.38">5.38</a> · <a href="#ex-5-39" aria-label="习题 5.39">5.39</a> · <a href="#ex-5-40" aria-label="习题 5.40">5.40</a> · <a href="#ex-5-41" aria-label="习题 5.41">5.41</a> · <a href="#ex-5-42" aria-label="习题 5.42">5.42</a> · <a href="#ex-5-43" aria-label="习题 5.43">5.43</a> · <a href="#ex-5-44" aria-label="习题 5.44">5.44</a></nav></details><details class="exercise" id="ex-5-35"><summary>习题 5.35 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.35"><p>本节实现效率不高，因为异常抛出时，apply-handler 必须沿续文线性搜索处理器。让每个续文都能直接访问 try-cont，以避免这个搜索。</p></div><p class="source">印刷 p.177 / <a href="../assets/source.pdf#page=200">PDF 200</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>给每个新帧附上最近处理器指针：普通帧继承父续文的指针，try 帧的指针指向自己。raise 直接取它；处理器的正常返回使用 try 帧外的 k，处理器再次 raise 也使用外层处理器。</p><p>可运行版用以持久帧栈为键的缓存实现同一个映射：每个新栈只查看一帧，其余部分已有缓存；<code>#:handler-lookup 'cached</code> 的 raise 直接取得对应 try 后缀。构造每帧增加常数工作，抛出时不再扫描所有普通帧。异常路径的恢复环境仍须使用 try 安装处的环境。</p></div></details><details class="exercise" id="ex-5-36"><summary>习题 5.36 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.36"><p>另一种避免 apply-handler 线性搜索的设计，是使用正常续文和异常续文两个续文。把本节解释器改成接收两个续文。</p></div><p class="source">印刷 p.177 / <a href="../assets/source.pdf#page=200">PDF 200</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><pre><code class="language-text">eval(e,env,k,h)
+try body catch(x) handler:
+  eval(body,env,k, lambda(v)
+       eval(handler,extend(x,v,env),k,h))
+raise arg:
+  eval(arg,env,lambda(v) h(v),h)</code></pre><p>普通算术/调用只把 h 原样传下去；try 新建的异常闭包捕获外层 h，所以处理器重抛不会回到自己。过程定义不捕获调用处尚未确定的异常处理器，调用时把当前 k/h 交给过程体。<code>chapter05_cps.rkt</code> 实现这套双续文，嵌套重抛、正常返回、参数错误和除零均与数据版对照运行。</p></div></details><details class="exercise" id="ex-5-37"><summary>习题 5.37 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.37"><p>修改定义语言，让过程在参数个数不正确时抛出异常。</p></div><p class="source">印刷 p.177 / <a href="../assets/source.pdf#page=200">PDF 200</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>运算符和实参都求完后，比较形参和实参数量；不相等就进入语言自己的异常路径，而非调用宿主的列表 zip 导致截断。伴读约定异常值 1001，<code>try (proc(x,y) x 1) catch(e) e</code> 实际返回 1001；不设处理器则报告未捕获异常。零参数情况也按相同规则检查。异常发生在进入过程体前，所以体内效果不会执行。</p></div></details><details class="exercise" id="ex-5-38"><summary>习题 5.38 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.38"><p>给定义语言增加除法表达式，除数为零时抛出异常。</p></div><p class="source">印刷 p.177 / <a href="../assets/source.pdf#page=200">PDF 200</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>仍按两个操作数从左到右求值；等分母取得之后再检查是否为零。伴读的 <code>/(a,b)</code> 对整数用 quotient，零除数沿当前异常续文抛出 1002，非数字是类型错误。</p><p><code>try /(8,0) catch(e) e</code> 实际返回 1002；不能提前用语法上的字面常量判断分母，因为它可能是任意表达式。这个特性与所有非零整数除法的类型规则独立。</p></div></details><details class="exercise" id="ex-5-39"><summary>习题 5.39 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.39"><p>目前异常处理器可以重抛，或者返回一个作为 try 表达式值的结果。也可以设计成从抛出异常的地点继续计算：修改解释器，让处理器正文在 raise 调用点的续文中运行。</p></div><p class="source">印刷 p.178 / <a href="../assets/source.pdf#page=201">PDF 201</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>求完 raise 的参数后，记住 raise 本来所在的续文 resume-k；找到处理器，给异常变量绑定值，但让其返回值交给 resume-k，而非 try 外面的 k。</p><pre><code class="language-text">try -(10,raise 99) catch(e) 3
+abort semantics: 3
+resume semantics: -(10,3) = 7</code></pre><p>这两种结果已实际执行。数据版 <code>#:exception-mode 'resume</code> 选择恢复语义。恢复点是异常参数求值结束后、raise 表达式本来应产生值的位置；不能回到 raise 开头再次求参数，否则副作用会重做。处理器自己再抛异常的语言还应独立保存外层异常通道，避免把同一个处理器再次安装为自己的最近处理器。</p></div></details><details class="exercise" id="ex-5-40"><summary>习题 5.40 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.40"><p>让处理器既可以返回，也可以恢复。把 raise 处的续文作为第二个参数传给处理器；这可能要求把续文加入表达值。设计一种把续文应用于值的语法。</p></div><p class="source">印刷 p.178 / <a href="../assets/source.pdf#page=201">PDF 201</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>采用 <code>try body catch(e,k) handler</code>：普通结束的 handler 使用 try 外面的续文，k 是新增的捕获值，调用 <code>(k v)</code> 则丢弃当前处理器的控制上下文，把 v 送回 raise 点。</p><pre><code class="language-scheme">try -(10,raise 99) catch(e,k) 3       % returns 3
+try -(10,raise 99) catch(e,k) (k 3)   % resumes, returns 7</code></pre><p>两例实际分别为 3、7。捕获值持有不可变的帧列表，而非对当前可变 cont 寄存器的引用；后者会随执行变化，不能代表原来的恢复点。保存的存储不会自动回滚，恢复的是控制。</p></div></details><details class="exercise" id="ex-5-41"><summary>习题 5.41 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.41"><p>已经用数据结构续文实现异常。因为有 apply-handler 和 apply-cont 两个观察器，不能直接套用 §2.2.3 的单观察器过程表示。把续文表示成两个过程：一个单参数过程表示 apply-cont 的动作，另一个零参数过程表示 apply-handler 的动作。</p></div><p class="source">印刷 p.178 / <a href="../assets/source.pdf#page=201">PDF 201</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>用 <code>Pair(normal,exceptional)</code>。normal 接值；零参 exceptional 需要取得本次已抛值，因此可让 <code>apply-handler(v,k)</code> 先写入专用 raised-value 单元，再尾调用 exceptional。</p><pre><code class="language-text">make-ordinary-frame(normal-action, parent):
+  Pair(normal-action, parent.exceptional)
+make-try(x,handler,env,parent):
+  Pair(lambda(v) parent.normal(v),
+       lambda() eval(handler, extend(x,raised-value,env), parent))
+apply-handler(v,k): raised-value := v; k.exceptional()</code></pre><p>这给出了题目要求的零参接口；若允许异常观察器也接一个值，可直接用双续文，避免共享暂存单元。本章程序的 pair 表示采用后一种显式参数接口；两种接口的等价转换如上。嵌套抛出必须先把旧异常绑定到 handler 环境，再允许覆盖 raised-value；不可把整个处理器执行过程都延迟读取这个单元。</p></div></details><details class="exercise" id="ex-5-42"><summary>习题 5.42 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.42"><p>上一题只在抛异常时捕获续文。添加 <code>letcc Identifier in Expression</code>，使任何位置都可捕获；规格如下。</p><pre><code class="language-text">eval(letcc var in body, rho, cont)
+= eval(body, extend(var,cont,rho), cont)</code></pre><p>再加入 <code>throw Expression to Expression</code>：求两个子式，第二式必须得到续文；把第一式的值交给它，忽略当前 throw 的续文。</p></div><p class="source">印刷 p.178 / <a href="../assets/source.pdf#page=201">PDF 201</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>letcc 在当前环境扩展一个捕获值，正文继续用原 k。throw 先左后右求值，确保两边效果照常发生；待都取得值，直接跳到捕获帧栈，不把结果送回 throw 的即时调用处。</p><pre><code class="language-scheme">letcc out in -(1,throw 7 to out)</code></pre><p>实际结果为 7，待做的减 1 被丢弃。类型上把捕获值与普通整数、过程区分；对非续文的目标报错。捕获的栈节点不可原地改写，才允许同一捕获值多次使用。</p></div></details><details class="exercise" id="ex-5-43"><summary>习题 5.43 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.43"><p>修改上一题的 letcc，使捕获的续文成为一种新过程：原先写 <code>throw exp1 to exp2</code> 的地方可以改写成 <code>(exp2 exp1)</code>。</p></div><p class="source">印刷 p.178 / <a href="../assets/source.pdf#page=201">PDF 201</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>把捕获值加进过程应用的分派：普通 closure 绑定形参并进入正文；captured 只允许一个实参，直接执行其保存的 k，忽略调用点 k。无需把捕获续文伪装成带正文的普通闭包。</p><pre><code class="language-scheme">letcc out in -(1,(out 7))</code></pre><p>机器已有这个调用分支，结果仍为 7。<code>(out)</code> 或两个实参应报 arity 错误；正常过程还须保留词法环境和普通调用规则，不能把所有一元过程都当作逃逸过程。</p></div></details><details class="exercise" id="ex-5-44"><summary>习题 5.44 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.44"><p>可以用单个过程替代前两题的 letcc 和 throw。Scheme 的 call-with-current-continuation 接受一元过程 p，并把一个一元过程传给它；该过程被调用时把实参交给当前续文 cont。它可由下面的定义表达。</p><pre><code class="language-scheme">let call-with-current-continuation
+      = proc (p)
+          letcc cont
+          in (p proc (v) throw v to cont)
+in ...</code></pre><p>给语言加入 call-with-current-continuation；再写一个翻译器，把带 letcc/throw 的语言译成不带这两个形式、但带 call-with-current-continuation 的语言。</p></div><p class="source">印刷 p.178 / <a href="../assets/source.pdf#page=201">PDF 201</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>原语实现为：求 p 的值，建立 <code>escape(v)</code>（调用时只跳到当前 k），再以同一个 k 调 p(escape)。翻译器逐语法递归，关键规则只有两条。</p><pre><code class="language-text">T(letcc x in e) = (call-with-current-continuation proc(x) T(e))
+T(throw a to b) = let value = T(a)
+                 in let target = T(b)
+                    in (target value)</code></pre><p>value、target 必须新鲜，第二条用两个 let 保留“先值式、后目标式”的次序。其余节点重建，过程正文递归翻译。目标的 escape 已是一元过程，所以无需 throw 原语；不能简单写 <code>(T(b) T(a))</code>，那会先求 b。</p></div></details></section><section id="s5-5"><h2>5.5 线程：把多个未完成计算交给调度器</h2><p class="source">原书 §5.5，pp.179–191 / <a href="../assets/source.pdf#page=202">PDF 202–214</a>。</p><p>线程把“一个待完成计算”变成调度器管理的多个对象。本节 THREADS 基于隐式引用；每个线程保有自己的控制状态，所有线程访问同一个 store。任意时刻只有一个 running，ready 队列存可运行线程，mutex 等待队列存 blocked 线程。这里模拟交错执行，不是用多个物理 CPU 同时运行解释器。</p><p>spawn 先求过程值，再为子线程建立恢复记录并放在 ready 队尾。原书父线程取得任取的 73，子过程接任取的 28；线程 ID 习题改为父子都取得新子 ID。主线程结束时保存 final-answer，子线程结束时只丢弃其返回值；两者都继续运行 ready 队列里的线程。</p><p>抢占点放在 apply-cont 入口：时间片未尽，先减剩余步再分派；已经为零，就保存“仍待执行这个 apply”的快照，放回队尾并换线程。时间片计的是续文应用次数，不是源语句条数或真实毫秒。yield 主动交出 CPU 时，恢复点应是把 99 交给原 k。</p><figure id="scheduler-figure"><div class="diagram-scroll"><svg class="rn-diagram control-diagram" viewBox="0 0 700 300" role="img" aria-labelledby="scheduler-title scheduler-desc"><title id="scheduler-title">线程在运行、就绪和阻塞之间转移</title><desc id="scheduler-desc">调度器从就绪队列选择一个运行线程。耗尽时间片或 yield 使它回到就绪队列。等待关闭的锁使它进入阻塞队列，signal 把等待者送回就绪队列。线程结束离开这三种状态。</desc><defs><marker id="scheduler-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path class="rn-arrow" d="M0,0 L8,4 L0,8"/></marker></defs><rect class="rn-node" x="20" y="95" width="180" height="65" rx="8"/><text x="110" y="133">ready 队列</text><rect class="rn-node rn-node-accent" x="270" y="95" width="160" height="65" rx="8"/><text x="350" y="133">running</text><rect class="rn-node" x="500" y="95" width="180" height="65" rx="8"/><text x="590" y="133">blocked 队列</text><path class="rn-edge" d="M200 112 L270 112" marker-end="url(#scheduler-arrow)"/><text x="235" y="89">调度</text><path class="rn-edge" d="M430 135 L500 135" marker-end="url(#scheduler-arrow)"/><text x="465" y="172">wait</text><path class="rn-edge" d="M350 95 L350 40 L110 40 L110 95" marker-end="url(#scheduler-arrow)"/><text x="230" y="29">时间片耗尽 / yield</text><path class="rn-edge" d="M590 160 L590 240 L110 240 L110 160" marker-end="url(#scheduler-arrow)"/><text x="350" y="267">signal：唤醒后入 ready，不立刻抢走 running</text></svg></div><figcaption>伴读状态图：箭头标的是改变状态的事件；琥珀节点表示唯一正在运行的线程。</figcaption></figure><p>共享计数器的 <code>set x = -(x,-1)</code> 不是单个原子更新：读 x 与最后写回之间可能抢占。两个线程都读到 0，各自计算 1 并写回，便丢了一次增加。mutex 把这段读—改—写包在临界区里；但主线程若不等待子线程，最后返回的也可能是过早的 x。互斥和等待完成各自解决一个问题。</p><p>原书 mutex 允许任意线程 signal：开放时 wait 关闭它并继续；关闭时 wait 排队；signal 有等待者时把最前者送入 ready，mutex 仍保持关闭，等于直接把许可交给那位等待者。若这时错误地开放，新来的线程就可能抢在已唤醒者之前进入。</p><p>本伴读把死锁状态保留在结果中：主线程已经返回 77，而两个子线程互相等待时，最终 ready 为空仍不代表线程池正常完成。消息模型进一步把共享写入改成单一 owner 接收消息；它可以免去部分锁，但消息队列、协议终止和阻塞接收仍须定义。</p><details class="reading-notes" id="notes-s5-5" data-notes-for="s5-5" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">调度原子性</span><h3>检查、入队与唤醒是一件事</h3><p>wait 检查锁状态并把当前恢复点挂到等待队列，必须在一个解释器原子动作中完成；receive 检查 mailbox 和登记阻塞同理。若把它们拆开并在中间允许切换，signal/send 可能落在缝隙里，留下永远等不到通知的线程。</p></div><div class="annotation-card"><span class="annotation-kind">返回与终止</span><h3>主线程答案不能证明线程池完成</h3><p>原书 run-next-thread 在 ready 为空时返回 final-answer；它不自动扫描所有 mutex 队列。伴读结果同时给 blocked 数量，主线程没有答案而仅剩阻塞者时报错。读者检查并发程序时要分别判断互斥、结果已可读、所有参与者完成以及是否有等待环。</p></div></div></details><h3 id="exercises-5-5">本节习题与解答</h3><details class="exercise-index-panel"><summary>本节习题题号索引 · 14 题</summary><nav class="exercise-index" role="navigation" aria-label="本节习题索引"><a href="#ex-5-45" aria-label="习题 5.45">5.45</a> · <a href="#ex-5-46" aria-label="习题 5.46">5.46</a> · <a href="#ex-5-47" aria-label="习题 5.47">5.47</a> · <a href="#ex-5-48" aria-label="习题 5.48">5.48</a> · <a href="#ex-5-49" aria-label="习题 5.49">5.49</a> · <a href="#ex-5-50" aria-label="习题 5.50">5.50</a> · <a href="#ex-5-51" aria-label="习题 5.51">5.51</a> · <a href="#ex-5-52" aria-label="习题 5.52">5.52</a> · <a href="#ex-5-53" aria-label="习题 5.53">5.53</a> · <a href="#ex-5-54" aria-label="习题 5.54">5.54</a> · <a href="#ex-5-55" aria-label="习题 5.55">5.55</a> · <a href="#ex-5-56" aria-label="习题 5.56">5.56</a> · <a href="#ex-5-57" aria-label="习题 5.57">5.57</a> · <a href="#ex-5-58" aria-label="习题 5.58">5.58</a></nav></details><details class="exercise" id="ex-5-45"><summary>习题 5.45 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.45"><p>给本节线程语言添加 yield。线程执行 yield 时进入就绪队列，并运行队首线程；当它恢复时，yield 应像返回了数值 99 一样继续。</p></div><p class="source">印刷 p.189 / <a href="../assets/source.pdf#page=212">PDF 212</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>保存快照 <code>Apply(k,99)</code>，把当前线程追加到队尾，再选择队首。即使没有其他线程，也可把自己放入再取出，返回 99。</p><pre><code class="language-text">current.state := Apply(k,99)
+enqueue(current)
+goto run-next-thread</code></pre><p><code>yield()</code> 已加入解析和机器；恢复点不能是 yield 表达式本身，否则会不断再次让出，永远无法进入后续程序。就绪队列也不能同时保留两个同 ID 的快照。</p></div></details><details class="exercise" id="ex-5-46"><summary>习题 5.46 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.46"><p>在上一题中，时间片耗尽与主动 yield 都会把线程放回就绪队列。主动 yield 的线程恢复时却获得完整时间片。修改队列，让它保存线程剩余的时间片（如果还有），恢复时只给它剩余时间。</p></div><p class="source">印刷 p.189 / <a href="../assets/source.pdf#page=212">PDF 212</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>队列项改成 <code>(snapshot,remaining)</code>。主动 yield 保留当前剩余值；真正耗尽时间片时，入队前把 next remaining 重置为 quantum；取队时使用项内值。</p><p><code>#:preserve-ticks? #t</code> 实现这一差别。若 yield 时已经为 0，不能反复恢复一个永远无步可走的线程：本实现让下一次 apply 检出 0，把它作为“已耗尽”重排并补足新片。q=1 下也实际正常结束。公平性依赖轮转队列和每个动作最终让出，不能从保存余额本身推出。</p></div></details><details class="exercise" id="ex-5-47"><summary>习题 5.47 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.47"><p>如果最后剩下两个子线程，各自等待另一个子线程持有的 mutex，会怎样？</p></div><p class="source">印刷 p.189 / <a href="../assets/source.pdf#page=212">PDF 212</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>它们形成等待环，两个都 blocked，没有 ready 线程。原书调度器只检查 ready 是否空，因此会返回主线程保存的 final-answer，即使子线程仍死锁；若主线程也未完成，它甚至可能返回未初始化值。这不是所有线程完成的证明。</p><p>运行例中两个子线程各获取 a/b，yield 后等待对方，主线程返回 77；机器保留结果 77，同时报告 blocked=2。若死锁阻止主线程产生答案，伴读实现明确报 <code>deadlock before main result</code>。更严格的运行器可把任何非空阻塞集合都判作失败，这是单独的终止策略。</p></div></details><details class="exercise" id="ex-5-48"><summary>习题 5.48 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.48"><p>本节用过程表示线程。改用数据结构表示。</p></div><p class="source">印刷 p.189 / <a href="../assets/source.pdf#page=212">PDF 212</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>线程记录保存 <code>id,parent,state,ticks,status,mailbox</code>，其中 state 是 EV/AP/INVOKE 之一。新子线程的 state 为“以 end-sub 调用过程”；被抢占线程的 state 为“以原 k 再次应用当前 v”；等待 mutex 的线程保存“取得锁后返回 52”的 AP 状态。</p><p>调度只选择记录并装入寄存器，不执行一个不可检查的宿主闭包。<code>thread</code> 结构是完整实现，状态标签还使 ready/block/done 可独立检查；复制快照不应复制共享存储。</p></div></details><details class="exercise" id="ex-5-49"><summary>习题 5.49 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.49"><p>对 THREADS 完成<a href="#ex-5-15">习题 5.15</a>：把续文表示为帧栈。</p></div><p class="source">印刷 p.189 / <a href="../assets/source.pdf#page=212">PDF 212</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>普通运算仍为同一持久帧栈，补上 spawn、wait、signal、print、set 等一元帧；结束用线程记录的 ID 区分：主线程空栈时保存 final-answer，子线程空栈时只结束并选择下一线程。</p><p>每个线程有自己的帧栈。切换时保存/恢复整个栈指针，而非把两个线程的帧混入同一可变列表。mutex 等待队列保存线程记录，等待者已经持有自己恢复所需的 k；调度器不替它们接入发 signal 者的 k。</p></div></details><details class="exercise" id="ex-5-50"><summary>习题 5.50 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.50"><p>把本节解释器寄存器化。哪些互相尾递归的过程必须一起寄存器化？</p></div><p class="source">印刷 p.189 / <a href="../assets/source.pdf#page=212">PDF 212</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>核心集合包括 value-of/k、apply-cont、apply-procedure/k、run-next-thread、wait-for-mutex 和 signal-mutex；若实现分出 thread-resume 或 apply-handler，且它们与核心互相尾调，也要一起纳入。enqueue、newref 等有限返回的辅助过程无需因此寄存器化。</p><p>共享寄存器放 exp/env/k/val/proc，调度器寄存器放 current/ready/remaining/final；线程记录是这些执行寄存器的暂停快照。一次 wait 操作要先把当前恢复状态安放进锁队列，再跳到调度器。数据版的状态循环就是这一寄存器化后的分派，切换不依赖宿主返回栈。</p></div></details><details class="exercise" id="ex-5-51"><summary>习题 5.51 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.51"><p>希望图 5.17 的消费者不必忙等，而是在生产者把值放入缓冲区后被唤醒。用 mutex 写出这样的程序，或者实现允许这种行为的同步算子。</p></div><p class="source">印刷 p.189 / <a href="../assets/source.pdf#page=212">PDF 212</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>对一次生产、一次消费，用一个事先关闭的 ready mutex 作为一次通知即可；生产者写完 buffer 才 signal，消费者 wait 后才读。</p><pre><code class="language-scheme">let buffer = 0 in let ready = mutex()
+in begin
+     wait(ready);
+     spawn(proc(d) begin set buffer = 44; signal(ready) end);
+     wait(ready);
+     buffer
+   end</code></pre><p>ready 最初被主线程关闭，因而生产者先运行或消费者先 wait 都不会丢通知：先 signal 会把它打开，后 signal 会把锁直接移交等待者。这个一次性程序实际返回 44，无忙等循环。多次生产消费需要两个计数信号量或条件变量和谓词循环，不能让单个 binary mutex 记住任意多个尚未消费的通知。</p></div></details><details class="exercise" id="ex-5-52"><summary>习题 5.52 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.52"><p>用 mutex 写一个类似图 5.21 的程序，不过主线程须等三个子线程全部结束后再返回 x。</p></div><p class="source">印刷 p.189 / <a href="../assets/source.pdf#page=212">PDF 212</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>给三个子线程各设一个 initially-closed 的 done mutex。子线程在共享 mut 保护下加一，退出临界区后 signal 自己的 done；主线程 wait 完三个 done，再读 x。</p><details class="code-details" open><summary>查看推演代码</summary><pre><code class="language-scheme">let x = 0 in let mut = mutex()
+in let a = mutex() b = mutex() c = mutex()
+in let worker = proc(done)
+     begin wait(mut); set x = -(x,-1); signal(mut); signal(done) end
+in begin
+     wait(a); wait(b); wait(c);
+     spawn(proc(d)(worker a));
+     spawn(proc(d)(worker b));
+     spawn(proc(d)(worker c));
+     wait(a); wait(b); wait(c);
+     x
+   end</code></pre></details><p>这里用的是原书允许跨线程 signal 的 binary semaphore 语义；不是要求只有加锁者可解锁的操作系统 owner mutex。q=1…30 已逐次执行，全部返回 3、blocked=0；主线程最后读取的位置确实在三次更新之后。</p></div></details><details class="exercise" id="ex-5-53"><summary>习题 5.53 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.53"><p>加入线程标识符：每个新线程有新鲜 ID，spawn 时把子 ID（代替 28）传给子过程，也把该 ID 作为 spawn 的值交给父线程。追踪 ID 创建，检查就绪队列里每个 ID 至多出现一次。子线程如何知道父 ID？原始程序的 ID 应怎样处理？</p></div><p class="source">印刷 p.191 / <a href="../assets/source.pdf#page=214">PDF 214</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>全局单调 next-id，主线程固定 0、父 ID 约定 −1；spawn 原子地分配 ID，子记录存 parent=current.id，然后把子 ID 同时用于过程实参和父线程返回值。增加 <code>self()</code>、<code>parent()</code> 供查询，或在过程参数里传父子二元组；本实现选择前者。</p><p><code>#:thread-ids? #t</code> 开启题目语义。enqueue 会拒绝已在 ready 状态的记录；trace 创建项记录 <code>(create id parent p)</code>。ID 不复用，避免给旧 ID 的消息误投给后来线程；若要复用，须加代际编号。</p></div></details><details class="exercise" id="ex-5-54"><summary>习题 5.54 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.54"><p>给上一题的解释器添加 kill。给定线程号，在就绪队列或任何等待队列中找到它并移除。找到返回真；所有队列中都没有这个线程号则返回假。</p></div><p class="source">印刷 p.191 / <a href="../assets/source.pdf#page=214">PDF 214</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>用 ID 表定位记录，再检查状态是否为 ready/mutex/receive；找到则从 ready 和所有 mutex 等待队列移除，标记 killed。正在运行、已结束、已被杀或不存在的 ID 都按题目“队列中找到”规则返回假。</p><p>实际在大时间片下，刚 spawn 的子线程仍在 ready，kill 返回真；普通模式的 spawn 值 73 不是该子线程 ID，不能误用，开启线程 ID 模式才可写 <code>let c = spawn(...) in kill(c)</code>。kill 不自动释放这个线程此前取得的 mutex；若语言要避免遗留锁，需另设取消清理协议。</p></div></details><details class="exercise" id="ex-5-55"><summary>习题 5.55 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.55"><p>给<a href="#ex-5-53">习题 5.53</a> 的解释器加入线程间通信：线程可用接收方 ID 发送一个值；线程选择接收时，若没有消息则阻塞。</p></div><p class="source">印刷 p.191 / <a href="../assets/source.pdf#page=214">PDF 214</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>每个线程有 FIFO mailbox。send 先求目标和值；若目标阻塞在 receive，直接把消息装进其保存的 AP 快照并放入 ready，否则追加 mailbox。receive 若非空则取队首，否则把 <code>Apply(k,missing)</code> 存好并置 receive 状态。检查/入队必须是一个调度原子动作，避免“检查为空后、登记等待前”丢消息。</p><pre><code class="language-scheme">let p = self()
+in let c = spawn(proc(id) send(p,-(id,-40)))
+   in receive()</code></pre><p>ID 模式下子 ID=1，程序在已测 q=1、2、9、100 均返回 41。消息不替代控制续文；唤醒时恢复的是接收者原来的 k。给已结束 ID 发消息本实现明确报错。</p></div></details><details class="exercise" id="ex-5-56"><summary>习题 5.56 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.56"><p>修改上一题，使各线程有自己的存储，不再共享一个 store。这种语言几乎总能避免 mutex。把本节的例子改写成这种语言。</p></div><p class="source">印刷 p.191 / <a href="../assets/source.pdf#page=214">PDF 214</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>线程记录增加私有 store 指针，切换时一并换入。spawn 要把子过程可达的初始闭包数据复制到子 store；send 传值而非跨 store 的裸引用。含环结构须用旧位置到新位置的 memo 表复制；本章可执行 actor 模型收窄为 JSON 数据消息，明确拒绝共享引用/过程。</p><p>把共享计数器改成一个 owner 线程：它私有 x=0，三次 receive 后各加消息中的 1，再发出/打印 x；其他线程只发消息，不直接读写 owner 的 x。<code>chapter05_sync.py</code> 实际结果为 3；发送者自己的同名 x 都仍为 100。生产者/消费者同样改成发送 44、消费者接收后读取。单个位置只有 owner 写，便不需要围绕这个位置加锁。</p></div></details><details class="exercise" id="ex-5-57"><summary>习题 5.57 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.57"><p>操作系统教材里还有很多同步机制。任选三种，在本框架中实现。</p></div><p class="source">印刷 p.191 / <a href="../assets/source.pdf#page=214">PDF 214</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>选择计数信号量、Mesa 风格条件变量、可重复使用的屏障；完整可运行状态机在 <code>chapter05_sync.py</code>。三个机制都操作暂停线程的队列，而不是忙等。</p><details class="code-details" open><summary>查看推演代码</summary><pre><code class="language-text">down(S): if S.count&gt;0: S.count--; continue
+         else enqueue(S.wait,current); run-next
+up(S):   if S.wait nonempty: enqueue(ready,dequeue(S.wait))
+         else S.count++
+         continue
+
+wait(C,L): atomically {enqueue(C.wait,current); up(L)}; run-next
+signal(C): if C.wait nonempty: enqueue(ready,dequeue(C.wait))
+           continue
+% a resumed waiter reacquires L, then rechecks its predicate in a while
+
+barrier(B): save current in B.wait
+  if length(B.wait)==B.parties:
+      B.generation++; wake all saved; clear B.wait
+  else run-next</code></pre></details><p>实测许可数为 2 时，五个工作线程的同时进入峰值为 2；条件变量消费者取得 44；三个参与者跨过两代屏障且代号匹配。条件 signal 只令等待者可运行，不把锁立即交给它；因此等待必须放在谓词 while 中。屏障必须按代清空队列，才不会把下一轮到达者并入上一轮。</p></div></details><details class="exercise" id="ex-5-58"><summary>习题 5.58 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.58"><p>和朋友去吃披萨，但要保证每次只有一个人伸手拿一片！（原书标为“绝对一星”。）</p></div><p class="source">印刷 p.191 / <a href="../assets/source.pdf#page=214">PDF 214</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>把“伸手并拿走一片”作为临界区，门口放一个初始开放的 mutex：每人 wait 后取一片，随即 signal，再在临界区外吃。不能拿着锁吃完整片，否则虽然互斥成立，大家会不必要地排队；也不能先伸手再 wait。若披萨可能吃完，剩余片数的检查和减一必须在同一个临界区。这个题是把本节的互斥规则应用到生活情景，不把真实聚餐伪写成程序运行证据。</p></div></details></section><section id="programs"><h2>运行本章程序</h2><p>程序采用 Racket 8.17 与 eopl/rackunit，语法前端与运行器分开维护；下载文件后保留原文件名并放在同一个目录。共享的测试与第五、六章模块需要一起取得；语句版还使用第四章的语句语法模块。下面源码阅读副本与实际执行的维护文件同步。</p><pre><code class="language-sh">&quot;/Applications/Racket v8.17/bin/racket&quot; books/eopl/code/test_chapter05_06.rkt
+&quot;/Applications/Racket v8.17/bin/racket&quot; books/eopl/code/chapter06_examples.rkt
+&quot;/Applications/Racket v8.17/bin/racket&quot; books/eopl/code/test_chapter06_scheme.rkt</code></pre><pre><code class="language-sh">cc -std=c11 -O0 -fno-optimize-sibling-calls -Wall -Wextra -Werror \
+  books/eopl/code/chapter05_machine.c -o /tmp/eopl-machine
+/tmp/eopl-machine 1 20000
+/tmp/eopl-machine 2 20000
+python3 books/eopl/code/chapter05_sync.py</code></pre><div class="program-output"><p>实际结果：嵌套减法 30，最大续文 3；两种阶乘均为 24；恢复型异常 7；加锁并等待完成的计数器为 3；命令续文两版输出 3、2、1。C 的 goto/蹦床尾递减 20,000 次均返回 0。</p></div><p>数值/返回值、输出次序、错误路径、续文大小与各表示之间的比较各自检查。有限运行用于核对实现，归纳和转换不变量在正文与题解中说明。C 固定容量 arena、Python 同步模型的 JSON 消息边界，以及目标解释器的步数上限均在代码中明确。</p><ul><li><a href="../code/chapter05.rkt">下载 chapter05.rkt</a></li><li><a href="../code/chapter05_cps.rkt">下载 chapter05_cps.rkt</a></li><li><a href="../code/chapter05_syntax.rkt">下载 chapter05_syntax.rkt</a></li><li><a href="../code/chapter05_statements.rkt">下载 chapter05_statements.rkt</a></li><li><a href="../code/chapter05_machine.c">下载 chapter05_machine.c</a></li><li><a href="../code/chapter05_sync.py">下载 chapter05_sync.py</a></li><li><a href="../code/test_chapter05_06.rkt">下载 test_chapter05_06.rkt</a></li><li><a href="../code/README.md">完整程序与依赖说明</a></li></ul><details class="code-details" id="chapter05-program"><summary>完整程序 · chapter05.rkt</summary><!-- EOPL:program chapter05.rkt --><pre><code id="chapter05-code" class="language-scheme">#lang racket
+;; CEK snapshots, register driver, exceptions, preemptive THREADS and mailboxes.
+(require racket/match &quot;chapter05_syntax.rkt&quot;)
+(provide (all-defined-out))
+(struct closure (params body env) #:transparent)
+(struct reference (cell) #:transparent)
+(struct captured (frames) #:transparent)
+(struct callcc-primitive () #:transparent)
+(struct mutex-value (closed? waiting) #:mutable #:transparent)
+;; BEGIN snapshots
+(struct state (pc exp env frames value) #:transparent)
+(struct thread (id parent state ticks status mailbox) #:mutable #:transparent)
+(struct result (value output metrics trace threads) #:transparent)
+(define (E e env k) (state &#x27;eval e env k #f))
+(define (A k v) (state &#x27;apply #f #f k v))
+(define (I p vs env k) (state &#x27;invoke p env k vs))
+(define (R k v) (state &#x27;raise #f #f k v))
+;; END snapshots
+(define (run source #:implicit? [implicit? #f] #:quantum [quantum 1000000]
+             #:preserve-ticks? [preserve-ticks? #f] #:thread-ids? [ids? #f]
+             #:exception-mode [exception-mode &#x27;abort] #:scope [scope &#x27;lexical]
+             #:driver [driver &#x27;loop] #:handler-lookup [handler-lookup &#x27;search] #:numeric? [numeric? #f]
+             #:trace? [trace? #f] #:fuel [fuel 2000000])
+ (unless (exact-positive-integer? quantum) (error &#x27;scheduler &quot;positive quantum required&quot;))
+ (define all (make-hash)) (define ready &#x27;()) (define current #f)
+ (define next-id 0) (define final #f) (define final? #f) (define output &#x27;())
+ (define log &#x27;()) (define max-depth 0) (define steps 0) (define switches 0) (define ends 0)
+ (define mutexes &#x27;()) (define locations &#x27;())
+ (define handler-cache (make-hasheq))
+ (define handler-hops 0)
+ (define (nearest k)
+  (hash-ref! handler-cache k (lambda ()
+   (cond [(null? k) &#x27;()] [(eq? (caar k) &#x27;try) k] [else (nearest (cdr k))]))))
+ (define (newref v) (define b (box v)) (set! locations (cons b locations)) (reference b))
+ (define (readref r)
+  (unless (and (reference? r) (memq (reference-cell r) locations)) (error &#x27;deref &quot;reference required&quot;))
+  (unbox (reference-cell r)))
+ (define (writeref r v) (readref r) (set-box! (reference-cell r) v))
+ (define (extend xs vs env)
+  (unique! xs) (arity! xs vs)
+  (append (map (lambda (x v) (cons x (box (if implicit? (newref v) v)))) xs vs) env))
+ (define (binding env x)
+  (or (assq x env) (error &#x27;lookup &quot;unbound variable: ~a&quot; x)))
+ (define (lookup env x)
+  (define v (unbox (cdr (binding env x)))) (if implicit? (readref v) v))
+ (define (enqueue! th [reset? #t])
+  (when (eq? (thread-status th) &#x27;ready) (error &#x27;scheduler &quot;duplicate enqueue&quot;))
+  (when reset? (set-thread-ticks! th quantum))
+  (set-thread-status! th &#x27;ready) (set! ready (append ready (list th))))
+ (define (new-thread! parent s)
+  (define id next-id) (set! next-id (add1 next-id))
+  (define th (thread id parent s quantum &#x27;new &#x27;())) (hash-set! all id th)
+  (when trace? (set! log (cons `(create ,id parent ,parent) log))) th)
+ (define (suspend! s status)
+  (set-thread-state! current s) (set-thread-status! current status) #f)
+ (define (next!)
+  (cond [(null? ready) #f]
+   [else (set! current (car ready)) (set! ready (cdr ready))
+    (set-thread-status! current &#x27;running) (set! switches (add1 switches))
+    (thread-state current)]))
+ (define (collect es env k kind data)
+  (if (null? es) (finish kind data &#x27;() env k)
+   (E (car es) env (cons `(collect ,kind ,data ,(cdr es) () ,env) k))))
+ (define (invoke p vs env k)
+  (cond [(callcc-primitive? p) (arity! &#x27;(p) vs) (invoke (car vs) (list (captured k)) env k)]
+   [(captured? p) (arity! &#x27;(v) vs) (A (captured-frames p) (car vs))]
+   [(closure? p)
+    (if (= (length (closure-params p)) (length vs))
+     (E (closure-body p) (extend (closure-params p) vs
+       (if (eq? scope &#x27;dynamic) env (closure-env p))) k)
+     (R k 1001))]
+   [else (error &#x27;call &quot;procedure required&quot;)]))
+ (define (finish kind data vs env k)
+  (case kind
+   [(prim) (if (and (eq? data &#x27;/) (zero? (cadr vs))) (R k 1002) (A k (primitive data vs)))]
+   [(list) (A k vs)]
+   [(let) (E (cadr data) (extend (car data) vs env) k)]
+   [(call) (I (car vs) (cdr vs) env k)]
+   [(throw) (unless (captured? (cadr vs)) (error &#x27;throw &quot;continuation required&quot;))
+             (A (captured-frames (cadr vs)) (car vs))]
+   [(setref) (writeref (car vs) (cadr vs)) (A k 23)]
+   [(send)
+    (define dest (hash-ref all (car vs) #f))
+    (unless (and dest (not (memq (thread-status dest) &#x27;(done killed)))) (error &#x27;send &quot;live thread required&quot;))
+    (if (eq? (thread-status dest) &#x27;receive)
+     (begin (set-thread-state! dest (A (state-frames (thread-state dest)) (cadr vs))) (enqueue! dest))
+     (set-thread-mailbox! dest (append (thread-mailbox dest) (list (cadr vs)))))
+    (A k 54)]
+   [else (error &#x27;collect &quot;unknown collection ~a&quot; kind)]))
+;; BEGIN exception-unwind
+ (define (handle k v)
+  (define resume k)
+  (let search ([frames (if (eq? handler-lookup &#x27;cached) (nearest k) k)])
+   (set! handler-hops (add1 handler-hops))
+   (cond [(null? frames) (error &#x27;raise &quot;uncaught exception: ~s&quot; v)]
+    [else
+     (match (car frames)
+      [`(try ,xs ,handler ,saved-env)
+       (define outer (cdr frames))
+       (define vals (if (= (length xs) 2) (list v (captured resume)) (list v)))
+       (E handler (extend xs vals saved-env)
+         (if (eq? exception-mode &#x27;resume) resume outer))]
+      [_ (search (cdr frames))])])) )
+;; END exception-unwind
+ (define (step s)
+  (set! steps (add1 steps)) (when (&gt; steps fuel) (error &#x27;run &quot;fuel exhausted&quot;))
+  (define k (state-frames s))
+  (when (eq? handler-lookup &#x27;cached) (nearest k))
+  (set! max-depth (max max-depth (add1 (length k))))
+  (when trace? (set! log (cons (list (thread-id current) (state-pc s)
+    (if (eq? (state-pc s) &#x27;eval) (car (state-exp s)) (state-value s)) k) log)))
+  (match s
+   [(state &#x27;eval e env k _)
+    (match e
+     [`(num ,n) (A k n)] [`(var ,x) (A k (lookup env x))]
+     [`(proc ,xs ,b) (unique! xs) (A k (closure xs b env))]
+     [`(prim ,op . ,es) (collect es env k &#x27;prim op)]
+     [`(list . ,es) (collect es env k &#x27;list #f)]
+     [`(if ,t ,a ,b) (E t env (cons `(if ,a ,b ,env) k))]
+     [`(let ,xs ,es ,b) (unique! xs) (collect es env k &#x27;let (list xs b))]
+     [`(letrec ,ns ,pss ,bs ,b)
+      (define rho (extend ns (map (lambda (_) #f) ns) env))
+      (for ([n ns] [ps pss] [body bs])
+       (define slot (cdr (binding rho n))) (define p (closure ps body rho))
+       (if implicit? (writeref (unbox slot) p) (set-box! slot p)))
+      (E b rho k)]
+     [`(call ,f ,es) (collect (cons f es) env k &#x27;call #f)]
+     [`(begin ,e1 . ,rest)
+      (E e1 env (if (null? rest) k (cons `(begin ,rest ,env) k)))]
+     [`(set ,x ,rhs)
+      (unless implicit? (error &#x27;set &quot;requires implicit references&quot;))
+      (E rhs env (cons `(set ,(unbox (cdr (binding env x)))) k))]
+     [`(try ,body ,xs ,handler)
+      (unless (memv (length xs) &#x27;(1 2)) (error &#x27;try &quot;one or two handler parameters required&quot;))
+      (E body env (cons `(try ,xs ,handler ,env) k))]
+     [`(raise ,arg) (E arg env (cons &#x27;(raise) k))]
+     [`(letcc ,x ,body) (E body (extend (list x) (list (captured k)) env) k)]
+     [`(throw ,arg ,target) (collect (list arg target) env k &#x27;throw #f)]
+     [`(newref ,arg) (E arg env (cons &#x27;(newref) k))]
+     [`(deref ,arg) (E arg env (cons &#x27;(deref) k))]
+     [`(setref ,a ,b) (collect (list a b) env k &#x27;setref #f)]
+     [`(print ,arg) (E arg env (cons &#x27;(print) k))]
+     [`(spawn ,arg) (E arg env (cons &#x27;(spawn) k))]
+     [`(yield)
+      (suspend! (A k 99) &#x27;yielded) (enqueue! current (not preserve-ticks?)) #f]
+     [`(mutex) (define m (mutex-value #f &#x27;())) (set! mutexes (cons m mutexes)) (A k m)]
+     [`(wait ,arg) (E arg env (cons &#x27;(wait) k))]
+     [`(signal ,arg) (E arg env (cons &#x27;(signal) k))]
+     [`(kill ,arg) (E arg env (cons &#x27;(kill) k))]
+     [`(send ,a ,b) (collect (list a b) env k &#x27;send #f)]
+     [`(receive)
+      (if (pair? (thread-mailbox current))
+       (let ([v (car (thread-mailbox current))])
+        (set-thread-mailbox! current (cdr (thread-mailbox current))) (A k v))
+       (suspend! (A k #f) &#x27;receive))]
+     [`(self) (A k (thread-id current))] [`(parent) (A k (thread-parent current))]
+     [_ (error &#x27;eval &quot;unknown form ~s&quot; e)])]
+   [(state &#x27;invoke p env k vs) (invoke p vs env k)]
+   [(state &#x27;raise _ _ k v) (handle k v)]
+   [(state &#x27;apply _ _ k v)
+    (cond [(zero? (thread-ticks current))
+           (suspend! s &#x27;expired) (enqueue! current) #f]
+     [else
+      (set-thread-ticks! current (sub1 (thread-ticks current)))
+      (cond [(null? k)
+       (when (= (thread-id current) 0) (set! final v) (set! final? #t) (set! ends (add1 ends)))
+       (suspend! s &#x27;done)]
+       [else
+        (define rest (cdr k))
+        (match (car k)
+         [`(collect ,kind ,data ,es ,rev ,saved-env)
+          (define vals (cons v rev))
+          (if (null? es) (finish kind data (reverse vals) saved-env rest)
+           (E (car es) saved-env (cons `(collect ,kind ,data ,(cdr es) ,vals ,saved-env) rest)))]
+         [`(if ,a ,b ,saved-env) (E (if (truth v numeric?) a b) saved-env rest)]
+         [`(begin ,es ,saved-env) (E `(begin ,@es) saved-env rest)]
+         [`(set ,loc) (writeref loc v) (A rest 27)]
+         [`(try . ,_) (A rest v)] [(list &#x27;raise) (R rest v)]
+         [(list &#x27;newref) (A rest (newref v))] [(list &#x27;deref) (A rest (readref v))]
+         [(list &#x27;print) (set! output (cons v output)) (A rest 38)]
+         [(list &#x27;spawn)
+          (unless (closure? v) (error &#x27;spawn &quot;procedure required&quot;))
+          (define child (new-thread! (thread-id current) #f))
+          (set-thread-state! child (I v (list (if ids? (thread-id child) 28)) &#x27;() &#x27;()))
+          (enqueue! child) (A rest (if ids? (thread-id child) 73))]
+         [(list &#x27;wait)
+          (unless (mutex-value? v) (error &#x27;wait &quot;mutex required&quot;))
+          (if (mutex-value-closed? v)
+           (begin
+            (set-mutex-value-waiting! v (append (mutex-value-waiting v) (list current)))
+            (suspend! (A rest 52) &#x27;mutex))
+           (begin (set-mutex-value-closed?! v #t) (A rest 52)))]
+         [(list &#x27;signal)
+          (unless (mutex-value? v) (error &#x27;signal &quot;mutex required&quot;))
+          (when (mutex-value-closed? v)
+           (if (null? (mutex-value-waiting v)) (set-mutex-value-closed?! v #f)
+            (let ([th (car (mutex-value-waiting v))])
+             (set-mutex-value-waiting! v (cdr (mutex-value-waiting v)))
+             (enqueue! th)))) ; handoff: keep the mutex closed
+          (A rest 53)]
+         [(list &#x27;kill)
+          (define victim (hash-ref all v #f))
+          (define found? (and victim (memq (thread-status victim) &#x27;(ready mutex receive))))
+          (when found?
+           (set! ready (remq victim ready))
+           (for ([m mutexes]) (set-mutex-value-waiting! m (remq victim (mutex-value-waiting m))))
+           (set-thread-status! victim &#x27;killed))
+          (A rest (and found? #t))]
+         [_ (error &#x27;apply &quot;unknown frame ~s&quot; (car k))])])])]
+   [_ (error &#x27;machine &quot;invalid state&quot;)]))
+ (define main (new-thread! -1 #f)) (set! current main)
+ (set-thread-status! main &#x27;running)
+ (define initial-env (extend &#x27;(i v x call-with-current-continuation) (list 1 5 10 (callcc-primitive)) &#x27;()))
+ (define initial (E (if (string? source) (parse source) source) initial-env &#x27;()))
+;; BEGIN register-driver
+ (define (continue s)
+  (define next (or s (next!)))
+  (cond [(not next) (void)]
+   [(eq? driver &#x27;thunk)
+    (let trampoline ([bounce (lambda () (step next))])
+     (define b (bounce))
+     (define ns (or b (next!)))
+     (when ns (trampoline (lambda () (step ns)))))]
+   [else (continue (step next))]))
+ (continue initial)
+;; END register-driver
+ (define blocked (filter (lambda (th) (memq (thread-status th) &#x27;(mutex receive))) (hash-values all)))
+ (unless final? (if (pair? blocked) (error &#x27;scheduler &quot;deadlock before main result&quot;)
+                    (error &#x27;scheduler &quot;main thread terminated without value&quot;)))
+ (result final (reverse output)
+  (hash &#x27;steps steps &#x27;max-continuation max-depth &#x27;end-count ends &#x27;switches switches
+        &#x27;blocked (length blocked) &#x27;handler-hops handler-hops &#x27;locations (length locations))
+  (reverse log) (for/hash ([(id th) (in-hash all)]) (values id (thread-status th)))))
+(define (translate-callcc source)
+ (define count 0)
+ (define (fresh prefix) (set! count (add1 count)) (string-&gt;symbol (format &quot;~a%cc~a&quot; prefix count)))
+ (define (go e)
+  (match e
+   [`(letcc ,x ,body) `(call (var call-with-current-continuation) ((proc (,x) ,(go body))))]
+   [`(throw ,a ,b)
+    (define v (fresh &#x27;value)) (define target (fresh &#x27;target))
+    `(let (,v) (,(go a)) (let (,target) (,(go b)) (call (var ,target) ((var ,v)))))]
+   [`(call ,f ,es) `(call ,(go f) ,(map go es))]
+   [`(proc ,ps ,b) `(proc ,ps ,(go b))]
+   [`(let ,xs ,es ,b) `(let ,xs ,(map go es) ,(go b))]
+   [`(letrec ,ns ,pss ,bs ,b) `(letrec ,ns ,pss ,(map go bs) ,(go b))]
+   [`(try ,b ,xs ,h) `(try ,(go b) ,xs ,(go h))]
+   [(? pair?) (map go e)] [_ e]))
+ (go (if (string? source) (parse source) source)))
+(module+ main
+ (define r (run &quot;-(-(44,11),3)&quot; #:trace? #t))
+ (printf &quot;machine: ~s; max-continuation=~a; end-count=~a\n&quot; (result-value r)
+  (hash-ref (result-metrics r) &#x27;max-continuation) (hash-ref (result-metrics r) &#x27;end-count)))
+</code></pre><!-- EOPL:end-program --></details><details class="code-details" id="chapter05_cps-program"><summary>完整程序 · chapter05_cps.rkt</summary><!-- EOPL:program chapter05_cps.rkt --><pre><code id="chapter05_cps-code" class="language-scheme">#lang racket
+;; Independent procedural-continuation interpreter, including two observers.
+(require racket/match &quot;chapter05_syntax.rkt&quot;)
+(provide (all-defined-out))
+(struct closure (params body env) #:transparent)
+(struct continuation-pair (normal exceptional) #:transparent)
+(struct captured (k h) #:transparent)
+(define (lookup env x)
+ (define p (assq x env))
+ (unless p (error &#x27;lookup &quot;unbound variable: ~a&quot; x)) (unbox (cdr p)))
+(define (extend xs vs env)
+ (unique! xs) (arity! xs vs) (append (map (lambda (x v) (cons x (box v))) xs vs) env))
+(define (run-cps source #:representation [representation &#x27;inline] #:numeric? [numeric? #f])
+ (define ends 0) (define output &#x27;())
+ (define (normal k v) (if (continuation-pair? k) ((continuation-pair-normal k) v) (k v)))
+ (define (mk k h) (if (eq? representation &#x27;pair) (continuation-pair k h) k))
+ (define (evs es env k h)
+  (if (null? es) (normal k &#x27;())
+   (ev (car es) env
+    (mk (lambda (v)
+     (evs (cdr es) env
+      (mk (lambda (vs) (normal k (cons v vs))) h) h)) h)
+    h)))
+ (define (invoke p vs k h)
+  (cond [(captured? p) (arity! &#x27;(value) vs) (normal (captured-k p) (car vs))]
+   [(closure? p)
+    (if (= (length (closure-params p)) (length vs))
+     (ev (closure-body p) (extend (closure-params p) vs (closure-env p)) k h)
+     (h 1001))]
+   [else (error &#x27;call &quot;procedure required&quot;)]))
+;; BEGIN procedural-evaluator
+ (define (ev e env k h)
+  (match e
+   [`(num ,n) (normal k n)] [`(var ,x) (normal k (lookup env x))]
+   [`(proc ,xs ,b) (unique! xs) (normal k (closure xs b env))]
+   [`(prim ,op . ,es)
+    (evs es env (mk (lambda (vs)
+     (if (and (eq? op &#x27;/) (zero? (cadr vs))) (h 1002)
+         (normal k (primitive op vs)))) h) h)]
+   [`(list . ,es) (evs es env k h)]
+   [`(if ,t ,a ,b) (ev t env (mk (lambda (v) (ev (if (truth v numeric?) a b) env k h)) h) h)]
+   [`(let ,xs ,es ,b)
+    (evs es env (mk (lambda (vs) (ev b (extend xs vs env) k h)) h) h)]
+   [`(letrec ,ns ,pss ,bs ,b)
+    (define rho (extend ns (map (lambda (_) #f) ns) env))
+    (for ([n ns] [ps pss] [body bs])
+     (set-box! (cdr (assq n rho)) (closure ps body rho)))
+    (ev b rho k h)]
+   [`(call ,f ,es)
+    (ev f env (mk (lambda (p) (evs es env (mk (lambda (vs) (invoke p vs k h)) h) h)) h) h)]
+   [`(begin ,e1 . ,rest)
+    (if (null? rest) (ev e1 env k h)
+     (ev e1 env (mk (lambda (_) (ev `(begin ,@rest) env k h)) h) h))]
+   [`(print ,arg)
+    (ev arg env (mk (lambda (v) (set! output (cons v output)) (normal k 38)) h) h)]
+   [`(try ,body (,x) ,handler)
+    (ev body env k (lambda (v) (ev handler (extend (list x) (list v) env) k h)))]
+   [`(raise ,arg) (ev arg env (mk (lambda (v) (h v)) h) h)]
+   [`(letcc ,x ,body) (ev body (extend (list x) (list (captured k h)) env) k h)]
+   [`(throw ,arg ,target)
+    (ev arg env (mk (lambda (v) (ev target env (mk (lambda (c) (invoke c (list v) k h)) h) h)) h) h)]
+   [_ (error &#x27;run-cps &quot;unsupported procedural-core form: ~s&quot; e)]))
+;; END procedural-evaluator
+ (define result
+  (ev (if (string? source) (parse source) source) (extend &#x27;(i v x) &#x27;(1 5 10) &#x27;())
+   (mk (lambda (v) (set! ends (add1 ends)) v) (lambda (v) (error &#x27;raise &quot;uncaught: ~s&quot; v)))
+   (lambda (v) (error &#x27;raise &quot;uncaught: ~s&quot; v))))
+ (values result (hash &#x27;end-count ends &#x27;output (reverse output))))
+(module+ main
+ (define-values (v m) (run-cps &quot;-(-(44,11),3)&quot; #:representation &#x27;pair))
+ (printf &quot;procedural-pair: ~s; end-count=~a\n&quot; v (hash-ref m &#x27;end-count)))
+</code></pre><!-- EOPL:end-program --></details><details class="code-details" id="chapter05_syntax-program"><summary>完整程序 · chapter05_syntax.rkt</summary><!-- EOPL:program chapter05_syntax.rkt --><pre><code id="chapter05_syntax-code" class="language-scheme">#lang racket
+;; EOPL chapters 5/6: SLLGEN concrete syntax -&gt; small, inspectable AST.
+(require (except-in eopl define) (only-in eopl [define eopl:define]))
+(provide (all-defined-out))
+(eopl:define lexical
+  &#x27;((white-space (whitespace) skip)
+    (comment (&quot;%&quot; (arbno (not #\newline))) skip)
+    (identifier (letter (arbno (or letter digit &quot;_&quot; &quot;-&quot; &quot;?&quot;))) symbol)
+    (number (digit (arbno digit)) number)
+    (number (&quot;-&quot; digit (arbno digit)) number)))
+(eopl:define grammar
+ &#x27;((program (expression) a-program)
+   (expression (number) const-exp)
+   (expression (identifier) var-exp)
+   (expression (&quot;emptylist&quot;) empty-exp)
+   (expression (&quot;-&quot; &quot;(&quot; expression &quot;,&quot; expression &quot;)&quot;) diff-exp)
+   (expression (&quot;*&quot; &quot;(&quot; expression &quot;,&quot; expression &quot;)&quot;) times-exp)
+   (expression (&quot;/&quot; &quot;(&quot; expression &quot;,&quot; expression &quot;)&quot;) divide-exp)
+   (expression (&quot;+&quot; &quot;(&quot; (separated-list expression &quot;,&quot;) &quot;)&quot;) sum-exp)
+   (expression (&quot;zero?&quot; &quot;(&quot; expression &quot;)&quot;) zero-exp)
+   (expression (&quot;null?&quot; &quot;(&quot; expression &quot;)&quot;) null-exp)
+   (expression (&quot;number?&quot; &quot;(&quot; expression &quot;)&quot;) number-exp)
+   (expression (&quot;car&quot; &quot;(&quot; expression &quot;)&quot;) car-exp)
+   (expression (&quot;cdr&quot; &quot;(&quot; expression &quot;)&quot;) cdr-exp)
+   (expression (&quot;add1&quot; &quot;(&quot; expression &quot;)&quot;) add1-exp)
+   (expression (&quot;sub1&quot; &quot;(&quot; expression &quot;)&quot;) sub1-exp)
+   (expression (&quot;cons&quot; &quot;(&quot; expression &quot;,&quot; expression &quot;)&quot;) cons-exp)
+   (expression (&quot;equal?&quot; &quot;(&quot; expression &quot;,&quot; expression &quot;)&quot;) equal-exp)
+   (expression (&quot;less?&quot; &quot;(&quot; expression &quot;,&quot; expression &quot;)&quot;) less-exp)
+   (expression (&quot;greater?&quot; &quot;(&quot; expression &quot;,&quot; expression &quot;)&quot;) greater-exp)
+   (expression (&quot;list&quot; &quot;(&quot; (separated-list expression &quot;,&quot;) &quot;)&quot;) list-exp)
+   (expression (&quot;if&quot; expression &quot;then&quot; expression &quot;else&quot; expression) if-exp)
+   (expression (&quot;let&quot; (arbno identifier &quot;=&quot; expression) &quot;in&quot; expression) let-exp)
+   (expression (&quot;let2&quot; identifier &quot;=&quot; expression identifier &quot;=&quot; expression &quot;in&quot; expression) let2-exp)
+   (expression (&quot;let3&quot; identifier &quot;=&quot; expression identifier &quot;=&quot; expression identifier &quot;=&quot; expression &quot;in&quot; expression) let3-exp)
+   (expression (&quot;proc&quot; &quot;(&quot; (separated-list identifier &quot;,&quot;) &quot;)&quot; expression) proc-exp)
+   (expression (&quot;(&quot; expression (arbno expression) &quot;)&quot;) call-exp)
+   (expression (&quot;letrec&quot; (arbno identifier &quot;(&quot; (separated-list identifier &quot;,&quot;) &quot;)&quot; &quot;=&quot; expression) &quot;in&quot; expression) letrec-exp)
+   (expression (&quot;begin&quot; expression (arbno &quot;;&quot; expression) &quot;end&quot;) begin-exp)
+   (expression (&quot;set&quot; identifier &quot;=&quot; expression) set-exp)
+   (expression (&quot;newref&quot; &quot;(&quot; expression &quot;)&quot;) newref-exp)
+   (expression (&quot;deref&quot; &quot;(&quot; expression &quot;)&quot;) deref-exp)
+   (expression (&quot;setref&quot; &quot;(&quot; expression &quot;,&quot; expression &quot;)&quot;) setref-exp)
+   (expression (&quot;print&quot; &quot;(&quot; expression &quot;)&quot;) print-exp)
+   (expression (&quot;try&quot; expression &quot;catch&quot; &quot;(&quot; (separated-list identifier &quot;,&quot;) &quot;)&quot; expression) try-exp)
+   (expression (&quot;raise&quot; expression) raise-exp)
+   (expression (&quot;letcc&quot; identifier &quot;in&quot; expression) letcc-exp)
+   (expression (&quot;throw&quot; expression &quot;to&quot; expression) throw-exp)
+   (expression (&quot;spawn&quot; &quot;(&quot; expression &quot;)&quot;) spawn-exp)
+   (expression (&quot;yield&quot; &quot;(&quot; &quot;)&quot;) yield-exp)
+   (expression (&quot;mutex&quot; &quot;(&quot; &quot;)&quot;) mutex-exp)
+   (expression (&quot;wait&quot; &quot;(&quot; expression &quot;)&quot;) wait-exp)
+   (expression (&quot;signal&quot; &quot;(&quot; expression &quot;)&quot;) signal-exp)
+   (expression (&quot;kill&quot; &quot;(&quot; expression &quot;)&quot;) kill-exp)
+   (expression (&quot;send&quot; &quot;(&quot; expression &quot;,&quot; expression &quot;)&quot;) send-exp)
+   (expression (&quot;receive&quot; &quot;(&quot; &quot;)&quot;) receive-exp)
+   (expression (&quot;self&quot; &quot;(&quot; &quot;)&quot;) self-exp)
+   (expression (&quot;parent&quot; &quot;(&quot; &quot;)&quot;) parent-exp)))
+(sllgen:make-define-datatypes lexical grammar)
+(define scan&amp;parse (sllgen:make-string-parser lexical grammar))
+(define (parse text)
+ (cases program (scan&amp;parse text) (a-program (e) (ast e))))
+(define (ast exp)
+ (cases expression exp
+  (const-exp (n) `(num ,n)) (var-exp (x) `(var ,x)) (empty-exp () &#x27;(list))
+  (diff-exp (a b) `(prim - ,(ast a) ,(ast b)))
+  (times-exp (a b) `(prim * ,(ast a) ,(ast b)))
+  (divide-exp (a b) `(prim / ,(ast a) ,(ast b)))
+  (sum-exp (es) `(prim + ,@(map ast es)))
+  (zero-exp (e) `(prim zero? ,(ast e))) (null-exp (e) `(prim null? ,(ast e)))
+  (number-exp (e) `(prim number? ,(ast e))) (car-exp (e) `(prim car ,(ast e)))
+  (cdr-exp (e) `(prim cdr ,(ast e))) (add1-exp (e) `(prim add1 ,(ast e)))
+  (sub1-exp (e) `(prim sub1 ,(ast e))) (cons-exp (a b) `(prim cons ,(ast a) ,(ast b)))
+  (equal-exp (a b) `(prim equal? ,(ast a) ,(ast b)))
+  (less-exp (a b) `(prim less? ,(ast a) ,(ast b)))
+  (greater-exp (a b) `(prim greater? ,(ast a) ,(ast b)))
+  (list-exp (es) `(list ,@(map ast es)))
+  (if-exp (t a b) `(if ,(ast t) ,(ast a) ,(ast b)))
+  (let-exp (xs es b) `(let ,xs ,(map ast es) ,(ast b)))
+  (let2-exp (x e y f b) `(let (,x ,y) (,(ast e) ,(ast f)) ,(ast b)))
+  (let3-exp (x e y f z g b) `(let (,x ,y ,z) (,(ast e) ,(ast f) ,(ast g)) ,(ast b)))
+  (proc-exp (xs b) `(proc ,xs ,(ast b)))
+  (call-exp (f es) `(call ,(ast f) ,(map ast es)))
+  (letrec-exp (ns pss bs b) `(letrec ,ns ,pss ,(map ast bs) ,(ast b)))
+  (begin-exp (e es) `(begin ,@(map ast (cons e es))))
+  (set-exp (x e) `(set ,x ,(ast e)))
+  (newref-exp (e) `(newref ,(ast e))) (deref-exp (e) `(deref ,(ast e)))
+  (setref-exp (a b) `(setref ,(ast a) ,(ast b)))
+  (print-exp (e) `(print ,(ast e)))
+  (try-exp (e xs h) `(try ,(ast e) ,xs ,(ast h)))
+  (raise-exp (e) `(raise ,(ast e)))
+  (letcc-exp (x e) `(letcc ,x ,(ast e)))
+  (throw-exp (a b) `(throw ,(ast a) ,(ast b)))
+  (spawn-exp (e) `(spawn ,(ast e))) (yield-exp () &#x27;(yield))
+  (mutex-exp () &#x27;(mutex)) (wait-exp (e) `(wait ,(ast e)))
+  (signal-exp (e) `(signal ,(ast e))) (kill-exp (e) `(kill ,(ast e)))
+  (send-exp (a b) `(send ,(ast a) ,(ast b))) (receive-exp () &#x27;(receive))
+  (self-exp () &#x27;(self)) (parent-exp () &#x27;(parent))))
+(define (unique! xs)
+ (unless (= (length xs) (length (remove-duplicates xs))) (error &#x27;bindings &quot;duplicate identifiers&quot;)))
+(define (arity! xs vs)
+ (unless (= (length xs) (length vs)) (error &#x27;arity &quot;wrong number of arguments&quot;)))
+(define (truth v [numeric? #f])
+ (cond [(boolean? v) v] [(and numeric? (number? v)) (not (zero? v))]
+       [else (error &#x27;if &quot;boolean required&quot;)]))
+(define (primitive op vs)
+ (define (numbers!) (unless (andmap number? vs) (error op &quot;numbers required&quot;)))
+ (when (memq op &#x27;(- * / + zero? add1 sub1 less? greater?)) (numbers!))
+ (case op
+  [(-) (apply - vs)] [(*) (apply * vs)] [(+) (apply + vs)]
+  [(/) (if (zero? (cadr vs)) (error &#x27;division &quot;zero divisor&quot;) (quotient (car vs) (cadr vs)))]
+  [(zero?) (zero? (car vs))] [(add1) (add1 (car vs))] [(sub1) (sub1 (car vs))]
+  [(less?) (&lt; (car vs) (cadr vs))] [(greater?) (&gt; (car vs) (cadr vs))]
+  [(number?) (number? (car vs))] [(equal?) (equal? (car vs) (cadr vs))]
+  [(null?) (unless (list? (car vs)) (error &#x27;null? &quot;list required&quot;)) (null? (car vs))]
+  [(car) (car (car vs))] [(cdr) (cdr (car vs))]
+  [(cons) (unless (list? (cadr vs)) (error &#x27;cons &quot;list required&quot;)) (cons (car vs) (cadr vs))]
+  [else (error &#x27;primitive &quot;unknown operation ~a&quot; op)]))
+</code></pre><!-- EOPL:end-program --></details><details class="code-details" id="chapter05_statements-program"><summary>完整程序 · chapter05_statements.rkt</summary><!-- EOPL:program chapter05_statements.rkt --><pre><code id="chapter05_statements-code" class="language-scheme">#lang racket
+;; Exercise 5.16: expression continuations take one value; command continuations take none.
+(require racket/match (only-in eopl cases) (prefix-in s: &quot;chapter04_statements.rkt&quot;)
+ (only-in &quot;chapter05_syntax.rkt&quot; primitive truth unique! arity!))
+(provide (all-defined-out))
+(struct closure (params body env) #:transparent)
+(define (expression e)
+ (cases s:sx e
+  (s:sx-number (n) `(num ,n)) (s:sx-variable (x) `(var ,x))
+  (s:sx-difference (a b) `(prim - ,(expression a) ,(expression b)))
+  (s:sx-addition (a b) `(prim + ,(expression a) ,(expression b)))
+  (s:sx-multiplication (a b) `(prim * ,(expression a) ,(expression b)))
+  (s:sx-zero (a) `(prim zero? ,(expression a))) (s:sx-not (a) `(not ,(expression a)))
+  (s:sx-if (t a b) `(if ,(expression t) ,(expression a) ,(expression b)))
+  (s:sx-let (xs es b) `(let ,xs ,(map expression es) ,(expression b)))
+  (s:sx-proc (xs b) `(proc ,xs ,(expression b)))
+  (s:sx-call (f es) `(call ,(expression f) ,(map expression es)))
+  (s:sx-begin (a bs) `(begin ,@(map expression (cons a bs))))
+  (s:sx-set (x e) `(set ,x ,(expression e)))))
+(define (command st)
+ (cases s:statement st
+  (s:st-assign (x e) `(assign ,x ,(expression e)))
+  (s:st-print (e) `(print ,(expression e)))
+  (s:st-sequence (ss) `(sequence ,@(map command ss)))
+  (s:st-if (e a b) `(if ,(expression e) ,(command a) ,(command b)))
+  (s:st-while (e b) `(while ,(expression e) ,(command b)))
+  (s:st-vars (xs b) `(var ,xs ,(command b)))
+  (else (error &#x27;command &quot;exercise 5.16 covers the base exercise 4.22 grammar&quot;))))
+(define (run source #:commands [mode &#x27;data] #:fuel [fuel 200000])
+ (define output &#x27;()) (define steps 0)
+ (define (tick!) (set! steps (add1 steps)) (when (&gt; steps fuel) (error &#x27;run &quot;fuel exhausted&quot;)))
+ (define (slot env x) (define p (assq x env)) (unless p (error &#x27;lookup &quot;unbound&quot;)) (cdr p))
+ (define (extend xs vs env) (unique! xs) (arity! xs vs) (append (map (lambda (x v) (cons x (box v))) xs vs) env))
+ (define (evs es env k)
+  (if (null? es) (k &#x27;()) (ev (car es) env (lambda (v) (evs (cdr es) env (lambda (vs) (k (cons v vs))))))))
+ (define (ev e env k)
+  (tick!)
+  (match e
+   [`(num ,n) (k n)] [`(var ,x) (define v (unbox (slot env x)))
+     (when (eq? v &#x27;uninitialized) (error &#x27;read &quot;uninitialized variable&quot;)) (k v)]
+   [`(prim ,op . ,es) (evs es env (lambda (vs) (k (primitive op vs))))]
+   [`(not ,e) (ev e env (lambda (v) (k (not (truth v)))))]
+   [`(if ,t ,a ,b) (ev t env (lambda (v) (ev (if (truth v) a b) env k)))]
+   [`(let ,xs ,es ,b) (evs es env (lambda (vs) (ev b (extend xs vs env) k)))]
+   [`(proc ,xs ,b) (k (closure xs b env))]
+   [`(call ,f ,es) (ev f env (lambda (p) (evs es env (lambda (vs)
+    (ev (closure-body p) (extend (closure-params p) vs (closure-env p)) k)))))]
+   [`(begin ,a . ,rest) (if (null? rest) (ev a env k) (ev a env (lambda (_) (ev `(begin ,@rest) env k))))]
+   [`(set ,x ,rhs) (ev rhs env (lambda (v) (set-box! (slot env x) v) (k 27)))]))
+;; BEGIN command-continuations
+ (define (apply-command-cont cc)
+  (if (procedure? cc) (cc)
+   (match cc
+    [&#x27;() (void)]
+    [`(sequence ,ss ,saved-env ,rest) (result-of `(sequence ,@ss) saved-env rest)]
+    [`(while ,test ,body ,saved-env ,rest) (result-of `(while ,test ,body) saved-env rest)])))
+ (define (sequence-cont ss env cc)
+  (if (eq? mode &#x27;procedural) (lambda () (result-of `(sequence ,@ss) env cc)) `(sequence ,ss ,env ,cc)))
+ (define (while-cont t b env cc)
+  (if (eq? mode &#x27;procedural) (lambda () (result-of `(while ,t ,b) env cc)) `(while ,t ,b ,env ,cc)))
+ (define (result-of st env cc)
+  (tick!)
+  (match st
+   [`(assign ,x ,rhs) (ev rhs env (lambda (v) (set-box! (slot env x) v) (apply-command-cont cc)))]
+   [`(print ,e) (ev e env (lambda (v) (set! output (cons v output)) (apply-command-cont cc)))]
+   [`(sequence) (apply-command-cont cc)]
+   [`(sequence ,s . ,ss) (result-of s env (sequence-cont ss env cc))]
+   [`(if ,t ,a ,b) (ev t env (lambda (v) (result-of (if (truth v) a b) env cc)))]
+   [`(while ,t ,b) (ev t env (lambda (v)
+     (if (truth v) (result-of b env (while-cont t b env cc)) (apply-command-cont cc))))]
+   [`(var ,xs ,b) (result-of b (extend xs (map (lambda (_) &#x27;uninitialized) xs) env) cc)]))
+;; END command-continuations
+ (define ast (cases s:st-program (s:scan&amp;parse source) (s:st-pgm (st) (command st))))
+ (result-of ast &#x27;() (if (eq? mode &#x27;procedural) (lambda () (void)) &#x27;()))
+ (reverse output))
+(module+ main
+ (for ([mode &#x27;(data procedural)])
+  (printf &quot;commands/~a: ~s\n&quot; mode (run &quot;var x; {x = 3; while not(zero?(x)) {print x; x = -(x,1)}}&quot; #:commands mode))))
+</code></pre><!-- EOPL:end-program --></details><details class="code-details" id="chapter05_machine-program"><summary>完整程序 · chapter05_machine.c</summary><!-- EOPL:program chapter05_machine.c --><pre><code id="chapter05_machine-code" class="language-c">/* EOPL 5.21/5.33/5.34: one LETREC transition relation, three C11 drivers.
+   Inputs are ASTs built below; no source parser. Compile with -O0 to compare
+   ordinary host calls with explicit jumps/trampolining. Arena is per run. */
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;stdbool.h&gt;
+#include &lt;time.h&gt;
+typedef struct Node Node; typedef struct Env Env; typedef struct Frame Frame;
+typedef struct { int tag; long n; const char *param; Node *body; Env *env; } Value;
+struct Node { int tag; long n; const char *name; Node *a,*b,*c; };
+struct Env { const char *name; Value value; Env *rest; };
+struct Frame { int tag; Value value; const char *name; Node *a,*b; Env *env; Frame *rest; };
+enum { NUM,VAR,DIFF,ZERO,IF,LET,PROC,CALL,LETREC };
+enum { EV,AP,INVOKE,HALT };
+enum { FDIFF1,FDIFF2,FZERO,FIF,FLET,FRATOR,FRAND };
+static Node *exp_reg; static Env *env_reg; static Frame *cont_reg;
+static Value val_reg,proc_reg; static int pc; static size_t steps, depth, max_depth;
+#define CAP 300000
+static Env environments[CAP]; static Frame frames[CAP];
+static size_t ne,nf;
+static void fail(const char *message) { fprintf(stderr,&quot;%s\n&quot;,message); exit(2); }
+static Value number(long n) { Value v={0};v.tag=0;v.n=n;return v; }
+static Value boolean(bool b) { Value v=number(b);v.tag=1;return v; }
+static Value closure(Node *body,const char *p,Env *env) {
+ Value v={0};v.tag=2;v.param=p;v.body=body;v.env=env;return v;
+}
+static long numeric(Value v) { if(v.tag!=0)fail(&quot;number required&quot;);return v.n; }
+static Env *extend(const char *x,Value v,Env *rest) {
+ if(ne==CAP)fail(&quot;environment arena exhausted&quot;);
+ Env *e=&amp;environments[ne++];*e=(Env){x,v,rest};return e;
+}
+static Value lookup(Env *e,const char *x) {
+ for(;e;e=e-&gt;rest)if(!strcmp(e-&gt;name,x))return e-&gt;value;
+ fail(&quot;unbound variable&quot;);return number(0);
+}
+static void push(int tag,Value v,const char *x,Node *a,Node *b,Env *e) {
+ if(nf==CAP)fail(&quot;continuation arena exhausted&quot;);
+ Frame *f=&amp;frames[nf++];*f=(Frame){tag,v,x,a,b,e,cont_reg};cont_reg=f;
+ if(++depth&gt;max_depth)max_depth=depth;
+}
+/* Each block reads and writes the five registers; the returned pc is the jump. */
+static int eval_block(void) {
+ Node *e=exp_reg;
+ switch(e-&gt;tag) {
+ case NUM:val_reg=number(e-&gt;n);return AP;
+ case VAR:val_reg=lookup(env_reg,e-&gt;name);return AP;
+ case DIFF:push(FDIFF1,number(0),NULL,e-&gt;b,NULL,env_reg);exp_reg=e-&gt;a;return EV;
+ case ZERO:push(FZERO,number(0),NULL,NULL,NULL,NULL);exp_reg=e-&gt;a;return EV;
+ case IF:push(FIF,number(0),NULL,e-&gt;b,e-&gt;c,env_reg);exp_reg=e-&gt;a;return EV;
+ case LET:push(FLET,number(0),e-&gt;name,e-&gt;b,NULL,env_reg);exp_reg=e-&gt;a;return EV;
+ case PROC:val_reg=closure(e-&gt;a,e-&gt;name,env_reg);return AP;
+ case CALL:push(FRATOR,number(0),NULL,e-&gt;b,NULL,env_reg);exp_reg=e-&gt;a;return EV;
+ case LETREC:{
+  Env *rho=extend(e-&gt;name,number(0),env_reg);
+  rho-&gt;value=closure(e-&gt;a-&gt;a,e-&gt;a-&gt;name,rho);env_reg=rho;exp_reg=e-&gt;b;return EV;
+ }
+ default:fail(&quot;unknown expression&quot;);return HALT;
+ }
+}
+static int apply_block(void) {
+ if(!cont_reg)return HALT;
+ Frame f=*cont_reg;cont_reg=f.rest;--depth;
+ switch(f.tag) {
+ case FDIFF1:push(FDIFF2,val_reg,NULL,NULL,NULL,NULL);exp_reg=f.a;env_reg=f.env;return EV;
+ case FDIFF2:val_reg=number(numeric(f.value)-numeric(val_reg));return AP;
+ case FZERO:val_reg=boolean(numeric(val_reg)==0);return AP;
+ case FIF:if(val_reg.tag!=1)fail(&quot;boolean required&quot;);exp_reg=val_reg.n?f.a:f.b;env_reg=f.env;return EV;
+ case FLET:exp_reg=f.a;env_reg=extend(f.name,val_reg,f.env);return EV;
+ case FRATOR:push(FRAND,val_reg,NULL,NULL,NULL,f.env);exp_reg=f.a;env_reg=f.env;return EV;
+ case FRAND:proc_reg=f.value;return INVOKE;
+ default:fail(&quot;unknown continuation&quot;);return HALT;
+ }
+}
+static int invoke_block(void) {
+ if(proc_reg.tag!=2)fail(&quot;procedure required&quot;);
+ exp_reg=proc_reg.body;env_reg=extend(proc_reg.param,val_reg,proc_reg.env);return EV;
+}
+static int step(void) { ++steps;return pc==EV?eval_block():pc==AP?apply_block():invoke_block(); }
+static void value_of(void);static void apply_cont(void);static void apply_procedure(void);
+static void transfer(void) { if(pc==EV)value_of();else if(pc==AP)apply_cont();else if(pc==INVOKE)apply_procedure(); }
+static void value_of(void) { pc=step();transfer(); }
+static void apply_cont(void) { pc=step();transfer(); }
+static void apply_procedure(void) { pc=step();transfer(); }
+static Value run(Node *program,int driver) {
+ ne=nf=steps=depth=max_depth=0;exp_reg=program;env_reg=NULL;cont_reg=NULL;pc=EV;
+ if(driver==0){value_of();return val_reg;}
+ if(driver==1){
+  /* An actual C goto driver; every transfer jumps instead of calling. */
+  eval_label:++steps;pc=eval_block();goto dispatch;
+  apply_label:++steps;pc=apply_block();goto dispatch;
+  invoke_label:++steps;pc=invoke_block();goto dispatch;
+  dispatch:if(pc==EV)goto eval_label;if(pc==AP)goto apply_label;if(pc==INVOKE)goto invoke_label;
+  return val_reg;
+ }
+ while(pc!=HALT)pc=step(); /* Trampoline of explicit data snapshots. */
+ return val_reg;
+}
+int main(int argc,char **argv) {
+ long n=argc&gt;2?strtol(argv[2],NULL,10):100;
+ int driver=argc&gt;1?atoi(argv[1]):2;
+ if(n&lt;0||n&gt;20000||driver&lt;0||driver&gt;2)fail(&quot;usage: machine [0|1|2] [0..20000]&quot;);
+ Node x={VAR,0,&quot;x&quot;,NULL,NULL,NULL},one={NUM,1,NULL,NULL,NULL,NULL},zero={NUM,0,NULL,NULL,NULL,NULL};
+ Node sub={DIFF,0,NULL,&amp;x,&amp;one,NULL},test={ZERO,0,NULL,&amp;x,NULL,NULL};
+ Node f={VAR,0,&quot;f&quot;,NULL,NULL,NULL},call={CALL,0,NULL,&amp;f,&amp;sub,NULL};
+ Node body={IF,0,NULL,&amp;test,&amp;zero,&amp;call},proc={PROC,0,&quot;x&quot;,&amp;body,NULL,NULL};
+ Node arg={NUM,n,NULL,NULL,NULL,NULL},start={CALL,0,NULL,&amp;f,&amp;arg,NULL};
+ Node program={LETREC,0,&quot;f&quot;,&amp;proc,&amp;start,NULL};
+ clock_t begin=clock();Value v=run(&amp;program,driver);double seconds=(double)(clock()-begin)/CLOCKS_PER_SEC;
+ if(v.tag!=0||v.n!=0)fail(&quot;unexpected result&quot;);
+ printf(&quot;driver=%d n=%ld result=%ld steps=%zu max_frames=%zu cpu_seconds=%.6f\n&quot;,driver,n,v.n,steps,max_depth,seconds);
+ return 0;
+}
+</code></pre><!-- EOPL:end-program --></details><details class="code-details" id="chapter05_sync-program"><summary>完整程序 · chapter05_sync.py</summary><!-- EOPL:program chapter05_sync.py --><pre><code id="chapter05_sync-code" class="language-python">#!/usr/bin/env python3
+&quot;&quot;&quot;Executable scheduler models for 5.56/5.57. Commands are yielded snapshots,
+not a second parser for THREADS. Messages contain JSON-like immutable data.
+&quot;&quot;&quot;
+from collections import deque
+from copy import deepcopy
+from dataclasses import dataclass, field
+import json
+
+@dataclass
+class Semaphore:
+    count: int
+    waiting: deque = field(default_factory=deque)
+
+@dataclass
+class Condition:
+    waiting: deque = field(default_factory=deque)
+
+@dataclass
+class Barrier:
+    parties: int
+    generation: int = 0
+    waiting: list = field(default_factory=list)
+
+@dataclass
+class Task:
+    ident: int
+    continuation: object
+    store: dict = field(default_factory=dict)
+    mailbox: deque = field(default_factory=deque)
+    pending: object = None
+    status: str = &quot;new&quot;
+
+class Scheduler:
+    def __init__(self):
+        self.tasks, self.ready, self.output = {}, deque(), []
+
+    def add(self, program):
+        ident = len(self.tasks)
+        task = Task(ident, None)
+        task.continuation = program(task)  # task.store is private to this thread
+        self.tasks[ident] = task
+        self.wake(task)
+        return ident
+
+    def wake(self, task, value=None):
+        assert task.status != &quot;ready&quot;
+        task.pending, task.status = value, &quot;ready&quot;
+        self.ready.append(task)
+        assert len({t.ident for t in self.ready}) == len(self.ready)
+
+    def up(self, sem):
+        if sem.waiting:
+            self.wake(sem.waiting.popleft())  # direct handoff, no spare permit
+        else:
+            sem.count += 1
+
+    def down(self, sem, task):
+        if sem.count:
+            sem.count -= 1
+            self.wake(task)
+        else:
+            task.status = &quot;semaphore&quot;
+            sem.waiting.append(task)
+
+    def run(self, fuel=10000):
+        steps = 0
+        while self.ready:
+            steps += 1
+            if steps &gt; fuel:
+                raise RuntimeError(&quot;fuel exhausted&quot;)
+            task = self.ready.popleft()
+            task.status = &quot;running&quot;
+            try:
+                action = task.continuation.send(task.pending)
+            except StopIteration:
+                task.status = &quot;done&quot;
+                continue
+            op, *args = action
+            if op == &quot;down&quot;:
+                self.down(args[0], task)
+            elif op == &quot;up&quot;:
+                self.up(args[0]); self.wake(task)
+            elif op == &quot;condition-wait&quot;:
+                condition, lock = args
+                condition.waiting.append(task)
+                task.status = &quot;condition&quot;
+                self.up(lock)  # enqueue+release is one atomic scheduler operation
+            elif op == &quot;condition-signal&quot;:
+                if args[0].waiting:
+                    self.wake(args[0].waiting.popleft())
+                self.wake(task)
+            elif op == &quot;barrier&quot;:
+                barrier = args[0]
+                barrier.waiting.append(task); task.status = &quot;barrier&quot;
+                if len(barrier.waiting) == barrier.parties:
+                    waiting, barrier.waiting = barrier.waiting, []
+                    barrier.generation += 1
+                    for waiter in waiting:
+                        self.wake(waiter, barrier.generation)
+            elif op == &quot;send&quot;:
+                dest, value = args
+                receiver = self.tasks[dest]
+                # This model restricts messages to JSON data, never references/closures.
+                copied = json.loads(json.dumps(value))
+                if receiver.status == &quot;receive&quot;:
+                    self.wake(receiver, copied)
+                else:
+                    receiver.mailbox.append(copied)
+                self.wake(task)
+            elif op == &quot;receive&quot;:
+                if task.mailbox:
+                    self.wake(task, task.mailbox.popleft())
+                else:
+                    task.status = &quot;receive&quot;
+            elif op == &quot;print&quot;:
+                self.output.append(args[0]); self.wake(task)
+            else:
+                raise ValueError(op)
+        return {t.ident: t.status for t in self.tasks.values()}
+
+# BEGIN synchronization-examples
+def examples():
+    # Counting semaphore: no more than two workers enter at once.
+    scheduler, sem, active = Scheduler(), Semaphore(2), {&quot;n&quot;: 0, &quot;max&quot;: 0}
+    def worker(task):
+        yield &quot;down&quot;, sem
+        active[&quot;n&quot;] += 1; active[&quot;max&quot;] = max(active[&quot;max&quot;], active[&quot;n&quot;])
+        yield &quot;print&quot;, task.ident
+        active[&quot;n&quot;] -= 1
+        yield &quot;up&quot;, sem
+    for _ in range(5): scheduler.add(worker)
+    assert set(scheduler.run().values()) == {&quot;done&quot;} and active[&quot;max&quot;] == 2
+    # Mesa-style condition: signal makes ready; consumer reacquires the lock.
+    scheduler, lock, cond, buffer = Scheduler(), Semaphore(1), Condition(), []
+    def consumer(task):
+        yield &quot;down&quot;, lock
+        while not buffer:
+            yield &quot;condition-wait&quot;, cond, lock
+            yield &quot;down&quot;, lock
+        task.store[&quot;answer&quot;] = buffer.pop(0)
+        yield &quot;up&quot;, lock
+    def producer(task):
+        yield &quot;down&quot;, lock
+        buffer.append(44)
+        yield &quot;condition-signal&quot;, cond
+        yield &quot;up&quot;, lock
+    cid = scheduler.add(consumer); scheduler.add(producer)
+    assert set(scheduler.run().values()) == {&quot;done&quot;}
+    assert scheduler.tasks[cid].store[&quot;answer&quot;] == 44
+    # Reusable barrier: generation cannot mix participants across rounds.
+    scheduler, barrier = Scheduler(), Barrier(3)
+    def participant(task):
+        for round_number in (1, 2):
+            generation = yield &quot;barrier&quot;, barrier
+            assert generation == round_number
+            yield &quot;print&quot;, [task.ident, generation]
+    for _ in range(3): scheduler.add(participant)
+    assert set(scheduler.run().values()) == {&quot;done&quot;} and barrier.generation == 2
+    # Private-store actors: one owner applies three increment messages, no mutex.
+    scheduler = Scheduler()
+    def owner(task):
+        task.store[&quot;x&quot;] = 0
+        for _ in range(3):
+            amount = yield &quot;receive&quot;,
+            task.store[&quot;x&quot;] += amount
+        yield &quot;print&quot;, task.store[&quot;x&quot;]
+    owner_id = scheduler.add(owner)
+    def sender(task):
+        task.store[&quot;x&quot;] = 100  # same name, different private store
+        yield &quot;send&quot;, owner_id, 1
+    for _ in range(3): scheduler.add(sender)
+    assert set(scheduler.run().values()) == {&quot;done&quot;}
+    assert scheduler.output == [3]
+    assert [t.store[&quot;x&quot;] for t in scheduler.tasks.values()] == [3, 100, 100, 100]
+    return {&quot;counting_semaphore_peak&quot;: active[&quot;max&quot;], &quot;condition_value&quot;: 44,
+            &quot;barrier_generations&quot;: barrier.generation, &quot;private_counter&quot;: scheduler.output[0]}
+# END synchronization-examples
+if __name__ == &quot;__main__&quot;:
+    print(json.dumps({&quot;status&quot;: &quot;passed&quot;, &quot;models&quot;: examples()}, ensure_ascii=False))
+</code></pre><!-- EOPL:end-program --></details><details class="code-details" id="test_chapter05_06-program"><summary>完整程序 · test_chapter05_06.rkt</summary><!-- EOPL:program test_chapter05_06.rkt --><pre><code id="test_chapter05_06-code" class="language-scheme">#lang racket
+(require rackunit rackunit/text-ui racket/match json
+ (prefix-in m: &quot;chapter05.rkt&quot;) (prefix-in p: &quot;chapter05_cps.rkt&quot;)
+ (prefix-in c: &quot;chapter06.rkt&quot;) (prefix-in t: &quot;chapter06_target.rkt&quot;)
+ (prefix-in r: &quot;chapter06_register.rkt&quot;) (prefix-in st: &quot;chapter05_statements.rkt&quot;)
+ (prefix-in x: &quot;chapter06_transforms.rkt&quot;) (prefix-in a: &quot;chapter06_algorithms.rkt&quot;)
+ (only-in &quot;chapter05_syntax.rkt&quot; parse))
+(define assertions 0)
+(define (eq! actual expected) (set! assertions (add1 assertions)) (check-equal? actual expected))
+(define (bad! thunk regex) (set! assertions (add1 assertions)) (check-exn regex thunk))
+(define (M s . args) (m:result-value (apply m:run s args)))
+(define (T s #:order [order &#x27;left] #:exceptions? [ex? #f] #:implicit? [im? #f] #:immutable? [opt? #f]
+           #:send [send &#x27;let] #:share-if? [share? #t])
+ (define out (c:cps-program s #:order order #:exceptions? ex? #:implicit? im? #:immutable? opt? #:send send #:share-if? share?))
+ (define text (t:target-string out))
+ (define reparsed (t:parse-target text)) (eq! reparsed out)
+ (t:run-target reparsed #:numeric? #t))
+(define fact &quot;letrec fact(n) = if zero?(n) then 1 else *(n,(fact -(n,1))) in (fact 4)&quot;)
+(define iter &quot;letrec fact(n,a) = if zero?(n) then a else (fact -(n,1) *(n,a)) in (fact 4 1)&quot;)
+(define (counter safe?)
+ (format &quot;let x = 0 in let mut = mutex() in let a = mutex() b = mutex() c = mutex() in let worker = proc(done) begin ~aset x = -(x,-1); ~asignal(done) end in begin wait(a); wait(b); wait(c); spawn(proc(d)(worker a)); spawn(proc(d)(worker b)); spawn(proc(d)(worker c)); wait(a); wait(b); wait(c); x end&quot;
+  (if safe? &quot;wait(mut); &quot; &quot;&quot;) (if safe? &quot;signal(mut); &quot; &quot;&quot;)))
+(define suites
+ (test-suite &quot;EOPL chapters 5 and 6&quot;
+  (test-case &quot;basic continuations, representations, one end and growth&quot;
+   (for ([s (list &quot;-(-(44,11),3)&quot; fact iter &quot;let2 a = 7 b = 4 in -(a,b)&quot; &quot;let3 a = 7 b = 4 c = 2 in -(-(a,b),c)&quot; &quot;list(1,2,3)&quot; &quot;let x = 10 in let x = 2 y = x in -(y,x)&quot;)]
+         [expected (list 30 24 24 3 1 &#x27;(1 2 3) 8)])
+    (define r (m:run s #:trace? #t)) (eq! (m:result-value r) expected)
+    (eq! (hash-ref (m:result-metrics r) &#x27;end-count) 1)
+    (for ([rep &#x27;(inline pair)]) (define-values (v metrics) (p:run-cps s #:representation rep))
+     (eq! v expected) (eq! (hash-ref metrics &#x27;end-count) 1))
+    (eq! (m:result-trace (m:run s #:driver &#x27;thunk #:trace? #t)) (m:result-trace r)))
+   (eq! (hash-ref (m:result-metrics (m:run &quot;-(-(44,11),3)&quot;)) &#x27;max-continuation) 3)
+   (for ([n &#x27;(1 2 4 8 16)])
+    (define f (string-replace fact &quot;in (fact 4)&quot; (format &quot;in (fact ~a)&quot; n)))
+    (define i (string-replace iter &quot;in (fact 4 1)&quot; (format &quot;in (fact ~a 1)&quot; n)))
+    (eq! (m:result-value (m:run f)) (for/product ([j (in-range 1 (add1 n))]) j))
+    (eq! (hash-ref (m:result-metrics (m:run f)) &#x27;max-continuation) (+ n 3))
+    (eq! (hash-ref (m:result-metrics (m:run i)) &#x27;max-continuation) 3)))
+  (test-case &quot;implicit refs, sequencing, dynamic extent&quot;
+   (eq! (m:result-value (m:run &quot;let x = 0 in begin set x = 9; x end&quot; #:implicit? #t)) 9)
+   (define s &quot;let x = 10 in let f = proc(y) -(x,y) in let x = 3 in (f 1)&quot;)
+   (eq! (M s) 9) (eq! (m:result-value (m:run s #:scope &#x27;dynamic)) 2)
+   (define r (m:run &quot;begin print(1); print(2); 9 end&quot;))
+   (eq! (m:result-output r) &#x27;(1 2)) (eq! (m:result-value r) 9))
+  (test-case &quot;unwind, rethrow, arity, division, resume and capture&quot;
+   (for ([s &#x27;(&quot;try -(10,raise 99) catch(e) -(e,1)&quot;
+               &quot;try try raise 7 catch(e) raise -(e,-1) catch(x) -(x,2)&quot;
+               &quot;try (proc(x,y) x 1) catch(e) e&quot;
+               &quot;try /(8,0) catch(e) e&quot;
+               &quot;letcc out in -(1,throw 7 to out)&quot;)]
+         [expected &#x27;(98 6 1001 1002 7)])
+    (eq! (M s) expected)
+    (define-values (v unused0) (p:run-cps s #:representation &#x27;pair)) (eq! v expected))
+   (eq! (m:result-value (m:run &quot;try -(10,raise 99) catch(e) 3&quot; #:exception-mode &#x27;resume)) 7)
+   (eq! (M &quot;try -(10,raise 99) catch(e,k) (k 3)&quot;) 7)
+   (eq! (M &quot;try -(10,raise 99) catch(e,k) 3&quot;) 3)
+   (bad! (lambda () (M &quot;raise 5&quot;)) #rx&quot;uncaught&quot;)
+   (bad! (lambda () (M &quot;(proc(x) x)&quot;)) #rx&quot;uncaught.*1001&quot;))
+  (test-case &quot;threads, lock handoff, join, identifiers and message blocking&quot;
+   (for ([q (in-range 1 31)])
+    (define r (m:run (counter #t) #:implicit? #t #:quantum q))
+    (eq! (m:result-value r) 3) (eq! (hash-ref (m:result-metrics r) &#x27;blocked) 0))
+   (define unsafe-values
+    (remove-duplicates (for/list ([q (in-range 1 31)]) (m:result-value (m:run (counter #f) #:implicit? #t #:quantum q)))))
+   (eq! (and (member 2 unsafe-values) #t) #t) (eq! (and (member 3 unsafe-values) #t) #t)
+   (define msg &quot;let p = self() in let c = spawn(proc(id) send(p,-(id,-40))) in receive()&quot;)
+   (for ([q &#x27;(1 2 9 100)]) (eq! (m:result-value (m:run msg #:thread-ids? #t #:quantum q)) 41))
+   (eq! (M &quot;let c = spawn(proc(d) 9) in kill(c)&quot;) #f)
+   (eq! (m:result-value (m:run &quot;let c = spawn(proc(id) receive()) in kill(c)&quot; #:thread-ids? #t)) #t)
+   (define dead &quot;let a = mutex() b = mutex() in begin spawn(proc(d)begin wait(a); yield(); wait(b) end); spawn(proc(d)begin wait(b); yield(); wait(a) end); 77 end&quot;)
+   (define r (m:run dead #:quantum 100))
+   (eq! (m:result-value r) 77) (eq! (hash-ref (m:result-metrics r) &#x27;blocked) 2)
+   (for ([preserve? &#x27;(#f #t)])
+    (eq! (m:result-value (m:run &quot;begin yield(); 99 end&quot; #:quantum 1 #:preserve-ticks? preserve?)) 99)))
+  (test-case &quot;source and target syntax boundaries&quot;
+   (for ([s &#x27;(&quot;-((f -(x,1)),1)&quot; &quot;(f -(-(x,y),1))&quot; &quot;if zero?(x) then -(x,y) else -(-(x,y),1)&quot; &quot;let x = proc(y)(y x) in -(x,3)&quot; &quot;let f = proc(x) x in (f 3)&quot;)])
+    (eq! (c:simple? (parse s)) #f))
+   (eq! (c:tail-form? (parse &quot;let f = proc(x) x in (f 3)&quot;)) #t)
+   (eq! (c:tail-form? (parse fact)) #f) (eq! (c:tail-form? (parse iter)) #t)
+   (bad! (lambda () (t:parse-target &quot;-((f x),1)&quot;)) #rx&quot;parsing&quot;))
+  (test-case &quot;four algorithm representations and independent mathematical oracles&quot;
+   (for ([rep &#x27;(data procedural inline register)])
+    (for ([xs &#x27;(() (1) (1 2 3 4) (9 -2 6))])
+     (define-values (v ends) (a:algorithm &#x27;list-sum (list xs) #:representation rep))
+     (eq! v (apply + xs)) (eq! ends 1))
+    (for ([data &#x27;((remove-first (a (b a c a)) (b c a))
+                 (remove-first (a ()) ())
+                 (occurs-free? (x (lambda (x) (x y))) #f)
+                 (occurs-free? (x (lambda (y) (y x))) #t)
+                 (subst (a b ((b c) b () (d (b)))) ((a c) a () (d (a)))))])
+     (match-define (list op args expected) data)
+     (define-values (v ends) (a:algorithm op args #:representation rep)) (eq! v expected) (eq! ends 1)))
+   (for ([n (in-range 0 12)])
+    (define expected (for/product ([j (in-range 1 (add1 n))]) j))
+    (eq! (a:fact/k n values) expected) (eq! (a:factorial-register n) expected)
+    (eq! (a:factorial-register n #:omit-self-jumps? #t) expected))
+   (eq! (a:factorial-register 4 #:broken? #t) 1)
+   (define (fib n) (if (&lt; n 2) 1 (+ (fib (sub1 n)) (fib (- n 2)))))
+   (for* ([n (in-range 0 12)] [k (list values add1 (lambda (v) (* 3 v)))]) (eq! (a:fib/k n k) (k (fib n)))))
+  (test-case &quot;conversion, evaluation order, side effects and fresh binders&quot;
+   (for* ([s (list fact iter &quot;-(7,3)&quot; &quot;let x = 8 in (proc(y) -(x,y) 3)&quot; &quot;let k = 10 in let var = 2 in -(k,var)&quot; &quot;letrec f(x) = if zero?(x) then 0 else (g -(x,1)) g(x) = if zero?(x) then 1 else (f -(x,1)) in (f 13)&quot;)]
+          [order &#x27;(left right operands-first)] [send &#x27;(call let substitute)])
+    (define-values (v unused1) (T s #:order order #:send send)) (eq! v (M s)))
+   (define s &quot;let f = proc(a,b) -(a,b) in (begin print(0); f end begin print(1); 8 end begin print(2); 3 end)&quot;)
+   (for ([order &#x27;(left right operands-first)] [expected &#x27;((0 1 2) (2 1 0) (1 2 0))])
+    (define-values (v metrics) (T s #:order order)) (eq! v 5) (eq! (hash-ref metrics &#x27;output) expected))
+   (define ref &quot;let r = newref(0) in begin setref(r,9); -(deref(r),1) end&quot;)
+   (define-values (v unused2) (T ref)) (eq! v 8)
+   (for ([s &#x27;(&quot;let x = 0 in begin set x = 9; x end&quot;
+              &quot;let x = 2 in let f = proc(y) begin set x = -(x,-1); -(x,y) end in -((f 1),(f 1))&quot;
+              &quot;letrec f(n) = if zero?(n) then 7 else (f -(n,1)) in (f 5)&quot;)])
+    (for ([opt? &#x27;(#f #t)]) (define-values (v unused3) (T s #:implicit? #t #:immutable? opt?))
+     (eq! v (m:result-value (m:run s #:implicit? #t)))))
+   (for ([s &#x27;(&quot;try -(10,raise 7) catch(e) -(e,1)&quot;
+              &quot;try try raise 7 catch(e) raise -(e,-1) catch(x) x&quot;)])
+    (define-values (v unused4) (T s #:exceptions? #t)) (eq! v (M s)))
+   (define-values (v2 unused5) (T &quot;letcc out in -(10,throw 7 to out)&quot;)) (eq! v2 7))
+  (test-case &quot;cached handlers, callcc translation, commands and ANF structure&quot;
+   (define deep
+    (for/fold ([e &#x27;(raise (num 7))]) ([i (in-range 40)]) `(prim - (num 10) ,e)))
+   (define source `(try ,deep (x) (var x)))
+   (define search (m:run source))
+   (define cached (m:run source #:handler-lookup &#x27;cached))
+   (eq! (m:result-value search) 7) (eq! (m:result-value cached) 7)
+   (eq! (hash-ref (m:result-metrics cached) &#x27;handler-hops) 1)
+   (eq! (hash-ref (m:result-metrics search) &#x27;handler-hops) 41)
+   (eq! (M (m:translate-callcc &quot;letcc out in -(1,throw 7 to out)&quot;)) 7)
+   (eq! (M &quot;(call-with-current-continuation proc(out) -(1,(out 7)))&quot;) 7)
+   (define notify &quot;let buffer = 0 in let ready = mutex() in begin wait(ready); spawn(proc(d)begin set buffer = 44; signal(ready) end); wait(ready); buffer end&quot;)
+   (for ([q &#x27;(1 2 5 100)]) (eq! (m:result-value (m:run notify #:implicit? #t #:quantum q)) 44))
+   (for ([mode &#x27;(data procedural)])
+    (eq! (st:run &quot;var x; {x = 3; while not(zero?(x)) {print x; x = -(x,1)}}&quot; #:commands mode) &#x27;(3 2 1))
+    (bad! (lambda () (st:run &quot;var x; print x&quot; #:commands mode)) #rx&quot;uninitialized&quot;))
+   (for ([source &#x27;(&quot;let f = proc(x) -(x,1) in -((f 5),(f 2))&quot;
+                   &quot;letrec fib(n) = if less?(n,2) then 1 else +((fib -(n,1)),(fib -(n,2))) in (fib 5)&quot;
+                   &quot;let x = 2 in if zero?(x) then 7 else -(x,1)&quot;)])
+    (eq! (x:canonical-target (c:cps-program source))
+         (x:canonical-target (c:cps-program (x:anf (parse source)))))))
+  (test-case &quot;defunctionalization, atomicization, ANF and bounded generated programs&quot;
+   (for* ([n (in-range 0 30)] [a &#x27;(-2 0 5)])
+    (define s (format &quot;let f = proc(x) -(x,~a) in -((f ~a),(f -(~a,1)))&quot; a n n))
+    (define target (c:cps-program s))
+    (for ([all? &#x27;(#f #t)])
+     (define-values (d table) (x:defunctionalize target #:all? all?))
+     (define-values (v unused6) (t:run-target (t:parse-target (t:target-string d)))) (eq! v 1)
+     (define-values (rv rm) (r:run-register (r:compile-register d))) (eq! rv 1))
+    (define-values (av unused7) (t:run-target (t:parse-target (t:target-string (x:atomicize target))))) (eq! av 1)
+    (define an (x:anf (parse s))) (eq! (M an) 1)
+    (define-values (v unused8) (T an)) (eq! v 1))
+   (for ([s (list fact iter &quot;let x = 8 in let f = proc(a) -(x,a) in (f 3)&quot;)])
+    (define-values (d table) (x:defunctionalize (c:cps-program s)))
+    (define-values (v unused9) (t:run-target (t:parse-target (t:target-string d)))) (eq! v (M s))))))
+(module+ main
+ (define failures (run-tests suites))
+ (printf &quot;~a\n&quot; (jsexpr-&gt;string (hash &#x27;status (if (zero? failures) &quot;passed&quot; &quot;failed&quot;) &#x27;groups 9 &#x27;assertions assertions &#x27;failures failures)))
+ (unless (zero? failures) (exit 1)))
+</code></pre><!-- EOPL:end-program --></details></section><footer><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter04_state.html">← 第 4 章 · 状态、存储与参数传递</a><a href="chapter06_cps.html">第 6 章 · CPS 转换与计算效果 →</a><a href="#top">返回页首 ↑</a></p></footer></main></div>
+(() => {
+  document.documentElement.classList.add('toc-enhanced');
+  const panel = document.getElementById('toc-panel');
+  const nav = document.getElementById('chapter-toc');
+  const wide = matchMedia('(min-width:1100px)');
+  const links = Array.from(nav.querySelectorAll('li a[href^="#"]'));
+  const entries = links.map(link => ({link, section: document.getElementById(link.hash.slice(1))})).filter(item => item.section);
+  let current = null, scheduled = false;
+  const fit = () => { panel.open = wide.matches; };
+  fit();
+  wide.addEventListener('change', fit);
+  const reveal = () => {
+    let node;
+    try {node=document.getElementById(decodeURIComponent(location.hash.slice(1)))} catch {return}
+    for(let n=node;n;n=n.parentElement)if(n.tagName==='DETAILS')n.open=true;
+    if(node)setTimeout(()=>{node.scrollIntoView();scrollBy(0,8)})
+  };
+  const mark = () => {
+    scheduled = false;
+    let next = entries[0];
+    for (const entry of entries) {
+      if (entry.section.getBoundingClientRect().top <= Math.max(110, wide.matches ? 100 : 110, wide.matches ? 0 : panel.querySelector('summary').getBoundingClientRect().bottom + 12) + 1) next = entry;
+    }
+    if (window.scrollY + innerHeight >= document.documentElement.scrollHeight - 2) next = entries[entries.length - 1];
+    if (next && next.link !== current) {
+      if (current) current.removeAttribute('aria-current');
+      current = next.link; current.setAttribute('aria-current', 'location');
+    }
+  };
+  const schedule = () => { if (!scheduled) { scheduled = true; requestAnimationFrame(mark); } };
+  nav.addEventListener('click', event => {
+    if (event.target.closest('a[href^="#"]') && !wide.matches) panel.open = false;
+  });
+  addEventListener('scroll', schedule, {passive:true});
+  addEventListener('resize', schedule);
+  addEventListener('hashchange', () => { reveal(); schedule(); });
+  document.addEventListener('toggle', schedule, true);
+  reveal(); mark();
+})();
+
+
+(() => {
+  const rail = document.getElementById('annotation-rail');
+  const content = document.getElementById('annotation-content');
+  const context = document.getElementById('annotation-context-link');
+  const groups = Array.from(document.querySelectorAll('main .reading-notes')).map(notes => ({
+    notes, section: document.getElementById(notes.dataset.notesFor)
+  })).filter(item => item.section);
+  if (!rail || !content || !context || !groups.length) return;
+  const wide = matchMedia('(min-width:1440px)');
+  const sections = Array.from(document.querySelectorAll('main > section[id]'));
+  let current = null, scheduled = false;
+  const update = () => {
+    scheduled = false;
+    if (!wide.matches) return;
+    let active = sections[0];
+    for (const section of sections) {
+      if (section.getBoundingClientRect().top <= 111) active = section;
+    }
+    // A short final section cannot always reach the usual reading-position line.
+    if (scrollY > 0 && scrollY + innerHeight >= document.documentElement.scrollHeight - 1) {
+      active = sections.findLast(section => section.getBoundingClientRect().top < innerHeight - 100) ?? active;
+    }
+    const next = groups.find(item => item.section === active);
+    rail.hidden = !next;
+    if (!next) {
+      content.replaceChildren();
+      delete rail.dataset.activeSection;
+      current = null;
+      return;
+    }
+    if (current === next) return;
+    const body = next.notes.querySelector('.reading-notes-body');
+    const heading = next.section.querySelector('h2');
+    if (!body || !heading) return;
+    content.replaceChildren(...Array.from(body.children, node => node.cloneNode(true)));
+    const label = heading.cloneNode(true);
+    label.querySelectorAll('.english-title,math annotation').forEach(node => node.remove());
+    context.textContent = label.textContent;
+    context.href = '#' + next.section.id;
+    rail.dataset.activeSection = next.section.id;
+    rail.scrollTop = 0;
+    current = next;
+  };
+  const schedule = () => {
+    if (!scheduled) { scheduled = true; requestAnimationFrame(update); }
+  };
+  const fit = () => {
+    rail.hidden = !wide.matches;
+    current = null;
+    if (wide.matches) {
+      document.documentElement.classList.add('notes-enhanced');
+      update();
+    } else {
+      document.documentElement.classList.remove('notes-enhanced');
+    }
+  };
+  wide.addEventListener('change', fit);
+  addEventListener('scroll', schedule, {passive:true});
+  addEventListener('resize', schedule);
+  addEventListener('hashchange', schedule);
+  document.addEventListener('toggle', schedule, true);
+  fit();
+})();
+
+
+(() => {
+  let saved=[];
+  addEventListener('beforeprint',()=>{
+    if(saved.length)return;
+    saved=[...document.querySelectorAll('main details')].map(node=>[node,node.open]);
+    saved.forEach(([node])=>{node.open=true;});
+  });
+  addEventListener('afterprint',()=>{
+    saved.forEach(([node,open])=>{node.open=open;});saved=[];
+  });
+})();
+</body></html>

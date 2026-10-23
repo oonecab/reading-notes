@@ -1,0 +1,1783 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第 6 章 · CPS 转换与计算效果 · EOPL</title><style>
+:root{--ink:#252b29;--sub:#58615d;--rule:#d9dfda;--green:#285a4e;--paper:#fffefa;--tint:#f4f6f2}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.9 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}main{max-width:860px;margin:auto;padding:48px 24px 90px}h1{font-size:2.2rem;line-height:1.3;margin:.2rem 0}h2{font-size:1.55rem;margin:3.4rem 0 1.2rem;padding-bottom:.45rem;border-bottom:1px solid var(--rule)}h3{font-size:1.16rem;margin:2rem 0 .6rem}p{margin:.7rem 0 1.1rem}header{padding-bottom:22px;border-bottom:1px solid var(--rule)}.overline,.source,.small,figcaption{color:var(--sub);font-size:.85rem}.intro{font-size:1.08rem}a{color:var(--green);text-underline-offset:3px}nav{border-left:3px solid var(--green);padding:.6rem 1.3rem;margin:2rem 0;background:var(--tint)}nav ul{margin:.3rem 0;padding-left:1.2rem;columns:2}nav li{break-inside:avoid}.passage{border-left:2px solid var(--green);padding:.15rem 0 .15rem 1.2rem;margin:1.5rem 0}.english{font:italic 1.05rem/1.7 Georgia,serif}.passage p{margin:.25rem 0}pre{background:var(--tint);border:1px solid var(--rule);padding:1rem 1.1rem;overflow:auto;font:14px/1.65 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}code{font:.9em ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}pre code{font:inherit}.callout{background:var(--tint);padding:.8rem 1.1rem;margin:1.4rem 0;border-left:2px solid var(--green)}.scroll{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:.91rem;margin:1.1rem 0}th,td{padding:.6rem .7rem;text-align:left;vertical-align:top;border-bottom:1px solid var(--rule)}th{border-top:1px solid var(--rule);background:var(--tint)}.wide{min-width:640px}figure{margin:1.5rem 0}figure .scroll{padding:12px 8px;border:1px solid var(--rule);background:var(--tint)}figcaption{margin-top:.6rem}svg{display:block;width:100%;height:auto;min-width:620px}svg text{font-family:system-ui,-apple-system,"PingFang SC",sans-serif;text-anchor:middle;fill:var(--ink);font-size:16px}svg .n{fill:var(--paper);stroke:var(--green);stroke-width:1.3}svg .e{fill:none;stroke:#7b8f85;stroke-width:1.4}svg .hint{font-size:13px;fill:var(--sub)}ul,ol{padding-left:1.5rem}li{margin:.35rem 0}footer{border-top:1px solid var(--rule);padding-top:1rem;margin-top:4rem;color:var(--sub);font-size:.85rem}@media(max-width:640px){main{padding:30px 18px 60px}h1{font-size:1.75rem}nav ul{columns:1}h2{font-size:1.3rem}}
+.exercise{margin:.8rem 0;border:1px solid var(--rule);padding:.75rem 1rem;scroll-margin-top:16px}.exercise summary{cursor:pointer;color:var(--green);font-weight:600}.exercise summary:focus-visible{outline:2px solid var(--green);outline-offset:4px}.exercise-index{display:flex;flex-wrap:wrap;gap:.4rem 1rem;margin:1rem 0}.exercise .answer{margin-top:1rem}.tree-code{overflow-wrap:anywhere;word-break:break-word}.exercise .scroll table{min-width:620px}
+
+/* Native, static MathML: no network resources or runtime typesetting. */
+math{font-family:"STIX Two Math","Cambria Math",math;font-size:1.04em}
+.math-inline{display:inline-block;max-width:100%;overflow-x:auto;overflow-y:hidden;vertical-align:middle;margin:0 .08em;padding:0 .02em}
+.equation{overflow-x:auto;max-width:100%;padding:.65rem .2rem;margin:1rem 0;text-align:center}
+.equation math{display:block;width:max-content;margin:0 auto;font-size:1.08em}
+.answer :is(h3,h4){margin:1.35rem 0 .5rem;font-size:1rem}
+:not(pre)>code{overflow-wrap:anywhere}
+pre code{overflow-wrap:normal;white-space:pre}
+
+.comparison,.benchmark{min-width:800px}.array-values{min-width:620px}.array-values th,.array-values td{text-align:center;padding:.4rem .55rem}.forest-label{font-weight:600}svg .hint{font-size:12px}.answer pre{font-size:13px}.exercise{scroll-margin-top:20px}
+
+.code-pair{margin:1.2rem 0;border-left:2px solid var(--rule);padding-left:1rem}.code-version{margin:.5rem 0;padding:.35rem 0}.code-version>summary{cursor:pointer;font-weight:600;color:var(--green)}.code-version>summary:focus-visible{outline:2px solid var(--green);outline-offset:3px}.code-version pre{margin:.7rem 0 1rem}.code-reference{font-size:.92rem}.pair-note{font-size:.9rem;color:var(--sub)}.chapter-nav{display:flex;flex-wrap:wrap;gap:.4rem 1rem}.exercise>summary{line-height:1.65}.experiment{margin:1.2rem 0;padding:.7rem 1rem;border-left:2px solid var(--green);background:var(--tint)}
+
+.meta,.caption{color:var(--sub);font-size:.85rem}
+.scroll,.table-scroll,.diagram{max-width:100%;overflow-x:auto}
+main,header,section,.answer,.code-pair,.code-version{min-width:0}
+.math-inline{padding:.20em .05em}
+.chapter-nav{display:flex;flex-wrap:wrap;gap:.4rem 1rem}
+.scroll>table{min-width:620px}
+.puzzle{width:auto;margin:1.2rem auto}
+.scroll>table.puzzle{min-width:0}
+.puzzle th,.puzzle td{text-align:center;min-width:44px}
+.verification-table,.state-table,.benchmark{font-variant-numeric:tabular-nums}
+.diagram{margin:1.2rem 0;padding:1rem 1.1rem;border:1px solid var(--rule);background:var(--tint)}
+.diagram figcaption{margin:0 0 .65rem}
+.chain{display:flex;align-items:center;gap:.55rem;min-width:max-content;font-size:.92rem}
+.diagram>.chain+.chain{margin-top:.7rem}
+.chain .node{border:1px solid #9caaa2;background:var(--paper);padding:.3rem .6rem;white-space:nowrap}
+.chain .edge{color:var(--green);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;white-space:nowrap}
+.diagram-notes{margin:.75rem 0 0;padding-left:1.2rem;font-size:.92rem}
+.diagram-notes li{margin:0}
+.step-table th:first-child,.step-table td:first-child{width:5.3rem;white-space:nowrap}
+.step-table th:nth-child(2){width:14rem}
+.step-table code{white-space:nowrap}
+.step-table .chain{gap:.35rem}
+.step-table .node{padding:.1rem .4rem}
+.state-table{table-layout:fixed}
+.state-table th:first-child{width:37%}
+.state-table td:not(:first-child),.state-table th:not(:first-child){text-align:center}
+.state-table td:last-child{white-space:nowrap}
+svg .node{fill:var(--paper);stroke:var(--green);stroke-width:1.3}
+svg .edge{fill:none;stroke:#7b8f85;stroke-width:1.4;marker-end:url(#arrow)}
+svg .small{font-size:12px;fill:var(--sub)}
+svg .chapter-link{cursor:pointer}
+svg .chapter-link:hover .node,svg .chapter-link:focus-visible .node{fill:var(--tint);stroke-width:2.5}
+blockquote{margin:1.4rem 0;padding:.5rem 1.2rem;border-left:2px solid var(--green);background:var(--tint)}
+hr{border:0;border-top:1px solid var(--rule);margin:2.6rem 0}
+@media(max-width:640px){.diagram{padding:.8rem}.state-table{table-layout:auto;min-width:570px}}
+
+/* Reading rail: one table of contents beside the book page. */
+.reading-layout{display:grid;grid-template-columns:240px minmax(0,860px);gap:32px;max-width:1200px;margin:0 auto;padding:0 24px;align-items:start}
+.reading-layout>main{width:100%;min-width:0;margin:0}
+.chapter-sidebar{position:sticky;top:32px;max-height:calc(100dvh - 64px);overflow-y:auto;overscroll-behavior:contain;padding:8px 16px 12px 0;margin-top:40px;border-right:1px solid var(--rule);scrollbar-width:thin}
+.toc-panel>summary{display:flex;align-items:center;justify-content:space-between;gap:1rem;list-style:none;padding:.45rem .55rem;color:var(--green);font-size:.9rem;font-weight:650;cursor:pointer}
+.toc-panel>summary::-webkit-details-marker{display:none}
+.toc-panel>summary::after{content:"+";font-size:1.1rem;font-weight:400}
+.toc-panel[open]>summary::after{content:"−"}
+.toc-panel>summary:focus-visible,.chapter-toc a:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+.chapter-toc{border:0;background:transparent;margin:.45rem 0 0;padding:0;font-size:.84rem;line-height:1.65}
+.chapter-toc ul{columns:1;list-style:none;margin:0;padding:0}
+.chapter-toc li{margin:.18rem 0}
+.chapter-toc a{display:block;padding:.5rem .6rem;border-left:2px solid transparent;text-decoration:none;overflow-wrap:anywhere;color:var(--sub)}
+.chapter-toc a:hover{color:var(--green);background:var(--tint)}
+.chapter-toc a[aria-current="location"]{color:var(--green);border-left-color:var(--green);background:var(--tint);font-weight:600}
+.chapter-toc .toc-home{margin-bottom:.55rem;font-size:.8rem;color:var(--green)}
+.skip-link{position:fixed;left:16px;top:-100px;z-index:100;padding:.5rem 1rem;background:var(--paper);border:1px solid var(--green)}
+.skip-link:focus{top:12px}
+main[id],main [id]{scroll-margin-top:24px}
+@media(max-width:1099px){
+ .reading-layout{display:block;padding:0;max-width:860px}
+ .reading-layout>main{margin:auto}
+ .chapter-sidebar{position:static;top:0;z-index:10;margin:0;padding:8px 24px;border-right:0;border-bottom:1px solid var(--rule);background:var(--paper);max-height:none;overflow:visible}
+ .toc-enhanced .chapter-sidebar{position:sticky}
+ .toc-panel>summary{padding:.35rem 0;font-size:.88rem}
+ .chapter-toc{max-height:60dvh;overflow-y:auto;overscroll-behavior:contain;padding-bottom:.4rem}
+ main[id],main [id]{scroll-margin-top:80px}
+}
+@media(max-width:640px){.chapter-sidebar{padding:8px 18px}}
+@media print{.reading-layout{display:block;max-width:860px;padding:0}.chapter-sidebar,.skip-link{display:none}.reading-layout>main{padding:24px}}
+
+.result{font-variant-numeric:tabular-nums}.source-link{white-space:normal}
+.book-card{padding:1rem 0;border-bottom:1px solid var(--rule)}
+.book-card h3{margin:.2rem 0}.book-card p{margin:.4rem 0}
+.chart-svg{min-width:0} .chart-svg text{font-size:13px}
+.exercise-index a{font-variant-numeric:tabular-nums}.solution-link{font-size:.9rem}
+.exercise-question .scroll>table{min-width:480px}
+.question-note strong{color:var(--green)}
+
+/* Supplementary reading notes share the page's type and color palette. */
+.reading-notes{margin:2rem 0 0;padding:0.8rem 1rem;border-left:2px solid var(--green);background:var(--tint);font-size:0.92rem;line-height:1.85}
+.reading-notes>summary{color:var(--green);font-weight:650;cursor:pointer;list-style:none}
+.reading-notes>summary::-webkit-details-marker{display:none}
+.reading-notes>summary::after{content:"＋";float:right;font-weight:400}
+.reading-notes[open]>summary::after{content:"−"}
+.reading-notes>summary:focus-visible,.annotation-context a:focus-visible{outline:2px solid var(--green);outline-offset:4px}
+.annotation-card{min-width:0;margin:1.15rem 0 0;padding:1rem 0 0;border-top:1px solid var(--rule)}
+.annotation-card:first-child{border-top:0;padding-top:0}
+.annotation-kind{display:block;font-size:0.73rem;font-weight:600;letter-spacing:0.05em;color:var(--green);margin-bottom:0.25rem}
+.annotation-card h3{font-size:0.97rem;line-height:1.65;margin:0 0 0.5rem;font-weight:650}
+.annotation-card p{margin:0.4rem 0 0.7rem}
+.annotation-card p:last-child{margin-bottom:0}
+.annotation-card .equation{padding:0.5rem 0;margin:0.65rem 0}
+.annotation-card math{font-size:1em}
+.annotation-sidebar{display:none}
+@media(min-width:1440px){
+ .notes-enhanced .reading-layout{grid-template-columns:240px minmax(0,860px) 280px;max-width:1524px;gap:32px}
+ .notes-enhanced main .reading-notes{display:none}
+ .notes-enhanced .annotation-sidebar:not([hidden]){display:block;position:sticky;top:32px;max-height:calc(100dvh - 64px);overflow-y:auto;overscroll-behavior:contain;min-width:0;margin-top:40px;padding:8px 0 12px 22px;border-left:1px solid var(--rule);font-size:0.9rem;line-height:1.85;scrollbar-width:thin}
+ .annotation-label{color:var(--green);font-size:0.87rem;font-weight:650;margin:0 0 0.75rem}
+ .annotation-context{font-size:0.85rem;line-height:1.65;margin:0 0 1.25rem}
+ .annotation-context a{color:var(--sub);text-decoration:none}
+ .annotation-context a:hover{color:var(--green);text-decoration:underline}
+ .annotation-sidebar .annotation-card{margin-top:1.5rem;padding-top:1.35rem}
+ .annotation-sidebar .annotation-card:first-child{margin-top:0;padding-top:0}
+ .annotation-sidebar .annotation-card h3{font-size:0.95rem}
+}
+@media print{.annotation-sidebar{display:none!important}main .reading-notes{display:block!important;break-inside:avoid}}
+
+/* RN-001 shared teaching components. Inlined in every controlled reading page. */
+.rn-components {
+  --rn-space: 1rem;
+  --rn-label-size: .95rem;
+  --rn-title-size: 1.05rem;
+}
+.rn-components :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
+  min-width: 0;
+  scroll-margin-top: 24px;
+}
+.rn-components .rn-statement {
+  margin: 1.5rem 0;
+  padding: 1rem 1.15rem;
+  border: 0;
+  border-left: 3px solid var(--green);
+  background: var(--tint);
+}
+.rn-components :is(.rn-statement, .rn-example) > :is(h3, h4, .rn-title) {
+  margin: 0 0 .8rem;
+  padding: 0;
+  border: 0;
+  font-size: var(--rn-title-size);
+  line-height: 1.7;
+  font-weight: 650;
+  color: var(--green);
+}
+.rn-components .rn-statement > .statement-body {
+  padding: 0;
+  border: 0;
+}
+.rn-components .statement-body > :first-child { margin-top: 0; }
+.rn-components .statement-body > :last-child { margin-bottom: 0; }
+.rn-components .rn-statement .original-excerpt {
+  margin: .5rem 0 1rem;
+  padding: .1rem 0 .1rem .85rem;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-statement .statement-label {
+  margin: .8rem 0 .3rem;
+  color: var(--sub);
+  font-size: .85rem;
+  font-weight: 600;
+}
+.rn-components .rn-example {
+  margin: 1.75rem 0;
+  padding: 1rem 0 .25rem;
+  border: 0;
+  border-top: 1px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-proof {
+  margin: 1.1rem 0 1.75rem;
+  padding: 0 0 .2rem 1rem;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-proof > summary {
+  cursor: pointer;
+  margin: 0;
+  padding: .35rem 0;
+  color: var(--green);
+  font-size: var(--rn-label-size);
+  font-weight: 650;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .rn-proof > .rn-proof-body { margin-top: .7rem; }
+.rn-components .rn-proof-body p { margin: .85rem 0; }
+.rn-components .rn-proof-body > :first-child:not(.rn-example):not(.rn-statement):not(.rn-proof) {
+  margin-top: 0;
+}
+.rn-components :is(.rn-proof-body, .rn-statement, .rn-example) > :last-child:not(.rn-example):not(.rn-statement):not(.rn-proof) {
+  margin-bottom: 0;
+}
+.rn-components .exercise {
+  margin: 1rem 0;
+  padding: 0;
+  border: 1px solid var(--rule);
+  background: transparent;
+}
+.rn-components .exercise > summary {
+  margin: 0;
+  padding: .85rem 1rem;
+  color: var(--green);
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .exercise[open] > summary {
+  border-bottom: 1px solid var(--rule);
+  background: var(--tint);
+}
+.rn-components .exercise > :is(.exercise-question, .answer) {
+  margin: 0;
+  padding: 1rem;
+  border: 0;
+  background: transparent;
+  min-width: 0;
+}
+.rn-components .exercise > .answer {
+  border-top: 1px solid var(--rule);
+}
+.rn-components .exercise :is(.exercise-question, .answer) > :first-child {
+  margin: 0 0 .75rem;
+  padding: 0;
+  border: 0;
+  color: var(--green);
+  font-size: var(--rn-label-size);
+  font-weight: 650;
+  line-height: 1.75;
+}
+.rn-components .exercise :is(.exercise-question, .answer) > :first-child > strong { font-weight: inherit; }
+.rn-components :is(.exercise-question, .answer) > :last-child { margin-bottom: 0; }
+.rn-components :is(.rn-statement, .rn-example, .rn-proof, .exercise) .source {
+  margin-top: 1rem;
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components .exercise > .source {
+  margin: 0;
+  padding: 0 1rem 1rem;
+}
+.rn-components .rn-statement .source-status {
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components :is(.derivation-steps, .proof-steps, .solution-steps) {
+  margin: .75rem 0 1rem;
+  padding-left: 1.5rem;
+}
+.rn-components :is(.derivation-steps, .proof-steps, .solution-steps) > li {
+  padding-left: .15rem;
+  margin: .9rem 0;
+}
+.rn-components :is(.rn-proof, .exercise) > summary:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+.rn-components :is(.rn-proof-body, .rn-example, .rn-statement, .exercise-question, .answer) {
+  overflow-wrap: break-word;
+}
+.rn-components .code-details {
+  margin: 1.2rem 0;
+  padding: .35rem 0 .35rem 1rem;
+  border-left: 2px solid var(--rule);
+}
+.rn-components :is(.code-details, .code-version) > summary {
+  cursor: pointer;
+  color: var(--green);
+  font-size: .95rem;
+  font-weight: 600;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .code-details pre { margin: .7rem 0 1rem; }
+.rn-components :is(.code-details, .code-version) > summary:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+.rn-components .example-kind {
+  margin: .5rem 0 1rem;
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components .exercise-index a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: .1rem .25rem;
+  font-variant-numeric: tabular-nums;
+}
+.rn-components .exercise-index-panel {
+  margin: 1.2rem 0;
+  padding: .65rem .9rem;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: var(--paper, #fffefa);
+}
+.rn-components .exercise-index-panel > summary {
+  cursor: pointer;
+  color: var(--green);
+  font-weight: 600;
+}
+.rn-components .exercise-index { margin: .75rem 0 0; line-height: 1.8; }
+.rn-components .exercise-index a { margin: .15rem .5rem .15rem 0; }
+.rn-components .original-question {
+  margin: 1.2rem 0 0;
+  border-top: 1px solid var(--rule);
+  padding-top: .65rem;
+  color: var(--sub);
+}
+.rn-components .original-question > summary { cursor: pointer; color: var(--green); }
+.rn-components .question-translation { margin-top: .7rem; }
+/* Align the reading column independently of annotation enhancement. */
+@media (min-width: 1440px) {
+  .rn-components .reading-layout {
+    grid-template-columns: 240px minmax(0, 860px) 280px;
+    max-width: 1524px;
+    gap: 32px;
+  }
+}
+@media (max-width: 1100px) {
+  .rn-components:not(.portal-reader):not(.sample-fragment) :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
+    scroll-margin-top: 90px;
+  }
+}
+@media (max-width: 640px) {
+  .rn-components .rn-statement { padding: .85rem .8rem; }
+  .rn-components .rn-proof { padding-left: .75rem; }
+  .rn-components .exercise > :is(summary, .exercise-question, .answer) {
+    padding: .85rem .8rem;
+  }
+  .rn-components .exercise > .source { padding: 0 .8rem .85rem; }
+}
+@media print {
+  .rn-components .rn-proof::details-content { content-visibility: visible !important; }
+}
+
+.diagram-scroll,.table-scroll{overflow-x:auto}.control-diagram{min-width:700px;width:100%;height:auto}.control-diagram text{font-size:17px}.code-details pre{max-height:36rem;overflow:auto}
+/* RN-001: a single Latin/digit face across prose, tables and diagrams.
+   CJK glyphs use the local Chinese fallback; no proprietary fonts are shipped. */
+:root{--rn-text-font:"Times New Roman",Times,system-ui,-apple-system,"PingFang SC","Microsoft YaHei",serif;--rn-diagram-blue:#edf5fd;--rn-diagram-blue-line:#a9bfd5;--rn-diagram-amber:#fff6e4;--rn-diagram-amber-line:#d6bd87;--rn-diagram-ink:#303b46;--rn-diagram-edge:#8c969f}
+body.rn-components,body.rn-components :not(math):not(math *):not(:where(pre,pre *,code,code *,kbd,kbd *,samp,samp *)){
+  font-family:var(--rn-text-font)!important
+}
+/* Program text uses the original local monospace family across reading pages
+   and source/program guides. Mathematical descendants keep their own fonts. */
+:root{--rn-code-font:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+body :is(pre,code,kbd,samp),body :is(pre,code,kbd,samp) :not(math):not(math *){
+  font-family:var(--rn-code-font)!important
+}
+
+body.rn-components math{font-family:"STIX Two Math","Cambria Math",math;font-size:1em}
+body.rn-components math :is(mi,mn,mtext,ms){font-family:var(--rn-text-font)!important}
+body.rn-components math mi:not([mathvariant]),body.rn-components math mi[mathvariant="italic"]{font-style:italic;text-transform:none}
+body.rn-components math :is(mn,mtext,ms),body.rn-components math mi[mathvariant="normal"]{font-style:normal}
+body.rn-components math mi:is([mathvariant="bold"],[mathvariant="bold-italic"]){font-weight:700;text-transform:none}
+body.rn-components math mi[mathvariant="bold-italic"]{font-style:italic}
+body.rn-components math mi:is([mathvariant="double-struck"],[mathvariant="script"],[mathvariant="bold-script"],[mathvariant="fraktur"],[mathvariant="bold-fraktur"]){font-family:"STIX Two Math","Cambria Math",math!important}
+body.rn-components math [mathvariant="monospace"]{font-family:var(--rn-code-font)!important;font-style:normal;text-transform:none}
+body.rn-components :is(p,li,td,th,summary,figcaption,h1,h2,h3,h4) math{vertical-align:baseline}
+body.rn-components .rn-math-inline{display:inline-block;max-width:100%;overflow-x:auto;overflow-y:hidden;vertical-align:middle}
+body.rn-components pre{line-height:1.65;tab-size:4;white-space:pre}
+body.rn-components pre code{font-size:inherit;white-space:inherit}
+/* Keep short expressions together; long statements wrap within the text column. */
+body.rn-components code:not(pre code){
+  display:inline-block;max-width:100%;vertical-align:baseline;
+  font-size:.9em;font-style:normal;font-weight:400;line-height:1.45;
+  color:#294553;background:#eef2f4;border:1px solid #dfe6e9;border-radius:4px;
+  padding:.08em .3em;box-decoration-break:clone;-webkit-box-decoration-break:clone;
+  white-space:normal;overflow-wrap:anywhere;word-break:normal
+}
+body.rn-components :is(h1,h2,h3,h4,summary,th) code:not(pre code){font-size:.9em;font-weight:inherit}
+body.rn-components a code:not(pre code){color:inherit}
+body.rn-components pre code{background:none;border:0;border-radius:0;padding:0;box-decoration-break:slice;overflow-wrap:normal}
+body.rn-components svg text{fill:var(--rn-diagram-ink)}
+body.rn-components svg.rn-diagram{background:transparent;border:0}
+body.rn-components svg tspan[baseline-shift]{font-size:70%}
+/* Node roles are explicit. Coordinate plots, data series, cells and generator
+   colours keep their original encodings. */
+body.rn-components svg.rn-diagram :is(.rn-node,.node,rect.n,circle.n,ellipse.n,.n rect,.n circle,.n ellipse){
+  fill:var(--rn-diagram-blue);stroke:var(--rn-diagram-blue-line);stroke-width:1.15;
+  vector-effect:non-scaling-stroke
+}
+body.rn-components svg.rn-diagram rect:is(.rn-node,.node),
+body.rn-components svg.rn-diagram .n rect,
+body.rn-components svg.rn-diagram rect.n{rx:10px;ry:10px}
+body.rn-components svg.rn-diagram .rn-node.rn-node-accent{fill:var(--rn-diagram-amber);stroke:var(--rn-diagram-amber-line)}
+body.rn-components svg.rn-diagram .rn-edge{
+  fill:none;stroke:var(--rn-diagram-edge);stroke-width:1.15;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke
+}
+body.rn-components svg.rn-diagram .rn-arrow{fill:var(--rn-diagram-edge);stroke:none}
+body.rn-components svg.rn-diagram .hint{fill:#626d77}
+body.rn-components svg.rn-diagram text{font-weight:400}
+body.rn-components figure:has(svg.rn-diagram){background:#fff;border:1px solid #e5e9ed;border-radius:12px;padding:1.25rem}
+body.rn-components :is(.scroll,.diagram):has(>svg.rn-diagram){background:transparent;border:0}
+@media(max-width:640px){body.rn-components figure:has(svg.rn-diagram){padding:.75rem}}
+@media print{body.rn-components figure:has(svg.rn-diagram){border-color:#bbb;break-inside:avoid}}
+</style></head><body class="rn-components"><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="章节目录"><details class="toc-panel" id="toc-panel" open><summary>目录</summary><nav class="chapter-toc" id="chapter-toc"><a class="toc-home" href="book_overview.html">全书地图</a><a class="toc-home" href="preface.html">序言</a><ul><li><a href="#s6-1">6.1 手写 CPS：从上下文到参数</a></li><li><a href="#s6-2">6.2 尾形式：用语法约束控制行为</a></li><li><a href="#s6-3">6.3 CPS 转换：给中间结果命名并固定次序</a></li><li><a href="#s6-4">6.4 计算效果：让打印、存储和控制流显式化</a></li><li><a href="#programs">运行本章程序</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">EOPL 第三版 · 第 6 章</p><h1>第 6 章 · CPS 转换与计算效果</h1><p class="intro">从手写续文到机械转换，追踪中间结果、求值次序与效果怎样进入目标程序。</p><p class="source">原书 pp.193–232 / <a href="../assets/source.pdf#page=216">PDF 216–255</a>。习题 6.1–6.40 的完整中文题干与解答。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter05_continuations.html">← 第 5 章 · 续文、异常与线程</a></p></header><section id="s6-1"><h2>6.1 手写 CPS：从上下文到参数</h2><p class="source">原书 §6.1，pp.193–203 / <a href="../assets/source.pdf#page=216">PDF 216–226</a>。</p><p>第五章改写的是解释器，第六章把相同办法用于任意程序。关键不是把所有 return 换成一个 k 调用，而是给每处“等子调用返回以后继续”的工作起一个明确名字，并把它作为参数传给子调用。这个参数就是续文。</p><pre><code class="language-scheme">(define (fact/k n k)
+  (if (zero? n) (k 1)
+      (fact/k (- n 1) (lambda (v) (k (* n v))))))</code></pre><p>读法是：如果 n=0，把 1 送给 k；否则先求 n−1 的阶乘，等结果叫 v，再把 n*v 交给旧 k。递归调用在尾位置，乘法被保存在新闭包里。与直接递归 fact 相比，这个版本显式化了待乘工作，却没有减少它的总量。</p><div class="rn-statement" id="cps-contract"><h3>辅助过程的规格要对任意续文成立</h3><div class="statement-body"><p><code>fact/k(n,g) = g(fact(n))</code>。这里 g 不是固定的恒等函数；归纳时递归调用使用新构造的续文，所以规格必须同时覆盖所有 g。这个条件连接了第一章的上下文参数与“No Mysterious Auxiliaries”：不能只验证 <code>fact/k(n,identity)</code>，却不给额外参数独立意义。</p></div></div><p>手工转换的四步可沿具体表达式读：过程增加 k；直接产生值就送给 k；尾调用沿用 k；非尾调用用新续文命名结果再继续。例如 <code>+((f x),33,(g y))</code> 先 f(x)，再 g(y)，最后把两个结果与 33 相加交给原 k。后续工作的位置正是求值次序的显式说明。</p><pre><code class="language-text">f(x,lambda(a)
+  g(y,lambda(b)
+    k(a+33+b)))</code></pre><p>fib 的两次递归需要两个阶段：先保存 n−2 和 k 等左值，再保存左值等右值。CPS 不把指数次重复计算自动变成动态规划；它改变控制表示，不改变算法复用策略。</p><p>特殊情况下续文可以压缩。阶乘里的续文都形如“把 v 乘一个数”，所以只保存这个数即可：单位续文用 1，新增乘 n 的帧变成更新 acc*=n，最终应用是 acc*v。由此得到 fact-iter。这依赖精确乘法的结合律与单位元，不适用于任意闭包或带舍入的数值语义。</p><!-- EOPL:snippet chapter06_algorithms.rkt inline-algorithms -->
+<details class="code-details" open><summary>查看实现 · inline-algorithms</summary><pre><code class="language-scheme"> (define (rf s xs k)
+  (cond [(null? xs) (k &#x27;())] [(eq? s (car xs)) (k (cdr xs))]
+   [else (rf s (cdr xs) (lambda (v) (k (cons (car xs) v))))]))
+ (define (ls xs k)
+  (if (null? xs) (k 0) (ls (cdr xs) (lambda (v) (k (+ (car xs) v))))))
+ (define (of s e k)
+  (cond [(symbol? e) (k (eq? s e))]
+   [(eq? (car e) &#x27;lambda) (if (eq? s (caadr e)) (k #f) (of s (caddr e) k))]
+   [else (of s (car e) (lambda (v) (if v (k #t) (of s (cadr e) k))))]))
+ (define (su new old e k)
+  (cond [(symbol? e) (k (if (eq? e old) new e))] [(null? e) (k &#x27;())]
+   [else (su new old (car e) (lambda (a) (su new old (cdr e) (lambda (b) (k (cons a b))))))]))
+</code></pre></details>
+<!-- EOPL:end-snippet --><p>原书图 6.1/6.2 的 apply-cont 只把 saved-n 写回 n，遗漏乘入 val；此处保留校注：应执行 <code>val := saved-n * val</code> 再弹续文。逐页图像核对与实测确认，原片段 fact(4)=1，修正版=24；省去不改变 PC 的自跳转之后修正版仍=24。</p><details class="reading-notes" id="notes-s6-1" data-notes-for="s6-1" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">控制等价</span><h3>CPS 不是累加器的同义词</h3><p>一般 CPS 能表达任意待续工作，通常要形成闭包链。只有某个程序的续文族具有封闭的代数表示时，才可压成一个或几个累加器。阶乘与求和是特别清楚的例子；树遍历和任意异常目标通常需要更丰富的数据。</p></div><div class="annotation-card"><span class="annotation-kind">原语边界</span><h3>哪些调用仍能留在简单式里</h3><p>书中把固定的算术、zero? 等当作无用户调用的已知原语，允许在 k 的实参中计算它们。未知 f/g/p 必须接续文，并被提升到尾调用。若某个“原语”会输出、修改存储或调用用户过程，就不能按相同理由视为简单。</p></div></div></details><h3 id="exercises-6-1">本节习题与解答</h3><details class="exercise-index-panel"><summary>本节习题题号索引 · 10 题</summary><nav class="exercise-index" role="navigation" aria-label="本节习题索引"><a href="#ex-6-1" aria-label="习题 6.1">6.1</a> · <a href="#ex-6-2" aria-label="习题 6.2">6.2</a> · <a href="#ex-6-3" aria-label="习题 6.3">6.3</a> · <a href="#ex-6-4" aria-label="习题 6.4">6.4</a> · <a href="#ex-6-5" aria-label="习题 6.5">6.5</a> · <a href="#ex-6-6" aria-label="习题 6.6">6.6</a> · <a href="#ex-6-7" aria-label="习题 6.7">6.7</a> · <a href="#ex-6-8" aria-label="习题 6.8">6.8</a> · <a href="#ex-6-9" aria-label="习题 6.9">6.9</a> · <a href="#ex-6-10" aria-label="习题 6.10">6.10</a></nav></details><details class="exercise" id="ex-6-1"><summary>习题 6.1 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.1"><p>考虑图 6.2：从 fact/k 中删掉 <code>(set! pc fact/k)</code>，从 apply-cont 中删掉 <code>(set! pc apply-cont)</code>。为什么程序仍能工作？</p></div><p class="source">印刷 p.200 / <a href="../assets/source.pdf#page=223">PDF 223</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>删掉的是留在当前块的自跳转：驱动器进入 fact/k 时 pc 本来就是 fact/k，非零分支仍需下轮执行它；进入 apply-cont 时同理。真正从 fact/k 基例转到 apply-cont、从 end 转到 #f 的写入必须保留。</p><p>此结论以图 6.1/6.2 的累乘遗漏已经修正为前提。修正版省去这两个自跳转后，n=0…11 的实测都与独立阶乘一致；照原图未修正的代码会终止，却错误地返回 1。</p></div></details><details class="exercise" id="ex-6-2"><summary>习题 6.2 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.2"><p>对 n 作归纳，证明任意 g 都有 <code>(fib/k n g) = (g (fib n))</code>。</p></div><p class="source">印刷 p.200 / <a href="../assets/source.pdf#page=223">PDF 223</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>定义域取非负整数，fib(0)=fib(1)=1。n=0、1 时 fib/k 直接执行 g(1)，即所需结论。设对小于 n 的参数和任意续文均成立，<math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" aria-label="n ≥ 2"><mrow><mi>n</mi><mo>≥</mo><mn>2</mn></mrow></math> 时先把 fib(n−1) 交给一个新续文；该续文再求 fib(n−2)，最后执行 g(a+b)。</p><pre><code class="language-text">fib/k(n,g)
+= fib/k(n-1, lambda(a) fib/k(n-2, lambda(b) g(a+b)))
+= fib/k(n-2, lambda(b) g(fib(n-1)+b))
+= g(fib(n-1)+fib(n-2))
+= g(fib(n))</code></pre><p>归纳假设必须量化“任意续文”，因为递归调用用的不是原 g，而是新构造的 lambda。有限验证用恒等、加一、乘三三种 g 与 n=0…11 对照直接 fib；它支持实现正确性，归纳才给出一般结论。</p></div></details><details class="exercise" id="ex-6-3"><summary>习题 6.3 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.3"><p>把下面每个 Scheme 表达式改写成 CPS。假定所有未知函数也已经改成 CPS。</p><ol><li><pre><code class="language-scheme">(lambda (x y) (p (+ 8 x) (q y)))</code></pre></li><li><pre><code class="language-scheme">(lambda (x y u v) (+ 1 (f (g x y) (+ u v))))</code></pre></li><li><pre><code class="language-scheme">(+ 1 (f (g x y) (+ u (h v))))</code></pre></li><li><pre><code class="language-scheme">(zero? (if a (p x) (p y)))</code></pre></li><li><pre><code class="language-scheme">(zero? (if (f a) (p x) (p y)))</code></pre></li><li><pre><code class="language-scheme">(let ((x (let ((y 8)) (p y)))) x)</code></pre></li><li><pre><code class="language-scheme">(let ((x (if a (p x) (p y)))) x)</code></pre></li></ol></div><p class="source">印刷 p.201 / <a href="../assets/source.pdf#page=224">PDF 224</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>以下续文参数统一叫 k；第 1、2 项是新过程定义，其余是在现有上下文 k 中转换。算术和 zero? 是已知的简单原语，未知 p/q/f/g/h 都接额外续文参数。</p><ol><li><pre><code class="language-scheme">(lambda (x y k)
+  (q y (lambda (v) (p (+ 8 x) v k))))</code></pre></li><li><pre><code class="language-scheme">(lambda (x y u v k)
+  (g x y (lambda (a) (f a (+ u v) (lambda (b) (k (+ 1 b)))))))</code></pre></li><li><pre><code class="language-scheme">(g x y (lambda (a)
+  (h v (lambda (b)
+    (f a (+ u b) (lambda (r) (k (+ 1 r))))))))</code></pre></li><li><pre><code class="language-scheme">(if a
+  (p x (lambda (r) (k (zero? r))))
+  (p y (lambda (r) (k (zero? r)))))</code></pre></li><li><pre><code class="language-scheme">(f a (lambda (b)
+  (if b
+    (p x (lambda (r) (k (zero? r))))
+    (p y (lambda (r) (k (zero? r)))))))</code></pre></li><li><pre><code class="language-scheme">(let ((y 8)) (p y (lambda (x) (k x))))</code></pre></li><li><pre><code class="language-scheme">(if a (p x (lambda (x) (k x)))
+      (p y (lambda (x) (k x))))</code></pre></li></ol><p>第 6 项先在内层把 y 绑定到 8，再将 p(y) 的结果绑定到外层 x；两个 let 都要按各自的作用域理解。第 7 项右式中的 x 是外层 x，lambda 参数 x 只在后面的 k(x) 中遮蔽它。第三项先调用 g 再 h，最后 f；它是下一题比较求值顺序的关键例子。</p></div></details><details class="exercise" id="ex-6-4"><summary>习题 6.4 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.4"><p>把以下过程分别改成 CPS：先用数据结构表示续文，再用过程表示，再把过程表示内联，最后写寄存器化版本。每种版本都使用下述 end-cont，测试整个尾递归计算中结束信息只出现一次。</p><pre><code class="language-scheme">(apply-cont (end-cont) val)
+= (begin
+    (eopl:printf &quot;End of computation.~%&quot;)
+    (eopl:printf &quot;This sentence should appear only once.~%&quot;)
+    val)</code></pre><ol><li>remove-first（§1.2.3）。</li><li>list-sum（§1.3）。</li><li>occurs-free?（§1.2.4）。</li><li>subst（§1.2.5）。</li></ol></div><p class="source">印刷 p.201 / <a href="../assets/source.pdf#page=224">PDF 224</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p><code>chapter06_algorithms.rkt</code> 提供四种可切换的完整表示，数据域沿用原书 Scheme 符号表与 λ 表达式。四个过程所需帧可明确枚举：remove-first 用 cons(head)；list-sum 用 add(head)；occurs-free? 的应用式用“若左边未找到则查右边”；subst 用“首部替换完再做尾部”和“把两部分 cons”。</p><pre><code class="language-text">remove-first(s,cons(a,ds),k):
+  if s=a then k(ds)
+  else remove-first(s,ds,lambda(v) k(cons(a,v)))
+list-sum(cons(a,ds),k): list-sum(ds,lambda(v) k(a+v))
+occurs-free?(s,app(a,b),k):
+  occurs-free?(s,a,lambda(v)
+    if v then k(true) else occurs-free?(s,b,k))
+subst(new,old,cons(a,d),k):
+  subst(new,old,a,lambda(v1)
+    subst(new,old,d,lambda(v2) k(cons(v1,v2))))</code></pre><p>空表、符号与 lambda 的边界分别在源码列出：遇到绑定了目标变量的 lambda 立即返回假；subst 只按 s-list 替换符号，不做捕获规避的 λ 替换。过程表示用 make-k 生成闭包，内联表示直接写上述 lambda；数据表示用标签列表分派；寄存器版把 task/k/v/pc 放入循环，visit/apply 之间跳转。</p><p>实际四版都检查了空输入、首个匹配、重复匹配、绑定遮蔽和嵌套表；每个独立调用的 end-count 都为 1。计数与题给打印承担相同观察职责；该性质是尾调结构检查的辅助，单靠“只打印一次”并不能证明所有调用均在尾位置。</p></div></details><details class="exercise" id="ex-6-5"><summary>习题 6.5 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.5"><p>把表达式改写成 CPS 时会选择其中过程调用的求值次序。把前面的各例改写成所有过程调用都按从右到左求值的 CPS。</p></div><p class="source">印刷 p.201 / <a href="../assets/source.pdf#page=224">PDF 224</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>对<a href="#ex-6-3">习题 6.3</a>，只有第 3 项有可以交换的独立未知调用：先 h(v)，再 g(x,y)，最后 f；其他六项的未知调用顺序受依赖或分支选择固定，沿用该题对应式。</p><pre><code class="language-scheme">(h v (lambda (b)
+  (g x y (lambda (a)
+    (f a (+ u b) (lambda (r) (k (+ 1 r))))))))</code></pre><p>对 fib 改为先求 n−2，再求 n−1；对章首 cond 的双调用行先 g(y) 再 f(x)。对<a href="#ex-6-4">习题 6.4</a> 的单递归 remove-first/list-sum 无变化；subst 先递归尾部再首部，最后仍按原顺序 cons。occurs-free? 的应用节点可以先查右再查左，但须保留短路，不应无条件计算两边。</p><pre><code class="language-text">subst(new,old,cons(a,d),k):
+  subst(new,old,d,lambda(v2)
+    subst(new,old,a,lambda(v1) k(cons(v1,v2))))
+fib/k(n,k):
+  if n&lt;2 then k(1)
+  else fib/k(n-2,lambda(b) fib/k(n-1,lambda(a) k(a+b)))</code></pre><p>若过程含输出、异常或发散，更换次序可能更换效果和终止行为；这题是在明确选择另一种调用次序，不能据相同数值结果宣称效果等价。转换器的 right 模式实际用输出日志验证了右到左次序。</p></div></details><details class="exercise" id="ex-6-6"><summary>习题 6.6 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.6"><p>表达式 <code>(lambda (x y) (+ (f (g x)) (h (j y))))</code> 中的过程调用有多少种求值次序？逐一写出按该顺序调用的 CPS 表达式。</p></div><p class="source">印刷 p.201 / <a href="../assets/source.pdf#page=224">PDF 224</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>必须满足 g 在 f 之前、j 在 h 之前；两条长为 2 的链共有 6 种交错。外层加法必须等两边数值取得，不另产生可独立移动的未知调用。</p><ol><li><p>g → f → j → h</p><pre><code class="language-scheme">(lambda (x y k) (g x (lambda (gx) (f gx (lambda (fx) (j y (lambda (jy) (h jy (lambda (hy) (k (+ fx hy)))))))))))</code></pre></li><li><p>g → j → f → h</p><pre><code class="language-scheme">(lambda (x y k) (g x (lambda (gx) (j y (lambda (jy) (f gx (lambda (fx) (h jy (lambda (hy) (k (+ fx hy)))))))))))</code></pre></li><li><p>g → j → h → f</p><pre><code class="language-scheme">(lambda (x y k) (g x (lambda (gx) (j y (lambda (jy) (h jy (lambda (hy) (f gx (lambda (fx) (k (+ fx hy)))))))))))</code></pre></li><li><p>j → g → f → h</p><pre><code class="language-scheme">(lambda (x y k) (j y (lambda (jy) (g x (lambda (gx) (f gx (lambda (fx) (h jy (lambda (hy) (k (+ fx hy)))))))))))</code></pre></li><li><p>j → g → h → f</p><pre><code class="language-scheme">(lambda (x y k) (j y (lambda (jy) (g x (lambda (gx) (h jy (lambda (hy) (f gx (lambda (fx) (k (+ fx hy)))))))))))</code></pre></li><li><p>j → h → g → f</p><pre><code class="language-scheme">(lambda (x y k) (j y (lambda (jy) (h jy (lambda (hy) (g x (lambda (gx) (f gx (lambda (fx) (k (+ fx hy)))))))))))</code></pre></li></ol><p>六条次序均由可运行例子逐项记录调用日志。测试取 g(x)=x+1、f(x)=3x、j(y)=2y、h(y)=y+4，x=2、y=5 时六式均为 23，而日志各自严格匹配所列次序。</p></div></details><details class="exercise" id="ex-6-7"><summary>习题 6.7 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.7"><p>写出图 5.4、5.5、5.6 的解释器对应的过程表示及内联表示。</p></div><p class="source">印刷 p.201 / <a href="../assets/source.pdf#page=224">PDF 224</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>过程表示把每种帧映射成接 v 的闭包，value-of/k 继续调用构造器；内联表示把这些构造器的定义展开到使用处，同时把 apply-cont(k,v) 换成 k(v)。</p><pre><code class="language-scheme">;; procedural builder form
+(eval left env (diff1-cont right env k))
+(define (diff1-cont right env k)
+  (lambda (v1) (eval right env (diff2-cont v1 k))))
+(define (diff2-cont v1 k) (lambda (v2) (k (- v1 v2))))
+;; inlined form
+(eval left env
+  (lambda (v1) (eval right env (lambda (v2) (k (- v1 v2))))))
+;; call
+(eval rator env (lambda (p)
+  (eval rand env (lambda (arg) (invoke p arg k)))))</code></pre><p>let/if 的闭包保存原环境，接值后分别进入新绑定的正文/所选分支；常量和变量直接 k(v)，letrec 在扩展环境后沿用 k；过程体也沿用调用点 k。第五章的完整过程解释器及其片段展示这两层表示，嵌套减法、阶乘与多声明程序与数据版均实际对照。</p></div></details><details class="exercise" id="ex-6-8"><summary>习题 6.8 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.8"><p>把 §5.4 的异常解释器改为过程表示和内联表示。难点是有 apply-cont 与 apply-handler 两个观察器。提示：修改前面 §6.1 的方法，给每个过程增加两个参数，分别表示这两个观察器下的续文行为。</p></div><p class="source">印刷 p.202 / <a href="../assets/source.pdf#page=225">PDF 225</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>给 eval 和 invoke 都传正常 k 与异常 h。普通帧的异常行为直接继承 h；try 的异常闭包负责把异常值绑定到处理器环境，用外层 k/h 求处理器；raise 的正常续文则调用 h。内联后规则如下。</p><pre><code class="language-text">eval(try body catch(x) handler,env,k,h)
+ = eval(body,env,k,
+        lambda(exn) eval(handler,extend(x,exn,env),k,h))
+eval(raise e,env,k,h)
+ = eval(e,env,lambda(exn) h(exn),h)
+invoke(closure(x,body,saved),arg,k,h)
+ = eval(body,extend(x,arg,saved),k,h)</code></pre><p>过程表示把这两个行为包成一对观察器，内联表示在每个分支直接传 lambda。<code>chapter05_cps.rkt</code> 是完整实现；重抛走外层 h，正常返回走外层 k，不会重新进入同一个 handler。异常处理器的动态生存期与过程的词法捕获环境分开维护。</p></div></details><details class="exercise" id="ex-6-9"><summary>习题 6.9 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.9"><p>乘法的什么性质使前面的续文压缩优化成为可能？</p></div><p class="source">印刷 p.203 / <a href="../assets/source.pdf#page=226">PDF 226</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>结合律让一串 <code>v ↦ k·(n·v)</code> 合并为 <code>v ↦ (k·n)·v</code>，单位元 1 表示 end。于是用一个数就能表示这类闭包链；并不需要交换律，因为相乘顺序可保持原样。</p><p>还需要封闭性和相同的数值语义：原书的精确整数满足条件；浮点乘法因舍入通常不满足严格结合律，有界整数的溢出策略也要单独检查。这个压缩只适用于“全部剩余工作都是乘一个数”的特殊续文，不能把任意控制上下文压成一个累加器。</p></div></details><details class="exercise" id="ex-6-10"><summary>习题 6.10 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.10"><p>为 list-sum 的续文设计一个像前面 fact/k 那样简洁的表示。</p></div><p class="source">印刷 p.203 / <a href="../assets/source.pdf#page=226">PDF 226</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>把“加上已经遇见的这些数，再交给 end”压成它们的和 acc，空续文对应 0，新加法帧把 acc 改成 acc+a，应用续文为 acc+v。</p><pre><code class="language-scheme">(define (list-sum xs)
+  (let loop ((xs xs) (acc 0))
+    (if (null? xs) acc
+        (loop (cdr xs) (+ acc (car xs))))))</code></pre><p>对精确整数，结合律和单位元保证与递归求和相同；列表只扫描一次，控制记录和累加器个数有界。数字本身的大小与列表输入仍不属于这个常数控制空间结论。</p></div></details></section><section id="s6-2"><h2>6.2 尾形式：用语法约束控制行为</h2><p class="source">原书 §6.2，pp.203–212 / <a href="../assets/source.pdf#page=226">PDF 226–235</a>。</p><p>要自动转换，先把目标语言的形状说清。CPS-IN 是多参数、多过程 LETREC；CPS-OUT 区分 SimpleExp 与 TfExp。SimpleExp 不执行用户调用，TfExp 才能含调用，而且它的运算符和实参都必须已经是 SimpleExp。由语法约束，把“求调用之后还得回来做事”的形状排除。</p><div class="table-scroll"><table aria-label="CPS-IN 的操作数与尾位置"><thead><tr><th scope="col">构造</th><th scope="col">操作数位置</th><th scope="col">尾位置</th></tr></thead><tbody><tr><td><code>-(a,b)</code></td><td>a、b</td><td>无</td></tr><tr><td><code>zero?(a)</code></td><td>a</td><td>无</td></tr><tr><td><code>if t then a else b</code></td><td>t</td><td>a、b</td></tr><tr><td><code>let x=e in b</code></td><td>e</td><td>b</td></tr><tr><td><code>letrec f(xs)=p in b</code></td><td>无立即求值的操作数</td><td>过程正文 p、整体正文 b</td></tr><tr><td><code>proc(xs) b</code></td><td>无立即求值的操作数</td><td>将来执行的正文 b</td></tr><tr><td><code>(f a b)</code></td><td>运算符 f 与全部实参</td><td>调用本身在其外部上下文决定的位置</td></tr></tbody></table></div><p>尾位置是语义关系，不是代码的“最后一行”。<code>if zero?(x) then (f y) else (g z)</code> 的分支各是尾位置；把整个 if 放进 <code>+(if...,37)</code> 的操作数后，分支取得的结果仍欠相加，就不再是整体的尾结果。proc 创建一个值，不运行正文；所以它可以简单，但目标语法仍要求它保存的正文为尾形式。</p><div class="rn-example" id="tail-form-example"><h3>伴读例：简单式、尾形式与类型正确性</h3><p class="example-kind">本章语法判定的对照</p><pre><code class="language-scheme">let f = proc(x) x in (f 3)
+-((f 3),1)
+let x = proc(y) (y x) in -(x,3)</code></pre><p>第一式不是简单式，却是尾形式；第二式的调用在减法操作数中，不是尾形式；第三式按语法是尾形式，却把过程 x 当数字相减，会运行失败。SimpleExp/TfExp 是控制形状的分类，不能承担类型系统的职责。</p></div><p>目标解释器求简单式时只创建闭包、查变量和执行已知原语；遇到 call，把实参值一次绑定到闭包定义环境，直接进入过程正文。解释器层 k 从来不变，因而可以删去。目标程序中的显式 k 仍是普通过程值，不能因删去解释器 k 而删掉它。</p><!-- EOPL:snippet chapter06_target.rkt target-simple -->
+<details class="code-details" open><summary>查看实现 · target-simple</summary><pre><code class="language-scheme">(define (value-of-simple s env)
+ (match s
+  [`(num ,n) n] [`(var ,x) (lookup env x)]
+  [`(prim ,op . ,ss) (primitive op (map (lambda (a) (value-of-simple a env)) ss))]
+  [`(list . ,ss) (map (lambda (a) (value-of-simple a env)) ss)]
+  [`(proc ,xs ,b) (target-closure xs b env)]
+  [_ (error &#x27;simple &quot;not simple&quot;)]))
+</code></pre></details>
+<!-- EOPL:end-snippet --><p>原书也指出，递归求深的简单表达式仍可能占用宿主栈。若要求这一层也非递归，可先把每个嵌套原语结果用 let 命名，使差值/zero? 只接常量或变量。另一个边界是判定能力：语法尾形式是可检查的充分条件，不负责判断某个非尾调用是否永远不会执行，后者一般不可判定。</p><details class="reading-notes" id="notes-s6-2" data-notes-for="s6-2" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">三种问题</span><h3>简单、尾形式、类型各管一层</h3><p>if 不是简单式，即使两支都只是数；调用不是简单式，即使它只返回实参。尾形式允许这些构造，只约束调用结果不会再被外层等待。类型正确性另外检查数值、布尔和过程的角色，所以一个通过尾形式检查的程序仍可因类型不符而失败。</p></div><div class="annotation-card"><span class="annotation-kind">递归深度</span><h3>无用户调用不代表完全不用宿主栈</h3><p>value-of-simple 按语法树递归下降，与调用用户过程是两种递归。固定输入大小下这部分栈有界，但输入可以是一棵任意深的原语树。6.18 的原子化使运行阶段每个原语只读固定数量的值，把嵌套结构的次序移到显式 let 链。</p></div></div></details><h3 id="exercises-6-2">本节习题与解答</h3><details class="exercise-index-panel"><summary>本节习题题号索引 · 9 题</summary><nav class="exercise-index" role="navigation" aria-label="本节习题索引"><a href="#ex-6-11" aria-label="习题 6.11">6.11</a> · <a href="#ex-6-12" aria-label="习题 6.12">6.12</a> · <a href="#ex-6-13" aria-label="习题 6.13">6.13</a> · <a href="#ex-6-14" aria-label="习题 6.14">6.14</a> · <a href="#ex-6-15" aria-label="习题 6.15">6.15</a> · <a href="#ex-6-16" aria-label="习题 6.16">6.16</a> · <a href="#ex-6-17" aria-label="习题 6.17">6.17</a> · <a href="#ex-6-18" aria-label="习题 6.18">6.18</a> · <a href="#ex-6-19" aria-label="习题 6.19">6.19</a></nav></details><details class="exercise" id="ex-6-11"><summary>习题 6.11 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.11"><p>补全图 6.6 的解释器，写出 value-of-simple-exp。</p></div><p class="source">印刷 p.207 / <a href="../assets/source.pdf#page=230">PDF 230</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>按 SimpleExp 的语法分派：常量取数，变量查环境，差/zero? 递归求简单操作数，proc 创建捕获当前环境的闭包。这里不会调用用户过程；proc 只保存正文，正文在将来被调用时才求值。</p><pre><code class="language-text">simple(num(n),env) = n
+simple(var(x),env) = lookup(env,x)
+simple(diff(a,b),env) = simple(a,env)-simple(b,env)
+simple(zero?(a),env) = zero?(simple(a,env))
+simple(proc(xs,body),env) = closure(xs,body,env)</code></pre><p><code>chapter06_target.rkt</code> 的 value-of-simple 是完整实现，还覆盖题目后续使用的列表与数值原语。深度嵌套简单式仍会使用宿主递归栈；不含用户调用，不等于求它完全不用控制空间，见<a href="#ex-6-18">习题 6.18</a>。</p></div></details><details class="exercise" id="ex-6-12"><summary>习题 6.12 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.12"><p>判断下列每个表达式是否为简单表达式。</p><ol><li><pre><code class="language-scheme">-((f -(x,1)),1)</code></pre></li><li><pre><code class="language-scheme">(f -(-(x,y),1))</code></pre></li><li><pre><code class="language-scheme">if zero?(x) then -(x,y) else -(-(x,y),1)</code></pre></li><li><pre><code class="language-scheme">let x = proc (y) (y x) in -(x,3)</code></pre></li><li><pre><code class="language-scheme">let f = proc (x) x in (f 3)</code></pre></li></ol></div><p class="source">印刷 p.207 / <a href="../assets/source.pdf#page=230">PDF 230</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>五项都不是 SimpleExp，但原因不同。第 1 项的减法操作数含调用；第 2 项本身就是调用。第 3 项以 if 开头，SimpleExp 的语法没有 if，即使各分支都无调用也不简单。第 4、5 项以 let 开头，也不在 SimpleExp 中。</p><p>它们是否处于尾形式是另一个问题：第 1 项不是；第 2、3、4、5 项按给定语法可为尾形式（第 4 项会因把过程当数字相减而有运行时类型错误）。静态形状约束不承担类型检查。五项的 simple? 判断均已实际执行为假。</p></div></details><details class="exercise" id="ex-6-13"><summary>习题 6.13 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.13"><p>按 p.200 的 CPS 方法，把下列 CPS-IN 程序逐个译为 CPS。用图 6.6 的解释器运行转换结果；每个输入都要确认原程序与转换后程序答案相同。</p><ol><li><p><code>removeall</code></p><pre><code class="language-scheme">letrec
+                  removeall(n,s) =
+                   if null?(s)
+                   then emptylist
+                   else if number?(car(s))
+                        then if equal?(n,car(s))
+                             then (removeall n cdr(s))
+                             else cons(car(s),
+                                        (removeall n cdr(s)))
+                        else cons((removeall n car(s)),
+                                   (removeall n cdr(s)))</code></pre></li><li><p><code>occurs-in?</code></p><pre><code class="language-scheme">letrec
+                  occurs-in?(n,s) =
+                   if null?(s)
+                   then 0
+                   else if number?(car(s))
+                        then if equal?(n,car(s))
+                             then 1
+                             else (occurs-in? n cdr(s))
+                        else if (occurs-in? n car(s))
+                             then 1
+                             else (occurs-in? n cdr(s))</code></pre></li><li><p><code>remfirst</code> 使用前一项的 occurs-in?。</p><details class="code-details" open><summary>查看推演代码</summary><pre><code class="language-scheme">letrec
+                  remfirst(n,s) =
+                   letrec
+                    loop(s) =
+                     if null?(s)
+                     then emptylist
+                     else if number?(car(s))
+                          then if equal?(n,car(s))
+                               then cdr(s)
+                               else cons(car(s),(loop cdr(s)))
+                          else if (occurs-in? n car(s))
+                               then cons((remfirst n car(s)),
+                                         cdr(s))
+                               else cons(car(s),
+                                         (remfirst n cdr(s)))
+                 in (loop s)</code></pre></details></li><li><p><code>depth</code></p><pre><code class="language-scheme">letrec
+              depth(s) =
+               if null?(s)
+               then 1
+               else if number?(car(s))
+                    then (depth cdr(s))
+                    else if less?(add1((depth car(s))),
+                                  (depth cdr(s)))
+                         then (depth cdr(s))
+                         else add1((depth car(s)))</code></pre></li><li><p><code>depth-with-let</code></p><pre><code class="language-scheme">letrec
+              depth(s) =
+               if null?(s)
+               then 1
+               else if number?(car(s))
+                    then (depth cdr(s))
+                    else let dfirst = add1((depth car(s)))
+                             drest = (depth cdr(s))
+                         in if less?(dfirst,drest)
+                            then drest
+                            else dfirst</code></pre></li><li><p><code>map</code></p><pre><code class="language-scheme">letrec
+              map(f, l) = if null?(l)
+                          then emptylist
+                          else cons((f car(l)),
+                                    (map f cdr(l)))
+              square(n) = *(n,n)
+             in (map square list(1,2,3,4,5))</code></pre></li><li><p><code>fnlrgtn</code></p><p>输入一张 n-list（像 p.9 的 s-list，但叶子为数），再输入一个数 n，返回按从左到右顺序遇到的第一个大于 n 的数；一旦找到就不再查看后面的元素。例如下面调用找到 7。</p><pre><code class="language-scheme">(fnlrgtn list(1,list(3,list(2),7,list(9))) 6)</code></pre></li><li><p><code>every</code></p><p>every 接受谓词和表；当且仅当每个元素都满足谓词时返回真值。</p><pre><code class="language-scheme">letrec
+                        every(pred, l) =
+                         if null?(l)
+                         then 1
+                         else if (pred car(l))
+                              then (every pred cdr(l))
+                              else 0
+                        in (every proc(n)greater?(n,5) list(6,7,8,9))</code></pre></li></ol></div><p class="source">印刷 p.210 / <a href="../assets/source.pdf#page=233">PDF 233–235</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>这些题给片段还使用了列表、比较和整数 0/1 真值；运行器按本题明确增加这些原语，if 接受布尔或零/非零整数。前五项补上测试调用，remfirst 与前一项合为一个递归组；题面仍保留原片段。完整八个输入、转换器和执行入口见 <code>chapter06_examples.rkt</code>。</p><p>八项逐一转换的核心规则如下，所有递归调用都把后续工作放到 k 中。removeall 的原子匹配分支直接尾调删除尾表；保留分支先求 tail，再把 car cons 回去；嵌套分支先求 head、再 tail。occurs-in? 找到时 k(1)，未找到才继续。remfirst 先用 occurs 判断子表，命中后只改该子表并保持其后缀原样，避免删除多个。</p><p>depth 原版在比较及返回中重复求子深度，按原程序逐次转换会保留重复；depth-with-let 则把两个结果各求一次，再比较。map 先用转换后的 f 求首个元素，再递归尾表；f 也是 CPS 过程，不能仍按直接风格调用。every 的谓词失败立即 k(0)，不求其余元素。</p><pre><code class="language-text">map/k(f,l,k):
+  if null?(l) then k(emptylist)
+  else f(car(l),lambda(a)
+         map/k(f,cdr(l),lambda(d) k(cons(a,d))))
+fnlrgtn/k(s,n,yes,no):
+  if null?(s) then no()
+  else if number?(car(s))
+    then if car(s)&gt;n then yes(car(s))
+         else fnlrgtn/k(cdr(s),n,yes,no)
+    else fnlrgtn/k(car(s),n,yes,
+           lambda() fnlrgtn/k(cdr(s),n,yes,no))</code></pre><p>fnlrgtn 的失败续文负责“本子表没找到时查后缀”；成功续文不再触碰后缀。本实现用空表标记整个输入无匹配，避免与任意整数答案冲突。实际测试结果依次是 <code>((1) 2)</code>、1、<code>(1 (3) 3)</code>、3、3、<code>(1 4 9 16 25)</code>、7、1。每项均先跑原 AST，再把转换输出序列化，经独立 CPS-OUT 解析器重读后运行。</p><p>对应目标转移步数是 34、31、26、109、53、30、31、25；depth 与带 let 版同为 3，但后者避免重复计算。这些步数是本解释器的状态转移计数，不是原书宿主的时间测量。</p></div></details><details class="exercise" id="ex-6-14"><summary>习题 6.14 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.14"><p>补全图 6.6 的解释器，给出 value-of-program 和 apply-cont 的定义。</p></div><p class="source">印刷 p.212 / <a href="../assets/source.pdf#page=235">PDF 235</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><pre><code class="language-scheme">(define (value-of-program pgm)
+  (value-of/k (program-body pgm) (init-env) (end-cont)))
+(define (end-cont) (lambda (v) v))
+(define (apply-cont k v) (k v))</code></pre><p>CPS-OUT 的用户续文已经是程序中的普通过程值；上面这个解释器参数 k 只负责整程序最终返回，不能把两者混同。value-of/k 在每次尾调用中原样传它，不会建立 zero/diff/call 等解释器续文。完整目标运行器把它进一步消去。</p></div></details><details class="exercise" id="ex-6-15"><summary>习题 6.15 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.15"><p>观察上一题的解释器，cont 只有一个可能的值。利用这一点把 cont 参数完全消去。</p></div><p class="source">印刷 p.212 / <a href="../assets/source.pdf#page=235">PDF 235</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>把 <code>apply-cont(end,v)</code> 改成直接返回 v；从 value-of/k 与 apply-procedure/k 的签名和每个调用点删去 cont。目标语言中的显式续文仍保留为过程参数。</p><p><code>run-target</code> 的 Return 指令返回 Done(value)，其余分支生成下一个 target-state；没有解释器层的 cont 字段。它对普通调用/递归程序及八个列表例子直接执行，不能因为解释器没有 cont 就把 CPS 程序自己的 k 一并删除。</p></div></details><details class="exercise" id="ex-6-16"><summary>习题 6.16 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.16"><p>把图 6.6 的解释器寄存器化。</p></div><p class="source">印刷 p.212 / <a href="../assets/source.pdf#page=235">PDF 235</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>用当前 TfExp、环境、过程和实参表等寄存器保存尾转移状态。简单求值完成之后，let 改环境和正文；if 改所选正文；call 把过程正文和扩展后的闭包环境装回寄存器。</p><pre><code class="language-text">CALL: p := simple(rator,env); args := map-simple(rands,env)
+      exp := body(p); env := extend*(params(p),args,saved-env(p))
+      goto EVAL
+RETURN: val := simple(exp,env); stop</code></pre><p>目标解释器用 target-state 表示这组寄存器；<code>chapter06_register.rkt</code> 更进一步把每个 TfExp 编译成整数标签，PC 只保存当前标签，闭包保存正文标签和环境，不再保存可执行宿主函数。</p></div></details><details class="exercise" id="ex-6-17"><summary>习题 6.17 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.17"><p>把图 6.6 的解释器改成蹦床解释器。</p></div><p class="source">印刷 p.212 / <a href="../assets/source.pdf#page=235">PDF 235</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>每次从一个 TfExp 转到后继时返回 <code>Next(exp,env)</code>；最终返回 <code>Done(v)</code>。驱动器循环调用 resume，不在普通过程调用里进入下一个 TfExp。<code>run-target</code> 的 target-state/done 就是数据蹦床。</p><p>这与把每个目标调用包装成 lambda 等价，数据版本更容易检查和序列化。value-of-simple 仍可能递归；若还要求宿主简单式求值不递归，先做下一题的原子化。</p></div></details><details class="exercise" id="ex-6-18"><summary>习题 6.18 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.18"><p>修改 CPS-OUT 语法，使简单差值式和 zero? 的操作数只能是常量或变量。这样 value-of-simple-exp 就可以写成非递归的。</p></div><p class="source">印刷 p.212 / <a href="../assets/source.pdf#page=235">PDF 235</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>引入 Atom ::= Number | Identifier，差值只能是 <code>-(Atom,Atom)</code>，zero? 只能是 <code>zero?(Atom)</code>。深的简单式先用 let 命名。</p><pre><code class="language-text">-(-(x,y),1)
+=&gt; let a = -(x,y)
+   in -(a,1)
+zero?(-(-(x,y),1))
+=&gt; let a = -(x,y)
+   in let b = -(a,1)
+      in zero?(b)</code></pre><p>对每个原语按操作数次序递归原子化，生成 fresh 名；proc 只创建正文已转换的闭包。<code>atomicize</code> 完成实际变换，再用独立目标解析器和求值器验证。扩展到列表和其他原语时同样要求其操作数为 Atom；随后 simple 的每个分支仅作固定次数字段读取/运算，不再递归下降任意表达式。</p></div></details><details class="exercise" id="ex-6-19"><summary>习题 6.19 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.19"><p>写 Scheme 过程 tail-form?：输入按图 6.3 文法表示的 CPS-IN 程序语法树，判断同一个字符串能否按图 6.5 的文法被解析为尾形式。</p></div><p class="source">印刷 p.212 / <a href="../assets/source.pdf#page=235">PDF 235</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>分开定义 simple? 与 tail-form?。simple? 只接受常量、变量、简单操作数原语和正文已经 tail-form 的 proc；tail-form? 另允许 let、if、letrec 与调用，并检查其全部非尾位置为 simple。</p><pre><code class="language-text">T(if t a b)    = S(t) and T(a) and T(b)
+T(let x=e in b)= S(e) and T(b)
+T(letrec fs in b) = all procedure bodies T and T(b)
+T(call f args) = S(f) and all S(args)
+T(other)       = S(other)
+S(proc xs b)   = T(b)</code></pre><p>可运行过程就在 <code>chapter06.rkt</code>。这里的 proc 检查严格；转换器内部的 <code>simple?(e,#f)</code> 则把待转换 proc 视为“创建它不执行正文”，稍后递归转换其正文。两个谓词承担不同输入阶段的任务，不可直接互换。</p></div></details></section><section id="s6-3"><h2>6.3 CPS 转换：给中间结果命名并固定次序</h2><p class="source">原书 §6.3，pp.212–226 / <a href="../assets/source.pdf#page=235">PDF 235–249</a>。</p><p>转换器本身在编译时运行；它的输入和输出都是语法树。<code>cps-of-exp(e,K)</code> 中 K 是一棵目标 SimpleExp，表示运行时将被调用的续文过程；K 不是此刻就要调用的宿主函数。相反，<code>cps-of-exps</code> 的 builder 是转换时的宿主函数，用来组装最后一块目标 AST。先分清这两个阶段，就不会把生成代码与执行代码混起来。</p><p>最简单的规则是常量/变量直接生成“把值交给 K”；proc 给形参追加 fresh k，再转换正文；letrec 的每个过程也追加 k。复杂操作数要先提升成尾调用，用一个新形参接住结果，再重新组装外层表达式。</p><pre><code class="language-text">C(number,K) = (K number)
+C(proc(xs) body,K) = (K proc(xs,k) C(body,k))
+C((f args),K) = evaluate f and args to simples;
+                generate (simple-f simple-args K)
+C(-(e1,e2),K) = evaluate e1,e2 to a,b;
+                generate (K -(a,b))</code></pre><div class="rn-example" id="conversion-example"><h3>伴读例：从中间结果走到完整目标程序</h3><p class="example-kind">原书 §6.3 规则的短例</p><pre><code class="language-scheme">let f = proc(x) -(x,1)
+in -((f 5),(f 2))
+
+% one alpha-equivalent CPS-OUT result:
+let f = proc(x,k) (k -(x,1))
+in (f 5 proc(a)
+     (f 2 proc(b)
+       -(a,b)))</code></pre><p>目标先调用 f(5) 得 4，承接续文把它叫 a；再调用 f(2) 得 1，承接续文把它叫 b；最后直接返回 a−b=3。两次 f 都是目标尾调用。原程序的外层减法并未丢掉，而是移动到第二个续文正文里。</p></div><!-- EOPL:snippet chapter06.rkt cps-exps -->
+<details class="code-details" open><summary>查看实现 · cps-exps</summary><pre><code class="language-scheme"> (define (exps es builder h [call? #f])
+  (define operands (list-&gt;vector es))
+  (define indices (range (vector-length operands)))
+  (define positions
+   (cond [(eq? order &#x27;right) (reverse indices)]
+    [(and call? (eq? order &#x27;operands-first) (pair? es)) (append (cdr indices) &#x27;(0))]
+    [else indices]))
+  (define (walk positions converted)
+   (if (null? positions) (builder (map (lambda (i) (hash-ref converted i)) indices))
+    (let* ([i (car positions)] [arg (vector-ref operands i)])
+     (if (simple? arg #f)
+      (walk (cdr positions) (hash-set converted i (simp arg h)))
+      (let ([v (fresh &#x27;v)])
+       (cps arg `(proc (,v) ,(walk (cdr positions) (hash-set converted i (V v)))) h))))))
+  (walk positions (hash)))
+</code></pre></details>
+<!-- EOPL:end-snippet --><p>cps-of-exps 决定哪一个操作数先被提升，同时保持 builder 最终看到的参数位置。右到左模式应改变计算次序而非把减法的两侧互换；先实参后运算符也是另一种明确策略。当前转换器先给所有绑定 α 重命名，生成的新名带源前端不能输入的 %，防止 fresh k、临时值和用户名字相互捕获。</p><!-- EOPL:snippet chapter06.rkt cps-main -->
+<details class="code-details" open><summary>查看实现 · cps-main</summary><pre><code class="language-scheme"> (define (cps e k h)
+  (match e
+   [(? (lambda (a) (simple? a #f))) (send k (simp e h))]
+   [`(prim ,op . ,es)
+    (exps es (lambda (ss) (send k `(prim ,op ,@ss))) h)]
+   [`(list . ,es) (exps es (lambda (ss) (send k `(list ,@ss))) h)]
+   [`(call ,f ,es)
+    (exps (cons f es) (lambda (ss) `(call ,(car ss) ,(append (cdr ss) (list k) (if exceptions? (list h) &#x27;())))) h #t)]
+   [`(if ,t ,a ,b)
+    (exps (list t) (lambda (ss)
+     (if (and share-if? (not (eq? (car k) &#x27;var)))
+      (let ([name (fresh &#x27;join)]) `(let1 ,name ,k (if ,(car ss) ,(cps a (V name) h) ,(cps b (V name) h))))
+      `(if ,(car ss) ,(cps a k h) ,(cps b k h)))) h)]
+   [`(let ,xs ,es ,b)
+    (cond [(and fuse-let? (= (length xs) 1) (not (simple? (car es) #f)))
+           (cps (car es) `(proc (,(car xs)) ,(cps b k h)) h)]
+     [else (exps es (lambda (ss)
+      (foldr (lambda (x a rest) `(let1 ,x ,a ,rest)) (cps b k h) xs ss)) h)])]
+   [`(letrec ,ns ,pss ,bs ,b)
+    (define ps (map (lambda (xs body) (simp `(proc ,xs ,body) h)) pss bs))
+    `(letrec ,ns ,(map cadr ps) ,(map caddr ps) ,(cps b k h))]
+   [`(begin ,first . ,rest)
+    (if (null? rest) (cps first k h)
+     (let ([v (fresh &#x27;discard)]) (cps first `(proc (,v) ,(cps `(begin ,@rest) k h)) h)))]
+   [`(print ,arg) (exps (list arg) (lambda (ss) `(printk ,(car ss) ,(send k &#x27;(num 38)))) h)]
+   [`(newref ,arg) (exps (list arg) (lambda (ss) `(newrefk ,(car ss) ,k)) h)]
+   [`(deref ,arg) (exps (list arg) (lambda (ss) `(derefk ,(car ss) ,k)) h)]
+   [`(setref ,a ,b) (exps (list a b) (lambda (ss) `(setrefk ,(car ss) ,(cadr ss) ,(send k &#x27;(num 23)))) h)]
+   [`(letcc ,x ,body) `(let1 ,x ,k ,(cps body (V x) h))]
+   [`(throw ,v ,dest) (exps (list v dest) (lambda (ss) `(call ,(cadr ss) (,(car ss)))) h)]
+   [`(try ,body (,x) ,handler)
+    (unless exceptions? (error &#x27;cps &quot;enable dual continuations&quot;))
+    (define err (fresh &#x27;handler))
+    `(let1 ,err (proc (,x) ,(cps handler k h)) ,(cps body k (V err)))]
+   [`(raise ,arg)
+    (unless exceptions? (error &#x27;cps &quot;enable dual continuations&quot;))
+    (exps (list arg) (lambda (ss) `(call ,h ,ss)) h)]
+   [_ (error &#x27;cps &quot;unsupported expression: ~s&quot; e)]))
+</code></pre></details>
+<!-- EOPL:end-snippet --><p>默认转换还作两项行政化简：已知一元续文的立即应用改成 let；非简单 let 的 RHS 直接由源绑定名承接。if 则先把复杂 K 绑定到 fresh join，让两支共享它，避免把之后整段计算复制两遍。实际线性嵌套 8 层时，朴素输出 AST 大小为 61,911，共享后为 729。</p><p>下一步可以把续文闭包改成整数标签与自由变量列表，用统一 applyData 分派；再把全部用户过程作相同处理，就得到可编译成 PC 标签程序的形式。完整流水线实际运行了递归 n=100：全部过程数据化后产生 18 个代码标签，返回 100。这里没有借助宿主 eval 解释生成文本，而是由独立目标语法解析后运行。</p><p>ANF 走另一条路线：仍按次序给中间调用结果起名，但把这些名字放进 let，不增加运行时续文参数。它保留直接调用/返回语义，所以不自动具有迭代控制行为；同一组 α 重命名和 let 合并规则下，再把 ANF 转成 CPS 可与直接 CPS 对齐。</p><details class="reading-notes" id="notes-s6-3" data-notes-for="s6-3" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">分阶段</span><h3>K 是目标代码，builder 是宿主过程</h3><p>转换时看见 proc(v) 的 AST，不代表此时执行了运行时过程。builder 接收已经转换好的简单 AST，构造一个新 TfExp；它的宿主调用栈属于编译器执行。目标 K 则会保存在生成程序里，等待程序运行时才接到真实值。把这两类“续文”区分开，是理解机械转换与高阶转换器的关键。</p></div><div class="annotation-card"><span class="annotation-kind">等价条件</span><h3>变量提升也有作用域和效果前提</h3><p>源 let 的各 RHS 都在旧环境下求。先全局改名再生成嵌套 let，才能避免早安装的目标绑定捕获后面的 RHS。隐式引用中的读变量是效果，不能按纯变量任意延后；带副作用的源表达式必须先求值并命名，再用于构造目标简单式。</p></div></div></details><h3 id="exercises-6-3">本节习题与解答</h3><details class="exercise-index-panel"><summary>本节习题题号索引 · 16 题</summary><nav class="exercise-index" role="navigation" aria-label="本节习题索引"><a href="#ex-6-20" aria-label="习题 6.20">6.20</a> · <a href="#ex-6-21" aria-label="习题 6.21">6.21</a> · <a href="#ex-6-22" aria-label="习题 6.22">6.22</a> · <a href="#ex-6-23" aria-label="习题 6.23">6.23</a> · <a href="#ex-6-24" aria-label="习题 6.24">6.24</a> · <a href="#ex-6-25" aria-label="习题 6.25">6.25</a> · <a href="#ex-6-26" aria-label="习题 6.26">6.26</a> · <a href="#ex-6-27" aria-label="习题 6.27">6.27</a> · <a href="#ex-6-28" aria-label="习题 6.28">6.28</a> · <a href="#ex-6-29" aria-label="习题 6.29">6.29</a> · <a href="#ex-6-30" aria-label="习题 6.30">6.30</a> · <a href="#ex-6-31" aria-label="习题 6.31">6.31</a> · <a href="#ex-6-32" aria-label="习题 6.32">6.32</a> · <a href="#ex-6-33" aria-label="习题 6.33">6.33</a> · <a href="#ex-6-34" aria-label="习题 6.34">6.34</a> · <a href="#ex-6-35" aria-label="习题 6.35">6.35</a></nav></details><details class="exercise" id="ex-6-20"><summary>习题 6.20 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.20"><p>本节 cps-of-exps 使子表达式从左到右求值。修改它，使子表达式从右到左求值。</p></div><p class="source">印刷 p.221 / <a href="../assets/source.pdf#page=244">PDF 244</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>把“选第一个非简单式”改成“选最后一个”；其值仍写回原来的下标，不能把最后传给 builder 的实参表反转。流式实现可先遍历反向下标，完成后仍按原下标组装。</p><p><code>#:order 'right</code> 实际采用后者。三段依次应输出 0、1、2 的运算符/实参在此模式输出 2、1、0，但调用的参数位置仍是原来的 8、3，减法答案仍为 5。顺序和参数位置是两项独立义务。</p></div></details><details class="exercise" id="ex-6-21"><summary>习题 6.21 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.21"><p>修改 cps-of-call-exp，使实参先从左到右求值，最后才求运算符。</p></div><p class="source">印刷 p.221 / <a href="../assets/source.pdf#page=244">PDF 244</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>如果原列表是 <code>[rator,rand1,…,randn]</code>，按下标 <code>[1,…,n,0]</code> 转换，但 builder 仍按 <code>[0,1,…,n]</code> 取回值。不能只把 AST 列表整体轮换后忘记恢复运算符位置。</p><p><code>#:order 'operands-first</code> 实现此规则，实际日志是 <code>(1 2 0)</code>，调用结果 5。原书的纯语言中这些顺序可有相同答案；加入 print、赋值或异常后，这已是一种明确的语言次序选择。</p></div></details><details class="exercise" id="ex-6-22"><summary>习题 6.22 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.22"><p>生成 <code>(K simp)</code> 时，K 有时已经是 proc 表达式。于是可以把下面形式改成 let，并使 CPS 代码不再含这种新生成的立即过程应用（原输入中本来有的除外）。修改 make-send-to-cont。新规则何时适用？</p><pre><code class="language-scheme">(proc (var1) ... simp)
+=&gt; let var1 = simp in ...
+
+% eliminated new shape:
+(proc (var) exp1 simp)</code></pre></div><p class="source">印刷 p.221 / <a href="../assets/source.pdf#page=244">PDF 244</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>当 K 的 AST 恰是一个形参的 <code>proc([x],body)</code> 时，输出 <code>let x = simp in body</code>；其他情况仍输出调用。这里是已知 lambda 的按值 β 规约，simp 只求一次，词法作用域保持。</p><pre><code class="language-text">send(proc([x],body),simp) = Let(x,simp,body)
+send(other,simp)         = Call(other,[simp])</code></pre><p>默认 <code>#:send 'let</code> 采用此法。用户过程本来就有立即调用时，普通调用转换会额外传 k，不应据一元形状把用户调用误认成内部续文应用。</p></div></details><details class="exercise" id="ex-6-23"><summary>习题 6.23 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.23"><p>if 的转换会复制 K 两次，嵌套 if 可能使目标程序指数膨胀。运行例子确认，再修改转换：用新鲜变量绑定 K，避免复制。</p></div><p class="source">印刷 p.221 / <a href="../assets/source.pdf#page=244">PDF 244</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>取线性长的“if 值相加”链：每层的待续计算包含其余链，朴素转换在两个分支各复制一份它。先生成 <code>let join = K</code>，再让两个分支使用变量 join；join 必须新鲜且只绑定一次。</p><pre><code class="language-text">C(if t then a else b,K)
+=&gt; let join = K
+   in if t then C(a,join) else C(b,join)</code></pre><div class="table-scroll"><table aria-label="续文共享前后的 AST 大小"><thead><tr><th scope="col">if 层数</th><th scope="col">复制 K</th><th scope="col">共享 K</th></tr></thead><tbody><tr><td>1</td><td>107</td><td>99</td></tr><tr><td>2</td><td>351</td><td>189</td></tr><tr><td>4</td><td>2295</td><td>369</td></tr><tr><td>6</td><td>12375</td><td>549</td></tr><tr><td>8</td><td>61911</td><td>729</td></tr></tbody></table></div><p>表为本转换器实际 AST 的 cons/原子节点计数，不是文件字节。已经是变量的 K 不再另加 join。默认开启共享；回归同时执行两种输出，确认共享改变程序大小而不改变答案。</p></div></details><details class="exercise" id="ex-6-24"><summary>习题 6.24 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.24"><p>给语言添加列表，见<a href="chapter03_expressions.html#ex-3-10">习题 3.10</a>。注意 list 的各实参不在尾位置。</p></div><p class="source">印刷 p.221 / <a href="../assets/source.pdf#page=244">PDF 244</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>CPS-IN 新增 list(e1,…,en)，CPS-OUT 的 SimpleExp 新增 list(s1,…,sn)。只有每个参数已经简单，整个目标 list 才简单；否则用 cps-of-exps 把调用和效果先提升。</p><pre><code class="language-text">C(list(e1,...,en),K)
+ = cps-of-exps([e1,...,en],
+      lambda(ss) send(K, List(ss)))</code></pre><p>cons/car/cdr/null? 同样按其操作数规则处理。题 6.13 的完整八例正使用这套扩展；嵌套 map 不把递归调用塞回目标 cons 的简单操作数中。空 list 直接交付空表。</p></div></details><details class="exercise" id="ex-6-25"><summary>习题 6.25 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.25"><p>扩展 CPS-IN，使一个 let 表达式可以声明任意多个变量，见<a href="chapter03_expressions.html#ex-3-16">习题 3.16</a>。</p></div><p class="source">印刷 p.221 / <a href="../assets/source.pdf#page=244">PDF 244</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>对全部右端式调用 cps-of-exps，再生成一组目标 let。源 let 的右端式都在旧环境下求值，所以源绑定须先作 α 重命名，避免把并行绑定错误地变成可互见的新绑定。</p><pre><code class="language-text">C(let [x1=e1,...,xn=en] in b,K)
+ = cps-of-exps([e1,...,en], lambda([s1,...,sn])
+     let x1=s1 in ... let xn=sn in C(b,K))</code></pre><p>本转换器先为所有词法绑定产生独立名字：后一个 RHS 中原来引用外层 x 的变量已经有不同身份，因此嵌套目标 let 不会捕获它。n=0 直接转换 b；重复变量按既定前端规则拒绝。</p></div></details><details class="exercise" id="ex-6-26"><summary>习题 6.26 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.26"><p>cps-of-exps 引入的续文变量在续文中只出现一次。修改 make-send-to-cont：不生成<a href="#ex-6-22">习题 6.22</a> 的 <code>let var1 = simp1 in T</code>，而生成 <code>T[simp1/var1]</code>。这里 <code>E1[E2/var]</code> 表示用 E2 替换 E1 中 var 的每个自由出现。</p></div><p class="source">印刷 p.221 / <a href="../assets/source.pdf#page=244">PDF 244</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>对已知一元续文，执行捕获规避替换。遇到与 var 相同的绑定名就停止替换该作用域；若替入式的自由变量可能被目的地绑定，须先改名。本实现已全局 α 重命名，生成名又使用源输入不允许的 %，因而替换不会捕获源变量。</p><p><code>#:send 'substitute</code> 选择该模式，源码 substitute 分别处理 proc、let1 与 letrec 的绑定。只对保证无副作用的 SimpleExp、且已知单次使用的行政续文应用安全；不能把可能读取可变位置的源变量当作简单式直接搬过赋值。CPS 中 letcc 等扩展可能产生多次使用，优化前仍应检查出现次数或限制适用范围。</p></div></details><details class="exercise" id="ex-6-27"><summary>习题 6.27 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.27"><p>当前 cps-of-let-exp 会生成没有必要的 let（为什么？）。让续文变量与源 let 变量相同；当右式非简单时应满足下面规则。</p><pre><code class="language-text">C(let var1 = exp1 in exp2,K)
+= C(exp1, proc(var1) C(exp2,K))</code></pre></div><p class="source">印刷 p.224 / <a href="../assets/source.pdf#page=247">PDF 247</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>朴素转换先给 RHS 结果起 fresh v，再写 <code>let var1=v in ...</code>；两个名字只是转交同一个结果。直接让承接 RHS 的续文形参叫 var1，就省去这次绑定。</p><p>本实现默认 <code>#:fuse-let? #t</code>。必须保留源作用域：RHS 在旧环境求，var1 只绑定正文；若 K 含有同名的外层自由变量，先做 α 重命名避免捕获。简单 RHS 仍可保留正常 let，不必凭空制造一个过程调用。</p></div></details><details class="exercise" id="ex-6-28"><summary>习题 6.28 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.28"><p>思考：设想有一个 Scheme 程序的 CPS 转换器，把第三章的第一个解释器输入其中，结果会像什么？</p></div><p class="source">印刷 p.224 / <a href="../assets/source.pdf#page=247">PDF 247</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>会得到第五章那样的续文传递解释器：原 value-of 在差值、测试、let RHS、运算符和实参位置的递归调用，被提升为带续文的尾调用；原来等待结果的宿主上下文变成闭包。apply-procedure 也增加续文并传进正文。</p><p>自动结果可能带多余行政 lambda/let，变量名也不同；内联、消去已知续文应用并按闭包自由变量定义数据帧之后，才接近书中精简版本。它不会自动凭空加入异常或线程：这些是控制显式化之后再加的语言语义。</p></div></details><details class="exercise" id="ex-6-29"><summary>习题 6.29 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.29"><p>考虑下面这个 cps-of-exps 变体。为什么它比图 6.8 的版本更高效？</p><details class="code-details" open><summary>查看推演代码</summary><pre><code class="language-scheme">(define cps-of-exps
+          (lambda (exps builder)
+            (let cps-of-rest ((exps exps) (acc ’()))
+              cps-of-rest : Listof(InpExp) × Listof(SimpleExp) → TfExp
+              (cond
+                ((null? exps) (builder (reverse acc)))
+                ((inp-exp-simple? (car exps))
+                  (cps-of-rest (cdr exps)
+                     (cons
+                       (cps-of-simple-exp (car exps))
+                       acc)))
+                (else
+                  (let ((var (fresh-identifier ’var)))
+                     (cps-of-exp (car exps)
+                       (cps-proc-exp (list var)
+                          (cps-of-rest (cdr exps)
+                            (cons
+                               (cps-of-simple-exp (var-exp var))
+                               acc))))))))))</code></pre></details></div><p class="source">印刷 p.224 / <a href="../assets/source.pdf#page=247">PDF 247</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>图 6.8 每得到一个非简单式的值，都重新从头 list-index 扫描并 list-set 复制列表前缀；n 个参数都复杂时，列表工作为平方级。此变体每次把当前首项移到 acc，再推进 cdr，每个列表单元只访问常数次，最后 reverse 一次；不计子式本身的递归转换，列表工作为线性。</p><p>循环不变量是：<code>reverse(acc)</code> 依次表示已经处理的原前缀，exps 是未处理后缀。遇到非简单式，新续文给其结果命名，然后把这个名字的 SimpleExp cons 进 acc。伴读实现同样一次安排各下标，以不可变结果映射保持原参数位置；若追求最小开销可直接采用此列表累积版本。原题末句误写 cps-of-exp，所比较的是这里的 cps-of-exps。</p></div></details><details class="exercise" id="ex-6-30"><summary>习题 6.30 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.30"><p>单元素列表的 cps-of-exps 可以化简成以下形式，并使用 cps-of-exp/ctx。</p><pre><code class="language-scheme">(cps-of-exps (list exp) builder)
+= (cps-of-exp/ctx exp (lambda (simp) (builder (list simp))))
+
+(define cps-of-exp/ctx
+  (lambda (exp context)
+    (if (inp-exp-simple? exp)
+        (context (cps-of-simple-exp exp))
+        (let ((var (fresh-identifier &#x27;var)))
+          (cps-of-exp exp
+            (cps-proc-exp (list var)
+              (context (cps-var-exp var))))))))</code></pre><p>因为 list 的参数数目已知，可相应化简所有单元素用法；例如差值式可写成下面形式。</p><pre><code class="language-scheme">(define cps-of-diff-exp
+  (lambda (exp1 exp2 k-exp)
+    (cps-of-exp/ctx exp1
+      (lambda (simp1)
+        (cps-of-exp/ctx exp2
+          (lambda (simp2)
+            (make-send-to-cont k-exp
+              (cps-diff-exp simp1 simp2))))))))</code></pre><p>对于 cps-of-call-exp，运算符可用 cps-of-exp/ctx，但任意长的实参表仍要 cps-of-exps。请从转换器中消除其余所有 cps-of-exps 的出现。</p></div><p class="source">印刷 p.225 / <a href="../assets/source.pdf#page=248">PDF 248</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>定义一个单式辅助 Cctx：简单式直接传给 context；非简单式先生成 fresh v，用 <code>proc(v) context(v)</code> 承接。zero? 调一次 Cctx，diff 调嵌套两次，if 的 test 与 let 的 RHS 各调用一次；proc/const/var/letrec 本来就不需要列表收集。</p><pre><code class="language-text">Ccall(f,args,K)
+ = Cctx(f,lambda(sf)
+     cps-of-exps(args,lambda(ss) Call(sf,append(ss,[K]))))
+Cif(t,a,b,K)
+ = Cctx(t,lambda(st) If(st,C(a,K),C(b,K)))
+Clet(x,rhs,b,K)
+ = Cctx(rhs,lambda(sr) Let(x,sr,C(b,K)))</code></pre><p>sum/list 这类扩展本身也有任意多个操作数，仍合理保留列表辅助；题目的“其余”针对原来的固定元数构造式。上下文是转换时的宿主函数，不会作为过程混入输出 AST。</p></div></details><details class="exercise" id="ex-6-31"><summary>习题 6.31 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.31"><p>写一个翻译器，输入 cps-of-program 的输出，产生等价程序，把所有续文都改成第五章的数据结构表示。用列表表示类似 define-datatype 的结构；因为目标语言没有符号，可以用 car 中的整数标签区分变体。</p></div><p class="source">印刷 p.225 / <a href="../assets/source.pdf#page=248">PDF 248</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>对每个续文 lambda 收集自由变量，分配独立整数标签，把闭包换成 <code>list(tag,capture1,…)</code>；调用续文换成统一 <code>applyData</code>。分派器先查 car 标签，再从 cdr 恢复自由变量和实参，执行该 lambda 转换后的正文。</p><pre><code class="language-text">proc(v) (K -(a,v))
+=&gt; list(17,K,a)
+applyData(k,args):
+  if car(k)=17
+    then let K=car(cdr(k))
+         in let a=car(cdr(cdr(k)))
+            in let v=car(args)
+               in ... invoke K on -(a,v) ...</code></pre><p><code>defunctionalize(...,#:all? #f)</code> 给出完整翻译器。它按编译器生成的 k/join 名和过程参数角色识别续文，不把用户的一元函数误判为续文；普通用户过程仍用过程表示。整数标签和自由变量字段顺序写进返回的 table；目标仍经过独立列表扩展文法解析后运行。</p></div></details><details class="exercise" id="ex-6-32"><summary>习题 6.32 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.32"><p>写一个类似<a href="#ex-6-31">习题 6.31</a> 的翻译器，不过把所有过程都用数据结构表示。</p></div><p class="source">印刷 p.225 / <a href="../assets/source.pdf#page=248">PDF 248</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p><code>defunctionalize</code> 默认 all? 模式对用户过程和续文统一作 lambda lifting：每个过程变成“整数代码标签＋自由变量值表”，全部用户调用都走 applyData。分派器自身是实现这组有限代码标签的唯一过程入口，不是再次等待转换的源闭包。</p><p>递归组不能简单把过程自己塞进其未建立的捕获表。实现先为整组分配标签，求出组的共同外部自由变量；进入分派分支时，用相同外部捕获值重建组内各名字的标签记录，再绑定实参。这样不需要构造循环列表，也保留互递归。回归覆盖闭包捕获、递归和多个参数；与过程表示输出逐个相同。</p></div></details><details class="exercise" id="ex-6-33"><summary>习题 6.33 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.33"><p>写一个翻译器，输入<a href="#ex-6-32">习题 6.32</a> 的输出，产生类似图 6.1 的寄存器程序。</p></div><p class="source">印刷 p.225 / <a href="../assets/source.pdf#page=248">PDF 248</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p><code>compile-register</code> 给每个 TfExp 分配整数代码标签，生成 Return/Bind/Branch/Rec/Call 与效果指令。简单过程值变成正文标签、形参表、定义环境的记录；调用先取得目标记录和实参，写入 env 与 pc，跳到正文标签。没有“回到这一条 Call 之后”的指令，剩余工作已经在显式续文数据里。</p><pre><code class="language-text">CALL f,args:
+  closure := simple(f,env)
+  values  := simple-args(args,env)
+  env := extend*(params(closure),values,saved-env(closure))
+  pc  := body-label(closure)
+  goto dispatch</code></pre><p>翻译器与循环运行器维护在 <code>chapter06_register.rkt</code>。先把递归计数程序转换成 CPS，再把全部过程数据化，最后编译为标签指令；n=100 实际返回 100，执行 1,114 条标签指令，共 18 个代码标签。运行时闭包数据与程序代码表分开；标签数由程序大小决定，不随递归次数增加。</p></div></details><details class="exercise" id="ex-6-34"><summary>习题 6.34 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.34"><p>CPS 不只把控制上下文显式化，还决定操作次序，并给中间结果起名，这叫顺序化。若不要求迭代控制行为，可以改为 A-normal form（ANF）。下面是一个例子。</p><pre><code class="language-scheme">(define fib/anf
+  (lambda (n)
+    (if (&lt; n 2)
+        1
+        (let ((val1 (fib/anf (- n 1))))
+          (let ((val2 (fib/anf (- n 2))))
+            (+ val1 val2))))))</code></pre><p>CPS 用续文形参给中间结果命名，ANF 用 let。修改 cps-of-exp，让它输出 ANF；非尾位置的条件式可借鉴<a href="#ex-6-23">习题 6.23</a>。说明转换 fib 如何得到上面的 fib/anf，并证明输入已经是 ANF 时输出只可能改变绑定变量名。</p></div><p class="source">印刷 p.226 / <a href="../assets/source.pdf#page=249">PDF 249</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>把转换时的 context 当作宿主函数；需要一个简单值时，先规范化 e，再生成 <code>let v=e in context(v)</code>。尾位置直接返回规范化表达式，不额外传 k。非尾 if 先把整个条件表达式绑定到一个名字，再把名字送入 context，避免复制 context 到两支。</p><pre><code class="language-text">normalize(call f args): name f and each arg left-to-right, then call
+name(complex,ctx): let v=normalize(complex) in ctx(v)
+normalize(if t a b): name(t,lambda(s) if s then normalize(a) else normalize(b))</code></pre><p>fib 的加法两个操作数都是调用，依次生成 val1、val2 的 let，尾部只剩相加，正好得到题给结构。输入若已经是 ANF，每个需要简单值的位置都已简单，name 不再引入 let；已有 let 的 RHS 和正文分别归纳保持，因此仅 α 重命名。可执行 <code>anf</code> 给出这一构造，测试同时比较求值与规范化后的绑定结构。ANF 的 val1 调用仍有“再求 val2 并相加”的待续工作，所以它没有自动变成常数控制栈。</p></div></details><details class="exercise" id="ex-6-35"><summary>习题 6.35 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.35"><p>在几个例子上验证：安装<a href="#ex-6-27">习题 6.27</a> 的优化以后，先对程序做 ANF，再做 CPS，与直接做 CPS 的结果相同。</p></div><p class="source">印刷 p.226 / <a href="../assets/source.pdf#page=249">PDF 249</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>选两次函数调用的减法、递归 fib、带 let 的条件三类输入，分别算 <code>CPS(P)</code> 与 <code>CPS(ANF(P))</code>。对输出按绑定顺序统一 α 重命名后逐树比较，三例均相同，而不只是“最后数值相同”。</p><p>原因是 ANF 为复杂操作数插入的 let，在后续 CPS 中被 6.27 合并为同一个承接结果的续文；直接 CPS 原本也会构造这个续文。变量名生成顺序不同不影响绑定结构。该观察针对相同求值次序和同组行政化简，不能外推到不同优化选项或带隐式存储而漏掉解引用的转换。</p></div></details></section><section id="s6-4"><h2>6.4 计算效果：让打印、存储和控制流显式化</h2><p class="source">原书 §6.4，pp.226–232 / <a href="../assets/source.pdf#page=249">PDF 249–255</a>。</p><p>计算效果包括打印、修改存储、异常和非局部跳转。即使两个表达式最后返回相同的数，它们也可能打印不同内容、改写不同位置或根本不终止。本节继续使用一个准则：SimpleExp 不执行这些效果；效果放在 TfExp 中，和下一步控制明确连在一起。</p><p>print(e) 先把 e 转成简单值，再生成 <code>printk(simple); body</code>，打印完成以后才继续 body。原书给 print 任取返回值 38；因此把 print(e) 的结果交给 K 时，传的是 38，而不是被打印值。</p><pre><code class="language-text">C(print(e),K)
+ = evaluate e to v;
+   printk(v); (K 38)</code></pre><p>显式引用也按三步接入：输入增加 newref/deref/setref，目标增加 newrefk/derefk/setrefk，转换器把效果连接起来。newrefk 把新引用交给给定续文；derefk 把读取值交给续文；setrefk 写完再执行后继 TfExp，源 setref 的任取结果仍为 23。</p><div class="rn-example" id="store-cps-example"><h3>伴读例：顺序化一次分配、写入与读取</h3><p class="example-kind">原书 p.230 存储效果例的缩小版</p><pre><code class="language-scheme">newrefk(33,proc(loc)
+  setrefk(loc,22);
+  derefk(loc,proc(value)
+    -(value,1)))</code></pre><p>先得到装 33 的位置，再把同一位置改成 22，最后读得 22 并返回 21。derefk 即使不修改位置，也是在特定时刻读取当前内容，不能移到 setrefk 之前当成永远相同的简单值。目标解释器在每次 run 隔离存储，旧运行的引用不能混进新运行。</p></div><p>隐式引用的转换器要主动插入位置操作：绑定值要 newref，读变量要 deref，赋值要 setref。先按词法身份找出会被赋值的变量，还能让不可变绑定直接保留为简单值，减少分配和解引用。查的是绑定身份，不能把所有叫 x 的变量混成一类。</p><p>letcc/throw 不必再扩展目标语法：当前 K 已是可传递的目标过程，捕获它只需绑定；throw 最后直接调用目标续文，忽略即时 K。异常也可用普通目标过程表达，只需给转换器和用户过程增加成功/失败两个续文，try 临时替换失败通道，raise 把异常值送入它。</p><!-- EOPL:snippet chapter06_target.rkt target-driver -->
+<details class="code-details" open><summary>查看实现 · target-driver</summary><pre><code class="language-scheme"> (define initial (target-state (if (string? program) (parse-target program) program)
+  (extend &#x27;(i v x) &#x27;(1 5 10) &#x27;())))
+ (let trampoline ([pc initial])
+  (if (done? pc)
+   (values (done-value pc) (hash &#x27;output (reverse output) &#x27;steps steps &#x27;locations (length refs)))
+   (trampoline (step pc)))))
+</code></pre></details>
+<!-- EOPL:end-snippet --><p>等价检查因此要同时比较返回值、输出顺序和可观察存储结果。实测运算符和两个实参各自打印编号：左到右为 <code>(0 1 2)</code>，右到左为 <code>(2 1 0)</code>，先实参后运算符为 <code>(1 2 0)</code>；三者最后的减法均为 5。数值一致没有消除它们的效果差别。</p><details class="reading-notes" id="notes-s6-4" data-notes-for="s6-4" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">读取时刻</span><h3>deref 也是需要固定位置的动作</h3><p>纯环境里的变量同一绑定总得同一个值；隐式引用变量实际读取 store，结果取决于此前发生过哪些写入。把它简单地留在稍后的算术式里，可能读到新值。先 derefk、用 fresh 名保存结果，才能固定这次读取的时刻。</p></div><div class="annotation-card"><span class="annotation-kind">两条续文</span><h3>成功与异常都要跨用户调用传递</h3><p>只改 try 和 raise 不够：若用户过程调用没有把当前 H 传入，其内部 raise 就找不到调用处安装的处理器。词法 env 继续由闭包保存，动态的 K/H 由调用显式传递。处理器自身的重抛使用外层 H，才能正确向外传播。</p></div></div></details><h3 id="exercises-6-4">本节习题与解答</h3><details class="exercise-index-panel"><summary>本节习题题号索引 · 5 题</summary><nav class="exercise-index" role="navigation" aria-label="本节习题索引"><a href="#ex-6-36" aria-label="习题 6.36">6.36</a> · <a href="#ex-6-37" aria-label="习题 6.37">6.37</a> · <a href="#ex-6-38" aria-label="习题 6.38">6.38</a> · <a href="#ex-6-39" aria-label="习题 6.39">6.39</a> · <a href="#ex-6-40" aria-label="习题 6.40">6.40</a></nav></details><details class="exercise" id="ex-6-36"><summary>习题 6.36 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.36"><p>给 CPS-IN 增加 begin 表达式，见<a href="chapter04_state.html#ex-4-4">习题 4.4</a>。应该不必扩展 CPS-OUT。</p></div><p class="source">印刷 p.231 / <a href="../assets/source.pdf#page=254">PDF 254</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>非最后一项的结果用 fresh dummy 忽略，最后一项仍交给原 K。</p><pre><code class="language-text">C(begin e1;...;en end,K)
+ n=1: C(e1,K)
+ n&gt;1: C(e1,proc(dummy) C(begin e2;...;en end,K))</code></pre><p>输出只用已有的过程、调用、let 或效果 TfExp。转换器 begin 分支按此实现；实际 <code>begin print(1); print(2); 9 end</code> 的输出日志仍是 1、2，答案 9。若非最后项会抛异常或不终止，后面各项不会被执行。</p></div></details><details class="exercise" id="ex-6-37"><summary>习题 6.37 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.37"><p>给 CPS-IN 增加 §4.3 的隐式引用。CPS-OUT 继续使用显式引用版本，转换器须在必要位置插入分配和解引用。提示：有隐式引用后 var-exp 会读存储，因此不再是简单表达式。</p></div><p class="source">印刷 p.231 / <a href="../assets/source.pdf#page=254">PDF 254</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>先把变量绑定改成位置绑定，再作 CPS。读 x 译为 deref(x)，写 x 译为 setref(x,v)；let 的 RHS 按旧环境依次求完，再为每个新变量 newref。过程形参先接收实参值，再为每个形参分配位置；递归组先分配所有位置，再安装闭包。</p><pre><code class="language-text">let x = e in b
+=&gt; let value = lower(e)
+   in let x = newref(value) in lower(b)
+proc(x) b
+=&gt; proc(arg) let x = newref(arg) in lower(b)
+x =&gt; deref(x)
+set x=e =&gt; begin setref(x,lower(e)); 27 end</code></pre><p><code>#:implicit? #t</code> 执行完整降级，随后 newref/deref/setref 分别成为 newrefk/derefk/setrefk。赋值源结果 27 与显式 setref 的 23 分别保留，不能因只关心效果而改变作为子表达式时的值。共享捕获和互递归程序已与第五章隐式机器逐例对照。</p></div></details><details class="exercise" id="ex-6-38"><summary>习题 6.38 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.38"><p>如果一个变量从不出现在 set 的左边，它就是不可变的，可以当作简单值。扩展上一题，让所有这种变量都按简单值处理。</p></div><p class="source">印刷 p.232 / <a href="../assets/source.pdf#page=255">PDF 255</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>先按词法绑定做 α 重命名，再收集所有赋值左侧的绑定身份。只对这个集合中的变量分配位置、读时 deref；其余绑定直接存表达值，读变量仍简单。不能只按字符串判断：内外两个同名 x 可能只有一个会被赋值。</p><p><code>#:immutable? #t</code> 开启该优化。过程的不可变形参直接接值，可变形参才 newref；一个闭包捕获可变变量时仍共享原位置。互递归组的过程名若不可变，可继续使用纯递归绑定；若允许给其中名字赋值，则先给整组统一分配位置。优化前后回归检查相同结果，并可比较位置分配计数。</p></div></details><details class="exercise" id="ex-6-39"><summary>习题 6.39 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.39"><p>在 CPS 转换器中实现 letcc 和 throw。</p></div><p class="source">印刷 p.232 / <a href="../assets/source.pdf#page=255">PDF 255</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><pre><code class="language-text">C(letcc x in body,K)
+ = let x = K in C(body,x)
+C(throw value to target,K)
+ = cps-of-exps([value,target],lambda([v,k]) Call(k,[v]))</code></pre><p>输出不需新语法：捕获就是绑定当前续文过程，抛转就是普通的一元目标调用。throw 的即时 K 被忽略，但两个子式仍按源语言规定次序求值。实现先 α 重命名，防止 x 捕获 K 中的外层自由名。<code>letcc out in -(10,throw 7 to out)</code> 经完整转换、目标解析和执行得到 7；被跳过的减法不会继续执行。</p></div></details><details class="exercise" id="ex-6-40"><summary>习题 6.40 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.40"><p>把 §5.4 的 try/catch 和 throw 加进 CPS 转换器。CPS-OUT 不应需要新语法；把 cps-of-exp 改成接两个续文，分别为成功续文和错误续文。</p></div><p class="source">印刷 p.232 / <a href="../assets/source.pdf#page=255">PDF 255</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>§5.4 实际使用的异常关键字是 raise；题目末条写 throw，本题按该节的异常抛出解释，与上一题“throw 值到捕获续文”的形式分开。</p><pre><code class="language-text">C(try body catch(x) handler,K,H)
+ = let h = proc(x) C(handler,K,H)
+   in C(body,K,h)
+C(raise e,K,H) = C(e,proc(v) (H v),H)
+C(call f args,K,H) = ... (f args K H)
+C(proc(xs) b,K,H) = send(K,proc(xs,k,h) C(b,k,h))</code></pre><p>关键是所有用户过程都增加 k/h 两个参数，调用时传入当前处理器；不能让过程闭包固定捕获定义时的动态异常通道。<code>#:exceptions? #t</code> 完成这套转换，handler 再抛时使用外层 H，正常结果走外层 K。无处理器的程序以终结错误通道报告。正常 try/raise 不需要 CPS-OUT 增加异常构造；运行器的 uncaught 仅承担无处理器错误报告。</p></div></details></section><section id="programs"><h2>运行本章程序</h2><p>程序采用 Racket 8.17 与 eopl/rackunit，语法前端与运行器分开维护；下载文件后保留原文件名并放在同一个目录。共享的测试与第五、六章模块需要一起取得；语句版还使用第四章的语句语法模块。下面源码阅读副本与实际执行的维护文件同步。</p><pre><code class="language-sh">&quot;/Applications/Racket v8.17/bin/racket&quot; books/eopl/code/test_chapter05_06.rkt
+&quot;/Applications/Racket v8.17/bin/racket&quot; books/eopl/code/chapter06_examples.rkt
+&quot;/Applications/Racket v8.17/bin/racket&quot; books/eopl/code/test_chapter06_scheme.rkt</code></pre><div class="program-output"><p>实际结果：double(6) 经 CPS-OUT 得 12；图 6.1/6.2 修正前阶乘 4 得 1，修正后得 24；题 6.13 八例结果见该题表述，全部过程数据化再寄存器化的递归 100 返回 100。</p></div><p>数值/返回值、输出次序、错误路径、续文大小与各表示之间的比较各自检查。有限运行用于核对实现，归纳和转换不变量在正文与题解中说明。C 固定容量 arena、Python 同步模型的 JSON 消息边界，以及目标解释器的步数上限均在代码中明确。</p><ul><li><a href="../code/chapter06.rkt">下载 chapter06.rkt</a></li><li><a href="../code/chapter06_target.rkt">下载 chapter06_target.rkt</a></li><li><a href="../code/chapter06_algorithms.rkt">下载 chapter06_algorithms.rkt</a></li><li><a href="../code/chapter06_examples.rkt">下载 chapter06_examples.rkt</a></li><li><a href="../code/chapter06_transforms.rkt">下载 chapter06_transforms.rkt</a></li><li><a href="../code/chapter06_register.rkt">下载 chapter06_register.rkt</a></li><li><a href="../code/test_chapter06_scheme.rkt">下载 test_chapter06_scheme.rkt</a></li><li><a href="../code/test_chapter05_06.rkt">下载 test_chapter05_06.rkt</a></li><li><a href="../code/README.md">完整程序与依赖说明</a></li></ul><details class="code-details" id="chapter06-program"><summary>完整程序 · chapter06.rkt</summary><!-- EOPL:program chapter06.rkt --><pre><code id="chapter06-code" class="language-scheme">#lang racket
+;; CPS-IN -&gt; CPS-OUT, with independent target parsing/evaluation.
+(require racket/match &quot;chapter05_syntax.rkt&quot; (prefix-in out: &quot;chapter06_target.rkt&quot;))
+(provide (all-defined-out))
+(define (ast-size x) (if (pair? x) (+ 1 (ast-size (car x)) (ast-size (cdr x))) 1))
+(define (simple? e [strict? #t])
+ (match e
+  [`(num ,_) #t] [`(var ,_) #t]
+  [`(prim ,_ . ,es) (andmap (lambda (x) (simple? x strict?)) es)]
+  [`(list . ,es) (andmap (lambda (x) (simple? x strict?)) es)]
+  [`(proc ,_ ,b) (or (not strict?) (tail-form? b))] [_ #f]))
+;; BEGIN tail-form
+(define (tail-form? e)
+ (match e
+  [`(if ,t ,a ,b) (and (simple? t) (tail-form? a) (tail-form? b))]
+  [`(let ,_ ,es ,b) (and (andmap simple? es) (tail-form? b))]
+  [`(letrec ,_ ,_ ,bs ,b) (and (andmap tail-form? bs) (tail-form? b))]
+  [`(call ,f ,es) (and (simple? f) (andmap simple? es))]
+  [_ (simple? e)]))
+;; END tail-form
+(define (all-vars x)
+ (if (pair? x) (append (all-vars (car x)) (all-vars (cdr x))) (if (symbol? x) (list x) &#x27;())))
+(define (alpha e fresh)
+ (define (lookup x rho) (cond [(assq x rho) =&gt; cdr] [else x]))
+ (define (bind xs rho) (unique! xs) (append (map (lambda (x) (cons x (fresh x))) xs) rho))
+ (define (go e rho)
+  (match e
+   [`(num ,_) e] [`(var ,x) `(var ,(lookup x rho))]
+   [`(proc ,xs ,b) (define r (bind xs rho)) `(proc ,(map (lambda (x) (lookup x r)) xs) ,(go b r))]
+   [`(let ,xs ,es ,b) (define r (bind xs rho))
+    `(let ,(map (lambda (x) (lookup x r)) xs) ,(map (lambda (a) (go a rho)) es) ,(go b r))]
+   [`(letrec ,ns ,pss ,bs ,b)
+    (define r (bind ns rho))
+    (define rs (map (lambda (ps) (bind ps r)) pss))
+    `(letrec ,(map (lambda (x) (lookup x r)) ns)
+      ,(map (lambda (ps rr) (map (lambda (x) (lookup x rr)) ps)) pss rs)
+      ,(map go bs rs) ,(go b r))]
+   [`(letcc ,x ,b) (define r (bind (list x) rho)) `(letcc ,(lookup x r) ,(go b r))]
+   [`(try ,b ,xs ,h) (define r (bind xs rho)) `(try ,(go b rho) ,(map (lambda (x) (lookup x r)) xs) ,(go h r))]
+   [`(set ,x ,rhs) `(set ,(lookup x rho) ,(go rhs rho))]
+   [`(call ,f ,es) `(call ,(go f rho) ,(map (lambda (a) (go a rho)) es))]
+   [`(prim ,op . ,es) `(prim ,op ,@(map (lambda (a) (go a rho)) es))]
+   [(list tag es ...) `(,tag ,@(map (lambda (a) (go a rho)) es))]
+   [_ (error &#x27;alpha &quot;unknown syntax ~s&quot; e)]))
+ (go e &#x27;()))
+(define (substitute t x s)
+ ;; Every binder has a globally fresh identity before CPS; substitution therefore cannot capture.
+ (match t
+  [`(var ,y) (if (eq? x y) s t)]
+  [`(proc ,xs ,b) (if (memq x xs) t `(proc ,xs ,(substitute b x s)))]
+  [`(let1 ,y ,a ,b) `(let1 ,y ,(substitute a x s) ,(if (eq? x y) b (substitute b x s)))]
+  [`(letrec ,ns ,pss ,bs ,b)
+   (if (memq x ns) t
+    `(letrec ,ns ,pss ,(map (lambda (ps body) (if (memq x ps) body (substitute body x s))) pss bs)
+      ,(substitute b x s)))]
+  [(? pair?) (map (lambda (part) (substitute part x s)) t)] [_ t]))
+(define (lower-implicit e fresh optimize?)
+ (define assigned
+  (let collect ([e e])
+   (match e [`(set ,x ,rhs) (cons x (collect rhs))]
+    [(? pair?) (apply append (map collect e))] [_ &#x27;()])))
+ (define (promote-recursive-groups e)
+  (match e
+   [`(letrec ,ns ,_ ,bs ,b)
+    (when (ormap (lambda (x) (memq x assigned)) ns) (set! assigned (append ns assigned)))
+    (for-each promote-recursive-groups bs) (promote-recursive-groups b)]
+   [(? pair?) (for-each promote-recursive-groups e)] [_ (void)]))
+ (promote-recursive-groups e)
+ (define (mutable? x) (or (not optimize?) (memq x assigned)))
+ (define (bind-values xs es body)
+  (if (null? xs) body
+   `(let (,(car xs)) (,(if (mutable? (car xs)) `(newref ,(car es)) (car es)))
+     ,(bind-values (cdr xs) (cdr es) body))))
+ (define (go e)
+  (match e
+   [`(num ,_) e] [`(var ,x) (if (mutable? x) `(deref ,e) e)]
+   [`(set ,x ,rhs) `(begin (setref (var ,x) ,(go rhs)) (num 27))]
+   [`(proc ,xs ,b)
+    (define args (map (lambda (_) (fresh &#x27;arg)) xs))
+    `(proc ,args ,(bind-values xs (map (lambda (x) `(var ,x)) args) (go b)))]
+   [`(let ,xs ,es ,b)
+    (define temps (map (lambda (_) (fresh &#x27;rhs)) xs))
+    `(let ,temps ,(map go es) ,(bind-values xs (map (lambda (x) `(var ,x)) temps) (go b)))]
+   [`(letrec ,ns ,pss ,bs ,b)
+    ;; Allocate the entire recursive group before installing any closure.
+    (define init-xs (map (lambda (_) &#x27;(num 0)) ns))
+    (define closures (map (lambda (ps body) (go `(proc ,ps ,body))) pss bs))
+    (if (ormap mutable? ns)
+     (bind-values ns init-xs
+      `(begin ,@(map (lambda (n c) `(setref (var ,n) ,c)) ns closures) ,(go b)))
+     `(letrec ,ns ,(map cadr closures) ,(map caddr closures) ,(go b)))]
+   [`(call ,f ,es) `(call ,(go f) ,(map go es))]
+   [`(prim ,op . ,es) `(prim ,op ,@(map go es))]
+   [(list tag es ...) `(,tag ,@(map go es))] [_ e]))
+ (go e))
+(define (cps-program source #:order [order &#x27;left] #:share-if? [share-if? #t]
+                     #:send [send-mode &#x27;let] #:fuse-let? [fuse-let? #t]
+                     #:exceptions? [exceptions? #f] #:implicit? [implicit? #f]
+                     #:immutable? [immutable? #f])
+ (define counter 0)
+ (define (fresh prefix) (set! counter (add1 counter)) (string-&gt;symbol (format &quot;~a%~a&quot; prefix counter)))
+ (define input0 (if (string? source) (parse source) source))
+ (define input (alpha (if implicit? `(let (i v x) ((num 1) (num 5) (num 10)) ,input0) input0) fresh))
+ (define e (if implicit? (lower-implicit input fresh immutable?) input))
+ (define (V x) `(var ,x))
+ (define (send k s)
+  (match k
+   [`(proc (,x) ,b)
+    (case send-mode [(let) `(let1 ,x ,s ,b)] [(substitute) (substitute b x s)]
+     [else `(call ,k (,s))])]
+   [_ `(call ,k (,s))]))
+;; BEGIN cps-exps
+ (define (exps es builder h [call? #f])
+  (define operands (list-&gt;vector es))
+  (define indices (range (vector-length operands)))
+  (define positions
+   (cond [(eq? order &#x27;right) (reverse indices)]
+    [(and call? (eq? order &#x27;operands-first) (pair? es)) (append (cdr indices) &#x27;(0))]
+    [else indices]))
+  (define (walk positions converted)
+   (if (null? positions) (builder (map (lambda (i) (hash-ref converted i)) indices))
+    (let* ([i (car positions)] [arg (vector-ref operands i)])
+     (if (simple? arg #f)
+      (walk (cdr positions) (hash-set converted i (simp arg h)))
+      (let ([v (fresh &#x27;v)])
+       (cps arg `(proc (,v) ,(walk (cdr positions) (hash-set converted i (V v)))) h))))))
+  (walk positions (hash)))
+;; END cps-exps
+ (define (simp e h)
+  (match e
+   [`(num ,_) e] [`(var ,_) e]
+   [`(prim ,op . ,es) `(prim ,op ,@(map (lambda (a) (simp a h)) es))]
+   [`(list . ,es) `(list ,@(map (lambda (a) (simp a h)) es))]
+   [`(proc ,xs ,b)
+    (define k (fresh &#x27;k)) (define err (and exceptions? (fresh &#x27;h)))
+    `(proc ,(append xs (list k) (if err (list err) &#x27;())) ,(cps b (V k) (if err (V err) h)))]))
+;; BEGIN cps-main
+ (define (cps e k h)
+  (match e
+   [(? (lambda (a) (simple? a #f))) (send k (simp e h))]
+   [`(prim ,op . ,es)
+    (exps es (lambda (ss) (send k `(prim ,op ,@ss))) h)]
+   [`(list . ,es) (exps es (lambda (ss) (send k `(list ,@ss))) h)]
+   [`(call ,f ,es)
+    (exps (cons f es) (lambda (ss) `(call ,(car ss) ,(append (cdr ss) (list k) (if exceptions? (list h) &#x27;())))) h #t)]
+   [`(if ,t ,a ,b)
+    (exps (list t) (lambda (ss)
+     (if (and share-if? (not (eq? (car k) &#x27;var)))
+      (let ([name (fresh &#x27;join)]) `(let1 ,name ,k (if ,(car ss) ,(cps a (V name) h) ,(cps b (V name) h))))
+      `(if ,(car ss) ,(cps a k h) ,(cps b k h)))) h)]
+   [`(let ,xs ,es ,b)
+    (cond [(and fuse-let? (= (length xs) 1) (not (simple? (car es) #f)))
+           (cps (car es) `(proc (,(car xs)) ,(cps b k h)) h)]
+     [else (exps es (lambda (ss)
+      (foldr (lambda (x a rest) `(let1 ,x ,a ,rest)) (cps b k h) xs ss)) h)])]
+   [`(letrec ,ns ,pss ,bs ,b)
+    (define ps (map (lambda (xs body) (simp `(proc ,xs ,body) h)) pss bs))
+    `(letrec ,ns ,(map cadr ps) ,(map caddr ps) ,(cps b k h))]
+   [`(begin ,first . ,rest)
+    (if (null? rest) (cps first k h)
+     (let ([v (fresh &#x27;discard)]) (cps first `(proc (,v) ,(cps `(begin ,@rest) k h)) h)))]
+   [`(print ,arg) (exps (list arg) (lambda (ss) `(printk ,(car ss) ,(send k &#x27;(num 38)))) h)]
+   [`(newref ,arg) (exps (list arg) (lambda (ss) `(newrefk ,(car ss) ,k)) h)]
+   [`(deref ,arg) (exps (list arg) (lambda (ss) `(derefk ,(car ss) ,k)) h)]
+   [`(setref ,a ,b) (exps (list a b) (lambda (ss) `(setrefk ,(car ss) ,(cadr ss) ,(send k &#x27;(num 23)))) h)]
+   [`(letcc ,x ,body) `(let1 ,x ,k ,(cps body (V x) h))]
+   [`(throw ,v ,dest) (exps (list v dest) (lambda (ss) `(call ,(cadr ss) (,(car ss)))) h)]
+   [`(try ,body (,x) ,handler)
+    (unless exceptions? (error &#x27;cps &quot;enable dual continuations&quot;))
+    (define err (fresh &#x27;handler))
+    `(let1 ,err (proc (,x) ,(cps handler k h)) ,(cps body k (V err)))]
+   [`(raise ,arg)
+    (unless exceptions? (error &#x27;cps &quot;enable dual continuations&quot;))
+    (exps (list arg) (lambda (ss) `(call ,h ,ss)) h)]
+   [_ (error &#x27;cps &quot;unsupported expression: ~s&quot; e)]))
+;; END cps-main
+ (define answer (fresh &#x27;answer))
+ (define exn (fresh &#x27;exception))
+ (cps e `(proc (,answer) (return (var ,answer))) `(proc (,exn) (uncaught (var ,exn)))))
+(define (run-converted source #:numeric? [numeric? #f] #:order [order &#x27;left])
+ (define target (cps-program source #:order order))
+ ;; Serialize and parse with the independent target grammar before evaluation.
+ (out:run-target (out:parse-target (out:target-string target)) #:numeric? numeric?))
+(module+ main
+ (define pgm &quot;letrec double(x) = if zero?(x) then 0 else -((double -(x,1)),-2) in (double 6)&quot;)
+ (define target (cps-program pgm))
+ (define-values (v m) (out:run-target (out:parse-target (out:target-string target))))
+ (printf &quot;CPS-OUT: ~s; output=~s\n&quot; v (hash-ref m &#x27;output)))
+</code></pre><!-- EOPL:end-program --></details><details class="code-details" id="chapter06_target-program"><summary>完整程序 · chapter06_target.rkt</summary><!-- EOPL:program chapter06_target.rkt --><pre><code id="chapter06_target-code" class="language-scheme">#lang racket
+;; Independent CPS-OUT grammar and evaluator; no source-language eval.
+(require (except-in eopl define) (only-in eopl [define eopl:define]) racket/match (only-in &quot;chapter05_syntax.rkt&quot; primitive truth unique! arity!))
+(provide (all-defined-out))
+(eopl:define lexical
+ &#x27;((white-space (whitespace) skip)
+   (identifier (letter (arbno (or letter digit &quot;_&quot; &quot;-&quot; &quot;?&quot; &quot;%&quot;))) symbol)
+   (number (digit (arbno digit)) number) (number (&quot;-&quot; digit (arbno digit)) number)))
+(eopl:define grammar
+ &#x27;((program (tf) cps-program)
+   (simple (number) n-exp) (simple (identifier) v-exp)
+   (simple (&quot;-&quot; &quot;(&quot; simple &quot;,&quot; simple &quot;)&quot;) d-exp)
+   (simple (&quot;*&quot; &quot;(&quot; simple &quot;,&quot; simple &quot;)&quot;) m-exp)
+   (simple (&quot;/&quot; &quot;(&quot; simple &quot;,&quot; simple &quot;)&quot;) div-exp)
+   (simple (&quot;+&quot; &quot;(&quot; (separated-list simple &quot;,&quot;) &quot;)&quot;) sum-exp)
+   (simple (&quot;zero?&quot; &quot;(&quot; simple &quot;)&quot;) z-exp)
+   (simple (&quot;null?&quot; &quot;(&quot; simple &quot;)&quot;) null-exp)
+   (simple (&quot;number?&quot; &quot;(&quot; simple &quot;)&quot;) num-exp)
+   (simple (&quot;car&quot; &quot;(&quot; simple &quot;)&quot;) car-exp) (simple (&quot;cdr&quot; &quot;(&quot; simple &quot;)&quot;) cdr-exp)
+   (simple (&quot;add1&quot; &quot;(&quot; simple &quot;)&quot;) add1-exp) (simple (&quot;sub1&quot; &quot;(&quot; simple &quot;)&quot;) sub1-exp)
+   (simple (&quot;cons&quot; &quot;(&quot; simple &quot;,&quot; simple &quot;)&quot;) cons-exp)
+   (simple (&quot;equal?&quot; &quot;(&quot; simple &quot;,&quot; simple &quot;)&quot;) equal-exp)
+   (simple (&quot;less?&quot; &quot;(&quot; simple &quot;,&quot; simple &quot;)&quot;) less-exp)
+   (simple (&quot;greater?&quot; &quot;(&quot; simple &quot;,&quot; simple &quot;)&quot;) greater-exp)
+   (simple (&quot;list&quot; &quot;(&quot; (separated-list simple &quot;,&quot;) &quot;)&quot;) list-exp)
+   (simple (&quot;proc&quot; &quot;(&quot; (separated-list identifier &quot;,&quot;) &quot;)&quot; tf) p-exp)
+   (tf (simple) ret-exp)
+   (tf (&quot;let&quot; identifier &quot;=&quot; simple &quot;in&quot; tf) let-exp)
+   (tf (&quot;letrec&quot; (arbno identifier &quot;(&quot; (separated-list identifier &quot;,&quot;) &quot;)&quot; &quot;=&quot; tf) &quot;in&quot; tf) rec-exp)
+   (tf (&quot;if&quot; simple &quot;then&quot; tf &quot;else&quot; tf) if-exp)
+   (tf (&quot;(&quot; simple (arbno simple) &quot;)&quot;) call-exp)
+   (tf (&quot;printk&quot; &quot;(&quot; simple &quot;)&quot; &quot;;&quot; tf) print-exp)
+   (tf (&quot;newrefk&quot; &quot;(&quot; simple &quot;,&quot; simple &quot;)&quot;) new-exp)
+   (tf (&quot;derefk&quot; &quot;(&quot; simple &quot;,&quot; simple &quot;)&quot;) deref-exp)
+   (tf (&quot;setrefk&quot; &quot;(&quot; simple &quot;,&quot; simple &quot;)&quot; &quot;;&quot; tf) setref-exp)
+   (tf (&quot;uncaught&quot; &quot;(&quot; simple &quot;)&quot;) uncaught-exp)))
+(sllgen:make-define-datatypes lexical grammar)
+(define scan&amp;parse (sllgen:make-string-parser lexical grammar))
+(define (parse-target text)
+ (cases program (scan&amp;parse text) (cps-program (t) (tf-&gt;ast t))))
+(define (s-&gt;ast s)
+ (cases simple s
+  (n-exp (n) `(num ,n)) (v-exp (v) `(var ,v))
+  (d-exp (a b) `(prim - ,(s-&gt;ast a) ,(s-&gt;ast b)))
+  (m-exp (a b) `(prim * ,(s-&gt;ast a) ,(s-&gt;ast b)))
+  (div-exp (a b) `(prim / ,(s-&gt;ast a) ,(s-&gt;ast b)))
+  (sum-exp (ss) `(prim + ,@(map s-&gt;ast ss)))
+  (z-exp (a) `(prim zero? ,(s-&gt;ast a))) (null-exp (a) `(prim null? ,(s-&gt;ast a)))
+  (num-exp (a) `(prim number? ,(s-&gt;ast a))) (car-exp (a) `(prim car ,(s-&gt;ast a)))
+  (cdr-exp (a) `(prim cdr ,(s-&gt;ast a))) (add1-exp (a) `(prim add1 ,(s-&gt;ast a)))
+  (sub1-exp (a) `(prim sub1 ,(s-&gt;ast a)))
+  (cons-exp (a b) `(prim cons ,(s-&gt;ast a) ,(s-&gt;ast b)))
+  (equal-exp (a b) `(prim equal? ,(s-&gt;ast a) ,(s-&gt;ast b)))
+  (less-exp (a b) `(prim less? ,(s-&gt;ast a) ,(s-&gt;ast b)))
+  (greater-exp (a b) `(prim greater? ,(s-&gt;ast a) ,(s-&gt;ast b)))
+  (list-exp (ss) `(list ,@(map s-&gt;ast ss)))
+  (p-exp (xs b) `(proc ,xs ,(tf-&gt;ast b)))))
+(define (tf-&gt;ast t)
+ (cases tf t
+  (ret-exp (s) `(return ,(s-&gt;ast s)))
+  (let-exp (x s b) `(let1 ,x ,(s-&gt;ast s) ,(tf-&gt;ast b)))
+  (rec-exp (ns pss bs b) `(letrec ,ns ,pss ,(map tf-&gt;ast bs) ,(tf-&gt;ast b)))
+  (if-exp (s a b) `(if ,(s-&gt;ast s) ,(tf-&gt;ast a) ,(tf-&gt;ast b)))
+  (call-exp (f ss) `(call ,(s-&gt;ast f) ,(map s-&gt;ast ss)))
+  (print-exp (s b) `(printk ,(s-&gt;ast s) ,(tf-&gt;ast b)))
+  (new-exp (s k) `(newrefk ,(s-&gt;ast s) ,(s-&gt;ast k)))
+  (deref-exp (s k) `(derefk ,(s-&gt;ast s) ,(s-&gt;ast k)))
+  (setref-exp (a b t) `(setrefk ,(s-&gt;ast a) ,(s-&gt;ast b) ,(tf-&gt;ast t)))
+  (uncaught-exp (s) `(uncaught ,(s-&gt;ast s)))))
+(define (simple-string s)
+ (match s
+  [`(num ,n) (number-&gt;string n)] [`(var ,x) (symbol-&gt;string x)]
+  [`(prim ,op . ,es) (format &quot;~a(~a)&quot; op (string-join (map simple-string es) &quot;,&quot;))]
+  [`(list . ,ss) (format &quot;list(~a)&quot; (string-join (map simple-string ss) &quot;,&quot;))]
+  [`(proc ,xs ,b) (format &quot;proc (~a) ~a&quot; (string-join (map symbol-&gt;string xs) &quot;,&quot;) (target-string b))]
+  [_ (error &#x27;simple-string &quot;not a simple expression: ~s&quot; s)]))
+(define (target-string t)
+ (match t
+  [`(return ,s) (simple-string s)]
+  [`(let1 ,x ,s ,b) (format &quot;let ~a = ~a in ~a&quot; x (simple-string s) (target-string b))]
+  [`(letrec ,ns ,pss ,bs ,b)
+   (format &quot;letrec ~a in ~a&quot;
+    (string-join (map (lambda (n ps body) (format &quot;~a(~a) = ~a&quot; n (string-join (map symbol-&gt;string ps) &quot;,&quot;) (target-string body))) ns pss bs) &quot; &quot;) (target-string b))]
+  [`(if ,s ,a ,b) (format &quot;if ~a then ~a else ~a&quot; (simple-string s) (target-string a) (target-string b))]
+  [`(call ,f ,ss) (format &quot;(~a~a)&quot; (simple-string f) (if (null? ss) &quot;&quot; (string-append &quot; &quot; (string-join (map simple-string ss) &quot; &quot;))))]
+  [`(printk ,s ,b) (format &quot;printk(~a); ~a&quot; (simple-string s) (target-string b))]
+  [`(newrefk ,s ,k) (format &quot;newrefk(~a,~a)&quot; (simple-string s) (simple-string k))]
+  [`(derefk ,s ,k) (format &quot;derefk(~a,~a)&quot; (simple-string s) (simple-string k))]
+  [`(setrefk ,a ,b ,t) (format &quot;setrefk(~a,~a); ~a&quot; (simple-string a) (simple-string b) (target-string t))]
+  [`(uncaught ,s) (format &quot;uncaught(~a)&quot; (simple-string s))]
+  [_ (error &#x27;target-string &quot;invalid target: ~s&quot; t)]))
+(struct target-closure (params body env) #:transparent)
+(struct target-ref (cell) #:transparent)
+(define (extend xs vs env)
+ (unique! xs) (arity! xs vs) (append (map (lambda (x v) (cons x (box v))) xs vs) env))
+(define (lookup env x)
+ (define p (assq x env)) (unless p (error &#x27;lookup &quot;unbound: ~a&quot; x)) (unbox (cdr p)))
+;; BEGIN target-simple
+(define (value-of-simple s env)
+ (match s
+  [`(num ,n) n] [`(var ,x) (lookup env x)]
+  [`(prim ,op . ,ss) (primitive op (map (lambda (a) (value-of-simple a env)) ss))]
+  [`(list . ,ss) (map (lambda (a) (value-of-simple a env)) ss)]
+  [`(proc ,xs ,b) (target-closure xs b env)]
+  [_ (error &#x27;simple &quot;not simple&quot;)]))
+;; END target-simple
+;; All inter-procedure transfers return state data. No source tail call uses a host return stack.
+(struct target-state (exp env) #:transparent)
+(struct done (value) #:transparent)
+(define (run-target program #:numeric? [numeric? #f] #:fuel [fuel 2000000])
+ (define output &#x27;()) (define steps 0) (define refs &#x27;())
+ (define (invoke p vs)
+  (unless (target-closure? p) (error &#x27;call &quot;procedure required&quot;))
+  (target-state (target-closure-body p) (extend (target-closure-params p) vs (target-closure-env p))))
+ (define (step s)
+  (set! steps (add1 steps)) (when (&gt; steps fuel) (error &#x27;target &quot;fuel exhausted&quot;))
+  (match-define (target-state t env) s)
+  (define (V a) (value-of-simple a env))
+  (match t
+   [`(return ,a) (done (V a))]
+   [`(let1 ,x ,a ,b) (target-state b (extend (list x) (list (V a)) env))]
+   [`(letrec ,ns ,pss ,bs ,b)
+    (define rho (extend ns (map (lambda (_) #f) ns) env))
+    (for ([n ns] [ps pss] [body bs]) (set-box! (cdr (assq n rho)) (target-closure ps body rho)))
+    (target-state b rho)]
+   [`(if ,a ,b ,c) (target-state (if (truth (V a) numeric?) b c) env)]
+   [`(call ,f ,ss) (invoke (V f) (map V ss))]
+   [`(printk ,a ,b) (set! output (cons (V a) output)) (target-state b env)]
+   [`(newrefk ,a ,k) (define r (target-ref (box (V a)))) (set! refs (cons r refs)) (invoke (V k) (list r))]
+   [`(derefk ,a ,k)
+    (define r (V a)) (unless (memq r refs) (error &#x27;deref &quot;reference required&quot;))
+    (invoke (V k) (list (unbox (target-ref-cell r))))]
+   [`(setrefk ,a ,b ,next)
+    (define r (V a)) (unless (memq r refs) (error &#x27;setref &quot;reference required&quot;))
+    (set-box! (target-ref-cell r) (V b)) (target-state next env)]
+   [`(uncaught ,v) (error &#x27;raise &quot;uncaught: ~s&quot; (V v))]
+   [_ (error &#x27;target &quot;not a TfExp ~s&quot; t)]))
+;; BEGIN target-driver
+ (define initial (target-state (if (string? program) (parse-target program) program)
+  (extend &#x27;(i v x) &#x27;(1 5 10) &#x27;())))
+ (let trampoline ([pc initial])
+  (if (done? pc)
+   (values (done-value pc) (hash &#x27;output (reverse output) &#x27;steps steps &#x27;locations (length refs)))
+   (trampoline (step pc)))))
+;; END target-driver
+</code></pre><!-- EOPL:end-program --></details><details class="code-details" id="chapter06_algorithms-program"><summary>完整程序 · chapter06_algorithms.rkt</summary><!-- EOPL:program chapter06_algorithms.rkt --><pre><code id="chapter06_algorithms-code" class="language-scheme">#lang racket
+;; Four representations for exercise 6.4, over the original Scheme data domains.
+(require racket/match)
+(provide (all-defined-out))
+(define (fact/k n k) (if (zero? n) (k 1) (fact/k (sub1 n) (lambda (v) (k (* n v))))))
+(define (fib/k n k)
+ (if (&lt; n 2) (k 1)
+  (fib/k (sub1 n) (lambda (a) (fib/k (- n 2) (lambda (b) (k (+ a b))))))))
+(define (factorial-register n #:broken? [broken? #f] #:omit-self-jumps? [omit? #f])
+ (define k &#x27;()) (define val #f) (define pc &#x27;fact)
+ (let loop ()
+  (case pc
+   [(fact) (if (zero? n) (begin (set! val 1) (set! pc &#x27;apply))
+    (begin (set! k (cons n k)) (set! n (sub1 n)) (unless omit? (set! pc &#x27;fact))))]
+   [(apply) (if (null? k) (set! pc #f)
+    (begin (if broken? (set! n (car k)) (set! val (* (car k) val)))
+     (set! k (cdr k)) (unless omit? (set! pc &#x27;apply))))])
+  (if pc (loop) val)))
+(define (algorithm op input #:representation [representation &#x27;register])
+ (define ends 0)
+ (define (end v) (set! ends (add1 ends)) v)
+;; BEGIN inline-algorithms
+ (define (rf s xs k)
+  (cond [(null? xs) (k &#x27;())] [(eq? s (car xs)) (k (cdr xs))]
+   [else (rf s (cdr xs) (lambda (v) (k (cons (car xs) v))))]))
+ (define (ls xs k)
+  (if (null? xs) (k 0) (ls (cdr xs) (lambda (v) (k (+ (car xs) v))))))
+ (define (of s e k)
+  (cond [(symbol? e) (k (eq? s e))]
+   [(eq? (car e) &#x27;lambda) (if (eq? s (caadr e)) (k #f) (of s (caddr e) k))]
+   [else (of s (car e) (lambda (v) (if v (k #t) (of s (cadr e) k))))]))
+ (define (su new old e k)
+  (cond [(symbol? e) (k (if (eq? e old) new e))] [(null? e) (k &#x27;())]
+   [else (su new old (car e) (lambda (a) (su new old (cdr e) (lambda (b) (k (cons a b))))))]))
+;; END inline-algorithms
+ (define (invoke op args k apply-k make-k)
+  (match (cons op args)
+   [`(remove-first ,s ,xs)
+    (cond [(null? xs) (apply-k k &#x27;())] [(eq? s (car xs)) (apply-k k (cdr xs))]
+     [else (invoke op (list s (cdr xs)) (make-k `(cons ,(car xs)) k) apply-k make-k)])]
+   [`(list-sum ,xs)
+    (if (null? xs) (apply-k k 0)
+     (invoke op (list (cdr xs)) (make-k `(sum ,(car xs)) k) apply-k make-k))]
+   [`(occurs-free? ,s ,e)
+    (cond [(symbol? e) (apply-k k (eq? s e))]
+     [(eq? (car e) &#x27;lambda)
+      (if (eq? s (caadr e)) (apply-k k #f) (invoke op (list s (caddr e)) k apply-k make-k))]
+     [else (invoke op (list s (car e)) (make-k `(or ,s ,(cadr e)) k) apply-k make-k)])]
+   [`(subst ,new ,old ,e)
+    (cond [(symbol? e) (apply-k k (if (eq? old e) new e))] [(null? e) (apply-k k &#x27;())]
+     [else (invoke op (list new old (car e)) (make-k `(subst ,new ,old ,(cdr e)) k) apply-k make-k)])]))
+ (define (dispatch frame k v apply-k make-k)
+  (match frame
+   [`(cons ,a) (apply-k k (cons a v))] [`(sum ,a) (apply-k k (+ a v))]
+   [`(or ,s ,e) (if v (apply-k k #t) (invoke &#x27;occurs-free? (list s e) k apply-k make-k))]
+   [`(subst ,new ,old ,rest)
+    (invoke &#x27;subst (list new old rest) (make-k `(cons ,v) k) apply-k make-k)]))
+ (define (data-apply k v)
+  (if (null? k) (end v) (dispatch (car k) (cdr k) v data-apply cons)))
+ (define (procedure-make frame k) (lambda (v) (dispatch frame k v (lambda (k v) (k v)) procedure-make)))
+ (define (register)
+  (define task (cons op input)) (define k &#x27;()) (define v #f) (define pc &#x27;visit)
+  (define (return! value) (set! v value) (set! pc &#x27;apply))
+  (define (visit! task1 frame)
+   (when frame (set! k (cons frame k))) (set! task task1) (set! pc &#x27;visit))
+  (let loop ()
+   (case pc
+    [(visit)
+     (match task
+      [`(remove-first ,s ,xs)
+       (cond [(null? xs) (return! &#x27;())] [(eq? s (car xs)) (return! (cdr xs))]
+        [else (visit! `(remove-first ,s ,(cdr xs)) `(cons ,(car xs)))])]
+      [`(list-sum ,xs)
+       (if (null? xs) (return! 0) (visit! `(list-sum ,(cdr xs)) `(sum ,(car xs))))]
+      [`(occurs-free? ,s ,e)
+       (cond [(symbol? e) (return! (eq? s e))]
+        [(eq? (car e) &#x27;lambda) (if (eq? s (caadr e)) (return! #f) (visit! `(occurs-free? ,s ,(caddr e)) #f))]
+        [else (visit! `(occurs-free? ,s ,(car e)) `(or ,s ,(cadr e)))])]
+      [`(subst ,new ,old ,e)
+       (cond [(symbol? e) (return! (if (eq? e old) new e))] [(null? e) (return! &#x27;())]
+        [else (visit! `(subst ,new ,old ,(car e)) `(subst ,new ,old ,(cdr e)))])])]
+    [(apply)
+     (if (null? k) (begin (set! v (end v)) (set! pc #f))
+      (let ([frame (car k)])
+       (set! k (cdr k))
+       (match frame
+        [`(cons ,a) (return! (cons a v))] [`(sum ,a) (return! (+ a v))]
+        [`(or ,s ,e) (if v (return! #t) (visit! `(occurs-free? ,s ,e) #f))]
+        [`(subst ,new ,old ,e) (visit! `(subst ,new ,old ,e) `(cons ,v))])))])
+   (if pc (loop) v)))
+ (define value
+  (case representation
+   [(inline) (case op
+    [(remove-first) (rf (car input) (cadr input) end)] [(list-sum) (ls (car input) end)]
+    [(occurs-free?) (of (car input) (cadr input) end)] [(subst) (su (car input) (cadr input) (caddr input) end)])]
+   [(procedural) (invoke op input end (lambda (k v) (k v)) procedure-make)]
+   [(data) (invoke op input &#x27;() data-apply cons)] [(register) (register)]
+   [else (error &#x27;algorithm &quot;unknown representation&quot;)]))
+ (values value ends))
+(module+ main
+ (printf &quot;factorial-register: fixed=~a original=~a self-jumps-omitted=~a\n&quot;
+  (factorial-register 4) (factorial-register 4 #:broken? #t)
+  (factorial-register 4 #:omit-self-jumps? #t)))
+</code></pre><!-- EOPL:end-program --></details><details class="code-details" id="chapter06_examples-program"><summary>完整程序 · chapter06_examples.rkt</summary><!-- EOPL:program chapter06_examples.rkt --><pre><code id="chapter06_examples-code" class="language-scheme">#lang racket
+(require rackunit rackunit/text-ui json
+ &quot;chapter06.rkt&quot; (prefix-in t: &quot;chapter06_target.rkt&quot;)
+ (prefix-in m: &quot;chapter05.rkt&quot;) (only-in &quot;chapter05_syntax.rkt&quot; parse))
+(provide (all-defined-out))
+;; BEGIN exercise-6-13-inputs
+(define nested &quot;list(1,list(3,list(2),7,list(9)))&quot;)
+(define removeall
+ &quot;letrec removeall(n,s) = if null?(s) then emptylist else if number?(car(s)) then if equal?(n,car(s)) then (removeall n cdr(s)) else cons(car(s),(removeall n cdr(s))) else cons((removeall n car(s)),(removeall n cdr(s)))&quot;)
+(define occurs
+ &quot;letrec occurs-in?(n,s) = if null?(s) then 0 else if number?(car(s)) then if equal?(n,car(s)) then 1 else (occurs-in? n cdr(s)) else if (occurs-in? n car(s)) then 1 else (occurs-in? n cdr(s))&quot;)
+(define remfirst
+ (string-append occurs
+ &quot; remfirst(n,s) = letrec loop(s) = if null?(s) then emptylist else if number?(car(s)) then if equal?(n,car(s)) then cdr(s) else cons(car(s),(loop cdr(s))) else if (occurs-in? n car(s)) then cons((remfirst n car(s)),cdr(s)) else cons(car(s),(remfirst n cdr(s))) in (loop s)&quot;))
+(define depth
+ &quot;letrec depth(s) = if null?(s) then 1 else if number?(car(s)) then (depth cdr(s)) else if less?(add1((depth car(s))),(depth cdr(s))) then (depth cdr(s)) else add1((depth car(s)))&quot;)
+(define depth-let
+ &quot;letrec depth(s) = if null?(s) then 1 else if number?(car(s)) then (depth cdr(s)) else let dfirst = add1((depth car(s))) drest = (depth cdr(s)) in if less?(dfirst,drest) then drest else dfirst&quot;)
+(define map-square
+ &quot;letrec map(f,l) = if null?(l) then emptylist else cons((f car(l)),(map f cdr(l))) square(n) = *(n,n) in (map square list(1,2,3,4,5))&quot;)
+(define first-greater
+ &quot;letrec find(s,n) = if null?(s) then emptylist else if number?(car(s)) then if greater?(car(s),n) then car(s) else (find cdr(s) n) else let answer = (find car(s) n) in if number?(answer) then answer else (find cdr(s) n)&quot;)
+(define every
+ &quot;letrec every(pred,l) = if null?(l) then 1 else if (pred car(l)) then (every pred cdr(l)) else 0&quot;)
+(define examples
+ (list
+  (list &#x27;removeall (string-append removeall &quot; in (removeall 3 list(3,list(1,3),3,2))&quot;) &#x27;((1) 2))
+  (list &#x27;occurs-in? (string-append occurs &quot; in (occurs-in? 7 &quot; nested &quot;)&quot;) 1)
+  (list &#x27;remfirst (string-append remfirst &quot; in (remfirst 3 list(1,list(3,3),3))&quot;) &#x27;(1 (3) 3))
+  (list &#x27;depth (string-append depth &quot; in (depth &quot; nested &quot;)&quot;) 3)
+  (list &#x27;depth-with-let (string-append depth-let &quot; in (depth &quot; nested &quot;)&quot;) 3)
+  (list &#x27;map map-square &#x27;(1 4 9 16 25))
+  (list &#x27;fnlrgtn (string-append first-greater &quot; in (find &quot; nested &quot; 6)&quot;) 7)
+  (list &#x27;every (string-append every &quot; in (every proc(n) greater?(n,5) list(6,7,8,9))&quot;) 1)))
+;; END exercise-6-13-inputs
+(define (exercise13-tests)
+ (for/list ([row examples])
+  (match-define (list name source expected) row)
+  (define direct (m:run source #:numeric? #t))
+  (check-equal? (m:result-value direct) expected)
+  (define converted (cps-program source))
+  (define-values (v metrics) (t:run-target (t:parse-target (t:target-string converted)) #:numeric? #t))
+  (check-equal? v expected)
+  (list name v (hash-ref metrics &#x27;steps))))
+;; The six linear extensions of g&lt;f and j&lt;h; the final + is after all four.
+(define orders &#x27;((g f j h) (g j f h) (g j h f) (j g f h) (j g h f) (j h g f)))
+(define (run-order order)
+ (define log &#x27;()) (define results (make-hash))
+ (define (call name n k) (set! log (append log (list name)))
+  (k (case name [(g) (add1 n)] [(j) (* n 2)] [(f) (* n 3)] [(h) (+ n 4)])))
+ (let loop ([remaining order])
+  (if (null? remaining) (values (+ (hash-ref results &#x27;f) (hash-ref results &#x27;h)) log)
+   (let* ([name (car remaining)]
+          [arg (case name [(g) 2] [(j) 5] [(f) (hash-ref results &#x27;g)] [(h) (hash-ref results &#x27;j)])])
+    (call name arg (lambda (v) (hash-set! results name v) (loop (cdr remaining))))))))
+(module+ main
+ (define failures
+  (run-tests (test-suite &quot;exercise 6.13 and six orders&quot;
+   (test-case &quot;eight original/transformed comparisons&quot;
+    (for ([row (exercise13-tests)])
+     (printf &quot;6.13 ~a: ~s; target-steps=~a\n&quot; (car row) (cadr row) (caddr row))))
+   (test-case &quot;six dependency-respecting orders&quot;
+    (for ([order orders])
+     (define-values (v log) (run-order order)) (check-equal? v 23) (check-equal? log order))))))
+ (printf &quot;~a\n&quot; (jsexpr-&gt;string (hash &#x27;status (if (zero? failures) &quot;passed&quot; &quot;failed&quot;) &#x27;examples 8 &#x27;orders 6 &#x27;assertions 28 &#x27;failures failures)))
+ (unless (zero? failures) (exit 1)))
+</code></pre><!-- EOPL:end-program --></details><details class="code-details" id="chapter06_transforms-program"><summary>完整程序 · chapter06_transforms.rkt</summary><!-- EOPL:program chapter06_transforms.rkt --><pre><code id="chapter06_transforms-code" class="language-scheme">#lang racket
+;; Defunctionalization, atomic simple operands and ANF. Integer-tag closure lists.
+(require racket/match &quot;chapter06.rkt&quot;)
+(provide (all-defined-out))
+(define (minus xs ys) (filter (lambda (x) (not (memq x ys))) xs))
+(define (union . xs) (remove-duplicates (apply append xs)))
+(define (free t)
+ (match t
+  [`(var ,x) (list x)] [`(num ,_) &#x27;()]
+  [`(proc ,xs ,b) (minus (free b) xs)]
+  [`(let1 ,x ,s ,b) (union (free s) (minus (free b) (list x)))]
+  [`(letrec ,ns ,pss ,bs ,b)
+   (minus (apply union (free b) (map (lambda (ps body) (minus (free body) ps)) pss bs)) ns)]
+  [`(prim ,_ . ,es) (apply union (map free es))]
+  [`(call ,f ,ss) (apply union (map free (cons f ss)))]
+  [(list _ es ...) (apply union (map free es))] [_ &#x27;()]))
+(define (defunctionalize target #:all? [all? #t])
+ (define table &#x27;()) (define next 0)
+ (define dispatcher &#x27;applyData%0) (define clos &#x27;closure%0) (define args &#x27;args%0)
+ (define (V x) `(var ,x))
+ (define (at list-exp i) `(prim car ,(for/fold ([x list-exp]) ([_ (in-range i)]) `(prim cdr ,x))))
+ (define (pack tag fvs) `(list (num ,tag) ,@(map V fvs)))
+ (define (cont-proc? ps)
+  (not (ormap (lambda (p) (regexp-match? #rx&quot;^[kh]%&quot; (symbol-&gt;string p))) ps)))
+ (define (cont-name? x) (regexp-match? #rx&quot;^(k|join)%&quot; (symbol-&gt;string x)))
+ (define (reserve! ps b fvs group)
+  (set! next (add1 next))
+  (define entry (vector next ps b fvs group #f))
+  (set! table (append table (list entry))) entry)
+ (define (lift-proc ps body)
+  (define fvs (minus (free body) ps))
+  (define entry (reserve! ps body fvs #f))
+  (vector-set! entry 5 (go body)) (pack (vector-ref entry 0) fvs))
+ (define (go t)
+  (match t
+   [`(proc ,ps ,b)
+    (if (or all? (cont-proc? ps)) (lift-proc ps b) `(proc ,ps ,(go b)))]
+   [`(letrec ,ns ,pss ,bs ,b)
+    (if (not all?) `(letrec ,ns ,pss ,(map go bs) ,(go b))
+     (let* ([fvs (minus (apply union (map (lambda (ps body) (minus (free body) ps)) pss bs)) ns)]
+            [entries (map (lambda (ps body) (reserve! ps body fvs #t)) pss bs)]
+            [tags (map (lambda (entry) (vector-ref entry 0)) entries)]
+            [group (map cons ns tags)])
+      (for ([entry entries]) (vector-set! entry 4 group) (vector-set! entry 5 (go (vector-ref entry 2))))
+      (foldr (lambda (n tag rest) `(let1 ,n ,(pack tag fvs) ,rest)) (go b) ns tags)))]
+   [`(call ,f ,ss)
+    (define indirect? (or all? (match f [`(var ,x) (cont-name? x)] [`(proc ,ps ,_) (cont-proc? ps)] [_ #f])))
+    (if indirect? `(call (var ,dispatcher) (,(go f) (list ,@(map go ss)))) `(call ,(go f) ,(map go ss)))]
+   [`(let1 ,x ,s ,b) `(let1 ,x ,(go s) ,(go b))]
+   [`(prim ,op . ,ss) `(prim ,op ,@(map go ss))]
+   [(? pair?) (map go t)] [_ t]))
+ (define body (go target))
+;; BEGIN defunction-dispatch
+ (define (case-body entry)
+  (match-define (vector tag ps original fvs group converted) entry)
+  (define restored
+   (if group
+    (foldr (lambda (p rest) `(let1 ,(car p) ,(pack (cdr p) fvs) ,rest)) converted group)
+    converted))
+  (define with-params
+   (for/fold ([t restored]) ([p (in-list (reverse ps))] [i (in-list (reverse (range (length ps))))])
+    `(let1 ,p ,(at (V args) i) ,t)))
+  (for/fold ([t with-params]) ([x (in-list (reverse fvs))] [i (in-list (reverse (range 1 (add1 (length fvs)))))])
+   `(let1 ,x ,(at (V clos) i) ,t)))
+ (define dispatch
+  (foldr (lambda (entry rest)
+   `(if (prim equal? ,(at (V clos) 0) (num ,(vector-ref entry 0))) ,(case-body entry) ,rest))
+   &#x27;(uncaught (num 999)) table))
+;; END defunction-dispatch
+ (values `(letrec (,dispatcher) ((,clos ,args)) (,dispatch) ,body)
+  (for/list ([entry table]) (list (vector-ref entry 0) (vector-ref entry 1) (vector-ref entry 3)))))
+(define (atomicize target)
+ (define count 0)
+ (define (fresh) (set! count (add1 count)) (string-&gt;symbol (format &quot;atom%~a&quot; count)))
+ (define (atom s context)
+  (match s
+   [(or `(num ,_) `(var ,_)) (context s)]
+   [_ (define x (fresh)) (simple s (lambda (a) `(let1 ,x ,a ,(context `(var ,x)))))]))
+ (define (atoms ss context)
+  (if (null? ss) (context &#x27;())
+   (atom (car ss) (lambda (a) (atoms (cdr ss) (lambda (rest) (context (cons a rest))))))))
+ (define (simple s context)
+  (match s
+   [`(prim ,op . ,ss) (atoms ss (lambda (as) (context `(prim ,op ,@as))))]
+   [`(list . ,ss) (atoms ss (lambda (as) (context `(list ,@as))))]
+   [`(proc ,ps ,b) (context `(proc ,ps ,(go b)))] [_ (context s)]))
+ (define (go t)
+  (match t
+   [`(return ,s) (simple s (lambda (a) `(return ,a)))]
+   [`(let1 ,x ,s ,b) (simple s (lambda (a) `(let1 ,x ,a ,(go b))))]
+   [`(letrec ,ns ,pss ,bs ,b) `(letrec ,ns ,pss ,(map go bs) ,(go b))]
+   [`(if ,s ,a ,b) (simple s (lambda (v) `(if ,v ,(go a) ,(go b))))]
+   [`(call ,f ,ss) (simple f (lambda (p) (atoms ss (lambda (as) `(call ,p ,as)))))]
+   [`(printk ,s ,b) (simple s (lambda (a) `(printk ,a ,(go b))))]
+   [`(newrefk ,s ,k) (simple s (lambda (a) (simple k (lambda (c) `(newrefk ,a ,c)))))]
+   [`(derefk ,s ,k) (simple s (lambda (a) (simple k (lambda (c) `(derefk ,a ,c)))))]
+   [`(setrefk ,a ,b ,next) (simple a (lambda (x) (simple b (lambda (y) `(setrefk ,x ,y ,(go next))))))]
+   [_ t])) (go target))
+(define (anf source)
+ (define count 0)
+ (define (fresh p) (set! count (add1 count)) (string-&gt;symbol (format &quot;~a%anf~a&quot; p count)))
+ (define e (alpha source fresh))
+ (define (atom? e) (match e [`(num ,_) #t] [`(var ,_) #t] [`(proc ,_ ,_) #t]
+  [`(prim ,_ . ,es) (andmap atom? es)] [`(list . ,es) (andmap atom? es)] [_ #f]))
+ (define (name e ctx)
+  (define n (norm e))
+  (match n
+   [`(let ,xs ,es ,b) `(let ,xs ,es ,(name b ctx))]
+   [_ (if (atom? n) (ctx n)
+       (let ([x (fresh &#x27;value)]) `(let (,x) (,n) ,(ctx `(var ,x)))))]))
+ (define (names es ctx)
+  (if (null? es) (ctx &#x27;())
+   (name (car es) (lambda (a) (names (cdr es) (lambda (as) (ctx (cons a as))))))))
+ (define (bind-one x rhs body)
+  (match rhs
+   [`(let ,xs ,es ,inner)
+    (foldr (lambda (y v rest) (bind-one y v rest)) (bind-one x inner body) xs es)]
+   [_ `(let (,x) (,rhs) ,body)]))
+ (define (norm e)
+  (match e
+   [`(proc ,xs ,b) `(proc ,xs ,(norm b))]
+   [`(prim ,op . ,es) (names es (lambda (as) `(prim ,op ,@as)))]
+   [`(list . ,es) (names es (lambda (as) `(list ,@as)))]
+   [`(call ,f ,es) (names (cons f es) (lambda (as) `(call ,(car as) ,(cdr as))))]
+   [`(if ,t ,a ,b) (name t (lambda (s) `(if ,s ,(norm a) ,(norm b))))]
+   [`(let ,xs ,es ,b)
+    (foldr (lambda (x rhs rest) (bind-one x (norm rhs) rest)) (norm b) xs es)]
+   [`(letrec ,ns ,pss ,bs ,b) `(letrec ,ns ,pss ,(map norm bs) ,(norm b))]
+   [_ e])) (norm e))
+(define (canonical-target target)
+ (define count 0)
+ (define (fresh) (set! count (add1 count)) (string-&gt;symbol (format &quot;bound~a&quot; count)))
+ (define (bind xs rho)
+  (define names (map (lambda (_) (fresh)) xs)) (values names (append (map cons xs names) rho)))
+ (define (go t rho)
+  (match t
+   [`(var ,x) `(var ,(cond [(assq x rho) =&gt; cdr] [else x]))]
+   [`(proc ,xs ,b) (define-values (ns rr) (bind xs rho)) `(proc ,ns ,(go b rr))]
+   [`(let1 ,x ,s ,b) (define-values (ns rr) (bind (list x) rho)) `(let1 ,(car ns) ,(go s rho) ,(go b rr))]
+   [`(letrec ,xs ,pss ,bs ,b)
+    (define-values (ns rr) (bind xs rho))
+    (define pairs (map (lambda (ps body) (define-values (new rrr) (bind ps rr)) (list new (go body rrr))) pss bs))
+    `(letrec ,ns ,(map car pairs) ,(map cadr pairs) ,(go b rr))]
+   [(? pair?) (map (lambda (x) (go x rho)) t)] [_ t]))
+ (go target &#x27;()))
+</code></pre><!-- EOPL:end-program --></details><details class="code-details" id="chapter06_register-program"><summary>完整程序 · chapter06_register.rkt</summary><!-- EOPL:program chapter06_register.rkt --><pre><code id="chapter06_register-code" class="language-scheme">#lang racket
+;; Exercise 6.33: CPS-OUT -&gt; labelled register instructions -&gt; iterative execution.
+(require racket/match (only-in &quot;chapter05_syntax.rkt&quot; primitive truth unique! arity!))
+(provide (all-defined-out))
+(struct register-program (entry instructions) #:transparent)
+(struct code-closure (label params env) #:transparent)
+(define (compile-register target)
+ (define code (make-hash)) (define next 0)
+ (define (label!) (set! next (add1 next)) next)
+ (define (S s)
+  (match s
+   [`(proc ,ps ,b) `(code ,(T b) ,ps)]
+   [`(prim ,op . ,ss) `(prim ,op ,@(map S ss))]
+   [`(list . ,ss) `(list ,@(map S ss))] [_ s]))
+ (define (T t)
+  (define label (label!))
+  (define instruction
+   (match t
+    [`(return ,s) `(return ,(S s))]
+    [`(let1 ,x ,s ,b) `(bind ,x ,(S s) ,(T b))]
+    [`(if ,s ,a ,b) `(branch ,(S s) ,(T a) ,(T b))]
+    [`(letrec ,ns ,pss ,bs ,b) `(rec ,ns ,pss ,(map T bs) ,(T b))]
+    [`(call ,f ,ss) `(call ,(S f) ,(map S ss))]
+    [`(printk ,s ,b) `(print ,(S s) ,(T b))]
+    [`(newrefk ,s ,k) `(newref ,(S s) ,(S k))]
+    [`(derefk ,s ,k) `(deref ,(S s) ,(S k))]
+    [`(setrefk ,a ,b ,next) `(setref ,(S a) ,(S b) ,(T next))]
+    [`(uncaught ,s) `(uncaught ,(S s))]))
+  (hash-set! code label instruction) label)
+ (define entry (T target)) (register-program entry code))
+(define (run-register program #:fuel [fuel 2000000] #:numeric? [numeric? #f])
+ (define pc (register-program-entry program)) (define env &#x27;()) (define val #f)
+ (define output &#x27;()) (define steps 0) (define refs &#x27;())
+ (define (extend xs vs saved)
+  (unique! xs) (arity! xs vs) (append (map (lambda (x v) (cons x (box v))) xs vs) saved))
+ (set! env (extend &#x27;(i v x) &#x27;(1 5 10) &#x27;()))
+ (define (V s)
+  (match s
+   [`(num ,n) n] [`(var ,x) (define pair (assq x env))
+     (unless pair (error &#x27;lookup &quot;unbound: ~a&quot; x)) (unbox (cdr pair))]
+   [`(prim ,op . ,ss) (primitive op (map V ss))]
+   [`(list . ,ss) (map V ss)]
+   [`(code ,label ,ps) (code-closure label ps env)]))
+ (define (call! p args)
+  (unless (code-closure? p) (error &#x27;call &quot;closure required&quot;))
+  (set! env (extend (code-closure-params p) args (code-closure-env p)))
+  (set! pc (code-closure-label p)))
+;; BEGIN labelled-driver
+ (let loop ()
+  (set! steps (add1 steps)) (when (&gt; steps fuel) (error &#x27;register &quot;fuel exhausted&quot;))
+  (match (hash-ref (register-program-instructions program) pc)
+   [`(return ,s) (set! val (V s)) (set! pc #f)]
+   [`(bind ,x ,s ,next) (set! env (extend (list x) (list (V s)) env)) (set! pc next)]
+   [`(branch ,s ,yes ,no) (set! pc (if (truth (V s) numeric?) yes no))]
+   [`(rec ,ns ,pss ,labels ,next)
+    (define rho (extend ns (map (lambda (_) #f) ns) env))
+    (for ([n ns] [ps pss] [label labels]) (set-box! (cdr (assq n rho)) (code-closure label ps rho)))
+    (set! env rho) (set! pc next)]
+   [`(call ,f ,ss) (call! (V f) (map V ss))]
+   [`(print ,s ,next) (set! output (cons (V s) output)) (set! pc next)]
+   [`(newref ,s ,k) (define r (box (V s))) (set! refs (cons r refs)) (call! (V k) (list r))]
+   [`(deref ,s ,k) (define r (V s)) (unless (memq r refs) (error &#x27;deref &quot;reference required&quot;)) (call! (V k) (list (unbox r)))]
+   [`(setref ,a ,b ,next) (define r (V a)) (unless (memq r refs) (error &#x27;setref &quot;reference required&quot;))
+     (set-box! r (V b)) (set! pc next)]
+   [`(uncaught ,s) (error &#x27;raise &quot;uncaught: ~s&quot; (V s))])
+  (when pc (loop)))
+;; END labelled-driver
+ (values val (hash &#x27;steps steps &#x27;output (reverse output))))
+</code></pre><!-- EOPL:end-program --></details><details class="code-details" id="test_chapter06_scheme-program"><summary>完整程序 · test_chapter06_scheme.rkt</summary><!-- EOPL:program test_chapter06_scheme.rkt --><pre><code id="test_chapter06_scheme-code" class="language-scheme">#lang racket
+(require rackunit rackunit/text-ui json)
+;; Exercise 6.3: known concrete witnesses for the otherwise unknown CPS functions.
+(define (q y k) (k (* y y)))
+(define p (case-lambda [(x k) (k (* 2 x))] [(x y k) (k (- x y))]))
+(define f (case-lambda [(a k) (k (not a))] [(x y k) (k (- x y))]))
+(define (g x y k) (k (+ x y)))
+(define (h v k) (k (+ v 1)))
+(define x 10) (define y 2) (define u 3) (define v 4) (define a #t) (define k values)
+(define suite (test-suite &quot;exercise 6.3 Scheme expressions&quot;
+(test-case &quot;6.3/1&quot; (check-equal? ((lambda (x y k)
+  (q y (lambda (v) (p (+ 8 x) v k)))) 2 3 values) 1))
+(test-case &quot;6.3/2&quot; (check-equal? ((lambda (x y u v k)
+  (g x y (lambda (a) (f a (+ u v) (lambda (b) (k (+ 1 b))))))) 1 2 3 4 values) -3))
+(test-case &quot;6.3/3&quot; (check-equal? (g x y (lambda (a)
+  (h v (lambda (b)
+    (f a (+ u b) (lambda (r) (k (+ 1 r)))))))) 5))
+(test-case &quot;6.3/4&quot; (check-equal? (if a
+  (p x (lambda (r) (k (zero? r))))
+  (p y (lambda (r) (k (zero? r))))) #f))
+(test-case &quot;6.3/5&quot; (check-equal? (f a (lambda (b)
+  (if b
+    (p x (lambda (r) (k (zero? r))))
+    (p y (lambda (r) (k (zero? r))))))) #f))
+(test-case &quot;6.3/6&quot; (check-equal? (let ((y 8)) (p y (lambda (x) (k x)))) 16))
+(test-case &quot;6.3/7&quot; (check-equal? (if a (p x (lambda (x) (k x)))
+      (p y (lambda (x) (k x)))) 20))
+))
+(module+ main
+ (define failures (run-tests suite))
+ (displayln (jsexpr-&gt;string (hash &#x27;status (if (zero? failures) &quot;passed&quot; &quot;failed&quot;) &#x27;assertions 7 &#x27;failures failures)))
+ (unless (zero? failures) (exit 1)))
+</code></pre><!-- EOPL:end-program --></details><details class="code-details" id="test_chapter05_06-program"><summary>完整程序 · test_chapter05_06.rkt</summary><!-- EOPL:program test_chapter05_06.rkt --><pre><code id="test_chapter05_06-code" class="language-scheme">#lang racket
+(require rackunit rackunit/text-ui racket/match json
+ (prefix-in m: &quot;chapter05.rkt&quot;) (prefix-in p: &quot;chapter05_cps.rkt&quot;)
+ (prefix-in c: &quot;chapter06.rkt&quot;) (prefix-in t: &quot;chapter06_target.rkt&quot;)
+ (prefix-in r: &quot;chapter06_register.rkt&quot;) (prefix-in st: &quot;chapter05_statements.rkt&quot;)
+ (prefix-in x: &quot;chapter06_transforms.rkt&quot;) (prefix-in a: &quot;chapter06_algorithms.rkt&quot;)
+ (only-in &quot;chapter05_syntax.rkt&quot; parse))
+(define assertions 0)
+(define (eq! actual expected) (set! assertions (add1 assertions)) (check-equal? actual expected))
+(define (bad! thunk regex) (set! assertions (add1 assertions)) (check-exn regex thunk))
+(define (M s . args) (m:result-value (apply m:run s args)))
+(define (T s #:order [order &#x27;left] #:exceptions? [ex? #f] #:implicit? [im? #f] #:immutable? [opt? #f]
+           #:send [send &#x27;let] #:share-if? [share? #t])
+ (define out (c:cps-program s #:order order #:exceptions? ex? #:implicit? im? #:immutable? opt? #:send send #:share-if? share?))
+ (define text (t:target-string out))
+ (define reparsed (t:parse-target text)) (eq! reparsed out)
+ (t:run-target reparsed #:numeric? #t))
+(define fact &quot;letrec fact(n) = if zero?(n) then 1 else *(n,(fact -(n,1))) in (fact 4)&quot;)
+(define iter &quot;letrec fact(n,a) = if zero?(n) then a else (fact -(n,1) *(n,a)) in (fact 4 1)&quot;)
+(define (counter safe?)
+ (format &quot;let x = 0 in let mut = mutex() in let a = mutex() b = mutex() c = mutex() in let worker = proc(done) begin ~aset x = -(x,-1); ~asignal(done) end in begin wait(a); wait(b); wait(c); spawn(proc(d)(worker a)); spawn(proc(d)(worker b)); spawn(proc(d)(worker c)); wait(a); wait(b); wait(c); x end&quot;
+  (if safe? &quot;wait(mut); &quot; &quot;&quot;) (if safe? &quot;signal(mut); &quot; &quot;&quot;)))
+(define suites
+ (test-suite &quot;EOPL chapters 5 and 6&quot;
+  (test-case &quot;basic continuations, representations, one end and growth&quot;
+   (for ([s (list &quot;-(-(44,11),3)&quot; fact iter &quot;let2 a = 7 b = 4 in -(a,b)&quot; &quot;let3 a = 7 b = 4 c = 2 in -(-(a,b),c)&quot; &quot;list(1,2,3)&quot; &quot;let x = 10 in let x = 2 y = x in -(y,x)&quot;)]
+         [expected (list 30 24 24 3 1 &#x27;(1 2 3) 8)])
+    (define r (m:run s #:trace? #t)) (eq! (m:result-value r) expected)
+    (eq! (hash-ref (m:result-metrics r) &#x27;end-count) 1)
+    (for ([rep &#x27;(inline pair)]) (define-values (v metrics) (p:run-cps s #:representation rep))
+     (eq! v expected) (eq! (hash-ref metrics &#x27;end-count) 1))
+    (eq! (m:result-trace (m:run s #:driver &#x27;thunk #:trace? #t)) (m:result-trace r)))
+   (eq! (hash-ref (m:result-metrics (m:run &quot;-(-(44,11),3)&quot;)) &#x27;max-continuation) 3)
+   (for ([n &#x27;(1 2 4 8 16)])
+    (define f (string-replace fact &quot;in (fact 4)&quot; (format &quot;in (fact ~a)&quot; n)))
+    (define i (string-replace iter &quot;in (fact 4 1)&quot; (format &quot;in (fact ~a 1)&quot; n)))
+    (eq! (m:result-value (m:run f)) (for/product ([j (in-range 1 (add1 n))]) j))
+    (eq! (hash-ref (m:result-metrics (m:run f)) &#x27;max-continuation) (+ n 3))
+    (eq! (hash-ref (m:result-metrics (m:run i)) &#x27;max-continuation) 3)))
+  (test-case &quot;implicit refs, sequencing, dynamic extent&quot;
+   (eq! (m:result-value (m:run &quot;let x = 0 in begin set x = 9; x end&quot; #:implicit? #t)) 9)
+   (define s &quot;let x = 10 in let f = proc(y) -(x,y) in let x = 3 in (f 1)&quot;)
+   (eq! (M s) 9) (eq! (m:result-value (m:run s #:scope &#x27;dynamic)) 2)
+   (define r (m:run &quot;begin print(1); print(2); 9 end&quot;))
+   (eq! (m:result-output r) &#x27;(1 2)) (eq! (m:result-value r) 9))
+  (test-case &quot;unwind, rethrow, arity, division, resume and capture&quot;
+   (for ([s &#x27;(&quot;try -(10,raise 99) catch(e) -(e,1)&quot;
+               &quot;try try raise 7 catch(e) raise -(e,-1) catch(x) -(x,2)&quot;
+               &quot;try (proc(x,y) x 1) catch(e) e&quot;
+               &quot;try /(8,0) catch(e) e&quot;
+               &quot;letcc out in -(1,throw 7 to out)&quot;)]
+         [expected &#x27;(98 6 1001 1002 7)])
+    (eq! (M s) expected)
+    (define-values (v unused0) (p:run-cps s #:representation &#x27;pair)) (eq! v expected))
+   (eq! (m:result-value (m:run &quot;try -(10,raise 99) catch(e) 3&quot; #:exception-mode &#x27;resume)) 7)
+   (eq! (M &quot;try -(10,raise 99) catch(e,k) (k 3)&quot;) 7)
+   (eq! (M &quot;try -(10,raise 99) catch(e,k) 3&quot;) 3)
+   (bad! (lambda () (M &quot;raise 5&quot;)) #rx&quot;uncaught&quot;)
+   (bad! (lambda () (M &quot;(proc(x) x)&quot;)) #rx&quot;uncaught.*1001&quot;))
+  (test-case &quot;threads, lock handoff, join, identifiers and message blocking&quot;
+   (for ([q (in-range 1 31)])
+    (define r (m:run (counter #t) #:implicit? #t #:quantum q))
+    (eq! (m:result-value r) 3) (eq! (hash-ref (m:result-metrics r) &#x27;blocked) 0))
+   (define unsafe-values
+    (remove-duplicates (for/list ([q (in-range 1 31)]) (m:result-value (m:run (counter #f) #:implicit? #t #:quantum q)))))
+   (eq! (and (member 2 unsafe-values) #t) #t) (eq! (and (member 3 unsafe-values) #t) #t)
+   (define msg &quot;let p = self() in let c = spawn(proc(id) send(p,-(id,-40))) in receive()&quot;)
+   (for ([q &#x27;(1 2 9 100)]) (eq! (m:result-value (m:run msg #:thread-ids? #t #:quantum q)) 41))
+   (eq! (M &quot;let c = spawn(proc(d) 9) in kill(c)&quot;) #f)
+   (eq! (m:result-value (m:run &quot;let c = spawn(proc(id) receive()) in kill(c)&quot; #:thread-ids? #t)) #t)
+   (define dead &quot;let a = mutex() b = mutex() in begin spawn(proc(d)begin wait(a); yield(); wait(b) end); spawn(proc(d)begin wait(b); yield(); wait(a) end); 77 end&quot;)
+   (define r (m:run dead #:quantum 100))
+   (eq! (m:result-value r) 77) (eq! (hash-ref (m:result-metrics r) &#x27;blocked) 2)
+   (for ([preserve? &#x27;(#f #t)])
+    (eq! (m:result-value (m:run &quot;begin yield(); 99 end&quot; #:quantum 1 #:preserve-ticks? preserve?)) 99)))
+  (test-case &quot;source and target syntax boundaries&quot;
+   (for ([s &#x27;(&quot;-((f -(x,1)),1)&quot; &quot;(f -(-(x,y),1))&quot; &quot;if zero?(x) then -(x,y) else -(-(x,y),1)&quot; &quot;let x = proc(y)(y x) in -(x,3)&quot; &quot;let f = proc(x) x in (f 3)&quot;)])
+    (eq! (c:simple? (parse s)) #f))
+   (eq! (c:tail-form? (parse &quot;let f = proc(x) x in (f 3)&quot;)) #t)
+   (eq! (c:tail-form? (parse fact)) #f) (eq! (c:tail-form? (parse iter)) #t)
+   (bad! (lambda () (t:parse-target &quot;-((f x),1)&quot;)) #rx&quot;parsing&quot;))
+  (test-case &quot;four algorithm representations and independent mathematical oracles&quot;
+   (for ([rep &#x27;(data procedural inline register)])
+    (for ([xs &#x27;(() (1) (1 2 3 4) (9 -2 6))])
+     (define-values (v ends) (a:algorithm &#x27;list-sum (list xs) #:representation rep))
+     (eq! v (apply + xs)) (eq! ends 1))
+    (for ([data &#x27;((remove-first (a (b a c a)) (b c a))
+                 (remove-first (a ()) ())
+                 (occurs-free? (x (lambda (x) (x y))) #f)
+                 (occurs-free? (x (lambda (y) (y x))) #t)
+                 (subst (a b ((b c) b () (d (b)))) ((a c) a () (d (a)))))])
+     (match-define (list op args expected) data)
+     (define-values (v ends) (a:algorithm op args #:representation rep)) (eq! v expected) (eq! ends 1)))
+   (for ([n (in-range 0 12)])
+    (define expected (for/product ([j (in-range 1 (add1 n))]) j))
+    (eq! (a:fact/k n values) expected) (eq! (a:factorial-register n) expected)
+    (eq! (a:factorial-register n #:omit-self-jumps? #t) expected))
+   (eq! (a:factorial-register 4 #:broken? #t) 1)
+   (define (fib n) (if (&lt; n 2) 1 (+ (fib (sub1 n)) (fib (- n 2)))))
+   (for* ([n (in-range 0 12)] [k (list values add1 (lambda (v) (* 3 v)))]) (eq! (a:fib/k n k) (k (fib n)))))
+  (test-case &quot;conversion, evaluation order, side effects and fresh binders&quot;
+   (for* ([s (list fact iter &quot;-(7,3)&quot; &quot;let x = 8 in (proc(y) -(x,y) 3)&quot; &quot;let k = 10 in let var = 2 in -(k,var)&quot; &quot;letrec f(x) = if zero?(x) then 0 else (g -(x,1)) g(x) = if zero?(x) then 1 else (f -(x,1)) in (f 13)&quot;)]
+          [order &#x27;(left right operands-first)] [send &#x27;(call let substitute)])
+    (define-values (v unused1) (T s #:order order #:send send)) (eq! v (M s)))
+   (define s &quot;let f = proc(a,b) -(a,b) in (begin print(0); f end begin print(1); 8 end begin print(2); 3 end)&quot;)
+   (for ([order &#x27;(left right operands-first)] [expected &#x27;((0 1 2) (2 1 0) (1 2 0))])
+    (define-values (v metrics) (T s #:order order)) (eq! v 5) (eq! (hash-ref metrics &#x27;output) expected))
+   (define ref &quot;let r = newref(0) in begin setref(r,9); -(deref(r),1) end&quot;)
+   (define-values (v unused2) (T ref)) (eq! v 8)
+   (for ([s &#x27;(&quot;let x = 0 in begin set x = 9; x end&quot;
+              &quot;let x = 2 in let f = proc(y) begin set x = -(x,-1); -(x,y) end in -((f 1),(f 1))&quot;
+              &quot;letrec f(n) = if zero?(n) then 7 else (f -(n,1)) in (f 5)&quot;)])
+    (for ([opt? &#x27;(#f #t)]) (define-values (v unused3) (T s #:implicit? #t #:immutable? opt?))
+     (eq! v (m:result-value (m:run s #:implicit? #t)))))
+   (for ([s &#x27;(&quot;try -(10,raise 7) catch(e) -(e,1)&quot;
+              &quot;try try raise 7 catch(e) raise -(e,-1) catch(x) x&quot;)])
+    (define-values (v unused4) (T s #:exceptions? #t)) (eq! v (M s)))
+   (define-values (v2 unused5) (T &quot;letcc out in -(10,throw 7 to out)&quot;)) (eq! v2 7))
+  (test-case &quot;cached handlers, callcc translation, commands and ANF structure&quot;
+   (define deep
+    (for/fold ([e &#x27;(raise (num 7))]) ([i (in-range 40)]) `(prim - (num 10) ,e)))
+   (define source `(try ,deep (x) (var x)))
+   (define search (m:run source))
+   (define cached (m:run source #:handler-lookup &#x27;cached))
+   (eq! (m:result-value search) 7) (eq! (m:result-value cached) 7)
+   (eq! (hash-ref (m:result-metrics cached) &#x27;handler-hops) 1)
+   (eq! (hash-ref (m:result-metrics search) &#x27;handler-hops) 41)
+   (eq! (M (m:translate-callcc &quot;letcc out in -(1,throw 7 to out)&quot;)) 7)
+   (eq! (M &quot;(call-with-current-continuation proc(out) -(1,(out 7)))&quot;) 7)
+   (define notify &quot;let buffer = 0 in let ready = mutex() in begin wait(ready); spawn(proc(d)begin set buffer = 44; signal(ready) end); wait(ready); buffer end&quot;)
+   (for ([q &#x27;(1 2 5 100)]) (eq! (m:result-value (m:run notify #:implicit? #t #:quantum q)) 44))
+   (for ([mode &#x27;(data procedural)])
+    (eq! (st:run &quot;var x; {x = 3; while not(zero?(x)) {print x; x = -(x,1)}}&quot; #:commands mode) &#x27;(3 2 1))
+    (bad! (lambda () (st:run &quot;var x; print x&quot; #:commands mode)) #rx&quot;uninitialized&quot;))
+   (for ([source &#x27;(&quot;let f = proc(x) -(x,1) in -((f 5),(f 2))&quot;
+                   &quot;letrec fib(n) = if less?(n,2) then 1 else +((fib -(n,1)),(fib -(n,2))) in (fib 5)&quot;
+                   &quot;let x = 2 in if zero?(x) then 7 else -(x,1)&quot;)])
+    (eq! (x:canonical-target (c:cps-program source))
+         (x:canonical-target (c:cps-program (x:anf (parse source)))))))
+  (test-case &quot;defunctionalization, atomicization, ANF and bounded generated programs&quot;
+   (for* ([n (in-range 0 30)] [a &#x27;(-2 0 5)])
+    (define s (format &quot;let f = proc(x) -(x,~a) in -((f ~a),(f -(~a,1)))&quot; a n n))
+    (define target (c:cps-program s))
+    (for ([all? &#x27;(#f #t)])
+     (define-values (d table) (x:defunctionalize target #:all? all?))
+     (define-values (v unused6) (t:run-target (t:parse-target (t:target-string d)))) (eq! v 1)
+     (define-values (rv rm) (r:run-register (r:compile-register d))) (eq! rv 1))
+    (define-values (av unused7) (t:run-target (t:parse-target (t:target-string (x:atomicize target))))) (eq! av 1)
+    (define an (x:anf (parse s))) (eq! (M an) 1)
+    (define-values (v unused8) (T an)) (eq! v 1))
+   (for ([s (list fact iter &quot;let x = 8 in let f = proc(a) -(x,a) in (f 3)&quot;)])
+    (define-values (d table) (x:defunctionalize (c:cps-program s)))
+    (define-values (v unused9) (t:run-target (t:parse-target (t:target-string d)))) (eq! v (M s))))))
+(module+ main
+ (define failures (run-tests suites))
+ (printf &quot;~a\n&quot; (jsexpr-&gt;string (hash &#x27;status (if (zero? failures) &quot;passed&quot; &quot;failed&quot;) &#x27;groups 9 &#x27;assertions assertions &#x27;failures failures)))
+ (unless (zero? failures) (exit 1)))
+</code></pre><!-- EOPL:end-program --></details></section><footer><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter05_continuations.html">← 第 5 章 · 续文、异常与线程</a><a href="#top">返回页首 ↑</a></p></footer></main></div>
+(() => {
+  document.documentElement.classList.add('toc-enhanced');
+  const panel = document.getElementById('toc-panel');
+  const nav = document.getElementById('chapter-toc');
+  const wide = matchMedia('(min-width:1100px)');
+  const links = Array.from(nav.querySelectorAll('li a[href^="#"]'));
+  const entries = links.map(link => ({link, section: document.getElementById(link.hash.slice(1))})).filter(item => item.section);
+  let current = null, scheduled = false;
+  const fit = () => { panel.open = wide.matches; };
+  fit();
+  wide.addEventListener('change', fit);
+  const reveal = () => {
+    let node;
+    try {node=document.getElementById(decodeURIComponent(location.hash.slice(1)))} catch {return}
+    for(let n=node;n;n=n.parentElement)if(n.tagName==='DETAILS')n.open=true;
+    if(node)setTimeout(()=>{node.scrollIntoView();scrollBy(0,8)})
+  };
+  const mark = () => {
+    scheduled = false;
+    let next = entries[0];
+    for (const entry of entries) {
+      if (entry.section.getBoundingClientRect().top <= Math.max(110, wide.matches ? 100 : 110, wide.matches ? 0 : panel.querySelector('summary').getBoundingClientRect().bottom + 12) + 1) next = entry;
+    }
+    if (window.scrollY + innerHeight >= document.documentElement.scrollHeight - 2) next = entries[entries.length - 1];
+    if (next && next.link !== current) {
+      if (current) current.removeAttribute('aria-current');
+      current = next.link; current.setAttribute('aria-current', 'location');
+    }
+  };
+  const schedule = () => { if (!scheduled) { scheduled = true; requestAnimationFrame(mark); } };
+  nav.addEventListener('click', event => {
+    if (event.target.closest('a[href^="#"]') && !wide.matches) panel.open = false;
+  });
+  addEventListener('scroll', schedule, {passive:true});
+  addEventListener('resize', schedule);
+  addEventListener('hashchange', () => { reveal(); schedule(); });
+  document.addEventListener('toggle', schedule, true);
+  reveal(); mark();
+})();
+
+
+(() => {
+  const rail = document.getElementById('annotation-rail');
+  const content = document.getElementById('annotation-content');
+  const context = document.getElementById('annotation-context-link');
+  const groups = Array.from(document.querySelectorAll('main .reading-notes')).map(notes => ({
+    notes, section: document.getElementById(notes.dataset.notesFor)
+  })).filter(item => item.section);
+  if (!rail || !content || !context || !groups.length) return;
+  const wide = matchMedia('(min-width:1440px)');
+  const sections = Array.from(document.querySelectorAll('main > section[id]'));
+  let current = null, scheduled = false;
+  const update = () => {
+    scheduled = false;
+    if (!wide.matches) return;
+    let active = sections[0];
+    for (const section of sections) {
+      if (section.getBoundingClientRect().top <= 111) active = section;
+    }
+    // A short final section cannot always reach the usual reading-position line.
+    if (scrollY > 0 && scrollY + innerHeight >= document.documentElement.scrollHeight - 1) {
+      active = sections.findLast(section => section.getBoundingClientRect().top < innerHeight - 100) ?? active;
+    }
+    const next = groups.find(item => item.section === active);
+    rail.hidden = !next;
+    if (!next) {
+      content.replaceChildren();
+      delete rail.dataset.activeSection;
+      current = null;
+      return;
+    }
+    if (current === next) return;
+    const body = next.notes.querySelector('.reading-notes-body');
+    const heading = next.section.querySelector('h2');
+    if (!body || !heading) return;
+    content.replaceChildren(...Array.from(body.children, node => node.cloneNode(true)));
+    const label = heading.cloneNode(true);
+    label.querySelectorAll('.english-title,math annotation').forEach(node => node.remove());
+    context.textContent = label.textContent;
+    context.href = '#' + next.section.id;
+    rail.dataset.activeSection = next.section.id;
+    rail.scrollTop = 0;
+    current = next;
+  };
+  const schedule = () => {
+    if (!scheduled) { scheduled = true; requestAnimationFrame(update); }
+  };
+  const fit = () => {
+    rail.hidden = !wide.matches;
+    current = null;
+    if (wide.matches) {
+      document.documentElement.classList.add('notes-enhanced');
+      update();
+    } else {
+      document.documentElement.classList.remove('notes-enhanced');
+    }
+  };
+  wide.addEventListener('change', fit);
+  addEventListener('scroll', schedule, {passive:true});
+  addEventListener('resize', schedule);
+  addEventListener('hashchange', schedule);
+  document.addEventListener('toggle', schedule, true);
+  fit();
+})();
+
+
+(() => {
+  let saved=[];
+  addEventListener('beforeprint',()=>{
+    if(saved.length)return;
+    saved=[...document.querySelectorAll('main details')].map(node=>[node,node.open]);
+    saved.forEach(([node])=>{node.open=true;});
+  });
+  addEventListener('afterprint',()=>{
+    saved.forEach(([node,open])=>{node.open=open;});saved=[];
+  });
+})();
+</body></html>
