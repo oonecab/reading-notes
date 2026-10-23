@@ -13,8 +13,8 @@
 - 正式阅读站点：notes.zzzping.top，Nginx + TLS；部署步骤见 deploy/README.md
 - Ubuntu reading-notes-deploy.service 以 reading-notes 执行，通过固定 sudo root 安装器发布；deploy timer 保持 disabled；本地构建，Web 主机无需构建用户。
 - 宿主机历史 MySQL 服务及数据已于 2026-10-17 按 I030 卸载；mailutils 依赖的 mysql-common 与 libmysqlclient21 保留为共享客户端组件。
-- I033 已应用 root 安装器、root-owned 只读 release、SSH 仅公钥、FTP masked、UFW 22/80/443 和 fail2ban sshd；I056 当前 release 为 20261023T020252，I052 的 20261022T000343 及对应配置、发布政策保留为恢复单元。DNS 自动续期与用户自行轮换 root 密码仍待处理，见 docs/browser-stability-report.md。
-- I035 已启用 reading-notes-health.service/.timer：15 分钟回环 HTTPS 内容核对；I056 发布与健康检查成功，timer 保持 active，现有端口和服务配置沿用，证据见 T035/T056。
+- I033 已应用 root 安装器、root-owned 只读 release、SSH 仅公钥、FTP masked、UFW 22/80/443 和 fail2ban sshd；I061 当前 release 为 20261023T211622，I056 的 20261023T020252 及对应配置、发布政策保留为恢复单元。DNS 自动续期与用户自行轮换 root 密码仍待处理，见 docs/browser-stability-report.md。
+- I035 已启用 reading-notes-health.service/.timer：15 分钟回环 HTTPS 内容核对；I061 发布与健康检查成功，timer 保持 active，现有端口和服务配置沿用，证据见 T035/T061。
 
 ## 端口与端点
 
@@ -69,3 +69,5 @@ I044 新增静态 `/eopl/` 路由，范围为地图、序言、来源摘要和 P
 ## 构建与测试变量用法
 
 `ASTRO_TELEMETRY_DISABLED` 在 Astro 子进程强制为 1。`READING_NOTES_CSP_SPACE` 是 CSP 与离线验收共用的 Ego 任务空间正整数 ID；显式指定的空间不可用即失败，互斥与恢复按 [Astro 编写说明](astro-authoring.md) 执行。`READING_NOTES_TEST_CRASH` 只用于隔离 dry-run 故障测试，生产路径不使用它作为故障开关。`.env.example` 是保留的人工安全示例，不包含凭据。
+
+2026-10-24 I061 实机：current 为 releases/20261023T211622，来自干净内容提交 `ee76a04`。新版本 558 文件及前版 `20261023T020252` 的 524 文件逐项校验，root 只读权限通过；514 个未变文件保留 mtime，10 个改变文件使用不同 mtime，新增 34 文件。固定程序保持原散列，新旧政策及配置备份保留；部署、健康检查、Nginx 和健康 timer 正常，队列为空、无待恢复事务。正常域名 HTTPS 与实际阅读通过；环境变量名、服务、端口沿用，`.env.example` 无需调整。见 [T061](../test/T061-eopl-publication.md)和[发布审阅](eopl-chapters-publication-review.json)。

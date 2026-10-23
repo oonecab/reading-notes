@@ -13,7 +13,7 @@
 | [程士宏 测度论与概率论·全六章伴读](books/measure-probability/README.md) | [伴读总览](books/measure-probability/notes/book_overview.html) | 8 个 HTML 页面：总览、序言与前言、六章及全部 170 题；4 组 C/Python 程序，包含全部星号小节 |
 | [Friedman / Wand · EOPL](books/eopl/README.md) | [全书地图](books/eopl/notes/book_overview.html) | 8 个 HTML 页面：地图、导读与序言、第 1–6 章；252 道完整题解及 Python/Racket/C 示例 |
 
-EOPL 当前有地图、序言与第 1–6 章八个阅读页，覆盖序言及六章全部 252 道习题。控制路线从[第 5 章](books/eopl/notes/chapter05_continuations.html)进入[第 6 章](books/eopl/notes/chapter06_cps.html)，把解释器续文、异常、线程、CPS转换和效果连接起来。第 7–9 章与附录保留原书导览；本地验证见 [T060](test/T060-eopl-ch05-06.md)，生产发布仍以既有发布记录为准。
+EOPL 当前有地图、序言与第 1–6 章八个阅读页，覆盖序言及六章全部 252 道习题。控制路线从[第 5 章](books/eopl/notes/chapter05_continuations.html)进入[第 6 章](books/eopl/notes/chapter06_cps.html)，把解释器续文、异常、线程、CPS转换和效果连接起来。第 7–9 章与附录保留原书导览；本地与生产验收见 [T061](test/T061-eopl-publication.md)，当前生产版本为 `20261023T211622`。
 
 CS:APP 全书笔记已接入统一首页与构建：从首页点击“进入 CS:APP 笔记”，进入全书地图后选择序言或第 1—12 章；阅读页顶部可返回书架。统一包收录笔记、教学程序与原书 PDF，点击章节、来源和习题中的页码链接可打开对应 PDF 页序。线上生效另按发布授权和验收记录确认。
 

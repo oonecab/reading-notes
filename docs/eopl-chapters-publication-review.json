@@ -1,0 +1,227 @@
+{
+  "schema_version": 1,
+  "issue": "I061",
+  "status": "published_and_verified",
+  "verified_at_utc": "2026-10-23T21:36:35.109956+00:00",
+  "authorization": "User explicitly requested committing and pushing local changes, then deployment to the existing server in this conversation.",
+  "source_commit": "ee76a047cc13b28902ecfd6e2299ba05c8e715ee",
+  "source_tree": "c7e90405f9e683afb14bf35de63cbf3e83326282",
+  "source_tree_dirty": false,
+  "scope": {
+    "eopl_reading_pages": 8,
+    "eopl_answered_exercises": 252,
+    "added_chapters": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "new_chapter_exercises": 184,
+    "semantic_repairs": [
+      "atomicization fresh names avoid all input symbols",
+      "implicit letcc/catch bindings preserve location semantics",
+      "private THREADS stores copy reachable graphs at spawn/send; complete mutex condition in exercise 5.56"
+    ],
+    "map_contract": "RN-002 v1.1; five interactive overview maps and 43 nodes; source and visible landing verified",
+    "frozen_local_content_review": {
+      "report": "books/eopl/review/history/I061-before-production-ch05-06-followup.json",
+      "sha256": "a119f5afff436ee28e8fc4da6af1d59debc76e645b6feb61505f53c7abaf1b0e"
+    }
+  },
+  "git": {
+    "content_publication": {
+      "report": "tmp/eopl-publish-20261024T040028/remote-publication.json",
+      "sha256": "dbe57f2543fee3f6feddae65839884ad4788ec402ab10c7c485a595ace7e4a7b"
+    },
+    "documentation_delivery": "in_progress; production evidence is committed after the immutable content release"
+  },
+  "release": {
+    "id": "20261023T211622",
+    "id_clock": "UTC",
+    "archive_sha256": "57fb7e2b97c124e2b2c0bcb9aa0004c5931857e58e143524f371f19c15724c60",
+    "files": 558,
+    "bytes": 80228498,
+    "html_pages": 86,
+    "reading_pages": 64,
+    "all_controlled_reading_pages_and_programs_identical_to_acceptance": true,
+    "supplemental_code_guide_readback": {
+      "report": "tmp/eopl-publish-20261024T040028/code-guide-reader/main.json",
+      "sha256": "7e123a0cd0318e18d3baed1cde4e29dc20c4f145f55bfe5fd4cfd3cb3c2c30d6"
+    },
+    "evidence": {
+      "report": "tmp/eopl-publish-20261024T040028/package-preflight.json",
+      "sha256": "8d2a6290c700e21abc3b955d95c930fc88a4843b2454503f237630bb7dc078d8"
+    }
+  },
+  "checks_before_publish": {
+    "root_full_checks": 25,
+    "final_quick_checks": 22,
+    "node_tests": 117,
+    "eopl_ch05_06_assertions": 1335,
+    "semantic_mutations_rejected": 11,
+    "program_and_reader_scope": {
+      "report": "tmp/eopl-publish-20261024T040028/predeploy-acceptance.json",
+      "sha256": "abed1f72312ce085bf769983f734b9f6afc17bb0b9d0e3783b62e96964350e1f"
+    },
+    "offline": {
+      "evidence": {
+        "report": "tmp/reading-notes-migration/browser/all/runs/2026-10-23T21-19-47-289Z-dd700b8f/report.json",
+        "sha256": "c704b4782c524fa346326be08ebcc02e55d3994a94f5f8426acb4bfbfdc8e272"
+      },
+      "pages": 86,
+      "js_views": 344,
+      "no_js_views": 172,
+      "reused_same_task_completed_views": 474,
+      "external_requests": 0
+    },
+    "privacy": {
+      "candidate_scan": {
+        "report": "tmp/eopl-publish-20261024T040028/gitleaks-final.json",
+        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      "commit_range_scan": {
+        "report": "tmp/eopl-publish-20261024T040028/gitleaks-commit-range.json",
+        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      "public_scan": {
+        "report": "tmp/eopl-publish-20261024T040028/gitleaks-public.json",
+        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      "exact_historical_report_digest_exception": "Only the verified SHA256 of an empty JSON scan report is excepted; default rules and a positive credential control remain active."
+    }
+  },
+  "server": {
+    "status": "passed",
+    "release_id": "20261023T211622",
+    "source_commit": "ee76a047cc13b28902ecfd6e2299ba05c8e715ee",
+    "archive_sha256": "57fb7e2b97c124e2b2c0bcb9aa0004c5931857e58e143524f371f19c15724c60",
+    "verified_files": 558,
+    "previous_verified_files": 524,
+    "previous_release": "20261023T020252",
+    "unchanged_mtime_preserved": 514,
+    "changed_mtime_distinct": 10,
+    "new_files": 34,
+    "root_owned_read_only": true,
+    "programs_unchanged": true,
+    "policies_archived": true,
+    "configuration_backups_verified": true,
+    "pending_transaction": false,
+    "ready_queue": [],
+    "units": {
+      "reading-notes-deploy.service": {
+        "Result": "success",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive",
+        "SubState": "dead",
+        "UnitFileState": "static"
+      },
+      "reading-notes-health.service": {
+        "Result": "success",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive",
+        "SubState": "dead",
+        "UnitFileState": "static"
+      },
+      "reading-notes-health.timer": {
+        "Result": "success",
+        "ActiveState": "active",
+        "SubState": "waiting",
+        "UnitFileState": "enabled"
+      },
+      "nginx.service": {
+        "Result": "success",
+        "ExecMainStatus": "0",
+        "ActiveState": "active",
+        "SubState": "running",
+        "UnitFileState": "enabled"
+      }
+    },
+    "nginx_test": "passed",
+    "evidence": {
+      "report": "tmp/eopl-publish-20261024T040028/server-after.json",
+      "sha256": "104278878850bf95d57c750069b67aea005c00a70a2b2a69346fbd47b58c5663"
+    },
+    "deployment_actions": {
+      "report": "tmp/eopl-publish-20261024T040028/deployment-result.json",
+      "sha256": "8641efe52ae7703a2347838578b1851dd61c0655fdae9d272d5474350eeef4be"
+    },
+    "final_policy_sha256": "6ea18df94b544628d9de847c54c59de72e3f2bc10030d2e17c10762dc9bc5ffa",
+    "previous_policy_sha256": "4d4a5695a06a20832b15e66af8ca3851f7d1cde86061ac34960b73c9a5c14b9f",
+    "final_nginx_snippet_sha256": "3034caedf585ef93a45085874b8e8762e5d027c96e06726b10e16fa38969f74a"
+  },
+  "public_http": {
+    "origin": "https://notes.zzzping.top",
+    "status": "pass",
+    "release_id": "20261023T211622",
+    "files_checked": 552,
+    "conditional_requests": 552,
+    "precompressed_checked": 203,
+    "entry_redirects_checked": 18,
+    "pdf_ranges_checked": 6,
+    "transport_retries": [],
+    "evidence": {
+      "report": "tmp/eopl-publish-20261024T040028/public-verification.json",
+      "sha256": "408ef18b0db2423842fcc74a8fda04e3a4ee7b5a0f0e92d75a01018477bf66a1"
+    }
+  },
+  "public_browser": {
+    "status": "passed",
+    "evidence": {
+      "report": "tmp/eopl-publish-20261024T040028/public-reader/main.json",
+      "sha256": "8b6e1e9faafd3fbef4508fcf16077a7c4562f33fd4594e5939095b100476e59b"
+    },
+    "opened_and_read_screenshots": [
+      {
+        "file": "tmp/eopl-publish-20261024T040028/public-reader/closure-1440.png",
+        "sha256": "2984421be1e4f04f7b82cce3e02698192e89a5fe631fa3bf626efc7e32f022ed",
+        "pixels_read": true
+      },
+      {
+        "file": "tmp/eopl-publish-20261024T040028/public-reader/store-390.png",
+        "sha256": "d0f4a333045949851990eb94472abb9031880c3de37ebd0c90f2e755653f4e75",
+        "pixels_read": true
+      },
+      {
+        "file": "tmp/eopl-publish-20261024T040028/public-reader/private-question-390.png",
+        "sha256": "186fbdd4192a28ad90fd391dd3c2209eb4ed31ed88cb42f480ce1297bd01ca2f",
+        "pixels_read": true
+      },
+      {
+        "file": "tmp/eopl-publish-20261024T040028/public-reader/private-answer-1440.png",
+        "sha256": "27cf8f691c3c55c5f2574ff6185ba47176be0131c4db3829707b8ccf2839ea53",
+        "pixels_read": true
+      },
+      {
+        "file": "tmp/eopl-publish-20261024T040028/public-reader/atomic-390.png",
+        "sha256": "82d3a86e61a5119b105357553c551dec69e9aa3c0c344b4a63934af2448e1654",
+        "pixels_read": true
+      },
+      {
+        "file": "tmp/eopl-publish-20261024T040028/public-reader/implicit-control-1440.png",
+        "sha256": "b36ab93549cb51d1ee888ab57099f7911e73f93f75ac56f8e6fb61e24946be18",
+        "pixels_read": true
+      },
+      {
+        "file": "tmp/eopl-publish-20261024T040028/public-reader/private-no-js-390.png",
+        "sha256": "85b27b6c9c5d24d06f111b3bb57fb49ed1452acd1ede793becb7b884bed7651f",
+        "pixels_read": true
+      }
+    ],
+    "downloads_byte_equal": 2,
+    "source_readme_byte_equal": true,
+    "no_js_native_fold": true,
+    "source_pdf": {
+      "report": "tmp/eopl-publish-20261024T040028/public-reader/pdf-readback.json",
+      "sha256": "fe98233fb8d8a0a23ba0b3b943d494be6643b2250b971b320f9a9ae4c4079b92"
+    },
+    "task_finished": {
+      "report": "tmp/eopl-publish-20261024T040028/browser-finish.json",
+      "sha256": "165c17c4b8692fd5576eee641011945d156e8c6707c533c594d9a53d58dc53c8"
+    }
+  },
+  "limitations": [
+    "Viewport emulation at 390px is not a physical phone test.",
+    "Execution and mutation witnesses cover the recorded program domains; bounded control frames do not imply bounded heap use."
+  ],
+  "document_impact": "Update current production facts and review bindings. Toolchain, services, ports, environment variable names and .env.example definitions remain applicable."
+}

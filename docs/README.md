@@ -53,3 +53,5 @@
 - EOPL 控制批：第五、六章本地来源、程序、静态与浏览器证据见 [T060](../test/T060-eopl-ch05-06.md)。
 
 - [EOPL 章节修订与发布验收](../test/T061-eopl-publication.md)：第3–6章、控制/CPS语义修复、全站章节图及实际发布证据。
+
+- [EOPL 第3–6章生产发布审阅](eopl-chapters-publication-review.json)：内容提交、最终包、服务器恢复单元、正常域名与实际浏览器证据。

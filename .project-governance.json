@@ -95,8 +95,8 @@
       "正式阅读站点：notes.zzzping.top，Nginx + TLS；部署步骤见 deploy/README.md",
       "Ubuntu reading-notes-deploy.service 以 reading-notes 执行，通过固定 sudo root 安装器发布；deploy timer 保持 disabled；本地构建，Web 主机无需构建用户。",
       "宿主机历史 MySQL 服务及数据已于 2026-10-17 按 I030 卸载；mailutils 依赖的 mysql-common 与 libmysqlclient21 保留为共享客户端组件。",
-      "I033 已应用 root 安装器、root-owned 只读 release、SSH 仅公钥、FTP masked、UFW 22/80/443 和 fail2ban sshd；I056 当前 release 为 20261023T020252，I052 的 20261022T000343 及对应配置、发布政策保留为恢复单元。DNS 自动续期与用户自行轮换 root 密码仍待处理，见 docs/browser-stability-report.md。",
-      "I035 已启用 reading-notes-health.service/.timer：15 分钟回环 HTTPS 内容核对；I056 发布与健康检查成功，timer 保持 active，现有端口和服务配置沿用，证据见 T035/T056。"
+      "I033 已应用 root 安装器、root-owned 只读 release、SSH 仅公钥、FTP masked、UFW 22/80/443 和 fail2ban sshd；I061 当前 release 为 20261023T211622，I056 的 20261023T020252 及对应配置、发布政策保留为恢复单元。DNS 自动续期与用户自行轮换 root 密码仍待处理，见 docs/browser-stability-report.md。",
+      "I035 已启用 reading-notes-health.service/.timer：15 分钟回环 HTTPS 内容核对；I061 发布与健康检查成功，timer 保持 active，现有端口和服务配置沿用，证据见 T035/T061。"
     ],
     "ports": [
       "本地预览默认 8000，仅 127.0.0.1；可用 --port 指定",

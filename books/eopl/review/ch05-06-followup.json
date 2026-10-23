@@ -58,7 +58,12 @@
   },
   "new_evidence_root": "tmp/eopl-publish-20261024T040028",
   "open_findings": [],
-  "deployment": "not_performed",
+  "deployment": {
+    "status": "published_and_verified",
+    "source_commit": "ee76a047cc13b28902ecfd6e2299ba05c8e715ee",
+    "release_id": "20261023T211622",
+    "record": "docs/eopl-chapters-publication-review.json"
+  },
   "program_verification": {
     "groups": 11,
     "assertions": 1335,
@@ -77,7 +82,7 @@
     "tmp/eopl-publish-20261024T040028/previous-evidence-preservation.json": "10b8e90d1c094687d169291ad269a7249cce9b25ecee5477a1a1ab8f0a02efdb",
     "tmp/eopl-publish-20261024T040028/gitleaks-reviewed3.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
     "tmp/eopl-publish-20261024T040028/gitleaks-control-final.json": "c2cc94f1629d21abc9656ef03a04312666cdafd00ed40dbe73c202b12386bba3",
-    "books/eopl/review/ch05-06-followup.md": "1f9f386bea4d8037bde841bc80b3be73fea1727a2e6b0e8450846b97ebf6d226",
+    "books/eopl/review/ch05-06-followup.md": "f50acdfc60635411eea22ad09d12a4b700687f33a7859152cfe3163da0568342",
     "tmp/reading-notes-migration/browser/all/runs/2026-10-23T20-59-30-430Z-963621d2/report.json": "f60f181ba4a4111c7a6d411bab0e25bab529088024e851c87e4ea21d12b4215f",
     "tmp/eopl-publish-20261024T040028/local-reader/manual.json": "ba9fb510ac31098a50998041ab790860ed6edd0a72bc3f676c00218bcdb525a6",
     "tmp/eopl-publish-20261024T040028/local-reader/visual-readback.json": "02e7cff1f65787179181c24b65ff0954fa2da44168cfaba9533b46a967d7ccb6",
@@ -90,7 +95,9 @@
     "tmp/eopl-publish-20261024T040028/node-tests-navigation-final.log": "cdc2b38857555fd135dc03b8d0019bf19bf12153db5accef92f6d7909431c2d1",
     "tmp/eopl-publish-20261024T040028/weiss-wheel-readback.json": "b005a57192de43aa9d5babb9ff1b6eb79b8b67cfdd29767be4a7fb7b327bcb5f",
     "tmp/eopl-publish-20261024T040028/local-reader/pdf-readback.json": "5f307434b7240923e924f1c837ec68f84021a2ada430d327fdcbf02b98b20ebd",
-    "tmp/eopl-publish-20261024T040028/independent-publication-review.json": "8b5f0fda9c6fc455a9e8f741de448cb405480dc37298a8e7b49e166ec7912aa9"
+    "tmp/eopl-publish-20261024T040028/independent-publication-review.json": "8b5f0fda9c6fc455a9e8f741de448cb405480dc37298a8e7b49e166ec7912aa9",
+    "tmp/reading-notes-migration/browser/all/runs/2026-10-23T21-19-47-289Z-dd700b8f/report.json": "c704b4782c524fa346326be08ebcc02e55d3994a94f5f8426acb4bfbfdc8e272",
+    "tmp/eopl-publish-20261024T040028/code-guide-reader/main.json": "7e123a0cd0318e18d3baed1cde4e29dc20c4f145f55bfe5fd4cfd3cb3c2c30d6"
   },
   "privacy": {
     "raw_findings": 2,
@@ -112,7 +119,7 @@
     }
   },
   "browser": {
-    "offline_report": "tmp/reading-notes-migration/browser/all/runs/2026-10-23T20-59-30-430Z-963621d2/report.json",
+    "offline_report": "tmp/reading-notes-migration/browser/all/runs/2026-10-23T21-19-47-289Z-dd700b8f/report.json",
     "global_routes": 86,
     "global_js_views": 344,
     "global_no_js_views": 172,
@@ -124,7 +131,10 @@
     "rendered_exercises": 98,
     "actual_downloads": 15,
     "physical_device": "not_tested",
-    "source_pdf_readback": "tmp/eopl-publish-20261024T040028/local-reader/pdf-readback.json"
+    "source_pdf_readback": "tmp/eopl-publish-20261024T040028/local-reader/pdf-readback.json",
+    "previous_offline_report": "tmp/reading-notes-migration/browser/all/runs/2026-10-23T20-59-30-430Z-963621d2/report.json",
+    "reused_views": 474,
+    "supplemental_code_guide": "tmp/eopl-publish-20261024T040028/code-guide-reader/main.json"
   },
   "node_tests": {
     "count": 117,
@@ -139,5 +149,6 @@
       "tmp/reading-notes-migration/browser/all/runs/2026-10-23T20-16-32-907Z-5e59776b/report.json",
       "tmp/reading-notes-migration/browser/all/runs/2026-10-23T20-46-44-300Z-8afda42e/report.json"
     ]
-  }
+  },
+  "production_review": "docs/eopl-chapters-publication-review.json"
 }

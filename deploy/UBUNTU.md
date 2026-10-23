@@ -1,6 +1,8 @@
 # Ubuntu 静态发布
 
-I037 当前发布为 `20261020T142535`，来源为干净提交 `163478b`，上一版 `20261020T120833` 保留可回滚，测度概率第五、六章验收见 [T037](../test/T037-measure-probability-production.md)。I036 的书籍页面内联 favicon，以及 I035 启用的预压缩、缓存验证器与内容健康检查继续生效，见 [T036](../test/T036-book-favicon.md) 与 [T035](../test/T035-cache-performance-reliability.md)。I033 曾按 [I032 运维方案](OPERATIONS-I032.md)应用 root 安装器、只读版本树与新 unit，并发布 `20261017T210828`。`reading-notes-publish` 是受控生产写入口；I033 加固结果见 [I033 报告](../docs/browser-stability-report.md)，I029 保留为历史迁移记录。
+I061 当前发布为 `20261023T211622`，来源为干净提交 `ee76a04`，上一版 `20261023T020252` 及配套政策与配置已核验并保留。新版本558文件、64阅读页和86公开HTML，实际部署、健康检查和正常域名读回见 [T061](../test/T061-eopl-publication.md)与[发布审阅](../docs/eopl-chapters-publication-review.json)。root 安装器、只读版本树、预压缩、缓存验证器与内容健康检查沿用既有操作约定。
+
+I037 历史发布为 `20261020T142535`，来源为干净提交 `163478b`，上一版 `20261020T120833` 保留可回滚，测度概率第五、六章验收见 [T037](../test/T037-measure-probability-production.md)。I036 的书籍页面内联 favicon，以及 I035 启用的预压缩、缓存验证器与内容健康检查继续生效，见 [T036](../test/T036-book-favicon.md) 与 [T035](../test/T035-cache-performance-reliability.md)。I033 曾按 [I032 运维方案](OPERATIONS-I032.md)应用 root 安装器、只读版本树与新 unit，并发布 `20261017T210828`。`reading-notes-publish` 是受控生产写入口；I033 加固结果见 [I033 报告](../docs/browser-stability-report.md)，I029 保留为历史迁移记录。
 
 构建主机使用 Node 24.21.0、pnpm 11.21.0、Python 3.10+、C/Make/Poppler；Web 主机只运行 Nginx。两台主机可以分开：Web 主机安装 Python、rsync 和 util-linux 仅用于一次性发布脚本，不启动 Node、Python HTTP 或数据库服务。下面的安装约定已在 I029 的 Ubuntu 22.04 上完成实机发布与验证；当前版本和证据见 [生产发布记录](../docs/astro-production-report.md)。独立构建主机仍为可选模板，本次构建在本地完成。
 
