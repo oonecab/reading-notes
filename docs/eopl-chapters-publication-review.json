@@ -33,7 +33,12 @@
       "report": "tmp/eopl-publish-20261024T040028/remote-publication.json",
       "sha256": "dbe57f2543fee3f6feddae65839884ad4788ec402ab10c7c485a595ace7e4a7b"
     },
-    "documentation_delivery": "in_progress; production evidence is committed after the immutable content release"
+    "documentation_delivery": {
+      "status": "pushed_and_verified",
+      "commit": "df6c7fa99a963fa5bceb0eb53e793859b4a13511",
+      "report": "tmp/eopl-publish-20261024T040028/production-git-delivery.json",
+      "sha256": "e196ed6726807df6e23c35e8d8fd52918a0547314e5cf33ea4554d60d3a82bea"
+    }
   },
   "release": {
     "id": "20261023T211622",
@@ -223,5 +228,17 @@
     "Viewport emulation at 390px is not a physical phone test.",
     "Execution and mutation witnesses cover the recorded program domains; bounded control frames do not imply bounded heap use."
   ],
-  "document_impact": "Update current production facts and review bindings. Toolchain, services, ports, environment variable names and .env.example definitions remain applicable."
+  "document_impact": "Update current production facts and review bindings. Toolchain, services, ports, environment variable names and .env.example definitions remain applicable.",
+  "task_status": "completed",
+  "closed_at_utc": "2026-10-23T21:42:59.664161+00:00",
+  "after_publish_document_checks": {
+    "status": "passed",
+    "checks": 22,
+    "report": "tmp/eopl-publish-20261024T040028/production-document-checks.json",
+    "sha256": "6b9d749f4c83b4c63a8e1da24ff55d7201d1f242ee01130d59bf616e7023ffcf"
+  },
+  "server_final_confirmation": {
+    "report": "tmp/eopl-publish-20261024T040028/server-after-final.json",
+    "sha256": "104278878850bf95d57c750069b67aea005c00a70a2b2a69346fbd47b58c5663"
+  }
 }
