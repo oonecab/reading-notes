@@ -1,0 +1,524 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>附录 A · 延伸阅读与全书回望 · EOPL</title><style>
+:root{--ink:#252b29;--sub:#58615d;--rule:#d9dfda;--green:#285a4e;--paper:#fffefa;--tint:#f4f6f2}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.9 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}main{max-width:860px;margin:auto;padding:48px 24px 90px}h1{font-size:2.2rem;line-height:1.3;margin:.2rem 0}h2{font-size:1.55rem;margin:3.4rem 0 1.2rem;padding-bottom:.45rem;border-bottom:1px solid var(--rule)}h3{font-size:1.16rem;margin:2rem 0 .6rem}p{margin:.7rem 0 1.1rem}header{padding-bottom:22px;border-bottom:1px solid var(--rule)}.overline,.source,.small,figcaption{color:var(--sub);font-size:.85rem}.intro{font-size:1.08rem}a{color:var(--green);text-underline-offset:3px}nav{border-left:3px solid var(--green);padding:.6rem 1.3rem;margin:2rem 0;background:var(--tint)}nav ul{margin:.3rem 0;padding-left:1.2rem;columns:2}nav li{break-inside:avoid}.passage{border-left:2px solid var(--green);padding:.15rem 0 .15rem 1.2rem;margin:1.5rem 0}.english{font:italic 1.05rem/1.7 Georgia,serif}.passage p{margin:.25rem 0}pre{background:var(--tint);border:1px solid var(--rule);padding:1rem 1.1rem;overflow:auto;font:14px/1.65 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}code{font:.9em ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}pre code{font:inherit}.callout{background:var(--tint);padding:.8rem 1.1rem;margin:1.4rem 0;border-left:2px solid var(--green)}.scroll{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:.91rem;margin:1.1rem 0}th,td{padding:.6rem .7rem;text-align:left;vertical-align:top;border-bottom:1px solid var(--rule)}th{border-top:1px solid var(--rule);background:var(--tint)}.wide{min-width:640px}figure{margin:1.5rem 0}figure .scroll{padding:12px 8px;border:1px solid var(--rule);background:var(--tint)}figcaption{margin-top:.6rem}svg{display:block;width:100%;height:auto;min-width:620px}svg text{font-family:system-ui,-apple-system,"PingFang SC",sans-serif;text-anchor:middle;fill:var(--ink);font-size:16px}svg .n{fill:var(--paper);stroke:var(--green);stroke-width:1.3}svg .e{fill:none;stroke:#7b8f85;stroke-width:1.4}svg .hint{font-size:13px;fill:var(--sub)}ul,ol{padding-left:1.5rem}li{margin:.35rem 0}footer{border-top:1px solid var(--rule);padding-top:1rem;margin-top:4rem;color:var(--sub);font-size:.85rem}@media(max-width:640px){main{padding:30px 18px 60px}h1{font-size:1.75rem}nav ul{columns:1}h2{font-size:1.3rem}}
+.exercise{margin:.8rem 0;border:1px solid var(--rule);padding:.75rem 1rem;scroll-margin-top:16px}.exercise summary{cursor:pointer;color:var(--green);font-weight:600}.exercise summary:focus-visible{outline:2px solid var(--green);outline-offset:4px}.exercise-index{display:flex;flex-wrap:wrap;gap:.4rem 1rem;margin:1rem 0}.exercise .answer{margin-top:1rem}.tree-code{overflow-wrap:anywhere;word-break:break-word}.exercise .scroll table{min-width:620px}
+
+/* Native, static MathML: no network resources or runtime typesetting. */
+math{font-family:"STIX Two Math","Cambria Math",math;font-size:1.04em}
+.math-inline{display:inline-block;max-width:100%;overflow-x:auto;overflow-y:hidden;vertical-align:middle;margin:0 .08em;padding:0 .02em}
+.equation{overflow-x:auto;max-width:100%;padding:.65rem .2rem;margin:1rem 0;text-align:center}
+.equation math{display:block;width:max-content;margin:0 auto;font-size:1.08em}
+.answer :is(h3,h4){margin:1.35rem 0 .5rem;font-size:1rem}
+:not(pre)>code{overflow-wrap:anywhere}
+pre code{overflow-wrap:normal;white-space:pre}
+
+.comparison,.benchmark{min-width:800px}.array-values{min-width:620px}.array-values th,.array-values td{text-align:center;padding:.4rem .55rem}.forest-label{font-weight:600}svg .hint{font-size:12px}.answer pre{font-size:13px}.exercise{scroll-margin-top:20px}
+
+.code-pair{margin:1.2rem 0;border-left:2px solid var(--rule);padding-left:1rem}.code-version{margin:.5rem 0;padding:.35rem 0}.code-version>summary{cursor:pointer;font-weight:600;color:var(--green)}.code-version>summary:focus-visible{outline:2px solid var(--green);outline-offset:3px}.code-version pre{margin:.7rem 0 1rem}.code-reference{font-size:.92rem}.pair-note{font-size:.9rem;color:var(--sub)}.chapter-nav{display:flex;flex-wrap:wrap;gap:.4rem 1rem}.exercise>summary{line-height:1.65}.experiment{margin:1.2rem 0;padding:.7rem 1rem;border-left:2px solid var(--green);background:var(--tint)}
+
+.meta,.caption{color:var(--sub);font-size:.85rem}
+.scroll,.table-scroll,.diagram{max-width:100%;overflow-x:auto}
+main,header,section,.answer,.code-pair,.code-version{min-width:0}
+.math-inline{padding:.20em .05em}
+.chapter-nav{display:flex;flex-wrap:wrap;gap:.4rem 1rem}
+.scroll>table{min-width:620px}
+.puzzle{width:auto;margin:1.2rem auto}
+.scroll>table.puzzle{min-width:0}
+.puzzle th,.puzzle td{text-align:center;min-width:44px}
+.verification-table,.state-table,.benchmark{font-variant-numeric:tabular-nums}
+.diagram{margin:1.2rem 0;padding:1rem 1.1rem;border:1px solid var(--rule);background:var(--tint)}
+.diagram figcaption{margin:0 0 .65rem}
+.chain{display:flex;align-items:center;gap:.55rem;min-width:max-content;font-size:.92rem}
+.diagram>.chain+.chain{margin-top:.7rem}
+.chain .node{border:1px solid #9caaa2;background:var(--paper);padding:.3rem .6rem;white-space:nowrap}
+.chain .edge{color:var(--green);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;white-space:nowrap}
+.diagram-notes{margin:.75rem 0 0;padding-left:1.2rem;font-size:.92rem}
+.diagram-notes li{margin:0}
+.step-table th:first-child,.step-table td:first-child{width:5.3rem;white-space:nowrap}
+.step-table th:nth-child(2){width:14rem}
+.step-table code{white-space:nowrap}
+.step-table .chain{gap:.35rem}
+.step-table .node{padding:.1rem .4rem}
+.state-table{table-layout:fixed}
+.state-table th:first-child{width:37%}
+.state-table td:not(:first-child),.state-table th:not(:first-child){text-align:center}
+.state-table td:last-child{white-space:nowrap}
+svg .node{fill:var(--paper);stroke:var(--green);stroke-width:1.3}
+svg .edge{fill:none;stroke:#7b8f85;stroke-width:1.4;marker-end:url(#arrow)}
+svg .small{font-size:12px;fill:var(--sub)}
+svg .chapter-link{cursor:pointer}
+svg .chapter-link:hover .node,svg .chapter-link:focus-visible .node{fill:var(--tint);stroke-width:2.5}
+blockquote{margin:1.4rem 0;padding:.5rem 1.2rem;border-left:2px solid var(--green);background:var(--tint)}
+hr{border:0;border-top:1px solid var(--rule);margin:2.6rem 0}
+@media(max-width:640px){.diagram{padding:.8rem}.state-table{table-layout:auto;min-width:570px}}
+
+/* Reading rail: one table of contents beside the book page. */
+.reading-layout{display:grid;grid-template-columns:240px minmax(0,860px);gap:32px;max-width:1200px;margin:0 auto;padding:0 24px;align-items:start}
+.reading-layout>main{width:100%;min-width:0;margin:0}
+.chapter-sidebar{position:sticky;top:32px;max-height:calc(100dvh - 64px);overflow-y:auto;overscroll-behavior:contain;padding:8px 16px 12px 0;margin-top:40px;border-right:1px solid var(--rule);scrollbar-width:thin}
+.toc-panel>summary{display:flex;align-items:center;justify-content:space-between;gap:1rem;list-style:none;padding:.45rem .55rem;color:var(--green);font-size:.9rem;font-weight:650;cursor:pointer}
+.toc-panel>summary::-webkit-details-marker{display:none}
+.toc-panel>summary::after{content:"+";font-size:1.1rem;font-weight:400}
+.toc-panel[open]>summary::after{content:"−"}
+.toc-panel>summary:focus-visible,.chapter-toc a:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+.chapter-toc{border:0;background:transparent;margin:.45rem 0 0;padding:0;font-size:.84rem;line-height:1.65}
+.chapter-toc ul{columns:1;list-style:none;margin:0;padding:0}
+.chapter-toc li{margin:.18rem 0}
+.chapter-toc a{display:block;padding:.5rem .6rem;border-left:2px solid transparent;text-decoration:none;overflow-wrap:anywhere;color:var(--sub)}
+.chapter-toc a:hover{color:var(--green);background:var(--tint)}
+.chapter-toc a[aria-current="location"]{color:var(--green);border-left-color:var(--green);background:var(--tint);font-weight:600}
+.chapter-toc .toc-home{margin-bottom:.55rem;font-size:.8rem;color:var(--green)}
+.skip-link{position:fixed;left:16px;top:-100px;z-index:100;padding:.5rem 1rem;background:var(--paper);border:1px solid var(--green)}
+.skip-link:focus{top:12px}
+main[id],main [id]{scroll-margin-top:24px}
+@media(max-width:1099px){
+ .reading-layout{display:block;padding:0;max-width:860px}
+ .reading-layout>main{margin:auto}
+ .chapter-sidebar{position:static;top:0;z-index:10;margin:0;padding:8px 24px;border-right:0;border-bottom:1px solid var(--rule);background:var(--paper);max-height:none;overflow:visible}
+ .toc-enhanced .chapter-sidebar{position:sticky}
+ .toc-panel>summary{padding:.35rem 0;font-size:.88rem}
+ .chapter-toc{max-height:60dvh;overflow-y:auto;overscroll-behavior:contain;padding-bottom:.4rem}
+ main[id],main [id]{scroll-margin-top:80px}
+}
+@media(max-width:640px){.chapter-sidebar{padding:8px 18px}}
+@media print{.reading-layout{display:block;max-width:860px;padding:0}.chapter-sidebar,.skip-link{display:none}.reading-layout>main{padding:24px}}
+
+.result{font-variant-numeric:tabular-nums}.source-link{white-space:normal}
+.book-card{padding:1rem 0;border-bottom:1px solid var(--rule)}
+.book-card h3{margin:.2rem 0}.book-card p{margin:.4rem 0}
+.chart-svg{min-width:0} .chart-svg text{font-size:13px}
+.exercise-index a{font-variant-numeric:tabular-nums}.solution-link{font-size:.9rem}
+.exercise-question .scroll>table{min-width:480px}
+.question-note strong{color:var(--green)}
+
+/* Supplementary reading notes share the page's type and color palette. */
+.reading-notes{margin:2rem 0 0;padding:0.8rem 1rem;border-left:2px solid var(--green);background:var(--tint);font-size:0.92rem;line-height:1.85}
+.reading-notes>summary{color:var(--green);font-weight:650;cursor:pointer;list-style:none}
+.reading-notes>summary::-webkit-details-marker{display:none}
+.reading-notes>summary::after{content:"＋";float:right;font-weight:400}
+.reading-notes[open]>summary::after{content:"−"}
+.reading-notes>summary:focus-visible,.annotation-context a:focus-visible{outline:2px solid var(--green);outline-offset:4px}
+.annotation-card{min-width:0;margin:1.15rem 0 0;padding:1rem 0 0;border-top:1px solid var(--rule)}
+.annotation-card:first-child{border-top:0;padding-top:0}
+.annotation-kind{display:block;font-size:0.73rem;font-weight:600;letter-spacing:0.05em;color:var(--green);margin-bottom:0.25rem}
+.annotation-card h3{font-size:0.97rem;line-height:1.65;margin:0 0 0.5rem;font-weight:650}
+.annotation-card p{margin:0.4rem 0 0.7rem}
+.annotation-card p:last-child{margin-bottom:0}
+.annotation-card .equation{padding:0.5rem 0;margin:0.65rem 0}
+.annotation-card math{font-size:1em}
+.annotation-sidebar{display:none}
+@media(min-width:1440px){
+ .notes-enhanced .reading-layout{grid-template-columns:240px minmax(0,860px) 280px;max-width:1524px;gap:32px}
+ .notes-enhanced main .reading-notes{display:none}
+ .notes-enhanced .annotation-sidebar:not([hidden]){display:block;position:sticky;top:32px;max-height:calc(100dvh - 64px);overflow-y:auto;overscroll-behavior:contain;min-width:0;margin-top:40px;padding:8px 0 12px 22px;border-left:1px solid var(--rule);font-size:0.9rem;line-height:1.85;scrollbar-width:thin}
+ .annotation-label{color:var(--green);font-size:0.87rem;font-weight:650;margin:0 0 0.75rem}
+ .annotation-context{font-size:0.85rem;line-height:1.65;margin:0 0 1.25rem}
+ .annotation-context a{color:var(--sub);text-decoration:none}
+ .annotation-context a:hover{color:var(--green);text-decoration:underline}
+ .annotation-sidebar .annotation-card{margin-top:1.5rem;padding-top:1.35rem}
+ .annotation-sidebar .annotation-card:first-child{margin-top:0;padding-top:0}
+ .annotation-sidebar .annotation-card h3{font-size:0.95rem}
+}
+@media print{.annotation-sidebar{display:none!important}main .reading-notes{display:block!important;break-inside:avoid}}
+
+/* RN-001 shared teaching components. Inlined in every controlled reading page. */
+.rn-components {
+  --rn-space: 1rem;
+  --rn-label-size: .95rem;
+  --rn-title-size: 1.05rem;
+}
+.rn-components :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
+  min-width: 0;
+  scroll-margin-top: 24px;
+}
+.rn-components .rn-statement {
+  margin: 1.5rem 0;
+  padding: 1rem 1.15rem;
+  border: 0;
+  border-left: 3px solid var(--green);
+  background: var(--tint);
+}
+.rn-components :is(.rn-statement, .rn-example) > :is(h3, h4, .rn-title) {
+  margin: 0 0 .8rem;
+  padding: 0;
+  border: 0;
+  font-size: var(--rn-title-size);
+  line-height: 1.7;
+  font-weight: 650;
+  color: var(--green);
+}
+.rn-components .rn-statement > .statement-body {
+  padding: 0;
+  border: 0;
+}
+.rn-components .statement-body > :first-child { margin-top: 0; }
+.rn-components .statement-body > :last-child { margin-bottom: 0; }
+.rn-components .rn-statement .original-excerpt {
+  margin: .5rem 0 1rem;
+  padding: .1rem 0 .1rem .85rem;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-statement .statement-label {
+  margin: .8rem 0 .3rem;
+  color: var(--sub);
+  font-size: .85rem;
+  font-weight: 600;
+}
+.rn-components .rn-example {
+  margin: 1.75rem 0;
+  padding: 1rem 0 .25rem;
+  border: 0;
+  border-top: 1px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-proof {
+  margin: 1.1rem 0 1.75rem;
+  padding: 0 0 .2rem 1rem;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-proof > summary {
+  cursor: pointer;
+  margin: 0;
+  padding: .35rem 0;
+  color: var(--green);
+  font-size: var(--rn-label-size);
+  font-weight: 650;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .rn-proof > .rn-proof-body { margin-top: .7rem; }
+.rn-components .rn-proof-body p { margin: .85rem 0; }
+.rn-components .rn-proof-body > :first-child:not(.rn-example):not(.rn-statement):not(.rn-proof) {
+  margin-top: 0;
+}
+.rn-components :is(.rn-proof-body, .rn-statement, .rn-example) > :last-child:not(.rn-example):not(.rn-statement):not(.rn-proof) {
+  margin-bottom: 0;
+}
+.rn-components .exercise {
+  margin: 1rem 0;
+  padding: 0;
+  border: 1px solid var(--rule);
+  background: transparent;
+}
+.rn-components .exercise > summary {
+  margin: 0;
+  padding: .85rem 1rem;
+  color: var(--green);
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .exercise[open] > summary {
+  border-bottom: 1px solid var(--rule);
+  background: var(--tint);
+}
+.rn-components .exercise > :is(.exercise-question, .answer) {
+  margin: 0;
+  padding: 1rem;
+  border: 0;
+  background: transparent;
+  min-width: 0;
+}
+.rn-components .exercise > .answer {
+  border-top: 1px solid var(--rule);
+}
+.rn-components .exercise :is(.exercise-question, .answer) > :first-child {
+  margin: 0 0 .75rem;
+  padding: 0;
+  border: 0;
+  color: var(--green);
+  font-size: var(--rn-label-size);
+  font-weight: 650;
+  line-height: 1.75;
+}
+.rn-components .exercise :is(.exercise-question, .answer) > :first-child > strong { font-weight: inherit; }
+.rn-components :is(.exercise-question, .answer) > :last-child { margin-bottom: 0; }
+.rn-components :is(.rn-statement, .rn-example, .rn-proof, .exercise) .source {
+  margin-top: 1rem;
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components .exercise > .source {
+  margin: 0;
+  padding: 0 1rem 1rem;
+}
+.rn-components .rn-statement .source-status {
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components :is(.derivation-steps, .proof-steps, .solution-steps) {
+  margin: .75rem 0 1rem;
+  padding-left: 1.5rem;
+}
+.rn-components :is(.derivation-steps, .proof-steps, .solution-steps) > li {
+  padding-left: .15rem;
+  margin: .9rem 0;
+}
+.rn-components :is(.rn-proof, .exercise) > summary:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+.rn-components :is(.rn-proof-body, .rn-example, .rn-statement, .exercise-question, .answer) {
+  overflow-wrap: break-word;
+}
+.rn-components .code-details {
+  margin: 1.2rem 0;
+  padding: .35rem 0 .35rem 1rem;
+  border-left: 2px solid var(--rule);
+}
+.rn-components :is(.code-details, .code-version) > summary {
+  cursor: pointer;
+  color: var(--green);
+  font-size: .95rem;
+  font-weight: 600;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .code-details pre { margin: .7rem 0 1rem; }
+.rn-components :is(.code-details, .code-version) > summary:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+.rn-components .example-kind {
+  margin: .5rem 0 1rem;
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components .exercise-index a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: .1rem .25rem;
+  font-variant-numeric: tabular-nums;
+}
+.rn-components .exercise-index-panel {
+  margin: 1.2rem 0;
+  padding: .65rem .9rem;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: var(--paper, #fffefa);
+}
+.rn-components .exercise-index-panel > summary {
+  cursor: pointer;
+  color: var(--green);
+  font-weight: 600;
+}
+.rn-components .exercise-index { margin: .75rem 0 0; line-height: 1.8; }
+.rn-components .exercise-index a { margin: .15rem .5rem .15rem 0; }
+.rn-components .original-question {
+  margin: 1.2rem 0 0;
+  border-top: 1px solid var(--rule);
+  padding-top: .65rem;
+  color: var(--sub);
+}
+.rn-components .original-question > summary { cursor: pointer; color: var(--green); }
+.rn-components .question-translation { margin-top: .7rem; }
+/* Align the reading column independently of annotation enhancement. */
+@media (min-width: 1440px) {
+  .rn-components .reading-layout {
+    grid-template-columns: 240px minmax(0, 860px) 280px;
+    max-width: 1524px;
+    gap: 32px;
+  }
+}
+@media (max-width: 1100px) {
+  .rn-components:not(.portal-reader):not(.sample-fragment) :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
+    scroll-margin-top: 90px;
+  }
+}
+@media (max-width: 640px) {
+  .rn-components .rn-statement { padding: .85rem .8rem; }
+  .rn-components .rn-proof { padding-left: .75rem; }
+  .rn-components .exercise > :is(summary, .exercise-question, .answer) {
+    padding: .85rem .8rem;
+  }
+  .rn-components .exercise > .source { padding: 0 .8rem .85rem; }
+}
+@media print {
+  .rn-components .rn-proof::details-content { content-visibility: visible !important; }
+}
+
+.table-scroll{overflow-x:auto}.code-details pre{max-height:36rem;overflow:auto}
+/* RN-001: a single Latin/digit face across prose, tables and diagrams.
+   CJK glyphs use the local Chinese fallback; no proprietary fonts are shipped. */
+:root{--rn-text-font:"Times New Roman",Times,system-ui,-apple-system,"PingFang SC","Microsoft YaHei",serif;--rn-diagram-blue:#edf5fd;--rn-diagram-blue-line:#a9bfd5;--rn-diagram-amber:#fff6e4;--rn-diagram-amber-line:#d6bd87;--rn-diagram-ink:#303b46;--rn-diagram-edge:#8c969f}
+body.rn-components,body.rn-components :not(math):not(math *):not(:where(pre,pre *,code,code *,kbd,kbd *,samp,samp *)){
+  font-family:var(--rn-text-font)!important
+}
+/* Program text uses the original local monospace family across reading pages
+   and source/program guides. Mathematical descendants keep their own fonts. */
+:root{--rn-code-font:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+body :is(pre,code,kbd,samp),body :is(pre,code,kbd,samp) :not(math):not(math *){
+  font-family:var(--rn-code-font)!important
+}
+
+body.rn-components math{font-family:"STIX Two Math","Cambria Math",math;font-size:1em}
+body.rn-components math :is(mi,mn,mtext,ms){font-family:var(--rn-text-font)!important}
+body.rn-components math mi:not([mathvariant]),body.rn-components math mi[mathvariant="italic"]{font-style:italic;text-transform:none}
+body.rn-components math :is(mn,mtext,ms),body.rn-components math mi[mathvariant="normal"]{font-style:normal}
+body.rn-components math mi:is([mathvariant="bold"],[mathvariant="bold-italic"]){font-weight:700;text-transform:none}
+body.rn-components math mi[mathvariant="bold-italic"]{font-style:italic}
+body.rn-components math mi:is([mathvariant="double-struck"],[mathvariant="script"],[mathvariant="bold-script"],[mathvariant="fraktur"],[mathvariant="bold-fraktur"]){font-family:"STIX Two Math","Cambria Math",math!important}
+body.rn-components math [mathvariant="monospace"]{font-family:var(--rn-code-font)!important;font-style:normal;text-transform:none}
+body.rn-components :is(p,li,td,th,summary,figcaption,h1,h2,h3,h4) math{vertical-align:baseline}
+body.rn-components .rn-math-inline{display:inline-block;max-width:100%;overflow-x:auto;overflow-y:hidden;vertical-align:middle}
+body.rn-components pre{line-height:1.65;tab-size:4;white-space:pre}
+body.rn-components pre code{font-size:inherit;white-space:inherit}
+/* Keep short expressions together; long statements wrap within the text column. */
+body.rn-components code:not(pre code){
+  display:inline-block;max-width:100%;vertical-align:baseline;
+  font-size:.9em;font-style:normal;font-weight:400;line-height:1.45;
+  color:#294553;background:#eef2f4;border:1px solid #dfe6e9;border-radius:4px;
+  padding:.08em .3em;box-decoration-break:clone;-webkit-box-decoration-break:clone;
+  white-space:normal;overflow-wrap:anywhere;word-break:normal
+}
+body.rn-components :is(h1,h2,h3,h4,summary,th) code:not(pre code){font-size:.9em;font-weight:inherit}
+body.rn-components a code:not(pre code){color:inherit}
+body.rn-components pre code{background:none;border:0;border-radius:0;padding:0;box-decoration-break:slice;overflow-wrap:normal}
+body.rn-components svg text{fill:var(--rn-diagram-ink)}
+body.rn-components svg.rn-diagram{background:transparent;border:0}
+body.rn-components svg tspan[baseline-shift]{font-size:70%}
+/* Node roles are explicit. Coordinate plots, data series, cells and generator
+   colours keep their original encodings. */
+body.rn-components svg.rn-diagram :is(.rn-node,.node,rect.n,circle.n,ellipse.n,.n rect,.n circle,.n ellipse){
+  fill:var(--rn-diagram-blue);stroke:var(--rn-diagram-blue-line);stroke-width:1.15;
+  vector-effect:non-scaling-stroke
+}
+body.rn-components svg.rn-diagram rect:is(.rn-node,.node),
+body.rn-components svg.rn-diagram .n rect,
+body.rn-components svg.rn-diagram rect.n{rx:10px;ry:10px}
+body.rn-components svg.rn-diagram .rn-node.rn-node-accent{fill:var(--rn-diagram-amber);stroke:var(--rn-diagram-amber-line)}
+body.rn-components svg.rn-diagram .rn-edge{
+  fill:none;stroke:var(--rn-diagram-edge);stroke-width:1.15;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke
+}
+body.rn-components svg.rn-diagram .rn-arrow{fill:var(--rn-diagram-edge);stroke:none}
+body.rn-components svg.rn-diagram .hint{fill:#626d77}
+body.rn-components svg.rn-diagram text{font-weight:400}
+body.rn-components figure:has(svg.rn-diagram){background:#fff;border:1px solid #e5e9ed;border-radius:12px;padding:1.25rem}
+body.rn-components :is(.scroll,.diagram):has(>svg.rn-diagram){background:transparent;border:0}
+@media(max-width:640px){body.rn-components figure:has(svg.rn-diagram){padding:.75rem}}
+@media print{body.rn-components figure:has(svg.rn-diagram){border-color:#bbb;break-inside:avoid}}
+</style></head><body class="rn-components"><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="章节目录"><details class="toc-panel" id="toc-panel" open><summary>目录</summary><nav class="chapter-toc" id="chapter-toc"><a class="toc-home" href="book_overview.html">全书地图</a><a class="toc-home" href="preface.html">序言</a><ul><li><a href="#a-recursion">从数据定义走向递归与证明</a></li><li><a href="#a-semantics">解释器怎样成为语言的数学说明</a></li><li><a href="#a-state">存储、参数传递与效果的共同问题</a></li><li><a href="#a-control">从续文到线程，再到编译</a></li><li><a href="#a-types">类型、信息隐藏与对象的来源连接</a></li><li><a href="#a-research">带着全书主线回到文献</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">EOPL 第三版 · 附录 A</p><h1>附录 A · 延伸阅读与全书回望</h1><p class="intro">沿递归、语义、状态、控制、类型与抽象的来源，带着具体问题回读全书。</p><p class="source">原书 pp.373–378 / <a href="../assets/source.pdf#page=396">PDF 396–401</a>。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter09_objects.html">← 第 9 章 · 对象、类、继承与方法调用</a><a href="appendix_b_sllgen.html">附录 B · SLLGEN 解析系统 →</a></p></header><section id="a-recursion"><h2>从数据定义走向递归与证明</h2><p class="source">原书印刷 p.373 / <a href="../assets/source.pdf#page=396">PDF 396</a>。</p><p>附录 A 记录了作者写作本书时受到的影响。原附录没有编号小节；这里按学习问题组织，并保留原书的作者与年份。读完九章之后，可以带着一个具体解释器问题回到相应来源，先弄清它要证明什么，再扩展自己的实现。</p><p>递归与符号计算的入门路线包括 Friedman 与 Felleisen 的 <i>The Little Schemer</i>（1996）、Felleisen 与 Friedman 的 <i>The Little MLer</i>（1996），以及 <i>How to Design Programs</i>（2001）。它们与第一章相接的地方，是从数据的构造方式确定过程分支，再为递归调用选择更小的输入。</p><p>原书把自底向上定义和推理规则联系到 Plotkin（1975、1981），把自顶向下的观察联系到余归纳传统；“Follow the Grammar”则联系到 Burstall（1969）的结构归纳。Morris 与 Wegbreit（1977）的子目标归纳适合递归调用没有直接沿语法子结构下降的情况。附加参数所携带的上下文，又与 Knuth（1968）的属性文法相连。</p><p>例如给树上每片叶子加上深度时，树是递归下降的结构，深度是随调用向下传递的上下文。需要分别证明“每个子树都被处理”与“传入子树的深度恰好增加一”；只验证几棵树不能替代这两个归纳步骤。回读<a href="chapter01_inductive_data.html">第一章</a>时，可以据此区分递归形状和辅助不变量。</p><details class="reading-notes" id="notes-a-recursion" data-notes-for="a-recursion" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">证明对象</span><h3>先确定对什么做归纳</h3><p>沿语法递归时，归纳假设对应直接子结构。带累加器或上下文参数时，往往要先加强命题，使归纳假设包含这些参数的含义。</p></div><div class="annotation-card"><span class="annotation-kind">定义与性质</span><h3>规则枚举不自动等于全部语义</h3><p>归纳定义给出允许构造的对象；证明解释器对这些对象满足某个性质，还需要检查每条构造规则和每次递归调用。</p></div></div></details></section><section id="a-semantics"><h2>解释器怎样成为语言的数学说明</h2><p class="source">原书印刷 p.374 / <a href="../assets/source.pdf#page=397">PDF 397</a>。</p><p>第二章的 <code>define-datatype</code> 与 <code>cases</code> 受到 ML 数据类型与模式匹配设施的启发。第三章的无名表示使用 de Bruijn（1972）的索引；词法轮廓图则联系到 Johnston（1971）。这些来源分别回答“语法树有什么形状”和“一个变量出现应指向哪个绑定”。</p><p>作者从 Turing 的通用机器、von Neumann 机器和 McCarthy（1960）的元循环解释器讨论解释器的历史。元循环的困难是：用一种语言定义自身时，读者仍须先理解用来解释的那部分语言。本书把解释器视为等式规格或大步操作语义的转写，让求值关系与实现步骤相互对应。</p><p>另一条路线是指称语义：将程序映射为描述行为的数学对象。原书列出 Plotkin（1977）、Winskel（1993）以及 Milne 与 Strachey（1976）。读者可以拿第三章的一条 <code>let</code> 规则比较：操作语义写出右侧求值与环境扩展的步骤，指称语义给出环境到表达值的数学映射；两种表述需要通过适当的对应关系连接。</p><p>Scheme 的历史、IEEE 标准与 R6RS 在原附录中另有来源。实际运行伴读程序时，应按<a href="../code/README.md">程序说明</a>使用 Racket 与 eopl 包；教材使用的构造、宿主实现设施和被解释语言仍需分清。</p><details class="reading-notes" id="notes-a-semantics" data-notes-for="a-semantics" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">语法与含义</span><h3>解析完成后还没有得到程序结果</h3><p>抽象语法树是解释器的输入。环境、存储或续文如何改变，仍由语言的语义规则决定。</p></div><div class="annotation-card"><span class="annotation-kind">宿主依赖</span><h3>用最少的宿主机制表达目标机制</h3><p>显式构造环境或存储，能把依赖暴露出来。若直接借用宿主所有行为，就难以看出哪些性质来自目标语言的设计。</p></div></div></details></section><section id="a-state"><h2>存储、参数传递与效果的共同问题</h2><p class="source">原书印刷 p.375 / <a href="../assets/source.pdf#page=398">PDF 398</a>。</p><p>第四章的显式引用模型与 ML 的存储模型有关；隐式引用更接近具有可变局部变量的传统语言。Strachey（1967）的左值、右值及环境—存储模型，帮助解释为什么变量绑定的位置与位置中的值应分别讨论。</p><p>原书将按引用传递联系到 Fortran，将按名传递联系到 Algol 60，并将 thunk 与 Ingerman（1961）相连。按需在按名的延后计算上保存强制后的结果，接近记忆化；这个保存动作本身是一种效果。因此参数策略的差别既涉及结果，也涉及副作用发生的次数和次序。</p><p>Moggi（1991）与 Wadler（1992）的单子工作，为效果提供了系统组织方式。回读<a href="chapter04_state.html">第四章</a>时，可以先把解释器看成“输入表达式、环境和旧存储，返回值及新存储”的过程：每一步把新存储交给下一步，这已经暴露出顺序组合需要保存的信息。</p><details class="reading-notes" id="notes-a-state" data-notes-for="a-state" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">别名</span><h3>位置相同才产生相应的共享更新</h3><p>两个变量当前数值相同，不等于它们共享位置。比较参数策略时，先画位置关系，再跟踪写入。</p></div><div class="annotation-card"><span class="annotation-kind">惰性效果</span><h3>强制一次与反复强制可能得到不同观察</h3><p>纯表达式可能只改变成本；带输出、赋值或异常的表达式还会改变可观察行为。</p></div></div></details></section><section id="a-control"><h2>从续文到线程，再到编译</h2><p class="source">原书印刷 p.375 / <a href="../assets/source.pdf#page=398">PDF 398</a>。</p><p>Reynolds（1993）整理了续文被多次独立发现的历史；Reynolds（1972）把元循环解释器变为 CPS。Landin 的 J 操作符与 Scheme 的 <code>call-with-current-continuation</code> 又把控制上下文暴露给程序。第五章的续文解释器与第六章的程序变换器，是沿这条路线完成的不同任务。</p><p>Wand（1980a）把续文用于轻量进程；原书线程讨论近似 POSIX，<a href="chapter05_continuations.html#ex-5-56">习题 5.56</a>则以 Erlang 消息传递为背景。控制上下文被表示成数据后，暂停、恢复与调度才有了可明确操作的对象。</p><p>原书还追溯 RABBIT、ORBIT 与 Standard ML of New Jersey 编译器对 CPS 的使用。第六章采用 Danvy 与 Nielsen（2003）的一阶组合式算法；<a href="chapter06_cps.html#ex-6-30">习题 6.30</a>联系 Danvy 与 Filinski（1992）的高阶算法，<a href="chapter06_cps.html#ex-6-34">习题 6.34</a>讨论 A-normal form 这条替代路线。变换需要同时保持返回值、效果次序和变量绑定，不能只看目标程序是否处于尾位置。</p><details class="reading-notes" id="notes-a-control" data-notes-for="a-control" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">两种CPS任务</span><h3>解释器改写与源程序变换分别建立对应关系</h3><p>第五章解释目标程序时显式传递续文；第六章产生另一份程序。它们的输入输出不同，正确性命题也不同。</p></div><div class="annotation-card"><span class="annotation-kind">控制与资源</span><h3>尾调用不自动让所有空间开销消失</h3><p>宿主调用栈、显式续文链及保留的环境应分别计量；数据化以后仍可能有随输入增长的堆对象。</p></div></div></details></section><section id="a-types"><h2>类型、信息隐藏与对象的来源连接</h2><p class="source">原书印刷 p.376 / <a href="../assets/source.pdf#page=399">PDF 399</a>。</p><p>附录把类型推导联系到 Hindley（1969）、Morris（1968）和 Milner（1978），把“先生成方程再求解”的分离联系到 Wand（1987）。第七章的单态约束推导、<a href="chapter07_types.html#ex-7-28">习题 7.28</a>的 Hindley–Milner 多态，以及可变状态下的值限制，应作为不同层次理解。</p><p>信息隐藏的接口边界联系到 Parnas（1972）；抽象数据类型还可以用构造历史的树或观察行为的过程来表示。Reynolds（1975）、CLU、Standard ML 模块和 Leroy（1994）的工作，接上第八章通过类型身份约束客户端观察的做法。接口满足检查保证可见的类型与操作相容，表示定律仍需要另外论证。</p><p>对象路线从 Simula、Smalltalk、Actors 延伸到 Scheme 的对象表示与 CLOS。第九章的对象模型以 Java 为基础；原附录另列 Abadi 与 Cardelli（1996）的对象演算、Flatt 等（1998）的形式化子集以及 Featherweight Java。若要理解继承与子类型，适合先固定一个小模型，分别说明字段身份、方法选择和可替换性，再增加真实语言的其他机制。</p><details class="reading-notes" id="notes-a-types" data-notes-for="a-types" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">静态结论</span><h3>类型检查证明的性质取决于规则覆盖的范围</h3><p>终止、表示不变量与字段初始化并不会因有类型就自动成立。回到相应规则检查前提，才能判断一个安全论证是否适用。</p></div><div class="annotation-card"><span class="annotation-kind">抽象边界</span><h3>行为一样与类型身份一样是两件事</h3><p>不同模块可以有同一表示却导出不同抽象类型；不同类可以实现同一接口。运行观察与静态身份需要分别跟踪。</p></div></div></details></section><section id="a-research"><h2>带着全书主线回到文献</h2><p class="source">原书印刷 p.378 / <a href="../assets/source.pdf#page=401">PDF 401</a>。</p><p>附录最后列出设计模式、语言史会议，以及 POPL、ICFP、PLDI 和相关期刊，构成原书写作时的研究背景。书目条目的作者、题名、年份可继续在<a href="../assets/source.pdf#page=416">原书 Bibliography，PDF 416–423</a>核对。</p><p>收束本书时，可以用同一个小程序完成一次综合回读：先写数据定义与解析器，再解释变量的词法环境；加入引用时跟踪位置，加入控制时跟踪续文；最后给程序建立类型约束，并用模块或对象组织实现。每增加一种机制，先说明它改变了哪些观察，再决定需要怎样的规则和验证。</p><p>需要把字符串转换为这些数据结构时，继续阅读<a href="appendix_b_sllgen.html">附录 B · SLLGEN 解析系统</a>。这样，第一章从文法设计程序的起点，与最后从输入构造语法树的工具形成了完整的回路。</p><details class="reading-notes" id="notes-a-research" data-notes-for="a-research" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">研究入口</span><h3>用明确问题筛选文献</h3><p>例如先问“为什么覆盖方法的参数逆变”，再找相应类型规则与证明，比把所有历史引用都当作下一轮必读清单更容易形成连续理解。</p></div><div class="annotation-card"><span class="annotation-kind">综合回读</span><h3>每一层都保留可独立观察的对象</h3><p>字符、token、AST、环境、存储、续文和类型各有职责；把它们分开，错误也就能定位到具体阶段。</p></div></div></details></section><footer><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter09_objects.html">← 第 9 章 · 对象、类、继承与方法调用</a><a href="appendix_b_sllgen.html">附录 B · SLLGEN 解析系统 →</a><a href="#top">返回页首 ↑</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top">本节理解与补充</a></p><div id="annotation-content"></div></aside></div><script>
+(() => {
+  document.documentElement.classList.add('toc-enhanced');
+  const panel = document.getElementById('toc-panel');
+  const nav = document.getElementById('chapter-toc');
+  const wide = matchMedia('(min-width:1100px)');
+  const links = Array.from(nav.querySelectorAll('li a[href^="#"]'));
+  const entries = links.map(link => ({link, section: document.getElementById(link.hash.slice(1))})).filter(item => item.section);
+  let current = null, scheduled = false;
+  const fit = () => { panel.open = wide.matches; };
+  fit();
+  wide.addEventListener('change', fit);
+  const reveal = () => {
+    let node;
+    try {node=document.getElementById(decodeURIComponent(location.hash.slice(1)))} catch {return}
+    for(let n=node;n;n=n.parentElement)if(n.tagName==='DETAILS')n.open=true;
+    if(node)setTimeout(()=>{node.scrollIntoView();scrollBy(0,8)})
+  };
+  const mark = () => {
+    scheduled = false;
+    let next = entries[0];
+    for (const entry of entries) {
+      if (entry.section.getBoundingClientRect().top <= Math.max(110, wide.matches ? 100 : 110, wide.matches ? 0 : panel.querySelector('summary').getBoundingClientRect().bottom + 12) + 1) next = entry;
+    }
+    if (window.scrollY + innerHeight >= document.documentElement.scrollHeight - 2) next = entries[entries.length - 1];
+    if (next && next.link !== current) {
+      if (current) current.removeAttribute('aria-current');
+      current = next.link; current.setAttribute('aria-current', 'location');
+    }
+  };
+  const schedule = () => { if (!scheduled) { scheduled = true; requestAnimationFrame(mark); } };
+  nav.addEventListener('click', event => {
+    if (event.target.closest('a[href^="#"]') && !wide.matches) panel.open = false;
+  });
+  addEventListener('scroll', schedule, {passive:true});
+  addEventListener('resize', schedule);
+  addEventListener('hashchange', () => { reveal(); schedule(); });
+  document.addEventListener('toggle', schedule, true);
+  reveal(); mark();
+})();
+</script><script id="reading-notes-controller">
+(() => {
+  const rail = document.getElementById('annotation-rail');
+  const content = document.getElementById('annotation-content');
+  const context = document.getElementById('annotation-context-link');
+  const groups = Array.from(document.querySelectorAll('main .reading-notes')).map(notes => ({
+    notes, section: document.getElementById(notes.dataset.notesFor)
+  })).filter(item => item.section);
+  if (!rail || !content || !context || !groups.length) return;
+  const wide = matchMedia('(min-width:1440px)');
+  const sections = Array.from(document.querySelectorAll('main section[id]'));
+  let current = null, scheduled = false;
+  const update = () => {
+    scheduled = false;
+    if (!wide.matches) return;
+    let active = sections[0];
+    for (const section of sections) {
+      if (section.getBoundingClientRect().top <= 111) active = section;
+    }
+    // A short final section cannot always reach the usual reading-position line.
+    if (scrollY > 0 && scrollY + innerHeight >= document.documentElement.scrollHeight - 1) {
+      active = sections.findLast(section => section.getBoundingClientRect().top < innerHeight - 100) ?? active;
+    }
+    const next = groups.find(item => item.section === active);
+    rail.hidden = !next;
+    if (!next) {
+      content.replaceChildren();
+      delete rail.dataset.activeSection;
+      current = null;
+      return;
+    }
+    if (current === next) return;
+    const body = next.notes.querySelector('.reading-notes-body');
+    const heading = next.section.querySelector(':scope > h2, :scope > h3, :scope > h4');
+    if (!body || !heading) return;
+    content.replaceChildren(...Array.from(body.children, node => node.cloneNode(true)));
+    const label = heading.cloneNode(true);
+    label.querySelectorAll('.english-title,math annotation').forEach(node => node.remove());
+    context.textContent = label.textContent;
+    context.href = '#' + next.section.id;
+    rail.dataset.activeSection = next.section.id;
+    rail.scrollTop = 0;
+    current = next;
+  };
+  const schedule = () => {
+    if (!scheduled) { scheduled = true; requestAnimationFrame(update); }
+  };
+  const fit = () => {
+    rail.hidden = !wide.matches;
+    current = null;
+    if (wide.matches) {
+      document.documentElement.classList.add('notes-enhanced');
+      update();
+    } else {
+      document.documentElement.classList.remove('notes-enhanced');
+    }
+  };
+  wide.addEventListener('change', fit);
+  addEventListener('scroll', schedule, {passive:true});
+  addEventListener('resize', schedule);
+  addEventListener('hashchange', schedule);
+  document.addEventListener('toggle', schedule, true);
+  fit();
+})();
+</script><script data-purpose="print-details">
+(() => {
+  let saved=[];
+  addEventListener('beforeprint',()=>{
+    if(saved.length)return;
+    saved=[...document.querySelectorAll('main details')].map(node=>[node,node.open]);
+    saved.forEach(([node])=>{node.open=true;});
+  });
+  addEventListener('afterprint',()=>{
+    saved.forEach(([node,open])=>{node.open=open;});saved=[];
+  });
+})();
+</script></body></html>

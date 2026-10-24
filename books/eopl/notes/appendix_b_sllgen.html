@@ -1,0 +1,839 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>附录 B · SLLGEN 解析系统 · EOPL</title><style>
+:root{--ink:#252b29;--sub:#58615d;--rule:#d9dfda;--green:#285a4e;--paper:#fffefa;--tint:#f4f6f2}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.9 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}main{max-width:860px;margin:auto;padding:48px 24px 90px}h1{font-size:2.2rem;line-height:1.3;margin:.2rem 0}h2{font-size:1.55rem;margin:3.4rem 0 1.2rem;padding-bottom:.45rem;border-bottom:1px solid var(--rule)}h3{font-size:1.16rem;margin:2rem 0 .6rem}p{margin:.7rem 0 1.1rem}header{padding-bottom:22px;border-bottom:1px solid var(--rule)}.overline,.source,.small,figcaption{color:var(--sub);font-size:.85rem}.intro{font-size:1.08rem}a{color:var(--green);text-underline-offset:3px}nav{border-left:3px solid var(--green);padding:.6rem 1.3rem;margin:2rem 0;background:var(--tint)}nav ul{margin:.3rem 0;padding-left:1.2rem;columns:2}nav li{break-inside:avoid}.passage{border-left:2px solid var(--green);padding:.15rem 0 .15rem 1.2rem;margin:1.5rem 0}.english{font:italic 1.05rem/1.7 Georgia,serif}.passage p{margin:.25rem 0}pre{background:var(--tint);border:1px solid var(--rule);padding:1rem 1.1rem;overflow:auto;font:14px/1.65 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}code{font:.9em ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}pre code{font:inherit}.callout{background:var(--tint);padding:.8rem 1.1rem;margin:1.4rem 0;border-left:2px solid var(--green)}.scroll{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:.91rem;margin:1.1rem 0}th,td{padding:.6rem .7rem;text-align:left;vertical-align:top;border-bottom:1px solid var(--rule)}th{border-top:1px solid var(--rule);background:var(--tint)}.wide{min-width:640px}figure{margin:1.5rem 0}figure .scroll{padding:12px 8px;border:1px solid var(--rule);background:var(--tint)}figcaption{margin-top:.6rem}svg{display:block;width:100%;height:auto;min-width:620px}svg text{font-family:system-ui,-apple-system,"PingFang SC",sans-serif;text-anchor:middle;fill:var(--ink);font-size:16px}svg .n{fill:var(--paper);stroke:var(--green);stroke-width:1.3}svg .e{fill:none;stroke:#7b8f85;stroke-width:1.4}svg .hint{font-size:13px;fill:var(--sub)}ul,ol{padding-left:1.5rem}li{margin:.35rem 0}footer{border-top:1px solid var(--rule);padding-top:1rem;margin-top:4rem;color:var(--sub);font-size:.85rem}@media(max-width:640px){main{padding:30px 18px 60px}h1{font-size:1.75rem}nav ul{columns:1}h2{font-size:1.3rem}}
+.exercise{margin:.8rem 0;border:1px solid var(--rule);padding:.75rem 1rem;scroll-margin-top:16px}.exercise summary{cursor:pointer;color:var(--green);font-weight:600}.exercise summary:focus-visible{outline:2px solid var(--green);outline-offset:4px}.exercise-index{display:flex;flex-wrap:wrap;gap:.4rem 1rem;margin:1rem 0}.exercise .answer{margin-top:1rem}.tree-code{overflow-wrap:anywhere;word-break:break-word}.exercise .scroll table{min-width:620px}
+
+/* Native, static MathML: no network resources or runtime typesetting. */
+math{font-family:"STIX Two Math","Cambria Math",math;font-size:1.04em}
+.math-inline{display:inline-block;max-width:100%;overflow-x:auto;overflow-y:hidden;vertical-align:middle;margin:0 .08em;padding:0 .02em}
+.equation{overflow-x:auto;max-width:100%;padding:.65rem .2rem;margin:1rem 0;text-align:center}
+.equation math{display:block;width:max-content;margin:0 auto;font-size:1.08em}
+.answer :is(h3,h4){margin:1.35rem 0 .5rem;font-size:1rem}
+:not(pre)>code{overflow-wrap:anywhere}
+pre code{overflow-wrap:normal;white-space:pre}
+
+.comparison,.benchmark{min-width:800px}.array-values{min-width:620px}.array-values th,.array-values td{text-align:center;padding:.4rem .55rem}.forest-label{font-weight:600}svg .hint{font-size:12px}.answer pre{font-size:13px}.exercise{scroll-margin-top:20px}
+
+.code-pair{margin:1.2rem 0;border-left:2px solid var(--rule);padding-left:1rem}.code-version{margin:.5rem 0;padding:.35rem 0}.code-version>summary{cursor:pointer;font-weight:600;color:var(--green)}.code-version>summary:focus-visible{outline:2px solid var(--green);outline-offset:3px}.code-version pre{margin:.7rem 0 1rem}.code-reference{font-size:.92rem}.pair-note{font-size:.9rem;color:var(--sub)}.chapter-nav{display:flex;flex-wrap:wrap;gap:.4rem 1rem}.exercise>summary{line-height:1.65}.experiment{margin:1.2rem 0;padding:.7rem 1rem;border-left:2px solid var(--green);background:var(--tint)}
+
+.meta,.caption{color:var(--sub);font-size:.85rem}
+.scroll,.table-scroll,.diagram{max-width:100%;overflow-x:auto}
+main,header,section,.answer,.code-pair,.code-version{min-width:0}
+.math-inline{padding:.20em .05em}
+.chapter-nav{display:flex;flex-wrap:wrap;gap:.4rem 1rem}
+.scroll>table{min-width:620px}
+.puzzle{width:auto;margin:1.2rem auto}
+.scroll>table.puzzle{min-width:0}
+.puzzle th,.puzzle td{text-align:center;min-width:44px}
+.verification-table,.state-table,.benchmark{font-variant-numeric:tabular-nums}
+.diagram{margin:1.2rem 0;padding:1rem 1.1rem;border:1px solid var(--rule);background:var(--tint)}
+.diagram figcaption{margin:0 0 .65rem}
+.chain{display:flex;align-items:center;gap:.55rem;min-width:max-content;font-size:.92rem}
+.diagram>.chain+.chain{margin-top:.7rem}
+.chain .node{border:1px solid #9caaa2;background:var(--paper);padding:.3rem .6rem;white-space:nowrap}
+.chain .edge{color:var(--green);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;white-space:nowrap}
+.diagram-notes{margin:.75rem 0 0;padding-left:1.2rem;font-size:.92rem}
+.diagram-notes li{margin:0}
+.step-table th:first-child,.step-table td:first-child{width:5.3rem;white-space:nowrap}
+.step-table th:nth-child(2){width:14rem}
+.step-table code{white-space:nowrap}
+.step-table .chain{gap:.35rem}
+.step-table .node{padding:.1rem .4rem}
+.state-table{table-layout:fixed}
+.state-table th:first-child{width:37%}
+.state-table td:not(:first-child),.state-table th:not(:first-child){text-align:center}
+.state-table td:last-child{white-space:nowrap}
+svg .node{fill:var(--paper);stroke:var(--green);stroke-width:1.3}
+svg .edge{fill:none;stroke:#7b8f85;stroke-width:1.4;marker-end:url(#arrow)}
+svg .small{font-size:12px;fill:var(--sub)}
+svg .chapter-link{cursor:pointer}
+svg .chapter-link:hover .node,svg .chapter-link:focus-visible .node{fill:var(--tint);stroke-width:2.5}
+blockquote{margin:1.4rem 0;padding:.5rem 1.2rem;border-left:2px solid var(--green);background:var(--tint)}
+hr{border:0;border-top:1px solid var(--rule);margin:2.6rem 0}
+@media(max-width:640px){.diagram{padding:.8rem}.state-table{table-layout:auto;min-width:570px}}
+
+/* Reading rail: one table of contents beside the book page. */
+.reading-layout{display:grid;grid-template-columns:240px minmax(0,860px);gap:32px;max-width:1200px;margin:0 auto;padding:0 24px;align-items:start}
+.reading-layout>main{width:100%;min-width:0;margin:0}
+.chapter-sidebar{position:sticky;top:32px;max-height:calc(100dvh - 64px);overflow-y:auto;overscroll-behavior:contain;padding:8px 16px 12px 0;margin-top:40px;border-right:1px solid var(--rule);scrollbar-width:thin}
+.toc-panel>summary{display:flex;align-items:center;justify-content:space-between;gap:1rem;list-style:none;padding:.45rem .55rem;color:var(--green);font-size:.9rem;font-weight:650;cursor:pointer}
+.toc-panel>summary::-webkit-details-marker{display:none}
+.toc-panel>summary::after{content:"+";font-size:1.1rem;font-weight:400}
+.toc-panel[open]>summary::after{content:"−"}
+.toc-panel>summary:focus-visible,.chapter-toc a:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+.chapter-toc{border:0;background:transparent;margin:.45rem 0 0;padding:0;font-size:.84rem;line-height:1.65}
+.chapter-toc ul{columns:1;list-style:none;margin:0;padding:0}
+.chapter-toc li{margin:.18rem 0}
+.chapter-toc a{display:block;padding:.5rem .6rem;border-left:2px solid transparent;text-decoration:none;overflow-wrap:anywhere;color:var(--sub)}
+.chapter-toc a:hover{color:var(--green);background:var(--tint)}
+.chapter-toc a[aria-current="location"]{color:var(--green);border-left-color:var(--green);background:var(--tint);font-weight:600}
+.chapter-toc .toc-home{margin-bottom:.55rem;font-size:.8rem;color:var(--green)}
+.skip-link{position:fixed;left:16px;top:-100px;z-index:100;padding:.5rem 1rem;background:var(--paper);border:1px solid var(--green)}
+.skip-link:focus{top:12px}
+main[id],main [id]{scroll-margin-top:24px}
+@media(max-width:1099px){
+ .reading-layout{display:block;padding:0;max-width:860px}
+ .reading-layout>main{margin:auto}
+ .chapter-sidebar{position:static;top:0;z-index:10;margin:0;padding:8px 24px;border-right:0;border-bottom:1px solid var(--rule);background:var(--paper);max-height:none;overflow:visible}
+ .toc-enhanced .chapter-sidebar{position:sticky}
+ .toc-panel>summary{padding:.35rem 0;font-size:.88rem}
+ .chapter-toc{max-height:60dvh;overflow-y:auto;overscroll-behavior:contain;padding-bottom:.4rem}
+ main[id],main [id]{scroll-margin-top:80px}
+}
+@media(max-width:640px){.chapter-sidebar{padding:8px 18px}}
+@media print{.reading-layout{display:block;max-width:860px;padding:0}.chapter-sidebar,.skip-link{display:none}.reading-layout>main{padding:24px}}
+
+.result{font-variant-numeric:tabular-nums}.source-link{white-space:normal}
+.book-card{padding:1rem 0;border-bottom:1px solid var(--rule)}
+.book-card h3{margin:.2rem 0}.book-card p{margin:.4rem 0}
+.chart-svg{min-width:0} .chart-svg text{font-size:13px}
+.exercise-index a{font-variant-numeric:tabular-nums}.solution-link{font-size:.9rem}
+.exercise-question .scroll>table{min-width:480px}
+.question-note strong{color:var(--green)}
+
+/* Supplementary reading notes share the page's type and color palette. */
+.reading-notes{margin:2rem 0 0;padding:0.8rem 1rem;border-left:2px solid var(--green);background:var(--tint);font-size:0.92rem;line-height:1.85}
+.reading-notes>summary{color:var(--green);font-weight:650;cursor:pointer;list-style:none}
+.reading-notes>summary::-webkit-details-marker{display:none}
+.reading-notes>summary::after{content:"＋";float:right;font-weight:400}
+.reading-notes[open]>summary::after{content:"−"}
+.reading-notes>summary:focus-visible,.annotation-context a:focus-visible{outline:2px solid var(--green);outline-offset:4px}
+.annotation-card{min-width:0;margin:1.15rem 0 0;padding:1rem 0 0;border-top:1px solid var(--rule)}
+.annotation-card:first-child{border-top:0;padding-top:0}
+.annotation-kind{display:block;font-size:0.73rem;font-weight:600;letter-spacing:0.05em;color:var(--green);margin-bottom:0.25rem}
+.annotation-card h3{font-size:0.97rem;line-height:1.65;margin:0 0 0.5rem;font-weight:650}
+.annotation-card p{margin:0.4rem 0 0.7rem}
+.annotation-card p:last-child{margin-bottom:0}
+.annotation-card .equation{padding:0.5rem 0;margin:0.65rem 0}
+.annotation-card math{font-size:1em}
+.annotation-sidebar{display:none}
+@media(min-width:1440px){
+ .notes-enhanced .reading-layout{grid-template-columns:240px minmax(0,860px) 280px;max-width:1524px;gap:32px}
+ .notes-enhanced main .reading-notes{display:none}
+ .notes-enhanced .annotation-sidebar:not([hidden]){display:block;position:sticky;top:32px;max-height:calc(100dvh - 64px);overflow-y:auto;overscroll-behavior:contain;min-width:0;margin-top:40px;padding:8px 0 12px 22px;border-left:1px solid var(--rule);font-size:0.9rem;line-height:1.85;scrollbar-width:thin}
+ .annotation-label{color:var(--green);font-size:0.87rem;font-weight:650;margin:0 0 0.75rem}
+ .annotation-context{font-size:0.85rem;line-height:1.65;margin:0 0 1.25rem}
+ .annotation-context a{color:var(--sub);text-decoration:none}
+ .annotation-context a:hover{color:var(--green);text-decoration:underline}
+ .annotation-sidebar .annotation-card{margin-top:1.5rem;padding-top:1.35rem}
+ .annotation-sidebar .annotation-card:first-child{margin-top:0;padding-top:0}
+ .annotation-sidebar .annotation-card h3{font-size:0.95rem}
+}
+@media print{.annotation-sidebar{display:none!important}main .reading-notes{display:block!important;break-inside:avoid}}
+
+/* RN-001 shared teaching components. Inlined in every controlled reading page. */
+.rn-components {
+  --rn-space: 1rem;
+  --rn-label-size: .95rem;
+  --rn-title-size: 1.05rem;
+}
+.rn-components :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
+  min-width: 0;
+  scroll-margin-top: 24px;
+}
+.rn-components .rn-statement {
+  margin: 1.5rem 0;
+  padding: 1rem 1.15rem;
+  border: 0;
+  border-left: 3px solid var(--green);
+  background: var(--tint);
+}
+.rn-components :is(.rn-statement, .rn-example) > :is(h3, h4, .rn-title) {
+  margin: 0 0 .8rem;
+  padding: 0;
+  border: 0;
+  font-size: var(--rn-title-size);
+  line-height: 1.7;
+  font-weight: 650;
+  color: var(--green);
+}
+.rn-components .rn-statement > .statement-body {
+  padding: 0;
+  border: 0;
+}
+.rn-components .statement-body > :first-child { margin-top: 0; }
+.rn-components .statement-body > :last-child { margin-bottom: 0; }
+.rn-components .rn-statement .original-excerpt {
+  margin: .5rem 0 1rem;
+  padding: .1rem 0 .1rem .85rem;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-statement .statement-label {
+  margin: .8rem 0 .3rem;
+  color: var(--sub);
+  font-size: .85rem;
+  font-weight: 600;
+}
+.rn-components .rn-example {
+  margin: 1.75rem 0;
+  padding: 1rem 0 .25rem;
+  border: 0;
+  border-top: 1px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-proof {
+  margin: 1.1rem 0 1.75rem;
+  padding: 0 0 .2rem 1rem;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-proof > summary {
+  cursor: pointer;
+  margin: 0;
+  padding: .35rem 0;
+  color: var(--green);
+  font-size: var(--rn-label-size);
+  font-weight: 650;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .rn-proof > .rn-proof-body { margin-top: .7rem; }
+.rn-components .rn-proof-body p { margin: .85rem 0; }
+.rn-components .rn-proof-body > :first-child:not(.rn-example):not(.rn-statement):not(.rn-proof) {
+  margin-top: 0;
+}
+.rn-components :is(.rn-proof-body, .rn-statement, .rn-example) > :last-child:not(.rn-example):not(.rn-statement):not(.rn-proof) {
+  margin-bottom: 0;
+}
+.rn-components .exercise {
+  margin: 1rem 0;
+  padding: 0;
+  border: 1px solid var(--rule);
+  background: transparent;
+}
+.rn-components .exercise > summary {
+  margin: 0;
+  padding: .85rem 1rem;
+  color: var(--green);
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .exercise[open] > summary {
+  border-bottom: 1px solid var(--rule);
+  background: var(--tint);
+}
+.rn-components .exercise > :is(.exercise-question, .answer) {
+  margin: 0;
+  padding: 1rem;
+  border: 0;
+  background: transparent;
+  min-width: 0;
+}
+.rn-components .exercise > .answer {
+  border-top: 1px solid var(--rule);
+}
+.rn-components .exercise :is(.exercise-question, .answer) > :first-child {
+  margin: 0 0 .75rem;
+  padding: 0;
+  border: 0;
+  color: var(--green);
+  font-size: var(--rn-label-size);
+  font-weight: 650;
+  line-height: 1.75;
+}
+.rn-components .exercise :is(.exercise-question, .answer) > :first-child > strong { font-weight: inherit; }
+.rn-components :is(.exercise-question, .answer) > :last-child { margin-bottom: 0; }
+.rn-components :is(.rn-statement, .rn-example, .rn-proof, .exercise) .source {
+  margin-top: 1rem;
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components .exercise > .source {
+  margin: 0;
+  padding: 0 1rem 1rem;
+}
+.rn-components .rn-statement .source-status {
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components :is(.derivation-steps, .proof-steps, .solution-steps) {
+  margin: .75rem 0 1rem;
+  padding-left: 1.5rem;
+}
+.rn-components :is(.derivation-steps, .proof-steps, .solution-steps) > li {
+  padding-left: .15rem;
+  margin: .9rem 0;
+}
+.rn-components :is(.rn-proof, .exercise) > summary:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+.rn-components :is(.rn-proof-body, .rn-example, .rn-statement, .exercise-question, .answer) {
+  overflow-wrap: break-word;
+}
+.rn-components .code-details {
+  margin: 1.2rem 0;
+  padding: .35rem 0 .35rem 1rem;
+  border-left: 2px solid var(--rule);
+}
+.rn-components :is(.code-details, .code-version) > summary {
+  cursor: pointer;
+  color: var(--green);
+  font-size: .95rem;
+  font-weight: 600;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .code-details pre { margin: .7rem 0 1rem; }
+.rn-components :is(.code-details, .code-version) > summary:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+.rn-components .example-kind {
+  margin: .5rem 0 1rem;
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components .exercise-index a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: .1rem .25rem;
+  font-variant-numeric: tabular-nums;
+}
+.rn-components .exercise-index-panel {
+  margin: 1.2rem 0;
+  padding: .65rem .9rem;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: var(--paper, #fffefa);
+}
+.rn-components .exercise-index-panel > summary {
+  cursor: pointer;
+  color: var(--green);
+  font-weight: 600;
+}
+.rn-components .exercise-index { margin: .75rem 0 0; line-height: 1.8; }
+.rn-components .exercise-index a { margin: .15rem .5rem .15rem 0; }
+.rn-components .original-question {
+  margin: 1.2rem 0 0;
+  border-top: 1px solid var(--rule);
+  padding-top: .65rem;
+  color: var(--sub);
+}
+.rn-components .original-question > summary { cursor: pointer; color: var(--green); }
+.rn-components .question-translation { margin-top: .7rem; }
+/* Align the reading column independently of annotation enhancement. */
+@media (min-width: 1440px) {
+  .rn-components .reading-layout {
+    grid-template-columns: 240px minmax(0, 860px) 280px;
+    max-width: 1524px;
+    gap: 32px;
+  }
+}
+@media (max-width: 1100px) {
+  .rn-components:not(.portal-reader):not(.sample-fragment) :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
+    scroll-margin-top: 90px;
+  }
+}
+@media (max-width: 640px) {
+  .rn-components .rn-statement { padding: .85rem .8rem; }
+  .rn-components .rn-proof { padding-left: .75rem; }
+  .rn-components .exercise > :is(summary, .exercise-question, .answer) {
+    padding: .85rem .8rem;
+  }
+  .rn-components .exercise > .source { padding: 0 .8rem .85rem; }
+}
+@media print {
+  .rn-components .rn-proof::details-content { content-visibility: visible !important; }
+}
+
+.table-scroll{overflow-x:auto}.code-details pre{max-height:36rem;overflow:auto}
+/* RN-001: a single Latin/digit face across prose, tables and diagrams.
+   CJK glyphs use the local Chinese fallback; no proprietary fonts are shipped. */
+:root{--rn-text-font:"Times New Roman",Times,system-ui,-apple-system,"PingFang SC","Microsoft YaHei",serif;--rn-diagram-blue:#edf5fd;--rn-diagram-blue-line:#a9bfd5;--rn-diagram-amber:#fff6e4;--rn-diagram-amber-line:#d6bd87;--rn-diagram-ink:#303b46;--rn-diagram-edge:#8c969f}
+body.rn-components,body.rn-components :not(math):not(math *):not(:where(pre,pre *,code,code *,kbd,kbd *,samp,samp *)){
+  font-family:var(--rn-text-font)!important
+}
+/* Program text uses the original local monospace family across reading pages
+   and source/program guides. Mathematical descendants keep their own fonts. */
+:root{--rn-code-font:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+body :is(pre,code,kbd,samp),body :is(pre,code,kbd,samp) :not(math):not(math *){
+  font-family:var(--rn-code-font)!important
+}
+
+body.rn-components math{font-family:"STIX Two Math","Cambria Math",math;font-size:1em}
+body.rn-components math :is(mi,mn,mtext,ms){font-family:var(--rn-text-font)!important}
+body.rn-components math mi:not([mathvariant]),body.rn-components math mi[mathvariant="italic"]{font-style:italic;text-transform:none}
+body.rn-components math :is(mn,mtext,ms),body.rn-components math mi[mathvariant="normal"]{font-style:normal}
+body.rn-components math mi:is([mathvariant="bold"],[mathvariant="bold-italic"]){font-weight:700;text-transform:none}
+body.rn-components math mi[mathvariant="bold-italic"]{font-style:italic}
+body.rn-components math mi:is([mathvariant="double-struck"],[mathvariant="script"],[mathvariant="bold-script"],[mathvariant="fraktur"],[mathvariant="bold-fraktur"]){font-family:"STIX Two Math","Cambria Math",math!important}
+body.rn-components math [mathvariant="monospace"]{font-family:var(--rn-code-font)!important;font-style:normal;text-transform:none}
+body.rn-components :is(p,li,td,th,summary,figcaption,h1,h2,h3,h4) math{vertical-align:baseline}
+body.rn-components .rn-math-inline{display:inline-block;max-width:100%;overflow-x:auto;overflow-y:hidden;vertical-align:middle}
+body.rn-components pre{line-height:1.65;tab-size:4;white-space:pre}
+body.rn-components pre code{font-size:inherit;white-space:inherit}
+/* Keep short expressions together; long statements wrap within the text column. */
+body.rn-components code:not(pre code){
+  display:inline-block;max-width:100%;vertical-align:baseline;
+  font-size:.9em;font-style:normal;font-weight:400;line-height:1.45;
+  color:#294553;background:#eef2f4;border:1px solid #dfe6e9;border-radius:4px;
+  padding:.08em .3em;box-decoration-break:clone;-webkit-box-decoration-break:clone;
+  white-space:normal;overflow-wrap:anywhere;word-break:normal
+}
+body.rn-components :is(h1,h2,h3,h4,summary,th) code:not(pre code){font-size:.9em;font-weight:inherit}
+body.rn-components a code:not(pre code){color:inherit}
+body.rn-components pre code{background:none;border:0;border-radius:0;padding:0;box-decoration-break:slice;overflow-wrap:normal}
+body.rn-components svg text{fill:var(--rn-diagram-ink)}
+body.rn-components svg.rn-diagram{background:transparent;border:0}
+body.rn-components svg tspan[baseline-shift]{font-size:70%}
+/* Node roles are explicit. Coordinate plots, data series, cells and generator
+   colours keep their original encodings. */
+body.rn-components svg.rn-diagram :is(.rn-node,.node,rect.n,circle.n,ellipse.n,.n rect,.n circle,.n ellipse){
+  fill:var(--rn-diagram-blue);stroke:var(--rn-diagram-blue-line);stroke-width:1.15;
+  vector-effect:non-scaling-stroke
+}
+body.rn-components svg.rn-diagram rect:is(.rn-node,.node),
+body.rn-components svg.rn-diagram .n rect,
+body.rn-components svg.rn-diagram rect.n{rx:10px;ry:10px}
+body.rn-components svg.rn-diagram .rn-node.rn-node-accent{fill:var(--rn-diagram-amber);stroke:var(--rn-diagram-amber-line)}
+body.rn-components svg.rn-diagram .rn-edge{
+  fill:none;stroke:var(--rn-diagram-edge);stroke-width:1.15;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke
+}
+body.rn-components svg.rn-diagram .rn-arrow{fill:var(--rn-diagram-edge);stroke:none}
+body.rn-components svg.rn-diagram .hint{fill:#626d77}
+body.rn-components svg.rn-diagram text{font-weight:400}
+body.rn-components figure:has(svg.rn-diagram){background:#fff;border:1px solid #e5e9ed;border-radius:12px;padding:1.25rem}
+body.rn-components :is(.scroll,.diagram):has(>svg.rn-diagram){background:transparent;border:0}
+@media(max-width:640px){body.rn-components figure:has(svg.rn-diagram){padding:.75rem}}
+@media print{body.rn-components figure:has(svg.rn-diagram){border-color:#bbb;break-inside:avoid}}
+</style></head><body class="rn-components"><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="章节目录"><details class="toc-panel" id="toc-panel" open><summary>目录</summary><nav class="chapter-toc" id="chapter-toc"><a class="toc-home" href="book_overview.html">全书地图</a><a class="toc-home" href="preface.html">序言</a><ul><li><a href="#sB-1">B.1 扫描：先确定字符如何分组</a></li><li><a href="#sB-2">B.2 解析：从 token 构造抽象语法树</a></li><li><a href="#sB-3">B.3 SLLGEN 中的扫描器与解析器</a></li><li><a href="#sB-3-scanner">扫描器规范与最长匹配</a></li><li><a href="#sB-3-grammar">文法规范与 LL(1) 选择</a></li><li><a href="#sB-3-operations">生成数据类型、解析器与交互循环</a></li><li><a href="#sB-3-patterns">arbno 与 separated-list 的字段结构</a></li><li><a href="#exercises">附录习题与解答</a></li><li><a href="#programs">运行附录程序</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">EOPL 第三版 · 附录 B</p><h1>附录 B · SLLGEN 解析系统</h1><p class="intro">把字符分成 token，把 token 组织成语法树，再沿树解释优先级、结合性、变量和一元负号。</p><p class="source">原书 pp.379–391 / <a href="../assets/source.pdf#page=402">PDF 402–414</a>。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="appendix_a_reading.html">← 附录 A · 延伸阅读与全书回望</a></p></header><section id="sB-1"><h2>B.1 扫描：先确定字符如何分组</h2><p class="source">原书印刷 p.379 / <a href="../assets/source.pdf#page=402">PDF 402</a>。</p><p>输入程序最初只是字符序列。扫描器先去除按词法规范允许忽略的空白与注释，再把其余字符分为标识符、数字、关键字和标点。解析器稍后才决定这些 token 如何组成语句或表达式。图 B.1 的 <code>foo bar %here is a comment</code> 与下一行的标点，说明这两次组织的任务不同。</p><p>正则表达式从单字符、连接、选择、Kleene 星号及“除某字符外的一个字符”构成。星号允许零次，因此 <code>(ab)*</code> 也匹配空串；选择和连接的优先级必须写清，<code>ab*|cd</code> 表示 <code>a(b*)|cd</code>。这类规则描述局部分组，不能单独表达任意深度括号的嵌套关系。</p><div class="rn-example" id="scanner-keywords"><h3>原书机制例 · 关键字与标识符边界</h3><p class="source">原书印刷 p.380 / <a href="../assets/source.pdf#page=403">PDF 403</a>。</p><pre><code class="language-scheme" data-appendix-input="scanner-keywords">(map cadr (scan-statement &quot;while whilex := 3 % ignored
+foo&quot;))</code></pre><div class="program-output"><pre><code class="language-text">(&quot;while&quot; whilex &quot;:=&quot; 3 foo)</code></pre></div><p>while 与标识符规则同长时按关键字处理；whilex 是更长的完整标识符。百分号后的内容被忽略，下一行的 foo 仍被扫描。显示的数据只是token的一部分，完整token还带类别和行号。</p></div><details class="reading-notes" id="notes-sB-1" data-notes-for="sB-1" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">分组规则</span><h3>最长匹配先于同长优先级</h3><p>whilex 比 while 更长，先形成完整标识符；只有同样长时，关键字的字符串规则才胜过标识符规则。</p></div><div class="annotation-card"><span class="annotation-kind">阶段边界</span><h3>token保存类别、数据和位置</h3><p>数字的文本可转换成数字数据；关键字和标点可以保留字符串。位置信息用于报告来源，不能替代后续语法关系。</p></div></div></details></section><section id="sB-2"><h2>B.2 解析：从 token 构造抽象语法树</h2><p class="source">原书印刷 p.382 / <a href="../assets/source.pdf#page=405">PDF 405</a>。</p><p>一个非终结符对应一种数据类型；同一左侧的各条产生式对应不同变体；右侧的非终结符、标识符和数字产生字段。第一个字段应保存哪个子树，由文法右侧的顺序确定。具体标点帮助识别分支，通常不保存成独立字段。</p><div class="rn-example" id="original-statement-tree"><h3>原书例 · 复合语句的树形结构</h3><p class="source">原书印刷 p.383 / <a href="../assets/source.pdf#page=406">PDF 406</a>。</p><pre><code class="language-scheme" data-appendix-input="statement-tree">(statement-datum
+ (parse-statement &quot;{x := foo; while x do x := (x - bar)}&quot;))</code></pre><div class="program-output"><pre><code class="language-text">(block (assign x (var foo))
+       (while (var x) (assign x (- (var x) (var bar)))))</code></pre></div><p>最外层恰有两条语句：一次赋值与一个循环。循环又有测试表达式和赋值语句；减法表达式有两个变量子树。这里用伴读formatter显示树的角色，实际输入仍是SLLGEN生成的类型实例。</p></div><details class="reading-notes" id="notes-sB-2" data-notes-for="sB-2" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">抽象语法</span><h3>标点参与识别，不必成为字段</h3><p>右侧的非终结符、标识符和数字贡献语义字段；括号、关键字等字面串通常由构造器选择所体现。</p></div><div class="annotation-card"><span class="annotation-kind">检查范围</span><h3>解析器只保证指定的语法结构</h3><p>并行赋值两侧长度相等、变量已绑定或对象具有方法，都还需要后续阶段检查。</p></div></div></details></section><section id="sB-3"><h2>B.3 SLLGEN 中的扫描器与解析器</h2><p class="source">原书印刷 p.383 / <a href="../assets/source.pdf#page=406">PDF 406</a>。</p><p>SLLGEN 将词法规范和文法规范分别写成 Scheme 数据。文法中的字面串会自动进入扫描器，因此不必手工重复声明 while、括号等每个关键字和标点。下面沿原书四个无编号小标题依次说明生成过程。</p><details class="reading-notes" id="notes-sB-3" data-notes-for="sB-3" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">生成与执行</span><h3>先生成工具，再用工具处理输入</h3><p>规范描述怎样识别输入；生成的扫描器/解析器是可反复调用的过程。解释器随后读取生成的AST。</p></div><div class="annotation-card"><span class="annotation-kind">复用接口</span><h3>同一套语法树支持不同前端</h3><p>字符串入口和流入口都产生树；求值器可以共用，但输入边界和错误恢复要分别设计。</p></div></div></details><section id="sB-3-scanner"><h3>扫描器规范与最长匹配</h3><p class="source">原书印刷 p.383 / <a href="../assets/source.pdf#page=406">PDF 406</a>。</p><p>词法规则由类别名、正则表达式序列和动作组成。序列在顶层连接；<code>or</code> 表示选择，<code>concat</code> 表示连接，<code>arbno</code> 表示零次或多次重复，<code>not</code> 只否定一个字符。预定义测试包括 letter、digit、whitespace 和 any。</p><pre><code class="language-scheme">(define scanner-spec
+  &#x27;((white-sp (whitespace) skip)
+    (comment (&quot;%&quot; (arbno (not #\newline))) skip)
+    (identifier (letter (arbno (or letter digit))) symbol)
+    (number (digit (arbno digit)) number)))</code></pre><p>动作 <code>skip</code> 不发出token；<code>symbol</code>、<code>number</code> 和 <code>string</code> 分别转换缓冲区内容并发出相应数据。先取最长匹配；同长时字符串动作优先于符号动作，所以文法关键字能够胜过普通标识符。</p><p>本机 eopl 扫描器对 <code>1@2</code> 可只返回合法前缀 1。伴读算术公开入口先用 <code>check-characters</code> 核对全部字符，确保这类输入拒绝；百分号注释直到行尾或输入结尾，其内部字符不作算术检查。这个入口校验与原书的词法规范分开实现。</p><details class="reading-notes" id="notes-sB-3-scanner" data-notes-for="sB-3-scanner" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">词法负号</span><h4>减号由语法区分一元与二元用途</h4><p>若扫描器贪心把-2当作一个数字token，3-2可能丢失减法运算符。本附录数字规则只收数字，负号作为独立标点。</p></div><div class="annotation-card"><span class="annotation-kind">输入覆盖</span><h4>完整输入不能只剩一个合法前缀</h4><p>本机SLLGEN可在未识别字符前停止扫描。伴读算术入口先核对全部字符，注释范围内则允许任意内容。</p></div></div></details></section><section id="sB-3-grammar"><h3>文法规范与 LL(1) 选择</h3><p class="source">原书印刷 p.385 / <a href="../assets/source.pdf#page=408">PDF 408</a>。</p><p>每条产生式包含左侧非终结符、右侧项目列表和变体名。第一条产生式的左侧是开始符号。右侧字符串表示需要匹配的字面串，符号表示非终结符或已由扫描器识别的数据项。</p><pre><code class="language-scheme">(define statement-grammar
+  &#x27;((statement (&quot;{&quot; statement &quot;;&quot; statement &quot;}&quot;) compound-statement)
+    (statement (&quot;while&quot; expression &quot;do&quot; statement) while-statement)
+    (statement (identifier &quot;:=&quot; expression) assign-statement)
+    (expression (identifier) var-exp)
+    (expression (&quot;(&quot; expression &quot;-&quot; expression &quot;)&quot;) diff-exp)))</code></pre><p>SLLGEN 使用 LL(1) 预测：知道当前要识别的非终结符和下一个token，就应能选定产生式。两个候选若具有相同开头，需要先提取共同前缀或改变文法；普通的左递归算术文法不能直接交给它。<a href="#ex-B-1">习题 B.1</a>用非空首项配合 <code>arbno</code> 的后缀序列，避免左递归并保留优先级层次。</p><details class="reading-notes" id="notes-sB-3-grammar" data-notes-for="sB-3-grammar" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">开始符号</span><h4>首条产生式决定整次解析的目标</h4><p>同一组非终结符若以statement开头，入口解析语句；若以expression开头，入口解析表达式。</p></div><div class="annotation-card"><span class="annotation-kind">预测选择</span><h4>重复的退出也需要可判定的边界</h4><p>对arbno既要知道何时继续，也要知道何时交给后续部分；重复体为空或与后继token冲突都可能破坏LL(1)。</p></div></div></details></section><section id="sB-3-operations"><h3>生成数据类型、解析器与交互循环</h3><p class="source">原书印刷 p.386 / <a href="../assets/source.pdf#page=409">PDF 409</a>。</p><p>图 B.2 把生成步骤放在一起：<code>sllgen:make-define-datatypes</code> 建立变体，<code>sllgen:list-define-datatypes</code> 返回其说明，<code>sllgen:make-string-scanner</code> 生成扫描过程，<code>sllgen:make-string-parser</code> 生成从字符串到AST的过程。字段的自动名字可能改变；程序应通过构造器与 <code>cases</code> 使用它们。</p><pre><code class="language-scheme">(sllgen:make-define-datatypes scanner-spec unary-grammar)
+(define raw-parse-unary
+  (sllgen:make-string-parser scanner-spec unary-grammar))
+(define raw-scan-arithmetic
+  (sllgen:make-string-scanner scanner-spec unary-grammar))</code></pre><p>流版本持续处理字符，向求值回调交付一棵棵语法树。原书 p.386 写输出为token流，但图B.2和下一页说明要求把解析后的树交给求值器；本机SLLGEN的流实现也这样工作。词法扫描器输出token，语法解析器输出AST，这个边界应保持清楚。</p><p>伴读提供 <code>arithmetic-repl</code>：输入 <code>5;</code> 与 <code>2+3;</code> 时，两次都输出5。分号是这个交互入口明确增加的表达式终结符，字符串算术入口不使用它。本机SLLGEN在干净EOF仍报告开始符号错误，包装器只把这一确切情况作为正常结束；缺失运算对象或终结符仍报错。</p><details class="reading-notes" id="notes-sB-3-operations" data-notes-for="sB-3-operations" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">树与token</span><h4>流解析器的输出也应是AST</h4><p>原书p.386把输出写为token流；结合后面的求值回调及本机实现，应理解为语法树流。</p></div><div class="annotation-card"><span class="annotation-kind">流边界</span><h4>换行是否结束输入属于文法约定</h4><p>算术表达式可继续接运算符，单靠换行不提供结束标记。伴读交互入口用分号收束一式，并只处理干净EOF。</p></div></div></details></section><section id="sB-3-patterns"><h3>arbno 与 separated-list 的字段结构</h3><p class="source">原书印刷 p.388 / <a href="../assets/source.pdf#page=411">PDF 411</a>。</p><p><code>arbno</code> 重复整个项目序列，每个有数据的项目各产生一列列表。例如 <code>(arbno identifier "=" expression)</code> 重复两次，得到两个名字和两个右侧表达式，而非交替混在一个列表里。</p><div class="rn-example" id="repeated-bindings"><h4>原书例 · 一次重复，字段分别累积</h4><p class="source">原书印刷 p.389 / <a href="../assets/source.pdf#page=412">PDF 412</a>。</p><pre><code class="language-scheme" data-appendix-input="bindings">(bindings-datum (parse-bindings &quot;let x = y u = v in z&quot;))</code></pre><div class="program-output"><pre><code class="language-text">(let (x u) ((var y) (var v)) (var z))</code></pre></div></div><div class="rn-example" id="separator-boundary"><h4>原书机制例 · 分隔与终结的差别</h4><p class="source">原书印刷 p.388 / <a href="../assets/source.pdf#page=411">PDF 411</a>。</p><pre><code class="language-scheme" data-appendix-input="blocks">(block-datum (parse-terminated &quot;{x:=y;z:=t;}&quot;))
+(block-datum (parse-separated &quot;{x:=y;z:=t}&quot;))</code></pre><div class="program-output"><pre><code class="language-text">((x y) (z t))
+((x y) (z t))</code></pre></div><p>两种结构的字段可以相同，具体字符串却不同。前者把分号放进重复体，每条语句后都有；后者只在相邻项之间分隔。两种都接受空块，后者拒绝尾分号，前者拒绝漏掉最后的分号。</p></div><div class="rn-example" id="nested-parallel-lists"><h4>原书例 · 嵌套重复增加列表层次</h4><p class="source">原书印刷 p.390 / <a href="../assets/source.pdf#page=413">PDF 413</a>。</p><pre><code class="language-scheme" data-appendix-input="parallel">(parallel-datum
+ (parse-parallel &quot;{x,y := u,v ; z := 4; t1,t2 := 5,6}&quot;))</code></pre><div class="program-output"><pre><code class="language-text">(((x y) (z) (t1 t2))
+ ((u v) (4) (5 6)))</code></pre></div><p>外层对应三条并行赋值，内层对应同一条赋值的多个名字与表达式。这个文法允许两侧长度不同，甚至允许内部空列表；若执行并行赋值，还须另外检查逐条长度相等并先在旧环境算完全部右侧。</p></div><details class="reading-notes" id="notes-sB-3-patterns" data-notes-for="sB-3-patterns" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">平行列表</span><h4>重复一次产生一组对应字段</h4><p>arbno中的identifier与expression各形成一列，位置对应；嵌套重复再给每列增加一层列表。</p></div><div class="annotation-card"><span class="annotation-kind">分隔符</span><h4>分隔在两项之间，终结符跟在每项之后</h4><p>separated-list允许空表，但不允许最后多一个分隔符；arbno若把分号写进重复体，则最后一项也需要分号。</p></div></div></details></section></section><section id="exercises"><h2>附录习题与解答</h2><p class="source">原书印刷 p.391 / <a href="../assets/source.pdf#page=414">PDF 414</a>。</p><details class="exercise" id="ex-B-1"><summary>习题 B.1 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="B.1"><p>下面这个普通算术表达式的文法内建了算术运算符通常的优先级规则：</p><pre><code class="language-text">Arith-expr ::= Arith-term {Additive-op Arith-term}*
+Arith-term ::= Arith-factor {Multiplicative-op Arith-factor}*
+Arith-factor ::= Number
+             ::= ( Arith-expr )
+Additive-op ::= + | -
+Multiplicative-op ::= * | /</code></pre><p>这个文法说明：每个算术表达式都是一个非空项序列的和；每个项都是一个非空因子序列的积；每个因子是常数或加括号的表达式。</p><p>编写 SLLGEN 词法规范和文法，按这个文法扫描并解析字符串。验证文法正确处理优先级，例如将 <code>3+2*66-5</code> 正确分组为 <code>3+(2*66)-5</code>。</p></div><p class="source">印刷 p.391 / <a href="../assets/source.pdf#page=414">PDF 414</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>数字使用无符号数字规则，运算符由文法作为独立标点识别。表达式先取一个项，再收集加减后缀；项先取一个因子，再收集乘除后缀。括号递归回到完整表达式。完整规则如下，使用的是实际SLLGEN而非手写替代解析器。</p><pre><code class="language-scheme">(define base-grammar
+  &#x27;((arith-expr (arith-term (arbno additive-op arith-term)) an-expr)
+    (arith-term (arith-factor (arbno multiplicative-op arith-factor)) a-term)
+    (arith-factor (number) number-factor)
+    (arith-factor (&quot;(&quot; arith-expr &quot;)&quot;) group-factor)
+    (additive-op (&quot;+&quot;) plus-op) (additive-op (&quot;-&quot;) minus-op)
+    (multiplicative-op (&quot;*&quot;) times-op) (multiplicative-op (&quot;/&quot;) divide-op)))</code></pre><pre><code class="language-scheme" data-appendix-input="precedence-tree">(arithmetic-datum (parse-base &quot;3+2*66-5&quot;))</code></pre><div class="program-output"><pre><code class="language-text">(expr (term 3 () ()) (+ -)
+      ((term 2 (*) (66)) (term 5 () ())))</code></pre></div><p>乘法留在第二个term内部，外层加减仅看到三个项3、132和5，因此层次给出先乘除再加减。AST还保存运算符列表；只存三个项会丢掉减号，无法正确求值。</p></div></details><details class="exercise" id="ex-B-2"><summary>习题 B.2 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="B.2"><p>为什么<a href="#ex-B-1">习题 B.1</a> 中的文法不能用 <code>separated-list</code> 来写？</p></div><p class="source">印刷 p.391 / <a href="../assets/source.pdf#page=414">PDF 414</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p><code>separated-list</code> 的分隔符位置要求一个固定字面字符串，而加减层的分隔位置是非终结符 <code>Additive-op</code>，要在加号与减号之间选择并保存选择结果；乘除层同理。若固定写成加号，就无法识别减法；即使只接受一个符号并丢掉它，也不能恢复每一步究竟用哪个运算。</p><p>可以另写一个“首项后接运算符和下一项的重复序列”，这正是 <code>arbno</code> 方案。理论上能通过改写或扩充生成器支持更一般的分隔结构，但那已改变了当前 <code>separated-list</code> 的语法和字段规则。非空要求也必须由首项单独保证。</p></div></details><details class="exercise" id="ex-B-3"><summary>习题 B.3 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="B.3"><p>定义一个解释器，接收<a href="#ex-B-1">习题 B.1</a> 的解析器产生的语法树，并把它作为算术表达式求值。解析器已经处理了通常的算术优先级，但解释器还必须处理结合性：保证同一优先级的运算，例如加法与减法，按从左到右执行。因为这些表达式中没有变量，解释器不需要环境参数。</p></div><p class="source">印刷 p.391 / <a href="../assets/source.pdf#page=414">PDF 414</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>在每一层把首项值放进累积器，再按保存的运算符与后续值从左到右更新。每次更新后，累积器等于已经处理完的那个前缀的值；循环结束就得到整层结果。这一不变量同时说明减法和除法为什么采用左结合。</p><details class="code-details" open><summary>查看实际求值器</summary><pre><code class="language-scheme">(define (eval-arithmetic tree [env &#x27;()])
+  (define (lookup name)
+    (cond [(assq name env) =&gt; cdr]
+          [else (error &#x27;unbound &quot;unbound arithmetic variable ~a&quot; name)]))
+  (define (add op a b)
+    (cases additive-op op (plus-op () (+ a b)) (minus-op () (- a b))))
+  (define (mul op a b)
+    (cases multiplicative-op op
+      (times-op () (* a b))
+      (divide-op () (when (zero? b) (error &#x27;division &quot;division by zero&quot;)) (/ a b))))
+  (define (expr e)
+    (cases arith-expr e
+      (an-expr (first ops rest)
+        (for/fold ([acc (term first)]) ([op ops] [t rest]) (add op acc (term t))))))
+  (define (term t)
+    (cases arith-term t
+      (a-term (first ops rest)
+        (for/fold ([acc (factor first)]) ([op ops] [f rest]) (mul op acc (factor f))))))
+  (define (factor f)
+    (cases arith-factor f
+      (number-factor (n) n)
+      (group-factor (e) (expr e))
+      (variable-factor (name) (lookup name))
+      (negative-factor (f) (- (factor f)))))
+  (expr tree))</code></pre></details><pre><code class="language-scheme" data-appendix-input="left-fold">(calculate &quot;20-5-3&quot; #:mode &#x27;base)
+(calculate &quot;48/4/3&quot; #:mode &#x27;base)
+(calculate &quot;1/2+1/3&quot; #:mode &#x27;base)</code></pre><div class="program-output"><pre><code class="language-text">12
+4
+5/6</code></pre></div><p>若改为右结合，前两项分别成为18和36，已经改变语义。无变量版本只走数字和分组分支，传入的空环境不被访问；完整共享实现为后续两题保留可选环境。整数及分数均为Racket精确数，除零明确拒绝。</p></div></details><details class="exercise" id="ex-B-4"><summary>习题 B.4 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="B.4"><p>扩展<a href="#ex-B-3">习题 B.3</a> 的语言和解释器，加入变量。这个新解释器将需要一个环境参数。</p></div><p class="source">印刷 p.391 / <a href="../assets/source.pdf#page=414">PDF 414</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>给因子增加 <code>(arith-factor (identifier) variable-factor)</code>，并让求值器接收环境。遇到变量时按名字查找；遇到数字、分组、运算符时沿用已有规则。环境采用从近到远的关联表，因此同名时第一项生效，未找到则报告未绑定。</p><pre><code class="language-scheme" data-appendix-input="variables">(calculate &quot;x-y*3&quot; &#x27;((x . 7) (y . 2)) #:mode &#x27;variables)
+(calculate &quot;x+x&quot; &#x27;((x . 3) (x . 100)) #:mode &#x27;variables)</code></pre><div class="program-output"><pre><code class="language-text">1
+6</code></pre></div><p>新增变量不会改变优先级和结合性。伴读要求环境值是精确有理数，使算术分支保持同一数域；本题没有引入绑定表达式或赋值，环境由调用者提供。</p></div></details><details class="exercise" id="ex-B-5"><summary>习题 B.5 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="B.5"><p>在语言和解释器中加入一元负号，使 <code>3*-2</code> 这样的输入也能得到正确处理。</p></div><p class="source">印刷 p.391 / <a href="../assets/source.pdf#page=414">PDF 414</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>让因子增加 <code>(arith-factor ("-" arith-factor) negative-factor)</code>，其值为内部因子值的相反数。负号在因子层递归，优先级高于乘除；连续负号也有明确结构。扫描器仍只把无符号数字识别为数字，所以同一减号可以由语法位置区分为二元或一元运算。</p><pre><code class="language-scheme" data-appendix-input="unary">(calculate &quot;3*-2&quot;)
+(calculate &quot;--2&quot;)
+(calculate &quot;-(3+2)*4&quot;)
+(calculate &quot;3--2&quot;)</code></pre><div class="program-output"><pre><code class="language-text">-6
+2
+-20
+5</code></pre></div><p>例如 <code>3*-2</code> 扫描为3、乘号、负号、2；因子负号先构造 <code>(neg 2)</code>，再作为乘法右侧。基本模式仍拒绝一元负号，变量模式只增加变量，完整模式才同时支持两项扩展。</p></div></details></section><section id="programs"><h2>运行附录程序</h2><p>将 <a href="../code/appendix_b.rkt" download>appendix_b.rkt</a> 与 <a href="../code/test_appendix_b.rkt" download>test_appendix_b.rkt</a> 放在同一目录，使用 Racket 8.17、eopl 与 rackunit。扫描器、解析器和数据类型确由SLLGEN生成；算术求值器直接遍历AST，使用精确整数/有理数。</p><pre><code class="language-scheme">racket appendix_b.rkt
+racket test_appendix_b.rkt</code></pre><p>主程序依次显示分层语法树、130、12、4、1与-6。<code>parse-base</code>只接受基本算术，<code>parse-variables</code>增加变量，<code>parse-unary</code>再增加一元负号；<code>calculate</code>默认完整模式。字符覆盖校验、未绑定和除零各自明确失败。</p><details class="code-details"><summary>完整源码 · appendix_b.rkt</summary><!-- EOPL:program appendix_b.rkt --><pre><code id="appendix_b-code" class="language-scheme">#lang racket
+;; Appendix B: real SLLGEN scanning/parsing and exercises B.1-B.5.
+(require eopl)
+(provide (all-defined-out))
+(define scanner-spec
+  &#x27;((white-sp (whitespace) skip)
+    (comment (&quot;%&quot; (arbno (not #\newline))) skip)
+    (identifier (letter (arbno (or letter digit))) symbol)
+    (number (digit (arbno digit)) number)))
+(define base-grammar
+  &#x27;((arith-expr (arith-term (arbno additive-op arith-term)) an-expr)
+    (arith-term (arith-factor (arbno multiplicative-op arith-factor)) a-term)
+    (arith-factor (number) number-factor)
+    (arith-factor (&quot;(&quot; arith-expr &quot;)&quot;) group-factor)
+    (additive-op (&quot;+&quot;) plus-op) (additive-op (&quot;-&quot;) minus-op)
+    (multiplicative-op (&quot;*&quot;) times-op) (multiplicative-op (&quot;/&quot;) divide-op)))
+(define variable-grammar
+  &#x27;((arith-expr (arith-term (arbno additive-op arith-term)) an-expr)
+    (arith-term (arith-factor (arbno multiplicative-op arith-factor)) a-term)
+    (arith-factor (number) number-factor)
+    (arith-factor (&quot;(&quot; arith-expr &quot;)&quot;) group-factor)
+    (arith-factor (identifier) variable-factor)
+    (additive-op (&quot;+&quot;) plus-op) (additive-op (&quot;-&quot;) minus-op)
+    (multiplicative-op (&quot;*&quot;) times-op) (multiplicative-op (&quot;/&quot;) divide-op)))
+(define unary-grammar
+  &#x27;((arith-expr (arith-term (arbno additive-op arith-term)) an-expr)
+    (arith-term (arith-factor (arbno multiplicative-op arith-factor)) a-term)
+    (arith-factor (number) number-factor)
+    (arith-factor (&quot;(&quot; arith-expr &quot;)&quot;) group-factor)
+    (arith-factor (identifier) variable-factor)
+    (arith-factor (&quot;-&quot; arith-factor) negative-factor)
+    (additive-op (&quot;+&quot;) plus-op) (additive-op (&quot;-&quot;) minus-op)
+    (multiplicative-op (&quot;*&quot;) times-op) (multiplicative-op (&quot;/&quot;) divide-op)))
+;; All three grammars share constructors; extensions add variable/negative forms.
+(sllgen:make-define-datatypes scanner-spec unary-grammar)
+(define raw-scan-arithmetic (sllgen:make-string-scanner scanner-spec unary-grammar))
+(define raw-parse-base (sllgen:make-string-parser scanner-spec base-grammar))
+(define raw-parse-variables (sllgen:make-string-parser scanner-spec variable-grammar))
+(define raw-parse-unary (sllgen:make-string-parser scanner-spec unary-grammar))
+;; The installed SLLGEN scanner can stop at an unsupported character. Guard the
+;; entire arithmetic input so a valid prefix is never silently accepted.
+(define (check-characters text)
+  (for/fold ([comment? #f]) ([c (in-string text)])
+    (cond [(char=? c #\newline) #f] [comment? #t] [(char=? c #\%) #t]
+          [(or (char-whitespace? c) (char-alphabetic? c) (char-numeric? c)
+               (memv c &#x27;(#\( #\) #\+ #\- #\* #\/))) #f]
+          [else (error &#x27;scanner &quot;unsupported arithmetic character ~s&quot; c)]))
+  text)
+(define (scan-arithmetic text) (raw-scan-arithmetic (check-characters text)))
+(define (parse-base text) (raw-parse-base (check-characters text)))
+(define (parse-variables text) (raw-parse-variables (check-characters text)))
+(define (parse-unary text) (raw-parse-unary (check-characters text)))
+(define (parse-arithmetic text #:mode [mode &#x27;unary])
+  ((case mode [(base) parse-base] [(variables) parse-variables] [(unary) parse-unary]
+     [else (error &#x27;parse-arithmetic &quot;unknown mode ~a&quot; mode)]) text))
+;; BEGIN arithmetic-fold
+(define (eval-arithmetic tree [env &#x27;()])
+  (define (lookup name)
+    (cond [(assq name env) =&gt; cdr]
+          [else (error &#x27;unbound &quot;unbound arithmetic variable ~a&quot; name)]))
+  (define (add op a b)
+    (cases additive-op op (plus-op () (+ a b)) (minus-op () (- a b))))
+  (define (mul op a b)
+    (cases multiplicative-op op
+      (times-op () (* a b))
+      (divide-op () (when (zero? b) (error &#x27;division &quot;division by zero&quot;)) (/ a b))))
+  (define (expr e)
+    (cases arith-expr e
+      (an-expr (first ops rest)
+        (for/fold ([acc (term first)]) ([op ops] [t rest]) (add op acc (term t))))))
+  (define (term t)
+    (cases arith-term t
+      (a-term (first ops rest)
+        (for/fold ([acc (factor first)]) ([op ops] [f rest]) (mul op acc (factor f))))))
+  (define (factor f)
+    (cases arith-factor f
+      (number-factor (n) n)
+      (group-factor (e) (expr e))
+      (variable-factor (name) (lookup name))
+      (negative-factor (f) (- (factor f)))))
+  (expr tree))
+;; END arithmetic-fold
+(define (calculate text [env &#x27;()] #:mode [mode &#x27;unary])
+  (unless (and (list? env) (andmap (lambda (p) (and (pair? p) (symbol? (car p)) (rational? (cdr p)) (exact? (cdr p)))) env))
+    (error &#x27;environment &quot;expected symbol/exact-rational bindings&quot;))
+  (eval-arithmetic (parse-arithmetic text #:mode mode) env))
+(define (arithmetic-datum tree)
+  (define (a op) (cases additive-op op (plus-op () &#x27;+) (minus-op () &#x27;-)))
+  (define (m op) (cases multiplicative-op op (times-op () &#x27;*) (divide-op () &#x27;/)))
+  (define (e x) (cases arith-expr x (an-expr (first ops rest) (list &#x27;expr (t first) (map a ops) (map t rest)))))
+  (define (t x) (cases arith-term x (a-term (first ops rest) (list &#x27;term (f first) (map m ops) (map f rest)))))
+  (define (f x) (cases arith-factor x (number-factor (n) n) (variable-factor (x) x)
+                         (group-factor (x) (list &#x27;group (e x))) (negative-factor (x) (list &#x27;neg (f x)))))
+  (e tree))
+
+;; Original appendix examples: concrete tokens, two statements, repeated fields.
+(define statement-grammar
+  &#x27;((statement (&quot;{&quot; statement &quot;;&quot; statement &quot;}&quot;) compound-statement)
+    (statement (&quot;while&quot; expression &quot;do&quot; statement) while-statement)
+    (statement (identifier &quot;:=&quot; expression) assign-statement)
+    (expression (identifier) var-exp)
+    (expression (&quot;(&quot; expression &quot;-&quot; expression &quot;)&quot;) diff-exp)))
+(sllgen:make-define-datatypes scanner-spec statement-grammar)
+(define scan-statement (sllgen:make-string-scanner scanner-spec statement-grammar))
+(define parse-statement (sllgen:make-string-parser scanner-spec statement-grammar))
+(define (statement-datum tree)
+  (define (e x) (cases expression x (var-exp (x) (list &#x27;var x)) (diff-exp (a b) (list &#x27;- (e a) (e b)))))
+  (define (s x) (cases statement x
+    (compound-statement (a b) (list &#x27;block (s a) (s b)))
+    (while-statement (test body) (list &#x27;while (e test) (s body)))
+    (assign-statement (name rhs) (list &#x27;assign name (e rhs)))))
+  (s tree))
+(define terminated-grammar
+  &#x27;((block (&quot;{&quot; (arbno item &quot;;&quot;) &quot;}&quot;) terminated-block)
+    (item (identifier &quot;:=&quot; identifier) assign-item)))
+(define separated-grammar
+  &#x27;((block (&quot;{&quot; (separated-list item &quot;;&quot;) &quot;}&quot;) separated-block)
+    (item (identifier &quot;:=&quot; identifier) assign-item)))
+(sllgen:make-define-datatypes scanner-spec terminated-grammar)
+;; Only the block constructor differs in the separated grammar.
+(define-datatype separated separated? (separated-block (items (list-of item?))))
+(define parse-terminated (sllgen:make-string-parser scanner-spec terminated-grammar))
+(define parse-separated (sllgen:make-string-parser scanner-spec separated-grammar))
+(define (block-datum b)
+  (define (items-&gt;data xs) (map (lambda (x) (cases item x (assign-item (a b) (list a b)))) xs))
+  (if (block? b) (cases block b (terminated-block (xs) (items-&gt;data xs)))
+      (cases separated b (separated-block (xs) (items-&gt;data xs)))))
+(define bindings-grammar
+  &#x27;((binding-expression (identifier) binding-var)
+    (binding-expression (&quot;let&quot; (arbno identifier &quot;=&quot; binding-expression) &quot;in&quot; binding-expression) binding-let)))
+(sllgen:make-define-datatypes scanner-spec bindings-grammar)
+(define parse-bindings (sllgen:make-string-parser scanner-spec bindings-grammar))
+(define (bindings-datum b)
+  (cases binding-expression b
+    (binding-var (name) (list &#x27;var name))
+    (binding-let (names rhss body) (list &#x27;let names (map bindings-datum rhss) (bindings-datum body)))))
+(define parallel-grammar
+  &#x27;((parallel-statement
+     (&quot;{&quot; (separated-list (separated-list identifier &quot;,&quot;) &quot;:=&quot; (separated-list parallel-expression &quot;,&quot;) &quot;;&quot;) &quot;}&quot;)
+     parallel-block)
+    (parallel-expression (number) parallel-number)
+    (parallel-expression (identifier) parallel-var)))
+(sllgen:make-define-datatypes scanner-spec parallel-grammar)
+(define parse-parallel (sllgen:make-string-parser scanner-spec parallel-grammar))
+(define (parallel-datum b)
+  (define (e x) (cases parallel-expression x (parallel-number (n) n) (parallel-var (name) name)))
+  (cases parallel-statement b (parallel-block (names rhss) (list names (map (lambda (xs) (map e xs)) rhss)))))
+(define (arithmetic-datatypes) (sllgen:list-define-datatypes scanner-spec unary-grammar))
+(define repl-grammar
+  &#x27;((repl-program (arith-expr &quot;;&quot;) arithmetic-program)
+    (arith-expr (arith-term (arbno additive-op arith-term)) an-expr)
+    (arith-term (arith-factor (arbno multiplicative-op arith-factor)) a-term)
+    (arith-factor (number) number-factor)
+    (arith-factor (&quot;(&quot; arith-expr &quot;)&quot;) group-factor)
+    (arith-factor (identifier) variable-factor)
+    (arith-factor (&quot;-&quot; arith-factor) negative-factor)
+    (additive-op (&quot;+&quot;) plus-op) (additive-op (&quot;-&quot;) minus-op)
+    (multiplicative-op (&quot;*&quot;) times-op) (multiplicative-op (&quot;/&quot;) divide-op)))
+(define-datatype repl-program repl-program? (arithmetic-program (body arith-expr?)))
+(define raw-arithmetic-repl
+  (sllgen:make-rep-loop &quot;--&gt; &quot;
+    (lambda (p) (cases repl-program p (arithmetic-program (body) (eval-arithmetic body))))
+    (sllgen:make-stream-parser scanner-spec repl-grammar)))
+(define (arithmetic-repl)
+  ;; This SLLGEN release reports a start-symbol error on clean stream EOF.
+  ;; Only that exact boundary is normal completion; incomplete expressions fail.
+  (with-handlers ([exn:fail?
+                   (lambda (e)
+                     (unless (regexp-match? #rx&quot;nonterminal &lt;repl-program&gt; can&#x27;t begin with end-marker #f$&quot; (exn-message e))
+                       (raise e)))])
+    (raw-arithmetic-repl)))
+(module+ main
+  (displayln (arithmetic-datum (parse-base &quot;3+2*66-5&quot;)))
+  (displayln (calculate &quot;3+2*66-5&quot; #:mode &#x27;base))
+  (displayln (calculate &quot;20-5-3&quot; #:mode &#x27;base))
+  (displayln (calculate &quot;48/4/3&quot; #:mode &#x27;base))
+  (displayln (calculate &quot;x-y*3&quot; &#x27;((x . 7) (y . 2)) #:mode &#x27;variables))
+  (displayln (calculate &quot;3*-2&quot;)))
+</code></pre><!-- EOPL:end-program --></details><details class="code-details"><summary>完整源码 · test_appendix_b.rkt</summary><!-- EOPL:program test_appendix_b.rkt --><pre><code id="test_appendix_b-code" class="language-scheme">#lang racket
+(require rackunit rackunit/text-ui json &quot;appendix_b.rkt&quot;)
+(define assertions 0)
+(define (same actual expected) (set! assertions (add1 assertions)) (check-equal? actual expected))
+(define (reject thunk) (set! assertions (add1 assertions)) (check-exn exn:fail? thunk))
+(define suite
+ (test-suite &quot;appendix B&quot;
+  (test-case &quot;original lexical specification and keyword boundaries&quot;
+   ;; SLLGEN appends a generated number to its literal-token class name.
+   (same (map (lambda (t) (cons (if (regexp-match? #rx&quot;^literal-string[0-9]+$&quot; (symbol-&gt;string (car t)))
+                                  &#x27;literal-string (car t)) (cdr t)))
+              (scan-statement &quot;while whilex := 3 % ignored\nfoo&quot;))
+         &#x27;((literal-string &quot;while&quot; 1) (identifier whilex 1) (literal-string &quot;:=&quot; 1) (number 3 1) (identifier foo 2)))
+   (same (map cadr (scan-arithmetic &quot;3-2 3*-2&quot;)) &#x27;(3 &quot;-&quot; 2 3 &quot;*&quot; &quot;-&quot; 2))
+   (same (map cadr (scan-statement &quot;xyz x2 %nothing at EOF&quot;)) &#x27;(xyz x2)))
+  (test-case &quot;original syntax tree and independent precedence shape&quot;
+   (same (statement-datum (parse-statement &quot;{x := foo; while x do x := (x - bar)}&quot;))
+         &#x27;(block (assign x (var foo)) (while (var x) (assign x (- (var x) (var bar))))))
+   (same (arithmetic-datum (parse-base &quot;3+2*66-5&quot;))
+         &#x27;(expr (term 3 () ()) (+ -) ((term 2 (*) (66)) (term 5 () ()))))
+   (same (arithmetic-datum (parse-unary &quot;3*-2&quot;))
+         &#x27;(expr (term 3 (*) ((neg 2))) () ()))
+   (same (parameterize ([current-input-port (open-input-string &quot;5;\n2+3;\n&quot;)])
+           (with-output-to-string (lambda () (arithmetic-repl)))) &quot;--&gt; 5\n--&gt; 5\n--&gt; &quot;)
+   (reject (lambda () (parameterize ([current-input-port (open-input-string &quot;5+&quot;)]
+                                   [current-output-port (open-output-string)]) (arithmetic-repl)))))
+  (test-case &quot;B.1 and B.3 precedence, parentheses, left associativity&quot;
+   (for ([source &#x27;(&quot;3+2*66-5&quot; &quot;20-5-3&quot; &quot;48/4/3&quot; &quot;1/2+1/3&quot; &quot;2*(3+4)&quot; &quot;8/(2*2)&quot; &quot;0004+2&quot; &quot;7&quot; &quot;2+3*4/2-1&quot;)]
+         [expected &#x27;(130 12 4 5/6 14 2 6 7 7)])
+     (same (calculate source #:mode &#x27;base) expected))
+   (for* ([a (in-range 0 4)] [b (in-range 1 4)] [c (in-range 1 4)])
+     (same (calculate (format &quot;~a-~a-~a&quot; a b c) #:mode &#x27;base) (- a b c))
+     (same (calculate (format &quot;~a/~a/~a&quot; a b c) #:mode &#x27;base) (/ a b c))))
+  (test-case &quot;B.4 environments, shadowing, feature boundaries&quot;
+   (same (calculate &quot;x-y*3&quot; &#x27;((x . 7) (y . 2)) #:mode &#x27;variables) 1)
+   (same (calculate &quot;x+x&quot; &#x27;((x . 3) (x . 100)) #:mode &#x27;variables) 6)
+   (same (calculate &quot;x/2&quot; &#x27;((x . 3)) #:mode &#x27;variables) 3/2)
+   (reject (lambda () (calculate &quot;x+1&quot; #:mode &#x27;variables)))
+   (reject (lambda () (parse-base &quot;x+1&quot;)))
+   (reject (lambda () (parse-variables &quot;-2&quot;)))
+   (reject (lambda () (calculate &quot;x&quot; &#x27;((x . &quot;3&quot;)))))
+   (reject (lambda () (parse-arithmetic &quot;1&quot; #:mode &#x27;unknown))))
+  (test-case &quot;B.5 syntactic unary minus and arithmetic failures&quot;
+   (for ([source &#x27;(&quot;3*-2&quot; &quot;--2&quot; &quot;-(3+2)*4&quot; &quot;3--2&quot; &quot;-x*-y&quot; &quot;-8/2/2&quot;)]
+         [expected &#x27;(-6 2 -20 5 14 -2)])
+     (same (calculate source &#x27;((x . 7) (y . 2))) expected))
+   (same (calculate &quot;1 % comment may contain @ and _\n+2&quot;) 3)
+   (for ([source &#x27;(&quot;&quot; &quot;1+&quot; &quot;(1+2&quot; &quot;1 2&quot; &quot;3**2&quot; &quot;1@2&quot; &quot;1/0&quot; &quot;1/(2-2)&quot; &quot;2)&quot; &quot;+2&quot;)])
+     (reject (lambda () (calculate source)))))
+  (test-case &quot;arbno versus separated-list and nested output lists&quot;
+   (same (block-datum (parse-terminated &quot;{}&quot;)) &#x27;())
+   (same (block-datum (parse-terminated &quot;{x:=y;z:=t;}&quot;)) &#x27;((x y) (z t)))
+   (same (block-datum (parse-separated &quot;{}&quot;)) &#x27;())
+   (same (block-datum (parse-separated &quot;{x:=y;z:=t}&quot;)) &#x27;((x y) (z t)))
+   (reject (lambda () (parse-separated &quot;{x:=y;z:=t;}&quot;)))
+   (reject (lambda () (parse-terminated &quot;{x:=y}&quot;)))
+   (same (bindings-datum (parse-bindings &quot;let x = y u = v in z&quot;))
+         &#x27;(let (x u) ((var y) (var v)) (var z)))
+   (same (parallel-datum (parse-parallel &quot;{x,y := u,v ; z := 4; t1,t2 := 5,6}&quot;))
+         &#x27;(((x y) (z) (t1 t2)) ((u v) (4) (5 6))))
+   ;; The original grammar permits mismatched list lengths; parsing is not checking.
+   (same (parallel-datum (parse-parallel &quot;{x,y := 1}&quot;)) &#x27;(((x y)) ((1))))
+   (same (parallel-datum (parse-parallel &quot;{}&quot;)) &#x27;(() ()))
+   (reject (lambda () (parse-parallel &quot;{x:=1;}&quot;))))))
+(module+ main
+ (define failures (run-tests suite))
+ (displayln (jsexpr-&gt;string (hash &#x27;status (if (zero? failures) &quot;passed&quot; &quot;failed&quot;) &#x27;groups 6 &#x27;assertions assertions &#x27;failures failures)))
+ (exit (if (zero? failures) 0 1)))
+</code></pre><!-- EOPL:end-program --></details></section><footer><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="appendix_a_reading.html">← 附录 A · 延伸阅读与全书回望</a><a href="#top">返回页首 ↑</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top">本节理解与补充</a></p><div id="annotation-content"></div></aside></div><script>
+(() => {
+  document.documentElement.classList.add('toc-enhanced');
+  const panel = document.getElementById('toc-panel');
+  const nav = document.getElementById('chapter-toc');
+  const wide = matchMedia('(min-width:1100px)');
+  const links = Array.from(nav.querySelectorAll('li a[href^="#"]'));
+  const entries = links.map(link => ({link, section: document.getElementById(link.hash.slice(1))})).filter(item => item.section);
+  let current = null, scheduled = false;
+  const fit = () => { panel.open = wide.matches; };
+  fit();
+  wide.addEventListener('change', fit);
+  const reveal = () => {
+    let node;
+    try {node=document.getElementById(decodeURIComponent(location.hash.slice(1)))} catch {return}
+    for(let n=node;n;n=n.parentElement)if(n.tagName==='DETAILS')n.open=true;
+    if(node)setTimeout(()=>{node.scrollIntoView();scrollBy(0,8)})
+  };
+  const mark = () => {
+    scheduled = false;
+    let next = entries[0];
+    for (const entry of entries) {
+      if (entry.section.getBoundingClientRect().top <= Math.max(110, wide.matches ? 100 : 110, wide.matches ? 0 : panel.querySelector('summary').getBoundingClientRect().bottom + 12) + 1) next = entry;
+    }
+    if (window.scrollY + innerHeight >= document.documentElement.scrollHeight - 2) next = entries[entries.length - 1];
+    if (next && next.link !== current) {
+      if (current) current.removeAttribute('aria-current');
+      current = next.link; current.setAttribute('aria-current', 'location');
+    }
+  };
+  const schedule = () => { if (!scheduled) { scheduled = true; requestAnimationFrame(mark); } };
+  nav.addEventListener('click', event => {
+    if (event.target.closest('a[href^="#"]') && !wide.matches) panel.open = false;
+  });
+  addEventListener('scroll', schedule, {passive:true});
+  addEventListener('resize', schedule);
+  addEventListener('hashchange', () => { reveal(); schedule(); });
+  document.addEventListener('toggle', schedule, true);
+  reveal(); mark();
+})();
+</script><script id="reading-notes-controller">
+(() => {
+  const rail = document.getElementById('annotation-rail');
+  const content = document.getElementById('annotation-content');
+  const context = document.getElementById('annotation-context-link');
+  const groups = Array.from(document.querySelectorAll('main .reading-notes')).map(notes => ({
+    notes, section: document.getElementById(notes.dataset.notesFor)
+  })).filter(item => item.section);
+  if (!rail || !content || !context || !groups.length) return;
+  const wide = matchMedia('(min-width:1440px)');
+  const sections = Array.from(document.querySelectorAll('main section[id]'));
+  let current = null, scheduled = false;
+  const update = () => {
+    scheduled = false;
+    if (!wide.matches) return;
+    let active = sections[0];
+    for (const section of sections) {
+      if (section.getBoundingClientRect().top <= 111) active = section;
+    }
+    // A short final section cannot always reach the usual reading-position line.
+    if (scrollY > 0 && scrollY + innerHeight >= document.documentElement.scrollHeight - 1) {
+      active = sections.findLast(section => section.getBoundingClientRect().top < innerHeight - 100) ?? active;
+    }
+    const next = groups.find(item => item.section === active);
+    rail.hidden = !next;
+    if (!next) {
+      content.replaceChildren();
+      delete rail.dataset.activeSection;
+      current = null;
+      return;
+    }
+    if (current === next) return;
+    const body = next.notes.querySelector('.reading-notes-body');
+    const heading = next.section.querySelector(':scope > h2, :scope > h3, :scope > h4');
+    if (!body || !heading) return;
+    content.replaceChildren(...Array.from(body.children, node => node.cloneNode(true)));
+    const label = heading.cloneNode(true);
+    label.querySelectorAll('.english-title,math annotation').forEach(node => node.remove());
+    context.textContent = label.textContent;
+    context.href = '#' + next.section.id;
+    rail.dataset.activeSection = next.section.id;
+    rail.scrollTop = 0;
+    current = next;
+  };
+  const schedule = () => {
+    if (!scheduled) { scheduled = true; requestAnimationFrame(update); }
+  };
+  const fit = () => {
+    rail.hidden = !wide.matches;
+    current = null;
+    if (wide.matches) {
+      document.documentElement.classList.add('notes-enhanced');
+      update();
+    } else {
+      document.documentElement.classList.remove('notes-enhanced');
+    }
+  };
+  wide.addEventListener('change', fit);
+  addEventListener('scroll', schedule, {passive:true});
+  addEventListener('resize', schedule);
+  addEventListener('hashchange', schedule);
+  document.addEventListener('toggle', schedule, true);
+  fit();
+})();
+</script><script data-purpose="print-details">
+(() => {
+  let saved=[];
+  addEventListener('beforeprint',()=>{
+    if(saved.length)return;
+    saved=[...document.querySelectorAll('main details')].map(node=>[node,node.open]);
+    saved.forEach(([node])=>{node.open=true;});
+  });
+  addEventListener('afterprint',()=>{
+    saved.forEach(([node,open])=>{node.open=open;});saved=[];
+  });
+})();
+</script></body></html>
