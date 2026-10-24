@@ -1,11 +1,11 @@
 {
   "issue": "I065",
   "status": "passed",
-  "scope": "Complete local EOPL source,content,programs,reader and root integration accepted; Git and production pending.",
+  "scope": "Complete EOPL local source,program,reader,full-all integration and actual production publication accepted.",
   "open_findings": [],
   "astro_migration": {
     "record": "review/astro-migration.json",
-    "sha256": "58dddba8e33be870327e3bab98a34dcf2614bf41ebb933c2a8b7b45df893176a",
+    "sha256": "c0c8e16aeecfc3e826074129a6171f827510bdca32cd5c634c2b69fb9cfad000",
     "open_findings": [],
     "source_sha256": {
       "book_overview.html": "bcee15d3ae5f7b748a93ff07bdffc6eb7fbbb790f4e2af54fce3bc289605720c",
@@ -24,8 +24,8 @@
     }
   },
   "file_sha256": {
-    "README.md": "444d919e27b8c277be72651f4ece076c19a8c33d44f9ca940035087fb199549b",
-    "agent.md": "cb3ed224dc505a40eb78c3322d0cf157a1ecb89cdb4b2cd24997a416d4a82f6a",
+    "README.md": "cc6b6c9b58897260a2a1152df66804f99b9ec8a8bf3b0bec273b776b14ca5138",
+    "agent.md": "bfb436867311d279083b88f0ebdc68df82b4f375d78e721436bf942e4e258319",
     "code/README.md": "a21ee9527314f38682938f74494423114a6dcc7b9aa8555e7396ccb4a2a04e90",
     "code/benchmark_bigits.rkt": "f75903c4eb555084dd3297cdfb86412b11008e1351d1b03e77bd2ee5c3cc9988",
     "code/chapter01.rkt": "b3447c764a14b1889da9e90e73e409d783944795f126e3d3d17cc23e0cf16a70",
@@ -115,7 +115,7 @@
     "code/test_appendix_b.rkt": "c7448492d601e78cf74090449928aae5c6df6c10bde5b8fa459c1156cef1c80c",
     "notes/questions_appendix_b.json": "39aaa6a378d06e6779b670ef7014064d1aeb94be3726407d7fd59be2f720846e",
     "tools/test_appendix_b_inputs.py": "82fdbe040e6a48903a4513a30338186fdf9e2e55f3433bb37b90fa3229c6df63",
-    "review/completion.md": "e69435c0314c1ddbf5acfad023749e589193328b23a62f2a99f9ad334331ad20"
+    "review/completion.md": "ed6c43e92fe8435f31924446122c8349acc129b641c1e42894ab08148d9843fc"
   },
   "semantics": {
     "status": "passed",
@@ -177,7 +177,24 @@
     "quick": false
   },
   "root_quick": {
-    "status": "superseded_by_full_all_25"
+    "status": "passed",
+    "record": "tmp/project-check/20261025T020218-bgidvd_e/report.json",
+    "sha256": "81f7750e6211a1dc848f9b1fef70f5c731e6c2a5398c208dee44d311da5fc612",
+    "checks": 22,
+    "book": "all",
+    "quick": true
   },
-  "recorded_at_utc": "2026-10-24T16:26:28.189637+00:00"
+  "recorded_at_utc": "2026-10-24T16:26:28.189637+00:00",
+  "production": {
+    "status": "passed",
+    "release_id": "20261025T014634",
+    "source_commit": "5eeee00431d8e492c3ac8efa257e6246cadde152",
+    "origin": "https://notes.zzzping.top",
+    "record": "docs/eopl-completion-publication-review.json",
+    "sha256": "fc8d270c4ead61b00c45aa3b58a6d738abd2a82f8e4aa8fab3a68f98c8ffff47"
+  },
+  "local_phase_record": {
+    "file": "review/history/I065-local-validation.json",
+    "sha256": "15aa088352c52042205fd2812fa36209dc55b988a9971dd51162be742d88283a"
+  }
 }

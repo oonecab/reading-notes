@@ -2,9 +2,9 @@
 
 Daniel P. Friedman / Mitchell Wand，*Essentials of Programming Languages*，第三版，MIT Press，2008。
 
-从[全书地图](notes/book_overview.html)开始，或直接阅读[导读与作者序言](notes/preface.html)。I044 已发布地图与序言两页；当前本地内容包含第 1–9 章，累计十三页伴读、356 道题解。原书九章、附录及全部编号项目已登记；后续章节的伴读和题解见[阅读计划](reading-plan.md)。
+从[全书地图](notes/book_overview.html)开始，或直接阅读[导读与作者序言](notes/preface.html)。当前已发布地图、序言、第 1–9 章与附录 A/B，共十三页伴读、356 道完整题解。原书九章、两附录及全部编号项目均已登记；逐批来源与程序证据见[阅读计划](reading-plan.md)，最终发布为 `20261025T014634`，见[T065](../../test/T065-eopl-completion-publication.md)。
 
-正文维护于 `src/content/books/eopl/`，`notes/` 中的九个 HTML 是共享样式展开后的独立成品。基础阅读无需服务器或网络。原 PDF 作为已登记的阅读参考，章节来源链接直接定位 PDF 页序；身份与页序见[来源清单](notes/source_manifest.json)。
+正文维护于 `src/content/books/eopl/`，`notes/` 中的十三个 HTML 是共享样式展开后的独立成品。基础阅读无需服务器或网络。原 PDF 作为已登记的阅读参考，章节来源链接直接定位 PDF 页序；身份与页序见[来源清单](notes/source_manifest.json)。
 
 I044 按用户整体发布要求，将现有两页、来源摘要与闭包实验接入 catalog、书架、根检查入口和发布清单；九章伴读仍按阅读计划推进。原始源码基线为 Git `7e9d2ea`，与旧生产版本明确区分。共同排版遵循 RN-001 v1.7；本批构建、实际阅读和上线证据见 [T044](../../test/T044-reading-typography.md)。
 
@@ -38,3 +38,5 @@ racket books/eopl/code/test_chapters.rkt
 对象路线：[第9章：对象、类、继承与方法调用](notes/chapter09_objects.html)，十教学节/子节、定义9.5.1、42题及20条阅读注解。字段位置、词法宿主、动态分派、super和TYPED-OO分别解释并执行，见[T064](../../test/T064-eopl-ch09.md)。
 
 全书完结（I065）：[附录A](notes/appendix_a_reading.html)与[附录B](notes/appendix_b_sllgen.html)补齐原书两份附录；当前地图、序言、九章与两附录共13页、356题。最近7–9章修复步数预算边界和继承关系预验证，完整来源/程序/阅读/发布记录见[T065](../../test/T065-eopl-completion-publication.md)。
+
+I065已将全书从干净内容提交 `5eeee00` 发布到统一站点；当前服务器、恢复单元和正常域名证据见[完结发布审阅](../../docs/eopl-completion-publication-review.json)。

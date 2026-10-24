@@ -71,3 +71,5 @@ I044 新增静态 `/eopl/` 路由，范围为地图、序言、来源摘要和 P
 `ASTRO_TELEMETRY_DISABLED` 在 Astro 子进程强制为 1。`READING_NOTES_CSP_SPACE` 是 CSP 与离线验收共用的 Ego 任务空间正整数 ID；显式指定的空间不可用即失败，互斥与恢复按 [Astro 编写说明](astro-authoring.md) 执行。`READING_NOTES_TEST_CRASH` 只用于隔离 dry-run 故障测试，生产路径不使用它作为故障开关。`.env.example` 是保留的人工安全示例，不包含凭据。
 
 2026-10-24 I061 实机：current 为 releases/20261023T211622，来自干净内容提交 `ee76a04`。新版本 558 文件及前版 `20261023T020252` 的 524 文件逐项校验，root 只读权限通过；514 个未变文件保留 mtime，10 个改变文件使用不同 mtime，新增 34 文件。固定程序保持原散列，新旧政策及配置备份保留；部署、健康检查、Nginx 和健康 timer 正常，队列为空、无待恢复事务。正常域名 HTTPS 与实际阅读通过；环境变量名、服务、端口沿用，`.env.example` 无需调整。见 [T061](../test/T061-eopl-publication.md)和[发布审阅](eopl-chapters-publication-review.json)。
+
+2026-10-25 I065实机：current为releases/20261025T014634，来源干净内容提交 `5eeee00`。EOPL全书13页356题，整站69正式页/91公开HTML/586文件；恢复版 `20261023T211622` 的558文件及配置/policy已核验并保留。548文件保持mtime、10文件更新mtime、新增28文件，root只读权限与固定程序保持；最终CSP13散列。发布/健康检查/Nginx及health timer正常，队列空、无恢复事务。正常域名580内容核对及304、18入口、6PDF Range、9张实际打开的线上截图和8份原生下载通过。环境变量名、服务及端口沿用，.env.example无需调整，见[T065](../test/T065-eopl-completion-publication.md)与[发布审阅](eopl-completion-publication-review.json)。

@@ -56,3 +56,5 @@ I033 已将生产更新到 `20261017T210828`，实测固定 root 安装器、sys
 ### I052 原书 PDF 收录更新
 
 2026-10-21 用户明确要求原文链接直达 PDF 并部署。此次兼容性变更将其余四书接入原书发布，同时保留随机过程与 CS:APP 原 URL。`docs/reader-sources.json` 和 `publish-allowlist.json` 双重约束六份 PDF 的路径、原始 SHA-256 与页数，构建不改写原文件。I029–I051 只收录两份；当前以六书登记为准。新路径均使用 `assets/source.pdf`，Weiss 构建输入复用已跟踪的原文件，其余三份原文件存入书籍 assets。发布时核对 MIME、Range、完整哈希、页序与实际点击；回滚使用 I051 release 和配套配置恢复旧收录范围。
+
+I065已发布EOPL完结版 `20261025T014634`，来自干净内容提交 `5eeee00`。全书13页356题，整站69阅读页、91公开HTML与586文件；最终CSP含13个脚本散列。前版 `20261023T211622`、其558文件及政策/配置恢复单元保持。来源、正常域名、回滚条件和真实阅读见[T065](../test/T065-eopl-completion-publication.md)与[完结发布审阅](../docs/eopl-completion-publication-review.json)。

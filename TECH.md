@@ -277,3 +277,5 @@ I061 生产版本 `20261023T211622` 来自干净内容提交 `ee76a04`，包含6
 ## EOPL 完结与最终发布（I065）
 
 附录A/B补齐后，EOPL共13个正式阅读页、356题；六书共69个正式阅读页。附录沿用Racket8.17及现有eopl/rackunit，无新技术栈。第7/8章步数预算要求正的精确整数；第9章在签名比较前完成继承关系预验证。环境变量、服务和端口保持，实际发布身份与验证见T065及review/completion.json。
+
+2026-10-25 I065实机：当前release `20261025T014634`，干净内容提交 `5eeee00`；EOPL13页356题、整站69阅读页/91公开HTML/586文件。新旧版本逐项散列与root只读权限通过；548个未变文件保持mtime，10个变更文件使用新mtime，新增28文件。原受限程序散列保持，新旧policy及Nginx备份保留；最终CSP13散列，发布、健康检查、Nginx与健康timer正常，队列为空且无待恢复事务。正常域名580内容/304、18入口、6PDF Range与桌面/390px/无脚本实际阅读通过。变量、服务与端口保持，.env.example无需调整。详见[T065](test/T065-eopl-completion-publication.md)及[发布审阅](docs/eopl-completion-publication-review.json)。

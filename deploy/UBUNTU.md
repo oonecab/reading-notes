@@ -1,6 +1,6 @@
 # Ubuntu 静态发布
 
-I061 当前发布为 `20261023T211622`，来源为干净提交 `ee76a04`，上一版 `20261023T020252` 及配套政策与配置已核验并保留。新版本558文件、64阅读页和86公开HTML，实际部署、健康检查和正常域名读回见 [T061](../test/T061-eopl-publication.md)与[发布审阅](../docs/eopl-chapters-publication-review.json)。root 安装器、只读版本树、预压缩、缓存验证器与内容健康检查沿用既有操作约定。
+I065 当前发布为 `20261025T014634`，来源为干净内容提交 `5eeee00`，上一版 `20261023T211622` 及配套政策、配置已核验并保留。新版本586文件、69阅读页和91公开HTML；服务器只读树、发布/健康服务、正常域名580内容核对、18入口、6份PDF Range及实际阅读见[T065](../test/T065-eopl-completion-publication.md)与[发布审阅](../docs/eopl-completion-publication-review.json)。root安装器与缓存约定沿用，Nginx采用本版13个脚本散列。
 
 I037 历史发布为 `20261020T142535`，来源为干净提交 `163478b`，上一版 `20261020T120833` 保留可回滚，测度概率第五、六章验收见 [T037](../test/T037-measure-probability-production.md)。I036 的书籍页面内联 favicon，以及 I035 启用的预压缩、缓存验证器与内容健康检查继续生效，见 [T036](../test/T036-book-favicon.md) 与 [T035](../test/T035-cache-performance-reliability.md)。I033 曾按 [I032 运维方案](OPERATIONS-I032.md)应用 root 安装器、只读版本树与新 unit，并发布 `20261017T210828`。`reading-notes-publish` 是受控生产写入口；I033 加固结果见 [I033 报告](../docs/browser-stability-report.md)，I029 保留为历史迁移记录。
 

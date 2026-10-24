@@ -1,0 +1,171 @@
+{
+  "schema_version": 1,
+  "issue": "I065",
+  "status": "passed",
+  "recorded_at_utc": "2026-10-24T18:02:18.194216+00:00",
+  "authorization": "用户本次明确要求完结EOPL、检查修复最近章节、提交推送远端并部署服务器。",
+  "scope": {
+    "eopl_reading_pages": 13,
+    "all_original_exercises": 356,
+    "whole_site_reading_pages": 69,
+    "whole_site_public_html": 91,
+    "appendices": "A/B completed; B.1–B.5 complete Chinese questions and original answers."
+  },
+  "source_commit": "5eeee00431d8e492c3ac8efa257e6246cadde152",
+  "content_remote": {
+    "record": "tmp/eopl-close-20261025T003327/content-remote.json",
+    "sha256": "1b8680c945a84f06d3a46be1798823e89441fa0b8a3fcd48016305cafa2b813b"
+  },
+  "file_review": {
+    "record": "tmp/eopl-close-20261025T003327/file-review.json",
+    "sha256": "f43ddb33304629f56f2733c6c4715c00db0f5d7901babfbaaac0325c288b537c"
+  },
+  "local_acceptance": {
+    "full_root": {
+      "record": "tmp/project-check/20261025T013121-81ssxzqg/report.json",
+      "sha256": "25edfbdfa4f2f131f1387fee2b481b0cc93691626db608ab5f7e7bcd9061ff54"
+    },
+    "full_root_checks": 25,
+    "node_tests": 118,
+    "checker_cases": 48,
+    "semantic_mutants_recent": 39,
+    "offline": {
+      "record": "tmp/reading-notes-migration/browser/all/runs/2026-10-24T17-16-17-530Z-10fcf291/report.json",
+      "sha256": "500300227d7a1daf0e039ca2836681530828e511c3cbf1a1b06b9db12f63e08f"
+    },
+    "views": {
+      "javascript": 364,
+      "no_javascript": 182,
+      "hash_identical_reused": 462
+    },
+    "manual": {
+      "record": "tmp/eopl-close-20261025T003327/browser-local/manual.json",
+      "sha256": "a4a744def4386929f0c5c7ad3a421e28ea67e1222117871ffa3a995c0d4ecfc7"
+    },
+    "screenshots_read": 23,
+    "native_downloads": 8,
+    "recovery_rehearsal": {
+      "record": "tmp/publish-check/20261025T011400-cy8oh3fo/report.json",
+      "sha256": "f968ce0de1ab2e90c549987a104912af5c7efd9ba4c396019018428f98cffda7"
+    },
+    "recovery_checks": 24
+  },
+  "package": {
+    "release_id": "20261025T014634",
+    "source_commit": "5eeee00431d8e492c3ac8efa257e6246cadde152",
+    "source_tree_dirty": false,
+    "archive_sha256": "c82f67440f95beffd469573ee6d5ddc5e8752a7e68f40ac4d121a4533cdb1fb8",
+    "files": 586,
+    "bytes": 81515528,
+    "public_bytes_identical_to_reader_accepted_local_release": "20261025T011400",
+    "preflight": {
+      "record": "tmp/eopl-close-20261025T003327/package-preflight.json",
+      "sha256": "bd257e9936d3484a4bf80dfef214fe676f666297c3188f97ed67e687b8757483"
+    },
+    "https": {
+      "record": "tmp/eopl-close-20261025T003327/predeploy-acceptance.json",
+      "sha256": "402e298f0aaf0a205747692631bd16623bf63cf3a611c9baebaa3d6c83af870d"
+    }
+  },
+  "privacy": {
+    "full_candidate_scan": {
+      "record": "tmp/eopl-close-20261025T003327/gitleaks-final.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    "commit_range_scan": {
+      "record": "tmp/eopl-close-20261025T003327/gitleaks-commit-range.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    "public_site_scan": {
+      "record": "tmp/eopl-close-20261025T003327/gitleaks-public.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    "positive_control": {
+      "record": "tmp/eopl-close-20261025T003327/gitleaks-control-final.json",
+      "sha256": "6c6a64d23cb05b26bf04aa4428c95d71519329a7f844fe963a5a778783fc89e7"
+    },
+    "untriaged_findings": 0,
+    "exact_evidence_digest_exceptions": 2,
+    "triage": {
+      "record": "tmp/eopl-close-20261025T003327/gitleaks-triage.json",
+      "sha256": "0ff428b3d2584dffc44398929cd77d71de3226c388dcaae54233ccf7e2f37f1b"
+    }
+  },
+  "production": {
+    "status": "passed",
+    "origin": "https://notes.zzzping.top",
+    "current": "releases/20261025T014634",
+    "source_commit": "5eeee00431d8e492c3ac8efa257e6246cadde152",
+    "archive_sha256": "c82f67440f95beffd469573ee6d5ddc5e8752a7e68f40ac4d121a4533cdb1fb8",
+    "server": {
+      "record": "tmp/eopl-close-20261025T003327/server-after.json",
+      "sha256": "d21f1ac4cdfd3ddc57469b562c23c239ab59d793f24e54b20371af8c2b219562"
+    },
+    "verified_files": 586,
+    "previous_release": "20261023T211622",
+    "previous_verified_files": 558,
+    "unchanged_mtime_preserved": 548,
+    "changed_mtime_distinct": 10,
+    "new_files": 28,
+    "root_owned_read_only": true,
+    "fixed_programs_unchanged": true,
+    "final_script_csp_hashes": 13,
+    "policy_sha256": "bfc7c8353649a7d392707b3e83276708cb93d81907a8dc8c0601bbf78d80508f",
+    "snippet_sha256": "a1a4329c52d14384297d3ca4f4586ba242c80cb09008e8d86d2cf1981fc5f030",
+    "configuration_backup": "/root/reading-notes-i065-20261025T014634",
+    "policies_and_previous_configuration_retained": true,
+    "pending_transaction": false,
+    "ready_queue_empty": true,
+    "nginx_deploy_health": "passed; health timer active and enabled",
+    "public_http": {
+      "record": "tmp/eopl-close-20261025T003327/public-https.json",
+      "sha256": "9d8c953b1db05eef886a908070f44fcc2ce193a0ecbd682bdf0dd333c18eba62"
+    },
+    "body_and_conditional_checks": 580,
+    "redirects": 18,
+    "source_pdf_ranges": 6,
+    "precompressed_checks": 208,
+    "transport_retries": []
+  },
+  "public_reader": {
+    "manual": {
+      "record": "tmp/eopl-close-20261025T003327/browser-public/manual.json",
+      "sha256": "3452cd17ca62db6dfa067ac8ca4a5a7488e91cc73994a8eb6a747e7850b644ce"
+    },
+    "visual": {
+      "record": "tmp/eopl-close-20261025T003327/browser-public/visual.json",
+      "sha256": "a72b3e5e95a837d396e6cb40c70c1a5e9c817966dcd403a5155ccc4ba985ddef"
+    },
+    "screenshots_read": 9,
+    "native_downloads": 8,
+    "actual_navigation_entries": 5,
+    "no_script_controls": "native question and code mouse/keyboard passed",
+    "source_pdf": "414/433, printed391, all originalB.1–B.5 read"
+  },
+  "history": {
+    "prior_ch07_ch08_ch09_records": "byte identical to task start",
+    "overwritten_cache_relocation": {
+      "record": "tmp/eopl-close-20261025T003327/history-evidence-relocation.json",
+      "sha256": "ba28729ca721a6a1b5c922d5710166a845f14308a74a6b3629225f4fdbba47b6"
+    }
+  },
+  "boundaries": {
+    "physical_mobile_device": false,
+    "screen_reader_session": false,
+    "finite_examples_prove_universal_safety_or_termination": false,
+    "release_content_commit_and_later_receipt_commit": "Production source identity is the clean content commit; subsequent maintenance-only receipt does not change public content."
+  },
+  "post_publication_check": {
+    "status": "passed",
+    "record": "tmp/project-check/20261025T020218-bgidvd_e/report.json",
+    "sha256": "81f7750e6211a1dc848f9b1fef70f5c731e6c2a5398c208dee44d311da5fc612",
+    "checks": 22,
+    "book": "all",
+    "quick": true
+  },
+  "maintenance_receipt_boundary": {
+    "record": "tmp/eopl-close-20261025T003327/receipt-boundary.json",
+    "sha256": "4bc65b496bb5967d563127fab1f5788f6a72b7d16ad313dfbf7849f5dd2b0518",
+    "public_content_changed": false
+  }
+}

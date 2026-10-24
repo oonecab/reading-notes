@@ -61,3 +61,5 @@
 - EOPL模块批：[第八章来源、执行与阅读验证](../test/T063-eopl-ch08.md)，含27题、16个编号例子、九节注解及模块检查器。
 
 EOPL全书已在I065补齐附录A/B，13页356题；最近三章的边界修复、实际运行与最终发布记录见[T065](../test/T065-eopl-completion-publication.md)。
+
+- [EOPL全书完结与生产发布审阅](eopl-completion-publication-review.json)：13页356题、最近7–9章边界修复、最终干净内容提交、不可变包、服务器恢复单元和正常域名实际阅读。

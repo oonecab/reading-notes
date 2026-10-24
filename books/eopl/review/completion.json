@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "issue": "I065",
-  "status": "completed_locally",
-  "recorded_at_utc": "2026-10-24T17:43:37.056297+00:00",
+  "status": "completed",
+  "recorded_at_utc": "2026-10-24T18:02:18.194216+00:00",
   "content_review": "passed",
   "program_review": "passed",
   "reader_review": "passed",
@@ -48,7 +48,7 @@
     "tmp/eopl-close-20261025T003327/source-readback.json": "f5d0106ff7f860ad18936ae19e923259f819e343aa1026b9629eb967459f2e87",
     "tmp/eopl-close-20261025T003327/preservation.json": "4def1f3b9fffc5001f90f0b1b901505f7041104795370546b2f39e1e0bfab09b",
     "tmp/eopl-close-20261025T003327/failure-history.json": "a10cee4395d2bfdae3b8cb1c01ae142dba1fd1340fc9a55f0678ac4b74f40c89",
-    "books/eopl/review/completion.md": "e69435c0314c1ddbf5acfad023749e589193328b23a62f2a99f9ad334331ad20",
+    "books/eopl/review/completion.md": "ed6c43e92fe8435f31924446122c8349acc129b641c1e42894ab08148d9843fc",
     "tmp/eopl-close-20261025T003327/checker-cases/report.json": "12222a2136b7902e38bcd70876bb583822fe4e7390ae046dac508b9bfc2b15a8",
     "tmp/project-check/20261025T013121-81ssxzqg/report.json": "25edfbdfa4f2f131f1387fee2b481b0cc93691626db608ab5f7e7bcd9061ff54",
     "tmp/project-check/20261025T013121-81ssxzqg/eopl/report.json": "57cd5b9cf34b944b01baa74d43c9cad49569b254168242387bc85a9f4e308f56",
@@ -69,12 +69,31 @@
     "tmp/project-check/20261025T013121-81ssxzqg/eopl/module-source-inputs/report.json": "9dd2babb89b78e280a2c69a1c4d05d97b732b15b6f1e9f18217d1e6f4216433d",
     "tmp/project-check/20261025T013121-81ssxzqg/eopl/object-source-inputs/report.json": "2965fdd0edbb38438b423491775bc908703a032f30b2efea53a9cafeda3f8d44",
     "tmp/project-check/20261025T013121-81ssxzqg/eopl/appendix-inputs/report.json": "347485798375578c98bee8d0aaf3cfa7ca0f1d85087a3f83e1c913b845bcc4ef",
-    "issues/I065-eopl-completion-publication.md": "1d3b11c73ba1b615cfd1f170c95a7134f28d6818d476fc95bc9bee93ef889010",
-    "plan/P065-eopl-completion-publication.md": "6cb5a43d4e65e62196cf836430dd9e0a186098103f7341c91bd49b6bcc4dfd24",
-    "milestone/M065-eopl-completion-publication.md": "a653e32f4242232a32f4a3a6802273f9d995194a63acf6d496e682f76917d4c4",
-    "test/T065-eopl-completion-publication.md": "69e0f8a076ae7eee6557825ba6801709f3490c2c531f7a81fc037426af0dbdf2"
+    "issues/I065-eopl-completion-publication.md": "194a400472f73f43fe4b185bc3c9bd78f974af56fbdf1ab2558f11f6bbfa5e6f",
+    "plan/P065-eopl-completion-publication.md": "a8bc629899c08e0f8cf3a913ef8b4defb681abc732e24b651e701b33a938cfc4",
+    "milestone/M065-eopl-completion-publication.md": "8dc04811b364509f30286d4c02a1bc23676e509ea086af9a7c3b38c1b9cd1fd1",
+    "test/T065-eopl-completion-publication.md": "679f52ff6a17201e5e17daf5c6b1e9308ae3186e260a3e80301b1858d48f47fd",
+    "docs/eopl-completion-publication-review.json": "fc8d270c4ead61b00c45aa3b58a6d738abd2a82f8e4aa8fab3a68f98c8ffff47",
+    "tmp/eopl-close-20261025T003327/server-after.json": "d21f1ac4cdfd3ddc57469b562c23c239ab59d793f24e54b20371af8c2b219562",
+    "tmp/eopl-close-20261025T003327/public-https.json": "9d8c953b1db05eef886a908070f44fcc2ce193a0ecbd682bdf0dd333c18eba62",
+    "tmp/eopl-close-20261025T003327/browser-public/manual.json": "3452cd17ca62db6dfa067ac8ca4a5a7488e91cc73994a8eb6a747e7850b644ce",
+    "tmp/eopl-close-20261025T003327/browser-public/visual.json": "a72b3e5e95a837d396e6cb40c70c1a5e9c817966dcd403a5155ccc4ba985ddef",
+    "tmp/eopl-close-20261025T003327/package-preflight.json": "bd257e9936d3484a4bf80dfef214fe676f666297c3188f97ed67e687b8757483",
+    "tmp/eopl-close-20261025T003327/predeploy-acceptance.json": "402e298f0aaf0a205747692631bd16623bf63cf3a611c9baebaa3d6c83af870d",
+    "tmp/eopl-close-20261025T003327/gitleaks-final.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "tmp/eopl-close-20261025T003327/gitleaks-commit-range.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "tmp/eopl-close-20261025T003327/gitleaks-public.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "tmp/project-check/20261025T020218-bgidvd_e/report.json": "81f7750e6211a1dc848f9b1fef70f5c731e6c2a5398c208dee44d311da5fc612",
+    "tmp/eopl-close-20261025T003327/receipt-boundary.json": "4bc65b496bb5967d563127fab1f5788f6a72b7d16ad313dfbf7849f5dd2b0518"
   },
-  "production": "pending",
+  "production": {
+    "status": "passed",
+    "release_id": "20261025T014634",
+    "source_commit": "5eeee00431d8e492c3ac8efa257e6246cadde152",
+    "origin": "https://notes.zzzping.top",
+    "record": "docs/eopl-completion-publication-review.json",
+    "sha256": "fc8d270c4ead61b00c45aa3b58a6d738abd2a82f8e4aa8fab3a68f98c8ffff47"
+  },
   "reader": {
     "status": "passed",
     "offline_record": "tmp/reading-notes-migration/browser/all/runs/2026-10-24T17-16-17-530Z-10fcf291/report.json",
@@ -108,7 +127,12 @@
     "quick": false
   },
   "root_quick": {
-    "status": "superseded_by_full_all_25"
+    "status": "passed",
+    "record": "tmp/project-check/20261025T020218-bgidvd_e/report.json",
+    "sha256": "81f7750e6211a1dc848f9b1fef70f5c731e6c2a5398c208dee44d311da5fc612",
+    "checks": 22,
+    "book": "all",
+    "quick": true
   },
   "program_verification": {
     "core_assertions": {
@@ -147,5 +171,9 @@
     "archived_path": "tmp/eopl-close-20261025T003327/history-I064-parity.json",
     "method": "Deterministically reconstructed the overwritten cache JSON from unchanged records, saved original source bytes and the original accepted release. Full byte hash exactly matches the historical I064 binding. This restores an existing evidence object; it is not a claim of a new past execution.",
     "historical_record_bytes": "unchanged"
+  },
+  "public_reader": {
+    "record": "tmp/eopl-close-20261025T003327/browser-public/manual.json",
+    "sha256": "3452cd17ca62db6dfa067ac8ca4a5a7488e91cc73994a8eb6a747e7850b644ce"
   }
 }

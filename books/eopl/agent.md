@@ -3,7 +3,7 @@
 先读[规则职责索引](../../docs/rules/README.md)、[RN-001](../../docs/reading-notes-standard.md)、[RN-002](../../docs/reading-presentation-standard.md)、本书[阅读计划](reading-plan.md)与[页面说明](notes/README.md)。命令从主仓库根目录执行。
 
 - 书籍 ID 为 `eopl`，来源只按第三版 MIT Press 2008 核对；`notes/source_manifest.json` 维护身份与页序，`notes/source_inventory.json` 保存原书独立编号清单。正文阿拉伯页序偏移为 23，前置罗马页码另算。
-- 当前内容范围为全书地图、Foreword、Preface、第 1–9 章，以及习题0.1和九章全部350题。附录A/B已完成，全书356题，不能用地图摘要充当逐章完成。
+- 当前内容范围为全书地图、Foreword、Preface、第 1–9 章与附录 A/B，以及序言1题、九章350题与附录B5题，共356题，不能用地图摘要充当逐章完成。
 - 正文唯一维护源为 `src/content/books/eopl/*.html`；`tools/sync_notes.py --write` 展开共享 CSS/JS、同步程序阅读副本与 `notes/*.html`。不要直接修改镜像。
 - 程序采用 `standalone_sources`，维护于 `code/`；序言 Python 模型是原创六构造式 AST 解释器；第 1–9 章及附录B原创解答由 Racket 8.17 + eopl/rackunit 实际执行，范围见 code/README.md。第 1、2 章题面与页序由 notes/questions_ch01_02.json 登记，第 3 章由 notes/questions_ch03.json 登记，第 4 章由 notes/questions_ch04.json 登记，第 5、6 章由 notes/questions_ch05.json、notes/questions_ch06.json 登记，第7章由notes/questions_ch07.json登记；完整英文原题按 RN-002 不进入阅读页，归档于 notes/original_questions.json（含题号、印刷页/PDF 页、英文 HTML 或文本与 sha256），只用于维护核对，不能从已写答案倒推覆盖率。
 - 环境、存储、续文、类型环境分别陈述；词法作用域与动态作用域、求值策略与对象共享、尾调用与总空间、类型安全与终止性不可混同。

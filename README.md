@@ -1,6 +1,6 @@
 # Reading Notes · 读书笔记
 
-把一本书作为独立子项目，在同一个仓库中维护中文伴读笔记、习题解答、可运行程序、原书来源和验证记录。目前收录 Richard Durrett《Essentials of Stochastic Processes》第三版、Mark Allen Weiss《Data Structures and Algorithm Analysis in C》第二版（中国改编版）、Bryant / O’Hallaron《Computer Systems: A Programmer’s Perspective》第三版 Global Edition、Nathan C. Carter《Visual Group Theory》（MAA 2009 版权电子版），程士宏《测度论与概率论基础》（北京大学出版社 2004 年第 1 版），以及 Friedman / Wand《Essentials of Programming Languages》第三版的地图、序言与第 1–7 章。
+把一本书作为独立子项目，在同一个仓库中维护中文伴读笔记、习题解答、可运行程序、原书来源和验证记录。目前收录 Richard Durrett《Essentials of Stochastic Processes》第三版、Mark Allen Weiss《Data Structures and Algorithm Analysis in C》第二版（中国改编版）、Bryant / O’Hallaron《Computer Systems: A Programmer’s Perspective》第三版 Global Edition、Nathan C. Carter《Visual Group Theory》（MAA 2009 版权电子版），程士宏《测度论与概率论基础》（北京大学出版社 2004 年第 1 版），以及 Friedman / Wand《Essentials of Programming Languages》第三版全书的地图、序言、第 1–9 章及附录 A/B。
 
 统一阅读站点为 [notes.zzzping.top](https://notes.zzzping.top/)。GitHub 仓库为 [oonecab/reading-notes](https://github.com/oonecab/reading-notes)，沿用随机过程项目的 Git 历史；本地项目目录继续沿用原名。
 
@@ -13,11 +13,11 @@
 | [程士宏 测度论与概率论·全六章伴读](books/measure-probability/README.md) | [伴读总览](books/measure-probability/notes/book_overview.html) | 8 个 HTML 页面：总览、序言与前言、六章及全部 170 题；4 组 C/Python 程序，包含全部星号小节 |
 | [Friedman / Wand · EOPL](books/eopl/README.md) | [全书地图](books/eopl/notes/book_overview.html) | 13 个 HTML 页面：地图、导读与序言、第 1–9 章、附录 A/B；356 道完整题解及 Python/Racket/C 示例 |
 
-EOPL 当前有地图、序言与第 1–9 章及附录 A/B 共十三个阅读页，覆盖全书全部 356 道习题。控制路线从[第 5 章](books/eopl/notes/chapter05_continuations.html)进入[第 6 章](books/eopl/notes/chapter06_cps.html)，把解释器续文、异常、线程、CPS转换和效果连接起来。[第 7 章](books/eopl/notes/chapter07_types.html)讲解类型检查、约束求解与多态，含30题及实际运行的检查器；本地验收见[T062](test/T062-eopl-ch07.md)。[第8章](books/eopl/notes/chapter08_modules.html)讲解模块、接口、抽象类型和参数化模块，含27题及实际运行的模块检查器，见[T063](test/T063-eopl-ch08.md)。[第9章](books/eopl/notes/chapter09_objects.html)讲解对象、类、继承、方法调用与TYPED-OO，含42题及实际运行的面向对象解释器，见[T064](test/T064-eopl-ch09.md)。[附录A](books/eopl/notes/appendix_a_reading.html)连接文献与全书主线，[附录B](books/eopl/notes/appendix_b_sllgen.html)包含SLLGEN扫描、解析、算术求值及B.1–B.5完整题解；本地与生产验收见 [T061](test/T061-eopl-publication.md)，当前生产版本为 `20261023T211622`。
+EOPL 当前有地图、序言与第 1–9 章及附录 A/B 共十三个阅读页，覆盖全书全部 356 道习题。控制路线从[第 5 章](books/eopl/notes/chapter05_continuations.html)进入[第 6 章](books/eopl/notes/chapter06_cps.html)，把解释器续文、异常、线程、CPS转换和效果连接起来。[第 7 章](books/eopl/notes/chapter07_types.html)讲解类型检查、约束求解与多态，含30题及实际运行的检查器；本地验收见[T062](test/T062-eopl-ch07.md)。[第8章](books/eopl/notes/chapter08_modules.html)讲解模块、接口、抽象类型和参数化模块，含27题及实际运行的模块检查器，见[T063](test/T063-eopl-ch08.md)。[第9章](books/eopl/notes/chapter09_objects.html)讲解对象、类、继承、方法调用与TYPED-OO，含42题及实际运行的面向对象解释器，见[T064](test/T064-eopl-ch09.md)。[附录A](books/eopl/notes/appendix_a_reading.html)连接文献与全书主线，[附录B](books/eopl/notes/appendix_b_sllgen.html)包含SLLGEN扫描、解析、算术求值及B.1–B.5完整题解；全书收尾、本地与生产验收见 [T065](test/T065-eopl-completion-publication.md)，当前生产版本为 `20261025T014634`。
 
 CS:APP 全书笔记已接入统一首页与构建：从首页点击“进入 CS:APP 笔记”，进入全书地图后选择序言或第 1—12 章；阅读页顶部可返回书架。统一包收录笔记、教学程序与原书 PDF，点击章节、来源和习题中的页码链接可打开对应 PDF 页序。线上生效另按发布授权和验收记录确认。
 
-视觉群论已接入统一构建与书架，来源清单保留原书身份和印刷页/PDF 页序，完整原 PDF 仅本地对照；首批见 [T021](test/T021-visual-group-theory.md)，第 2—4 章见 [T022](test/T022-visual-group-theory-ch02-04.md)，第 5—8 章见 [T024](test/T024-visual-group-theory-ch05-08.md)，第 9—10 章见 [T025](test/T025-visual-group-theory-ch09-10.md)。视觉群论与测度概率当前范围的统一上线验收见 [T027](test/T027-five-book-publication.md)。
+视觉群论已接入统一构建与书架，来源清单保留原书身份和印刷页/PDF 页序，完整原 PDF 按 I052 登记随统一包提供；首批见 [T021](test/T021-visual-group-theory.md)，第 2—4 章见 [T022](test/T022-visual-group-theory-ch02-04.md)，第 5—8 章见 [T024](test/T024-visual-group-theory-ch05-08.md)，第 9—10 章见 [T025](test/T025-visual-group-theory-ch09-10.md)。视觉群论与测度概率当前范围的统一上线验收见 [T027](test/T027-five-book-publication.md)。
 
 ## 阅读与本地运行
 
