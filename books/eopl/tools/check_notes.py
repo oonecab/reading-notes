@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""检查 EOPL 地图、序言与第 1–6 章的来源、原题归档、题解和实际教学程序。"""
+"""检查 EOPL 地图、序言、第 1–9 章与附录 A/B的来源、原题归档、题解和实际教学程序。"""
 from __future__ import annotations
 
 import argparse
@@ -130,7 +130,7 @@ def check(quick: bool, run_dir: Path | None = None) -> dict:
              f"exercise sequence: {chapter}")
     need([r["number"] for r in items["items"] if r["coverage"] == "answered"] == manifest["current_scope"]["answered_exercises"],
          "current answer coverage differs")
-    need(len(manifest["current_scope"]["answered_exercises"]) == 252, "answer count must be 252")
+    need(len(manifest["current_scope"]["answered_exercises"]) == 356, "answer count must be 356")
     source_check = "not_available"
     pdf = ROOT / manifest["source"]["file"]
     if pdf.exists():
@@ -176,7 +176,11 @@ def check(quick: bool, run_dir: Path | None = None) -> dict:
         metadata = json.loads((SOURCE / name).read_text().split("---\n")[1])
         baseline = json.loads((BOOK / "review/content-baseline-astro.json").read_text())
         frozen = {row["page"]: row["source_sha256"] for row in baseline["records"]}
-        stage = ("chapters-5-6" if name.startswith(("chapter05", "chapter06")) else
+        stage = ("appendices" if name.startswith("appendix") else
+                 "chapter-9" if name.startswith("chapter09") else
+                 "chapter-8" if name.startswith("chapter08") else
+                 "chapter-7" if name.startswith("chapter07") else
+                 "chapters-5-6" if name.startswith(("chapter05", "chapter06")) else
                  "chapter-4" if name.startswith("chapter04") else
                  "chapter-3" if name.startswith("chapter03") else
                  "chapters-1-2" if name.startswith("chapter") else "map-and-preface")
@@ -239,7 +243,7 @@ def check(quick: bool, run_dir: Path | None = None) -> dict:
          "chapter 4 complete question inventory")
     questions["items"].extend(chapter4["items"])
     wanted.extend(chapter4_numbers)
-    for chapter, count in [(5, 58), (6, 40)]:
+    for chapter, count in [(5, 58), (6, 40), (7, 30), (8, 27), (9, 42)]:
         new_questions = json.loads((BOOK / f"notes/questions_ch{chapter:02}.json").read_text())
         need(new_questions["source_sha256"] == SOURCE_SHA256,
              f"chapter {chapter} question source identity")
@@ -248,20 +252,26 @@ def check(quick: bool, run_dir: Path | None = None) -> dict:
              f"chapter {chapter} complete question inventory")
         questions["items"].extend(new_questions["items"])
         wanted.extend(numbers)
+    appendix = json.loads((BOOK / "notes/questions_appendix_b.json").read_text())
+    need(appendix["source_sha256"] == SOURCE_SHA256, "appendix B question source identity")
+    numbers = [f"B.{n}" for n in range(1, 6)]
+    need([r["number"] for r in appendix["items"]] == numbers, "appendix B complete question inventory")
+    questions["items"].extend(appendix["items"])
+    wanted.extend(numbers)
     for row in questions["items"]:
         need(row["pdf_page"] == row["printed_page"] + 23, "question locator differs")
     qmap = {r["number"]: r for r in questions["items"]}
     positions = {r["number"]: r for r in items["items"] if r["kind"] == "exercise"}
     names = {1: "chapter01_inductive_data.html", 2: "chapter02_data_abstraction.html",
              3: "chapter03_expressions.html", 4: "chapter04_state.html",
-             5: "chapter05_continuations.html", 6: "chapter06_cps.html"}
+             5: "chapter05_continuations.html", 6: "chapter06_cps.html", 7: "chapter07_types.html", 8: "chapter08_modules.html", 9: "chapter09_objects.html", "B": "appendix_b_sllgen.html"}
     need(archive["schema_version"] == 1 and archive["book"] == "eopl" and
          archive["standard"] == "RN-002", "original question archive metadata differs")
     need(archive["source_sha256"] == SOURCE_SHA256, "original question archive source identity")
     archived = archive["items"]
     need(archive["item_count"] == len(archived), "original question archive item count")
     archived_exercises = [row for row in archived if row["kind"] == "exercise"]
-    need(archive["exercise_count"] == len(archived_exercises) == 252,
+    need(archive["exercise_count"] == len(archived_exercises) == 356,
          "original question archive exercise count")
     need([row["number"] for row in archived_exercises] == ["0.1", *wanted],
          "archive exercise sequence")
@@ -300,7 +310,7 @@ def check(quick: bool, run_dir: Path | None = None) -> dict:
              row["pdf_page"] == source["pdf_page"] and
              row["pdf_end"] == source["pdf_end"],
              "archived question page sequence differs: " + row["number"])
-    for c, total in [(1, 36), (2, 31), (3, 44), (4, 42), (5, 58), (6, 40)]:
+    for c, total in [(1, 36), (2, 31), (3, 44), (4, 42), (5, 58), (6, 40), (7, 30), (8, 27), (9, 42), ("B", 5)]:
         text = (BOOK / "notes" / names[c]).read_text()
         ids = re.findall(r'<details class="exercise" id="([^"]+)"', text)
         need(ids == [f"ex-{c}-{n}" for n in range(1, total + 1)], "chapter exercise sequence")
@@ -314,9 +324,10 @@ def check(quick: bool, run_dir: Path | None = None) -> dict:
                  block.index('class="exercise-question"') < block.index('class="answer"'),
                  "question must precede answer")
             need('class="question-translation"' in block, "Chinese question missing")
-        need(f'id="chapter0{c}-code"' in text and '<!-- EOPL:end-program -->' in text,
+        code_id = "appendix_b-code" if c == "B" else f"chapter0{c}-code"
+        need(f'id="{code_id}"' in text and '<!-- EOPL:end-program -->' in text,
              "missing complete chapter program")
-    for chapter, count in [(3, 44), (4, 42), (5, 58), (6, 40)]:
+    for chapter, count in [(3, 44), (4, 42), (5, 58), (6, 40), (7, 30), (8, 27), (9, 42), ("B", 5)]:
         chapter_text = (BOOK / "notes" / names[chapter]).read_text()
         chinese = re.findall(r'<div class="question-translation" lang="zh-CN" data-exercise="(' + str(chapter) + r'\.\d+)">(.*?)</div><p class="source">', chapter_text, re.S)
         need(len(chinese) == count, f"chapter {chapter} independent Chinese input inventory")
@@ -330,8 +341,8 @@ def check(quick: bool, run_dir: Path | None = None) -> dict:
         text = (BOOK / "notes" / names[chapter]).read_text()
         need('id="' + context["anchor"] + '"' in text and
              context["code"] in unescape(text), "referenced source code differs")
-    report = {"status": "passed", "stage": "chapters-1-6", "pages": 8,
-              "source_exercises": sum(COUNTS.values()), "answered_exercises": 252,
+    report = {"status": "passed", "stage": "complete-book", "pages": 13,
+              "source_exercises": sum(COUNTS.values()), "answered_exercises": 356,
               "original_question_archive": "notes/original_questions.json",
               "archived_original_items": len(archived),
               "archived_original_exercises": len(archived_exercises),
@@ -393,6 +404,60 @@ def check(quick: bool, run_dir: Path | None = None) -> dict:
             results[program] = json.loads(completed.stdout.splitlines()[-1])
             need(results[program]["status"] == "passed" and results[program]["failures"] == 0,
                  "chapter 5/6 semantic failures: " + program)
+        completed = subprocess.run([racket, str(BOOK / "code/chapter07.rkt")],
+                                   capture_output=True, text=True, check=True, timeout=60)
+        need(completed.stdout == "(int -> int)\n((int -> int) -> (int -> int))\n(a0 -> a0)\n11\n",
+             "chapter7 demonstration output")
+        results["chapter07.rkt"] = completed.stdout
+        for program in ["chapter07_examples.rkt", "test_chapter07.rkt"]:
+            completed = subprocess.run([racket, str(BOOK / "code" / program)],
+                                       capture_output=True, text=True, check=True, timeout=60)
+            results[program] = json.loads(completed.stdout.splitlines()[-1])
+            need(results[program]["status"] == "passed" and results[program]["failures"] == 0,
+                 "chapter7 actual execution: " + program)
+        completed = subprocess.run([racket, str(BOOK / "code/chapter08.rkt")],
+                                   capture_output=True, text=True, check=True, timeout=60)
+        need(completed.stdout == "int\n22\n", "chapter8 demonstration output")
+        results["chapter08.rkt"] = completed.stdout
+        completed = subprocess.run([racket, str(BOOK / "code/test_chapter08.rkt")],
+                                   capture_output=True, text=True, check=True, timeout=60)
+        results["test_chapter08.rkt"] = json.loads(completed.stdout.splitlines()[-1])
+        need(results["test_chapter08.rkt"]["status"] == "passed" and
+             results["test_chapter08.rkt"]["failures"] == 0, "chapter8 actual execution")
+        completed = subprocess.run([racket, str(BOOK / "code/chapter09.rkt")], capture_output=True, text=True, check=True, timeout=60)
+        need(completed.stdout == "5\n", "chapter9 demonstration output")
+        results["chapter09.rkt"] = completed.stdout
+        completed = subprocess.run([racket, str(BOOK / "code/test_chapter09.rkt")], capture_output=True, text=True, check=True, timeout=60)
+        results["test_chapter09.rkt"] = json.loads(completed.stdout.splitlines()[-1])
+        need(results["test_chapter09.rkt"]["status"] == "passed" and results["test_chapter09.rkt"]["failures"] == 0, "chapter9 actual execution")
+        completed = subprocess.run([racket, str(BOOK / "code/chapter09_examples.rkt")], capture_output=True, text=True, check=True, timeout=60)
+        examples = json.loads(completed.stdout)
+        need(examples == {"state": [[3, -3], [5, -5]], "tree_sum": 12, "field_shadow": [101, 102, 101, 999],
+                          "super_self": 33, "typed_tree": [12, 100], "queue_counts": [2, 2, 4], "serials": [1, 2],
+                          "overloads": [0, 7], "prototype": [10, 11, 10], "summable": [12, 12, 12],
+                          "stringable": ["(3,(4,(5,[])))", "((3,4),5)", "5:(3,(4,[]))"], "static_dispatch": [12, 21]},
+             "chapter9 source/exercise example oracles")
+        results["chapter09_examples.rkt"] = {"status": "passed", "oracles": examples}
+        completed = subprocess.run([racket, str(BOOK / "code/appendix_b.rkt")], capture_output=True, text=True, check=True, timeout=60)
+        need(completed.stdout == "(expr (term 3 () ()) (+ -) ((term 2 (*) (66)) (term 5 () ())))\n130\n12\n4\n1\n-6\n", "appendix B demonstration output")
+        results["appendix_b.rkt"] = completed.stdout
+        completed = subprocess.run([racket, str(BOOK / "code/test_appendix_b.rkt")], capture_output=True, text=True, check=True, timeout=60)
+        results["test_appendix_b.rkt"] = json.loads(completed.stdout.splitlines()[-1])
+        need(results["test_appendix_b.rkt"]["status"] == "passed" and results["test_appendix_b.rkt"]["failures"] == 0, "appendix B actual execution")
+        from test_appendix_b_inputs import run as test_appendix_b_inputs
+        report["appendix_b_displayed_inputs"] = test_appendix_b_inputs(racket, execution_dir / "appendix-inputs")
+        from test_chapter09_mutations import run as test_chapter09_mutations
+        report["chapter9_semantic_mutations"] = test_chapter09_mutations(racket, execution_dir / "object-mutations")
+        from test_chapter09_inputs import run as test_chapter09_inputs
+        report["chapter9_source_input_execution"] = test_chapter09_inputs(racket, execution_dir / "object-source-inputs")
+        from test_chapter08_mutations import run as test_chapter08_mutations
+        report["chapter8_semantic_mutations"] = test_chapter08_mutations(racket, execution_dir / "module-mutations")
+        from test_chapter08_inputs import run as test_chapter08_inputs
+        report["chapter8_source_input_execution"] = test_chapter08_inputs(racket, execution_dir / "module-source-inputs")
+        from test_chapter07_mutations import run as test_chapter07_mutations
+        report["chapter7_semantic_mutations"] = test_chapter07_mutations(racket, execution_dir / "type-mutations")
+        from test_chapter07_inputs import run as test_chapter07_inputs
+        report["chapter7_source_input_execution"] = test_chapter07_inputs(racket, execution_dir / "type-source-inputs")
         completed = subprocess.run([sys.executable, BOOK / "code/chapter05_sync.py"],
                                    capture_output=True, text=True, check=True, timeout=30)
         report["synchronization_models"] = json.loads(completed.stdout)

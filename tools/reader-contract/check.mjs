@@ -48,8 +48,11 @@ export function checkReaderPage(html,policy,source,review){
  const main=nodes.find(n=>n.tagName==='main');assert(main,'main missing');
  for(const label of walk(main).filter(n=>has(n,'rn-exercise-label')))
   assert(exerciseLabels.has(raw(label).trim()),'Exercise label contains body text');
- const sections=walk(main).filter(n=>n.tagName==='section'&&n.parentNode===main);
+ assert([undefined,'all-descendants'].includes(policy.section_scope),'Unknown section inventory scope');
+ const sections=walk(main).filter(n=>n.tagName==='section'&&(policy.section_scope==='all-descendants'||n.parentNode===main));
  assert.deepEqual(sections.map(n=>attr(n,'id')),policy.sections.map(s=>s.id),'Unreviewed section inventory');
+ for(const s of policy.sections.filter(s=>s.parent))
+  assert.equal(attr(find(s.id)?.parentNode,'id'),s.parent,'Wrong subsection parent: '+s.id);
  const expected=policy.sections.filter(s=>s.annotation==='required').map(s=>s.id);
  assert(expected.length,'Every reading page must register annotation coverage');
  const groups=walk(main).filter(n=>has(n,'reading-notes'));

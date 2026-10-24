@@ -1,0 +1,81 @@
+{
+  "issue": "I062",
+  "status": "passed",
+  "scope": "Current EOPL11-route offline matrix and final chapter7 MathML/type-table readback; hash-identical reused views retain origin reports.",
+  "astro_migration": {
+    "record": "review/astro-migration.json",
+    "sha256": "2ecad4819b0b7f57a9a15a405b28298eed4523ac14795f983fd8ae4b0b635fd3",
+    "open_findings": [],
+    "source_sha256": {
+      "book_overview.html": "bcee15d3ae5f7b748a93ff07bdffc6eb7fbbb790f4e2af54fce3bc289605720c",
+      "preface.html": "4ffe7b18e4d6bc5b5ba6be871417b061f1896b88885b723a6d46ab2024a25392",
+      "chapter01_inductive_data.html": "375aac6684c71ae9ec73fb3d3e401119c1c33221858b61e02e9638e74b64d31a",
+      "chapter02_data_abstraction.html": "9c58590c094fe03c2e66495ddc144c601f677224452a94866f7e40c6931e0993",
+      "chapter03_expressions.html": "d2a408b6f950dc85291ddb3b3c7017877cfbed3f351b05b984f1320597633904",
+      "chapter04_state.html": "7d3e055c14d2658266453fbca4dc0e8fd440c537ef9a33309c9e1cca104c8e38",
+      "chapter05_continuations.html": "a17d49cc446f5f478a82dd2aa5b16fe429eb11560eee7c9a9817f6eba5e365bc",
+      "chapter06_cps.html": "3adf80e690f4999b92caeceeb11011f60b7602ef6f5eb31d88b1d5c1f8ef0d53",
+      "chapter07_types.html": "0e864a21bc8c295b231beb85cb915f21069325d7b376c8e262e59549aa9ec23a"
+    }
+  },
+  "offline_report": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-24T03-27-29-793Z-cd9035a6/report.json",
+  "offline_sha256": "d01bb3cf059e3195bc8e329eb50ed49fdbcb394760412f6d008f9582ac64e3bd",
+  "js_views": 44,
+  "no_js_views": 22,
+  "hash_identical_reused_views": 54,
+  "external_requests": [],
+  "manual": {
+    "status": "passed",
+    "offline_record": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-24T03-27-29-793Z-cd9035a6/report.json",
+    "pages": 11,
+    "js_views": 44,
+    "no_js_views": 22,
+    "reused_hash_identical_views": 54,
+    "external_requests": 0,
+    "current_manual": "tmp/eopl-ch07-20261024T085335/accepted-reader/manual.json",
+    "current_visual": "tmp/eopl-ch07-20261024T085335/accepted-reader/visual.json",
+    "current_native_downloads": 5,
+    "table_type_height": 23.0859375,
+    "previous_manual_pdf": "tmp/eopl-ch07-20261024T085335/manual-reader/pdf-loaded.json",
+    "physical_mobile_device": false,
+    "screen_reader_session": false
+  },
+  "screenshots": [
+    {
+      "file": "tmp/eopl-ch07-20261024T085335/accepted-reader/desktop-mathml-1.png",
+      "sha256": "c0a4f59f37c07efb243ccd03284aa719f56c54097a00bfd8bc27c171954d1c9f"
+    },
+    {
+      "file": "tmp/eopl-ch07-20261024T085335/accepted-reader/desktop-mathml-15.png",
+      "sha256": "238f119b8a698836e6f003e848d9e3d086542b0993f8acccbdc8ed3681b77db0"
+    },
+    {
+      "file": "tmp/eopl-ch07-20261024T085335/accepted-reader/desktop-mathml-29.png",
+      "sha256": "d819ee2ed0f5e009db17ae4bb1631dcafe0db476b8e3118c6d1022c231cf76c5"
+    },
+    {
+      "file": "tmp/eopl-ch07-20261024T085335/accepted-reader/desktop-subsection.png",
+      "sha256": "e8f4b334ea40eede676352553115a710d91afa4722d75037c1c677cb99d77046"
+    },
+    {
+      "file": "tmp/eopl-ch07-20261024T085335/accepted-reader/mobile-complete-type-column.png",
+      "sha256": "256aa50bbd39dd5518d9b49e5708883a5107b130de32de3cb7d01a5e75966b26"
+    },
+    {
+      "file": "tmp/eopl-ch07-20261024T085335/accepted-reader/mobile-mathml-1.png",
+      "sha256": "b838dcce6834c304b1fe5f6c0bd55dcfbee09854e0e3f9585292def7df4dca4a"
+    },
+    {
+      "file": "tmp/eopl-ch07-20261024T085335/accepted-reader/mobile-mathml-15.png",
+      "sha256": "f1085c3928f0779837be77ceaef8947032f0d417ef939d90ccc4f4c6519f10d5"
+    },
+    {
+      "file": "tmp/eopl-ch07-20261024T085335/accepted-reader/mobile-mathml-29.png",
+      "sha256": "b5b326352f216beee1ba6f5ec6b1cdc7783f3dc4a045b7c86612e93c2d7827b8"
+    }
+  ],
+  "historical_record": {
+    "file": "review/history/I062-before-browser.json",
+    "sha256": "4ffd9570ddfed7321f70be1efa9d12e8a0768ca6823b09a1be3934c78099ba37"
+  }
+}

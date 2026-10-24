@@ -1,0 +1,280 @@
+{
+  "schema_version": 1,
+  "book": "eopl",
+  "chapter": "7",
+  "source_pdf": "books/eopl/assets/source.pdf",
+  "source_sha256": "b9e8770a4dc97206bd02230e6b21a878382eb02a340ff69321857d701e7d967c",
+  "method": "Independent PDF page and exercise inventory before chapter HTML authoring; all question pages and key rules visually read. Interrupted figures excluded; all task inputs, subparts and hints retained.",
+  "items": [
+    {
+      "number": "7.1",
+      "printed_page": 237,
+      "pdf_page": 260,
+      "pdf_end": 261,
+      "stars": 1,
+      "question_text": "Below is a list of closed expressions. Consider the value of each\nexpression. For each value, what type or types does it have? Some of the values\nmay have no type that is describable in our type language.\n\n1. proc (x) -(x,3)\n2. proc (f) proc (x) -((f x), 1)\n3. proc (x) x\n4. proc (x) proc (y) (x y).\n5. proc (x) (x 3)\n6. proc (x) (x x)\n7. proc (x) if x then 88 else 99\n8. proc (x) proc (y) if x then y else 99\n9. (proc (p) if p then 88 else 99\n    33)\n10. (proc (p) if p then 88 else 99\n     proc (z) z)\n11. proc (f)\n     proc (g)\n      proc (p)\n       proc (x) if (p (f x)) then (g 1) else -((f x),1)\n\n            12. proc (x)\n                 proc(p)\n                  proc (f)\n                   if (p x) then -(x,1) else (f p)\n            13. proc (f)\n                 let d = proc (x)\n                          proc (z) ((f (x x)) z)\n                 in proc (n) ((f (d d)) n)",
+      "chinese_html": "<p>下面列出若干闭表达式。考虑各表达式的值：每个值具有哪一种或哪些类型？有些值可能没有能用本节类型语言描述的类型。</p><div id=\"input-7-1\"><ol><li><pre><code class=\"language-text\">proc (x) -(x,3)</code></pre></li><li><pre><code class=\"language-text\">proc (f) proc (x) -((f x), 1)</code></pre></li><li><pre><code class=\"language-text\">proc (x) x</code></pre></li><li><pre><code class=\"language-text\">proc (x) proc (y) (x y).</code></pre></li><li><pre><code class=\"language-text\">proc (x) (x 3)</code></pre></li><li><pre><code class=\"language-text\">proc (x) (x x)</code></pre></li><li><pre><code class=\"language-text\">proc (x) if x then 88 else 99</code></pre></li><li><pre><code class=\"language-text\">proc (x) proc (y) if x then y else 99</code></pre></li><li><pre><code class=\"language-text\">(proc (p) if p then 88 else 99\n 33)</code></pre></li><li><pre><code class=\"language-text\">(proc (p) if p then 88 else 99\n proc (z) z)</code></pre></li><li><pre><code class=\"language-text\">proc (f)\n proc (g)\n  proc (p)\n   proc (x) if (p (f x)) then (g 1) else -((f x),1)</code></pre></li><li><pre><code class=\"language-text\">proc (x)\n proc(p)\n  proc (f)\n   if (p x) then -(x,1) else (f p)</code></pre></li><li><pre><code class=\"language-text\">proc (f)\n let d = proc (x)\n          proc (z) ((f (x x)) z)\n in proc (n) ((f (d d)) n)</code></pre></li></ol></div>"
+    },
+    {
+      "number": "7.2",
+      "printed_page": 238,
+      "pdf_page": 261,
+      "pdf_end": 261,
+      "stars": 2,
+      "question_text": "Are there any expressed values that have exactly two types accord-\n            ing to definition 7.1.1?",
+      "chinese_html": "<p>按照定义 7.1.1，是否存在恰好具有两种类型的表达值？</p>"
+    },
+    {
+      "number": "7.3",
+      "printed_page": 238,
+      "pdf_page": 261,
+      "pdf_end": 261,
+      "stars": 2,
+      "question_text": "For the language LETREC, is it decidable whether an expressed\n            value val is of type t?",
+      "chinese_html": "<p>对于 LETREC 语言，给定表达值 <code>val</code> 和类型 <code>t</code>，判断 <code>val</code> 是否具有类型 <code>t</code> 是可判定的吗？</p>"
+    },
+    {
+      "number": "7.4",
+      "printed_page": 240,
+      "pdf_page": 263,
+      "pdf_end": 263,
+      "stars": 1,
+      "question_text": "Using the rules of this section, write derivations, like the one on\n            page 5, that assign types for proc (x) x and proc (x) proc (y) (x y). Use\n            the rules to assign at least two types for each of these terms. Do the values of these\n            expressions have the same types?",
+      "chinese_html": "<p>用本节规则，仿照原书 p.5 的推导，为 <code>proc (x) x</code> 和 <code>proc (x) proc (y) (x y)</code> 分别写出类型推导。每个项至少赋予两种类型。这些表达式的值是否具有相同的那些类型？</p>"
+    },
+    {
+      "number": "7.5",
+      "printed_page": 243,
+      "pdf_page": 266,
+      "pdf_end": 266,
+      "stars": 2,
+      "question_text": "Extend the checker to handle multiple let declarations, multiargu-\nment procedures, and multiple letrec declarations. You will need to add types of\nthe form (t1 * t2 * ... * tn -> t) to handle multiargument procedures.",
+      "chinese_html": "<p>扩展检查器，使其支持一个 let 中的多个声明、多参数过程及一个 letrec 中的多个声明。为了支持多参数过程，需要增加形如 <code>(t1 * t2 * ... * tn -&gt; t)</code> 的类型。</p>"
+    },
+    {
+      "number": "7.6",
+      "printed_page": 243,
+      "pdf_page": 266,
+      "pdf_end": 266,
+      "stars": 1,
+      "question_text": "Extend the checker to handle assignments (section 4.3).",
+      "chinese_html": "<p>扩展检查器，使其支持赋值（§4.3）。</p>"
+    },
+    {
+      "number": "7.7",
+      "printed_page": 243,
+      "pdf_page": 266,
+      "pdf_end": 266,
+      "stars": 1,
+      "question_text": "Change the code for checking an if-exp so that if the test expression\nis not a boolean, the other expressions are not checked. Give an expression for which\nthe new version of the checker behaves differently from the old version.",
+      "chinese_html": "<p>修改 if-exp 的检查代码：若测试表达式不是布尔类型，就不再检查另外两个表达式。给出一个表达式，使新旧检查器表现不同。</p>"
+    },
+    {
+      "number": "7.8",
+      "printed_page": 243,
+      "pdf_page": 266,
+      "pdf_end": 269,
+      "stars": 2,
+      "question_text": "Add pairof types to the language. Say that a value is of type pairof t1 * t2 if and only if it is a pair consisting of a value of type t1 and a value of type t2. Add to the language the following productions:\n\nType ::= pairof Type * Type\n         pair-type (ty1 ty2)\nExpression ::= newpair (Expression , Expression)\n               pair-exp (exp1 exp2)\nExpression ::= unpair Identifier Identifier = Expression\n               in Expression\n               unpair-exp (var1 var2 exp body)\n\nA pair expression creates a pair; an unpair expression (like exercise 3.18) binds its two variables to the two parts of the expression; the scope of these variables is body. The typing rules for pair and unpair are:\n\ntype-of(e1,tenv)=t1   type-of(e2,tenv)=t2\n------------------------------------------------\ntype-of(pair-exp(e1,e2),tenv)=pairof t1 * t2\n\ntype-of(epair,tenv)=(pairof t1 t2)\ntype-of(ebody,[var1=t1][var2=t2]tenv)=tbody\n------------------------------------------------\ntype-of(unpair-exp(var1,var2,e1,ebody),tenv)=tbody\n\nExtend CHECKED to implement these rules. In type-to-external-form, produce the list (pairof t1 t2) for a pair type.",
+      "chinese_html": "<p>向语言加入 pairof 类型。一个值具有类型 <code>pairof t1 * t2</code>，当且仅当它是一对值，其两个分量分别具有类型 <code>t1</code> 和 <code>t2</code>。加入以下产生式：</p><pre><code class=\"language-text\">Type ::= pairof Type * Type\n         pair-type (ty1 ty2)\nExpression ::= newpair (Expression , Expression)\n               pair-exp (exp1 exp2)\nExpression ::= unpair Identifier Identifier = Expression\n               in Expression\n               unpair-exp (var1 var2 exp body)</code></pre><p>pair 表达式创建序对；unpair 类似习题 3.18，把两个变量分别绑定到序对的两个分量，这两个变量的作用域是 body。其类型规则如下（保留原书规则的 AST/外部表示记号）：</p><pre><code class=\"language-text\">type-of(e1,tenv)=t1   type-of(e2,tenv)=t2\n------------------------------------------------\ntype-of(pair-exp(e1,e2),tenv)=pairof t1 * t2\n\ntype-of(epair,tenv)=(pairof t1 t2)\ntype-of(ebody,[var1=t1][var2=t2]tenv)=tbody\n------------------------------------------------\ntype-of(unpair-exp(var1,var2,e1,ebody),tenv)=tbody</code></pre><p>扩展 CHECKED，实现这些规则。对于序对类型，<code>type-to-external-form</code> 应产生表 <code>(pairof t1 t2)</code>。</p>"
+    },
+    {
+      "number": "7.9",
+      "printed_page": 247,
+      "pdf_page": 270,
+      "pdf_end": 271,
+      "stars": 2,
+      "question_text": "Add listof types to the language, with operations similar to those\nof exercise 3.9. A value is of type listof t if and only if it is a list and all of its\nelements are of type t. Extend the language with the productions\n\n                 Type       ::= listof Type\n                                list-type (ty)\n\n                 Expression ::= list (Expression {, Expression}∗ )\n                                list-exp (exp1 exps)\n\n                 Expression ::= cons (Expression , Expression)\n                                cons-exp (exp1 exp2)\n\n                 Expression ::= null? (Expression)\n                                null-exp (exp1)\n\n                 Expression ::= emptylist_Type\n                                emptylist-exp (ty)\n\nwith types given by the following four rules:\n\n                               (type-of e1 tenv) = t\n                               (type-of e2 tenv) = t\n                                         ..\n                                          .\n                               (type-of en tenv) = t\n          (type-of (list-exp e1 (e2 ... en )) tenv) = listof t\n\n                    (type-of e1 tenv) = t\n                (type-of e2 tenv) = listof t\n          (type-of cons(e1 ,e2 ) tenv) = listof t\n\n            (type-of e1 tenv) = listof t\n          (type-of null?(e1 ) tenv) = bool\n\n          (type-of emptylist[t] tenv) = listof t\n\nAlthough cons is similar to pair, it has a very different typing rule.\nWrite similar rules for car and cdr, and extend the checker to handle these as well\nas the other expressions. Use a trick similar to the one in exercise 7.8 to avoid conflict\nwith proc-type-exp. These rules should guarantee that car and cdr are applied\nto lists, but they should not guarantee that the lists be non-empty. Why would it be\nunreasonable for the rules to guarantee that the lists be non-empty? Why is the type\nparameter in emptylist necessary?",
+      "chinese_html": "<p>向语言加入 listof 类型，操作类似习题 3.9。值具有类型 <code>listof t</code>，当且仅当它是一个表且每个元素都具有类型 <code>t</code>。加入以下产生式：</p><pre><code class=\"language-text\">Type ::= listof Type\n         list-type (ty)\nExpression ::= list (Expression {, Expression}*)\n               list-exp (exp1 exps)\nExpression ::= cons (Expression , Expression)\n               cons-exp (exp1 exp2)\nExpression ::= null? (Expression)\n               null-exp (exp1)\nExpression ::= emptylist_Type\n               emptylist-exp (ty)</code></pre><p>它们的类型由以下四条规则给出：</p><pre><code class=\"language-text\">type-of(e1,tenv)=t, ..., type-of(en,tenv)=t\n------------------------------------------------\ntype-of(list-exp(e1,(e2 ... en)),tenv)=listof t\n\ntype-of(e1,tenv)=t   type-of(e2,tenv)=listof t\n------------------------------------------------\ntype-of(cons(e1,e2),tenv)=listof t\n\ntype-of(e1,tenv)=listof t\n------------------------------------------------\ntype-of(null?(e1),tenv)=bool\n\ntype-of(emptylist[t],tenv)=listof t</code></pre><p>虽然 cons 与 pair 相似，其类型规则却很不相同。为 car 和 cdr 写出类似规则，扩展检查器以支持它们及上述表达式。使用类似习题 7.8 的办法，避免与 proc-type-exp 冲突。规则应保证 car/cdr 的操作数是表，但不保证表非空；为什么要求规则保证表非空不合理？emptylist 为什么需要类型参数？</p>"
+    },
+    {
+      "number": "7.10",
+      "printed_page": 248,
+      "pdf_page": 271,
+      "pdf_end": 271,
+      "stars": 2,
+      "question_text": "Extend the checker to handle EXPLICIT-REFS. You will need to do\n            the following:\n\n            • Add to the type system the types refto t, where t is any type. This is the type of\n              references to locations containing a value of type t. Thus, if e is of type t, (newref\n              e) is of type refto t.\n            • Add to the type system the type void. This is the type of the value returned by\n              setref. You can’t apply any operation to a value of type void, so it doesn’t\n              matter what value setref returns. This is an example of types serving as an\n              information-hiding mechanism.\n            • Write down typing rules for newref, deref, and setref.\n            • Implement these rules in the checker.",
+      "chinese_html": "<p>扩展检查器以支持 EXPLICIT-REFS，需要完成：</p><ul><li>加入 <code>refto t</code>，其中 t 为任意类型；它表示指向含有 t 类型值的位置的引用。因此若 e 具有类型 t，则 <code>(newref e)</code> 具有类型 <code>refto t</code>。</li><li>加入类型 <code>void</code>，用于 setref 的返回值。不能对 void 类型的值施加任何操作，因此 setref 实际返回什么值并不重要。这是类型用作信息隐藏机制的例子。</li><li>写出 newref、deref、setref 的类型规则。</li><li>在检查器中实现这些规则。</li></ul>"
+    },
+    {
+      "number": "7.11",
+      "printed_page": 248,
+      "pdf_page": 271,
+      "pdf_end": 271,
+      "stars": 2,
+      "question_text": "Extend the checker to handle MUTABLE-PAIRS.",
+      "chinese_html": "<p>扩展检查器，使其支持 MUTABLE-PAIRS（可变序对语言）。</p>"
+    },
+    {
+      "number": "7.12",
+      "printed_page": 258,
+      "pdf_page": 281,
+      "pdf_end": 282,
+      "stars": 1,
+      "question_text": "Using the methods in this section, derive types for each of the\n      expressions in exercise 7.1, or determine that no such type exists. As in the other\n      examples of this section, assume there is a ? attached to each bound variable.",
+      "chinese_html": "<p>使用本节的方法，为<a href=\"#input-7-1\">习题 7.1 的全部 13 个表达式</a>逐一推导类型，或判定不存在这样的类型。与本节其他例子一样，假定每个绑定变量都附带一个 <code>?</code>。</p>"
+    },
+    {
+      "number": "7.13",
+      "printed_page": 259,
+      "pdf_page": 282,
+      "pdf_end": 282,
+      "stars": 1,
+      "question_text": "Write down a rule for doing type inference for let expressions.\nUsing your rule, derive types for each of the following expressions, or determine\nthat no such type exists.\n\n1. let x = 4 in (x 3)\n2. let f = proc (z) z in proc (x) -((f x), 1)\n3. let p = zero?(1) in if p then 88 else 99\n4. let p = proc (z) z in if p then 88 else 99",
+      "chinese_html": "<p>写出 let 表达式的类型推导规则。用该规则为下列各式推导类型，或判定不存在这样的类型。</p><ol><li><pre><code class=\"language-text\">let x = 4 in (x 3)</code></pre></li><li><pre><code class=\"language-text\">let f = proc (z) z in proc (x) -((f x), 1)</code></pre></li><li><pre><code class=\"language-text\">let p = zero?(1) in if p then 88 else 99</code></pre></li><li><pre><code class=\"language-text\">let p = proc (z) z in if p then 88 else 99</code></pre></li></ol>"
+    },
+    {
+      "number": "7.14",
+      "printed_page": 259,
+      "pdf_page": 282,
+      "pdf_end": 282,
+      "stars": 1,
+      "question_text": "What is wrong with this expression?\n\n       letrec\n        ? even(odd : ?) =\n           proc (x : ?)\n            if zero?(x) then 1 else (odd -(x,1))\n       in letrec\n           ? odd(x : bool) =\n              if zero?(x) then 0 else ((even odd) -(x,1))\n          in (odd 13)",
+      "chinese_html": "<p>下面的表达式有什么问题？</p><pre><code class=\"language-text\">letrec\n ? even(odd : ?) =\n    proc (x : ?)\n     if zero?(x) then 1 else (odd -(x,1))\nin letrec\n    ? odd(x : bool) =\n       if zero?(x) then 0 else ((even odd) -(x,1))\n   in (odd 13)</code></pre>"
+    },
+    {
+      "number": "7.15",
+      "printed_page": 259,
+      "pdf_page": 282,
+      "pdf_end": 282,
+      "stars": 2,
+      "question_text": "Write down a rule for doing type inference for a letrec expres-\nsion. Your rule should handle multiple declarations in a letrec. Using your rule,\nderive types for each of the following expressions, or determine that no such type\nexists:\n\n1.         letrec ? f (x : ?)\n                   = if zero?(x) then 0 else -((f -(x,1)), -2)\n           in f\n2.         letrec ? even (x : ?)\n                     = if zero?(x) then 1 else (odd -(x,1))\n                  ? odd (x : ?)\n                     = if zero?(x) then 0 else (even -(x,1))\n           in (odd 13)\n3.         letrec ? even (odd : ?)\n                     = proc (x) if zero?(x)\n                                then 1\n                                else (odd -(x,1))\n           in letrec ? odd (x : ?) =\n                        if zero?(x)\n                        then 0\n                        else ((even odd) -(x,1))\n              in (odd 13)",
+      "chinese_html": "<p>写出 letrec 表达式的类型推导规则，应支持同一 letrec 内有多个声明。用你的规则为下列各式推导类型，或判定不存在这样的类型。</p><ol><li><pre><code class=\"language-text\">letrec ? f (x : ?)\n          = if zero?(x) then 0 else -((f -(x,1)), -2)\nin f</code></pre></li><li><pre><code class=\"language-text\">letrec ? even (x : ?)\n            = if zero?(x) then 1 else (odd -(x,1))\n       ? odd (x : ?)\n            = if zero?(x) then 0 else (even -(x,1))\nin (odd 13)</code></pre></li><li><pre><code class=\"language-text\">letrec ? even (odd : ?)\n            = proc (x) if zero?(x)\n                       then 1\n                       else (odd -(x,1))\nin letrec ? odd (x : ?) =\n             if zero?(x)\n             then 0\n             else ((even odd) -(x,1))\n   in (odd 13)</code></pre></li></ol>"
+    },
+    {
+      "number": "7.16",
+      "printed_page": 259,
+      "pdf_page": 282,
+      "pdf_end": 282,
+      "stars": 3,
+      "question_text": "Modify the grammar of INFERRED so that missing types are\nsimply omitted, rather than marked with ?.",
+      "chinese_html": "<p>修改 INFERRED 的语法：缺省类型直接省略，不再用 <code>?</code> 标记。</p>"
+    },
+    {
+      "number": "7.17",
+      "printed_page": 262,
+      "pdf_page": 285,
+      "pdf_end": 285,
+      "stars": 2,
+      "question_text": "In our representation, extend-subst may do a lot of work if σ\n              is large. Implement an alternate representation in which extend-subst is imple-\n              mented as\n\n                (define extend-subst\n                  (lambda (subst tvar ty)\n                    (cons (cons tvar ty) subst)))\n\n              and the extra work is shifted to apply-subst-to-type, so that the property\n              t(σ [tv = t ]) = (tσ )[tv = t ] is still satisfied. For this definition of extend-subst,\n              is the no-occurrence invariant needed?",
+      "chinese_html": "<p>在本节表示中，替换很大时 extend-subst 可能做大量工作。实现另一种表示，使 extend-subst 如下：</p><pre><code class=\"language-text\">(define extend-subst\n  (lambda (subst tvar ty)\n    (cons (cons tvar ty) subst)))</code></pre><p>把额外工作移到 apply-subst-to-type，同时仍满足替换组合性质：</p><pre><code class=\"language-text\">t(σ[tv = t′]) = (tσ)[tv = t′]</code></pre><p>对于这种 extend-subst 定义，还需要无出现不变量吗？</p>"
+    },
+    {
+      "number": "7.18",
+      "printed_page": 262,
+      "pdf_page": 285,
+      "pdf_end": 285,
+      "stars": 2,
+      "question_text": "Modify the implementation in the preceding exercise so that\n              apply-subst-to-type computes the substitution for any type variable at most\n              once.",
+      "chinese_html": "<p>修改上一题的实现，使 apply-subst-to-type 对任一类型变量的替换最多计算一次。</p>"
+    },
+    {
+      "number": "7.19",
+      "printed_page": 263,
+      "pdf_page": 286,
+      "pdf_end": 287,
+      "stars": 1,
+      "question_text": "We wrote: “If ty1 is an unknown type, then the no-occurrence\ninvariant tells us that it is not bound in the substitution.” Explain in detail why this\nis so.\n\n        unifier : Type × Type × Subst × Exp → Subst\n        (define unifier\n          (lambda (ty1 ty2 subst exp)\n            (let ((ty1 (apply-subst-to-type ty1 subst))\n                   (ty2 (apply-subst-to-type ty2 subst)))\n               (cond\n                 ((equal? ty1 ty2) subst)\n                 ((tvar-type? ty1)\n                  (if (no-occurrence? ty1 ty2)\n                     (extend-subst subst ty1 ty2)\n                     (report-no-occurrence-violation ty1 ty2 exp)))\n                 ((tvar-type? ty2)\n                  (if (no-occurrence? ty2 ty1)\n                     (extend-subst subst ty2 ty1)\n                     (report-no-occurrence-violation ty2 ty1 exp)))\n                 ((and (proc-type? ty1) (proc-type? ty2))\n                  (let ((subst (unifier\n                                  (proc-type->arg-type ty1)\n                                  (proc-type->arg-type ty2)\n                                  subst exp)))\n                     (let ((subst (unifier\n                                    (proc-type->result-type ty1)\n                                    (proc-type->result-type ty2)\n                                    subst exp)))\n                       subst)))\n                 (else (report-unification-failure ty1 ty2 exp))))))\n\n\n                                    Figure 7.4 The unifier",
+      "chinese_html": "<p>原文说：“如果 ty1 是未知类型，那么无出现不变量告诉我们，它尚未在替换中绑定。”详细解释为什么如此。</p>"
+    },
+    {
+      "number": "7.20",
+      "printed_page": 264,
+      "pdf_page": 287,
+      "pdf_end": 287,
+      "stars": 2,
+      "question_text": "Modify the unifier so that it calls apply-subst-to-type only\n      on type variables, rather than on its arguments.",
+      "chinese_html": "<p>修改合一器，使它只对类型变量调用 apply-subst-to-type，而不对其整个实参调用该过程。</p>"
+    },
+    {
+      "number": "7.21",
+      "printed_page": 264,
+      "pdf_page": 287,
+      "pdf_end": 287,
+      "stars": 2,
+      "question_text": "We said the substitution is like a store. Implement the unifier,\n      using the representation of substitutions from exercise 7.17, and keeping the substi-\n      tution in a global Scheme variable, as we did in figures 4.1 and 4.2.",
+      "chinese_html": "<p>前文把替换比作存储。使用习题 7.17 的替换表示实现合一器，并像图 4.1、4.2 一样，把替换保存在一个全局 Scheme 变量中。</p>"
+    },
+    {
+      "number": "7.22",
+      "printed_page": 264,
+      "pdf_page": 287,
+      "pdf_end": 287,
+      "stars": 2,
+      "question_text": "Refine the implementation of the preceding exercise so that the\n      binding of each type variable can be obtained in constant time.\n\n          no-occurrence? : Tvar × Type → Bool\n          (define no-occurrence?\n            (lambda (tvar ty)\n               (cases type ty\n                 (int-type () #t)\n                 (bool-type () #t)\n                 (proc-type (arg-type result-type)\n                    (and\n                      (no-occurrence? tvar arg-type)\n                      (no-occurrence? tvar result-type)))\n                 (tvar-type (serial-number) (not (equal? tvar ty))))))\n\n\n                               Figure 7.5 The occurrence check",
+      "chinese_html": "<p>改进上一题的实现，使每个类型变量的绑定都能在常数时间内取得。</p>"
+    },
+    {
+      "number": "7.23",
+      "printed_page": 270,
+      "pdf_page": 293,
+      "pdf_end": 293,
+      "stars": 2,
+      "question_text": "Extend the inferencer to handle pair types, as in exercise 7.8.",
+      "chinese_html": "<p>扩展类型推导器，使其像习题 7.8 那样支持序对类型。</p>"
+    },
+    {
+      "number": "7.24",
+      "printed_page": 270,
+      "pdf_page": 293,
+      "pdf_end": 293,
+      "stars": 2,
+      "question_text": "Extend the inferencer to handle multiple let declarations, multi-\n      argument procedures, and multiple letrec declarations.",
+      "chinese_html": "<p>扩展类型推导器，使其支持同一 let 中的多个声明、多参数过程和同一 letrec 中的多个声明。</p>"
+    },
+    {
+      "number": "7.25",
+      "printed_page": 271,
+      "pdf_page": 294,
+      "pdf_end": 294,
+      "stars": 2,
+      "question_text": "Extend the inferencer to handle list types, as in exercise 7.9. Mod-\nify the language to use the production\n\n                             Expression ::= emptylist\n\ninstead of\n                          Expression ::= emptylist_Type\nAs a hint, consider creating a type variable in place of the missing _t.",
+      "chinese_html": "<p>像习题 7.9 那样扩展推导器以支持表类型。把语言中的产生式</p><pre><code class=\"language-text\">Expression ::= emptylist_Type</code></pre><p>改为</p><pre><code class=\"language-text\">Expression ::= emptylist</code></pre><p>提示：在原先缺省的类型参数位置创建一个类型变量。</p>"
+    },
+    {
+      "number": "7.26",
+      "printed_page": 272,
+      "pdf_page": 295,
+      "pdf_end": 295,
+      "stars": 2,
+      "question_text": "Extend the inferencer to handle EXPLICIT-REFS, as in exer-\n      cise 7.10.",
+      "chinese_html": "<p>像习题 7.10 那样扩展推导器，使其支持 EXPLICIT-REFS。</p>"
+    },
+    {
+      "number": "7.27",
+      "printed_page": 272,
+      "pdf_page": 295,
+      "pdf_end": 295,
+      "stars": 2,
+      "question_text": "Rewrite the inferencer so that it works in two phases. In the first\n      phase it should generate a set of equations, and in the second phase, it should repeat-\n      edly call unify to solve them.",
+      "chinese_html": "<p>把推导器改写为两个阶段：第一阶段生成一组方程；第二阶段反复调用 unify 求解这些方程。</p>"
+    },
+    {
+      "number": "7.28",
+      "printed_page": 273,
+      "pdf_page": 296,
+      "pdf_end": 297,
+      "stars": 2,
+      "question_text": "Our inferencer is very useful, but it is not powerful enough to\nallow the programmer to define procedures that are polymorphic, like the polymor-\nphic primitives pair or cons, which can be used at many types. For example, our\ninferencer would reject the program\n\n        let f = proc (x : ?) x\n        in if (f zero?(0))\n           then (f 11)\n           else (f 22)\n\neven though its execution is safe, because f is used both at type (bool→ bool) and\nat type (int→ int). Since the inferencer of this section is allowed to find at most\none type for f, it will reject this program.\nFor a more realistic example, one would like to write programs like\n\n        let\n         ? map (f : ?) =\n            letrec\n             ? foo (x : ?) = if null?(x)\n                             then emptylist\n                             else cons((f car(x)),\n                                       ((foo f) cdr(x)))\n            in foo\n        in letrec\n            ? even (y : ?) = if zero?(y)\n                             then zero?(0)\n                             else if zero?(-(y,1))\n                                  then zero?(1)\n                                  else (even -(y,2))\n           in pair(((map proc(x : int)-(x,1))\n                   cons(3,cons(5,emptylist))),\n                   ((map even)\n                    cons(3,cons(5,emptylist))))\n\nThis expression uses map twice, once producing a list of ints and once producing\na list of bools. Therefore it needs two different types for the two uses. Since the\ninferencer of this section will find at most one type for map, it will detect the clash\nbetween int and bool and reject the program.\nOne way to avoid this problem is to allow polymorphic values to be introduced\nonly by let, and then to treat (let-exp var e1 e2 ) differently from (call-exp\n(proc-exp var e2 ) e1 ) for type-checking purposes.\nAdd polymorphic bindings to the inferencer by treating (let-exp var e1 e2 ) like\nthe expression obtained by substituting e1 for each free occurrence of var in e2 . Then,\nfrom the point of view of the inferencer, there are many different copies of e1 in the\nbody of the let, so they can have different types, and the programs above will be\naccepted.",
+      "chinese_html": "<p>本节推导器很有用，但还不足以让程序员定义像多态原语 pair、cons 那样可在多种类型上使用的多态过程。例如，它会拒绝下面的程序：</p><pre><code class=\"language-text\">let f = proc (x : ?) x\nin if (f zero?(0))\n   then (f 11)\n   else (f 22)</code></pre><p>其执行其实是安全的；f 同时以 <code>(bool -&gt; bool)</code> 和 <code>(int -&gt; int)</code> 使用，而本节推导器至多给 f 找到一种类型，所以会拒绝它。一个更实际的例子如下：</p><pre><code class=\"language-text\">let\n ? map (f : ?) =\n    letrec\n     ? foo (x : ?) = if null?(x)\n                    then emptylist\n                    else cons((f car(x)),\n                              ((foo f) cdr(x)))\n    in foo\nin letrec\n    ? even (y : ?) = if zero?(y)\n                    then zero?(0)\n                    else if zero?(-(y,1))\n                         then zero?(1)\n                         else (even -(y,2))\n   in pair(((map proc(x : int)-(x,1))\n            cons(3,cons(5,emptylist))),\n           ((map even)\n            cons(3,cons(5,emptylist))))</code></pre><p>此式使用 map 两次，一次产生整数表，一次产生布尔表，需要两个不同的使用类型。本节推导器至多给 map 找到一种类型，因而发现 int/bool 冲突并拒绝该式。</p><p>一种办法是只允许 let 引入多态值，并在类型检查时区别对待 <code>(let-exp var e1 e2)</code> 和 <code>(call-exp (proc-exp var e2) e1)</code>。给推导器加入多态绑定：把 let 表达式当成将 e2 中每个自由出现的 var 都替换成 e1 所得到的表达式来处理。这样在推导器看来，正文内有多份不同的 e1，可以各自具有不同类型，上述程序就能被接受。</p>"
+    },
+    {
+      "number": "7.29",
+      "printed_page": 274,
+      "pdf_page": 297,
+      "pdf_end": 297,
+      "stars": 3,
+      "question_text": "The type inference algorithm suggested in the preceding exercise\n      will analyze e1 many times, once for each of its occurrences in e2 . Implement Milner’s\n      Algorithm W, which analyzes e1 only once.",
+      "chinese_html": "<p>上一题的推导算法会多次分析 e1：它在 e2 中每出现一次，就分析一次。实现 Milner 的 Algorithm W，使 e1 只分析一次。</p>"
+    },
+    {
+      "number": "7.30",
+      "printed_page": 274,
+      "pdf_page": 297,
+      "pdf_end": 297,
+      "stars": 3,
+      "question_text": "The interaction between polymorphism and effects is subtle.\n      Consider a program starting\n\n              let p = newref(proc (x : ?) x)\n              in ...\n\n      1. Finish this program to produce a program that passes the polymorphic inferencer,\n         but whose evaluation is not safe according to the definition at the beginning of the\n         chapter.\n      2. Avoid this difficulty by restricting the right-hand side of a let to have no effect\n         on the store. This is called the value restriction.",
+      "chinese_html": "<p>多态与效果的相互作用很微妙。考虑以下程序开头：</p><pre><code class=\"language-text\">let p = newref(proc (x : ?) x)\nin ...</code></pre><ol><li>补全程序，使其能通过多态推导器，但按本章开头的定义，其求值不安全。</li><li>限制 let 右侧表达式对存储没有效果，避免这个问题。这称为值限制。</li></ol>"
+    }
+  ]
+}

@@ -1,0 +1,133 @@
+{
+  "issue": "I063",
+  "status": "passed",
+  "scope": "Current twelve-route EOPL offline matrix and final chapter8 manual content readback; reused views retain origin reports and identical HTML/screenshot hashes.",
+  "astro_migration": {
+    "record": "review/astro-migration.json",
+    "sha256": "b9ceb91a1329c608d16be707a1fa48fd19d1d7dfb62e8a1eb794e5b7966a298e",
+    "open_findings": [],
+    "source_sha256": {
+      "book_overview.html": "bcee15d3ae5f7b748a93ff07bdffc6eb7fbbb790f4e2af54fce3bc289605720c",
+      "preface.html": "4ffe7b18e4d6bc5b5ba6be871417b061f1896b88885b723a6d46ab2024a25392",
+      "chapter01_inductive_data.html": "375aac6684c71ae9ec73fb3d3e401119c1c33221858b61e02e9638e74b64d31a",
+      "chapter02_data_abstraction.html": "9c58590c094fe03c2e66495ddc144c601f677224452a94866f7e40c6931e0993",
+      "chapter03_expressions.html": "d2a408b6f950dc85291ddb3b3c7017877cfbed3f351b05b984f1320597633904",
+      "chapter04_state.html": "7d3e055c14d2658266453fbca4dc0e8fd440c537ef9a33309c9e1cca104c8e38",
+      "chapter05_continuations.html": "a17d49cc446f5f478a82dd2aa5b16fe429eb11560eee7c9a9817f6eba5e365bc",
+      "chapter06_cps.html": "3adf80e690f4999b92caeceeb11011f60b7602ef6f5eb31d88b1d5c1f8ef0d53",
+      "chapter07_types.html": "0e864a21bc8c295b231beb85cb915f21069325d7b376c8e262e59549aa9ec23a",
+      "chapter08_modules.html": "0bedb82f790b9f9caab28e35b0fdfc0946535d80fbb543b25885b98c02f2909e"
+    }
+  },
+  "offline_report": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-24T09-29-59-131Z-291ac5f8/report.json",
+  "offline_sha256": "e1ada6217a283f7107332e9b27b03bf9bf2b0839fbb48acc37b75b34910fb292",
+  "js_views": 48,
+  "no_js_views": 24,
+  "hash_identical_reused_views": 60,
+  "external_requests": [],
+  "manual": {
+    "status": "passed",
+    "offline_record": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-24T09-29-59-131Z-291ac5f8/report.json",
+    "pages": 12,
+    "js_views": 48,
+    "no_js_views": 24,
+    "reused_hash_identical_views": 60,
+    "external_requests": 0,
+    "current_manual": "tmp/eopl-ch08-20261024T155227/browser-final/manual.json",
+    "current_visual": "tmp/eopl-ch08-20261024T155227/browser-final/visual.json",
+    "current_native_downloads": 6,
+    "source_pdf": "tmp/eopl-ch08-20261024T155227/browser-final/pdf-loaded.json",
+    "physical_mobile_device": false,
+    "screen_reader_session": false
+  },
+  "screenshots": [
+    {
+      "file": "tmp/eopl-ch08-20261024T155227/browser-final/desktop-top.png",
+      "sha256": "53302457b2db9cddb638ed56260cdd0b06ebff2a088edc457b9ba6e26565f1f1"
+    },
+    {
+      "file": "tmp/eopl-ch08-20261024T155227/browser-final/desktop-type-expansion.png",
+      "sha256": "81a9de726c04e93c5fca0d8fbbb7197f650544103d77986491d10c4e717c8cb6"
+    },
+    {
+      "file": "tmp/eopl-ch08-20261024T155227/browser-final/desktop-answer-12.png",
+      "sha256": "8500e62281d096e53c3bbd36cda24b23b0d11e2733129ab886c6a2ba3789819f"
+    },
+    {
+      "file": "tmp/eopl-ch08-20261024T155227/browser-final/desktop-original-14.png",
+      "sha256": "c42e5f80436a7d3c48ea8a715767ca30c18d5736b6f69ec36bf7ba4cf01a9559"
+    },
+    {
+      "file": "tmp/eopl-ch08-20261024T155227/browser-final/desktop-answer-14.png",
+      "sha256": "e3cd8c45ef862701ccd18607969744e3d96df4198f2e333ca5462187a2a50533"
+    },
+    {
+      "file": "tmp/eopl-ch08-20261024T155227/browser-final/desktop-answer-19.png",
+      "sha256": "7f40186800b2578f2041236b59db87b4fef2339101cccce0cb036eb2a998d8ce"
+    },
+    {
+      "file": "tmp/eopl-ch08-20261024T155227/browser-final/desktop-answer-20.png",
+      "sha256": "770e7e06a82dcc7e71eb4e8cabe13c3899646b9f28a0de7ebbff6208e078416e"
+    },
+    {
+      "file": "tmp/eopl-ch08-20261024T155227/browser-final/desktop-answer-23.png",
+      "sha256": "439f90a3e7b6246a111a0b2df904c2205b5a7ceee7b73abe76d67c3c18137066"
+    },
+    {
+      "file": "tmp/eopl-ch08-20261024T155227/browser-final/desktop-answer-26.png",
+      "sha256": "af3c59cbde592274d073b7b43b3c16d88fc07a35e177e03b0b6c89df9e8f80ed"
+    },
+    {
+      "file": "tmp/eopl-ch08-20261024T155227/browser-final/desktop-interface-variance.png",
+      "sha256": "1860f49bf56af87ae06c175c8a858d646c9c3127c07c32edbcdb7e57b346519d"
+    },
+    {
+      "file": "tmp/eopl-ch08-20261024T155227/browser-final/desktop-complete-source.png",
+      "sha256": "f2f4f34d9bf9ad03a80fbe3758a7d0f8283d02d3123d1e33dd76ae5b5abda347"
+    },
+    {
+      "file": "tmp/eopl-ch08-20261024T155227/browser-final/mobile-top.png",
+      "sha256": "2e9e5562b4c299c86f229cb37452894157f119b697aae35793cc7c906f327b8c"
+    },
+    {
+      "file": "tmp/eopl-ch08-20261024T155227/browser-final/mobile-inline-annotations.png",
+      "sha256": "decbb77752dcb5512fd116ec089bd06e09622775dcb20f3d3463077b00777cd9"
+    },
+    {
+      "file": "tmp/eopl-ch08-20261024T155227/browser-final/mobile-table-original.png",
+      "sha256": "f9a112461ad1e38e8cd5b4401d18882e42d4ab20db38bf4523bfef3470f80187"
+    },
+    {
+      "file": "tmp/eopl-ch08-20261024T155227/browser-final/mobile-answer-15.png",
+      "sha256": "98b6744f788ca789235e405c8d2e366d5781d4bb4d75c085c8317acbace1615f"
+    },
+    {
+      "file": "tmp/eopl-ch08-20261024T155227/browser-final/mobile-answer-19.png",
+      "sha256": "d3773ebccddaf41937d20d3a50bd9fed09761f195adbaf56775c88f88ff1b7be"
+    },
+    {
+      "file": "tmp/eopl-ch08-20261024T155227/browser-final/mobile-answer-20.png",
+      "sha256": "040b5c7894eae5ea75966d3264c79dd78b2266f35f2e7f4bd2905916fa01d146"
+    },
+    {
+      "file": "tmp/eopl-ch08-20261024T155227/browser-final/mobile-answer-23.png",
+      "sha256": "9ad8cd41c60317aae3b506788bcdd2b16473383a62113256ef9dd52f064e86b7"
+    },
+    {
+      "file": "tmp/eopl-ch08-20261024T155227/browser-final/mobile-variance-equation.png",
+      "sha256": "8c2ccee799b77f9296535831963f38efb7e5764748f3284a1377aef74e4239d7"
+    },
+    {
+      "file": "tmp/eopl-ch08-20261024T155227/browser-final/mobile-nojs-original-27.png",
+      "sha256": "81d4c17cc6f3413511b44896fd10c4ec3bb6747fa93515b5b5b095ba2c222922"
+    },
+    {
+      "file": "tmp/eopl-ch08-20261024T155227/browser-final/source-pdf-347-loaded.png",
+      "sha256": "b788e46fd007b286dc5a7e7d249e807c5ad1c2b094dd612af11a220945666e10"
+    }
+  ],
+  "historical_record": {
+    "file": "review/history/I063-before-browser.json",
+    "sha256": "445a0981c67eadcacc7205ba65261de18a1e649597af639dd27f75854e602c5f"
+  }
+}

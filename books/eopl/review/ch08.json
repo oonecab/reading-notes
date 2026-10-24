@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "issue": "I063",
+  "status": "completed_locally",
+  "recorded_at_utc": "2026-10-24T09:54:23.074357+00:00",
+  "content_review": "passed",
+  "program_review": "passed",
+  "reader_review": "passed",
+  "integration_review": "passed",
+  "scope": "Chapter8 nine original teaching sections,18 annotations,16 numbered examples and27 complete exercises; map/chapter7 navigation only.",
+  "source_pdf_sha256": "b9e8770a4dc97206bd02230e6b21a878382eb02a340ff69321857d701e7d967c",
+  "source_sha256": {
+    "eopl/notes/book_overview.html": "8d034e9707399e225008fcbdb5f24e7445354c2b5f69bf4a7ca7d28b4064abe1",
+    "eopl/notes/chapter07_types.html": "2e3b839b77b37432e08f04dcf29397fc27bd3c3e9004c889c90a81467bb65af0",
+    "eopl/notes/chapter08_modules.html": "3e5b858320ff33af2a17a9cb1be74e9ff90c763c1c47b5cc04d08fbb7658ac66"
+  },
+  "output_sha256": {
+    "eopl/notes/book_overview.html": "da0582a748bfe479d26cd971af06c26a684f84a248192c4fc1ff7a3dec2850c5",
+    "eopl/notes/chapter07_types.html": "1c7702fb614bae9d17d65c4c0f3665182a5eb436b42ddea209f288a1580fe4be",
+    "eopl/notes/chapter08_modules.html": "c90eb8235e79dce9cfadc67cbec4db20b630e2829e973a0234d1c81999689915"
+  },
+  "source_baseline": {
+    "git": "cc6e6b5613de626d8094a04436504c7826e18761",
+    "sha256": "0bedb82f790b9f9caab28e35b0fdfc0946535d80fbb543b25885b98c02f2909e"
+  },
+  "source_readback": {
+    "record": "tmp/eopl-ch08-20261024T155227/source-readback.json",
+    "full_text_pages": 50,
+    "visually_read_pages": 24,
+    "exercises": 27
+  },
+  "program_verification": {
+    "groups": 10,
+    "assertions": 617,
+    "failures": 0,
+    "record": "tmp/eopl-ch08-20261024T155227/tests-final.log",
+    "semantic_mutants": 10,
+    "displayed_program_inputs": "tmp/project-check/20261024T174712-jmeogvb8/eopl/module-source-inputs/report.json",
+    "semantic_mutation_record": "tmp/project-check/20261024T174712-jmeogvb8/eopl/module-mutations/report.json",
+    "source_input_cases": 46,
+    "complete_program_cases": 39,
+    "unfinished_skeleton_parse_cases": 7,
+    "root_book_record": "tmp/project-check/20261024T174712-jmeogvb8/eopl/report.json"
+  },
+  "evidence_sha256": {
+    "tmp/reading-notes-migration/browser/eopl/runs/2026-10-24T09-29-59-131Z-291ac5f8/report.json": "e1ada6217a283f7107332e9b27b03bf9bf2b0839fbb48acc37b75b34910fb292",
+    "tmp/eopl-ch08-20261024T155227/browser-final/manual.json": "491262cd13c9ec6c732d59c6862caf8d427b58ffa47138eeaf5554555964f8ba",
+    "tmp/eopl-ch08-20261024T155227/browser-final/visual.json": "09adf9d301c74bad2d92fa1eee35542c9726cc46578f4c18001b188b4509bf1d",
+    "tmp/eopl-ch08-20261024T155227/browser-final/desktop.json": "8600aeed11305cba726a4f0f4717265150a2744bb87d2417619c7a5502d08b57",
+    "tmp/eopl-ch08-20261024T155227/browser-final/mobile.json": "1a73b6f7bf80d4e16306000557dc8e291b28d7ca704d6861c5e0b489bded9072",
+    "tmp/eopl-ch08-20261024T155227/browser-final/pdf-loaded.json": "70ddacffc143580aaebafa62de35ff73642cbd8756e67b218c3424e7e2b0657e",
+    "tmp/eopl-ch08-20261024T155227/source-readback.json": "f8a82f5da5735e43a5e39d337d64357f5556d1011234ec5054fb5fcd1c89690a",
+    "tmp/eopl-ch08-20261024T155227/preservation.json": "bcc3c5641410223a28dc5d94016f8701bf6e0eae4c1669014fcce36e12f235ef",
+    "tmp/eopl-ch08-20261024T155227/readability-refinement.json": "b03c82e33d4bfef392283b5307147be4c295d623b532f3c9f8ba0d4191df0e8e",
+    "tmp/eopl-ch08-20261024T155227/tests-final.log": "45e73e1778b335ed9b97db5563fd323147dcbb1ea8c93c26fc05855cf8422627",
+    "tmp/eopl-ch08-20261024T155227/source-inputs-formatted-final.log": "9dd2babb89b78e280a2c69a1c4d05d97b732b15b6f1e9f18217d1e6f4216433d",
+    "tmp/eopl-ch08-20261024T155227/format-token-proof.log": "7ee29791fc17e986b97128845622b077fb45e349fdb80523fac9dba879b4ad60",
+    "tmp/eopl-ch08-20261024T155227/failure-history.json": "0587397e5623f94bde2676ee90338cb2eee28cfda8e3c45c6b377a015e950c3a",
+    "tmp/eopl-ch08-20261024T155227/build-final.log": "5d8de00d1d87f2c3fe81b9c140bd9cafbe023c5abfff724c524a1ab3e706f1a4",
+    "tmp/eopl-ch08-20261024T155227/parity-final.log": "9f1de12eb24fa5b8cc1425ee420d5c0d8ec2551ec5af047eff81cc41b7b8a62a",
+    "tmp/eopl-ch08-20261024T155227/verify-release-final.log": "56b60a2cc88fa07f37cb79be8b037d7780919a601238433bfbaf8b24dff63305",
+    "tmp/eopl-ch08-20261024T155227/reader-contract-formatted.log": "cad8f6c79b02c6bd35f3e52a099d8c898525c29a1a03bc4224648cbb347281d1",
+    "tmp/eopl-ch08-20261024T155227/typography-formatted.log": "d91539ffbd2bd1f8d800b209122ca52409c094562ef65aae5ffbe54932c51088",
+    "tmp/eopl-ch08-20261024T155227/prose-formatted.log": "eda42353877bfe80fb8711e63aef4e5f75e8bae02518ab22cf4f13d0353cde5c",
+    "tmp/eopl-ch08-20261024T155227/presentation-final.log": "2d1e62efaee2d8e5039d7ad47177c3e5da3c39af97a9925558d61cdce045e8bc",
+    "tmp/eopl-ch08-20261024T155227/node-tests.log": "c09ea74593632e167a91c52d6615558210181a52215131a95daf474e64a7668c",
+    "tmp/eopl-ch08-20261024T155227/checker-mutations/report.json": "cb517ca0be89ac27eace6b8813fb67eebfc169659899ff43efb631aea48183f3",
+    "tmp/release-check/20261024T172555-jpqvpgvt/https-verification.json": "c9fdbfeb7cc3286a917e4f721109c32726b99ab4f559b1201ed6ff3745fb3389",
+    "tmp/eopl-ch08-20261024T155227/final-preservation.json": "6e864cfae413b8e8e80d30a2b179d1f55e1d85366441251acebbad966ea2e77c",
+    "tmp/project-check/20261024T174712-jmeogvb8/report.json": "78fec5937e7c62815bf3b83261d8d2708774efaca6c1628cf13899d42c3c59f2",
+    "tmp/project-check/20261024T174712-2k0wu0ck/report.json": "21632af30d891e0eb64bbe0bde312b06879c2f86ab64498bfca02f2703ace34f",
+    "tmp/project-check/20261024T174712-jmeogvb8/eopl/report.json": "9330966314b195baa5380e2f4318240a42566b2f4f1292587767bea33054f2e9",
+    "tmp/project-check/20261024T174712-jmeogvb8/eopl/module-mutations/report.json": "1ba27a5e22b520961b96842dd955244d2427a0e340b31ab9ff6e102a9d658f7f",
+    "tmp/project-check/20261024T174712-jmeogvb8/eopl/module-source-inputs/report.json": "9dd2babb89b78e280a2c69a1c4d05d97b732b15b6f1e9f18217d1e6f4216433d",
+    "books/eopl/review/ch08.md": "824ae594d938ff667e91b88f943bb866a07eff44abdcf69027c9cf4b9c5ab463",
+    "tmp/eopl-ch08-20261024T155227/closure.json": "3b009c6b30de816b6c9447f4232041ffd7400462ca1f0b9cea72fceb86eba67e",
+    "tmp/eopl-ch08-20261024T155227/browser-final/round10-finish.log": "77de174f2057e684d5ab982106b32e278c787fe0ef021ab7e3e754d3eb500ed7",
+    "tmp/eopl-ch08-20261024T155227/final-review-bindings.log": "fa9550c4930e0b26fbd416132cb52b67a152eec524a1ab4dab013a0f539b931b",
+    "tmp/eopl-ch08-20261024T155227/final-whitespace.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tmp/eopl-ch08-20261024T155227/cleanup-targets.json": "21c28172241dfa2cf1388779999afddebd33ac5d5a3c43d78e8c71bb585635e4"
+  },
+  "build": {
+    "status": "passed",
+    "release_id": "20261024T172555",
+    "reading_pages": 66,
+    "html_pages": 88,
+    "files": 571,
+    "bytes": 80838732,
+    "source_tree_dirty": true,
+    "deployment": "not_performed",
+    "report": "tmp/eopl-ch08-20261024T155227/build-final.log",
+    "https_evidence": "tmp/release-check/20261024T172555-jpqvpgvt/https-verification.json"
+  },
+  "reader": {
+    "status": "passed",
+    "offline_record": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-24T09-29-59-131Z-291ac5f8/report.json",
+    "pages": 12,
+    "js_views": 48,
+    "no_js_views": 24,
+    "reused_hash_identical_views": 60,
+    "external_requests": 0,
+    "current_manual": "tmp/eopl-ch08-20261024T155227/browser-final/manual.json",
+    "current_visual": "tmp/eopl-ch08-20261024T155227/browser-final/visual.json",
+    "current_native_downloads": 6,
+    "source_pdf": "tmp/eopl-ch08-20261024T155227/browser-final/pdf-loaded.json",
+    "physical_mobile_device": false,
+    "screen_reader_session": false
+  },
+  "root_full": {
+    "status": "passed",
+    "record": "tmp/project-check/20261024T174712-jmeogvb8/report.json",
+    "sha256": "78fec5937e7c62815bf3b83261d8d2708774efaca6c1628cf13899d42c3c59f2",
+    "checks": 14,
+    "book": "eopl",
+    "quick": false
+  },
+  "root_quick": {
+    "status": "passed",
+    "record": "tmp/project-check/20261024T174712-2k0wu0ck/report.json",
+    "sha256": "21632af30d891e0eb64bbe0bde312b06879c2f86ab64498bfca02f2703ace34f",
+    "checks": 22,
+    "book": "all",
+    "quick": true
+  },
+  "boundaries": {
+    "physical_mobile_device": false,
+    "screen_reader_session": false,
+    "full_original_scheme_interpreter_executed": false,
+    "finite_tests_prove_universal_safety_or_termination": false,
+    "git_push": "not_performed",
+    "production_deployment": "not_performed",
+    "source_baseline_commit_only": true
+  },
+  "closure": {
+    "status": "passed",
+    "recorded_at_utc": "2026-10-24T09:55:59.111942+00:00",
+    "browser_space": 21,
+    "browser_finished_once": true,
+    "finish_record": "tmp/eopl-ch08-20261024T155227/browser-final/round10-finish.log",
+    "temporary_preview_ports_closed": [
+      60111,
+      60112
+    ],
+    "production_operations": "not_performed",
+    "final_current_review_bindings": "passed",
+    "final_whitespace": "passed"
+  }
+}

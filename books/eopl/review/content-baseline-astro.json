@@ -61,6 +61,46 @@
       "created_for": "I060",
       "baseline_git": "d132ed7f25c06626e090c6c018c4adefb367851a",
       "output_kind": "Retained reviewed source snapshot; current local output bound in ch05-06.json."
+    },
+    {
+      "page": "eopl/notes/chapter07_types.html",
+      "source_sha256": "0e864a21bc8c295b231beb85cb915f21069325d7b376c8e262e59549aa9ec23a",
+      "output_sha256": "0e864a21bc8c295b231beb85cb915f21069325d7b376c8e262e59549aa9ec23a",
+      "created_for": "I062",
+      "baseline_git": "dcfbdc97dd876b61d45c9f9ee0c8c884ed04afe8",
+      "output_kind": "Retained chapter7 source snapshot; current transformed output bound after local build."
+    },
+    {
+      "page": "eopl/notes/chapter08_modules.html",
+      "source_sha256": "0bedb82f790b9f9caab28e35b0fdfc0946535d80fbb543b25885b98c02f2909e",
+      "output_sha256": "03b2960e01756902781141352166cbe1ead1837d7ea4516cb914b86174abffee",
+      "created_for": "I063",
+      "baseline_git": "cc6e6b5613de626d8094a04436504c7826e18761",
+      "output_kind": "I063 first current Astro output; source snapshot stays byte-exact in baseline Git; reading/integration acceptance recorded separately."
+    },
+    {
+      "page": "eopl/notes/chapter09_objects.html",
+      "source_sha256": "23d51dd9b05fd174c890e86ed8647bc17b12fb31cf6456092dcc2f0c7b645485",
+      "output_sha256": "b4b1c30c0d7e3ddf788960541cef694ff20b8111a84cf6feb88747cba95d77c5",
+      "created_for": "I064",
+      "baseline_git": "40f521a265da2db461b9e85988c1f40b513313ea",
+      "output_kind": "First transformed Chapter9 output; original source identity retained."
+    },
+    {
+      "page": "eopl/notes/appendix_a_reading.html",
+      "source_sha256": "3408b3da6167e4332b0387affe81a55b2ef22f478d21237fafcffd243569b19c",
+      "output_sha256": "26f45a16ebb93a71d7dc5f4935afb80cfd8ffd693e95d761020d35bb0df7ca96",
+      "created_for": "I065",
+      "baseline_git": "abbacdb7a2be164d6c0743b627bf4448be59de51",
+      "output_kind": "First successfully built appendix output from local candidate20261025T093000; source snapshot preserved. B stream repair has a separate source revision and current output binding."
+    },
+    {
+      "page": "eopl/notes/appendix_b_sllgen.html",
+      "source_sha256": "c4a28bbaf99332df473ffb9e60b057ab3b1c4ee1535c3d973f1ffc5a38ee46ec",
+      "output_sha256": "94423345cc3c4f561072f10dbc70ab58cfe0503346e46622b9ba3d38e61b953b",
+      "created_for": "I065",
+      "baseline_git": "abbacdb7a2be164d6c0743b627bf4448be59de51",
+      "output_kind": "First successfully built appendix output from local candidate20261025T093000; source snapshot preserved. B stream repair has a separate source revision and current output binding."
     }
   ],
   "extensions": [
@@ -83,6 +123,26 @@
       "issue": "I060",
       "baseline_git": "d132ed7f25c06626e090c6c018c4adefb367851a",
       "scope": "Two chapter source archives, before final supplied-contract/readable target-output/hygienic-primitive refinements."
+    },
+    {
+      "issue": "I062",
+      "baseline_git": "dcfbdc97dd876b61d45c9f9ee0c8c884ed04afe8",
+      "scope": "Chapter7 complete30-task source archive. Existing records unchanged."
+    },
+    {
+      "issue": "I063",
+      "baseline_git": "cc6e6b5613de626d8094a04436504c7826e18761",
+      "scope": "Chapter8 source snapshot; existing source/output records preserved. First current transformed output will be bound after build and reading review."
+    },
+    {
+      "issue": "I064",
+      "baseline_git": "40f521a265da2db461b9e85988c1f40b513313ea",
+      "scope": "Chapter9 initial source only; existing baseline/output records preserved. Final reader/integration acceptance separate."
+    },
+    {
+      "issue": "I065",
+      "baseline_git": "abbacdb7a2be164d6c0743b627bf4448be59de51",
+      "scope": "Two appendix source baselines; all prior records preserved."
     }
   ]
 }

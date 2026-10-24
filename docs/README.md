@@ -24,7 +24,7 @@
 - [新增子项目](adding-a-book.md)与 [本次迁移](migration-20261012.md)。
 - [架构决策](decisions/ADR-001-book-subprojects.md)、[问题单](../issues/I001-project-merge.md)、[计划](../plan/P001-project-merge.md)、[测试设计](../test/T001-project-merge.md)与 [里程碑](../milestone/M001-project-merge.md)。
 - [书籍内容与计算规则入口](rules/README.md)；专项正文规范随各书维护。
-- [EOPL 伴读](../books/eopl/README.md)：全书地图、两篇序文、第 1–6 章和全部 252 题；来源与批次见[阅读计划](../books/eopl/reading-plan.md)。准备批与早期有限范围发布见 [T042](../test/T042-eopl-map-preface.md)、[T044](../test/T044-reading-typography.md)，第 3、4 章本地验收见 [T058](../test/T058-eopl-ch03.md)、[T059](../test/T059-eopl-ch04.md)。
+- [EOPL 伴读](../books/eopl/README.md)：全书地图、两篇序文、第 1–9 章和全部 351 题；来源与批次见[阅读计划](../books/eopl/reading-plan.md)。准备批与早期有限范围发布见 [T042](../test/T042-eopl-map-preface.md)、[T044](../test/T044-reading-typography.md)，第 3、4 章本地验收见 [T058](../test/T058-eopl-ch03.md)、[T059](../test/T059-eopl-ch04.md)。
 - [CS:APP 第一批笔记](../books/csapp/README.md)：[I002](../issues/I002-csapp-part-one.md)、[P002](../plan/P002-csapp-part-one.md)、[T002](../test/T002-csapp-part-one.md)、[M002](../milestone/M002-csapp-part-one.md)。
 
 - [CS:APP 全书地图与第一部分伴读](../books/csapp/notes/README.md)：[I003](../issues/I003-csapp-companion.md)、[P003](../plan/P003-csapp-companion.md)、[T003](../test/T003-csapp-companion.md)、[M003](../milestone/M003-csapp-companion.md)。
@@ -55,3 +55,9 @@
 - [EOPL 章节修订与发布验收](../test/T061-eopl-publication.md)：第3–6章、控制/CPS语义修复、全站章节图及实际发布证据。
 
 - [EOPL 第3–6章生产发布审阅](eopl-chapters-publication-review.json)：内容提交、最终包、服务器恢复单元、正常域名与实际浏览器证据。
+
+- EOPL类型批：[第七章来源、程序及阅读验证](../test/T062-eopl-ch07.md)，包括30题与实际运行的CHECKED/INFERRED、合一、let多态和引用反例。
+
+- EOPL模块批：[第八章来源、执行与阅读验证](../test/T063-eopl-ch08.md)，含27题、16个编号例子、九节注解及模块检查器。
+
+EOPL全书已在I065补齐附录A/B，13页356题；最近三章的边界修复、实际运行与最终发布记录见[T065](../test/T065-eopl-completion-publication.md)。

@@ -51,3 +51,11 @@ test('heading references bind the following material, not only the heading',()=>
  const linked=html.replace('</section>','<h3 id="input">前置程序</h3><pre><code>return x + 1;</code></pre><h3>另一主题</h3></section>').replace('请证明','<a href="#input">原程序</a>请证明');
  assert.throws(()=>checkReaderPage(linked.replace('return x + 1;','return x - 1;'),policy,source,reviewedQuestions(linked)),/changed after source review/);
 });
+test('explicit nested section inventory covers each subsection and its annotation',()=>{
+ const nested=html.replace('</section>','<section id="s1-1"><h3>子节</h3><details class="reading-notes" data-notes-for="s1-1" open><summary>理解</summary><div class="reading-notes-body">本子节把新约束与已有替换相结合，再统一参数和返回值。每个新的子节必须独立说明条件、共享关系和边界，不能借用父节的注解作为已经覆盖的证据。</div></details></section></section>');
+ const p={...policy,section_scope:'all-descendants',sections:[...policy.sections,{id:'s1-1',parent:'s1',annotation:'required'}]};
+ assert.equal(checkReaderPage(nested,p,source).annotations,2);
+ assert.throws(()=>checkReaderPage(nested,{...p,sections:policy.sections},source),/Unreviewed section inventory/);
+ assert.throws(()=>checkReaderPage(nested.replace('data-notes-for="s1-1"','data-notes-for="missing"'),p,source),/Missing required annotation/);
+ assert.throws(()=>checkReaderPage(nested,{...p,sections:[policy.sections[0],{...p.sections[1],parent:'other'}]},source),/Wrong subsection parent/);
+});

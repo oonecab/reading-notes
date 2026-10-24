@@ -10,13 +10,13 @@ export async function positionReadingSection(page,id) {
     await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
   },id);
   await page.waitForFunction(id=>{
-    const section=document.getElementById(id),heading=section.querySelector('h2');
+    const section=document.getElementById(id),heading=section.querySelector(':scope > h2, :scope > h3, :scope > h4');
     const blockers=[document.querySelector('.reader-bar'),...(innerWidth<1100?[document.querySelector('#toc-panel > summary')]:[])].filter(Boolean);
     const bottom=Math.max(0,...blockers.map(n=>n.getBoundingClientRect()).filter(r=>r.top<150&&r.bottom>0).map(r=>r.bottom));
     const link=document.querySelector('#chapter-toc a[href="#'+id+'"]');
     return heading.getBoundingClientRect().top>=bottom+8&&(!link||link.getAttribute('aria-current')==='location')&&(innerWidth<1440||document.getElementById('annotation-rail').dataset.activeSection===id);
   },id,{timeout:7000});
-  return await page.evaluate(id=>({section:id,heading_top:document.getElementById(id).querySelector('h2').getBoundingClientRect().top,toc:document.querySelector('#chapter-toc [aria-current]')?.getAttribute('href'),annotation:document.getElementById('annotation-rail').dataset.activeSection}),id);
+  return await page.evaluate(id=>({section:id,heading_top:document.getElementById(id).querySelector(':scope > h2, :scope > h3, :scope > h4').getBoundingClientRect().top,toc:document.querySelector('#chapter-toc [aria-current]')?.getAttribute('href'),annotation:document.getElementById('annotation-rail').dataset.activeSection}),id);
 }
 export async function checkAnnotations(page, policy, width, {script=true}={}) {
   if (!policy) return {applicable:false,reason:'Auxiliary or redirect page; destination audited separately'};
@@ -41,7 +41,7 @@ export async function checkAnnotations(page, policy, width, {script=true}={}) {
         const r=document.getElementById('annotation-rail'),c=document.getElementById('annotation-content');
         const original=document.querySelector('main [data-notes-for="'+id+'"] .reading-notes-body');
         const link=document.getElementById('annotation-context-link');
-        const heading=document.getElementById(id).querySelector('h2').cloneNode(true);
+        const heading=document.getElementById(id).querySelector(':scope > h2, :scope > h3, :scope > h4').cloneNode(true);
         heading.querySelectorAll('.english-title,math annotation').forEach(n=>n.remove());
         const normalize=s=>s.replace(/\s+/g,' ').trim();
         const box=r.getBoundingClientRect();

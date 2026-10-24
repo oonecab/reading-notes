@@ -1,0 +1,388 @@
+{
+  "schema_version": 1,
+  "book": "eopl",
+  "chapter": "9",
+  "source_pdf": "books/eopl/assets/source.pdf",
+  "source_sha256": "b9e8770a4dc97206bd02230e6b21a878382eb02a340ff69321857d701e7d967c",
+  "method": "Independent42-exercise inventory from48 original PDF page slots; full source text read sequentially; all question pages and critical diagrams visually read. Full original inputs, prompts and hints retained; source9.37 void/int inconsistency preserved.",
+  "items": [
+    {
+      "number": "9.1",
+      "question_text": "Implement the following using the language of this section:\n\n        1. A queue class with methods empty?, enqueue, and dequeue.\n        2. Extend the queue class with a counter that counts the number of operations that\n           have been performed on the current queue.\n        3. Extend the queue class with a counter that counts the total number of operations\n           that have been performed on all the queues in the class. As a hint, remember that\n           you can pass a shared counter object at initialization time.",
+      "stars": 1,
+      "pdf_page": 370,
+      "printed_page": 347,
+      "pdf_end": 370,
+      "chinese_html": "<p>使用本节的语言实现以下内容：</p><ol><li>一个队列类，具有 <code>empty?</code>、<code>enqueue</code> 和 <code>dequeue</code> 方法。</li><li>扩展这个队列类，增加计数器，记录当前队列已执行的操作次数。</li><li>再次扩展队列类，增加计数器，记录该类的全部队列已执行的操作总次数。提示：可以在初始化时传入一个共享的计数器对象。</li></ol>"
+    },
+    {
+      "number": "9.2",
+      "question_text": "Inheritance can be dangerous, because a child class can arbitrarily\n        change the behavior of a method by overriding it. Define a class bogus-oddeven\n        that inherits from oddeven and overrides the method even so that let o1 = new\n        bogus-oddeven() in send o1 odd (13) gives the wrong answer.",
+      "stars": 1,
+      "pdf_page": 370,
+      "printed_page": 347,
+      "pdf_end": 370,
+      "chinese_html": "<p>继承可能带来危险，因为子类可以通过覆盖方法任意改变它的行为。定义类 <code>bogus-oddeven</code>，让它继承 <code>oddeven</code> 并覆盖 <code>even</code> 方法，使 <code>let o1 = new bogus-oddeven() in send o1 odd(13)</code> 给出错误答案。</p>"
+    },
+    {
+      "number": "9.3",
+      "question_text": "In figure 9.11, where are method environments shared? Where are\n        the field-names lists shared?",
+      "stars": 2,
+      "pdf_page": 370,
+      "printed_page": 347,
+      "pdf_end": 370,
+      "chinese_html": "<p>在图 9.11 中，方法环境在哪些位置共享？<code>field-names</code> 列表又在哪些位置共享？</p>"
+    },
+    {
+      "number": "9.4",
+      "question_text": "Change the representation of objects so that an Obj contains the class\n        of which the object is an instance, rather than its name. What are the advantages and\n        disadvantages of this representation compared to the one in the text?",
+      "stars": 1,
+      "pdf_page": 370,
+      "printed_page": 347,
+      "pdf_end": 370,
+      "chinese_html": "<p>改变对象的表示，使一个 <code>Obj</code> 直接包含它所属的类，而不是该类的名字。与正文采用的表示相比，这种表示有哪些优点和缺点？</p>"
+    },
+    {
+      "number": "9.5",
+      "question_text": "The interpreter of section 9.4 stores the superclass name of a method’s\n        host class in the lexical environment. Change the implementation so that the method\n        stores the host class name, and retrieves the superclass name from the host name.",
+      "stars": 1,
+      "pdf_page": 370,
+      "printed_page": 347,
+      "pdf_end": 370,
+      "chinese_html": "<p>第 9.4 节的解释器在词法环境中保存方法宿主类的父类名字。改变实现，使方法保存宿主类的名字，再从宿主类名字取得其父类名字。</p>"
+    },
+    {
+      "number": "9.6",
+      "question_text": "Add to our language the expression instanceof exp class-name.\n        The value of this expression should be true if and only if the object obtained by eval-\n        uating exp is an instance of class-name or of one of its subclasses.",
+      "stars": 1,
+      "pdf_page": 370,
+      "printed_page": 347,
+      "pdf_end": 370,
+      "chinese_html": "<p>给语言增加表达式 <code>instanceof exp class-name</code>。当且仅当对 <code>exp</code> 求值得到的对象是 <code>class-name</code> 或其某个子类的实例时，该表达式的值为真。</p>"
+    },
+    {
+      "number": "9.7",
+      "question_text": "In our language, the environment for a method includes bindings for\n        the field variables declared in the host class and its superclasses. Limit them to just\n        the host class.",
+      "stars": 1,
+      "pdf_page": 370,
+      "printed_page": 347,
+      "pdf_end": 370,
+      "chinese_html": "<p>当前语言中，方法的环境包含宿主类及其各祖先类中声明的字段变量绑定。把这些绑定限制为仅包含宿主类自己声明的字段。</p>"
+    },
+    {
+      "number": "9.8",
+      "question_text": "Add to our language a new expression,\n\n                                      fieldref obj field-name\n\n        that retrieves the contents of the given field of the object. Add also\n\n                                  fieldset obj field-name = exp\n\n        which sets the given field to the value of exp.",
+      "stars": 1,
+      "pdf_page": 370,
+      "printed_page": 347,
+      "pdf_end": 370,
+      "chinese_html": "<p>给语言增加表达式：</p><pre><code class=\"language-text\">fieldref obj field-name</code></pre><p>用于取得对象给定字段的内容。还要增加：</p><pre><code class=\"language-text\">fieldset obj field-name = exp</code></pre><p>用于把该对象给定字段设置为 <code>exp</code> 的值。</p>"
+    },
+    {
+      "number": "9.9",
+      "question_text": "Add expressions superfieldref field-name and superfieldset\n        field-name = exp that manipulate the fields of self that would otherwise be shad-\n        owed. Remember super is static, and always refers to the superclass of the host\n        class.",
+      "stars": 1,
+      "pdf_page": 370,
+      "printed_page": 347,
+      "pdf_end": 370,
+      "chinese_html": "<p>增加表达式 <code>superfieldref field-name</code> 和 <code>superfieldset field-name = exp</code>，用来访问和修改 <code>self</code> 中原本会被遮蔽的字段。请记住，<code>super</code> 是静态的，总是指宿主类的父类。</p>"
+    },
+    {
+      "number": "9.10",
+      "question_text": "Some object-oriented languages include facilities for named-class\n      method invocation and field references. In a named-class method invocation, one\n      might write named-send c1 o m1(). This would invoke c1’s m1 method on o,\n      so long as o was an instance of c1 or of one of its subclasses, even if m1 were over-\n      ridden in o’s actual class. This is a form of static method dispatch. Named-class\n      field reference provides a similar facility for field reference. Add named-class method\n      invocation, field reference, and field setting to the language of this section.",
+      "stars": 2,
+      "pdf_page": 371,
+      "printed_page": 348,
+      "pdf_end": 371,
+      "chinese_html": "<p>有些面向对象语言支持指定类的方法调用和字段引用。例如，<code>named-send c1 o m1()</code> 会对对象 <code>o</code> 调用 <code>c1</code> 的 <code>m1</code> 方法，只要 <code>o</code> 是 <code>c1</code> 或其子类的实例；即使 <code>m1</code> 在 <code>o</code> 的实际类中已被覆盖，也仍调用前者。这是一种静态方法分派。指定类的字段引用提供类似能力。给本节语言增加指定类的方法调用、字段引用和字段设置。</p>"
+    },
+    {
+      "number": "9.11",
+      "question_text": "Add to CLASSES the ability to specify that each method is either\n      private and only accessible from within the host class, protected and only accessible\n      from the host class and its descendants, or public and accessible from anywhere. Many\n      object-oriented languages include some version of this feature.",
+      "stars": 2,
+      "pdf_page": 371,
+      "printed_page": 348,
+      "pdf_end": 371,
+      "chinese_html": "<p>扩展 CLASSES，允许把每个方法指定为以下三种访问级别之一：<code>private</code> 只能从宿主类内部访问，<code>protected</code> 只能从宿主类及其后代类访问，<code>public</code> 可以从任何地方访问。许多面向对象语言都提供某种形式的这一特性。</p>"
+    },
+    {
+      "number": "9.12",
+      "question_text": "Add to CLASSES the ability to specify that each field is either pri-\n      vate, protected, or public as in exercise 9.11.",
+      "stars": 2,
+      "pdf_page": 371,
+      "printed_page": 348,
+      "pdf_end": 371,
+      "chinese_html": "<p>按照习题 9.11，扩展 CLASSES，允许把每个字段指定为 <code>private</code>、<code>protected</code> 或 <code>public</code>。</p>"
+    },
+    {
+      "number": "9.13",
+      "question_text": "To defend against malicious subclasses like bogus-oddeven in\n      exercise 9.2, many object-oriented languages have a facility for final methods, which\n      may not be overridden. Add such a facility to CLASSES, so that we could write\n\n              class oddeven extends object\n               method initialize () 1\n               final method even (n)\n                if zero?(n) then 1 else send self odd(-(n,1))\n               final method odd (n)\n                if zero?(n) then 0 else send self even(-(n,1))",
+      "stars": 2,
+      "pdf_page": 371,
+      "printed_page": 348,
+      "pdf_end": 371,
+      "chinese_html": "<p>为了防止习题 9.2 中 <code>bogus-oddeven</code> 这样的恶意子类，许多面向对象语言支持 <code>final</code> 方法，禁止子类覆盖。给 CLASSES 增加这一能力，使我们能够写出：</p><pre><code class=\"language-text\">class oddeven extends object\n method initialize () 1\n final method even (n)\n  if zero?(n) then 1 else send self odd(-(n,1))\n final method odd (n)\n  if zero?(n) then 0 else send self even(-(n,1))</code></pre>"
+    },
+    {
+      "number": "9.14",
+      "question_text": "Another way to defend against malicious subclasses is to use some\n      form of static dispatch. Modify CLASSES so that method calls to self always use the\n      method in the host class, rather than the method in the class of the target object.",
+      "stars": 2,
+      "pdf_page": 371,
+      "printed_page": 348,
+      "pdf_end": 371,
+      "chinese_html": "<p>防止恶意子类的另一种办法，是采用某种静态分派。修改 CLASSES，使对 <code>self</code> 的方法调用总是使用宿主类中的方法，而不是目标对象实际类中的方法。</p>"
+    },
+    {
+      "number": "9.15",
+      "question_text": "Many object-oriented languages include a provision for static or\n      class variables. Static variables associate some state with a class; all the instances of\n      the class share this state. For example, one might write:\n\n              class c1 extends object\n               static next-serial-number = 1\n               field my-serial-number\n               method get-serial-number () my-serial-number\n               method initialize ()\n                begin\n                 set my-serial-number = next-serial-number;\n                 set next-serial-number = +(next-serial-number,1)\n                end\n              let o1 = new c1()\n                  o2 = new c1()\n              in list(send o1 get-serial-number(),\n                      send o2 get-serial-number())\n\n\nEach new object of class c1 receives a new consecutive serial number.\nAdd static variables to our language. Since static variables can appear in a method\nbody, apply-method must add additional bindings in the environment it constructs.\nWhat environment should be used for the evaluation of the initializing expression for\na static variable (1 in the example above)?",
+      "stars": 2,
+      "pdf_page": 371,
+      "printed_page": 348,
+      "pdf_end": 372,
+      "chinese_html": "<p>许多面向对象语言提供静态变量或类变量。静态变量把一份状态与类关联起来，该类的全部实例共享这份状态。例如：</p><pre><code class=\"language-text\">class c1 extends object\n static next-serial-number = 1\n field my-serial-number\n method get-serial-number () my-serial-number\n method initialize ()\n  begin\n   set my-serial-number = next-serial-number;\n   set next-serial-number = +(next-serial-number,1)\n  end\nlet o1 = new c1()\n    o2 = new c1()\nin list(send o1 get-serial-number(),\n        send o2 get-serial-number())</code></pre><p>每个新建的 <code>c1</code> 对象都得到一个连续的新序号。给语言增加静态变量。因为静态变量可以出现在方法体中，<code>apply-method</code> 必须在构造环境时增加相应绑定。静态变量的初始化表达式（本例中的 <code>1</code>）应在哪个环境中求值？</p>"
+    },
+    {
+      "number": "9.16",
+      "question_text": "Object-oriented languages frequently allow overloading of meth-\nods. This feature allows a class to have multiple methods of the same name, provided\nthey have distinct signatures. A method’s signature is typically the method name plus\nthe types of its parameters. Since we do not have types in CLASSES, we might over-\nload based simply on the method name and number of parameters. For example, a\nclass might have two initialize methods, one with no parameters for use when\ninitialization with a default field value is desired, and another with one parameter\nfor use when a particular field value is desired. Extend our interpreter to allow over-\nloading based on the number of method parameters.",
+      "stars": 2,
+      "pdf_page": 372,
+      "printed_page": 349,
+      "pdf_end": 372,
+      "chinese_html": "<p>面向对象语言经常允许方法重载，即同一个类可有多个同名方法，只要它们的签名不同。通常签名由方法名及其参数类型组成。CLASSES 没有类型，因此可以只按方法名与参数个数重载。例如，一个类可以有两个 <code>initialize</code> 方法：无参数版本使用默认字段值，一个参数版本使用指定字段值。扩展解释器，允许按照方法参数个数重载。</p>"
+    },
+    {
+      "number": "9.17",
+      "question_text": "As it stands, the classes in our language are defined globally. Add\nto CLASSES a facility for local classes, so one can write something like letclass c\n= ...in e. As a hint, consider adding the class environment as a parameter to the\ninterpreter.",
+      "stars": 2,
+      "pdf_page": 372,
+      "printed_page": 349,
+      "pdf_end": 372,
+      "chinese_html": "<p>当前语言中的类都是全局定义的。给 CLASSES 增加局部类机制，使我们可以写出类似 <code>letclass c = ... in e</code> 的程序。提示：考虑把类环境作为解释器的一个参数传递。</p>"
+    },
+    {
+      "number": "9.18",
+      "question_text": "The method environments produced by merge-method-envs\ncan be long. Write a new version of merge-method-envs with the property that\neach method name occurs exactly once, and furthermore, it appears in the same place\nas its earliest declaration. For example, in figure 9.8, method m2 should appear in the\nsame place in the method environments of c1, c2, c3, and any descendant of c3.",
+      "stars": 2,
+      "pdf_page": 372,
+      "printed_page": 349,
+      "pdf_end": 372,
+      "chinese_html": "<p><code>merge-method-envs</code> 生成的方法环境可能很长。重写该过程，要求每个方法名恰好出现一次，并且总是位于它最早声明时占据的位置。例如，图 9.8 中的 <code>m2</code> 在 <code>c1</code>、<code>c2</code>、<code>c3</code> 及 <code>c3</code> 任意后代的方法环境中都应处于同一位置。</p>"
+    },
+    {
+      "number": "9.19",
+      "question_text": "Implement lexical addressing for CLASSES. First, write a lexical-\naddress calculator like that of section 3.7.1 for the language of this section. Then\nmodify the implementation of environments to make them nameless, and modify\nvalue-of so that apply-env takes a lexical address instead of a symbol, as in sec-\ntion 3.7.2.",
+      "stars": 2,
+      "pdf_page": 372,
+      "printed_page": 349,
+      "pdf_end": 372,
+      "chinese_html": "<p>为 CLASSES 实现词法地址。首先，像第 3.7.1 节那样为本节语言编写词法地址计算器。然后把环境实现改为无名环境，并修改 <code>value-of</code>，使 <code>apply-env</code> 像第 3.7.2 节那样接受词法地址，而不是符号。</p>"
+    },
+    {
+      "number": "9.20",
+      "question_text": "Can anything equivalent to the optimizations of the exercise 9.19\nbe done for method invocations? Discuss why or why not.",
+      "stars": 3,
+      "pdf_page": 372,
+      "printed_page": 349,
+      "pdf_end": 372,
+      "chinese_html": "<p>能否把与习题 9.19 类似的优化用于方法调用？讨论为什么可以，或为什么不可以。</p>"
+    },
+    {
+      "number": "9.21",
+      "question_text": "If there are many methods in a class, linear search down a list of\nmethods can be slow. Replace it by some faster implementation. How much improve-\nment does your implementation provide? Account for your results, either positive or\nnegative.",
+      "stars": 2,
+      "pdf_page": 372,
+      "printed_page": 349,
+      "pdf_end": 372,
+      "chinese_html": "<p>类中方法很多时，沿方法列表线性查找可能很慢。用一种更快的实现替换它。你的实现带来多大改进？无论结果是正面还是负面，都应解释原因。</p>"
+    },
+    {
+      "number": "9.22",
+      "question_text": "In exercise 9.16, we added overloading to the language by extend-\ning the interpreter. Another way to support overloading is not to modify the inter-\npreter, but to use a syntactic preprocessor. Write a preprocessor that changes the name\nof every method m to one of the form m:@n, where n is the number of parameters in\nthe method declaration. It must similarly change the name in every method call,\nbased on the number of operands. We assume that :@ is not used by programmers in\nmethod names, but is accepted by the interpreter in method names. Compilers fre-\nquently use such a technique to implement method overloading. This is an instance\nof a general trick called name mangling.",
+      "stars": 2,
+      "pdf_page": 372,
+      "printed_page": 349,
+      "pdf_end": 372,
+      "chinese_html": "<p>习题 9.16 通过扩展解释器支持重载。另一种办法是保持解释器不变，使用语法预处理器。编写预处理器，把每个方法 <code>m</code> 改名为 <code>m:@n</code>，其中 <code>n</code> 是方法声明的参数个数；每个方法调用也必须按操作数个数相应改名。假定程序员不在方法名中使用 <code>:@</code>，但解释器接受它。编译器经常用这种方法实现重载，这是一种称为名字改编（name mangling）的通用技巧。</p>"
+    },
+    {
+      "number": "9.23",
+      "question_text": "We have treated super calls as if they were lexically bound. But\n      we can do better: we can determine super calls statically. Since a super call refers to\n      a method in a class’s parent, and the parent, along with its methods, is known prior\n      to the start of execution, we can determine the exact method to which any super call\n      refers at the same time we do lexical-addressing and other analyses. Write a translator\n      that takes each super call and replaces it with an abstract syntax tree node containing\n      the actual method to be invoked.",
+      "stars": 3,
+      "pdf_page": 373,
+      "printed_page": 350,
+      "pdf_end": 373,
+      "chinese_html": "<p>我们一直像处理词法绑定一样处理 <code>super</code> 调用，但还可以进一步：静态地确定它。<code>super</code> 调用引用某个类的父类方法，而父类及其方法在执行开始前已经确定。因此，在进行词法地址和其他分析时，就可以确定每次 <code>super</code> 调用究竟引用哪个方法。编写翻译器，把每个 <code>super</code> 调用替换为一个抽象语法树节点，其中包含要调用的实际方法。</p>"
+    },
+    {
+      "number": "9.24",
+      "question_text": "Write a translator that replaces method names in named method\n      calls as in exercise 9.10 with numbers indicating the offset of the named method in the\n      run-time method table of the named class. Implement an interpreter for the translated\n      code in which named method access is constant time.",
+      "stars": 3,
+      "pdf_page": 373,
+      "printed_page": 350,
+      "pdf_end": 373,
+      "chinese_html": "<p>编写翻译器，把习题 9.10 那样的指定类方法调用中的方法名，替换为该方法在指定类运行时方法表中的偏移数字。为翻译后的代码实现解释器，使指定类方法访问具有常数时间。</p>"
+    },
+    {
+      "number": "9.25",
+      "question_text": "Using the first example of inheritance from figure 9.5, we include\n      a method in the class point that determines if two points have the same x- and y-\n      coordinates. We add the method similarpoints to the point class as follows:\n\n              method similarpoints (pt)\n               if equal?(send pt getx(), x)\n               then equal?(send pt gety(), y)\n               else zero?(1)\n\n      This works for both kinds of points. Since getx, gety, and similarpoints are\n      defined in class point, by inheritance, they are defined in colorpoint. Test\n      similarpoints to compare points with points, points with color points, color\n      points with points, and color points with color points.\n      Next consider a small extension. We add a new similarpoints method to the\n      colorpoint class. We expect it to return true if both points have the same x- and\n      y-coordinates and further, in case both are color points, they have the same color.\n      Otherwise it returns false. Here is an incorrect solution.\n\n              method similarpoints (pt)\n               if super similarpoints(pt)\n               then equal?(send pt getcolor(),color)\n               else zero?(1)\n\n      Test this extension. Determine why it does not work on all the cases. Fix it so that all\n      the tests return the correct values.\n      The difficulty of writing a procedure that relies on more than one object is known\n      as the binary method problem. It demonstrates that the class-centric model of object-\n      oriented programming, which this chapter explores, leaves something to be desired\n      when there are multiple objects. It is called the binary method problem because the\n      problem shows up with just two objects, but it gets progressively worse as the number\n      of objects increases.",
+      "stars": 3,
+      "pdf_page": 373,
+      "printed_page": 350,
+      "pdf_end": 373,
+      "chinese_html": "<p>使用图 9.5 中最初的继承例子，在 <code>point</code> 类中加入一个判断两个点是否具有相同横、纵坐标的方法：</p><pre><code class=\"language-text\">method similarpoints (pt)\n if equal?(send pt getx(), x)\n then equal?(send pt gety(), y)\n else zero?(1)</code></pre><p>它对两种点都适用。因为 <code>getx</code>、<code>gety</code> 和 <code>similarpoints</code> 在 <code>point</code> 中定义，继承也使它们在 <code>colorpoint</code> 中有定义。测试普通点对普通点、普通点对彩色点、彩色点对普通点和彩色点对彩色点这四类比较。</p><p>现在稍作扩展，在 <code>colorpoint</code> 中增加新的 <code>similarpoints</code> 方法。我们希望它在两个点坐标相同，并且当两者都是彩色点时颜色也相同的情况下返回真；否则返回假。下面是一个错误的解答：</p><pre><code class=\"language-text\">method similarpoints (pt)\n if super similarpoints(pt)\n then equal?(send pt getcolor(),color)\n else zero?(1)</code></pre><p>测试这个扩展，确定它为什么不能处理所有情况，再修正它，使全部测试给出正确值。编写依赖多个对象的过程所遇到的这种困难称为二元方法问题（binary method problem）。它表明，当涉及多个对象时，本章采用的以类为中心的模型仍有不足。之所以叫“二元”，是因为仅两个对象就会出现问题，而对象越多，问题会进一步恶化。</p>"
+    },
+    {
+      "number": "9.26",
+      "question_text": "Multiple inheritance, in which a class can have more than one\n      parent, can be useful, but may introduce serious complications. What if two inherited\n      classes both have methods of the same name? This can be disallowed, or resolved by\n\n\nenumerating the methods in the class by some arbitrary rule, such as depth-first left-\nto-right, or by requiring that the ambiguity be resolved at the point such a method\nis called. The situation for fields is even worse. Consider the following situation, in\nwhich class c4 is to inherit from c2 and c3, both of which inherit from c1:\n\n        class c1 extends object\n         field x\n        class c2 extends c1\n        class c3 extends c1\n        class c4 extends c2, c3\n\nDoes an instance of c4 have one instance of field x shared by c2 and c3, or does c4\nhave two x fields: one inherited from c2 and one inherited from c3? Some languages\nopt for sharing, some not, and some provide a choice, at least in some cases. The\ncomplexity of this problem has led to a design trend favoring single inheritance of\nclasses, but multiple inheritance only for interfaces (section 9.5), which avoids most\nof these difficulties.\nAdd multiple inheritance to CLASSES. Extend the syntax as necessary. Indicate what\nissues arise when resolving method and field name conflicts. Characterize the sharing\nissue and its resolution.",
+      "stars": 3,
+      "pdf_page": 373,
+      "printed_page": 350,
+      "pdf_end": 374,
+      "chinese_html": "<p>多重继承允许一个类有多个父类，虽然有用，却可能引入严重复杂性。如果两个父类都有同名方法，该怎么办？可以禁止这种情况，也可以按某个规则（例如从左到右的深度优先顺序）排列方法，或者要求在调用这种方法时解决歧义。字段问题更复杂。考虑 <code>c4</code> 继承 <code>c2</code> 与 <code>c3</code>，而后二者都继承 <code>c1</code>：</p><pre><code class=\"language-text\">class c1 extends object\n field x\nclass c2 extends c1\nclass c3 extends c1\nclass c4 extends c2, c3</code></pre><p><code>c4</code> 的实例应只有一份由 <code>c2</code> 与 <code>c3</code> 共享的字段 <code>x</code>，还是有两份，分别从两个父类继承？有些语言选择共享，有些不共享，有些至少在特定情形下提供选择。此问题的复杂性使一种设计趋势倾向于类采用单继承，而只允许接口多重继承（见第 9.5 节），以避开大部分困难。给 CLASSES 增加多重继承，并按需要扩展语法。说明方法名和字段名冲突时出现的问题，刻画共享问题及其解决办法。</p>"
+    },
+    {
+      "number": "9.27",
+      "question_text": "Implement the following design for an object language without\nclasses. An object will be a set of closures, indexed by method names, that share\nan environment (and hence some state). Classes will be replaced by procedures that\nreturn an object. So instead of writing send o1 m1(11,22,33), we would write an\nordinary procedure call (getmethod(o1,m1) 11 22 33), and instead of writing\n\n        class oddeven extends object\n         method initialize () 1\n         method even (n)\n          if zero?(n) then 1 else send self odd(-(n,1))\n         method odd (n)\n          if zero?(n) then 0 else send self even(-(n,1))\n        let o1 = new oddeven()\n        in send o1 odd(13)\n\nwe might write something like\n\n        let make-oddeven\n         = proc ()\n            newobject\n             even = proc (n) if zero?(n) then 1\n                             else (getmethod(self,odd) -(n,1))\n             odd = proc (n) if zero?(n) then 0\n                            else (getmethod(self,even) -(n,1))\n            endnewobject\n        in let o1 = (make-oddeven) in (getmethod(o1,odd) 13)",
+      "stars": 3,
+      "pdf_page": 374,
+      "printed_page": 351,
+      "pdf_end": 374,
+      "chinese_html": "<p>实现以下无类对象语言设计：一个对象是一组按方法名索引的闭包，它们共享环境，从而共享状态。类由返回对象的过程替代。因此，<code>send o1 m1(11,22,33)</code> 改成普通过程调用 <code>(getmethod(o1,m1) 11 22 33)</code>。下面的程序：</p><pre><code class=\"language-text\">class oddeven extends object\n method initialize () 1\n method even (n)\n  if zero?(n) then 1 else send self odd(-(n,1))\n method odd (n)\n  if zero?(n) then 0 else send self even(-(n,1))\nlet o1 = new oddeven()\nin send o1 odd(13)</code></pre><p>就可以写成类似下面的形式：</p><pre><code class=\"language-text\">let make-oddeven\n = proc ()\n    newobject\n     even = proc (n) if zero?(n) then 1\n                     else (getmethod(self,odd) -(n,1))\n     odd = proc (n) if zero?(n) then 0\n                    else (getmethod(self,even) -(n,1))\n    endnewobject\nin let o1 = (make-oddeven) in (getmethod(o1,odd) 13)</code></pre>"
+    },
+    {
+      "number": "9.28",
+      "question_text": "Add inheritance to the language of exercise 9.27.",
+      "stars": 3,
+      "pdf_page": 375,
+      "printed_page": 352,
+      "pdf_end": 375,
+      "chinese_html": "<p>给习题 9.27 的语言增加继承。</p>"
+    },
+    {
+      "number": "9.29",
+      "question_text": "Design and implement an object-oriented language without\n            explicit classes, by having each object contain its own method environment. Such\n            an object is called a prototype. Replace the class object by a prototype object with no\n            methods or fields. Extend a class by adding methods and fields to its prototype, yield-\n            ing a new prototype. Thus we might write let c2 = extend c1 ... instead of\n            class c2 extends c1 .... Replace the new operation with an operation clone\n            that takes an object and simply copies its methods and fields. Methods in this lan-\n            guage occur inside a lexical scope, so they should have access to lexically visible vari-\n            ables, as usual, as well as field variables. What shadowing relation should hold when\n            a field variable of a superprototype has the same name as a variable in a containing\n            lexical scope?",
+      "stars": 3,
+      "pdf_page": 375,
+      "printed_page": 352,
+      "pdf_end": 375,
+      "chinese_html": "<p>设计并实现一种没有显式类的面向对象语言，让每个对象包含自己的方法环境；这种对象称为原型（prototype）。用一个没有字段或方法的原型对象替代类 <code>object</code>。向它的原型增加字段和方法，以得到扩展后的新原型。因此，可以写 <code>let c2 = extend c1 ...</code>，替代 <code>class c2 extends c1 ...</code>。用操作 <code>clone</code> 替代 <code>new</code>；它接受一个对象，直接复制其方法与字段。此语言的方法出现在词法作用域中，所以应当像通常情况那样访问词法可见变量，同时也能访问字段变量。如果父原型的字段变量与外层词法作用域中的变量同名，应采用何种遮蔽关系？</p>"
+    },
+    {
+      "number": "9.30",
+      "question_text": "Create an interface summable:\n\n        interface summable\n         method int sum ()\n\nNow define classes for summable lists, summable binary trees (as in figure 9.12) and\nsummable general trees (in which each node contains a summable list of children).\nThen do the same thing for an interface\n\n        interface stringable\n         method string to-string ()",
+      "stars": 1,
+      "pdf_page": 380,
+      "printed_page": 357,
+      "pdf_end": 380,
+      "chinese_html": "<p>创建接口：</p><pre><code class=\"language-text\">interface summable\n method int sum ()</code></pre><p>然后定义可求和的列表类、二叉树类（如图 9.12）以及一般树类；一般树中每个节点包含一个由子节点组成的可求和列表。再对下面的接口完成同样的工作：</p><pre><code class=\"language-text\">interface stringable\n method string to-string ()</code></pre>"
+    },
+    {
+      "number": "9.31",
+      "question_text": "In figure 9.12, would it have worked to make tree a class and have\nthe two node classes inherit from tree? In what circumstances is this a better method\nthan using an interface like summable? In what circumstances is it inferior?",
+      "stars": 1,
+      "pdf_page": 380,
+      "printed_page": 357,
+      "pdf_end": 380,
+      "chinese_html": "<p>在图 9.12 中，能否把 <code>tree</code> 改成一个类，并让两种节点类继承它？什么情况下，这种做法优于使用 <code>summable</code> 这样的接口？什么情况下又不如接口？</p>"
+    },
+    {
+      "number": "9.32",
+      "question_text": "Write an equality predicate for the class tree that does not use\ninstanceof or cast. What is needed here is a double dispatch, in place of the single\ndispatch provided by the usual methods. This can be simulated as follows: Instead of\nusing instanceof to find the class of the argument t, the current tree should send\nback to t a message that encodes its own class, along with parameters containing the\nvalues of the appropriate fields.",
+      "stars": 2,
+      "pdf_page": 380,
+      "printed_page": 357,
+      "pdf_end": 380,
+      "chinese_html": "<p>为 <code>tree</code> 编写不使用 <code>instanceof</code> 或 <code>cast</code> 的相等谓词。这里需要双重分派，替代通常方法提供的单次分派。可以这样模拟：当前树不通过 <code>instanceof</code> 判断参数 <code>t</code> 的类，而是向 <code>t</code> 回发一条消息；消息编码当前树自己的类，并通过参数传递相应字段的值。</p>"
+    },
+    {
+      "number": "9.33",
+      "question_text": "Extend the type checker to enforce the safety property that no\ninstanceof or cast expression is ever performed on a value that is not an object,\nor on a type that is not a class.",
+      "stars": 1,
+      "pdf_page": 390,
+      "printed_page": 367,
+      "pdf_end": 390,
+      "chinese_html": "<p>扩展类型检查器，保证以下安全性质：<code>instanceof</code> 与 <code>cast</code> 绝不作用于非对象值，其目标类型也绝不是非类类型。</p>"
+    },
+    {
+      "number": "9.34",
+      "question_text": "The expression cast e c cannot succeed unless the type of e is\neither a descendant or an ancestor of c. (Why?) Extend the type checker to guaran-\ntee that the program never evaluates a cast expression unless this property holds.\nExtend the checker for instanceof to match.",
+      "stars": 1,
+      "pdf_page": 390,
+      "printed_page": 367,
+      "pdf_end": 390,
+      "chinese_html": "<p>只有当 <code>e</code> 的类型是 <code>c</code> 的后代或祖先时，表达式 <code>cast e c</code> 才可能成功。为什么？扩展类型检查器，保证只有满足这一性质时程序才会执行转换表达式；相应扩展 <code>instanceof</code> 的检查。</p>"
+    },
+    {
+      "number": "9.35",
+      "question_text": "Extend the type checker to enforce the safety property that an\ninitialize method is called only from within a new-object-exp.",
+      "stars": 1,
+      "pdf_page": 390,
+      "printed_page": 367,
+      "pdf_end": 390,
+      "chinese_html": "<p>扩展类型检查器，保证 <code>initialize</code> 方法只能从 <code>new-object-exp</code> 内部调用。</p>"
+    },
+    {
+      "number": "9.36",
+      "question_text": "Extend the language to allow interfaces to inherit from other inter-\nfaces. An interface should require all the methods required by all of its parents.\n\n\n\n        check-method-decl! :\n         MethodDecl × ClassName × ClassName × Listof(FieldName) × Listof(Type)\n            → Unspecified\n        (define check-method-decl!\n          (lambda (m-decl self-name s-name f-names f-types)\n             (cases method-decl m-decl\n               (a-method-decl (res-type m-name vars var-types body)\n                 (let ((tenv\n                           (extend-tenv\n                             vars var-types\n                             (extend-tenv-with-self-and-super\n                               (class-type self-name)\n                               s-name\n                               (extend-tenv f-names f-types\n                                 (init-tenv))))))\n                    (let ((body-type (type-of body tenv)))\n                      (check-is-subtype! body-type res-type m-decl)\n                      (if (eqv? m-name ’initialize) #t\n                        (let ((maybe-super-type\n                                 (maybe-find-method-type\n                                   (static-class->method-tenv\n                                     (lookup-static-class s-name))\n                                   m-name)))\n                           (if maybe-super-type\n                             (check-is-subtype!\n                               (proc-type var-types res-type)\n                                 maybe-super-type body)\n                             #t)))))))))\n\n\n                              Figure 9.20    check-method-decl!",
+      "stars": 1,
+      "pdf_page": 390,
+      "printed_page": 367,
+      "pdf_end": 390,
+      "chinese_html": "<p>扩展语言，允许接口继承其他接口。一个接口应要求其全部父接口所要求的所有方法。</p>"
+    },
+    {
+      "number": "9.37",
+      "question_text": "Our language TYPED-OO uses dynamic dispatch. An alternative\n      design is static dispatch. In static dispatch, the choice of method depends on an object’s\n      type rather than its class. Consider the example\n\n              class c1 extends object\n               method int initialize () 1\n               method int m1 () 11\n               staticmethod int m2 () 21\n              class c2 extends c1\n               method void m1 () 12\n               staticmethod int m2 () 22\n\n\n\n\n        let f = proc (x : c1) send x m1()\n            g = proc (x : c1) send x m2()\n            o = new c2()\n        in list((f o), (g o))\n\nWhen f and g are called, x will have type c1, but it is bound to an object of class c2.\nThe method m1 uses dynamic dispatch, so c2’s method for m1 is invoked, returning\n12. The method m2 uses static dispatch, so sending an m2 message to x invokes the\nmethod associated with the type of x, in this case c1, so 21 is returned.\nModify the interpreter of section 9.5 to handle static methods. As a hint, think about\nkeeping type information in the environment so that the interpreter can figure out the\ntype of the target expression in a send.",
+      "stars": 2,
+      "pdf_page": 391,
+      "printed_page": 368,
+      "pdf_end": 392,
+      "chinese_html": "<p>TYPED-OO 使用动态分派。另一种设计是静态分派：方法的选择取决于对象的类型，而不是对象的实际类。考虑下面的例子：</p><pre><code class=\"language-text\">class c1 extends object\n method int initialize () 1\n method int m1 () 11\n staticmethod int m2 () 21\nclass c2 extends c1\n method void m1 () 12\n staticmethod int m2 () 22\nlet f = proc (x : c1) send x m1()\n    g = proc (x : c1) send x m2()\n    o = new c2()\nin list((f o), (g o))</code></pre><p>调用 <code>f</code> 和 <code>g</code> 时，<code>x</code> 的类型为 <code>c1</code>，但绑定的是 <code>c2</code> 对象。<code>m1</code> 使用动态分派，因此调用 <code>c2</code> 的方法，返回 12；<code>m2</code> 使用静态分派，因此对 <code>x</code> 发送 <code>m2</code> 会调用与 <code>x</code> 的类型 <code>c1</code> 关联的方法，返回 21。修改第 9.5 节解释器以支持静态方法。提示：考虑在环境中保留类型信息，使解释器能在 <code>send</code> 中确定目标表达式的类型。</p>"
+    },
+    {
+      "number": "9.38",
+      "question_text": "Why must the class information be added to the static class envi-\nronment before the methods are checked? As a hint, consider what happens if a\nmethod body invokes a method on self?)",
+      "stars": 2,
+      "pdf_page": 394,
+      "printed_page": 371,
+      "pdf_end": 394,
+      "chinese_html": "<p>为什么必须先把类的信息加入静态类环境，再检查方法？提示：考虑方法体调用 <code>self</code> 上的方法时会发生什么。</p>"
+    },
+    {
+      "number": "9.39",
+      "question_text": "Make the typechecker prevent calls to initialize other than\nthe implicit call inside new.",
+      "stars": 2,
+      "pdf_page": 394,
+      "printed_page": 371,
+      "pdf_end": 394,
+      "chinese_html": "<p>使类型检查器阻止对 <code>initialize</code> 的所有调用，只允许 <code>new</code> 内部的隐式调用。</p>"
+    },
+    {
+      "number": "9.40",
+      "question_text": "Modify the design of the language so that every field declaration\ncontains an expression that is used to initialize the field. Such a design has the advan-\ntage that a checked program will never refer to an uninitialized value.",
+      "stars": 1,
+      "pdf_page": 394,
+      "printed_page": 371,
+      "pdf_end": 394,
+      "chinese_html": "<p>修改语言设计，使每个字段声明都包含一个用于初始化该字段的表达式。这种设计的好处是：通过检查的程序将绝不会引用未初始化的值。</p>"
+    },
+    {
+      "number": "9.41",
+      "question_text": "Extend the typechecker to handle fieldref and fieldset, as\nin exercise 9.8.",
+      "stars": 2,
+      "pdf_page": 394,
+      "printed_page": 371,
+      "pdf_end": 394,
+      "chinese_html": "<p>按习题 9.8 扩展类型检查器，使其处理 <code>fieldref</code> 与 <code>fieldset</code>。</p>"
+    },
+    {
+      "number": "9.42",
+      "question_text": "In the type checker, static methods are treated in the same way as\nordinary methods, except that a static method may not be overridden by a dynamic\none, or vice versa. Extend the checker to handle static methods.",
+      "stars": 2,
+      "pdf_page": 394,
+      "printed_page": 371,
+      "pdf_end": 394,
+      "chinese_html": "<p>类型检查器对静态方法的处理与普通方法相同，只有一个例外：静态方法不能被动态方法覆盖，动态方法也不能被静态方法覆盖。扩展检查器，使其处理静态方法。</p>"
+    }
+  ]
+}

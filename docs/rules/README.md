@@ -80,3 +80,11 @@ EOPL 第 4 章：存储传递顺序、位置身份、显式与隐式引用、递
 EOPL控制批：[第五章](../../books/eopl/notes/chapter05_continuations.html)定义续文帧、异常恢复、抢占计步、互斥直接移交、主/子线程终止与消息队列；[第六章](../../books/eopl/notes/chapter06_cps.html)定义简单/尾形式、鲜名与求值顺序、效果降级、过程数据化、ANF和双续文转换。来源校注、独立基准和执行边界见[程序说明](../../books/eopl/code/README.md)与[T060](../../test/T060-eopl-ch05-06.md)。
 
 EOPL 发布修订 I061：私有线程存储在既有 THREADS 解释器中实现，引用/闭包图按 memo 复制并保留别名和环；控制绑定在隐式引用降级中按可变性建立位置，原子化保留输入名字集合。权威语义和边界仍在[第五章习题5.56](../../books/eopl/notes/chapter05_continuations.html#ex-5-56)、[第六章习题6.18](../../books/eopl/notes/chapter06_cps.html#ex-6-18)及[程序说明](../../books/eopl/code/README.md)，回归见[T061](../../test/T061-eopl-publication.md)。
+
+EOPL类型批：[第七章](../../books/eopl/notes/chapter07_types.html)定义语义类型与静态规则的边界、词法类型环境、有限类型替换/发生检查、单态递归和let泛化；[程序说明](../../books/eopl/code/README.md)维护具体语法、哨兵返回、求解状态、值限制及运行错误口径。独立期望、替换性质和故障注入由test_chapter07.rkt及test_chapter07_mutations.py验证，来源与实际阅读见[T062](../../test/T062-eopl-ch07.md)。
+
+EOPL模块批：[第八章](../../books/eopl/notes/chapter08_modules.html)定义公开接口、透明/抽象类型、接口满足、词法模块闭包、依赖结果和模块过程参数逆变；[程序说明](../../books/eopl/code/README.md)维护具体语法、模式、导入缓存、输出、预算和错误口径。原题和独立执行见[T063](../../test/T063-eopl-ch08.md)；类型接口不替代表示定律或终止性证明。
+
+EOPL对象批：[第九章](../../books/eopl/notes/chapter09_objects.html)定义字段位置、词法方法宿主、动态分派、super、名义子类型和构造器边界；[程序说明](../../books/eopl/code/README.md)维护解析、访问级别、继承表、初始化/转换模式、原型与闭包对象等具体规则。原题校注、独立基准和本地分层验证见[T064](../../test/T064-eopl-ch09.md)。
+
+EOPL完结（I065）：附录B算术数域、左结合、环境、数字/负号分工、模式与输入边界以[程序说明](../../books/eopl/code/README.md)为权威；第7/8章fuel正精确整数及第9章继承预验证与回归同步维护。来源、内容、程序、阅读和发布记录见[T065](../../test/T065-eopl-completion-publication.md)。

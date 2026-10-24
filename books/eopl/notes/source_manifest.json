@@ -142,7 +142,8 @@
       "pdf_start": 256,
       "pdf_end": 297,
       "map_anchor": "chapter-7",
-      "companion_status": "planned"
+      "companion_status": "authored",
+      "companion_page": "chapter07_types.html"
     },
     {
       "number": "8",
@@ -152,7 +153,8 @@
       "pdf_start": 298,
       "pdf_end": 347,
       "map_anchor": "chapter-8",
-      "companion_status": "planned"
+      "companion_status": "authored",
+      "companion_page": "chapter08_modules.html"
     },
     {
       "number": "9",
@@ -162,7 +164,8 @@
       "pdf_start": 348,
       "pdf_end": 394,
       "map_anchor": "chapter-9",
-      "companion_status": "planned"
+      "companion_status": "authored",
+      "companion_page": "chapter09_objects.html"
     },
     {
       "number": "A",
@@ -172,7 +175,8 @@
       "pdf_start": 396,
       "pdf_end": 401,
       "map_anchor": "appendices",
-      "companion_status": "planned"
+      "companion_status": "authored",
+      "companion_page": "appendix_a_reading.html"
     },
     {
       "number": "B",
@@ -182,7 +186,8 @@
       "pdf_start": 402,
       "pdf_end": 414,
       "map_anchor": "appendices",
-      "companion_status": "planned"
+      "companion_status": "authored",
+      "companion_page": "appendix_b_sllgen.html"
     }
   ],
   "sections": [
@@ -526,7 +531,12 @@
       "chapter03_expressions.html",
       "chapter04_state.html",
       "chapter05_continuations.html",
-      "chapter06_cps.html"
+      "chapter06_cps.html",
+      "chapter07_types.html",
+      "chapter08_modules.html",
+      "chapter09_objects.html",
+      "appendix_a_reading.html",
+      "appendix_b_sllgen.html"
     ],
     "answered_exercises": [
       "0.1",
@@ -780,10 +790,114 @@
       "6.37",
       "6.38",
       "6.39",
-      "6.40"
+      "6.40",
+      "7.1",
+      "7.2",
+      "7.3",
+      "7.4",
+      "7.5",
+      "7.6",
+      "7.7",
+      "7.8",
+      "7.9",
+      "7.10",
+      "7.11",
+      "7.12",
+      "7.13",
+      "7.14",
+      "7.15",
+      "7.16",
+      "7.17",
+      "7.18",
+      "7.19",
+      "7.20",
+      "7.21",
+      "7.22",
+      "7.23",
+      "7.24",
+      "7.25",
+      "7.26",
+      "7.27",
+      "7.28",
+      "7.29",
+      "7.30",
+      "8.1",
+      "8.2",
+      "8.3",
+      "8.4",
+      "8.5",
+      "8.6",
+      "8.7",
+      "8.8",
+      "8.9",
+      "8.10",
+      "8.11",
+      "8.12",
+      "8.13",
+      "8.14",
+      "8.15",
+      "8.16",
+      "8.17",
+      "8.18",
+      "8.19",
+      "8.20",
+      "8.21",
+      "8.22",
+      "8.23",
+      "8.24",
+      "8.25",
+      "8.26",
+      "8.27",
+      "9.1",
+      "9.2",
+      "9.3",
+      "9.4",
+      "9.5",
+      "9.6",
+      "9.7",
+      "9.8",
+      "9.9",
+      "9.10",
+      "9.11",
+      "9.12",
+      "9.13",
+      "9.14",
+      "9.15",
+      "9.16",
+      "9.17",
+      "9.18",
+      "9.19",
+      "9.20",
+      "9.21",
+      "9.22",
+      "9.23",
+      "9.24",
+      "9.25",
+      "9.26",
+      "9.27",
+      "9.28",
+      "9.29",
+      "9.30",
+      "9.31",
+      "9.32",
+      "9.33",
+      "9.34",
+      "9.35",
+      "9.36",
+      "9.37",
+      "9.38",
+      "9.39",
+      "9.40",
+      "9.41",
+      "9.42",
+      "B.1",
+      "B.2",
+      "B.3",
+      "B.4",
+      "B.5"
     ],
     "formal_publication_registered": true,
-    "publication_note": "Catalog/build includes chapters 1–6. I060 authoring and evidence are local; production state is recorded separately by deployment evidence."
+    "publication_note": "Full book: map, preface, nine chapters and appendices A/B; all356 exercises answered. Current local and production acceptance are recorded separately in I065."
   },
   "reading": {
     "date": "2026-10-20",
@@ -850,5 +964,58 @@
     "source_file": "books/eopl/assets/source.pdf",
     "review": "issues/I052-reader-contract.md",
     "reason": "2026-10-21 用户要求统一原文链接直达对应 PDF 并部署；登记原文件哈希、页序、发布白名单与回滚单元。"
+  },
+  "chapter_7_reading": {
+    "issue": "I062",
+    "printed_pages": [
+      233,
+      274
+    ],
+    "pdf_pages": [
+      256,
+      297
+    ],
+    "full_text_read": true,
+    "independent_exercise_count": 30,
+    "teaching_sections": 8,
+    "question_inventory": "notes/questions_ch07.json",
+    "review": "review/ch07.json"
+  },
+  "appendix_reading": {
+    "issue": "I065",
+    "printed_pages": [
+      373,
+      391
+    ],
+    "pdf_pages": [
+      396,
+      414
+    ],
+    "full_text_read": true,
+    "text_content_pages": 19,
+    "visually_read_pdf_pages": [
+      396,
+      397,
+      398,
+      399,
+      400,
+      401,
+      403,
+      405,
+      406,
+      407,
+      408,
+      409,
+      410,
+      411,
+      412,
+      413,
+      414
+    ],
+    "question_inventory": "notes/questions_appendix_b.json",
+    "exercises": 5,
+    "original_A_sectioning": "Unnumbered; six companion thematic teaching groups.",
+    "original_B_sections": "B.1/B.2/B.3 and four unnumbered B.3 subheadings.",
+    "review": "review/completion.json"
   }
 }

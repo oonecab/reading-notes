@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "scope": "Verified source notes and explicit companion conventions for chapters 1–6.",
+  "scope": "Verified source notes and explicit companion conventions for the complete book, including appendices.",
   "items": [
     {
       "id": "candidate-fact-registerization",
@@ -191,6 +191,192 @@
       "original": "Exercise6.13 list examples use extra number/list primitives and numeric0/1 truth, beyond the base CPS-IN grammar.",
       "correction": "Preserve all input fragments; runnable exercise frontend explicitly includes list primitives and accepts boolean or numeric truth. No-match fnlrgtn returns emptylist by companion convention.",
       "basis": "All three source pages visually read; all eight original/transformed examples executed with explicit expected results.",
+      "affects_current_pages": true
+    },
+    {
+      "id": "ch7-nested-process-parameter-description",
+      "printed_pages": [
+        236
+      ],
+      "pdf_pages": [
+        259
+      ],
+      "status": "verified_source_with_companion_correction",
+      "original": "Nested process has int -> (bool -> int), but adjacent prose says the first argument is boolean.",
+      "correction": "Read the first argument as integer x, then boolean y; source program and printed type agree.",
+      "basis": "Chapter7 full text read and affected source page visually inspected; corrected examples and boundary witnesses executed.",
+      "affects_current_pages": true
+    },
+    {
+      "id": "ch7-mutual-recursion-return-annotation",
+      "printed_pages": [
+        248
+      ],
+      "pdf_pages": [
+        271
+      ],
+      "status": "verified_source_with_companion_correction",
+      "original": "Illustrative even/odd uses odd return annotation bool although both definitions return numeric0/1.",
+      "correction": "Use int for the return annotation; preserve exercise inputs and explain the mismatch.",
+      "basis": "Chapter7 full text read and affected source page visually inspected; corrected examples and boundary witnesses executed.",
+      "affects_current_pages": true
+    },
+    {
+      "id": "ch7-ex715-omitted-parameter-annotation",
+      "printed_pages": [
+        259
+      ],
+      "pdf_pages": [
+        282
+      ],
+      "status": "verified_source_with_companion_correction",
+      "original": "Exercise7.15(3) prints proc(x) despite INFERRED explicit optional annotation syntax.",
+      "correction": "Preserve proc(x); omitted annotation extension assigns a fresh type variable.",
+      "basis": "Chapter7 full text read and affected source page visually inspected; corrected examples and boundary witnesses executed.",
+      "affects_current_pages": true
+    },
+    {
+      "id": "ch7-letrec-boxed-constraint",
+      "printed_pages": [
+        270
+      ],
+      "pdf_pages": [
+        293
+      ],
+      "status": "verified_source_with_companion_correction",
+      "original": "Figure7.9 top constraint box does not explicitly equate inferred procedure-body result to annotated return type.",
+      "correction": "The unifier in the implementation below does enforce it; notes state the equation and test the inconsistent-return case.",
+      "basis": "Chapter7 full text read and affected source page visually inspected; corrected examples and boundary witnesses executed.",
+      "affects_current_pages": true
+    },
+    {
+      "id": "ch7-polymorphic-map-syntax",
+      "printed_pages": [
+        273
+      ],
+      "pdf_pages": [
+        296
+      ],
+      "status": "verified_source_with_companion_correction",
+      "original": "Exercise7.28 prints let ? map(f:?)=... and calls ((foo f) cdr(x)) although foo is a single-list-argument closure.",
+      "correction": "Keep full original in question; runnable correction uses let map=proc(f:?)... and (foo cdr(x)); pair is an alias of newpair.",
+      "basis": "Chapter7 full text read and affected source page visually inspected; corrected examples and boundary witnesses executed.",
+      "affects_current_pages": true
+    },
+    {
+      "id": "ch8-scope-figure-and-formal-name",
+      "printed_pages": [
+        295
+      ],
+      "pdf_pages": [
+        318
+      ],
+      "status": "verified_source_with_companion_annotation",
+      "original": "Figure8.8 shows opaque t beneath the transparent-type discussion; the following paragraph calls the client bound variable z although example8.6 writes x.",
+      "correction": "Preserve the programs; state that the figure illustrates separate scopes, not transparency equality, and refer to the actual formal x.",
+      "basis": "PDF318 visually read alongside examples8.6/8.7; literal displayed programs separately parsed, checked and executed.",
+      "affects_current_pages": true
+    },
+    {
+      "id": "ch8-import-and-arrow-conventions",
+      "printed_pages": [
+        290,
+        291,
+        324
+      ],
+      "pdf_pages": [
+        313,
+        314,
+        347
+      ],
+      "status": "explicit_companion_syntax_convention",
+      "original": "Exercise8.10 prose names imports while its program uses import and omits leaf clauses; exercises8.5/8.27 show unparenthesized procedure arrows.",
+      "correction": "Keep full supplied text. The executable companion accepts import/imports, interprets omitted leaf clauses as empty imports, and accepts parenthesized or unparenthesized arrows.",
+      "basis": "All cited original exercise pages visually read; exact imports program executed with output2,3,1 and parser handles both arrow forms.",
+      "affects_current_pages": true
+    },
+    {
+      "id": "ch9-static-method-result-annotation",
+      "printed_pages": [
+        368,
+        369
+      ],
+      "pdf_pages": [
+        391,
+        392
+      ],
+      "status": "verified_source_with_companion_correction",
+      "original": "Exercise9.37 declares child m1 result void but its body is integer12 and parent m1 returns int.",
+      "correction": "Preserve the full question. Literal typed input is rejected; runnable dispatch comparison changes only void to int and returns(12,21).",
+      "basis": "Both original pages visually read; literal refusal and minimally corrected typed execution independently tested.",
+      "affects_current_pages": true
+    },
+    {
+      "id": "ch9-cast-interface-boundary",
+      "printed_pages": [
+        367
+      ],
+      "pdf_pages": [
+        390
+      ],
+      "status": "verified_source_with_explicit_applicability_boundary",
+      "original": "Exercise9.34 states that the source type must be a class ancestor or descendant of the cast target, without separating interface-typed operands.",
+      "correction": "For concrete class types use the single-inheritance ancestry test. An interface-typed operand may hold an implementing class object; preserve that case with runtime checks rather than reject it as unrelated ancestry.",
+      "basis": "Original9.34 and definitions9.5.1/fig9.12 read; interface I argument containing class A cast to A tested, alongside sibling-class rejection.",
+      "affects_current_pages": true
+    },
+    {
+      "id": "ch9-method-base-environment",
+      "printed_pages": [
+        341,
+        368
+      ],
+      "pdf_pages": [
+        364,
+        391
+      ],
+      "status": "explicit_companion_environment_alignment",
+      "original": "Runtime apply-method uses empty-env while the displayed typechecker check-method-decl uses init-tenv.",
+      "correction": "The companion uses the same parameter/field/static base in runtime and typechecking; main initial variables do not become free bindings in methods.",
+      "basis": "Both original figures visually read; a method with unbound x is rejected while a field named x remains valid.",
+      "affects_current_pages": true
+    },
+    {
+      "id": "ch9-send-order-and-fragments",
+      "printed_pages": [
+        337,
+        338,
+        348,
+        351,
+        352
+      ],
+      "pdf_pages": [
+        360,
+        361,
+        371,
+        374,
+        375
+      ],
+      "status": "explicit_companion_execution_conventions",
+      "original": "The source send clause uses parallel Scheme let bindings; figure9.8 and several class/interface examples are schematic or require explicit clients.",
+      "correction": "Define operands-left-to-right then receiver for send, operands before allocation for new. Keep source fragments and execute explicit fixtures/completions separately; name-mangling constructors use a zero-argument bridge and fresh temporaries.",
+      "basis": "Source pages read; effect-order, fragment parsing, actual original programs and completed methods run separately.",
+      "affects_current_pages": true
+    },
+    {
+      "id": "appendix-b-stream-parser-output",
+      "printed_pages": [
+        386,
+        387
+      ],
+      "pdf_pages": [
+        409,
+        410
+      ],
+      "status": "verified_source_with_companion_clarification",
+      "original": "The paragraph describing sllgen:make-stream-parser calls its output a stream of tokens.",
+      "correction": "Preserve the source wording in this note; the parser produces syntax trees passed to the evaluator. The scanner produces tokens.",
+      "basis": "Original pages409/410 visually inspected, figureB.2 and evaluator callback compared, installed SLLGEN stream parser executed.",
       "affects_current_pages": true
     }
   ]

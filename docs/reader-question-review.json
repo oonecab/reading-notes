@@ -10703,6 +10703,555 @@
         "sha256": "f5f4a3afe75722a879fcd500b8302737c9eacffa049d3efe9b42976055cc5237",
         "dependencies": []
       }
+    ],
+    "eopl/notes/chapter07_types.html": [
+      {
+        "id": "ex-7-1",
+        "sha256": "86b9adac93d815356c7ef6eb621bfee050e1d7820f3d97f2d37b73b5c77dbaeb",
+        "dependencies": []
+      },
+      {
+        "id": "ex-7-2",
+        "sha256": "edd94269536d5d454c67b6f8e933590755ac4c765f103f6fe938c637e3237d21",
+        "dependencies": []
+      },
+      {
+        "id": "ex-7-3",
+        "sha256": "30f50858502708317c863e95c385a354280340895675dac715749a001c7b28bd",
+        "dependencies": []
+      },
+      {
+        "id": "ex-7-4",
+        "sha256": "cd8000587a009f9fa7314d7dd84e45b17a7fcf227c1ef1771e162404c9283639",
+        "dependencies": []
+      },
+      {
+        "id": "ex-7-5",
+        "sha256": "6ae81cb40b86baf5fbe50d924edd3d9f6750c174656e15c14eb3ef33ff883314",
+        "dependencies": []
+      },
+      {
+        "id": "ex-7-6",
+        "sha256": "adc66bd1a6d09b7312b5455b0c332b3eb28d041030300b52e67d7ce35eff0ea4",
+        "dependencies": []
+      },
+      {
+        "id": "ex-7-7",
+        "sha256": "a82b98f83156e88905458546a82a6039e47902a9fa79b12e55d21bee8691e8b9",
+        "dependencies": []
+      },
+      {
+        "id": "ex-7-8",
+        "sha256": "85b6c4ca793eb123a8a9b77a113e1711a6fae30e10fcb30f5b13a6d9e1d70d09",
+        "dependencies": []
+      },
+      {
+        "id": "ex-7-9",
+        "sha256": "0b0466485a43dab3f3714a9908e00f5d2bd5ba94fd1e57c73bd8873261427396",
+        "dependencies": []
+      },
+      {
+        "id": "ex-7-10",
+        "sha256": "60ab6cab256e7199452dad2e311663b25a1bfb60ca0140eaf9068ec1739903af",
+        "dependencies": []
+      },
+      {
+        "id": "ex-7-11",
+        "sha256": "648c258fc174e83e432c68add672335dde7bc7e886aa26192debbfe78eda6637",
+        "dependencies": []
+      },
+      {
+        "id": "ex-7-12",
+        "sha256": "b9089ab9b052222f89e4b4337f2bc3eeae8b9b183b18534b237f51e95fc5084e",
+        "dependencies": [
+          {
+            "anchor": "#input-7-1",
+            "sha256": "a569805573ce2215c053affa31ce78c2a109a35d6a04c5000dc2a4795b8f5e00"
+          }
+        ]
+      },
+      {
+        "id": "ex-7-13",
+        "sha256": "186fcd825f276b36dabc6bd46bac4d68e9b2187672d8e655dbd742eda0ea3a4f",
+        "dependencies": []
+      },
+      {
+        "id": "ex-7-14",
+        "sha256": "19ebfe39ca7788b1bc085d31762332ab7eef4d3a973a743f7d8e4438b3d88617",
+        "dependencies": []
+      },
+      {
+        "id": "ex-7-15",
+        "sha256": "696d62d652d5aaa3d1ba5244f7dfc2bb91fbfe4aeb241e55b17126435b81c27b",
+        "dependencies": []
+      },
+      {
+        "id": "ex-7-16",
+        "sha256": "da562d7ee7284e950275996ef71bc0be3fdd5bd78b6aa817f41626e3c918be94",
+        "dependencies": []
+      },
+      {
+        "id": "ex-7-17",
+        "sha256": "b66b37224a1b32d8c05f4c23bfe0930d0057d7477ab755f7eb310fc19db7db90",
+        "dependencies": []
+      },
+      {
+        "id": "ex-7-18",
+        "sha256": "db89df73819fea94e1312175e667936daebf520e2dd78e42d77933b728f337cb",
+        "dependencies": []
+      },
+      {
+        "id": "ex-7-19",
+        "sha256": "deda16a0697bd649a0bc076ffe41b4caa297b01fd1b31cc8629d4abc85878b01",
+        "dependencies": []
+      },
+      {
+        "id": "ex-7-20",
+        "sha256": "5401cb8f8474ce15d3b8e761571e706394066438eb091e3f97fb045b70bdce6b",
+        "dependencies": []
+      },
+      {
+        "id": "ex-7-21",
+        "sha256": "5e3f72c1b5f71a5857d26dd7a8b3ec4698009f1a5be1949b16a31f35ba9f9ba2",
+        "dependencies": []
+      },
+      {
+        "id": "ex-7-22",
+        "sha256": "865ec88009d1c385f59bd3a4156494a1ebdd38b5ee7c147ec17d801fd182411d",
+        "dependencies": []
+      },
+      {
+        "id": "ex-7-23",
+        "sha256": "9637b13e5c645c3cc7eb8dfa43686bb36b78d388deb3b4451b5713a6a628d55c",
+        "dependencies": []
+      },
+      {
+        "id": "ex-7-24",
+        "sha256": "c6947aaddc405bd341429d40e09c9fb601a6472f52f8cab6004257be29b36d50",
+        "dependencies": []
+      },
+      {
+        "id": "ex-7-25",
+        "sha256": "32e3e8284def8b81dd68e84bbd7a7bf98a5897adfa7b0cb04423fefc9ba7210a",
+        "dependencies": []
+      },
+      {
+        "id": "ex-7-26",
+        "sha256": "e5d6fc1f65de31b652ed04d0baee0ae338ef3fcd51c17912eadff70e5f5526f4",
+        "dependencies": []
+      },
+      {
+        "id": "ex-7-27",
+        "sha256": "59e6d159cd633a634111c8b11c496efe484b6bb14727d33691d5083aa8931af2",
+        "dependencies": []
+      },
+      {
+        "id": "ex-7-28",
+        "sha256": "6a047b9324137e97e06921d9f71620d9ba322a6e10e92b4dabf9c2bfcf4ec51e",
+        "dependencies": []
+      },
+      {
+        "id": "ex-7-29",
+        "sha256": "fce4053aad90873273a7cf72e2263439bedf2089268680188d62214a753b799c",
+        "dependencies": []
+      },
+      {
+        "id": "ex-7-30",
+        "sha256": "9d510a318c82f8466ac041672467a18f95a683d905554030bf16bdb609dbc16b",
+        "dependencies": []
+      }
+    ],
+    "eopl/notes/chapter08_modules.html": [
+      {
+        "id": "ex-8-1",
+        "sha256": "d0007d11f26db78f756008efff3e2b2cb79e19e126b29e9873527d2b80d83c54",
+        "dependencies": []
+      },
+      {
+        "id": "ex-8-2",
+        "sha256": "5c949796ee6e13c49c8c47fdef7da4a81cacca80ad184573f301dac14bc1e6ef",
+        "dependencies": []
+      },
+      {
+        "id": "ex-8-3",
+        "sha256": "0d33e06ab6a2dd0df8f6050c98e92159039a7a60d0efcc3267306ea24fca1aa7",
+        "dependencies": []
+      },
+      {
+        "id": "ex-8-4",
+        "sha256": "5cf1a8edb7105648818d528c8c737c14d36e55729d6f40003c0e66c4e7267af9",
+        "dependencies": []
+      },
+      {
+        "id": "ex-8-5",
+        "sha256": "671cd694fae2258e70e7d18a800ff1fa0dcd20e4d2ef34a5af49b2b3bf8f256b",
+        "dependencies": []
+      },
+      {
+        "id": "ex-8-6",
+        "sha256": "d716753fba26574a9923ee8c6e1e352a7c33e3be4f705ded3c849dc48f44c36d",
+        "dependencies": []
+      },
+      {
+        "id": "ex-8-7",
+        "sha256": "c862b44a0354ef97db55c9933ad1c25aaae936aa886df17af8d2e2da2fe6e764",
+        "dependencies": []
+      },
+      {
+        "id": "ex-8-8",
+        "sha256": "a41f98055d2f17048643a47c07eebe88740217fb23ed1ef039a0af876a8b0521",
+        "dependencies": []
+      },
+      {
+        "id": "ex-8-9",
+        "sha256": "c73feda8244e2fedc9903c0b8e8fd0576caa5c55df1f0fd24ca12bc4531e4245",
+        "dependencies": []
+      },
+      {
+        "id": "ex-8-10",
+        "sha256": "7944e92f63a48d61d7ac19a4fa1ae48524ba85080f01963394efccc4f24ae548",
+        "dependencies": []
+      },
+      {
+        "id": "ex-8-11",
+        "sha256": "c67838ae6280e98c7a37d9924bdaa3d3962fa3068e43bede0498998c05715d1e",
+        "dependencies": []
+      },
+      {
+        "id": "ex-8-12",
+        "sha256": "b2a44500620359a2a8c581f87551f642452e6d080f99b595fb217090848bc314",
+        "dependencies": []
+      },
+      {
+        "id": "ex-8-13",
+        "sha256": "35e491a6e5d6e3bdb47ed8caa26f61f1aabfc9262ce73b84c4ec080679b3012f",
+        "dependencies": []
+      },
+      {
+        "id": "ex-8-14",
+        "sha256": "0f6caa73b98929d686db59e22b303da69847ff762d3854dca519093b9c2ffa81",
+        "dependencies": []
+      },
+      {
+        "id": "ex-8-15",
+        "sha256": "185b47f9901c4010a79417f45789152af80bbfef47438de8a156ed842e039076",
+        "dependencies": []
+      },
+      {
+        "id": "ex-8-16",
+        "sha256": "efb4d01e905f86784b1e8afa0dc3084b6fdf699bb0b19da70b923c14c635cb62",
+        "dependencies": []
+      },
+      {
+        "id": "ex-8-17",
+        "sha256": "a2b7e576b5aded8807d09df9dc567194c9a84fc3b4cb9fa15a442dbb94f9616d",
+        "dependencies": []
+      },
+      {
+        "id": "ex-8-18",
+        "sha256": "ac253773b0699537bda5dfb046a0864aee141703849729aed3cd7c76041a0ef7",
+        "dependencies": []
+      },
+      {
+        "id": "ex-8-19",
+        "sha256": "a4c5c227c4cde02e989c2f23e07baa498efb2fda03f0ab88726b8cf61d8f88b8",
+        "dependencies": []
+      },
+      {
+        "id": "ex-8-20",
+        "sha256": "cec616fe690c93be5c7cc8ed0d59a306f965f88c349d8cc358816493102f5f0a",
+        "dependencies": []
+      },
+      {
+        "id": "ex-8-21",
+        "sha256": "129648e341a4a7cb2eef978280001ecef734d3e600d66e65597eca952cfb52e6",
+        "dependencies": []
+      },
+      {
+        "id": "ex-8-22",
+        "sha256": "4ebb46ad4cc8867cfc19c9cc675a29750f75f663d86363fbd949f6aafb6c9fff",
+        "dependencies": []
+      },
+      {
+        "id": "ex-8-23",
+        "sha256": "d4fd3b306867f384d423a1d36de8e0abd429588627dd99b7be3311c0e8fa7e86",
+        "dependencies": []
+      },
+      {
+        "id": "ex-8-24",
+        "sha256": "8da563ef80ecf6d08d66b33f6387f81dbfb70cfe2132418229b94bd910856dca",
+        "dependencies": []
+      },
+      {
+        "id": "ex-8-25",
+        "sha256": "09cd6b54d7fe1899beab2413bdd0688c3d3426dd040f7ecf1a914feac53fbf9e",
+        "dependencies": []
+      },
+      {
+        "id": "ex-8-26",
+        "sha256": "4ffaf7abd882680bcef151d2f29b16b58abb4a3ab77d23ce20a2b12b59ed6699",
+        "dependencies": []
+      },
+      {
+        "id": "ex-8-27",
+        "sha256": "559b9c6b7b04b22a93843c87cf7e0d04b53246ef27e920db0fcabba67a2b2ad7",
+        "dependencies": []
+      }
+    ],
+    "eopl/notes/chapter09_objects.html": [
+      {
+        "id": "ex-9-1",
+        "sha256": "36a1583e932bdfa2df27974b73b7f6670a8e4fd78689286a56549e425e286610",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-2",
+        "sha256": "25739a3711458e4d07343c2d41722d4120217bba233246453b52afaf11a716d7",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-3",
+        "sha256": "46a07811701046ac17080b5fc4a4ee5048f74dc97bc3aa2b64f589aca55b6489",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-4",
+        "sha256": "9d5fd6b8dbf28cc0ee838064f053fd416152feea555d2109a08410259cca3d5b",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-5",
+        "sha256": "e7e39feb99f767536be4e9952777145329167586e1f8df6cfb1982c019780ebd",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-6",
+        "sha256": "9ba3192640f8ed54d26358d4027a1535bff958cef9147b9f4b37eb9ae7c817a5",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-7",
+        "sha256": "600162f1af512b913dbadd935d8c3657ce4813560e77cfa7923cd46035a8ee1b",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-8",
+        "sha256": "26fc6fc8ba0d4d603d36cdb1ba81d3f6bc2f22d4c85dd142e20a92835e23672a",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-9",
+        "sha256": "1d3d8205c77e011872893903139baa94d72648bb250ba57790502e3ab307ea47",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-10",
+        "sha256": "0af8709687999545e43ed5a5cc6e16bf28c587da1906f510574adc357c098354",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-11",
+        "sha256": "264e90567203c0b7ef7a671f8b4740af4d8c5bbf8943c3b17c167df987b64a6c",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-12",
+        "sha256": "bd48fd7f5d0baa2878f5e21ebffb109be274b40e83dee82972f711dd131f999c",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-13",
+        "sha256": "51512b0e8d274c1fbfb239e285bba0daf65dd44d4f4a3272891c5c15103d4bfc",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-14",
+        "sha256": "7c32cb60fc23ff6d15e3a056bccdd6e08f1250e5f5d080cf29fc36b47bd51d73",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-15",
+        "sha256": "39375ac3b02c3aaf37455372dd798391448b828d86267a085f56cbe69a03bce4",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-16",
+        "sha256": "78d750f43af26ebaa012ca4030b3119ee7945b122fa1b2bc1f1887e6edcb09ad",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-17",
+        "sha256": "c14862ac648fb5995d97b4e942fd1a93f8b94639e57f8aa79851d7710479c3b9",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-18",
+        "sha256": "2c060e06c141ee1cb2103a23f8fa550f2fc64766871a96e5738f28b6ab014998",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-19",
+        "sha256": "f75e0073ac3a774dfaf362f3370e22044cd273c69e625bf860030ced97428622",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-20",
+        "sha256": "593f26f863c1833b9b49d8dc9fd71f5819a8029416e29be773c35696c8a05adb",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-21",
+        "sha256": "ad8d6e7e47c4a0e1a4f662d9b5e9fb28b224cf123faf76f75950dbcbe8c61a4a",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-22",
+        "sha256": "12d668c20f841fc9aec97b6bacb29fdb690782b40f6ea25b64ad012c5c40cfb4",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-23",
+        "sha256": "bd38de931fb26a05c7944645fd07bf8e7170950d35df8b8007df3ade59235722",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-24",
+        "sha256": "882e404140b46cf9d2b43ee172d39e6a7385eda3dbab2100740be5bfcd0dfb3a",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-25",
+        "sha256": "71aaf45767237636ec3e906158856376c051d913c8de911f16e090a2f5f17aee",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-26",
+        "sha256": "8d4ff1ef7ed6cf75699f4daae3c8bad3be12bbeb82ee22d0225b5897579dd545",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-27",
+        "sha256": "435286b005244452e3ece071f2755963036bc0aa9e6e1841728e094429602de1",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-28",
+        "sha256": "4cfac70a1f3beb9a614480d64bdd533e713bdcd321a62ebcc56e15b0d3de86df",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-29",
+        "sha256": "b4eb0c15287a86d06f385fe579c802d9a1b4a7bcfe2c191030302d25d5185854",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-30",
+        "sha256": "4d37ce827bb8d87c7a39f607f656eb69e87df811141474c861b6f496297ce827",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-31",
+        "sha256": "620cabc10772c9b9ecd3ec57592adf64bb1369ae026c2f1084e9ff022d09a707",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-32",
+        "sha256": "cc9ca70ac076eeea3b22fd5f61d5e9b8d0cf3064adce4b5904e7ed3161c34067",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-33",
+        "sha256": "37a4302cd68322cd5ebeba663ef5098894a7fbe82c15f166ce561707ffcbac6d",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-34",
+        "sha256": "d3420445187aadf30a25d07ae919016309304ae3d839c1c56eb9bb42e544dfa1",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-35",
+        "sha256": "e045a58d3a36af57301fe1b30840ba605ce418f03a46ac7578d49ba96aee40ce",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-36",
+        "sha256": "c8434777b91992d1e98230d1860c9383507bd4e630898a9570eed3748e87cded",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-37",
+        "sha256": "b50a1fb9dc2540ad351daea1f8494394be4b408c2ccbf5ba1c5a38fe7d4481f6",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-38",
+        "sha256": "0ab45127251fbbb6fd25d35796dcab01ae157948ffe62c836817a6dcad7f0c01",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-39",
+        "sha256": "f934fd91d66ac1b7a74452ff7d351606a57185b6f194ab0a709cb4854f878682",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-40",
+        "sha256": "dc8acaf9cdb6750dd4a0d75a4d126e0b02e9da8c223c67c8cca80214755c5205",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-41",
+        "sha256": "b59c01a8045e156c736e34617a727a39ad7fb6230219b04d53fde916a9581514",
+        "dependencies": []
+      },
+      {
+        "id": "ex-9-42",
+        "sha256": "ab5f05eaeefa8a435329727ad0b21f08f8610e0b4a15b4e8abf52f1009cc83af",
+        "dependencies": []
+      }
+    ],
+    "eopl/notes/appendix_a_reading.html": [],
+    "eopl/notes/appendix_b_sllgen.html": [
+      {
+        "id": "ex-B-1",
+        "sha256": "ee51d7c9f74cfb3967a797304bc618bad16706e6bc3f7752e417ad99af018e5f",
+        "dependencies": []
+      },
+      {
+        "id": "ex-B-2",
+        "sha256": "ca71174b2288b71933fd4caa7df121c04886ef32c42402a014e89714cf8f818b",
+        "dependencies": [
+          {
+            "anchor": "#ex-B-1",
+            "sha256": "ad31898696ead25d9ba0957358a6706aca376feebdb4ee1955eb1e870ab8ef60"
+          }
+        ]
+      },
+      {
+        "id": "ex-B-3",
+        "sha256": "6fc579558b53d8cfe496bc391d187a8ab66d731ef6946fc29b6f3b6deb3d6dbb",
+        "dependencies": [
+          {
+            "anchor": "#ex-B-1",
+            "sha256": "ad31898696ead25d9ba0957358a6706aca376feebdb4ee1955eb1e870ab8ef60"
+          }
+        ]
+      },
+      {
+        "id": "ex-B-4",
+        "sha256": "e9b695bcabd09407e194ef2a2f577c8ce133ca14bec1600b9750f40ce96b22d8",
+        "dependencies": [
+          {
+            "anchor": "#ex-B-3",
+            "sha256": "5fcbe0946e374a5a6f3681612b569bd99a0ad2a4c3c257e50583505119f14f90"
+          }
+        ]
+      },
+      {
+        "id": "ex-B-5",
+        "sha256": "19d284ed31b6c824491bf880a85d39e84d733cdd28b21fd14bec4de378d577f2",
+        "dependencies": []
+      }
     ]
   },
   "I053_revision": {
@@ -10763,5 +11312,26 @@
     "previous_sha256": "82eed801ce6ff571970e657b92998db84a7de1404af0ec125afa349b462ce0e2",
     "current_sha256": "ea35e95ad5a25dd24e03cb6e1560c6531a41879eb12733fb43cd56d4b46fb0a8",
     "scope": "习题5.56补齐不用mutex改写本节例子的条件；中文题干与同一THREADS解释器的私有存储题解同步。其余题干绑定保留。"
+  },
+  "I062_review": {
+    "issue": "I062",
+    "scope": "30 complete chapter7 Chinese questions and supplied programs; dependency from7.12 to13 expressions in7.1",
+    "preserve": "All existing reviewed question hashes unchanged"
+  },
+  "I063_review": {
+    "issue": "I063",
+    "source_record": "tmp/eopl-ch08-20261024T155227/source-readback.json",
+    "questions": 27,
+    "scope": "Every complete Chinese task, supplied input and hint read against chapter8 original PDF pages; raw skeletons preserved."
+  },
+  "I064_review": {
+    "issue": "I064",
+    "page": "eopl/notes/chapter09_objects.html",
+    "scope": "42 complete Chinese source tasks including all subparts, source code and hints; source9.37 void annotation preserved; original42 pages read independently.",
+    "source_record": "books/eopl/notes/questions_ch09.json"
+  },
+  "I065_review": {
+    "scope": "Appendix B five complete Chinese original questions directly read against printed391/PDF414; full grammar and subtask references preserved. All existing question bindings retained.",
+    "independent_input": "books/eopl/notes/questions_appendix_b.json"
   }
 }

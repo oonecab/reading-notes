@@ -20,7 +20,7 @@ I056 在共享目录脚本的折叠祖先展开后增加一次延后定位，并
 
 工具链为 **Node/Astro + Python build helpers**：Node 24.21.0、pnpm 11.21.0、Python 3.10+；Python 的 build_portal、prepare-pages、public_policy 参与构建，原独立验证器另行运行。准备本地来源资料，并安装 C/Make/Poppler（完整验证）、Nginx/OpenSSL（发布演练）和可运行的 Ego Lite / ego-browser CLI（浏览器验收），然后执行 `pnpm install --frozen-lockfile`、`pnpm build`。生产 HTTP 仍只由 Nginx 提供。
 
-`pnpm build` 在临时目录准备来源并构建，对全部公开 HTML（当前 86 页，含辅助页和旧入口页）内联 CSS、favicon 和脚本；下载文件保留链接。正式页完整 DOM 的标签、命名空间、属性和子节点顺序、习题 ID 序列，以及正文/MathML/SVG/代码指纹和内部锚点一起核对。页面数量来自受控条目清单，新增书籍按 catalog、migration-state 与发布 allowlist 登记，不修改固定页数。
+`pnpm build` 在临时目录准备来源并构建，对全部公开 HTML（当前 91 页，含辅助页和旧入口页）内联 CSS、favicon 和脚本；下载文件保留链接。正式页完整 DOM 的标签、命名空间、属性和子节点顺序、习题 ID 序列，以及正文/MathML/SVG/代码指纹和内部锚点一起核对。页面数量来自受控条目清单，新增书籍按 catalog、migration-state 与发布 allowlist 登记，不修改固定页数。
 
 I036 在发布适配层为正式阅读页和旧入口补齐站点 favicon；唯一维护源为 `portal/favicon.svg`。所有公开 HTML 的 head 必须包含唯一且内容匹配的内联 SVG 图标，缺失、重复、错位或内容不同会中止构建。单页离线打开无需另取图标文件；新增页面沿用同一门禁。完整 DOM parity 的预期发布视图同样展开已声明资源，不忽略 head 差异。
 
@@ -34,7 +34,7 @@ I036 在发布适配层为正式阅读页和旧入口补齐站点 favicon；唯�
 
 CSP 和离线验收默认复用 `tmp/final-assessment/browser-session.json` 中的 Ego 空间。缓存空间已被关闭、明确返回 `task space not found: <ID>` 时，自动建立一个名为“Reading Notes 浏览器验收”的空间并原子更新缓存；用户控制、inactive、权限、超时及其他错误均停止并保留原错误。也可执行 `READING_NOTES_CSP_SPACE=<现有空间ID> pnpm build` 或同样设置运行 `pnpm check:offline`；值必须是正整数，显式指定的失效空间不会自动替换。CSP 检查始终是构建门禁。
 
-两个命令共用会话旁的 `.lock`，已有验收运行时直接拒绝第二次启动。正常结束释放锁；命令被外部强制终止后先检查锁中的 PID、对应运行目录的日志及 Ego 当前页，确认驱动已停止，再移除该精确锁文件并重跑。不要对完整矩阵设置 300 秒总超时；它按每个页面/交互限制等待，完整 444 个视图需要数分钟。进程被强制杀死可能留下 `running` 尝试，不能当作通过。
+两个命令共用会话旁的 `.lock`，已有验收运行时直接拒绝第二次启动。正常结束释放锁；命令被外部强制终止后先检查锁中的 PID、对应运行目录的日志及 Ego 当前页，确认驱动已停止，再移除该精确锁文件并重跑。不要对完整矩阵设置 300 秒总超时；它按每个页面/交互限制等待，完整矩阵需要数分钟。进程被强制杀死可能留下 `running` 尝试，不能当作通过。
 
 离线证据在 `tmp/reading-notes-migration/browser/<all或书名>/runs/<UTC时间-随机ID>/`，CSP 证据在 `tmp/reading-notes-migration/csp/runs/<ID>/`。每轮独立保存 `report.json`、`driver.log` 和截图，报告使用临时文件、fsync 和原子替换。父目录的 `report.json` 只在完整成功且驱动正常退出后更新，`latest-attempt.json` 标明最近一次尝试及其状态；检查最近结果必须同时查看两者。失败保留其完整目录，不覆盖上一次成功截图。历史旧格式报告仍按原路径保留，I032 已归档证据不回写。
 

@@ -405,12 +405,20 @@ body.rn-components figure:has(svg.rn-diagram){background:#fff;border:1px solid #
 body.rn-components :is(.scroll,.diagram):has(>svg.rn-diagram){background:transparent;border:0}
 @media(max-width:640px){body.rn-components figure:has(svg.rn-diagram){padding:.75rem}}
 @media print{body.rn-components figure:has(svg.rn-diagram){border-color:#bbb;break-inside:avoid}}
-</style></head><body class="rn-components"><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="章节目录"><details class="toc-panel" id="toc-panel" open><summary>目录</summary><nav class="chapter-toc" id="chapter-toc"><a class="toc-home" href="book_overview.html">全书地图</a><a class="toc-home" href="preface.html">序言</a><ul><li><a href="#s8-1">8.1 简单模块系统：先固定公开边界</a></li><li><a href="#s8-1-1">8.1.1 例子：名字、顺序与可见性</a></li><li><a href="#s8-1-2">8.1.2 实现：模块环境与接口满足</a></li><li><a href="#s8-2">8.2 声明类型的模块：把表示藏在边界内</a></li><li><a href="#s8-2-1">8.2.1 例子：透明类型与抽象类型</a></li><li><a href="#s8-2-2">8.2.2 实现：展开类型与封装接口</a></li><li><a href="#s8-3">8.3 模块过程：让依赖成为参数</a></li><li><a href="#s8-3-1">8.3.1 例子：同一算法、不同表示</a></li><li><a href="#s8-3-2">8.3.2 实现：依赖结果与接口逆变</a></li><li><a href="#programs">运行本章程序</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">EOPL 第三版 · 第 8 章</p><h1>第 8 章 · 模块、接口与抽象类型</h1><p class="intro">用接口约束公开能力，用类型身份守住表示边界，再把相互关联的操作作为模块参数复用。</p><p class="source">原书 pp.275–324 / <a href="../assets/source.pdf#page=298">PDF 298–347</a>。习题8.1–8.27的完整中文题干与解答。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter07_types.html">← 第 7 章 · 类型检查与类型推导</a></p></header><section id="s8-1"><h2>8.1 简单模块系统：先固定公开边界</h2><p class="source">原书 §8.1，印刷 p.276 / <a href="../assets/source.pdf#page=299">PDF 299</a>。</p><p>前几章的词法作用域已经能避免许多名字冲突，但一个大系统还需要回答：哪些名字是公开承诺，哪些只是内部辅助？两个实现能否互换？如何把一组必须协同工作的操作作为可复用单位？模块把这些问题带到程序语言本身，而不是只靠开发者记住约定。</p><p>本章程序先定义一列模块，再计算一个主表达式。简单模块是一组绑定；接口列出公开成员及其类型。检查器先验证模块体确实提供这些成员，随后客户端只根据接口检查。参数化模块则把“依赖哪一个模块”改成参数，使实现可以在不同上下文中复用。</p><div class="table-scroll"><table aria-label="本章三种模块语言逐步建立的能力"><thead><tr><th scope="col">语言</th><th scope="col">接口增加什么</th><th scope="col">边界或复用能力</th></tr></thead><tbody><tr><td>SIMPLE-MODULES</td><td>名字及值类型</td><td>私有名字不可由客户端引用</td></tr><tr><td>OPAQUE-TYPES</td><td>transparent 与 opaque 类型</td><td>区分公开等式和隐藏表示</td></tr><tr><td>PROC-MODULES</td><td>模块参数和依赖的结果接口</td><td>同一模块算法可接收不同实现</td></tr></tbody></table></div><details class="reading-notes" id="notes-s8-1" data-notes-for="s8-1" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">公开视图</span><h3>隐藏名字与隐藏表示是两件事</h3><p>一个模块可以不导出辅助名字 x，却仍公开所有值都是 int。此时客户端不知道 x，但仍知道可对公开整数做减法。抽象类型将在8.2再隐藏“它是整数”这条信息。</p></div><div class="annotation-card"><span class="annotation-kind">作用域</span><h3>边界不会自动带来递归</h3><p>模块定义按先后顺序进入环境，模块体内部的值定义也按先后顺序可见。模块不能通过自己的限定名字递归引用自身；递归值应在模块体内显式使用 letrec。</p></div></div></details><section id="s8-1-1"><h3>8.1.1 例子：名字、顺序与可见性</h3><p class="source">原书 §8.1.1，印刷 p.276 / <a href="../assets/source.pdf#page=299">PDF 299</a>。</p><p>Alice、Bob、Charlie 可以在各自实现中使用相同的辅助名字。其他人只依赖各模块发布的接口，不把对方的内部辅助函数也引入自己的作用域。图8.1所表达的这种可见性，可用下面的表读成三个位置的不同知识：</p><div class="table-scroll"><table aria-label="模块内部、接口与客户端的可见性"><thead><tr><th scope="col">位置</th><th scope="col">可以依赖的内容</th></tr></thead><tbody><tr><td>模块体内部</td><td>此前定义的内部值、私有辅助过程、此前模块的公开接口</td></tr><tr><td>模块声明接口</td><td>自己已经声明的类型名字及外部公开类型</td></tr><tr><td>后续模块与主程序</td><td>该模块接口承诺的限定成员，不包括私有定义</td></tr></tbody></table></div><div class="rn-example" id="example-8-1" data-source-item="例 8.1"><h4>例 8.1 · 逐项求值与限定名字</h4><p class="example-kind">类型：原书编号例子</p><p class="source">印刷 p.277 / <a href="../assets/source.pdf#page=300">PDF 300</a>。</p><pre><code class="language-text" data-object-input="example8-1">module m1 interface [a:int b:int c:int]
+</style></head><body class="rn-components"><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="章节目录"><details class="toc-panel" id="toc-panel" open><summary>目录</summary><nav class="chapter-toc" id="chapter-toc"><a class="toc-home" href="book_overview.html">全书地图</a><a class="toc-home" href="preface.html">序言</a><ul><li><a href="#s8-1">8.1 简单模块系统：先固定公开边界</a></li><li><a href="#s8-1-1">8.1.1 例子：名字、顺序与可见性</a></li><li><a href="#s8-1-2">8.1.2 实现：模块环境与接口满足</a></li><li><a href="#s8-2">8.2 声明类型的模块：把表示藏在边界内</a></li><li><a href="#s8-2-1">8.2.1 例子：透明类型与抽象类型</a></li><li><a href="#s8-2-2">8.2.2 实现：展开类型与封装接口</a></li><li><a href="#s8-3">8.3 模块过程：让依赖成为参数</a></li><li><a href="#s8-3-1">8.3.1 例子：同一算法、不同表示</a></li><li><a href="#s8-3-2">8.3.2 实现：依赖结果与接口逆变</a></li><li><a href="#programs">运行本章程序</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">EOPL 第三版 · 第 8 章</p><h1>第 8 章 · 模块、接口与抽象类型</h1><p class="intro">用接口约束公开能力，用类型身份守住表示边界，再把相互关联的操作作为模块参数复用。</p><p class="source">原书 pp.275–324 / <a href="../assets/source.pdf#page=298">PDF 298–347</a>。习题8.1–8.27的完整中文题干与解答。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter07_types.html">← 第 7 章 · 类型检查与类型推导</a><a href="chapter09_objects.html">第 9 章 · 对象、类、继承与方法调用 →</a></p></header><section id="s8-1"><h2>8.1 简单模块系统：先固定公开边界</h2><p class="source">原书 §8.1，印刷 p.276 / <a href="../assets/source.pdf#page=299">PDF 299</a>。</p><p>前几章的词法作用域已经能避免许多名字冲突，但一个大系统还需要回答：哪些名字是公开承诺，哪些只是内部辅助？两个实现能否互换？如何把一组必须协同工作的操作作为可复用单位？模块把这些问题带到程序语言本身，而不是只靠开发者记住约定。</p><p>本章程序先定义一列模块，再计算一个主表达式。简单模块是一组绑定；接口列出公开成员及其类型。检查器先验证模块体确实提供这些成员，随后客户端只根据接口检查。参数化模块则把“依赖哪一个模块”改成参数，使实现可以在不同上下文中复用。</p><div class="table-scroll"><table aria-label="本章三种模块语言逐步建立的能力"><thead><tr><th scope="col">语言</th><th scope="col">接口增加什么</th><th scope="col">边界或复用能力</th></tr></thead><tbody><tr><td>SIMPLE-MODULES</td><td>名字及值类型</td><td>私有名字不可由客户端引用</td></tr><tr><td>OPAQUE-TYPES</td><td>transparent 与 opaque 类型</td><td>区分公开等式和隐藏表示</td></tr><tr><td>PROC-MODULES</td><td>模块参数和依赖的结果接口</td><td>同一模块算法可接收不同实现</td></tr></tbody></table></div><details class="reading-notes" id="notes-s8-1" data-notes-for="s8-1" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">公开视图</span><h3>隐藏名字与隐藏表示是两件事</h3><p>一个模块可以不导出辅助名字 x，却仍公开所有值都是 int。此时客户端不知道 x，但仍知道可对公开整数做减法。抽象类型将在8.2再隐藏“它是整数”这条信息。</p></div><div class="annotation-card"><span class="annotation-kind">作用域</span><h3>边界不会自动带来递归</h3><p>模块定义按先后顺序进入环境，模块体内部的值定义也按先后顺序可见。模块不能通过自己的限定名字递归引用自身；递归值应在模块体内显式使用 letrec。</p></div></div></details><section id="s8-1-1"><h3>8.1.1 例子：名字、顺序与可见性</h3><p class="source">原书 §8.1.1，印刷 p.276 / <a href="../assets/source.pdf#page=299">PDF 299</a>。</p><p>Alice、Bob、Charlie 可以在各自实现中使用相同的辅助名字。其他人只依赖各模块发布的接口，不把对方的内部辅助函数也引入自己的作用域。图8.1所表达的这种可见性，可用下面的表读成三个位置的不同知识：</p><div class="table-scroll"><table aria-label="模块内部、接口与客户端的可见性"><thead><tr><th scope="col">位置</th><th scope="col">可以依赖的内容</th></tr></thead><tbody><tr><td>模块体内部</td><td>此前定义的内部值、私有辅助过程、此前模块的公开接口</td></tr><tr><td>模块声明接口</td><td>自己已经声明的类型名字及外部公开类型</td></tr><tr><td>后续模块与主程序</td><td>该模块接口承诺的限定成员，不包括私有定义</td></tr></tbody></table></div><div class="rn-example" id="example-8-1" data-source-item="例 8.1"><h4>例 8.1 · 逐项求值与限定名字</h4><p class="example-kind">类型：原书编号例子</p><p class="source">印刷 p.277 / <a href="../assets/source.pdf#page=300">PDF 300</a>。</p><pre><code class="language-text" data-object-input="example8-1">module m1
+ interface [a:int b:int c:int]
 body [a=33 x=-(a,1) b=-(a,x) c=-(x,b)]
-let a=10 in -(-(from m1 take a,from m1 take b),a)</code></pre><p>定义依次得到 a=33、x=32、b=1、c=31。内部 x 参与计算，公开接口却只有 a、b、c。主程序的局部 a=10 与 m1.a 不同，最终先算 33−1，再减10，得到22。把最后一个 a 改成限定的 m1.a 会改变结果，说明两种引用走的是不同查找。</p></div><div class="rn-example" id="example-8-2" data-source-item="例 8.2"><h4>例 8.2 · 未使用的接口也必须正确</h4><p class="example-kind">类型：原书编号例子</p><p class="source">印刷 p.278 / <a href="../assets/source.pdf#page=301">PDF 301</a>。</p><pre><code class="language-text" data-object-input="example8-2">module m1 interface [u:bool] body [u=33] 44</code></pre><p>主程序虽然只返回44，接口把 u 声明为 bool，而模块体给出33。模块声明本身不成立，因此程序在执行前拒绝。</p></div><div class="rn-example" id="example-8-3" data-source-item="例 8.3"><h4>例 8.3 · 承诺的成员不能缺失</h4><p class="example-kind">类型：原书编号例子</p><p class="source">印刷 p.279 / <a href="../assets/source.pdf#page=302">PDF 302</a>。</p><pre><code class="language-text" data-object-input="example8-3">module m1 interface [u:int v:int] body [u=33] 44</code></pre><p>模块没有提供 v。额外成员允许隐藏，缺少公开成员却无法兑现接口；它们是不同方向的问题。</p></div><div class="rn-example" id="example-8-4" data-source-item="例 8.4"><h4>例 8.4 · 原书匹配保留顺序</h4><p class="example-kind">类型：原书编号例子</p><p class="source">印刷 p.280 / <a href="../assets/source.pdf#page=303">PDF 303</a>。</p><pre><code class="language-text" data-object-input="example8-4">module m1 interface [u:int v:int] body [v=33 u=44] from m1 take u</code></pre><p>实际声明顺序是 v、u，期望顺序是 u、v。原算法找到 u 后已经越过 v，不能倒回去，所以拒绝。习题8.8和8.17通过无序匹配模式接受该式，运行得到44。</p></div><div class="rn-example" id="example-8-5" data-source-item="例 8.5"><h4>例 8.5 · 模块依赖按声明顺序进入作用域</h4><p class="example-kind">类型：原书编号例子</p><p class="source">印刷 p.280 / <a href="../assets/source.pdf#page=303">PDF 303</a>。</p><pre><code class="language-text" data-object-input="example8-5">module m1 interface [u:int] body [u=44]
-module m2 interface [v:int] body [v=-(from m1 take u,11)]
--(from m1 take u,from m2 take v)</code></pre><p>m2 的 v=44−11=33，主程序再算44−33=11。反过来先定义m2时，它看不见尚未声明的m1；模块列表采用 let* 式作用域，并不隐含互递归。</p><pre><code class="language-text" data-object-input="example8-5-reversed">module m2 interface [v:int] body [v=-(from m1 take u,11)]
-module m1 interface [u:int] body [u=44]
+let a=10 in -(-(from m1 take a,from m1 take b),a)</code></pre><p>定义依次得到 a=33、x=32、b=1、c=31。内部 x 参与计算，公开接口却只有 a、b、c。主程序的局部 a=10 与 m1.a 不同，最终先算 33−1，再减10，得到22。把最后一个 a 改成限定的 m1.a 会改变结果，说明两种引用走的是不同查找。</p></div><div class="rn-example" id="example-8-2" data-source-item="例 8.2"><h4>例 8.2 · 未使用的接口也必须正确</h4><p class="example-kind">类型：原书编号例子</p><p class="source">印刷 p.278 / <a href="../assets/source.pdf#page=301">PDF 301</a>。</p><pre><code class="language-text" data-object-input="example8-2">module m1
+ interface [u:bool] body [u=33] 44</code></pre><p>主程序虽然只返回44，接口把 u 声明为 bool，而模块体给出33。模块声明本身不成立，因此程序在执行前拒绝。</p></div><div class="rn-example" id="example-8-3" data-source-item="例 8.3"><h4>例 8.3 · 承诺的成员不能缺失</h4><p class="example-kind">类型：原书编号例子</p><p class="source">印刷 p.279 / <a href="../assets/source.pdf#page=302">PDF 302</a>。</p><pre><code class="language-text" data-object-input="example8-3">module m1
+ interface [u:int v:int] body [u=33] 44</code></pre><p>模块没有提供 v。额外成员允许隐藏，缺少公开成员却无法兑现接口；它们是不同方向的问题。</p></div><div class="rn-example" id="example-8-4" data-source-item="例 8.4"><h4>例 8.4 · 原书匹配保留顺序</h4><p class="example-kind">类型：原书编号例子</p><p class="source">印刷 p.280 / <a href="../assets/source.pdf#page=303">PDF 303</a>。</p><pre><code class="language-text" data-object-input="example8-4">module m1
+ interface [u:int v:int] body [v=33 u=44] from m1 take u</code></pre><p>实际声明顺序是 v、u，期望顺序是 u、v。原算法找到 u 后已经越过 v，不能倒回去，所以拒绝。习题8.8和8.17通过无序匹配模式接受该式，运行得到44。</p></div><div class="rn-example" id="example-8-5" data-source-item="例 8.5"><h4>例 8.5 · 模块依赖按声明顺序进入作用域</h4><p class="example-kind">类型：原书编号例子</p><p class="source">印刷 p.280 / <a href="../assets/source.pdf#page=303">PDF 303</a>。</p><pre><code class="language-text" data-object-input="example8-5">module m1
+ interface [u:int] body [u=44]
+module m2
+ interface [v:int] body [v=-(from m1 take u,11)]
+-(from m1 take u,from m2 take v)</code></pre><p>m2 的 v=44−11=33，主程序再算44−33=11。反过来先定义m2时，它看不见尚未声明的m1；模块列表采用 let* 式作用域，并不隐含互递归。</p><pre><code class="language-text" data-object-input="example8-5-reversed">module m2
+ interface [v:int] body [v=-(from m1 take u,11)]
+module m1
+ interface [u:int] body [u=44]
 -(from m1 take u,from m2 take v)</code></pre></div><details class="reading-notes" id="notes-s8-1-1" data-notes-for="s8-1-1" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">使用位置</span><h4>限定名与局部名可以并存</h4><p>例8.1中的外层 a=10 不改变 m1.a=33。限定引用先找模块，再找成员；普通 a 只查普通值环境。二者没有互相覆盖的名字竞争。</p></div><div class="annotation-card"><span class="annotation-kind">检查时机</span><h4>未使用的坏接口也不能放行</h4><p>例8.2的主程序只是44，仍必须拒绝模块把整数作为布尔值导出的承诺。模块检查器验证所有定义和承诺，而不是只检查执行时碰巧读取的成员。</p></div></div></details></section><section id="s8-1-2"><h3>8.1.2 实现：模块环境与接口满足</h3><p class="source">原书 §8.1.2，印刷 p.281 / <a href="../assets/source.pdf#page=304">PDF 304</a>。</p><p>运行环境对模块名字保存模块值，对普通变量保存表达值；类型环境对模块名字保存接口，对普通变量保存类型。解释器计算限定引用时先找模块，再在它的公开绑定里找成员；检查器沿同一条名字路径，取回成员的类型。</p><p>处理一个定义序列时，每个右侧都使用已经扩展过的内部环境，随后才加入当前名字。结果模块仅收集本次定义建立的绑定，不把它计算时借用的外部环境整个导出。一个公开闭包可以保存该内部环境，因此隐藏辅助名字不会破坏闭包。</p><!-- EOPL:snippet chapter08.rkt module-evaluation -->
 <details class="code-details" open><summary>查看实现 · module-evaluation</summary><pre><code class="language-scheme">(define (module-value b env)
   (tick!)
@@ -519,7 +527,8 @@ module m1 interface [u:int] body [u=44]
     keep name -&gt; lookup(module, name)
   for each module component name in interface:
     keep name -&gt; project(lookup(module, name), component-interface)
-  ignore type declarations at runtime</code></pre><p>本章 <code>project-module</code> 实现该筛选；模块过程还用包装值筛选实参和结果。即使绕过静态检查直接调用 <code>run</code> 并传入 <code>#:check? #f</code>，读取隐藏成员也报 <code>runtime-hidden</code>。不过这仍是教学求值接口，不是把未检查程序变成安全程序。</p><p>类型环境没有相同的泄漏：<code>add-module-defns-to-tenv</code> 添加的是声明的 expected interface，而不是模块体推得的 actual interface。客户端查限定变量时只能在前者中找。两种环境都要保存抽象边界，但保存的对象不同。</p></div></details><details class="exercise" id="ex-8-3"><summary>习题 8.3 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="8.3"><p>修改语言语法，让限定变量引用写成 <code>m.v</code>，而不再写成 <code>from m take v</code>。</p></div><p class="source">印刷 p.289 / <a href="../assets/source.pdf#page=312">PDF 312</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>把限定引用的文法改为 <code>Expression ::= Identifier "." Identifier</code>；词法器把点单独读出，解析器构造与旧写法相同的限定引用节点。类型查找和求值规则不变，所以无需重写接口满足关系。</p><pre><code class="language-text">module m interface [a:int b:int] body [a=4 b=-(a,1)]
+  ignore type declarations at runtime</code></pre><p>本章 <code>project-module</code> 实现该筛选；模块过程还用包装值筛选实参和结果。即使绕过静态检查直接调用 <code>run</code> 并传入 <code>#:check? #f</code>，读取隐藏成员也报 <code>runtime-hidden</code>。不过这仍是教学求值接口，不是把未检查程序变成安全程序。</p><p>类型环境没有相同的泄漏：<code>add-module-defns-to-tenv</code> 添加的是声明的 expected interface，而不是模块体推得的 actual interface。客户端查限定变量时只能在前者中找。两种环境都要保存抽象边界，但保存的对象不同。</p></div></details><details class="exercise" id="ex-8-3"><summary>习题 8.3 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="8.3"><p>修改语言语法，让限定变量引用写成 <code>m.v</code>，而不再写成 <code>from m take v</code>。</p></div><p class="source">印刷 p.289 / <a href="../assets/source.pdf#page=312">PDF 312</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>把限定引用的文法改为 <code>Expression ::= Identifier "." Identifier</code>；词法器把点单独读出，解析器构造与旧写法相同的限定引用节点。类型查找和求值规则不变，所以无需重写接口满足关系。</p><pre><code class="language-text">module m
+ interface [a:int b:int] body [a=4 b=-(a,1)]
 -(m.a,m.b)</code></pre><p>该程序检查为 <code>int</code>，运行得 1。为便于逐页运行原书输入，本实现同时接受 <code>m.v</code> 与 <code>from m take v</code>；多层成员采用同一条路径表示。类型中的限定名字也能用相同的点号记法，但静态值名字和类型名字仍分别查找。</p></div></details><details class="exercise" id="ex-8-4"><summary>习题 8.4 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="8.4"><p>按照习题 7.24 扩展表达式语言，使其支持同一个 <code>let</code> 中的多个声明、多参数过程，以及同一个 <code>letrec</code> 中的多个声明。</p></div><p class="source">印刷 p.289 / <a href="../assets/source.pdf#page=312">PDF 312</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>参数、实参和递归声明都由单项改为列表。一次调用必须同时比较参数数量与各位置的类型，不能把“一个多参数过程”误当成“返回另一个过程”。多绑定 let 的各个右侧在旧环境检查和求值；把所有结果一次加入新环境。letrec 则先把整个递归组的过程签名预绑定，再逐个检查正文。</p><pre><code class="language-text">let x=7
 in let x=1 y=x
    in -(y,x)
@@ -535,7 +544,8 @@ in (even 12)</code></pre><p>第一式得到 6，说明 <code>y=x</code> 使用�
    bool local-odd (x : int) = ... (local-even -(x,1)) ...
    bool local-even (x : int) = ... (local-odd -(x,1)) ...
   in [even = local-even
-      odd = local-odd]</code></pre></div><p class="source">印刷 p.290 / <a href="../assets/source.pdf#page=313">PDF 313</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>让模块体成为递归语法：除定义序列以外，还可有 <code>let ... in ModuleBody</code> 与 <code>letrec ... in ModuleBody</code>。它们只扩展用于继续分析、执行模块体的局部环境，最后仍只导出方括号序列中的公开成员。完整版本如下：</p><pre><code class="language-text">module even-odd interface [even:(int -&gt; bool) odd:(int -&gt; bool)]
+      odd = local-odd]</code></pre></div><p class="source">印刷 p.290 / <a href="../assets/source.pdf#page=313">PDF 313</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>让模块体成为递归语法：除定义序列以外，还可有 <code>let ... in ModuleBody</code> 与 <code>letrec ... in ModuleBody</code>。它们只扩展用于继续分析、执行模块体的局部环境，最后仍只导出方括号序列中的公开成员。完整版本如下：</p><pre><code class="language-text">module even-odd
+ interface [even:(int -&gt; bool) odd:(int -&gt; bool)]
 body letrec bool local-odd(x:int)=if zero?(x) then zero?(1) else (local-even -(x,1))
             bool local-even(x:int)=if zero?(x) then zero?(0) else (local-odd -(x,1))
 in [even=local-even odd=local-odd]
@@ -548,8 +558,10 @@ in [even=local-even odd=local-odd]
    interface [v : int]
    body [v = 33]
   [u = 44
-   v = -(from m2 take v, 1)]</code></pre></div><p class="source">印刷 p.290 / <a href="../assets/source.pdf#page=313">PDF 313</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>局部模块定义也返回一个扩展过的模块环境，但这个环境只用于其后面的模块体。实现上对局部定义递归调用与顶层相同的模块检查/求值过程，再处理剩余 ModuleBody。</p><pre><code class="language-text">module m1 interface [u:int v:int]
-body module m2 interface [v:int] body [v=33]
+   v = -(from m2 take v, 1)]</code></pre></div><p class="source">印刷 p.290 / <a href="../assets/source.pdf#page=313">PDF 313</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>局部模块定义也返回一个扩展过的模块环境，但这个环境只用于其后面的模块体。实现上对局部定义递归调用与顶层相同的模块检查/求值过程，再处理剩余 ModuleBody。</p><pre><code class="language-text">module m1
+ interface [u:int v:int]
+body module m2
+ interface [v:int] body [v=33]
  [u=44 v=-(from m2 take v,1)]
 from m1 take v</code></pre><p>内部 <code>from m2 take v</code> 得 33，所以 m1.v 得 32；程序体中的 <code>from m2 take v</code> 被拒绝。局部模块 m2 不是 m1 的普通值成员，也不会因为参与计算而自动导出。</p></div></details><details class="exercise" id="ex-8-7"><summary>习题 8.7 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="8.7"><p>扩展上一题的解答，允许模块把其他模块作为组成部分导出。例如，应当能够写出：</p><pre><code class="language-text">module m1
  interface
@@ -562,8 +574,10 @@ from m1 take v</code></pre><p>内部 <code>from m2 take v</code> 得 33，所以
   [u = 44
    n = m2]
 
-from m1 take n take v</code></pre></div><p class="source">印刷 p.290 / <a href="../assets/source.pdf#page=313">PDF 313</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>给简单接口增加模块成员声明，静态成员可以是接口而不只是值类型；运行成员可以是模块值。查找一条路径时，前面的每一步都要求模块成员，最后一步再按所需角色取值或类型。</p><pre><code class="language-text">module m1 interface [u:int n:[v:int]]
-body module m2 interface [v:int] body [v=33]
+from m1 take n take v</code></pre></div><p class="source">印刷 p.290 / <a href="../assets/source.pdf#page=313">PDF 313</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>给简单接口增加模块成员声明，静态成员可以是接口而不只是值类型；运行成员可以是模块值。查找一条路径时，前面的每一步都要求模块成员，最后一步再按所需角色取值或类型。</p><pre><code class="language-text">module m1
+ interface [u:int n:[v:int]]
+body module m2
+ interface [v:int] body [v=33]
  [u=44 n=m2]
 from m1 take n take v</code></pre><p>程序得到 33。对外的 <code>n</code> 保存 m2 的公开视图；并不把 m2 的名字提升到外部作用域。导出筛选递归应用于嵌套接口，因此把 n 的接口改成只含其他名字，不会让 n 的私有字段泄漏。嵌套查找的额外成本随路径长度增长，各层关联表查找还取决于成员数。</p></div></details><details class="exercise" id="ex-8-8"><summary>习题 8.8 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="8.8"><p>在当前语言中，模块体必须按照接口中的顺序产生各个值，但这个限制很容易去掉。请修改实现，去掉这一顺序限制。</p></div><p class="source">印刷 p.290 / <a href="../assets/source.pdf#page=313">PDF 313</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>先按原顺序检查所有定义，再用“名字到声明”的索引比较接口。期望接口中的每个名字都必须在实际接口中出现，且对应声明类型相容；匹配成功后不删除早先出现过的其他名字。与原书双列表扫描不同，比较不再要求期望列表是实际列表的有序子序列。</p><p>本章通过 <code>#:unordered? #t</code> 启用这个扩展。例 8.4 在原书顺序模式中被拒绝，启用后检查为 int、运行得到 44。接口名字在本实现中必须唯一，因此每次查找没有“选哪一个同名成员”的歧义。建立散列表并逐个查找可做到期望 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi mathvariant="normal">O</mi><mo>(</mo><mi>a</mi><mo>+</mo><mi>b</mi><mo>)</mo></mrow></math>；目前教学版本使用列表查找，最坏 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi mathvariant="normal">O</mi><mo>(</mo><mi>a</mi><mi>b</mi><mo>)</mo></mrow></math>。</p></div></details><details class="exercise" id="ex-8-9"><summary>习题 8.9 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="8.9"><p>我们曾说模块系统应当记录模块之间的依赖关系。请给 SIMPLE-MODULES 增加这种能力：要求每个模块体和程序体都有一个 <code>depends-on</code> 子句。模块 <code>m</code> 中不再能看见此前的所有模块，只有在它的 <code>depends-on</code> 子句中列出的先前模块才在作用域内。例如，考虑程序：</p><pre><code class="language-text">module m1 ...
 module m2 ...
@@ -573,8 +587,10 @@ module m5
  interface [...]
  body
   depends-on m1, m3
-  [...]</code></pre><p>在 <code>m5</code> 的模块体中，只有来自 <code>m1</code> 或 <code>m3</code> 的限定变量在作用域内。即使 <code>m4</code> 导出了值 <code>x</code>，引用 <code>from m4 take x</code> 也应判为类型不正确。</p></div><p class="source">印刷 p.290 / <a href="../assets/source.pdf#page=313">PDF 313</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>依赖声明限制的是可见的模块环境：从先前已经检查的模块中选出列出的名字，值环境、类型别名与命名接口按各自词法规则保留。模块体和主程序都在这个受限环境中检查，运行时也选出同一批模块。没有声明的模块即使已经求值，也不能被当前代码引用。</p><pre><code class="language-text">module m1 interface [x:int] body depends-on [x=7]
-module m2 interface [y:int] body depends-on m1 [y=from m1 take x]
+  [...]</code></pre><p>在 <code>m5</code> 的模块体中，只有来自 <code>m1</code> 或 <code>m3</code> 的限定变量在作用域内。即使 <code>m4</code> 导出了值 <code>x</code>，引用 <code>from m4 take x</code> 也应判为类型不正确。</p></div><p class="source">印刷 p.290 / <a href="../assets/source.pdf#page=313">PDF 313</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>依赖声明限制的是可见的模块环境：从先前已经检查的模块中选出列出的名字，值环境、类型别名与命名接口按各自词法规则保留。模块体和主程序都在这个受限环境中检查，运行时也选出同一批模块。没有声明的模块即使已经求值，也不能被当前代码引用。</p><pre><code class="language-text">module m1
+ interface [x:int] body depends-on [x=7]
+module m2
+ interface [y:int] body depends-on m1 [y=from m1 take x]
 depends-on m2
 from m2 take y</code></pre><p>以 <code>#:dependencies 'depends-on</code> 运行得到 7。叶模块写空依赖子句；删去 m2 的 m1 依赖，或删去主程序的 m2 依赖，均在静态检查时失败。重复依赖、未知或尚未声明的依赖也拒绝；单纯列出依赖不会使模块递归。</p></div></details><details class="exercise" id="ex-8-10"><summary>习题 8.10 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="8.10"><p>也可以用类似 <code>depends-on</code> 的机制控制模块体何时求值。请给 SIMPLE-MODULES 增加这种能力：要求每个模块体和程序体有一个 <code>imports</code> 子句。它与 <code>depends-on</code> 类似，但还要求：只有当某个其他模块通过 <code>imports</code> 子句导入该模块时，模块体才求值。</p><p>因此，假如语言中有 <code>print</code> 表达式，下面的程序应先打印 2、3、1，再返回 33。这里各模块都使用空接口，因为我们只关心模块体的求值顺序。</p><pre><code class="language-text">module m1
  interface [] body [x = print(1)]
@@ -590,35 +606,97 @@ import m3, m1
  interface [f : (int -&gt; int)]
  body [f = proc (x : ?) x]</code></pre><p>另一方面，即使推导引擎同样报告 <code>(tvar07 -&gt; tvar07)</code>，下面的模块也应被拒绝：</p><pre><code class="language-text">module m
  interface [f : (int -&gt; bool)]
- body [f = proc (x : ?) x]</code></pre></div><p class="source">印刷 p.291 / <a href="../assets/source.pdf#page=314">PDF 314</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>为同一次程序检查保留一份合一状态。每个缺省类型位置分配鲜变量；同一个变量绑定的后续使用共享这份类型。检查模块体得到实际类型后，把实际类型与接口要求合一，而不是直接比较尚含未知量的语法树。</p><p>恒等过程的参数、结果共享同一个未知量。要求 int→int 时，两次约束都把它定为 int，成功；要求 int→bool 时，先得到 int，随后又要求 bool，冲突。不能为每次成员比较重建合一器，否则一个共享过程可能在不同成员处被误当成不同的类型。</p><pre><code class="language-text">module m interface [f:(int -&gt; int) g:(bool -&gt; bool)]
+ body [f = proc (x : ?) x]</code></pre></div><p class="source">印刷 p.291 / <a href="../assets/source.pdf#page=314">PDF 314</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>为同一次程序检查保留一份合一状态。每个缺省类型位置分配鲜变量；同一个变量绑定的后续使用共享这份类型。检查模块体得到实际类型后，把实际类型与接口要求合一，而不是直接比较尚含未知量的语法树。</p><p>恒等过程的参数、结果共享同一个未知量。要求 int→int 时，两次约束都把它定为 int，成功；要求 int→bool 时，先得到 int，随后又要求 bool，冲突。不能为每次成员比较重建合一器，否则一个共享过程可能在不同成员处被误当成不同的类型。</p><pre><code class="language-text">module m
+ interface [f:(int -&gt; int) g:(bool -&gt; bool)]
 body [f=proc(x:?) x g=f]
-0</code></pre><p>该式必须拒绝：f 与 g 是同一个单态绑定。运行接口使用 <code>#:inferred? #t</code>；默认模式仍要求 CHECKED 的具体标注。发生检查同第七章，未知量不能被绑定到包含自身的有限类型。组合到模块过程时，还要先应用已经求得的替换，再对齐参数身份；否则未知量里保存的旧参数身份可能逃过重命名，使合法的接口被误拒绝。</p></div></details></section></section><section id="s8-2"><h2>8.2 声明类型的模块：把表示藏在边界内</h2><p class="source">原书 §8.2，印刷 p.292 / <a href="../assets/source.pdf#page=315">PDF 315</a>。</p><p>第二章用接口约定区分数据类型的实现者和使用者，但单靠值名字的封装还不能阻止使用者依赖表示。假如接口把 point 公开为整数序对，客户端仍能自行拆对、交换坐标，破坏实现者维护的几何不变量。</p><p>透明类型声明把一个名字公开地等同于另一种类型；抽象类型声明只公开这个类型的存在和可用操作。模块体里仍可把它实现成整数或序对，但客户端没有获得这条等式。抽象性由检查器执行，运行器无需在每个整数外面再套一个特殊盒子。</p><details class="reading-notes" id="notes-s8-2" data-notes-for="s8-2" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">类型身份</span><h3>相同表示不构成相同抽象类型</h3><p>两个模块即使都把 t 定义为 int，客户端看到的两个 t 仍不同。可以共享的等式必须由 transparent 声明明确公布，不能从相同运行位模式推断。</p></div><div class="annotation-card"><span class="annotation-kind">表达能力</span><h3>接口保证类型关系，不证明算术定律</h3><p>succ:t→t 和 pred:t→t 只说明输入输出如何组合，不证明它们互为逆。表示关系与整数代数律需要另行给出；一个满足类型接口的错误算术实现仍可能算错。</p></div></div></details><section id="s8-2-1"><h3>8.2.1 例子：透明类型与抽象类型</h3><p class="source">原书 §8.2.1，印刷 p.293 / <a href="../assets/source.pdf#page=316">PDF 316</a>。</p><p>Alice 的 point 若声明为 <code>transparent point = pairof int * int</code>，确实缩短了注解，但 Bob 仍能 unpair 后只改 y，不顾 x 与 y 的约束；把 point 改为 opaque，Bob 只能通过 initial-point、increment-x、get-x 操作点。不能合法拆对，自然也不能借某个坐标位置猜测表示。</p><div class="rn-example" id="example-8-6" data-source-item="例 8.6"><h4>例 8.6 · 透明类型把等式交给客户端</h4><p class="example-kind">类型：原书编号例子</p><p class="source">印刷 p.294 / <a href="../assets/source.pdf#page=317">PDF 317</a>。</p><pre><code class="language-text" data-object-input="example8-6">module m1 interface [transparent t=int z:t s:(t -&gt; t) is-z?:(t -&gt; bool)]
+0</code></pre><p>该式必须拒绝：f 与 g 是同一个单态绑定。运行接口使用 <code>#:inferred? #t</code>；默认模式仍要求 CHECKED 的具体标注。发生检查同第七章，未知量不能被绑定到包含自身的有限类型。组合到模块过程时，还要先应用已经求得的替换，再对齐参数身份；否则未知量里保存的旧参数身份可能逃过重命名，使合法的接口被误拒绝。</p></div></details></section></section><section id="s8-2"><h2>8.2 声明类型的模块：把表示藏在边界内</h2><p class="source">原书 §8.2，印刷 p.292 / <a href="../assets/source.pdf#page=315">PDF 315</a>。</p><p>第二章用接口约定区分数据类型的实现者和使用者，但单靠值名字的封装还不能阻止使用者依赖表示。假如接口把 point 公开为整数序对，客户端仍能自行拆对、交换坐标，破坏实现者维护的几何不变量。</p><p>透明类型声明把一个名字公开地等同于另一种类型；抽象类型声明只公开这个类型的存在和可用操作。模块体里仍可把它实现成整数或序对，但客户端没有获得这条等式。抽象性由检查器执行，运行器无需在每个整数外面再套一个特殊盒子。</p><details class="reading-notes" id="notes-s8-2" data-notes-for="s8-2" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">类型身份</span><h3>相同表示不构成相同抽象类型</h3><p>两个模块即使都把 t 定义为 int，客户端看到的两个 t 仍不同。可以共享的等式必须由 transparent 声明明确公布，不能从相同运行位模式推断。</p></div><div class="annotation-card"><span class="annotation-kind">表达能力</span><h3>接口保证类型关系，不证明算术定律</h3><p>succ:t→t 和 pred:t→t 只说明输入输出如何组合，不证明它们互为逆。表示关系与整数代数律需要另行给出；一个满足类型接口的错误算术实现仍可能算错。</p></div></div></details><section id="s8-2-1"><h3>8.2.1 例子：透明类型与抽象类型</h3><p class="source">原书 §8.2.1，印刷 p.293 / <a href="../assets/source.pdf#page=316">PDF 316</a>。</p><p>Alice 的 point 若声明为 <code>transparent point = pairof int * int</code>，确实缩短了注解，但 Bob 仍能 unpair 后只改 y，不顾 x 与 y 的约束；把 point 改为 opaque，Bob 只能通过 initial-point、increment-x、get-x 操作点。不能合法拆对，自然也不能借某个坐标位置猜测表示。</p><div class="rn-example" id="example-8-6" data-source-item="例 8.6"><h4>例 8.6 · 透明类型把等式交给客户端</h4><p class="example-kind">类型：原书编号例子</p><p class="source">印刷 p.294 / <a href="../assets/source.pdf#page=317">PDF 317</a>。</p><pre><code class="language-text" data-object-input="example8-6">module m1
+ interface [transparent t=int z:t s:(t -&gt; t) is-z?:(t -&gt; bool)]
 body [type t=int z=33 s=proc(x:t) -(x,-1) is-z?=proc(x:t) zero?(-(x,z))]
-proc(x:from m1 take t) (from m1 take is-z? -(x,0))</code></pre><p>接口公开 t=int，所以客户端注解里的限定 t 展开为 int，减法合法，过程类型为 int→bool。接口内部的 t 只影响接口后续部分；模块体内的 type t=int 另建立实现侧的绑定。</p></div><div class="rn-example" id="example-8-7" data-source-item="例 8.7"><h4>例 8.7 · 抽象类型保留操作，隐藏整数等式</h4><p class="example-kind">类型：原书编号例子</p><p class="source">印刷 p.296 / <a href="../assets/source.pdf#page=319">PDF 319</a>。</p><pre><code class="language-text" data-object-input="example8-7-invalid">module m1 interface [opaque t z:t s:(t -&gt; t) is-z?:(t -&gt; bool)]
+proc(x:from m1 take t) (from m1 take is-z? -(x,0))</code></pre><p>接口公开 t=int，所以客户端注解里的限定 t 展开为 int，减法合法，过程类型为 int→bool。接口内部的 t 只影响接口后续部分；模块体内的 type t=int 另建立实现侧的绑定。</p></div><div class="rn-example" id="example-8-7" data-source-item="例 8.7"><h4>例 8.7 · 抽象类型保留操作，隐藏整数等式</h4><p class="example-kind">类型：原书编号例子</p><p class="source">印刷 p.296 / <a href="../assets/source.pdf#page=319">PDF 319</a>。</p><pre><code class="language-text" data-object-input="example8-7-invalid">module m1
+ interface [opaque t z:t s:(t -&gt; t) is-z?:(t -&gt; bool)]
 body [type t=int z=33 s=proc(x:t) -(x,-1) is-z?=proc(x:t) zero?(-(x,z))]
-proc(x:from m1 take t) (from m1 take is-z? -(x,0))</code></pre><p>只把接口改成 opaque 后，客户端中的 x 不再被当作整数，减法会拒绝。删除该整数操作，直接使用公开的 is-z?，就得到合法的抽象类型到 bool 的过程：</p><pre><code class="language-text" data-object-input="example8-7">module m1 interface [opaque t z:t s:(t -&gt; t) is-z?:(t -&gt; bool)]
+proc(x:from m1 take t) (from m1 take is-z? -(x,0))</code></pre><p>只把接口改成 opaque 后，客户端中的 x 不再被当作整数，减法会拒绝。删除该整数操作，直接使用公开的 is-z?，就得到合法的抽象类型到 bool 的过程：</p><pre><code class="language-text" data-object-input="example8-7">module m1
+ interface [opaque t z:t s:(t -&gt; t) is-z?:(t -&gt; bool)]
 body [type t=int z=33 s=proc(x:t) -(x,-1) is-z?=proc(x:t) zero?(-(x,z))]
-proc(x:from m1 take t) (from m1 take is-z? x)</code></pre></div><p>图8.8位于透明类型讨论之后，但图中画的是 opaque 声明；它说明的是接口、模块体与客户端的作用域分开，不能用这张图把透明与抽象类型的语义混在一起。原页邻近文字提及的客户端形参 z，程序中实际写作 x。</p><div class="rn-example" id="example-8-8" data-source-item="例 8.8"><h4>例 8.8 · 颜色值可以没有公开的整数身份</h4><p class="example-kind">类型：原书编号例子</p><p class="source">印刷 p.297 / <a href="../assets/source.pdf#page=320">PDF 320</a>。</p><pre><code class="language-text" data-object-input="example8-8">module colors interface [opaque color red:color green:color is-red?:(color -&gt; bool)]
-body [type color=int red=0 green=1 is-red?=proc(c:color) zero?(c)]</code></pre><p>客户端能取 red、green，并用 is-red? 得到原生 bool，却不能对 green 做减法。若把 green 作为最终抽象结果交给宿主打印，会看到内部表示1；这只是宿主输出，不能在语言内部据此取得 color=int。</p></div><div class="rn-example" id="example-8-9" data-source-item="例 8.9"><h4>例 8.9 · 第一种整数表示</h4><p class="example-kind">类型：原书编号例子</p><p class="source">印刷 p.298 / <a href="../assets/source.pdf#page=321">PDF 321</a>。</p><pre><code class="language-text" data-object-input="example8-9">module ints1 interface [opaque t zero:t succ:(t -&gt; t) pred:(t -&gt; t) is-zero:(t -&gt; bool)] body [type t=int zero=0 succ=proc(x:t) -(x,-5) pred=proc(x:t) -(x,5) is-zero=proc(x:t) zero?(-(x,0))]
+proc(x:from m1 take t) (from m1 take is-z? x)</code></pre></div><p>图8.8位于透明类型讨论之后，但图中画的是 opaque 声明；它说明的是接口、模块体与客户端的作用域分开，不能用这张图把透明与抽象类型的语义混在一起。原页邻近文字提及的客户端形参 z，程序中实际写作 x。</p><div class="rn-example" id="example-8-8" data-source-item="例 8.8"><h4>例 8.8 · 颜色值可以没有公开的整数身份</h4><p class="example-kind">类型：原书编号例子</p><p class="source">印刷 p.297 / <a href="../assets/source.pdf#page=320">PDF 320</a>。</p><pre><code class="language-text" data-object-input="example8-8">module colors
+ interface [opaque color red:color green:color is-red?:(color -&gt; bool)]
+body [type color=int red=0 green=1 is-red?=proc(c:color) zero?(c)]</code></pre><p>客户端能取 red、green，并用 is-red? 得到原生 bool，却不能对 green 做减法。若把 green 作为最终抽象结果交给宿主打印，会看到内部表示1；这只是宿主输出，不能在语言内部据此取得 color=int。</p></div><div class="rn-example" id="example-8-9" data-source-item="例 8.9"><h4>例 8.9 · 第一种整数表示</h4><p class="example-kind">类型：原书编号例子</p><p class="source">印刷 p.298 / <a href="../assets/source.pdf#page=321">PDF 321</a>。</p><details class="code-details" open><summary>查看原书程序 · example8-9</summary><pre><code class="language-text" data-object-input="example8-9">module ints1
+ interface [opaque t
+  zero : t
+  succ : (t -&gt; t)
+  pred : (t -&gt; t)
+  is-zero : (t -&gt; bool)] body
+ [type t=int
+  zero=0
+  succ=proc(x:t) -(x,-5)
+  pred=proc(x:t) -(x,5)
+  is-zero=proc(x:t) zero?(-(x,0))]
 
-let z=from ints1 take zero in let s=from ints1 take succ in (s (s z))</code></pre><p>每次 succ 对内部数值加5，两次后继得到10，类型是 ints1.t。表示关系把数学整数 k 解释为内部的5k；并不是客户端拿到了乘以5的权限。</p></div><div class="rn-example" id="example-8-10" data-source-item="例 8.10"><h4>例 8.10 · 第二种整数表示</h4><p class="example-kind">类型：原书编号例子</p><p class="source">印刷 p.298 / <a href="../assets/source.pdf#page=321">PDF 321</a>。</p><pre><code class="language-text" data-object-input="example8-10">module ints2 interface [opaque t zero:t succ:(t -&gt; t) pred:(t -&gt; t) is-zero:(t -&gt; bool)] body [type t=int zero=0 succ=proc(x:t) -(x,3) pred=proc(x:t) -(x,-3) is-zero=proc(x:t) zero?(-(x,0))]
+let z=from ints1 take zero in let s=from ints1 take succ in (s (s z))</code></pre></details><p>每次 succ 对内部数值加5，两次后继得到10，类型是 ints1.t。表示关系把数学整数 k 解释为内部的5k；并不是客户端拿到了乘以5的权限。</p></div><div class="rn-example" id="example-8-10" data-source-item="例 8.10"><h4>例 8.10 · 第二种整数表示</h4><p class="example-kind">类型：原书编号例子</p><p class="source">印刷 p.298 / <a href="../assets/source.pdf#page=321">PDF 321</a>。</p><details class="code-details" open><summary>查看原书程序 · example8-10</summary><pre><code class="language-text" data-object-input="example8-10">module ints2
+ interface [opaque t
+  zero : t
+  succ : (t -&gt; t)
+  pred : (t -&gt; t)
+  is-zero : (t -&gt; bool)] body
+ [type t=int
+  zero=0
+  succ=proc(x:t) -(x,3)
+  pred=proc(x:t) -(x,-3)
+  is-zero=proc(x:t) zero?(-(x,0))]
 
-let z=from ints2 take zero in let s=from ints2 take succ in (s (s z))</code></pre><p>此时后继减3，两次后继得到-6，类型是 ints2.t。ints1.t 与 ints2.t 是不同身份，虽然两者在模块体里都用 int 表示。</p></div><div class="rn-example" id="example-8-11" data-source-item="例 8.11"><h4>例 8.11 · 只用接口把抽象整数还原</h4><p class="example-kind">类型：原书编号例子</p><p class="source">印刷 p.299 / <a href="../assets/source.pdf#page=322">PDF 322</a>。</p><pre><code class="language-text" data-object-input="example8-11">module ints1 interface [opaque t zero:t succ:(t -&gt; t) pred:(t -&gt; t) is-zero:(t -&gt; bool)] body [type t=int zero=0 succ=proc(x:t) -(x,-5) pred=proc(x:t) -(x,5) is-zero=proc(x:t) zero?(-(x,0))]
+let z=from ints2 take zero in let s=from ints2 take succ in (s (s z))</code></pre></details><p>此时后继减3，两次后继得到-6，类型是 ints2.t。ints1.t 与 ints2.t 是不同身份，虽然两者在模块体里都用 int 表示。</p></div><div class="rn-example" id="example-8-11" data-source-item="例 8.11"><h4>例 8.11 · 只用接口把抽象整数还原</h4><p class="example-kind">类型：原书编号例子</p><p class="source">印刷 p.299 / <a href="../assets/source.pdf#page=322">PDF 322</a>。</p><details class="code-details" open><summary>查看原书程序 · example8-11</summary><pre><code class="language-text" data-object-input="example8-11">module ints1
+ interface [opaque t
+  zero : t
+  succ : (t -&gt; t)
+  pred : (t -&gt; t)
+  is-zero : (t -&gt; bool)] body
+ [type t=int
+  zero=0
+  succ=proc(x:t) -(x,-5)
+  pred=proc(x:t) -(x,5)
+  is-zero=proc(x:t) zero?(-(x,0))]
 
-let z=from ints1 take zero in let s=from ints1 take succ in let p=from ints1 take pred in let z?=from ints1 take is-zero in letrec int to-int(x:from ints1 take t)=if (z? x) then 0 else -((to-int (p x)),-1) in (to-int (s (s z)))</code></pre><p>to-int 不看表示，只问是否为抽象零，否则取抽象前驱并在原生结果上加1。两次后继还原为2。该算法要求输入代表非负整数；类型安全本身不保证递归会到零。</p></div><div class="rn-example" id="example-8-12" data-source-item="例 8.12"><h4>例 8.12 · 相同算法适用于另一表示</h4><p class="example-kind">类型：原书编号例子</p><p class="source">印刷 p.299 / <a href="../assets/source.pdf#page=322">PDF 322</a>。</p><pre><code class="language-text" data-object-input="example8-12">module ints2 interface [opaque t zero:t succ:(t -&gt; t) pred:(t -&gt; t) is-zero:(t -&gt; bool)] body [type t=int zero=0 succ=proc(x:t) -(x,3) pred=proc(x:t) -(x,-3) is-zero=proc(x:t) zero?(-(x,0))]
+let z=from ints1 take zero in let s=from ints1 take succ in let p=from ints1 take pred in let
+  z?=from ints1 take is-zero in letrec int to-int(x:from ints1 take t)=if (z? x) then 0 else
+  -((to-int (p x)),-1) in (to-int (s (s z)))</code></pre></details><p>to-int 不看表示，只问是否为抽象零，否则取抽象前驱并在原生结果上加1。两次后继还原为2。该算法要求输入代表非负整数；类型安全本身不保证递归会到零。</p></div><div class="rn-example" id="example-8-12" data-source-item="例 8.12"><h4>例 8.12 · 相同算法适用于另一表示</h4><p class="example-kind">类型：原书编号例子</p><p class="source">印刷 p.299 / <a href="../assets/source.pdf#page=322">PDF 322</a>。</p><details class="code-details" open><summary>查看原书程序 · example8-12</summary><pre><code class="language-text" data-object-input="example8-12">module ints2
+ interface [opaque t
+  zero : t
+  succ : (t -&gt; t)
+  pred : (t -&gt; t)
+  is-zero : (t -&gt; bool)] body
+ [type t=int
+  zero=0
+  succ=proc(x:t) -(x,3)
+  pred=proc(x:t) -(x,-3)
+  is-zero=proc(x:t) zero?(-(x,0))]
 
-let z=from ints2 take zero in let s=from ints2 take succ in let p=from ints2 take pred in let z?=from ints2 take is-zero in letrec int to-int(x:from ints2 take t)=if (z? x) then 0 else -((to-int (p x)),-1) in (to-int (s (s z)))</code></pre><p>内部表示-6仍代表抽象整数2；取前驱时内部值增加3，最后回到0，还原值仍为2。这说明算法依赖的是接口所代表的运算含义，而不是内部数字的正负。</p></div><div class="rn-example" id="example-8-13" data-source-item="例 8.13"><h4>例 8.13 · 抽象布尔值与原生布尔值分开</h4><p class="example-kind">类型：原书编号例子</p><p class="source">印刷 p.300 / <a href="../assets/source.pdf#page=323">PDF 323</a>。</p><pre><code class="language-text" data-object-input="example8-13">module mybool interface [opaque t true:t false:t and:(t -&gt; (t -&gt; t)) not:(t -&gt; t) to-bool:(t -&gt; bool)] body [type t=int true=0 false=13
+let z=from ints2 take zero in let s=from ints2 take succ in let p=from ints2 take pred in let
+  z?=from ints2 take is-zero in letrec int to-int(x:from ints2 take t)=if (z? x) then 0 else
+  -((to-int (p x)),-1) in (to-int (s (s z)))</code></pre></details><p>内部表示-6仍代表抽象整数2；取前驱时内部值增加3，最后回到0，还原值仍为2。这说明算法依赖的是接口所代表的运算含义，而不是内部数字的正负。</p></div><div class="rn-example" id="example-8-13" data-source-item="例 8.13"><h4>例 8.13 · 抽象布尔值与原生布尔值分开</h4><p class="example-kind">类型：原书编号例子</p><p class="source">印刷 p.300 / <a href="../assets/source.pdf#page=323">PDF 323</a>。</p><pre><code class="language-text" data-object-input="example8-13">module mybool
+ interface [opaque t true:t false:t and:(t -&gt; (t -&gt; t)) not:(t -&gt; t) to-bool:(t -&gt; bool)] body
+   [type t=int true=0 false=13
  and=proc(x:t) proc(y:t) if zero?(x) then y else false
  not=proc(x:t) if zero?(x) then false else true
  to-bool=proc(x:t) zero?(x)]
-let true=from mybool take true in let false=from mybool take false in let and=from mybool take and in ((and true) false)</code></pre><p>模块内部把真表示为0、假表示为13；and 的结果是抽象假，最终表示值13。条件表达式不能直接接受这个 t，必须先经 to-bool 取得原生 bool。这个区分在习题8.12的外部定义和8.14的表示独立性中都会用到。</p></div><details class="reading-notes" id="notes-s8-2-1" data-notes-for="s8-2-1" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">表示独立</span><h4>比较可观察结果而非内部数字</h4><p>5倍与负3倍表示的“两次后继”分别打印10与-6，但公开的 to-int 都返回2。比较抽象实现时，要先说清观察者允许使用的操作与结果类型。</p></div><div class="annotation-card"><span class="annotation-kind">公开等式</span><h4>透明别名既省字也公开知识</h4><p>transparent point=pairof int*int 不只是缩短注解，它允许客户端拆开序对。若希望强制维护几何不变量，就需要 opaque，而不是一个好听的别名。</p></div></div></details><h4>本节习题与解答</h4><details class="exercise-index-panel"><summary>本节习题题号索引 · 4 题</summary><nav class="exercise-index" role="navigation" aria-label="本节习题索引"><a href="#ex-8-12" aria-label="习题 8.12">8.12</a> · <a href="#ex-8-13" aria-label="习题 8.13">8.13</a> · <a href="#ex-8-14" aria-label="习题 8.14">8.14</a> · <a href="#ex-8-15" aria-label="习题 8.15">8.15</a></nav></details><details class="exercise" id="ex-8-12"><summary>习题 8.12 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="8.12"><p>在例 8.13 中，能否把 <code>and</code> 和 <code>not</code> 的定义从模块内部移到模块外部？<code>to-bool</code> 的定义又如何？</p></div><p class="source">印刷 p.300 / <a href="../assets/source.pdf#page=323">PDF 323</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>原样移动不行，因为 and、not、to-bool 的原定义都对表示值使用了整数操作；模块外只知道抽象 t，不知道 t=int。不过“不能原样搬动”不等于“无法在外部实现同样操作”。若仍保留公开观察器 to-bool，可以在模块外重写 and 和 not：</p><pre><code class="language-text">let and=proc(x:from mybool take t) proc(y:from mybool take t)
+let true=from mybool take true in let false=from mybool take false in let and=from mybool take
+  and in ((and true) false)</code></pre><p>模块内部把真表示为0、假表示为13；and 的结果是抽象假，最终表示值13。条件表达式不能直接接受这个 t，必须先经 to-bool 取得原生 bool。这个区分在习题8.12的外部定义和8.14的表示独立性中都会用到。</p></div><details class="reading-notes" id="notes-s8-2-1" data-notes-for="s8-2-1" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">表示独立</span><h4>比较可观察结果而非内部数字</h4><p>5倍与负3倍表示的“两次后继”分别打印10与-6，但公开的 to-int 都返回2。比较抽象实现时，要先说清观察者允许使用的操作与结果类型。</p></div><div class="annotation-card"><span class="annotation-kind">公开等式</span><h4>透明别名既省字也公开知识</h4><p>transparent point=pairof int*int 不只是缩短注解，它允许客户端拆开序对。若希望强制维护几何不变量，就需要 opaque，而不是一个好听的别名。</p></div></div></details><h4>本节习题与解答</h4><details class="exercise-index-panel"><summary>本节习题题号索引 · 4 题</summary><nav class="exercise-index" role="navigation" aria-label="本节习题索引"><a href="#ex-8-12" aria-label="习题 8.12">8.12</a> · <a href="#ex-8-13" aria-label="习题 8.13">8.13</a> · <a href="#ex-8-14" aria-label="习题 8.14">8.14</a> · <a href="#ex-8-15" aria-label="习题 8.15">8.15</a></nav></details><details class="exercise" id="ex-8-12"><summary>习题 8.12 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="8.12"><p>在例 8.13 中，能否把 <code>and</code> 和 <code>not</code> 的定义从模块内部移到模块外部？<code>to-bool</code> 的定义又如何？</p></div><p class="source">印刷 p.300 / <a href="../assets/source.pdf#page=323">PDF 323</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>原样移动不行，因为 and、not、to-bool 的原定义都对表示值使用了整数操作；模块外只知道抽象 t，不知道 t=int。不过“不能原样搬动”不等于“无法在外部实现同样操作”。若仍保留公开观察器 to-bool，可以在模块外重写 and 和 not：</p><pre><code class="language-text">let and=proc(x:from mybool take t) proc(y:from mybool take t)
          if (from mybool take to-bool x) then y else from mybool take false
 in let not=proc(x:from mybool take t)
          if (from mybool take to-bool x)
          then from mybool take false else from mybool take true
 in if (from mybool take to-bool
         ((and (not from mybool take false)) from mybool take true))
-   then 11 else 22</code></pre><p>两种布尔表示都得到 11。反过来，移除 to-bool 后，仅用 true、false、and、not 不能实现 t→bool 的观察器：这些操作只产生或继续传递 t，没有把 t 转为原生 bool 的消去操作。比如 <code>proc(x:from mybool take t) zero?(x)</code> 会被检查器拒绝。</p></div></details><details class="exercise" id="ex-8-13"><summary>习题 8.13 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="8.13"><p>编写一个实现算术的模块，采用如下表示：整数 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mi>k</mi></math> 表示为 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>5</mn><mo>×</mo><mi>k</mi><mo>+</mo><mn>3</mn></mrow></math>。</p></div><p class="source">印刷 p.300 / <a href="../assets/source.pdf#page=323">PDF 323</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>令零表示为 3；后继加 5，前驱减 5，零判定比较表示值是否为 3。表示关系满足：对 k 加一，对应表示值加 5；对 k 减一，对应表示值减 5。因此四个算术操作都保持表示不变量。</p><pre><code class="language-text">module ints3 interface [opaque t zero:t succ:(t -&gt; t) pred:(t -&gt; t) is-zero:(t -&gt; bool)] body [type t=int zero=3 succ=proc(x:t) -(x,-5) pred=proc(x:t) -(x,5) is-zero=proc(x:t) zero?(-(x,3))]</code></pre><p>连续两次 succ 作用于 zero，运行表示值为 13；通过只使用公开操作的 to-int 转回得到 2。类型始终是 <code>from ints3 take t</code>，并没有因为宿主最终能打印 13，就允许客户端把它作为普通整数参与减法。</p></div></details><details class="exercise" id="ex-8-14"><summary>习题 8.14 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="8.14"><p>考虑下面对 <code>mybool</code> 的另一种定义（见例 8.13）：</p><pre><code class="language-text">module mybool
+   then 11 else 22</code></pre><p>两种布尔表示都得到 11。反过来，移除 to-bool 后，仅用 true、false、and、not 不能实现 t→bool 的观察器：这些操作只产生或继续传递 t，没有把 t 转为原生 bool 的消去操作。比如 <code>proc(x:from mybool take t) zero?(x)</code> 会被检查器拒绝。</p></div></details><details class="exercise" id="ex-8-13"><summary>习题 8.13 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="8.13"><p>编写一个实现算术的模块，采用如下表示：整数 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mi>k</mi></math> 表示为 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>5</mn><mo>×</mo><mi>k</mi><mo>+</mo><mn>3</mn></mrow></math>。</p></div><p class="source">印刷 p.300 / <a href="../assets/source.pdf#page=323">PDF 323</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>令零表示为 3；后继加 5，前驱减 5，零判定比较表示值是否为 3。表示关系满足：对 k 加一，对应表示值加 5；对 k 减一，对应表示值减 5。因此四个算术操作都保持表示不变量。</p><pre><code class="language-text">module ints3
+ interface [opaque t
+  zero : t
+  succ : (t -&gt; t)
+  pred : (t -&gt; t)
+  is-zero : (t -&gt; bool)] body
+ [type t=int
+  zero=3
+  succ=proc(x:t) -(x,-5)
+  pred=proc(x:t) -(x,5)
+  is-zero=proc(x:t) zero?(-(x,3))]</code></pre><p>连续两次 succ 作用于 zero，运行表示值为 13；通过只使用公开操作的 to-int 转回得到 2。类型始终是 <code>from ints3 take t</code>，并没有因为宿主最终能打印 13，就允许客户端把它作为普通整数参与减法。</p></div></details><details class="exercise" id="ex-8-14"><summary>习题 8.14 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="8.14"><p>考虑下面对 <code>mybool</code> 的另一种定义（见例 8.13）：</p><pre><code class="language-text">module mybool
  interface
   [opaque t
    true : t
@@ -654,7 +732,9 @@ in let table1 = (((add-binding 3) 300)
                   (((add-binding 3) 600)
                     empty)))
 in -(((lookup 4) table1),
-     ((lookup 3) table1))</code></pre><p>该程序应当具有类型 <code>int</code>。表 <code>table1</code> 把 4 关联到 400，把 3 关联到 300，因此程序值应为 100。</p></div><p class="source">印刷 p.301 / <a href="../assets/source.pdf#page=324">PDF 324</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>把表表示为整数到整数的过程。空表忽略键并返回 0；扩展表产生一个新过程，查询键相同时返回新值，否则把查询交给旧表。相同键的最新绑定自然遮蔽旧绑定，旧表仍然可用。</p><pre><code class="language-text">module tables interface [opaque table empty:table add-to-table:(int -&gt; (int -&gt; (table -&gt; table))) lookup-in-table:(int -&gt; (table -&gt; int))] body [type table=(int -&gt; int)
+     ((lookup 3) table1))</code></pre><p>该程序应当具有类型 <code>int</code>。表 <code>table1</code> 把 4 关联到 400，把 3 关联到 300，因此程序值应为 100。</p></div><p class="source">印刷 p.301 / <a href="../assets/source.pdf#page=324">PDF 324</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>把表表示为整数到整数的过程。空表忽略键并返回 0；扩展表产生一个新过程，查询键相同时返回新值，否则把查询交给旧表。相同键的最新绑定自然遮蔽旧绑定，旧表仍然可用。</p><pre><code class="language-text">module tables
+ interface [opaque table empty:table add-to-table:(int -&gt; (int -&gt; (table -&gt; table)))
+   lookup-in-table:(int -&gt; (table -&gt; int))] body [type table=(int -&gt; int)
  empty=proc(key:int) 0
  add-to-table=proc(key:int) proc(value:int) proc(old:table)
                proc(query:int) if zero?(-(query,key)) then value else (old query)
@@ -680,9 +760,11 @@ in -(((lookup 4) table1),((lookup 3) table1))</code></pre><p>查询 4 先越过�
   (struct-copy tenv env [modules (cons (cons name (module-type key iface)) (tenv-modules env))]))
 </code></pre></details>
 <!-- EOPL:end-snippet --><p>比较接口时，值声明必须具有相等的展开类型；透明声明之间必须给出相同等式；透明声明可以满足抽象声明，因为实现可以知道客户端没有被承诺的细节；抽象声明不能反过来证明某个具体表示。遇到被跳过的私有类型，也必须已经保留它对后续类型的影响。</p><div class="table-scroll"><table aria-label="声明满足关系的四类成功情形"><thead><tr><th scope="col">实际声明</th><th scope="col">期望声明</th><th scope="col">成立条件</th></tr></thead><tbody><tr><td>value</td><td>value</td><td>展开后的类型相同</td></tr><tr><td>transparent</td><td>transparent</td><td>展开后的定义相同</td></tr><tr><td>transparent</td><td>opaque</td><td>同名，允许隐藏已知表示</td></tr><tr><td>opaque</td><td>opaque</td><td>同名，后续使用按同一身份对应</td></tr></tbody></table></div><p>本实现先按词法顺序把声明规范化，再在满足关系中把期望的抽象身份关联到实际类型，用同一关联检查后续值。这对应原书比较器“始终用左侧实际声明扩展内部环境”的要求。比如实际的 t=int，可以同时满足期望的 opaque t 以及其后含 t 的过程声明，随后却仍须对客户端隐藏这条 int 等式。</p><details class="reading-notes" id="notes-s8-2-2" data-notes-for="s8-2-2" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">两个阶段</span><h4>验证表示之后再隐藏表示</h4><p>比较模块体和声明接口时必须知道内部 t=int，才能证明 succ 真正满足 t→t。匹配成功后，对客户端建立新的 t 身份；把隐藏提前或推迟都会使检查错误。</p></div><div class="annotation-card"><span class="annotation-kind">类型依赖</span><h4>无序匹配不等于前向引用合法</h4><p>8.17只去掉成员排列限制。若别名在定义之前尚未进入类型环境，不能靠排序或事后补查让它突然可见；先展开再按名字比较才保留词法含义。</p></div></div></details><h4>本节习题与解答</h4><details class="exercise-index-panel"><summary>本节习题题号索引 · 3 题</summary><nav class="exercise-index" role="navigation" aria-label="本节习题索引"><a href="#ex-8-16" aria-label="习题 8.16">8.16</a> · <a href="#ex-8-17" aria-label="习题 8.17">8.17</a> · <a href="#ex-8-18" aria-label="习题 8.18">8.18</a></nav></details><details class="exercise" id="ex-8-16"><summary>习题 8.16 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="8.16"><p>扩展本节系统，使它使用习题 7.24 中的语言；然后重写习题 8.15，以多参数过程代替返回过程的过程。</p></div><p class="source">印刷 p.310 / <a href="../assets/source.pdf#page=333">PDF 333</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>把 add-to-table 的三个柯里化阶段合为一个三参数过程，把 lookup-in-table 的两个阶段合为一个二参数过程；表本身仍是整数到整数的过程。调用语法用空格分隔实参，形参用逗号分隔，过程类型的参数用星号连接。</p><pre><code class="language-text">module tables
-interface [opaque table empty:table add-to-table:(int * int * table -&gt; table) lookup-in-table:(int * table -&gt; int)]
+interface [opaque table empty:table add-to-table:(int * int * table -&gt; table)
+  lookup-in-table:(int * table -&gt; int)]
 body [type table=(int -&gt; int) empty=proc(key:int) 0
- add-to-table=proc(key:int,value:int,old:table) proc(query:int) if zero?(-(query,key)) then value else (old query)
+ add-to-table=proc(key:int, value:int, old:table) proc(query:int) if zero?(-(query, key)) then
+   value else (old query)
  lookup-in-table=proc(key:int,tab:table) (tab key)]</code></pre><pre><code class="language-text">let empty=from tables take empty in let add=from tables take add-to-table
 in let lookup=from tables take lookup-in-table
 in let tab=(add 3 300 (add 4 400 (add 3 600 empty)))
@@ -707,27 +789,89 @@ from m take x</code></pre><p>该式在无序匹配模式下可得 7，因为定�
 (define (bind-module env name key iface)
   (struct-copy tenv env [modules (cons (cons name (module-type key iface)) (tenv-modules env))]))
 </code></pre></details>
-<!-- EOPL:end-snippet --><p>类型环境的构造与插入函数留在实现模块内部，对外只提供 check、run 等入口，因此普通调用者不能绕过插入检查来建立半展开环境。命名类型查一次局部类型环境，限定类型查一次模块公开接口；过程和序对类型递归展开。抽象类型到内部鲜名的展开已经到达终点，不会再回头寻找模块体中的 int 表示。</p><p>该重构减少的不是语义上必要的展开，而是容易漏掉的散落调用：先检查参数或类型定义的右侧，再走唯一插入入口。类型别名未定义、前向引用和直接自引用均在使用处拒绝，不能靠反复递归展开而挂起。</p></div></details></section></section><section id="s8-3"><h2>8.3 模块过程：让依赖成为参数</h2><p class="source">原书 §8.3，印刷 p.311 / <a href="../assets/source.pdf#page=334">PDF 334</a>。</p><p>如果 to-int 的正文中固定写 from ints1 take pred，它就绑定在 ints1 上，不能直接复用到 ints2。模块过程把整个算术模块作为参数，一起接收 t、zero、succ、pred、is-zero 的约束。这样既能替换实现，又不会把不同表示的操作混装成一个接口。</p><p>模块过程的接口类似函数类型，却还给参数模块一个名字，因为结果接口可以引用它的类型成员。普通过程的结果类型不包含值形参名字，这里结果中的 <code>from ints take t</code> 却必须在应用后解释为具体实参的 t。</p><details class="reading-notes" id="notes-s8-3" data-notes-for="s8-3" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">复用单位</span><h3>模块参数携带一组相互关联的操作</h3><p>不能分别随意给出 zero、succ、pred，因为这些值必须共同使用同一个 t。模块接口把这组依赖及其类型等式一起作为参数。</p></div><div class="annotation-card"><span class="annotation-kind">闭包</span><h3>模块过程仍在定义位置找自由名字</h3><p>应用提供的是形参模块，其他依赖来自模块过程创建时保存的环境。若改用调用位置环境，就变成动态作用域，模块复用会随调用位置悄悄改变行为。</p></div></div></details><section id="s8-3-1"><h3>8.3.1 例子：同一算法、不同表示</h3><p class="source">原书 §8.3.1，印刷 p.312 / <a href="../assets/source.pdf#page=335">PDF 335</a>。</p><p>Alice 的点模块若依赖 Bob 的数据库，Charlie 想换成 Diana 的数据库，就让 point-builder 接收数据库模块。代码里调用的是参数模块公开的插入节点等操作；应用到不同数据库后，点构造算法仍只有一份，数据库实现则随实参变化。</p><div class="rn-example" id="example-8-14" data-source-item="例 8.14"><h4>例 8.14 · 把整数转换器做成模块过程</h4><p class="example-kind">类型：原书编号例子</p><p class="source">印刷 p.314 / <a href="../assets/source.pdf#page=337">PDF 337</a>。</p><pre><code class="language-text" data-object-input="example8-14">module to-int-maker
-interface ((ints:[opaque t zero:t succ:(t -&gt; t) pred:(t -&gt; t) is-zero:(t -&gt; bool)]) =&gt; [to-int:(from ints take t -&gt; int)])
-body module-proc (ints:[opaque t zero:t succ:(t -&gt; t) pred:(t -&gt; t) is-zero:(t -&gt; bool)])
+<!-- EOPL:end-snippet --><p>类型环境的构造与插入函数留在实现模块内部，对外只提供 check、run 等入口，因此普通调用者不能绕过插入检查来建立半展开环境。命名类型查一次局部类型环境，限定类型查一次模块公开接口；过程和序对类型递归展开。抽象类型到内部鲜名的展开已经到达终点，不会再回头寻找模块体中的 int 表示。</p><p>该重构减少的不是语义上必要的展开，而是容易漏掉的散落调用：先检查参数或类型定义的右侧，再走唯一插入入口。类型别名未定义、前向引用和直接自引用均在使用处拒绝，不能靠反复递归展开而挂起。</p></div></details></section></section><section id="s8-3"><h2>8.3 模块过程：让依赖成为参数</h2><p class="source">原书 §8.3，印刷 p.311 / <a href="../assets/source.pdf#page=334">PDF 334</a>。</p><p>如果 to-int 的正文中固定写 from ints1 take pred，它就绑定在 ints1 上，不能直接复用到 ints2。模块过程把整个算术模块作为参数，一起接收 t、zero、succ、pred、is-zero 的约束。这样既能替换实现，又不会把不同表示的操作混装成一个接口。</p><p>模块过程的接口类似函数类型，却还给参数模块一个名字，因为结果接口可以引用它的类型成员。普通过程的结果类型不包含值形参名字，这里结果中的 <code>from ints take t</code> 却必须在应用后解释为具体实参的 t。</p><details class="reading-notes" id="notes-s8-3" data-notes-for="s8-3" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">复用单位</span><h3>模块参数携带一组相互关联的操作</h3><p>不能分别随意给出 zero、succ、pred，因为这些值必须共同使用同一个 t。模块接口把这组依赖及其类型等式一起作为参数。</p></div><div class="annotation-card"><span class="annotation-kind">闭包</span><h3>模块过程仍在定义位置找自由名字</h3><p>应用提供的是形参模块，其他依赖来自模块过程创建时保存的环境。若改用调用位置环境，就变成动态作用域，模块复用会随调用位置悄悄改变行为。</p></div></div></details><section id="s8-3-1"><h3>8.3.1 例子：同一算法、不同表示</h3><p class="source">原书 §8.3.1，印刷 p.312 / <a href="../assets/source.pdf#page=335">PDF 335</a>。</p><p>Alice 的点模块若依赖 Bob 的数据库，Charlie 想换成 Diana 的数据库，就让 point-builder 接收数据库模块。代码里调用的是参数模块公开的插入节点等操作；应用到不同数据库后，点构造算法仍只有一份，数据库实现则随实参变化。</p><div class="rn-example" id="example-8-14" data-source-item="例 8.14"><h4>例 8.14 · 把整数转换器做成模块过程</h4><p class="example-kind">类型：原书编号例子</p><p class="source">印刷 p.314 / <a href="../assets/source.pdf#page=337">PDF 337</a>。</p><details class="code-details" open><summary>查看原书程序 · example8-14</summary><pre><code class="language-text" data-object-input="example8-14">module to-int-maker
+interface ((ints:[opaque t
+  zero : t
+  succ : (t -&gt; t)
+  pred : (t -&gt; t)
+  is-zero : (t -&gt; bool)]) =&gt; [to-int:(from ints take t -&gt; int)])
+body module-proc (ints:[opaque t
+  zero : t
+  succ : (t -&gt; t)
+  pred : (t -&gt; t)
+  is-zero : (t -&gt; bool)])
  [to-int=let z?=from ints take is-zero in let p=from ints take pred
  in letrec int to-int(x:from ints take t)=if (z? x) then 0 else -((to-int (p x)),-1)
- in to-int]</code></pre><p>接口形参 ints 的作用域只在接口中；模块体里的 ints 是另一处模块过程绑定。因此两处分别写参数接口，可以取不同名字。这个正文不知道 t 的整数编码，只能使用 is-zero 与 pred。</p></div><div class="rn-example" id="example-8-15" data-source-item="例 8.15"><h4>例 8.15 · 应用后替换依赖的类型路径</h4><p class="example-kind">类型：原书编号例子</p><p class="source">印刷 p.315 / <a href="../assets/source.pdf#page=338">PDF 338</a>。</p><pre><code class="language-text" data-object-input="example8-15">module to-int-maker
-interface ((ints:[opaque t zero:t succ:(t -&gt; t) pred:(t -&gt; t) is-zero:(t -&gt; bool)]) =&gt; [to-int:(from ints take t -&gt; int)])
-body module-proc (ints:[opaque t zero:t succ:(t -&gt; t) pred:(t -&gt; t) is-zero:(t -&gt; bool)])
+ in to-int]</code></pre></details><p>接口形参 ints 的作用域只在接口中；模块体里的 ints 是另一处模块过程绑定。因此两处分别写参数接口，可以取不同名字。这个正文不知道 t 的整数编码，只能使用 is-zero 与 pred。</p></div><div class="rn-example" id="example-8-15" data-source-item="例 8.15"><h4>例 8.15 · 应用后替换依赖的类型路径</h4><p class="example-kind">类型：原书编号例子</p><p class="source">印刷 p.315 / <a href="../assets/source.pdf#page=338">PDF 338</a>。</p><details class="code-details" open><summary>查看原书程序 · example8-15</summary><pre><code class="language-text" data-object-input="example8-15">module to-int-maker
+interface ((ints:[opaque t
+  zero : t
+  succ : (t -&gt; t)
+  pred : (t -&gt; t)
+  is-zero : (t -&gt; bool)]) =&gt; [to-int:(from ints take t -&gt; int)])
+body module-proc (ints:[opaque t
+  zero : t
+  succ : (t -&gt; t)
+  pred : (t -&gt; t)
+  is-zero : (t -&gt; bool)])
  [to-int=let z?=from ints take is-zero in let p=from ints take pred
  in letrec int to-int(x:from ints take t)=if (z? x) then 0 else -((to-int (p x)),-1)
- in to-int]module ints1 interface [opaque t zero:t succ:(t -&gt; t) pred:(t -&gt; t) is-zero:(t -&gt; bool)] body [type t=int zero=0 succ=proc(x:t) -(x,-5) pred=proc(x:t) -(x,5) is-zero=proc(x:t) zero?(-(x,0))]
-module ints1-to-int interface [to-int:(from ints1 take t -&gt; int)] body (to-int-maker ints1)
-let two1=(from ints1 take succ (from ints1 take succ from ints1 take zero)) in (from ints1-to-int take to-int two1)</code></pre><p>应用到 ints1 后，结果 to-int 的参数类型是 ints1.t，调用得到2。模块过程的实参可以多提供能力，只要满足所要求的接口；但结果类型中的身份必须是这次实参的身份。</p></div><div class="rn-example" id="example-8-16" data-source-item="例 8.16"><h4>例 8.16 · 同时使用两种表示而不混用</h4><p class="example-kind">类型：原书编号例子</p><p class="source">印刷 p.315 / <a href="../assets/source.pdf#page=338">PDF 338</a>。</p><details class="code-details" open><summary>查看原书程序 · example8-16</summary><pre><code class="language-text" data-object-input="example8-16">module to-int-maker
-interface ((ints:[opaque t zero:t succ:(t -&gt; t) pred:(t -&gt; t) is-zero:(t -&gt; bool)]) =&gt; [to-int:(from ints take t -&gt; int)])
-body module-proc (ints:[opaque t zero:t succ:(t -&gt; t) pred:(t -&gt; t) is-zero:(t -&gt; bool)])
+ in to-int]
+
+module ints1
+ interface [opaque t
+  zero : t
+  succ : (t -&gt; t)
+  pred : (t -&gt; t)
+  is-zero : (t -&gt; bool)] body
+ [type t=int
+  zero=0
+  succ=proc(x:t) -(x,-5)
+  pred=proc(x:t) -(x,5)
+  is-zero=proc(x:t) zero?(-(x,0))]
+module ints1-to-int
+ interface [to-int:(from ints1 take t -&gt; int)] body (to-int-maker ints1)
+let two1=(from ints1 take succ (from ints1 take succ from ints1 take zero)) in (from
+  ints1-to-int take to-int two1)</code></pre></details><p>应用到 ints1 后，结果 to-int 的参数类型是 ints1.t，调用得到2。模块过程的实参可以多提供能力，只要满足所要求的接口；但结果类型中的身份必须是这次实参的身份。</p></div><div class="rn-example" id="example-8-16" data-source-item="例 8.16"><h4>例 8.16 · 同时使用两种表示而不混用</h4><p class="example-kind">类型：原书编号例子</p><p class="source">印刷 p.315 / <a href="../assets/source.pdf#page=338">PDF 338</a>。</p><details class="code-details" open><summary>查看原书程序 · example8-16</summary><pre><code class="language-text" data-object-input="example8-16">module to-int-maker
+interface ((ints:[opaque t
+  zero : t
+  succ : (t -&gt; t)
+  pred : (t -&gt; t)
+  is-zero : (t -&gt; bool)]) =&gt; [to-int:(from ints take t -&gt; int)])
+body module-proc (ints:[opaque t
+  zero : t
+  succ : (t -&gt; t)
+  pred : (t -&gt; t)
+  is-zero : (t -&gt; bool)])
  [to-int=let z?=from ints take is-zero in let p=from ints take pred
  in letrec int to-int(x:from ints take t)=if (z? x) then 0 else -((to-int (p x)),-1)
- in to-int]module ints1 interface [opaque t zero:t succ:(t -&gt; t) pred:(t -&gt; t) is-zero:(t -&gt; bool)] body [type t=int zero=0 succ=proc(x:t) -(x,-5) pred=proc(x:t) -(x,5) is-zero=proc(x:t) zero?(-(x,0))]
-module ints2 interface [opaque t zero:t succ:(t -&gt; t) pred:(t -&gt; t) is-zero:(t -&gt; bool)] body [type t=int zero=0 succ=proc(x:t) -(x,3) pred=proc(x:t) -(x,-3) is-zero=proc(x:t) zero?(-(x,0))]
-module ints1-to-int interface [to-int:(from ints1 take t -&gt; int)] body (to-int-maker ints1)
-module ints2-to-int interface [to-int:(from ints2 take t -&gt; int)] body (to-int-maker ints2)
+ in to-int]
+
+module ints1
+ interface [opaque t
+  zero : t
+  succ : (t -&gt; t)
+  pred : (t -&gt; t)
+  is-zero : (t -&gt; bool)] body
+ [type t=int
+  zero=0
+  succ=proc(x:t) -(x,-5)
+  pred=proc(x:t) -(x,5)
+  is-zero=proc(x:t) zero?(-(x,0))]
+module ints2
+ interface [opaque t
+  zero : t
+  succ : (t -&gt; t)
+  pred : (t -&gt; t)
+  is-zero : (t -&gt; bool)] body
+ [type t=int
+  zero=0
+  succ=proc(x:t) -(x,3)
+  pred=proc(x:t) -(x,-3)
+  is-zero=proc(x:t) zero?(-(x,0))]
+module ints1-to-int
+ interface [to-int:(from ints1 take t -&gt; int)] body (to-int-maker ints1)
+module ints2-to-int
+ interface [to-int:(from ints2 take t -&gt; int)] body (to-int-maker ints2)
 let s1=from ints1 take succ in let z1=from ints1 take zero
 in let to-ints1=from ints1-to-int take to-int
 in let s2=from ints2 take succ in let z2=from ints2 take zero
@@ -742,34 +886,87 @@ in -((to-ints1 two1),(to-ints2 two2))</code></pre></details><p>two1 与 two2 的
             is-zero : (t -&gt; bool)])
    =&gt; [from-int : (int -&gt; from ints take t)])
  body
-  ...</code></pre></div><p class="source">印刷 p.316 / <a href="../assets/source.pdf#page=339">PDF 339</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>模块过程只通过参数 ints 的 zero、succ、pred 建立表示。正整数可以从零连续取后继；对负整数要连续取前驱。由于原语言没有大小比较，可以让两个整数计数器同时向零的两侧移动，先到零的一侧决定返回哪份累积值：</p><pre><code class="language-text">module from-int-maker
-interface ((ints:[opaque t zero:t succ:(t -&gt; t) pred:(t -&gt; t) is-zero:(t -&gt; bool)]) =&gt; [from-int:(int -&gt; from ints take t)])
-body module-proc (ints:[opaque t zero:t succ:(t -&gt; t) pred:(t -&gt; t) is-zero:(t -&gt; bool)])
+  ...</code></pre></div><p class="source">印刷 p.316 / <a href="../assets/source.pdf#page=339">PDF 339</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>模块过程只通过参数 ints 的 zero、succ、pred 建立表示。正整数可以从零连续取后继；对负整数要连续取前驱。由于原语言没有大小比较，可以让两个整数计数器同时向零的两侧移动，先到零的一侧决定返回哪份累积值：</p><details class="code-details" open><summary>查看完整模块实现</summary><pre><code class="language-text">module from-int-maker
+interface ((ints:[opaque t
+  zero : t
+  succ : (t -&gt; t)
+  pred : (t -&gt; t)
+  is-zero : (t -&gt; bool)]) =&gt; [from-int:(int -&gt; from ints take t)])
+body module-proc (ints:[opaque t
+  zero : t
+  succ : (t -&gt; t)
+  pred : (t -&gt; t)
+  is-zero : (t -&gt; bool)])
  [from-int=proc(n:int)
    let z=from ints take zero in let s=from ints take succ in let p=from ints take pred
    in letrec from ints take t loop(up:int,down:int,a:from ints take t,b:from ints take t)=
       if zero?(up) then a else if zero?(down) then b
       else (loop -(up,1) -(down,-1) (s a) (p b))
-   in (loop n n z z)]</code></pre><p>循环开始时两计数器都是 n、两累积值都是抽象零。每轮一侧减 1 并取 succ，另一侧加 1 并取 pred；n 非负时前一侧在 n 轮到零，n 负时后一侧在绝对值 n 轮到零。若参数算术的每次后继、前驱调用都终止，这个转换对所有宿主整数都终止，进行 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi mathvariant="normal">O</mi><mo>(</mo><mo>|</mo><mi>n</mi><mo>|</mo><mo>)</mo></mrow></math> 次抽象操作。</p><details class="code-details" open><summary>查看用实参7重现例8.16</summary><pre><code class="language-text">module ints1 interface [opaque t zero:t succ:(t -&gt; t) pred:(t -&gt; t) is-zero:(t -&gt; bool)] body [type t=int zero=0 succ=proc(x:t) -(x,-5) pred=proc(x:t) -(x,5) is-zero=proc(x:t) zero?(-(x,0))]
-module ints2 interface [opaque t zero:t succ:(t -&gt; t) pred:(t -&gt; t) is-zero:(t -&gt; bool)] body [type t=int zero=0 succ=proc(x:t) -(x,3) pred=proc(x:t) -(x,-3) is-zero=proc(x:t) zero?(-(x,0))]
+   in (loop n n z z)]</code></pre></details><p>循环开始时两计数器都是 n、两累积值都是抽象零。每轮一侧减 1 并取 succ，另一侧加 1 并取 pred；n 非负时前一侧在 n 轮到零，n 负时后一侧在绝对值 n 轮到零。若参数算术的每次后继、前驱调用都终止，这个转换对所有宿主整数都终止，进行 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi mathvariant="normal">O</mi><mo>(</mo><mo>|</mo><mi>n</mi><mo>|</mo><mo>)</mo></mrow></math> 次抽象操作。</p><details class="code-details" open><summary>查看用实参7重现例8.16</summary><pre><code class="language-text">module ints1
+ interface [opaque t
+  zero : t
+  succ : (t -&gt; t)
+  pred : (t -&gt; t)
+  is-zero : (t -&gt; bool)] body
+ [type t=int
+  zero=0
+  succ=proc(x:t) -(x,-5)
+  pred=proc(x:t) -(x,5)
+  is-zero=proc(x:t) zero?(-(x,0))]
+module ints2
+ interface [opaque t
+  zero : t
+  succ : (t -&gt; t)
+  pred : (t -&gt; t)
+  is-zero : (t -&gt; bool)] body
+ [type t=int
+  zero=0
+  succ=proc(x:t) -(x,3)
+  pred=proc(x:t) -(x,-3)
+  is-zero=proc(x:t) zero?(-(x,0))]
 module from-int-maker
-interface ((ints:[opaque t zero:t succ:(t -&gt; t) pred:(t -&gt; t) is-zero:(t -&gt; bool)]) =&gt; [from-int:(int -&gt; from ints take t)])
-body module-proc (ints:[opaque t zero:t succ:(t -&gt; t) pred:(t -&gt; t) is-zero:(t -&gt; bool)])
+interface ((ints:[opaque t
+  zero : t
+  succ : (t -&gt; t)
+  pred : (t -&gt; t)
+  is-zero : (t -&gt; bool)]) =&gt; [from-int:(int -&gt; from ints take t)])
+body module-proc (ints:[opaque t
+  zero : t
+  succ : (t -&gt; t)
+  pred : (t -&gt; t)
+  is-zero : (t -&gt; bool)])
  [from-int=proc(n:int)
    let z=from ints take zero in let s=from ints take succ in let p=from ints take pred
    in letrec from ints take t loop(up:int,down:int,a:from ints take t,b:from ints take t)=
       if zero?(up) then a else if zero?(down) then b
       else (loop -(up,1) -(down,-1) (s a) (p b))
-   in (loop n n z z)]module to-int-maker
-interface ((ints:[opaque t zero:t succ:(t -&gt; t) pred:(t -&gt; t) is-zero:(t -&gt; bool)]) =&gt; [to-int:(from ints take t -&gt; int)])
-body module-proc (ints:[opaque t zero:t succ:(t -&gt; t) pred:(t -&gt; t) is-zero:(t -&gt; bool)])
+   in (loop n n z z)]
+
+module to-int-maker
+interface ((ints:[opaque t
+  zero : t
+  succ : (t -&gt; t)
+  pred : (t -&gt; t)
+  is-zero : (t -&gt; bool)]) =&gt; [to-int:(from ints take t -&gt; int)])
+body module-proc (ints:[opaque t
+  zero : t
+  succ : (t -&gt; t)
+  pred : (t -&gt; t)
+  is-zero : (t -&gt; bool)])
  [to-int=let z?=from ints take is-zero in let p=from ints take pred
  in letrec int to-int(x:from ints take t)=if (z? x) then 0 else -((to-int (p x)),-1)
- in to-int]module to1 interface [to-int:(from ints1 take t -&gt; int)] body (to-int-maker ints1)
-module to2 interface [to-int:(from ints2 take t -&gt; int)] body (to-int-maker ints2)
-module from1 interface [from-int:(int -&gt; from ints1 take t)] body (from-int-maker ints1)
-module from2 interface [from-int:(int -&gt; from ints2 take t)] body (from-int-maker ints2)
-let a=(from from1 take from-int 7) in let b=(from from2 take from-int 7) in -((from to1 take to-int a),(from to2 take to-int b))</code></pre></details><p>两个表示分别得到 35 与 -21，经各自 to-int 还原都得到 7，最终差为 0；没有把某个表示值交给另一个表示的转换器。原书 to-int 的递减解码只保证非负抽象整数终止，此处用 7 满足该前提；from-int 本身另行支持并验证负数。</p></div></details><details class="exercise" id="ex-8-20"><summary>习题 8.20 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="8.20"><p>补全下面模块的定义，构造一个模块过程：它接收一个算术实现，为该实现产生求和与求积过程。<code>plus</code> 使用印刷 p.33 的定义，<code>times</code> 使用类似方法。</p><pre><code class="language-text">module sum-prod-maker
+ in to-int]
+
+module to1
+ interface [to-int:(from ints1 take t -&gt; int)] body (to-int-maker ints1)
+module to2
+ interface [to-int:(from ints2 take t -&gt; int)] body (to-int-maker ints2)
+module from1
+ interface [from-int:(int -&gt; from ints1 take t)] body (from-int-maker ints1)
+module from2
+ interface [from-int:(int -&gt; from ints2 take t)] body (from-int-maker ints2)
+let a=(from from1 take from-int 7) in let b=(from from2 take from-int 7) in -((from to1 take
+  to-int a),(from to2 take to-int b))</code></pre></details><p>两个表示分别得到 35 与 -21，经各自 to-int 还原都得到 7，最终差为 0；没有把某个表示值交给另一个表示的转换器。原书 to-int 的递减解码只保证非负抽象整数终止，此处用 7 满足该前提；from-int 本身另行支持并验证负数。</p></div></details><details class="exercise" id="ex-8-20"><summary>习题 8.20 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="8.20"><p>补全下面模块的定义，构造一个模块过程：它接收一个算术实现，为该实现产生求和与求积过程。<code>plus</code> 使用印刷 p.33 的定义，<code>times</code> 使用类似方法。</p><pre><code class="language-text">module sum-prod-maker
  interface
   ((ints : [opaque t
             zero : t
@@ -785,32 +982,58 @@ let a=(from from1 take from-int 7) in let b=(from from2 take from-int 7) in -((f
  body
   [plus = ...
    times = ...]</code></pre></div><p class="source">印刷 p.316 / <a href="../assets/source.pdf#page=339">PDF 339</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>印刷 p.33 的递推是：零加 y 得 y；非零 x 加 y，先把 x 取前驱，递归后再对结果取后继。它在非负 x 上计算加法；若把负 x 不断取前驱，就永远到不了零。下面保留这个逐步移项的正向递推，同时用相反方向的分支补全负数情况。</p><details class="code-details" open><summary>查看完整模块实现</summary><pre><code class="language-text">module sum-prod-maker
-interface ((ints:[opaque t zero:t succ:(t -&gt; t) pred:(t -&gt; t) is-zero:(t -&gt; bool)]) =&gt; [plus:(from ints take t -&gt; (from ints take t -&gt; from ints take t))
+interface ((ints:[opaque t
+  zero : t
+  succ : (t -&gt; t)
+  pred : (t -&gt; t)
+  is-zero : (t -&gt; bool)]) =&gt; [plus:(from ints take t -&gt; (from ints take t -&gt; from ints take t))
                         times:(from ints take t -&gt; (from ints take t -&gt; from ints take t))])
-body module-proc (ints:[opaque t zero:t succ:(t -&gt; t) pred:(t -&gt; t) is-zero:(t -&gt; bool)])
+body module-proc (ints:[opaque t
+  zero : t
+  succ : (t -&gt; t)
+  pred : (t -&gt; t)
+  is-zero : (t -&gt; bool)])
  let z=from ints take zero in let s=from ints take succ in let p=from ints take pred
  in let z?=from ints take is-zero
  in [negate=proc(x:from ints take t)
-      letrec from ints take t loop(up:from ints take t,down:from ints take t,a:from ints take t,b:from ints take t)=
+      letrec from ints take t loop(up:from ints take t, down:from ints take t, a:from ints take
+        t, b:from ints take t)=
        if (z? up) then a else if (z? down) then b
        else (loop (p up) (s down) (p a) (s b))
       in (loop x x z z)
      plus=proc(x:from ints take t) proc(y:from ints take t)
-      letrec from ints take t loop(up:from ints take t,down:from ints take t,a:from ints take t,b:from ints take t)=
+      letrec from ints take t loop(up:from ints take t, down:from ints take t, a:from ints take
+        t, b:from ints take t)=
        if (z? up) then a else if (z? down) then b
        else (loop (p up) (s down) (s a) (p b))
       in (loop x x y y)
      times=proc(x:from ints take t) proc(y:from ints take t)
       let negative-y=(negate y)
-      in letrec from ints take t loop(up:from ints take t,down:from ints take t,a:from ints take t,b:from ints take t)=
+      in letrec from ints take t loop(up:from ints take t, down:from ints take t, a:from ints
+        take t, b:from ints take t)=
        if (z? up) then a else if (z? down) then b
        else (loop (p up) (s down) ((plus y) a) ((plus negative-y) b))
-      in (loop x x z z)]</code></pre></details><p>plus 的两份计数器从 x 出发，分别取 pred 与 succ；两份累积值从 y 出发，分别取 succ 与 pred。若 x 非负，第一份到零时累积值是 x+y；若 x 负，第二份到零时得到同一个和。</p><p>times 同样同时把 x 向两侧推进，每轮分别累加 y 与其相反数；先到零的一侧决定返回正向还是负向累积。私有 negate 也用相同的双向方法构造相反数。因而不仅自然数，正负整数与零都可处理；没有观察抽象值的具体整数编码。</p><p>在抽象算术操作为常数成本的条件下，plus 需要 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi mathvariant="normal">O</mi><mo>(</mo><mo>|</mo><mi>x</mi><mo>|</mo><mo>)</mo></mrow></math> 次操作；这份重复加法的乘法需要 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi mathvariant="normal">O</mi><mo>(</mo><mo>|</mo><mi>x</mi><mo>|</mo><mo>|</mo><mi>y</mi><mo>|</mo><mo>+</mo><mo>|</mo><mi>y</mi><mo>|</mo><mo>)</mo></mrow></math> 次操作。两个整数表示各自运行时，还原后的 3+4 均为 7、3×4 均为 12；负数的表示结果也按同一表示关系验证。类型接口只保证这些操作如何组合；succ/pred 真正满足整数代数律，仍需由算术实现本身证明。</p></div></details><details class="exercise" id="ex-8-21"><summary>习题 8.21 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="8.21"><p>编写一个模块过程，接收算术实现 <code>ints</code>，并产生另一个算术实现，使新实现中的数 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mi>k</mi></math> 由 <code>ints</code> 中 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>2</mn><mo>×</mo><mi>k</mi></mrow></math> 的表示来表示。</p></div><p class="source">印刷 p.317 / <a href="../assets/source.pdf#page=340">PDF 340</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>让新模块内部的 t 使用输入 ints 的 t；zero 与 is-zero 直接复用，succ 连续调用输入 succ 两次，pred 连续调用输入 pred 两次。对外再把 t 声明为 opaque，客户端不能直接取得底层 t 的身份。</p><pre><code class="language-text">module doubling-maker interface ((ints:[opaque t zero:t succ:(t -&gt; t) pred:(t -&gt; t) is-zero:(t -&gt; bool)]) =&gt; [opaque t zero:t succ:(t -&gt; t) pred:(t -&gt; t) is-zero:(t -&gt; bool)])
-body module-proc (ints:[opaque t zero:t succ:(t -&gt; t) pred:(t -&gt; t) is-zero:(t -&gt; bool)])
+      in (loop x x z z)]</code></pre></details><p>plus 的两份计数器从 x 出发，分别取 pred 与 succ；两份累积值从 y 出发，分别取 succ 与 pred。若 x 非负，第一份到零时累积值是 x+y；若 x 负，第二份到零时得到同一个和。</p><p>times 同样同时把 x 向两侧推进，每轮分别累加 y 与其相反数；先到零的一侧决定返回正向还是负向累积。私有 negate 也用相同的双向方法构造相反数。因而不仅自然数，正负整数与零都可处理；没有观察抽象值的具体整数编码。</p><p>在抽象算术操作为常数成本的条件下，plus 需要 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi mathvariant="normal">O</mi><mo>(</mo><mo>|</mo><mi>x</mi><mo>|</mo><mo>)</mo></mrow></math> 次操作；这份重复加法的乘法需要 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi mathvariant="normal">O</mi><mo>(</mo><mo>|</mo><mi>x</mi><mo>|</mo><mo>|</mo><mi>y</mi><mo>|</mo><mo>+</mo><mo>|</mo><mi>y</mi><mo>|</mo><mo>)</mo></mrow></math> 次操作。两个整数表示各自运行时，还原后的 3+4 均为 7、3×4 均为 12；负数的表示结果也按同一表示关系验证。类型接口只保证这些操作如何组合；succ/pred 真正满足整数代数律，仍需由算术实现本身证明。</p></div></details><details class="exercise" id="ex-8-21"><summary>习题 8.21 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="8.21"><p>编写一个模块过程，接收算术实现 <code>ints</code>，并产生另一个算术实现，使新实现中的数 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mi>k</mi></math> 由 <code>ints</code> 中 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>2</mn><mo>×</mo><mi>k</mi></mrow></math> 的表示来表示。</p></div><p class="source">印刷 p.317 / <a href="../assets/source.pdf#page=340">PDF 340</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>让新模块内部的 t 使用输入 ints 的 t；zero 与 is-zero 直接复用，succ 连续调用输入 succ 两次，pred 连续调用输入 pred 两次。对外再把 t 声明为 opaque，客户端不能直接取得底层 t 的身份。</p><details class="code-details" open><summary>查看完整模块实现</summary><pre><code class="language-text">module doubling-maker
+ interface ((ints:[opaque t
+  zero : t
+  succ : (t -&gt; t)
+  pred : (t -&gt; t)
+  is-zero : (t -&gt; bool)]) =&gt; [opaque t
+  zero : t
+  succ : (t -&gt; t)
+  pred : (t -&gt; t)
+  is-zero : (t -&gt; bool)])
+body module-proc (ints:[opaque t
+  zero : t
+  succ : (t -&gt; t)
+  pred : (t -&gt; t)
+  is-zero : (t -&gt; bool)])
  [type t=from ints take t zero=from ints take zero
- succ=proc(x:t) (from ints take succ (from ints take succ x))
- pred=proc(x:t) (from ints take pred (from ints take pred x))
- is-zero=from ints take is-zero]</code></pre><p>若输入表示关系是整数 k 对应某个值，新表示关系就把 k 对应到输入中 2k 的表示。零、后继、前驱、零判定分别保持这个关系。对因子 5 的输入，新的“两次后继”表示值为 20，代表新系统的 2；不能把这个值直接传给原 ints1 的 succ，因为新模块的公开抽象类型已经重新封装。该表示不是要覆盖底层所有值，只要公开操作始终保留所需子集。</p></div></details><details class="exercise" id="ex-8-22"><summary>习题 8.22 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="8.22"><p>补全下面模块的定义，构造一个模块过程：它接收一个算术实现，并为该实现产生相等性判断过程。</p><pre><code class="language-text">module equality-maker
+
+  succ=proc(x:t) (from ints take succ (from ints take succ x))
+
+  pred=proc(x:t) (from ints take pred (from ints take pred x))
+ is-zero=from ints take is-zero]</code></pre></details><p>若输入表示关系是整数 k 对应某个值，新表示关系就把 k 对应到输入中 2k 的表示。零、后继、前驱、零判定分别保持这个关系。对因子 5 的输入，新的“两次后继”表示值为 20，代表新系统的 2；不能把这个值直接传给原 ints1 的 succ，因为新模块的公开抽象类型已经重新封装。该表示不是要覆盖底层所有值，只要公开操作始终保留所需子集。</p></div></details><details class="exercise" id="ex-8-22"><summary>习题 8.22 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="8.22"><p>补全下面模块的定义，构造一个模块过程：它接收一个算术实现，并为该实现产生相等性判断过程。</p><pre><code class="language-text">module equality-maker
  interface
   ((ints : [opaque t
             zero : t
@@ -821,15 +1044,24 @@ body module-proc (ints:[opaque t zero:t succ:(t -&gt; t) pred:(t -&gt; t) is-zer
                 -&gt; (from ints take t
                     -&gt; bool))])
  body
-  ...</code></pre></div><p class="source">印刷 p.317 / <a href="../assets/source.pdf#page=340">PDF 340</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>若只让 x、y 同时不断取前驱，两个负整数可能永远到不了零。可以同时跟踪向前驱和向后继走的两组 x、y，哪组 x 先到零，就在同一组检查 y 是否也为零：</p><pre><code class="language-text">module equality-maker
-interface ((ints:[opaque t zero:t succ:(t -&gt; t) pred:(t -&gt; t) is-zero:(t -&gt; bool)]) =&gt; [equal:(from ints take t -&gt; (from ints take t -&gt; bool))])
-body module-proc (ints:[opaque t zero:t succ:(t -&gt; t) pred:(t -&gt; t) is-zero:(t -&gt; bool)])
+  ...</code></pre></div><p class="source">印刷 p.317 / <a href="../assets/source.pdf#page=340">PDF 340</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>若只让 x、y 同时不断取前驱，两个负整数可能永远到不了零。可以同时跟踪向前驱和向后继走的两组 x、y，哪组 x 先到零，就在同一组检查 y 是否也为零：</p><details class="code-details" open><summary>查看完整模块实现</summary><pre><code class="language-text">module equality-maker
+interface ((ints:[opaque t
+  zero : t
+  succ : (t -&gt; t)
+  pred : (t -&gt; t)
+  is-zero : (t -&gt; bool)]) =&gt; [equal:(from ints take t -&gt; (from ints take t -&gt; bool))])
+body module-proc (ints:[opaque t
+  zero : t
+  succ : (t -&gt; t)
+  pred : (t -&gt; t)
+  is-zero : (t -&gt; bool)])
  let z?=from ints take is-zero in let p=from ints take pred in let s=from ints take succ
  in [equal=proc(x:from ints take t) proc(y:from ints take t)
-  letrec bool loop(xp:from ints take t,xn:from ints take t,yp:from ints take t,yn:from ints take t)=
+  letrec bool loop(xp:from ints take t, xn:from ints take t, yp:from ints take t, yn:from ints
+    take t)=
    if (z? xp) then (z? yp) else if (z? xn) then (z? yn)
    else (loop (p xp) (s xn) (p yp) (s yn))
-  in (loop x x y y)]</code></pre><p>每轮两组分别都移动一步，因此每组中 x 与 y 的整数差保持不变。无论 x 正、负还是零，总有一组在 |x| 轮到零；这时对应 y 为零当且仅当原来两数相等。在后继、前驱和零判定满足整数表示定律且每次调用终止的前提下，该算法对所有由这些操作建立的整数表示均成立，需要 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi mathvariant="normal">O</mi><mo>(</mo><mo>|</mo><mi>x</mi><mo>|</mo><mo>)</mo></mrow></math> 次接口操作，并未使用宿主对内部表示值的相等比较。</p></div></details><details class="exercise" id="ex-8-23"><summary>习题 8.23 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="8.23"><p>编写一个模块 <code>table-of</code>，类似于习题 8.15 的 <code>tables</code> 模块，但以表中内容的类型为参数。例如，应当能够写出下面的模块，定义一个保存 <code>from mybool take t</code> 类型值的表：</p><pre><code class="language-text">module mybool-tables
+  in (loop x x y y)]</code></pre></details><p>每轮两组分别都移动一步，因此每组中 x 与 y 的整数差保持不变。无论 x 正、负还是零，总有一组在 |x| 轮到零；这时对应 y 为零当且仅当原来两数相等。在后继、前驱和零判定满足整数表示定律且每次调用终止的前提下，该算法对所有由这些操作建立的整数表示均成立，需要 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi mathvariant="normal">O</mi><mo>(</mo><mo>|</mo><mi>x</mi><mo>|</mo><mo>)</mo></mrow></math> 次接口操作，并未使用宿主对内部表示值的相等比较。</p></div></details><details class="exercise" id="ex-8-23"><summary>习题 8.23 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="8.23"><p>编写一个模块 <code>table-of</code>，类似于习题 8.15 的 <code>tables</code> 模块，但以表中内容的类型为参数。例如，应当能够写出下面的模块，定义一个保存 <code>from mybool take t</code> 类型值的表：</p><pre><code class="language-text">module mybool-tables
  interface
   [opaque table
    empty : table
@@ -904,18 +1136,26 @@ body (table-of mybool)</code></pre><p>对任意实现，只要它提供 opaque t
       [(_ _) #f]))
   (with-handlers ([exn:fail:typing? (lambda (_) #f)]) (go actual expected)))
 </code></pre></details>
-<!-- EOPL:end-snippet --><p>例如，能接受 <code>[x:int]</code> 并返回 <code>[y:int z:bool]</code> 的模块过程，可以放在“接收 <code>[x:int more:bool]</code>、只要求返回 <code>[y:int]</code>”的位置；反过来不行，因为不能要求调用者额外提供它从未承诺的 more。重命名模块形参不改变这种能力关系。</p><details class="reading-notes" id="notes-s8-3-2" data-notes-for="s8-3-2" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">可替换性</span><h4>参数逆变来自调用者的承诺</h4><p>调用者只会提供期望接口要求的实参。实际模块过程可以要求更少，但不能偷偷要求更多；它的结果则必须至少提供期望结果承诺的成员。</p></div><div class="annotation-card"><span class="annotation-kind">绑定</span><h4>替换身份，避免替换到同名局部变量</h4><p>接口中的参数名与模块体参数名各有作用域。内部鲜身份将两者区分；比较前先对齐绑定、应用时再实例化，避免用字符串替换而捕获嵌套同名形参。</p></div></div></details><h4>本节习题与解答</h4><details class="exercise-index-panel"><summary>本节习题题号索引 · 4 题</summary><nav class="exercise-index" role="navigation" aria-label="本节习题索引"><a href="#ex-8-24" aria-label="习题 8.24">8.24</a> · <a href="#ex-8-25" aria-label="习题 8.25">8.25</a> · <a href="#ex-8-26" aria-label="习题 8.26">8.26</a> · <a href="#ex-8-27" aria-label="习题 8.27">8.27</a></nav></details><details class="exercise" id="ex-8-24"><summary>习题 8.24 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="8.24"><p>目前，模块应用只允许用于标识符。如果尝试检查 <code>(m1 (m2 m3))</code> 这样的应用，现有的应用类型规则会出什么问题？</p></div><p class="source">印刷 p.323 / <a href="../assets/source.pdf#page=346">PDF 346</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>原应用规则把实参模块名替换进结果接口。<code>(m2 m3)</code> 是一个模块体，不是模块路径，不能直接放进 <code>from ... take t</code> 的限定名位置。因此问题不仅是解析器不认识括号：即使递归算出内部应用的接口，也还缺一个能在结果依赖中稳定引用该实例的名字。</p><p>可在内部给这个结果分配鲜模块身份，先检查并记录它的接口，再用这个身份实例化外层结果。这个身份对应一次实际模块值，不能把两个语法相同的模块构造一律看成同一实例，也不能为了给类型找名字而在运行时重复求值。习题 8.26 的实现采用这一方法。</p></div></details><details class="exercise" id="ex-8-25"><summary>习题 8.25 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="8.25"><p>扩展 PROC-MODULES，仿照习题 3.21，让一个模块过程可以接收多个实参。</p></div><p class="source">印刷 p.323 / <a href="../assets/source.pdf#page=346">PDF 346</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>把模块过程的形参及实参都改为列表，接口也保存同样长度的参数列表。应用时先核对数量，再从左到右检查每个实参是否满足相应参数接口；若后一个参数接口依赖前面的参数，先把已经匹配的实参身份代入，再检查后一个。全部成功后，把同一批代换用于结果接口。</p><pre><code class="language-text">module F interface ((A:[x:int],B:[y:int]) =&gt; [z:int])
+<!-- EOPL:end-snippet --><p>例如，能接受 <code>[x:int]</code> 并返回 <code>[y:int z:bool]</code> 的模块过程，可以放在“接收 <code>[x:int more:bool]</code>、只要求返回 <code>[y:int]</code>”的位置；反过来不行，因为不能要求调用者额外提供它从未承诺的 more。重命名模块形参不改变这种能力关系。</p><details class="reading-notes" id="notes-s8-3-2" data-notes-for="s8-3-2" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">可替换性</span><h4>参数逆变来自调用者的承诺</h4><p>调用者只会提供期望接口要求的实参。实际模块过程可以要求更少，但不能偷偷要求更多；它的结果则必须至少提供期望结果承诺的成员。</p></div><div class="annotation-card"><span class="annotation-kind">绑定</span><h4>替换身份，避免替换到同名局部变量</h4><p>接口中的参数名与模块体参数名各有作用域。内部鲜身份将两者区分；比较前先对齐绑定、应用时再实例化，避免用字符串替换而捕获嵌套同名形参。</p></div></div></details><h4>本节习题与解答</h4><details class="exercise-index-panel"><summary>本节习题题号索引 · 4 题</summary><nav class="exercise-index" role="navigation" aria-label="本节习题索引"><a href="#ex-8-24" aria-label="习题 8.24">8.24</a> · <a href="#ex-8-25" aria-label="习题 8.25">8.25</a> · <a href="#ex-8-26" aria-label="习题 8.26">8.26</a> · <a href="#ex-8-27" aria-label="习题 8.27">8.27</a></nav></details><details class="exercise" id="ex-8-24"><summary>习题 8.24 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="8.24"><p>目前，模块应用只允许用于标识符。如果尝试检查 <code>(m1 (m2 m3))</code> 这样的应用，现有的应用类型规则会出什么问题？</p></div><p class="source">印刷 p.323 / <a href="../assets/source.pdf#page=346">PDF 346</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>原应用规则把实参模块名替换进结果接口。<code>(m2 m3)</code> 是一个模块体，不是模块路径，不能直接放进 <code>from ... take t</code> 的限定名位置。因此问题不仅是解析器不认识括号：即使递归算出内部应用的接口，也还缺一个能在结果依赖中稳定引用该实例的名字。</p><p>可在内部给这个结果分配鲜模块身份，先检查并记录它的接口，再用这个身份实例化外层结果。这个身份对应一次实际模块值，不能把两个语法相同的模块构造一律看成同一实例，也不能为了给类型找名字而在运行时重复求值。习题 8.26 的实现采用这一方法。</p></div></details><details class="exercise" id="ex-8-25"><summary>习题 8.25 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="8.25"><p>扩展 PROC-MODULES，仿照习题 3.21，让一个模块过程可以接收多个实参。</p></div><p class="source">印刷 p.323 / <a href="../assets/source.pdf#page=346">PDF 346</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>把模块过程的形参及实参都改为列表，接口也保存同样长度的参数列表。应用时先核对数量，再从左到右检查每个实参是否满足相应参数接口；若后一个参数接口依赖前面的参数，先把已经匹配的实参身份代入，再检查后一个。全部成功后，把同一批代换用于结果接口。</p><pre><code class="language-text">module F
+ interface ((A:[x:int],B:[y:int]) =&gt; [z:int])
 body module-proc(A:[x:int],B:[y:int]) [z=-(from A take x,from B take y)]
-module A interface [x:int] body [x=9]
-module B interface [y:int] body [y=4]
-module R interface [z:int] body (F A B)
+module A
+ interface [x:int] body [x=9]
+module B
+ interface [y:int] body [y=4]
+module R
+ interface [z:int] body (F A B)
 from R take z</code></pre><p>结果为 5；少传一个模块报 arity。实现还覆盖依赖参数：若 B 的 x 声明为 <code>from A take t</code>，传入的 B.x 必须真正具有前一个实参 A 的 t，而不是另一个同样用 int 实现的抽象类型。运行时各实参求值一次，之后一起加入模块闭包保存的环境。</p></div></details><details class="exercise" id="ex-8-26"><summary>习题 8.26 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="8.26"><p>扩展模块体语言，用下面的产生式替换模块应用原有的产生式：</p><pre><code class="language-text">ModuleBody ::= (ModuleBody ModuleBody)
-               app-module-body (rator rand)</code></pre></div><p class="source">印刷 p.324 / <a href="../assets/source.pdf#page=347">PDF 347</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>解析器令操作符和操作数递归读取 ModuleBody；静态检查也递归调用 body-interface，不再只查模块名字。操作符必须得到过程接口，操作数必须满足参数接口；结果再进行避免捕获的实例化。</p><pre><code class="language-text">module A interface [z:int] body [z=12]
-module G interface ((X:[z:int]) =&gt; [x:int])
+               app-module-body (rator rand)</code></pre></div><p class="source">印刷 p.324 / <a href="../assets/source.pdf#page=347">PDF 347</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>解析器令操作符和操作数递归读取 ModuleBody；静态检查也递归调用 body-interface，不再只查模块名字。操作符必须得到过程接口，操作数必须满足参数接口；结果再进行避免捕获的实例化。</p><pre><code class="language-text">module A
+ interface [z:int] body [z=12]
+module G
+ interface ((X:[z:int]) =&gt; [x:int])
 body module-proc(X:[z:int]) [x=from X take z]
-module F interface ((X:[x:int]) =&gt; [y:int])
+module F
+ interface ((X:[x:int]) =&gt; [y:int])
 body module-proc(X:[x:int]) [y=-(from X take x,1)]
-module R interface [y:int] body (F (G A))
+module R
+ interface [y:int] body (F (G A))
 from R take y</code></pre><p>结果为 11。实现内部用不可由源程序写出的鲜名区分绑定，把参数身份映射到实参的已展开类型，而不对字符串作替换；嵌套模块过程的局部形参即使恰好同名，也不会被捕获。模块构造的抽象结果按实例分配新身份，源程序不能命名的中间身份在命名模块的公开接口处被封装。</p><p>运行器独立递归求值操作符、实参，再在模块过程创建时保存的环境中执行正文。应用简单模块会拒绝；两个新构造的抽象实例不能因为运行表示相同而混用。</p></div></details><details class="exercise" id="ex-8-27"><summary>习题 8.27 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="8.27"><p>在 PROC-MODULES 中，我们不得不反复书写如下接口：</p><pre><code class="language-text">[opaque t
           zero : t
           succ : (t -&gt; t)
@@ -930,15 +1170,32 @@ module make-to-int
   ((ints : int-interface)
    =&gt; [to-int : from ints take t -&gt; int])
  body
-  ...</code></pre></div><p class="source">印刷 p.324 / <a href="../assets/source.pdf#page=347">PDF 347</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>在程序声明序列增加 <code>interface Name = Iface</code>，在 Iface 中增加名字引用。维护独立的接口名字环境，每个名字保存接口语法及定义时的类型/模块环境；使用时在该环境解释模板，并为局部绑定分配新身份。这样共享的是接口描述，不会把两个模块的 opaque 类型合并。</p><pre><code class="language-text">interface int-interface=[opaque t zero:t succ:(t -&gt; t) pred:(t -&gt; t) is-zero:(t -&gt; bool)]
+  ...</code></pre></div><p class="source">印刷 p.324 / <a href="../assets/source.pdf#page=347">PDF 347</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>在程序声明序列增加 <code>interface Name = Iface</code>，在 Iface 中增加名字引用。维护独立的接口名字环境，每个名字保存接口语法及定义时的类型/模块环境；使用时在该环境解释模板，并为局部绑定分配新身份。这样共享的是接口描述，不会把两个模块的 opaque 类型合并。</p><details class="code-details" open><summary>查看完整模块实现</summary><pre><code class="language-text">interface int-interface=[opaque t
+  zero : t
+  succ : (t -&gt; t)
+  pred : (t -&gt; t)
+  is-zero : (t -&gt; bool)]
 module to-int-maker
 interface ((ints:int-interface) =&gt; [to-int:(from ints take t -&gt; int)])
 body module-proc (ints:int-interface)
  [to-int=let z?=from ints take is-zero in let p=from ints take pred
  in letrec int to-int(x:from ints take t)=if (z? x) then 0 else -((to-int (p x)),-1)
- in to-int]module ints1 interface [opaque t zero:t succ:(t -&gt; t) pred:(t -&gt; t) is-zero:(t -&gt; bool)] body [type t=int zero=0 succ=proc(x:t) -(x,-5) pred=proc(x:t) -(x,5) is-zero=proc(x:t) zero?(-(x,0))]
-module convert interface [to-int:(from ints1 take t -&gt; int)] body (to-int-maker ints1)
-(from convert take to-int (from ints1 take succ from ints1 take zero))</code></pre><p>该例检查为 int、结果为 1。命名接口消除了参数接口的重复文本；后续模块可同时把同一个名字用于公开接口和模块过程参数。接口声明顺序仍是词法顺序，未定义接口、重复接口名和前向循环别名会拒绝。模板捕获定义位置的环境，所以调用位置的同名变量或模块不会改变已声明类型的含义。</p><p>命名接口不是文本宏：展开时先遵守模板自己的绑定，再处理依赖的限定类型；结果接口里的参数绑定仍独立于模块体里的参数绑定。即使两处使用同一模板，也仍需分别检查正文是否满足声明。</p></div></details></section></section><section id="programs"><h2>运行本章程序</h2><p>程序使用 Racket 8.17 的标准库、json 与 rackunit。将下面四个本章文件和第七章的两个共享语法/类型文件放在同一目录，再执行命令；源码中的对象语言是本章明确实现的教学语言，不交给宿主 eval。</p><p><a download href="../code/chapter08.rkt">chapter08.rkt</a> · <a download href="../code/chapter08_syntax.rkt">chapter08_syntax.rkt</a> · <a download href="../code/chapter08_examples.rkt">chapter08_examples.rkt</a> · <a download href="../code/test_chapter08.rkt">test_chapter08.rkt</a> · <a download href="../code/chapter07_types.rkt">chapter07_types.rkt</a> · <a download href="../code/chapter07_syntax.rkt">chapter07_syntax.rkt</a></p><pre><code class="language-text">racket chapter08.rkt
+ in to-int]
+
+module ints1
+ interface [opaque t
+  zero : t
+  succ : (t -&gt; t)
+  pred : (t -&gt; t)
+  is-zero : (t -&gt; bool)] body
+ [type t=int
+  zero=0
+  succ=proc(x:t) -(x,-5)
+  pred=proc(x:t) -(x,5)
+  is-zero=proc(x:t) zero?(-(x,0))]
+module convert
+ interface [to-int:(from ints1 take t -&gt; int)] body (to-int-maker ints1)
+(from convert take to-int (from ints1 take succ from ints1 take zero))</code></pre></details><p>该例检查为 int、结果为 1。命名接口消除了参数接口的重复文本；后续模块可同时把同一个名字用于公开接口和模块过程参数。接口声明顺序仍是词法顺序，未定义接口、重复接口名和前向循环别名会拒绝。模板捕获定义位置的环境，所以调用位置的同名变量或模块不会改变已声明类型的含义。</p><p>命名接口不是文本宏：展开时先遵守模板自己的绑定，再处理依赖的限定类型；结果接口里的参数绑定仍独立于模块体里的参数绑定。即使两处使用同一模板，也仍需分别检查正文是否满足声明。</p></div></details></section></section><section id="programs"><h2>运行本章程序</h2><p>程序使用 Racket 8.17 的标准库、json 与 rackunit。将下面四个本章文件和第七章的两个共享语法/类型文件放在同一目录，再执行命令；源码中的对象语言是本章明确实现的教学语言，不交给宿主 eval。</p><p><a download href="../code/chapter08.rkt">chapter08.rkt</a> · <a download href="../code/chapter08_syntax.rkt">chapter08_syntax.rkt</a> · <a download href="../code/chapter08_examples.rkt">chapter08_examples.rkt</a> · <a download href="../code/test_chapter08.rkt">test_chapter08.rkt</a> · <a download href="../code/chapter07_types.rkt">chapter07_types.rkt</a> · <a download href="../code/chapter07_syntax.rkt">chapter07_syntax.rkt</a></p><pre><code class="language-text">racket chapter08.rkt
 racket test_chapter08.rkt</code></pre><pre><code class="language-text">#lang racket
 (require &quot;chapter08.rkt&quot; &quot;chapter08_examples.rkt&quot;)
 (check example8-1)
@@ -947,7 +1204,7 @@ racket test_chapter08.rkt</code></pre><pre><code class="language-text">#lang rac
 (run example8-4 #:unordered? #t)</code></pre><div class="program-output"><pre><code class="language-text">int
 22
 (2 3 1)
-44</code></pre></div><p>默认保留原书的有序接口匹配和 CHECKED 标注。无序匹配、INFERRED 表达式、显式依赖与惰性导入分别使用 <code>#:unordered? #t</code>、<code>#:inferred? #t</code>、<code>#:dependencies 'depends-on</code>、<code>#:dependencies 'imports</code>。本章同时实现点号引用、局部模块、模块成员、多参数及一般模块体应用；接口标签和同一声明组中的名字要求唯一。</p><p>求值采用任意精度整数及按值、从左到右的顺序。print 记录一个整数并返回整数1；输出保存在 execution-output。默认100000步预算用于使错误实验可结束，耗尽时报告 fuel，不构成不终止证明。抽象类型是静态身份，运行值仍使用内部表示；观察最终宿主打印与语言内可用操作须分开。</p><p>完整接口、模式、错误种类和各题对应文件见<a href="../code/README.md">程序说明</a>。本节保留完整维护源码阅读副本；模块检查、求值与示例分别在下列文件中。</p><details class="code-details"><summary>完整源码 · chapter08.rkt</summary><!-- EOPL:program chapter08.rkt --><pre><code id="chapter08-code" class="language-scheme">#lang racket
+44</code></pre></div><p>默认保留原书的有序接口匹配和 CHECKED 标注。无序匹配、INFERRED 表达式、显式依赖与惰性导入分别使用 <code>#:unordered? #t</code>、<code>#:inferred? #t</code>、<code>#:dependencies 'depends-on</code>、<code>#:dependencies 'imports</code>。本章同时实现点号引用、局部模块、模块成员、多参数及一般模块体应用；接口标签和同一声明组中的名字要求唯一。</p><p>求值采用任意精度整数及按值、从左到右的顺序。print 记录一个整数并返回整数1；输出保存在 execution-output。步数预算必须为正的精确整数；默认100000步预算用于使错误实验可结束，耗尽时报告 fuel，不构成不终止证明。抽象类型是静态身份，运行值仍使用内部表示；观察最终宿主打印与语言内可用操作须分开。</p><p>完整接口、模式、错误种类和各题对应文件见<a href="../code/README.md">程序说明</a>。本节保留完整维护源码阅读副本；模块检查、求值与示例分别在下列文件中。</p><details class="code-details"><summary>完整源码 · chapter08.rkt</summary><!-- EOPL:program chapter08.rkt --><pre><code id="chapter08-code" class="language-scheme">#lang racket
 ;; A module checker and an independent call-by-value evaluator.
 (require &quot;chapter07_types.rkt&quot; &quot;chapter08_syntax.rkt&quot;)
 (provide check run run/trace compare-interfaces (struct-out execution)
@@ -1388,6 +1645,8 @@ racket test_chapter08.rkt</code></pre><pre><code class="language-text">#lang rac
   (value-of (program-body tree) (runtime-scope env (program-scope tree))))
 (define (run/trace source #:unordered? [unordered? #f] #:inferred? [inferred? #f]
                    #:dependencies [dependencies &#x27;none] #:check? [check? #t] #:fuel [fuel 100000])
+  (unless (exact-positive-integer? fuel)
+    (type-error &#x27;fuel fuel &quot;evaluation budget must be a positive exact integer&quot;))
   (define tree (if (program? source) source (parse-program source)))
   (define type (and check? (check tree #:unordered? unordered? #:inferred? inferred? #:dependencies dependencies)))
   (parameterize ([current-dependencies dependencies] [current-output (box &#x27;())]
@@ -2047,6 +2306,9 @@ END
     (define never &quot;module never interface [] body [x=letrec int loop(x:int)=(loop x) in (loop 0)] 33&quot;)
     (is (run never #:dependencies &#x27;imports #:fuel 50) 33)
     (reject (lambda () (run never #:fuel 50)) &#x27;fuel)
+    (for ([fuel (list -1 1/2 #f 0 2.0)])
+      (reject (lambda () (run &quot;1&quot; #:fuel fuel)) &#x27;fuel))
+    (is (run &quot;1&quot; #:fuel 1) 1)
     (reject (lambda () (check &quot;module m interface [] body imports later [] 33&quot; #:dependencies &#x27;imports)) &#x27;dependency))
   (test-case &quot;consistent inference and named interfaces&quot;
     (define id &quot;module m interface [f:(int -&gt; int)] body [f=proc(x:?)x] (from m take f 33)&quot;)
@@ -2096,7 +2358,7 @@ END
   (define failures (run-tests suite))
   (write-json (hash &#x27;status (if (zero? failures) &quot;passed&quot; &quot;failed&quot;) &#x27;groups 10 &#x27;assertions assertions &#x27;failures failures))
   (newline) (unless (zero? failures) (exit 1)))
-</code></pre><!-- EOPL:end-program --></details></section><footer><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter07_types.html">← 第 7 章 · 类型检查与类型推导</a><a href="#top">返回页首 ↑</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top">本节理解与补充</a></p><div id="annotation-content"></div></aside></div><script>
+</code></pre><!-- EOPL:end-program --></details></section><footer><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter07_types.html">← 第 7 章 · 类型检查与类型推导</a><a href="chapter09_objects.html">第 9 章 · 对象、类、继承与方法调用 →</a><a href="#top">返回页首 ↑</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top">本节理解与补充</a></p><div id="annotation-content"></div></aside></div><script>
 (() => {
   document.documentElement.classList.add('toc-enhanced');
   const panel = document.getElementById('toc-panel');

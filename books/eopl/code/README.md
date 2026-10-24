@@ -169,3 +169,108 @@ cc -std=c11 -O0 -fno-optimize-sibling-calls -Wall -Wextra -Werror books/eopl/cod
 ```
 
 C数值运算采用long，正式驱动例只做有界递减；自行更换AST时必须另核对溢出边界。arena不做垃圾回收，只保证容量内的运行；所有标签/环境/帧读写另用ASan/UBSan运行检查。程序输出与原书图6.1/6.2的校注在正文中相邻说明；来源、运行、浏览器与本地包证据单独维护。
+
+## 第7章：类型检查、推导与求值
+
+维护源为chapter07.rkt、chapter07_types.rkt、chapter07_syntax.rkt和chapter07_examples.rkt。现有Racket8.17运行，直接用字符串输入；不把对象程序交给宿主eval。`check`强制具体参数/递归结果标注，采用结构相等；`infer`缺省单态，问号或省略标注各分配一个鲜变量。初始类型环境i/v/x均为int，运行值依次1/5/10。
+
+```racket
+(require "chapter07.rkt")
+(check "proc(x:int) -(x,1)") ; (int -> int)
+(infer "proc(f) proc(x) -((f 3),(f x))") ; ((int -> int) -> (int -> int))
+(infer "proc(x)x") ; (a0 -> a0)
+```
+
+`infer-details`返回类型、带AST上下文的约束、替换快照和计数；`external`只对真实类型变量结点规范重命名，保留重复位置关系。`#:engine`可选eager/lazy/memo/walk/global/vector，默认eager；`#:two-phase? #t`先收集单态约束再统一求解。eager扩展时回填旧右侧；lazy追完整无环链，memo在一次应用内缓存；walk只解引用根再递归；vector直接索引并路径压缩。global入口清空全局关联表，不能交错或并发使用多个分析器。关联表、追链、整树遍历和发生检查的成本分别计算，向量直接查找的常数时间不代表整次推导常数时间。
+
+并行let的所有右侧在旧环境分析，再同时扩展正文；多元过程核对完整参数数量。递归组先预绑定全部签名，逐个统一正文与返回类型，在组内保持单态。类型语法为int/bool/void、`(T1 * ... * Tn -> T)`、`pairof T * T`、`listof T`、`refto T`；零参数过程也可用`(-> T)`。CHECKED空表写作`emptylist_T`，INFERRED可省略；list要求至少一个元素，空表用emptylist。`pair`是newpair的别名。赋值返回27/int；可变序对模式`#:mutable-pairs? #t`下setleft/setright返回82/83及int；setref返回不透明unit/void。错误类别分别表示解析、标注、未绑定、参数数量、类型冲突、发生检查和不支持的模式。
+
+`#:polymorphism 'copy`在定义时环境中重新分析let右侧，避免使用点捕获；右侧即便未使用也先检查一次。`'w`分析一次，仅泛化FV(当前类型)减FV(当前环境)，各使用点实例化量化变量；过程参数和递归组保持单态。两种多态模式默认启用保守值限制：数字/变量/过程/空表及非扩张分量构成的不可变数据可泛化，newref、赋值、未知调用以及可变pair分配不可泛化；已泛化let绑定禁止赋值。纯语言可显式设`#:value-restriction? #f`观察不受该限制的W；含存储时关闭会接受7.30反例，运行确实出现类型错误。
+
+`evaluate`忽略标注，采用词法闭包、按值及从左到右求子式；引用/序对用显式对象包装宿主box。整数为Racket精确整数。fuel必须为正的精确整数，默认100000，耗尽单独报告，不视为类型错误或非终止证明。空表访问也单列错误；本章类型安全并不排除它。`run`先推导后求值，语义契约的见证可单独调用evaluate。
+
+```text
+racket books/eopl/code/chapter07.rkt
+racket books/eopl/code/chapter07_examples.rkt
+racket books/eopl/code/test_chapter07.rkt
+python3 books/eopl/tools/test_chapter07_mutations.py
+```
+
+测试覆盖原题13式、标注检查/错误顺序、词法捕获、并行let、互递归、多参数、复合数据与别名、间接循环、替换组合/缓存、α重命名、多态map及值限制。20种浅层类型结构的合一成功解逐一回代；拒绝例另以六种有限基型赋值枚举核对，这个有限域不冒充任意类型的一般完备证明。故障注入先通过未修改见证，再确认错误版本能正常加载并被独立断言拒绝。规则、完整题解与程序阅读副本见[第七章正文](../notes/chapter07_types.html)。
+
+
+## 第8章：模块、接口与抽象类型
+
+阅读入口为[第八章](../notes/chapter08_modules.html)。chapter08.rkt提供check、run、run/trace、compare-interfaces；chapter08_syntax.rkt维护模块/接口和表达式文法，chapter08_examples.rkt维护原书例子与完整习题实现，test_chapter08.rkt维护独立期望。运行需要同目录的chapter07_types.rkt与chapter07_syntax.rkt；均可从章节下载区取得。
+
+默认使用CHECKED与原书有序子序列匹配。无序模式传入#:unordered? #t，只改变已展开声明的匹配顺序；推导模式传入#:inferred? #t，同一次程序检查共享约束状态。点号、多参数let/proc/letrec、模块体let/letrec、局部/嵌套模块、多参数模块过程、一般模块体应用和命名接口已实现。接口标签及同一声明组中的名字要求唯一；模块、普通值、类型与接口名字分别查找。
+
+限定类型展开后引用不可由源程序制造的身份；实现比较知道表示，客户端公开视图重新封装opaque声明。模块过程参数逆变、结果协变，绑定先alpha对齐；应用依赖结果替换为实参真实导出的类型。命名接口保存定义环境，类型环境插入入口集中规范化，底层环境构造留在实现模块内部。
+
+#:dependencies 'depends-on要求模块体和程序体显式声明可见模块；空子句表示不依赖其他模块。#:dependencies 'imports采用按声明顺序可见的惰性模块、new/busy/done状态与单次缓存。import与imports同义，按原题允许叶模块省略空子句；省略表示空导入。未导入模块仍静态检查但不执行。run/trace返回execution，分别保存type、value、output及模块求值次数。print只接受整数，记录输出并返回整数1。
+
+普通求值为按值、从左到右，整数任意精度；步数预算必须为正的精确整数，默认100000步，耗尽报告fuel，不证明不终止。错误种类区分parse、annotation、duplicate、hidden、interface、mismatch、arity、dependencies及运行期错误。原书to-int采用取pred到零的算法，保证终止需输入代表非负整数；from-int、加法、乘法与相等性另处理正负整数。代数正确性仍以前提“输入算术实现满足整数表示定律、各原语调用终止”为准。表的空查找缺省值从内容模块false取得，以直接支持题面的mybool。
+
+执行：racket chapter08.rkt；racket test_chapter08.rkt。书级完整检查另执行test_chapter08_inputs.py，直接从最终页面取16编号例子及原题代码，并分别记录完整程序和未完成骨架的解析结果；test_chapter08_mutations.py用独立见证拒绝可正常加载的语义错误版本。
+
+
+
+## 第9章：对象、类、继承与方法调用
+
+阅读入口为[第九章](../notes/chapter09_objects.html)。同一目录保存chapter09.rkt、chapter09_syntax.rkt、chapter09_runtime.rkt、chapter09_types.rkt、chapter09_compile.rkt、chapter09_examples.rkt和test_chapter09.rkt，使用既有Racket8.17标准库/json/rackunit，无本书其他章节源码依赖。
+
+```sh
+racket chapter09.rkt
+racket chapter09_examples.rkt
+racket test_chapter09.rkt
+```
+
+主程序返回5；原书图9.1为`((3 -3) (5 -5))`，9.2为12，9.4为`(101 102 101 999)`，9.6为33；图9.12的检查类型为`(listof int)`，运行值为`(12 100)`。图9.8原有省略体保留来源；figure9-8-complete是明确补全的伴读程序，返回`(11 22 7 8)`。
+
+公开入口为`run source #:typed? #f #:check? #t #:options (hash)`、`run/trace`、`check source #:options (hash)`和`check/compiled`。run返回原始表达值，对象/过程为专门的宿主记录；trace另记录输出、调用事件、逻辑计数和类环境。check只做TYPED-OO类型检查，check/compiled返回类型、已改写程序与静态类环境。原书全部Scheme解释器未原样移植执行，实际对象为伴读语法/解释器/检查器及最终页面输入。
+
+本章无类型版本的变量、字段和形参使用可变位置，let右侧并行可见、按文本从左到右求值；普通过程先操作符再实参。send先按文本次序求实参，再求接收者；new先实参、再分配/初始化对象。该顺序为伴读明确约定。无类型set返回27，有类型set为void；print要求整数，记录输出并返回1。精确整数运算，默认100000步预算，耗尽报告fuel，不作为不终止证明。
+
+类继承默认单父类且父类先声明；全局方法体在全部类描述符建立后才翻译/执行，可以引用后声明的类。普通方法不捕获主程序的普通局部变量；字段帧使用宿主的声明视图，继承方法保持原宿主。self为真实接收者，super从词法宿主的父类查找；同名字段各有身份和位置。访问级别依据调用处宿主判断；final在类构造时拒绝覆盖。字段未初始化读取报告uninitialized。
+
+源语法包括new/send/super/self、fieldref/fieldset、superfieldref/superfieldset、named-send/named-fieldref/named-fieldset、private/protected/public、final method、static变量、staticmethod、`letclass C = extends Parent ... in exp`，以及原书多参数过程/递归、列表和begin。局部类的对象保存类身份及定义环境；静态初始化一次，按顺序只看已初始化静态绑定和局部声明外层环境，不提供实例字段或self。`emptylist _ Type`为有类型空表；有类型list要求非空且元素类型相同。普通if接受相同或一方为另一方子类型的两个分支，结果取较宽类型；不实现一般联合类型。
+
+选项名及值：
+
+| 选项 | 值与含义 |
+|---|---|
+| object-class | name默认；record直接保存类描述符；两者保持局部类身份 |
+| overload? | 默认#f；#t按方法名与参数个数重载，构造器同样适用 |
+| mangle? | 默认#f；#t生成m:@n名字及零参数构造桥接，目标仍是原CLASSES表达式；原题假设:@不出现在用户方法名中 |
+| stable? / method-lookup | #t原槽替换新名追加；查询默认linear，也可hash。计数是显式键比较或哈希查询次数，不是CPU时间 |
+| lexical? | #t对原CLASSES/TYPED-OO计算深度/下标，运行帧不保留名字；帧内向量O(1)，帧链仍按深度遍历。静态变量/字段初始化扩展使用独立有名模式 |
+| direct-super? / named-slots? | #t分别生成实际方法引用、指定类向量槽节点；方法选择常数取项，其他调用成本另计 |
+| host-fields-only? / static-self? | 分别启用9.7仅宿主字段、9.14直接self发送按宿主分派的替代语义 |
+| multiple? | #t为无类型CLASSES开放多父类：相同声明字段按身份共享；不同父同名字段须限定，方法冲突须子类覆盖；super取第一父类 |
+| initialization | textbook默认保留构造器签名豁免；new-only拒绝send/named-send/super对initialize的显式调用，允许new隐式调用 |
+| casts | runtime默认；related对两个具体类要求祖先关系，接口操作数保留可能成功的运行检查。目标总要求实际类，接口不能作目标 |
+| field-initializers? | #t要求每个实例字段有表达式，类型符合声明；表达式只见宿主前序字段及静态成员，不见self/super与后序字段 |
+| fuel | 正整数，默认100000；非法选项值与未知选项名报告option |
+
+TYPED-OO先收集所有类型名，验证完整继承关系的声明顺序与父节点种类，再比较全部签名，最后查方法体、覆盖和接口履约。这样，非法自继承不会在前向类型比较中造成无限循环。过程参数逆变/结果协变；listof在子类型关系中保持不变。覆盖须保持static/dynamic种类、参数/结果兼容和不收窄访问级别，initialize仅豁免覆盖签名比较，其自身方法体仍须符合声明。类须有initialize；接口要求public动态方法，接口继承合并全部要求并拒绝不兼容冲突。类型名字可以引用后声明的类，extends仍有声明顺序。
+
+静态方法调用在类型检查阶段固定到接收表达式的静态类；动态调用保留按实际对象选择。字段访问同样固定静态字段视图，避免子字段遮蔽类型不同导致错位。类型检查不保证基本版字段已初始化，不保证行为不变量和终止；显式initialize在textbook模式保留原书限制，new-only提供额外拒绝。原题9.37的`method void m1()12`被字面拒绝，示例仅修正为int后得到`(12 21)`；9.34的类祖先论证不直接适用于接口操作数。
+
+无类扩展：`newobject m=proc(...)... endnewobject`建立共享环境的闭包对象，`getmethod(obj,m)`取得绑定方法；`newobject extends parent ...`共享父闭包状态，并把继承调用的self重新绑定到子对象。原型采用`emptyobject`、`extend proto field x=exp method m(...)exp endextend`和`clone proto`；字段位置浅复制，方法模板保留词法环境与宿主字段身份。局部参数/变量遮蔽字段，方法声明时可见字段遮蔽外层词法变量；外层位置与字段内对象仍可共享。闭包/原型使用无类型入口，TYPED-OO不提供它们的类型系统。
+
+9.30明确增加string字面量、concat与number-to-string。多重继承采用共享祖先，不声称同时实现重复祖先布局；名字改编和无名翻译的适用语言及选项边界如上。错误按parse、annotation、duplicate、unbound、object、class、field、method、arity、access、final、ambiguity、type、override、dispatch、initialize、initialization、interface、cast、compile、fuel、option等kind报告。有限结构/整数回归、操作计数和一般语义论证分别记录，详见T064与review/ch09.json。
+
+## 附录 B：实际 SLLGEN 与算术解释器
+
+将[appendix_b.rkt](appendix_b.rkt)与[test_appendix_b.rkt](test_appendix_b.rkt)置于同一目录，以Racket8.17及其eopl/rackunit执行：
+
+```sh
+racket appendix_b.rkt
+racket test_appendix_b.rkt
+```
+
+扫描器、解析器与数据类型由eopl的SLLGEN生成。parse-base对应B.1，parse-variables对应B.4，parse-unary对应B.5；calculate默认unary模式，也可用#:mode 'base/'variables/'unary。数字token仅含无符号数字，负号在因子语法中递归处理；加减层、乘除层分别左折叠，除法使用精确有理数。可选环境是符号到精确有理数的关联表，同名时第一项生效。未绑定、除零和语法/字符错误均明确失败。公开算术字符串入口先检查全部字符，防止本机SLLGEN把1@2只识别为合法前缀1；百分号注释内部不受算术字符限制。
+
+scan-statement/parse-statement重现原书两语句块；parse-terminated/parse-separated分别表示逐项分号终结与项间分隔。parse-bindings和parse-parallel展示重复字段与嵌套平行列表；原文法接受长度不等的并行赋值，示例仅解析，执行还需独立语义检查。arithmetic-repl采用实际SLLGEN流解析与make-rep-loop，额外以分号终结每个表达式；以包装端口逐字符校验流输入，拒绝把未知字符当作EOF；再只把精确的干净EOF开始符号错误转为正常结束，残缺输入仍报错。原书p.386流解析器输出的token/AST用词校注见source_issues.json。
+
+附录页面输入直接提取运行，独立回归核对优先级、结合性、变量、负号、无效输入和生成器列表结构。有限测试和原书解答的语义论证分别保留，见T065。

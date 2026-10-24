@@ -1,0 +1,253 @@
+{
+  "schema_version": 1,
+  "book": "eopl",
+  "chapter": "8",
+  "source_pdf": "books/eopl/assets/source.pdf",
+  "source_sha256": "b9e8770a4dc97206bd02230e6b21a878382eb02a340ff69321857d701e7d967c",
+  "method": "Independent PDF exercise inventory before HTML authoring;50 sequential text pages read; all original question pages and critical scope/type-rule figures visually read. English text preserves source input and unfinished skeletons.",
+  "items": [
+    {
+      "number": "8.1",
+      "printed_page": 289,
+      "pdf_page": 312,
+      "pdf_end": 312,
+      "stars": 1,
+      "question_text": "Modify the checker to detect and reject any program that defines two\nmodules with the same name.",
+      "chinese_html": "<p>修改检查器，使它能检测并拒绝在同一个程序中定义两个同名模块的情况。</p>"
+    },
+    {
+      "number": "8.2",
+      "printed_page": 289,
+      "pdf_page": 312,
+      "pdf_end": 312,
+      "stars": 1,
+      "question_text": "The procedure add-module-defn-to-env is not quite right,\nbecause it adds all the values defined by the module, not just the ones in the inter-\nface. Modify add-module-defn-to-env so that it adds to the environment only\nthe values declared in the interface. Does add-module-defn-to-tenv suffer from\nthe same problem?",
+      "chinese_html": "<p>过程 <code>add-module-defn-to-env</code> 还不完全正确：它把模块体定义的全部值都加入了环境，而不只是接口中声明的那些值。修改该过程，使加入环境的模块只含接口声明的值。<code>add-module-defn-to-tenv</code> 是否也有同样的问题？</p>"
+    },
+    {
+      "number": "8.3",
+      "printed_page": 289,
+      "pdf_page": 312,
+      "pdf_end": 312,
+      "stars": 1,
+      "question_text": "Change the syntax of the language so that a qualified variable refer-\nence appears as m.v, rather than from m take v.",
+      "chinese_html": "<p>修改语言语法，让限定变量引用写成 <code>m.v</code>，而不再写成 <code>from m take v</code>。</p>"
+    },
+    {
+      "number": "8.4",
+      "printed_page": 289,
+      "pdf_page": 312,
+      "pdf_end": 312,
+      "stars": 1,
+      "question_text": "Change the expression language to include multiple let declara-\ntions, multiargument procedures, and multiple letrec declarations, as in exer-\ncise 7.24.",
+      "chinese_html": "<p>按照习题 7.24 扩展表达式语言，使其支持同一个 <code>let</code> 中的多个声明、多参数过程，以及同一个 <code>letrec</code> 中的多个声明。</p>"
+    },
+    {
+      "number": "8.5",
+      "printed_page": 290,
+      "pdf_page": 313,
+      "pdf_end": 313,
+      "stars": 1,
+      "question_text": "Allow let and letrec declarations to be used in module bodies.\n      For example, one should be able to write\n\n              module even-odd\n               interface\n                [even : int -> bool\n                 odd : int -> bool]\n               body\n                letrec\n                 bool local-odd (x : int) = ... (local-even -(x,1)) ...\n                 bool local-even (x : int) = ... (local-odd -(x,1)) ...\n                in [even = local-even\n                    odd = local-odd]",
+      "chinese_html": "<p>允许在模块体中使用 <code>let</code> 与 <code>letrec</code> 声明。例如，应当能够写出：</p><pre><code class=\"language-text\">module even-odd\n interface\n  [even : int -&gt; bool\n   odd : int -&gt; bool]\n body\n  letrec\n   bool local-odd (x : int) = ... (local-even -(x,1)) ...\n   bool local-even (x : int) = ... (local-odd -(x,1)) ...\n  in [even = local-even\n      odd = local-odd]</code></pre>"
+    },
+    {
+      "number": "8.6",
+      "printed_page": 290,
+      "pdf_page": 313,
+      "pdf_end": 313,
+      "stars": 2,
+      "question_text": "Allow local module definitions to appear in module bodies. For\n      example, one should be able to write\n\n              module m1\n               interface\n                [u : int\n                 v : int]\n               body\n                module m2\n                 interface [v : int]\n                 body [v = 33]\n                [u = 44\n                 v = -(from m2 take v, 1)]",
+      "chinese_html": "<p>允许在模块体中出现局部模块定义。例如，应当能够写出：</p><pre><code class=\"language-text\">module m1\n interface\n  [u : int\n   v : int]\n body\n  module m2\n   interface [v : int]\n   body [v = 33]\n  [u = 44\n   v = -(from m2 take v, 1)]</code></pre>"
+    },
+    {
+      "number": "8.7",
+      "printed_page": 290,
+      "pdf_page": 313,
+      "pdf_end": 313,
+      "stars": 2,
+      "question_text": "Extend your solution to the preceding exercise to allow modules to\n      export other modules as components. For example, one should be able to write\n\n              module m1\n               interface\n                [u : int\n                 n : [v : int]]\n               body\n                module m2\n                 interface [v : int]\n                 body [v = 33]\n                [u = 44\n                 n = m2]\n\n              from m1 take n take v",
+      "chinese_html": "<p>扩展上一题的解答，允许模块把其他模块作为组成部分导出。例如，应当能够写出：</p><pre><code class=\"language-text\">module m1\n interface\n  [u : int\n   n : [v : int]]\n body\n  module m2\n   interface [v : int]\n   body [v = 33]\n  [u = 44\n   n = m2]\n\nfrom m1 take n take v</code></pre>"
+    },
+    {
+      "number": "8.8",
+      "printed_page": 290,
+      "pdf_page": 313,
+      "pdf_end": 313,
+      "stars": 2,
+      "question_text": "In our language, the module must produce the values in the same\n      order as the interface, but that could easily be fixed. Fix it.",
+      "chinese_html": "<p>在当前语言中，模块体必须按照接口中的顺序产生各个值，但这个限制很容易去掉。请修改实现，去掉这一顺序限制。</p>"
+    },
+    {
+      "number": "8.9",
+      "printed_page": 290,
+      "pdf_page": 313,
+      "pdf_end": 314,
+      "stars": 2,
+      "question_text": "We said that our module system should document the dependen-\n      cies between modules. Add this capability to SIMPLE-MODULES by requiring a\n\n\ndepends-on clause in each module body and in the program body. Rather than\nhaving all preceding modules in scope in a module m, a preceding module is in scope\nonly if it is listed in m’s depends-on clause. For example, consider the program\n\n        module m1 ...\n        module m2 ...\n        module m3 ...\n        module m4 ...\n        module m5\n         interface [...]\n         body\n          depends-on m1, m3\n          [...]\n\nIn the body of m5, qualified variables would be in scope only if they came from m1 or\nm3. A reference to from m4 take x would be ill-typed, even if m4 exported a value\nfor x.",
+      "chinese_html": "<p>我们曾说模块系统应当记录模块之间的依赖关系。请给 SIMPLE-MODULES 增加这种能力：要求每个模块体和程序体都有一个 <code>depends-on</code> 子句。模块 <code>m</code> 中不再能看见此前的所有模块，只有在它的 <code>depends-on</code> 子句中列出的先前模块才在作用域内。例如，考虑程序：</p><pre><code class=\"language-text\">module m1 ...\nmodule m2 ...\nmodule m3 ...\nmodule m4 ...\nmodule m5\n interface [...]\n body\n  depends-on m1, m3\n  [...]</code></pre><p>在 <code>m5</code> 的模块体中，只有来自 <code>m1</code> 或 <code>m3</code> 的限定变量在作用域内。即使 <code>m4</code> 导出了值 <code>x</code>，引用 <code>from m4 take x</code> 也应判为类型不正确。</p>"
+    },
+    {
+      "number": "8.10",
+      "printed_page": 291,
+      "pdf_page": 314,
+      "pdf_end": 314,
+      "stars": 3,
+      "question_text": "We could also use a feature like depends-on to control when\nmodule bodies are evaluated. Add this capability to SIMPLE-MODULES by requir-\ning an imports clause to each module body and program body. imports is like\ndepends-on, but has the additional property that the body of a module is evaluated\nonly when it is imported by some other module (using an imports clause).\nThus if our language had print expressions, the program\n\n        module m1\n         interface [] body [x = print(1)]\n        module m2\n         interface [] body [x = print(2)]\n        module m3\n         interface []\n         body\n          import m2\n          [x = print(3)]\n        import m3, m1\n        33\n\nwould print 2, 3, and 1 before returning 33. Here the modules have empty interfaces,\nbecause we are only concerned with the order in which the bodies are evaluated.",
+      "chinese_html": "<p>也可以用类似 <code>depends-on</code> 的机制控制模块体何时求值。请给 SIMPLE-MODULES 增加这种能力：要求每个模块体和程序体有一个 <code>imports</code> 子句。它与 <code>depends-on</code> 类似，但还要求：只有当某个其他模块通过 <code>imports</code> 子句导入该模块时，模块体才求值。</p><p>因此，假如语言中有 <code>print</code> 表达式，下面的程序应先打印 2、3、1，再返回 33。这里各模块都使用空接口，因为我们只关心模块体的求值顺序。</p><pre><code class=\"language-text\">module m1\n interface [] body [x = print(1)]\nmodule m2\n interface [] body [x = print(2)]\nmodule m3\n interface []\n body\n  import m2\n  [x = print(3)]\nimport m3, m1\n33</code></pre>"
+    },
+    {
+      "number": "8.11",
+      "printed_page": 291,
+      "pdf_page": 314,
+      "pdf_end": 315,
+      "stars": 3,
+      "question_text": "Modify the checker to use INFERRED as the language of expres-\nsions. For this exercise you will need to modify <:-decls to use something other\nthan equal? to compare types. For example, in\n\n        module m\n         interface [f : (int -> int)]\n         body [f = proc (x : ?) x]\n\n\n            the actual type for f reported by the type inference engine will be something like\n            (tvar07 -> tvar07), and this should be accepted. On the other hand, we should\n            reject the module\n\n                   module m\n                    interface [f : (int -> bool)]\n                    body [f = proc (x : ?) x]\n\n            even though the type inference engine will report the same type (tvar07 ->\n            tvar07) for f.",
+      "chinese_html": "<p>修改检查器，使用 INFERRED 作为表达式语言。本题需要修改 <code>&lt;:-decls</code>，比较类型时不能再直接使用 <code>equal?</code>。例如，下面模块中的 <code>f</code>，类型推导引擎可能报告为 <code>(tvar07 -&gt; tvar07)</code>，但这个模块应当被接受：</p><pre><code class=\"language-text\">module m\n interface [f : (int -&gt; int)]\n body [f = proc (x : ?) x]</code></pre><p>另一方面，即使推导引擎同样报告 <code>(tvar07 -&gt; tvar07)</code>，下面的模块也应被拒绝：</p><pre><code class=\"language-text\">module m\n interface [f : (int -&gt; bool)]\n body [f = proc (x : ?) x]</code></pre>"
+    },
+    {
+      "number": "8.12",
+      "printed_page": 300,
+      "pdf_page": 323,
+      "pdf_end": 323,
+      "stars": 1,
+      "question_text": "In example 8.13, could the definition of and and not be moved from\n      inside the module to outside it? What about to-bool?",
+      "chinese_html": "<p>在例 8.13 中，能否把 <code>and</code> 和 <code>not</code> 的定义从模块内部移到模块外部？<code>to-bool</code> 的定义又如何？</p>"
+    },
+    {
+      "number": "8.13",
+      "printed_page": 300,
+      "pdf_page": 323,
+      "pdf_end": 323,
+      "stars": 1,
+      "question_text": "Write a module that implements arithmetic using a representation\n      in which the integer k is represented as 5 ∗ k + 3.",
+      "chinese_html": "<p>编写一个实现算术的模块，采用如下表示：整数 <math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mi>k</mi></math> 表示为 <math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mn>5</mn><mo>×</mo><mi>k</mi><mo>+</mo><mn>3</mn></mrow></math>。</p>"
+    },
+    {
+      "number": "8.14",
+      "printed_page": 301,
+      "pdf_page": 324,
+      "pdf_end": 324,
+      "stars": 1,
+      "question_text": "Consider the following alternate definition of mybool (exam-\nple 8.13):\n\n        module mybool\n         interface\n          [opaque t\n           true : t\n           false : t\n           and : (t -> (t -> t))\n           not : (t -> t)\n           to-bool : (t -> bool)]\n         body\n          [type t = int\n           true = 1\n           false = 0\n           and = proc (x : t)\n                  proc (y : t)\n                    if zero?(x) then false else y\n           not = proc (x : t)\n                  if zero?(x) then true else false\n           to-bool = proc (x : t)\n                       if zero?(x) then zero?(1) else zero?(0)]\nIs there any program of type int that returns one value using the original definition\nof mybool, but a different value using the new definition?",
+      "chinese_html": "<p>考虑下面对 <code>mybool</code> 的另一种定义（见例 8.13）：</p><pre><code class=\"language-text\">module mybool\n interface\n  [opaque t\n   true : t\n   false : t\n   and : (t -&gt; (t -&gt; t))\n   not : (t -&gt; t)\n   to-bool : (t -&gt; bool)]\n body\n  [type t = int\n   true = 1\n   false = 0\n   and = proc (x : t)\n          proc (y : t)\n            if zero?(x) then false else y\n   not = proc (x : t)\n          if zero?(x) then true else false\n   to-bool = proc (x : t)\n               if zero?(x) then zero?(1) else zero?(0)]</code></pre><p>是否存在一个类型为 <code>int</code> 的程序，使它在采用原来的 <code>mybool</code> 定义时返回一个值，而采用这个新定义时返回另一个值？</p>"
+    },
+    {
+      "number": "8.15",
+      "printed_page": 301,
+      "pdf_page": 324,
+      "pdf_end": 325,
+      "stars": 2,
+      "question_text": "Write a module that implements a simple abstraction of tables.\nYour tables should be like environments, except that instead of binding symbols to\nScheme values, they bind integers to integers. The interface provides a value that rep-\nresents an empty table and two procedures add-to-table and lookup-in-table\nthat are analogous to extend-env and apply-env. Since our language has only\none-argument procedures, we get the equivalent of multiargument procedures by\nusing Currying (exercise 3.20). You may model the empty table with a table that\nreturns 0 for any query. Here is an example using this module.\n\n        module tables\n         interface\n          [opaque table\n           empty : table\n           add-to-table : (int -> (int -> (table -> table)))\n           lookup-in-table : (int -> (table -> int))]\n         body\n          [type table = (int -> int)\n           ...]\n\n        let empty = from tables take empty\n        in let add-binding = from tables take add-to-table\n        in let lookup = from tables take lookup-in-table\n\n\n                     in let table1 = (((add-binding 3) 300)\n                                      (((add-binding 4) 400)\n                                       (((add-binding 3) 600)\n                                         empty)))\n                     in -(((lookup 4) table1),\n                          ((lookup 3) table1))\n\n              This program should have type int. The table table1 binds 4 to 400 and 3 to 300,\n              so the value of the program should be 100.",
+      "chinese_html": "<p>编写一个实现简单表抽象的模块。表应当类似于环境，不过它把整数关联到整数，而不是把符号关联到 Scheme 值。接口提供表示空表的值，以及两个过程 <code>add-to-table</code> 和 <code>lookup-in-table</code>，分别类似于 <code>extend-env</code> 和 <code>apply-env</code>。由于本语言只有单参数过程，要用 Currying（见习题 3.20）获得相当于多参数过程的能力。可以用一个对任何查询都返回 0 的表表示空表。下面给出使用该模块的例子：</p><pre><code class=\"language-text\">module tables\n interface\n  [opaque table\n   empty : table\n   add-to-table : (int -&gt; (int -&gt; (table -&gt; table)))\n   lookup-in-table : (int -&gt; (table -&gt; int))]\n body\n  [type table = (int -&gt; int)\n   ...]\n\nlet empty = from tables take empty\nin let add-binding = from tables take add-to-table\nin let lookup = from tables take lookup-in-table\nin let table1 = (((add-binding 3) 300)\n                 (((add-binding 4) 400)\n                  (((add-binding 3) 600)\n                    empty)))\nin -(((lookup 4) table1),\n     ((lookup 3) table1))</code></pre><p>该程序应当具有类型 <code>int</code>。表 <code>table1</code> 把 4 关联到 400，把 3 关联到 300，因此程序值应为 100。</p>"
+    },
+    {
+      "number": "8.16",
+      "printed_page": 310,
+      "pdf_page": 333,
+      "pdf_end": 333,
+      "stars": 1,
+      "question_text": "Extend the system of this section to use the language of exercise 7.24,\n      and then rewrite exercise 8.15 to use multiple arguments instead of procedure-\n      returning procedures.",
+      "chinese_html": "<p>扩展本节系统，使它使用习题 7.24 中的语言；然后重写习题 8.15，以多参数过程代替返回过程的过程。</p>"
+    },
+    {
+      "number": "8.17",
+      "printed_page": 310,
+      "pdf_page": 333,
+      "pdf_end": 333,
+      "stars": 2,
+      "question_text": "As you did in exercise 8.8, remove the restriction that a module\n      must produce the values in the same order as the interface. Remember, however, that\n      the definition must respect scoping rules, especially for types.",
+      "chinese_html": "<p>像习题 8.8 一样，去掉模块体必须按照接口顺序产生值的限制。但要记住，定义仍须遵守作用域规则，尤其是类型的作用域规则。</p>"
+    },
+    {
+      "number": "8.18",
+      "printed_page": 310,
+      "pdf_page": 333,
+      "pdf_end": 333,
+      "stars": 2,
+      "question_text": "Our code depends on the invariant that every type in a type envi-\n      ronment is already expanded. We enforce this invariant by calling expand-type in\n      many places in the code. On the other hand, it would be easy to break the system\n      by forgetting to call expand-type. Refactor the code so that there are fewer calls to\n      expand-type, and the invariant is maintained more robustly.",
+      "chinese_html": "<p>当前代码依赖一个不变量：类型环境中的每个类型都已经展开。我们在代码的许多位置调用 <code>expand-type</code> 来维护它，但只要漏掉一个调用，就容易破坏整个系统。请重构代码，减少 <code>expand-type</code> 的调用位置，并更可靠地维护这个不变量。</p>"
+    },
+    {
+      "number": "8.19",
+      "printed_page": 316,
+      "pdf_page": 339,
+      "pdf_end": 339,
+      "stars": 1,
+      "question_text": "The code for creating two1 and two2 in example 8.16 is repetitive\n      and therefore ready for abstraction. Complete the definition of a module\n\n             module from-int-maker\n              interface\n               ((ints : [opaque t\n                         zero : t\n                         succ : (t -> t)\n                         pred : (t -> t)\n                         is-zero : (t -> bool)])\n                 => [from-int : (int -> from ints take t)])\n              body\n               ...\n\n      that converts an integer expressed value to its representation in the module ints.\n      Use your module to reproduce the computation of example 8.16. Use an argument\n      bigger than two.",
+      "chinese_html": "<p>例 8.16 中创建 <code>two1</code> 和 <code>two2</code> 的代码存在重复，因而适合抽象。补全下面模块的定义，把一个整数表达值转换成模块 <code>ints</code> 中该整数的表示。用你的模块重现例 8.16 的计算，实参应大于 2。</p><pre><code class=\"language-text\">module from-int-maker\n interface\n  ((ints : [opaque t\n            zero : t\n            succ : (t -&gt; t)\n            pred : (t -&gt; t)\n            is-zero : (t -&gt; bool)])\n   =&gt; [from-int : (int -&gt; from ints take t)])\n body\n  ...</code></pre>"
+    },
+    {
+      "number": "8.20",
+      "printed_page": 316,
+      "pdf_page": 339,
+      "pdf_end": 340,
+      "stars": 1,
+      "question_text": "Complete the definition of the module\n\n             module sum-prod-maker\n              interface\n               ((ints : [opaque t\n                         zero : t\n                         succ : (t -> t)\n                         pred : (t -> t)\n                         is-zero : (t -> bool)])\n                => [plus : (from ints take t\n                            -> (from ints take t\n                                -> from ints take t))\n                    times : (from ints take t\n                             -> (from ints take t\n                                  -> from ints take t))])\n              body\n               [plus = ...\n                times = ...]\n\n\nto define a module procedure that takes an implementation of arithmetic and pro-\nduces sum and product procedures for that implementation. Use the definition of\nplus from page 33, and something similar for times.",
+      "chinese_html": "<p>补全下面模块的定义，构造一个模块过程：它接收一个算术实现，为该实现产生求和与求积过程。<code>plus</code> 使用印刷 p.33 的定义，<code>times</code> 使用类似方法。</p><pre><code class=\"language-text\">module sum-prod-maker\n interface\n  ((ints : [opaque t\n            zero : t\n            succ : (t -&gt; t)\n            pred : (t -&gt; t)\n            is-zero : (t -&gt; bool)])\n   =&gt; [plus : (from ints take t\n               -&gt; (from ints take t\n                   -&gt; from ints take t))\n       times : (from ints take t\n                -&gt; (from ints take t\n                    -&gt; from ints take t))])\n body\n  [plus = ...\n   times = ...]</code></pre>"
+    },
+    {
+      "number": "8.21",
+      "printed_page": 317,
+      "pdf_page": 340,
+      "pdf_end": 340,
+      "stars": 1,
+      "question_text": "Write a module procedure that takes an implementation of arith-\nmetic ints and produces another implementation of arithmetic in which the number\nk is represented by the representation of 2 ∗ k in ints.",
+      "chinese_html": "<p>编写一个模块过程，接收算术实现 <code>ints</code>，并产生另一个算术实现，使新实现中的数 <math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mi>k</mi></math> 由 <code>ints</code> 中 <math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mn>2</mn><mo>×</mo><mi>k</mi></mrow></math> 的表示来表示。</p>"
+    },
+    {
+      "number": "8.22",
+      "printed_page": 317,
+      "pdf_page": 340,
+      "pdf_end": 340,
+      "stars": 1,
+      "question_text": "Complete the definition of the module\n\n        module equality-maker\n         interface\n          ((ints : [opaque t\n                    zero : t\n                    succ : (t -> t)\n                    pred : (t -> t)\n                    is-zero : (t -> bool)])\n           => [equal : (from ints take t\n                        -> (from ints take t\n                            -> bool))])\n         body\n          ...\n\nto define a module procedure that takes an implementation of arithmetic and pro-\nduces an equality procedure for that implementation.",
+      "chinese_html": "<p>补全下面模块的定义，构造一个模块过程：它接收一个算术实现，并为该实现产生相等性判断过程。</p><pre><code class=\"language-text\">module equality-maker\n interface\n  ((ints : [opaque t\n            zero : t\n            succ : (t -&gt; t)\n            pred : (t -&gt; t)\n            is-zero : (t -&gt; bool)])\n   =&gt; [equal : (from ints take t\n                -&gt; (from ints take t\n                    -&gt; bool))])\n body\n  ...</code></pre>"
+    },
+    {
+      "number": "8.23",
+      "printed_page": 317,
+      "pdf_page": 340,
+      "pdf_end": 340,
+      "stars": 1,
+      "question_text": "Write a module table-of that is similar to the tables module of\nexercise 8.15, except that it is parameterized over its contents, so one could write\n\n        module mybool-tables\n         interface\n          [opaque table\n           empty : table\n           add-to-table : (int ->\n                           (from mybool take t ->\n                            (table -> table)))\n           lookup-in-table : (int ->\n                              (table ->\n                               from mybool take t))]\n         body\n          (table-of mybool)\n\nto define a table containing values of type from mybool take t.",
+      "chinese_html": "<p>编写一个模块 <code>table-of</code>，类似于习题 8.15 的 <code>tables</code> 模块，但以表中内容的类型为参数。例如，应当能够写出下面的模块，定义一个保存 <code>from mybool take t</code> 类型值的表：</p><pre><code class=\"language-text\">module mybool-tables\n interface\n  [opaque table\n   empty : table\n   add-to-table : (int -&gt;\n                   (from mybool take t -&gt;\n                    (table -&gt; table)))\n   lookup-in-table : (int -&gt;\n                      (table -&gt;\n                       from mybool take t))]\n body\n  (table-of mybool)</code></pre>"
+    },
+    {
+      "number": "8.24",
+      "printed_page": 323,
+      "pdf_page": 346,
+      "pdf_end": 346,
+      "stars": 1,
+      "question_text": "Application of modules is currently allowed only for identifiers.\nWhat goes wrong with the type rule for application if we try to check an application\nlike (m1 (m2 m3))?",
+      "chinese_html": "<p>目前，模块应用只允许用于标识符。如果尝试检查 <code>(m1 (m2 m3))</code> 这样的应用，现有的应用类型规则会出什么问题？</p>"
+    },
+    {
+      "number": "8.25",
+      "printed_page": 323,
+      "pdf_page": 346,
+      "pdf_end": 346,
+      "stars": 1,
+      "question_text": "Extend PROC-MODULES so that a module can take multiple argu-\nments, analogously to exercise 3.21.",
+      "chinese_html": "<p>扩展 PROC-MODULES，仿照习题 3.21，让一个模块过程可以接收多个实参。</p>"
+    },
+    {
+      "number": "8.26",
+      "printed_page": 324,
+      "pdf_page": 347,
+      "pdf_end": 347,
+      "stars": 2,
+      "question_text": "Extend the language of module bodies to replace the production\n      for module application by\n\n                   ModuleBody ::= (ModuleBody ModuleBody)\n                                  app-module-body (rator rand)",
+      "chinese_html": "<p>扩展模块体语言，用下面的产生式替换模块应用原有的产生式：</p><pre><code class=\"language-text\">ModuleBody ::= (ModuleBody ModuleBody)\n               app-module-body (rator rand)</code></pre>"
+    },
+    {
+      "number": "8.27",
+      "printed_page": 324,
+      "pdf_page": 347,
+      "pdf_end": 347,
+      "stars": 3,
+      "question_text": "In PROC-MODULES, we wind up having to write interfaces like\n\n             [opaque t\n              zero : t\n              succ : (t -> t)\n              pred : (t -> t)\n              is-zero : (t -> bool)]\n\n      over and over again. Add to the grammar for programs a facility for named inter-\n      faces, so we could write\n\n             interface int-interface = [opaque t\n                                        zero : t\n                                        succ : (t -> t)\n                                        pred : (t -> t)\n                                        is-zero : (t -> bool)]\n             module make-to-int\n              interface\n               ((ints : int-interface)\n                => [to-int : from ints take t -> int])\n              body\n               ...",
+      "chinese_html": "<p>在 PROC-MODULES 中，我们不得不反复书写如下接口：</p><pre><code class=\"language-text\">[opaque t\n          zero : t\n          succ : (t -&gt; t)\n          pred : (t -&gt; t)\n          is-zero : (t -&gt; bool)]</code></pre><p>请在程序的文法中增加命名接口机制，使我们能够写出：</p><pre><code class=\"language-text\">interface int-interface = [opaque t\n                           zero : t\n                           succ : (t -&gt; t)\n                           pred : (t -&gt; t)\n                           is-zero : (t -&gt; bool)]\nmodule make-to-int\n interface\n  ((ints : int-interface)\n   =&gt; [to-int : from ints take t -&gt; int])\n body\n  ...</code></pre>"
+    }
+  ]
+}

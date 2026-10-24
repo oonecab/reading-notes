@@ -704,6 +704,34 @@
           "kind": "chapter",
           "label": "第 6 章 · CPS 转换与计算效果",
           "number": 6
+        },
+        {
+          "file": "chapter07_types.html",
+          "kind": "chapter",
+          "label": "第 7 章 · 类型检查与类型推导",
+          "number": 7
+        },
+        {
+          "file": "chapter08_modules.html",
+          "kind": "chapter",
+          "label": "第 8 章 · 模块、接口与抽象类型",
+          "number": 8
+        },
+        {
+          "file": "chapter09_objects.html",
+          "kind": "chapter",
+          "label": "第 9 章 · 对象、类、继承与方法调用",
+          "number": 9
+        },
+        {
+          "file": "appendix_a_reading.html",
+          "kind": "appendix",
+          "label": "附录 A · 延伸阅读与全书回望"
+        },
+        {
+          "file": "appendix_b_sllgen.html",
+          "kind": "appendix",
+          "label": "附录 B · SLLGEN 解析系统"
         }
       ],
       "exceptions": [
@@ -716,6 +744,16 @@
           "scope": "仅免除此节唯一习题的额外题号索引；其余题号索引覆盖要求保持。",
           "review_by": "下一次 §1.3 内容修订；新增第二题前必须恢复题号索引并移除此例外。",
           "issue": "I055"
+        },
+        {
+          "page": "chapter07_types.html",
+          "rule": "exercise-index-single-question-section",
+          "section": "s7-2",
+          "exercise": "ex-7-4",
+          "reason": "§7.2仅有习题7.4，题目摘要直接可见，目录直达本节；其余多题小节保留折叠题号索引。",
+          "scope": "仅免除此节唯一习题的额外题号索引。",
+          "review_by": "新增本节第二题前恢复索引并移除此例外。",
+          "issue": "I062"
         }
       ],
       "overview_maps": [
@@ -765,25 +803,25 @@
               "target_title": "第 6 章 · CPS 转换与计算效果"
             },
             {
-              "kind": "chapter-summary",
+              "kind": "chapter",
               "number": 7,
-              "href": "#chapter-7",
-              "label": "第 7 章：类型 · 章意",
-              "target_title": "7 · 类型"
+              "href": "chapter07_types.html",
+              "label": "第 7 章：类型",
+              "target_title": "第 7 章 · 类型检查与类型推导"
             },
             {
-              "kind": "chapter-summary",
+              "kind": "chapter",
               "number": 8,
-              "href": "#chapter-8",
-              "label": "第 8 章：模块 · 章意",
-              "target_title": "8 · 模块"
+              "href": "chapter08_modules.html",
+              "label": "第 8 章：模块",
+              "target_title": "第 8 章 · 模块、接口与抽象类型"
             },
             {
-              "kind": "chapter-summary",
+              "kind": "chapter",
               "number": 9,
-              "href": "#chapter-9",
-              "label": "第 9 章：对象 · 章意",
-              "target_title": "9 · 对象与类"
+              "href": "chapter09_objects.html",
+              "label": "第 9 章：对象",
+              "target_title": "第 9 章 · 对象、类、继承与方法调用"
             }
           ]
         }

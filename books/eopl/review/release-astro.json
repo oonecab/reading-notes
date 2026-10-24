@@ -9,7 +9,12 @@
     "eopl/notes/chapter03_expressions.html": "d2a408b6f950dc85291ddb3b3c7017877cfbed3f351b05b984f1320597633904",
     "eopl/notes/chapter04_state.html": "7d3e055c14d2658266453fbca4dc0e8fd440c537ef9a33309c9e1cca104c8e38",
     "eopl/notes/chapter05_continuations.html": "a17d49cc446f5f478a82dd2aa5b16fe429eb11560eee7c9a9817f6eba5e365bc",
-    "eopl/notes/chapter06_cps.html": "3adf80e690f4999b92caeceeb11011f60b7602ef6f5eb31d88b1d5c1f8ef0d53"
+    "eopl/notes/chapter06_cps.html": "3adf80e690f4999b92caeceeb11011f60b7602ef6f5eb31d88b1d5c1f8ef0d53",
+    "eopl/notes/chapter07_types.html": "0e864a21bc8c295b231beb85cb915f21069325d7b376c8e262e59549aa9ec23a",
+    "eopl/notes/chapter08_modules.html": "03b2960e01756902781141352166cbe1ead1837d7ea4516cb914b86174abffee",
+    "eopl/notes/chapter09_objects.html": "b4b1c30c0d7e3ddf788960541cef694ff20b8111a84cf6feb88747cba95d77c5",
+    "eopl/notes/appendix_a_reading.html": "26f45a16ebb93a71d7dc5f4935afb80cfd8ffd693e95d761020d35bb0df7ca96",
+    "eopl/notes/appendix_b_sllgen.html": "94423345cc3c4f561072f10dbc70ab58cfe0503346e46622b9ba3d38e61b953b"
   },
   "extensions": [
     {
@@ -27,6 +32,30 @@
     {
       "issue": "I060",
       "scope": "Chapters5/6 retained source snapshots; local content only."
+    },
+    {
+      "issue": "I062",
+      "scope": "Chapter7 retained source and reviewed transformed output; local authoring."
     }
-  ]
+  ],
+  "I063_source_extension": {
+    "baseline_git": "cc6e6b5613de626d8094a04436504c7826e18761",
+    "source_sha256": "0bedb82f790b9f9caab28e35b0fdfc0946535d80fbb543b25885b98c02f2909e",
+    "output": "First current transformed output bound to local build20261024T170713; production not performed."
+  },
+  "I064_source_extension": {
+    "baseline_git": "40f521a265da2db461b9e85988c1f40b513313ea",
+    "source_sha256": "23d51dd9b05fd174c890e86ed8647bc17b12fb31cf6456092dcc2f0c7b645485",
+    "output": "b4b1c30c0d7e3ddf788960541cef694ff20b8111a84cf6feb88747cba95d77c5",
+    "release_id": "20261025T000749"
+  },
+  "I065_source_extension": {
+    "baseline_git": "abbacdb7a2be164d6c0743b627bf4448be59de51",
+    "pages": [
+      "appendix_a_reading.html",
+      "appendix_b_sllgen.html"
+    ],
+    "output": "Initial transformed outputs bound after source/readback review; current output identity in review/completion.json.",
+    "first_build": "20261025T093000"
+  }
 }

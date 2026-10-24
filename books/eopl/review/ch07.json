@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "issue": "I062",
+  "status": "passed",
+  "content_review": "passed",
+  "integration_review": "passed",
+  "source_pdf_sha256": "b9e8770a4dc97206bd02230e6b21a878382eb02a340ff69321857d701e7d967c",
+  "source_sha256": {
+    "eopl/notes/book_overview.html": "ccde2b0b27f24b42f3e788b8765c677ab73471a9530991889b34a812f50e5b60",
+    "eopl/notes/chapter06_cps.html": "2e64db24ec6883feb5285b8db1d7910edcc2a02bfa307dead9ed17beb8d7d501",
+    "eopl/notes/chapter07_types.html": "888c7a1afe7dc8760b027dfd0748fe2380bda45d2834dc6637fb4d67d18babf5"
+  },
+  "output_sha256": {
+    "eopl/notes/book_overview.html": "b7cea11ea4cee8ceaa2e06df35f9453e21aec82a08bcb0f9814ccbbb04a03761",
+    "eopl/notes/chapter06_cps.html": "db3eb1ad06fee04e43e4ba92e07f6c0f0d6bbc4483613687320237ac8ef7c91c",
+    "eopl/notes/chapter07_types.html": "0124e94df8a6aed63ef4c3550fa5c43b3fd48b770757f87e33b42833881ec877"
+  },
+  "source_baseline": {
+    "git": "dcfbdc97dd876b61d45c9f9ee0c8c884ed04afe8",
+    "sha256": "0e864a21bc8c295b231beb85cb915f21069325d7b376c8e262e59549aa9ec23a"
+  },
+  "scope": "Chapter7 authoring and map/chapter6 navigation; current production remains described by I061.",
+  "recorded_at_utc": "2026-10-24T03:37:21.502511+00:00",
+  "source_readback": {
+    "record": "tmp/eopl-ch07-20261024T085335/source-readback.json",
+    "full_text_pages": 42,
+    "visually_read_pages": 22,
+    "exercises": 30,
+    "sha256": "afd0d8a900a3b7053be978ea25a29e0fb7de5a75e9baef49ddb685755917621f"
+  },
+  "build": {
+    "status": "passed",
+    "release_id": "20261024T112151",
+    "reading_pages": 65,
+    "html_pages": 87,
+    "files": 565,
+    "source_tree_dirty": true,
+    "deployment": "not_performed",
+    "report": "tmp/eopl-ch07-20261024T085335/build-accepted.log"
+  },
+  "program_verification": {
+    "status": "passed",
+    "groups": 7,
+    "assertions": 6864,
+    "failures": 0,
+    "semantic_mutants_rejected": 11,
+    "checker_mutation_cases": 30,
+    "bounded_type_shapes": 20,
+    "bounded_ground_assignments_per_variable": 6,
+    "universal_safety_or_termination_proof_from_tests": false,
+    "source_input_cases": 44,
+    "source_input_execution": "tmp/eopl-ch07-20261024T085335/source-input-execution-final/report.json"
+  },
+  "node_tests": {
+    "status": "passed",
+    "count": 118,
+    "failures": 0,
+    "record": "tmp/eopl-ch07-20261024T085335/node-tests-final.log"
+  },
+  "preservation": {
+    "record": "tmp/eopl-ch07-20261024T085335/preservation.json",
+    "sha256": "baf8601433c4d29a402a1dc30bc1cf457f0d0888dac251b2cf8b95e8d009b3cc"
+  },
+  "reader_review": "passed",
+  "reader_verification": {
+    "status": "passed",
+    "offline_record": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-24T03-27-29-793Z-cd9035a6/report.json",
+    "pages": 11,
+    "js_views": 44,
+    "no_js_views": 22,
+    "reused_hash_identical_views": 54,
+    "external_requests": 0,
+    "current_manual": "tmp/eopl-ch07-20261024T085335/accepted-reader/manual.json",
+    "current_visual": "tmp/eopl-ch07-20261024T085335/accepted-reader/visual.json",
+    "current_native_downloads": 5,
+    "table_type_height": 23.0859375,
+    "previous_manual_pdf": "tmp/eopl-ch07-20261024T085335/manual-reader/pdf-loaded.json",
+    "physical_mobile_device": false,
+    "screen_reader_session": false
+  },
+  "evidence_sha256": {
+    "tmp/reading-notes-migration/browser/eopl/runs/2026-10-24T01-51-13-434Z-2b27a3d8/report.json": "ccb2100d028b0bd2892d73f635441c46de89fb658e728095c4dbc973072885f4",
+    "tmp/eopl-ch07-20261024T085335/source-readback.json": "afd0d8a900a3b7053be978ea25a29e0fb7de5a75e9baef49ddb685755917621f",
+    "tmp/eopl-ch07-20261024T085335/preservation.json": "baf8601433c4d29a402a1dc30bc1cf457f0d0888dac251b2cf8b95e8d009b3cc",
+    "tmp/eopl-ch07-20261024T085335/tests-final.log": "aa4e6a936b7a2031fc1b3787f12444e5328d7656ddfb8a76c9c3f5d548aafe3c",
+    "tmp/eopl-ch07-20261024T085335/source-input-execution-final/report.json": "090c0240f6c5c39adccc95d6194472b1517e1f90a3351fa1e389ff8caf4149bc",
+    "tmp/eopl-ch07-20261024T085335/checker-mutations/report.json": "7f2981714874c6d9d0b67c1a743ff95483d6f2e8162f73e169f7bb92a3952e78",
+    "tmp/eopl-ch07-mutations/report.json": "e91fadb145551cd0f44fb55682feb3e554b799e9d0d254da1a514de179b85b75",
+    "tmp/eopl-ch07-20261024T085335/node-tests-final.log": "6d64b2cf0309ca0d2431c81621fb3e0a398f834044a209400e704bc136823f6c",
+    "tmp/eopl-ch07-20261024T085335/parity-final.log": "d2d8133baaafea78358fdb3924606b185ee1ca4e45482d1ee2bb22cc12232dc4",
+    "tmp/eopl-ch07-20261024T085335/performance-final.log": "5c17740ec3295e5fb2a1440921c49957be807347e3a3c8c7bb8d2106daa14a98",
+    "tmp/eopl-ch07-20261024T085335/failure-history.json": "906ad320c95acdc185b3f429a3665d0c398aef89689a2c387e6333b6c80d0eba",
+    "tmp/eopl-ch07-20261024T085335/verify-release.log": "b5e5e90cddac7f0586db3e7b6a286fcf5df86e4e7754b2f13858096d0e38326d",
+    "tmp/eopl-ch07-20261024T085335/visual-readback.json": "f26d9df35016ae300ff3c99bd6a1ee61f3de2c91910e0e1e3af0b937efa46a79",
+    "tmp/eopl-ch07-20261024T085335/manual-reader/desktop.json": "9f76f95ca58f2d73a091588eb8fd3c5ab1229ee959c70be7918a7a4c1df6bd2a",
+    "tmp/eopl-ch07-20261024T085335/manual-reader/mobile.json": "ae32345bd56442f26778eb762b8950e2b18b72e80ef88c24602292dd1d2ee943",
+    "tmp/eopl-ch07-20261024T085335/manual-reader/pdf-loaded.json": "8f9859b3f77a993addbde5703d29759fc297f362d73f915aa45fe944183fc7a2",
+    "tmp/eopl-ch07-20261024T085335/manual-reader/finish.log": "155da4b8eb681139efd8cd4aa55d8d579e3244f84cbaeb3843bee57fa8c77c40",
+    "tmp/reading-notes-migration/browser/eopl/runs/2026-10-24T03-27-29-793Z-cd9035a6/report.json": "d01bb3cf059e3195bc8e329eb50ed49fdbcb394760412f6d008f9582ac64e3bd",
+    "tmp/eopl-ch07-20261024T085335/accepted-reader/manual.json": "f563d83c0f65e9ce6bc24dc5fae435009b5c7cda62fcae349d58b996b07716bc",
+    "tmp/eopl-ch07-20261024T085335/accepted-reader/visual.json": "ac85fcee3a6c88ed12dcd4a4224710b6e76f592eb021bf7d4504dd86ef45841d",
+    "tmp/eopl-ch07-20261024T085335/build-accepted.log": "2ef3156d0238396818a46a6160d9e9d7c5502a600e8d7e2ccce389d2aba27f7d",
+    "tmp/eopl-ch07-20261024T085335/offline-accepted.log": "bd6d45f8858ebf46e9de3eb789d6790d0092044d8a36292256510e4c9c2ae95c",
+    "tmp/eopl-ch07-20261024T085335/parity-accepted.log": "d2d8133baaafea78358fdb3924606b185ee1ca4e45482d1ee2bb22cc12232dc4",
+    "tmp/eopl-ch07-20261024T085335/verify-release-accepted.log": "0c679bb203c447a0d5bab916809e6b3284c60fc8a25fd68c21300122cd7a0d85",
+    "tmp/release-check/20261024T112151-59kbyb6p/https-verification.json": "b6923b6e7f35bd0ed0f5cce8e9edc0766008353d971bf778af4453e0a1d9953d",
+    "tmp/project-check/20261024T112946-4o0fz35w/report.json": "9227ef6b14c85d7de510044c47a9a876ffb8aeb96047532aed56ce3f1a5081aa",
+    "tmp/project-check/20261024T112946-hp2vvuhn/report.json": "5b84af49d448679d3fc2975130643249d01146bdb1bab57e9ba1f0efc121cb81",
+    "tmp/eopl-ch07-20261024T085335/mathml-correction.json": "2967543627387942475cbcadfe765a3642e27c1b3d03a6510b542b5c790192ac",
+    "tmp/eopl-ch07-20261024T085335/root-book-accepted.log": "5f9c4dc3671d2f0254908dfe8f7353524929f3b2b61021cde021281e78321838",
+    "tmp/eopl-ch07-20261024T085335/root-all-accepted.log": "de7c7cd010d495234f8f9ef8a30a8cc77b357c486295610f98bcda34ef0b2fd1",
+    "tmp/eopl-ch07-20261024T085335/accepted-reader/finish.log": "8c771bee249d879215c3d1587679535a4db941d4d000b0f32a515be611145b8b",
+    "tmp/eopl-ch07-20261024T085335/cleanup-accepted.json": "04ff2c6df88fefee926086e950516794b16469a02184ddb29b3c05ad7b4a39ee",
+    "tmp/eopl-ch07-20261024T085335/final-bindings.log": "b2b601bb599cbeb5b950ffc28af40ebb4f06152ddc3a456d7ed21e283dc68105"
+  },
+  "final_mathml_refinement": {
+    "status": "passed",
+    "source_checks": "Native MathML source and current desktop/mobile readback passed.",
+    "browser_space": 20,
+    "authorization": "User explicitly authorized this final verification space.",
+    "scope": "Native subscripts and one-line type cells with local table scrolling."
+  },
+  "current_local_https": "tmp/release-check/20261024T112151-59kbyb6p/https-verification.json",
+  "root_integration": {
+    "full": {
+      "status": "passed",
+      "record": "tmp/project-check/20261024T112946-4o0fz35w/report.json",
+      "sha256": "9227ef6b14c85d7de510044c47a9a876ffb8aeb96047532aed56ce3f1a5081aa",
+      "checks": 14,
+      "book": "eopl",
+      "quick": false
+    },
+    "quick": {
+      "status": "passed",
+      "record": "tmp/project-check/20261024T112946-hp2vvuhn/report.json",
+      "sha256": "5b84af49d448679d3fc2975130643249d01146bdb1bab57e9ba1f0efc121cb81",
+      "checks": 22,
+      "book": "all",
+      "quick": true
+    }
+  },
+  "cleanup": {
+    "status": "stopped",
+    "previews": [
+      {
+        "pid": 37344,
+        "release_id": "20261024T110343",
+        "port": 60108,
+        "action": "SIGINT sent to verified task-owned preview"
+      },
+      {
+        "pid": 40054,
+        "release_id": "20261024T111647",
+        "port": 60109,
+        "action": "SIGINT sent to verified task-owned preview"
+      },
+      {
+        "pid": 42678,
+        "release_id": "20261024T112151",
+        "port": 60110,
+        "action": "SIGINT sent to verified task-owned preview"
+      }
+    ],
+    "browser_space": 20,
+    "browser_finish": "tmp/eopl-ch07-20261024T085335/accepted-reader/finish.log",
+    "recorded_at_utc": "2026-10-24T03:38:03.727704+00:00"
+  }
+}

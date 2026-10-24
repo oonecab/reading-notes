@@ -6201,6 +6201,500 @@
         "ex-6-40"
       ],
       "chinese_translation_required": true
+    },
+    {
+      "page": "eopl/notes/chapter07_types.html",
+      "source": "src/content/books/eopl/chapter07_types.html",
+      "sections": [
+        {
+          "id": "s7-1",
+          "title": "7.1 值与类型：安全契约的范围",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "说明类型契约、环境、检查或约束求解；注解补充静态/语义边界、状态传递和多态安全条件。"
+        },
+        {
+          "id": "s7-2",
+          "title": "7.2 给表达式赋类型：规则与类型环境",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "说明类型契约、环境、检查或约束求解；注解补充静态/语义边界、状态传递和多态安全条件。"
+        },
+        {
+          "id": "s7-3",
+          "title": "7.3 CHECKED：按标注检查程序",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "说明类型契约、环境、检查或约束求解；注解补充静态/语义边界、状态传递和多态安全条件。"
+        },
+        {
+          "id": "s7-3-1",
+          "title": "7.3.1 检查器：从规则到递归程序",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "说明类型契约、环境、检查或约束求解；注解补充静态/语义边界、状态传递和多态安全条件。",
+          "parent": "s7-3"
+        },
+        {
+          "id": "s7-4",
+          "title": "7.4 INFERRED：把未知类型变成约束",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "说明类型契约、环境、检查或约束求解；注解补充静态/语义边界、状态传递和多态安全条件。"
+        },
+        {
+          "id": "s7-4-1",
+          "title": "7.4.1 替换：保存已经得到的信息",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "说明类型契约、环境、检查或约束求解；注解补充静态/语义边界、状态传递和多态安全条件。",
+          "parent": "s7-4"
+        },
+        {
+          "id": "s7-4-2",
+          "title": "7.4.2 合一：求解有限类型树",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "说明类型契约、环境、检查或约束求解；注解补充静态/语义边界、状态传递和多态安全条件。",
+          "parent": "s7-4"
+        },
+        {
+          "id": "s7-4-3",
+          "title": "7.4.3 推导表达式类型：传递替换与多态",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "说明类型契约、环境、检查或约束求解；注解补充静态/语义边界、状态传递和多态安全条件。",
+          "parent": "s7-4"
+        },
+        {
+          "id": "programs",
+          "title": "运行本章程序",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "运行入口、输出和完整维护源阅读副本。"
+        }
+      ],
+      "questions": [
+        "ex-7-1",
+        "ex-7-2",
+        "ex-7-3",
+        "ex-7-4",
+        "ex-7-5",
+        "ex-7-6",
+        "ex-7-7",
+        "ex-7-8",
+        "ex-7-9",
+        "ex-7-10",
+        "ex-7-11",
+        "ex-7-12",
+        "ex-7-13",
+        "ex-7-14",
+        "ex-7-15",
+        "ex-7-16",
+        "ex-7-17",
+        "ex-7-18",
+        "ex-7-19",
+        "ex-7-20",
+        "ex-7-21",
+        "ex-7-22",
+        "ex-7-23",
+        "ex-7-24",
+        "ex-7-25",
+        "ex-7-26",
+        "ex-7-27",
+        "ex-7-28",
+        "ex-7-29",
+        "ex-7-30"
+      ],
+      "chinese_translation_required": true,
+      "section_scope": "all-descendants"
+    },
+    {
+      "page": "eopl/notes/chapter08_modules.html",
+      "source": "src/content/books/eopl/chapter08_modules.html",
+      "sections": [
+        {
+          "id": "s8-1",
+          "title": "8.1 简单模块系统：先固定公开边界",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "原书模块、接口、抽象类型及参数化模块的教学节；注解分别解释公开边界、类型身份、词法环境和依赖结果。"
+        },
+        {
+          "id": "s8-1-1",
+          "title": "8.1.1 例子：名字、顺序与可见性",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "原书模块、接口、抽象类型及参数化模块的教学节；注解分别解释公开边界、类型身份、词法环境和依赖结果。",
+          "parent": "s8-1"
+        },
+        {
+          "id": "s8-1-2",
+          "title": "8.1.2 实现：模块环境与接口满足",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "原书模块、接口、抽象类型及参数化模块的教学节；注解分别解释公开边界、类型身份、词法环境和依赖结果。",
+          "parent": "s8-1"
+        },
+        {
+          "id": "s8-2",
+          "title": "8.2 声明类型的模块：把表示藏在边界内",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "原书模块、接口、抽象类型及参数化模块的教学节；注解分别解释公开边界、类型身份、词法环境和依赖结果。"
+        },
+        {
+          "id": "s8-2-1",
+          "title": "8.2.1 例子：透明类型与抽象类型",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "原书模块、接口、抽象类型及参数化模块的教学节；注解分别解释公开边界、类型身份、词法环境和依赖结果。",
+          "parent": "s8-2"
+        },
+        {
+          "id": "s8-2-2",
+          "title": "8.2.2 实现：展开类型与封装接口",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "原书模块、接口、抽象类型及参数化模块的教学节；注解分别解释公开边界、类型身份、词法环境和依赖结果。",
+          "parent": "s8-2"
+        },
+        {
+          "id": "s8-3",
+          "title": "8.3 模块过程：让依赖成为参数",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "原书模块、接口、抽象类型及参数化模块的教学节；注解分别解释公开边界、类型身份、词法环境和依赖结果。"
+        },
+        {
+          "id": "s8-3-1",
+          "title": "8.3.1 例子：同一算法、不同表示",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "原书模块、接口、抽象类型及参数化模块的教学节；注解分别解释公开边界、类型身份、词法环境和依赖结果。",
+          "parent": "s8-3"
+        },
+        {
+          "id": "s8-3-2",
+          "title": "8.3.2 实现：依赖结果与接口逆变",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "原书模块、接口、抽象类型及参数化模块的教学节；注解分别解释公开边界、类型身份、词法环境和依赖结果。",
+          "parent": "s8-3"
+        },
+        {
+          "id": "programs",
+          "title": "运行本章程序",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "运行方式、模式、错误及完整源码副本。"
+        }
+      ],
+      "questions": [
+        "ex-8-1",
+        "ex-8-2",
+        "ex-8-3",
+        "ex-8-4",
+        "ex-8-5",
+        "ex-8-6",
+        "ex-8-7",
+        "ex-8-8",
+        "ex-8-9",
+        "ex-8-10",
+        "ex-8-11",
+        "ex-8-12",
+        "ex-8-13",
+        "ex-8-14",
+        "ex-8-15",
+        "ex-8-16",
+        "ex-8-17",
+        "ex-8-18",
+        "ex-8-19",
+        "ex-8-20",
+        "ex-8-21",
+        "ex-8-22",
+        "ex-8-23",
+        "ex-8-24",
+        "ex-8-25",
+        "ex-8-26",
+        "ex-8-27"
+      ],
+      "chinese_translation_required": true,
+      "section_scope": "all-descendants"
+    },
+    {
+      "page": "eopl/notes/chapter09_objects.html",
+      "source": "src/content/books/eopl/chapter09_objects.html",
+      "sections": [
+        {
+          "id": "s9-1",
+          "title": "9.1 面向对象编程：把状态与操作放在一起",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "原书对象、字段、继承、方法分派及类型检查教学节；注解分别说明位置身份、词法宿主、动态接收者和适用条件。"
+        },
+        {
+          "id": "s9-2",
+          "title": "9.2 继承：字段遮蔽、方法覆盖与分派",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "原书对象、字段、继承、方法分派及类型检查教学节；注解分别说明位置身份、词法宿主、动态接收者和适用条件。"
+        },
+        {
+          "id": "s9-3",
+          "title": "9.3 语言：对象仍建立在隐式引用之上",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "原书对象、字段、继承、方法分派及类型检查教学节；注解分别说明位置身份、词法宿主、动态接收者和适用条件。"
+        },
+        {
+          "id": "s9-4",
+          "title": "9.4 解释器：先确定对象，再应用方法",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "原书对象、字段、继承、方法分派及类型检查教学节；注解分别说明位置身份、词法宿主、动态接收者和适用条件。"
+        },
+        {
+          "id": "s9-4-1",
+          "title": "9.4.1 对象：类身份与字段位置",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "原书对象、字段、继承、方法分派及类型检查教学节；注解分别说明位置身份、词法宿主、动态接收者和适用条件。",
+          "parent": "s9-4"
+        },
+        {
+          "id": "s9-4-2",
+          "title": "9.4.2 方法：接收者与宿主各司其职",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "原书对象、字段、继承、方法分派及类型检查教学节；注解分别说明位置身份、词法宿主、动态接收者和适用条件。",
+          "parent": "s9-4"
+        },
+        {
+          "id": "s9-4-3",
+          "title": "9.4.3 类与类环境：把共享结构建好",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "原书对象、字段、继承、方法分派及类型检查教学节；注解分别说明位置身份、词法宿主、动态接收者和适用条件。",
+          "parent": "s9-4"
+        },
+        {
+          "id": "s9-4-4",
+          "title": "9.4.4 方法环境：覆盖发生在查找之前",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "原书对象、字段、继承、方法分派及类型检查教学节；注解分别说明位置身份、词法宿主、动态接收者和适用条件。",
+          "parent": "s9-4"
+        },
+        {
+          "id": "s9-4-5",
+          "title": "9.4.5 习题：对象机制的逐项扩展",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "原书独立习题集合，完整题面与解答就地展示；概念注解在各教学节。",
+          "parent": "s9-4"
+        },
+        {
+          "id": "s9-5",
+          "title": "9.5 有类型的语言：对象可以拥有多个类型",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "原书对象、字段、继承、方法分派及类型检查教学节；注解分别说明位置身份、词法宿主、动态接收者和适用条件。"
+        },
+        {
+          "id": "s9-6",
+          "title": "9.6 类型检查器：签名、子类型与安全调用",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "原书对象、字段、继承、方法分派及类型检查教学节；注解分别说明位置身份、词法宿主、动态接收者和适用条件。"
+        },
+        {
+          "id": "programs",
+          "title": "运行本章程序",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "具体语法、运行选项、错误和完整源码副本。"
+        }
+      ],
+      "questions": [
+        "ex-9-1",
+        "ex-9-2",
+        "ex-9-3",
+        "ex-9-4",
+        "ex-9-5",
+        "ex-9-6",
+        "ex-9-7",
+        "ex-9-8",
+        "ex-9-9",
+        "ex-9-10",
+        "ex-9-11",
+        "ex-9-12",
+        "ex-9-13",
+        "ex-9-14",
+        "ex-9-15",
+        "ex-9-16",
+        "ex-9-17",
+        "ex-9-18",
+        "ex-9-19",
+        "ex-9-20",
+        "ex-9-21",
+        "ex-9-22",
+        "ex-9-23",
+        "ex-9-24",
+        "ex-9-25",
+        "ex-9-26",
+        "ex-9-27",
+        "ex-9-28",
+        "ex-9-29",
+        "ex-9-30",
+        "ex-9-31",
+        "ex-9-32",
+        "ex-9-33",
+        "ex-9-34",
+        "ex-9-35",
+        "ex-9-36",
+        "ex-9-37",
+        "ex-9-38",
+        "ex-9-39",
+        "ex-9-40",
+        "ex-9-41",
+        "ex-9-42"
+      ],
+      "chinese_translation_required": true,
+      "section_scope": "all-descendants"
+    },
+    {
+      "page": "eopl/notes/appendix_a_reading.html",
+      "source": "src/content/books/eopl/appendix_a_reading.html",
+      "sections": [
+        {
+          "id": "a-recursion",
+          "title": "从数据定义走向递归与证明",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "附录原书概念与适用条件教学；A按主题组织，B保持原编号与无编号子标题。"
+        },
+        {
+          "id": "a-semantics",
+          "title": "解释器怎样成为语言的数学说明",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "附录原书概念与适用条件教学；A按主题组织，B保持原编号与无编号子标题。"
+        },
+        {
+          "id": "a-state",
+          "title": "存储、参数传递与效果的共同问题",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "附录原书概念与适用条件教学；A按主题组织，B保持原编号与无编号子标题。"
+        },
+        {
+          "id": "a-control",
+          "title": "从续文到线程，再到编译",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "附录原书概念与适用条件教学；A按主题组织，B保持原编号与无编号子标题。"
+        },
+        {
+          "id": "a-types",
+          "title": "类型、信息隐藏与对象的来源连接",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "附录原书概念与适用条件教学；A按主题组织，B保持原编号与无编号子标题。"
+        },
+        {
+          "id": "a-research",
+          "title": "带着全书主线回到文献",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "附录原书概念与适用条件教学；A按主题组织，B保持原编号与无编号子标题。"
+        }
+      ],
+      "questions": [],
+      "chinese_translation_required": true,
+      "section_scope": "all-descendants"
+    },
+    {
+      "page": "eopl/notes/appendix_b_sllgen.html",
+      "source": "src/content/books/eopl/appendix_b_sllgen.html",
+      "sections": [
+        {
+          "id": "sB-1",
+          "title": "B.1 扫描：先确定字符如何分组",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "附录原书概念与适用条件教学；A按主题组织，B保持原编号与无编号子标题。"
+        },
+        {
+          "id": "sB-2",
+          "title": "B.2 解析：从 token 构造抽象语法树",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "附录原书概念与适用条件教学；A按主题组织，B保持原编号与无编号子标题。"
+        },
+        {
+          "id": "sB-3",
+          "title": "B.3 SLLGEN 中的扫描器与解析器",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "附录原书概念与适用条件教学；A按主题组织，B保持原编号与无编号子标题。"
+        },
+        {
+          "id": "sB-3-scanner",
+          "title": "扫描器规范与最长匹配",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "附录原书概念与适用条件教学；A按主题组织，B保持原编号与无编号子标题。",
+          "parent": "sB-3"
+        },
+        {
+          "id": "sB-3-grammar",
+          "title": "文法规范与 LL(1) 选择",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "附录原书概念与适用条件教学；A按主题组织，B保持原编号与无编号子标题。",
+          "parent": "sB-3"
+        },
+        {
+          "id": "sB-3-operations",
+          "title": "生成数据类型、解析器与交互循环",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "附录原书概念与适用条件教学；A按主题组织，B保持原编号与无编号子标题。",
+          "parent": "sB-3"
+        },
+        {
+          "id": "sB-3-patterns",
+          "title": "arbno 与 separated-list 的字段结构",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "附录原书概念与适用条件教学；A按主题组织，B保持原编号与无编号子标题。",
+          "parent": "sB-3"
+        },
+        {
+          "id": "exercises",
+          "title": "附录习题与解答",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "B.1–B.5完整原题与解答。"
+        },
+        {
+          "id": "programs",
+          "title": "运行附录程序",
+          "annotation": "optional",
+          "role": "program-or-chapter-summary",
+          "reason": "使用方法及完整源码副本。"
+        }
+      ],
+      "questions": [
+        "ex-B-1",
+        "ex-B-2",
+        "ex-B-3",
+        "ex-B-4",
+        "ex-B-5"
+      ],
+      "chinese_translation_required": true,
+      "section_scope": "all-descendants"
     }
   ]
 }

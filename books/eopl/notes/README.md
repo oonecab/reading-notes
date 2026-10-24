@@ -12,10 +12,15 @@
 | [第 4 章](chapter04_state.html) | pp.103–138 / PDF 126–161 | 4.1–4.42，42 题 |
 | [第 5 章](chapter05_continuations.html) | pp.139–191 / PDF 162–214 | 5.1–5.58，58 题 |
 | [第 6 章](chapter06_cps.html) | pp.193–232 / PDF 216–255 | 6.1–6.40，40 题 |
+| [第 7 章](chapter07_types.html) | pp.233–274 / PDF 256–297 | 7.1–7.30，30 题 |
+| [第 8 章](chapter08_modules.html) | pp.275–324 / PDF 298–347 | 8.1–8.27，27 题 |
+| [第 9 章](chapter09_objects.html) | pp.325–371 / PDF 348–394；另PDF395空白 | 9.1–9.42，42 题 |
+| [附录 A](appendix_a_reading.html) | pp.373–378 / PDF 396–401 | 无习题；六个主题 |
+| [附录 B](appendix_b_sllgen.html) | pp.379–391 / PDF 402–414 | B.1–B.5，5 题 |
 
-来源权威是 `source_manifest.json`、`source_inventory.json`、`source_excerpts.json`。地图与序言的图文审阅及全文阅读范围见 `../review/map-preface.md`；第 1、2 章见 `../review/ch01-02.json`。第 7–9 章摘要仅作全书导航。第 5、6 章的题面独立登记在 questions_ch05.json 与 questions_ch06.json；本批来源、执行及阅读证据见 ../review/ch05-06.json。第 4 章题面与页序由 questions_ch04.json 登记，来源、程序和阅读验证见 ../review/ch04.json。第 3 章题面与页序由 questions_ch03.json 登记，原书逐页核对、程序与阅读验证见 ../review/ch03.json。第 1、2 章题面与页序见 questions_ch01_02.json；完整英文原题已按 RN-002 移出阅读页，归档于 original_questions.json（含题号、页序与 sha256，仅供维护核对），解答与实际程序分开维护。
+来源权威是 `source_manifest.json`、`source_inventory.json`、`source_excerpts.json`。地图与序言的图文审阅及全文阅读范围见 `../review/map-preface.md`；第 1、2 章见 `../review/ch01-02.json`。附录A/B正文与题解均已完成。第7章题面独立登记于questions_ch07.json，来源、类型检查和阅读证据见../review/ch07.json。第 5、6 章的题面独立登记在 questions_ch05.json 与 questions_ch06.json；本批来源、执行及阅读证据见 ../review/ch05-06.json。第 4 章题面与页序由 questions_ch04.json 登记，来源、程序和阅读验证见 ../review/ch04.json。第 3 章题面与页序由 questions_ch03.json 登记，原书逐页核对、程序与阅读验证见 ../review/ch03.json。第 1、2 章题面与页序见 questions_ch01_02.json；完整英文原题已按 RN-002 移出阅读页，归档于 original_questions.json（含题号、页序与 sha256，仅供维护核对），解答与实际程序分开维护。
 
-正文使用 `src/content/books/eopl/` 中的 JSON frontmatter + HTML；八份成品为展开镜像。使用 `../tools/sync_notes.py` 或根构建同步，均复用仓库现有 `readSource`/`syncMirrors`。I044 将 `7e9d2ea` 的原始源码登记为独立基线，frontmatter 的 `original_sha256` 可回查该提交；它是保留的源码快照，不表示以前已经上线。I048 的两章使用 `1e96df2` 的独立页面基线；最后的程序记号排版修订通过连续修订链另行登记。
+正文使用 `src/content/books/eopl/` 中的 JSON frontmatter + HTML；十三份成品为展开镜像。使用 `../tools/sync_notes.py` 或根构建同步，均复用仓库现有 `readSource`/`syncMirrors`。I044 将 `7e9d2ea` 的原始源码登记为独立基线，frontmatter 的 `original_sha256` 可回查该提交；它是保留的源码快照，不表示以前已经上线。I048 的两章使用 `1e96df2` 的独立页面基线；最后的程序记号排版修订通过连续修订链另行登记。
 
 I055 整理地图的四页阅读范围与 68 道题解入口，精简第 1、2 章来源行，并让仅有习题 1.14 的 §1.3 直接进入题目；其余多题索引继续提供题号检索。该单题节按 RN-002 §8 在 `docs/reader-presentation.json` 登记题号索引例外；目录直达、节内唯一题目和精确锚点均由组件检查器复核，新增第二题前须恢复索引并移除此例外。修订与验证范围见 [T055](../../../test/T055-eopl-reading-cleanup.md) 和 [reader-cleanup.json](../review/reader-cleanup.json)。
 
@@ -44,3 +49,13 @@ I059 增加第 4 章：原节次五节与注解、42 道完整中文题干/解�
 I060 增加第五、六章：九个原书教学小节、18 张阅读注解、98 道完整中文题干/解答。完整英文仍仅追加维护归档；当前八页、252题。地图第5/6节点与第4→5→6章导航直达正式笔记。分层本地证据见 [T060](../../../test/T060-eopl-ch05-06.md)。
 
 I061 修订私有存储线程、控制绑定与原子化鲜名，补全习题5.56条件；当前源/输出及发布范围由 [ch05-06-followup.json](../review/ch05-06-followup.json) 和 [T061](../../../test/T061-eopl-publication.md) 记录，I060历史验收保留。
+
+I062增加第七章：原书八个教学小节、16条阅读注解和30题完整中文题干/解答，当前九页282题。原页嵌套过程描述、递归标注、约束框及map语法问题按source_issues.json校注。地图第7节点及第6→7章页头/页尾直达正式页；来源快照和本地验收见[T062](../../../test/T062-eopl-ch07.md)。
+
+第七章按原书保留二级节与独立注解，使用reading-annotations-nested.js从所有登记section中选择当前注解；既有章节的控制器保持原字节。浏览器校验按当前节自己的h2/h3/h4读取标题。
+
+I063增加第8章：九个教学节/子节各有两条注解，16个原书编号例子、27题完整中文题干与解答；当前十页309题。模块检查器与求值器分别验证透明/抽象类型、接口满足、参数化模块、惰性导入与习题扩展；原书输入、骨架和校注分开保存。地图第8节点与第7→8章导航直达正文；本地范围与证据见[T063](../../../test/T063-eopl-ch08.md)。
+
+I064增加第9章：十个原书教学节/子节各两条注解，9.4.5保留独立习题集合，定义9.5.1与42题完整保全。CLASSES/TYPED-OO、方法/字段词法身份、子类型及习题扩展均实际执行；地图第9节点及第8→9章导航直达正文，当前十一页351题。来源与本地证据见[T064](../../../test/T064-eopl-ch09.md)。
+
+当前完结范围（I065）：13个阅读页、356道完整中文原题及解答；英文原题独立归档357项，含1项共享题前说明。附录13个教学分组各两条注解；第7–9章边界修复及最终阅读/发布验证见[T065](../../../test/T065-eopl-completion-publication.md)。

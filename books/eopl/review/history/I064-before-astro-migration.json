@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "issue": "I063",
+  "book": "eopl",
+  "recorded_at_utc": "2026-10-24T09:46:49.356025+00:00",
+  "status": "Go",
+  "scope": "Current local EOPL map,preface and chapters1-8:10 reading pages,309 complete Chinese exercises,12 public HTML routes. Chapter8 modules/interfaces/abstract types and formatted programs accepted.",
+  "baseline_ref": "7e9d2eaf335b5ebf9109930447b974b9065ee5f7",
+  "page_baselines": {
+    "eopl/notes/chapter01_inductive_data.html": "1e96df2376aa34342f23eb089a1cbffb553f46f9",
+    "eopl/notes/chapter02_data_abstraction.html": "1e96df2376aa34342f23eb089a1cbffb553f46f9",
+    "eopl/notes/chapter03_expressions.html": "6ab014191cbe20829f946ee9150031156375bc73",
+    "eopl/notes/chapter04_state.html": "101b6c00f2300f9eee70b8b86e20f8c1f715cd65",
+    "eopl/notes/chapter05_continuations.html": "d132ed7f25c06626e090c6c018c4adefb367851a",
+    "eopl/notes/chapter06_cps.html": "d132ed7f25c06626e090c6c018c4adefb367851a",
+    "eopl/notes/chapter07_types.html": "dcfbdc97dd876b61d45c9f9ee0c8c884ed04afe8",
+    "eopl/notes/chapter08_modules.html": "cc6e6b5613de626d8094a04436504c7826e18761"
+  },
+  "baseline_kind": "Retained source snapshots distinct from first transformed output; current reviewed revisions retain both original identities.",
+  "pages": 10,
+  "public_pages": 12,
+  "parity_differences": [],
+  "open_findings": [],
+  "external_requests": [],
+  "js_views": 48,
+  "no_js_views": 24,
+  "current_source_sha256": {
+    "eopl/notes/book_overview.html": "8d034e9707399e225008fcbdb5f24e7445354c2b5f69bf4a7ca7d28b4064abe1",
+    "eopl/notes/preface.html": "c83fc006cd8334acfe0bf72bf657e56ae875082689a5d47d7f70db17cd6fec34",
+    "eopl/notes/chapter01_inductive_data.html": "d7d3b96ad503a9c837db0eb59e8488ab849a2a8fcb0626fd98b611913ad1e663",
+    "eopl/notes/chapter02_data_abstraction.html": "4d53d0caf1a949c959cc9e8d6682b4d8606d991a823cfae4ac4c000dbbb34073",
+    "eopl/notes/chapter03_expressions.html": "78bc40d228177a426dd036ef03057a1bfa71be686a2d87594c9e6575702fc136",
+    "eopl/notes/chapter04_state.html": "2645d3b162293cf8288efc38695cde3120aecd6c9f45c88a18b998e7d72a34f2",
+    "eopl/notes/chapter05_continuations.html": "67377dfbd29479a3d0bf3a05a69a4a30e1ea6bafd604604a3287029220c5e780",
+    "eopl/notes/chapter06_cps.html": "2e64db24ec6883feb5285b8db1d7910edcc2a02bfa307dead9ed17beb8d7d501",
+    "eopl/notes/chapter07_types.html": "2e3b839b77b37432e08f04dcf29397fc27bd3c3e9004c889c90a81467bb65af0",
+    "eopl/notes/chapter08_modules.html": "3e5b858320ff33af2a17a9cb1be74e9ff90c763c1c47b5cc04d08fbb7658ac66"
+  },
+  "current_output_sha256": {
+    "eopl/notes/book_overview.html": "da0582a748bfe479d26cd971af06c26a684f84a248192c4fc1ff7a3dec2850c5",
+    "eopl/notes/preface.html": "42ceb152e3c0f4f03698daa796612027287a80858076d2e17d78a29db143b791",
+    "eopl/notes/chapter01_inductive_data.html": "a174becfc9cbe59f2c737b6b51f0b4cb7b46f817732d0361a47e3325d27e6178",
+    "eopl/notes/chapter02_data_abstraction.html": "21d012fca61cbd822d76e073db008d5032cc489027bcd5145b87e19041799e06",
+    "eopl/notes/chapter03_expressions.html": "5cdeb03d4116dc2ba618795a9953f58299ec1891339d5d3a5437d46234fe41aa",
+    "eopl/notes/chapter04_state.html": "8b45b234eed29198ef9f82100f192bc89f9ce68c492329dead59b5f908778219",
+    "eopl/notes/chapter05_continuations.html": "8131e2799fecce53d6412f59fbe29af8acf65a9ef756ce189eb393e509ad6116",
+    "eopl/notes/chapter06_cps.html": "db3eb1ad06fee04e43e4ba92e07f6c0f0d6bbc4483613687320237ac8ef7c91c",
+    "eopl/notes/chapter07_types.html": "1c7702fb614bae9d17d65c4c0f3665182a5eb436b42ddea209f288a1580fe4be",
+    "eopl/notes/chapter08_modules.html": "c90eb8235e79dce9cfadc67cbec4db20b630e2829e973a0234d1c81999689915"
+  },
+  "browser_record": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-24T09-29-59-131Z-291ac5f8/report.json",
+  "hash_identical_reused_views": 60,
+  "evidence_sha256": {
+    "tmp/reading-notes-migration/browser/eopl/runs/2026-10-24T09-29-59-131Z-291ac5f8/report.json": "e1ada6217a283f7107332e9b27b03bf9bf2b0839fbb48acc37b75b34910fb292",
+    "tmp/eopl-ch08-20261024T155227/browser-final/manual.json": "491262cd13c9ec6c732d59c6862caf8d427b58ffa47138eeaf5554555964f8ba",
+    "tmp/eopl-ch08-20261024T155227/browser-final/visual.json": "09adf9d301c74bad2d92fa1eee35542c9726cc46578f4c18001b188b4509bf1d",
+    "tmp/eopl-ch08-20261024T155227/browser-final/desktop.json": "8600aeed11305cba726a4f0f4717265150a2744bb87d2417619c7a5502d08b57",
+    "tmp/eopl-ch08-20261024T155227/browser-final/mobile.json": "1a73b6f7bf80d4e16306000557dc8e291b28d7ca704d6861c5e0b489bded9072",
+    "tmp/eopl-ch08-20261024T155227/browser-final/pdf-loaded.json": "70ddacffc143580aaebafa62de35ff73642cbd8756e67b218c3424e7e2b0657e",
+    "tmp/eopl-ch08-20261024T155227/source-readback.json": "f8a82f5da5735e43a5e39d337d64357f5556d1011234ec5054fb5fcd1c89690a",
+    "tmp/eopl-ch08-20261024T155227/preservation.json": "bcc3c5641410223a28dc5d94016f8701bf6e0eae4c1669014fcce36e12f235ef",
+    "tmp/eopl-ch08-20261024T155227/readability-refinement.json": "b03c82e33d4bfef392283b5307147be4c295d623b532f3c9f8ba0d4191df0e8e"
+  },
+  "visual_review": "Final chapter8 desktop and390px content readback; native no-script controls, six byte-exact downloads, actual SVG and chapter7 navigation, source PDF347/433.",
+  "historical_record": {
+    "file": "review/history/I063-before-astro-migration.json",
+    "sha256": "2ecad4819b0b7f57a9a15a405b28298eed4523ac14795f983fd8ae4b0b635fd3"
+  },
+  "deployment": "not_performed"
+}

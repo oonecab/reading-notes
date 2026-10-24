@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "book": "eopl",
+  "chapter": "B",
+  "source_pdf": "books/eopl/assets/source.pdf",
+  "source_sha256": "b9e8770a4dc97206bd02230e6b21a878382eb02a340ff69321857d701e7d967c",
+  "method": "Independent inventory of all five original exercises on printed391/PDF414, followed by direct original-page image readback; original grammar, precedence example, environment and associativity requirements retained.",
+  "items": [
+    {
+      "number": "B.1",
+      "question_text": "The following grammar for ordinary arithmetic expressions builds\nin the usual precedence rules for arithmetic operators:\n\n Arith-expr        ::= Arith-term {Additive-op Arith-term}∗\n Arith-term        ::= Arith-factor {Multiplicative-op Arith-factor}∗\n Arith-factor      ::= Number\n                   ::= ( Arith-expr )\n Additive-op       ::= + | -\n Multiplicative-op ::= * | /\n\nThis grammar says that every arithmetic expression is the sum of a non-empty\nsequence of terms; every term is the product of a non-empty sequence of factors;\nand every factor is either a constant or a parenthesized expression.\nWrite a lexical speciﬁcation and a grammar in SLLGEN that will scan and parse\nstrings according to this grammar. Verify that this grammar handles precedence cor-\nrectly, so that, for example 3+2*66-5 gets grouped correctly, as 3 + (2 × 66) − 5.",
+      "stars": 1,
+      "printed_page": 391,
+      "pdf_page": 414,
+      "pdf_end": 414,
+      "chinese_html": "<p>下面这个普通算术表达式的文法内建了算术运算符通常的优先级规则：</p><pre><code class=\"language-text\">Arith-expr ::= Arith-term {Additive-op Arith-term}*\nArith-term ::= Arith-factor {Multiplicative-op Arith-factor}*\nArith-factor ::= Number\n             ::= ( Arith-expr )\nAdditive-op ::= + | -\nMultiplicative-op ::= * | /</code></pre><p>这个文法说明：每个算术表达式都是一个非空项序列的和；每个项都是一个非空因子序列的积；每个因子是常数或加括号的表达式。</p><p>编写 SLLGEN 词法规范和文法，按这个文法扫描并解析字符串。验证文法正确处理优先级，例如将 <code>3+2*66-5</code> 正确分组为 <code>3+(2*66)-5</code>。</p>"
+    },
+    {
+      "number": "B.2",
+      "question_text": "Why can’t the grammar above be written with separated-list?",
+      "stars": 2,
+      "printed_page": 391,
+      "pdf_page": 414,
+      "pdf_end": 414,
+      "chinese_html": "<p>为什么<a href=\"#ex-B-1\">习题 B.1</a> 中的文法不能用 <code>separated-list</code> 来写？</p>"
+    },
+    {
+      "number": "B.3",
+      "question_text": "Deﬁne an interpreter that takes the syntax tree produced by the\nparser of exercise B.1 and evaluates it as an arithmetic expression. The parser takes\ncare of the usual arithmetic precedence operations, but the interpreter will have to\ntake care of associativity, that is, making sure that operations at the same precedence\nlevel (e.g. additions and subtractions) are performed from left to right. Since there\nare no variables in these expressions, this interpreter need not take an environment\nparameter.",
+      "stars": 2,
+      "printed_page": 391,
+      "pdf_page": 414,
+      "pdf_end": 414,
+      "chinese_html": "<p>定义一个解释器，接收<a href=\"#ex-B-1\">习题 B.1</a> 的解析器产生的语法树，并把它作为算术表达式求值。解析器已经处理了通常的算术优先级，但解释器还必须处理结合性：保证同一优先级的运算，例如加法与减法，按从左到右执行。因为这些表达式中没有变量，解释器不需要环境参数。</p>"
+    },
+    {
+      "number": "B.4",
+      "question_text": "Extend the language and interpreter of the preceding exercise to\ninclude variables. This new interpreter will require an environment parameter.",
+      "stars": 2,
+      "printed_page": 391,
+      "pdf_page": 414,
+      "pdf_end": 414,
+      "chinese_html": "<p>扩展<a href=\"#ex-B-3\">习题 B.3</a> 的语言和解释器，加入变量。这个新解释器将需要一个环境参数。</p>"
+    },
+    {
+      "number": "B.5",
+      "question_text": "Add unary minus to the language and interpreter, so that inputs like\n3*-2 are handled correctly.",
+      "stars": 1,
+      "printed_page": 391,
+      "pdf_page": 414,
+      "pdf_end": 414,
+      "chinese_html": "<p>在语言和解释器中加入一元负号，使 <code>3*-2</code> 这样的输入也能得到正确处理。</p>"
+    }
+  ]
+}

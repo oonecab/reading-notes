@@ -29,7 +29,7 @@ def sync(write: bool = False) -> dict:
         if not write:
             raise ValueError("preface code copy differs; run sync_notes.py --write")
         preface.write_text(updated)
-    for chapter in sorted(SOURCE.glob("chapter*.html")):
+    for chapter in sorted([*SOURCE.glob("chapter*.html"), *SOURCE.glob("appendix*.html")]):
         source = chapter.read_text()
         def snippet(match):
             filename, block = match.group(1), match.group(2)

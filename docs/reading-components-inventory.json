@@ -1,6 +1,6 @@
 {
   "issue": "I041",
-  "scope": "All 64 controlled reading pages. Explicit teaching blocks, not ordinary prose. I060 adds EOPL chapters5/6.",
+  "scope": "All69 controlled reading pages. I065 completes EOPL appendices A/B:13 teaching groups,26 annotations,five source examples and five exercises.",
   "pages": [
     {
       "page": "measure-probability/notes/book_overview.html",
@@ -577,14 +577,74 @@
         "proof": 0,
         "exercise": 40
       }
+    },
+    {
+      "page": "eopl/notes/chapter07_types.html",
+      "counts": {
+        "statement": 1,
+        "example": 0,
+        "proof": 0,
+        "exercise": 30
+      }
+    },
+    {
+      "page": "eopl/notes/chapter08_modules.html",
+      "counts": {
+        "statement": 0,
+        "example": 16,
+        "proof": 0,
+        "exercise": 27
+      }
+    },
+    {
+      "page": "eopl/notes/chapter09_objects.html",
+      "counts": {
+        "statement": 1,
+        "example": 9,
+        "proof": 0,
+        "exercise": 42
+      }
+    },
+    {
+      "page": "eopl/notes/appendix_a_reading.html",
+      "counts": {
+        "statement": 0,
+        "example": 0,
+        "proof": 0,
+        "exercise": 0
+      }
+    },
+    {
+      "page": "eopl/notes/appendix_b_sllgen.html",
+      "counts": {
+        "statement": 0,
+        "example": 5,
+        "proof": 0,
+        "exercise": 5
+      }
     }
   ],
   "totals": {
-    "statement": 544,
-    "example": 236,
+    "statement": 546,
+    "example": 266,
     "proof": 353,
-    "exercise": 1777
+    "exercise": 1881
   },
   "I044_scope_extension": "Two existing EOPL pages; one original exercise and one companion example. Existing 56-page counts preserved.",
-  "I048_scope_extension": "EOPL chapters 1–2: 67 original exercises and complete answers."
+  "I048_scope_extension": "EOPL chapters 1–2: 67 original exercises and complete answers.",
+  "I062_scope_extension": {
+    "issue": "I062",
+    "page": "eopl/notes/chapter07_types.html",
+    "scope": "Definition7.1.1 and30 complete exercises; eight teaching sections separately registered in reader contract."
+  },
+  "I063_scope_extension": {
+    "issue": "I063",
+    "page": "eopl/notes/chapter08_modules.html",
+    "scope": "16 numbered examples,27 complete exercises; nine source teaching sections and18 annotation cards."
+  },
+  "I064_scope_extension": {
+    "issue": "I064",
+    "page": "eopl/notes/chapter09_objects.html",
+    "scope": "Ten teaching sections,20 annotations,42 complete exercises; original9.4.5 exercise collection remains separate."
+  }
 }

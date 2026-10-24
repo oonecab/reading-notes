@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "issue": "I061",
+  "book": "eopl",
+  "recorded_at_utc": "2026-10-23T21:03:25.194342+00:00",
+  "status": "Go",
+  "scope": "Eight local EOPL reading pages and10 public HTML routes through chapter6; current semantic corrections and full-site reading acceptance. Production acceptance is recorded separately.",
+  "baseline_ref": "7e9d2eaf335b5ebf9109930447b974b9065ee5f7",
+  "page_baselines": {
+    "eopl/notes/chapter01_inductive_data.html": "1e96df2376aa34342f23eb089a1cbffb553f46f9",
+    "eopl/notes/chapter02_data_abstraction.html": "1e96df2376aa34342f23eb089a1cbffb553f46f9",
+    "eopl/notes/chapter03_expressions.html": "6ab014191cbe20829f946ee9150031156375bc73",
+    "eopl/notes/chapter04_state.html": "101b6c00f2300f9eee70b8b86e20f8c1f715cd65",
+    "eopl/notes/chapter05_continuations.html": "d132ed7f25c06626e090c6c018c4adefb367851a",
+    "eopl/notes/chapter06_cps.html": "d132ed7f25c06626e090c6c018c4adefb367851a"
+  },
+  "baseline_kind": "retained source snapshots, distinct from published output",
+  "pages": 8,
+  "public_pages": 10,
+  "parity_differences": [],
+  "open_findings": [],
+  "external_requests": [],
+  "js_views": 40,
+  "no_js_views": 20,
+  "current_source_sha256": {
+    "eopl/notes/book_overview.html": "8846c60fd43b0078e5dd615e8f449e8bf3fe4fd4f1818c630bb940dd2ee68fa8",
+    "eopl/notes/chapter01_inductive_data.html": "d7d3b96ad503a9c837db0eb59e8488ab849a2a8fcb0626fd98b611913ad1e663",
+    "eopl/notes/chapter02_data_abstraction.html": "4d53d0caf1a949c959cc9e8d6682b4d8606d991a823cfae4ac4c000dbbb34073",
+    "eopl/notes/chapter03_expressions.html": "78bc40d228177a426dd036ef03057a1bfa71be686a2d87594c9e6575702fc136",
+    "eopl/notes/chapter04_state.html": "2645d3b162293cf8288efc38695cde3120aecd6c9f45c88a18b998e7d72a34f2",
+    "eopl/notes/chapter05_continuations.html": "67377dfbd29479a3d0bf3a05a69a4a30e1ea6bafd604604a3287029220c5e780",
+    "eopl/notes/chapter06_cps.html": "14953b8293b234541b5c218c2eab714ab3459f9429e5619094a769145b7221f1",
+    "eopl/notes/preface.html": "c83fc006cd8334acfe0bf72bf657e56ae875082689a5d47d7f70db17cd6fec34"
+  },
+  "current_output_sha256": {
+    "eopl/notes/book_overview.html": "4e3569600e60a894e716ab6803e039976c58eaf62697a94476474909acf17a76",
+    "eopl/notes/chapter01_inductive_data.html": "a174becfc9cbe59f2c737b6b51f0b4cb7b46f817732d0361a47e3325d27e6178",
+    "eopl/notes/chapter02_data_abstraction.html": "21d012fca61cbd822d76e073db008d5032cc489027bcd5145b87e19041799e06",
+    "eopl/notes/chapter03_expressions.html": "5cdeb03d4116dc2ba618795a9953f58299ec1891339d5d3a5437d46234fe41aa",
+    "eopl/notes/chapter04_state.html": "8b45b234eed29198ef9f82100f192bc89f9ce68c492329dead59b5f908778219",
+    "eopl/notes/chapter05_continuations.html": "8131e2799fecce53d6412f59fbe29af8acf65a9ef756ce189eb393e509ad6116",
+    "eopl/notes/chapter06_cps.html": "127bdb5c17df058ae47c9698628d65aa966e1042a7e7b03baff5731d95789cfd",
+    "eopl/notes/preface.html": "42ceb152e3c0f4f03698daa796612027287a80858076d2e17d78a29db143b791"
+  },
+  "evidence_sha256": {
+    "tmp/reading-notes-migration/browser/all/runs/2026-10-23T20-59-30-430Z-963621d2/report.json": "f60f181ba4a4111c7a6d411bab0e25bab529088024e851c87e4ea21d12b4215f",
+    "review/ch05-06-followup.json": "c1edac5b7f2c9cca76fdcc949d3a4daa452afb329ab462cb5f00c53817f825d4",
+    "tmp/reading-notes-migration/browser/all/runs/2026-10-23T21-19-47-289Z-dd700b8f/report.json": "c704b4782c524fa346326be08ebcc02e55d3994a94f5f8426acb4bfbfdc8e272"
+  },
+  "visual_review": "Current full-site344 JS/172 no-JS matrix; targeted repair/source/download/reading path readback with actual screenshots; earlier independent source review retained.",
+  "historical_record": {
+    "file": "review/history/I060-before-astro-migration.json",
+    "sha256": "20d250424dd53be6448060b242a6141d97ca08a12eee84f184f00a24b61973ca",
+    "reason": "Preserves preceding I059 acceptance and its source/history evidence exactly."
+  },
+  "full_site_browser": {
+    "global_routes": 86,
+    "global_js_views": 344,
+    "global_no_js_views": 172,
+    "external_requests": 0
+  },
+  "I061_revision": {
+    "issue": "I061",
+    "prior_record": "review/history/I061-before-astro-migration.json",
+    "prior_sha256": "a5bf583a8f744ced45ef43eb75f9d8253ca985b208196ebab0ee73ee802093d9",
+    "record": "review/ch05-06-followup.json",
+    "scope": "Current source/output and actual reading bindings; raw source baselines remain unchanged."
+  },
+  "current_offline_report": "tmp/reading-notes-migration/browser/all/runs/2026-10-23T21-19-47-289Z-dd700b8f/report.json"
+}

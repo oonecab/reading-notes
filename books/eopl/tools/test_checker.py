@@ -146,6 +146,121 @@ def run(run_dir: Path) -> dict:
         check("chapter6_program_copy_drift", "program copy differs")
         sixth.write_text(saved)
         sync()
+        seventh = source / "chapter07_types.html"
+        saved = seventh.read_text()
+        seventh.write_text(saved.replace('id="ex-7-30"', 'id="omitted-last-type-exercise"', 1))
+        sync()
+        check("missing_chapter7_last_exercise", "missing anchor")
+        seventh.write_text(saved)
+        sync()
+        before = "是否存在恰好具有两种类型的表达值"
+        assert before in saved
+        seventh.write_text(saved.replace(before, "是否存在至少具有两种类型的表达值", 1))
+        sync()
+        check("chapter7_chinese_condition_drift", "chapter 7 Chinese question or supplied input differs")
+        seventh.write_text(saved)
+        sync()
+        assert "(foo f)" in saved
+        seventh.write_text(saved.replace("(foo f)", "(foo 3)", 1))
+        sync()
+        check("chapter7_supplied_program_drift", "chapter 7 Chinese question or supplied input differs")
+        seventh.write_text(saved)
+        sync()
+        seventh.write_text(saved.replace("A direct checker, online/two-phase inference", "Injected type checker copy", 1))
+        check("chapter7_program_copy_drift", "program copy differs")
+        seventh.write_text(saved)
+        sync()
+        eighth = source / "chapter08_modules.html"
+        saved = eighth.read_text()
+        eighth.write_text(saved.replace('id="ex-8-27"', 'id="omitted-final-module-exercise"', 1))
+        sync()
+        check("missing_chapter8_last_exercise", "missing anchor")
+        eighth.write_text(saved)
+        sync()
+        before = "先打印 2、3、1"
+        assert before in saved
+        eighth.write_text(saved.replace(before, "先打印 1、2、3", 1))
+        sync()
+        check("chapter8_chinese_condition_drift", "chapter 8 Chinese question or supplied input differs")
+        eighth.write_text(saved)
+        sync()
+        assert "true = 1" in saved
+        eighth.write_text(saved.replace("true = 1", "true = 2", 1))
+        sync()
+        check("chapter8_supplied_program_drift", "chapter 8 Chinese question or supplied input differs")
+        eighth.write_text(saved)
+        sync()
+        eighth.write_text(saved.replace("A module checker and an independent", "Injected module checker copy", 1))
+        check("chapter8_program_copy_drift", "program copy differs")
+        eighth.write_text(saved)
+        sync()
+        q8 = book / "notes/questions_ch08.json"
+        original_q8 = q8.read_text()
+        data = json.loads(original_q8)
+        data["items"].pop()
+        q8.write_text(json.dumps(data, ensure_ascii=False))
+        check("chapter8_source_inventory_missing", "chapter 8 complete question inventory")
+        q8.write_text(original_q8)
+        ninth = source / "chapter09_objects.html"
+        saved_ninth = ninth.read_text()
+        ninth.write_text(saved_ninth.replace('id="ex-9-42"', 'id="omitted-final-object-exercise"', 1))
+        sync()
+        check("missing_chapter9_last_exercise", "missing anchor")
+        ninth.write_text(saved_ninth)
+        sync()
+        before = "静态方法不能被动态方法覆盖"
+        assert before in saved_ninth
+        ninth.write_text(saved_ninth.replace(before, "静态方法允许被动态方法覆盖", 1))
+        sync()
+        check("chapter9_chinese_condition_drift", "chapter 9 Chinese question or supplied input differs")
+        ninth.write_text(saved_ninth)
+        sync()
+        assert "method void m1 () 12" in saved_ninth
+        ninth.write_text(saved_ninth.replace("method void m1 () 12", "method int m1 () 12", 1))
+        sync()
+        check("chapter9_supplied_program_drift", "chapter 9 Chinese question or supplied input differs")
+        ninth.write_text(saved_ninth)
+        sync()
+        assert "Explicit locations, class descriptors and method application" in saved_ninth
+        ninth.write_text(saved_ninth.replace("Explicit locations, class descriptors and method application", "injected object implementation copy", 1))
+        check("chapter9_program_copy_drift", "program copy differs")
+        ninth.write_text(saved_ninth)
+        sync()
+        ninth_inventory = inventory_file.read_text()
+        data = json.loads(ninth_inventory)
+        data["items"] = [r for r in data["items"] if not (r["kind"] == "exercise" and r["number"] == "9.42")]
+        inventory_file.write_text(json.dumps(data))
+        check("chapter9_source_inventory_missing", "whole-book exercise counts")
+        inventory_file.write_text(ninth_inventory)
+
+        appendix = source / "appendix_b_sllgen.html"
+        saved_appendix = appendix.read_text()
+        appendix.write_text(saved_appendix.replace('id="ex-B-5"', 'id="omitted-appendix-last"', 1))
+        sync()
+        check("missing_appendix_last_exercise", "chapter exercise sequence")
+        appendix.write_text(saved_appendix)
+        sync()
+        appendix.write_text(saved_appendix.replace("保证同一优先级的运算", "保证所有运算", 1))
+        sync()
+        check("appendix_chinese_condition_drift", "chapter B Chinese question or supplied input differs")
+        appendix.write_text(saved_appendix)
+        sync()
+        appendix.write_text(saved_appendix.replace("Arith-expr ::= Arith-term {Additive-op Arith-term}*", "Arith-expr ::= Arith-factor", 1))
+        sync()
+        check("appendix_original_grammar_drift", "chapter B Chinese question or supplied input differs")
+        appendix.write_text(saved_appendix)
+        sync()
+        appendix.write_text(saved_appendix.replace("Appendix B: real SLLGEN", "Injected appendix copy", 1))
+        check("appendix_program_copy_drift", "program copy differs")
+        appendix.write_text(saved_appendix)
+        sync()
+        saved_inventory = inventory_file.read_text()
+        data = json.loads(saved_inventory)
+        data["items"] = [r for r in data["items"] if not (r["kind"] == "exercise" and r["number"] == "B.5")]
+        inventory_file.write_text(json.dumps(data))
+        check("appendix_source_inventory_missing", "whole-book exercise counts")
+        inventory_file.write_text(saved_inventory)
+
         archive = book / "notes/original_questions.json"
         original_archive = archive.read_text()
 
@@ -153,6 +268,24 @@ def run(run_dir: Path) -> dict:
             data["item_count"] = len(data["items"])
             data["exercise_count"] = sum(row["kind"] == "exercise" for row in data["items"])
             archive.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n")
+
+        data = json.loads(original_archive)
+        data["items"] = [row for row in data["items"] if row["number"] != "B.5"]
+        write_archive(data)
+        check("archive_missing_appendix_last_exercise", "original question archive exercise count")
+        archive.write_text(original_archive)
+
+        data = json.loads(original_archive)
+        data["items"] = [row for row in data["items"] if row["number"] != "9.42"]
+        write_archive(data)
+        check("archive_missing_chapter9_last_exercise", "original question archive exercise count")
+        archive.write_text(original_archive)
+
+        data = json.loads(original_archive)
+        data["items"] = [row for row in data["items"] if row["number"] != "8.27"]
+        write_archive(data)
+        check("archive_missing_chapter8_last_exercise", "original question archive exercise count")
+        archive.write_text(original_archive)
 
         data = json.loads(original_archive)
         data["items"] = [row for row in data["items"] if row["number"] != "4.42"]

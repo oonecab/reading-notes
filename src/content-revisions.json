@@ -10069,7 +10069,7 @@
     },
     "eopl/notes/book_overview.html": {
       "original_sha256": "bcee15d3ae5f7b748a93ff07bdffc6eb7fbbb790f4e2af54fce3bc289605720c",
-      "source_sha256": "8846c60fd43b0078e5dd615e8f449e8bf3fe4fd4f1818c630bb940dd2ee68fa8",
+      "source_sha256": "4bd3e5da53e8156ca1d742426e7475a999cca4bc1640cdccc3d35a79fbb35c25",
       "history": [
         {
           "revision": "I044",
@@ -10258,9 +10258,52 @@
             "dependencies",
             "source"
           ]
+        },
+        {
+          "revision": "I062",
+          "from_sha256": "8846c60fd43b0078e5dd615e8f449e8bf3fe4fd4f1818c630bb940dd2ee68fa8",
+          "to_sha256": "ccde2b0b27f24b42f3e788b8765c677ab73471a9530991889b34a812f50e5b60",
+          "reason": "接入第七章正式笔记：地图第7节点、章意卡片与范围更新；第六章页头页尾接入相邻第七章。",
+          "reviewed_anchors": [
+            "chapter-7",
+            "published-scope"
+          ]
+        },
+        {
+          "revision": "I063-module-chapter-navigation",
+          "from_sha256": "ccde2b0b27f24b42f3e788b8765c677ab73471a9530991889b34a812f50e5b60",
+          "to_sha256": "8d034e9707399e225008fcbdb5f24e7445354c2b5f69bf4a7ca7d28b4064abe1",
+          "reason": "Add chapter8 formal reading entry, SVG node/card/prose entry and adjacent navigation; retain earlier chapter content and questions.",
+          "reviewed_anchors": [
+            "chapter-8",
+            "dependencies",
+            "source"
+          ]
+        },
+        {
+          "revision": "I064-object-chapter-navigation",
+          "from_sha256": "8d034e9707399e225008fcbdb5f24e7445354c2b5f69bf4a7ca7d28b4064abe1",
+          "to_sha256": "ca541be9afec019898fcb86fc919336bd21343964179c6fa616cbbf8c70b3e79",
+          "reason": "Add formal chapter9 SVG node, chapter card and sequential chapter8 entry; retain existing mathematical/program/question content.",
+          "reviewed_anchors": [
+            "chapter-9",
+            "dependencies",
+            "source"
+          ]
+        },
+        {
+          "revision": "I065-completion-and-boundary-repairs",
+          "from_sha256": "ca541be9afec019898fcb86fc919336bd21343964179c6fa616cbbf8c70b3e79",
+          "to_sha256": "4bd3e5da53e8156ca1d742426e7475a999cca4bc1640cdccc3d35a79fbb35c25",
+          "reason": "Complete map introduction and appendix entry links;13 reading pages and all356 source questions.",
+          "reviewed_anchors": [
+            "top",
+            "appendices",
+            "source"
+          ]
         }
       ],
-      "review_record": "books/eopl/review/ch05-06-followup.json"
+      "review_record": "books/eopl/review/completion.json"
     },
     "eopl/notes/preface.html": {
       "original_sha256": "4ffe7b18e4d6bc5b5ba6be871417b061f1896b88885b723a6d46ab2024a25392",
@@ -10865,7 +10908,7 @@
     },
     "eopl/notes/chapter06_cps.html": {
       "original_sha256": "3adf80e690f4999b92caeceeb11011f60b7602ef6f5eb31d88b1d5c1f8ef0d53",
-      "source_sha256": "14953b8293b234541b5c218c2eab714ab3459f9429e5619094a769145b7221f1",
+      "source_sha256": "2e64db24ec6883feb5285b8db1d7910edcc2a02bfa307dead9ed17beb8d7d501",
       "history": [
         {
           "revision": "I060",
@@ -10928,9 +10971,206 @@
             "ex-6-37",
             "chapter06-program"
           ]
+        },
+        {
+          "revision": "I062",
+          "from_sha256": "14953b8293b234541b5c218c2eab714ab3459f9429e5619094a769145b7221f1",
+          "to_sha256": "2e64db24ec6883feb5285b8db1d7910edcc2a02bfa307dead9ed17beb8d7d501",
+          "reason": "接入第七章正式笔记：地图第7节点、章意卡片与范围更新；第六章页头页尾接入相邻第七章。",
+          "reviewed_anchors": [
+            "top",
+            "programs"
+          ]
         }
       ],
-      "review_record": "books/eopl/review/ch05-06-followup.json"
+      "review_record": "books/eopl/review/ch07.json"
+    },
+    "eopl/notes/chapter07_types.html": {
+      "original_sha256": "0e864a21bc8c295b231beb85cb915f21069325d7b376c8e262e59549aa9ec23a",
+      "source_sha256": "0b782b17240bfe4884f5f8ac272b84c5065771eb81eb94a5e1dac4ff52bd1d3f",
+      "history": [
+        {
+          "revision": "I062-source-note",
+          "from_sha256": "0e864a21bc8c295b231beb85cb915f21069325d7b376c8e262e59549aa9ec23a",
+          "to_sha256": "66ff0b4e27d83e9fad52a5e9afbdc6c11536d581de7eb7787f0ece0cd65f89fd",
+          "reason": "补上原书p248互递归示例的返回类型校注，保留原始来源快照。",
+          "reviewed_anchors": [
+            "s7-4"
+          ]
+        },
+        {
+          "revision": "I062-subsection-reading",
+          "from_sha256": "66ff0b4e27d83e9fad52a5e9afbdc6c11536d581de7eb7787f0ece0cd65f89fd",
+          "to_sha256": "6890f916ab62d5ff86317dc674c68d8d9750e14227f5089b1b5198fdc29f11ea",
+          "reason": "保留原书二级节，以本页注解控制器支持全部八节随读注解；窄屏/无脚本仍读取同一注解正文。",
+          "reviewed_anchors": [
+            "s7-3-1",
+            "s7-4-1",
+            "s7-4-2",
+            "s7-4-3",
+            "annotation-rail"
+          ]
+        },
+        {
+          "revision": "I062-native-subscripts",
+          "from_sha256": "6890f916ab62d5ff86317dc674c68d8d9750e14227f5089b1b5198fdc29f11ea",
+          "to_sha256": "b501e5fa831f0707647d0760c4921fbcb532749644125bc1394b4e971a80b99a",
+          "reason": "将正文数学上下标改为原生MathML结构，保持符号、题干、规则与程序语义。",
+          "reviewed_anchors": [
+            "ex-7-1",
+            "ex-7-15",
+            "ex-7-29"
+          ]
+        },
+        {
+          "revision": "I062-mobile-type-tables",
+          "from_sha256": "b501e5fa831f0707647d0760c4921fbcb532749644125bc1394b4e971a80b99a",
+          "to_sha256": "fa73ee536a41e03d8642beb4ea17e34896d2e815188ae7d00eecc18983c8fa95",
+          "reason": "窄屏表格设置局部滚动最小宽度，保持过程类型与推导表列可读。",
+          "reviewed_anchors": [
+            "ex-7-1",
+            "ex-7-12",
+            "ex-7-15"
+          ]
+        },
+        {
+          "revision": "I062-whole-type-cells",
+          "from_sha256": "fa73ee536a41e03d8642beb4ea17e34896d2e815188ae7d00eecc18983c8fa95",
+          "to_sha256": "3d79d15806c49f702d16fc0dae7ce9ae6a84705962552fb557e18e8efe040f05",
+          "reason": "实际窄屏读回发现代码类型仍被分行；类型单元保持一行，并沿现有表格容器横向滚动。",
+          "reviewed_anchors": [
+            "ex-7-1",
+            "ex-7-12",
+            "ex-7-15"
+          ]
+        },
+        {
+          "revision": "I062-type-cell-specificity",
+          "from_sha256": "3d79d15806c49f702d16fc0dae7ce9ae6a84705962552fb557e18e8efe040f05",
+          "to_sha256": "888c7a1afe7dc8760b027dfd0748fe2380bda45d2834dc6637fb4d67d18babf5",
+          "reason": "按实际计算样式提升本章类型单元规则优先级，使其覆盖共享行内代码折行规则；保持共享排版样式原字节。",
+          "reviewed_anchors": [
+            "ex-7-15"
+          ]
+        },
+        {
+          "revision": "I063-module-chapter-navigation",
+          "from_sha256": "888c7a1afe7dc8760b027dfd0748fe2380bda45d2834dc6637fb4d67d18babf5",
+          "to_sha256": "2e3b839b77b37432e08f04dcf29397fc27bd3c3e9004c889c90a81467bb65af0",
+          "reason": "Add chapter8 formal reading entry, SVG node/card/prose entry and adjacent navigation; retain earlier chapter content and questions.",
+          "reviewed_anchors": [
+            "top",
+            "programs"
+          ]
+        },
+        {
+          "revision": "I065-completion-and-boundary-repairs",
+          "from_sha256": "2e3b839b77b37432e08f04dcf29397fc27bd3c3e9004c889c90a81467bb65af0",
+          "to_sha256": "0b782b17240bfe4884f5f8ac272b84c5065771eb81eb94a5e1dac4ff52bd1d3f",
+          "reason": "Validate positive exact evaluation budget; independently witnessed negative/fractional budget bypass fixed; synchronize complete runtime/test copies.",
+          "reviewed_anchors": [
+            "programs"
+          ]
+        }
+      ],
+      "review_record": "books/eopl/review/completion.json"
+    },
+    "eopl/notes/chapter08_modules.html": {
+      "original_sha256": "0bedb82f790b9f9caab28e35b0fdfc0946535d80fbb543b25885b98c02f2909e",
+      "source_sha256": "f1fba608cbebfaa6c26279bb4557d7fe4fe1093a6cea4374cd04e74a08751e8b",
+      "review_record": "books/eopl/review/completion.json",
+      "history": [
+        {
+          "revision": "I063-interface-reading-layout",
+          "from_sha256": "0bedb82f790b9f9caab28e35b0fdfc0946535d80fbb543b25885b98c02f2909e",
+          "to_sha256": "3e5b858320ff33af2a17a9cb1be74e9ff90c763c1c47b5cc04d08fbb7658ac66",
+          "reason": "Actual desktop readback found long compact interface rows hid dependent result signatures. Break displayed object programs into member lines and readable module boundaries; original tasks and maintained executable file bytes stay unchanged.",
+          "reviewed_anchors": [
+            "example-8-9",
+            "example-8-14",
+            "example-8-16",
+            "ex-8-19",
+            "ex-8-20",
+            "programs"
+          ]
+        },
+        {
+          "revision": "I064-object-chapter-navigation",
+          "from_sha256": "3e5b858320ff33af2a17a9cb1be74e9ff90c763c1c47b5cc04d08fbb7658ac66",
+          "to_sha256": "ddc81270bab89391982c983bd0abfd95046030ec549e03f6271141a1c3ad753f",
+          "reason": "Add formal chapter9 SVG node, chapter card and sequential chapter8 entry; retain existing mathematical/program/question content.",
+          "reviewed_anchors": [
+            "top",
+            "programs"
+          ]
+        },
+        {
+          "revision": "I065-completion-and-boundary-repairs",
+          "from_sha256": "ddc81270bab89391982c983bd0abfd95046030ec549e03f6271141a1c3ad753f",
+          "to_sha256": "f1fba608cbebfaa6c26279bb4557d7fe4fe1093a6cea4374cd04e74a08751e8b",
+          "reason": "Validate positive exact evaluation budget before evaluation; synchronize complete runtime/test copies.",
+          "reviewed_anchors": [
+            "programs"
+          ]
+        }
+      ]
+    },
+    "eopl/notes/chapter09_objects.html": {
+      "original_sha256": "23d51dd9b05fd174c890e86ed8647bc17b12fb31cf6456092dcc2f0c7b645485",
+      "source_sha256": "ea1530c0a3f7f1f0ebab77bef0e3d04045485f116d3a8227c5f98cde07225d13",
+      "review_record": "books/eopl/review/completion.json",
+      "history": [
+        {
+          "revision": "I064-source-content-locators",
+          "from_sha256": "23d51dd9b05fd174c890e86ed8647bc17b12fb31cf6456092dcc2f0c7b645485",
+          "to_sha256": "f72f681281e8973cdec43ce3e7224f6ecb9b32fcc5d6d5a193dfba64b30a2ffc",
+          "reason": "Use actual final content page371/PDF394; retain separately inspected blankPDF395. Link canonical program guide without an unregistered fragment. Source exercises and executable programs unchanged.",
+          "reviewed_anchors": [
+            "top",
+            "programs",
+            "definition-9-5-1"
+          ]
+        },
+        {
+          "revision": "I064-native-type-subscripts",
+          "from_sha256": "f72f681281e8973cdec43ce3e7224f6ecb9b32fcc5d6d5a193dfba64b30a2ffc",
+          "to_sha256": "d836eeed88f53c7541ae31188c7dc24a7fb7199c5fdd6930da2c1de2dced27e9",
+          "reason": "Use native MathML for type-variable subscripts in the variance explanation; mark the complete field-view list as program data. Questions, source programs and interpreter bytes unchanged.",
+          "reviewed_anchors": [
+            "s9-4-2",
+            "s9-6",
+            "programs"
+          ]
+        },
+        {
+          "revision": "I065-completion-and-boundary-repairs",
+          "from_sha256": "d836eeed88f53c7541ae31188c7dc24a7fb7199c5fdd6930da2c1de2dced27e9",
+          "to_sha256": "ea1530c0a3f7f1f0ebab77bef0e3d04045485f116d3a8227c5f98cde07225d13",
+          "reason": "Validate ordered parent kinds and all hierarchy edges before comparing forward method types; bound self-cycle witness. Add next-appendix navigation and synchronize complete source/tests.",
+          "reviewed_anchors": [
+            "s9-6",
+            "programs",
+            "top"
+          ]
+        }
+      ]
+    },
+    "eopl/notes/appendix_b_sllgen.html": {
+      "original_sha256": "c4a28bbaf99332df473ffb9e60b057ab3b1c4ee1535c3d973f1ffc5a38ee46ec",
+      "source_sha256": "02f5604fe388abd44a5be03dfe98687b63ac199be29fc0f0f0f772b98e98dd02",
+      "review_record": "books/eopl/review/completion.json",
+      "history": [
+        {
+          "revision": "I065-sllgen-stream-character-coverage",
+          "from_sha256": "c4a28bbaf99332df473ffb9e60b057ab3b1c4ee1535c3d973f1ffc5a38ee46ec",
+          "to_sha256": "02f5604fe388abd44a5be03dfe98687b63ac199be29fc0f0f0f772b98e98dd02",
+          "reason": "A real SLLGEN stream probe accepted5;@2; as a valid prefix. Add incremental character validation before the raw stream parser and distinguish unknown characters, incomplete expressions and clean EOF; synchronize seven-group132-assertion suite.",
+          "reviewed_anchors": [
+            "sB-3-operations",
+            "programs"
+          ]
+        }
+      ]
     }
   }
 }

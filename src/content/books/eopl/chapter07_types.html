@@ -1,0 +1,820 @@
+---
+{
+  "book": "eopl",
+  "chapter": "chapter07",
+  "title": "第 7 章 · 类型检查与类型推导",
+  "printed_start": 233,
+  "printed_end": 274,
+  "pdf_start": 256,
+  "pdf_end": 297,
+  "exercise_range": [
+    "7.1",
+    "7.30"
+  ],
+  "statement_count": 1,
+  "source_manifest": "books/eopl/notes/source_manifest.json",
+  "route": "eopl/notes/chapter07_types.html",
+  "legacy_path": "books/eopl/notes/chapter07_types.html",
+  "stage": "chapter-7",
+  "original_sha256": "0e864a21bc8c295b231beb85cb915f21069325d7b376c8e262e59549aa9ec23a"
+}
+---
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第 7 章 · 类型检查与类型推导 · EOPL</title><style><!-- RN:include styles/reading-base.css -->
+<!-- RN:include styles/reading-content-2.css -->
+<!-- RN:include styles/reading-navigation.css -->
+<!-- RN:include styles/reading-annotations.css -->
+<!-- RN:include styles/reading-components.css -->
+.table-scroll,.diagram-scroll{overflow-x:auto}.table-scroll table{min-width:36rem}.rn-components .table-scroll td code:not(pre code){white-space:nowrap}.code-details pre{max-height:36rem;overflow:auto}.annotation-sidebar .annotation-card h4{font-size:0.95rem}
+<!-- RN:include styles/reading-typography.css --></style></head><body class="rn-components"><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="章节目录"><details class="toc-panel" id="toc-panel" open><summary>目录</summary><nav class="chapter-toc" id="chapter-toc"><a class="toc-home" href="book_overview.html">全书地图</a><a class="toc-home" href="preface.html">序言</a><ul><li><a href="#s7-1">7.1 值与类型：安全契约的范围</a></li><li><a href="#s7-2">7.2 给表达式赋类型：规则与类型环境</a></li><li><a href="#s7-3">7.3 CHECKED：按标注检查程序</a></li><li><a href="#s7-3-1">7.3.1 检查器：从规则到递归程序</a></li><li><a href="#s7-4">7.4 INFERRED：把未知类型变成约束</a></li><li><a href="#s7-4-1">7.4.1 替换：保存已经得到的信息</a></li><li><a href="#s7-4-2">7.4.2 合一：求解有限类型树</a></li><li><a href="#s7-4-3">7.4.3 推导表达式类型：传递替换与多态</a></li><li><a href="#programs">运行本章程序</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">EOPL 第三版 · 第 7 章</p><h1>第 7 章 · 类型检查与类型推导</h1><p class="intro">从值的安全契约到类型规则，再以约束、替换和合一找出缺省类型，辨清多态与共享存储的边界。</p><p class="source">原书 pp.233–274 / <a href="../assets/source.pdf#page=256">PDF 256–297</a>。习题7.1–7.30的完整中文题干与解答。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter06_cps.html">← 第 6 章 · CPS 转换与计算效果</a><a href="chapter08_modules.html">第 8 章 · 模块、接口与抽象类型 →</a></p></header><section id="s7-1"><h2>7.1 值与类型：安全契约的范围</h2><p class="source">原书 §7.1，印刷 p.235 / <a href="../assets/source.pdf#page=258">PDF 258</a>。</p><p>第三章解释器要到运行时才知道一个值是整数、布尔还是过程。第七章把这个问题提前：不执行程序，仅看语法和变量使用方式，能否保证每个操作都拿到适当种类的值？类型不是给变量贴一个方便的名字，而是描述一组允许运算的契约。</p><p>本章“安全”具体指：变量已绑定；减法的两个操作数及 zero? 的操作数为数值；if 的条件为布尔；调用的操作符为过程。安全并不意味着终止，也不排除除零、空表访问等更细的错误。一个安全过程可以一直递归。相反，一个程序这次恰好没有走到错误分支，不等于它在所有输入上都安全。</p><p>只记录“这是一个过程”还不够。f 可能是 int→int，也可能是 bool→int；只有知道它接受和返回什么，才能预测 (f 1) 的合法性。基本类型结构因此是 int、bool 和有限嵌套的过程类型。</p><pre><code class="language-text">Type ::= int | bool | (Type -&gt; Type)</code></pre><div class="rn-statement" id="definition-7-1-1"><h3>定义 7.1.1 · 表达值具有某类型</h3><div class="statement-body"><p>数值具有 int，布尔值具有 bool。一个过程值具有 a→b，当且仅当把任意 a 类型实参交给它后：要么返回 b 类型值，要么不终止，要么发生本章未列为类型错误的其他错误；不能产生类型错误。这里按有限类型结构归纳定义，安全条件则在类型定义之前独立给出。</p></div></div><p>例如 <code>proc(x) if x then 11 else 22</code> 是 bool→int；<code>proc(x)x</code> 对任意类型 a 都是 a→a。<code>proc(x) if x then 11 else zero?(11)</code> 无法用本节简单类型描述：条件要求 bool，但两种布尔输入会给出不同基本类型的结果。</p><p>原书 p.236 的嵌套过程例 <code>proc(x)proc(y) if y then x else 11</code> 的类型写为 int→(bool→int)，这个类型是对的；相邻英文解释却说先给布尔值。应先给整数 x，再给布尔 y。此处按程序、类型和实际执行说明该顺序。</p><details class="reading-notes" id="notes-s7-1" data-notes-for="s7-1" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">语义与分析</span><h3>值的契约不是一次测试结果</h3><p>过程类型对所有合适实参负责；有限测试只能给见证，不能证明全称性质。习题7.1的第13式用有限近似解释语义安全，习题7.12则显示相同语法不在简单类型算法的接受集合中。</p></div><div class="annotation-card"><span class="annotation-kind">保守性</span><h3>拒绝不等于执行一定出错</h3><p>一个健全分析器可以拒绝实际安全的程序。<code>if zero?(0) then 11 else zero?(1)</code> 总返回11，但本章规则仍检查两支并因类型不一致而拒绝。健全性保证的是接受后安全，不是安全就一定接受。</p></div></div></details><h3>本节习题与解答</h3><details class="exercise-index-panel"><summary>本节习题题号索引 · 3 题</summary><nav class="exercise-index" role="navigation" aria-label="本节习题索引"><a href="#ex-7-1" aria-label="习题 7.1">7.1</a> · <a href="#ex-7-2" aria-label="习题 7.2">7.2</a> · <a href="#ex-7-3" aria-label="习题 7.3">7.3</a></nav></details><details class="exercise" id="ex-7-1"><summary>习题 7.1 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="7.1"><p>下面列出若干闭表达式。考虑各表达式的值：每个值具有哪一种或哪些类型？有些值可能没有能用本节类型语言描述的类型。</p><div id="input-7-1"><ol><li><pre><code class="language-text">proc (x) -(x,3)</code></pre></li><li><pre><code class="language-text">proc (f) proc (x) -((f x), 1)</code></pre></li><li><pre><code class="language-text">proc (x) x</code></pre></li><li><pre><code class="language-text">proc (x) proc (y) (x y).</code></pre></li><li><pre><code class="language-text">proc (x) (x 3)</code></pre></li><li><pre><code class="language-text">proc (x) (x x)</code></pre></li><li><pre><code class="language-text">proc (x) if x then 88 else 99</code></pre></li><li><pre><code class="language-text">proc (x) proc (y) if x then y else 99</code></pre></li><li><pre><code class="language-text">(proc (p) if p then 88 else 99
+ 33)</code></pre></li><li><pre><code class="language-text">(proc (p) if p then 88 else 99
+ proc (z) z)</code></pre></li><li><pre><code class="language-text">proc (f)
+ proc (g)
+  proc (p)
+   proc (x) if (p (f x)) then (g 1) else -((f x),1)</code></pre></li><li><pre><code class="language-text">proc (x)
+ proc(p)
+  proc (f)
+   if (p x) then -(x,1) else (f p)</code></pre></li><li><pre><code class="language-text">proc (f)
+ let d = proc (x)
+          proc (z) ((f (x x)) z)
+ in proc (n) ((f (d d)) n)</code></pre></li></ol></div></div><p class="source">印刷 p.237 / <a href="../assets/source.pdf#page=260">PDF 260</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>下表中的 a、b 表示任意有限类型；重复出现的字母必须作同一选择。这里首先回答定义 7.1.1 的值的语义契约，不以某个检查器的接受结果代替定义。</p><div class="table-scroll"><table aria-label="习题7.1各表达式的语义类型与理由"><thead><tr><th scope="col">项</th><th scope="col">类型或结论</th><th scope="col">理由</th></tr></thead><tbody><tr><td>1</td><td><code>(int -&gt; int)</code></td><td>减法要求输入是整数，结果仍是整数。</td></tr><tr><td>2</td><td><code>((a -&gt; int) -&gt; (a -&gt; int))</code></td><td>f 接受 x，其结果参与减法，必须为 int；x 的类型 a 不受其他限制。</td></tr><tr><td>3</td><td><code>(a -&gt; a)</code></td><td>恒等过程原样返回实参。</td></tr><tr><td>4</td><td><code>((a -&gt; b) -&gt; (a -&gt; b))</code></td><td>先给一个 a→b 的过程，再给 a 类型实参，得到 b。原页末尾句点是标点，运行时不输入该句点。</td></tr><tr><td>5</td><td><code>((int -&gt; a) -&gt; a)</code></td><td>把整数 3 交给参数过程；结果类型不受其他使用约束。</td></tr><tr><td>6</td><td><code>无有限简单类型</code></td><td>要让所有指定类型的参数都能安全自应用，不能在有限简单类型树中闭合这一要求；7.12 另给出发生检查的静态方程。</td></tr><tr><td>7</td><td><code>(bool -&gt; int)</code></td><td>测试要求 bool，两个分支都是 int。</td></tr><tr><td>8</td><td><code>(bool -&gt; (int -&gt; int))</code></td><td>x 是布尔值；当 x 为真时返回 y，为假时返回 99，故 y 必须为 int。</td></tr><tr><td>9</td><td><code>求值发生类型错误，没有所得表达值</code></td><td>把 33 当作 if 条件；不能将“求值出错”误写成“得到一个无类型的数值”。</td></tr><tr><td>10</td><td><code>求值发生类型错误，没有所得表达值</code></td><td>把过程值当作 if 条件，与第9项同样违反布尔条件。</td></tr><tr><td>11</td><td><code>((a -&gt; int) -&gt; ((int -&gt; int) -&gt; ((int -&gt; bool) -&gt; (a -&gt; int))))</code></td><td>else 的减法使 f(x) 为 int；p 接受该整数且返回 bool；g 接受 1 且也须返回 int。</td></tr><tr><td>12</td><td><code>(int -&gt; ((int -&gt; bool) -&gt; (((int -&gt; bool) -&gt; int) -&gt; int)))</code></td><td>减法约束 x:int；p:int→bool；另一个分支调用 f(p) 必须返回 int。</td></tr><tr><td>13</td><td><code>(((a -&gt; b) -&gt; (a -&gt; b)) -&gt; (a -&gt; b))</code></td><td>这是带一层过程保护的按值不动点构造。语义契约可以成立，静态简单类型系统却会拒绝内部的自应用。</td></tr></tbody></table></div><p>第13项值得单独证明。令 <code>g = (d d)</code>，它是一个接收 n 的闭包，满足 <code>g(n) = (f g)(n)</code>。设 f 接受并返回 a→b 的过程。先取对任意实参都不终止的闭包 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><msub><mi>g</mi><mn>0</mn></msub></math>，再令 <code>g[k+1](n) = (f g[k])(n)</code>。由 f 的契约，每个有限层近似都不会产生类型错误；实际求值若在有限步出现类型错误，就会在某个足够深的近似中出现同一错误，矛盾。因而所得闭包具有 a→b 的语义类型；这不保证终止。</p><p>运行见证把 f 取为“递归求双倍”的生成器，对 n=0…14，未标注解释器返回 2n；同一个表达式交给基本 INFERRED 则报 occurs。这些运行见证说明两种问题确实不同，语义契约仍由上述有限近似论证支持。</p></div></details><details class="exercise" id="ex-7-2"><summary>习题 7.2 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="7.2"><p>按照定义 7.1.1，是否存在恰好具有两种类型的表达值？</p></div><p class="source">印刷 p.238 / <a href="../assets/source.pdf#page=261">PDF 261</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>在本节纯 LETREC 和有限简单类型语言中，不会恰好只有两种：没有类型、只有一种或有无限多种都可能。数值和布尔值各只有自己的基本类型；过程若只有一个完全确定的输入/输出类型，也可只有一种，例如 <code>proc(x) -(x,1)</code>。</p><p>关键是“至少两种”不能靠列出两个例子就结束。对过程的契约从外到内比较两种不同类型：算术可观察的位置必须固定为 int，条件可观察的位置必须固定为 bool，应用可观察的位置必须是具有相应参数/结果结构的过程。它们不允许一个位置只取 int、bool 两者却排除其余全部结构。剩余能够不同的位置只能作为同一个不透明类型参数被传递或忽略；保持其各次出现一致，可以把它替换成任意有限类型。例如依次取 int、bool、int→int、int→(int→int) 等，得到无限多个不同实例。若一个调用在所有相应实参上均不返回，则结果类型也不受限制，同样有无限多个。</p><p>这里使用的是本节构造的语义可观察性：没有类型测试、联合类型或专门的类型分派原语。加入这些能力后要重新论证，不能沿用结论。也不能单用后面的“主类型有自由变量”来证明本题，因为定义 7.1.1 的语义类型与算法可推出的类型并不相同。</p></div></details><details class="exercise" id="ex-7-3"><summary>习题 7.3 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="7.3"><p>对于 LETREC 语言，给定表达值 <code>val</code> 和类型 <code>t</code>，判断 <code>val</code> 是否具有类型 <code>t</code> 是可判定的吗？</p></div><p class="source">印刷 p.238 / <a href="../assets/source.pdf#page=261">PDF 261</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>不可判定。固定任意机器 M 及输入 w，在 LETREC 中用只进行合法整数操作的递归过程模拟它。构造闭包 v：</p><pre><code class="language-text">proc (unused)
+  let ignored = simulate-M-on-w
+  in -(zero?(0),1)</code></pre><p>创建 v 不执行模拟。调用它时，若 M(w) 不停机，调用也一直运行，因而符合定义 7.1.1 对 int→int 的许可；若 M(w) 停机，后面的减法把布尔值当整数，产生类型错误，v 就不具有 int→int。若能决定 v 是否具有该类型，就能决定 M(w) 是否不停机，进而决定停机问题，矛盾。</p><p>构造中的模拟器可由整数编码的寄存器机给出，测试、加减和递归本身都不越过类型边界。因此困难确实来自是否会走到最后的错误，而非模拟器事先出错。CHECKED/INFERRED 决定的是其有限规则可否给出类型推导，接受集合是一个可判定的安全子集。</p></div></details></section><section id="s7-2"><h2>7.2 给表达式赋类型：规则与类型环境</h2><p class="source">原书 §7.2，印刷 p.238 / <a href="../assets/source.pdf#page=261">PDF 261</a>。</p><p>运行环境把名字关联到值或位置；类型环境 Γ 把名字关联到类型。类型分析沿语法递归，遇到绑定就扩展类型环境，却不去计算变量的运行值。</p><div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>Γ</mi><mo>⊢</mo><mi>e</mi><mo>:</mo><mi>τ</mi></mrow></math></div><p>这读作“在 Γ 的假设下，e 具有类型 τ”。若运行环境确实满足 Γ，则 e 返回时给出 τ 类型值，或不终止，或发生不属于本章类型错误的错误。这正是分析器与运行解释器之间的联系。</p><div class="table-scroll"><table aria-label="基本语法的类型规则"><thead><tr><th scope="col">语法</th><th scope="col">要核对什么</th><th scope="col">结果</th></tr></thead><tbody><tr><td><code>n</code></td><td>n是整数常量</td><td><code>int</code></td></tr><tr><td><code>x</code></td><td>查Γ(x)，不能漏掉未绑定检查</td><td><code>Γ(x)</code></td></tr><tr><td><code>-(e1,e2)</code></td><td>两个子式均为int</td><td><code>int</code></td></tr><tr><td><code>zero?(e)</code></td><td>e为int</td><td><code>bool</code></td></tr><tr><td><code>if c then a else b</code></td><td>c为bool，两支同型t</td><td><code>t</code></td></tr><tr><td><code>let x=e in body</code></td><td>先用旧Γ求e类型t，再用Γ[x:t]分析body</td><td>body类型</td></tr><tr><td><code>(f arg)</code></td><td>f为a→b，arg为a</td><td><code>b</code></td></tr></tbody></table></div><p>真正缺的信息在 proc：只看到参数名 x，并不知道它应取哪种类型。检查方案让程序员给出参数类型，推导方案则先放一个未知量，再从使用位置约束它。二者使用相同类型规则，主要差别是缺失信息从哪里来。</p><p>作用域仍完全沿用第三章。例如 <code>let x=zero?(0) in let f=proc(y:int) if x then y else 0 in let x=3 in (f 4)</code>，检查 f 的正文时 x:bool；后来的 x:int 不改写这个环境。执行时 f 保存的也是早先 x 的值，所以类型环境与闭包环境在绑定关系上相对应。</p><details class="reading-notes" id="notes-s7-2" data-notes-for="s7-2" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">两种环境</span><h3>类型环境也遵循词法作用域</h3><p>类型环境不是运行环境的快照，也不含当前整数200或位置4。它保存的是“这个绑定的值必须满足哪种契约”。进入过程时扩展参数绑定，离开局部作用域后恢复外层绑定。</p></div><div class="annotation-card"><span class="annotation-kind">规则读法</span><h3>横线上方是前提</h3><p>应用规则既要求操作符为过程，也要求实参匹配其参数类型。只检查“这是过程”会漏掉把bool传给int→int；只把两者分别分析而不比较，也没有完成应用规则。</p></div></div></details><h3>本节习题与解答</h3><details class="exercise" id="ex-7-4"><summary>习题 7.4 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="7.4"><p>用本节规则，仿照原书 p.5 的推导，为 <code>proc (x) x</code> 和 <code>proc (x) proc (y) (x y)</code> 分别写出类型推导。每个项至少赋予两种类型。这些表达式的值是否具有相同的那些类型？</p></div><p class="source">印刷 p.240 / <a href="../assets/source.pdf#page=263">PDF 263</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>令 a、b 为任意类型。第一式的推导只有变量规则和过程规则：</p><pre><code class="language-text">Γ,x:a ⊢ x:a
+------------------- proc
+Γ ⊢ proc(x)x : a -&gt; a</code></pre><p>取 a=int 和 a=bool，分别得到 int→int、bool→bool。第二式先在含 x、y 的环境里使用应用规则，再连续抽掉两个参数：</p><pre><code class="language-text">Γ,x:(a-&gt;b),y:a ⊢ x:(a-&gt;b)     Γ,x:(a-&gt;b),y:a ⊢ y:a
+---------------------------------------------------------------- app
+Γ,x:(a-&gt;b),y:a ⊢ (x y):b
+---------------------------------------------------- proc y
+Γ,x:(a-&gt;b) ⊢ proc(y)(x y):a-&gt;b
+---------------------------------------------------- proc x
+Γ ⊢ proc(x)proc(y)(x y):(a-&gt;b)-&gt;(a-&gt;b)</code></pre><p>例如取 (a,b)=(int,int) 与 (bool,int)，得到 <code>((int-&gt;int)-&gt;(int-&gt;int))</code> 和 <code>((bool-&gt;int)-&gt;(bool-&gt;int))</code>。相应值确实具有这些类型：第一式原样返回实参，第二式把正确类型的实参交给正确类型的过程。二者各自的表达式类型与值的语义契约吻合；不是说这两个不同表达式具有相同的类型集合。</p></div></details></section><section id="s7-3"><h2>7.3 CHECKED：按标注检查程序</h2><p class="source">原书 §7.3，印刷 p.240 / <a href="../assets/source.pdf#page=263">PDF 263</a>。</p><p>CHECKED 保持 LETREC 的求值语义，增加参数标注和递归过程的返回标注。返回标注只描述过程体的结果：double 的结果类型为 int，double 这个值的类型则为 int→int。</p><pre><code class="language-text">letrec int double(x : int) =
+  if zero?(x) then 0 else -((double -(x,1)),-2)
+in (double 3)</code></pre><div class="table-scroll"><table aria-label="double的类型检查环境与中间结果"><thead><tr><th scope="col">位置</th><th scope="col">类型环境或结果</th></tr></thead><tbody><tr><td>先安装递归签名</td><td><code>Γrec = Γ[double : int-&gt;int]</code></td></tr><tr><td>进入过程体</td><td><code>Γbody = Γrec[x:int]</code></td></tr><tr><td>条件zero?(x)</td><td>x:int，因此条件bool</td></tr><tr><td>递归调用</td><td>x−1:int；double接受int，结果int</td></tr><tr><td>两支与返回声明</td><td>0:int；递归结果加2仍int，等于声明int</td></tr><tr><td>in正文</td><td>double(3):int，执行得到6</td></tr></tbody></table></div><p>先安装签名，才可能在检查 double 时认识 double 自己。签名是假设，随后必须检查正文确实兑现它；若跳过这一步，程序员写一个假的 bool 返回标注就能骗过检查器。</p><details class="reading-notes" id="notes-s7-3" data-notes-for="s7-3" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">递归假设</span><h3>签名先用，正文后验</h3><p>递归类型检查不靠执行一次递归来猜结果。它把声明当作待验证假设，再检查每个返回路径；这与递归程序规格中使用归纳假设的结构相似。</p></div><div class="annotation-card"><span class="annotation-kind">模型边界</span><h3>标注不会改变运行值</h3><p>求值器忽略类型标注，仍按原来的闭包和参数绑定求值。类型检查失败时应停止进入正常执行入口，不能指望标注在运行时把布尔自动转换成整数。</p></div></div></details><section id="s7-3-1"><h3>7.3.1 检查器：从规则到递归程序</h3><p class="source">原书 §7.3.1，印刷 p.242 / <a href="../assets/source.pdf#page=265">PDF 265</a>。</p><p>实现时每条规则对应一个递归分支。常量和变量直接返回类型；算术和条件先分析子式，再做结构相等检查；过程在扩展的类型环境里分析 body；调用拆开过程类型并逐一比较实参。完整实现是本页程序区的 <code>checked-type</code>。</p><p>类型以 int/bool/void 原子或带标签的树表示。相等是完整结构相等，int→bool 与bool→int不能只比较最外层“过程”标签。发生错误时同时保存出错 AST 结点和类别，便于区分条件、未绑定变量、参数个数和普通类型冲突。</p><p>随着习题加入复合数据，序对保存两个可以不同的分量类型，表保存共同的元素类型，引用保存位置内容的类型。运行时可能有多个名字共享一个位置，静态分析也必须让这些使用点约束同一内容类型。</p><details class="reading-notes" id="notes-s7-3-1" data-notes-for="s7-3-1" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">错误顺序</span><h4>先检查条件再检查两支</h4><p>先检查测试的类型可以更早报告根本问题；不会因此跳过一个类型正确条件的任一分支。习题7.7实际比较两个错误顺序。</p></div><div class="annotation-card"><span class="annotation-kind">信息隐藏</span><h4>void不是万能类型</h4><p>void表示写入操作不暴露有用返回信息，不是可以代替int或bool的顶类型。写入动作的目标和值仍须严格配型，void结果不能进入减法或if条件。</p></div></div></details><h4>本节习题与解答</h4><details class="exercise-index-panel"><summary>本节习题题号索引 · 7 题</summary><nav class="exercise-index" role="navigation" aria-label="本节习题索引"><a href="#ex-7-5" aria-label="习题 7.5">7.5</a> · <a href="#ex-7-6" aria-label="习题 7.6">7.6</a> · <a href="#ex-7-7" aria-label="习题 7.7">7.7</a> · <a href="#ex-7-8" aria-label="习题 7.8">7.8</a> · <a href="#ex-7-9" aria-label="习题 7.9">7.9</a> · <a href="#ex-7-10" aria-label="习题 7.10">7.10</a> · <a href="#ex-7-11" aria-label="习题 7.11">7.11</a></nav></details><details class="exercise" id="ex-7-5"><summary>习题 7.5 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="7.5"><p>扩展检查器，使其支持一个 let 中的多个声明、多参数过程及一个 letrec 中的多个声明。为了支持多参数过程，需要增加形如 <code>(t1 * t2 * ... * tn -&gt; t)</code> 的类型。</p></div><p class="source">印刷 p.243 / <a href="../assets/source.pdf#page=266">PDF 266</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>多元过程类型保存参数类型列表与结果类型。应用要求实参数量相同，并逐项核对；不能用 zip 截断多出的参数。并行 let 的每个右侧都在旧环境检查，全部完成后再同时扩展正文环境。letrec 则先把整组过程的签名装入一个环境，再逐个检查正文；检查某个过程时，只额外加入它自己的形参。</p><pre><code class="language-text">letrec int even(x:int)=if zero?(x) then 1 else (odd -(x,1))
+       int odd(x:int)=if zero?(x) then 0 else (even -(x,1))
+in (odd 13)</code></pre><p>直接检查结果 int，执行结果 1。实现见 <code>checked-type</code> 的 let/rec/call 分支。<code>(proc(x:int,y:bool) if y then x else 0 4 zero?(0))</code> 为 int，执行得4；少参数、多参数、重复形参和重复递归名字都明确报错。</p></div></details><details class="exercise" id="ex-7-6"><summary>习题 7.6 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="7.6"><p>扩展检查器，使其支持赋值（§4.3）。</p></div><p class="source">印刷 p.243 / <a href="../assets/source.pdf#page=266">PDF 266</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>赋值的目标必须已在类型环境中，右侧类型须等于该变量既定的类型；赋值不会改变类型环境。沿用第四章的哨兵返回值27，赋值表达式的类型为 int：</p><pre><code class="language-text">Γ(x)=t     Γ ⊢ e:t
+--------------------------
+Γ ⊢ set x=e : int</code></pre><p><code>let x=0 in begin set x=4; x end</code> 检查为 int，执行得4；单独 <code>set x=4</code> 执行得27。把 x 改写成布尔值会被拒绝。到多态扩展时，具有全称量化类型方案的 let 名字不允许再赋值；可赋值变量只持有一个单态类型，避免通过更新破坏所有使用点的契约。</p></div></details><details class="exercise" id="ex-7-7"><summary>习题 7.7 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="7.7"><p>修改 if-exp 的检查代码：若测试表达式不是布尔类型，就不再检查另外两个表达式。给出一个表达式，使新旧检查器表现不同。</p></div><p class="source">印刷 p.243 / <a href="../assets/source.pdf#page=266">PDF 266</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>先计算测试类型，立即要求其为 bool，然后才访问两个分支。对 <code>if 1 then missing else 0</code>，原图7.1先分析三棵子树，可能首先报 missing 未绑定；修改版首先报条件不是 bool，完全不检查两个分支。</p><pre><code class="language-scheme">(check &quot;if 1 then missing else 0&quot; #:early-if? #f) ; unbound
+(check &quot;if 1 then missing else 0&quot; #:early-if? #t) ; condition</code></pre><p>这改变错误发现顺序，不改变正确程序的类型规则。编译期仍会检查两个可达性未知的分支；“遇到错误先停止”不能解释为“按测试值只检查运行时采用的那个分支”。</p></div></details><details class="exercise" id="ex-7-8"><summary>习题 7.8 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="7.8"><p>向语言加入 pairof 类型。一个值具有类型 <code>pairof t1 * t2</code>，当且仅当它是一对值，其两个分量分别具有类型 <code>t1</code> 和 <code>t2</code>。加入以下产生式：</p><pre><code class="language-text">Type ::= pairof Type * Type
+         pair-type (ty1 ty2)
+Expression ::= newpair (Expression , Expression)
+               pair-exp (exp1 exp2)
+Expression ::= unpair Identifier Identifier = Expression
+               in Expression
+               unpair-exp (var1 var2 exp body)</code></pre><p>pair 表达式创建序对；unpair 类似习题 3.18，把两个变量分别绑定到序对的两个分量，这两个变量的作用域是 body。其类型规则如下（保留原书规则的 AST/外部表示记号）：</p><pre><code class="language-text">type-of(e1,tenv)=t1   type-of(e2,tenv)=t2
+------------------------------------------------
+type-of(pair-exp(e1,e2),tenv)=pairof t1 * t2
+
+type-of(epair,tenv)=(pairof t1 t2)
+type-of(ebody,[var1=t1][var2=t2]tenv)=tbody
+------------------------------------------------
+type-of(unpair-exp(var1,var2,e1,ebody),tenv)=tbody</code></pre><p>扩展 CHECKED，实现这些规则。对于序对类型，<code>type-to-external-form</code> 应产生表 <code>(pairof t1 t2)</code>。</p></div><p class="source">印刷 p.243 / <a href="../assets/source.pdf#page=266">PDF 266</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>newpair 的类型由两个分量独立决定，不要求相同。unpair 先检查右侧确为 pairof a b，再仅在 body 的环境中绑定两个名字。外部形式按题目要求输出 <code>(pairof a b)</code>，不套过程类型的三元表结构，因此不会与箭头类型混淆。</p><pre><code class="language-text">unpair n ok = newpair(3,zero?(0))
+in if ok then n else 0</code></pre><p>直接检查得到 int，执行得到3。实现见 checker 的 newpair/unpair 分支与 <code>pair-t</code>。序对内部可以异质；<code>unpair a b=3 in a</code> 被拒绝，两个分量的绑定也不泄漏到外部。</p></div></details><details class="exercise" id="ex-7-9"><summary>习题 7.9 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="7.9"><p>向语言加入 listof 类型，操作类似习题 3.9。值具有类型 <code>listof t</code>，当且仅当它是一个表且每个元素都具有类型 <code>t</code>。加入以下产生式：</p><pre><code class="language-text">Type ::= listof Type
+         list-type (ty)
+Expression ::= list (Expression {, Expression}*)
+               list-exp (exp1 exps)
+Expression ::= cons (Expression , Expression)
+               cons-exp (exp1 exp2)
+Expression ::= null? (Expression)
+               null-exp (exp1)
+Expression ::= emptylist_Type
+               emptylist-exp (ty)</code></pre><p>它们的类型由以下四条规则给出：</p><pre><code class="language-text">type-of(e1,tenv)=t, ..., type-of(en,tenv)=t
+------------------------------------------------
+type-of(list-exp(e1,(e2 ... en)),tenv)=listof t
+
+type-of(e1,tenv)=t   type-of(e2,tenv)=listof t
+------------------------------------------------
+type-of(cons(e1,e2),tenv)=listof t
+
+type-of(e1,tenv)=listof t
+------------------------------------------------
+type-of(null?(e1),tenv)=bool
+
+type-of(emptylist[t],tenv)=listof t</code></pre><p>虽然 cons 与 pair 相似，其类型规则却很不相同。为 car 和 cdr 写出类似规则，扩展检查器以支持它们及上述表达式。使用类似习题 7.8 的办法，避免与 proc-type-exp 冲突。规则应保证 car/cdr 的操作数是表，但不保证表非空；为什么要求规则保证表非空不合理？emptylist 为什么需要类型参数？</p></div><p class="source">印刷 p.247 / <a href="../assets/source.pdf#page=270">PDF 270</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>car 保持元素类型，cdr 保持整个表类型：</p><pre><code class="language-text">Γ ⊢ e:listof t                  Γ ⊢ e:listof t
+---------------- car             ---------------- cdr
+Γ ⊢ car(e):t                    Γ ⊢ cdr(e):listof t</code></pre><p>list 逐一比较元素类型；cons 的第二个参数必须是第一个参数类型对应的表，故 <code>cons(1,emptylist_int)</code> 是 listof int，而 <code>list(1,zero?(0))</code> 被拒绝。检查 null? 时只需确认操作数为表，返回 bool。类型结构以独立的 listof 构造表示，不复用过程类型的列表形状。</p><p>这种系统只跟踪元素类型，不跟踪长度。<code>car(emptylist_int)</code> 仍具有 int，但实际执行报 empty-list；这属于本章刻意没有排除的错误。若要保证非空，需要额外的非空表类型、长度索引或控制流精化，不能凭相同 listof t 类型做到。空表没有元素可供检查器读取类型，所以 CHECKED 中需显式类型参数；下一节 INFERRED 才能用未知类型变量等待上下文决定。</p></div></details><details class="exercise" id="ex-7-10"><summary>习题 7.10 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="7.10"><p>扩展检查器以支持 EXPLICIT-REFS，需要完成：</p><ul><li>加入 <code>refto t</code>，其中 t 为任意类型；它表示指向含有 t 类型值的位置的引用。因此若 e 具有类型 t，则 <code>(newref e)</code> 具有类型 <code>refto t</code>。</li><li>加入类型 <code>void</code>，用于 setref 的返回值。不能对 void 类型的值施加任何操作，因此 setref 实际返回什么值并不重要。这是类型用作信息隐藏机制的例子。</li><li>写出 newref、deref、setref 的类型规则。</li><li>在检查器中实现这些规则。</li></ul></div><p class="source">印刷 p.248 / <a href="../assets/source.pdf#page=271">PDF 271</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>引用的类型必须连同内容类型一起保持；规则为：</p><pre><code class="language-text">Γ ⊢ e:t                    Γ ⊢ r:refto t
+---------------- newref     ---------------- deref
+Γ ⊢ newref(e):refto t        Γ ⊢ deref(r):t
+
+Γ ⊢ r:refto t     Γ ⊢ e:t
+----------------------------- setref
+Γ ⊢ setref(r,e):void</code></pre><p><code>let r=newref(11) in begin setref(r,22); -(deref(r),1) end</code> 检查为 int，执行得21。写入布尔值、把非引用交给 deref、把 setref 的 void 结果参与减法均被拒绝。运行模型返回不透明的 unit；程序不能把它当数、布尔或过程使用。这体现的是接口不提供可观察信息，不是说程序不能把 void 结果存入一个变量或直接丢弃。</p></div></details><details class="exercise" id="ex-7-11"><summary>习题 7.11 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="7.11"><p>扩展检查器，使其支持 MUTABLE-PAIRS（可变序对语言）。</p></div><p class="source">印刷 p.248 / <a href="../assets/source.pdf#page=271">PDF 271</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>可变序对的两个位置分别有固定内容类型。读操作返回对应分量类型，写操作要求新值与该位置类型相同：</p><pre><code class="language-text">p:pairof a b ⟹ left(p):a, right(p):b
+p:pairof a b, e:a ⟹ setleft(p,e):int
+p:pairof a b, e:b ⟹ setright(p,e):int</code></pre><p>沿用第四章的写入哨兵82/83；本程序通过 <code>#:mutable-pairs? #t</code> 打开该解释器/检查器模式。<code>let p=newpair(1,zero?(0)) in let q=p in begin setleft(q,8); left(p) end</code> 类型为 int，执行得8，说明 q 与 p 共享同一对象；把左分量改成布尔值则被拒绝。仅仅复制一张字段类型表而忽略共享位置的约束，会让别名观察到不合法值，因而更新必须保持原字段类型。</p></div></details></section></section><section id="s7-4"><h2>7.4 INFERRED：把未知类型变成约束</h2><p class="source">原书 §7.4，印刷 p.248 / <a href="../assets/source.pdf#page=271">PDF 271</a>。</p><p>原书这一节开头的 even/odd 示例把 odd 的返回类型标成 bool，但两个过程的基例与递归分支实际都返回整数0或1。按程序应将该返回标注改为 int；这与把过程参数 x 的类型改成 bool 是两回事。习题7.5/7.15的运行版本采用 int 返回，输入13得到1。</p><p>INFERRED 把缺省标注写成 ?。每一处 ? 先获得独立类型变量；相同程序变量的多次出现则使用同一个类型表达式。类型变量表示“尚未解出的类型”，不是运行时值，也不是可以随意同时当整数和布尔的动态类型。</p><p>贯穿例子取原书的 <code>proc(f) proc(x) -((f 3),(f x))</code>。给 f、x、两个过程、减法及两次调用分别命名，再按规则列方程：</p><pre><code class="language-text">t0 = tf -&gt; t1           外层过程
+t1 = tx -&gt; t2           内层过程
+t3 = int, t4 = int      减法的两个操作数
+t2 = int                减法结果
+tf = int -&gt; t3          调用(f 3)
+tf = tx -&gt; t4           调用(f x)</code></pre><div class="table-scroll"><table aria-label="贯穿例子的合一过程"><thead><tr><th scope="col">处理步骤</th><th scope="col">已经确定的信息</th></tr></thead><tbody><tr><td>先处理减法</td><td><code>t2=t3=t4=int</code></td></tr><tr><td>应用到第一次调用</td><td><code>tf=int-&gt;int</code></td></tr><tr><td>把第二次调用的tf替换掉</td><td><code>(int-&gt;int)=(tx-&gt;int)</code></td></tr><tr><td>分解箭头的对应位置</td><td><code>tx=int</code>，结果int=int</td></tr><tr><td>回填内层、外层过程</td><td><code>t1=int-&gt;int; t0=(int-&gt;int)-&gt;(int-&gt;int)</code></td></tr></tbody></table></div><p>这里的回填不能省略：当 tx 从未知变成 int 时，之前已经保存的 t1、t0 也要反映这一事实。若一直打印早先那棵未解释的树，会把本已确定的类型显示成未知。</p><p>两类失败必须分开理解。<code>proc(x) if x then -(x,1) else 0</code> 强制同一变量既是 bool 又是 int，是构造子冲突。<code>proc(f) zero?((f f))</code> 强制 <code>α = α -&gt; int</code>，则不是两个基本类型不等，而是要求一个有限类型树包含自身。</p><details class="reading-notes" id="notes-s7-4" data-notes-for="s7-4" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">鲜变量</span><h3>同一个问号、同一个绑定</h3><p>每处缺省独立分配，绑定后重复使用共享。若每次读变量都新建未知量，int/bool冲突就会被掩盖；若所有问号共用一个量，又会错误地把独立参数绑在一起。</p></div><div class="annotation-card"><span class="annotation-kind">多态边界</span><h3>未知类型还不是let多态</h3><p><code>proc(x)x</code> 得到a→a只表示整段表达式有一族实例。基本INFERRED把let名字绑定到一个共享的类型表达式；要让同一名字每次使用都有独立实例，还需类型方案和实例化。</p></div></div></details><h3>本节习题与解答</h3><details class="exercise-index-panel"><summary>本节习题题号索引 · 5 题</summary><nav class="exercise-index" role="navigation" aria-label="本节习题索引"><a href="#ex-7-12" aria-label="习题 7.12">7.12</a> · <a href="#ex-7-13" aria-label="习题 7.13">7.13</a> · <a href="#ex-7-14" aria-label="习题 7.14">7.14</a> · <a href="#ex-7-15" aria-label="习题 7.15">7.15</a> · <a href="#ex-7-16" aria-label="习题 7.16">7.16</a></nav></details><details class="exercise" id="ex-7-12"><summary>习题 7.12 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="7.12"><p>使用本节的方法，为<a href="#input-7-1">习题 7.1 的全部 13 个表达式</a>逐一推导类型，或判定不存在这样的类型。与本节其他例子一样，假定每个绑定变量都附带一个 <code>?</code>。</p></div><p class="source">印刷 p.258 / <a href="../assets/source.pdf#page=281">PDF 281</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>这题要求有限简单类型的约束推导，结论不能直接复制语义讨论。每次绑定先分配一个新的未知类型，同一个绑定的各次使用共享它；每个调用增加 <code>Trator = Trand -&gt; Tresult</code>。逐式得到：</p><div class="table-scroll"><table aria-label="习题7.12全部13式的约束与类型"><thead><tr><th scope="col">项</th><th scope="col">推导结果</th></tr></thead><tbody><tr><td>1</td><td><code>(int -&gt; int)</code>；减法要求输入是整数，结果仍是整数。</td></tr><tr><td>2</td><td><code>((a -&gt; int) -&gt; (a -&gt; int))</code>；f 接受 x，其结果参与减法，必须为 int；x 的类型 a 不受其他限制。</td></tr><tr><td>3</td><td><code>(a -&gt; a)</code>；恒等过程原样返回实参。</td></tr><tr><td>4</td><td><code>((a -&gt; b) -&gt; (a -&gt; b))</code>；先给一个 a→b 的过程，再给 a 类型实参，得到 b。原页末尾句点是标点，运行时不输入该句点。</td></tr><tr><td>5</td><td><code>((int -&gt; a) -&gt; a)</code>；把整数 3 交给参数过程；结果类型不受其他使用约束。</td></tr><tr><td>6</td><td><code>α=α→β</code>，发生检查失败。</td></tr><tr><td>7</td><td><code>(bool -&gt; int)</code>；测试要求 bool，两个分支都是 int。</td></tr><tr><td>8</td><td><code>(bool -&gt; (int -&gt; int))</code>；x 是布尔值；当 x 为真时返回 y，为假时返回 99，故 y 必须为 int。</td></tr><tr><td>9</td><td>条件类型必须为 bool，实参分别强制 int / 过程类型，冲突。</td></tr><tr><td>10</td><td>条件类型必须为 bool，实参分别强制 int / 过程类型，冲突。</td></tr><tr><td>11</td><td><code>((a -&gt; int) -&gt; ((int -&gt; int) -&gt; ((int -&gt; bool) -&gt; (a -&gt; int))))</code>；else 的减法使 f(x) 为 int；p 接受该整数且返回 bool；g 接受 1 且也须返回 int。</td></tr><tr><td>12</td><td><code>(int -&gt; ((int -&gt; bool) -&gt; (((int -&gt; bool) -&gt; int) -&gt; int)))</code>；减法约束 x:int；p:int→bool；另一个分支调用 f(p) 必须返回 int。</td></tr><tr><td>13</td><td><code>α=α→β</code>，发生检查失败。</td></tr></tbody></table></div><p>第6项若 x 的类型为 α，调用 x(x) 强制 <code>α = α -&gt; β</code>；有限类型树的右边比左边至少多一个箭头和结果节点，不可能相等。第13项在 d 的正文中同样含 x(x)，因此也在此处失败，尽管其值具有习题7.1说明的递归契约。</p><p>第11项可按顺序记录 <code>tf=a-&gt;int, tp=int-&gt;bool, tg=int-&gt;int, tx=a</code>；第12项记录 <code>tx=int, tp=int-&gt;bool, tf=(int-&gt;bool)-&gt;int</code>，再由内向外添加箭头。实际测试将13式分别送入六种替换/合一表示和两种求解时序，核对主类型的变量一致性或准确错误类别。</p></div></details><details class="exercise" id="ex-7-13"><summary>习题 7.13 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="7.13"><p>写出 let 表达式的类型推导规则。用该规则为下列各式推导类型，或判定不存在这样的类型。</p><ol><li><pre><code class="language-text">let x = 4 in (x 3)</code></pre></li><li><pre><code class="language-text">let f = proc (z) z in proc (x) -((f x), 1)</code></pre></li><li><pre><code class="language-text">let p = zero?(1) in if p then 88 else 99</code></pre></li><li><pre><code class="language-text">let p = proc (z) z in if p then 88 else 99</code></pre></li></ol></div><p class="source">印刷 p.259 / <a href="../assets/source.pdf#page=282">PDF 282</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>单态 let 先生成右侧的类型及约束，在相同替换下把所得类型绑定到名字，再分析正文：</p><pre><code class="language-text">infer(e1,Γ,σ0) = (t1,σ1)
+infer(e2,Γ[x↦t1],σ1) = (t2,σ2)
+------------------------------------
+infer(let x=e1 in e2,Γ,σ0) = (t2,σ2)</code></pre><div class="table-scroll"><table aria-label="习题7.13四式的单态let推导"><thead><tr><th scope="col">项</th><th scope="col">结论与方程</th></tr></thead><tbody><tr><td>1</td><td>x:int 却作为过程，需 <code>int=int-&gt;α</code>，无解。</td></tr><tr><td>2</td><td><code>f:α-&gt;α</code>；减法使 f(x):int，故 α=int、x:int，结果 int→int。</td></tr><tr><td>3</td><td>p:bool；两个分支均为 int，整式 int，实际执行99。</td></tr><tr><td>4</td><td>p:α→α，却直接作条件；过程类型与 bool 冲突。</td></tr></tbody></table></div><p>这里没有泛化和每次使用点的实例化；要到习题7.28/7.29才改变这一点。</p></div></details><details class="exercise" id="ex-7-14"><summary>习题 7.14 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="7.14"><p>下面的表达式有什么问题？</p><pre><code class="language-text">letrec
+ ? even(odd : ?) =
+    proc (x : ?)
+     if zero?(x) then 1 else (odd -(x,1))
+in letrec
+    ? odd(x : bool) =
+       if zero?(x) then 0 else ((even odd) -(x,1))
+   in (odd 13)</code></pre></div><p class="source">印刷 p.259 / <a href="../assets/source.pdf#page=282">PDF 282</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>内层 odd 的形参明确标为 bool，但正文把 x 交给 zero? 和减法，二者都要求 int；最后调用 <code>(odd 13)</code> 也要求整数参数，故该标注与使用冲突。改成 <code>x : int</code> 或 <code>x : ?</code> 即可。</p><p>外层 even 的形参恰好也叫 odd，但它只是在 even 正文里使用的参数，不是与内层递归名字相同的绑定。修正后，外层 even 为 <code>(int-&gt;int)-&gt;(int-&gt;int)</code>，内层 odd 为 int→int，整式 int，输入13执行得1。不能把遮蔽问题误当成互递归名字未绑定。</p></div></details><details class="exercise" id="ex-7-15"><summary>习题 7.15 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="7.15"><p>写出 letrec 表达式的类型推导规则，应支持同一 letrec 内有多个声明。用你的规则为下列各式推导类型，或判定不存在这样的类型。</p><ol><li><pre><code class="language-text">letrec ? f (x : ?)
+          = if zero?(x) then 0 else -((f -(x,1)), -2)
+in f</code></pre></li><li><pre><code class="language-text">letrec ? even (x : ?)
+            = if zero?(x) then 1 else (odd -(x,1))
+       ? odd (x : ?)
+            = if zero?(x) then 0 else (even -(x,1))
+in (odd 13)</code></pre></li><li><pre><code class="language-text">letrec ? even (odd : ?)
+            = proc (x) if zero?(x)
+                       then 1
+                       else (odd -(x,1))
+in letrec ? odd (x : ?) =
+             if zero?(x)
+             then 0
+             else ((even odd) -(x,1))
+   in (odd 13)</code></pre></li></ol></div><p class="source">印刷 p.259 / <a href="../assets/source.pdf#page=282">PDF 282</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>对每个递归名字 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><msub><mi>p</mi><mi>i</mi></msub></math> 先建立参数类型列表 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><msub><mi>A</mi><mi>i</mi></msub></math> 与结果类型 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><msub><mi>B</mi><mi>i</mi></msub></math>，已标注的采用原类型，缺省处使用新变量。把所有 <code>p_i : A_i -&gt; B_i</code> 一次装入 Γrec。每个过程正文在 Γrec 加入自己形参的环境中分析，并把正文结果与 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><msub><mi>B</mi><mi>i</mi></msub></math> 合一；最后用更新后的替换分析 in 正文。不能等检查到第二个声明才把它加入环境。</p><div class="table-scroll"><table aria-label="习题7.15三组递归声明的推导"><thead><tr><th scope="col">项</th><th scope="col">关键约束</th><th scope="col">整式</th></tr></thead><tbody><tr><td>1</td><td>zero?(x)⇒x:int；基例0及减法⇒结果int；f:int→int。</td><td><code>int -&gt; int</code></td></tr><tr><td>2</td><td>even/odd的x均为int，两个基例均为整数，两个递归结果统一为int。</td><td><code>int</code>，执行1</td></tr><tr><td>3</td><td>外层参数odd:int→int；even返回int→int。内层odd:int→int，作为值传给even。</td><td><code>int</code>，执行1</td></tr></tbody></table></div><p>第3项原页的 <code>proc(x)</code> 没有写 :?，按本题的缺省类型理解；我们的省略语法可直接读取。多声明的实现支持多形参，但递归组内保持单态，不尝试从不同递归调用推导多态递归。</p></div></details><details class="exercise" id="ex-7-16"><summary>习题 7.16 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="7.16"><p>修改 INFERRED 的语法：缺省类型直接省略，不再用 <code>?</code> 标记。</p></div><p class="source">印刷 p.259 / <a href="../assets/source.pdf#page=282">PDF 282</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>让形参的冒号与类型一起成为可选部分，并让递归声明的前置结果类型可省略：</p><pre><code class="language-text">Formal ::= Identifier [ : Type ]
+Expression ::= proc ( Formal {, Formal}* ) Expression
+RecDecl ::= [Type] Identifier ( Formal {, Formal}* ) = Expression</code></pre><p>省略时 AST 内存 #f，进入分析器才为每处省略分配独立的新类型变量。已有具体标注仍作为约束；不能让不同省略处共用一个“未知类型”哨兵。递归声明的结果类型开头由 int、bool、void、pairof、listof、refto 或左括号辨认，名字是标识符，因而递归下降解析器能够区分。默认可直接输入 <code>proc(x)x</code>、<code>letrec f(x)=x in f</code>；<code>#:omitted? #f</code> 则保留原书显式 :? 的模式。CHECKED 始终要求具体标注。</p></div></details><section id="s7-4-1"><h3>7.4.1 替换：保存已经得到的信息</h3><p class="source">原书 §7.4.1，印刷 p.260 / <a href="../assets/source.pdf#page=283">PDF 283</a>。</p><p>替换 σ 是类型变量到类型表达式的有限映射。对复合类型递归应用它，对未知变量查它。例如先有 <code>a -&gt; b</code>，后来确定 b=int，得到的不是两条互不相干的记录，而是一份能把 a 解释成 int 的替换。</p><p>原书采用积极回填：加入新绑定时，立即把它作用到所有旧右侧。因此任何已绑定变量都不会残留在任一右侧，apply 时查一次就够。链式表示把工作移到查询时，允许 a→b→int，查询需递归跟随。两种表示的外部含义相同，更新与查询成本不同。</p><!-- EOPL:snippet chapter07_types.rkt substitution-core -->
+<details class="code-details" open><summary>查看实现 · substitution-core</summary><pre><code class="language-scheme">(define (apply-one t variable replacement)
+  (cond [(equal? t variable) replacement]
+        [else (map-type (lambda (x) (apply-one x variable replacement)) t)]))
+(define (apply-eager t subst)
+  (cond [(tv? t) (cond [(assoc t subst) =&gt; cdr] [else t])]
+        [else (map-type (lambda (x) (apply-eager x subst)) t)]))
+(define (extend-eager subst variable replacement)
+  (cons (cons variable replacement)
+        (for/list ([binding subst])
+          (cons (car binding) (apply-one (cdr binding) variable replacement)))))
+;; Lazy bindings may mention previously bound variables. They must remain acyclic.
+(define (apply-lazy t subst #:memo? [memo? #f] #:visits [visits (lambda (_) (void))])
+  (define memo (make-hash))
+  (define active (mutable-set))
+  (define (walk t)
+    (cond
+      [(tv? t)
+       (cond [(and memo? (hash-has-key? memo t)) (hash-ref memo t)]
+             [else
+              (when (set-member? active t) (type-error &#x27;occurs t &quot;cyclic substitution at ~a&quot; t))
+              (visits t) (set-add! active t)
+              (define answer (cond [(assoc t subst) =&gt; (lambda (p) (walk (cdr p)))] [else t]))
+              (set-remove! active t) (when memo? (hash-set! memo t answer)) answer])]
+      [else (map-type walk t)]))
+  (walk t))
+</code></pre></details>
+<!-- EOPL:end-snippet --><p>本章实现提供 eager、lazy、memo、walk、global、vector 六个入口。它们是替换/合一的表示选择，不是六种不同类型规则。关联表查找随绑定数量线性增长；备忘与路径压缩减少重复追链；向量提供直接索引，完整类型遍历仍与结构大小有关。</p><details class="reading-notes" id="notes-s7-4-1" data-notes-for="s7-4-1" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">不变量</span><h4>强规范形与无环不是一回事</h4><p>eager保存完全回填的右侧；lazy可保存指向其他已绑定变量的链。前者的强无出现不变量在后者中不成立，但后者仍需要无环，才能给出有限类型和终止的解引用。</p></div><div class="annotation-card"><span class="annotation-kind">缓存范围</span><h4>别缓存“永远未知”</h4><p>缓存属于某一替换状态或沿可更新链工作。a尚未绑定时的查询结果不能在后来a=int后继续当成最终答案；类型分析有状态，缓存设计必须尊重更新。</p></div></div></details><h4>本节习题与解答</h4><details class="exercise-index-panel"><summary>本节习题题号索引 · 2 题</summary><nav class="exercise-index" role="navigation" aria-label="本节习题索引"><a href="#ex-7-17" aria-label="习题 7.17">7.17</a> · <a href="#ex-7-18" aria-label="习题 7.18">7.18</a></nav></details><details class="exercise" id="ex-7-17"><summary>习题 7.17 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="7.17"><p>在本节表示中，替换很大时 extend-subst 可能做大量工作。实现另一种表示，使 extend-subst 如下：</p><pre><code class="language-text">(define extend-subst
+  (lambda (subst tvar ty)
+    (cons (cons tvar ty) subst)))</code></pre><p>把额外工作移到 apply-subst-to-type，同时仍满足替换组合性质：</p><pre><code class="language-text">t(σ[tv = t′]) = (tσ)[tv = t′]</code></pre><p>对于这种 extend-subst 定义，还需要无出现不变量吗？</p></div><p class="source">印刷 p.262 / <a href="../assets/source.pdf#page=285">PDF 285</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>把绑定作为链表结点保存，扩展只做 cons；应用替换时，变量若有绑定就继续解释其右侧，直到抵达未绑定变量或基本/复合类型。因此 <code>[a↦b,b↦int]</code> 中 a 的最终含义是 int，不是停在 b。</p><pre><code class="language-scheme">(define (apply-chain t sigma)
+  (if (type-variable? t)
+      (let ((binding (assoc t sigma)))
+        (if binding (apply-chain (cdr binding) sigma) t))
+      (map-type (lambda (part) (apply-chain part sigma)) t)))</code></pre><p>在新增变量尚未绑定、右侧经当前替换解释且通过发生检查的前提下，对类型结构归纳即可验证组合律：基本类型不变；未绑定变量分是否为新变量讨论；复合类型对每个分量使用归纳假设。原书的强不变量“不让任何已绑定变量出现在任一右侧”不再需要，链 a→b→int 就违反它但完全有效。仍必须防止循环 a→b→a；去掉强不变量不等于允许循环类型。实现为 <code>#:engine &#x27;lazy</code>，查链可多次访问同一变量。</p></div></details><details class="exercise" id="ex-7-18"><summary>习题 7.18 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="7.18"><p>修改上一题的实现，使 apply-subst-to-type 对任一类型变量的替换最多计算一次。</p></div><p class="source">印刷 p.262 / <a href="../assets/source.pdf#page=285">PDF 285</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>在一次 apply 操作里用备忘表保存每个类型变量的最终结果；再次遇到它时直接取缓存。对正在展开的变量另记 active 标记，遇到同一 active 变量就报告循环。<code>apply-lazy #:memo? #t</code> 是完整实现。</p><p>例如类型 <code>(a * a * b -&gt; a)</code> 配合 a→b、b→int，a、b 的替换各计算一次，四处都得到 int。缓存以本次替换应用为界；增加绑定后不能继续使用旧的“a尚未绑定”缓存。测试另在旧未知变量后来统一为 int 后再次查询，防止缓存导致陈旧结果。向量变体还把已解析的根回写为路径压缩，更新后仍保留指向未绑定变量的关系。</p></div></details></section><section id="s7-4-2"><h3>7.4.2 合一：求解有限类型树</h3><p class="source">原书 §7.4.2，印刷 p.262 / <a href="../assets/source.pdf#page=285">PDF 285</a>。</p><p>合一器把一个新方程加入当前解。先用当前替换解释两边，再分情况：相同则删除；一边是未知变量则检查并绑定；两边是相同构造则逐分量合一；不同构造或参数个数不符则拒绝。</p><div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>α</mi><mo>=</mo><mi>α</mi><mo>→</mo><mi>β</mi></mrow></math></div><p>该方程不能通过有限类型求解：右侧包含左侧整棵树再加箭头和结果树，大小严格更大。发生检查因此要穿过整个候选右侧，而且应先解释旧替换；a=b、b=(a→int) 也是环，不能因 b 没有直接出现在表面右侧就放过。</p><!-- EOPL:snippet chapter07_types.rkt unifier-core -->
+<details class="code-details" open><summary>查看实现 · unifier-core</summary><pre><code class="language-scheme">  (define (unify! a b [context #f])
+    (count! &#x27;equations)
+    ;; &#x27;walk&#x27; and &#x27;vector&#x27; dereference only a root variable, then recurse.
+    (define left ((if (memq engine &#x27;(walk vector)) root resolve) a))
+    (define right ((if (memq engine &#x27;(walk vector)) root resolve) b))
+    (cond
+      [(equal? left right) (void)]
+      [(tv? left)
+       (when (occurs? left (resolve right))
+         (type-error &#x27;occurs context &quot;occurrence check: ~a in ~a&quot; left right))
+       (bind! left right)]
+      [(tv? right) (unify! right left context)]
+      [(and (ty? left) (ty? right) (eq? (ty-tag left) (ty-tag right))
+            (= (length (ty-parts left)) (length (ty-parts right))))
+       ;; Every later child uses the substitution updated by earlier children.
+       (for ([x (ty-parts left)] [y (ty-parts right)]) (unify! x y context))]
+      [else (type-error &#x27;mismatch context &quot;cannot unify ~a and ~a&quot; (external left) (external right))]))
+</code></pre></details>
+<!-- EOPL:end-snippet --><p>箭头分解的先后关系同样关键：统一参数得到新替换，再用它统一结果。<code>(a-&gt;a)=(int-&gt;bool)</code> 应拒绝；若结果检查读旧替换，就可能分别接受 a=int 与a=bool，掩盖共享位置的矛盾。</p><details class="reading-notes" id="notes-s7-4-2" data-notes-for="s7-4-2" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">发生检查</span><h4>相等优先，再检查真正递归</h4><p>a=a 是平凡方程，直接删除；不能把它当成发生检查失败。a=(a→b)才要求自包含的有限树。算法分支的顺序因此有语义作用。</p></div><div class="annotation-card"><span class="annotation-kind">归责</span><h4>错误来自哪条使用约束</h4><p>合一器携带产生方程的表达式。一个变量可能早先被使用点约束为int，后来在条件里要求bool；最后看到冲突时应保留这个条件结点，而非只打印“全程序失败”。</p></div></div></details><h4>本节习题与解答</h4><details class="exercise-index-panel"><summary>本节习题题号索引 · 4 题</summary><nav class="exercise-index" role="navigation" aria-label="本节习题索引"><a href="#ex-7-19" aria-label="习题 7.19">7.19</a> · <a href="#ex-7-20" aria-label="习题 7.20">7.20</a> · <a href="#ex-7-21" aria-label="习题 7.21">7.21</a> · <a href="#ex-7-22" aria-label="习题 7.22">7.22</a></nav></details><details class="exercise" id="ex-7-19"><summary>习题 7.19 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="7.19"><p>原文说：“如果 ty1 是未知类型，那么无出现不变量告诉我们，它尚未在替换中绑定。”详细解释为什么如此。</p></div><p class="source">印刷 p.263 / <a href="../assets/source.pdf#page=286">PDF 286</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>这句话中的 ty1 是“已应用当前替换之后”的结果，不是原来传入的任意变量。若原变量未绑定，替换后仍是它，当然未绑定；若原变量已绑定，替换返回其右侧，而强不变量保证任何已绑定变量都不出现在右侧，所以若结果恰为某个类型变量，它也必未绑定。因此可以安全把该结果作为新绑定左侧。</p><p>若采用7.17的链表示，强不变量不成立，必须先沿链追到未绑定根；只看一次 assoc 的结果仍可能拿到已绑定变量。</p></div></details><details class="exercise" id="ex-7-20"><summary>习题 7.20 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="7.20"><p>修改合一器，使它只对类型变量调用 apply-subst-to-type，而不对其整个实参调用该过程。</p></div><p class="source">印刷 p.264 / <a href="../assets/source.pdf#page=287">PDF 287</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>先只解引用根节点：若是类型变量就沿绑定走，若是 int/bool/过程构造则保留该节点。相同则结束；有变量则做完整发生检查并绑定；同类复合类型则逐分量递归合一。这样过程构造无需在每次递归前重新遍历整棵树。</p><p>实现为 <code>#:engine &#x27;walk</code>。尤其必须先统一参数，再用更新后的存储统一结果。<code>(a-&gt;a) = (int-&gt;bool)</code> 的第一步会得到 a=int；第二步应比较 int 与 bool 并失败。若第二步读旧替换，就会错误接受。类型返回给读者之前仍需完整规范化，不能只输出解引用过的根。</p></div></details><details class="exercise" id="ex-7-21"><summary>习题 7.21 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="7.21"><p>前文把替换比作存储。使用习题 7.17 的替换表示实现合一器，并像图 4.1、4.2 一样，把替换保存在一个全局 Scheme 变量中。</p></div><p class="source">印刷 p.264 / <a href="../assets/source.pdf#page=287">PDF 287</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>全局变量 <code>global-substitution</code> 保存7.17式关联表；make-solver(global) 在每次顶层分析开始时清空它。查找、根解引用和绑定都访问这同一存储，unify! 不再把替换作为显式参数返回。</p><pre><code class="language-scheme">(infer program #:engine &#x27;global)</code></pre><p>这与第四章的显式存储→隐式全局存储转换相同，类型方程的含义不变。实现故意保留这一练习要求：global 变体不支持交错使用多个分析器或并发分析；正常入口每次独立启动并重置。默认 eager 变体把状态封装在一次分析中，更便于组合和测试。</p></div></details><details class="exercise" id="ex-7-22"><summary>习题 7.22 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="7.22"><p>改进上一题的实现，使每个类型变量的绑定都能在常数时间内取得。</p></div><p class="source">印刷 p.264 / <a href="../assets/source.pdf#page=287">PDF 287</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>把类型变量表示为连续编号，把绑定存在可增长向量中，编号就是索引。<code>vector-ref(cells, id)</code> 取得一个变量的直接绑定是最坏常数时间；新增编号超出容量时按倍增扩容，其分摊成本为常数。</p><p>实现为 <code>#:engine &#x27;vector</code>。若直接绑定仍是另一个变量，取得最终类型还要继续追链；路径压缩将已找到的根写回原格。常数时间是“直接绑定查找”的保证，不是整棵类型展开、发生检查或合一都变成常数。该变体与其他五种表示在原题13式和间接环、共享参数/结果的反例上得到相同结论。</p></div></details></section><section id="s7-4-3"><h3>7.4.3 推导表达式类型：传递替换与多态</h3><p class="source">原书 §7.4.3，印刷 p.265 / <a href="../assets/source.pdf#page=288">PDF 288</a>。</p><p>推导器不能只返回一个裸类型：它还必须传回求子式时累积的替换。书中 Answer=Type×Subst；程序把同一求解状态封装在一次分析里，同时保留约束表和最终替换。无论表示如何，处理右子式时都必须看见左子式已经得到的信息。</p><pre><code class="language-text">infer(call(f,arg),Γ,σ0):
+  (tf,σ1) = infer(f,Γ,σ0)
+  (ta,σ2) = infer(arg,Γ,σ1)
+  r = fresh()
+  σ3 = unify(tf,ta-&gt;r,σ2)
+  return (r,σ3)</code></pre><p>letrec先建立带未知量的整组签名，再检查各正文并统一声明结果。原书图7.9顶框没有单列“正文结果=返回标注”的约束，下方代码中的 unifier 实际执行了它；此处把该约束明确保留，不能按不完整的顶框删掉正文检查。</p><p>最后把替换完整应用到程序类型，再规范化未知变量名字。a0→a0 和a7→a7应相等；a0→a1却不同。我们直接根据 TVar 数据结点做一一重命名，保留重复关系，不把任意以数字结尾的普通符号都当成类型变量。</p><p>到习题7.28，let开始保存“每次可独立实例化”的信息。复制法反复分析右侧；W分析一次并保存类型方案。只量化不属于环境的变量，才不会把同一外层对象在不同使用点伪装成不同类型。加入可变存储后还要限制泛化，完整反例见习题7.30。</p><details class="reading-notes" id="notes-s7-4-3" data-notes-for="s7-4-3" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">方案与实例</span><h4>量化边界就是共享边界</h4><p><code>∀a.a→a</code>中的a在每次实例化时可更新；环境中的自由变量不在量词下，仍被全部使用点共同约束。错误泛化环境自由变量会让同一个x被当成bool和int。</p></div><div class="annotation-card"><span class="annotation-kind">效果与多态</span><h4>同一位置不能反复变成不同引用</h4><p>引用的运行身份只有一个，类型方案的多份实例不能制造多份存储。值限制保留分配结果的单态共享；纯过程值则可安全实例化为多个参数/结果类型。</p></div></div></details><h4>本节习题与解答</h4><details class="exercise-index-panel"><summary>本节习题题号索引 · 8 题</summary><nav class="exercise-index" role="navigation" aria-label="本节习题索引"><a href="#ex-7-23" aria-label="习题 7.23">7.23</a> · <a href="#ex-7-24" aria-label="习题 7.24">7.24</a> · <a href="#ex-7-25" aria-label="习题 7.25">7.25</a> · <a href="#ex-7-26" aria-label="习题 7.26">7.26</a> · <a href="#ex-7-27" aria-label="习题 7.27">7.27</a> · <a href="#ex-7-28" aria-label="习题 7.28">7.28</a> · <a href="#ex-7-29" aria-label="习题 7.29">7.29</a> · <a href="#ex-7-30" aria-label="习题 7.30">7.30</a></nav></details><details class="exercise" id="ex-7-23"><summary>习题 7.23 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="7.23"><p>扩展类型推导器，使其像习题 7.8 那样支持序对类型。</p></div><p class="source">印刷 p.270 / <a href="../assets/source.pdf#page=293">PDF 293</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>为 newpair 分别推导两分量的类型与累积替换，结果为 pairof a b。对 unpair，生成鲜变量 a、b，把被拆表达式的类型与 pairof a b 合一，再把两个变量绑定到 a、b 分析 body。</p><pre><code class="language-text">infer(unpair x y=e in body,Γ,σ):
+  (tp,σ1) = infer(e,Γ,σ)
+  a,b = fresh(),fresh()
+  σ2 = unify(tp,pairof a b,σ1)
+  return infer(body,Γ[x:a,y:b],σ2)</code></pre><p><code>proc(p) unpair x y=p in -(x,y)</code> 得到 <code>(pairof int int) -&gt; int</code>；<code>newpair(1,zero?(0))</code> 得到 <code>pairof int bool</code>，并不强行让两个分量同型。完整代码复用 newpair/unpair 分支与合一器的构造子逐分量规则。</p></div></details><details class="exercise" id="ex-7-24"><summary>习题 7.24 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="7.24"><p>扩展类型推导器，使其支持同一 let 中的多个声明、多参数过程和同一 letrec 中的多个声明。</p></div><p class="source">印刷 p.270 / <a href="../assets/source.pdf#page=293">PDF 293</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>参数类型列表代替单个参数类型；过程调用方程为 <code>Tf = (Targ1 * ... * Targn -&gt; Tr)</code>，结构合一同时核对参数数量和各位置。并行 let 所有右侧共享旧环境但依次传递同一个替换，之后再同时扩展正文环境；letrec 采用习题7.15的整组预绑定。</p><p><code>let x=zero?(0) y=-(x,1) in y</code> 中，第二个右侧的 x 仍来自初始环境 x:int，而不是第一个声明的 bool；检查为 int，执行9。若误实现成顺序 let，会错误报冲突。多参递归例 <code>letrec f(x,y)=if zero?(x) then y else (f -(x,1) y) in (f 5 44)</code> 推导为 int，运行44；arity 不符、重复参数和重复递归名字均被拒绝。</p></div></details><details class="exercise" id="ex-7-25"><summary>习题 7.25 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="7.25"><p>像习题 7.9 那样扩展推导器以支持表类型。把语言中的产生式</p><pre><code class="language-text">Expression ::= emptylist_Type</code></pre><p>改为</p><pre><code class="language-text">Expression ::= emptylist</code></pre><p>提示：在原先缺省的类型参数位置创建一个类型变量。</p></div><p class="source">印刷 p.271 / <a href="../assets/source.pdf#page=294">PDF 294</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>emptylist 为 listof α，其中 α 是这一个空表出现点的新变量；上下文随后决定它。cons 增加 <code>Ttail=listof Thead</code>；list 的所有元素类型两两统一；null? 约束输入为 listof α、结果bool；car 返回 α；cdr 返回 listof α。</p><p><code>proc(x) cons(x,emptylist)</code> 得到 <code>a -&gt; listof a</code>，<code>cons(1,emptylist)</code> 得到 listof int。不同空表出现点要用不同变量；但同一单态 let 绑定的空表共享变量，不能在多个使用点自动当成不同类型。多态 let 是后续扩展，带引用时又受值限制。</p></div></details><details class="exercise" id="ex-7-26"><summary>习题 7.26 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="7.26"><p>像习题 7.10 那样扩展推导器，使其支持 EXPLICIT-REFS。</p></div><p class="source">印刷 p.272 / <a href="../assets/source.pdf#page=295">PDF 295</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>三条方程分别是 <code>Tnewref(e)=refto Te</code>、<code>Tr=refto Tderef(r)</code>、<code>Tr=refto Te, Tsetref(r,e)=void</code>。依次分析子式并累积同一个替换，再合一这些结构；不把引用本身的类型当成内容类型。</p><p><code>proc(r) begin setref(r,1); deref(r) end</code> 推导为 <code>(refto int) -&gt; int</code>。所有别名必须最终约束同一个内容类型变量，不能在每次 deref 时给同一引用分配一个互不相关的新变量；习题7.30的反例正说明了错误复制引用类型的后果。</p></div></details><details class="exercise" id="ex-7-27"><summary>习题 7.27 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="7.27"><p>把推导器改写为两个阶段：第一阶段生成一组方程；第二阶段反复调用 unify 求解这些方程。</p></div><p class="source">印刷 p.272 / <a href="../assets/source.pdf#page=295">PDF 295</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>第一遍只给绑定和需要的结果分配新变量，把每条相等约束连同产生它的 AST 结点存进列表；不作任何合一。第二遍从空替换开始，按顺序送入合一器，最后把累积替换应用于整个程序结果类型。实现入口为 <code>#:two-phase? #t</code>。</p><pre><code class="language-scheme">(define details
+  (infer-details &quot;proc(f) proc(x) -((f 3),(f x))&quot; #:two-phase? #t))
+(inference-equations details)
+(external (inference-type details))
+; ((int -&gt; int) -&gt; (int -&gt; int))</code></pre><p>约束来自类型规则，解与顺序无关；首次发现的冲突和归责位置可能随顺序不同。每条方程保存上下文，避免把所有错误都归给整章程序。此处两阶段版本针对本节的单态系统；多态 let 的泛化必须发生在相应右侧约束已经求解后，不能把同一实现直接套上“最后统一求解”而不改变作用域策略。</p></div></details><details class="exercise" id="ex-7-28"><summary>习题 7.28 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="7.28"><p>本节推导器很有用，但还不足以让程序员定义像多态原语 pair、cons 那样可在多种类型上使用的多态过程。例如，它会拒绝下面的程序：</p><pre><code class="language-text">let f = proc (x : ?) x
+in if (f zero?(0))
+   then (f 11)
+   else (f 22)</code></pre><p>其执行其实是安全的；f 同时以 <code>(bool -&gt; bool)</code> 和 <code>(int -&gt; int)</code> 使用，而本节推导器至多给 f 找到一种类型，所以会拒绝它。一个更实际的例子如下：</p><pre><code class="language-text">let
+ ? map (f : ?) =
+    letrec
+     ? foo (x : ?) = if null?(x)
+                    then emptylist
+                    else cons((f car(x)),
+                              ((foo f) cdr(x)))
+    in foo
+in letrec
+    ? even (y : ?) = if zero?(y)
+                    then zero?(0)
+                    else if zero?(-(y,1))
+                         then zero?(1)
+                         else (even -(y,2))
+   in pair(((map proc(x : int)-(x,1))
+            cons(3,cons(5,emptylist))),
+           ((map even)
+            cons(3,cons(5,emptylist))))</code></pre><p>此式使用 map 两次，一次产生整数表，一次产生布尔表，需要两个不同的使用类型。本节推导器至多给 map 找到一种类型，因而发现 int/bool 冲突并拒绝该式。</p><p>一种办法是只允许 let 引入多态值，并在类型检查时区别对待 <code>(let-exp var e1 e2)</code> 和 <code>(call-exp (proc-exp var e2) e1)</code>。给推导器加入多态绑定：把 let 表达式当成将 e2 中每个自由出现的 var 都替换成 e1 所得到的表达式来处理。这样在推导器看来，正文内有多份不同的 e1，可以各自具有不同类型，上述程序就能被接受。</p></div><p class="source">印刷 p.273 / <a href="../assets/source.pdf#page=296">PDF 296</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>对 let 引入的名字保存“右侧 AST + 定义时类型环境”，每个自由使用点在这个原环境里重新分析右侧，由此获得新的局部类型变量。同名遮蔽不改变捕获的环境，等价于避免变量捕获的复制，而非把文本不加检查地粘到使用点。<code>#:polymorphism &#x27;copy</code> 是可运行实现。为保持按值语言的安全性，即使名字未使用，也先检查一次右侧；否则 <code>let unused=-(zero?(0),1) in 4</code> 会错误通过。</p><p>第一例中 f 三次使用，分别实例化 bool→bool、int→int、int→int，整式 int，执行11。一次右侧检查加三次复制分析共4次；求值器仍只执行一次 let 右侧，类型阶段的复制不改变运行语义。</p><p>原页第二例另有转录/语法问题，不能以“多态不够”解释全部失败：<code>let ? map(f:?) = ...</code> 不符合本节 let 的语法，应写 <code>let map = proc(f:?) ...</code>；foo 已经捕获 f 且只接收表参数，<code>((foo f) cdr(x))</code> 应为 <code>(foo cdr(x))</code>。pair 在这里作为 newpair 的别名。题干保留原输入，下面是对照修正后的完整可运行版本：</p><!-- EOPL:snippet chapter07_examples.rkt polymorphic-map -->
+<details class="code-details" open><summary>查看实现 · polymorphic-map</summary><pre><code class="language-scheme">(define polymorphic-map
+  &quot;let map = proc (f : ?)
+     letrec ? foo (x : ?) =
+       if null?(x) then emptylist
+       else cons((f car(x)),(foo cdr(x)))
+     in foo
+   in letrec ? even (y : ?) =
+        if zero?(y) then zero?(0)
+        else if zero?(-(y,1)) then zero?(1)
+        else (even -(y,2))
+      in newpair(((map proc(x : int) -(x,1)) list(3,5)),
+                 ((map even) list(3,5)))&quot;)
+</code></pre></details>
+<!-- EOPL:end-snippet --><p>修正后两种多态实现都得到 <code>pairof (listof int) (listof bool)</code>，运行结果为 <code>(pair (2 4) (#f #f))</code>；基本单态推导器仍拒绝两种 map 使用类型之间的冲突。</p></div></details><details class="exercise" id="ex-7-29"><summary>习题 7.29 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="7.29"><p>上一题的推导算法会多次分析 e1：它在 e2 中每出现一次，就分析一次。实现 Milner 的 Algorithm W，使 e1 只分析一次。</p></div><p class="source">印刷 p.274 / <a href="../assets/source.pdf#page=297">PDF 297</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>W 不复制右侧，而把一次求得的类型概括成类型方案。先分析 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><msub><mi>e</mi><mn>1</mn></msub></math> 得到 τ，并把当前替换作用于 τ 和环境 Γ；只量化 τ 中不自由出现在 Γ 的类型变量：</p><div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi mathvariant="normal">Gen</mi><mo>(</mo><mi>Γ</mi><mo>,</mo><mi>τ</mi><mo>)</mo><mo>=</mo><mo>∀</mo><mi>α</mi><mo>.</mo><mi>τ</mi><mo>,</mo><mspace width="1em"/><mi>α</mi><mo>∈</mo><mi mathvariant="normal">FV</mi><mo>(</mo><mi>τ</mi><mo>)</mo><mo>∖</mo><mi mathvariant="normal">FV</mi><mo>(</mo><mi>Γ</mi><mo>)</mo></mrow></math></div><p>使用该名字时，把每个量化变量替换成新的类型变量；环境原有的自由变量则保持共享。恒等过程存成 <code>∀a. a-&gt;a</code>，每次使用可以实例化，过程参数本身仍是单态。实现见下面从程序同步的 generalize/let-binding；instantiate、env-free 在同一文件中。</p><!-- EOPL:snippet chapter07.rkt algorithm-w-let -->
+<details class="code-details" open><summary>查看实现 · algorithm-w-let</summary><pre><code class="language-scheme">  (define (generalize t env)
+    (define normalized (resolve t))
+    (scheme (sort (set-&gt;list (set-subtract (free-tvars normalized) (env-free env))) &lt; #:key tv-id) normalized))
+  (define (let-binding e t env)
+    (cond
+      [(or (eq? poly &#x27;mono) (and restriction? (not (nonexpansive? e mutable?)))) t]
+      [(eq? poly &#x27;w) (generalize t env)]
+      ;; Each use is analyzed in the defining environment: lexical capture is impossible.
+      [else (copy-binding e env)]))
+</code></pre></details>
+<!-- EOPL:end-snippet --><p>用 <code>#:polymorphism &#x27;w</code> 运行习题7.28第一例，右侧只分析1次，结果仍为 int、值11。若误量化环境中的类型变量，<code>proc(x) let f=proc(y)x in if (f 0) then -(x,1) else 2</code> 就会被错误接受：同一个外层 x 同时被当作 bool 和 int。测试明确拒绝该例。</p><p>纯语言中的 Algorithm W 可对任意已检查右侧泛化；在这里已接入引用/赋值扩展的通用入口，默认另施加下一题的保守值限制。纯语言若要观察不受该限制的 W，可显式传 <code>#:value-restriction? #f</code>；对含存储效果的程序关闭它会产生下一题的真实错误。递归组在本实现中保持单态，不推导多态递归。</p></div></details><details class="exercise" id="ex-7-30"><summary>习题 7.30 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="7.30"><p>多态与效果的相互作用很微妙。考虑以下程序开头：</p><pre><code class="language-text">let p = newref(proc (x : ?) x)
+in ...</code></pre><ol><li>补全程序，使其能通过多态推导器，但按本章开头的定义，其求值不安全。</li><li>限制 let 右侧表达式对存储没有效果，避免这个问题。这称为值限制。</li></ol></div><p class="source">印刷 p.274 / <a href="../assets/source.pdf#page=297">PDF 297</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>补全程序如下，题目给定的 let 开头原样保留：</p><!-- EOPL:snippet chapter07_examples.rkt polymorphic-reference -->
+<details class="code-details" open><summary>查看实现 · polymorphic-reference</summary><pre><code class="language-scheme">(define unsafe-reference
+  &quot;let p = newref(proc (x : ?) x)
+   in begin
+     setref(p,proc (x : int) -(x,1));
+     (deref(p) zero?(0))
+   end&quot;)
+</code></pre></details>
+<!-- EOPL:end-snippet --><p>若把 p 泛化为 <code>∀a. refto(a-&gt;a)</code>，写入点可把它实例化为 refto(int→int)，读取点又可实例化为 refto(bool→bool)。推导器于是声称最后调用返回 bool。但运行时 p 只有一个位置，里面已被换成对整数做减法的过程；再传入 zero?(0) 的布尔值就出现 runtime-type 错误。不是运行时真的生成了两份引用，而是类型分析错误地准许同一位置拥有彼此独立的内容类型。</p><p><code>infer unsafe-reference #:polymorphism &#x27;w #:value-restriction? #f</code> 的实际结果是 bool，单独 evaluate 则报 runtime-type；启用默认值限制后推导报 mismatch。因而第二问的修复确实阻止了反例，不只是改变显示的类型名。</p><p>实现使用非扩张右侧作为“不会分配/修改存储”的保守可判定近似：常量、变量、过程、空表，以及由非扩张分量构成的不可变数据可泛化；newref、赋值和未知过程调用不泛化，参数和环境共享的未知变量始终不泛化。可变序对模式下 newpair 也视为分配效果。同时，已泛化 let 名字禁止再赋值；否则即使初始右侧是纯恒等过程，也能通过替换该绑定破坏契约。某些无副作用的调用也会被保守拒绝；这是该语法近似的边界，不是声称精确决定所有程序的存储效果。</p></div></details></section></section><section id="programs"><h2>运行本章程序</h2><p>程序使用已有 Racket 8.17。主文件实现直接检查、在线/两阶段推导与按值解释器；类型树、六种替换/合一策略和字符串解析器分别维护。缺省运行模式为单态推导，W/复制法显式选择；已接入存储效果的多态入口默认启用保守值限制。</p><pre><code class="language-text">racket books/eopl/code/chapter07.rkt
+racket books/eopl/code/chapter07_examples.rkt
+racket books/eopl/code/test_chapter07.rkt</code></pre><p>主程序实际输出依次为 <code>(int -&gt; int)</code>、<code>((int -&gt; int) -&gt; (int -&gt; int))</code>、<code>(a0 -&gt; a0)</code> 和11。例子集还展示互递归结果1、多态map的整数/布尔表以及不安全引用泛化的运行错误。类型变量名按首次出现规范化，编号本身不构成答案差异。</p><p>整数采用Racket精确整数；解释器的 fuel 必须为正的精确整数，默认100000，耗尽时报告预算不足，不将它记作类型错误或证明程序不终止。空表访问另报empty-list。global替换变体每次入口清空且不支持交错分析；其余策略在一次分析对象中保存状态。</p><div class="table-scroll"><table aria-label="第七章维护源与下载"><thead><tr><th scope="col">文件</th><th scope="col">职责</th></tr></thead><tbody><tr><td><a href="../code/chapter07.rkt" download>chapter07.rkt</a></td><td>检查、推导、W/复制法、值限制与按值执行</td></tr><tr><td><a href="../code/chapter07_types.rkt" download>chapter07_types.rkt</a></td><td>类型树、替换、合一、规范化</td></tr><tr><td><a href="../code/chapter07_syntax.rkt" download>chapter07_syntax.rkt</a></td><td>标注、省略、多声明及复合数据的解析</td></tr><tr><td><a href="../code/chapter07_examples.rkt" download>chapter07_examples.rkt</a></td><td>原题13式、多态map、互递归与引用反例</td></tr><tr><td><a href="../code/test_chapter07.rkt" download>test_chapter07.rkt</a></td><td>独立期望、边界、替换性质与有限穷举</td></tr></tbody></table></div><details class="code-details"><summary>完整源码 · chapter07.rkt</summary><!-- EOPL:program chapter07.rkt --><pre><code id="chapter07-code" class="language-scheme">#lang racket
+;; A direct checker, online/two-phase inference, let polymorphism, and an evaluator.
+(require &quot;chapter07_types.rkt&quot; &quot;chapter07_syntax.rkt&quot;)
+(provide (all-defined-out) (all-from-out &quot;chapter07_types.rkt&quot; &quot;chapter07_syntax.rkt&quot;))
+(define initial-tenv &#x27;((i . int) (v . int) (x . int)))
+(define (lookup env x)
+  (cond [(assq x env) =&gt; cdr] [else (type-error &#x27;unbound x &quot;unbound variable ~a&quot; x)]))
+(define (extend-many names values env) (append (map cons names values) env))
+(define (require-equal actual expected context [kind &#x27;mismatch])
+  (unless (equal? actual expected)
+    (type-error kind context &quot;expected ~a, received ~a&quot; (external expected) (external actual))))
+(define (components t tag size context)
+  (unless (and (ty? t) (eq? (ty-tag t) tag) (= (length (ty-parts t)) size))
+    (type-error &#x27;mismatch context &quot;expected ~a, received ~a&quot; tag (external t)))
+  (ty-parts t))
+(define (checked-type source #:early-if? [early? #t] #:mutable-pairs? [mutable? #f])
+  (define tree (if (node? source) source (parse source #:checked? #t)))
+  (define (go e env)
+    (match-define (node op es) e)
+    (match op
+      [&#x27;num &#x27;int]
+      [&#x27;var (lookup env (car es))]
+      [&#x27;proc (match-define (list params body) es)
+             (proc-t (map cdr params) (go body (append params env)))]
+      [&#x27;let (match-define (list bs body) es)
+            (go body (extend-many (map car bs) (map (lambda (b) (go (cdr b) env)) bs) env))]
+      [&#x27;rec (match-define (list ds body) es)
+            (define renv (extend-many (map car ds) (map (lambda (d) (proc-t (map cdr (second d)) (third d))) ds) env))
+            (for ([d ds]) (require-equal (go (fourth d) (append (second d) renv)) (third d) (fourth d)))
+            (go body renv)]
+      [&#x27;if (define ct (go (first es) env))
+           (when early? (require-equal ct &#x27;bool (first es) &#x27;condition))
+           (define at (go (second es) env)) (define bt (go (third es) env))
+           (unless early? (require-equal ct &#x27;bool (first es) &#x27;condition))
+           (require-equal at bt e) at]
+      [&#x27;call (match-define (list f args) es)
+             (define ft (go f env)) (define ts (map (lambda (a) (go a env)) args))
+             (unless (and (ty? ft) (eq? (ty-tag ft) &#x27;proc)) (type-error &#x27;rator f &quot;operator is not a procedure&quot;))
+             (define ps (drop-right (ty-parts ft) 1))
+             (unless (= (length ps) (length ts)) (type-error &#x27;arity e &quot;procedure argument count differs&quot;))
+             (for ([a ps] [b ts]) (require-equal b a e)) (last (ty-parts ft))]
+      [&#x27;unpair (match-define (list x y pair body) es)
+               (define parts (components (go pair env) &#x27;pairof 2 pair))
+               (go body (extend-many (list x y) parts env))]
+      [&#x27;set (require-equal (go (second es) env) (lookup env (first es)) e) &#x27;int]
+      [&#x27;begin (last (map (lambda (x) (go x env)) es))]
+      [&#x27;emptylist (list-t (car es))]
+      [_
+       (define ts (map (lambda (x) (go x env)) es))
+       (match op
+         [(or &#x27;- &#x27;+) (for ([t ts]) (require-equal t &#x27;int e)) &#x27;int]
+         [&#x27;zero? (require-equal (car ts) &#x27;int e) &#x27;bool]
+         [&#x27;newpair (apply pair-t ts)]
+         [&#x27;list (for ([t (cdr ts)]) (require-equal t (car ts) e)) (list-t (car ts))]
+         [&#x27;cons (require-equal (second ts) (list-t (first ts)) e) (second ts)]
+         [(or &#x27;null? &#x27;car &#x27;cdr)
+          (define a (car (components (first ts) &#x27;listof 1 e)))
+          (case op [(null?) &#x27;bool] [(car) a] [else (first ts)])]
+         [&#x27;newref (ref-t (first ts))]
+         [&#x27;deref (car (components (first ts) &#x27;refto 1 e))]
+         [&#x27;setref (require-equal (first ts) (ref-t (second ts)) e) &#x27;void]
+         [(or &#x27;left &#x27;right &#x27;setleft &#x27;setright)
+          (unless mutable? (type-error &#x27;feature e &quot;enable mutable-pairs mode&quot;))
+          (define parts (components (first ts) &#x27;pairof 2 e))
+          (case op [(left) (first parts)] [(right) (second parts)]
+            [else (require-equal (second ts) ((if (eq? op &#x27;setleft) first second) parts) e) &#x27;int])]
+         [_ (type-error &#x27;feature e &quot;unknown checker form ~a&quot; op)])]))
+  (go tree initial-tenv))
+(define (check source #:early-if? [early? #t] #:mutable-pairs? [mutable? #f])
+  (external (checked-type source #:early-if? early? #:mutable-pairs? mutable?)))
+
+(struct copy-binding (expression environment) #:transparent)
+(struct inference (type equations substitution statistics) #:transparent)
+(define (nonexpansive? e mutable?)
+  (match e
+    [(node (or &#x27;num &#x27;var &#x27;proc &#x27;emptylist) _) #t]
+    [(node &#x27;newpair es) (and (not mutable?) (andmap (lambda (e) (nonexpansive? e mutable?)) es))]
+    [(node &#x27;list es) (andmap (lambda (e) (nonexpansive? e mutable?)) es)]
+    [_ #f]))
+(define (infer-details source #:engine [engine &#x27;eager] #:two-phase? [two-phase? #f]
+                       #:polymorphism [poly &#x27;mono] #:value-restriction? [restriction? #t]
+                       #:mutable-pairs? [mutable? #f] #:omitted? [omitted? #t])
+  (unless (memq poly &#x27;(mono copy w)) (error &#x27;infer-details &quot;unknown polymorphism mode&quot;))
+  (when (and two-phase? (not (eq? poly &#x27;mono)))
+    (type-error &#x27;feature source &quot;two-phase mode implements monomorphic constraints&quot;))
+  (define tree (if (node? source) source (parse source #:omitted? omitted?)))
+  (define next 0) (define equations &#x27;()) (define rhs-analyses 0)
+  (define solve (make-solver engine)) (define resolve (solver-resolve solve))
+  (define (fresh) (begin0 (tv next) (set! next (add1 next))))
+  (define (annotate a) (if a (map-type annotate a) (fresh)))
+  (define (emit a b context)
+    (set! equations (cons (list a b context) equations))
+    (unless two-phase? ((solver-unify solve) a b context)))
+  (define (instantiate s)
+    (define replacements (map (lambda (v) (cons v (fresh))) (scheme-variables s)))
+    (define (go t) (cond [(tv? t) (cond [(assoc t replacements) =&gt; cdr] [else t])]
+                         [else (map-type go t)]))
+    (go (scheme-body s)))
+  (define (env-free env)
+    (for/fold ([out (set)]) ([p env])
+      (define binding (cdr p))
+      (set-union out
+        (if (scheme? binding)
+            (set-subtract (free-tvars (resolve (scheme-body binding))) (list-&gt;set (scheme-variables binding)))
+            (if (copy-binding? binding) (env-free (copy-binding-environment binding)) (free-tvars (resolve binding)))))))
+;; BEGIN algorithm-w-let
+  (define (generalize t env)
+    (define normalized (resolve t))
+    (scheme (sort (set-&gt;list (set-subtract (free-tvars normalized) (env-free env))) &lt; #:key tv-id) normalized))
+  (define (let-binding e t env)
+    (cond
+      [(or (eq? poly &#x27;mono) (and restriction? (not (nonexpansive? e mutable?)))) t]
+      [(eq? poly &#x27;w) (generalize t env)]
+      ;; Each use is analyzed in the defining environment: lexical capture is impossible.
+      [else (copy-binding e env)]))
+;; END algorithm-w-let
+  (define (go e env)
+    (match-define (node op es) e)
+    (match op
+      [&#x27;num &#x27;int]
+      [&#x27;var (define b (lookup env (car es)))
+            (cond [(scheme? b) (instantiate b)]
+                  [(copy-binding? b) (set! rhs-analyses (add1 rhs-analyses))
+                                     (go (copy-binding-expression b) (copy-binding-environment b))]
+                  [else b])]
+      [&#x27;proc (match-define (list params body) es)
+             (define pts (map (lambda (p) (annotate (cdr p))) params))
+             (proc-t pts (go body (extend-many (map car params) pts env)))]
+      [&#x27;let (match-define (list bs body) es)
+            ;; Check each RHS even if its variable is unused (call-by-value safety).
+            (define ts (for/list ([b bs]) (set! rhs-analyses (add1 rhs-analyses)) (go (cdr b) env)))
+            (define bindings (map (lambda (b t) (let-binding (cdr b) t env)) bs ts))
+            (go body (extend-many (map car bs) bindings env))]
+      [&#x27;rec (match-define (list ds body) es)
+            (define argss (map (lambda (d) (map (lambda (p) (annotate (cdr p))) (second d))) ds))
+            (define results (map (lambda (d) (annotate (third d))) ds))
+            (define renv (extend-many (map car ds) (map proc-t argss results) env))
+            (for ([d ds] [args argss] [res results])
+              (emit (go (fourth d) (extend-many (map car (second d)) args renv)) res (fourth d)))
+            ;; Recursive groups are monomorphic; polymorphic recursion is not inferred.
+            (go body renv)]
+      [&#x27;if (emit (go (first es) env) &#x27;bool (first es))
+           (define a (go (second es) env)) (define b (go (third es) env)) (emit a b e) a]
+      [&#x27;call (match-define (list f args) es)
+             (define ft (go f env)) (define ats (map (lambda (a) (go a env)) args))
+             (define result (fresh)) (emit ft (proc-t ats result) e) result]
+      [&#x27;unpair (match-define (list x y pair body) es)
+               (define a (fresh)) (define b (fresh)) (emit (go pair env) (pair-t a b) pair)
+               (go body (extend-many (list x y) (list a b) env))]
+      [&#x27;set (define target (lookup env (first es)))
+            (when (or (copy-binding? target) (and (scheme? target) (pair? (scheme-variables target))))
+              (type-error &#x27;poly-assignment e &quot;a generalized let binding is immutable&quot;))
+            (emit (go (second es) env) (if (scheme? target) (scheme-body target) target) e) &#x27;int]
+      [&#x27;begin (last (map (lambda (x) (go x env)) es))]
+      [&#x27;emptylist (list-t (annotate (car es)))]
+      [_
+       (define ts (map (lambda (x) (go x env)) es))
+       (match op
+         [(or &#x27;- &#x27;+) (for ([t ts]) (emit t &#x27;int e)) &#x27;int]
+         [&#x27;zero? (emit (first ts) &#x27;int e) &#x27;bool]
+         [&#x27;newpair (apply pair-t ts)]
+         [&#x27;list (for ([t (cdr ts)]) (emit t (first ts) e)) (list-t (first ts))]
+         [&#x27;cons (emit (second ts) (list-t (first ts)) e) (second ts)]
+         [(or &#x27;null? &#x27;car &#x27;cdr) (define a (fresh)) (emit (first ts) (list-t a) e)
+                              (case op [(null?) &#x27;bool] [(car) a] [else (list-t a)])]
+         [&#x27;newref (ref-t (first ts))]
+         [&#x27;deref (define a (fresh)) (emit (first ts) (ref-t a) e) a]
+         [&#x27;setref (emit (first ts) (ref-t (second ts)) e) &#x27;void]
+         [(or &#x27;left &#x27;right &#x27;setleft &#x27;setright)
+          (unless mutable? (type-error &#x27;feature e &quot;enable mutable-pairs mode&quot;))
+          (define a (fresh)) (define b (fresh)) (emit (first ts) (pair-t a b) e)
+          (case op [(left) a] [(right) b]
+            [else (emit (second ts) (if (eq? op &#x27;setleft) a b) e) &#x27;int])]
+         [_ (type-error &#x27;feature e &quot;unknown inference form ~a&quot; op)])]))
+  (define result (go tree initial-tenv))
+  (define ordered (reverse equations))
+  (when two-phase? (for ([q ordered]) (apply (solver-unify solve) q)))
+  (define statistics ((solver-statistics solve)))
+  (hash-set! statistics &#x27;rhs-analyses rhs-analyses)
+  (inference (resolve result) ordered ((solver-snapshot solve)) statistics))
+(define (infer source #:engine [engine &#x27;eager] #:two-phase? [two-phase? #f]
+               #:polymorphism [poly &#x27;mono] #:value-restriction? [restriction? #t]
+               #:mutable-pairs? [mutable? #f] #:omitted? [omitted? #t])
+  (external (inference-type (infer-details source #:engine engine #:two-phase? two-phase?
+                        #:polymorphism poly #:value-restriction? restriction?
+                        #:mutable-pairs? mutable? #:omitted? omitted?))))
+
+(struct closure (parameters body environment) #:transparent)
+(struct reference (cell) #:transparent)
+(struct pair-value (left right mutable?) #:transparent)
+(struct exn:fail:object exn:fail (kind) #:transparent)
+(define (object-error kind message) (raise (exn:fail:object message (current-continuation-marks) kind)))
+(define (evaluate source #:fuel [fuel 100000] #:mutable-pairs? [mutable? #f])
+  (unless (exact-positive-integer? fuel)
+    (object-error &#x27;fuel &quot;evaluation budget must be a positive exact integer&quot;))
+  (define tree (if (node? source) source (parse source)))
+  (define (runtime-lookup env x)
+    (cond [(assq x env) =&gt; cdr] [else (object-error &#x27;runtime-type (format &quot;unbound variable ~a&quot; x))]))
+  (define (number! x) (unless (exact-integer? x) (object-error &#x27;runtime-type &quot;integer required&quot;)) x)
+  (define (boolean! x) (unless (boolean? x) (object-error &#x27;runtime-type &quot;boolean required&quot;)) x)
+  (define (list! x) (unless (list? x) (object-error &#x27;runtime-type &quot;list required&quot;)) x)
+  (define (pair! x) (unless (pair-value? x) (object-error &#x27;runtime-type &quot;pair required&quot;)) x)
+  (define (ref! x) (unless (reference? x) (object-error &#x27;runtime-type &quot;reference required&quot;)) (reference-cell x))
+  (define (go e env)
+    (when (zero? fuel) (object-error &#x27;fuel &quot;evaluation budget exhausted&quot;)) (set! fuel (sub1 fuel))
+    (match-define (node op es) e)
+    (match op
+      [&#x27;num (car es)] [&#x27;var (unbox (runtime-lookup env (car es)))]
+      [&#x27;proc (closure (map car (first es)) (second es) env)]
+      [&#x27;let (match-define (list bs body) es)
+            (go body (extend-many (map car bs) (map (lambda (b) (box (go (cdr b) env))) bs) env))]
+      [&#x27;rec (match-define (list ds body) es)
+            (define slots (map (lambda (_) (box #f)) ds))
+            (define renv (extend-many (map car ds) slots env))
+            (for ([d ds] [slot slots]) (set-box! slot (closure (map car (second d)) (fourth d) renv)))
+            (go body renv)]
+      [&#x27;if (if (boolean! (go (first es) env)) (go (second es) env) (go (third es) env))]
+      [&#x27;call (define f (go (first es) env)) (define args (map (lambda (e) (go e env)) (second es)))
+             (unless (closure? f) (object-error &#x27;runtime-type &quot;operator is not a procedure&quot;))
+             (unless (= (length args) (length (closure-parameters f))) (object-error &#x27;runtime-type &quot;procedure arity differs&quot;))
+             (go (closure-body f) (extend-many (closure-parameters f) (map box args) (closure-environment f)))]
+      [&#x27;unpair (match-define (list x y e body) es) (define p (pair! (go e env)))
+               (go body (extend-many (list x y) (list (box (unbox (pair-value-left p))) (box (unbox (pair-value-right p)))) env))]
+      [&#x27;set (define cell (runtime-lookup env (first es))) (define value (go (second es) env)) (set-box! cell value) 27]
+      [&#x27;begin (last (map (lambda (e) (go e env)) es))]
+      [&#x27;emptylist &#x27;()]
+      [_
+       (define vs (map (lambda (e) (go e env)) es))
+       (case op
+         [(-) (- (number! (first vs)) (number! (second vs)))]
+         [(+) (+ (number! (first vs)) (number! (second vs)))]
+         [(zero?) (zero? (number! (first vs)))]
+         [(newpair) (pair-value (box (first vs)) (box (second vs)) mutable?)]
+         [(list) vs] [(cons) (cons (first vs) (list! (second vs)))]
+         [(null?) (null? (list! (first vs)))]
+         [(car cdr) (define ls (list! (first vs)))
+                    (when (null? ls) (object-error &#x27;empty-list &quot;empty list access&quot;)) ((if (eq? op &#x27;car) car cdr) ls)]
+         [(newref) (reference (box (first vs)))] [(deref) (unbox (ref! (first vs)))]
+         [(setref) (set-box! (ref! (first vs)) (second vs)) &#x27;unit]
+         [(left right) (define p (pair! (first vs)))
+                       (unbox ((if (eq? op &#x27;left) pair-value-left pair-value-right) p))]
+         [(setleft setright) (define p (pair! (first vs)))
+                            (unless (pair-value-mutable? p) (object-error &#x27;runtime-type &quot;immutable pair&quot;))
+                            (set-box! ((if (eq? op &#x27;setleft) pair-value-left pair-value-right) p) (second vs))
+                            (if (eq? op &#x27;setleft) 82 83)]
+         [else (object-error &#x27;runtime-type &quot;unknown expression&quot;)])]))
+  (go tree (list (cons &#x27;i (box 1)) (cons &#x27;v (box 5)) (cons &#x27;x (box 10)))))
+(define (datum x)
+  (cond [(closure? x) &#x27;&lt;procedure&gt;] [(reference? x) &#x27;&lt;reference&gt;]
+        [(pair-value? x) (list &#x27;pair (datum (unbox (pair-value-left x))) (datum (unbox (pair-value-right x))))]
+        [(list? x) (map datum x)] [else x]))
+(define (run source #:polymorphism [poly &#x27;mono] #:value-restriction? [restriction? #t] #:mutable-pairs? [mutable? #f])
+  (infer source #:polymorphism poly #:value-restriction? restriction? #:mutable-pairs? mutable?)
+  (evaluate source #:mutable-pairs? mutable?))
+(module+ main
+  (displayln (check &quot;proc (x : int) -(x,1)&quot;))
+  (displayln (infer &quot;proc (f : ?) proc (x : ?) -((f 3),(f x))&quot;))
+  (displayln (infer &quot;proc (x : ?) x&quot;))
+  (displayln (run &quot;let f = proc (x : ?) x in if (f zero?(0)) then (f 11) else (f 22)&quot; #:polymorphism &#x27;w)))
+</code></pre><!-- EOPL:end-program --></details><details class="code-details"><summary>完整源码 · chapter07_types.rkt</summary><!-- EOPL:program chapter07_types.rkt --><pre><code id="chapter07_types-code" class="language-scheme">#lang racket
+;; Types, substitutions, and finite-tree unification for EOPL chapter 7.
+(provide (all-defined-out))
+(struct tv (id) #:transparent)
+(struct ty (tag parts) #:transparent)
+(struct scheme (variables body) #:transparent)
+(struct exn:fail:typing exn:fail (kind context) #:transparent)
+(define (type-error kind context fmt . args)
+  (raise (exn:fail:typing (apply format fmt args) (current-continuation-marks) kind context)))
+(define (proc-t args result) (ty &#x27;proc (append args (list result))))
+(define (pair-t a b) (ty &#x27;pairof (list a b)))
+(define (list-t a) (ty &#x27;listof (list a)))
+(define (ref-t a) (ty &#x27;refto (list a)))
+(define (type-children t) (if (ty? t) (ty-parts t) &#x27;()))
+(define (map-type f t) (if (ty? t) (ty (ty-tag t) (map f (ty-parts t))) t))
+(define (free-tvars t)
+  (cond [(tv? t) (set t)] [(ty? t) (for/fold ([r (set)]) ([x (ty-parts t)]) (set-union r (free-tvars x)))] [else (set)]))
+(define (occurs? variable t) (set-member? (free-tvars t) variable))
+;; BEGIN substitution-core
+(define (apply-one t variable replacement)
+  (cond [(equal? t variable) replacement]
+        [else (map-type (lambda (x) (apply-one x variable replacement)) t)]))
+(define (apply-eager t subst)
+  (cond [(tv? t) (cond [(assoc t subst) =&gt; cdr] [else t])]
+        [else (map-type (lambda (x) (apply-eager x subst)) t)]))
+(define (extend-eager subst variable replacement)
+  (cons (cons variable replacement)
+        (for/list ([binding subst])
+          (cons (car binding) (apply-one (cdr binding) variable replacement)))))
+;; Lazy bindings may mention previously bound variables. They must remain acyclic.
+(define (apply-lazy t subst #:memo? [memo? #f] #:visits [visits (lambda (_) (void))])
+  (define memo (make-hash))
+  (define active (mutable-set))
+  (define (walk t)
+    (cond
+      [(tv? t)
+       (cond [(and memo? (hash-has-key? memo t)) (hash-ref memo t)]
+             [else
+              (when (set-member? active t) (type-error &#x27;occurs t &quot;cyclic substitution at ~a&quot; t))
+              (visits t) (set-add! active t)
+              (define answer (cond [(assoc t subst) =&gt; (lambda (p) (walk (cdr p)))] [else t]))
+              (set-remove! active t) (when memo? (hash-set! memo t answer)) answer])]
+      [else (map-type walk t)]))
+  (walk t))
+;; END substitution-core
+(define (no-bound-variable-on-rhs? subst)
+  (define bound (list-&gt;set (map car subst)))
+  (for/and ([p subst]) (set-empty? (set-intersect bound (free-tvars (cdr p))))))
+(define global-substitution &#x27;())
+(struct solver (unify resolve snapshot statistics) #:transparent)
+(define (make-solver [engine &#x27;eager])
+  (unless (memq engine &#x27;(eager lazy memo walk global vector))
+    (error &#x27;make-solver &quot;unknown engine ~a&quot; engine))
+  (when (eq? engine &#x27;global) (set! global-substitution &#x27;()))
+  (define subst &#x27;())
+  (define cells (make-vector 16 #f))
+  (define stats (make-hasheq &#x27;((lookups . 0) (bindings . 0) (equations . 0))))
+  (define (count! key) (hash-update! stats key add1 0))
+  (define (alist) (if (eq? engine &#x27;global) global-substitution subst))
+  (define (capacity! n)
+    (when (&gt;= n (vector-length cells))
+      (define next (make-vector (max (add1 n) (* 2 (vector-length cells))) #f))
+      (vector-copy! next 0 cells) (set! cells next)))
+  (define (binding v)
+    (count! &#x27;lookups)
+    (if (eq? engine &#x27;vector)
+        (begin (capacity! (tv-id v)) (vector-ref cells (tv-id v)))
+        (cond [(assoc v (alist)) =&gt; cdr] [else #f])))
+  (define (root t)
+    (if (tv? t)
+        (let ([b (binding t)])
+          (if b
+              (let ([r (root b)])
+                (when (eq? engine &#x27;vector) (vector-set! cells (tv-id t) r)) r)
+              t)) t))
+  (define (resolve t)
+    (cond [(eq? engine &#x27;eager) (apply-eager t subst)]
+          [(memq engine &#x27;(lazy memo global))
+           (apply-lazy t (alist) #:memo? (eq? engine &#x27;memo)
+                       #:visits (lambda (_) (count! &#x27;lookups)))]
+          [else (define r (root t)) (map-type resolve r)]))
+  (define (bind! v t)
+    (count! &#x27;bindings)
+    (case engine
+      [(eager) (set! subst (extend-eager subst v t))]
+      [(vector) (capacity! (tv-id v)) (vector-set! cells (tv-id v) t)]
+      [(global) (set! global-substitution (cons (cons v t) global-substitution))]
+      [else (set! subst (cons (cons v t) subst))]))
+;; BEGIN unifier-core
+  (define (unify! a b [context #f])
+    (count! &#x27;equations)
+    ;; &#x27;walk&#x27; and &#x27;vector&#x27; dereference only a root variable, then recurse.
+    (define left ((if (memq engine &#x27;(walk vector)) root resolve) a))
+    (define right ((if (memq engine &#x27;(walk vector)) root resolve) b))
+    (cond
+      [(equal? left right) (void)]
+      [(tv? left)
+       (when (occurs? left (resolve right))
+         (type-error &#x27;occurs context &quot;occurrence check: ~a in ~a&quot; left right))
+       (bind! left right)]
+      [(tv? right) (unify! right left context)]
+      [(and (ty? left) (ty? right) (eq? (ty-tag left) (ty-tag right))
+            (= (length (ty-parts left)) (length (ty-parts right))))
+       ;; Every later child uses the substitution updated by earlier children.
+       (for ([x (ty-parts left)] [y (ty-parts right)]) (unify! x y context))]
+      [else (type-error &#x27;mismatch context &quot;cannot unify ~a and ~a&quot; (external left) (external right))]))
+;; END unifier-core
+  (define (snapshot)
+    (if (eq? engine &#x27;vector)
+        (for/list ([b (in-vector cells)] [i (in-naturals)] #:when b) (cons (tv i) b))
+        (alist)))
+  (solver unify! resolve snapshot (lambda () (hash-copy stats))))
+(define (external t #:canonical? [canonical? #t])
+  (define table (make-hash))
+  (define (go t)
+    (match t
+      [(tv n) (if canonical?
+                  (hash-ref! table t (lambda () (string-&gt;symbol (format &quot;a~a&quot; (hash-count table)))))
+                  (string-&gt;symbol (format &quot;ty~a&quot; n)))]
+      [(ty &#x27;proc children)
+       (define args (drop-right children 1))
+       (append (if (null? args) &#x27;() (add-between (map go args) &#x27;*)) (list &#x27;-&gt; (go (last children))))]
+      [(ty tag children) (cons tag (map go children))]
+      [_ t]))
+  (go t))
+(define (type-alpha=? a b) (equal? (external a) (external b)))
+</code></pre><!-- EOPL:end-program --></details><details class="code-details"><summary>完整源码 · chapter07_syntax.rkt</summary><!-- EOPL:program chapter07_syntax.rkt --><pre><code id="chapter07_syntax-code" class="language-scheme">#lang racket
+(require &quot;chapter07_types.rkt&quot;)
+(provide (all-defined-out))
+(struct node (op args) #:transparent)
+(define reserved &#x27;(&quot;let&quot; &quot;in&quot; &quot;letrec&quot; &quot;proc&quot; &quot;if&quot; &quot;then&quot; &quot;else&quot; &quot;begin&quot; &quot;end&quot;
+                   &quot;int&quot; &quot;bool&quot; &quot;void&quot; &quot;pairof&quot; &quot;listof&quot; &quot;refto&quot;))
+(define (identifier? s)
+  (and (string? s) (regexp-match? #px&quot;^[A-Za-z][A-Za-z0-9?\\-]*$&quot; s) (not (member s reserved))))
+(define (tokenize source)
+  (define rx #px&quot;\\s+|%[^\n]*|-&gt;|-?[0-9]+|[A-Za-z][A-Za-z0-9?\\-]*|[():,=*?;_]|[-+]&quot; )
+  (let loop ([pos 0] [out &#x27;()])
+    (cond [(= pos (string-length source)) (reverse out)]
+          [else
+           (define m (regexp-match-positions rx source pos))
+           (unless (and m (= (caar m) pos)) (type-error &#x27;parse pos &quot;unrecognized input at character ~a&quot; pos))
+           (define tok (substring source pos (cdar m)))
+           (loop (cdar m) (if (or (regexp-match? #px&quot;^\\s&quot; tok) (string-prefix? tok &quot;%&quot;)) out (cons tok out)))])))
+(define (parse source #:checked? [checked? #f] #:omitted? [omitted? #t])
+  (define tokens (list-&gt;vector (append (tokenize source) &#x27;(&quot;&lt;eof&gt;&quot;))))
+  (define cursor 0)
+  (define (peek) (vector-ref tokens cursor))
+  (define (take!) (begin0 (peek) (set! cursor (add1 cursor))))
+  (define (expect! token)
+    (unless (equal? token (peek)) (type-error &#x27;parse cursor &quot;expected ~a, received ~a&quot; token (peek))) (take!))
+  (define (name!)
+    (unless (identifier? (peek)) (type-error &#x27;parse cursor &quot;expected identifier, received ~a&quot; (peek)))
+    (string-&gt;symbol (take!)))
+  (define (type-start? x) (member x &#x27;(&quot;int&quot; &quot;bool&quot; &quot;void&quot; &quot;pairof&quot; &quot;listof&quot; &quot;refto&quot; &quot;(&quot; &quot;?&quot;)))
+  (define (read-type)
+    (match (take!)
+      [&quot;?&quot; (when checked? (type-error &#x27;annotation cursor &quot;CHECKED requires a concrete type&quot;)) #f]
+      [(and word (or &quot;int&quot; &quot;bool&quot; &quot;void&quot;)) (string-&gt;symbol word)]
+      [&quot;pairof&quot; (define a (read-type)) (expect! &quot;*&quot;) (pair-t a (read-type))]
+      [&quot;listof&quot; (list-t (read-type))]
+      [&quot;refto&quot; (ref-t (read-type))]
+      [&quot;(&quot; (define args (if (equal? (peek) &quot;-&gt;&quot;) &#x27;()
+                            (let loop ([out (list (read-type))])
+                              (if (equal? (peek) &quot;*&quot;) (begin (take!) (loop (append out (list (read-type))))) out))))
+             (expect! &quot;-&gt;&quot;) (define result (read-type)) (expect! &quot;)&quot;) (proc-t args result)]
+      [x (type-error &#x27;parse cursor &quot;invalid type syntax ~a&quot; x)]))
+  (define (parameters)
+    (expect! &quot;(&quot;)
+    (define result
+      (if (equal? (peek) &quot;)&quot;) &#x27;()
+          (let loop ([out &#x27;()])
+            (define x (name!))
+            (define annotation
+              (cond [(equal? (peek) &quot;:&quot;) (take!) (read-type)]
+                    [(or checked? (not omitted?)) (type-error &#x27;annotation x &quot;missing type annotation for ~a&quot; x)]
+                    [else #f]))
+            (define next (append out (list (cons x annotation))))
+            (if (equal? (peek) &quot;,&quot;) (begin (take!) (loop next)) next))))
+    (expect! &quot;)&quot;)
+    (unless (= (length result) (length (remove-duplicates (map car result))))
+      (type-error &#x27;duplicate result &quot;duplicate formal parameter&quot;)) result)
+  (define (arguments)
+    (expect! &quot;(&quot;)
+    (define result
+      (if (equal? (peek) &quot;)&quot;) &#x27;()
+          (let loop ([out (list (expression))])
+            (if (equal? (peek) &quot;,&quot;) (begin (take!) (loop (append out (list (expression))))) out))))
+    (expect! &quot;)&quot;) result)
+  (define (expression)
+    (define tok (take!))
+    (cond
+      [(regexp-match? #px&quot;^-?[0-9]+$&quot; tok) (node &#x27;num (list (string-&gt;number tok)))]
+      [(equal? tok &quot;if&quot;) (define c (expression)) (expect! &quot;then&quot;) (define a (expression))
+                         (expect! &quot;else&quot;) (node &#x27;if (list c a (expression)))]
+      [(equal? tok &quot;proc&quot;) (define ps (parameters)) (node &#x27;proc (list ps (expression)))]
+      [(equal? tok &quot;let&quot;)
+       (define bs (let loop ([out &#x27;()])
+                    (define x (name!)) (expect! &quot;=&quot;) (define e (expression))
+                    (define next (append out (list (cons x e))))
+                    (if (equal? (peek) &quot;in&quot;) next (loop next))))
+       (unless (= (length bs) (length (remove-duplicates (map car bs)))) (type-error &#x27;duplicate bs &quot;duplicate parallel let name&quot;))
+       (expect! &quot;in&quot;) (node &#x27;let (list bs (expression)))]
+      [(equal? tok &quot;letrec&quot;)
+       (define ds
+         (let loop ([out &#x27;()])
+           (define result (cond [(type-start? (peek)) (read-type)]
+                                [(or checked? (not omitted?)) (type-error &#x27;annotation cursor &quot;missing recursive result type&quot;)]
+                                [else #f]))
+           (define name (name!)) (define ps (parameters)) (expect! &quot;=&quot;)
+           (define body (expression))
+           (define next (append out (list (list name ps result body))))
+           (if (equal? (peek) &quot;in&quot;) next (loop next))))
+       (unless (= (length ds) (length (remove-duplicates (map car ds)))) (type-error &#x27;duplicate ds &quot;duplicate recursive name&quot;))
+       (expect! &quot;in&quot;) (node &#x27;rec (list ds (expression)))]
+      [(equal? tok &quot;(&quot;)
+       (define rator (expression))
+       (define rands (let loop ([out &#x27;()]) (if (equal? (peek) &quot;)&quot;) out (loop (append out (list (expression)))))))
+       (expect! &quot;)&quot;) (node &#x27;call (list rator rands))]
+      [(equal? tok &quot;unpair&quot;) (define x (name!)) (define y (name!))
+                             (when (eq? x y) (type-error &#x27;duplicate x &quot;duplicate unpair name&quot;))
+                             (expect! &quot;=&quot;) (define pair (expression)) (expect! &quot;in&quot;)
+                             (node &#x27;unpair (list x y pair (expression)))]
+      [(equal? tok &quot;set&quot;) (define x (name!)) (expect! &quot;=&quot;) (node &#x27;set (list x (expression)))]
+      [(equal? tok &quot;begin&quot;)
+       (define es (let loop ([out (list (expression))])
+                    (cond [(equal? (peek) &quot;end&quot;) out]
+                          [else (expect! &quot;;&quot;) (if (equal? (peek) &quot;end&quot;) out (loop (append out (list (expression)))))])))
+       (expect! &quot;end&quot;) (node &#x27;begin es)]
+      [(equal? tok &quot;emptylist&quot;)
+       (define annotation (cond [(equal? (peek) &quot;_&quot;) (take!) (read-type)]
+                                [checked? (type-error &#x27;annotation cursor &quot;CHECKED emptylist needs _Type&quot;)]
+                                [else #f]))
+       (node &#x27;emptylist (list annotation))]
+      [(member tok &#x27;(&quot;-&quot; &quot;+&quot; &quot;zero?&quot; &quot;newpair&quot; &quot;pair&quot; &quot;cons&quot; &quot;list&quot; &quot;null?&quot; &quot;car&quot; &quot;cdr&quot;
+                    &quot;newref&quot; &quot;deref&quot; &quot;setref&quot; &quot;left&quot; &quot;right&quot; &quot;setleft&quot; &quot;setright&quot;))
+       (define args (arguments))
+       (define arity (hash-ref (hash &quot;-&quot; 2 &quot;+&quot; 2 &quot;zero?&quot; 1 &quot;newpair&quot; 2 &quot;pair&quot; 2 &quot;cons&quot; 2 &quot;null?&quot; 1 &quot;car&quot; 1 &quot;cdr&quot; 1
+                                    &quot;newref&quot; 1 &quot;deref&quot; 1 &quot;setref&quot; 2 &quot;left&quot; 1 &quot;right&quot; 1 &quot;setleft&quot; 2 &quot;setright&quot; 2) tok #f))
+       (unless (if arity (= arity (length args)) (positive? (length args))) (type-error &#x27;arity tok &quot;invalid primitive arity: ~a&quot; tok))
+       (node (if (equal? tok &quot;pair&quot;) &#x27;newpair (string-&gt;symbol tok)) args)]
+      [(identifier? tok) (node &#x27;var (list (string-&gt;symbol tok)))]
+      [else (type-error &#x27;parse cursor &quot;invalid expression token ~a&quot; tok)]))
+  (define result (expression))
+  (expect! &quot;&lt;eof&gt;&quot;) result)
+</code></pre><!-- EOPL:end-program --></details><details class="code-details"><summary>完整源码 · chapter07_examples.rkt</summary><!-- EOPL:program chapter07_examples.rkt --><pre><code id="chapter07_examples-code" class="language-scheme">#lang racket
+(require &quot;chapter07.rkt&quot; json)
+(provide (all-defined-out))
+(define exercise-7-1
+  (list &quot;proc (x) -(x,3)&quot;
+        &quot;proc (f) proc (x) -((f x),1)&quot;
+        &quot;proc (x) x&quot;
+        &quot;proc (x) proc (y) (x y)&quot;
+        &quot;proc (x) (x 3)&quot;
+        &quot;proc (x) (x x)&quot;
+        &quot;proc (x) if x then 88 else 99&quot;
+        &quot;proc (x) proc (y) if x then y else 99&quot;
+        &quot;(proc (p) if p then 88 else 99 33)&quot;
+        &quot;(proc (p) if p then 88 else 99 proc (z) z)&quot;
+        &quot;proc (f) proc (g) proc (p) proc (x) if (p (f x)) then (g 1) else -((f x),1)&quot;
+        &quot;proc (x) proc (p) proc (f) if (p x) then -(x,1) else (f p)&quot;
+        &quot;proc (f) let d = proc (x) proc (z) ((f (x x)) z) in proc (n) ((f (d d)) n)&quot;))
+(define poly-id &quot;let f = proc (x : ?) x in if (f zero?(0)) then (f 11) else (f 22)&quot;)
+;; BEGIN polymorphic-map
+(define polymorphic-map
+  &quot;let map = proc (f : ?)
+     letrec ? foo (x : ?) =
+       if null?(x) then emptylist
+       else cons((f car(x)),(foo cdr(x)))
+     in foo
+   in letrec ? even (y : ?) =
+        if zero?(y) then zero?(0)
+        else if zero?(-(y,1)) then zero?(1)
+        else (even -(y,2))
+      in newpair(((map proc(x : int) -(x,1)) list(3,5)),
+                 ((map even) list(3,5)))&quot;)
+;; END polymorphic-map
+;; BEGIN polymorphic-reference
+(define unsafe-reference
+  &quot;let p = newref(proc (x : ?) x)
+   in begin
+     setref(p,proc (x : int) -(x,1));
+     (deref(p) zero?(0))
+   end&quot;)
+;; END polymorphic-reference
+(define mutual
+  &quot;letrec ? even(x : ?) = if zero?(x) then 1 else (odd -(x,1))
+          ? odd(x : ?) = if zero?(x) then 0 else (even -(x,1))
+   in (odd 13)&quot;)
+(define higher-order-rec
+  &quot;letrec ? even(odd : ?) = proc (x : ?) if zero?(x) then 1 else (odd -(x,1))
+   in letrec ? odd(x : ?) = if zero?(x) then 0 else ((even odd) -(x,1))
+      in (odd 13)&quot;)
+(define (example-results)
+  (hash &#x27;status &quot;passed&quot; &#x27;failures 0
+        &#x27;checked (format &quot;~s&quot; (check &quot;proc(x : int) -(x,1)&quot;))
+        &#x27;inferred (format &quot;~s&quot; (infer &quot;proc(f) proc(x) -((f 3),(f x))&quot;))
+        &#x27;mutual_type (format &quot;~s&quot; (infer mutual)) &#x27;mutual_value (evaluate mutual)
+        &#x27;higher_order_value (evaluate higher-order-rec)
+        &#x27;polymorphic_id_type (format &quot;~s&quot; (infer poly-id #:polymorphism &#x27;w))
+        &#x27;polymorphic_id_value (run poly-id #:polymorphism &#x27;w)
+        &#x27;map_type (format &quot;~s&quot; (infer polymorphic-map #:polymorphism &#x27;w))
+        &#x27;map_value (format &quot;~s&quot; (datum (run polymorphic-map #:polymorphism &#x27;w)))
+        &#x27;unsafe_reference_type (format &quot;~s&quot; (infer unsafe-reference #:polymorphism &#x27;w #:value-restriction? #f))
+        &#x27;unsafe_reference_runtime (with-handlers ([exn:fail:object? (lambda (e) (symbol-&gt;string (exn:fail:object-kind e)))])
+                                    (evaluate unsafe-reference) &quot;unexpected_success&quot;)
+        &#x27;restricted_reference (with-handlers ([exn:fail:typing? (lambda (e) (symbol-&gt;string (exn:fail:typing-kind e)))])
+                                 (infer unsafe-reference #:polymorphism &#x27;w) &quot;unexpected_success&quot;)))
+(module+ main (write-json (example-results)) (newline))
+</code></pre><!-- EOPL:end-program --></details></section><footer><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter06_cps.html">← 第 6 章 · CPS 转换与计算效果</a><a href="chapter08_modules.html">第 8 章 · 模块、接口与抽象类型 →</a><a href="#top">返回页首 ↑</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top">本节理解与补充</a></p><div id="annotation-content"></div></aside></div><script><!-- RN:include scripts/6a3f8b30744a694f9192.js --></script><script id="reading-notes-controller"><!-- RN:include scripts/reading-annotations-nested.js --></script><script data-purpose="print-details"><!-- RN:include scripts/3497ba81d7e642909037.js --></script></body></html>
