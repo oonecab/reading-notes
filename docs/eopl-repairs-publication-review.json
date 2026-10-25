@@ -1,0 +1,176 @@
+{
+  "schema_version": 1,
+  "issue": "I066",
+  "status": "passed",
+  "recorded_at": "2026-10-25T23:53:21.237039+08:00",
+  "authorization": "用户明确要求提交推送到远端并部署到服务器。",
+  "scope": {
+    "eopl_reading_pages": 13,
+    "existing_source_exercises": 356,
+    "changed_reading_pages": 6,
+    "whole_site_reading_pages": 69,
+    "whole_site_public_html": 91
+  },
+  "source_commit": "781f7aaa876376c6e303235bd797786984d8bff3",
+  "content_remote": {
+    "record": "tmp/eopl-publish-20261025/content-remote.json",
+    "sha256": "aeedf105ec672ee0e33e2e414306ea0c0c8b491db8c7edd3f9fbacac77579c89"
+  },
+  "surface_preflight": {
+    "record": "tmp/eopl-publish-20261025/surface-preflight.json",
+    "sha256": "1cb9a9aaa52418f024bd517924efa4bfe037a3e9bf64286130f8e5a8a4f4d066"
+  },
+  "local_acceptance": {
+    "repairs": {
+      "record": "books/eopl/review/implementation-repairs.json",
+      "sha256": "657f3d91d66ea5adb4be59aac373dc259dc48e4f85b2b9de6791768e30608311"
+    },
+    "root_full": {
+      "record": "tmp/project-check/20261025T232624-0dvcs1pj/report.json",
+      "sha256": "481d01814974471eae3201631e20b3a609963582bf5d1af005c555e9b451eecb"
+    },
+    "root_checks": 25,
+    "program_assertions": {
+      "existing": 17842,
+      "new": 544
+    },
+    "semantic_mutants": 69,
+    "checker_cases": 48,
+    "node_tests": 118,
+    "browser_scenarios": 90,
+    "manual_screenshots_read": 18,
+    "predeploy": {
+      "record": "tmp/eopl-publish-20261025/predeploy-acceptance.json",
+      "sha256": "fe66bbe45021176e56119d445bd7b3013d7deb05ab00979e801a904760997edb"
+    }
+  },
+  "package": {
+    "release_id": "20261025T233903",
+    "source_tree_dirty": false,
+    "archive_sha256": "fbf487bd68fa0333e1e522f1957f077cf1cf5876fe3c2d1e0b740ae3bb5c2250",
+    "files": 587,
+    "accepted_local_release": "20261025T225409",
+    "all_public_file_bytes_identical": true,
+    "comparison": {
+      "record": "tmp/eopl-publish-20261025/package-preflight.json",
+      "sha256": "85d519fa1e08edc5092794afe78a8f8d326fb2b0b44f384317f525a910fce457"
+    },
+    "inline_script_hashes": 13
+  },
+  "privacy": {
+    "candidate_scan_files": 1574,
+    "candidate_findings": 0,
+    "commit_range_findings": 0,
+    "public_findings": 0,
+    "synthetic_positive_control_findings": 1,
+    "evidence": {
+      "gitleaks-final.json": {
+        "record": "tmp/eopl-publish-20261025/gitleaks-final.json",
+        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      "gitleaks-commit-range.json": {
+        "record": "tmp/eopl-publish-20261025/gitleaks-commit-range.json",
+        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      "gitleaks-public.json": {
+        "record": "tmp/eopl-publish-20261025/gitleaks-public.json",
+        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      "gitleaks-control.json": {
+        "record": "tmp/eopl-publish-20261025/gitleaks-control.json",
+        "sha256": "a6aa64664b838ddd5ac8634df73c860a7f71517cc1af1a8b32e7da3fa51d6799"
+      }
+    }
+  },
+  "production": {
+    "origin": "https://notes.zzzping.top",
+    "deployment": {
+      "record": "tmp/eopl-publish-20261025/deployment-result.json",
+      "sha256": "61e57e2b3b81cc7d25cbd8ec79c0d4c5eb90bd6b31b7b0bc793bb1415b5453e2"
+    },
+    "server": {
+      "record": "tmp/eopl-publish-20261025/server-after.json",
+      "sha256": "0cc68eb5dbacc86dfd8efc09de659456962714421678f5363e73fc034ca4fa42"
+    },
+    "verified_files": 587,
+    "previous_release": "20261025T014634",
+    "previous_source_commit": "5eeee00431d8e492c3ac8efa257e6246cadde152",
+    "previous_verified_files": 586,
+    "unchanged_mtime_preserved": 553,
+    "changed_mtime_distinct": 33,
+    "new_files": 1,
+    "root_owned_read_only": true,
+    "fixed_programs_unchanged": true,
+    "policy_sha256": "81bbad50822c1c03caddf690dcdb0372cd03d1c4c5a1040ea2e28200d5bdd0d3",
+    "previous_policy_sha256": "bfc7c8353649a7d392707b3e83276708cb93d81907a8dc8c0601bbf78d80508f",
+    "snippet_sha256": "a1a4329c52d14384297d3ca4f4586ba242c80cb09008e8d86d2cf1981fc5f030",
+    "administrator_backup": "/root/reading-notes-i066-20261025T233903",
+    "policies_and_previous_configuration_retained": true,
+    "pending_transaction": false,
+    "ready_queue_empty": true,
+    "nginx_deploy_health": "passed; health timer active and enabled",
+    "public_http": {
+      "record": "tmp/eopl-publish-20261025/public-https.json",
+      "sha256": "a0b56116132ae9a4aa58a72201c6475a6a56c2ac8d1e63bd2e29cee7543cd1c7"
+    },
+    "body_and_conditional_checks": 581,
+    "redirects": 18,
+    "source_pdf_ranges": 6,
+    "precompressed_checks": 208,
+    "transport_retries": []
+  },
+  "public_reader": {
+    "reader": {
+      "record": "tmp/eopl-publish-20261025/browser-public/reader.json",
+      "sha256": "1e518628ab82dcc6199714285307d166256d34004cc8b1885a1e7181fbb661ba"
+    },
+    "no_js": {
+      "record": "tmp/eopl-publish-20261025/browser-public/no-js.json",
+      "sha256": "8cfe296fa1db3bc60a4f8178efea84b60d67a4ed774664a842a58802f8c0b47d"
+    },
+    "visual": {
+      "record": "tmp/eopl-publish-20261025/browser-public/visual.json",
+      "sha256": "34443b3288c40f9c1be3f834fb49e2ee52b19efd6b9b9ea3d8151ba147c10b82"
+    },
+    "screenshots_read": 13,
+    "native_downloads": 7,
+    "cross_exercise_links": 2,
+    "viewport_widths": [
+      1800,
+      390
+    ],
+    "no_script_controls": "native question pointer and code pointer/keyboard passed"
+  },
+  "history": {
+    "local_validation_snapshot": {
+      "record": "books/eopl/review/history/I066-local-validation.json",
+      "sha256": "874122d748bab4dd44ce1384ff09672ff3e5aec5c6b4bb0f7268cad51c324961"
+    },
+    "local_repairs_record_preserved": true,
+    "I065_publication_receipt_preserved": true,
+    "readme_binding": {
+      "prior_sha256": "cc6b6c9b58897260a2a1152df66804f99b9ec8a8bf3b0bec273b776b14ca5138",
+      "current_sha256": "722d2f20bc269d4653a29cde7fc00547fbf9a75d76a3d4188fb4f7d280939758",
+      "reason": "Current production identity and receipt link updated after I066 acceptance."
+    }
+  },
+  "boundaries": {
+    "physical_mobile_device": false,
+    "screen_reader_session": false,
+    "reproved_all_356_exercises": false,
+    "release_identity": "Production is built from the clean content commit; the later maintenance receipt changes no public content inputs."
+  },
+  "post_publication_check": {
+    "status": "passed",
+    "record": "tmp/project-check/20261025T235321-ave0v3jq/report.json",
+    "sha256": "ce08bb04f55134f9f74a1f4533715319d4d1a94e40c9d746af3badb2fec699fa",
+    "checks": 22,
+    "book": "all",
+    "quick": true
+  },
+  "maintenance_receipt_boundary": {
+    "record": "tmp/eopl-publish-20261025/receipt-boundary.json",
+    "sha256": "c567617398f2ee5b75bc57181b7bc8a2fb24f76294b03db08218c2da13c13ae4",
+    "public_content_changed": false
+  }
+}

@@ -2,7 +2,7 @@
 
 Daniel P. Friedman / Mitchell Wand，*Essentials of Programming Languages*，第三版，MIT Press，2008。
 
-从[全书地图](notes/book_overview.html)开始，或直接阅读[导读与作者序言](notes/preface.html)。当前已发布地图、序言、第 1–9 章与附录 A/B，共十三页伴读、356 道完整题解。原书九章、两附录及全部编号项目均已登记；逐批来源与程序证据见[阅读计划](reading-plan.md)，最终发布为 `20261025T014634`，见[T065](../../test/T065-eopl-completion-publication.md)。
+从[全书地图](notes/book_overview.html)开始，或直接阅读[导读与作者序言](notes/preface.html)。当前已发布地图、序言、第 1–9 章与附录 A/B，共十三页伴读、356 道完整题解。原书九章、两附录及全部编号项目均已登记；逐批来源与程序证据见[阅读计划](reading-plan.md)，全书完结见[T065](../../test/T065-eopl-completion-publication.md)；当前修复发布为 `20261025T233903`，见[T066](../../test/T066-eopl-review-repairs.md)。
 
 正文维护于 `src/content/books/eopl/`，`notes/` 中的十三个 HTML 是共享样式展开后的独立成品。基础阅读无需服务器或网络。原 PDF 作为已登记的阅读参考，章节来源链接直接定位 PDF 页序；身份与页序见[来源清单](notes/source_manifest.json)。
 
@@ -39,4 +39,6 @@ racket books/eopl/code/test_chapters.rkt
 
 全书完结（I065）：[附录A](notes/appendix_a_reading.html)与[附录B](notes/appendix_b_sllgen.html)补齐原书两份附录；当前地图、序言、九章与两附录共13页、356题。最近7–9章修复步数预算边界和继承关系预验证，完整来源/程序/阅读/发布记录见[T065](../../test/T065-eopl-completion-publication.md)。
 
-I065已将全书从干净内容提交 `5eeee00` 发布到统一站点；当前服务器、恢复单元和正常域名证据见[完结发布审阅](../../docs/eopl-completion-publication-review.json)。
+I065已将全书从干净内容提交 `5eeee00` 发布到统一站点；该次服务器、恢复单元和正常域名证据见[完结发布审阅](../../docs/eopl-completion-publication-review.json)。
+
+I066修复完整输入、运行预算、同步机制与CPS续文身份，并从干净内容提交 `781f7aa` 发布。当前线上版本、配套恢复单位和实际阅读证据见[修复发布审阅](../../docs/eopl-repairs-publication-review.json)。

@@ -1,6 +1,6 @@
 # Ubuntu 静态发布
 
-I065 当前发布为 `20261025T014634`，来源为干净内容提交 `5eeee00`，上一版 `20261023T211622` 及配套政策、配置已核验并保留。新版本586文件、69阅读页和91公开HTML；服务器只读树、发布/健康服务、正常域名580内容核对、18入口、6份PDF Range及实际阅读见[T065](../test/T065-eopl-completion-publication.md)与[发布审阅](../docs/eopl-completion-publication-review.json)。root安装器与缓存约定沿用，Nginx采用本版13个脚本散列。
+I066已将修复从干净内容提交 `781f7aa` 发布为 `20261025T233903`，整站69阅读页、91公开HTML和587文件。新包与本地验收包20261025T225409的全部公开文件逐项相同。服务器587文件及前版586文件哈希、权限、恢复配置通过；553个未变文件保留mtime，33个变更文件更新mtime，新增1文件。正常域名581项内容/304、18条重定向、6份PDF Range及208组gzip检查通过；公网13张截图实际阅读、7份原生下载、2个跨题入口及390px无脚本鼠标/键盘交互通过。 当前恢复版为 `20261025T014634` 及其配套清单、配置；固定发布器及13个CSP脚本散列沿用。见[T066](../test/T066-eopl-review-repairs.md)与[修复发布审阅](../docs/eopl-repairs-publication-review.json)。
 
 I037 历史发布为 `20261020T142535`，来源为干净提交 `163478b`，上一版 `20261020T120833` 保留可回滚，测度概率第五、六章验收见 [T037](../test/T037-measure-probability-production.md)。I036 的书籍页面内联 favicon，以及 I035 启用的预压缩、缓存验证器与内容健康检查继续生效，见 [T036](../test/T036-book-favicon.md) 与 [T035](../test/T035-cache-performance-reliability.md)。I033 曾按 [I032 运维方案](OPERATIONS-I032.md)应用 root 安装器、只读版本树与新 unit，并发布 `20261017T210828`。`reading-notes-publish` 是受控生产写入口；I033 加固结果见 [I033 报告](../docs/browser-stability-report.md)，I029 保留为历史迁移记录。
 
