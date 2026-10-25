@@ -1,6 +1,7 @@
 #lang racket
 ;; Appendix B: real SLLGEN scanning/parsing and exercises B.1-B.5.
 (require eopl)
+(require "sllgen_guard.rkt")
 (provide (all-defined-out))
 (define scanner-spec
   '((white-sp (whitespace) skip)
@@ -33,10 +34,10 @@
     (multiplicative-op ("*") times-op) (multiplicative-op ("/") divide-op)))
 ;; All three grammars share constructors; extensions add variable/negative forms.
 (sllgen:make-define-datatypes scanner-spec unary-grammar)
-(define raw-scan-arithmetic (sllgen:make-string-scanner scanner-spec unary-grammar))
-(define raw-parse-base (sllgen:make-string-parser scanner-spec base-grammar))
-(define raw-parse-variables (sllgen:make-string-parser scanner-spec variable-grammar))
-(define raw-parse-unary (sllgen:make-string-parser scanner-spec unary-grammar))
+(define raw-scan-arithmetic (guard-sllgen (sllgen:make-string-scanner scanner-spec unary-grammar) scanner-spec unary-grammar))
+(define raw-parse-base (guard-sllgen (sllgen:make-string-parser scanner-spec base-grammar) scanner-spec base-grammar))
+(define raw-parse-variables (guard-sllgen (sllgen:make-string-parser scanner-spec variable-grammar) scanner-spec variable-grammar))
+(define raw-parse-unary (guard-sllgen (sllgen:make-string-parser scanner-spec unary-grammar) scanner-spec unary-grammar))
 ;; The installed SLLGEN scanner can stop at an unsupported character. Guard the
 ;; entire arithmetic input so a valid prefix is never silently accepted.
 (define (check-characters text)
@@ -101,8 +102,8 @@
     (expression (identifier) var-exp)
     (expression ("(" expression "-" expression ")") diff-exp)))
 (sllgen:make-define-datatypes scanner-spec statement-grammar)
-(define scan-statement (sllgen:make-string-scanner scanner-spec statement-grammar))
-(define parse-statement (sllgen:make-string-parser scanner-spec statement-grammar))
+(define scan-statement (guard-sllgen (sllgen:make-string-scanner scanner-spec statement-grammar) scanner-spec statement-grammar))
+(define parse-statement (guard-sllgen (sllgen:make-string-parser scanner-spec statement-grammar) scanner-spec statement-grammar))
 (define (statement-datum tree)
   (define (e x) (cases expression x (var-exp (x) (list 'var x)) (diff-exp (a b) (list '- (e a) (e b)))))
   (define (s x) (cases statement x
@@ -119,8 +120,8 @@
 (sllgen:make-define-datatypes scanner-spec terminated-grammar)
 ;; Only the block constructor differs in the separated grammar.
 (define-datatype separated separated? (separated-block (items (list-of item?))))
-(define parse-terminated (sllgen:make-string-parser scanner-spec terminated-grammar))
-(define parse-separated (sllgen:make-string-parser scanner-spec separated-grammar))
+(define parse-terminated (guard-sllgen (sllgen:make-string-parser scanner-spec terminated-grammar) scanner-spec terminated-grammar))
+(define parse-separated (guard-sllgen (sllgen:make-string-parser scanner-spec separated-grammar) scanner-spec separated-grammar))
 (define (block-datum b)
   (define (items->data xs) (map (lambda (x) (cases item x (assign-item (a b) (list a b)))) xs))
   (if (block? b) (cases block b (terminated-block (xs) (items->data xs)))
@@ -129,7 +130,7 @@
   '((binding-expression (identifier) binding-var)
     (binding-expression ("let" (arbno identifier "=" binding-expression) "in" binding-expression) binding-let)))
 (sllgen:make-define-datatypes scanner-spec bindings-grammar)
-(define parse-bindings (sllgen:make-string-parser scanner-spec bindings-grammar))
+(define parse-bindings (guard-sllgen (sllgen:make-string-parser scanner-spec bindings-grammar) scanner-spec bindings-grammar))
 (define (bindings-datum b)
   (cases binding-expression b
     (binding-var (name) (list 'var name))
@@ -141,7 +142,7 @@
     (parallel-expression (number) parallel-number)
     (parallel-expression (identifier) parallel-var)))
 (sllgen:make-define-datatypes scanner-spec parallel-grammar)
-(define parse-parallel (sllgen:make-string-parser scanner-spec parallel-grammar))
+(define parse-parallel (guard-sllgen (sllgen:make-string-parser scanner-spec parallel-grammar) scanner-spec parallel-grammar))
 (define (parallel-datum b)
   (define (e x) (cases parallel-expression x (parallel-number (n) n) (parallel-var (name) name)))
   (cases parallel-statement b (parallel-block (names rhss) (list names (map (lambda (xs) (map e xs)) rhss)))))

@@ -464,6 +464,17 @@ def check(quick: bool, run_dir: Path | None = None) -> dict:
         need(report["synchronization_models"]["models"] == {
             "counting_semaphore_peak": 2, "condition_value": 44,
             "barrier_generations": 2, "private_counter": 3}, "synchronization model oracle")
+        optimized = subprocess.run([sys.executable, "-O", BOOK / "code/chapter05_sync.py"],
+                                   capture_output=True, text=True, check=True, timeout=30)
+        report["synchronization_models_optimized"] = json.loads(optimized.stdout)
+        need(report["synchronization_models_optimized"] == report["synchronization_models"],
+             "optimized Python must execute the same synchronization examples")
+        repaired = subprocess.run([racket, str(BOOK / "tools/test_review_repairs.rkt")],
+                                  capture_output=True, text=True, check=True, timeout=60)
+        report["review_repairs"] = json.loads(repaired.stdout.splitlines()[-1])
+        need(report["review_repairs"]["status"] == "passed", "review repair regressions")
+        from test_review_inputs import run as test_review_inputs
+        report["review_reader_inputs"] = test_review_inputs(racket, execution_dir / "review-reader-inputs")
         from test_chapter05_06_mutations import run as test_chapter05_06_mutations, run_c_drivers
         report["chapter5_6_semantic_mutations"] = test_chapter05_06_mutations(racket, execution_dir / "control-mutations")
         report["c_control_drivers"] = run_c_drivers(execution_dir / "c-drivers")

@@ -7,6 +7,9 @@
 (struct captured (frames) #:transparent)
 (struct callcc-primitive () #:transparent)
 (struct mutex-value (closed? waiting) #:mutable #:transparent)
+(struct semaphore-value (permits waiting) #:mutable #:transparent)
+(struct condition-value (mutex waiting) #:mutable #:transparent)
+(struct barrier-value (parties generation waiting) #:mutable #:transparent)
 ;; BEGIN snapshots
 (struct state (pc exp env frames value) #:transparent)
 (struct thread (id parent state ticks status mailbox store) #:mutable #:transparent)
@@ -22,11 +25,14 @@
              #:driver [driver 'loop] #:handler-lookup [handler-lookup 'search] #:numeric? [numeric? #f]
              #:trace? [trace? #f] #:fuel [fuel 2000000])
  (unless (exact-positive-integer? quantum) (error 'scheduler "positive quantum required"))
+ (unless (exact-positive-integer? fuel) (error 'fuel "positive exact integer required"))
  (when (and private? (eq? scope 'dynamic)) (error 'run "private stores require lexical scope"))
  (define all (make-hash)) (define ready '()) (define current #f)
  (define next-id 0) (define final #f) (define final? #f) (define output '())
  (define log '()) (define max-depth 0) (define steps 0) (define switches 0) (define ends 0)
  (define mutexes '()) (define locations '())
+ (define semaphores '()) (define conditions '()) (define barriers '())
+ (define blocked-states '(mutex receive semaphore condition barrier))
  (define handler-cache (make-hasheq))
  (define handler-hops 0)
  (define (nearest k)
@@ -66,8 +72,9 @@
      (cond [(hash-ref memo v #f) => values]
       [else (define p (closure (closure-params v) (closure-body v) #f))
        (hash-set! memo v p) (set-closure-env! p (environment (closure-env v))) p])]
-    [(or (captured? v) (mutex-value? v))
-     (error 'copy "cannot transfer a mutex or captured continuation between private stores")]
+    [(or (captured? v) (mutex-value? v) (semaphore-value? v)
+         (condition-value? v) (barrier-value? v))
+     (error 'copy "cannot transfer a mutex, synchronization object or captured continuation between private stores")]
     [(pair? v) (cons (copy (car v)) (copy (cdr v)))]
     [else v]))
   (copy value))
@@ -93,6 +100,82 @@
    [else (set! current (car ready)) (set! ready (cdr ready))
     (set-thread-status! current 'running) (set! switches (add1 switches))
     (thread-state current)]))
+;; BEGIN thread-synchronization
+ ;; Each helper is one machine transition: no preemption inside queue updates.
+ (define (acquire-mutex! m k)
+  (if (mutex-value-closed? m)
+   (begin
+    (set-mutex-value-waiting! m (append (mutex-value-waiting m) (list current)))
+    (suspend! (A k 52) 'mutex))
+   (begin (set-mutex-value-closed?! m #t) (A k 52))))
+ (define (release-mutex! m)
+  (when (mutex-value-closed? m)
+   (if (null? (mutex-value-waiting m))
+    (set-mutex-value-closed?! m #f)
+    (let ([th (car (mutex-value-waiting m))])
+     (set-mutex-value-waiting! m (cdr (mutex-value-waiting m)))
+     (enqueue! th))))) ; direct handoff keeps the mutex closed
+ (define (synchronize op v k)
+  (case op
+   [(semaphore)
+    (unless (exact-nonnegative-integer? v)
+     (error op "nonnegative exact permit count required"))
+    (define sem (semaphore-value v '()))
+    (set! semaphores (cons sem semaphores)) (A k sem)]
+   [(down)
+    (unless (semaphore-value? v) (error op "semaphore required"))
+    (if (positive? (semaphore-value-permits v))
+     (begin
+      (set-semaphore-value-permits! v (sub1 (semaphore-value-permits v)))
+      (A k 52))
+     (begin
+      (set-semaphore-value-waiting! v (append (semaphore-value-waiting v) (list current)))
+      (suspend! (A k 52) 'semaphore)))]
+   [(up)
+    (unless (semaphore-value? v) (error op "semaphore required"))
+    (if (null? (semaphore-value-waiting v))
+     (set-semaphore-value-permits! v (add1 (semaphore-value-permits v)))
+     (let ([th (car (semaphore-value-waiting v))])
+      (set-semaphore-value-waiting! v (cdr (semaphore-value-waiting v)))
+      (enqueue! th))) ; transferred permit must not also increment the count
+    (A k 53)]
+   [(condition)
+    (unless (mutex-value? v) (error op "mutex required"))
+    (define c (condition-value v '()))
+    (set! conditions (cons c conditions)) (A k c)]
+   [(condition-wait)
+    (unless (condition-value? v) (error op "condition required"))
+    (define m (condition-value-mutex v))
+    (unless (mutex-value-closed? m) (error op "associated mutex must be held"))
+    (set-condition-value-waiting! v (append (condition-value-waiting v) (list current)))
+    (release-mutex! m)
+    (suspend! (state 'reacquire #f #f k m) 'condition)]
+   [(condition-signal)
+    (unless (condition-value? v) (error op "condition required"))
+    (unless (null? (condition-value-waiting v))
+     (define th (car (condition-value-waiting v)))
+     (set-condition-value-waiting! v (cdr (condition-value-waiting v)))
+     (enqueue! th)) ; Mesa: make ready; reacquire the mutex when scheduled
+    (A k 53)]
+   [(barrier)
+    (unless (exact-positive-integer? v) (error op "positive exact party count required"))
+    (define b (barrier-value v 0 '()))
+    (set! barriers (cons b barriers)) (A k b)]
+   [(barrier-wait)
+    (unless (barrier-value? v) (error op "barrier required"))
+    (define waiting (barrier-value-waiting v))
+    (if (= (add1 (length waiting)) (barrier-value-parties v))
+     (let ([generation (add1 (barrier-value-generation v))])
+      (set-barrier-value-generation! v generation)
+      (set-barrier-value-waiting! v '()) ; detach this generation before waking it
+      (for ([th waiting])
+       (set-thread-state! th (A (state-frames (thread-state th)) generation))
+       (enqueue! th))
+      (A k generation))
+     (begin
+      (set-barrier-value-waiting! v (append waiting (list current)))
+      (suspend! (A k #f) 'barrier)))]))
+;; END thread-synchronization
  (define (collect es env k kind data)
   (if (null? es) (finish kind data '() env k)
    (E (car es) env (cons `(collect ,kind ,data ,(cdr es) () ,env) k))))
@@ -182,6 +265,9 @@
      [`(mutex) (define m (mutex-value #f '())) (set! mutexes (cons m mutexes)) (A k m)]
      [`(wait ,arg) (E arg env (cons '(wait) k))]
      [`(signal ,arg) (E arg env (cons '(signal) k))]
+     [`(,(and op (or 'semaphore 'down 'up 'condition 'condition-wait
+                       'condition-signal 'barrier 'barrier-wait)) ,arg)
+      (E arg env (cons `(synchronize ,op) k))]
      [`(kill ,arg) (E arg env (cons '(kill) k))]
      [`(send ,a ,b) (collect (list a b) env k 'send #f)]
      [`(receive)
@@ -193,6 +279,7 @@
      [_ (error 'eval "unknown form ~s" e)])]
    [(state 'invoke p env k vs) (invoke p vs env k)]
    [(state 'raise _ _ k v) (handle k v)]
+   [(state 'reacquire _ _ k m) (acquire-mutex! m k)]
    [(state 'apply _ _ k v)
     (cond [(zero? (thread-ticks current))
            (suspend! s 'expired) (enqueue! current) #f]
@@ -222,25 +309,23 @@
           (enqueue! child) (A rest (if ids? (thread-id child) 73))]
          [(list 'wait)
           (unless (mutex-value? v) (error 'wait "mutex required"))
-          (if (mutex-value-closed? v)
-           (begin
-            (set-mutex-value-waiting! v (append (mutex-value-waiting v) (list current)))
-            (suspend! (A rest 52) 'mutex))
-           (begin (set-mutex-value-closed?! v #t) (A rest 52)))]
+          (acquire-mutex! v rest)]
          [(list 'signal)
           (unless (mutex-value? v) (error 'signal "mutex required"))
-          (when (mutex-value-closed? v)
-           (if (null? (mutex-value-waiting v)) (set-mutex-value-closed?! v #f)
-            (let ([th (car (mutex-value-waiting v))])
-             (set-mutex-value-waiting! v (cdr (mutex-value-waiting v)))
-             (enqueue! th)))) ; handoff: keep the mutex closed
-          (A rest 53)]
+          (release-mutex! v) (A rest 53)]
+         [`(synchronize ,op) (synchronize op v rest)]
          [(list 'kill)
           (define victim (hash-ref all v #f))
-          (define found? (and victim (memq (thread-status victim) '(ready mutex receive))))
+          (define found? (and victim (memq (thread-status victim) (cons 'ready blocked-states))))
           (when found?
            (set! ready (remq victim ready))
            (for ([m mutexes]) (set-mutex-value-waiting! m (remq victim (mutex-value-waiting m))))
+           (for ([sem semaphores])
+            (set-semaphore-value-waiting! sem (remq victim (semaphore-value-waiting sem))))
+           (for ([c conditions])
+            (set-condition-value-waiting! c (remq victim (condition-value-waiting c))))
+           (for ([b barriers])
+            (set-barrier-value-waiting! b (remq victim (barrier-value-waiting b))))
            (set-thread-status! victim 'killed))
           (A rest (and found? #t))]
          [_ (error 'apply "unknown frame ~s" (car k))])])])]
@@ -261,7 +346,7 @@
    [else (continue (step next))]))
  (continue initial)
 ;; END register-driver
- (define blocked (filter (lambda (th) (memq (thread-status th) '(mutex receive))) (hash-values all)))
+ (define blocked (filter (lambda (th) (memq (thread-status th) blocked-states)) (hash-values all)))
  (unless final? (if (pair? blocked) (error 'scheduler "deadlock before main result")
                     (error 'scheduler "main thread terminated without value")))
  (result final (reverse output)
@@ -289,6 +374,52 @@
  (run private-counter-program #:implicit? #t #:private-store? #t
       #:thread-ids? #t #:quantum quantum))
 ;; END private-store-example
+;; BEGIN synchronization-programs
+(define semaphore-program
+ "let s = semaphore(2) m = mutex() active = 0 peak = 0 in
+  let worker = proc(id) begin
+    down(s); wait(m);
+    set active = add1(active);
+    if greater?(active,peak) then set peak = active else 0;
+    signal(m); yield();
+    wait(m); set active = sub1(active); signal(m);
+    up(s); send(parent(),id)
+  end in begin
+    spawn(worker); spawn(worker); spawn(worker); spawn(worker); spawn(worker);
+    receive(); receive(); receive(); receive(); receive();
+    list(peak,active)
+  end")
+(define condition-program
+ "let m = mutex() buffer = 0 in let c = condition(m) in
+  let consumer = proc(id)
+    letrec await(dummy) =
+      if zero?(buffer) then begin
+        send(parent(),0); condition-wait(c); (await 0)
+      end else buffer
+    in begin
+      wait(m);
+      let value = (await 0) in begin signal(m); send(parent(),value) end
+    end
+  in begin
+    spawn(consumer); receive();
+    wait(m); condition-signal(c); signal(m);
+    receive();
+    wait(m); set buffer = 44; condition-signal(c);
+    yield(); set buffer = 45; signal(m);
+    receive()
+  end")
+(define barrier-program
+ "let b = barrier(3) in let worker = proc(id) begin
+    print(list(id,barrier-wait(b)));
+    print(list(id,barrier-wait(b)));
+    send(parent(),id)
+  end in begin
+    spawn(worker); spawn(worker);
+    let first = barrier-wait(b) in let second = barrier-wait(b) in begin
+      receive(); receive(); list(first,second)
+    end
+  end")
+;; END synchronization-programs
 (define (translate-callcc source)
  (define count 0)
  (define (fresh prefix) (set! count (add1 count)) (string->symbol (format "~a%cc~a" prefix count)))

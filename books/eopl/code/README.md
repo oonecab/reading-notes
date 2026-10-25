@@ -262,7 +262,7 @@ TYPED-OO先收集所有类型名，验证完整继承关系的声明顺序与父
 
 ## 附录 B：实际 SLLGEN 与算术解释器
 
-将[appendix_b.rkt](appendix_b.rkt)与[test_appendix_b.rkt](test_appendix_b.rkt)置于同一目录，以Racket8.17及其eopl/rackunit执行：
+将[appendix_b.rkt](appendix_b.rkt)、[test_appendix_b.rkt](test_appendix_b.rkt)及[sllgen_guard.rkt](sllgen_guard.rkt)置于同一目录，以Racket8.17及其eopl/rackunit执行：
 
 ```sh
 racket appendix_b.rkt
@@ -274,3 +274,19 @@ racket test_appendix_b.rkt
 scan-statement/parse-statement重现原书两语句块；parse-terminated/parse-separated分别表示逐项分号终结与项间分隔。parse-bindings和parse-parallel展示重复字段与嵌套平行列表；原文法接受长度不等的并行赋值，示例仅解析，执行还需独立语义检查。arithmetic-repl采用实际SLLGEN流解析与make-rep-loop，额外以分号终结每个表达式；以包装端口逐字符校验流输入，拒绝把未知字符当作EOF；再只把精确的干净EOF开始符号错误转为正常结束，残缺输入仍报错。原书p.386流解析器输出的token/AST用词校注见source_issues.json。
 
 附录页面输入直接提取运行，独立回归核对优先级、结合性、变量、负号、无效输入和生成器列表结构。有限测试和原书解答的语义论证分别保留，见T065。
+
+## 输入完整性与习题5.57同步扩展（I066，2026-10-25）
+
+第3–6章和附录B的SLLGEN字符串前端依赖同目录的[sllgen_guard.rkt](sllgen_guard.rkt)。它使用对应词法规格及文法字面量逐token验证整个输入，再交给实际SLLGEN；未知字符、孤立标识符后缀或未匹配的多字符记号均拒绝，不能把合法前缀当成完整程序。源语言百分号注释、CPS-OUT标识符中的百分号分别按各自规格处理。附录B流REPL仍使用自己的流端口保护。第4章run/details和第5章run的fuel都必须是正的精确整数，预算耗尽单独报错。
+
+习题5.57在chapter05_syntax.rkt与chapter05.rkt内实现三种同步机制，使用现有THREADS的run、线程记录、续文与就绪队列：
+
+- semaphore(n)要求非负精确整数；down(s)无许可时FIFO阻塞，up(s)优先直接移交许可，不额外增加计数。返回值分别52、53。
+- condition(m)绑定一个mutex。condition-wait(c)在一条转移中入队并释放该锁，恢复时先重新取锁，再返回52；condition-signal(c)令队首就绪并返回53，空通知不累计。调用者按Mesa方式持锁检查谓词并循环等待；mutex沿用原二元信号量模型、不跟踪owner，运行器只拒绝等待时锁明显未关闭的情况。
+- barrier(n)要求正精确整数；barrier-wait(b)凑齐固定人数才清空本代队列并放行全部线程，返回从1开始的代号。
+
+kill同时清理新增队列及条件等待者重新取锁的mutex队列；已取消的屏障到达者不计数，参与人数不缩减，需有替补到达才能完成该轮。主线程尚无值且仅剩阻塞线程时报告死锁；已有主结果时返回blocked计数。跨私有存储复制同步对象拒绝。三个完整输入常量为semaphore-program、condition-program、barrier-program，使用#:implicit? #t与#:thread-ids? #t；q=1–30时分别返回(2 0)、45、(1 2)，结束时blocked均0。条件例的45来自通知后仍持锁的生产者最终写入，区别于Python简化例的44。
+
+chapter05_sync.py保留为生成器比较模型；必要执行与检查均在Python普通及-O模式运行，观测结果一致。正文3.43–3.44、5.57、6.31–6.33的四段完整复现实例由tools/test_review_inputs.py从阅读镜像提取后执行；输入/预算/调度回归由tools/test_review_repairs.rkt执行，均接入书级完整检查。
+
+6.31的续文数据化使用生成名字的独立格式：用户标识符α改名为`k%编号`等，编译器续文形参为`k%%编号`（双续文模式的错误参数为`h%%编号`），分支连接点为`join%%编号`。源字符串标识符不能含百分号，因此用户名k/h/join不会被误认；AST输入遵守同一源标识符契约。defunctionalize接收本转换器的纯CPS-IN及列表输出。回归覆盖普通/递归过程、高阶形参、非简单let结果及捕获值，并比较目标文本重读与寄存器执行。

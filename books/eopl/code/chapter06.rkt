@@ -139,7 +139,8 @@
    [`(prim ,op . ,es) `(prim ,op ,@(map (lambda (a) (simp a h)) es))]
    [`(list . ,es) `(list ,@(map (lambda (a) (simp a h)) es))]
    [`(proc ,xs ,b)
-    (define k (fresh 'k)) (define err (and exceptions? (fresh 'h)))
+    ;; Source identifiers cannot contain %, so %% marks compiler control roles.
+    (define k (fresh 'k%)) (define err (and exceptions? (fresh 'h%)))
     `(proc ,(append xs (list k) (if err (list err) '())) ,(cps b (V k) (if err (V err) h)))]))
 ;; BEGIN cps-main
  (define (cps e k h)
@@ -153,7 +154,7 @@
    [`(if ,t ,a ,b)
     (exps (list t) (lambda (ss)
      (if (and share-if? (not (eq? (car k) 'var)))
-      (let ([name (fresh 'join)]) `(let1 ,name ,k (if ,(car ss) ,(cps a (V name) h) ,(cps b (V name) h))))
+      (let ([name (fresh 'join%)]) `(let1 ,name ,k (if ,(car ss) ,(cps a (V name) h) ,(cps b (V name) h))))
       `(if ,(car ss) ,(cps a k h) ,(cps b k h)))) h)]
    [`(let ,xs ,es ,b)
     (cond [(and fuse-let? (= (length xs) 1) (not (simple? (car es) #f)))

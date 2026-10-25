@@ -22,3 +22,5 @@
 第9章题面独立登记于notes/questions_ch09.json。对象字段使用位置，继承方法保持宿主，send动态分派而super从宿主父类开始；类型检查先收集签名、再检查方法体及接口。源码、语法选项、初始化策略、名字改编、词法地址、多重继承/闭包对象/原型的适用边界见code/README.md；finite回归不代替一般安全或终止证明。原题9.37标注与9.34接口边界单独校注，来源及本地分层证据见T064/review/ch09.json。
 
 I065完成附录A/B：A按六个主题组织原书无编号讨论，B保留B.1/B.2/B.3与四个无编号子标题；B.1–B.5独立原题输入为notes/questions_appendix_b.json。SLLGEN使用eopl生成器，算术数域为精确有理数；模式、词法覆盖、左结合及REPL终结符见code/README.md。当前来源和发布验收见review/completion.json与T065。
+
+I066修复完整字符串输入与预算边界，将5.57三种同步机制接入同一THREADS解释器。第3–6章及附录B下载须同时取得code/sllgen_guard.rkt；同步语法、Mesa持锁前提和取消语义由code/README.md及5.57正文维护。当前修复证据见T066和review/implementation-repairs.json，历史发布仍由原记录描述。

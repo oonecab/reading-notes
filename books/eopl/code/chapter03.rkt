@@ -2,6 +2,7 @@
 ;; EOPL third edition chapter 3: original companion implementation.
 ;; Source syntax is parsed by the installed eopl SLLGEN, not Racket eval.
 (require eopl)
+(require "sllgen_guard.rkt")
 (provide (all-defined-out))
 
 ;; BEGIN grammar
@@ -39,7 +40,7 @@
     (binary-op ("equal?") equal-op) (binary-op ("greater?") greater-op)
     (binary-op ("less?") less-op) (binary-op ("cons") cons-op)))
 (sllgen:make-define-datatypes lexical-spec grammar)
-(define scan&parse (sllgen:make-string-parser lexical-spec grammar))
+(define scan&parse (guard-sllgen (sllgen:make-string-parser lexical-spec grammar) lexical-spec grammar))
 ;; END grammar
 
 ;; BEGIN values

@@ -1,6 +1,7 @@
 #lang racket
 ;; EOPL chapter 4: original companion interpreter; no host eval.
 (require eopl)
+(require "sllgen_guard.rkt")
 (provide (all-defined-out))
 
 ;; BEGIN state-grammar
@@ -44,7 +45,7 @@
     (binary-op ("-") diff-op) (binary-op ("+") add-op)
     (binary-op ("*") times-op)))
 (sllgen:make-define-datatypes lexical-spec grammar)
-(define scan&parse (sllgen:make-string-parser lexical-spec grammar))
+(define scan&parse (guard-sllgen (sllgen:make-string-parser lexical-spec grammar) lexical-spec grammar))
 ;; END state-grammar
 
 ;; BEGIN state-values
@@ -316,6 +317,7 @@
 (define (run/details text #:mode [mode 'value] #:backend [backend 'vector]
                      #:capacity [capacity 16] #:rec [rec 'cached] #:immutable-let? [imm #f]
                      #:optimize-thunks? [opt #f] #:pairs [pairs 'two] #:fuel [limit 100000])
+  (unless (exact-positive-integer? limit) (error 'fuel "positive exact integer required"))
   (unless (memq mode '(value reference value-result name need)) (error 'run "unknown mode"))
   (define counts (make-hash)) (define events (box '()))
   (parameterize ([current-store (make-store backend capacity)] [parameter-mode mode]

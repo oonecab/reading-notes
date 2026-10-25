@@ -1,5 +1,6 @@
 #lang racket
 (require eopl (prefix-in s: "chapter03.rkt"))
+(require "sllgen_guard.rkt")
 (provide (all-defined-out))
 
 ;; BEGIN separate-boolean-grammar
@@ -21,7 +22,7 @@
     (number (digit (arbno digit)) number)
     (number ("-" digit (arbno digit)) number)))
 (sllgen:make-define-datatypes bool-lexical bool-grammar)
-(define bool-parse (sllgen:make-string-parser bool-lexical bool-grammar))
+(define bool-parse (guard-sllgen (sllgen:make-string-parser bool-lexical bool-grammar) bool-lexical bool-grammar))
 (define (value-of-bool-exp e env)
   (cases bool-exp e
     (bz (e) (zero? (value-of-b-exp e env)))
@@ -51,7 +52,7 @@
     (lp-exp ("letproc" identifier "(" identifier ")" "=" lp-exp "in" lp-exp) lp-procedure)
     (lp-exp ("(" lp-exp lp-exp ")") lp-call)))
 (sllgen:make-define-datatypes bool-lexical named-grammar)
-(define named-parse (sllgen:make-string-parser bool-lexical named-grammar))
+(define named-parse (guard-sllgen (sllgen:make-string-parser bool-lexical named-grammar) bool-lexical named-grammar))
 (define (named->ast e)
   (cases lp-exp e
     (lp-number (n) (s:const-exp n))

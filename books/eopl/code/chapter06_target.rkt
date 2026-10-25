@@ -1,6 +1,7 @@
 #lang racket
 ;; Independent CPS-OUT grammar and evaluator; no source-language eval.
 (require (except-in eopl define) (only-in eopl [define eopl:define]) racket/match (only-in "chapter05_syntax.rkt" primitive truth unique! arity!))
+(require "sllgen_guard.rkt")
 (provide (all-defined-out))
 (eopl:define lexical
  '((white-space (whitespace) skip)
@@ -35,7 +36,7 @@
    (tf ("setrefk" "(" simple "," simple ")" ";" tf) setref-exp)
    (tf ("uncaught" "(" simple ")") uncaught-exp)))
 (sllgen:make-define-datatypes lexical grammar)
-(define scan&parse (sllgen:make-string-parser lexical grammar))
+(define scan&parse (guard-sllgen (sllgen:make-string-parser lexical grammar) lexical grammar))
 (define (parse-target text)
  (cases program (scan&parse text) (cps-program (t) (tf->ast t))))
 (define (s->ast s)

@@ -62,6 +62,7 @@
     (s:pack-exp (es) (nprim 'list (map tr es)))
     (s:if-exp (t y n) (nif (tr t) (tr y) (tr n)))
     (s:cond-exp (ts bs) (ncond (map tr ts) (map tr bs)))
+;; BEGIN known-binding-elimination
     (s:let-exp (vs es b)
       (s:unique! vs 'let)
       (define slots
@@ -80,6 +81,7 @@
       (if (andmap values keep) (nlet rhs body1)
           (nlet (for/list ([e rhs] [k keep] #:when k) e)
                 (translate b scope+ (static-extend retained runtime)))))
+;; END known-binding-elimination
     (s:letstar-exp (vs es b)
       (let loop ([vs vs] [es es] [sc scope] [rt runtime])
         (if (null? vs) (translate b sc rt)
@@ -98,6 +100,7 @@
                  [compact-env (static-extend slots '())])
             (nproc (length ps) (body-with ps b compact-env compact-env) captures))
           (nproc (length ps) (body-with ps b) #f)))
+;; BEGIN known-call
     (s:call-exp (f es)
       (define candidate (cases s:expression f
                           (s:var-exp (name) (find-name scope name)) (else #f)))
@@ -111,6 +114,7 @@
                 (body-with (known-params info) (known-body info)
                            (known-saved-scope info) runtime))
           (ncall (tr f) (map tr es))))
+;; END known-call
     (s:letproc-exp (name ps pb b)
       (tr (s:let-exp (list name) (list (s:proc-exp ps pb)) b)))
     (s:letrec-exp (ns pss bs b)

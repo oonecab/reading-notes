@@ -10744,7 +10744,7 @@
     },
     "eopl/notes/chapter03_expressions.html": {
       "original_sha256": "d2a408b6f950dc85291ddb3b3c7017877cfbed3f351b05b984f1320597633904",
-      "source_sha256": "78bc40d228177a426dd036ef03057a1bfa71be686a2d87594c9e6575702fc136",
+      "source_sha256": "557960bcbb52d35670b23f22ef5bacca37769855fe4aedeca110e33d7000dc00",
       "history": [
         {
           "revision": "I058",
@@ -10796,13 +10796,33 @@
           "reviewed_anchors": [
             "top"
           ]
+        },
+        {
+          "revision": "I066",
+          "from_sha256": "78bc40d228177a426dd036ef03057a1bfa71be686a2d87594c9e6575702fc136",
+          "to_sha256": "4978295f65199e1aeb823fec33bd701ec1451b9f96b6b72215abdaaa08c98df8",
+          "reason": "修复输入与运行边界、接入THREADS同步原语，补全实现入口与排版；题干和原锚点保留，范围见I066/T066。",
+          "reviewed_anchors": [
+            "ex-3-43",
+            "ex-3-44",
+            "programs"
+          ]
+        },
+        {
+          "revision": "I066-program-dependency",
+          "from_sha256": "4978295f65199e1aeb823fec33bd701ec1451b9f96b6b72215abdaaa08c98df8",
+          "to_sha256": "557960bcbb52d35670b23f22ef5bacca37769855fe4aedeca110e33d7000dc00",
+          "reason": "在运行入口明确列出共同输入校验模块及直接下载链接，确保下载后的依赖完整。",
+          "reviewed_anchors": [
+            "programs"
+          ]
         }
       ],
-      "review_record": "books/eopl/review/ch04.json"
+      "review_record": "books/eopl/review/implementation-repairs.json"
     },
     "eopl/notes/chapter04_state.html": {
       "original_sha256": "7d3e055c14d2658266453fbca4dc0e8fd440c537ef9a33309c9e1cca104c8e38",
-      "source_sha256": "2645d3b162293cf8288efc38695cde3120aecd6c9f45c88a18b998e7d72a34f2",
+      "source_sha256": "22a15834a461e6876f4912938be75ca5932251c6f506c7332072824426a40c0c",
       "history": [
         {
           "revision": "I059",
@@ -10845,13 +10865,31 @@
           "reviewed_anchors": [
             "top"
           ]
+        },
+        {
+          "revision": "I066",
+          "from_sha256": "2645d3b162293cf8288efc38695cde3120aecd6c9f45c88a18b998e7d72a34f2",
+          "to_sha256": "81c1adf9309453d337905e310a9e59e158c630e24145f879bc11974a86c8c80b",
+          "reason": "修复输入与运行边界、接入THREADS同步原语，补全实现入口与排版；题干和原锚点保留，范围见I066/T066。",
+          "reviewed_anchors": [
+            "programs"
+          ]
+        },
+        {
+          "revision": "I066-program-dependency",
+          "from_sha256": "81c1adf9309453d337905e310a9e59e158c630e24145f879bc11974a86c8c80b",
+          "to_sha256": "22a15834a461e6876f4912938be75ca5932251c6f506c7332072824426a40c0c",
+          "reason": "在运行入口明确列出共同输入校验模块及直接下载链接，确保下载后的依赖完整。",
+          "reviewed_anchors": [
+            "programs"
+          ]
         }
       ],
-      "review_record": "books/eopl/review/ch05-06.json"
+      "review_record": "books/eopl/review/implementation-repairs.json"
     },
     "eopl/notes/chapter05_continuations.html": {
       "original_sha256": "a17d49cc446f5f478a82dd2aa5b16fe429eb11560eee7c9a9817f6eba5e365bc",
-      "source_sha256": "67377dfbd29479a3d0bf3a05a69a4a30e1ea6bafd604604a3287029220c5e780",
+      "source_sha256": "f4e50d6ec5a8ec5e18dc593f9362502a653a76004c6802002cd62c74bba41729",
       "history": [
         {
           "revision": "I060",
@@ -10902,13 +10940,32 @@
             "ex-5-56",
             "chapter05-program"
           ]
+        },
+        {
+          "revision": "I066",
+          "from_sha256": "67377dfbd29479a3d0bf3a05a69a4a30e1ea6bafd604604a3287029220c5e780",
+          "to_sha256": "9e5c2de5d5521b1a9c1adfdc30c98c18461732f735b7b57f6e6d1da0f1d708e8",
+          "reason": "修复输入与运行边界、接入THREADS同步原语，补全实现入口与排版；题干和原锚点保留，范围见I066/T066。",
+          "reviewed_anchors": [
+            "ex-5-57",
+            "programs"
+          ]
+        },
+        {
+          "revision": "I066-program-dependency",
+          "from_sha256": "9e5c2de5d5521b1a9c1adfdc30c98c18461732f735b7b57f6e6d1da0f1d708e8",
+          "to_sha256": "f4e50d6ec5a8ec5e18dc593f9362502a653a76004c6802002cd62c74bba41729",
+          "reason": "在运行入口明确列出共同输入校验模块及直接下载链接，确保下载后的依赖完整。",
+          "reviewed_anchors": [
+            "programs"
+          ]
         }
       ],
-      "review_record": "books/eopl/review/ch05-06-followup.json"
+      "review_record": "books/eopl/review/implementation-repairs.json"
     },
     "eopl/notes/chapter06_cps.html": {
       "original_sha256": "3adf80e690f4999b92caeceeb11011f60b7602ef6f5eb31d88b1d5c1f8ef0d53",
-      "source_sha256": "2e64db24ec6883feb5285b8db1d7910edcc2a02bfa307dead9ed17beb8d7d501",
+      "source_sha256": "0b5dc9860384a8cdd6513e84a7d9fb4ce94ee7f24d8bccc3206b5e63ca6eec34",
       "history": [
         {
           "revision": "I060",
@@ -10981,9 +11038,61 @@
             "top",
             "programs"
           ]
+        },
+        {
+          "revision": "I066",
+          "from_sha256": "2e64db24ec6883feb5285b8db1d7910edcc2a02bfa307dead9ed17beb8d7d501",
+          "to_sha256": "487be1fc5dde11fe2d5118fe4737030ae53e9f07f65d72f609f8118928693754",
+          "reason": "修复输入与运行边界、接入THREADS同步原语，补全实现入口与排版；题干和原锚点保留，范围见I066/T066。",
+          "reviewed_anchors": [
+            "ex-6-31",
+            "ex-6-32",
+            "ex-6-33",
+            "programs"
+          ]
+        },
+        {
+          "revision": "I066-code-reading",
+          "from_sha256": "487be1fc5dde11fe2d5118fe4737030ae53e9f07f65d72f609f8118928693754",
+          "to_sha256": "1c6dd3a6b76aff03b5c594cbf20468b42deb3a89ca690e6cd3dca7d50ea2bc1f",
+          "reason": "将新展示的寄存器循环与数据恢复长行分行缩进，程序表达式保持不变。",
+          "reviewed_anchors": [
+            "ex-6-32",
+            "ex-6-33",
+            "programs"
+          ]
+        },
+        {
+          "revision": "I066-program-dependency",
+          "from_sha256": "1c6dd3a6b76aff03b5c594cbf20468b42deb3a89ca690e6cd3dca7d50ea2bc1f",
+          "to_sha256": "b8081ebb5e42d7fb9a2b4ccf06ce7a62454c0381c67f5005a1d2cbe76e050448",
+          "reason": "在运行入口明确列出共同输入校验模块及直接下载链接，确保下载后的依赖完整。",
+          "reviewed_anchors": [
+            "programs"
+          ]
+        },
+        {
+          "revision": "I066-continuation-namespace",
+          "from_sha256": "b8081ebb5e42d7fb9a2b4ccf06ce7a62454c0381c67f5005a1d2cbe76e050448",
+          "to_sha256": "83fde941afbb6ee3318e46f4f8536faf966de09b5fd03dd5dbf25164c45537d1",
+          "reason": "修复用户k/h/join与生成续文身份混淆，独立命名格式及目标样本同步，6.31完整实例直接使用k作为用户过程名。",
+          "reviewed_anchors": [
+            "ex-6-13",
+            "ex-6-31",
+            "programs"
+          ]
+        },
+        {
+          "revision": "I066-target-layout",
+          "from_sha256": "83fde941afbb6ee3318e46f4f8536faf966de09b5fd03dd5dbf25164c45537d1",
+          "to_sha256": "0b5dc9860384a8cdd6513e84a7d9fb4ce94ee7f24d8bccc3206b5e63ca6eec34",
+          "reason": "由target-pretty生成6.13目标程序，保留缩进与换行；更名后的程序重新解析执行。",
+          "reviewed_anchors": [
+            "ex-6-13"
+          ]
         }
       ],
-      "review_record": "books/eopl/review/ch07.json"
+      "review_record": "books/eopl/review/implementation-repairs.json"
     },
     "eopl/notes/chapter07_types.html": {
       "original_sha256": "0e864a21bc8c295b231beb85cb915f21069325d7b376c8e262e59549aa9ec23a",
@@ -11117,8 +11226,8 @@
     },
     "eopl/notes/chapter09_objects.html": {
       "original_sha256": "23d51dd9b05fd174c890e86ed8647bc17b12fb31cf6456092dcc2f0c7b645485",
-      "source_sha256": "ea1530c0a3f7f1f0ebab77bef0e3d04045485f116d3a8227c5f98cde07225d13",
-      "review_record": "books/eopl/review/completion.json",
+      "source_sha256": "f61c730b85b93fb0731a9eb412d030cab88de38e2262b2ec67f20ce893b1d1e7",
+      "review_record": "books/eopl/review/implementation-repairs.json",
       "history": [
         {
           "revision": "I064-source-content-locators",
@@ -11152,13 +11261,23 @@
             "programs",
             "top"
           ]
+        },
+        {
+          "revision": "I066",
+          "from_sha256": "ea1530c0a3f7f1f0ebab77bef0e3d04045485f116d3a8227c5f98cde07225d13",
+          "to_sha256": "f61c730b85b93fb0731a9eb412d030cab88de38e2262b2ec67f20ce893b1d1e7",
+          "reason": "修复输入与运行边界、接入THREADS同步原语，补全实现入口与排版；题干和原锚点保留，范围见I066/T066。",
+          "reviewed_anchors": [
+            "s9-4-2",
+            "programs"
+          ]
         }
       ]
     },
     "eopl/notes/appendix_b_sllgen.html": {
       "original_sha256": "c4a28bbaf99332df473ffb9e60b057ab3b1c4ee1535c3d973f1ffc5a38ee46ec",
-      "source_sha256": "02f5604fe388abd44a5be03dfe98687b63ac199be29fc0f0f0f772b98e98dd02",
-      "review_record": "books/eopl/review/completion.json",
+      "source_sha256": "631e3686cf804fb68679e60045c21bb1a9df0c6e8f92d4f9f4311e91f22ce48f",
+      "review_record": "books/eopl/review/implementation-repairs.json",
       "history": [
         {
           "revision": "I065-sllgen-stream-character-coverage",
@@ -11167,6 +11286,24 @@
           "reason": "A real SLLGEN stream probe accepted5;@2; as a valid prefix. Add incremental character validation before the raw stream parser and distinguish unknown characters, incomplete expressions and clean EOF; synchronize seven-group132-assertion suite.",
           "reviewed_anchors": [
             "sB-3-operations",
+            "programs"
+          ]
+        },
+        {
+          "revision": "I066",
+          "from_sha256": "02f5604fe388abd44a5be03dfe98687b63ac199be29fc0f0f0f772b98e98dd02",
+          "to_sha256": "eb31c4935618a91b95c1f33964dfba4afdf4105c12e890e0e7c077d05f462911",
+          "reason": "修复输入与运行边界、接入THREADS同步原语，补全实现入口与排版；题干和原锚点保留，范围见I066/T066。",
+          "reviewed_anchors": [
+            "programs"
+          ]
+        },
+        {
+          "revision": "I066-program-dependency",
+          "from_sha256": "eb31c4935618a91b95c1f33964dfba4afdf4105c12e890e0e7c077d05f462911",
+          "to_sha256": "631e3686cf804fb68679e60045c21bb1a9df0c6e8f92d4f9f4311e91f22ce48f",
+          "reason": "在运行入口明确列出共同输入校验模块及直接下载链接，确保下载后的依赖完整。",
+          "reviewed_anchors": [
             "programs"
           ]
         }

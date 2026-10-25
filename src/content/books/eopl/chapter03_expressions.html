@@ -187,7 +187,7 @@ in list(x, -(x,1), -(x,3))</code></pre>
     (number (digit (arbno digit)) number)
     (number (&quot;-&quot; digit (arbno digit)) number)))
 (sllgen:make-define-datatypes bool-lexical bool-grammar)
-(define bool-parse (sllgen:make-string-parser bool-lexical bool-grammar))
+(define bool-parse (guard-sllgen (sllgen:make-string-parser bool-lexical bool-grammar) bool-lexical bool-grammar))
 (define (value-of-bool-exp e env)
   (cases bool-exp e
     (bz (e) (zero? (value-of-b-exp e env)))
@@ -281,7 +281,7 @@ in let f = proc (z) -(z,x)
     (lp-exp (&quot;letproc&quot; identifier &quot;(&quot; identifier &quot;)&quot; &quot;=&quot; lp-exp &quot;in&quot; lp-exp) lp-procedure)
     (lp-exp (&quot;(&quot; lp-exp lp-exp &quot;)&quot;) lp-call)))
 (sllgen:make-define-datatypes bool-lexical named-grammar)
-(define named-parse (sllgen:make-string-parser bool-lexical named-grammar))
+(define named-parse (guard-sllgen (sllgen:make-string-parser bool-lexical named-grammar) bool-lexical named-grammar))
 (define (named-&gt;ast e)
   (cases lp-exp e
     (lp-number (n) (s:const-exp n))
@@ -573,6 +573,7 @@ in proc (y)
     (s:pack-exp (es) (nprim &#x27;list (map tr es)))
     (s:if-exp (t y n) (nif (tr t) (tr y) (tr n)))
     (s:cond-exp (ts bs) (ncond (map tr ts) (map tr bs)))
+;; BEGIN known-binding-elimination
     (s:let-exp (vs es b)
       (s:unique! vs &#x27;let)
       (define slots
@@ -591,6 +592,7 @@ in proc (y)
       (if (andmap values keep) (nlet rhs body1)
           (nlet (for/list ([e rhs] [k keep] #:when k) e)
                 (translate b scope+ (static-extend retained runtime)))))
+;; END known-binding-elimination
     (s:letstar-exp (vs es b)
       (let loop ([vs vs] [es es] [sc scope] [rt runtime])
         (if (null? vs) (translate b sc rt)
@@ -609,6 +611,7 @@ in proc (y)
                  [compact-env (static-extend slots &#x27;())])
             (nproc (length ps) (body-with ps b compact-env compact-env) captures))
           (nproc (length ps) (body-with ps b) #f)))
+;; BEGIN known-call
     (s:call-exp (f es)
       (define candidate (cases s:expression f
                           (s:var-exp (name) (find-name scope name)) (else #f)))
@@ -622,6 +625,7 @@ in proc (y)
                 (body-with (known-params info) (known-body info)
                            (known-saved-scope info) runtime))
           (ncall (tr f) (map tr es))))
+;; END known-call
     (s:letproc-exp (name ps pb b)
       (tr (s:let-exp (list name) (list (s:proc-exp ps pb)) b)))
     (s:letrec-exp (ns pss bs b)
@@ -719,10 +723,56 @@ in proc (y)
 <pre><code class="language-text">let x = 3
 in let f = proc (y) -(y,x)
    in (f 13)</code></pre></div><p class="source">印刷 p.101 / <a href="../assets/source.pdf#page=124">PDF 124</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>给静态绑定附加“形参、过程体、创建点静态作用域”。当操作符是该绑定且元数匹配时，把调用翻译成：在调用环境中求全部实参一次，建立参数槽，执行已知过程体。自由引用须解析到创建点的绑定身份，再映射到当前运行时布局，不能按调用点的同名变量重新查找。</p>
-<p>入口 <code>#:optimize 1</code> 在原例中返回 10，仍构造 f 的闭包，但运行时地址读取从 3 次降为 2 次。把调用前再加 <code>let x=100</code>，结果仍为 10，而不是 −87。源码用独立身份标记解决重名遮蔽。该优化只适用于直接已知、元数匹配的调用；把过程当值传递时仍保留普通表示。</p></div></details><details class="exercise" id="ex-3-44"><summary>习题 3.44 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="3.44"><p>在上一题的例子中，f 唯一的用途是作为已知过程被调用，因此 <code>proc (y) -(y,x)</code> 构造的过程值实际上从未使用。修改翻译器，使这个过程值根本不被构造。</p><p>上一题所指的完整输入为：</p><pre><code class="language-scheme">let x = 3
+<p>入口 <code>#:optimize 1</code> 在原例中返回 10，仍构造 f 的闭包，但运行时地址读取从 3 次降为 2 次。把调用前再加 <code>let x=100</code>，结果仍为 10，而不是 −87。源码用独立身份标记解决重名遮蔽。该优化只适用于直接已知、元数匹配的调用；把过程当值传递时仍保留普通表示。</p><p>调用分支的实现见下方：先从静态绑定取出已知过程信息，再把实参翻译为新的 let 槽。例中 y 占槽 0，创建时的 x 仍由其独立身份找到；增加同名 x 只改变中间槽位，不改变自由变量的归属。完整上下文见<a href="#complete-chapter03-lexical">词法翻译器</a>的 <code>translate</code>。</p><div id="known-call-implementation"><!-- EOPL:snippet chapter03_lexical.rkt known-call -->
+<details class="code-details" open><summary>查看实现 · known-call</summary><pre><code class="language-scheme">    (s:call-exp (f es)
+      (define candidate (cases s:expression f
+                          (s:var-exp (name) (find-name scope name)) (else #f)))
+      (define info (and candidate (slot-known candidate)))
+      (if (and (&gt; (optimize-level) 0) info
+               (= (length es) (length (known-params info))))
+          ;; Operands are evaluated once in the caller. Free names in the body
+          ;; resolve in its creation scope; UIDs locate those bindings in the
+          ;; current runtime layout even when an intervening name shadows them.
+          (nlet (map tr es)
+                (body-with (known-params info) (known-body info)
+                           (known-saved-scope info) runtime))
+          (ncall (tr f) (map tr es))))
+</code></pre></details>
+<!-- EOPL:end-snippet --></div><details class="code-details" open id="known-procedure-example"><summary>复现习题 3.43–3.44 的两级优化</summary><pre><code class="language-scheme" data-review-example="known-procedure-example">(require (prefix-in s: &quot;chapter03.rkt&quot;)
+         (prefix-in n: &quot;chapter03_lexical.rkt&quot;))
+(define source &quot;let x = 3 in let f = proc(y) -(y,x) in (f 13)&quot;)
+(for ([level &#x27;(0 1 2)])
+  (define counts (make-hash))
+  (define answer
+    (parameterize ([s:metrics counts])
+      (s:datum (n:run/nameless source #:optimize level))))
+  (displayln (list level answer
+                   (hash-ref counts &#x27;closures 0)
+                   (hash-ref counts &#x27;lexical-lookups 0))))
+</code></pre></details><p>每行依次为优化级别、结果、闭包数、地址读取数：<code>(0 10 1 3)</code>、<code>(1 10 1 2)</code>、<code>(2 10 0 2)</code>。把这些模块及 <a href="../code/sllgen_guard.rkt">sllgen_guard.rkt</a> 放在同一目录后执行。</p></div></details><details class="exercise" id="ex-3-44"><summary>习题 3.44 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="3.44"><p>在上一题的例子中，f 唯一的用途是作为已知过程被调用，因此 <code>proc (y) -(y,x)</code> 构造的过程值实际上从未使用。修改翻译器，使这个过程值根本不被构造。</p><p>上一题所指的完整输入为：</p><pre><code class="language-scheme">let x = 3
 in let f = proc (y) -(y,x)
    in (f 13)</code></pre></div><p class="source">印刷 p.101 / <a href="../assets/source.pdf#page=124">PDF 124</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>先记录已知绑定是否还有作为普通值的引用；只有所有用途都被安全改为直接代码且右侧是纯过程构造时，才能删除这个绑定的运行时槽和闭包构造。删除槽会改变其后的地址，所以主体必须按删减后的运行时布局重新翻译。</p>
-<p>入口 <code>#:optimize 2</code> 在原例中保留结果 10，使闭包构造次数从 1 降为 0，地址读取仍为 2。<code>let g=f in (g 13)</code> 等第一类过程用途会阻止删除。实参仍先求值一次，含 print 的实参不会因展开过程体而重复打印。构造删除与调用查询删除分别计数，因而不会把“少查一次”误记成“从未创建闭包”。</p></div></details></section><section id="programs"><h2>运行本章解释器</h2><p>维护源与页面程序副本逐字同步。使用本机 Racket 8.17，在仓库根目录依次运行：</p><pre><code class="language-scheme">racket books/eopl/code/chapter03.rkt
+<p>入口 <code>#:optimize 2</code> 在原例中保留结果 10，使闭包构造次数从 1 降为 0，地址读取仍为 2。<code>let g=f in (g 13)</code> 等第一类过程用途会阻止删除。实参仍先求值一次，含 print 的实参不会因展开过程体而重复打印。构造删除与调用查询删除分别计数，因而不会把“少查一次”误记成“从未创建闭包”。</p><p>这里的关键是 <code>keep</code>：普通值用途被 <code>note-value-use!</code> 记录，只有计数为零的已知过程才删除；随后用 <code>retained</code> 重建运行时布局并重新翻译主体。可在<a href="#known-procedure-example">同一完整例子</a>中对照级别 1 与 2，再将末尾改为 <code>let g=f in (g 13)</code> 观察闭包仍被保留。</p><div id="known-binding-implementation"><!-- EOPL:snippet chapter03_lexical.rkt known-binding-elimination -->
+<details class="code-details" open><summary>查看实现 · known-binding-elimination</summary><pre><code class="language-scheme">    (s:let-exp (vs es b)
+      (s:unique! vs &#x27;let)
+      (define slots
+        (map (lambda (v e)
+               (fresh-slot v #f
+                 (cases s:expression e
+                   (s:proc-exp (ps body) (known ps body scope))
+                   (else #f)))) vs es))
+      (define rhs (map tr es))
+      (define scope+ (static-extend slots scope))
+      (define body1 (translate b scope+ (static-extend slots runtime)))
+      (define keep
+        (map (lambda (v) (not (and (= (optimize-level) 2) (slot-known v)
+                                   (= (hash-ref (uses) (slot-identity v) 0) 0)))) slots))
+      (define retained (for/list ([v slots] [k keep] #:when k) v))
+      (if (andmap values keep) (nlet rhs body1)
+          (nlet (for/list ([e rhs] [k keep] #:when k) e)
+                (translate b scope+ (static-extend retained runtime)))))
+</code></pre></details>
+<!-- EOPL:end-snippet --></div></div></details></section><section id="programs"><h2>运行本章解释器</h2><p>这些解析器使用共同的输入校验模块。下载程序时，同时保存 <a download href="../code/sllgen_guard.rkt">sllgen_guard.rkt</a> 并与本章模块放在同一目录；完整文件依赖与运行方式见<a href="../code/README.md">程序说明</a>。</p><p>维护源与页面程序副本逐字同步。使用本机 Racket 8.17，在仓库根目录依次运行：</p><pre><code class="language-scheme">racket books/eopl/code/chapter03.rkt
 racket books/eopl/code/chapter03_lexical.rkt
 racket books/eopl/code/chapter03_variants.rkt
 racket books/eopl/code/test_chapter03.rkt</code></pre><p>基础程序按图 3.3、图 3.4、图 3.5、双闭包、double 与纯 PROC 阶乘的顺序打印以下外部值。推导树与环境表是解释这些结果的人工分析，以下六行才是程序实际输出：</p><pre><code class="language-scheme">3
@@ -734,6 +784,7 @@ racket books/eopl/code/test_chapter03.rkt</code></pre><p>基础程序按图 3.3�
 ;; EOPL third edition chapter 3: original companion implementation.
 ;; Source syntax is parsed by the installed eopl SLLGEN, not Racket eval.
 (require eopl)
+(require &quot;sllgen_guard.rkt&quot;)
 (provide (all-defined-out))
 
 ;; BEGIN grammar
@@ -771,7 +822,7 @@ racket books/eopl/code/test_chapter03.rkt</code></pre><p>基础程序按图 3.3�
     (binary-op (&quot;equal?&quot;) equal-op) (binary-op (&quot;greater?&quot;) greater-op)
     (binary-op (&quot;less?&quot;) less-op) (binary-op (&quot;cons&quot;) cons-op)))
 (sllgen:make-define-datatypes lexical-spec grammar)
-(define scan&amp;parse (sllgen:make-string-parser lexical-spec grammar))
+(define scan&amp;parse (guard-sllgen (sllgen:make-string-parser lexical-spec grammar) lexical-spec grammar))
 ;; END grammar
 
 ;; BEGIN values
@@ -1111,6 +1162,7 @@ racket books/eopl/code/test_chapter03.rkt</code></pre><p>基础程序按图 3.3�
     (s:pack-exp (es) (nprim &#x27;list (map tr es)))
     (s:if-exp (t y n) (nif (tr t) (tr y) (tr n)))
     (s:cond-exp (ts bs) (ncond (map tr ts) (map tr bs)))
+;; BEGIN known-binding-elimination
     (s:let-exp (vs es b)
       (s:unique! vs &#x27;let)
       (define slots
@@ -1129,6 +1181,7 @@ racket books/eopl/code/test_chapter03.rkt</code></pre><p>基础程序按图 3.3�
       (if (andmap values keep) (nlet rhs body1)
           (nlet (for/list ([e rhs] [k keep] #:when k) e)
                 (translate b scope+ (static-extend retained runtime)))))
+;; END known-binding-elimination
     (s:letstar-exp (vs es b)
       (let loop ([vs vs] [es es] [sc scope] [rt runtime])
         (if (null? vs) (translate b sc rt)
@@ -1147,6 +1200,7 @@ racket books/eopl/code/test_chapter03.rkt</code></pre><p>基础程序按图 3.3�
                  [compact-env (static-extend slots &#x27;())])
             (nproc (length ps) (body-with ps b compact-env compact-env) captures))
           (nproc (length ps) (body-with ps b) #f)))
+;; BEGIN known-call
     (s:call-exp (f es)
       (define candidate (cases s:expression f
                           (s:var-exp (name) (find-name scope name)) (else #f)))
@@ -1160,6 +1214,7 @@ racket books/eopl/code/test_chapter03.rkt</code></pre><p>基础程序按图 3.3�
                 (body-with (known-params info) (known-body info)
                            (known-saved-scope info) runtime))
           (ncall (tr f) (map tr es))))
+;; END known-call
     (s:letproc-exp (name ps pb b)
       (tr (s:let-exp (list name) (list (s:proc-exp ps pb)) b)))
     (s:letrec-exp (ns pss bs b)
@@ -1272,6 +1327,7 @@ racket books/eopl/code/test_chapter03.rkt</code></pre><p>基础程序按图 3.3�
   (displayln (s:datum (run/nameless s:double-example))))
 </code></pre><!-- EOPL:end-program --></details><details class="code-details" id="complete-chapter03-variants"><summary>完整程序 · 三套独立前端</summary><!-- EOPL:program chapter03_variants.rkt --><pre><code id="chapter03_variants-code" class="language-scheme">#lang racket
 (require eopl (prefix-in s: &quot;chapter03.rkt&quot;))
+(require &quot;sllgen_guard.rkt&quot;)
 (provide (all-defined-out))
 
 ;; BEGIN separate-boolean-grammar
@@ -1293,7 +1349,7 @@ racket books/eopl/code/test_chapter03.rkt</code></pre><p>基础程序按图 3.3�
     (number (digit (arbno digit)) number)
     (number (&quot;-&quot; digit (arbno digit)) number)))
 (sllgen:make-define-datatypes bool-lexical bool-grammar)
-(define bool-parse (sllgen:make-string-parser bool-lexical bool-grammar))
+(define bool-parse (guard-sllgen (sllgen:make-string-parser bool-lexical bool-grammar) bool-lexical bool-grammar))
 (define (value-of-bool-exp e env)
   (cases bool-exp e
     (bz (e) (zero? (value-of-b-exp e env)))
@@ -1323,7 +1379,7 @@ racket books/eopl/code/test_chapter03.rkt</code></pre><p>基础程序按图 3.3�
     (lp-exp (&quot;letproc&quot; identifier &quot;(&quot; identifier &quot;)&quot; &quot;=&quot; lp-exp &quot;in&quot; lp-exp) lp-procedure)
     (lp-exp (&quot;(&quot; lp-exp lp-exp &quot;)&quot;) lp-call)))
 (sllgen:make-define-datatypes bool-lexical named-grammar)
-(define named-parse (sllgen:make-string-parser bool-lexical named-grammar))
+(define named-parse (guard-sllgen (sllgen:make-string-parser bool-lexical named-grammar) bool-lexical named-grammar))
 (define (named-&gt;ast e)
   (cases lp-exp e
     (lp-number (n) (s:const-exp n))
@@ -1556,4 +1612,54 @@ racket books/eopl/code/test_chapter03.rkt</code></pre><p>基础程序按图 3.3�
 (write-json (hasheq &#x27;status (if (zero? failures) &quot;passed&quot; &quot;failed&quot;)
                     &#x27;groups 17 &#x27;assertions assertions &#x27;failures failures &#x27;racket (version)))
 (newline) (exit (if (zero? failures) 0 1))
-</code></pre><!-- EOPL:end-program --></details><p>下载维护源：<a download href="../code/chapter03.rkt">有名解释器</a> · <a download href="../code/chapter03_lexical.rkt">词法翻译与无名解释器</a> · <a download href="../code/chapter03_variants.rkt">独立前端</a> · <a download href="../code/test_chapter03.rkt">回归测试</a></p></section><footer><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter02_data_abstraction.html">← 第 2 章 · 数据抽象与抽象语法</a><a href="chapter04_state.html">第 4 章 · 状态、存储与参数传递 →</a><a href="#top">返回页首 ↑</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top">本节理解与补充</a></p><div id="annotation-content"></div></aside></div><script><!-- RN:include scripts/6a3f8b30744a694f9192.js --></script><script id="reading-notes-controller"><!-- RN:include scripts/54f30fc1f5e1cbcd699a.js --></script><script data-purpose="print-details"><!-- RN:include scripts/3497ba81d7e642909037.js --></script></body></html>
+</code></pre><!-- EOPL:end-program --></details><p>下载维护源：<a download href="../code/chapter03.rkt">有名解释器</a> · <a download href="../code/chapter03_lexical.rkt">词法翻译与无名解释器</a> · <a download href="../code/chapter03_variants.rkt">独立前端</a> · <a download href="../code/test_chapter03.rkt">回归测试</a></p><details class="code-details" id="complete-sllgen-guard"><summary>完整程序 · SLLGEN 输入完整性校验</summary><!-- EOPL:program sllgen_guard.rkt --><pre><code id="sllgen_guard-code" class="language-scheme">#lang racket
+;; Validate the complete character stream before the installed SLLGEN scanner.
+;; Use the same lexical rules and grammar literals, including token boundaries.
+(require racket/match)
+(provide guard-sllgen)
+(define (guard-sllgen parser lexical grammar)
+  (define (literals x)
+    (cond [(string? x) (list x)] [(list? x) (append-map literals x)] [else &#x27;()]))
+  (define rules
+    (append (map cadr lexical)
+            (map list (remove-duplicates (literals grammar)))))
+  (lambda (text)
+    (unless (string? text) (raise-argument-error &#x27;scanner &quot;string?&quot; text))
+    (define size (string-length text))
+    (define (sequence patterns start)
+      (for/fold ([positions (list start)]) ([pattern patterns])
+        (remove-duplicates (append-map (lambda (at) (ends pattern at)) positions))))
+    (define (ends pattern at)
+      (define (one? predicate)
+        (if (and (&lt; at size) (predicate (string-ref text at))) (list (add1 at)) &#x27;()))
+      (match pattern
+        [(? char? c) (one? (lambda (x) (char=? c x)))]
+        [(? string? s)
+         (define stop (+ at (string-length s)))
+         (if (and (&lt;= stop size) (string=? s (substring text at stop))) (list stop) &#x27;())]
+        [&#x27;letter (one? char-alphabetic?)]
+        [&#x27;digit (one? char-numeric?)]
+        [&#x27;whitespace (one? char-whitespace?)]
+        [&#x27;any (one? (lambda (_) #t))]
+        [`(not ,(? char? c)) (one? (lambda (x) (not (char=? c x))))]
+        [`(or . ,patterns) (append-map (lambda (p) (ends p at)) patterns)]
+        [`(concat . ,patterns) (sequence patterns at)]
+        [`(arbno ,p)
+         (define seen (make-hasheqv))
+         (let visit ([todo (list at)] [answer &#x27;()])
+           (cond [(null? todo) answer]
+                 [(hash-has-key? seen (car todo)) (visit (cdr todo) answer)]
+                 [else
+                  (define pos (car todo))
+                  (hash-set! seen pos #t)
+                  (visit (append (ends p pos) (cdr todo)) (cons pos answer))]))]
+        [_ (error &#x27;scanner &quot;unsupported lexical rule: ~s&quot; pattern)]))
+    (let scan ([at 0])
+      (when (&lt; at size)
+        (define stops (append-map (lambda (r) (sequence r at)) rules))
+        (define stop (apply max at stops))
+        (when (= stop at)
+          (error &#x27;scanner &quot;unsupported character ~s at offset ~a&quot; (string-ref text at) at))
+        (scan stop)))
+    (parser text)))
+</code></pre><!-- EOPL:end-program --></details></section><footer><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter02_data_abstraction.html">← 第 2 章 · 数据抽象与抽象语法</a><a href="chapter04_state.html">第 4 章 · 状态、存储与参数传递 →</a><a href="#top">返回页首 ↑</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top">本节理解与补充</a></p><div id="annotation-content"></div></aside></div><script><!-- RN:include scripts/6a3f8b30744a694f9192.js --></script><script id="reading-notes-controller"><!-- RN:include scripts/54f30fc1f5e1cbcd699a.js --></script><script data-purpose="print-details"><!-- RN:include scripts/3497ba81d7e642909037.js --></script></body></html>

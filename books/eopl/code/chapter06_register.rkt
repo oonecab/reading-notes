@@ -47,21 +47,33 @@
   (set! pc (code-closure-label p)))
 ;; BEGIN labelled-driver
  (let loop ()
-  (set! steps (add1 steps)) (when (> steps fuel) (error 'register "fuel exhausted"))
+  (set! steps (add1 steps))
+  (when (> steps fuel) (error 'register "fuel exhausted"))
   (match (hash-ref (register-program-instructions program) pc)
    [`(return ,s) (set! val (V s)) (set! pc #f)]
-   [`(bind ,x ,s ,next) (set! env (extend (list x) (list (V s)) env)) (set! pc next)]
-   [`(branch ,s ,yes ,no) (set! pc (if (truth (V s) numeric?) yes no))]
+   [`(bind ,x ,s ,next)
+    (set! env (extend (list x) (list (V s)) env)) (set! pc next)]
+   [`(branch ,s ,yes ,no)
+    (set! pc (if (truth (V s) numeric?) yes no))]
    [`(rec ,ns ,pss ,labels ,next)
     (define rho (extend ns (map (lambda (_) #f) ns) env))
-    (for ([n ns] [ps pss] [label labels]) (set-box! (cdr (assq n rho)) (code-closure label ps rho)))
+    (for ([n ns] [ps pss] [label labels])
+     (set-box! (cdr (assq n rho)) (code-closure label ps rho)))
     (set! env rho) (set! pc next)]
    [`(call ,f ,ss) (call! (V f) (map V ss))]
-   [`(print ,s ,next) (set! output (cons (V s) output)) (set! pc next)]
-   [`(newref ,s ,k) (define r (box (V s))) (set! refs (cons r refs)) (call! (V k) (list r))]
-   [`(deref ,s ,k) (define r (V s)) (unless (memq r refs) (error 'deref "reference required")) (call! (V k) (list (unbox r)))]
-   [`(setref ,a ,b ,next) (define r (V a)) (unless (memq r refs) (error 'setref "reference required"))
-     (set-box! r (V b)) (set! pc next)]
+   [`(print ,s ,next)
+    (set! output (cons (V s) output)) (set! pc next)]
+   [`(newref ,s ,k)
+    (define r (box (V s))) (set! refs (cons r refs))
+    (call! (V k) (list r))]
+   [`(deref ,s ,k)
+    (define r (V s))
+    (unless (memq r refs) (error 'deref "reference required"))
+    (call! (V k) (list (unbox r)))]
+   [`(setref ,a ,b ,next)
+    (define r (V a))
+    (unless (memq r refs) (error 'setref "reference required"))
+    (set-box! r (V b)) (set! pc next)]
    [`(uncaught ,s) (error 'raise "uncaught: ~s" (V s))])
   (when pc (loop)))
 ;; END labelled-driver

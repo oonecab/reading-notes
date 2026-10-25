@@ -93,10 +93,11 @@ Multiplicative-op ::= * | /</code></pre><p>这个文法说明：每个算术表�
 (calculate &quot;3--2&quot;)</code></pre><div class="program-output"><pre><code class="language-text">-6
 2
 -20
-5</code></pre></div><p>例如 <code>3*-2</code> 扫描为3、乘号、负号、2；因子负号先构造 <code>(neg 2)</code>，再作为乘法右侧。基本模式仍拒绝一元负号，变量模式只增加变量，完整模式才同时支持两项扩展。</p></div></details></section><section id="programs"><h2>运行附录程序</h2><p>将 <a href="../code/appendix_b.rkt" download>appendix_b.rkt</a> 与 <a href="../code/test_appendix_b.rkt" download>test_appendix_b.rkt</a> 放在同一目录，使用 Racket 8.17、eopl 与 rackunit。扫描器、解析器和数据类型确由SLLGEN生成；算术求值器直接遍历AST，使用精确整数/有理数。</p><pre><code class="language-scheme">racket appendix_b.rkt
+5</code></pre></div><p>例如 <code>3*-2</code> 扫描为3、乘号、负号、2；因子负号先构造 <code>(neg 2)</code>，再作为乘法右侧。基本模式仍拒绝一元负号，变量模式只增加变量，完整模式才同时支持两项扩展。</p></div></details></section><section id="programs"><h2>运行附录程序</h2><p>这些解析器使用共同的输入校验模块。下载程序时，同时保存 <a download href="../code/sllgen_guard.rkt">sllgen_guard.rkt</a> 并与本章模块放在同一目录；完整文件依赖与运行方式见<a href="../code/README.md">程序说明</a>。</p><p>将 <a href="../code/appendix_b.rkt" download>appendix_b.rkt</a> 与 <a href="../code/test_appendix_b.rkt" download>test_appendix_b.rkt</a> 放在同一目录，使用 Racket 8.17、eopl 与 rackunit。扫描器、解析器和数据类型确由SLLGEN生成；算术求值器直接遍历AST，使用精确整数/有理数。</p><pre><code class="language-scheme">racket appendix_b.rkt
 racket test_appendix_b.rkt</code></pre><p>主程序依次显示分层语法树、130、12、4、1与-6。<code>parse-base</code>只接受基本算术，<code>parse-variables</code>增加变量，<code>parse-unary</code>再增加一元负号；<code>calculate</code>默认完整模式。字符覆盖校验、未绑定和除零各自明确失败。</p><details class="code-details"><summary>完整源码 · appendix_b.rkt</summary><!-- EOPL:program appendix_b.rkt --><pre><code id="appendix_b-code" class="language-scheme">#lang racket
 ;; Appendix B: real SLLGEN scanning/parsing and exercises B.1-B.5.
 (require eopl)
+(require &quot;sllgen_guard.rkt&quot;)
 (provide (all-defined-out))
 (define scanner-spec
   &#x27;((white-sp (whitespace) skip)
@@ -129,10 +130,10 @@ racket test_appendix_b.rkt</code></pre><p>主程序依次显示分层语法树�
     (multiplicative-op (&quot;*&quot;) times-op) (multiplicative-op (&quot;/&quot;) divide-op)))
 ;; All three grammars share constructors; extensions add variable/negative forms.
 (sllgen:make-define-datatypes scanner-spec unary-grammar)
-(define raw-scan-arithmetic (sllgen:make-string-scanner scanner-spec unary-grammar))
-(define raw-parse-base (sllgen:make-string-parser scanner-spec base-grammar))
-(define raw-parse-variables (sllgen:make-string-parser scanner-spec variable-grammar))
-(define raw-parse-unary (sllgen:make-string-parser scanner-spec unary-grammar))
+(define raw-scan-arithmetic (guard-sllgen (sllgen:make-string-scanner scanner-spec unary-grammar) scanner-spec unary-grammar))
+(define raw-parse-base (guard-sllgen (sllgen:make-string-parser scanner-spec base-grammar) scanner-spec base-grammar))
+(define raw-parse-variables (guard-sllgen (sllgen:make-string-parser scanner-spec variable-grammar) scanner-spec variable-grammar))
+(define raw-parse-unary (guard-sllgen (sllgen:make-string-parser scanner-spec unary-grammar) scanner-spec unary-grammar))
 ;; The installed SLLGEN scanner can stop at an unsupported character. Guard the
 ;; entire arithmetic input so a valid prefix is never silently accepted.
 (define (check-characters text)
@@ -197,8 +198,8 @@ racket test_appendix_b.rkt</code></pre><p>主程序依次显示分层语法树�
     (expression (identifier) var-exp)
     (expression (&quot;(&quot; expression &quot;-&quot; expression &quot;)&quot;) diff-exp)))
 (sllgen:make-define-datatypes scanner-spec statement-grammar)
-(define scan-statement (sllgen:make-string-scanner scanner-spec statement-grammar))
-(define parse-statement (sllgen:make-string-parser scanner-spec statement-grammar))
+(define scan-statement (guard-sllgen (sllgen:make-string-scanner scanner-spec statement-grammar) scanner-spec statement-grammar))
+(define parse-statement (guard-sllgen (sllgen:make-string-parser scanner-spec statement-grammar) scanner-spec statement-grammar))
 (define (statement-datum tree)
   (define (e x) (cases expression x (var-exp (x) (list &#x27;var x)) (diff-exp (a b) (list &#x27;- (e a) (e b)))))
   (define (s x) (cases statement x
@@ -215,8 +216,8 @@ racket test_appendix_b.rkt</code></pre><p>主程序依次显示分层语法树�
 (sllgen:make-define-datatypes scanner-spec terminated-grammar)
 ;; Only the block constructor differs in the separated grammar.
 (define-datatype separated separated? (separated-block (items (list-of item?))))
-(define parse-terminated (sllgen:make-string-parser scanner-spec terminated-grammar))
-(define parse-separated (sllgen:make-string-parser scanner-spec separated-grammar))
+(define parse-terminated (guard-sllgen (sllgen:make-string-parser scanner-spec terminated-grammar) scanner-spec terminated-grammar))
+(define parse-separated (guard-sllgen (sllgen:make-string-parser scanner-spec separated-grammar) scanner-spec separated-grammar))
 (define (block-datum b)
   (define (items-&gt;data xs) (map (lambda (x) (cases item x (assign-item (a b) (list a b)))) xs))
   (if (block? b) (cases block b (terminated-block (xs) (items-&gt;data xs)))
@@ -225,7 +226,7 @@ racket test_appendix_b.rkt</code></pre><p>主程序依次显示分层语法树�
   &#x27;((binding-expression (identifier) binding-var)
     (binding-expression (&quot;let&quot; (arbno identifier &quot;=&quot; binding-expression) &quot;in&quot; binding-expression) binding-let)))
 (sllgen:make-define-datatypes scanner-spec bindings-grammar)
-(define parse-bindings (sllgen:make-string-parser scanner-spec bindings-grammar))
+(define parse-bindings (guard-sllgen (sllgen:make-string-parser scanner-spec bindings-grammar) scanner-spec bindings-grammar))
 (define (bindings-datum b)
   (cases binding-expression b
     (binding-var (name) (list &#x27;var name))
@@ -237,7 +238,7 @@ racket test_appendix_b.rkt</code></pre><p>主程序依次显示分层语法树�
     (parallel-expression (number) parallel-number)
     (parallel-expression (identifier) parallel-var)))
 (sllgen:make-define-datatypes scanner-spec parallel-grammar)
-(define parse-parallel (sllgen:make-string-parser scanner-spec parallel-grammar))
+(define parse-parallel (guard-sllgen (sllgen:make-string-parser scanner-spec parallel-grammar) scanner-spec parallel-grammar))
 (define (parallel-datum b)
   (define (e x) (cases parallel-expression x (parallel-number (n) n) (parallel-var (name) name)))
   (cases parallel-statement b (parallel-block (names rhss) (list names (map (lambda (xs) (map e xs)) rhss)))))

@@ -632,21 +632,139 @@ in let c = spawn(proc(id) send(p,-(id,-40)))
  (run private-counter-program #:implicit? #t #:private-store? #t
       #:thread-ids? #t #:quantum quantum))
 </code></pre></details>
-<!-- EOPL:end-snippet --><p>下载本章程序后，调用 <code>(result-value (run-private-counter 1))</code> 得到 3；时间片 1、2、5、100 均已实际运行，结束时阻塞线程数为 0。生产者/消费者例可直接写成 <code>let child = spawn(proc(id) send(parent(),44)) in receive()</code>，消费者得到 44，整个程序同样不需要锁。</p><p>本模式采用词法作用域。互斥锁及捕获续文与其所属线程的调度、控制状态绑定，跨私有存储复制时明确报错；可传递的过程会复制它保存的环境。存储复制花费与可达位置及数据图大小有关，私有存储也不等于消息队列或总内存有固定上界。</p></div></details><details class="exercise" id="ex-5-57"><summary>习题 5.57 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.57"><p>操作系统教材里还有很多同步机制。任选三种，在本框架中实现。</p></div><p class="source">印刷 p.191 / <a href="../assets/source.pdf#page=214">PDF 214</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>选择计数信号量、Mesa 风格条件变量、可重复使用的屏障；完整可运行状态机在 <code>chapter05_sync.py</code>。三个机制都操作暂停线程的队列，而不是忙等。</p><details class="code-details" open><summary>查看推演代码</summary><pre><code class="language-text">down(S): if S.count&gt;0: S.count--; continue
-         else enqueue(S.wait,current); run-next
-up(S):   if S.wait nonempty: enqueue(ready,dequeue(S.wait))
-         else S.count++
-         continue
-
-wait(C,L): atomically {enqueue(C.wait,current); up(L)}; run-next
-signal(C): if C.wait nonempty: enqueue(ready,dequeue(C.wait))
-           continue
-% a resumed waiter reacquires L, then rechecks its predicate in a while
-
-barrier(B): save current in B.wait
-  if length(B.wait)==B.parties:
-      B.generation++; wake all saved; clear B.wait
-  else run-next</code></pre></details><p>实测许可数为 2 时，五个工作线程的同时进入峰值为 2；条件变量消费者取得 44；三个参与者跨过两代屏障且代号匹配。条件 signal 只令等待者可运行，不把锁立即交给它；因此等待必须放在谓词 while 中。屏障必须按代清空队列，才不会把下一轮到达者并入上一轮。</p></div></details><details class="exercise" id="ex-5-58"><summary>习题 5.58 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.58"><p>和朋友去吃披萨，但要保证每次只有一个人伸手拿一片！（原书标为“绝对一星”。）</p></div><p class="source">印刷 p.191 / <a href="../assets/source.pdf#page=214">PDF 214</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>把“伸手并拿走一片”作为临界区，门口放一个初始开放的 mutex：每人 wait 后取一片，随即 signal，再在临界区外吃。不能拿着锁吃完整片，否则虽然互斥成立，大家会不必要地排队；也不能先伸手再 wait。若披萨可能吃完，剩余片数的检查和减一必须在同一个临界区。这个题把本节的互斥规则应用到生活情景。</p></div></details></section><section id="programs"><h2>运行本章程序</h2><p>程序采用 Racket 8.17 与 eopl/rackunit，语法前端与运行器分开维护；下载文件后保留原文件名并放在同一个目录。共享的测试与第五、六章模块需要一起取得；语句版还使用第四章的语句语法模块。下面源码阅读副本与实际执行的维护文件同步。</p><pre><code class="language-sh">&quot;/Applications/Racket v8.17/bin/racket&quot; books/eopl/code/test_chapter05_06.rkt
+<!-- EOPL:end-snippet --><p>下载本章程序后，调用 <code>(result-value (run-private-counter 1))</code> 得到 3；时间片 1、2、5、100 均已实际运行，结束时阻塞线程数为 0。生产者/消费者例可直接写成 <code>let child = spawn(proc(id) send(parent(),44)) in receive()</code>，消费者得到 44，整个程序同样不需要锁。</p><p>本模式采用词法作用域。互斥锁及捕获续文与其所属线程的调度、控制状态绑定，跨私有存储复制时明确报错；可传递的过程会复制它保存的环境。存储复制花费与可达位置及数据图大小有关，私有存储也不等于消息队列或总内存有固定上界。</p></div></details><details class="exercise" id="ex-5-57"><summary>习题 5.57 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.57"><p>操作系统教材里还有很多同步机制。任选三种，在本框架中实现。</p></div><p class="source">印刷 p.191 / <a href="../assets/source.pdf#page=214">PDF 214</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>选择计数信号量、Mesa 条件变量和可重用屏障，三者都接入 <a href="#chapter05-code">THREADS 解释器</a>，由同一字符串前端生成 AST、保存线程续文、阻塞和唤醒。新增语法分别是 <code>semaphore(n)</code>、<code>down(s)</code>、<code>up(s)</code>；<code>condition(m)</code>、<code>condition-wait(c)</code>、<code>condition-signal(c)</code>；<code>barrier(n)</code>、<code>barrier-wait(b)</code>。</p>
+<p>信号量的许可数必须是非负整数。down 有许可时减一，否则把续文放入 FIFO 等待队列；up 优先把一个许可直接交给队首，只有无人等待时才增加计数。已移交的许可不能再留在计数里，否则下一线程会凭空多进入一次。下面五个工作线程使用两个许可，另用 mutex 保护 active/peak 的观察计数；每个工作线程主动 yield，使两个许可都被用到。</p>
+<p>条件变量创建时绑定一个 mutex。调用者持锁检查谓词；等待操作在一次机器转移中完成“入队并释放锁”。signal 只把等待者放回就绪队列，其保存状态是 <code>reacquire</code>：真正运行时先重新取得这个 mutex，再从等待调用返回 52，并重新检查谓词。它沿用本章二元信号量式 mutex，不跟踪持有者；持锁调用是程序的前提，运行器只拒绝明显未关闭的锁。</p>
+<p>条件示例特意先发一次谓词仍假的通知，消费者醒来后再次等待；随后生产者写入 44、通知并 yield，但仍持锁，最后把值改成 45 才释放。消费者取得的是 45。这同时展示了为何通知后不能直接读取共享数据，以及为何一次通知不保证谓词为真。空队列上的通知不保存额度。</p>
+<p>屏障的参与数必须是正整数。每个到达者保存续文，凑齐参与数才增加代号，先摘下这一代等待队列，再一次唤醒所有到达者；<code>barrier-wait</code> 返回新代号。三位参与者在两轮中分别得到 1 和 2，较快线程进入下一轮也不会加入上一轮队列。</p>
+<div id="synchronization-inputs"><!-- EOPL:snippet chapter05.rkt synchronization-programs -->
+<details class="code-details" open><summary>查看实现 · synchronization-programs</summary><pre><code class="language-scheme">(define semaphore-program
+ &quot;let s = semaphore(2) m = mutex() active = 0 peak = 0 in
+  let worker = proc(id) begin
+    down(s); wait(m);
+    set active = add1(active);
+    if greater?(active,peak) then set peak = active else 0;
+    signal(m); yield();
+    wait(m); set active = sub1(active); signal(m);
+    up(s); send(parent(),id)
+  end in begin
+    spawn(worker); spawn(worker); spawn(worker); spawn(worker); spawn(worker);
+    receive(); receive(); receive(); receive(); receive();
+    list(peak,active)
+  end&quot;)
+(define condition-program
+ &quot;let m = mutex() buffer = 0 in let c = condition(m) in
+  let consumer = proc(id)
+    letrec await(dummy) =
+      if zero?(buffer) then begin
+        send(parent(),0); condition-wait(c); (await 0)
+      end else buffer
+    in begin
+      wait(m);
+      let value = (await 0) in begin signal(m); send(parent(),value) end
+    end
+  in begin
+    spawn(consumer); receive();
+    wait(m); condition-signal(c); signal(m);
+    receive();
+    wait(m); set buffer = 44; condition-signal(c);
+    yield(); set buffer = 45; signal(m);
+    receive()
+  end&quot;)
+(define barrier-program
+ &quot;let b = barrier(3) in let worker = proc(id) begin
+    print(list(id,barrier-wait(b)));
+    print(list(id,barrier-wait(b)));
+    send(parent(),id)
+  end in begin
+    spawn(worker); spawn(worker);
+    let first = barrier-wait(b) in let second = barrier-wait(b) in begin
+      receive(); receive(); list(first,second)
+    end
+  end&quot;)
+</code></pre></details>
+<!-- EOPL:end-snippet --></div><details class="code-details" open id="thread-synchronization-example"><summary>运行三个 THREADS 同步示例</summary><pre><code class="language-scheme" data-review-example="thread-synchronization-example">(require &quot;chapter05.rkt&quot;)
+(for ([source (list semaphore-program condition-program barrier-program)])
+  (define r (run source #:implicit? #t #:thread-ids? #t #:quantum 1))
+  (displayln (list (result-value r)
+                   (hash-ref (result-metrics r) &#x27;blocked))))
+</code></pre></details><p>三行依次为 <code>((2 0) 0)</code>、<code>(45 0)</code>、<code>((1 2) 0)</code>：信号量峰值 2、收尾活跃数 0；条件消费者取得 45；屏障跨越两代；三例结束时均无阻塞线程。完整转移函数如下，程序下载时将 <code>chapter05.rkt</code>、<code>chapter05_syntax.rkt</code> 与 <a href="../code/sllgen_guard.rkt">sllgen_guard.rkt</a> 放在同一目录。</p><div id="synchronization-implementation"><!-- EOPL:snippet chapter05.rkt thread-synchronization -->
+<details class="code-details" open><summary>查看实现 · thread-synchronization</summary><pre><code class="language-scheme"> ;; Each helper is one machine transition: no preemption inside queue updates.
+ (define (acquire-mutex! m k)
+  (if (mutex-value-closed? m)
+   (begin
+    (set-mutex-value-waiting! m (append (mutex-value-waiting m) (list current)))
+    (suspend! (A k 52) &#x27;mutex))
+   (begin (set-mutex-value-closed?! m #t) (A k 52))))
+ (define (release-mutex! m)
+  (when (mutex-value-closed? m)
+   (if (null? (mutex-value-waiting m))
+    (set-mutex-value-closed?! m #f)
+    (let ([th (car (mutex-value-waiting m))])
+     (set-mutex-value-waiting! m (cdr (mutex-value-waiting m)))
+     (enqueue! th))))) ; direct handoff keeps the mutex closed
+ (define (synchronize op v k)
+  (case op
+   [(semaphore)
+    (unless (exact-nonnegative-integer? v)
+     (error op &quot;nonnegative exact permit count required&quot;))
+    (define sem (semaphore-value v &#x27;()))
+    (set! semaphores (cons sem semaphores)) (A k sem)]
+   [(down)
+    (unless (semaphore-value? v) (error op &quot;semaphore required&quot;))
+    (if (positive? (semaphore-value-permits v))
+     (begin
+      (set-semaphore-value-permits! v (sub1 (semaphore-value-permits v)))
+      (A k 52))
+     (begin
+      (set-semaphore-value-waiting! v (append (semaphore-value-waiting v) (list current)))
+      (suspend! (A k 52) &#x27;semaphore)))]
+   [(up)
+    (unless (semaphore-value? v) (error op &quot;semaphore required&quot;))
+    (if (null? (semaphore-value-waiting v))
+     (set-semaphore-value-permits! v (add1 (semaphore-value-permits v)))
+     (let ([th (car (semaphore-value-waiting v))])
+      (set-semaphore-value-waiting! v (cdr (semaphore-value-waiting v)))
+      (enqueue! th))) ; transferred permit must not also increment the count
+    (A k 53)]
+   [(condition)
+    (unless (mutex-value? v) (error op &quot;mutex required&quot;))
+    (define c (condition-value v &#x27;()))
+    (set! conditions (cons c conditions)) (A k c)]
+   [(condition-wait)
+    (unless (condition-value? v) (error op &quot;condition required&quot;))
+    (define m (condition-value-mutex v))
+    (unless (mutex-value-closed? m) (error op &quot;associated mutex must be held&quot;))
+    (set-condition-value-waiting! v (append (condition-value-waiting v) (list current)))
+    (release-mutex! m)
+    (suspend! (state &#x27;reacquire #f #f k m) &#x27;condition)]
+   [(condition-signal)
+    (unless (condition-value? v) (error op &quot;condition required&quot;))
+    (unless (null? (condition-value-waiting v))
+     (define th (car (condition-value-waiting v)))
+     (set-condition-value-waiting! v (cdr (condition-value-waiting v)))
+     (enqueue! th)) ; Mesa: make ready; reacquire the mutex when scheduled
+    (A k 53)]
+   [(barrier)
+    (unless (exact-positive-integer? v) (error op &quot;positive exact party count required&quot;))
+    (define b (barrier-value v 0 &#x27;()))
+    (set! barriers (cons b barriers)) (A k b)]
+   [(barrier-wait)
+    (unless (barrier-value? v) (error op &quot;barrier required&quot;))
+    (define waiting (barrier-value-waiting v))
+    (if (= (add1 (length waiting)) (barrier-value-parties v))
+     (let ([generation (add1 (barrier-value-generation v))])
+      (set-barrier-value-generation! v generation)
+      (set-barrier-value-waiting! v &#x27;()) ; detach this generation before waking it
+      (for ([th waiting])
+       (set-thread-state! th (A (state-frames (thread-state th)) generation))
+       (enqueue! th))
+      (A k generation))
+     (begin
+      (set-barrier-value-waiting! v (append waiting (list current)))
+      (suspend! (A k #f) &#x27;barrier)))]))
+</code></pre></details>
+<!-- EOPL:end-snippet --></div><p>kill 会从这三类等待队列以及重新取锁的 mutex 队列移除线程。屏障参与数固定，取消已到达者以后要补足本轮人数；仅剩阻塞者且主线程尚未返回时报告死锁。主线程已有结果时同时返回剩余阻塞数。私有存储模式允许线程使用自己的同步对象，跨线程复制这些对象则报错。等待/获取返回 52，通知/释放返回 53；Python 的 <a href="../code/chapter05_sync.py">生成器模型</a>可以另行比较同样的队列思想。</p></div></details><details class="exercise" id="ex-5-58"><summary>习题 5.58 · ★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="5.58"><p>和朋友去吃披萨，但要保证每次只有一个人伸手拿一片！（原书标为“绝对一星”。）</p></div><p class="source">印刷 p.191 / <a href="../assets/source.pdf#page=214">PDF 214</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p>把“伸手并拿走一片”作为临界区，门口放一个初始开放的 mutex：每人 wait 后取一片，随即 signal，再在临界区外吃。不能拿着锁吃完整片，否则虽然互斥成立，大家会不必要地排队；也不能先伸手再 wait。若披萨可能吃完，剩余片数的检查和减一必须在同一个临界区。这个题把本节的互斥规则应用到生活情景。</p></div></details></section><section id="programs"><h2>运行本章程序</h2><p>这些解析器使用共同的输入校验模块。下载程序时，同时保存 <a download href="../code/sllgen_guard.rkt">sllgen_guard.rkt</a> 并与本章模块放在同一目录；完整文件依赖与运行方式见<a href="../code/README.md">程序说明</a>。</p><p>程序采用 Racket 8.17 与 eopl/rackunit，语法前端与运行器分开维护；下载文件后保留原文件名并放在同一个目录。共享的测试与第五、六章模块需要一起取得；语句版还使用第四章的语句语法模块。下面源码阅读副本与实际执行的维护文件同步。</p><pre><code class="language-sh">&quot;/Applications/Racket v8.17/bin/racket&quot; books/eopl/code/test_chapter05_06.rkt
 &quot;/Applications/Racket v8.17/bin/racket&quot; books/eopl/code/chapter06_examples.rkt
 &quot;/Applications/Racket v8.17/bin/racket&quot; books/eopl/code/test_chapter06_scheme.rkt</code></pre><pre><code class="language-sh">cc -std=c11 -O0 -fno-optimize-sibling-calls -Wall -Wextra -Werror \
   books/eopl/code/chapter05_machine.c -o /tmp/eopl-machine
@@ -661,6 +779,9 @@ python3 books/eopl/code/chapter05_sync.py</code></pre><div class="program-output
 (struct captured (frames) #:transparent)
 (struct callcc-primitive () #:transparent)
 (struct mutex-value (closed? waiting) #:mutable #:transparent)
+(struct semaphore-value (permits waiting) #:mutable #:transparent)
+(struct condition-value (mutex waiting) #:mutable #:transparent)
+(struct barrier-value (parties generation waiting) #:mutable #:transparent)
 ;; BEGIN snapshots
 (struct state (pc exp env frames value) #:transparent)
 (struct thread (id parent state ticks status mailbox store) #:mutable #:transparent)
@@ -676,11 +797,14 @@ python3 books/eopl/code/chapter05_sync.py</code></pre><div class="program-output
              #:driver [driver &#x27;loop] #:handler-lookup [handler-lookup &#x27;search] #:numeric? [numeric? #f]
              #:trace? [trace? #f] #:fuel [fuel 2000000])
  (unless (exact-positive-integer? quantum) (error &#x27;scheduler &quot;positive quantum required&quot;))
+ (unless (exact-positive-integer? fuel) (error &#x27;fuel &quot;positive exact integer required&quot;))
  (when (and private? (eq? scope &#x27;dynamic)) (error &#x27;run &quot;private stores require lexical scope&quot;))
  (define all (make-hash)) (define ready &#x27;()) (define current #f)
  (define next-id 0) (define final #f) (define final? #f) (define output &#x27;())
  (define log &#x27;()) (define max-depth 0) (define steps 0) (define switches 0) (define ends 0)
  (define mutexes &#x27;()) (define locations &#x27;())
+ (define semaphores &#x27;()) (define conditions &#x27;()) (define barriers &#x27;())
+ (define blocked-states &#x27;(mutex receive semaphore condition barrier))
  (define handler-cache (make-hasheq))
  (define handler-hops 0)
  (define (nearest k)
@@ -720,8 +844,9 @@ python3 books/eopl/code/chapter05_sync.py</code></pre><div class="program-output
      (cond [(hash-ref memo v #f) =&gt; values]
       [else (define p (closure (closure-params v) (closure-body v) #f))
        (hash-set! memo v p) (set-closure-env! p (environment (closure-env v))) p])]
-    [(or (captured? v) (mutex-value? v))
-     (error &#x27;copy &quot;cannot transfer a mutex or captured continuation between private stores&quot;)]
+    [(or (captured? v) (mutex-value? v) (semaphore-value? v)
+         (condition-value? v) (barrier-value? v))
+     (error &#x27;copy &quot;cannot transfer a mutex, synchronization object or captured continuation between private stores&quot;)]
     [(pair? v) (cons (copy (car v)) (copy (cdr v)))]
     [else v]))
   (copy value))
@@ -747,6 +872,82 @@ python3 books/eopl/code/chapter05_sync.py</code></pre><div class="program-output
    [else (set! current (car ready)) (set! ready (cdr ready))
     (set-thread-status! current &#x27;running) (set! switches (add1 switches))
     (thread-state current)]))
+;; BEGIN thread-synchronization
+ ;; Each helper is one machine transition: no preemption inside queue updates.
+ (define (acquire-mutex! m k)
+  (if (mutex-value-closed? m)
+   (begin
+    (set-mutex-value-waiting! m (append (mutex-value-waiting m) (list current)))
+    (suspend! (A k 52) &#x27;mutex))
+   (begin (set-mutex-value-closed?! m #t) (A k 52))))
+ (define (release-mutex! m)
+  (when (mutex-value-closed? m)
+   (if (null? (mutex-value-waiting m))
+    (set-mutex-value-closed?! m #f)
+    (let ([th (car (mutex-value-waiting m))])
+     (set-mutex-value-waiting! m (cdr (mutex-value-waiting m)))
+     (enqueue! th))))) ; direct handoff keeps the mutex closed
+ (define (synchronize op v k)
+  (case op
+   [(semaphore)
+    (unless (exact-nonnegative-integer? v)
+     (error op &quot;nonnegative exact permit count required&quot;))
+    (define sem (semaphore-value v &#x27;()))
+    (set! semaphores (cons sem semaphores)) (A k sem)]
+   [(down)
+    (unless (semaphore-value? v) (error op &quot;semaphore required&quot;))
+    (if (positive? (semaphore-value-permits v))
+     (begin
+      (set-semaphore-value-permits! v (sub1 (semaphore-value-permits v)))
+      (A k 52))
+     (begin
+      (set-semaphore-value-waiting! v (append (semaphore-value-waiting v) (list current)))
+      (suspend! (A k 52) &#x27;semaphore)))]
+   [(up)
+    (unless (semaphore-value? v) (error op &quot;semaphore required&quot;))
+    (if (null? (semaphore-value-waiting v))
+     (set-semaphore-value-permits! v (add1 (semaphore-value-permits v)))
+     (let ([th (car (semaphore-value-waiting v))])
+      (set-semaphore-value-waiting! v (cdr (semaphore-value-waiting v)))
+      (enqueue! th))) ; transferred permit must not also increment the count
+    (A k 53)]
+   [(condition)
+    (unless (mutex-value? v) (error op &quot;mutex required&quot;))
+    (define c (condition-value v &#x27;()))
+    (set! conditions (cons c conditions)) (A k c)]
+   [(condition-wait)
+    (unless (condition-value? v) (error op &quot;condition required&quot;))
+    (define m (condition-value-mutex v))
+    (unless (mutex-value-closed? m) (error op &quot;associated mutex must be held&quot;))
+    (set-condition-value-waiting! v (append (condition-value-waiting v) (list current)))
+    (release-mutex! m)
+    (suspend! (state &#x27;reacquire #f #f k m) &#x27;condition)]
+   [(condition-signal)
+    (unless (condition-value? v) (error op &quot;condition required&quot;))
+    (unless (null? (condition-value-waiting v))
+     (define th (car (condition-value-waiting v)))
+     (set-condition-value-waiting! v (cdr (condition-value-waiting v)))
+     (enqueue! th)) ; Mesa: make ready; reacquire the mutex when scheduled
+    (A k 53)]
+   [(barrier)
+    (unless (exact-positive-integer? v) (error op &quot;positive exact party count required&quot;))
+    (define b (barrier-value v 0 &#x27;()))
+    (set! barriers (cons b barriers)) (A k b)]
+   [(barrier-wait)
+    (unless (barrier-value? v) (error op &quot;barrier required&quot;))
+    (define waiting (barrier-value-waiting v))
+    (if (= (add1 (length waiting)) (barrier-value-parties v))
+     (let ([generation (add1 (barrier-value-generation v))])
+      (set-barrier-value-generation! v generation)
+      (set-barrier-value-waiting! v &#x27;()) ; detach this generation before waking it
+      (for ([th waiting])
+       (set-thread-state! th (A (state-frames (thread-state th)) generation))
+       (enqueue! th))
+      (A k generation))
+     (begin
+      (set-barrier-value-waiting! v (append waiting (list current)))
+      (suspend! (A k #f) &#x27;barrier)))]))
+;; END thread-synchronization
  (define (collect es env k kind data)
   (if (null? es) (finish kind data &#x27;() env k)
    (E (car es) env (cons `(collect ,kind ,data ,(cdr es) () ,env) k))))
@@ -836,6 +1037,9 @@ python3 books/eopl/code/chapter05_sync.py</code></pre><div class="program-output
      [`(mutex) (define m (mutex-value #f &#x27;())) (set! mutexes (cons m mutexes)) (A k m)]
      [`(wait ,arg) (E arg env (cons &#x27;(wait) k))]
      [`(signal ,arg) (E arg env (cons &#x27;(signal) k))]
+     [`(,(and op (or &#x27;semaphore &#x27;down &#x27;up &#x27;condition &#x27;condition-wait
+                       &#x27;condition-signal &#x27;barrier &#x27;barrier-wait)) ,arg)
+      (E arg env (cons `(synchronize ,op) k))]
      [`(kill ,arg) (E arg env (cons &#x27;(kill) k))]
      [`(send ,a ,b) (collect (list a b) env k &#x27;send #f)]
      [`(receive)
@@ -847,6 +1051,7 @@ python3 books/eopl/code/chapter05_sync.py</code></pre><div class="program-output
      [_ (error &#x27;eval &quot;unknown form ~s&quot; e)])]
    [(state &#x27;invoke p env k vs) (invoke p vs env k)]
    [(state &#x27;raise _ _ k v) (handle k v)]
+   [(state &#x27;reacquire _ _ k m) (acquire-mutex! m k)]
    [(state &#x27;apply _ _ k v)
     (cond [(zero? (thread-ticks current))
            (suspend! s &#x27;expired) (enqueue! current) #f]
@@ -876,25 +1081,23 @@ python3 books/eopl/code/chapter05_sync.py</code></pre><div class="program-output
           (enqueue! child) (A rest (if ids? (thread-id child) 73))]
          [(list &#x27;wait)
           (unless (mutex-value? v) (error &#x27;wait &quot;mutex required&quot;))
-          (if (mutex-value-closed? v)
-           (begin
-            (set-mutex-value-waiting! v (append (mutex-value-waiting v) (list current)))
-            (suspend! (A rest 52) &#x27;mutex))
-           (begin (set-mutex-value-closed?! v #t) (A rest 52)))]
+          (acquire-mutex! v rest)]
          [(list &#x27;signal)
           (unless (mutex-value? v) (error &#x27;signal &quot;mutex required&quot;))
-          (when (mutex-value-closed? v)
-           (if (null? (mutex-value-waiting v)) (set-mutex-value-closed?! v #f)
-            (let ([th (car (mutex-value-waiting v))])
-             (set-mutex-value-waiting! v (cdr (mutex-value-waiting v)))
-             (enqueue! th)))) ; handoff: keep the mutex closed
-          (A rest 53)]
+          (release-mutex! v) (A rest 53)]
+         [`(synchronize ,op) (synchronize op v rest)]
          [(list &#x27;kill)
           (define victim (hash-ref all v #f))
-          (define found? (and victim (memq (thread-status victim) &#x27;(ready mutex receive))))
+          (define found? (and victim (memq (thread-status victim) (cons &#x27;ready blocked-states))))
           (when found?
            (set! ready (remq victim ready))
            (for ([m mutexes]) (set-mutex-value-waiting! m (remq victim (mutex-value-waiting m))))
+           (for ([sem semaphores])
+            (set-semaphore-value-waiting! sem (remq victim (semaphore-value-waiting sem))))
+           (for ([c conditions])
+            (set-condition-value-waiting! c (remq victim (condition-value-waiting c))))
+           (for ([b barriers])
+            (set-barrier-value-waiting! b (remq victim (barrier-value-waiting b))))
            (set-thread-status! victim &#x27;killed))
           (A rest (and found? #t))]
          [_ (error &#x27;apply &quot;unknown frame ~s&quot; (car k))])])])]
@@ -915,7 +1118,7 @@ python3 books/eopl/code/chapter05_sync.py</code></pre><div class="program-output
    [else (continue (step next))]))
  (continue initial)
 ;; END register-driver
- (define blocked (filter (lambda (th) (memq (thread-status th) &#x27;(mutex receive))) (hash-values all)))
+ (define blocked (filter (lambda (th) (memq (thread-status th) blocked-states)) (hash-values all)))
  (unless final? (if (pair? blocked) (error &#x27;scheduler &quot;deadlock before main result&quot;)
                     (error &#x27;scheduler &quot;main thread terminated without value&quot;)))
  (result final (reverse output)
@@ -943,6 +1146,52 @@ python3 books/eopl/code/chapter05_sync.py</code></pre><div class="program-output
  (run private-counter-program #:implicit? #t #:private-store? #t
       #:thread-ids? #t #:quantum quantum))
 ;; END private-store-example
+;; BEGIN synchronization-programs
+(define semaphore-program
+ &quot;let s = semaphore(2) m = mutex() active = 0 peak = 0 in
+  let worker = proc(id) begin
+    down(s); wait(m);
+    set active = add1(active);
+    if greater?(active,peak) then set peak = active else 0;
+    signal(m); yield();
+    wait(m); set active = sub1(active); signal(m);
+    up(s); send(parent(),id)
+  end in begin
+    spawn(worker); spawn(worker); spawn(worker); spawn(worker); spawn(worker);
+    receive(); receive(); receive(); receive(); receive();
+    list(peak,active)
+  end&quot;)
+(define condition-program
+ &quot;let m = mutex() buffer = 0 in let c = condition(m) in
+  let consumer = proc(id)
+    letrec await(dummy) =
+      if zero?(buffer) then begin
+        send(parent(),0); condition-wait(c); (await 0)
+      end else buffer
+    in begin
+      wait(m);
+      let value = (await 0) in begin signal(m); send(parent(),value) end
+    end
+  in begin
+    spawn(consumer); receive();
+    wait(m); condition-signal(c); signal(m);
+    receive();
+    wait(m); set buffer = 44; condition-signal(c);
+    yield(); set buffer = 45; signal(m);
+    receive()
+  end&quot;)
+(define barrier-program
+ &quot;let b = barrier(3) in let worker = proc(id) begin
+    print(list(id,barrier-wait(b)));
+    print(list(id,barrier-wait(b)));
+    send(parent(),id)
+  end in begin
+    spawn(worker); spawn(worker);
+    let first = barrier-wait(b) in let second = barrier-wait(b) in begin
+      receive(); receive(); list(first,second)
+    end
+  end&quot;)
+;; END synchronization-programs
 (define (translate-callcc source)
  (define count 0)
  (define (fresh prefix) (set! count (add1 count)) (string-&gt;symbol (format &quot;~a%cc~a&quot; prefix count)))
@@ -1039,6 +1288,7 @@ python3 books/eopl/code/chapter05_sync.py</code></pre><div class="program-output
 </code></pre><!-- EOPL:end-program --></details><details class="code-details" id="chapter05_syntax-program"><summary>完整程序 · chapter05_syntax.rkt</summary><!-- EOPL:program chapter05_syntax.rkt --><pre><code id="chapter05_syntax-code" class="language-scheme">#lang racket
 ;; EOPL chapters 5/6: SLLGEN concrete syntax -&gt; small, inspectable AST.
 (require (except-in eopl define) (only-in eopl [define eopl:define]))
+(require &quot;sllgen_guard.rkt&quot;)
 (provide (all-defined-out))
 (eopl:define lexical
   &#x27;((white-space (whitespace) skip)
@@ -1089,13 +1339,21 @@ python3 books/eopl/code/chapter05_sync.py</code></pre><div class="program-output
    (expression (&quot;mutex&quot; &quot;(&quot; &quot;)&quot;) mutex-exp)
    (expression (&quot;wait&quot; &quot;(&quot; expression &quot;)&quot;) wait-exp)
    (expression (&quot;signal&quot; &quot;(&quot; expression &quot;)&quot;) signal-exp)
+   (expression (&quot;semaphore&quot; &quot;(&quot; expression &quot;)&quot;) semaphore-exp)
+   (expression (&quot;down&quot; &quot;(&quot; expression &quot;)&quot;) down-exp)
+   (expression (&quot;up&quot; &quot;(&quot; expression &quot;)&quot;) up-exp)
+   (expression (&quot;condition&quot; &quot;(&quot; expression &quot;)&quot;) condition-exp)
+   (expression (&quot;condition-wait&quot; &quot;(&quot; expression &quot;)&quot;) condition-wait-exp)
+   (expression (&quot;condition-signal&quot; &quot;(&quot; expression &quot;)&quot;) condition-signal-exp)
+   (expression (&quot;barrier&quot; &quot;(&quot; expression &quot;)&quot;) barrier-exp)
+   (expression (&quot;barrier-wait&quot; &quot;(&quot; expression &quot;)&quot;) barrier-wait-exp)
    (expression (&quot;kill&quot; &quot;(&quot; expression &quot;)&quot;) kill-exp)
    (expression (&quot;send&quot; &quot;(&quot; expression &quot;,&quot; expression &quot;)&quot;) send-exp)
    (expression (&quot;receive&quot; &quot;(&quot; &quot;)&quot;) receive-exp)
    (expression (&quot;self&quot; &quot;(&quot; &quot;)&quot;) self-exp)
    (expression (&quot;parent&quot; &quot;(&quot; &quot;)&quot;) parent-exp)))
 (sllgen:make-define-datatypes lexical grammar)
-(define scan&amp;parse (sllgen:make-string-parser lexical grammar))
+(define scan&amp;parse (guard-sllgen (sllgen:make-string-parser lexical grammar) lexical grammar))
 (define (parse text)
  (cases program (scan&amp;parse text) (a-program (e) (ast e))))
 (define (ast exp)
@@ -1132,6 +1390,14 @@ python3 books/eopl/code/chapter05_sync.py</code></pre><div class="program-output
   (spawn-exp (e) `(spawn ,(ast e))) (yield-exp () &#x27;(yield))
   (mutex-exp () &#x27;(mutex)) (wait-exp (e) `(wait ,(ast e)))
   (signal-exp (e) `(signal ,(ast e))) (kill-exp (e) `(kill ,(ast e)))
+  (semaphore-exp (e) `(semaphore ,(ast e)))
+  (down-exp (e) `(down ,(ast e)))
+  (up-exp (e) `(up ,(ast e)))
+  (condition-exp (e) `(condition ,(ast e)))
+  (condition-wait-exp (e) `(condition-wait ,(ast e)))
+  (condition-signal-exp (e) `(condition-signal ,(ast e)))
+  (barrier-exp (e) `(barrier ,(ast e)))
+  (barrier-wait-exp (e) `(barrier-wait ,(ast e)))
   (send-exp (a b) `(send ,(ast a) ,(ast b))) (receive-exp () &#x27;(receive))
   (self-exp () &#x27;(self)) (parent-exp () &#x27;(parent))))
 (define (unique! xs)
@@ -1350,9 +1616,14 @@ int main(int argc,char **argv) {
 not a second parser for THREADS. Messages contain JSON-like immutable data.
 &quot;&quot;&quot;
 from collections import deque
-from copy import deepcopy
 from dataclasses import dataclass, field
 import json
+
+def require(condition, message):
+    &quot;&quot;&quot;Required checks remain active under python -O.&quot;&quot;&quot;
+    if not condition:
+        raise RuntimeError(message)
+
 
 @dataclass
 class Semaphore:
@@ -1391,10 +1662,10 @@ class Scheduler:
         return ident
 
     def wake(self, task, value=None):
-        assert task.status != &quot;ready&quot;
+        require(task.status != &quot;ready&quot;, &quot;duplicate enqueue&quot;)
         task.pending, task.status = value, &quot;ready&quot;
         self.ready.append(task)
-        assert len({t.ident for t in self.ready}) == len(self.ready)
+        require(len({t.ident for t in self.ready}) == len(self.ready), &quot;duplicate ready task&quot;)
 
     def up(self, sem):
         if sem.waiting:
@@ -1477,7 +1748,8 @@ def examples():
         active[&quot;n&quot;] -= 1
         yield &quot;up&quot;, sem
     for _ in range(5): scheduler.add(worker)
-    assert set(scheduler.run().values()) == {&quot;done&quot;} and active[&quot;max&quot;] == 2
+    states = scheduler.run()
+    require(set(states.values()) == {&quot;done&quot;} and active[&quot;max&quot;] == 2, &quot;semaphore example&quot;)
     # Mesa-style condition: signal makes ready; consumer reacquires the lock.
     scheduler, lock, cond, buffer = Scheduler(), Semaphore(1), Condition(), []
     def consumer(task):
@@ -1493,17 +1765,20 @@ def examples():
         yield &quot;condition-signal&quot;, cond
         yield &quot;up&quot;, lock
     cid = scheduler.add(consumer); scheduler.add(producer)
-    assert set(scheduler.run().values()) == {&quot;done&quot;}
-    assert scheduler.tasks[cid].store[&quot;answer&quot;] == 44
+    states = scheduler.run()
+    require(set(states.values()) == {&quot;done&quot;}, &quot;unfinished tasks&quot;)
+    condition_value = scheduler.tasks[cid].store[&quot;answer&quot;]
+    require(condition_value == 44, &quot;condition value&quot;)
     # Reusable barrier: generation cannot mix participants across rounds.
     scheduler, barrier = Scheduler(), Barrier(3)
     def participant(task):
         for round_number in (1, 2):
             generation = yield &quot;barrier&quot;, barrier
-            assert generation == round_number
+            require(generation == round_number, &quot;mixed barrier generations&quot;)
             yield &quot;print&quot;, [task.ident, generation]
     for _ in range(3): scheduler.add(participant)
-    assert set(scheduler.run().values()) == {&quot;done&quot;} and barrier.generation == 2
+    states = scheduler.run()
+    require(set(states.values()) == {&quot;done&quot;} and barrier.generation == 2, &quot;barrier example&quot;)
     # Private-store actors: one owner applies three increment messages, no mutex.
     scheduler = Scheduler()
     def owner(task):
@@ -1517,10 +1792,11 @@ def examples():
         task.store[&quot;x&quot;] = 100  # same name, different private store
         yield &quot;send&quot;, owner_id, 1
     for _ in range(3): scheduler.add(sender)
-    assert set(scheduler.run().values()) == {&quot;done&quot;}
-    assert scheduler.output == [3]
-    assert [t.store[&quot;x&quot;] for t in scheduler.tasks.values()] == [3, 100, 100, 100]
-    return {&quot;counting_semaphore_peak&quot;: active[&quot;max&quot;], &quot;condition_value&quot;: 44,
+    states = scheduler.run()
+    require(set(states.values()) == {&quot;done&quot;}, &quot;unfinished tasks&quot;)
+    require(scheduler.output == [3], &quot;private counter output&quot;)
+    require([t.store[&quot;x&quot;] for t in scheduler.tasks.values()] == [3, 100, 100, 100], &quot;private stores&quot;)
+    return {&quot;counting_semaphore_peak&quot;: active[&quot;max&quot;], &quot;condition_value&quot;: condition_value,
             &quot;barrier_generations&quot;: barrier.generation, &quot;private_counter&quot;: scheduler.output[0]}
 # END synchronization-examples
 if __name__ == &quot;__main__&quot;:

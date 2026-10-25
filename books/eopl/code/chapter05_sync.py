@@ -3,9 +3,14 @@
 not a second parser for THREADS. Messages contain JSON-like immutable data.
 """
 from collections import deque
-from copy import deepcopy
 from dataclasses import dataclass, field
 import json
+
+def require(condition, message):
+    """Required checks remain active under python -O."""
+    if not condition:
+        raise RuntimeError(message)
+
 
 @dataclass
 class Semaphore:
@@ -44,10 +49,10 @@ class Scheduler:
         return ident
 
     def wake(self, task, value=None):
-        assert task.status != "ready"
+        require(task.status != "ready", "duplicate enqueue")
         task.pending, task.status = value, "ready"
         self.ready.append(task)
-        assert len({t.ident for t in self.ready}) == len(self.ready)
+        require(len({t.ident for t in self.ready}) == len(self.ready), "duplicate ready task")
 
     def up(self, sem):
         if sem.waiting:
@@ -130,7 +135,8 @@ def examples():
         active["n"] -= 1
         yield "up", sem
     for _ in range(5): scheduler.add(worker)
-    assert set(scheduler.run().values()) == {"done"} and active["max"] == 2
+    states = scheduler.run()
+    require(set(states.values()) == {"done"} and active["max"] == 2, "semaphore example")
     # Mesa-style condition: signal makes ready; consumer reacquires the lock.
     scheduler, lock, cond, buffer = Scheduler(), Semaphore(1), Condition(), []
     def consumer(task):
@@ -146,17 +152,20 @@ def examples():
         yield "condition-signal", cond
         yield "up", lock
     cid = scheduler.add(consumer); scheduler.add(producer)
-    assert set(scheduler.run().values()) == {"done"}
-    assert scheduler.tasks[cid].store["answer"] == 44
+    states = scheduler.run()
+    require(set(states.values()) == {"done"}, "unfinished tasks")
+    condition_value = scheduler.tasks[cid].store["answer"]
+    require(condition_value == 44, "condition value")
     # Reusable barrier: generation cannot mix participants across rounds.
     scheduler, barrier = Scheduler(), Barrier(3)
     def participant(task):
         for round_number in (1, 2):
             generation = yield "barrier", barrier
-            assert generation == round_number
+            require(generation == round_number, "mixed barrier generations")
             yield "print", [task.ident, generation]
     for _ in range(3): scheduler.add(participant)
-    assert set(scheduler.run().values()) == {"done"} and barrier.generation == 2
+    states = scheduler.run()
+    require(set(states.values()) == {"done"} and barrier.generation == 2, "barrier example")
     # Private-store actors: one owner applies three increment messages, no mutex.
     scheduler = Scheduler()
     def owner(task):
@@ -170,10 +179,11 @@ def examples():
         task.store["x"] = 100  # same name, different private store
         yield "send", owner_id, 1
     for _ in range(3): scheduler.add(sender)
-    assert set(scheduler.run().values()) == {"done"}
-    assert scheduler.output == [3]
-    assert [t.store["x"] for t in scheduler.tasks.values()] == [3, 100, 100, 100]
-    return {"counting_semaphore_peak": active["max"], "condition_value": 44,
+    states = scheduler.run()
+    require(set(states.values()) == {"done"}, "unfinished tasks")
+    require(scheduler.output == [3], "private counter output")
+    require([t.store["x"] for t in scheduler.tasks.values()] == [3, 100, 100, 100], "private stores")
+    return {"counting_semaphore_peak": active["max"], "condition_value": condition_value,
             "barrier_generations": barrier.generation, "private_counter": scheduler.output[0]}
 # END synchronization-examples
 if __name__ == "__main__":

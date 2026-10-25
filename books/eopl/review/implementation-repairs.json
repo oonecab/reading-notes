@@ -1,0 +1,351 @@
+{
+  "schema_version": 1,
+  "issue": "I066",
+  "status": "completed_locally",
+  "recorded_at_utc": "2026-10-25T14:17:31.490Z",
+  "base_commit": "37988e5",
+  "scope": "Local repairs: complete SLLGEN inputs, positive exact fuel, optimized Python execution, THREADS exercise5.57, and implementation reading paths. No Git or production publication. Also repairs continuation-role collision with source identifiers k/h/join.",
+  "content_review": "source_and_changed_answers_read",
+  "program_review": "passed",
+  "reader_review": "passed",
+  "integration_review": "passed",
+  "source_sha256": {
+    "eopl/notes/chapter03_expressions.html": "557960bcbb52d35670b23f22ef5bacca37769855fe4aedeca110e33d7000dc00",
+    "eopl/notes/chapter04_state.html": "22a15834a461e6876f4912938be75ca5932251c6f506c7332072824426a40c0c",
+    "eopl/notes/chapter05_continuations.html": "f4e50d6ec5a8ec5e18dc593f9362502a653a76004c6802002cd62c74bba41729",
+    "eopl/notes/chapter06_cps.html": "0b5dc9860384a8cdd6513e84a7d9fb4ce94ee7f24d8bccc3206b5e63ca6eec34",
+    "eopl/notes/chapter09_objects.html": "f61c730b85b93fb0731a9eb412d030cab88de38e2262b2ec67f20ce893b1d1e7",
+    "eopl/notes/appendix_b_sllgen.html": "631e3686cf804fb68679e60045c21bb1a9df0c6e8f92d4f9f4311e91f22ce48f"
+  },
+  "output_sha256": {
+    "eopl/notes/chapter03_expressions.html": "902ade344bd77083b84b4f42da9598316651ec911b0b49ca9ac19883176df13a",
+    "eopl/notes/chapter04_state.html": "fae04bb31fe7b462d9447f5358f27d09ab4a3a65bc65faa6d2bcc371db50e720",
+    "eopl/notes/chapter05_continuations.html": "9339d9e51a01c76543d9ff6608ddf999b77f227c7646c6c2624236e6060198ed",
+    "eopl/notes/chapter06_cps.html": "c04e21b0ca3cb1c29926601162c1cc4e0daa71c91224efa414f44b000223baee",
+    "eopl/notes/chapter09_objects.html": "71e69c356e694af72d83c962b6c422bcea9fa63226baa0c8a00f409255e4aa12",
+    "eopl/notes/appendix_b_sllgen.html": "71720f18f6b5ab8708b8e488b11ba67491f6ae8a757c04c5b95a902b73dba33c"
+  },
+  "prior_bindings": {
+    "eopl/notes/chapter03_expressions.html": {
+      "source_sha256": "78bc40d228177a426dd036ef03057a1bfa71be686a2d87594c9e6575702fc136",
+      "review_record": "books/eopl/review/ch04.json"
+    },
+    "eopl/notes/chapter04_state.html": {
+      "source_sha256": "2645d3b162293cf8288efc38695cde3120aecd6c9f45c88a18b998e7d72a34f2",
+      "review_record": "books/eopl/review/ch05-06.json"
+    },
+    "eopl/notes/chapter05_continuations.html": {
+      "source_sha256": "67377dfbd29479a3d0bf3a05a69a4a30e1ea6bafd604604a3287029220c5e780",
+      "review_record": "books/eopl/review/ch05-06-followup.json"
+    },
+    "eopl/notes/chapter06_cps.html": {
+      "source_sha256": "2e64db24ec6883feb5285b8db1d7910edcc2a02bfa307dead9ed17beb8d7d501",
+      "review_record": "books/eopl/review/ch07.json"
+    },
+    "eopl/notes/chapter09_objects.html": {
+      "source_sha256": "ea1530c0a3f7f1f0ebab77bef0e3d04045485f116d3a8227c5f98cde07225d13",
+      "review_record": "books/eopl/review/completion.json"
+    },
+    "eopl/notes/appendix_b_sllgen.html": {
+      "source_sha256": "02f5604fe388abd44a5be03dfe98687b63ac199be29fc0f0f0f772b98e98dd02",
+      "review_record": "books/eopl/review/completion.json"
+    }
+  },
+  "question_dependency_changes": [
+    {
+      "page": "eopl/notes/chapter06_cps.html",
+      "id": "ex-6-32",
+      "previous": [
+        {
+          "anchor": "#ex-6-31",
+          "sha256": "f465c296e9db927a46fff356e091b01b09e65d098aebdd1fbeaaa2d02a997dfe"
+        }
+      ],
+      "current": [
+        {
+          "anchor": "#ex-6-31",
+          "sha256": "01727e78ce6adad59cd4d7508212a28735ad18e9b141898334130292624f8f19"
+        }
+      ],
+      "reason": "Referenced previous exercise retains its complete question and gains synchronized implementation plus executable example; changed answer read back."
+    },
+    {
+      "page": "eopl/notes/chapter06_cps.html",
+      "id": "ex-6-33",
+      "previous": [
+        {
+          "anchor": "#ex-6-32",
+          "sha256": "2abef05cec36e014f4c55813b73e73ff762f2ed57720a23592a529dfb8b1ae3e"
+        }
+      ],
+      "current": [
+        {
+          "anchor": "#ex-6-32",
+          "sha256": "bfbf7bf014a25f0d7ed77c7a8ed4c47f06f168e7b90cc1a7668f8af119a64e24"
+        }
+      ],
+      "reason": "Referenced previous exercise retains its complete question and gains synchronized implementation plus executable example; changed answer read back."
+    },
+    {
+      "page": "eopl/notes/chapter06_cps.html",
+      "id": "ex-6-33",
+      "previous": [
+        {
+          "anchor": "#ex-6-32",
+          "sha256": "bfbf7bf014a25f0d7ed77c7a8ed4c47f06f168e7b90cc1a7668f8af119a64e24"
+        }
+      ],
+      "current": [
+        {
+          "anchor": "#ex-6-32",
+          "sha256": "c6fd5044b6749542781f978fef72613a89231f6315bba16e26f3bf04c414f05c"
+        }
+      ],
+      "reason": "Only synchronized code line breaks changed in the referenced answer."
+    },
+    {
+      "page": "eopl/notes/chapter06_cps.html",
+      "id": "ex-6-32",
+      "previous": [
+        {
+          "anchor": "#ex-6-31",
+          "sha256": "01727e78ce6adad59cd4d7508212a28735ad18e9b141898334130292624f8f19"
+        }
+      ],
+      "current": [
+        {
+          "anchor": "#ex-6-31",
+          "sha256": "3e90aa5e1072acb87f82f2c1e2824f788389a6ffa658e2fad84791618e73e0fd"
+        }
+      ],
+      "reason": "6.31 continuation namespace correction and same-folder executable example reviewed."
+    }
+  ],
+  "source_pdf_sha256": "b9e8770a4dc97206bd02230e6b21a878382eb02a340ff69321857d701e7d967c",
+  "local_release": "20261025T225409",
+  "previous_validation_sha256": "52ca0850a4ca9911ee65e3875080dcb9ff25e752e12953e629132e32990b62b2",
+  "prior_file_bindings": {
+    "agent.md": {
+      "sha256": "bfb436867311d279083b88f0ebdc68df82b4f375d78e721436bf942e4e258319",
+      "current_sha256": "aa48b5960545185bd9eac236c484f3977efa0cb0a8f3bb6fe112a00f7f2ce267",
+      "reason": "I066 implementation, runtime contract and regression changes"
+    },
+    "code/README.md": {
+      "sha256": "a21ee9527314f38682938f74494423114a6dcc7b9aa8555e7396ccb4a2a04e90",
+      "current_sha256": "a432c3cbd86b4ebfc0b4b7a3e246c25acda754596a25dee8b92f7a5fc4a6dea7",
+      "reason": "I066 implementation, runtime contract and regression changes",
+      "intermediate_sha256": [
+        "fded3940cb6ac89f4d4da721409934ee5d7d5df2723213b837dd41d7bf682c7f"
+      ]
+    },
+    "code/chapter03.rkt": {
+      "sha256": "cf298fe1ef14dc15fd9d1b89e84ae22b974adbb09bbe3ff242882b8ca2a42264",
+      "current_sha256": "96044df3466f10c27529967be01b252a5bbf8c387b5130be6ab9d9fd6209ea46",
+      "reason": "I066 implementation, runtime contract and regression changes"
+    },
+    "code/chapter03_lexical.rkt": {
+      "sha256": "15eae345f2b184c451a74ef8df843614acbd356d93ea7075061c6fd088c8452b",
+      "current_sha256": "c23bd4b0dd86199d5a06523d722a771ed94e28b64d68fccabd155270aff96c02",
+      "reason": "I066 implementation, runtime contract and regression changes"
+    },
+    "code/chapter03_variants.rkt": {
+      "sha256": "74b7d947c54d65821cd7c771d034669b2c974a03b03faabaac2a1812b208ed75",
+      "current_sha256": "7fa38ff491feb1d0a72584871456413d6b58052df2852760c2de49e8e7518faa",
+      "reason": "I066 implementation, runtime contract and regression changes"
+    },
+    "code/chapter04.rkt": {
+      "sha256": "aeaa3917afab60a5fe92c7bfcab7598dc2c00c3a6b510080105151042bd4d8b8",
+      "current_sha256": "52cc3731ee88808fd68d3c639409154ba7adf605a6b27e91e8b10e2b7557d212",
+      "reason": "I066 implementation, runtime contract and regression changes"
+    },
+    "code/chapter04_statements.rkt": {
+      "sha256": "5100dc11252a4bd6086e51a3cc67de460276c2674131e1f13560c93b3afa3690",
+      "current_sha256": "549e8d029d402f89405ae7e3df6bb4fdf4ce5c7c594b17935a0c6c1d1a06a33e",
+      "reason": "I066 implementation, runtime contract and regression changes"
+    },
+    "code/chapter05.rkt": {
+      "sha256": "14cc23c1d3d8aa5676eb31119dd444ff3f371683a6678fbd16eb528dc80bb795",
+      "current_sha256": "2eb572cab4067b885c31ee9d4cc962e7251d71902b061e57d454541f3a4f26dc",
+      "reason": "I066 implementation, runtime contract and regression changes"
+    },
+    "code/chapter05_sync.py": {
+      "sha256": "858bc72680d2b9766c95317fe4ee88e0ed1f44e0ceb5925b392e97e7f379f490",
+      "current_sha256": "bd71f41af5e6ff36497c0487dc1d22fc80132052496041f7366ade9d880ed3e3",
+      "reason": "I066 implementation, runtime contract and regression changes"
+    },
+    "code/chapter05_syntax.rkt": {
+      "sha256": "d438164d87fa89dbbb53abb223dbe46a44228436a3a7752ac5ddb8bd3052c736",
+      "current_sha256": "9ce3683979fce27e90bd066ac852ac3f96dd19a1385151fd9b0de27771c3dad1",
+      "reason": "I066 implementation, runtime contract and regression changes"
+    },
+    "code/chapter06_register.rkt": {
+      "sha256": "098dccc94c09c448efec981718ac7b425be6455e398989cc96cc79728ae7a3af",
+      "current_sha256": "7a7c5c56846f60dbca48b8dcae4ff17133f2d1970498216f95722d156f9aa6a5",
+      "reason": "I066 implementation, runtime contract and regression changes"
+    },
+    "code/chapter06_target.rkt": {
+      "sha256": "6074736d900feaff8547ff574996db6c61d3d390b3f4652accbac920bfacddaa",
+      "current_sha256": "c36694fdbbee2e645b63b5192085859562738a77326d827e8c9dc7e4e12bbab3",
+      "reason": "I066 implementation, runtime contract and regression changes"
+    },
+    "code/chapter06_transforms.rkt": {
+      "sha256": "7cb3e4548b5dc8737ee44e51cdc5b40bffbfe6506795a978329a11cbc4585c4a",
+      "current_sha256": "14bb270610d4ead09414d2fd94017d64d375083debdecd9017acca211a4ebe43",
+      "reason": "I066 implementation, runtime contract and regression changes",
+      "intermediate_sha256": [
+        "0c66f370a5896608f78dce15f78091a09c638923c1412a849ea8301b0be2e887"
+      ]
+    },
+    "notes/README.md": {
+      "sha256": "5ef253f039d990cec77a2efae03d54c44671f0e0c47bb85f44dbaedb689b8d71",
+      "current_sha256": "7713315e40ca24c9f57086ba27718f2d2dd24a99c80e60a2d8e082109e4ae036",
+      "reason": "I066 implementation, runtime contract and regression changes"
+    },
+    "tools/check_notes.py": {
+      "sha256": "bf4d619e765467d03fc765d5ec0d98ab7ddc5e8624b154febc498b75e83e2834",
+      "current_sha256": "809ce09fec39f53a64e01028b245a8a9f1cf4c0f7b524bc2c64d9c0d4bb4bc72",
+      "reason": "I066 implementation, runtime contract and regression changes"
+    },
+    "tools/test_chapter03_mutations.py": {
+      "sha256": "e1ad643274570a61bc41643709a60f3d6b54fbc18978b1c117463f4a63ced771",
+      "current_sha256": "58385d93e106b167052a87ac51efd93ddaf47afb0bd75791cc0a2d5b59de6d11",
+      "reason": "I066 implementation, runtime contract and regression changes"
+    },
+    "tools/test_chapter04_mutations.py": {
+      "sha256": "3bfe3ada7d60c12289ebc26d4fd7ba0824866ea630c042e1b7a23700e51c8892",
+      "current_sha256": "41db7d81820d4a32f5e5582a45ea7ac19de9911babb86f49a8484a714e58cfec",
+      "reason": "I066 implementation, runtime contract and regression changes"
+    },
+    "tools/test_chapter05_06_mutations.py": {
+      "sha256": "9dcfb3d71dc33108d17f29d284af106cd1ed935038a67be188af0d0aff81f1e2",
+      "current_sha256": "63842f845708ca961c2493dd06c721fe2e369593a815513e68c34f52ecf78556",
+      "reason": "I066 implementation, runtime contract and regression changes",
+      "intermediate_sha256": [
+        "9311c8176ab34f02efb8a1415de2d03bfb1f5676a10c498918f5a3ce516c562f"
+      ]
+    },
+    "code/chapter09_runtime.rkt": {
+      "sha256": "4a1ec978751874471f0e22053559a70ec98a61a7adb660051aa3e013e2f41d53",
+      "current_sha256": "5b5e2febd83ddd2137205044d3ba41b5af761fe9f572fd58fd47856ed0093d38",
+      "reason": "I066 implementation, runtime contract and regression changes"
+    },
+    "code/appendix_b.rkt": {
+      "sha256": "632e3d6303f61657dda77d3b8351af8b95a5e2cf5ade91ac9ae7dec1f862280c",
+      "current_sha256": "3f71ff2ca5da0ccc464d637bfadd561b31f049956c685204307aa7a41ed4a6e0",
+      "reason": "I066 implementation, runtime contract and regression changes"
+    },
+    "code/chapter06.rkt": {
+      "sha256": "52067deae2650a11fc751b8eb4f204ae5bfc4a84422f226d7d540738974f5bb1",
+      "reason": "I066 continuation role correction and regression",
+      "intermediate_sha256": [
+        "52067deae2650a11fc751b8eb4f204ae5bfc4a84422f226d7d540738974f5bb1"
+      ],
+      "current_sha256": "4482c4e7677b0b029cd597f79cd4c8efd4b77cbb08ead9fd2bc0e672c36d4029"
+    },
+    "code/chapter06_outputs.json": {
+      "sha256": "e9335bc81df94119f38575d80358d9910f6dba978798f7fa4bdb303fa0deebad",
+      "reason": "I066 continuation role correction and regression",
+      "intermediate_sha256": [
+        "e9335bc81df94119f38575d80358d9910f6dba978798f7fa4bdb303fa0deebad",
+        "3173f09c485bb7df03e40c79bb63e2973d894a30fc820b4cf5589b3d34208905"
+      ],
+      "current_sha256": "69fc50addccfe04aad283e7a65161d0af7dde5b212659575243d99a89aab4496"
+    },
+    "tools/test_review_repairs.rkt": {
+      "sha256": "3ea105aa5f12a6111bec6afbea40ea6447c5a0d526f78650d9f986d4a5900a93",
+      "reason": "I066 continuation role correction and regression",
+      "intermediate_sha256": [
+        "3ea105aa5f12a6111bec6afbea40ea6447c5a0d526f78650d9f986d4a5900a93"
+      ],
+      "current_sha256": "707baff6de9047afcfb0f10df6016f5a831fe7af85a70bcf65022de24f3b5b78"
+    }
+  },
+  "completed_at_utc": "2026-10-25T15:09:55.360347+00:00",
+  "open_findings": [],
+  "validation": {
+    "root": {
+      "record": "tmp/project-check/20261025T230123-_yai53qd/report.json",
+      "sha256": "58f10e262130e826a7dd598580075fd912b48e28786167fff105546b7176772b",
+      "checks": 14,
+      "status": "passed",
+      "book": "eopl",
+      "quick": false
+    },
+    "programs": {
+      "record": "tmp/project-check/20261025T230123-_yai53qd/eopl/report.json",
+      "sha256": "3bc40e9ba7cd95148833b575543b2862a90bd78d36e1dc32296873e278a2cfff",
+      "status": "passed",
+      "existing_counted_assertions": 17842,
+      "new_counted_assertions": 544,
+      "reader_examples": 4,
+      "chapter4_to_9_mutations": 63,
+      "chapter3_mutations": 6,
+      "note": "The separate Chapter 3 six-fault suite ran earlier in this repair; its implementation and mutation witness were unchanged by the final CPS namespace correction.",
+      "chapter3_evidence": {
+        "record": "tmp/eopl-repairs-20261025/tmp/eopl-ch03-20261023/program-mutations/report.json",
+        "sha256": "226aa42aa5a9f891aef510ee06c5da03c59e550c00e15ed4deb53d8f1bce9551"
+      }
+    },
+    "checker_mutations": {
+      "record": "tmp/eopl-repairs-20261025/checker/report.json",
+      "sha256": "12222a2136b7902e38bcd70876bb583822fe4e7390ae046dac508b9bfc2b15a8",
+      "cases": 48,
+      "status": "passed",
+      "scope": "Checker fixture suite ran before final CPS namespace/target presentation update; checker logic unchanged."
+    },
+    "node_tests": {
+      "record": "tmp/eopl-repairs-20261025/node-tests.log",
+      "sha256": "9f97f64b3a40aad24d50623105a26841c4fcf94797a4139f673723c5eac6af80",
+      "tests": 118,
+      "status": "passed"
+    },
+    "source_question_preservation": {
+      "record": "tmp/eopl-repairs-20261025/question-preservation-final.json",
+      "sha256": "53e21377287d7008a0269aefaffd7e7a3f5291e137c368ea7ea6a4a9e1dce3e9",
+      "pages": 6,
+      "questions": 231
+    },
+    "format_only_equivalence": {
+      "record": "tmp/eopl-repairs-20261025/format-equivalence-final.json",
+      "sha256": "021488d35c3fc30641e9210fc7dd58b76aca8339b0e7a4dbf8ac3bd8ccd80741"
+    },
+    "browser": {
+      "record": "tmp/reading-notes-migration/browser/eopl/runs/2026-10-25T15-01-24-776Z-2696a87f/report.json",
+      "sha256": "a1d3402af7e8f6944832c56e459ebe906fdb8c48e4a6713fe9d8d55c834457d3",
+      "pages": 15,
+      "js_views": 60,
+      "no_js_views": 30,
+      "reused_views": 72,
+      "fresh_views": 18,
+      "status": "passed",
+      "errors": []
+    },
+    "manual_reader": {
+      "record": "tmp/eopl-repairs-20261025/reader-manual/report.json",
+      "sha256": "d9de73fd1f060704bf31d23acb84829175cbf0b5c0280b1c24c37dd05bbcea3f",
+      "screenshots_visually_read": 18
+    },
+    "parity": {
+      "record": "tmp/eopl-repairs-20261025/parity-final.log",
+      "sha256": "7b3ac6fdb7a1bea3b0183e6c66f35b0521d39411b54c54b7db68fc36c9846605",
+      "pages": 69,
+      "differences": 0
+    },
+    "performance": {
+      "record": "tmp/eopl-repairs-20261025/performance-final.log",
+      "sha256": "24afc2173690d9b94c5632659312c37571738022f41463d2c7825d748fb717a3",
+      "public_html": 91,
+      "status": "passed"
+    },
+    "build": {
+      "record": "tmp/eopl-repairs-20261025/build-final-readable.log",
+      "sha256": "9ac22ddefbfb5d954b6939e6684b9d0b496c8d95d822f6ac1a933f096e8b6cfc",
+      "release_id": "20261025T225409",
+      "files": 587,
+      "reading_pages": 69,
+      "bytes": 81574186
+    }
+  },
+  "verification_boundary": "Local implementation, executed regressions, controlled HTML, package and browser acceptance. No commit, push, deployment or public acceptance. Does not re-prove all 356 exercises.",
+  "historical_evidence": "Earlier I065 validation/publication receipts and prior source revisions are retained. format-equivalence.json records an intermediate formatting-only stage; format-equivalence-final.json excludes the semantic CPS transform change."
+}

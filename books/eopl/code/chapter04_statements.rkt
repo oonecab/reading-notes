@@ -1,6 +1,7 @@
 #lang racket
 ;; Exercises 4.22–4.27: a statement language with a separate expression front end.
 (require eopl (prefix-in s: "chapter04.rkt"))
+(require "sllgen_guard.rkt")
 (provide (all-defined-out))
 
 ;; BEGIN statement-grammar
@@ -37,7 +38,7 @@
     (sx ("begin" sx (arbno ";" sx) "end") sx-begin)
     (sx ("set" identifier "=" sx) sx-set)))
 (sllgen:make-define-datatypes lexical grammar)
-(define scan&parse (sllgen:make-string-parser lexical grammar))
+(define scan&parse (guard-sllgen (sllgen:make-string-parser lexical grammar) lexical grammar))
 ;; END statement-grammar
 
 (define (expression->core e)

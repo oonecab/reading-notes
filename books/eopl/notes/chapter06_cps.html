@@ -569,10 +569,10 @@ fnlrgtn/k(s,n,yes,no):
          else fnlrgtn/k(cdr(s),n,yes,no)
     else fnlrgtn/k(car(s),n,yes,
            lambda() fnlrgtn/k(cdr(s),n,yes,no))</code></pre><p>fnlrgtn 的失败续文负责“本子表没找到时查后缀”；成功续文不再触碰后缀。本实现用空表标记整个输入无匹配，避免与任意整数答案冲突。实际测试结果依次是 <code>((1) 2)</code>、1、<code>(1 (3) 3)</code>、3、3、<code>(1 4 9 16 25)</code>、7、1。每项均先跑原 AST，再把转换输出序列化，经独立 CPS-OUT 解析器重读后运行。</p><p>对应目标转移步数是 34、31、26、109、53、30、31、25；depth 与带 let 版同为 3，但后者避免重复计算。这些步数是本解释器的状态转移计数，不是原书宿主的时间测量。</p><p>下面保留这八个输入实际生成并执行的完整 CPS-OUT 程序；每段可单独复制给目标解释器，生成名只承担区分绑定的作用。</p><details class="code-details" id="target-removeall"><summary>转换后的完整程序 · removeall</summary><!-- EOPL:target removeall --><pre><code class="language-scheme">letrec
-  removeall%1(n%2,s%3,k%6) =
+  removeall%1(n%2,s%3,k%%6) =
     if null?(s%3)
     then
-      (k%6
+      (k%%6
         list())
     else
       if number?(car(s%3))
@@ -582,13 +582,13 @@ fnlrgtn/k(s,n,yes,no):
           (removeall%1
             n%2
             cdr(s%3)
-            k%6)
+            k%%6)
         else
           (removeall%1
             n%2
             cdr(s%3)
             proc (v%7)
-              (k%6
+              (k%%6
                 cons(car(s%3),v%7)))
       else
         (removeall%1
@@ -599,7 +599,7 @@ fnlrgtn/k(s,n,yes,no):
               n%2
               cdr(s%3)
               proc (v%9)
-                (k%6
+                (k%%6
                   cons(v%8,v%9))))
 in
   (removeall%1
@@ -607,23 +607,23 @@ in
     list(3,list(1,3),3,2)
     proc (answer%4)
       answer%4)</code></pre><!-- EOPL:end-target --></details><details class="code-details" id="target-occurs-in-predicate"><summary>转换后的完整程序 · occurs-in?</summary><!-- EOPL:target occurs-in? --><pre><code class="language-scheme">letrec
-  occurs-in?%1(n%2,s%3,k%6) =
+  occurs-in?%1(n%2,s%3,k%%6) =
     if null?(s%3)
     then
-      (k%6
+      (k%%6
         0)
     else
       if number?(car(s%3))
       then
         if equal?(n%2,car(s%3))
         then
-          (k%6
+          (k%%6
             1)
         else
           (occurs-in?%1
             n%2
             cdr(s%3)
-            k%6)
+            k%%6)
       else
         (occurs-in?%1
           n%2
@@ -631,36 +631,36 @@ in
           proc (v%7)
             if v%7
             then
-              (k%6
+              (k%%6
                 1)
             else
               (occurs-in?%1
                 n%2
                 cdr(s%3)
-                k%6))
+                k%%6))
 in
   (occurs-in?%1
     7
     list(1,list(3,list(2),7,list(9)))
     proc (answer%4)
       answer%4)</code></pre><!-- EOPL:end-target --></details><details class="code-details" id="target-remfirst"><summary>转换后的完整程序 · remfirst</summary><!-- EOPL:target remfirst --><pre><code class="language-scheme">letrec
-  occurs-in?%1(n%3,s%4,k%11) =
+  occurs-in?%1(n%3,s%4,k%%11) =
     if null?(s%4)
     then
-      (k%11
+      (k%%11
         0)
     else
       if number?(car(s%4))
       then
         if equal?(n%3,car(s%4))
         then
-          (k%11
+          (k%%11
             1)
         else
           (occurs-in?%1
             n%3
             cdr(s%4)
-            k%11)
+            k%%11)
       else
         (occurs-in?%1
           n%3
@@ -668,32 +668,32 @@ in
           proc (v%12)
             if v%12
             then
-              (k%11
+              (k%%11
                 1)
             else
               (occurs-in?%1
                 n%3
                 cdr(s%4)
-                k%11))
-  remfirst%2(n%5,s%6,k%13) =
+                k%%11))
+  remfirst%2(n%5,s%6,k%%13) =
     letrec
-      loop%7(s%8,k%14) =
+      loop%7(s%8,k%%14) =
         if null?(s%8)
         then
-          (k%14
+          (k%%14
             list())
         else
           if number?(car(s%8))
           then
             if equal?(n%5,car(s%8))
             then
-              (k%14
+              (k%%14
                 cdr(s%8))
             else
               (loop%7
                 cdr(s%8)
                 proc (v%15)
-                  (k%14
+                  (k%%14
                     cons(car(s%8),v%15)))
           else
             (occurs-in?%1
@@ -706,36 +706,36 @@ in
                     n%5
                     car(s%8)
                     proc (v%17)
-                      (k%14
+                      (k%%14
                         cons(v%17,cdr(s%8))))
                 else
                   (remfirst%2
                     n%5
                     cdr(s%8)
                     proc (v%18)
-                      (k%14
+                      (k%%14
                         cons(car(s%8),v%18))))
     in
       (loop%7
         s%6
-        k%13)
+        k%%13)
 in
   (remfirst%2
     3
     list(1,list(3,3),3)
     proc (answer%9)
       answer%9)</code></pre><!-- EOPL:end-target --></details><details class="code-details" id="target-depth"><summary>转换后的完整程序 · depth</summary><!-- EOPL:target depth --><pre><code class="language-scheme">letrec
-  depth%1(s%2,k%5) =
+  depth%1(s%2,k%%5) =
     if null?(s%2)
     then
-      (k%5
+      (k%%5
         1)
     else
       if number?(car(s%2))
       then
         (depth%1
           cdr(s%2)
-          k%5)
+          k%%5)
       else
         (depth%1
           car(s%2)
@@ -751,29 +751,29 @@ in
                     then
                       (depth%1
                         cdr(s%2)
-                        k%5)
+                        k%%5)
                     else
                       (depth%1
                         car(s%2)
                         proc (v%7)
-                          (k%5
+                          (k%%5
                             add1(v%7)))))
 in
   (depth%1
     list(1,list(3,list(2),7,list(9)))
     proc (answer%3)
       answer%3)</code></pre><!-- EOPL:end-target --></details><details class="code-details" id="target-depth-with-let"><summary>转换后的完整程序 · depth-with-let</summary><!-- EOPL:target depth-with-let --><pre><code class="language-scheme">letrec
-  depth%1(s%2,k%7) =
+  depth%1(s%2,k%%7) =
     if null?(s%2)
     then
-      (k%7
+      (k%%7
         1)
     else
       if number?(car(s%2))
       then
         (depth%1
           cdr(s%2)
-          k%7)
+          k%%7)
       else
         (depth%1
           car(s%2)
@@ -789,20 +789,20 @@ in
                     in
                       if less?(dfirst%3,drest%4)
                       then
-                        (k%7
+                        (k%%7
                           drest%4)
                       else
-                        (k%7
+                        (k%%7
                           dfirst%3)))
 in
   (depth%1
     list(1,list(3,list(2),7,list(9)))
     proc (answer%5)
       answer%5)</code></pre><!-- EOPL:end-target --></details><details class="code-details" id="target-map"><summary>转换后的完整程序 · map</summary><!-- EOPL:target map --><pre><code class="language-scheme">letrec
-  map%1(f%3,l%4,k%8) =
+  map%1(f%3,l%4,k%%8) =
     if null?(l%4)
     then
-      (k%8
+      (k%%8
         list())
     else
       (f%3
@@ -812,10 +812,10 @@ in
             f%3
             cdr(l%4)
             proc (v%10)
-              (k%8
+              (k%%8
                 cons(v%9,v%10))))
-  square%2(n%5,k%11) =
-    (k%11
+  square%2(n%5,k%%11) =
+    (k%%11
       *(n%5,n%5))
 in
   (map%1
@@ -823,23 +823,23 @@ in
     list(1,2,3,4,5)
     proc (answer%6)
       answer%6)</code></pre><!-- EOPL:end-target --></details><details class="code-details" id="target-fnlrgtn"><summary>转换后的完整程序 · fnlrgtn</summary><!-- EOPL:target fnlrgtn --><pre><code class="language-scheme">letrec
-  find%1(s%2,n%3,k%7) =
+  find%1(s%2,n%3,k%%7) =
     if null?(s%2)
     then
-      (k%7
+      (k%%7
         list())
     else
       if number?(car(s%2))
       then
         if greater?(car(s%2),n%3)
         then
-          (k%7
+          (k%%7
             car(s%2))
         else
           (find%1
             cdr(s%2)
             n%3
-            k%7)
+            k%%7)
       else
         (find%1
           car(s%2)
@@ -847,23 +847,23 @@ in
           proc (answer%4)
             if number?(answer%4)
             then
-              (k%7
+              (k%%7
                 answer%4)
             else
               (find%1
                 cdr(s%2)
                 n%3
-                k%7))
+                k%%7))
 in
   (find%1
     list(1,list(3,list(2),7,list(9)))
     6
     proc (answer%5)
       answer%5)</code></pre><!-- EOPL:end-target --></details><details class="code-details" id="target-every"><summary>转换后的完整程序 · every</summary><!-- EOPL:target every --><pre><code class="language-scheme">letrec
-  every%1(pred%2,l%3,k%7) =
+  every%1(pred%2,l%3,k%%7) =
     if null?(l%3)
     then
-      (k%7
+      (k%%7
         1)
     else
       (pred%2
@@ -874,14 +874,14 @@ in
             (every%1
               pred%2
               cdr(l%3)
-              k%7)
+              k%%7)
           else
-            (k%7
+            (k%%7
               0))
 in
   (every%1
-    proc (n%4,k%9)
-      (k%9
+    proc (n%4,k%%9)
+      (k%%9
         greater?(n%4,5))
     list(6,7,8,9)
     proc (answer%5)
@@ -943,7 +943,7 @@ in (f 5 proc(a)
    [`(if ,t ,a ,b)
     (exps (list t) (lambda (ss)
      (if (and share-if? (not (eq? (car k) &#x27;var)))
-      (let ([name (fresh &#x27;join)]) `(let1 ,name ,k (if ,(car ss) ,(cps a (V name) h) ,(cps b (V name) h))))
+      (let ([name (fresh &#x27;join%)]) `(let1 ,name ,k (if ,(car ss) ,(cps a (V name) h) ,(cps b (V name) h))))
       `(if ,(car ss) ,(cps a k h) ,(cps b k h)))) h)]
    [`(let ,xs ,es ,b)
     (cond [(and fuse-let? (= (length xs) 1) (not (simple? (car es) #f)))
@@ -1031,12 +1031,92 @@ applyData(k,args):
     then let K=car(cdr(k))
          in let a=car(cdr(cdr(k)))
             in let v=car(args)
-               in ... invoke K on -(a,v) ...</code></pre><p><code>defunctionalize(...,#:all? #f)</code> 给出完整翻译器。它按编译器生成的 k/join 名和过程参数角色识别续文，不把用户的一元函数误判为续文；普通用户过程仍用过程表示。整数标签和自由变量字段顺序写进返回的 table；目标仍经过独立列表扩展文法解析后运行。</p></div></details><details class="exercise" id="ex-6-32"><summary>习题 6.32 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.32"><p>写一个类似<a href="#ex-6-31">习题 6.31</a> 的翻译器，不过把所有过程都用数据结构表示。</p></div><p class="source">印刷 p.225 / <a href="../assets/source.pdf#page=248">PDF 248</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p><code>defunctionalize</code> 默认 all? 模式对用户过程和续文统一作 lambda lifting：每个过程变成“整数代码标签＋自由变量值表”，全部用户调用都走 applyData。分派器自身是实现这组有限代码标签的唯一过程入口，不是再次等待转换的源闭包。</p><p>递归组不能简单把过程自己塞进其未建立的捕获表。实现先为整组分配标签，求出组的共同外部自由变量；进入分派分支时，用相同外部捕获值重建组内各名字的标签记录，再绑定实参。这样不需要构造循环列表，也保留互递归。回归覆盖闭包捕获、递归和多个参数；与过程表示输出逐个相同。</p></div></details><details class="exercise" id="ex-6-33"><summary>习题 6.33 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.33"><p>写一个翻译器，输入<a href="#ex-6-32">习题 6.32</a> 的输出，产生类似图 6.1 的寄存器程序。</p></div><p class="source">印刷 p.225 / <a href="../assets/source.pdf#page=248">PDF 248</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p><code>compile-register</code> 给每个 TfExp 分配整数代码标签，生成 Return/Bind/Branch/Rec/Call 与效果指令。简单过程值变成正文标签、形参表、定义环境的记录；调用先取得目标记录和实参，写入 env 与 pc，跳到正文标签。没有“回到这一条 Call 之后”的指令，剩余工作已经在显式续文数据里。</p><pre><code class="language-text">CALL f,args:
+               in ... invoke K on -(a,v) ...</code></pre><p><code>defunctionalize(...,#:all? #f)</code> 给出完整翻译器。该变换接收本章转换器对 §6.3 纯 CPS-IN 及列表扩展产生的输出。生成的续文形参和分支连接点使用 <code>k%%编号</code>、<code>join%%编号</code>；源标识符不能含百分号，α 改名后的用户 <code>k</code> 则形如 <code>k%编号</code>。转换器据此区分过程参数和续文角色，普通用户过程仍用过程表示。整数标签和自由变量字段顺序写进返回的 table；目标仍经过独立列表扩展文法解析后运行。</p><p>具体从 <a href="#chapter06_transforms-code">chapter06_transforms.rkt</a> 的 <code>lift-proc</code> 进入：对过程体求自由变量，排除形参，登记代码标签，再按同一顺序打包捕获值；<code>case-body</code> 用这一顺序恢复字段。下面的片段与完整实现同步。</p><div id="continuation-tagging"><!-- EOPL:snippet chapter06_transforms.rkt closure-tagging -->
+<details class="code-details" open><summary>查看实现 · closure-tagging</summary><pre><code class="language-scheme"> (define (lift-proc ps body)
+  (define fvs (minus (free body) ps))
+  (define entry (reserve! ps body fvs #f))
+  (vector-set! entry 5 (go body)) (pack (vector-ref entry 0) fvs))
+</code></pre></details>
+<!-- EOPL:end-snippet --></div><details class="code-details" open id="defunctionalization-example"><summary>比较仅续文数据化与全部过程数据化</summary><pre><code class="language-scheme" data-review-example="defunctionalization-example">(require (prefix-in c: &quot;chapter06.rkt&quot;)
+         (prefix-in x: &quot;chapter06_transforms.rkt&quot;)
+         (prefix-in t: &quot;chapter06_target.rkt&quot;))
+(define target
+  (c:cps-program &quot;let x = 8 in let k = proc(a) -(x,a) in (k 3)&quot;))
+(for ([all? &#x27;(#f #t)])
+  (define-values (data table) (x:defunctionalize target #:all? all?))
+  (define-values (answer metrics)
+    (t:run-target (t:parse-target (t:target-string data))))
+  (displayln (list all? answer)))
+</code></pre></details><p>结果为 <code>(#f 5)</code> 和 <code>(#t 5)</code>；检查 table 可以看到数据标签对应的形参和自由变量。将同目录下的目标前端、转换器及其依赖一起下载后运行。</p></div></details><details class="exercise" id="ex-6-32"><summary>习题 6.32 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.32"><p>写一个类似<a href="#ex-6-31">习题 6.31</a> 的翻译器，不过把所有过程都用数据结构表示。</p></div><p class="source">印刷 p.225 / <a href="../assets/source.pdf#page=248">PDF 248</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p><code>defunctionalize</code> 默认 all? 模式对用户过程和续文统一作 lambda lifting：每个过程变成“整数代码标签＋自由变量值表”，全部用户调用都走 applyData。分派器自身是实现这组有限代码标签的唯一过程入口，不是再次等待转换的源闭包。</p><p>递归组不能简单把过程自己塞进其未建立的捕获表。实现先为整组分配标签，求出组的共同外部自由变量；进入分派分支时，用相同外部捕获值重建组内各名字的标签记录，再绑定实参。这样不需要构造循环列表，也保留互递归。回归覆盖闭包捕获、递归和多个参数；与过程表示输出逐个相同。</p><p>可用<a href="#defunctionalization-example">上一题的完整程序</a>把 all? 切到 #t。递归组对应 <code>go</code> 的 letrec 分支：先 reserve 全组标签，再转换各过程体；下方 <code>case-body</code> 在分派时先重建组，再绑定参数和自由变量。这个顺序使递归调用拿到同一组外部捕获值。</p><div id="procedure-dispatch-implementation"><!-- EOPL:snippet chapter06_transforms.rkt defunction-dispatch -->
+<details class="code-details" open><summary>查看实现 · defunction-dispatch</summary><pre><code class="language-scheme"> (define (case-body entry)
+  (match-define (vector tag ps original fvs group converted) entry)
+  (define restored
+   (if group
+    (foldr (lambda (p rest) `(let1 ,(car p) ,(pack (cdr p) fvs) ,rest)) converted group)
+    converted))
+  (define with-params
+   (for/fold ([t restored])
+             ([p (in-list (reverse ps))]
+              [i (in-list (reverse (range (length ps))))])
+    `(let1 ,p ,(at (V args) i) ,t)))
+  (for/fold ([t with-params])
+            ([x (in-list (reverse fvs))]
+             [i (in-list (reverse (range 1 (add1 (length fvs)))))])
+   `(let1 ,x ,(at (V clos) i) ,t)))
+ (define dispatch
+  (foldr (lambda (entry rest)
+   `(if (prim equal? ,(at (V clos) 0) (num ,(vector-ref entry 0))) ,(case-body entry) ,rest))
+   &#x27;(uncaught (num 999)) table))
+</code></pre></details>
+<!-- EOPL:end-snippet --></div></div></details><details class="exercise" id="ex-6-33"><summary>习题 6.33 · ★★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.33"><p>写一个翻译器，输入<a href="#ex-6-32">习题 6.32</a> 的输出，产生类似图 6.1 的寄存器程序。</p></div><p class="source">印刷 p.225 / <a href="../assets/source.pdf#page=248">PDF 248</a></p></div><div class="answer"><p class="rn-exercise-label">解答与执行</p><p><code>compile-register</code> 给每个 TfExp 分配整数代码标签，生成 Return/Bind/Branch/Rec/Call 与效果指令。简单过程值变成正文标签、形参表、定义环境的记录；调用先取得目标记录和实参，写入 env 与 pc，跳到正文标签。没有“回到这一条 Call 之后”的指令，剩余工作已经在显式续文数据里。</p><pre><code class="language-text">CALL f,args:
   closure := simple(f,env)
   values  := simple-args(args,env)
   env := extend*(params(closure),values,saved-env(closure))
   pc  := body-label(closure)
-  goto dispatch</code></pre><p>翻译器与循环运行器维护在 <code>chapter06_register.rkt</code>。先把递归计数程序转换成 CPS，再把全部过程数据化，最后编译为标签指令；n=100 实际返回 100，执行 1,114 条标签指令，共 18 个代码标签。运行时闭包数据与程序代码表分开；标签数由程序大小决定，不随递归次数增加。</p></div></details><details class="exercise" id="ex-6-34"><summary>习题 6.34 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.34"><p>CPS 不只把控制上下文显式化，还决定操作次序，并给中间结果起名，这叫顺序化。若不要求迭代控制行为，可以改为 A-normal form（ANF）。下面是一个例子。</p><pre><code class="language-scheme">(define fib/anf
+  goto dispatch</code></pre><p>翻译器与循环运行器维护在 <code>chapter06_register.rkt</code>。先把递归计数程序转换成 CPS，再把全部过程数据化，最后编译为标签指令；n=100 实际返回 100，执行 1,114 条标签指令，共 18 个代码标签。运行时闭包数据与程序代码表分开；标签数由程序大小决定，不随递归次数增加。</p><details class="code-details" open id="register-pipeline-example"><summary>完整运行 CPS → 过程数据 → 寄存器指令</summary><pre><code class="language-scheme" data-review-example="register-pipeline-example">(require (prefix-in c: &quot;chapter06.rkt&quot;)
+         (prefix-in x: &quot;chapter06_transforms.rkt&quot;)
+         (prefix-in r: &quot;chapter06_register.rkt&quot;))
+(define source
+  &quot;letrec count(n) = if zero?(n) then 0
+   else -((count -(n,1)),-1) in (count 100)&quot;)
+(define-values (data table) (x:defunctionalize (c:cps-program source)))
+(define program (r:compile-register data))
+(define-values (answer metrics) (r:run-register program))
+(displayln (list answer (hash-ref metrics &#x27;steps)
+                 (hash-count (r:register-program-instructions program))))
+</code></pre></details><p>源码中的入口依次为 <code>cps-program</code>、<code>defunctionalize</code>、<code>compile-register</code> 和 <code>run-register</code>；<a href="#chapter06_register-code">完整标签编译器</a>中的 <code>T</code> 先生成指令表，<code>call!</code> 只改 env/pc，下面循环从新 pc 继续。沿上述程序即可逐个查看中间的 target、data 和 instructions。</p><div id="register-dispatch-implementation"><!-- EOPL:snippet chapter06_register.rkt labelled-driver -->
+<details class="code-details" open><summary>查看实现 · labelled-driver</summary><pre><code class="language-scheme"> (let loop ()
+  (set! steps (add1 steps))
+  (when (&gt; steps fuel) (error &#x27;register &quot;fuel exhausted&quot;))
+  (match (hash-ref (register-program-instructions program) pc)
+   [`(return ,s) (set! val (V s)) (set! pc #f)]
+   [`(bind ,x ,s ,next)
+    (set! env (extend (list x) (list (V s)) env)) (set! pc next)]
+   [`(branch ,s ,yes ,no)
+    (set! pc (if (truth (V s) numeric?) yes no))]
+   [`(rec ,ns ,pss ,labels ,next)
+    (define rho (extend ns (map (lambda (_) #f) ns) env))
+    (for ([n ns] [ps pss] [label labels])
+     (set-box! (cdr (assq n rho)) (code-closure label ps rho)))
+    (set! env rho) (set! pc next)]
+   [`(call ,f ,ss) (call! (V f) (map V ss))]
+   [`(print ,s ,next)
+    (set! output (cons (V s) output)) (set! pc next)]
+   [`(newref ,s ,k)
+    (define r (box (V s))) (set! refs (cons r refs))
+    (call! (V k) (list r))]
+   [`(deref ,s ,k)
+    (define r (V s))
+    (unless (memq r refs) (error &#x27;deref &quot;reference required&quot;))
+    (call! (V k) (list (unbox r)))]
+   [`(setref ,a ,b ,next)
+    (define r (V a))
+    (unless (memq r refs) (error &#x27;setref &quot;reference required&quot;))
+    (set-box! r (V b)) (set! pc next)]
+   [`(uncaught ,s) (error &#x27;raise &quot;uncaught: ~s&quot; (V s))])
+  (when pc (loop)))
+</code></pre></details>
+<!-- EOPL:end-snippet --></div></div></details><details class="exercise" id="ex-6-34"><summary>习题 6.34 · ★★</summary><div class="exercise-question"><p class="rn-exercise-label">原题</p><div class="question-translation" lang="zh-CN" data-exercise="6.34"><p>CPS 不只把控制上下文显式化，还决定操作次序，并给中间结果起名，这叫顺序化。若不要求迭代控制行为，可以改为 A-normal form（ANF）。下面是一个例子。</p><pre><code class="language-scheme">(define fib/anf
   (lambda (n)
     (if (&lt; n 2)
         1
@@ -1073,7 +1153,7 @@ C(throw value to target,K)
    in C(body,K,h)
 C(raise e,K,H) = C(e,proc(v) (H v),H)
 C(call f args,K,H) = ... (f args K H)
-C(proc(xs) b,K,H) = send(K,proc(xs,k,h) C(b,k,h))</code></pre><p>关键是所有用户过程都增加 k/h 两个参数，调用时传入当前处理器；不能让过程闭包固定捕获定义时的动态异常通道。<code>#:exceptions? #t</code> 完成这套转换，handler 再抛时使用外层 H，正常结果走外层 K。无处理器的程序以终结错误通道报告。正常 try/raise 不需要 CPS-OUT 增加异常构造；运行器的 uncaught 仅承担无处理器错误报告。</p></div></details></section><section id="programs"><h2>运行本章程序</h2><p>程序采用 Racket 8.17 与 eopl/rackunit，语法前端与运行器分开维护；下载文件后保留原文件名并放在同一个目录。共享的测试与第五、六章模块需要一起取得；语句版还使用第四章的语句语法模块。下面源码阅读副本与实际执行的维护文件同步。</p><pre><code class="language-sh">&quot;/Applications/Racket v8.17/bin/racket&quot; books/eopl/code/test_chapter05_06.rkt
+C(proc(xs) b,K,H) = send(K,proc(xs,k,h) C(b,k,h))</code></pre><p>关键是所有用户过程都增加 k/h 两个参数，调用时传入当前处理器；不能让过程闭包固定捕获定义时的动态异常通道。<code>#:exceptions? #t</code> 完成这套转换，handler 再抛时使用外层 H，正常结果走外层 K。无处理器的程序以终结错误通道报告。正常 try/raise 不需要 CPS-OUT 增加异常构造；运行器的 uncaught 仅承担无处理器错误报告。</p></div></details></section><section id="programs"><h2>运行本章程序</h2><p>这些解析器使用共同的输入校验模块。下载程序时，同时保存 <a download href="../code/sllgen_guard.rkt">sllgen_guard.rkt</a> 并与本章模块放在同一目录；完整文件依赖与运行方式见<a href="../code/README.md">程序说明</a>。</p><p>程序采用 Racket 8.17 与 eopl/rackunit，语法前端与运行器分开维护；下载文件后保留原文件名并放在同一个目录。共享的测试与第五、六章模块需要一起取得；语句版还使用第四章的语句语法模块。下面源码阅读副本与实际执行的维护文件同步。</p><pre><code class="language-sh">&quot;/Applications/Racket v8.17/bin/racket&quot; books/eopl/code/test_chapter05_06.rkt
 &quot;/Applications/Racket v8.17/bin/racket&quot; books/eopl/code/chapter06_examples.rkt
 &quot;/Applications/Racket v8.17/bin/racket&quot; books/eopl/code/test_chapter06_scheme.rkt</code></pre><div class="program-output"><p>实际结果：double(6) 经 CPS-OUT 得 12；图 6.1/6.2 修正前阶乘 4 得 1，修正后得 24；题 6.13 八例结果见该题表述，全部过程数据化再寄存器化的递归 100 返回 100。</p></div><p>数值/返回值、输出次序、错误路径、续文大小与各表示之间的比较各自检查。有限运行用于核对实现，归纳和转换不变量在正文与题解中说明。C 固定容量 arena、Python 同步模型的 JSON 消息边界，以及目标解释器的步数上限均在代码中明确。</p><ul><li><a download href="../code/chapter06.rkt">下载 chapter06.rkt</a></li><li><a download href="../code/chapter06_target.rkt">下载 chapter06_target.rkt</a></li><li><a download href="../code/chapter06_algorithms.rkt">下载 chapter06_algorithms.rkt</a></li><li><a download href="../code/chapter06_examples.rkt">下载 chapter06_examples.rkt</a></li><li><a download href="../code/chapter06_transforms.rkt">下载 chapter06_transforms.rkt</a></li><li><a download href="../code/chapter06_register.rkt">下载 chapter06_register.rkt</a></li><li><a download href="../code/test_chapter06_scheme.rkt">下载 test_chapter06_scheme.rkt</a></li><li><a download href="../code/test_chapter05_06.rkt">下载 test_chapter05_06.rkt</a></li><li><a download href="../code/chapter06_outputs.json">八个完整 CPS-OUT 输入与输出</a></li><li><a href="../code/README.md">完整程序与依赖说明</a></li></ul><details class="code-details" id="chapter06-program"><summary>完整程序 · chapter06.rkt</summary><!-- EOPL:program chapter06.rkt --><pre><code id="chapter06-code" class="language-scheme">#lang racket
 ;; CPS-IN -&gt; CPS-OUT, with independent target parsing/evaluation.
@@ -1216,7 +1296,8 @@ C(proc(xs) b,K,H) = send(K,proc(xs,k,h) C(b,k,h))</code></pre><p>关键是所有
    [`(prim ,op . ,es) `(prim ,op ,@(map (lambda (a) (simp a h)) es))]
    [`(list . ,es) `(list ,@(map (lambda (a) (simp a h)) es))]
    [`(proc ,xs ,b)
-    (define k (fresh &#x27;k)) (define err (and exceptions? (fresh &#x27;h)))
+    ;; Source identifiers cannot contain %, so %% marks compiler control roles.
+    (define k (fresh &#x27;k%)) (define err (and exceptions? (fresh &#x27;h%)))
     `(proc ,(append xs (list k) (if err (list err) &#x27;())) ,(cps b (V k) (if err (V err) h)))]))
 ;; BEGIN cps-main
  (define (cps e k h)
@@ -1230,7 +1311,7 @@ C(proc(xs) b,K,H) = send(K,proc(xs,k,h) C(b,k,h))</code></pre><p>关键是所有
    [`(if ,t ,a ,b)
     (exps (list t) (lambda (ss)
      (if (and share-if? (not (eq? (car k) &#x27;var)))
-      (let ([name (fresh &#x27;join)]) `(let1 ,name ,k (if ,(car ss) ,(cps a (V name) h) ,(cps b (V name) h))))
+      (let ([name (fresh &#x27;join%)]) `(let1 ,name ,k (if ,(car ss) ,(cps a (V name) h) ,(cps b (V name) h))))
       `(if ,(car ss) ,(cps a k h) ,(cps b k h)))) h)]
    [`(let ,xs ,es ,b)
     (cond [(and fuse-let? (= (length xs) 1) (not (simple? (car es) #f)))
@@ -1273,6 +1354,7 @@ C(proc(xs) b,K,H) = send(K,proc(xs,k,h) C(b,k,h))</code></pre><p>关键是所有
 </code></pre><!-- EOPL:end-program --></details><details class="code-details" id="chapter06_target-program"><summary>完整程序 · chapter06_target.rkt</summary><!-- EOPL:program chapter06_target.rkt --><pre><code id="chapter06_target-code" class="language-scheme">#lang racket
 ;; Independent CPS-OUT grammar and evaluator; no source-language eval.
 (require (except-in eopl define) (only-in eopl [define eopl:define]) racket/match (only-in &quot;chapter05_syntax.rkt&quot; primitive truth unique! arity!))
+(require &quot;sllgen_guard.rkt&quot;)
 (provide (all-defined-out))
 (eopl:define lexical
  &#x27;((white-space (whitespace) skip)
@@ -1307,7 +1389,7 @@ C(proc(xs) b,K,H) = send(K,proc(xs,k,h) C(b,k,h))</code></pre><p>关键是所有
    (tf (&quot;setrefk&quot; &quot;(&quot; simple &quot;,&quot; simple &quot;)&quot; &quot;;&quot; tf) setref-exp)
    (tf (&quot;uncaught&quot; &quot;(&quot; simple &quot;)&quot;) uncaught-exp)))
 (sllgen:make-define-datatypes lexical grammar)
-(define scan&amp;parse (sllgen:make-string-parser lexical grammar))
+(define scan&amp;parse (guard-sllgen (sllgen:make-string-parser lexical grammar) lexical grammar))
 (define (parse-target text)
  (cases program (scan&amp;parse text) (cps-program (t) (tf-&gt;ast t))))
 (define (s-&gt;ast s)
@@ -1641,17 +1723,21 @@ C(proc(xs) b,K,H) = send(K,proc(xs,k,h) C(b,k,h))</code></pre><p>关键是所有
  (define (V x) `(var ,x))
  (define (at list-exp i) `(prim car ,(for/fold ([x list-exp]) ([_ (in-range i)]) `(prim cdr ,x))))
  (define (pack tag fvs) `(list (num ,tag) ,@(map V fvs)))
+ ;; The pure CPS-IN pipeline reserves %% for generated control names.
+ ;; A source binding named k, h or join is alpha-renamed with one %, not two.
  (define (cont-proc? ps)
-  (not (ormap (lambda (p) (regexp-match? #rx&quot;^[kh]%&quot; (symbol-&gt;string p))) ps)))
- (define (cont-name? x) (regexp-match? #rx&quot;^(k|join)%&quot; (symbol-&gt;string x)))
+  (not (ormap (lambda (p) (regexp-match? #rx&quot;^[kh]%%[0-9]+$&quot; (symbol-&gt;string p))) ps)))
+ (define (cont-name? x) (regexp-match? #rx&quot;^(k|join)%%[0-9]+$&quot; (symbol-&gt;string x)))
  (define (reserve! ps b fvs group)
   (set! next (add1 next))
   (define entry (vector next ps b fvs group #f))
   (set! table (append table (list entry))) entry)
+;; BEGIN closure-tagging
  (define (lift-proc ps body)
   (define fvs (minus (free body) ps))
   (define entry (reserve! ps body fvs #f))
   (vector-set! entry 5 (go body)) (pack (vector-ref entry 0) fvs))
+;; END closure-tagging
  (define (go t)
   (match t
    [`(proc ,ps ,b)
@@ -1679,9 +1765,13 @@ C(proc(xs) b,K,H) = send(K,proc(xs,k,h) C(b,k,h))</code></pre><p>关键是所有
     (foldr (lambda (p rest) `(let1 ,(car p) ,(pack (cdr p) fvs) ,rest)) converted group)
     converted))
   (define with-params
-   (for/fold ([t restored]) ([p (in-list (reverse ps))] [i (in-list (reverse (range (length ps))))])
+   (for/fold ([t restored])
+             ([p (in-list (reverse ps))]
+              [i (in-list (reverse (range (length ps))))])
     `(let1 ,p ,(at (V args) i) ,t)))
-  (for/fold ([t with-params]) ([x (in-list (reverse fvs))] [i (in-list (reverse (range 1 (add1 (length fvs)))))])
+  (for/fold ([t with-params])
+            ([x (in-list (reverse fvs))]
+             [i (in-list (reverse (range 1 (add1 (length fvs)))))])
    `(let1 ,x ,(at (V clos) i) ,t)))
  (define dispatch
   (foldr (lambda (entry rest)
@@ -1819,21 +1909,33 @@ C(proc(xs) b,K,H) = send(K,proc(xs,k,h) C(b,k,h))</code></pre><p>关键是所有
   (set! pc (code-closure-label p)))
 ;; BEGIN labelled-driver
  (let loop ()
-  (set! steps (add1 steps)) (when (&gt; steps fuel) (error &#x27;register &quot;fuel exhausted&quot;))
+  (set! steps (add1 steps))
+  (when (&gt; steps fuel) (error &#x27;register &quot;fuel exhausted&quot;))
   (match (hash-ref (register-program-instructions program) pc)
    [`(return ,s) (set! val (V s)) (set! pc #f)]
-   [`(bind ,x ,s ,next) (set! env (extend (list x) (list (V s)) env)) (set! pc next)]
-   [`(branch ,s ,yes ,no) (set! pc (if (truth (V s) numeric?) yes no))]
+   [`(bind ,x ,s ,next)
+    (set! env (extend (list x) (list (V s)) env)) (set! pc next)]
+   [`(branch ,s ,yes ,no)
+    (set! pc (if (truth (V s) numeric?) yes no))]
    [`(rec ,ns ,pss ,labels ,next)
     (define rho (extend ns (map (lambda (_) #f) ns) env))
-    (for ([n ns] [ps pss] [label labels]) (set-box! (cdr (assq n rho)) (code-closure label ps rho)))
+    (for ([n ns] [ps pss] [label labels])
+     (set-box! (cdr (assq n rho)) (code-closure label ps rho)))
     (set! env rho) (set! pc next)]
    [`(call ,f ,ss) (call! (V f) (map V ss))]
-   [`(print ,s ,next) (set! output (cons (V s) output)) (set! pc next)]
-   [`(newref ,s ,k) (define r (box (V s))) (set! refs (cons r refs)) (call! (V k) (list r))]
-   [`(deref ,s ,k) (define r (V s)) (unless (memq r refs) (error &#x27;deref &quot;reference required&quot;)) (call! (V k) (list (unbox r)))]
-   [`(setref ,a ,b ,next) (define r (V a)) (unless (memq r refs) (error &#x27;setref &quot;reference required&quot;))
-     (set-box! r (V b)) (set! pc next)]
+   [`(print ,s ,next)
+    (set! output (cons (V s) output)) (set! pc next)]
+   [`(newref ,s ,k)
+    (define r (box (V s))) (set! refs (cons r refs))
+    (call! (V k) (list r))]
+   [`(deref ,s ,k)
+    (define r (V s))
+    (unless (memq r refs) (error &#x27;deref &quot;reference required&quot;))
+    (call! (V k) (list (unbox r)))]
+   [`(setref ,a ,b ,next)
+    (define r (V a))
+    (unless (memq r refs) (error &#x27;setref &quot;reference required&quot;))
+    (set-box! r (V b)) (set! pc next)]
    [`(uncaught ,s) (error &#x27;raise &quot;uncaught: ~s&quot; (V s))])
   (when pc (loop)))
 ;; END labelled-driver

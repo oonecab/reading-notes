@@ -37,7 +37,7 @@ def run(racket):
     for name, filename, before, after, witness in variants:
         with tempfile.TemporaryDirectory(prefix=name+'-', dir=output) as tmp:
             folder = Path(tmp)
-            for f in ('chapter03.rkt', 'chapter03_lexical.rkt'):
+            for f in ('chapter03.rkt', 'chapter03_lexical.rkt', 'sllgen_guard.rkt'):
                 shutil.copy2(BOOK/'code'/f, folder/f)
             probe = folder/'witness.rkt'
             probe.write_text('#lang racket\n(require rackunit rackunit/text-ui (prefix-in s: "chapter03.rkt") (prefix-in l: "chapter03_lexical.rkt"))\n'

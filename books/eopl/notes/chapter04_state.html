@@ -1043,7 +1043,7 @@ in let f = proc(x) -(x,x)
   (define locs
     (for/list ([e rhss])
       (newref! (frozen-value e env))))
-  (value-of body (extend-many names locs env)))</code></pre><p><code>lazylet x = missing in 7</code> 实际返回 7，未使用的右侧不会求值；有副作用的右侧只迫使一次，<code>let c = 0 in lazylet x = begin set c = -(c,-1); c end in list(x,x,c)</code> 得 <code>(1 1 1)</code>。<code>let a = 3 in lazylet b = a in begin set b = 9; a end</code> 得 3，说明 b 有独立槽。若希望右侧名字与变量实参一样成为别名，应另取语法并声明，这里没有把两种选择混在一起。</p></div></details></section><section id="programs"><h2>运行本章解释器</h2><p>使用 Racket 8.17 与自带 eopl、rackunit。在仓库根目录依次运行；若 racket 未加入 PATH，使用本机安装目录下的可执行文件。</p><pre><code class="language-scheme">racket books/eopl/code/chapter04_explicit.rkt
+  (value-of body (extend-many names locs env)))</code></pre><p><code>lazylet x = missing in 7</code> 实际返回 7，未使用的右侧不会求值；有副作用的右侧只迫使一次，<code>let c = 0 in lazylet x = begin set c = -(c,-1); c end in list(x,x,c)</code> 得 <code>(1 1 1)</code>。<code>let a = 3 in lazylet b = a in begin set b = 9; a end</code> 得 3，说明 b 有独立槽。若希望右侧名字与变量实参一样成为别名，应另取语法并声明，这里没有把两种选择混在一起。</p></div></details></section><section id="programs"><h2>运行本章解释器</h2><p>这些解析器使用共同的输入校验模块。下载程序时，同时保存 <a download href="../code/sllgen_guard.rkt">sllgen_guard.rkt</a> 并与本章模块放在同一目录；完整文件依赖与运行方式见<a href="../code/README.md">程序说明</a>。</p><p>使用 Racket 8.17 与自带 eopl、rackunit。在仓库根目录依次运行；若 racket 未加入 PATH，使用本机安装目录下的可执行文件。</p><pre><code class="language-scheme">racket books/eopl/code/chapter04_explicit.rkt
 racket books/eopl/code/chapter04.rkt
 racket books/eopl/code/chapter04_statements.rkt
 racket books/eopl/code/test_chapter04.rkt</code></pre><p>纯显式引用程序按“共享计数器、每次重建计数器、双层引用、两次 f 调用”的顺序实际输出：</p><div class="program-output"><pre><code class="language-scheme">-1
@@ -1056,6 +1056,7 @@ racket books/eopl/code/test_chapter04.rkt</code></pre><p>纯显式引用程序�
 0</code></pre></div><p>语句程序的四个原例分别输出 7、12、三行 3/4/3、12。回归含 21 组、641 项断言；49 组小整数输入分别跨三种存储后端核验状态更新与独立宿主算式，并覆盖类型/元数/未绑定、未初始化、固定容量耗尽、数组边界、错误调用种类、动态恢复与惰性步骤上限。有限矩阵是具体实现的核验，递归和策略的解释仍以本章规则为依据。</p><p><code>run</code> 返回带标签的表达值，<code>datum</code> 只转换外部显示形式；<code>run/details</code> 返回最终值、当前存储、操作计数和事件列表，便于自行追踪位置。纯显式版本返回 Answer；语句入口返回打印文本与最终存储。源码说明中列出各选项和返回约定。</p><details class="code-details" id="complete-chapter04"><summary>完整程序 · 隐式引用、对象与参数策略</summary><!-- EOPL:program chapter04.rkt --><pre><code id="chapter04-code" class="language-scheme">#lang racket
 ;; EOPL chapter 4: original companion interpreter; no host eval.
 (require eopl)
+(require &quot;sllgen_guard.rkt&quot;)
 (provide (all-defined-out))
 
 ;; BEGIN state-grammar
@@ -1099,7 +1100,7 @@ racket books/eopl/code/test_chapter04.rkt</code></pre><p>纯显式引用程序�
     (binary-op (&quot;-&quot;) diff-op) (binary-op (&quot;+&quot;) add-op)
     (binary-op (&quot;*&quot;) times-op)))
 (sllgen:make-define-datatypes lexical-spec grammar)
-(define scan&amp;parse (sllgen:make-string-parser lexical-spec grammar))
+(define scan&amp;parse (guard-sllgen (sllgen:make-string-parser lexical-spec grammar) lexical-spec grammar))
 ;; END state-grammar
 
 ;; BEGIN state-values
@@ -1371,6 +1372,7 @@ racket books/eopl/code/test_chapter04.rkt</code></pre><p>纯显式引用程序�
 (define (run/details text #:mode [mode &#x27;value] #:backend [backend &#x27;vector]
                      #:capacity [capacity 16] #:rec [rec &#x27;cached] #:immutable-let? [imm #f]
                      #:optimize-thunks? [opt #f] #:pairs [pairs &#x27;two] #:fuel [limit 100000])
+  (unless (exact-positive-integer? limit) (error &#x27;fuel &quot;positive exact integer required&quot;))
   (unless (memq mode &#x27;(value reference value-result name need)) (error &#x27;run &quot;unknown mode&quot;))
   (define counts (make-hash)) (define events (box &#x27;()))
   (parameterize ([current-store (make-store backend capacity)] [parameter-mode mode]
@@ -1495,6 +1497,7 @@ racket books/eopl/code/test_chapter04.rkt</code></pre><p>纯显式引用程序�
 </code></pre><!-- EOPL:end-program --></details><details class="code-details" id="complete-chapter04-statements"><summary>完整程序 · 语句、声明与子程序</summary><!-- EOPL:program chapter04_statements.rkt --><pre><code id="chapter04_statements-code" class="language-scheme">#lang racket
 ;; Exercises 4.22–4.27: a statement language with a separate expression front end.
 (require eopl (prefix-in s: &quot;chapter04.rkt&quot;))
+(require &quot;sllgen_guard.rkt&quot;)
 (provide (all-defined-out))
 
 ;; BEGIN statement-grammar
@@ -1531,7 +1534,7 @@ racket books/eopl/code/test_chapter04.rkt</code></pre><p>纯显式引用程序�
     (sx (&quot;begin&quot; sx (arbno &quot;;&quot; sx) &quot;end&quot;) sx-begin)
     (sx (&quot;set&quot; identifier &quot;=&quot; sx) sx-set)))
 (sllgen:make-define-datatypes lexical grammar)
-(define scan&amp;parse (sllgen:make-string-parser lexical grammar))
+(define scan&amp;parse (guard-sllgen (sllgen:make-string-parser lexical grammar) lexical grammar))
 ;; END statement-grammar
 
 (define (expression-&gt;core e)

@@ -20,17 +20,21 @@
  (define (V x) `(var ,x))
  (define (at list-exp i) `(prim car ,(for/fold ([x list-exp]) ([_ (in-range i)]) `(prim cdr ,x))))
  (define (pack tag fvs) `(list (num ,tag) ,@(map V fvs)))
+ ;; The pure CPS-IN pipeline reserves %% for generated control names.
+ ;; A source binding named k, h or join is alpha-renamed with one %, not two.
  (define (cont-proc? ps)
-  (not (ormap (lambda (p) (regexp-match? #rx"^[kh]%" (symbol->string p))) ps)))
- (define (cont-name? x) (regexp-match? #rx"^(k|join)%" (symbol->string x)))
+  (not (ormap (lambda (p) (regexp-match? #rx"^[kh]%%[0-9]+$" (symbol->string p))) ps)))
+ (define (cont-name? x) (regexp-match? #rx"^(k|join)%%[0-9]+$" (symbol->string x)))
  (define (reserve! ps b fvs group)
   (set! next (add1 next))
   (define entry (vector next ps b fvs group #f))
   (set! table (append table (list entry))) entry)
+;; BEGIN closure-tagging
  (define (lift-proc ps body)
   (define fvs (minus (free body) ps))
   (define entry (reserve! ps body fvs #f))
   (vector-set! entry 5 (go body)) (pack (vector-ref entry 0) fvs))
+;; END closure-tagging
  (define (go t)
   (match t
    [`(proc ,ps ,b)
@@ -58,9 +62,13 @@
     (foldr (lambda (p rest) `(let1 ,(car p) ,(pack (cdr p) fvs) ,rest)) converted group)
     converted))
   (define with-params
-   (for/fold ([t restored]) ([p (in-list (reverse ps))] [i (in-list (reverse (range (length ps))))])
+   (for/fold ([t restored])
+             ([p (in-list (reverse ps))]
+              [i (in-list (reverse (range (length ps))))])
     `(let1 ,p ,(at (V args) i) ,t)))
-  (for/fold ([t with-params]) ([x (in-list (reverse fvs))] [i (in-list (reverse (range 1 (add1 (length fvs)))))])
+  (for/fold ([t with-params])
+            ([x (in-list (reverse fvs))]
+             [i (in-list (reverse (range 1 (add1 (length fvs)))))])
    `(let1 ,x ,(at (V clos) i) ,t)))
  (define dispatch
   (foldr (lambda (entry rest)
