@@ -328,12 +328,12 @@ def main():
             'navigation_inventory_file': 'navigation.json', 'navigation_links': len(navigation),
             'page_transformation': 'Add persistent reading navigation, header and footer home links, reader document views and overview run instructions; original mathematical statements and C/Python implementations preserved.',
             'validation': book_validations}
-        (stage / 'release.json').write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + '\n')
-        (stage / 'navigation.json').write_text(json.dumps(navigation, ensure_ascii=False, indent=2) + '\n')
-        (stage / 'SHA256SUMS').write_text(''.join(f"{r['sha256']}  {r['path']}\n" for r in records))
-        (stage / 'archive.sha256').write_text(metadata['archive_sha256'] + '  site.tar.gz\n')
-        (stage / 'nginx-static.inc').write_text(config)
-        (stage / 'nginx-notes.zzzping.top.conf').write_text(server)
+        (stage / 'release.json').write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + '\n', encoding='utf-8', newline='\n')
+        (stage / 'navigation.json').write_text(json.dumps(navigation, ensure_ascii=False, indent=2) + '\n', encoding='utf-8', newline='\n')
+        (stage / 'SHA256SUMS').write_text(''.join(f"{r['sha256']}  {r['path']}\n" for r in records), encoding='utf-8', newline='\n')
+        (stage / 'archive.sha256').write_text(metadata['archive_sha256'] + '  site.tar.gz\n', encoding='utf-8', newline='\n')
+        (stage / 'nginx-static.inc').write_text(config, encoding='utf-8', newline='\n')
+        (stage / 'nginx-notes.zzzping.top.conf').write_text(server, encoding='utf-8', newline='\n')
         stage.rename(out)
     print(json.dumps({'release_id': args.release_id, 'directory': str(out), 'files': len(records),
         'html_pages': len(scans), 'reading_pages': metadata['reading_pages'], 'bytes': metadata['total_bytes'],

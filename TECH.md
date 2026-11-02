@@ -311,3 +311,5 @@ READING_NOTES_BROWSER_DRIVER默认playwright，可设ego；READING_NOTES_BROWSER
 构建产物使用保守HTML属性压缩：仅对安全的id/class/data-*非空单词值移除引号，保留其它属性；pre/code/math/svg/script/style/textarea及其子树原字节不变。处理在发布预压缩前进行，parity仍独立对比未经压缩的历史期望；性能预算、gzip级别与内容清单不变。
 
 I071 历史产物绑定继续保留原 SHA-256：检查器仅为非受保护 HTML 标签还原允许压缩的 id/class/data-* 引号，再要求精确匹配历史字节（及既有 I036 图标例外）。不接受正文、脚本、公式、属性值或受保护岛的变化。新增反例验证和旧检查器的失败证据见 T071。
+
+I072 固定发布包文本元数据为 UTF-8/LF，保证 Windows 构建的 SHA256SUMS 可被 Linux 原生 sha256sum 读取。发布演练先原样发布输入包，避免夹具重建清单掩盖跨平台格式错误；运行时与生产发布屏障保持。

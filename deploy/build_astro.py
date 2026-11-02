@@ -92,11 +92,11 @@ def package(release_id):
             'publish_policy_sha256': hashlib.sha256(POLICY.read_bytes()).hexdigest(),
             'build_report': 'tmp/reading-notes-migration/build.json',
             'scope': 'Static release; original Python checks remain independent. Production deployment status recorded separately.'}
-        (stage / 'release.json').write_text(json.dumps(metadata, ensure_ascii=False, indent=2)+'\n')
-        (stage / 'navigation.json').write_text(json.dumps(navigation, ensure_ascii=False, indent=2)+'\n')
-        (stage / 'SHA256SUMS').write_text(sums(rows))
-        (stage / 'archive.sha256').write_text(metadata['archive_sha256']+'  site.tar.gz\n')
-        (stage / 'nginx-static.inc').write_text(static_include((ROOT/'deploy/nginx/static.inc.template').read_text(), hashes))
+        (stage / 'release.json').write_text(json.dumps(metadata, ensure_ascii=False, indent=2)+'\n', encoding='utf-8', newline='\n')
+        (stage / 'navigation.json').write_text(json.dumps(navigation, ensure_ascii=False, indent=2)+'\n', encoding='utf-8', newline='\n')
+        (stage / 'SHA256SUMS').write_text(sums(rows), encoding='utf-8', newline='\n')
+        (stage / 'archive.sha256').write_text(metadata['archive_sha256']+'  site.tar.gz\n', encoding='utf-8', newline='\n')
+        (stage / 'nginx-static.inc').write_text(static_include((ROOT/'deploy/nginx/static.inc.template').read_text(), hashes), encoding='utf-8', newline='\n')
         (stage / 'nginx-notes.zzzping.top.conf').write_bytes((ROOT/'deploy/nginx/notes.conf.template').read_bytes())
         stage.rename(out)
     return {'release_id': release_id, 'directory': str(out), 'files': len(rows),

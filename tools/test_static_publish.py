@@ -55,6 +55,11 @@ def main():
         assert result.returncode==expected,(result.returncode,result.stderr[-2000:])
         return result
     original=json.loads((a.release_dir/'release.json').read_text())
+    # Exercise the supplied package before fixtures regenerate its checksums.
+    # Otherwise Windows CRLF manifests are silently repaired by Linux fixtures.
+    source_root=work/'original-package';source_root.mkdir()
+    publish('--release-dir',a.release_dir.resolve(),target_root=source_root)
+    passed('unmodified input package passes the real publisher and native checksum tool')
     packages=[]
     for i in range(1,6):
         package=work/f'package-{i}';package.mkdir();packages.append(package)
