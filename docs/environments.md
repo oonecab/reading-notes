@@ -6,6 +6,8 @@
 - ASTRO_TELEMETRY_DISABLED
 - READING_NOTES_CSP_SPACE
 - READING_NOTES_TEST_CRASH
+- READING_NOTES_BROWSER_DRIVER
+- READING_NOTES_BROWSER_CHANNEL
 
 ## 服务
 
@@ -81,3 +83,7 @@ I044 新增静态 `/eopl/` 路由，范围为地图、序言、来源摘要和 P
 `doctor --for local/full/build/release`分别报告前置能力，默认全部汇总；缺失能力返回blocked。Windows本地结构使用check-local，完整POSIX/发布验证保持目标环境要求。浏览器证据文件在Windows有文件刷盘和原子替换，无目录掉电保证；生产Linux屏障不变。未新增环境变量、端口或服务，.env.example只追加说明。详见[TECH](../TECH.md#i070-本地验证与完整门禁)。
 
 I071新增非秘密配置：READING_NOTES_BROWSER_DRIVER（默认playwright，可选ego）及READING_NOTES_BROWSER_CHANNEL（默认chrome）。本地验收需要Playwright1.62.1和对应本机Chrome；无新增服务或监听端口，CSP仍使用临时回环端口。Linux发布单元不变。
+
+## I072 工具配置修复发布（2026-11-03）
+
+2026-11-03 I072 已从干净内容提交 `9961ac6` 发布 `20261103T003521`，69 阅读页、91 HTML、587 文件；公开文件与 T071 验收包逐字节一致。服务器全量文件和只读权限通过，旧版 `20261025T233903` 的587文件/权限/mtime保留，292未变文件保留mtime。25项隔离发布恢复测试、581项生产HTTPS内容/304、208组gzip、18入口和6份PDF Range通过；本机Chrome18组地图与12个章节视图通过，8张截图实际读回。部署与健康服务成功，Nginx及健康timer正常，队列空、无未完成事务。当前回滚单位为 `20261025T233903`，固定发布程序、CSP配置与服务端口未变。详见[T072](../test/T072-tooling-publication.md)与[发布回执](../docs/tooling-publication-review.json)。

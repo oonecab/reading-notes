@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "issue": "I072",
+  "status": "passed",
+  "recorded_at": "2026-11-02T16:51:06.195903+00:00",
+  "authorization": "用户明确要求合并主分支、提交推送远端并部署指定服务器。",
+  "source_commit": "9961ac655d8f1f2c3bba34813c502d50932cd690",
+  "source_tree_dirty": false,
+  "release_id": "20261103T003521",
+  "origin": "https://notes.zzzping.top",
+  "package": {
+    "status": "passed",
+    "release_id": "20261103T003521",
+    "source_commit": "9961ac655d8f1f2c3bba34813c502d50932cd690",
+    "source_tree_dirty": false,
+    "identical_public_files": 587,
+    "archive_sha256": "30178bc72ecc2aa1def64aed9c821374153a4883a964254b6e8343873563878e",
+    "metadata_utf8_lf": true,
+    "production_csp_bytes_unchanged": true
+  },
+  "server": {
+    "status": "passed",
+    "release_id": "20261103T003521",
+    "source_commit": "9961ac655d8f1f2c3bba34813c502d50932cd690",
+    "verified_files": 587,
+    "rollback_files_preserved": 587,
+    "unchanged_files_mtime_preserved": 292,
+    "changed_files": 295,
+    "root_owned_read_only": true,
+    "installed_code_and_configs_unchanged": true,
+    "queue_empty": true,
+    "pending_transaction": false
+  },
+  "rollback_release": "20261025T233903",
+  "services": {
+    "nginx": "active",
+    "deploy_result": "success",
+    "health_result": "success",
+    "health_timer": "active"
+  },
+  "isolated_publish_checks": 25,
+  "production_https": {
+    "execution_location": "production server via normal HTTPS hostname",
+    "files_checked": 581,
+    "conditional_requests": 581,
+    "gzip_checks": 208,
+    "entry_redirects": 18,
+    "pdf_ranges": 6,
+    "transport_retries": []
+  },
+  "external_browser": {
+    "environment": "local Windows Chrome 156, normal hostname, no SSH tunnel",
+    "map_runs": 18,
+    "node_clicks": 129,
+    "keyboard_activations": 15,
+    "chapter_views": 12,
+    "screenshots": 30,
+    "manually_viewed": 8,
+    "runtime_errors": []
+  },
+  "prior_local_acceptance": {
+    "record": "test/T071-final-build.md",
+    "node_tests": 135,
+    "offline_views": 546,
+    "identical_public_files": 587
+  },
+  "retained_failures": [
+    "20261103T002415 rejected before switching because CRLF checksum paths; fixed in builder with original-package regression",
+    "20261103T003521 switch/health succeeded; queue directory ownership prevented receipt move; fixed exact ownership and existing idempotent receipt recovery succeeded"
+  ],
+  "boundaries": [
+    "Full native textbook program matrix not rerun; no textbook content/code changes",
+    "Windows Python/curl TLS reset existed before deployment; full HTTP contract verified from server, external browser verified separately"
+  ],
+  "evidence": [
+    {
+      "record": "tmp/i072/package-final.json",
+      "sha256": "d05e30acb9911b8015979ae3aa6df9c17c57e35527e70f74463b6a835b9f3e67"
+    },
+    {
+      "record": "tmp/i072/server-before.json",
+      "sha256": "cdc5397eb484061ccc5acd9175e83c7ba5467aa46dfa68e8b6246580058d3cf0"
+    },
+    {
+      "record": "tmp/i072/server-after.json",
+      "sha256": "6a0718ada66f35f63a3f2abcccb9f9596646c8b34f352a619e6b580b50376c27"
+    },
+    {
+      "record": "tmp/i072/server-rollback.json",
+      "sha256": "cdc5397eb484061ccc5acd9175e83c7ba5467aa46dfa68e8b6246580058d3cf0"
+    },
+    {
+      "record": "tmp/i072/server-verification.json",
+      "sha256": "81dbab28750e470fbf869311dc83cf92b835ee096c07ea53bf5a581b9f5116b2"
+    },
+    {
+      "record": "tmp/i072/static-final-report.json",
+      "sha256": "0a14c1a2b67ff821752e7892ff101107e73f82e638d4d289f7a3696d6dd0e7f3"
+    },
+    {
+      "record": "tmp/i072/https-final-report.json",
+      "sha256": "9f9f02a2f6c2d7eba4854d375397ae30bee1b46fe81b93bbb67484ff1be9d76a"
+    },
+    {
+      "record": "tmp/i072/production-https.json",
+      "sha256": "260e19c01171d36094864e3b1cc1ce92f939814f8fe3a52f5d9b98c7e90b6578"
+    },
+    {
+      "record": "tmp/i072/online-browser/report.json",
+      "sha256": "841e5e4acd60367b8e5133b38e5c69df26ef874af74d169bb61179ed18af1cfe"
+    },
+    {
+      "record": "tmp/i072/deploy-receipt.log",
+      "sha256": "cde354a6799afd1f2bae329a08f8608dda6bb53c5f1ea06a0bc0ae7547e8cdae"
+    },
+    {
+      "record": "tmp/i072/manifest-negative.log",
+      "sha256": "107a9a93af270b8bb6d2813fca9f6c5332d9febeb3b509a6d49d159bd2f3ec05"
+    }
+  ]
+}

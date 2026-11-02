@@ -6,4 +6,4 @@
 
 回滚点预检为 20261025T233903，发布前保存当前配置及安装程序摘要；使用既有 reading-notes-publish rollback，保留旧版本，不删除历史版本。无密码、私钥或本机认证资料进入仓库。生产服务、端口、技术栈与变量名保持；本批不需新增 ADR。
 
-状态：准备中，最终执行结果追加至 T072。
+状态：completed（2026-11-03）。合并、提交、推送、生产切换和适用验收完成，实际失败及修复过程见 [T072](../test/T072-tooling-publication.md)，机器回执见 [发布审阅](../docs/tooling-publication-review.json)。
