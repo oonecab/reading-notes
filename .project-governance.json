@@ -24,8 +24,8 @@
       "Make",
       "Poppler pdftotext / pdfinfo",
       "Nginx（服务器静态 HTTPS 服务）",
-      "Node.js 24.21.0 LTS（仅构建）",
-      "pnpm 11.21.0（锁定依赖）",
+      "Node.js >=24.21.0 <25 LTS（仅构建）",
+      "pnpm >=11.21.0 <12（锁定依赖）",
       "Ego Lite / ego-browser（构建 CSP 冒烟与离线浏览器验收）",
       "Racket 8.17 + eopl / rackunit（本地教材示例验证）"
     ],

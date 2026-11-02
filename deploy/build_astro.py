@@ -8,6 +8,7 @@ import json
 import os
 from pathlib import Path
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -81,7 +82,7 @@ def package(release_id):
             'domain': 'notes.zzzping.top',
             'source_commit': subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
             'source_tree_dirty': bool(subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True).strip()),
-            'toolchain': {'node':'24.21.0','pnpm':'11.21.0','astro':'7.4.0'}, 'files': rows, 'total_bytes': sum(r['bytes'] for r in rows),
+            'toolchain': json.loads((ROOT/'tmp/reading-notes-migration/build.json').read_text(encoding='utf-8'))['toolchain'], 'files': rows, 'total_bytes': sum(r['bytes'] for r in rows),
             'html_pages': len(scans), 'reading_pages': reading_pages, 'local_references_checked': refs,
             'archive_sha256': hashlib.sha256((stage/'site.tar.gz').read_bytes()).hexdigest(),
             'inline_script_csp_sources': hashes, 'inline_script_syntax_check': 'pass',
@@ -120,7 +121,7 @@ if __name__ == '__main__':
     log = ROOT / 'tmp/reading-notes-migration/package-build.log'
     log.parent.mkdir(parents=True, exist_ok=True)
     with log.open('w') as output:
-        result = subprocess.run(['pnpm', 'build', '--release-id', a.release_id], cwd=ROOT, stdout=output, stderr=subprocess.STDOUT)
+        result = subprocess.run([shutil.which('pnpm') or 'pnpm', 'build', '--release-id', a.release_id], cwd=ROOT, stdout=output, stderr=subprocess.STDOUT)
     if result.returncode:
         sys.exit('Astro build failed; see ' + str(log.relative_to(ROOT)))
     directory=ROOT/'deploy/portal-releases'/a.release_id

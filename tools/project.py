@@ -19,14 +19,20 @@ from catalog import ROOT, load_books
 from release_support import extract_release
 
 
+def version_supported(value, minimum, major):
+    match = re.fullmatch(r"v?(\d+)\.(\d+)\.(\d+)", value or "")
+    parts = tuple(map(int, match.groups())) if match else ()
+    return bool(parts and parts[0] == major and parts >= minimum)
+
+
 def doctor() -> int:
     required = {"python3": "Python 3.10+", "clang": "C11 / ASan / UBSan", "make": "C 图例构建",
-                "pdftotext": "原书页码核对", "pdfinfo": "原书总页数核对", "node": "Node 24.21.0 LTS 静态构建", "pnpm": "pnpm 11.21.0 锁定依赖"}
+                "pdftotext": "原书页码核对", "pdfinfo": "原书总页数核对", "node": "Node >=24.21.0 <25 静态构建", "pnpm": "pnpm >=11.21.0 <12 锁定依赖"}
     found = {name: shutil.which(name) is not None for name in required}
     optional = {name: shutil.which(name) is not None for name in ("nginx", "openssl")}
-    versions = {n: subprocess.check_output([n, "--version"], text=True).strip() if found[n] else None for n in ("node", "pnpm")}
-    version_ok = sys.version_info >= (3, 10) and versions == {"node": "v24.21.0", "pnpm": "11.21.0"}
-    print(json.dumps({"python": sys.version.split()[0], "pinned_versions_ok": version_ok, "build_versions": versions,
+    versions = {n: subprocess.check_output([shutil.which(n) or n, "--version"], text=True).strip() if found[n] else None for n in ("node", "pnpm")}
+    version_ok = sys.version_info >= (3, 10) and all(version_supported(versions[n], floor, major) for n, floor, major in (("node", (24,21,0),24),("pnpm",(11,21,0),11)))
+    print(json.dumps({"python": sys.version.split()[0], "supported_versions_ok": version_ok, "build_versions": versions,
                       "required": {name: {"purpose": required[name], "available": ok} for name, ok in found.items()},
                       "local_https_verification": optional}, ensure_ascii=False, indent=2))
     return 0 if all(found.values()) and version_ok else 1

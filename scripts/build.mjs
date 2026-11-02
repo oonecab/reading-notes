@@ -1,3 +1,4 @@
+import { validateToolchain } from './toolchain.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
@@ -15,7 +16,7 @@ import { checkAll as checkPresentationContract, checkDist as checkPresentationDi
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 process.chdir(root);
-if (process.versions.node !== '24.21.0') throw new Error('Build requires pinned Node 24.21.0');
+const toolchain = validateToolchain();
 const shell = process.argv.includes('--shell');
 const stage = path.join(root, 'tmp/reading-notes-migration');
 fs.mkdirSync(stage, { recursive: true });
@@ -31,7 +32,8 @@ if(releaseIndex>=0 && (!/^\d{8}T\d{6}$/.test(releaseId??'') || shell)) throw new
 fs.writeFileSync(path.join(stage, 'build-state.json'), JSON.stringify({ shell }));
 const start = performance.now();
 function run(command,args) {
-  const result=spawnSync(command,args,{stdio:'inherit'});
+  const executable = command === 'python3' && process.platform === 'win32' ? 'python' : command;
+  const result=spawnSync(executable,args,{stdio:'inherit', env:{...process.env, PYTHONUTF8:'1'}});
   if(result.status!==0)throw new Error(`${command} failed: ${result.status}`);
 }
 let pages=[];
@@ -92,7 +94,7 @@ if(!shell){
   fs.writeFileSync(path.join(stage,'presentation-dist.json'),JSON.stringify(presentationDist,null,2)+'\n');
   if(presentationDist.errors.length)throw new Error('Built presentation contract failed: '+JSON.stringify(presentationDist.errors));
 }
-const report = { status: 'passed', mode: shell?'empty_scaffold':'book_migration', books:[...new Set(pages.map(p=>p.metadata.book))],pages:pages.length,public_html:routes.length,seconds: (performance.now()-start)/1000, output: shell?path.relative(root,target):'dist' };
+const report = { toolchain, status: 'passed', mode: shell?'empty_scaffold':'book_migration', books:[...new Set(pages.map(p=>p.metadata.book))],pages:pages.length,public_html:routes.length,seconds: (performance.now()-start)/1000, output: shell?path.relative(root,target):'dist' };
 fs.writeFileSync(path.join(stage, shell?'scaffold-build.json':'build.json'), JSON.stringify(report,null,2)+'\n');
 if(releaseId)run('python3',['deploy/build_astro.py','--package-dist','--release-id',releaseId]);
 console.log(JSON.stringify(report));

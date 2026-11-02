@@ -32,8 +32,8 @@
 - Make
 - Poppler pdftotext / pdfinfo
 - Nginx（服务器静态 HTTPS 服务）
-- Node.js 24.21.0 LTS（仅构建）
-- pnpm 11.21.0（锁定依赖）
+- Node.js >=24.21.0 <25 LTS（仅构建）
+- pnpm >=11.21.0 <12（锁定依赖）
 - Ego Lite / ego-browser（构建 CSP 冒烟与离线浏览器验收）
 - Racket 8.17 + eopl / rackunit（本地教材示例验证）
 
@@ -281,3 +281,7 @@ I061 生产版本 `20261023T211622` 来自干净内容提交 `ee76a04`，包含6
 2026-10-25 I065实机：当前release `20261025T014634`，干净内容提交 `5eeee00`；EOPL13页356题、整站69阅读页/91公开HTML/586文件。新旧版本逐项散列与root只读权限通过；548个未变文件保持mtime，10个变更文件使用新mtime，新增28文件。原受限程序散列保持，新旧policy及Nginx备份保留；最终CSP13散列，发布、健康检查、Nginx与健康timer正常，队列为空且无待恢复事务。正常域名580内容/304、18入口、6PDF Range与桌面/390px/无脚本实际阅读通过。变量、服务与端口保持，.env.example无需调整。详见[T065](test/T065-eopl-completion-publication.md)及[发布审阅](docs/eopl-completion-publication-review.json)。
 
 2026-10-25 I066已将修复从干净内容提交 `781f7aa` 发布为 `20261025T233903`，整站69阅读页、91公开HTML和587文件。新包与本地验收包20261025T225409的全部公开文件逐项相同。服务器587文件及前版586文件哈希、权限、恢复配置通过；553个未变文件保留mtime，33个变更文件更新mtime，新增1文件。正常域名581项内容/304、18条重定向、6份PDF Range及208组gzip检查通过；公网13张截图实际阅读、7份原生下载、2个跨题入口及390px无脚本鼠标/键盘交互通过。 当前恢复单位为 `20261025T014634` 及其公开清单和Nginx配置。固定发布器、服务定义、端口和变量名保持；.env.example无需调整，健康timer正常，发布队列为空且无待恢复事务。详见[T066](test/T066-eopl-review-repairs.md)与[修复发布审阅](docs/eopl-repairs-publication-review.json)。
+
+## I067 工具链兼容范围（2026-11-02）
+
+从精确 Node 24.21.0 / pnpm 11.21.0 放宽为 >=24.21.0 <25 / >=11.21.0 <12；保留精确 packageManager 基准和依赖锁。发布记录使用实际构建版本，Windows 命令入口适配不改变 Linux 发布安全语义。可通过 revert 回退，见 issues/I067-toolchain-range.md。

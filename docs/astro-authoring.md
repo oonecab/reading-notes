@@ -18,7 +18,7 @@ I032 开始，迁移后的明确内容修订在 `src/content-revisions.json` 逐
 
 I056 在共享目录脚本的折叠祖先展开后增加一次延后定位，并为目录的激活位置留出 8px 余量，避免章末索引仍停在上一节的阅读位置。净增 6 字节，保留既有性能预算；正文、公式与程序字节保持。原历史审阅继续保留，共享脚本展开后的当前源与输出单独登记；手机目录实际回归、失败轮次和后续矩阵见 T056。
 
-工具链为 **Node/Astro + Python build helpers**：Node 24.21.0、pnpm 11.21.0、Python 3.10+；Python 的 build_portal、prepare-pages、public_policy 参与构建，原独立验证器另行运行。准备本地来源资料，并安装 C/Make/Poppler（完整验证）、Nginx/OpenSSL（发布演练）和可运行的 Ego Lite / ego-browser CLI（浏览器验收），然后执行 `pnpm install --frozen-lockfile`、`pnpm build`。生产 HTTP 仍只由 Nginx 提供。
+工具链为 **Node/Astro + Python build helpers**：Node >=24.21.0 <25、pnpm >=11.21.0 <12、Python 3.10+；Python 的 build_portal、prepare-pages、public_policy 参与构建，原独立验证器另行运行。准备本地来源资料，并安装 C/Make/Poppler（完整验证）、Nginx/OpenSSL（发布演练）和可运行的 Ego Lite / ego-browser CLI（浏览器验收），然后执行 `pnpm install --frozen-lockfile`、`pnpm build`。生产 HTTP 仍只由 Nginx 提供。
 
 `pnpm build` 在临时目录准备来源并构建，对全部公开 HTML（当前 91 页，含辅助页和旧入口页）内联 CSS、favicon 和脚本；下载文件保留链接。正式页完整 DOM 的标签、命名空间、属性和子节点顺序、习题 ID 序列，以及正文/MathML/SVG/代码指纹和内部锚点一起核对。页面数量来自受控条目清单，新增书籍按 catalog、migration-state 与发布 allowlist 登记，不修改固定页数。
 
@@ -65,3 +65,9 @@ EOPL 以地图与序言两页接入，基线 `7e9d2ea` 是保留的原始源码�
 I057 在 RN-002 `overview_maps` 独立登记六书地图的可点击 SVG 节点。离线矩阵于 1440/390px 逐节点点击，390px 另验无脚本；同时检查真实标题可见、键盘 Enter 和同一锚点重复点击。复用旧报告时增加清单签名及完整节点结果核对，旧版几何或截图结果不足以覆盖此门禁。详见 [RN-002 §2.3](reading-presentation-standard.md)及 [T057](../test/T057-chapter-map-navigation.md)。
 
 I061 的章节图浏览器检查在原生横滚后等待可见几何稳定；轮询在 Node 端执行，因此适用于页面脚本禁用模式。滚轮返回时仍在移动的中间位置不作最终判定，节点最终完整可见与落点门禁保持。全站首轮的实际中间态与修复回归见 T061。
+
+### I067 本地工具链
+
+允许 Node `>=24.21.0 <25`、pnpm `>=11.21.0 <12`；`packageManager` 保留 11.21.0 基准。保持 `engine-strict` 和 `--frozen-lockfile`，PATH 中的 Node 应与 pnpm 使用的 Node 一致。Windows 使用 `python tools/project.py`；构建入口会解析 pnpm.cmd，并以 python 启动 Python helpers。
+
+此入口适配不等于全套 Windows 支持：CS:APP 检查需要 termios/pty，Linux 发布测试需要目录 fsync 和 rsync，CSP/离线验收需要 Ego 浏览器。完整验证应在具备这些能力的受支持环境进行；不得跳过门禁宣称发布通过。I067 本机 Node 24.22.1/pnpm 11.25.0 的验证与限制见 test/T067-toolchain-range.md。
