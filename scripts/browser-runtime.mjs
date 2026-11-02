@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {randomUUID} from 'node:crypto';
 import {spawn} from 'node:child_process';
+import {fileURLToPath} from 'node:url';
 
 export function atomicJson(filename,value){
   fs.mkdirSync(path.dirname(filename),{recursive:true});
@@ -10,8 +11,13 @@ export function atomicJson(filename,value){
     const fd=fs.openSync(temporary,'wx',0o600);
     try{fs.writeFileSync(fd,JSON.stringify(value,null,2)+'\n');fs.fsyncSync(fd);}finally{fs.closeSync(fd);}
     fs.renameSync(temporary,filename);
-    const directory=fs.openSync(path.dirname(filename),'r');
-    try{fs.fsyncSync(directory);}finally{fs.closeSync(directory);}
+    // Windows cannot fsync a directory through Node. Local evidence keeps atomic
+    // replacement and file flush, without claiming power-loss durability there.
+    // The Linux production installer uses its separate mandatory POSIX barriers.
+    if (process.platform !== 'win32') {
+      const directory=fs.openSync(path.dirname(filename),'r');
+      try{fs.fsyncSync(directory);}finally{fs.closeSync(directory);}
+    }
   }finally{fs.rmSync(temporary,{force:true});}
 }
 
@@ -71,7 +77,11 @@ export async function runDriver(script,run){
   const log=fs.openSync(path.join(run.output,'driver.log'),'wx',0o600);
   try{
     await new Promise((resolve,reject)=>{
-      const child=spawn('ego-browser',['nodejs'],{stdio:['pipe',log,log]});
+      const driver=process.env.READING_NOTES_BROWSER_DRIVER ?? 'playwright';
+      if(!['playwright','ego'].includes(driver))throw new Error('Unknown browser driver: '+driver);
+      const command=driver==='ego'?'ego-browser':process.execPath;
+      const args=driver==='ego'?['nodejs']:[fileURLToPath(new URL('./playwright-driver.mjs',import.meta.url))];
+      const child=spawn(command,args,{stdio:['pipe',log,log]});
       child.once('error',reject);
       child.once('close',(code,signal)=>code===0?resolve():reject(new Error(`Browser driver failed (${signal??code}); see ${path.join(run.output,'driver.log')}`)));
       child.stdin.on('error',error=>{if(error.code!=='EPIPE')reject(error);});

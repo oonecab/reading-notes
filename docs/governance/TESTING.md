@@ -68,3 +68,11 @@ I052 起，`node tools/reader-contract/check.mjs` 为逐页阅读契约门禁，
 逐页浏览器验收另在 390px 将每页正文中的全部原生折叠块展开，分别检查启用和关闭页面脚本时的整页宽度；该检查与首末题的实际点击、代码开合和人工截图阅读分别记录。复用既有证据须同时满足 HTML 与截图散列一致、该视图必需的检查字段齐全；旧记录缺少新增检查项时应重跑。
 
 章节图节点与其他章节入口分别按 [RN-002 §2.3](../reading-presentation-standard.md) 验证预期目标和最终可见标题；静态清单、实际逐节点操作、无脚本及键盘结果单独记录。旧浏览器视图缺少新增节点检查字段时重跑，不能因 HTML 未变而沿用。
+
+I069 增加 `node --test scripts/check-cli.test.mjs`（由 `pnpm test` 自动收录），通过真实CLI确认正常输入输出非空覆盖报告、隔离损坏策略非零退出；禁止把退出0且无报告当成阅读契约通过。跨平台入口使用 `fileURLToPath`，实际验证边界见 `test/T069-windows-cli.md`。
+
+I070登记 `python3 tools/project.py check-local` 与 `python3 tools/test_local_verification.py`。前者是显式本地结构范围，后者验证操作能力矩阵和完整门禁保留；不替代既有check、check --quick及发布验收。CLI有效报告、错误输入及本地文件写入失败回归继续由pnpm test执行。实际范围与结果见[T070](../../test/T070-local-verification.md)。
+
+I071加入compact-html回归：危险属性值、自闭合标签及字节敏感岛必须保持等价。真实CSP验收包含篡改脚本被阻止的负例；Playwright驱动仍运行原浏览器断言。WSL执行发布单元测试属于Linux本地证据，不等于生产部署/掉电验收。
+
+I071 的产物审阅绑定回归在 `tools/test_reader_views.py` 中，要求安全语法变化通过，正文、属性值、脚本及保护岛变化仍失败。浏览器横滚检查等待真实 scrollLeft 增加后再断言；滚轮调用返回本身不代表滚动已经完成，原失败尝试保留。

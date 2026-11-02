@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import {fileURLToPath} from 'node:url';
 import assert from 'node:assert/strict';
 import {parse} from 'parse5';
 import {entries,walk,attr} from '../../src/lib/controlled-html.mjs';
@@ -61,7 +62,7 @@ export function checkAll(){
   }
   return {status:'passed',pages:pages.length,records:pages};
 }
-if(process.argv[1]&&path.resolve(process.argv[1])===new URL(import.meta.url).pathname){
+if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){
   const result=checkAll();fs.mkdirSync('tmp/reading-typography',{recursive:true});
   fs.writeFileSync('tmp/reading-typography/static-check.json',JSON.stringify(result,null,2)+'\n');
   console.log(JSON.stringify({status:result.status,pages:result.pages,maths:result.records.reduce((s,p)=>s+p.maths,0),graphs:result.records.reduce((s,p)=>s+p.graphs,0)}));

@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import {fileURLToPath} from 'node:url';
 import assert from 'node:assert/strict';
 import {parse} from 'parse5';
 import {entries, walk, attr} from '../../src/lib/controlled-html.mjs';
@@ -114,6 +115,6 @@ export function checkAll() {
   return {status: 'passed', pages: pages.length, inline_code: codes, fitted_nodes: fittedNodes, code_folds: codeFolds};
 }
 
-if (process.argv[1] && path.resolve(process.argv[1]) === new URL(import.meta.url).pathname) {
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   console.log(JSON.stringify(checkAll()));
 }

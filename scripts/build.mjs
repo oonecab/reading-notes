@@ -1,5 +1,6 @@
 import { validateToolchain } from './toolchain.mjs';
 import fs from 'node:fs';
+import {compactHtml} from './compact-html.mjs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
@@ -66,8 +67,9 @@ const target = path.join(stage,shell?'shell-dist':'candidate-dist');
 fs.rmSync(target,{recursive:true,force:true});
 if(!shell)fs.cpSync(path.join(stage,'prepared'),target,{recursive:true});
 fs.cpSync(output,target,{recursive:true});
-const routes=htmlFiles(target).map(file=>path.relative(target,file));
+const routes=htmlFiles(target).map(file=>path.relative(target,file).split(path.sep).join('/'));
 inlineAssets(target,routes.map(r=>path.join(target,r)));
+for(const route of routes){const file=path.join(target,route);fs.writeFileSync(file,compactHtml(fs.readFileSync(file,'utf8')));}
 for(const route of routes){const issues=offlineDependencies(fs.readFileSync(path.join(target,route),'utf8'));if(issues.length)throw new Error(`${route}: ${issues.join(', ')}`);}
 if(!shell){
   const siteIcon=fs.readFileSync(path.join(root,'portal/favicon.svg'));

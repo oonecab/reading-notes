@@ -1,6 +1,7 @@
 // Reader-facing obligations are registered independently of rendered content.
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {parse,serialize,serializeOuter} from 'parse5';
@@ -140,6 +141,6 @@ export function checkAll({baseline=false}={}){
  }
  return {status:errors.length?'failed':'passed',pages:pages.length,results,errors};
 }
-if(process.argv[1]&&path.resolve(process.argv[1])===new URL(import.meta.url).pathname){
+if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){
  const result=checkAll({baseline:process.argv.includes('--baseline')});console.log(JSON.stringify(result,null,2));if(result.errors.length)process.exitCode=1;
 }

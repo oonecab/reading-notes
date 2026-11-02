@@ -93,3 +93,18 @@ test('browser readback executes the real callback with disappearance and wrong-p
   context.location.href='file:///other.html';
   await assert.rejects(readTarget(page,{id:'exercise',url:'file:///chapter.html'},e=>e.tagName),/Unexpected document/);
 });
+
+test('a failed file flush preserves old evidence and cleans the temporary file', t => {
+  const directory=fixture(t), filename=path.join(directory,'evidence.json');
+  atomicJson(filename,{value:'old'});
+  t.mock.method(fs,'fsyncSync',()=>{throw new Error('injected file flush failure');});
+  assert.throws(()=>atomicJson(filename,{value:'new'}),/injected file flush failure/);
+  assert.deepEqual(JSON.parse(fs.readFileSync(filename)),{value:'old'});
+  assert.deepEqual(fs.readdirSync(directory),['evidence.json']);
+});
+test('local evidence flushes files on every platform and directories on POSIX', t => {
+  const directory=fixture(t), kinds=[], original=fs.fsyncSync;
+  t.mock.method(fs,'fsyncSync',fd=>{kinds.push(fs.fstatSync(fd).isDirectory()?'directory':'file');return original(fd);});
+  atomicJson(path.join(directory,'report.json'),{status:'passed'});
+  assert.deepEqual(kinds,process.platform==='win32'?['file']:['file','directory']);
+});

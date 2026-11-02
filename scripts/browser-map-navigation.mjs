@@ -10,6 +10,7 @@ export async function waitLanding(page, expected, { timeout = 10000, interval = 
   const deadline = Date.now() + timeout;
   let previous = '', settled = 0, state;
   while (Date.now() < deadline) {
+    try {
     state = await page.evaluate(expected => {
       const norm = s => (s ?? '').replace(/\s+/g, ' ').trim();
       const target = expected.kind === 'chapter' ? document.querySelector('main h1') : document.getElementById(new URL(expected.url).hash.slice(1));
@@ -22,6 +23,14 @@ export async function waitLanding(page, expected, { timeout = 10000, interval = 
         top: r?.top ?? -1, bottom: r?.bottom ?? -1, blocker_bottom: Math.max(0, ...blockers.map(b => b.bottom)),
         viewport: innerHeight, viewport_width: innerWidth, width: document.documentElement?.scrollWidth ?? 0 };
     }, expected);
+    } catch (error) {
+      // Native no-JS links replace the execution context between input and read.
+      // Retry only that transient state; visibility and destination still decide.
+      if (!String(error.message).includes('Execution context was destroyed')) throw error;
+      previous = ''; settled = 0; state = null;
+      await new Promise(resolve => setTimeout(resolve, interval));
+      continue;
+    }
     const key = JSON.stringify(state);
     settled = key === previous ? settled + 1 : 0;
     previous = key;

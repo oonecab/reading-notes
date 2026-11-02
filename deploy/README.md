@@ -16,7 +16,7 @@ pnpm check:offline
 python3 tools/project.py build
 ```
 
-`pnpm build` 输出 `dist/`，同时写入 `tmp/reading-notes-migration/dist-SHA256SUMS`。69 页和书架均内联资源，可直接 file 协议打开；其他资料页和下载链接需要保留整个发布目录。Ego Lite 离线验收独立运行四种宽度和 no-JS；构建成功不能替代阅读验收。
+`pnpm build` 输出 `dist/`，同时写入 `tmp/reading-notes-migration/dist-SHA256SUMS`。69 页和书架均内联资源，可直接 file 协议打开；其他资料页和下载链接需要保留整个发布目录。配置的浏览器驱动（默认 Playwright + 本机 Chrome，Ego 可选）独立运行离线验收，覆盖四种宽度和 no-JS；构建成功不能替代阅读验收。
 
 `tools/project.py build` 调用同一个 Node 构建，在持有构建锁时打包，并拒绝覆盖已有版本号。可指定 `--release-id YYYYMMDDTHHMMSS`。完整包位于 `deploy/portal-releases/<id>/`：
 

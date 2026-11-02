@@ -2,6 +2,7 @@
 // index placement, exercise language policy and the shared page shell.
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import assert from 'node:assert/strict';
 import { parse } from 'parse5';
 import { entries, walk, attr } from '../src/lib/controlled-html.mjs';
@@ -314,7 +315,7 @@ export function checkDist({ book = null } = {}) {
   return report;
 }
 
-if (process.argv[1] && path.resolve(process.argv[1]) === new URL(import.meta.url).pathname) {
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const bookIndex = process.argv.indexOf('--book');
   const book = bookIndex >= 0 ? process.argv[bookIndex + 1] : null;
   const report = process.argv.includes('--dist') ? checkDist({ book }) : checkAll({ book });

@@ -18,7 +18,7 @@ export function measure(html){
 }
 export function checkBudgets(directory,policy=JSON.parse(fs.readFileSync('scripts/performance-budgets.json'))){
   const records=htmlFiles(directory).map(file=>{
-    const route=path.relative(directory,file),metrics=measure(fs.readFileSync(file,'utf8'));
+    const route=path.relative(directory,file).split(path.sep).join('/'),metrics=measure(fs.readFileSync(file,'utf8'));
     const budget={...policy.default,...policy.pages[route]};
     for(const [metric,limit] of Object.entries(budget))if(metrics[metric]>limit)throw new Error(`Performance budget exceeded: ${route} ${metric}=${metrics[metric]} > ${limit}`);
     return {route,...metrics};

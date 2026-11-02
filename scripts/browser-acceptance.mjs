@@ -1,4 +1,4 @@
-// Executed by ego-browser nodejs; config is injected by check-offline.mjs.
+// Executed by the configured browser driver; config is injected by check-offline.mjs.
 const fs = await import('node:fs/promises');
 const path = await import('node:path');
 const crypto = await import('node:crypto');
@@ -12,7 +12,7 @@ const {inspectReviewedDiagram,restoreDiagramDisclosures}=await import(new URL('.
 const task=await openSpace(taskSpace,config.selection);
 atomicJson(config.sessionFile,{spaceId:task.spaceId,page:config.page});
 const page=task.page(config.page);
-const report={status:'running',tool:'ego-browser',space:task.spaceId,pages:config.pages,views:config.resumed?.views??[],no_js:config.resumed?.no_js??[],external_requests:[],screenshots:config.resumed?.screenshots??[],reused_views:config.resumed?.origins??[],previous_attempt:config.previous_attempt??null,errors:[]};
+const report={status:'running',tool:process.env.READING_NOTES_BROWSER_DRIVER==='ego'?'ego-browser':'playwright',space:task.spaceId,pages:config.pages,views:config.resumed?.views??[],no_js:config.resumed?.no_js??[],external_requests:[],screenshots:config.resumed?.screenshots??[],reused_views:config.resumed?.origins??[],previous_attempt:config.previous_attempt??null,errors:[]};
 const save=()=>atomicJson(path.join(config.output,'report.json'),report);
 const requireTrue=(condition,message)=>{if(!condition)throw new Error(message);};
 async function screenshot(name) {
@@ -159,6 +159,9 @@ try {
         return {x:(Math.max(0,r.left)+Math.min(innerWidth,r.right))/2,y:(Math.max(160,r.top)+Math.min(innerHeight-20,r.bottom))/2,before:e.scrollLeft,client:e.clientWidth,scroll:e.scrollWidth};
       });
       if(scroll){await page.mouse.move(scroll.x,scroll.y,{label:'定位局部滚动区域'});await page.mouse.wheel(220,0,{label:'检查公式图表横向滚动'});
+        // Input dispatch can finish before the compositor applies the wheel.
+        // Require the same real movement, with a bounded wait for its result.
+        await page.waitForFunction(before=>document.querySelector('[data-offline-scroll-test]').scrollLeft>before,scroll.before,{timeout:10000});
         const after=await page.evaluate(()=>document.querySelector('[data-offline-scroll-test]').scrollLeft);
         requireTrue(after>scroll.before,'Local horizontal wheel did not move');view.local_scroll={...scroll,after};
         await page.evaluate(()=>document.querySelector('[data-offline-scroll-test]').removeAttribute('data-offline-scroll-test'));

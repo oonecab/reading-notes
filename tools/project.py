@@ -7,6 +7,8 @@ from datetime import datetime, timezone
 from functools import partial
 import http.server
 import json
+import os
+import importlib.util
 from pathlib import Path
 import re
 import shutil
@@ -25,32 +27,108 @@ def version_supported(value, minimum, major):
     return bool(parts and parts[0] == major and parts >= minimum)
 
 
-def doctor() -> int:
-    required = {"python3": "Python 3.10+", "clang": "C11 / ASan / UBSan", "make": "C 图例构建",
-                "pdftotext": "原书页码核对", "pdfinfo": "原书总页数核对", "node": "Node >=24.21.0 <25 静态构建", "pnpm": "pnpm >=11.21.0 <12 锁定依赖"}
-    found = {name: shutil.which(name) is not None for name in required}
-    optional = {name: shutil.which(name) is not None for name in ("nginx", "openssl")}
-    versions = {n: subprocess.check_output([shutil.which(n) or n, "--version"], text=True).strip() if found[n] else None for n in ("node", "pnpm")}
-    version_ok = sys.version_info >= (3, 10) and all(version_supported(versions[n], floor, major) for n, floor, major in (("node", (24,21,0),24),("pnpm",(11,21,0),11)))
-    print(json.dumps({"python": sys.version.split()[0], "supported_versions_ok": version_ok, "build_versions": versions,
-                      "required": {name: {"purpose": required[name], "available": ok} for name, ok in found.items()},
-                      "local_https_verification": optional}, ensure_ascii=False, indent=2))
-    return 0 if all(found.values()) and version_ok else 1
+def operation_requirements(facts):
+    # Prerequisites only; successful discovery is not a runtime acceptance test.
+    local = ['python', 'node', 'pnpm', 'dependencies', 'pdftotext', 'pdfinfo']
+    full = local + ['posix', 'termios', 'directory_sync', 'rsync', 'clang', 'make', 'racket']
+    requirements = {'local': local, 'full': full,
+                    'build': local + ['browser-driver'],
+                    'release': full + ['linux', 'nginx', 'openssl']}
+    return {name: {'status': 'blocked' if any(not facts.get(key) for key in keys) else 'prerequisites_met',
+                   'missing': [key for key in keys if not facts.get(key)],
+                   'runtime_verified': False}
+            for name, keys in requirements.items()}
 
 
-def check(book_id: str, quick: bool, benchmarks: bool) -> int:
+def doctor(target=None) -> int:
+    versions, errors = {}, {}
+    for name in ('node', 'pnpm'):
+        try:
+            versions[name] = subprocess.check_output([shutil.which(name) or name, '--version'],
+                text=True, encoding='utf-8', stderr=subprocess.STDOUT, timeout=20).strip()
+        except (OSError, subprocess.SubprocessError) as error:
+            versions[name] = None
+            errors[name] = str(error)
+    facts = {name: shutil.which(name) is not None for name in
+             ('clang', 'make', 'pdftotext', 'pdfinfo', 'racket', 'rsync', 'nginx', 'openssl', 'ego-browser')}
+    facts.update(python=sys.version_info >= (3, 10),
+                 node=version_supported(versions['node'], (24,21,0), 24),
+                 pnpm=version_supported(versions['pnpm'], (11,21,0), 11),
+                 dependencies=all((ROOT/'node_modules'/name/'package.json').is_file() for name in ('astro', 'parse5')),
+                 posix=os.name == 'posix', linux=sys.platform.startswith('linux'),
+                 termios=importlib.util.find_spec('termios') is not None)
+    driver = os.environ.get('READING_NOTES_BROWSER_DRIVER', 'playwright')
+    channel = os.environ.get('READING_NOTES_BROWSER_CHANNEL', 'chrome')
+    chrome_paths = [Path(os.environ.get('PROGRAMFILES', 'C:/Program Files'))/'Google/Chrome/Application/chrome.exe',
+                    Path('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome')]
+    chrome = any(p.is_file() for p in chrome_paths) or bool(shutil.which('google-chrome') or shutil.which('chrome'))
+    facts['browser-driver'] = facts['ego-browser'] if driver == 'ego' else (
+        driver == 'playwright' and channel == 'chrome' and chrome and (ROOT/'node_modules/playwright/package.json').is_file())
+    # Other channels may be runnable, but require a real driver launch to verify.
+    probe_root = ROOT/'tmp/doctor'
+    probe_root.mkdir(parents=True, exist_ok=True)
+    try:
+        with tempfile.TemporaryDirectory(dir=probe_root) as directory:
+            fd = os.open(directory, os.O_RDONLY)
+            try: os.fsync(fd)
+            finally: os.close(fd)
+        facts['directory_sync'] = True
+    except OSError:
+        facts['directory_sync'] = False
+    operations = operation_requirements(facts)
+    print(json.dumps({'python': sys.version.split()[0], 'python_executable': sys.executable,
+        'build_versions': versions, 'supported_versions_ok': facts['node'] and facts['pnpm'],
+        'capabilities': facts, 'errors': errors, 'operations': operations, 'requested': target,
+        'scope': 'Prerequisite probes only; does not validate browser connection, compiler ABI, sources or complete execution.'},
+        ensure_ascii=False, indent=2))
+    selected = [operations[target]] if target else operations.values()
+    return int(any(item['status'] == 'blocked' for item in selected))
+
+
+def check(book_id: str, quick: bool, benchmarks: bool, local: bool = False) -> int:
     books = load_books()
     selected = books if book_id == "all" else {book_id: books[book_id]}
     parent = ROOT / "tmp/project-check"
     parent.mkdir(parents=True, exist_ok=True)
     run = Path(tempfile.mkdtemp(prefix=datetime.now().strftime("%Y%m%dT%H%M%S-") , dir=parent))
+    commands = check_commands(selected, quick, benchmarks, run, local)
+    report = {"status": "running", "scope": "local-structure" if local else "full-gate",
+              "not_in_scope": ["POSIX publication safety", "native program execution", "browser acceptance"] if local else [], "book": book_id, "quick": quick, "benchmarks": benchmarks,
+              "started_at": datetime.now(timezone.utc).isoformat(), "checks": []}
+    evidence = run / "report.json"
+    for index, command in enumerate(commands):
+        args = [str(arg) for arg in command]
+        readable = [arg.replace(str(ROOT) + "/", "") for arg in args]
+        print("执行：" + " ".join(readable), flush=True)
+        result = subprocess.run(args, cwd=ROOT, capture_output=True, text=True, encoding='utf-8', env={**os.environ, 'PYTHONUTF8': '1'})
+        log = run / f"check-{index + 1:02d}.log"
+        log.write_text(result.stdout + result.stderr, encoding="utf-8")
+        report["checks"].append({"command": readable, "exit_code": result.returncode,
+                                 "log": log.relative_to(ROOT).as_posix()})
+        if result.returncode:
+            report["status"] = "failed"
+            print((result.stdout + result.stderr)[-6000:], file=sys.stderr)
+        evidence.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
+        if result.returncode:
+            print("验证记录：" + evidence.relative_to(ROOT).as_posix(), flush=True)
+            return result.returncode
+        print("通过", flush=True)
+    report.update(status="passed", finished_at=datetime.now(timezone.utc).isoformat())
+    evidence.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
+    print("验证记录：" + evidence.relative_to(ROOT).as_posix(), flush=True)
+    return 0
+
+
+def check_commands(selected, quick, benchmarks, run, local=False):
     commands = [[sys.executable, ROOT / "tools/check_structure.py"],
                 [sys.executable, ROOT / "tools/test_release_support.py"],
                 [sys.executable, ROOT / "tools/test_reader_views.py"]]
-    commands.extend([[sys.executable, ROOT / "tools/test_publish_durability.py"],
+    if not local:
+        commands.extend([[sys.executable, ROOT / "tools/test_publish_durability.py"],
                      [sys.executable, ROOT / "tools/test_publish_policy.py"]])
-    commands.append([sys.executable, ROOT / "tools/test_cache_delivery.py"])
+        commands.append([sys.executable, ROOT / "tools/test_cache_delivery.py"])
     commands.append([sys.executable, ROOT / "tools/test_http_verification.py"])
+    commands.append([sys.executable, ROOT / "tools/test_local_verification.py"])
     if "stochastic" in selected:
         base = selected["stochastic"]["root"]
         commands += [[sys.executable, base / "tools/check_review_records.py"],
@@ -98,30 +176,7 @@ def check(book_id: str, quick: bool, benchmarks: bool) -> int:
     commands.append(["node", ROOT / "tools/reading-typography/check.mjs"])
     commands.append(["node", ROOT / "tools/reading-presentation/check.mjs"])
     commands.append([sys.executable, ROOT / "tools/check_astro_records.py"])
-    report = {"status": "running", "book": book_id, "quick": quick, "benchmarks": benchmarks,
-              "started_at": datetime.now(timezone.utc).isoformat(), "checks": []}
-    evidence = run / "report.json"
-    for index, command in enumerate(commands):
-        args = [str(arg) for arg in command]
-        readable = [arg.replace(str(ROOT) + "/", "") for arg in args]
-        print("执行：" + " ".join(readable), flush=True)
-        result = subprocess.run(args, cwd=ROOT, capture_output=True, text=True)
-        log = run / f"check-{index + 1:02d}.log"
-        log.write_text(result.stdout + result.stderr, encoding="utf-8")
-        report["checks"].append({"command": readable, "exit_code": result.returncode,
-                                 "log": log.relative_to(ROOT).as_posix()})
-        if result.returncode:
-            report["status"] = "failed"
-            print((result.stdout + result.stderr)[-6000:], file=sys.stderr)
-        evidence.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
-        if result.returncode:
-            print("验证记录：" + evidence.relative_to(ROOT).as_posix(), flush=True)
-            return result.returncode
-        print("通过", flush=True)
-    report.update(status="passed", finished_at=datetime.now(timezone.utc).isoformat())
-    evidence.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
-    print("验证记录：" + evidence.relative_to(ROOT).as_posix(), flush=True)
-    return 0
+    return commands
 
 
 def release_directory(release_id: str) -> Path:
@@ -137,7 +192,7 @@ def build(release_id: str | None) -> Path:
     command = [sys.executable, str(ROOT / "deploy/build_astro.py")]
     if release_id:
         command += ["--release-id", release_id]
-    result = subprocess.run(command, cwd=ROOT, capture_output=True, text=True)
+    result = subprocess.run(command, cwd=ROOT, capture_output=True, text=True, encoding='utf-8', env={**os.environ, 'PYTHONUTF8': '1'})
     if result.returncode:
         print(result.stdout + result.stderr, file=sys.stderr)
         raise RuntimeError("Release build failed")
@@ -198,7 +253,10 @@ def main() -> int:
         return 1
     parser = argparse.ArgumentParser(description=__doc__)
     subs = parser.add_subparsers(dest="action", required=True)
-    subs.add_parser("doctor", help="检查环境；不安装或升级软件")
+    p = subs.add_parser("doctor", help="按操作探测前置能力；不等同执行验收")
+    p.add_argument("--for", dest="target", choices=("local", "full", "build", "release"))
+    p = subs.add_parser("check-local", help="本地结构与阅读契约；不替代完整check和发布门禁")
+    p.add_argument("--book", choices=("all", *load_books()), default="all")
     subs.add_parser("preview-components", help="生成 I039 内容组件样章，仅写入 tmp/reading-components-preview")
     p = subs.add_parser("check", help="运行登记的结构与程序检查")
     p.add_argument("--book", choices=("all", *load_books()), default="all")
@@ -214,7 +272,9 @@ def main() -> int:
     args = parser.parse_args()
     try:
         if args.action == "doctor":
-            return doctor()
+            return doctor(args.target)
+        if args.action == "check-local":
+            return check(args.book, True, False, local=True)
         if args.action == "preview-components":
             return subprocess.run(["node", ROOT / "tools/reading-components/preview.mjs"], cwd=ROOT).returncode
         if args.action == "check":

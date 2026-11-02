@@ -2,6 +2,7 @@
 """Independently check controlled sources, retained mirrors and current review bindings."""
 import base64
 import hashlib
+from html.parser import HTMLParser
 import json
 from pathlib import Path
 import re
@@ -30,7 +31,55 @@ def shared_asset(name, stack=()):
     return content
 
 
+def restore_safe_attribute_quotes(blob):
+    """Invert only I071 syntax compaction; the historical byte hash still decides."""
+    text = blob.decode('utf-8')
+    offsets = [0]
+    for line in text.splitlines(keepends=True):
+        offsets.append(offsets[-1] + len(line))
+    edits = []
+
+    class Quotes(HTMLParser):
+        def __init__(self):
+            super().__init__(convert_charrefs=False)
+            self.protected = []
+
+        def handle_starttag(self, tag, attrs):
+            if tag in {'pre', 'code', 'math', 'svg', 'script', 'style', 'textarea'}:
+                self.protected.append(tag)
+            if self.protected:
+                return
+            raw = self.get_starttag_text()
+            row, column = self.getpos()
+            start = offsets[row - 1] + column
+            # Consume quoted values as whole tokens, never search inside them.
+            tokens = re.finditer(r'''([^\s=/>]+)(\s*=\s*)(?:"[^"]*"|'[^']*'|([^\s"'`=<>]+))''', raw)
+            for token in tokens:
+                name, equals, value = token.groups()
+                if value and equals == '=' and re.fullmatch(r'id|class|data-[a-z0-9-]+', name):
+                    edits.append((start + token.start(3), start + token.end(3), '"' + value + '"'))
+
+        def handle_endtag(self, tag):
+            if tag in self.protected:
+                self.protected = self.protected[:self.protected.index(tag)]
+
+        def handle_startendtag(self, tag, attrs):
+            self.handle_starttag(tag, attrs)
+            self.handle_endtag(tag)
+
+    Quotes().feed(text)
+    for start, end, value in reversed(edits):
+        text = text[:start] + value + text[end:]
+    return text.encode('utf-8')
+
+
 def matches_reviewed_output(blob, expected):
+    if _matches_reviewed_bytes(blob, expected):
+        return True
+    return _matches_reviewed_bytes(restore_safe_attribute_quotes(blob), expected)
+
+
+def _matches_reviewed_bytes(blob, expected):
     if hashlib.sha256(blob).hexdigest() == expected:
         return True
     # I036 approves only this exact head insertion. Removing it must recover

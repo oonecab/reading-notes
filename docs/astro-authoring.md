@@ -18,7 +18,7 @@ I032 开始，迁移后的明确内容修订在 `src/content-revisions.json` 逐
 
 I056 在共享目录脚本的折叠祖先展开后增加一次延后定位，并为目录的激活位置留出 8px 余量，避免章末索引仍停在上一节的阅读位置。净增 6 字节，保留既有性能预算；正文、公式与程序字节保持。原历史审阅继续保留，共享脚本展开后的当前源与输出单独登记；手机目录实际回归、失败轮次和后续矩阵见 T056。
 
-工具链为 **Node/Astro + Python build helpers**：Node >=24.21.0 <25、pnpm >=11.21.0 <12、Python 3.10+；Python 的 build_portal、prepare-pages、public_policy 参与构建，原独立验证器另行运行。准备本地来源资料，并安装 C/Make/Poppler（完整验证）、Nginx/OpenSSL（发布演练）和可运行的 Ego Lite / ego-browser CLI（浏览器验收），然后执行 `pnpm install --frozen-lockfile`、`pnpm build`。生产 HTTP 仍只由 Nginx 提供。
+工具链为 **Node/Astro + Python build helpers**：Node >=24.21.0 <25、pnpm >=11.21.0 <12、Python 3.10+；Python 的 build_portal、prepare-pages、public_policy 参与构建，原独立验证器另行运行。准备本地来源资料，并安装 C/Make/Poppler（完整验证）、Nginx/OpenSSL（发布演练）和本机 Chrome（默认 Playwright 驱动；也可选择 Ego Lite / ego-browser CLI），然后执行 `pnpm install --frozen-lockfile`、`pnpm build`。生产 HTTP 仍只由 Nginx 提供。
 
 `pnpm build` 在临时目录准备来源并构建，对全部公开 HTML（当前 91 页，含辅助页和旧入口页）内联 CSS、favicon 和脚本；下载文件保留链接。正式页完整 DOM 的标签、命名空间、属性和子节点顺序、习题 ID 序列，以及正文/MathML/SVG/代码指纹和内部锚点一起核对。页面数量来自受控条目清单，新增书籍按 catalog、migration-state 与发布 allowlist 登记，不修改固定页数。
 
@@ -26,15 +26,15 @@ I036 在发布适配层为正式阅读页和旧入口补齐站点 favicon；唯�
 
 旧审阅记录继续保留原始输出 hash。独立 Python 绑定检查只认可 I036 明确批准的这一条 head 图标插入：图标资产 hash 固定，标记唯一且位于 head，移除精确标记后必须逐字恢复到原审阅 hash。正文、样式、脚本、标题或其他属性的任何改变仍拒绝；未来更改图标本身需另行审阅这条展示变更边界。
 
-构建还启动环回临时 HTTP 服务，以生产 CSP 模板在真实浏览器覆盖每种内联脚本，确认哈希变异被浏览器阻止；打包再校验这些页面和脚本的指纹。所有门禁通过后才替换 `dist/`，保留上一份输出。`node scripts/verify-parity.mjs --book <book>` 比较冻结源和旧发布视图；`node scripts/check-offline.mjs --book <book>` 用 Ego Lite 实际断网打开该书全部公开页面，验证 1800/1440/1024/390 四档、1440/390 两档无 JS、深链、目录和局部横滚；旧入口验证其本地跳转目标。完整命令从仓库根执行，构建与浏览证据写入忽略目录 `tmp/reading-notes-migration/`。
+构建还启动环回临时 HTTP 服务，以生产 CSP 模板在真实浏览器覆盖每种内联脚本，确认哈希变异被浏览器阻止；打包再校验这些页面和脚本的指纹。所有门禁通过后才替换 `dist/`，保留上一份输出。`node scripts/verify-parity.mjs --book <book>` 比较冻结源和旧发布视图；`node scripts/check-offline.mjs --book <book>` 用配置的浏览器驱动实际断网打开该书全部公开页面，验证 1800/1440/1024/390 四档、1440/390 两档无 JS、深链、目录和局部横滚；旧入口验证其本地跳转目标。完整命令从仓库根执行，构建与浏览证据写入忽略目录 `tmp/reading-notes-migration/`。
 
 逐书 `review/astro-migration.json`、`content-baseline-astro.json` 和 `release-astro.json` 是新增的迁移证据。旧数学审阅、来源材料、内容完整性基线和程序记录保留原有含义。仅因维护说明改动而更新的当前文档哈希，必须同时保存旧值及原因。
 
 ### 浏览器会话与复跑证据
 
-CSP 和离线验收默认复用 `tmp/final-assessment/browser-session.json` 中的 Ego 空间。缓存空间已被关闭、明确返回 `task space not found: <ID>` 时，自动建立一个名为“Reading Notes 浏览器验收”的空间并原子更新缓存；用户控制、inactive、权限、超时及其他错误均停止并保留原错误。也可执行 `READING_NOTES_CSP_SPACE=<现有空间ID> pnpm build` 或同样设置运行 `pnpm check:offline`；值必须是正整数，显式指定的失效空间不会自动替换。CSP 检查始终是构建门禁。
+选择 `READING_NOTES_BROWSER_DRIVER=ego` 时，CSP 和离线验收复用 `tmp/final-assessment/browser-session.json` 中的 Ego 空间。缓存空间已被关闭、明确返回 `task space not found: <ID>` 时，自动建立一个名为“Reading Notes 浏览器验收”的空间并原子更新缓存；用户控制、inactive、权限、超时及其他错误均停止并保留原错误。也可执行 `READING_NOTES_CSP_SPACE=<现有空间ID> pnpm build` 或同样设置运行 `pnpm check:offline`；值必须是正整数，显式指定的失效空间不会自动替换。CSP 检查始终是构建门禁。
 
-两个命令共用会话旁的 `.lock`，已有验收运行时直接拒绝第二次启动。正常结束释放锁；命令被外部强制终止后先检查锁中的 PID、对应运行目录的日志及 Ego 当前页，确认驱动已停止，再移除该精确锁文件并重跑。不要对完整矩阵设置 300 秒总超时；它按每个页面/交互限制等待，完整矩阵需要数分钟。进程被强制杀死可能留下 `running` 尝试，不能当作通过。
+两个命令共用会话旁的 `.lock`，已有验收运行时直接拒绝第二次启动。正常结束释放锁；命令被外部强制终止后先检查锁中的 PID、对应运行目录的日志及所选驱动的浏览器进程，确认驱动已停止，再移除该精确锁文件并重跑。不要对完整矩阵设置 300 秒总超时；它按每个页面/交互限制等待，完整矩阵需要数分钟。进程被强制杀死可能留下 `running` 尝试，不能当作通过。
 
 离线证据在 `tmp/reading-notes-migration/browser/<all或书名>/runs/<UTC时间-随机ID>/`，CSP 证据在 `tmp/reading-notes-migration/csp/runs/<ID>/`。每轮独立保存 `report.json`、`driver.log` 和截图，报告使用临时文件、fsync 和原子替换。父目录的 `report.json` 只在完整成功且驱动正常退出后更新，`latest-attempt.json` 标明最近一次尝试及其状态；检查最近结果必须同时查看两者。失败保留其完整目录，不覆盖上一次成功截图。历史旧格式报告仍按原路径保留，I032 已归档证据不回写。
 
@@ -46,7 +46,7 @@ CSP 和离线验收默认复用 `tmp/final-assessment/browser-session.json` 中�
 
 构建会从受控 HTML 生成缺失的兼容镜像，新增书的公开文件、静态资料视图和书架入口由目录登记与 allowlist 派生；Nginx 的书籍入口正则从已审核发布清单生成，不再枚举固定五书。`deploy/publication.py` 在冻结的旧 Transformer 外衔接目录扩展，并把测度书的地图导航标成伴读总览。I034 将该书程序入口的标题改从维护 README 取得，并更新引言；各组程序说明置于末尾维护用“校验”节之前。发布视图回归逐一核对登记程序的下载入口，避免后续章节被维护分隔截掉。
 
-`python3 tools/test_new_book_build.py` 会在忽略目录复制当前源码到独立 Git 副本，加入两页 dummy 书及其原始快照，删去兼容镜像后运行真正的 `pnpm build --release-id ...`、全部 parity、CSP 浏览器冒烟、Python checker 和发布清单检查。测试只修改隔离副本；报告写入 `tmp/new-book-build/run-*/report.json`。它需要完整构建工具链及已启动的 Ego Lite，不加入每次 quick 检查。
+`python3 tools/test_new_book_build.py` 会在忽略目录复制当前源码到独立 Git 副本，加入两页 dummy 书及其原始快照，删去兼容镜像后运行真正的 `pnpm build --release-id ...`、全部 parity、CSP 浏览器冒烟、Python checker 和发布清单检查。测试只修改隔离副本；报告写入 `tmp/new-book-build/run-*/report.json`。它需要完整构建工具链及可运行的浏览器驱动，不加入每次 quick 检查。
 
 ### 缓存与性能门禁（I035）
 
@@ -70,4 +70,8 @@ I061 的章节图浏览器检查在原生横滚后等待可见几何稳定；轮
 
 允许 Node `>=24.21.0 <25`、pnpm `>=11.21.0 <12`；`packageManager` 保留 11.21.0 基准。保持 `engine-strict` 和 `--frozen-lockfile`，PATH 中的 Node 应与 pnpm 使用的 Node 一致。Windows 使用 `python tools/project.py`；构建入口会解析 pnpm.cmd，并以 python 启动 Python helpers。
 
-此入口适配不等于全套 Windows 支持：CS:APP 检查需要 termios/pty，Linux 发布测试需要目录 fsync 和 rsync，CSP/离线验收需要 Ego 浏览器。完整验证应在具备这些能力的受支持环境进行；不得跳过门禁宣称发布通过。I067 本机 Node 24.22.1/pnpm 11.25.0 的验证与限制见 test/T067-toolchain-range.md。
+此入口适配不等于全套 Windows 支持：CS:APP 检查需要 termios/pty，Linux 发布测试需要目录 fsync 和 rsync，CSP/离线验收需要可运行的浏览器驱动。完整验证应在具备这些能力的受支持环境进行；不得跳过门禁宣称发布通过。I067 本机 Node 24.22.1/pnpm 11.25.0 的验证与限制见 test/T067-toolchain-range.md。
+
+I070后续：CS:APP quick已将POSIX程序依赖延迟到完整执行；本地结构可使用check-local，五个阅读CLI直接执行入口已适配Windows。该批次的正式构建仍受ego-browser缺失阻塞；I071已增加默认Playwright驱动完成同一CSP门禁，不能用本地结构通过替代。当前能力和元数据持久性约定见[TECH](../TECH.md#i070-本地验证与完整门禁)，最新执行见[T070](../test/T070-local-verification.md)。
+
+I071：默认使用锁定Playwright与本机Chrome运行原CSP/离线断言。安装依赖后执行pnpm build、pnpm check:offline；Ego用户可设置READING_NOTES_BROWSER_DRIVER=ego。产物属性引号压缩不修改受控源，完整parity和原性能预算继续强制执行。

@@ -17,7 +17,7 @@ export function verifyParity(directory=path.join(root,'dist'),book) {
   const readerCss=execFileSync('git',['show',`${state.baseline_ref}:portal/reader.css`]);
   if(!readerCss.equals(fs.readFileSync(path.join(stage,'legacy/reader.css'))))throw new Error('Golden reader CSS changed');
   const records=[];
-  validateInternalAnchors(new Map(htmlFiles(directory).map(file=>[path.relative(directory,file),fs.readFileSync(file,'utf8')])));
+  validateInternalAnchors(new Map(htmlFiles(directory).map(file=>[path.relative(directory,file).split(path.sep).join('/'),fs.readFileSync(file,'utf8')])));
   for(const {metadata,html} of pages) {
     const source=checkSource({metadata,html});
     if(!Buffer.from(html).equals(fs.readFileSync(metadata.legacy_path)))throw new Error(`Legacy compatibility HTML changed: ${metadata.route}`);

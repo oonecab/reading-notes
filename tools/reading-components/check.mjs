@@ -1,6 +1,7 @@
 // Validate shared teaching semantics independently of the browser geometry checks.
 import fs from 'node:fs';
 import path from 'node:path';
+import {fileURLToPath} from 'node:url';
 import assert from 'node:assert/strict';
 import { parse } from 'parse5';
 import { entries, walk, attr } from '../../src/lib/controlled-html.mjs';
@@ -163,6 +164,6 @@ export function checkAll() {
   }, { statement: 0, example: 0, proof: 0, exercise: 0 }) };
 }
 
-if (process.argv[1] && path.resolve(process.argv[1]) === new URL(import.meta.url).pathname) {
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   console.log(JSON.stringify(checkAll()));
 }

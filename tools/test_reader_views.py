@@ -87,6 +87,21 @@ class SourcePageNavigation(unittest.TestCase):
             with self.subTest(output=bad[:80]):
                 self.assertFalse(matches_reviewed_output(bad, expected))
 
+    def test_compacted_review_still_requires_exact_historical_bytes(self):
+        original = b'<html><body><p id="one" class="copy" data-kind="text" title="quoted id=inside">Original &amp; text</p><pre id="code">read()</pre><svg id="diagram"></svg></body></html>'
+        compacted = original.replace(b'id="one" class="copy" data-kind="text"', b'id=one class=copy data-kind=text')
+        expected = hashlib.sha256(original).hexdigest()
+        self.assertTrue(matches_reviewed_output(compacted, expected))
+        for bad in (compacted.replace(b'Original', b'Changed'),
+                    compacted.replace(b'id=one', b'id=other'),
+                    compacted.replace(b'class=copy', b'class=changed'),
+                    compacted.replace(b'read()', b'write()'),
+                    compacted.replace(b'id="code"', b'id=code'),
+                    compacted.replace(b'id="diagram"', b'id=diagram'),
+                    compacted.replace(b'data-kind=text', b'data-kind=other')):
+            with self.subTest(output=bad):
+                self.assertFalse(matches_reviewed_output(bad, expected))
+
     def test_existing_site_icon_is_not_duplicated(self):
         original = b'<html><head><link type="image/svg+xml" href="../../favicon.svg" rel="icon"></head><body></body></html>'
         self.assertEqual(with_site_icon(original, 'weiss/notes/chapter01.html'), original)

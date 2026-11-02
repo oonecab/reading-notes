@@ -75,3 +75,9 @@ I044 新增静态 `/eopl/` 路由，范围为地图、序言、来源摘要和 P
 2026-10-25 I065实机：current为releases/20261025T014634，来源干净内容提交 `5eeee00`。EOPL全书13页356题，整站69正式页/91公开HTML/586文件；恢复版 `20261023T211622` 的558文件及配置/policy已核验并保留。548文件保持mtime、10文件更新mtime、新增28文件，root只读权限与固定程序保持；最终CSP13散列。发布/健康检查/Nginx及health timer正常，队列空、无恢复事务。正常域名580内容核对及304、18入口、6PDF Range、9张实际打开的线上截图和8份原生下载通过。环境变量名、服务及端口沿用，.env.example无需调整，见[T065](../test/T065-eopl-completion-publication.md)与[发布审阅](eopl-completion-publication-review.json)。
 
 2026-10-25 I066已将修复从干净内容提交 `781f7aa` 发布为 `20261025T233903`，整站69阅读页、91公开HTML和587文件。新包与本地验收包20261025T225409的全部公开文件逐项相同。服务器587文件及前版586文件哈希、权限、恢复配置通过；553个未变文件保留mtime，33个变更文件更新mtime，新增1文件。正常域名581项内容/304、18条重定向、6份PDF Range及208组gzip检查通过；公网13张截图实际阅读、7份原生下载、2个跨题入口及390px无脚本鼠标/键盘交互通过。 当前恢复单位为 `20261025T014634` 及其公开清单和Nginx配置。固定发布器、服务定义、端口和变量名保持；.env.example无需调整，健康timer正常，发布队列为空且无待恢复事务。详见[T066](../test/T066-eopl-review-repairs.md)与[修复发布审阅](eopl-repairs-publication-review.json)。
+
+## I070 本地Windows能力边界
+
+`doctor --for local/full/build/release`分别报告前置能力，默认全部汇总；缺失能力返回blocked。Windows本地结构使用check-local，完整POSIX/发布验证保持目标环境要求。浏览器证据文件在Windows有文件刷盘和原子替换，无目录掉电保证；生产Linux屏障不变。未新增环境变量、端口或服务，.env.example只追加说明。详见[TECH](../TECH.md#i070-本地验证与完整门禁)。
+
+I071新增非秘密配置：READING_NOTES_BROWSER_DRIVER（默认playwright，可选ego）及READING_NOTES_BROWSER_CHANNEL（默认chrome）。本地验收需要Playwright1.62.1和对应本机Chrome；无新增服务或监听端口，CSP仍使用临时回环端口。Linux发布单元不变。

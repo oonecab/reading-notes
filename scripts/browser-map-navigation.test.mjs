@@ -56,3 +56,19 @@ test('an empty completed document cannot satisfy a map destination', async () =>
   })};
   await assert.rejects(waitLanding(page,expected,{timeout:20,interval:1}),/Chapter map did not reach its visible target/);
 });
+
+test('map landing waits through a destroyed navigation context without accepting stale state', async () => {
+  const expected={url:'https://example.test/chapter.html',target_title:'Chapter'};
+  const landing={...expected,title:expected.target_title,ready:true,visible:true,top:130,bottom:160,blocker_bottom:110,viewport:950,viewport_width:390,width:375};
+  let reads=0;
+  const page={evaluate:async()=>{if(reads++===0)throw new Error('page.evaluate: Execution context was destroyed, most likely because of a navigation');return landing;}};
+  assert.deepEqual(await waitLanding(page,expected,{timeout:1000,interval:1}),landing);
+  assert.equal(reads,4);
+});
+
+test('map landing rejects a persistently missing context and propagates unrelated errors', async () => {
+  const page={evaluate:async()=>{throw new Error('Execution context was destroyed');}};
+  await assert.rejects(waitLanding(page,{url:'test'},{timeout:20,interval:1}),/did not reach its visible target/);
+  const broken={evaluate:async()=>{throw new Error('target browser closed');}};
+  await assert.rejects(waitLanding(broken,{}, {timeout:1000,interval:1}),/target browser closed/);
+});

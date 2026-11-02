@@ -13,7 +13,7 @@ export const cspHash=source=>"'sha256-"+createHash('sha256').update(source).dige
 export function cspManifest(directory){
   const files={},sources=new Set();
   for(const file of htmlFiles(directory)){
-    const html=fs.readFileSync(file,'utf8');files[path.relative(directory,file)]=sha(html);
+    const html=fs.readFileSync(file,'utf8');files[path.relative(directory,file).split(path.sep).join('/')]=sha(html);
     for(const script of scriptSources(html))sources.add(cspHash(script));
   }
   return {files,sources:[...sources].sort()};

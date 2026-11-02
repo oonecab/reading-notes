@@ -16,15 +16,6 @@ BASE = Path(__file__).resolve().parents[1]
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / 'books/stochastic/tools'))
 from html_support import Document, check_resources
-from program_regressions import check_regressions
-from part_two_regressions import check_part_two
-from part_two_signal_regressions import check_signal_regressions
-from part_three_regressions import check_part_three
-from part_three_http_review_regressions import check_http_review
-from part_three_cgi_regressions import check_cgi_review
-from assertion_regressions import check_assertions
-from content_review_regressions import check_content_review
-from explanation_regressions import check_explanations
 from reader_navigation_checks import check_reader_navigation, check_navigation_mutations
 sys.path.insert(0, str(ROOT / 'tools'))
 from check_astro_records import shared_asset
@@ -198,6 +189,15 @@ def oracle(ways, trace):
 
 
 def run_programs(run, programs):
+    from program_regressions import check_regressions
+    from part_two_regressions import check_part_two
+    from part_two_signal_regressions import check_signal_regressions
+    from part_three_regressions import check_part_three
+    from part_three_http_review_regressions import check_http_review
+    from part_three_cgi_regressions import check_cgi_review
+    from assertion_regressions import check_assertions
+    from content_review_regressions import check_content_review
+    from explanation_regressions import check_explanations
     compiler = 'clang'
     results = {}
     def command(args, expected=None, failure=False, input_text=None):
@@ -345,7 +345,7 @@ def main():
     source = manifest['source_pdf']
     if source['sha256'] != sha(BASE/source['path']) or source['bytes'] != (BASE/source['path']).stat().st_size:
         raise ValueError('Original PDF identity differs')
-    info = subprocess.check_output(['pdfinfo',BASE/source['path']],text=True)
+    info = subprocess.check_output(['pdfinfo','-isodates','-enc','UTF-8',BASE/source['path']],text=True,encoding='utf-8')
     if not re.search(r'^Pages:\s+1122$',info,re.M):
         raise ValueError('Original PDF page count differs')
     pages = {p.name:p.read_text() for p in (BASE/'notes').glob('*.html')}

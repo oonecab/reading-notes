@@ -26,8 +26,9 @@
       "Nginx（服务器静态 HTTPS 服务）",
       "Node.js >=24.21.0 <25 LTS（仅构建）",
       "pnpm >=11.21.0 <12（锁定依赖）",
-      "Ego Lite / ego-browser（构建 CSP 冒烟与离线浏览器验收）",
-      "Racket 8.17 + eopl / rackunit（本地教材示例验证）"
+      "Ego Lite / ego-browser（可选浏览器验收驱动）",
+      "Racket 8.17 + eopl / rackunit（本地教材示例验证）",
+      "Playwright 1.62.1 + 本机 Chrome（默认本地浏览器验收）；Ego 保留可选"
     ],
     "source_directories": [
       "books/stochastic",
@@ -57,7 +58,9 @@
       "I062增加EOPL第7章，六书65个正式阅读页，EOPL九页282题；沿用Racket8.17与现有静态工具，类型检查/推导和运行求值分别验证；服务、环境和技术栈保持。",
       "I063增加EOPL第8章，六书66个正式阅读页，EOPL十页309题；现有Racket8.17执行模块解析、接口/抽象类型检查和求值，运行时、静态技术栈与服务保持。",
       "I064增加EOPL第9章，六书67个正式阅读页，EOPL十一页351题；现有Racket8.17执行对象/类解释器、继承分派、TYPED-OO及习题扩展，静态技术栈、运行环境与服务保持。",
-      "I065完成EOPL附录A/B，六书69个正式阅读页、EOPL13页356题；现有Racket8.17/eopl执行SLLGEN与算术解释器，修复最近7–9章边界，技术栈/服务/端口保持。"
+      "I065完成EOPL附录A/B，六书69个正式阅读页、EOPL13页356题；现有Racket8.17/eopl执行SLLGEN与算术解释器，修复最近7–9章边界，技术栈/服务/端口保持。",
+      "I070: check-local is an explicit structural/readership scope; check and check --quick retain POSIX publication gates. doctor reports prerequisites per operation, not runtime acceptance. Windows local browser metadata uses file flush and atomic replacement without directory power-loss guarantee; Linux publication barriers remain mandatory.",
+      "I071: 构建产物只简化安全HTML属性引号，预算和原数学/脚本字节保持；同一CSP和离线断言可由Playwright/Chrome在本地执行。"
     ]
   },
   "commands": {
@@ -72,7 +75,9 @@
       "pnpm check:offline",
       "pnpm check:performance",
       "node tools/reader-contract/check.mjs",
-      "pnpm check:presentation"
+      "pnpm check:presentation",
+      "python3 tools/project.py check-local",
+      "python3 tools/test_local_verification.py"
     ],
     "lint": [
       "python3 tools/project.py check --quick"
@@ -92,7 +97,9 @@
     "variables": [
       "ASTRO_TELEMETRY_DISABLED",
       "READING_NOTES_CSP_SPACE",
-      "READING_NOTES_TEST_CRASH"
+      "READING_NOTES_TEST_CRASH",
+      "READING_NOTES_BROWSER_DRIVER",
+      "READING_NOTES_BROWSER_CHANNEL"
     ],
     "services": [
       "本地预览：Python 静态 HTTP 服务，绑定 127.0.0.1",

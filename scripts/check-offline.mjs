@@ -10,7 +10,7 @@ import { resumeViews } from './browser-resume.mjs';
 const i=process.argv.indexOf('--book'),book=i<0?undefined:process.argv[i+1];
 const selected=entries().filter(p=>!book||p.metadata.book===book);
 if(!selected.length)throw new Error('No migrated reading pages');
-const candidates=htmlFiles(path.join(root,'dist')).map(file=>({route:path.relative(path.join(root,'dist'),file)})).filter(p=>!book||p.route.startsWith(book+'/'));
+const candidates=htmlFiles(path.join(root,'dist')).map(file=>({route:path.relative(path.join(root,'dist'),file).split(path.sep).join('/')})).filter(p=>!book||p.route.startsWith(book+'/'));
 const readerPolicies=JSON.parse(fs.readFileSync('docs/reader-contract.json')).pages;
 const presentation=JSON.parse(fs.readFileSync('docs/reader-presentation.json'));
 const pages=candidates.map(metadata=>{

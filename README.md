@@ -107,3 +107,9 @@ python3 tools/project.py build --release-id YYYYMMDDTHHMMSS
 正式维护源、原书来源和验证摘要随项目保留。`tmp/`、编译/字节码缓存和本地版本包由 `.gitignore` 排除；只有明确清单中的站点文件进入部署包。被忽略的目录也可能包含验证输入、历史证据、迁移基线和正在使用的预览，不能整目录盲删。
 
 本地清理先核对用途、引用和运行进程，再对确认可重建的生成物记录精确清单，采用可恢复的移除并复查正式文件与构建。此次清理的范围、恢复和验收见 [I013](issues/I013-project-cleanup.md) 与 [T013](test/T013-project-cleanup.md)。
+
+## Windows 本地检查
+
+使用 `python tools/project.py doctor --for local` 探测前置条件，再运行 `python tools/project.py check-local`。此入口只验证本地结构、来源及阅读契约，不替代完整程序/发布验证。`pnpm test`包含真实CLI入口和本地证据写入回归。完整 `check` / `check --quick` 保留POSIX发布门禁。平台能力、Windows证据持久性边界和报告状态见[TECH I070](TECH.md#i070-本地验证与完整门禁)。
+
+默认浏览器验收使用锁定的 Playwright 依赖与本机 Chrome；运行 `pnpm install --frozen-lockfile` 后可执行正式构建及离线检查。选择其他已安装浏览器或 Ego 的配置见 [Astro 编写说明](docs/astro-authoring.md)。

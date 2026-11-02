@@ -34,7 +34,7 @@
 - Nginx（服务器静态 HTTPS 服务）
 - Node.js >=24.21.0 <25 LTS（仅构建）
 - pnpm >=11.21.0 <12（锁定依赖）
-- Ego Lite / ego-browser（构建 CSP 冒烟与离线浏览器验收）
+- Playwright 1.62.1 + 本机 Chrome（默认构建 CSP 冒烟与离线浏览器验收）；Ego Lite / ego-browser 为可选驱动
 - Racket 8.17 + eopl / rackunit（本地教材示例验证）
 
 ## 源码边界
@@ -285,3 +285,29 @@ I061 生产版本 `20261023T211622` 来自干净内容提交 `ee76a04`，包含6
 ## I067 工具链兼容范围（2026-11-02）
 
 从精确 Node 24.21.0 / pnpm 11.21.0 放宽为 >=24.21.0 <25 / >=11.21.0 <12；保留精确 packageManager 基准和依赖锁。发布记录使用实际构建版本，Windows 命令入口适配不改变 Linux 发布安全语义。可通过 revert 回退，见 issues/I067-toolchain-range.md。
+
+## I069 Windows 检查CLI入口
+
+阅读契约与呈现契约的直接执行判定使用Node内置fileURLToPath统一路径，修复Windows路径与URL pathname不相等导致的静默空跑。真实CLI回归由pnpm test执行，见[T069](test/T069-windows-cli.md)。不改变检查规则或支持平台承诺；I068中的其他平台阻碍仍存在。
+
+## I070 本地验证与完整门禁
+
+Windows从根目录执行 `python tools/project.py check-local`，覆盖书级快速检查及共用阅读契约；报告scope为local-structure，明确不包含POSIX发布安全、原生程序执行和浏览器验收。该命令不是完整check的别名。`check`及`check --quick`保留原发布安全测试，受平台限制时仍失败，不能作为已通过处理。
+
+`python tools/project.py doctor --for local`只检查本地结构验证前置条件；`--for full`、`--for build`、`--for release`分别探测对应能力。省略--for时报告所有操作，任一blocked则非零退出。prerequisites_met不等于实际检查或浏览器连接通过，runtime_verified始终为false。Node和pnpm应来自一致工具链，当前下限仍为Node24.21.0/pnpm11.21.0。
+
+本地浏览器证据在Windows使用文件fsync和原子rename，不对目录掉电持久性作保证；POSIX继续执行目录fsync。Linux生产发布仍使用deploy/scripts/durability.py的强制屏障，未改变。CS:APP只在完整程序执行时导入POSIX回归；quick仍核对PDF、题号和源码等全部既有断言。pdfinfo使用UTF-8和ISO日期，避免本地化时区文字的混合编码。
+
+所有五个共享阅读CLI均使用fileURLToPath识别直接执行，真实CLI回归纳入pnpm test。未增加服务、端口或环境变量。验证与未完成边界见[test/T070-local-verification.md](test/T070-local-verification.md)。
+
+I070 构建后验证继续修复Windows路由分隔符：parity、CSP清单、性能预算和离线候选清单都将文件相对路径转换为URL的正斜杠，避免锚点误报及逐页预算未命中。新增真实嵌套目录回归，性能限制本身未改变。
+
+## I071 构建收尾（2026-11-02）
+
+技术栈变更索引追加：仅Ego浏览器执行 → 默认Playwright 1.62.1 + 本机Chrome的隔离无头会话，Ego作为可选驱动保留。原因是Windows可复现地运行原CSP/离线断言；依赖进入package.json及锁文件，生产仍为静态文件。回滚可撤销本批依赖与驱动选择，无数据迁移，见I071/T071。
+
+READING_NOTES_BROWSER_DRIVER默认playwright，可设ego；READING_NOTES_BROWSER_CHANNEL默认chrome，必须安装对应浏览器。验收运行时及浏览器版本保存在driver.log；不借用个人浏览器配置。doctor只报告前置条件，不把进程启动当验收通过。
+
+构建产物使用保守HTML属性压缩：仅对安全的id/class/data-*非空单词值移除引号，保留其它属性；pre/code/math/svg/script/style/textarea及其子树原字节不变。处理在发布预压缩前进行，parity仍独立对比未经压缩的历史期望；性能预算、gzip级别与内容清单不变。
+
+I071 历史产物绑定继续保留原 SHA-256：检查器仅为非受保护 HTML 标签还原允许压缩的 id/class/data-* 引号，再要求精确匹配历史字节（及既有 I036 图标例外）。不接受正文、脚本、公式、属性值或受保护岛的变化。新增反例验证和旧检查器的失败证据见 T071。
