@@ -6,8 +6,8 @@
   "file_sha256": {
     "agent.md": "1f642254d9f568890ff6d4efb731f582c90497b654e78c43ee1f85b5e79fb40d",
     "notes/README.md": "024964cc62de7a75cd7c0e58e617c62992f44a014df0d60721abc8d63e709a3e",
-    "notes/source_manifest.json": "a9f6be911edd4a86185ea5e326a310fbe411ffde3f726965f080d1eba6fed807",
-    "notes/source_inventory.json": "440592e2d18a81133c40fbd6ca7dd5dd73177e5b70095be0c501dd7e1a490385"
+    "notes/source_manifest.json": "ce2ec587146f7c212fae1e51c6b8d5d15c0fb172b09daff7327285d4b5dfa935",
+    "notes/source_inventory.json": "0049cef36db50693d361fac34147d305796d0529158dd296b3845accebfdd772"
   },
   "open_findings": [],
   "astro_migration": {
@@ -26,5 +26,24 @@
     "Windows full-gate publication safety remains blocked by rsync/POSIX directory fsync; local HTTPS Nginx verification not run.",
     "No physical mobile, screen reader or other-browser validation.",
     "No push or production deployment."
+  ],
+  "binding_history": [
+    {
+      "at": "2026-11-06T14:48:42.372845+00:00",
+      "changes": [
+        {
+          "file": "notes/source_manifest.json",
+          "previous_sha256": "a9f6be911edd4a86185ea5e326a310fbe411ffde3f726965f080d1eba6fed807",
+          "current_sha256": "ce2ec587146f7c212fae1e51c6b8d5d15c0fb172b09daff7327285d4b5dfa935",
+          "reason": "I074 real clean-clone failure: normalize CRLF to canonical LF; JSON values unchanged."
+        },
+        {
+          "file": "notes/source_inventory.json",
+          "previous_sha256": "440592e2d18a81133c40fbd6ca7dd5dd73177e5b70095be0c501dd7e1a490385",
+          "current_sha256": "0049cef36db50693d361fac34147d305796d0529158dd296b3845accebfdd772",
+          "reason": "I074 real clean-clone failure: normalize CRLF to canonical LF; JSON values unchanged."
+        }
+      ]
+    }
   ]
 }
