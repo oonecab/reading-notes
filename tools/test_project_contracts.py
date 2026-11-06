@@ -59,7 +59,7 @@ class ProjectContracts(unittest.TestCase):
             matches = [card for card in cards if entry in card['links']]
             self.assertEqual(len(matches), 1, book['id'])
             for pattern, expected in [(r'(\d+)\s*页笔记', book['expected_pages']),
-                                       (r'(\d+)\s*道习题', book['expected_exercises'])]:
+                                       (r'(\d+)\s*道(?:习)?题', book['expected_exercises'])]:
                 match = re.search(pattern, matches[0]['scope'])
                 if match:
                     self.assertEqual(int(match[1]), expected, book['id'])
@@ -118,6 +118,34 @@ class ProjectContracts(unittest.TestCase):
         with self.assertRaises(ValueError):
             checker.check_inventory(inventory)
 
+    def test_sicp_question_capture_keeps_nested_formula_and_following_input(self):
+        checker = module('sicp_question_capture', ROOT / 'books/sicp/tools/check_notes.py')
+        source = ('<div class="exercise-question"><p>题干</p><div class="math-block">'
+                  '<math display="block"><mi>x</mi><mo>+</mo><mn>1</mn></math></div>'
+                  '<pre><code>(&lt; x 2)</code></pre></div><div class="answer">不属于题面</div>')
+        bodies = checker.QuestionBodies(source).blocks
+        self.assertEqual(len(bodies), 1)
+        self.assertIn('<pre><code>(&lt; x 2)</code></pre>', bodies[0])
+        self.assertNotIn('不属于题面', bodies[0])
+        self.assertEqual(checker.DisplayFormulaText(bodies[0]).blocks, ['x+1'])
+
+    def test_sicp_display_formula_detects_actual_source_token_mutation(self):
+        checker = module('sicp_formula_capture', ROOT / 'books/sicp/tools/check_notes.py')
+        questions = json.loads((ROOT / 'books/sicp/notes/questions_ch01.json').read_text(encoding='utf8'))['items']
+        source = questions[1]['original_html']
+        expected = checker.DisplayFormulaText(source).blocks
+        self.assertEqual(len(expected), 1)
+        self.assertNotEqual(checker.DisplayFormulaText(source.replace('<mn>5</mn>', '<mn>9</mn>', 1)).blocks, expected)
+        self.assertEqual(checker.DisplayFormulaText(source.replace('<mrow', '\n<mrow')).blocks, expected)
+
+    def test_sicp_quote_format_preserves_indentation_and_detects_token_edits(self):
+        checker = module('sicp_quote_format', ROOT / 'books/sicp/tools/check_notes.py')
+        source = '(define (f x) \t\n  (+ x 1))  '
+        self.assertEqual(checker.quoted_code(source), '(define (f x)\n  (+ x 1))')
+        self.assertNotEqual(checker.quoted_code(source.replace('x 1', 'x 2')), checker.quoted_code(source))
+        self.assertNotEqual(checker.quoted_code(source.replace('  (+', ' (+')), checker.quoted_code(source))
+        self.assertNotEqual(checker.quoted_code(' ' + source), checker.quoted_code(source))
+
     def test_byte_bound_json_uses_portable_lf(self):
         for name in ['books/sicp/notes/source_manifest.json',
                      'books/sicp/notes/source_inventory.json', 'deploy/publish-allowlist.json']:
@@ -127,7 +155,7 @@ class ProjectContracts(unittest.TestCase):
     def test_git_preserves_source_binary_and_managed_line_endings(self):
         paths = ['books/sicp/sicp.pdf', 'books/weiss/WEISS_2E.tar.Z',
                  'books/weiss/WEISS_2E_extracted/ch1.c', 'tools/project.py',
-                 'deploy/publish-allowlist.json', 'example.ps1']
+                 'deploy/publish-allowlist.json', 'example.ps1', 'books/sicp/code/chapter01.rkt']
         output = subprocess.check_output(['git', 'check-attr', 'text', 'eol', '--', *paths],
                                          cwd=ROOT, text=True)
         values = {}
@@ -139,6 +167,8 @@ class ProjectContracts(unittest.TestCase):
         for name in paths[3:5]:
             self.assertEqual(values[(name, 'eol')], 'lf', name)
         self.assertEqual(values[('example.ps1', 'eol')], 'crlf')
+        self.assertEqual(values[('books/sicp/code/chapter01.rkt', 'text')], 'set')
+        self.assertEqual(values[('books/sicp/code/chapter01.rkt', 'eol')], 'lf')
 
 
 if __name__ == '__main__':

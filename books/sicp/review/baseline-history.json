@@ -10,6 +10,18 @@
       "current_source_sha256": "d6f932d2df28dd8113b3073f32b5104636620a8a92bf7c1033092f8800f3fc90",
       "reason": "Actual390px failure: inherited min-width620px overrides compact map. Add min-width0/max-width100% to this map only; text, topology, anchors and source links unchanged.",
       "failure_evidence": "tmp/reading-notes-migration/browser/sicp/runs/2026-11-06T14-24-05-389Z-26c6683e/report.json"
+    },
+    {
+      "issue": "I075",
+      "previous_git_ref": "e2c90b7568157b2a9d69c9d2638c19d978584eec",
+      "reason": "Chapter1 extends current acceptance; I073/I074 historical facts remain at this ancestor",
+      "files_sha256": {
+        "astro-migration.json": "f9d13477da5acfed26f6576b59b70450dcbbdf228f0723aa5b6ed4260a764403",
+        "content-baseline-astro.json": "b2172b72f6ad9dd4bf3d5afd85021c0db62ceb16b352df668a29401a3d2c80d8",
+        "release-astro.json": "f030fffac4faa97b0907f420c0c7e8995301eabf13b0024f2e6bbbc82c6bcc18",
+        "validation.json": "2ea4400688dfa6b3cc274ee8d4396b9753eb3d625f073837d2cdd688b0759490",
+        "browser.json": "6ae2b8bbae88c7c03b53d8924c222144c99f2bb0633c9d6be14b2461fa78f3ea"
+      }
     }
   ]
 }

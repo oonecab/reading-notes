@@ -838,6 +838,12 @@
           "file": "preface.html",
           "kind": "preface",
           "label": "序言"
+        },
+        {
+          "file": "chapter01_procedures.html",
+          "kind": "chapter",
+          "label": "第 1 章 · 用过程构造抽象",
+          "number": 1
         }
       ],
       "exceptions": [],
@@ -846,11 +852,11 @@
           "title": "SICP 五章的抽象递进图",
           "nodes": [
             {
-              "kind": "chapter-summary",
+              "kind": "chapter",
               "number": 1,
-              "href": "#chapter-1",
-              "label": "第 1 章章意：用过程构造抽象",
-              "target_title": "第 1 章章意 · 用过程构造抽象"
+              "href": "chapter01_procedures.html",
+              "label": "第 1 章：用过程构造抽象",
+              "target_title": "第 1 章 · 用过程构造抽象"
             },
             {
               "kind": "chapter-summary",

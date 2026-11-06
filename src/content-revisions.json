@@ -11308,6 +11308,115 @@
           ]
         }
       ]
+    },
+    "sicp/notes/book_overview.html": {
+      "original_sha256": "d6f932d2df28dd8113b3073f32b5104636620a8a92bf7c1033092f8800f3fc90",
+      "source_sha256": "f6df2c6a846506878244ac37c7af2c6943e48076f044b717eb28c59ac358cf96",
+      "review_record": "books/sicp/review/chapter01.json",
+      "history": [
+        {
+          "revision": "I075",
+          "from_sha256": "d6f932d2df28dd8113b3073f32b5104636620a8a92bf7c1033092f8800f3fc90",
+          "to_sha256": "f6df2c6a846506878244ac37c7af2c6943e48076f044b717eb28c59ac358cf96",
+          "reason": "First chapter complete: overview node now opens chapter1; preface navigation and current program/scope explanation aligned, existing teaching anchors retained",
+          "reviewed_anchors": [
+            "chapter-1",
+            "program-guide",
+            "source"
+          ]
+        }
+      ]
+    },
+    "sicp/notes/preface.html": {
+      "original_sha256": "86a0294f04752866c068cde7551a2917b267b847c61f8d298838dd5d7108e17e",
+      "source_sha256": "52617c40f35616308332e4c3445e2dc84b91984ed5efda0913172959f9dc5671",
+      "review_record": "books/sicp/review/chapter01.json",
+      "history": [
+        {
+          "revision": "I075",
+          "from_sha256": "86a0294f04752866c068cde7551a2917b267b847c61f8d298838dd5d7108e17e",
+          "to_sha256": "52617c40f35616308332e4c3445e2dc84b91984ed5efda0913172959f9dc5671",
+          "reason": "First chapter complete: overview node now opens chapter1; preface navigation and current program/scope explanation aligned, existing teaching anchors retained",
+          "reviewed_anchors": [
+            "scheme",
+            "top"
+          ]
+        }
+      ]
+    },
+    "sicp/notes/chapter01_procedures.html": {
+      "original_sha256": "af63907cbae9747250e488536294cc6762b25037dae298e6b315805e0704bc47",
+      "source_sha256": "b14530970a1d88142db8e0a3b6d41d1aac64970863267747929c3c4c12bed2c8",
+      "review_record": "books/sicp/review/chapter01.json",
+      "history": [
+        {
+          "revision": "I075-figure",
+          "from_sha256": "af63907cbae9747250e488536294cc6762b25037dae298e6b315805e0704bc47",
+          "to_sha256": "3f6d293d5e65a781a17fd25588923dcb2f76bcf2252fdba785d948e41b6c25ce",
+          "reason": "Actual390px visual readback found text inheriting node stroke from g; move rn-node role to rectangle, retain coordinates, labels and all edges",
+          "reviewed_anchors": [
+            "ex-1-14",
+            "tree-title",
+            "tree-desc"
+          ]
+        },
+        {
+          "revision": "I075-mobile-math",
+          "from_sha256": "3f6d293d5e65a781a17fd25588923dcb2f76bcf2252fdba785d948e41b6c25ce",
+          "to_sha256": "209a32c0633a61fa9feb0577332a339eb37b6fa1bcbb3ac8d20d9e7f0c0ec995",
+          "reason": "Actual all-expanded390px check found Simpson display formula overflow; add local math scrolling, use whole inline procedure identifiers, retain one full printed/PDF source paragraph inside each question",
+          "reviewed_anchors": [
+            "ex-1-29",
+            "exercises",
+            "ex-1-46"
+          ]
+        },
+        {
+          "revision": "I075-random-MR",
+          "from_sha256": "209a32c0633a61fa9feb0577332a339eb37b6fa1bcbb3ac8d20d9e7f0c0ec995",
+          "to_sha256": "381ac8792ad7b7aa51aed70aaa9d3c6baf23272298f7273ff4a90780de5465e8",
+          "reason": "Complete1.28 random-round wrapper with controllable source, positive-round guard and independent witness tests; rerun benchmarks and update actual measured cells and ratios",
+          "reviewed_anchors": [
+            "ex-1-28",
+            "code-miller-rabin",
+            "ex-1-22",
+            "ex-1-24",
+            "programs"
+          ]
+        },
+        {
+          "revision": "I075-referenced-inputs",
+          "from_sha256": "381ac8792ad7b7aa51aed70aaa9d3c6baf23272298f7273ff4a90780de5465e8",
+          "to_sha256": "5845bf44adb712dd7a899637428495a59abd77691abe63e24d9af21aa4bc102a",
+          "reason": "Complete14 explicitly located textbook input groups and34 question dependency lists; put Carmichael values in task; render Fib as one named function; explain actual timing variability using measured group and individual ratios",
+          "reviewed_anchors": [
+            "source-basic",
+            "source-sqrt",
+            "source-fib",
+            "source-gcd",
+            "source-fermat",
+            "source-sum",
+            "source-fixed-point",
+            "source-newton",
+            "ex-1-13",
+            "ex-1-20",
+            "ex-1-23",
+            "ex-1-27"
+          ]
+        },
+        {
+          "revision": "I075-quote-format",
+          "from_sha256": "5845bf44adb712dd7a899637428495a59abd77691abe63e24d9af21aa4bc102a",
+          "to_sha256": "b14530970a1d88142db8e0a3b6d41d1aac64970863267747929c3c4c12bed2c8",
+          "reason": "Normalize only trailing spaces/tabs in displayed original code while preserving raw transcription separately; compare exact canonical text and regress token/indentation edits",
+          "reviewed_anchors": [
+            "source-basic",
+            "source-change",
+            "source-newton",
+            "exercises"
+          ]
+        }
+      ]
     }
   }
 }

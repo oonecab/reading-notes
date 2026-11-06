@@ -1,0 +1,368 @@
+{
+  "schema_version": 1,
+  "scope": "Referenced textbook inputs; fragments are not alternate execution sources",
+  "records": [
+    {
+      "id": "source-basic",
+      "section": "s1-1-4",
+      "title": "基本过程约定",
+      "pdf_pages": [
+        44,
+        58,
+        74,
+        85
+      ],
+      "printed_pages": [
+        16,
+        30,
+        46,
+        57
+      ],
+      "kind": "companion-primitive-contract",
+      "code": "(define (square x) (* x x))\n(define (cube x) (* x x x))\n(define (average x y) (/ (+ x y) 2))\n(define (inc x) (+ x 1))\n(define (dec x) (- x 1))\n(define true #t)\n(define false #f)",
+      "context": "下面集中给出阅读所用基本过程的等价定义；inc、dec 分别加一、减一，true、false 是布尔值名字。这些是题设的基本操作约定；完整运行源另有数值保护。",
+      "original_code": "(define (square x) (* x x))\n(define (cube x) (* x x x))\n(define (average x y) (/ (+ x y) 2))\n(define (inc x) (+ x 1))\n(define (dec x) (- x 1))\n(define true #t)\n(define false #f)"
+    },
+    {
+      "id": "source-sqrt",
+      "section": "s1-1-7",
+      "title": "原始平方根与停止测试",
+      "pdf_pages": [
+        58,
+        59
+      ],
+      "printed_pages": [
+        30,
+        31
+      ],
+      "kind": "source-fragment",
+      "code": "(define (sqrt-iter guess x)\n  (if (good-enough? guess x)\n      guess\n      (sqrt-iter (improve guess x) x)))\n\n(define (improve guess x)\n  (average guess (/ x guess)))\n\n(define (good-enough? guess x)\n  (< (abs (- (square guess) x)) 0.001))\n\n(define (sqrt x)\n  (sqrt-iter 1.0 x))",
+      "context": "此处是原书的绝对残差版本，供1.6—1.8和1.46引用；依赖前面的square、average。其零值、尺度与浮点局限在1.7另行修改，不能把此版本当作改进版。",
+      "original_code": "(define (sqrt-iter guess x)\n  (if (good-enough? guess x)\n      guess\n      (sqrt-iter (improve guess x) x)))\n\n(define (improve guess x)\n  (average guess (/ x guess)))\n\n(define (good-enough? guess x)\n  (< (abs (- (square guess) x)) 0.001))\n\n(define (sqrt x)\n  (sqrt-iter 1.0 x))"
+    },
+    {
+      "id": "source-fib",
+      "section": "s1-2-2",
+      "title": "Fibonacci 的递归定义",
+      "pdf_pages": [
+        76
+      ],
+      "printed_pages": [
+        48
+      ],
+      "kind": "source-fragment",
+      "code": "(define (fib n)\n  (cond ((= n 0) 0)\n        ((= n 1) 1)\n        (else (+ (fib (- n 1))\n                 (fib (- n 2))))))",
+      "context": "下标为非负整数，起始值为0和1，后续项为前两项之和。黄金比例是φ=(1+√5)/2；1.13将从该递推证明闭式。",
+      "original_code": "(define (fib n)\n  (cond ((= n 0) 0)\n        ((= n 1) 1)\n        (else (+ (fib (- n 1))\n                 (fib (- n 2))))))"
+    },
+    {
+      "id": "source-fib-iter",
+      "section": "s1-2-2",
+      "title": "Fibonacci 的状态迭代",
+      "pdf_pages": [
+        78
+      ],
+      "printed_pages": [
+        50
+      ],
+      "kind": "source-fragment",
+      "code": "(define (fib n)\n  (fib-iter 1 0 n))\n\n(define (fib-iter a b count)\n  (if (= count 0)\n      b\n      (fib-iter (+ a b) a (- count 1))))",
+      "context": "这是替代上一个fib定义的另一版本，不把两个同名定义并列装进一个模块。初态(a,b)=(1,0)，每步同时更新为(a+b,a)。",
+      "original_code": "(define (fib n) \n  (fib-iter 1 0 n))\n\n(define (fib-iter a b count)\n  (if (= count 0)\n      b\n      (fib-iter (+ a b) a (- count 1))))"
+    },
+    {
+      "id": "source-change",
+      "section": "s1-2-2",
+      "title": "count-change 的完整输入",
+      "pdf_pages": [
+        80
+      ],
+      "printed_pages": [
+        52
+      ],
+      "kind": "source-fragment",
+      "code": "(define (count-change amount)\n  (cc amount 5))\n\n(define (cc amount kinds-of-coins)\n  (cond ((= amount 0) 1)\n        ((or (< amount 0)\n             (= kinds-of-coins 0))\n         0)\n        (else\n         (+ (cc amount (- kinds-of-coins 1))\n            (cc (- amount (first-denomination\n                           kinds-of-coins))\n                kinds-of-coins)))))\n\n(define (first-denomination kinds-of-coins)\n  (cond ((= kinds-of-coins 1) 1)\n        ((= kinds-of-coins 2) 5)\n        ((= kinds-of-coins 3) 10)\n        ((= kinds-of-coins 4) 25)\n        ((= kinds-of-coins 5) 50)))",
+      "context": "固定五种面额，amount为整数、kinds-of-coins在0—5内；金额为零先于无面额分支判断。习题1.14的全部调用树以这一定义为准。",
+      "original_code": "(define (count-change amount)\n  (cc amount 5))\n\n(define (cc amount kinds-of-coins)\n  (cond ((= amount 0) 1)\n        ((or (< amount 0) \n             (= kinds-of-coins 0)) \n         0)\n        (else \n         (+ (cc amount (- kinds-of-coins 1))\n            (cc (- amount (first-denomination \n                           kinds-of-coins))\n                kinds-of-coins)))))\n\n(define (first-denomination kinds-of-coins)\n  (cond ((= kinds-of-coins 1) 1)\n        ((= kinds-of-coins 2) 5)\n        ((= kinds-of-coins 3) 10)\n        ((= kinds-of-coins 4) 25)\n        ((= kinds-of-coins 5) 50)))"
+    },
+    {
+      "id": "source-power",
+      "section": "s1-2-4",
+      "title": "递归 fast-expt",
+      "pdf_pages": [
+        86
+      ],
+      "printed_pages": [
+        58
+      ],
+      "kind": "source-fragment",
+      "code": "(define (fast-expt b n)\n  (cond ((= n 0)\n         1)\n        ((even? n)\n         (square (fast-expt b (/ n 2))))\n        (else\n         (* b (fast-expt b (- n 1))))))",
+      "context": "这里的指数为非负整数。square只求一次半指数结果；1.16把同一目标改为迭代，1.25比较完整求幂与逐步取模。",
+      "original_code": "(define (fast-expt b n)\n  (cond ((= n 0) \n         1)\n        ((even? n) \n         (square (fast-expt b (/ n 2))))\n        (else \n         (* b (fast-expt b (- n 1))))))"
+    },
+    {
+      "id": "source-gcd",
+      "section": "s1-2-5",
+      "title": "正则序分析所用 gcd",
+      "pdf_pages": [
+        91
+      ],
+      "printed_pages": [
+        63
+      ],
+      "kind": "source-fragment",
+      "code": "(define (gcd a b)\n  (if (= b 0)\n      a\n      (gcd b (remainder a b))))",
+      "context": "习题1.20严格展开下面的两参数过程。运行参考程序中的gcd-count增加计数状态；不能把计数适配误作原题的输入。",
+      "original_code": "(define (gcd a b)\n  (if (= b 0)\n      a\n      (gcd b (remainder a b))))"
+    },
+    {
+      "id": "source-prime",
+      "section": "s1-2-6",
+      "title": "原始试除检验",
+      "pdf_pages": [
+        93,
+        94
+      ],
+      "printed_pages": [
+        65,
+        66
+      ],
+      "kind": "source-fragment",
+      "code": "(define (smallest-divisor n)\n  (find-divisor n 2))\n\n(define (find-divisor n test-divisor)\n  (cond ((> (square test-divisor) n)\n         n)\n        ((divides? test-divisor n)\n         test-divisor)\n        (else (find-divisor\n               n\n               (+ test-divisor 1)))))\n\n(define (divides? a b)\n  (= (remainder b a) 0))\n\n(define (prime? n)\n  (= n (smallest-divisor n)))",
+      "context": "原书这段prime?以整数n≥2为使用前提，不能拿它把1判为素数。独立执行源显式拒绝n&lt;2，并允许替换候选因子的后继。",
+      "original_code": "(define (smallest-divisor n)\n  (find-divisor n 2))\n\n(define (find-divisor n test-divisor)\n  (cond ((> (square test-divisor) n) \n         n)\n        ((divides? test-divisor n) \n         test-divisor)\n        (else (find-divisor \n               n \n               (+ test-divisor 1)))))\n\n(define (divides? a b)\n  (= (remainder b a) 0))\n\n(define (prime? n)\n  (= n (smallest-divisor n)))"
+    },
+    {
+      "id": "source-fermat",
+      "section": "s1-2-6",
+      "title": "expmod 与 Fermat 多轮检验",
+      "pdf_pages": [
+        95,
+        96,
+        97
+      ],
+      "printed_pages": [
+        67,
+        68,
+        69
+      ],
+      "kind": "source-fragment",
+      "code": "(define (expmod base exp m)\n  (cond ((= exp 0) 1)\n        ((even? exp)\n         (remainder\n          (square (expmod base (/ exp 2) m))\n          m))\n        (else\n         (remainder\n          (* base (expmod base (- exp 1) m))\n          m))))\n\n(define (fermat-test n)\n  (define (try-it a)\n    (= (expmod a n n) a))\n  (try-it (+ 1 (random (- n 1)))))\n\n(define (fast-prime? n times)\n  (cond ((= times 0) true)\n        ((fermat-test n)\n         (fast-prime? n (- times 1)))\n        (else false)))",
+      "context": "n为整数且至少为2，指数非负，模数为正；random(m)产生0至m−1中的整数。源中times=0返回true仅表示没有剩余检验，不提供素性证据。脚注1.47列出的Carmichael数为561、1105、1729、2465、2821、6601。",
+      "original_code": "(define (expmod base exp m)\n  (cond ((= exp 0) 1)\n        ((even? exp)\n         (remainder \n          (square (expmod base (/ exp 2) m))\n          m))\n        (else\n         (remainder \n          (* base (expmod base (- exp 1) m))\n          m))))\n\n(define (fermat-test n)\n  (define (try-it a)\n    (= (expmod a n n) a))\n  (try-it (+ 1 (random (- n 1)))))\n\n(define (fast-prime? n times)\n  (cond ((= times 0) true)\n        ((fermat-test n) \n         (fast-prime? n (- times 1)))\n        (else false)))"
+    },
+    {
+      "id": "source-sum",
+      "section": "s1-3-1",
+      "title": "原始 sum",
+      "pdf_pages": [
+        105
+      ],
+      "printed_pages": [
+        77
+      ],
+      "kind": "source-fragment",
+      "code": "(define (sum term a next b)\n  (if (> a b)\n      0\n      (+ (term a)\n         (sum term (next a) next b))))",
+      "context": "空区间返回0；term给出当前项，next给出后继。用于有限数值区间时，后继须推进到越过终点。",
+      "original_code": "(define (sum term a next b)\n  (if (> a b)\n      0\n      (+ (term a)\n         (sum term (next a) next b))))"
+    },
+    {
+      "id": "source-integral",
+      "section": "s1-3-1",
+      "title": "中点积分定义",
+      "pdf_pages": [
+        107
+      ],
+      "printed_pages": [
+        79
+      ],
+      "kind": "source-fragment",
+      "code": "(define (integral f a b dx)\n  (define (add-dx x) (+ x dx))\n  (* (sum f (+ a (/ dx 2.0)) add-dx b)\n     dx))",
+      "context": "dx为正，cube由前面的基本过程约定给出。1.29以这一定义为对照，而不是把Simpson的加权和与另一个未指定算法比较。",
+      "original_code": "(define (integral f a b dx)\n  (define (add-dx x) (+ x dx))\n  (* (sum f (+ a (/ dx 2.0)) add-dx b) \n     dx))"
+    },
+    {
+      "id": "source-fixed-point",
+      "section": "s1-3-3",
+      "title": "原始 fixed-point",
+      "pdf_pages": [
+        120
+      ],
+      "printed_pages": [
+        92
+      ],
+      "kind": "source-fragment",
+      "code": "(define tolerance 0.00001)\n\n(define (fixed-point f first-guess)\n  (define (close-enough? v1 v2)\n    (< (abs (- v1 v2))\n       tolerance))\n  (define (try guess)\n    (let ((next (f guess)))\n      (if (close-enough? guess next)\n          next\n          (try next))))\n  (try first-guess))",
+      "context": "此版本比较绝对步差，返回下一猜测；没有最大步数保护。习题1.36保留同一阈值比较轨迹，运行适配另设上限。",
+      "original_code": "(define tolerance 0.00001)\n\n(define (fixed-point f first-guess)\n  (define (close-enough? v1 v2)\n    (< (abs (- v1 v2)) \n       tolerance))\n  (define (try guess)\n    (let ((next (f guess)))\n      (if (close-enough? guess next)\n          next\n          (try next))))\n  (try first-guess))"
+    },
+    {
+      "id": "source-average-damp",
+      "section": "s1-3-4",
+      "title": "average-damp",
+      "pdf_pages": [
+        125
+      ],
+      "printed_pages": [
+        97
+      ],
+      "kind": "source-fragment",
+      "code": "(define (average-damp f)\n  (lambda (x)\n    (average x (f x))))",
+      "context": "依赖基本过程average，结果是一个新过程；不是在定义average-damp时就开始求不动点。",
+      "original_code": "(define (average-damp f)\n  (lambda (x) \n    (average x (f x))))"
+    },
+    {
+      "id": "source-newton",
+      "section": "s1-3-4",
+      "title": "数值导数与 Newton 变换",
+      "pdf_pages": [
+        127,
+        128
+      ],
+      "printed_pages": [
+        99,
+        100
+      ],
+      "kind": "source-fragment",
+      "code": "(define (deriv g)\n  (lambda (x)\n    (/ (- (g (+ x dx)) (g x))\n       dx)))\n\n(define dx 0.00001)\n\n(define (newton-transform g)\n  (lambda (x)\n    (- x (/ (g x)\n            ((deriv g) x)))))\n\n(define (newtons-method g guess)\n  (fixed-point (newton-transform g)\n               guess))",
+      "context": "依赖前面的fixed-point；dx是差分步长，与停止容差角色不同。此教材输入没有处理零导数；执行参考源明确报错，避免除零。",
+      "original_code": "(define (deriv g)\n  (lambda (x)\n    (/ (- (g (+ x dx)) (g x))\n       dx)))\n\n(define dx 0.00001)\n\n(define (newton-transform g)\n  (lambda (x)\n    (- x (/ (g x) \n            ((deriv g) x)))))\n\n(define (newtons-method g guess)\n  (fixed-point (newton-transform g) \n               guess))"
+    }
+  ],
+  "question_dependencies": {
+    "ex-1-6": [
+      "source-basic",
+      "source-sqrt"
+    ],
+    "ex-1-7": [
+      "source-sqrt",
+      "source-basic"
+    ],
+    "ex-1-8": [
+      "source-sqrt",
+      "source-basic"
+    ],
+    "ex-1-9": [
+      "source-basic"
+    ],
+    "ex-1-13": [
+      "source-fib"
+    ],
+    "ex-1-14": [
+      "source-change"
+    ],
+    "ex-1-16": [
+      "source-power",
+      "source-basic"
+    ],
+    "ex-1-17": [
+      "source-power",
+      "source-basic"
+    ],
+    "ex-1-18": [
+      "ex-1-16",
+      "ex-1-17"
+    ],
+    "ex-1-19": [
+      "source-fib-iter"
+    ],
+    "ex-1-20": [
+      "source-gcd"
+    ],
+    "ex-1-21": [
+      "source-prime",
+      "source-basic"
+    ],
+    "ex-1-22": [
+      "source-prime",
+      "source-fermat",
+      "source-basic"
+    ],
+    "ex-1-23": [
+      "source-prime",
+      "ex-1-22",
+      "source-basic"
+    ],
+    "ex-1-24": [
+      "source-fermat",
+      "ex-1-22",
+      "source-basic"
+    ],
+    "ex-1-25": [
+      "source-power",
+      "source-fermat",
+      "source-basic"
+    ],
+    "ex-1-26": [
+      "source-fermat",
+      "source-basic"
+    ],
+    "ex-1-27": [
+      "source-fermat",
+      "source-basic"
+    ],
+    "ex-1-29": [
+      "source-basic",
+      "source-sum",
+      "source-integral"
+    ],
+    "ex-1-30": [
+      "source-sum"
+    ],
+    "ex-1-31": [
+      "source-sum"
+    ],
+    "ex-1-32": [
+      "source-sum",
+      "ex-1-31"
+    ],
+    "ex-1-33": [
+      "source-prime",
+      "ex-1-32",
+      "source-basic"
+    ],
+    "ex-1-35": [
+      "source-fixed-point"
+    ],
+    "ex-1-36": [
+      "source-fixed-point",
+      "source-average-damp",
+      "source-basic"
+    ],
+    "ex-1-38": [
+      "ex-1-37"
+    ],
+    "ex-1-39": [
+      "ex-1-37"
+    ],
+    "ex-1-40": [
+      "source-newton",
+      "source-basic",
+      "source-fixed-point"
+    ],
+    "ex-1-41": [
+      "source-basic"
+    ],
+    "ex-1-42": [
+      "source-basic"
+    ],
+    "ex-1-43": [
+      "ex-1-42",
+      "source-basic"
+    ],
+    "ex-1-44": [
+      "ex-1-43"
+    ],
+    "ex-1-45": [
+      "source-fixed-point",
+      "source-average-damp",
+      "ex-1-43",
+      "source-basic"
+    ],
+    "ex-1-46": [
+      "source-sqrt",
+      "source-fixed-point",
+      "source-basic"
+    ]
+  }
+}

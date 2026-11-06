@@ -1,6 +1,6 @@
 # Reading Notes · 读书笔记
 
-把一本书作为独立子项目，在同一个仓库中维护中文伴读笔记、习题解答、可运行程序、原书来源和验证记录。目前收录 Richard Durrett《Essentials of Stochastic Processes》第三版、Mark Allen Weiss《Data Structures and Algorithm Analysis in C》第二版（中国改编版）、Bryant / O’Hallaron《Computer Systems: A Programmer’s Perspective》第三版 Global Edition、Nathan C. Carter《Visual Group Theory》（MAA 2009 版权电子版），程士宏《测度论与概率论基础》（北京大学出版社 2004 年第 1 版），SICP《计算机程序的构造和解释》第二版的地图与引言，以及 Friedman / Wand《Essentials of Programming Languages》第三版全书的地图、序言、第 1–9 章及附录 A/B。
+把一本书作为独立子项目，在同一个仓库中维护中文伴读笔记、习题解答、可运行程序、原书来源和验证记录。目前收录 Richard Durrett《Essentials of Stochastic Processes》第三版、Mark Allen Weiss《Data Structures and Algorithm Analysis in C》第二版（中国改编版）、Bryant / O’Hallaron《Computer Systems: A Programmer’s Perspective》第三版 Global Edition、Nathan C. Carter《Visual Group Theory》（MAA 2009 版权电子版），程士宏《测度论与概率论基础》（北京大学出版社 2004 年第 1 版），SICP《计算机程序的构造和解释》第二版的地图、引言与第一章，以及 Friedman / Wand《Essentials of Programming Languages》第三版全书的地图、序言、第 1–9 章及附录 A/B。
 
 统一阅读站点为 [notes.zzzping.top](https://notes.zzzping.top/)。GitHub 仓库为 [oonecab/reading-notes](https://github.com/oonecab/reading-notes)，沿用随机过程项目的 Git 历史；本地项目目录继续沿用原名。
 
@@ -12,7 +12,7 @@
 | [Carter 视觉群论](books/visual-group-theory/README.md) | [全书地图](books/visual-group-theory/notes/book_overview.html) | 12 个 HTML 页面：地图、序言、第 1—10 章及全部 302 题；10 组 C/Python 程序 |
 | [程士宏 测度论与概率论·全六章伴读](books/measure-probability/README.md) | [伴读总览](books/measure-probability/notes/book_overview.html) | 8 个 HTML 页面：总览、序言与前言、六章及全部 170 题；4 组 C/Python 程序，包含全部星号小节 |
 | [Friedman / Wand · EOPL](books/eopl/README.md) | [全书地图](books/eopl/notes/book_overview.html) | 13 个 HTML 页面：地图、导读与序言、第 1–9 章、附录 A/B；356 道完整题解及 Python/Racket/C 示例 |
-| [SICP 程序构造](books/sicp/README.md) | [全书地图](books/sicp/notes/book_overview.html) | 2 个 HTML 页面：五章地图与前言/两版序言释读；后续章节未展开 |
+| [SICP 程序构造](books/sicp/README.md) | [全书地图](books/sicp/notes/book_overview.html) | 3 个 HTML 页面：五章地图、引言、第一章及全部46题 |
 
 EOPL 当前有地图、序言与第 1–9 章及附录 A/B 共十三个阅读页，覆盖全书全部 356 道习题。控制路线从[第 5 章](books/eopl/notes/chapter05_continuations.html)进入[第 6 章](books/eopl/notes/chapter06_cps.html)，把解释器续文、异常、线程、CPS转换和效果连接起来。[第 7 章](books/eopl/notes/chapter07_types.html)讲解类型检查、约束求解与多态，含30题及实际运行的检查器；本地验收见[T062](test/T062-eopl-ch07.md)。[第8章](books/eopl/notes/chapter08_modules.html)讲解模块、接口、抽象类型和参数化模块，含27题及实际运行的模块检查器，见[T063](test/T063-eopl-ch08.md)。[第9章](books/eopl/notes/chapter09_objects.html)讲解对象、类、继承、方法调用与TYPED-OO，含42题及实际运行的面向对象解释器，见[T064](test/T064-eopl-ch09.md)。[附录A](books/eopl/notes/appendix_a_reading.html)连接文献与全书主线，[附录B](books/eopl/notes/appendix_b_sllgen.html)包含SLLGEN扫描、解析、算术求值及B.1–B.5完整题解；全书收尾、本地与生产验收见 [T065](test/T065-eopl-completion-publication.md)，本轮实现修复及发布见[T066](test/T066-eopl-review-repairs.md)，I066 当时发布版本为 `20261025T233903`；后续已记录的工具发布见 [T072](test/T072-tooling-publication.md)。
 
@@ -115,6 +115,6 @@ python3 tools/project.py build --release-id YYYYMMDDTHHMMSS
 
 默认浏览器验收使用锁定的 Playwright 依赖与本机 Chrome；运行 `pnpm install --frozen-lockfile` 后可执行正式构建及离线检查。选择其他已安装浏览器或 Ego 的配置见 [Astro 编写说明](docs/astro-authoring.md)。
 
-## SICP 地图与引言
+## SICP 地图、引言与第一章
 
-新增[SICP全书地图](books/sicp/notes/book_overview.html)与[引言：前言与两版序言](books/sicp/notes/preface.html)，按本仓库第二版Texinfo PDF定位。五章仅列章意和原书入口，后续正文与习题本次先不做。来源、阅读计划与本地验收见[书级入口](books/sicp/README.md)和[T073](test/T073-sicp-map-introduction.md)；尚未生产发布。
+新增[SICP全书地图](books/sicp/notes/book_overview.html)与[引言：前言与两版序言](books/sicp/notes/preface.html)，按本仓库第二版Texinfo PDF定位。现已续写[第一章](books/sicp/notes/chapter01_procedures.html)：18二级节、全部46题与Scheme程序/实验；第二章以后仍为章意。来源、阅读计划与本地验收见[书级入口](books/sicp/README.md)、[T073](test/T073-sicp-map-introduction.md)与[T075](test/T075-sicp-chapter01.md)；尚未生产发布。

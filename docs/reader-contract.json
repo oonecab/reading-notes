@@ -6837,6 +6837,248 @@
       ],
       "questions": [],
       "chinese_translation_required": false
+    },
+    {
+      "page": "sicp/notes/chapter01_procedures.html",
+      "source": "src/content/books/sicp/chapter01_procedures.html",
+      "sections": [
+        {
+          "id": "thread",
+          "title": "从关系到方法，从方法到可操作的对象",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "按本节的概念边界、易错点和推理步骤补充独立注解。"
+        },
+        {
+          "id": "s1-1",
+          "title": "1.1 程序设计的基本元素",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "按本节的概念边界、易错点和推理步骤补充独立注解。"
+        },
+        {
+          "id": "s1-1-1",
+          "title": "1.1.1 表达式：把计算写成树",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "按本节的概念边界、易错点和推理步骤补充独立注解。",
+          "parent": "s1-1"
+        },
+        {
+          "id": "s1-1-2",
+          "title": "1.1.2 命名与环境",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "按本节的概念边界、易错点和推理步骤补充独立注解。",
+          "parent": "s1-1"
+        },
+        {
+          "id": "s1-1-3",
+          "title": "1.1.3 组合式的求值",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "按本节的概念边界、易错点和推理步骤补充独立注解。",
+          "parent": "s1-1"
+        },
+        {
+          "id": "s1-1-4",
+          "title": "1.1.4 复合过程",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "按本节的概念边界、易错点和推理步骤补充独立注解。",
+          "parent": "s1-1"
+        },
+        {
+          "id": "s1-1-5",
+          "title": "1.1.5 过程应用的代换模型",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "按本节的概念边界、易错点和推理步骤补充独立注解。",
+          "parent": "s1-1"
+        },
+        {
+          "id": "s1-1-6",
+          "title": "1.1.6 条件表达式与谓词",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "按本节的概念边界、易错点和推理步骤补充独立注解。",
+          "parent": "s1-1"
+        },
+        {
+          "id": "s1-1-7",
+          "title": "1.1.7 例子：牛顿法求平方根",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "按本节的概念边界、易错点和推理步骤补充独立注解。",
+          "parent": "s1-1"
+        },
+        {
+          "id": "s1-1-8",
+          "title": "1.1.8 过程作为黑箱抽象",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "按本节的概念边界、易错点和推理步骤补充独立注解。",
+          "parent": "s1-1"
+        },
+        {
+          "id": "s1-2",
+          "title": "1.2 过程与它们产生的计算",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "按本节的概念边界、易错点和推理步骤补充独立注解。"
+        },
+        {
+          "id": "s1-2-1",
+          "title": "1.2.1 线性递归与迭代",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "按本节的概念边界、易错点和推理步骤补充独立注解。",
+          "parent": "s1-2"
+        },
+        {
+          "id": "s1-2-2",
+          "title": "1.2.2 树形递归与换零钱",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "按本节的概念边界、易错点和推理步骤补充独立注解。",
+          "parent": "s1-2"
+        },
+        {
+          "id": "s1-2-3",
+          "title": "1.2.3 增长阶",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "按本节的概念边界、易错点和推理步骤补充独立注解。",
+          "parent": "s1-2"
+        },
+        {
+          "id": "s1-2-4",
+          "title": "1.2.4 求幂：用不变量压缩步骤",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "按本节的概念边界、易错点和推理步骤补充独立注解。",
+          "parent": "s1-2"
+        },
+        {
+          "id": "s1-2-5",
+          "title": "1.2.5 最大公约数",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "按本节的概念边界、易错点和推理步骤补充独立注解。",
+          "parent": "s1-2"
+        },
+        {
+          "id": "s1-2-6",
+          "title": "1.2.6 素数测试与概率证据",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "按本节的概念边界、易错点和推理步骤补充独立注解。",
+          "parent": "s1-2"
+        },
+        {
+          "id": "s1-3",
+          "title": "1.3 用高阶过程构造抽象",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "按本节的概念边界、易错点和推理步骤补充独立注解。"
+        },
+        {
+          "id": "s1-3-1",
+          "title": "1.3.1 过程作为参数",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "按本节的概念边界、易错点和推理步骤补充独立注解。",
+          "parent": "s1-3"
+        },
+        {
+          "id": "s1-3-2",
+          "title": "1.3.2 lambda、let 与局部名字",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "按本节的概念边界、易错点和推理步骤补充独立注解。",
+          "parent": "s1-3"
+        },
+        {
+          "id": "s1-3-3",
+          "title": "1.3.3 把一般方法直接作为过程",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "按本节的概念边界、易错点和推理步骤补充独立注解。",
+          "parent": "s1-3"
+        },
+        {
+          "id": "s1-3-4",
+          "title": "1.3.4 过程作为返回值",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "按本节的概念边界、易错点和推理步骤补充独立注解。",
+          "parent": "s1-3"
+        },
+        {
+          "id": "exercises",
+          "title": "习题 1.1—1.46：题干、推导与实现",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "逐题保留中文题干、完整给定输入和对应解答；易错点写在题解内。"
+        },
+        {
+          "id": "programs",
+          "title": "程序、实验与回读",
+          "annotation": "optional",
+          "role": "navigation-or-source",
+          "reason": "提供执行源、复现命令与实测结果说明。"
+        }
+      ],
+      "questions": [
+        "ex-1-1",
+        "ex-1-2",
+        "ex-1-3",
+        "ex-1-4",
+        "ex-1-5",
+        "ex-1-6",
+        "ex-1-7",
+        "ex-1-8",
+        "ex-1-9",
+        "ex-1-10",
+        "ex-1-11",
+        "ex-1-12",
+        "ex-1-13",
+        "ex-1-14",
+        "ex-1-15",
+        "ex-1-16",
+        "ex-1-17",
+        "ex-1-18",
+        "ex-1-19",
+        "ex-1-20",
+        "ex-1-21",
+        "ex-1-22",
+        "ex-1-23",
+        "ex-1-24",
+        "ex-1-25",
+        "ex-1-26",
+        "ex-1-27",
+        "ex-1-28",
+        "ex-1-29",
+        "ex-1-30",
+        "ex-1-31",
+        "ex-1-32",
+        "ex-1-33",
+        "ex-1-34",
+        "ex-1-35",
+        "ex-1-36",
+        "ex-1-37",
+        "ex-1-38",
+        "ex-1-39",
+        "ex-1-40",
+        "ex-1-41",
+        "ex-1-42",
+        "ex-1-43",
+        "ex-1-44",
+        "ex-1-45",
+        "ex-1-46"
+      ],
+      "chinese_translation_required": false,
+      "section_scope": "all-descendants"
     }
   ]
 }

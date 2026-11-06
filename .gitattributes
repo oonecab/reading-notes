@@ -17,3 +17,5 @@ books/weiss/WEISS_2E_extracted/* -text
 books/weiss/WEISS_2E.tar.Z -text
 books/*/*.pdf -text
 books/*/assets/*.pdf -text
+# SICP experiment records bind exact teaching-source bytes across checkouts.
+books/sicp/code/*.rkt text eol=lf

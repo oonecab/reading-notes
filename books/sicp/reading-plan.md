@@ -1,6 +1,6 @@
 # SICP 第二版：阅读与交付计划
 
-依据用户 2026-11-06 指令，先梳理全书，只交付地图与引言。关联 [I073](../../issues/I073-sicp-map-introduction.md)、[P073](../../plan/P073-sicp-map-introduction.md)、[T073](../../test/T073-sicp-map-introduction.md)、[M073](../../milestone/M073-sicp-map-introduction.md)。
+2026-11-06先按用户指令完成地图与引言，再按续写要求开展第一章。关联 [I073](../../issues/I073-sicp-map-introduction.md)、[P073](../../plan/P073-sicp-map-introduction.md)、[T073](../../test/T073-sicp-map-introduction.md)、[M073](../../milestone/M073-sicp-map-introduction.md)。
 
 ## 版次与来源
 
@@ -18,6 +18,9 @@ Harold Abelson、Gerald Jay Sussman、Julie Sussman，第二版，MIT Press/McGr
 |---|---|---|
 | 全书地图 | 五章递进、求值模型、选读与回读、22节PDF入口 | 本批 |
 | 引言 | Perlis前言、第二版与第一版序言；逐节中文释读与注解 | 本批 |
-| 第1—5章 | 正文、完整中文题干/题解、必要Scheme实验与独立回归 | 用户要求本次先不做 |
+| 第1章 | 18二级节、46题、Scheme实现与数值实验 | I075展开；证据见T075 |
+| 第2—5章 | 后续正文、题解和程序 | 尚未展开 |
 
 学科适配：本批是结构与序文释读，不为凑程序或习题而扩写章节。后续默认以Scheme为教材表达语言，沿仓库已有Racket能力选择兼容模式；具体方言、可变序对、流及解释器运行边界须在扩章时确认，不把任意现代Scheme/Racket默认行为直接当原书规则。无本批新语言、工具或服务。
+
+I075已通读第一章PDF29–134及本机HTML参考的§1.1–1.3正文/脚注和46题，图像复核关键题页与跨页公式；不扩张为883页逐页校勘。教学运行宿主实际为Racket8.10；详细来源、校注和执行范围见review/chapter01.json及T075。

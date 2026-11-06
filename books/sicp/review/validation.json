@@ -2,30 +2,42 @@
   "schema_version": 1,
   "book": "sicp",
   "status": "completed_locally",
-  "scope": "I073 new-book local acceptance: map and introduction only; no chapter notes, exercise solutions or program execution.",
+  "scope": "I075 chapter1 local acceptance plus revised map/preface; I073/I074 facts retained at ancestor ref in baseline-history.json",
   "file_sha256": {
-    "agent.md": "1f642254d9f568890ff6d4efb731f582c90497b654e78c43ee1f85b5e79fb40d",
-    "notes/README.md": "024964cc62de7a75cd7c0e58e617c62992f44a014df0d60721abc8d63e709a3e",
-    "notes/source_manifest.json": "ce2ec587146f7c212fae1e51c6b8d5d15c0fb172b09daff7327285d4b5dfa935",
-    "notes/source_inventory.json": "0049cef36db50693d361fac34147d305796d0529158dd296b3845accebfdd772"
+    "agent.md": "504790cbbd56a28e7c32d149c25d10d6a4c4213bed136141312b65e85bfdba27",
+    "notes/README.md": "26e13b41bbfa78b746a3f521687fd0c59c98b3a857874f2e467d202d8bfeef77",
+    "notes/source_manifest.json": "607e88dd69815b54e15673ec9e4335d4c8f56f339735eb0180b94da29ce6794d",
+    "notes/source_inventory.json": "0049cef36db50693d361fac34147d305796d0529158dd296b3845accebfdd772",
+    "notes/questions_ch01.json": "0a604e7a1c8dea8fdc59e7f1a418634f860a3ad67a1605514c5e207b1a3fb8fd",
+    "notes/chapter01-inputs.json": "7bf28ee70cc20f9ec464997b4c5cf689cbd4074519ec0929e40ad9cac77438aa",
+    "code/README.md": "9435186272ddc83de3be7827c12b23f1373ee6dcce22bb5af14866addba2ec33",
+    "code/chapter01-results.json": "6f28a74c768ba9f01fcb9e4a53757b72ac985d914358cb1b00b40184b77642aa",
+    "tools/check_notes.py": "6476cfa037130b5532cb71d88c3cbc1f733cc449f22151c8cbde7e1805b93cc0",
+    "tools/sync_chapter01.py": "377edd2aa45ad2b2e52ec415cd9848a451a225900fb65291100174d06a0f48fa",
+    "reading-plan.md": "41cd459b1e792bf0648e7da52736912e51d2b84927e48dedf68f1687c262f6b5",
+    "README.md": "2723b5d0205ca9016d8d76c1e61f6099ca2ae2ee3f9c72d4800d4ec5d5a84ed4"
   },
   "open_findings": [],
   "astro_migration": {
     "record": "review/astro-migration.json",
-    "sha256": "f9d13477da5acfed26f6576b59b70450dcbbdf228f0723aa5b6ed4260a764403",
+    "sha256": "ef217306066a66a1803b368e04633c06a679049304dfbe32653f3a29ce9c0330",
     "status": "Go",
     "open_findings": [],
     "source_sha256": {
       "book_overview.html": "d6f932d2df28dd8113b3073f32b5104636620a8a92bf7c1033092f8800f3fc90",
+      "chapter01_procedures.html": "af63907cbae9747250e488536294cc6762b25037dae298e6b315805e0704bc47",
       "preface.html": "86a0294f04752866c068cde7551a2917b267b847c61f8d298838dd5d7108e17e"
+    },
+    "current_source_sha256": {
+      "sicp/notes/book_overview.html": "f6df2c6a846506878244ac37c7af2c6943e48076f044b717eb28c59ac358cf96",
+      "sicp/notes/preface.html": "52617c40f35616308332e4c3445e2dc84b91984ed5efda0913172959f9dc5671",
+      "sicp/notes/chapter01_procedures.html": "b14530970a1d88142db8e0a3b6d41d1aac64970863267747929c3c4c12bed2c8"
     }
   },
   "boundaries": [
-    "Only directory, chapter framing/major-section narrative and source introductions were read; not883-page line-by-line content verification.",
-    "Original Scheme interpreters/simulator/compiler and356 exercise solutions not executed or produced.",
-    "Windows full-gate publication safety remains blocked by rsync/POSIX directory fsync; local HTTPS Nginx verification not run.",
-    "No physical mobile, screen reader or other-browser validation.",
-    "No push or production deployment."
+    "No chapter2–5 solutions or original interpreters/simulator/compiler",
+    "No physical mobile, screen reader or other browser validation",
+    "Production not deployed"
   ],
   "binding_history": [
     {
@@ -42,6 +54,77 @@
           "previous_sha256": "440592e2d18a81133c40fbd6ca7dd5dd73177e5b70095be0c501dd7e1a490385",
           "current_sha256": "0049cef36db50693d361fac34147d305796d0529158dd296b3845accebfdd772",
           "reason": "I074 real clean-clone failure: normalize CRLF to canonical LF; JSON values unchanged."
+        }
+      ]
+    },
+    {
+      "at": "2026-11-06T16:56:48.054637+00:00",
+      "changes": [
+        {
+          "file": "agent.md",
+          "previous_sha256": "1f642254d9f568890ff6d4efb731f582c90497b654e78c43ee1f85b5e79fb40d",
+          "current_sha256": "504790cbbd56a28e7c32d149c25d10d6a4c4213bed136141312b65e85bfdba27",
+          "reason": "I075 complete chapter1 content, references, executable companion and current documentation reviewed"
+        },
+        {
+          "file": "notes/README.md",
+          "previous_sha256": "024964cc62de7a75cd7c0e58e617c62992f44a014df0d60721abc8d63e709a3e",
+          "current_sha256": "26e13b41bbfa78b746a3f521687fd0c59c98b3a857874f2e467d202d8bfeef77",
+          "reason": "I075 complete chapter1 content, references, executable companion and current documentation reviewed"
+        },
+        {
+          "file": "notes/source_manifest.json",
+          "previous_sha256": "ce2ec587146f7c212fae1e51c6b8d5d15c0fb172b09daff7327285d4b5dfa935",
+          "current_sha256": "607e88dd69815b54e15673ec9e4335d4c8f56f339735eb0180b94da29ce6794d",
+          "reason": "I075 complete chapter1 content, references, executable companion and current documentation reviewed"
+        },
+        {
+          "file": "notes/questions_ch01.json",
+          "previous_sha256": null,
+          "current_sha256": "0a604e7a1c8dea8fdc59e7f1a418634f860a3ad67a1605514c5e207b1a3fb8fd",
+          "reason": "I075 complete chapter1 content, references, executable companion and current documentation reviewed"
+        },
+        {
+          "file": "notes/chapter01-inputs.json",
+          "previous_sha256": null,
+          "current_sha256": "7bf28ee70cc20f9ec464997b4c5cf689cbd4074519ec0929e40ad9cac77438aa",
+          "reason": "I075 complete chapter1 content, references, executable companion and current documentation reviewed"
+        },
+        {
+          "file": "code/README.md",
+          "previous_sha256": null,
+          "current_sha256": "9435186272ddc83de3be7827c12b23f1373ee6dcce22bb5af14866addba2ec33",
+          "reason": "I075 complete chapter1 content, references, executable companion and current documentation reviewed"
+        },
+        {
+          "file": "code/chapter01-results.json",
+          "previous_sha256": null,
+          "current_sha256": "6f28a74c768ba9f01fcb9e4a53757b72ac985d914358cb1b00b40184b77642aa",
+          "reason": "I075 complete chapter1 content, references, executable companion and current documentation reviewed"
+        },
+        {
+          "file": "tools/check_notes.py",
+          "previous_sha256": null,
+          "current_sha256": "6476cfa037130b5532cb71d88c3cbc1f733cc449f22151c8cbde7e1805b93cc0",
+          "reason": "I075 complete chapter1 content, references, executable companion and current documentation reviewed"
+        },
+        {
+          "file": "tools/sync_chapter01.py",
+          "previous_sha256": null,
+          "current_sha256": "377edd2aa45ad2b2e52ec415cd9848a451a225900fb65291100174d06a0f48fa",
+          "reason": "I075 complete chapter1 content, references, executable companion and current documentation reviewed"
+        },
+        {
+          "file": "reading-plan.md",
+          "previous_sha256": null,
+          "current_sha256": "41cd459b1e792bf0648e7da52736912e51d2b84927e48dedf68f1687c262f6b5",
+          "reason": "I075 complete chapter1 content, references, executable companion and current documentation reviewed"
+        },
+        {
+          "file": "README.md",
+          "previous_sha256": null,
+          "current_sha256": "2723b5d0205ca9016d8d76c1e61f6099ca2ae2ee3f9c72d4800d4ec5d5a84ed4",
+          "reason": "I075 complete chapter1 content, references, executable companion and current documentation reviewed"
         }
       ]
     }

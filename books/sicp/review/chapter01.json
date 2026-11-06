@@ -1,0 +1,174 @@
+{
+  "schema_version": 1,
+  "issue": "I075",
+  "status": "Go",
+  "scope": "Chapter1 pp1–106 / repository PDF29–134; 18 subsections and all46 exercises; chapter2+ deferred",
+  "source_baseline_ref": "44f22bc8dda84dc98b7010201ac6bb9acd5e7714",
+  "source_sha256": {
+    "sicp/notes/book_overview.html": "f6df2c6a846506878244ac37c7af2c6943e48076f044b717eb28c59ac358cf96",
+    "sicp/notes/preface.html": "52617c40f35616308332e4c3445e2dc84b91984ed5efda0913172959f9dc5671",
+    "sicp/notes/chapter01_procedures.html": "b14530970a1d88142db8e0a3b6d41d1aac64970863267747929c3c4c12bed2c8"
+  },
+  "output_sha256": {
+    "sicp/notes/book_overview.html": "935356ec6722f21d1767c3caa4e8c2c46fcd444692eb4b25bd5593a1f5415310",
+    "sicp/notes/chapter01_procedures.html": "63bddf92e605a9ff5b9374da57fff0a4409917157f7590ecf024590bf110ecd4",
+    "sicp/notes/preface.html": "36548fac505b894effadfe5c88b758491f5bdb167e005c8494404ef059453df5"
+  },
+  "source_read": {
+    "pdf_sha256": "afff2ca1486a46bcd47310bc5a974da1f9c6a6a0b15b39c93e2453350670f715",
+    "text": "All106 pages extracted and chapter1 prose/footnotes/questions read, local HTML used for transcription cross-check; exact page mapping from PDF",
+    "source_images_opened": [
+      "tmp/sicp-ch01/source-0.png",
+      "tmp/sicp-ch01/source-1.png",
+      "tmp/sicp-ch01/source-2.png",
+      "tmp/sicp-ch01/source-3.png",
+      "tmp/sicp-ch01/source-4.png"
+    ],
+    "questions": "46 complete Chinese tasks; original supplied code and displayed-formula tokens checked independently",
+    "source_questions": "books/sicp/notes/questions_ch01.json",
+    "referenced_inputs": "books/sicp/notes/chapter01-inputs.json;14 groups,34 exact question dependency lists; definitions located independently in repository PDF"
+  },
+  "content_review": [
+    "Full 55-node cc(11,5) trace, four solutions, fixed-denomination time Theta(a^5) distinguished from solution count",
+    "Binet proof with strict half-unit error; normal-order gcd18 remainder operations vs applicative4",
+    "1.28 preserves source claim, separately refutes nontrivial-root-only wording with n9; final-residue rejection retained",
+    "1.37 half-unit decimal error vs 1e-4 vs rounded-string equality distinguished",
+    "Left/right accumulation, functional smoothing and repeated damping evaluated by invariants/independent examples",
+    "Quote original source algorithms separately from guarded executable adapters; basic contracts, Fib initial values, gcd two-argument source, Carmichael footnote values and numerical methods linked precisely. Final timing variability reported without forcing theoretical constant ratios."
+  ],
+  "runtime": {
+    "actual": "Racket8.10",
+    "tests": "tmp/sicp-ch01/source-full/racket-tests.txt",
+    "unit_groups": 8,
+    "numeric_record": "books/sicp/code/chapter01-results.json"
+  },
+  "boundaries": [
+    "No chapter2–5 solutions or original interpreters/simulator/compiler",
+    "No physical mobile, screen reader or other browser validation",
+    "Production not deployed"
+  ],
+  "open_findings": [],
+  "resolved_visual_finding": {
+    "evidence": "tmp/sicp-ch01/manual/report.json",
+    "correction": "Move node style from group to rectangle; no text/topology change",
+    "status": "passed: actual final ex1.14 screenshot read; rectangle-only style gives clear text"
+  },
+  "resolved_mobile_overflow": {
+    "evidence": "tmp/reading-notes-migration/browser/sicp/runs/2026-11-06T16-12-58-075Z-6d50f77a/report.json",
+    "before": {
+      "viewport": 390,
+      "all_expanded_width": 459
+    },
+    "cause": "Original Simpson display formula ink extends beyond its MathML block",
+    "correction": "Constrain only the math container, preserve complete formula tokens",
+    "status": "passed: all-expanded390px width390; formula scrollLeft can reach full right edge"
+  },
+  "recorded_at_utc": "2026-11-06T16:56:48.054637+00:00",
+  "release_id": "20261107T004926",
+  "browser": {
+    "engine": "157.0.8103.39",
+    "widths": [
+      1800,
+      1440,
+      1024,
+      390
+    ],
+    "js_views": 20,
+    "no_js_views": 10,
+    "manual_checks": [
+      "map direct chapter landing 1440",
+      "question index opens actual 1.28 1440",
+      "native program fold mouse/keyboard 1440",
+      "actual PDF click page101 and independent full-byte digest",
+      "all five program/result links deliver exact source bytes",
+      "question20 exact original gcd input landing 1440",
+      "all disclosures expanded fit viewport 1440",
+      "map direct chapter landing 390",
+      "question index opens actual 1.28 390",
+      "native program fold mouse/keyboard 390",
+      "question20 exact original gcd input landing 390",
+      "complete Simpson formula scrolls locally at390px",
+      "all disclosures expanded fit viewport 390",
+      "no-JS question/proof/inline notes 1440",
+      "no-JS question/proof/inline notes 390"
+    ],
+    "screenshots_generated": 26,
+    "screenshots_actually_opened": [
+      {
+        "file": "tmp/sicp-ch01/manual-final/chapter-top-1440.png",
+        "sha256": "b64e08fa20cda69fa78cf7e5edd32d8913d83b27011ce00a49e376170a72e94c"
+      },
+      {
+        "file": "tmp/sicp-ch01/manual-final/chapter-top-390.png",
+        "sha256": "cfe86b126a2ec369156a245d319d95e99349418d57979362570de2fe09402a63"
+      },
+      {
+        "file": "tmp/sicp-ch01/manual-final/ex-1-13-390.png",
+        "sha256": "53d9167673803ca8eae3d63649b6ac506e97374023d472862bf832fcbd615bb1"
+      },
+      {
+        "file": "tmp/sicp-ch01/manual-final/ex-1-14-390.png",
+        "sha256": "30487b02aa6ba40e5595e141a5ed40fa675eed511b95a6fdfe179b4bc6ea8d75"
+      },
+      {
+        "file": "tmp/sicp-ch01/manual-final/ex-1-28-390.png",
+        "sha256": "87569b1227da2405a83bec2d3cb9d6cbbba481881ccb23d5a47cd613f3048121"
+      },
+      {
+        "file": "tmp/sicp-ch01/manual-final/referenced-gcd-390.png",
+        "sha256": "bf5bf855517e8e346bbf17c13647c806f774ee2025852c51bbb6fac73543f150"
+      },
+      {
+        "file": "tmp/sicp-ch01/manual-final/simpson-formula-left-390.png",
+        "sha256": "a17eecba2bd08e925212262c819b9c08700bd63793445364734e8cf0209be303"
+      },
+      {
+        "file": "tmp/sicp-ch01/manual-final/simpson-formula-right-390.png",
+        "sha256": "b219d2596bdcc637bef2b5991aaa81d91f7d2e3ceafbf6918ee81e4f1c36d3fa"
+      },
+      {
+        "file": "tmp/sicp-ch01/manual-final/ex-1-13-1440.png",
+        "sha256": "87d48256e85d03397cfb92da3f603278d037e98179ac8467d718a91537e4bfc5"
+      },
+      {
+        "file": "tmp/sicp-ch01/manual-final/ex-1-32-390.png",
+        "sha256": "74e3bef6c1b62c84a6eeee51c7f9f35bf1ac0989745f826c20abf7620b2e79c5"
+      },
+      {
+        "file": "tmp/sicp-ch01/manual-final/ex-1-36-390.png",
+        "sha256": "640ae0b28feaf9c91f04feffab0c61a36dc958095666571c504ac72b7be69ea1"
+      },
+      {
+        "file": "tmp/sicp-ch01/manual-final/ex-1-37-390.png",
+        "sha256": "5fc7db2151518d4e3a8949f5c4ae4b21dcd98e098f20cf85a89e1a03dbf8a7c0"
+      },
+      {
+        "file": "tmp/sicp-ch01/manual-final/ex-1-45-390.png",
+        "sha256": "64dfb5997b4d81e9687a9bd791bdb7eb786d671c9706c764ab7776dc0da34a29"
+      },
+      {
+        "file": "tmp/sicp-ch01/manual-final/ex-1-46-390.png",
+        "sha256": "9778ad5fec7ba0cdc05e176efb2e74cc0e8496e3a7a5ff35072708508a2f927d"
+      },
+      {
+        "file": "tmp/sicp-ch01/manual-final/no-js-proof-1440.png",
+        "sha256": "9af1be38567473f7f7d7191fba68ca5c393d65f502fd80954cfe73431636530b"
+      },
+      {
+        "file": "tmp/sicp-ch01/manual-final/no-js-proof-390.png",
+        "sha256": "16c4f87936f3f764d1e5d4c52f217b2c499a1a19713144e712c2bec2c938f39d"
+      }
+    ],
+    "external_requests": [],
+    "errors": []
+  },
+  "evidence_sha256": {
+    "tmp/reading-notes-migration/parity/sicp.json": "35e14526a8c2d8684541328203cc611249cf686db30ebd8f99d6e51bd3414f60",
+    "tmp/reading-notes-migration/browser/sicp/runs/2026-11-06T16-53-41-269Z-ed8ff4ab/report.json": "a116cb93e5c36197dc529b0bfe211bb0a53102848c40a8a9e175183d669006a8",
+    "tmp/sicp-ch01/manual-final/report.json": "c789aad48a43cefe0b28edc7232eb2682b01980dc8be9f55919788a277f964c8",
+    "tmp/sicp-ch01/source-full/report.json": "7a1e625763a36447b232eeea0f2fffb901c74440e7d2d93b6495f15b98d08319",
+    "tmp/sicp-ch01/source-full/racket-tests.txt": "b25e3ea8595add67912ea0b5299cddc80e8ccff7f96bc11d857dc15331623cc6",
+    "tmp/sicp-ch01/node-tests.txt": "9ef9dc4e0715c035bc59c9431d6ff3fbe179fb5f92f97a0330cfe0c6f4940f59",
+    "tmp/sicp-ch01/performance-final.json": "2b7a5bc35f7051e34b396139d39a58869a72c28d25a1d0f4aa10a4ae44b92f85"
+  }
+}

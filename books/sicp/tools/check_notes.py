@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""SICP two-page source/coverage checks; only Python standard library and Poppler."""
+"""SICP source, question/input and executable-companion checks."""
 import argparse
 import copy
 import hashlib
@@ -7,6 +7,7 @@ from html.parser import HTMLParser
 import json
 from pathlib import Path
 import re
+import shutil
 import subprocess
 from urllib.parse import unquote, urlsplit
 
@@ -24,6 +25,14 @@ MAJOR_PAGES = [34, 68, 102, 140, 160, 220, 257, 282, 324, 348, 369,
 def require(condition, message):
     if not condition:
         raise ValueError(message)
+
+
+def quoted_code(text):
+    """Only remove source-HTML line-end spaces/tabs; preserve tokens and indentation."""
+    lines = text.splitlines()
+    while lines and not lines[0].strip(): lines.pop(0)
+    while lines and not lines[-1].strip(): lines.pop()
+    return '\n'.join(line.rstrip(' \t') for line in lines)
 
 
 def check_manifest(manifest, digest, pages):
@@ -49,8 +58,10 @@ def check_manifest(manifest, digest, pages):
                 ('Foreword', 'xiii', 'xviii', 13, 18), ('Preface to the Second Edition', 'xix', 'xx', 19, 20),
                 ('Preface to the First Edition', 'xxi', 'xxiv', 21, 24),
                 ('Acknowledgments', 'xxv', 'xxviii', 25, 28)], 'Front-matter mapping changed')
-    require(manifest['current_scope']['chapter_notes'] == [], 'Chapter expansion is outside this batch')
-    require(manifest['current_scope']['completed_original_exercises'] == 0, 'No original exercise solutions in this batch')
+    require(manifest['current_scope']['chapter_notes'] == [1], 'Only chapter 1 is complete')
+    require(manifest['current_scope']['completed_original_exercises'] == 46, 'Chapter 1 must include all 46 exercises')
+    require(manifest['current_scope']['pages'] == ['book_overview.html', 'preface.html', 'chapter01_procedures.html'],
+            'Current reading-page scope changed')
 
 
 def check_inventory(inventory):
@@ -86,6 +97,54 @@ class Page(HTMLParser):
             self.exercises += 1
 
 
+class QuestionBodies(HTMLParser):
+    """Retain nested formula containers rather than stopping at the first div end."""
+    def __init__(self, text):
+        super().__init__(convert_charrefs=False)
+        self.depth, self.current, self.blocks = 0, '', []
+        self.feed(text)
+
+    def handle_starttag(self, tag, attrs):
+        if tag == 'div' and 'exercise-question' in dict(attrs).get('class', '').split():
+            require(self.depth == 0, 'Nested question body')
+            self.depth, self.current = 1, ''
+        elif self.depth:
+            if tag == 'div': self.depth += 1
+            self.current += self.get_starttag_text()
+
+    def handle_endtag(self, tag):
+        if not self.depth: return
+        if tag == 'div': self.depth -= 1
+        if self.depth: self.current += '</' + tag + '>'
+        else: self.blocks.append(self.current)
+
+    def handle_data(self, data):
+        if self.depth: self.current += data
+
+    def handle_entityref(self, name):
+        if self.depth: self.current += '&' + name + ';'
+
+    def handle_charref(self, name):
+        if self.depth: self.current += '&#' + name + ';'
+
+
+class DisplayFormulaText(HTMLParser):
+    def __init__(self, text):
+        super().__init__()
+        self.current, self.blocks = None, []
+        self.feed(text)
+
+    def handle_starttag(self, tag, attrs):
+        if tag == 'math' and dict(attrs).get('display') == 'block': self.current = ''
+
+    def handle_endtag(self, tag):
+        if tag == 'math' and self.current is not None:
+            self.blocks.append(re.sub(r'\s+', '', self.current)); self.current = None
+
+    def handle_data(self, data):
+        if self.current is not None: self.current += data
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--quick', action='store_true')
@@ -104,13 +163,13 @@ def main():
     require(len(inventory['exercises']) == inventory['total_exercises'] == 356, 'Duplicate/missing original exercises')
     for entry in [*inventory['sections'], *inventory['exercises']]:
         require(entry['pdf_page'] == entry['printed_page'] + 28, 'Body page mapping invalid')
-    filenames = {'book_overview.html', 'preface.html'}
-    require({p.name for p in (BOOK / 'notes').glob('*.html')} == filenames, 'Only two reading pages are in scope')
+    filenames = {'book_overview.html', 'preface.html', 'chapter01_procedures.html'}
+    require({p.name for p in (BOOK / 'notes').glob('*.html')} == filenames, 'Reading-page scope mismatch')
     parsed = {name: Page((BOOK / 'notes' / name).read_text(encoding='utf8')) for name in filenames}
     pdf_links = 0
     for name, page in parsed.items():
         require(len(page.ids) == len(set(page.ids)), 'Duplicate anchor: ' + name)
-        require(page.exercises == 0, 'Exercises are outside this batch')
+        require(page.exercises == (46 if name == 'chapter01_procedures.html' else 0), 'Exercise count mismatch')
         for href in page.hrefs:
             url = urlsplit(href)
             if url.scheme or url.netloc:
@@ -151,6 +210,70 @@ def main():
     for number in STARTS:
         require(manifest['chapters'][STARTS.index(number)]['title'].split()[0] in source_pages[number - 1],
                 'Source chapter heading mismatch')
+    chapter = (BOOK / 'notes/chapter01_procedures.html').read_text(encoding='utf8')
+    questions = json.loads((BOOK / 'notes/questions_ch01.json').read_text(encoding='utf8'))['items']
+    source_questions = [e for e in inventory['exercises'] if e['number'].startswith('1.')]
+    require([(q['number'], q['pdf_page']) for q in questions] ==
+            [(e['number'], e['pdf_page']) for e in source_questions], 'Chapter question source positions mismatch')
+    require([x for x in parsed['chapter01_procedures.html'].ids if re.fullmatch(r'ex-1-\d+', x)] ==
+            [f'ex-1-{n}' for n in range(1, 47)], 'Missing/reordered chapter questions')
+    require(len([s for s in parsed['chapter01_procedures.html'].sections if re.fullmatch(r's1-\d-\d', s or '')]) == 18,
+            'All eighteen source subsections required')
+
+    class PreText(HTMLParser):
+        def __init__(self, text):
+            super().__init__(); self.blocks = []; self.current = None; self.feed(text)
+        def handle_starttag(self, tag, attrs):
+            if tag == 'pre': self.current = ''
+        def handle_data(self, text):
+            if self.current is not None: self.current += text
+        def handle_endtag(self, tag):
+            if tag == 'pre' and self.current is not None:
+                self.blocks.append(quoted_code(self.current)); self.current = None
+
+    bodies = QuestionBodies(chapter).blocks
+    require(len(bodies) == len(questions) == 46, 'Chinese question body missing')
+    for n, (body, question) in enumerate(zip(bodies, questions), 1):
+        require(PreText(body).blocks == PreText(question['original_html']).blocks,
+                'Given source programs/inputs changed: 1.' + str(n))
+        require(DisplayFormulaText(body).blocks == DisplayFormulaText(question['original_html']).blocks,
+                'Given display formula tokens changed: 1.' + str(n))
+    inputs = json.loads((BOOK / 'notes/chapter01-inputs.json').read_text(encoding='utf8'))
+    require(len(inputs['records']) == 14, 'Referenced textbook input inventory changed')
+    for record in inputs['records']:
+        require(record['code'] == quoted_code(record['original_code']), 'Quoted-code normalization changed tokens')
+        block = re.search(r'<div class="source-input" id="' + re.escape(record['id']) + r'">(.*?)</div>', chapter, re.S)
+        require(block and PreText(block[1]).blocks == [record['code']], 'Referenced input changed: ' + record['id'])
+        require(all(29 <= p <= 134 for p in record['pdf_pages']), 'Referenced input outside chapter')
+        if record['kind'] == 'source-fragment':
+            original = re.sub(r'\s+', '', ''.join(source_pages[p - 1] for p in record['pdf_pages']))
+            for name in re.findall(r'\(define\s+\(([^\s()]+)', record['code']):
+                require('(define(' + name in original, 'Referenced procedure source page mismatch: ' + name)
+    for exercise, targets in inputs['question_dependencies'].items():
+        body = bodies[int(exercise.rsplit('-', 1)[1]) - 1]
+        require(all('href="#' + target + '"' in body for target in targets), 'Missing precise question input link: ' + exercise)
+    program = (BOOK / 'code/chapter01.rkt').read_text(encoding='utf8').rstrip()
+    snippets = re.findall(r'<!-- SICP:snippet ([\w-]+) -->(.*?)<!-- /SICP:snippet -->', chapter, re.S)
+    expected_units = re.findall(r'^;; BEGIN ([\w-]+)$', program, re.M)
+    require(sorted(name for name, block in snippets) == sorted(expected_units), 'Teaching unit missing/duplicated')
+    for name, block in snippets:
+        expected = re.search(r';; BEGIN ' + name + r'\n(.*?);; END ' + name, program, re.S)[1].rstrip()
+        require(PreText(block).blocks == [expected], 'Teaching code mirror differs: ' + name)
+    full = re.search(r'<!-- SICP:full-source -->(.*?)<!-- /SICP:full-source -->', chapter, re.S)
+    require(full and PreText(full[1]).blocks == [program], 'Full program reading copy differs')
+    results = json.loads((BOOK / 'code/chapter01-results.json').read_text(encoding='utf8'))
+    for name, expected in results['program_sha256'].items():
+        require(hashlib.sha256((BOOK / 'code' / name).read_bytes()).hexdigest() == expected,
+                'Experiment source changed; rerun and review results: ' + name)
+    execution = 'not-run: --quick checks sources and mirrors only'
+    if not args.quick:
+        racket = shutil.which('racket')
+        require(racket, 'Full chapter acceptance requires Racket')
+        completed = subprocess.run([racket, str(BOOK / 'code/test-chapter01.rkt')], cwd=ROOT,
+                                   capture_output=True, text=True, encoding='utf8', timeout=120)
+        (args.run_dir / 'racket-tests.txt').write_text(completed.stdout + completed.stderr, encoding='utf8')
+        require(completed.returncode == 0, 'Racket chapter regression failed: ' + completed.stdout + completed.stderr)
+        execution = completed.stdout.strip()
     negatives = 0
     for mutate in [lambda m: m['source'].update(sha256='0' * 64),
                    lambda m: m['chapters'][1].update(pdf_start=134),
@@ -165,10 +288,10 @@ def main():
         else:
             raise ValueError('Invalid source/scope mutation accepted')
     report = {'status': 'passed', 'book': 'sicp', 'quick': args.quick,
-              'scope': 'map-and-introduction; source, coverage, links; no chapter programs in scope',
-              'pages': 2, 'source_pdf_pages': pages, 'original_inventory_exercises': 356,
-              'completed_exercises': 0, 'pdf_links': pdf_links, 'rejected_mutations': negatives,
-              'program_execution': 'not-applicable: this batch contains no programs'}
+              'scope': 'map, introduction and complete chapter1; source, questions, given inputs and program mirrors',
+              'pages': 3, 'source_pdf_pages': pages, 'original_inventory_exercises': 356,
+              'completed_exercises': 46, 'pdf_links': pdf_links, 'rejected_mutations': negatives,
+              'program_execution': execution}
     (args.run_dir / 'report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf8')
     print(json.dumps(report, ensure_ascii=False))
 

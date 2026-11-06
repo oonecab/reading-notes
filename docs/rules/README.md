@@ -92,3 +92,5 @@ EOPL完结（I065）：附录B算术数域、左结合、环境、数字/负号�
 2026-10-25 的 [I066](../../issues/I066-eopl-review-repairs.md) 修复EOPL第3–6章及附录B完整输入识别、第4/5章正精确整数预算，并将计数信号量、Mesa条件变量与可重用屏障接入THREADS。权威定义在[习题5.57](../../books/eopl/notes/chapter05_continuations.html#ex-5-57)与[程序接口](../../books/eopl/code/README.md)，输入异常、直接移交、重新取锁、代号和取消边界由[T066](../../test/T066-eopl-review-repairs.md)回归。[习题6.31](../../books/eopl/notes/chapter06_cps.html#ex-6-31)同时规定源绑定和生成续文的独立名字格式，避免k/h/join用户绑定被误判；两种数据化模式及目标/寄存器执行纳入同一回归。
 
 - SICP：[维护入口](../../books/sicp/agent.md)、[页面规范](../../books/sicp/notes/README.md)、[原书清单](../../books/sicp/notes/source_manifest.json)。本批仅地图和引言，无新计算规则；过程/环境/机器模型的比较由正式地图释读，逐章规则与程序待后续授权。
+
+SICP第一章的求值模型、迭代数值阈值、四位小数口径、accumulate折叠方向和素数实验边界由[书级约定](../../books/sicp/notes/README.md)、[正式第一章](../../books/sicp/notes/chapter01_procedures.html)与[程序接口](../../books/sicp/code/README.md)维护；独立源码/给定输入及实际证据见[T075](../../test/T075-sicp-chapter01.md)。1.28原题与校注分开，不能把“未发现非平凡平方根”单独当作通过。
