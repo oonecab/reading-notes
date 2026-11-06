@@ -3,7 +3,7 @@
 <!-- project-governance:managed:start -->
 ## 项目目的
 
-统一管理 Durrett 随机过程、Weiss 数据结构、CS:APP 系统、Carter 视觉群论与程士宏测度概率及 EOPL 程序设计语言笔记，保留正式 HTML、可运行示例、来源与验证记录，共用阅读入口和静态发布流程。
+统一管理 Durrett 随机过程、Weiss 数据结构、CS:APP 系统、Carter 视觉群论与程士宏测度概率、EOPL 程序设计语言与 SICP 程序构造笔记，保留正式 HTML、可运行示例、来源与验证记录，共用阅读入口和静态发布流程。
 
 ## 项目分类
 
@@ -45,6 +45,7 @@
 - books/visual-group-theory
 - books/measure-probability
 - books/eopl
+- books/sicp
 - portal
 - deploy
 - tools
@@ -317,3 +318,13 @@ I072 固定发布包文本元数据为 UTF-8/LF，保证 Windows 构建的 SHA25
 ## I072 工具配置修复发布（2026-11-03）
 
 2026-11-03 I072 已从干净内容提交 `9961ac6` 发布 `20261103T003521`，69 阅读页、91 HTML、587 文件；公开文件与 T071 验收包逐字节一致。服务器全量文件和只读权限通过，旧版 `20261025T233903` 的587文件/权限/mtime保留，292未变文件保留mtime。25项隔离发布恢复测试、581项生产HTTPS内容/304、208组gzip、18入口和6份PDF Range通过；本机Chrome18组地图与12个章节视图通过，8张截图实际读回。部署与健康服务成功，Nginx及健康timer正常，队列空、无未完成事务。当前回滚单位为 `20261025T233903`，固定发布程序、CSP配置与服务端口未变。详见[T072](test/T072-tooling-publication.md)与[发布回执](docs/tooling-publication-review.json)。
+
+## I073 SICP 地图与引言（2026-11-06）
+
+新增 books/sicp 与 /sicp/，仅全书地图及前言/两版序言两页，七书共71个受控阅读页。原书是第二版Texinfo重排PDF883页，正文页码加28，前置罗马页码独立登记；所有PDF入口使用该文件。来源清单枚举全书356题，本批零题解、零运行程序；五章节点均为章意。本批复用既有HTML/MathML/SVG、Python检查和Astro构建，无技术栈、服务、变量和端口变化。本地验收与未运行边界见[T073](test/T073-sicp-map-introduction.md)，没有生产发布。
+
+## I074 规范与可复现性复查（2026-11-06）
+
+书架EOPL按catalog修正为13页356题，README同步七书及当前工具链范围。SICP校验强化完整章名、版次、前置页段、正文映射和22主要节唯一顺序；来源JSON加入当前审阅散列绑定。根结构检查要求所有构建来源快照为HEAD祖先，防止只推送登记而遗漏本地Git对象。tools/test_project_contracts.py随根检查执行，覆盖真实首页、来源变异、Git可达性和无时区数据库的CLI。构建编号维持当代中国标准时间UTC+08，时钟可注入；只用于当前版本编号，不提供历史民用时区换算。无新依赖、运行时、变量、端口、服务或教材计算规则；验证与推送见T074。
+
+I074跨平台实测进一步发现：发布白名单的CRLF工作区与Git的LF字节产生不同policy散列，Linux安装器正确拒绝该包。现对白名单与两份新来源JSON固定LF检出并回归，保持安装器逐字节身份断言，不修改批准或发布边界。

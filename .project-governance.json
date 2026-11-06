@@ -2,7 +2,7 @@
   "schema_version": 1,
   "project": {
     "name": "Reading Notes",
-    "summary": "统一管理 Durrett 随机过程、Weiss 数据结构、CS:APP 系统、Carter 视觉群论与程士宏测度概率及 EOPL 程序设计语言笔记，保留正式 HTML、可运行示例、来源与验证记录，共用阅读入口和静态发布流程。",
+    "summary": "统一管理 Durrett 随机过程、Weiss 数据结构、CS:APP 系统、Carter 视觉群论与程士宏测度概率、EOPL 程序设计语言与 SICP 程序构造笔记，保留正式 HTML、可运行示例、来源与验证记录，共用阅读入口和静态发布流程。",
     "profile": "generic",
     "governance_level": "controlled"
   },
@@ -41,7 +41,8 @@
       "deploy",
       "tools",
       "src",
-      "scripts"
+      "scripts",
+      "books/sicp"
     ],
     "architecture_notes": [
       "books/catalog.json 登记书籍与原 URL；src/content/books/<book>/ 逐章维护受控 HTML，books/<book>/notes/*.html 为独立 Python 检查使用的兼容镜像。",
@@ -60,7 +61,8 @@
       "I064增加EOPL第9章，六书67个正式阅读页，EOPL十一页351题；现有Racket8.17执行对象/类解释器、继承分派、TYPED-OO及习题扩展，静态技术栈、运行环境与服务保持。",
       "I065完成EOPL附录A/B，六书69个正式阅读页、EOPL13页356题；现有Racket8.17/eopl执行SLLGEN与算术解释器，修复最近7–9章边界，技术栈/服务/端口保持。",
       "I070: check-local is an explicit structural/readership scope; check and check --quick retain POSIX publication gates. doctor reports prerequisites per operation, not runtime acceptance. Windows local browser metadata uses file flush and atomic replacement without directory power-loss guarantee; Linux publication barriers remain mandatory.",
-      "I071: 构建产物只简化安全HTML属性引号，预算和原数学/脚本字节保持；同一CSP和离线断言可由Playwright/Chrome在本地执行。"
+      "I071: 构建产物只简化安全HTML属性引号，预算和原数学/脚本字节保持；同一CSP和离线断言可由Playwright/Chrome在本地执行。",
+      "I073/I074：七书71阅读页；SICP仅地图/引言。构建来源快照必须为HEAD祖先并随主分支历史推送，书架显式页数/题数与catalog一致；构建编号用当前中国标准时间UTC+08，无可选IANA数据库依赖。"
     ]
   },
   "commands": {

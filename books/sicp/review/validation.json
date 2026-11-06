@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "book": "sicp",
+  "status": "completed_locally",
+  "scope": "I073 new-book local acceptance: map and introduction only; no chapter notes, exercise solutions or program execution.",
+  "file_sha256": {
+    "agent.md": "1f642254d9f568890ff6d4efb731f582c90497b654e78c43ee1f85b5e79fb40d",
+    "notes/README.md": "024964cc62de7a75cd7c0e58e617c62992f44a014df0d60721abc8d63e709a3e",
+    "notes/source_manifest.json": "ce2ec587146f7c212fae1e51c6b8d5d15c0fb172b09daff7327285d4b5dfa935",
+    "notes/source_inventory.json": "0049cef36db50693d361fac34147d305796d0529158dd296b3845accebfdd772"
+  },
+  "open_findings": [],
+  "astro_migration": {
+    "record": "review/astro-migration.json",
+    "sha256": "f9d13477da5acfed26f6576b59b70450dcbbdf228f0723aa5b6ed4260a764403",
+    "status": "Go",
+    "open_findings": [],
+    "source_sha256": {
+      "book_overview.html": "d6f932d2df28dd8113b3073f32b5104636620a8a92bf7c1033092f8800f3fc90",
+      "preface.html": "86a0294f04752866c068cde7551a2917b267b847c61f8d298838dd5d7108e17e"
+    }
+  },
+  "boundaries": [
+    "Only directory, chapter framing/major-section narrative and source introductions were read; not883-page line-by-line content verification.",
+    "Original Scheme interpreters/simulator/compiler and356 exercise solutions not executed or produced.",
+    "Windows full-gate publication safety remains blocked by rsync/POSIX directory fsync; local HTTPS Nginx verification not run.",
+    "No physical mobile, screen reader or other-browser validation.",
+    "No push or production deployment."
+  ],
+  "binding_history": [
+    {
+      "at": "2026-11-06T14:48:42.372845+00:00",
+      "changes": [
+        {
+          "file": "notes/source_manifest.json",
+          "previous_sha256": "a9f6be911edd4a86185ea5e326a310fbe411ffde3f726965f080d1eba6fed807",
+          "current_sha256": "ce2ec587146f7c212fae1e51c6b8d5d15c0fb172b09daff7327285d4b5dfa935",
+          "reason": "I074 real clean-clone failure: normalize CRLF to canonical LF; JSON values unchanged."
+        },
+        {
+          "file": "notes/source_inventory.json",
+          "previous_sha256": "440592e2d18a81133c40fbd6ca7dd5dd73177e5b70095be0c501dd7e1a490385",
+          "current_sha256": "0049cef36db50693d361fac34147d305796d0529158dd296b3845accebfdd772",
+          "reason": "I074 real clean-clone failure: normalize CRLF to canonical LF; JSON values unchanged."
+        }
+      ]
+    }
+  ]
+}

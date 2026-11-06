@@ -1,0 +1,197 @@
+{
+  "schema_version": 1,
+  "book_id": "sicp",
+  "title": "Structure and Interpretation of Computer Programs",
+  "authors": [
+    "Harold Abelson",
+    "Gerald Jay Sussman",
+    "Julie Sussman"
+  ],
+  "foreword_author": "Alan J. Perlis",
+  "edition": "Second edition; Unofficial Texinfo Format 2.andresraba5.6",
+  "publication_year": 1996,
+  "format_date": "2016-02-02",
+  "publisher": "MIT Press / McGraw-Hill",
+  "source": {
+    "file": "books/sicp/sicp.pdf",
+    "sha256": "afff2ca1486a46bcd47310bc5a974da1f9c6a6a0b15b39c93e2453350670f715",
+    "bytes": 7645685,
+    "pdf_pages": 883,
+    "publication_scope": "reader_reference",
+    "text_note": "Private-use small-cap/ligature glyphs and formula order can be lost in extraction; source pages take precedence."
+  },
+  "front_matter": [
+    {
+      "title": "Title and copyright",
+      "printed_start": null,
+      "printed_end": null,
+      "pdf_start": 1,
+      "pdf_end": 2
+    },
+    {
+      "title": "Contents",
+      "printed_start": "iii",
+      "printed_end": "viii",
+      "pdf_start": 3,
+      "pdf_end": 8
+    },
+    {
+      "title": "Unofficial Texinfo Format",
+      "printed_start": "ix",
+      "printed_end": "xi",
+      "pdf_start": 9,
+      "pdf_end": 11
+    },
+    {
+      "title": "Dedication",
+      "printed_start": "xii",
+      "printed_end": "xii",
+      "pdf_start": 12,
+      "pdf_end": 12
+    },
+    {
+      "title": "Foreword",
+      "printed_start": "xiii",
+      "printed_end": "xviii",
+      "pdf_start": 13,
+      "pdf_end": 18
+    },
+    {
+      "title": "Preface to the Second Edition",
+      "printed_start": "xix",
+      "printed_end": "xx",
+      "pdf_start": 19,
+      "pdf_end": 20
+    },
+    {
+      "title": "Preface to the First Edition",
+      "printed_start": "xxi",
+      "printed_end": "xxiv",
+      "pdf_start": 21,
+      "pdf_end": 24
+    },
+    {
+      "title": "Acknowledgments",
+      "printed_start": "xxv",
+      "printed_end": "xxviii",
+      "pdf_start": 25,
+      "pdf_end": 28
+    }
+  ],
+  "main_page_mapping": {
+    "printed_start": 1,
+    "printed_end": 855,
+    "pdf_start": 29,
+    "pdf_end": 883,
+    "offset": 28
+  },
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Building Abstractions with Procedures",
+      "title_zh": "用过程构造抽象",
+      "printed_start": 1,
+      "printed_end": 106,
+      "pdf_start": 29,
+      "pdf_end": 134,
+      "exercise_count": 46,
+      "notes_status": "chapter-summary-only"
+    },
+    {
+      "number": 2,
+      "title": "Building Abstractions with Data",
+      "title_zh": "用数据构造抽象",
+      "printed_start": 107,
+      "printed_end": 293,
+      "pdf_start": 135,
+      "pdf_end": 321,
+      "exercise_count": 97,
+      "notes_status": "chapter-summary-only"
+    },
+    {
+      "number": 3,
+      "title": "Modularity, Objects, and State",
+      "title_zh": "模块化、对象和状态",
+      "printed_start": 294,
+      "printed_end": 486,
+      "pdf_start": 322,
+      "pdf_end": 514,
+      "exercise_count": 82,
+      "notes_status": "chapter-summary-only"
+    },
+    {
+      "number": 4,
+      "title": "Metalinguistic Abstraction",
+      "title_zh": "元语言抽象",
+      "printed_start": 487,
+      "printed_end": 665,
+      "pdf_start": 515,
+      "pdf_end": 693,
+      "exercise_count": 79,
+      "notes_status": "chapter-summary-only"
+    },
+    {
+      "number": 5,
+      "title": "Computing with Register Machines",
+      "title_zh": "寄存器机器里的计算",
+      "printed_start": 666,
+      "printed_end": 833,
+      "pdf_start": 694,
+      "pdf_end": 861,
+      "exercise_count": 52,
+      "notes_status": "chapter-summary-only"
+    }
+  ],
+  "back_matter": [
+    {
+      "title": "References",
+      "printed_start": 834,
+      "pdf_start": 862
+    },
+    {
+      "title": "List of Exercises",
+      "printed_start": 844,
+      "pdf_start": 872
+    },
+    {
+      "title": "List of Figures",
+      "printed_start": 846,
+      "pdf_start": 874
+    },
+    {
+      "title": "Index",
+      "printed_start": 848,
+      "pdf_start": 876
+    },
+    {
+      "title": "Colophon",
+      "printed_start": 855,
+      "pdf_start": 883
+    }
+  ],
+  "publication": {
+    "include_source_pdf": true,
+    "site_path": "sicp/sicp.pdf",
+    "basis": "User requested this PDF as the reference; PDF copyright page expressly identifies CC BY-SA4.0. Preserve bytes, attribution and license link.",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/"
+  },
+  "current_scope": {
+    "pages": [
+      "book_overview.html",
+      "preface.html"
+    ],
+    "chapter_notes": [],
+    "completed_original_exercises": 0,
+    "introduction_pdf_pages": [
+      13,
+      24
+    ]
+  },
+  "secondary_source": {
+    "kind": "user-supplied local HTML reference",
+    "identity": "ZZZping/sicp; HTML5/EPUB3 derived from Unofficial Texinfo",
+    "used_for": "Term and narrative cross-check; never PDF page numbers; not a build dependency.",
+    "access_date": "2026-11-06"
+  }
+}

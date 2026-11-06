@@ -333,7 +333,16 @@
       "nodes": 4,
       "edges": 3,
       "changes": "Explicit style roles only, verified against original snapshot; coordinates/text unchanged."
+    },
+    {
+      "page": "sicp/notes/book_overview.html",
+      "title": "SICP 五章的抽象递进图",
+      "nodes": 5,
+      "edges": 4,
+      "fit": "compact",
+      "changes": "I073新增五章章意图；纵向布局、统一蓝/琥珀节点，箭头表示伴读主阅读顺序。"
     }
   ],
-  "status": "source_review_passed_render_pending"
+  "status": "source_review_passed_render_pending",
+  "I073_scope_extension": "New SICP map only; existing diagram review entries retain their historical identity."
 }

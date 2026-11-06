@@ -1,0 +1,105 @@
+---
+{
+  "book": "sicp",
+  "chapter": "book_overview",
+  "title": "全书地图 · SICP 计算机程序的构造和解释",
+  "printed_start": null,
+  "printed_end": null,
+  "pdf_start": 1,
+  "pdf_end": 883,
+  "exercise_range": [],
+  "statement_count": 0,
+  "source_manifest": "books/sicp/notes/source_manifest.json",
+  "route": "sicp/notes/book_overview.html",
+  "legacy_path": "books/sicp/notes/book_overview.html",
+  "stage": "map-and-introduction",
+  "original_sha256": "d6f932d2df28dd8113b3073f32b5104636620a8a92bf7c1033092f8800f3fc90"
+}
+---
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>全书地图 · SICP 计算机程序的构造和解释</title><style>
+<!-- RN:include styles/reading-base.css -->
+<!-- RN:include styles/reading-content-2.css -->
+<!-- RN:include styles/reading-navigation.css -->
+<!-- RN:include styles/reading-annotations.css -->
+<!-- RN:include styles/reading-components.css -->
+.book-diagram{display:block;width:330px;max-width:100%;min-width:0;margin:0 auto}.book-diagram text{font-size:16px}.book-diagram .hint{font-size:13px}.map-nodes a:hover rect,.map-nodes a:focus-visible rect{stroke-width:3;fill:#edf3ed}
+@media print{.annotation-sidebar{display:none!important}}
+<!-- RN:include styles/reading-typography.css -->
+</style></head><body class="rn-components"><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="章节目录"><details class="toc-panel" id="toc-panel" open><summary>目录</summary><nav class="chapter-toc" id="chapter-toc"><a class="toc-home" href="book_overview.html">全书地图</a><a class="toc-home" href="preface.html">序言</a><ul><li><a href="#thread">全书的问题：怎样让复杂程序仍然可理解</a></li><li><a href="#dependencies">五章关系：上一层的假设成为下一层的问题</a></li><li><a href="#chapter-1">第 1 章章意 · 用过程构造抽象</a></li><li><a href="#chapter-2">第 2 章章意 · 用数据构造抽象</a></li><li><a href="#chapter-3">第 3 章章意 · 模块化、对象和状态</a></li><li><a href="#chapter-4">第 4 章章意 · 元语言抽象</a></li><li><a href="#chapter-5">第 5 章章意 · 寄存器机器里的计算</a></li><li><a href="#models">沿同一条表达式，辨认四个解释层次</a></li><li><a href="#routes">怎样开始、选读与回读</a></li><li><a href="#program-guide">本页之后怎样使用原书</a></li><li><a href="#source">原书身份、页序与来源边界</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">Abelson / Sussman / Sussman · SICP · Second Edition</p><h1>全书地图</h1><p class="intro">从组织过程与数据，走到设计语言，再追问语言怎样在机器上运行。</p><p class="source">第二版 · Unofficial Texinfo Format 2.andresraba5.6；目录 iii–viii / <a href="../sicp.pdf#page=3">PDF 3–8</a>；正文 pp.1–833 / <a href="../sicp.pdf#page=29">PDF 29–861</a>。</p><p class="chapter-nav"><a href="preface.html">开始阅读：序言 →</a></p></header>
+<section id="thread">
+<h2>全书的问题：怎样让复杂程序仍然可理解</h2>
+<p>写出一个能得到答案的小程序，与组织一个可以不断扩展的系统，是两种不同的困难。SICP 从前一种能力出发，反复追问：哪些细节应该藏起来？部件之间凭什么可以组合？当状态、求值顺序和机器资源进入模型时，原来的解释还成立吗？全书的主线是建立、使用并重新检查这些抽象。</p>
+<p>第 1 章把计算步骤组织成过程，第 2 章把数据的使用与表示分开，第 3 章研究对象随时间变化所带来的代价。第 4 章进一步把“表达式是什么意思”写成求值器，第 5 章再把求值中的调用、返回和存储落到寄存器、栈与机器指令。前面依赖的能力，逐步成为后面研究的对象。</p>
+<p>这条线可以概括为三种设计手段：<strong>用抽象控制细节，用约定接口组织组合，用新语言表达问题</strong>。这是第一版序言明确提出的方法；下面的章节关系和读法是伴读据此作的归纳。来源：xxii–xxiii / <a href="../sicp.pdf#page=22">PDF 22–23</a>。</p>
+<details class="reading-notes" id="notes-thread" data-notes-for="thread" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h3>抽象需要一条可检查的边界</h3><p>“隐藏细节”要同时说明对外保证什么。例如有理数的客户只依赖构造器与选择器，但实现仍须满足数值对应关系。省略一段实现与建立一个可靠抽象并不是同一件事。</p></div></div></details>
+</section>
+<section id="dependencies">
+<h2>五章关系：上一层的假设成为下一层的问题</h2>
+<figure><div class="scroll" tabindex="0" aria-label="五章关系图，可在图内滚动"><svg class="book-diagram rn-diagram" viewBox="0 0 330 515" role="img" aria-labelledby="map-title map-desc"><title id="map-title">SICP 五章的抽象递进图</title><desc id="map-desc">按一至五章连接：过程、数据、状态、语言、机器。节点进入本页章意，原书由各章来源链接打开。</desc><defs><marker id="map-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path class="rn-arrow" d="M1 1L9 5L1 9Z"/></marker></defs><g marker-end="url(#map-arrow)"><path class="rn-edge" d="M165 90V120"/>
+<path class="rn-edge" d="M165 192V222"/>
+<path class="rn-edge" d="M165 294V324"/>
+<path class="rn-edge" d="M165 396V426"/>
+</g><g class="map-nodes" text-anchor="middle"><a href="#chapter-1" aria-label="第 1 章章意：用过程构造抽象"><rect class="rn-node" x="22" y="18" width="286" height="72" data-rn-fit="flow"/><text x="165" y="46">第 1 章 · 用过程构造抽象</text><text class="hint" x="165" y="71">章意与原书入口</text></a>
+<a href="#chapter-2" aria-label="第 2 章章意：用数据构造抽象"><rect class="rn-node" x="22" y="120" width="286" height="72" data-rn-fit="flow"/><text x="165" y="148">第 2 章 · 用数据构造抽象</text><text class="hint" x="165" y="173">章意与原书入口</text></a>
+<a href="#chapter-3" aria-label="第 3 章章意：模块化、对象和状态"><rect class="rn-node rn-node-accent" x="22" y="222" width="286" height="72" data-rn-fit="flow"/><text x="165" y="250">第 3 章 · 模块化、对象和状态</text><text class="hint" x="165" y="275">章意与原书入口</text></a>
+<a href="#chapter-4" aria-label="第 4 章章意：元语言抽象"><rect class="rn-node" x="22" y="324" width="286" height="72" data-rn-fit="flow"/><text x="165" y="352">第 4 章 · 元语言抽象</text><text class="hint" x="165" y="377">章意与原书入口</text></a>
+<a href="#chapter-5" aria-label="第 5 章章意：寄存器机器里的计算"><rect class="rn-node" x="22" y="426" width="286" height="72" data-rn-fit="flow"/><text x="165" y="454">第 5 章 · 寄存器机器里的计算</text><text class="hint" x="165" y="479">章意与原书入口</text></a>
+</g></svg></div><figcaption>实线表示伴读归纳的主阅读顺序，浅琥珀色标出状态与时间带来的转折；不是原书给出的先修依赖图。每个节点明确进入“章意”，各章正式笔记尚在计划中。</figcaption></figure>
+<p>顺读时依次建立共同语言；回读时可以跨章连线：§1.1.5 的代换模型与 §3.2 的环境模型相对照，§2.3 的符号数据支撑 §4.1 的求值器，§3.5 的流通向 §4.2 的惰性求值与 §4.4 的查询系统，§4.1 的求值器最终在 §5.4 显式化控制。</p>
+<details class="reading-notes" id="notes-dependencies" data-notes-for="dependencies" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h3>主线并不意味着所有小节都是同等的前提</h3><p>第二版序言允许有目的地选读。学习第 5 章求值器，需要理解第 4 章的求值过程；却不必先把非确定性计算与逻辑查询的每个扩展全部做完。顺序、先修和拓展应分别判断。</p></div></div></details>
+</section>
+<section id="chapter-1">
+<h2>第 1 章章意 · 用过程构造抽象</h2>
+<p class="source">Building Abstractions with Procedures；pp.1–106 / <a href="../sicp.pdf#page=29">PDF 29–134</a>。原书习题 1.1–1.46，共 46 题。</p><p><strong>把方法作为可以命名、组合和传递的对象。</strong>本章先建立表达式、命名、组合式与复合过程的基本规则，再用代换模型解释过程应用。理解语言的基本构造以后，问题从“写了什么”转向“产生什么样的计算过程”：递归与迭代、树形展开和增长阶，说明外观相近的程序可能具有不同的资源行为。最后用高阶过程捕捉求和、求根、不动点等共同模式。</p><p>阅读时抓住两处分离：过程的递归写法与计算过程的空间形态分开；一个具体数值与产生数值的方法分开。Newton 求平方根贯穿逐次改进、黑箱边界和高阶抽象，适合反复回看。</p><ul><li><strong>§1.1 程序设计的基本要素</strong>：p.6 / <a href="../sicp.pdf#page=34">PDF 34</a></li><li><strong>§1.2 过程与它们产生的计算过程</strong>：p.40 / <a href="../sicp.pdf#page=68">PDF 68</a></li><li><strong>§1.3 用高阶过程形成抽象</strong>：p.74 / <a href="../sicp.pdf#page=102">PDF 102</a></li></ul>
+<details class="reading-notes" id="notes-chapter-1" data-notes-for="chapter-1" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h3>递归定义不直接决定空间</h3><p>同一个数学递推可以由不同控制过程实现。第 1 章先建立对过程形态的直觉；第 5 章才把待续工作、栈与尾递归的关系落成机器操作。</p></div></div></details>
+</section>
+<section id="chapter-2">
+<h2>第 2 章章意 · 用数据构造抽象</h2>
+<p class="source">Building Abstractions with Data；pp.107–293 / <a href="../sicp.pdf#page=135">PDF 135–321</a>。原书习题 2.1–2.97，共 97 题。</p><p><strong>让数据的使用方式不依赖内部表示。</strong>有理数例子先划出构造器、选择器与客户程序的边界。序对、列表与树随后说明复合对象如何继续参与组合；序列接口和图形语言把数据抽象与高阶过程接在一起。符号求导、集合与 Huffman 编码把对象从数推广到符号和结构。多重表示、带标记数据、数据导向分派与通用算术，进一步讨论系统扩展时改动应该落在哪里。</p><p>不要把本章读成数据结构目录。相同的有理数值可以选择不同化简时机，复数可以采用直角或极坐标表示；真正需要追踪的是客户依赖了哪些操作、每层维持什么约定，以及新类型如何加入已有运算。</p><ul><li><strong>§2.1 数据抽象导引</strong>：p.112 / <a href="../sicp.pdf#page=140">PDF 140</a></li><li><strong>§2.2 层次数据与闭包性质</strong>：p.132 / <a href="../sicp.pdf#page=160">PDF 160</a></li><li><strong>§2.3 符号数据</strong>：p.192 / <a href="../sicp.pdf#page=220">PDF 220</a></li><li><strong>§2.4 抽象数据的多重表示</strong>：p.229 / <a href="../sicp.pdf#page=257">PDF 257</a></li><li><strong>§2.5 带通用操作的系统</strong>：p.254 / <a href="../sicp.pdf#page=282">PDF 282</a></li></ul>
+<details class="reading-notes" id="notes-chapter-2" data-notes-for="chapter-2" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h3>两种“闭包”要按上下文分开</h3><p>§2.2 的 closure property 是组合结果还能继续参与同种组合的性质；过程捕获其定义环境通常也叫闭包。两者在抽象组织上有关联，但讨论的对象和判断条件不同。</p></div></div></details>
+</section>
+<section id="chapter-3">
+<h2>第 3 章章意 · 模块化、对象和状态</h2>
+<p class="source">Modularity, Objects, and State；pp.294–486 / <a href="../sicp.pdf#page=322">PDF 322–514</a>。原书习题 3.1–3.82，共 82 题。</p><p><strong>把变化引进模型，同时付出时间与共享的代价。</strong>局部状态使银行账户等对象能够记住历史，也使同一调用不再总有同一结果。代换模型因此让位于环境模型。可变表、队列、表格、电路模拟器和约束传播，展示对象与交互如何形成模块；并发则揭示读取、计算、写回之间的次序会改变结果。流提供另一种组织方式：把随时间出现的值表示成序列，利用延迟求值分离模拟时间与实际计算次序。</p><p>本章同时展示收益和代价。对象模型利于把局部历史封装起来，函数式流模型利于描述整段行为；书末没有宣布其中一种能解决全部问题。阅读时要问清楚：状态属于谁、哪些对象共享它、何时发生强制求值、哪些事件需要同步。</p><ul><li><strong>§3.1 赋值与局部状态</strong>：p.296 / <a href="../sicp.pdf#page=324">PDF 324</a></li><li><strong>§3.2 求值的环境模型</strong>：p.320 / <a href="../sicp.pdf#page=348">PDF 348</a></li><li><strong>§3.3 用可变数据建模</strong>：p.341 / <a href="../sicp.pdf#page=369">PDF 369</a></li><li><strong>§3.4 并发：时间至关重要</strong>：p.401 / <a href="../sicp.pdf#page=429">PDF 429</a></li><li><strong>§3.5 流</strong>：p.428 / <a href="../sicp.pdf#page=456">PDF 456</a></li></ul>
+<details class="reading-notes" id="notes-chapter-3" data-notes-for="chapter-3" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h3>延迟并不会自动消除时间问题</h3><p>流的元素可以延后计算，但输入、共享状态和观察时机仍可能影响行为。原书在 §3.5.5 回到这一区分，避免把流简单理解成“没有任何时间问题的列表”。</p></div></div></details>
+</section>
+<section id="chapter-4">
+<h2>第 4 章章意 · 元语言抽象</h2>
+<p class="source">Metalinguistic Abstraction；pp.487–665 / <a href="../sicp.pdf#page=515">PDF 515–693</a>。原书习题 4.1–4.79，共 79 题。</p><p><strong>通过修改求值器研究语言选择。</strong>元循环求值器把求值分成表达式分类与过程应用，并用环境连接名字和值；程序的数据表示使这种自我描述成为可能。接着改变求值规则，构造惰性语言与支持搜索、回溯的非确定性语言。逻辑程序设计再把关注点移到关系与查询，同时展示模式匹配、合一、流和搜索顺序如何影响答案的取得。</p><p>关键跃迁是：不仅能在一种语言里组织程序，也能设计更适合问题的语言。要分别辨认被解释的语言与实现解释器的宿主语言；非确定性选择不是随机抽样，逻辑查询的声明含义也不自动保证操作过程会终止。</p><ul><li><strong>§4.1 元循环求值器</strong>：p.492 / <a href="../sicp.pdf#page=520">PDF 520</a></li><li><strong>§4.2 Scheme 的变形：惰性求值</strong>：p.541 / <a href="../sicp.pdf#page=569">PDF 569</a></li><li><strong>§4.3 Scheme 的变形：非确定性计算</strong>：p.559 / <a href="../sicp.pdf#page=587">PDF 587</a></li><li><strong>§4.4 逻辑程序设计</strong>：p.594 / <a href="../sicp.pdf#page=622">PDF 622</a></li></ul>
+<details class="reading-notes" id="notes-chapter-4" data-notes-for="chapter-4" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h3>元循环仍留下宿主提供的机制</h3><p>用 Scheme 写 Scheme 求值器，并没有从无到有解释全部计算。控制转移、基本操作与存储仍由宿主承担；第 5 章正是把其中一些依赖进一步展开。</p></div></div></details>
+</section>
+<section id="chapter-5">
+<h2>第 5 章章意 · 寄存器机器里的计算</h2>
+<p class="source">Computing with Register Machines；pp.666–833 / <a href="../sicp.pdf#page=694">PDF 694–861</a>。原书习题 5.1–5.52，共 52 题。</p><p><strong>让控制、存储与编译都成为可观察的过程。</strong>先从最大公约数等过程设计数据通路与控制器，再用模拟器执行寄存器机器描述。存储部分解释序对如何映射为向量式内存，以及垃圾回收如何支持不断产生新对象。显式控制求值器把第 4 章的求值过程改写为寄存器与栈操作；编译器则直接生成指令序列，并处理目标寄存器、连接方式、词法地址与编译代码/解释执行的衔接。</p><p>本章让开头的疑问闭合：过程调用返回到哪里？哪些值必须暂存？尾调用为何不需要累计相同的返回工作？解释与编译之间哪些工作可以提前完成？原书使用教学寄存器机器，不对应某一款 CPU 的完整指令集。</p><ul><li><strong>§5.1 设计寄存器机器</strong>：p.668 / <a href="../sicp.pdf#page=696">PDF 696</a></li><li><strong>§5.2 寄存器机器模拟器</strong>：p.696 / <a href="../sicp.pdf#page=724">PDF 724</a></li><li><strong>§5.3 存储分配与垃圾回收</strong>：p.723 / <a href="../sicp.pdf#page=751">PDF 751</a></li><li><strong>§5.4 显式控制求值器</strong>：p.741 / <a href="../sicp.pdf#page=769">PDF 769</a></li><li><strong>§5.5 编译</strong>：p.767 / <a href="../sicp.pdf#page=795">PDF 795</a></li></ul>
+<details class="reading-notes" id="notes-chapter-5" data-notes-for="chapter-5" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h3>语义相同与成本相同是不同的主张</h3><p>解释执行与编译执行可以产生相同结果，却经过不同的指令、查找和栈操作。第 5 章的机器模型让这些成本有了具体含义，不能把教学模型的计数直接当作本机 CPU 的时间。</p></div></div></details>
+</section>
+<section id="models">
+<h2>沿同一条表达式，辨认四个解释层次</h2>
+<p>下面按原书出现的先后列出求值模型。它们逐渐暴露原来被隐藏的机制；后一层的引入有明确的问题背景。表中的比较是伴读归纳，不是四种互不相关的编程语言。</p>
+<div class="scroll"><table><caption>求值模型逐层回答的问题</caption><thead><tr><th scope="col">层次</th><th scope="col">能帮助看清什么</th><th scope="col">暂时隐藏什么</th><th scope="col">原书入口</th></tr></thead><tbody>
+<tr><th scope="row">代换模型</th><td>把实参带入过程体，追踪表达式的求值</td><td>赋值、位置和共享对象的机制</td><td>§1.1.5 / <a href="../sicp.pdf#page=46">PDF 46</a></td></tr><tr><th scope="row">环境模型</th><td>名字在什么框架中绑定，局部状态如何保留</td><td>宿主怎样调用、返回及管理机器资源</td><td>§3.2 / <a href="../sicp.pdf#page=348">PDF 348</a></td></tr><tr><th scope="row">元循环求值器</th><td>把语言求值规则写成可修改的程序</td><td>宿主调用机制与底层存储</td><td>§4.1 / <a href="../sicp.pdf#page=520">PDF 520</a></td></tr><tr><th scope="row">显式控制求值器</th><td>控制状态、寄存器、栈与返回位置</td><td>教学机器所假定的基本操作内部细节</td><td>§5.4 / <a href="../sicp.pdf#page=769">PDF 769</a></td></tr></tbody></table></div>
+<p>遇到“为什么结果如此”，先找当前模型承诺解释的那一层。遇到“为什么占用这些空间”，则要继续说明成本单位与实现条件。这也解释了为什么第 1 章可以先使用抽象过程，而不必等待第 5 章的机器设计。</p>
+<details class="reading-notes" id="notes-models" data-notes-for="models" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h3>更具体的模型仍有边界</h3><p>寄存器机器不是对硬件、物理时间和全部系统调用的最终说明。它只把本书所需的控制与存储机制具体化；每次下移一层，都应写清又把哪些操作当作基本操作。</p></div></div></details>
+</section>
+<section id="routes">
+<h2>怎样开始、选读与回读</h2>
+<p>先读<a href="preface.html">引言：前言与两版序言</a>，再顺着第 1、2 章建立共同基础。每读一个例子，先预测表达式的结果或下一步状态，再沿规则手算。对于过程，要能说出输入、输出和产生的计算过程；对于数据，要能说出接口及表示约定。会抄出定义之后，还要检查改变一个条件会发生什么。</p>
+<p>到第 3 章，把环境框架、共享对象和事件次序画出来；从“同一个输入”推进到“此前发生过什么”。再进入第 4 章，选一条表达式追过求值和应用两条路径。第 5 章则追踪相同过程在寄存器和栈中的实现。这样读，每次都会带着前一章尚未回答的问题进入下一章。</p>
+<p>第二版序言说明一学期难以覆盖全部内容，提到可选略 §4.4 的逻辑程序设计、使用 §5.2 模拟器而暂不研究其实现、仅概览 §5.5 编译。这是作者的课程取舍说明；自学时也可以先读前三章或前四章，再回到机器与编译。来源：xx / <a href="../sicp.pdf#page=20">PDF 20</a>。</p>
+<p>若已读本仓库的 EOPL，可以比较两书怎样用解释器揭示语言机制：SICP 的主线从构造抽象走到语言和机器，EOPL 则围绕一系列小语言展开状态、控制、类型等选择。这里的比较用于安排回读，不能把两书的语法、对象表示和求值规则混用。</p>
+<details class="reading-notes" id="notes-routes" data-notes-for="routes" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h3>用可以回答的问题决定是否继续</h3><p>学完一个小节后，试着不用运行程序也能预测一个小输入，再运行验证并解释差异。如果结果只是记住某种写法，就回到模型或接口；若已能推演，就可以暂时让底层细节留在下一层。</p></div></div></details>
+</section>
+<section id="program-guide">
+<h2>本页之后怎样使用原书</h2>
+<p>这份伴读目前提供全书地图与引言两页。五章的正式笔记和习题解答尚在计划中；上面的五个节点是章意入口，各节旁的 PDF 链接可以直接进入本仓库原书阅读。不要将章意摘要当作完整章节。</p><p>本批没有另附程序，也没有宣称运行原书解释器、模拟器或编译器。原书以 Scheme 表达程序；读到程序时先辨认语言规则、原书约定与实现专用功能。语言环境与可运行示例将在相应章节展开时集中说明。</p><p>可从这里进入 <a href="../sicp.pdf#page=3">原书目录（PDF 3）</a>、<a href="../sicp.pdf#page=872">习题列表（PDF 872）</a>、<a href="../sicp.pdf#page=874">图表列表（PDF 874）</a>和<a href="../sicp.pdf#page=876">术语索引（PDF 876）</a>。习题列表覆盖全书 356 道原题，不表示本伴读已有这些题的解答。</p>
+
+</section>
+<section id="source">
+<h2>原书身份、页序与来源边界</h2>
+<p>原书为 Harold Abelson、Gerald Jay Sussman 与 Julie Sussman 的 <cite>Structure and Interpretation of Computer Programs</cite> 第二版，Alan J. Perlis 作前言，版权页标记 1996。此 PDF 是 <strong>Unofficial Texinfo Format 2.andresraba5.6</strong>，重排日期 2016-02-02，共 883 页。此处“原书页码”指这份重排 PDF 页面底端的页码，不套用其他纸质版或网页版的页数。</p><div class="scroll"><table><caption>本仓库 SICP PDF 的页序映射</caption><thead><tr><th scope="col">材料</th><th scope="col">页面底端页码</th><th scope="col">PDF 页序</th></tr></thead><tbody><tr><th scope="row">目录</th><td>iii–viii</td><td><a href="../sicp.pdf#page=3">3–8</a></td></tr><tr><th scope="row">重排版说明、献词</th><td>ix–xii</td><td><a href="../sicp.pdf#page=9">9–12</a></td></tr><tr><th scope="row">Perlis 前言</th><td>xiii–xviii</td><td><a href="../sicp.pdf#page=13">13–18</a></td></tr><tr><th scope="row">第二版序言</th><td>xix–xx</td><td><a href="../sicp.pdf#page=19">19–20</a></td></tr><tr><th scope="row">第一版序言</th><td>xxi–xxiv</td><td><a href="../sicp.pdf#page=21">21–24</a></td></tr><tr><th scope="row">致谢</th><td>xxv–xxviii</td><td><a href="../sicp.pdf#page=25">25–28</a></td></tr><tr><th scope="row">正文及书后材料</th><td>1–855</td><td><a href="../sicp.pdf#page=29">29–883</a>；仅此段使用“页码加 28”</td></tr></tbody></table></div><p>阅读时可参考用户提供的 HTML 版本，但本页所有原书入口都链接这份 PDF。文字抽取会丢失某些连字、私用区字形与公式的阅读顺序；出现疑点应回看原页。版权与许可见 <a href="../sicp.pdf#page=2">PDF 2</a>：原书文件标记 <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>。本伴读以原创中文释读和结构归纳为主。</p>
+
+</section>
+
+<footer><p>原书论述按本仓库第二版 PDF 定位；中文释读、例子与章节关系归纳由伴读撰写。</p><p class="chapter-nav"><a href="preface.html">开始阅读：序言 →</a><a href="#top">返回页首 ↑</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top">本节理解与补充</a></p><div id="annotation-content"></div></aside></div>
+<script><!-- RN:include scripts/6a3f8b30744a694f9192.js --></script><script id="reading-notes-controller"><!-- RN:include scripts/54f30fc1f5e1cbcd699a.js --></script><script data-purpose="print-details"><!-- RN:include scripts/3497ba81d7e642909037.js --></script></body></html>

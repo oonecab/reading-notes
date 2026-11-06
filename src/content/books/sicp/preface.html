@@ -1,0 +1,67 @@
+---
+{
+  "book": "sicp",
+  "chapter": "preface",
+  "title": "引言：前言与两版序言 · SICP 计算机程序的构造和解释",
+  "printed_start": "xiii",
+  "printed_end": "xxiv",
+  "pdf_start": 13,
+  "pdf_end": 24,
+  "exercise_range": [],
+  "statement_count": 0,
+  "source_manifest": "books/sicp/notes/source_manifest.json",
+  "route": "sicp/notes/preface.html",
+  "legacy_path": "books/sicp/notes/preface.html",
+  "stage": "map-and-introduction",
+  "original_sha256": "86a0294f04752866c068cde7551a2917b267b847c61f8d298838dd5d7108e17e"
+}
+---
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>引言：前言与两版序言 · SICP 计算机程序的构造和解释</title><style>
+<!-- RN:include styles/reading-base.css -->
+<!-- RN:include styles/reading-content-2.css -->
+<!-- RN:include styles/reading-navigation.css -->
+<!-- RN:include styles/reading-annotations.css -->
+<!-- RN:include styles/reading-components.css -->
+.book-diagram{display:block;width:330px;max-width:none;margin:0 auto}.book-diagram text{font-size:16px}.book-diagram .hint{font-size:13px}.map-nodes a:hover rect,.map-nodes a:focus-visible rect{stroke-width:3;fill:#edf3ed}
+@media print{.annotation-sidebar{display:none!important}}
+<!-- RN:include styles/reading-typography.css -->
+</style></head><body class="rn-components"><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="章节目录"><details class="toc-panel" id="toc-panel" open><summary>目录</summary><nav class="chapter-toc" id="chapter-toc"><a class="toc-home" href="book_overview.html">全书地图</a><a class="toc-home" href="preface.html">序言</a><ul><li><a href="#foreword">Perlis 前言：程序怎样从模型中生长</a></li><li><a href="#foreword-language">从可组合的部件，走向为问题发明语言</a></li><li><a href="#second-edition">第二版序言：用“时间”重新串起全书</a></li><li><a href="#first-edition">第一版序言：程序也是表达思想的媒介</a></li><li><a href="#complexity">控制复杂性的三种办法</a></li><li><a href="#knowledge">从“是什么”到“怎样做”：把知识写成过程</a></li><li><a href="#scheme">为什么用 Scheme，以及带着什么进入正文</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">Abelson / Sussman / Sussman · SICP · Second Edition</p><h1>引言：前言与两版序言</h1><p class="intro">先理解本书希望培养的能力，再决定每一层抽象该读到哪里。</p><p class="source">Perlis 前言 xiii–xviii / <a href="../sicp.pdf#page=13">PDF 13–18</a>；第二版序言 xix–xx / <a href="../sicp.pdf#page=19">PDF 19–20</a>；第一版序言 xxi–xxiv / <a href="../sicp.pdf#page=21">PDF 21–24</a>。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a></p></header>
+<section id="foreword">
+<h2>Perlis 前言：程序怎样从模型中生长</h2>
+<p>前言先把编程放在人类组织活动的广阔背景中，然后把本书的任务落到计算机程序：大量阅读与书写，既要关心一个部件是否做好，也要关心它怎样与别的部件组成更大的系统。这里已经出现全书的尺度变化——从正确的一小段，走向能持续组织起来的整体。来源：xiii–xiv / <a href="../sicp.pdf#page=13">PDF 13–14</a>。</p><p>Perlis 区分三个相互作用的焦点：人的心智、程序的集合和计算机。程序是在头脑中形成的过程模型；随着理解变化，模型和程序也继续变化。计算机要求描述足够精确，却不替我们决定模型是否适合问题。一个程序完全按指令运行，与它忠实表达了我们真正想研究的现象，仍是两项需要分别检查的事。</p><p>因此，大型系统不仅需要局部正确，还需要可靠的惯用结构和组织方式。前言没有否定论证；它指出规格本身也可能不充分、不一致，不能以“已经写成形式”代替对问题的理解。原书随后用抽象、接口与语言，把这种组织能力变成可学习的方法。</p>
+<details class="reading-notes" id="notes-foreword" data-notes-for="foreword" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h3>模型错误与实现错误怎样分开</h3><p>例如模型假定一次提款是不可分割的操作，实现却允许两个提款交错，可能出现实现层面的错误；若需求本来就允许透支，模型却一律拒绝，则是规则选择出了问题。分清这两层，才能知道该检查程序步骤还是重新讨论假设。</p></div></div></details>
+</section>
+<section id="foreword-language">
+<h2>从可组合的部件，走向为问题发明语言</h2>
+<p>前言接着提醒：硬件要服从物理限制，高层程序却在我们愿意思考的概念层次上组织工作。把高层描述转换成机器动作的过程本身也可以写成程序。这个观察预示了第 4、5 章：语言处理器并不是站在程序世界外面的神秘装置，它也需要表示、组合和抽象。来源：xv–xvi / <a href="../sicp.pdf#page=15">PDF 15–16</a>。</p><p>Perlis 随后借 Pascal 的“金字塔”与 Lisp 的“有机体”作比，强调可生长系统中的复用与组合：统一、通用的数据表示，可以使许多操作相互配合，而不必为每种局部结构重新制造一组封闭操作。他最后把大型系统与语言设计联系起来——当系统长大时，用合适的语言隔离模块之间的交流。来源：xvii–xviii / <a href="../sicp.pdf#page=17">PDF 17–18</a>。</p><p>这个比喻应放在前言的历史语境中理解。值得带进全书的问题是：一项新功能加入时，哪些部分必须改动？共同接口是否允许不同部件组合？它并不构成对今天所有静态类型语言与动态语言的普遍优劣判断。第 2 章的通用运算、第 3 章的模拟器和第 4 章的求值器，会给出比语言口号更具体的比较对象。</p>
+<details class="reading-notes" id="notes-foreword-language" data-notes-for="foreword-language" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h3>统一表示仍需要明确约定</h3><p>相同的列表结构可以表示集合、表达式或指令，但形状相同并不保证含义相同。通用表示降低组合成本的同时，客户仍要知道元素、顺序和合法构造是什么；这些约定正是抽象边界的一部分。</p></div></div></details>
+</section>
+<section id="second-edition">
+<h2>第二版序言：用“时间”重新串起全书</h2>
+<p>第二版序言先说明教学反馈带来的澄清和改写，包括通用算术系统、解释器、寄存器机器模拟器与编译器。作者也说明已重写程序示例，使其符合当时的 IEEE Scheme 标准。这是该版的设计目标；读者仍须留意原书在各处给出的基本操作和运行环境约定。来源：xix–xx / <a href="../sicp.pdf#page=19">PDF 19–20</a>。</p><p>新增主题中最关键的是：<strong>计算模型怎样处理时间</strong>。对象把历史浓缩到当前状态，并发使事件次序进入正确性条件；函数式组织与流让我们描述整段值序列，惰性求值改变何时需要一个值，非确定性计算则把计算扩展为候选与回溯。它们彼此关联，也各自带来新的约束，不能把它们简单排列成“后一种取代前一种”。</p><p>由此看第 3、4 章，重点就不只是新语法。每次改变模型，都要问：哪些历史必须记住？哪些计算可以延后？失败之后如何继续搜索？观察或副作用会不会让求值顺序变得可见？本书把这些问题放进可以构造和修改的程序里。</p><p>作者同时说明，第二版的内容已超过一学期课程容量。他们提到可选略逻辑程序设计，使用模拟器而暂不研究其实现，或只概览编译器；也可以把课程限制在前三章或前四章。选读的依据是学习目标与依赖关系，并不要求在开始前掌握所有实现。来源：xx / <a href="../sicp.pdf#page=20">PDF 20</a>。</p>
+<details class="reading-notes" id="notes-second-edition" data-notes-for="second-edition" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h3>延后、并发与回溯分别改变什么</h3><p>延后计算改变值的取得时机；并发让多个计算的事件可能交错；回溯在失败后改试其他候选。三者都会让“下一步”需要更仔细的解释，但其状态恢复、同步与共享约定不能相互借用。</p></div></div></details>
+</section>
+<section id="first-edition">
+<h2>第一版序言：程序也是表达思想的媒介</h2>
+<p>第一版序言把课程放在 MIT 入门教育的背景中：学生经验差异很大，许多人没有正式的计算训练。序言开头借小提琴作比，说明媒介的灵活性需要学习和练习才能显现。这段话是对学习方式的提醒，不是要求读者先拥有丰富的软件经验。来源：xxi–xxii / <a href="../sicp.pdf#page=21">PDF 21–22</a>。</p><p>随后作者提出两项核心关注。第一，计算机语言是表达方法思想的形式媒介，程序应让人读懂，也能让机器执行。第二，入门课程要建立组织大型软件复杂性的技术。语法、算法效率和数学分析都将在需要时发挥作用；全书选择它们，是为了帮助读者形成可理解、可组合、可修改的程序结构。</p><p>作者用一项很具体的能力说明目标：能够阅读一个风格良好的、约五十页的程序，知道此刻应读什么、可以暂时不读什么，并能保留原有风格地修改它。这里的“暂时不读”依靠清楚的接口和信任依据。如果对外约定模糊，绕过实现就只能是猜测。来源：xxii / <a href="../sicp.pdf#page=22">PDF 22</a>。</p>
+<details class="reading-notes" id="notes-first-edition" data-notes-for="first-edition" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h3>可读性可以用一次修改来检验</h3><p>试着说明某个需求变化后，必须阅读和改动哪些部分。如果为了增加一个数据表示就要遍查所有客户，说明边界还不够清楚；如果接口已承诺所需行为，客户可以在该层次上继续工作。</p></div></div></details>
+</section>
+<section id="complexity">
+<h2>控制复杂性的三种办法</h2>
+<p>第一版序言接着把本书的方法归结为三项工程设计技术。<strong>抽象</strong>让我们在合适的地方隐藏实现细节；<strong>约定接口</strong>让已理解的部件能够组合；<strong>建立新语言</strong>则突出问题中当前重要的方面，把其他方面移出主要视野。来源：xxii–xxiii / <a href="../sicp.pdf#page=22">PDF 22–23</a>。</p><p>可以用一个伴读的短例子理解这三者。假设要统计一批观测值：首先把“取得下一条观测”封装成接口，使统计程序不必知道记录来自文件还是传感器；接着让过滤、变换与归并共享同一序列约定；最后用“选择哪些观测、计算哪些量”的描述来组织任务。这是三个不同层次的问题。换了输入来源，统计含义应保持；换了统计目标，则需要重新核对任务描述。</p><p>这个例子只说明组织方法，并未实现一套数据处理系统。第 1 章的高阶过程、第 2 章的序列接口和第 4 章的语言处理，会逐步提供把这类设计落成程序的工具。抽象不是越多越好；每层都应减少读者此刻必须同时考虑的细节，并保留足够清楚的含义。</p>
+<details class="reading-notes" id="notes-complexity" data-notes-for="complexity" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h3>接口约定包括行为而不只是名字</h3><p>两个部件都提供一个“下一条”操作，还不能断言可互换。读到末尾时返回什么、会不会改变共享状态、失败如何表达，都会影响客户。接口的作用，是把这些依赖说清楚并限制在边界上。</p></div></div></details>
+</section>
+<section id="knowledge">
+<h2>从“是什么”到“怎样做”：把知识写成过程</h2>
+<p>作者随后用 procedural epistemology 描述这一教育方向：从过程的角度研究知识的结构。数学表达擅长精确描述一个对象满足什么关系，计算则使我们精确描述怎样得到、检验或构造它。来源：xxiii / <a href="../sicp.pdf#page=23">PDF 23</a>。</p><p>例如，“一个数的平方等于给定值”给出的是关系；要实际求得近似平方根，还需要初始猜测、改进步骤、停止条件以及误差判断。关系能用来检查结果，过程能用来产生候选。若漏掉停止条件，写出了递推式也不一定得到一个可以完成的计算。</p><p>这种区分是理解重点的工具。它没有把数学简化为完全静态的陈述，也没有排除计算中的声明式表达。读到第 4 章逻辑程序设计时，还会看到：关系式可以交给求值机制寻找答案，而搜索次序、资源和终止性仍要另行分析。</p>
+<details class="reading-notes" id="notes-knowledge" data-notes-for="knowledge" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h3>写出步骤后，还要说明为什么能结束</h3><p>一个改进步骤可能让误差变小，也可能在某些输入上循环。正确结果、进展依据、停止条件与数值精度是不同的义务；后面的具体例子会逐步补足它们。</p></div></div></details>
+</section>
+<section id="scheme">
+<h2>为什么用 Scheme，以及带着什么进入正文</h2>
+<p>第一版序言最后解释语言选择。Lisp 风格的组合语法很少，使课程能够很快转向问题分解、过程和数据的组织。Scheme 同时提供过程与数据抽象、高阶过程、局部状态、延迟组织与嵌入语言等表达方式，因此适合在同一媒介里比较多种模块化策略。来源：xxiii–xxiv / <a href="../sicp.pdf#page=23">PDF 23–24</a>。</p><p>作者也点明两条传统的结合：从 Lisp 接过程序的数据表示与元语言能力、自动管理的堆数据；从 Algol 接过词法作用域和块结构。简单的表面语法降低书写负担，但名字绑定、过程调用和状态仍须建立模型来理解。括号本身不会替我们解释这些规则。</p><p>进入正文时，只需先带着三个问题：我定义的部件向外承诺什么？这些部件组合后怎样产生计算过程？换一种表示或求值规则，会改变什么？第 1 章从最小的表达式开始，随后逐层回答。你可以回到<a href="book_overview.html#chapter-1">第 1 章章意</a>，或直接打开<a href="../sicp.pdf#page=29">原书第 1 章（PDF 29）</a>。后续章节的伴读正文尚在计划中。</p>
+<details class="reading-notes" id="notes-scheme" data-notes-for="scheme" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h3>读者、宿主与目标语言各在什么位置</h3><p>直接写 Scheme 程序时，读者依赖已有实现；第 4 章再用 Scheme 作为宿主实现一个目标语言；第 5 章将控制进一步显式化。每次阅读都标出当前正在解释哪一层，能避免把宿主碰巧提供的能力误认为目标语言规则。</p></div></div></details>
+</section>
+
+<footer><p>原书论述按本仓库第二版 PDF 定位；中文释读、例子与章节关系归纳由伴读撰写。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="#top">返回页首 ↑</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top">本节理解与补充</a></p><div id="annotation-content"></div></aside></div>
+<script><!-- RN:include scripts/6a3f8b30744a694f9192.js --></script><script id="reading-notes-controller"><!-- RN:include scripts/54f30fc1f5e1cbcd699a.js --></script><script data-purpose="print-details"><!-- RN:include scripts/3497ba81d7e642909037.js --></script></body></html>

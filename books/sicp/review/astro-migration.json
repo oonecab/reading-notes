@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "book": "sicp",
+  "recorded_at_utc": "2026-11-06T14:32:03.390671+00:00",
+  "status": "Go",
+  "scope": "I073 new-book local acceptance: map and introduction only; no chapter notes, exercise solutions or program execution.",
+  "baseline_ref": "e1331158e68105f5ccdc96537dceed7102905570",
+  "pages": 2,
+  "source_sha256": {
+    "sicp/notes/book_overview.html": "d6f932d2df28dd8113b3073f32b5104636620a8a92bf7c1033092f8800f3fc90",
+    "sicp/notes/preface.html": "86a0294f04752866c068cde7551a2917b267b847c61f8d298838dd5d7108e17e"
+  },
+  "output_sha256": {
+    "sicp/notes/book_overview.html": "750304af1715c1a66f92bf36c1a84fe4e579d60dff097760231f4fc779fe44eb",
+    "sicp/notes/preface.html": "292281fd5625e01bca86226707b6b174462c19cfc6eae0a8e0bdf5bcbacb33a9"
+  },
+  "parity_differences": [],
+  "browser": {
+    "engine": "Chrome 157.0.8103.39",
+    "widths": [
+      1800,
+      1440,
+      1024,
+      390
+    ],
+    "official_reading_views": 8,
+    "redirect_views": 4,
+    "official_no_js_views": 4,
+    "redirect_no_js_views": 2,
+    "required_annotation_sections": 17,
+    "map_nodes": 5,
+    "map_node_modes": [
+      "1440 mouse and keyboard",
+      "390 mouse and keyboard",
+      "390 without page scripts",
+      "same-anchor repeat"
+    ],
+    "external_requests": [],
+    "errors": []
+  },
+  "visual_review": "Actually opened twelve final screenshots: overview top/body/compact mobile diagram; introduction top/body and no-script text; homepage SICP card1440/390. Text and labels legible, reader rail agrees with current section, map fits390px; comparison table scrolls within its container. No-script notes remain inline.",
+  "screenshots_actually_opened": [
+    {
+      "file": "tmp/reading-notes-migration/browser/sicp/runs/2026-11-06T14-28-58-312Z-5467d8ef/sicp_notes_book_overview-1800-top.png",
+      "sha256": "01f3936c260ea15cb8bb3cf8f68da10bf615eb1db9d4b7f3b004cbb9cf3088e0"
+    },
+    {
+      "file": "tmp/reading-notes-migration/browser/sicp/runs/2026-11-06T14-28-58-312Z-5467d8ef/sicp_notes_book_overview-1800-reading.png",
+      "sha256": "d9cbc1fde2940b926a02e627a36f937c3ad92fd8e11922fa2509b2cb13a9c9fc"
+    },
+    {
+      "file": "tmp/reading-notes-migration/browser/sicp/runs/2026-11-06T14-28-58-312Z-5467d8ef/sicp_notes_book_overview-390-diagram-1.png",
+      "sha256": "16894d4997cacd391ab7e1265281409f8060fbd0438112bf4b760937743c009e"
+    },
+    {
+      "file": "tmp/reading-notes-migration/browser/sicp/runs/2026-11-06T14-28-58-312Z-5467d8ef/sicp_notes_preface-1800-reading.png",
+      "sha256": "b11a7092bcef2b90ed1ed6243ff84dc9a4c6697454983eb5678d69a23d2d3ef5"
+    },
+    {
+      "file": "tmp/reading-notes-migration/browser/sicp/runs/2026-11-06T14-28-58-312Z-5467d8ef/sicp_notes_preface-390-top.png",
+      "sha256": "a044a7eb4d923ea209ae065247255d7d8ce8383f277d316f6df275681303e487"
+    },
+    {
+      "file": "tmp/reading-notes-migration/browser/sicp/runs/2026-11-06T14-28-58-312Z-5467d8ef/sicp_notes_preface-390-reading.png",
+      "sha256": "f647c5cdb8d9cd47d6eddf7475cc391dbbf91ad5a6682f6d78d87209a709b35d"
+    },
+    {
+      "file": "tmp/reading-notes-migration/browser/sicp/runs/2026-11-06T14-28-58-312Z-5467d8ef/sicp_notes_preface-no-js-1440.png",
+      "sha256": "7ca430d47798bc55590f3b0e243b07402bc702dfda7dae88a899018a26376595"
+    },
+    {
+      "file": "tmp/reading-notes-migration/browser/sicp/runs/2026-11-06T14-28-58-312Z-5467d8ef/sicp_notes_book_overview-no-js-390.png",
+      "sha256": "4d1a72ad50555c41aea902903757d584cb2f4b6a5f409f0dfb00f7a4a4b1e307"
+    },
+    {
+      "file": "tmp/sicp/portal-1440.png",
+      "sha256": "b4ece959516fdaf3ba0c92c46a914c539a914b4a674823d632aef9eb3e490ca5"
+    },
+    {
+      "file": "tmp/sicp/portal-390.png",
+      "sha256": "7bbc9251a48281428f53bf963b4cc5ca087773941a0a04813a3e6c18ca09a7e9"
+    },
+    {
+      "file": "tmp/sicp/book_overview-no-js-reading.png",
+      "sha256": "84be4114e5684a3d85666274d1d5cacb7a21d6d031345a41bbd0b222a9e5dd4b"
+    },
+    {
+      "file": "tmp/sicp/preface-no-js-reading.png",
+      "sha256": "73017ef052570186c619bbc3132a739718e7cb78aaf50ac05043553f4f5f96dd"
+    }
+  ],
+  "evidence_sha256": {
+    "tmp/reading-notes-migration/parity/sicp.json": "651318e5d7e2463a4492e26bd5aea21823ac70012155473a57abf3b0f0d999a3",
+    "tmp/reading-notes-migration/browser/sicp/report.json": "08cf8bc9348adf6e7fc46f814a3dfae47c99043489184c881cbc86e13c85613f",
+    "tmp/sicp/source-full/report.json": "a6a4b781d09bbb9c3828bd934080744a195b8d0bc0eb19eda8b2186846729ae1",
+    "tmp/sicp/reader-path.json": "a235bd6b21a218f7b0cf57053d7e7881bdb936d06e06e0220c5d9ee9a3378d40",
+    "tmp/reading-notes-migration/build.json": "7bd7809276671ad65eb09de1ec187f9711538124005ca42bf057d1c1d5a36e60"
+  },
+  "open_findings": [],
+  "boundaries": [
+    "Only directory, chapter framing/major-section narrative and source introductions were read; not883-page line-by-line content verification.",
+    "Original Scheme interpreters/simulator/compiler and356 exercise solutions not executed or produced.",
+    "Windows full-gate publication safety remains blocked by rsync/POSIX directory fsync; local HTTPS Nginx verification not run.",
+    "No physical mobile, screen reader or other-browser validation.",
+    "No push or production deployment."
+  ]
+}

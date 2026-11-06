@@ -129,6 +129,7 @@ def check_commands(selected, quick, benchmarks, run, local=False):
         commands.append([sys.executable, ROOT / "tools/test_cache_delivery.py"])
     commands.append([sys.executable, ROOT / "tools/test_http_verification.py"])
     commands.append([sys.executable, ROOT / "tools/test_local_verification.py"])
+    commands.append([sys.executable, ROOT / "tools/test_project_contracts.py"])
     if "stochastic" in selected:
         base = selected["stochastic"]["root"]
         commands += [[sys.executable, base / "tools/check_review_records.py"],
@@ -167,6 +168,12 @@ def check_commands(selected, quick, benchmarks, run, local=False):
     if "eopl" in selected:
         command = [sys.executable, selected["eopl"]["root"] / "tools/check_notes.py",
                    "--run-dir", run / "eopl"]
+        if quick:
+            command.append("--quick")
+        commands.append(command)
+    if "sicp" in selected:
+        command = [sys.executable, selected["sicp"]["root"] / "tools/check_notes.py",
+                   "--run-dir", run / "sicp"]
         if quick:
             command.append("--quick")
         commands.append(command)

@@ -8,7 +8,8 @@
     "weiss/assets/source.pdf": "books/weiss/source_manifest.json",
     "visual-group-theory/assets/source.pdf": "books/visual-group-theory/notes/source_manifest.json",
     "measure-probability/assets/source.pdf": "books/measure-probability/notes/source_manifest.json",
-    "eopl/assets/source.pdf": "books/eopl/notes/source_manifest.json"
+    "eopl/assets/source.pdf": "books/eopl/notes/source_manifest.json",
+    "sicp/sicp.pdf": "books/sicp/notes/source_manifest.json"
   },
   "files": [
     {
@@ -1036,6 +1037,22 @@
       "mode": "copy"
     },
     {
+      "path": "sicp/index.html",
+      "mode": "copy"
+    },
+    {
+      "path": "sicp/notes/book_overview.html",
+      "mode": "copy"
+    },
+    {
+      "path": "sicp/notes/preface.html",
+      "mode": "copy"
+    },
+    {
+      "path": "sicp/sicp.pdf",
+      "mode": "copy"
+    },
+    {
       "path": "stochastic/assets/essentials-of-stochastic-processes.pdf",
       "mode": "copy"
     },
@@ -1530,7 +1547,8 @@
     "weiss/assets/source.pdf": "03e4b6bf05e0fb7f02bd62bb4d918860d6a906342bdcba01b48363492f5eb846",
     "visual-group-theory/assets/source.pdf": "f82d041ad301baa07b1ec17f495805e17c49852a772c770a28afeb29de7ecf2a",
     "measure-probability/assets/source.pdf": "93fe7f0ca35155c2f58a5bca90ef6497da96ef1f0fc17660430114e9ccbe24f0",
-    "eopl/assets/source.pdf": "b9e8770a4dc97206bd02230e6b21a878382eb02a340ff69321857d701e7d967c"
+    "eopl/assets/source.pdf": "b9e8770a4dc97206bd02230e6b21a878382eb02a340ff69321857d701e7d967c",
+    "sicp/sicp.pdf": "afff2ca1486a46bcd47310bc5a974da1f9c6a6a0b15b39c93e2453350670f715"
   },
   "precompression": {
     "format": "gzip",

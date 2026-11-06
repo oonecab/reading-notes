@@ -1,19 +1,4 @@
-# project-governance:managed:start
-* text=auto
-*.md text eol=lf
-*.json text eol=lf
-*.yaml text eol=lf
-*.yml text eol=lf
-*.py text eol=lf
-*.ps1 text eol=crlf
-*.bat text eol=crlf
-*.cmd text eol=crlf
-# project-governance:managed:end
-
-# 在下方增加项目专属属性。重新生成时会保留此区域。
-
-# Preserve original source-material fingerprints across Git checkouts.
-books/weiss/WEISS_2E_extracted/* -text
-books/weiss/WEISS_2E.tar.Z -text
-books/*/*.pdf -text
-books/*/assets/*.pdf -text
+# These source manifests participate in byte-bound cross-platform reviews.
+books/*/notes/source_manifest.json text eol=lf
+books/*/notes/source_inventory.json text eol=lf
+deploy/publish-allowlist.json text eol=lf
