@@ -113,10 +113,11 @@ class ProjectContracts(unittest.TestCase):
         with self.assertRaises(ValueError):
             checker.check_inventory(inventory)
 
-    def test_reviewed_source_json_uses_portable_lf(self):
-        for name in ['source_manifest.json', 'source_inventory.json']:
+    def test_byte_bound_json_uses_portable_lf(self):
+        for name in ['books/sicp/notes/source_manifest.json',
+                     'books/sicp/notes/source_inventory.json', 'deploy/publish-allowlist.json']:
             with self.subTest(file=name):
-                self.assertNotIn(b'\r\n', (ROOT / 'books/sicp/notes' / name).read_bytes())
+                self.assertNotIn(b'\r\n', (ROOT / name).read_bytes())
 
 
 if __name__ == '__main__':
