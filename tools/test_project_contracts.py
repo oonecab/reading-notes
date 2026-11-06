@@ -124,6 +124,22 @@ class ProjectContracts(unittest.TestCase):
             with self.subTest(file=name):
                 self.assertNotIn(b'\r\n', (ROOT / name).read_bytes())
 
+    def test_git_preserves_source_binary_and_managed_line_endings(self):
+        paths = ['books/sicp/sicp.pdf', 'books/weiss/WEISS_2E.tar.Z',
+                 'books/weiss/WEISS_2E_extracted/ch1.c', 'tools/project.py',
+                 'deploy/publish-allowlist.json', 'example.ps1']
+        output = subprocess.check_output(['git', 'check-attr', 'text', 'eol', '--', *paths],
+                                         cwd=ROOT, text=True)
+        values = {}
+        for line in output.splitlines():
+            name, attribute, value = line.split(': ', 2)
+            values[(name, attribute)] = value
+        for name in paths[:3]:
+            self.assertEqual(values[(name, 'text')], 'unset', name)
+        for name in paths[3:5]:
+            self.assertEqual(values[(name, 'eol')], 'lf', name)
+        self.assertEqual(values[('example.ps1', 'eol')], 'crlf')
+
 
 if __name__ == '__main__':
     unittest.main()

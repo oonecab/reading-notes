@@ -35,3 +35,9 @@
 未执行：C/Racket全量教材程序矩阵、1881题数学重证、实体手机/读屏器、生产部署及公网复验。Windows完整check仍保留POSIX前置要求；WSL的18项单元和25项演练仅证明本地Linux边界，不代表生产或真实掉电。网站源代码、题干、MathML与Scheme语义未因本轮元数据修复改变。
 
 验收结论：本次规范与可测试性修正已完成本地验证。合并/推送由用户本批明确授权，实际Git回执另行追加。
+
+## 主分支与推送回执
+
+2026-11-06已将codex/project-standards-review以merge commit `4840c9a70e58dec8b4e17df11d18d4d571f3295b` 合入main，并普通推送origin/main；ls-remote与本地SHA一致。来源快照父链同时进入主分支，没有force push或历史重写。
+
+最终复核纠正了执行者本轮覆盖.gitattributes的错误：恢复ebc848f中的全部原受管行尾规则与原书PDF/Weiss材料的-text保护，不保留覆盖后的简化文件。新增属性回归先在错误配置上失败（tmp/i074/attributes-red.log），恢复后连同其他契约共8项通过（contracts-final-eight.log）。CRLF实际文件仍保持本轮规范化后的LF，旧散列记录保留。此更正不改变任何公开文件、发布政策值或原书字节；最终追加提交随main普通推送。
