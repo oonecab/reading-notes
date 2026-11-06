@@ -15,3 +15,13 @@
 全书结构检查不等于重证全部1881题数学；C/Racket全矩阵及实体手机/读屏器视能力记录。Windows完整POSIX门禁保留，WSL测试只代表本地Linux，不冒充生产或真实掉电。
 
 执行结果待追加。
+
+## 已执行证据与失败闭合
+
+- 初始4个契约测试出现7个断言失败：EOPL2/13、来源标题/前置映射/offset/版次4种篡改漏检、Git快照不为HEAD祖先、无IANA数据CLI崩溃。原日志tmp/i074/contracts-red.log。修正后7个方法通过（含重复节和字节行尾、固定中国午夜、naive时间拒绝、真实--help/非法显式ID）。
+- 已将e133115来源快照完整合入交付分支，父快照保留，不改历史散列。普通--no-local/--single-branch克隆可取得12个登记来源提交；71页源与当前审阅绑定验证通过，克隆内7项契约回归通过。首次克隆在来源JSON的CRLF/LF散列失败，已保留tmp/i074/clone-records-first.log；修正绑定保留旧值。
+- 根check-local全书通过22个执行命令，覆盖七书71页结构/题面/注解/导航/字体/源绑定；报告tmp/project-check/20261106T224658-4nj4e34s/report.json。Node回归135通过0失败0跳过，tmp/i074/node-tests.log。
+- WSL/Linux发布持久化5、发布策略7、缓存6，共18项通过。隔离Linux/Nginx实测首次拒绝包，因为CRLF工作区政策散列不同于Git的LF；tmp/i074/linux-policy-crlf-failure.log保存原始失败。新增LF反例先失败、修正后通过，不修改安装器对政策版本的拒绝。
+- 七书书架→对应地图在1440/390有脚本及390无脚本共21条真实路径通过；Chrome157.0.8103.39。实际打开两张EOPL卡片截图，13页/356题及窄屏布局可读，tmp/i074/eopl-card-1440.png、eopl-card-390.png。SICP两页输出SHA与I073已验收版本一致，复用其四断点/无脚本17注解和5节点证据，未冒充本轮重新逐题阅读。
+
+最终包、Linux演练与合并推送结果待追加。
