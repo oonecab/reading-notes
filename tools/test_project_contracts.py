@@ -91,8 +91,13 @@ class ProjectContracts(unittest.TestCase):
             env = {**os.environ, 'PYTHONTZPATH': empty, 'PYTHONUTF8': '1'}
             result = subprocess.run([sys.executable, '-S', str(ROOT / 'deploy/build_astro.py'), '--help'],
                                     cwd=ROOT, env=env, capture_output=True, text=True, encoding='utf8')
+            invalid = subprocess.run([sys.executable, '-S', str(ROOT / 'deploy/build_astro.py'),
+                                      '--release-id', 'invalid'], cwd=ROOT, env=env,
+                                     capture_output=True, text=True, encoding='utf8')
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn('--release-id', result.stdout)
+        self.assertEqual(invalid.returncode, 2)
+        self.assertIn('Release ID must be YYYYMMDDTHHMMSS', invalid.stderr)
 
     def test_release_clock_chinese_midnight_and_naive_rejection(self):
         from datetime import datetime, timezone

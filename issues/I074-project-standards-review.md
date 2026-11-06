@@ -10,6 +10,7 @@
 2. SICP来源检查仅比较章标题首词，未校验前置材料映射与完整目录身份；重要元数据可被改错而不失败。
 3. SICP来源快照e133115不在origin/main历史内；仅推送新登记文件将使普通克隆缺少git show必需对象。
 4. build_astro在解析--help和显式release-id之前加载Asia/Shanghai时区数据库；Windows标准Python缺tzdata时，声明支持的构建CLI提前崩溃。默认构建编号应继续按当代中国标准时间UTC+08生成，避免额外依赖。
+5. 干净克隆及隔离Linux安装实际揭示CRLF/LF字节漂移：来源JSON审阅绑定不匹配，发布白名单散列与Git检出的政策不同，安装器正确拒绝Windows包。固定相关文件LF检出、保留旧散列并增加回归，安装器身份断言保持。
 
 按[P074](../plan/P074-project-standards-review.md)和[T074](../test/T074-project-standards-review.md)构造反例、修正并验收。通过标准包括完整历史可达性、来源/书架断言、固定时刻与真实CLI、当前本地构建/用户路径。权限、CSP、性能上限与POSIX发布安全门禁不降低。
 
