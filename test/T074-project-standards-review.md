@@ -24,4 +24,14 @@
 - WSL/Linux发布持久化5、发布策略7、缓存6，共18项通过。隔离Linux/Nginx实测首次拒绝包，因为CRLF工作区政策散列不同于Git的LF；tmp/i074/linux-policy-crlf-failure.log保存原始失败。新增LF反例先失败、修正后通过，不修改安装器对政策版本的拒绝。
 - 七书书架→对应地图在1440/390有脚本及390无脚本共21条真实路径通过；Chrome157.0.8103.39。实际打开两张EOPL卡片截图，13页/356题及窄屏布局可读，tmp/i074/eopl-card-1440.png、eopl-card-390.png。SICP两页输出SHA与I073已验收版本一致，复用其四断点/无脚本17注解和5节点证据，未冒充本轮重新逐题阅读。
 
-最终包、Linux演练与合并推送结果待追加。
+## 最终验证
+
+- 最终根入口：`python tools/project.py check-local` 全书22个执行命令通过，报告tmp/project-check/20261106T225753-rdkowtjd/report.json。七项新契约回归含真实CLI和行尾反例通过；Node仍为135通过、0失败、0跳过。
+- 正式包20261106T225459，来自干净提交49734754a4740721ba1a71468f07e5681dfbe025；71阅读页、94公开HTML、594文件。71页parity、全部性能预算、CSP9代表页/13散列和篡改脚本阻止均通过。首页20959B、gzip6777B，未提高21000B限制。
+- 594公开文件与20261106T224844逐项相同；变化是发布包元数据的policy身份。最终policy SHA-256为bbcda3c0433aa7eb52e02e3d58de7fc571d46d328fc75168cb3d343872130600，与Git检出完全一致。白名单和来源JSON固定LF检出；旧审阅散列在validation.binding_history保留。
+- 隔离Linux文件系统中，以Git archive保留提交文件及权限，复制最终原包后运行tools/test_static_publish.py：25个真实发布/失败恢复/本地Nginx HTTPS场景全部通过。报告tmp/i074/linux-publish-report-0.json、linux-publish-summary.json，日志linux-static-publish.log。没有访问生产主机、应用生产政策或改动服务。
+- 普通克隆最终七项契约回归通过；所有12个来源基准为HEAD祖先。来源快照的两份历史提交均已保留，主分支合并后会随正常推送可达。
+
+未执行：C/Racket全量教材程序矩阵、1881题数学重证、实体手机/读屏器、生产部署及公网复验。Windows完整check仍保留POSIX前置要求；WSL的18项单元和25项演练仅证明本地Linux边界，不代表生产或真实掉电。网站源代码、题干、MathML与Scheme语义未因本轮元数据修复改变。
+
+验收结论：本次规范与可测试性修正已完成本地验证。合并/推送由用户本批明确授权，实际Git回执另行追加。
