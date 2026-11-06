@@ -1,0 +1,1492 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第 1 章 · 用过程构造抽象 · SICP</title><style>
+
+:root{--ink:#252b29;--sub:#58615d;--rule:#d9dfda;--green:#285a4e;--paper:#fffefa;--tint:#f4f6f2}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.9 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}main{max-width:860px;margin:auto;padding:48px 24px 90px}h1{font-size:2.2rem;line-height:1.3;margin:.2rem 0}h2{font-size:1.55rem;margin:3.4rem 0 1.2rem;padding-bottom:.45rem;border-bottom:1px solid var(--rule)}h3{font-size:1.16rem;margin:2rem 0 .6rem}p{margin:.7rem 0 1.1rem}header{padding-bottom:22px;border-bottom:1px solid var(--rule)}.overline,.source,.small,figcaption{color:var(--sub);font-size:.85rem}.intro{font-size:1.08rem}a{color:var(--green);text-underline-offset:3px}nav{border-left:3px solid var(--green);padding:.6rem 1.3rem;margin:2rem 0;background:var(--tint)}nav ul{margin:.3rem 0;padding-left:1.2rem;columns:2}nav li{break-inside:avoid}.passage{border-left:2px solid var(--green);padding:.15rem 0 .15rem 1.2rem;margin:1.5rem 0}.english{font:italic 1.05rem/1.7 Georgia,serif}.passage p{margin:.25rem 0}pre{background:var(--tint);border:1px solid var(--rule);padding:1rem 1.1rem;overflow:auto;font:14px/1.65 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}code{font:.9em ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}pre code{font:inherit}.callout{background:var(--tint);padding:.8rem 1.1rem;margin:1.4rem 0;border-left:2px solid var(--green)}.scroll{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:.91rem;margin:1.1rem 0}th,td{padding:.6rem .7rem;text-align:left;vertical-align:top;border-bottom:1px solid var(--rule)}th{border-top:1px solid var(--rule);background:var(--tint)}.wide{min-width:640px}figure{margin:1.5rem 0}figure .scroll{padding:12px 8px;border:1px solid var(--rule);background:var(--tint)}figcaption{margin-top:.6rem}svg{display:block;width:100%;height:auto;min-width:620px}svg text{font-family:system-ui,-apple-system,"PingFang SC",sans-serif;text-anchor:middle;fill:var(--ink);font-size:16px}svg .n{fill:var(--paper);stroke:var(--green);stroke-width:1.3}svg .e{fill:none;stroke:#7b8f85;stroke-width:1.4}svg .hint{font-size:13px;fill:var(--sub)}ul,ol{padding-left:1.5rem}li{margin:.35rem 0}footer{border-top:1px solid var(--rule);padding-top:1rem;margin-top:4rem;color:var(--sub);font-size:.85rem}@media(max-width:640px){main{padding:30px 18px 60px}h1{font-size:1.75rem}nav ul{columns:1}h2{font-size:1.3rem}}
+.exercise{margin:.8rem 0;border:1px solid var(--rule);padding:.75rem 1rem;scroll-margin-top:16px}.exercise summary{cursor:pointer;color:var(--green);font-weight:600}.exercise summary:focus-visible{outline:2px solid var(--green);outline-offset:4px}.exercise-index{display:flex;flex-wrap:wrap;gap:.4rem 1rem;margin:1rem 0}.exercise .answer{margin-top:1rem}.tree-code{overflow-wrap:anywhere;word-break:break-word}.exercise .scroll table{min-width:620px}
+
+/* Native, static MathML: no network resources or runtime typesetting. */
+math{font-family:"STIX Two Math","Cambria Math",math;font-size:1.04em}
+.math-inline{display:inline-block;max-width:100%;overflow-x:auto;overflow-y:hidden;vertical-align:middle;margin:0 .08em;padding:0 .02em}
+.equation{overflow-x:auto;max-width:100%;padding:.65rem .2rem;margin:1rem 0;text-align:center}
+.equation math{display:block;width:max-content;margin:0 auto;font-size:1.08em}
+.answer :is(h3,h4){margin:1.35rem 0 .5rem;font-size:1rem}
+:not(pre)>code{overflow-wrap:anywhere}
+pre code{overflow-wrap:normal;white-space:pre}
+
+.comparison,.benchmark{min-width:800px}.array-values{min-width:620px}.array-values th,.array-values td{text-align:center;padding:.4rem .55rem}.forest-label{font-weight:600}svg .hint{font-size:12px}.answer pre{font-size:13px}.exercise{scroll-margin-top:20px}
+
+.code-pair{margin:1.2rem 0;border-left:2px solid var(--rule);padding-left:1rem}.code-version{margin:.5rem 0;padding:.35rem 0}.code-version>summary{cursor:pointer;font-weight:600;color:var(--green)}.code-version>summary:focus-visible{outline:2px solid var(--green);outline-offset:3px}.code-version pre{margin:.7rem 0 1rem}.code-reference{font-size:.92rem}.pair-note{font-size:.9rem;color:var(--sub)}.chapter-nav{display:flex;flex-wrap:wrap;gap:.4rem 1rem}.exercise>summary{line-height:1.65}.experiment{margin:1.2rem 0;padding:.7rem 1rem;border-left:2px solid var(--green);background:var(--tint)}
+
+.meta,.caption{color:var(--sub);font-size:.85rem}
+.scroll,.table-scroll,.diagram{max-width:100%;overflow-x:auto}
+main,header,section,.answer,.code-pair,.code-version{min-width:0}
+.math-inline{padding:.20em .05em}
+.chapter-nav{display:flex;flex-wrap:wrap;gap:.4rem 1rem}
+.scroll>table{min-width:620px}
+.puzzle{width:auto;margin:1.2rem auto}
+.scroll>table.puzzle{min-width:0}
+.puzzle th,.puzzle td{text-align:center;min-width:44px}
+.verification-table,.state-table,.benchmark{font-variant-numeric:tabular-nums}
+.diagram{margin:1.2rem 0;padding:1rem 1.1rem;border:1px solid var(--rule);background:var(--tint)}
+.diagram figcaption{margin:0 0 .65rem}
+.chain{display:flex;align-items:center;gap:.55rem;min-width:max-content;font-size:.92rem}
+.diagram>.chain+.chain{margin-top:.7rem}
+.chain .node{border:1px solid #9caaa2;background:var(--paper);padding:.3rem .6rem;white-space:nowrap}
+.chain .edge{color:var(--green);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;white-space:nowrap}
+.diagram-notes{margin:.75rem 0 0;padding-left:1.2rem;font-size:.92rem}
+.diagram-notes li{margin:0}
+.step-table th:first-child,.step-table td:first-child{width:5.3rem;white-space:nowrap}
+.step-table th:nth-child(2){width:14rem}
+.step-table code{white-space:nowrap}
+.step-table .chain{gap:.35rem}
+.step-table .node{padding:.1rem .4rem}
+.state-table{table-layout:fixed}
+.state-table th:first-child{width:37%}
+.state-table td:not(:first-child),.state-table th:not(:first-child){text-align:center}
+.state-table td:last-child{white-space:nowrap}
+svg .node{fill:var(--paper);stroke:var(--green);stroke-width:1.3}
+svg .edge{fill:none;stroke:#7b8f85;stroke-width:1.4;marker-end:url(#arrow)}
+svg .small{font-size:12px;fill:var(--sub)}
+svg .chapter-link{cursor:pointer}
+svg .chapter-link:hover .node,svg .chapter-link:focus-visible .node{fill:var(--tint);stroke-width:2.5}
+blockquote{margin:1.4rem 0;padding:.5rem 1.2rem;border-left:2px solid var(--green);background:var(--tint)}
+hr{border:0;border-top:1px solid var(--rule);margin:2.6rem 0}
+@media(max-width:640px){.diagram{padding:.8rem}.state-table{table-layout:auto;min-width:570px}}
+
+/* Reading rail: one table of contents beside the book page. */
+.reading-layout{display:grid;grid-template-columns:240px minmax(0,860px);gap:32px;max-width:1200px;margin:0 auto;padding:0 24px;align-items:start}
+.reading-layout>main{width:100%;min-width:0;margin:0}
+.chapter-sidebar{position:sticky;top:32px;max-height:calc(100dvh - 64px);overflow-y:auto;overscroll-behavior:contain;padding:8px 16px 12px 0;margin-top:40px;border-right:1px solid var(--rule);scrollbar-width:thin}
+.toc-panel>summary{display:flex;align-items:center;justify-content:space-between;gap:1rem;list-style:none;padding:.45rem .55rem;color:var(--green);font-size:.9rem;font-weight:650;cursor:pointer}
+.toc-panel>summary::-webkit-details-marker{display:none}
+.toc-panel>summary::after{content:"+";font-size:1.1rem;font-weight:400}
+.toc-panel[open]>summary::after{content:"−"}
+.toc-panel>summary:focus-visible,.chapter-toc a:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+.chapter-toc{border:0;background:transparent;margin:.45rem 0 0;padding:0;font-size:.84rem;line-height:1.65}
+.chapter-toc ul{columns:1;list-style:none;margin:0;padding:0}
+.chapter-toc li{margin:.18rem 0}
+.chapter-toc a{display:block;padding:.5rem .6rem;border-left:2px solid transparent;text-decoration:none;overflow-wrap:anywhere;color:var(--sub)}
+.chapter-toc a:hover{color:var(--green);background:var(--tint)}
+.chapter-toc a[aria-current="location"]{color:var(--green);border-left-color:var(--green);background:var(--tint);font-weight:600}
+.chapter-toc .toc-home{margin-bottom:.55rem;font-size:.8rem;color:var(--green)}
+.skip-link{position:fixed;left:16px;top:-100px;z-index:100;padding:.5rem 1rem;background:var(--paper);border:1px solid var(--green)}
+.skip-link:focus{top:12px}
+main[id],main [id]{scroll-margin-top:24px}
+@media(max-width:1099px){
+ .reading-layout{display:block;padding:0;max-width:860px}
+ .reading-layout>main{margin:auto}
+ .chapter-sidebar{position:static;top:0;z-index:10;margin:0;padding:8px 24px;border-right:0;border-bottom:1px solid var(--rule);background:var(--paper);max-height:none;overflow:visible}
+ .toc-enhanced .chapter-sidebar{position:sticky}
+ .toc-panel>summary{padding:.35rem 0;font-size:.88rem}
+ .chapter-toc{max-height:60dvh;overflow-y:auto;overscroll-behavior:contain;padding-bottom:.4rem}
+ main[id],main [id]{scroll-margin-top:80px}
+}
+@media(max-width:640px){.chapter-sidebar{padding:8px 18px}}
+@media print{.reading-layout{display:block;max-width:860px;padding:0}.chapter-sidebar,.skip-link{display:none}.reading-layout>main{padding:24px}}
+
+.result{font-variant-numeric:tabular-nums}.source-link{white-space:normal}
+.book-card{padding:1rem 0;border-bottom:1px solid var(--rule)}
+.book-card h3{margin:.2rem 0}.book-card p{margin:.4rem 0}
+.chart-svg{min-width:0} .chart-svg text{font-size:13px}
+.exercise-index a{font-variant-numeric:tabular-nums}.solution-link{font-size:.9rem}
+.exercise-question .scroll>table{min-width:480px}
+.question-note strong{color:var(--green)}
+
+/* Supplementary reading notes share the page's type and color palette. */
+.reading-notes{margin:2rem 0 0;padding:0.8rem 1rem;border-left:2px solid var(--green);background:var(--tint);font-size:0.92rem;line-height:1.85}
+.reading-notes>summary{color:var(--green);font-weight:650;cursor:pointer;list-style:none}
+.reading-notes>summary::-webkit-details-marker{display:none}
+.reading-notes>summary::after{content:"＋";float:right;font-weight:400}
+.reading-notes[open]>summary::after{content:"−"}
+.reading-notes>summary:focus-visible,.annotation-context a:focus-visible{outline:2px solid var(--green);outline-offset:4px}
+.annotation-card{min-width:0;margin:1.15rem 0 0;padding:1rem 0 0;border-top:1px solid var(--rule)}
+.annotation-card:first-child{border-top:0;padding-top:0}
+.annotation-kind{display:block;font-size:0.73rem;font-weight:600;letter-spacing:0.05em;color:var(--green);margin-bottom:0.25rem}
+.annotation-card h3{font-size:0.97rem;line-height:1.65;margin:0 0 0.5rem;font-weight:650}
+.annotation-card p{margin:0.4rem 0 0.7rem}
+.annotation-card p:last-child{margin-bottom:0}
+.annotation-card .equation{padding:0.5rem 0;margin:0.65rem 0}
+.annotation-card math{font-size:1em}
+.annotation-sidebar{display:none}
+@media(min-width:1440px){
+ .notes-enhanced .reading-layout{grid-template-columns:240px minmax(0,860px) 280px;max-width:1524px;gap:32px}
+ .notes-enhanced main .reading-notes{display:none}
+ .notes-enhanced .annotation-sidebar:not([hidden]){display:block;position:sticky;top:32px;max-height:calc(100dvh - 64px);overflow-y:auto;overscroll-behavior:contain;min-width:0;margin-top:40px;padding:8px 0 12px 22px;border-left:1px solid var(--rule);font-size:0.9rem;line-height:1.85;scrollbar-width:thin}
+ .annotation-label{color:var(--green);font-size:0.87rem;font-weight:650;margin:0 0 0.75rem}
+ .annotation-context{font-size:0.85rem;line-height:1.65;margin:0 0 1.25rem}
+ .annotation-context a{color:var(--sub);text-decoration:none}
+ .annotation-context a:hover{color:var(--green);text-decoration:underline}
+ .annotation-sidebar .annotation-card{margin-top:1.5rem;padding-top:1.35rem}
+ .annotation-sidebar .annotation-card:first-child{margin-top:0;padding-top:0}
+ .annotation-sidebar .annotation-card h3{font-size:0.95rem}
+}
+@media print{.annotation-sidebar{display:none!important}main .reading-notes{display:block!important;break-inside:avoid}}
+
+/* RN-001 shared teaching components. Inlined in every controlled reading page. */
+.rn-components {
+  --rn-space: 1rem;
+  --rn-label-size: .95rem;
+  --rn-title-size: 1.05rem;
+}
+.rn-components :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
+  min-width: 0;
+  scroll-margin-top: 24px;
+}
+.rn-components .rn-statement {
+  margin: 1.5rem 0;
+  padding: 1rem 1.15rem;
+  border: 0;
+  border-left: 3px solid var(--green);
+  background: var(--tint);
+}
+.rn-components :is(.rn-statement, .rn-example) > :is(h3, h4, .rn-title) {
+  margin: 0 0 .8rem;
+  padding: 0;
+  border: 0;
+  font-size: var(--rn-title-size);
+  line-height: 1.7;
+  font-weight: 650;
+  color: var(--green);
+}
+.rn-components .rn-statement > .statement-body {
+  padding: 0;
+  border: 0;
+}
+.rn-components .statement-body > :first-child { margin-top: 0; }
+.rn-components .statement-body > :last-child { margin-bottom: 0; }
+.rn-components .rn-statement .original-excerpt {
+  margin: .5rem 0 1rem;
+  padding: .1rem 0 .1rem .85rem;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-statement .statement-label {
+  margin: .8rem 0 .3rem;
+  color: var(--sub);
+  font-size: .85rem;
+  font-weight: 600;
+}
+.rn-components .rn-example {
+  margin: 1.75rem 0;
+  padding: 1rem 0 .25rem;
+  border: 0;
+  border-top: 1px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-proof {
+  margin: 1.1rem 0 1.75rem;
+  padding: 0 0 .2rem 1rem;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-proof > summary {
+  cursor: pointer;
+  margin: 0;
+  padding: .35rem 0;
+  color: var(--green);
+  font-size: var(--rn-label-size);
+  font-weight: 650;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .rn-proof > .rn-proof-body { margin-top: .7rem; }
+.rn-components .rn-proof-body p { margin: .85rem 0; }
+.rn-components .rn-proof-body > :first-child:not(.rn-example):not(.rn-statement):not(.rn-proof) {
+  margin-top: 0;
+}
+.rn-components :is(.rn-proof-body, .rn-statement, .rn-example) > :last-child:not(.rn-example):not(.rn-statement):not(.rn-proof) {
+  margin-bottom: 0;
+}
+.rn-components .exercise {
+  margin: 1rem 0;
+  padding: 0;
+  border: 1px solid var(--rule);
+  background: transparent;
+}
+.rn-components .exercise > summary {
+  margin: 0;
+  padding: .85rem 1rem;
+  color: var(--green);
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .exercise[open] > summary {
+  border-bottom: 1px solid var(--rule);
+  background: var(--tint);
+}
+.rn-components .exercise > :is(.exercise-question, .answer) {
+  margin: 0;
+  padding: 1rem;
+  border: 0;
+  background: transparent;
+  min-width: 0;
+}
+.rn-components .exercise > .answer {
+  border-top: 1px solid var(--rule);
+}
+.rn-components .exercise :is(.exercise-question, .answer) > :first-child {
+  margin: 0 0 .75rem;
+  padding: 0;
+  border: 0;
+  color: var(--green);
+  font-size: var(--rn-label-size);
+  font-weight: 650;
+  line-height: 1.75;
+}
+.rn-components .exercise :is(.exercise-question, .answer) > :first-child > strong { font-weight: inherit; }
+.rn-components :is(.exercise-question, .answer) > :last-child { margin-bottom: 0; }
+.rn-components :is(.rn-statement, .rn-example, .rn-proof, .exercise) .source {
+  margin-top: 1rem;
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components .exercise > .source {
+  margin: 0;
+  padding: 0 1rem 1rem;
+}
+.rn-components .rn-statement .source-status {
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components :is(.derivation-steps, .proof-steps, .solution-steps) {
+  margin: .75rem 0 1rem;
+  padding-left: 1.5rem;
+}
+.rn-components :is(.derivation-steps, .proof-steps, .solution-steps) > li {
+  padding-left: .15rem;
+  margin: .9rem 0;
+}
+.rn-components :is(.rn-proof, .exercise) > summary:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+.rn-components :is(.rn-proof-body, .rn-example, .rn-statement, .exercise-question, .answer) {
+  overflow-wrap: break-word;
+}
+.rn-components .code-details {
+  margin: 1.2rem 0;
+  padding: .35rem 0 .35rem 1rem;
+  border-left: 2px solid var(--rule);
+}
+.rn-components :is(.code-details, .code-version) > summary {
+  cursor: pointer;
+  color: var(--green);
+  font-size: .95rem;
+  font-weight: 600;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .code-details pre { margin: .7rem 0 1rem; }
+.rn-components :is(.code-details, .code-version) > summary:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+.rn-components .example-kind {
+  margin: .5rem 0 1rem;
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components .exercise-index a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: .1rem .25rem;
+  font-variant-numeric: tabular-nums;
+}
+.rn-components .exercise-index-panel {
+  margin: 1.2rem 0;
+  padding: .65rem .9rem;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: var(--paper, #fffefa);
+}
+.rn-components .exercise-index-panel > summary {
+  cursor: pointer;
+  color: var(--green);
+  font-weight: 600;
+}
+.rn-components .exercise-index { margin: .75rem 0 0; line-height: 1.8; }
+.rn-components .exercise-index a { margin: .15rem .5rem .15rem 0; }
+.rn-components .original-question {
+  margin: 1.2rem 0 0;
+  border-top: 1px solid var(--rule);
+  padding-top: .65rem;
+  color: var(--sub);
+}
+.rn-components .original-question > summary { cursor: pointer; color: var(--green); }
+.rn-components .question-translation { margin-top: .7rem; }
+/* Align the reading column independently of annotation enhancement. */
+@media (min-width: 1440px) {
+  .rn-components .reading-layout {
+    grid-template-columns: 240px minmax(0, 860px) 280px;
+    max-width: 1524px;
+    gap: 32px;
+  }
+}
+@media (max-width: 1100px) {
+  .rn-components:not(.portal-reader):not(.sample-fragment) :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
+    scroll-margin-top: 90px;
+  }
+}
+@media (max-width: 640px) {
+  .rn-components .rn-statement { padding: .85rem .8rem; }
+  .rn-components .rn-proof { padding-left: .75rem; }
+  .rn-components .exercise > :is(summary, .exercise-question, .answer) {
+    padding: .85rem .8rem;
+  }
+  .rn-components .exercise > .source { padding: 0 .8rem .85rem; }
+}
+@media print {
+  .rn-components .rn-proof::details-content { content-visibility: visible !important; }
+}
+
+.compact-diagram{display:block;width:360px;min-width:0;max-width:100%;height:auto;margin:auto}.compact-diagram text{font-size:15px}.table-scroll{max-width:100%;overflow-x:auto}.table-scroll table{min-width:540px}.code-details pre{max-height:36rem;overflow:auto}.exercise-links{line-height:2}.contract{border-left:2px solid var(--green);padding:.3rem 1rem}
+/* RN-001: a single Latin/digit face across prose, tables and diagrams.
+   CJK glyphs use the local Chinese fallback; no proprietary fonts are shipped. */
+:root{--rn-text-font:"Times New Roman",Times,system-ui,-apple-system,"PingFang SC","Microsoft YaHei",serif;--rn-diagram-blue:#edf5fd;--rn-diagram-blue-line:#a9bfd5;--rn-diagram-amber:#fff6e4;--rn-diagram-amber-line:#d6bd87;--rn-diagram-ink:#303b46;--rn-diagram-edge:#8c969f}
+body.rn-components,body.rn-components :not(math):not(math *):not(:where(pre,pre *,code,code *,kbd,kbd *,samp,samp *)){
+  font-family:var(--rn-text-font)!important
+}
+/* Program text uses the original local monospace family across reading pages
+   and source/program guides. Mathematical descendants keep their own fonts. */
+:root{--rn-code-font:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+body :is(pre,code,kbd,samp),body :is(pre,code,kbd,samp) :not(math):not(math *){
+  font-family:var(--rn-code-font)!important
+}
+
+body.rn-components math{font-family:"STIX Two Math","Cambria Math",math;font-size:1em}
+body.rn-components math :is(mi,mn,mtext,ms){font-family:var(--rn-text-font)!important}
+body.rn-components math mi:not([mathvariant]),body.rn-components math mi[mathvariant="italic"]{font-style:italic;text-transform:none}
+body.rn-components math :is(mn,mtext,ms),body.rn-components math mi[mathvariant="normal"]{font-style:normal}
+body.rn-components math mi:is([mathvariant="bold"],[mathvariant="bold-italic"]){font-weight:700;text-transform:none}
+body.rn-components math mi[mathvariant="bold-italic"]{font-style:italic}
+body.rn-components math mi:is([mathvariant="double-struck"],[mathvariant="script"],[mathvariant="bold-script"],[mathvariant="fraktur"],[mathvariant="bold-fraktur"]){font-family:"STIX Two Math","Cambria Math",math!important}
+body.rn-components math [mathvariant="monospace"]{font-family:var(--rn-code-font)!important;font-style:normal;text-transform:none}
+body.rn-components :is(p,li,td,th,summary,figcaption,h1,h2,h3,h4) math{vertical-align:baseline}
+body.rn-components .rn-math-inline{display:inline-block;max-width:100%;overflow-x:auto;overflow-y:hidden;vertical-align:middle}
+body.rn-components pre{line-height:1.65;tab-size:4;white-space:pre}
+body.rn-components pre code{font-size:inherit;white-space:inherit}
+/* Keep short expressions together; long statements wrap within the text column. */
+body.rn-components code:not(pre code){
+  display:inline-block;max-width:100%;vertical-align:baseline;
+  font-size:.9em;font-style:normal;font-weight:400;line-height:1.45;
+  color:#294553;background:#eef2f4;border:1px solid #dfe6e9;border-radius:4px;
+  padding:.08em .3em;box-decoration-break:clone;-webkit-box-decoration-break:clone;
+  white-space:normal;overflow-wrap:anywhere;word-break:normal
+}
+body.rn-components :is(h1,h2,h3,h4,summary,th) code:not(pre code){font-size:.9em;font-weight:inherit}
+body.rn-components a code:not(pre code){color:inherit}
+body.rn-components pre code{background:none;border:0;border-radius:0;padding:0;box-decoration-break:slice;overflow-wrap:normal}
+body.rn-components svg text{fill:var(--rn-diagram-ink)}
+body.rn-components svg.rn-diagram{background:transparent;border:0}
+body.rn-components svg tspan[baseline-shift]{font-size:70%}
+/* Node roles are explicit. Coordinate plots, data series, cells and generator
+   colours keep their original encodings. */
+body.rn-components svg.rn-diagram :is(.rn-node,.node,rect.n,circle.n,ellipse.n,.n rect,.n circle,.n ellipse){
+  fill:var(--rn-diagram-blue);stroke:var(--rn-diagram-blue-line);stroke-width:1.15;
+  vector-effect:non-scaling-stroke
+}
+body.rn-components svg.rn-diagram rect:is(.rn-node,.node),
+body.rn-components svg.rn-diagram .n rect,
+body.rn-components svg.rn-diagram rect.n{rx:10px;ry:10px}
+body.rn-components svg.rn-diagram .rn-node.rn-node-accent{fill:var(--rn-diagram-amber);stroke:var(--rn-diagram-amber-line)}
+body.rn-components svg.rn-diagram .rn-edge{
+  fill:none;stroke:var(--rn-diagram-edge);stroke-width:1.15;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke
+}
+body.rn-components svg.rn-diagram .rn-arrow{fill:var(--rn-diagram-edge);stroke:none}
+body.rn-components svg.rn-diagram .hint{fill:#626d77}
+body.rn-components svg.rn-diagram text{font-weight:400}
+body.rn-components figure:has(svg.rn-diagram){background:#fff;border:1px solid #e5e9ed;border-radius:12px;padding:1.25rem}
+body.rn-components :is(.scroll,.diagram):has(>svg.rn-diagram){background:transparent;border:0}
+@media(max-width:640px){body.rn-components figure:has(svg.rn-diagram){padding:.75rem}}
+@media print{body.rn-components figure:has(svg.rn-diagram){border-color:#bbb;break-inside:avoid}}
+
+</style></head><body class="rn-components"><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="章节目录"><details class="toc-panel" id="toc-panel" open><summary>目录</summary><nav class="chapter-toc" id="chapter-toc"><a class="toc-home" href="book_overview.html">全书地图</a><a class="toc-home" href="preface.html">序言</a><ul><li><a href="#thread">从关系到方法，从方法到可操作的对象</a></li><li><a href="#s1-1">1.1 程序设计的基本元素</a></li><li><a href="#s1-1-1">1.1.1 表达式：把计算写成树</a></li><li><a href="#s1-1-2">1.1.2 命名与环境</a></li><li><a href="#s1-1-3">1.1.3 组合式的求值</a></li><li><a href="#s1-1-4">1.1.4 复合过程</a></li><li><a href="#s1-1-5">1.1.5 过程应用的代换模型</a></li><li><a href="#s1-1-6">1.1.6 条件表达式与谓词</a></li><li><a href="#s1-1-7">1.1.7 例子：牛顿法求平方根</a></li><li><a href="#s1-1-8">1.1.8 过程作为黑箱抽象</a></li><li><a href="#s1-2">1.2 过程与它们产生的计算</a></li><li><a href="#s1-2-1">1.2.1 线性递归与迭代</a></li><li><a href="#s1-2-2">1.2.2 树形递归与换零钱</a></li><li><a href="#s1-2-3">1.2.3 增长阶</a></li><li><a href="#s1-2-4">1.2.4 求幂：用不变量压缩步骤</a></li><li><a href="#s1-2-5">1.2.5 最大公约数</a></li><li><a href="#s1-2-6">1.2.6 素数测试与概率证据</a></li><li><a href="#s1-3">1.3 用高阶过程构造抽象</a></li><li><a href="#s1-3-1">1.3.1 过程作为参数</a></li><li><a href="#s1-3-2">1.3.2 <code>lambda</code>、<code>let</code> 与局部名字</a></li><li><a href="#s1-3-3">1.3.3 把一般方法直接作为过程</a></li><li><a href="#s1-3-4">1.3.4 过程作为返回值</a></li><li><a href="#exercises">习题 1.1—1.46：题干、推导与实现</a></li><li><a href="#programs">程序、实验与回读</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">SICP 第二版 · 第 1 章</p><h1>第 1 章 · 用过程构造抽象</h1><p class="intro">从能计算的表达式，走到能够命名、分析和组合的方法。</p><p class="source">本仓库 Texinfo 第二版 pp.1–106 / <a href="../sicp.pdf#page=29">PDF 29–134</a>；§1.1–1.3 的 18 个二级小节与全部 46 道原书习题。中文释读与题解另撰，原书公式与给定程序按原编号保留。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="preface.html">← 序言</a></p></header><section id="thread"><h2>从关系到方法，从方法到可操作的对象</h2><p class="source">原书 p.1 / <a href="../sicp.pdf#page=29">PDF 29</a> 起。</p><p>数学可以用“平方后等于给定数”定义平方根；程序还必须交代怎样产生候选、怎样改进、何时停止。原书把这种“怎样做”的知识写成过程，然后反过来研究：一个短小的过程描述，究竟会展开成怎样的时间和空间消耗？</p><p>本章三次改变观察尺度。§1.1 解释表达式如何组合、名字如何绑定，使用求根建立过程抽象；§1.2 比较递归、迭代、树形展开和增长阶；§1.3 把“求和”“找不动点”“改造函数”本身变成可传递、可返回的过程。最后获得的不是更多语法，而是一组能够组合的方法。</p><details class="reading-notes" id="notes-thread" data-notes-for="thread" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h3>先问这一层承诺什么</h3><p>阅读时交替写三句话：这个过程的输入与结果是什么；它怎样推进；我为何相信结果和停止条件。相同的数学答案可以由不同的计算过程产生，接口相同也不等于成本相同。</p></div></div></details></section><section id="s1-1"><h2>1.1 程序设计的基本元素</h2><p class="source">原书 p.6 / <a href="../sicp.pdf#page=34">PDF 34</a> 起。</p><p>一种语言应提供基本表达式、组合手段和抽象手段。Scheme 的前缀组合把操作符和操作数写在同一对括号中；过程定义又把已有组合命名，使下一层程序可以把它当作一个部件。数据与过程在本章先分别作为被操作的东西和操作方法，后面将逐步看见两者都能成为组合材料。</p><details class="reading-notes" id="notes-s1-1" data-notes-for="s1-1" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h3>括号统一，求值规则仍有边界</h3><p>普通过程调用、定义与条件式的表面形式相似，却不能共享同一个“先求所有子式的值”的规则。每读到新形式，都要先确定它是否是特殊形式。</p></div></div></details><section id="s1-1-1"><h3>1.1.1 表达式：把计算写成树</h3><p class="source">原书 p.7 / <a href="../sicp.pdf#page=35">PDF 35</a> 起。</p><p>数值是最简单的表达式；<code>(+ 137 349)</code> 是组合式，第一项是操作符，其余项是操作数。前缀形式允许任意多个参数，也不依赖通常的乘除优先级；嵌套括号明确给出子表达式的结构。解释器的读入、求值、打印循环提供即时反馈，缩进则把树的层次交给人看。</p><pre><code>(+ (* 3 (+ (* 2 4) (+ 3 5)))
+   (+ (- 10 7) 6))
+;; =&gt; 57</code></pre><details class="reading-notes" id="notes-s1-1-1" data-notes-for="s1-1-1" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h4>从最内层开始读</h4><p>先辨认最外层做什么，再求出它需要的子结果。不要把一长串括号当作从左往右的字符操作；缩进与换行不改变语法树，缺少或多出括号却会改变树。</p></div></div></details></section><section id="s1-1-2"><h3>1.1.2 命名与环境</h3><p class="source">原书 p.10 / <a href="../sicp.pdf#page=38">PDF 38</a> 起。</p><p><code>(define size 2)</code> 把名字和一个值关联起来。环境保存这些关联，因此后续组合能用名字指代先前建立的值。通过逐步定义圆周率、半径、周长，一个复杂计算可以由一系列有意义的名字组织起来。定义不是通常意义上的数值表达式，其打印反馈依实现而异。</p><details class="reading-notes" id="notes-s1-1-2" data-notes-for="s1-1-2" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h4>名字不是文本替换宏</h4><p>环境告诉求值器一个名字指向什么；过程定义的形式参数又会在应用时引入局部绑定。本章先用代换帮助理解纯过程，第 3 章引入赋值后必须使用更完整的环境模型。</p></div></div></details></section><section id="s1-1-3"><h3>1.1.3 组合式的求值</h3><p class="source">原书 p.12 / <a href="../sicp.pdf#page=40">PDF 40</a> 起。</p><p>普通组合式先求各子表达式的值，再把操作符所得的过程应用到操作数所得的参数。对子式重复应用同一规则，就得到沿语法树向上的求值。数值的值是自身，基本过程的名字指向对应运算，其他名字由环境给值。<code>define</code> 则按专门规则处理名字与定义式，不能先把待定义的名字当成普通参数求值。</p><details class="reading-notes" id="notes-s1-1-3" data-notes-for="s1-1-3" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h4>不要凭结果假定操作数的顺序</h4><p>本章的无副作用算式通常不暴露操作数先后；Scheme 的一般论述也没有在这里保证逐个从左到右。本文在 Racket 中执行的具体实验依其规则进行，后文讨论其他求值模型时单独说明。</p></div></div></details></section><section id="s1-1-4"><h3>1.1.4 复合过程</h3><p class="source">原书 p.15 / <a href="../sicp.pdf#page=43">PDF 43</a> 起。</p><p>定义 <code>square</code> 后，调用者只需知道它返回参数的平方；再用它定义平方和，便能继续组合。形式参数是过程定义中的局部名字，应用时由实际参数值提供本次计算的输入。过程体的写法可以替换，只要对外承诺保持，客户就可以停留在同一抽象层。</p><pre><code>(define (square x) (* x x))
+(define (sum-of-squares x y) (+ (square x) (square y)))
+(define (f a) (sum-of-squares (+ a 1) (* a 2)))
+(f 5) ; =&gt; 136</code></pre><details class="reading-notes" id="notes-s1-1-4" data-notes-for="s1-1-4" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h4>把定义读成一句契约</h4><p><code>square</code> 的定义给出实现，名字给出复用入口；两者共同形成抽象。只看名字不能保证行为正确，仍要核对定义或已有证据。过程也可以作为值出现在操作符位置，习题 1.4 已埋下伏笔。</p></div></div></details></section><section id="s1-1-5"><h3>1.1.5 过程应用的代换模型</h3><p class="source">原书 p.18 / <a href="../sicp.pdf#page=46">PDF 46</a> 起。</p><p>对纯复合过程，可以把应用理解为：用实际参数值替换过程体中相应形式参数，再求值。例如先求 <code>(+ a 1)</code> 与 <code>(* a 2)</code>，再展开平方和。这种“先求参数、再应用”的方式称应用序。正则序则先展开外层过程，直到需要基本操作时才求其参数；重复出现的子式可能被重复计算。</p><p>对本章适用的纯、终止表达式，两种规则常给出相同结果；这不足以说明它们总能同时终止。<code>(test 0 (p))</code> 将在习题 1.5 中区分它们。代换模型是解释工具，避免把同名局部变量错误地捕获也需要关注绑定范围。</p><details class="reading-notes" id="notes-s1-1-5" data-notes-for="s1-1-5" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h4>正则序不自动记忆结果</h4><p>按需展开一个表达式，与把第一次所得的值存下来供以后复用，是两件事。习题 1.20 的 18 次求余依赖没有这种记忆；带记忆的惰性计算将在第 4 章另讲。</p></div></div></details></section><section id="s1-1-6"><h3>1.1.6 条件表达式与谓词</h3><p class="source">原书 p.22 / <a href="../sicp.pdf#page=50">PDF 50</a> 起。</p><p><code>cond</code> 按顺序检查谓词，选第一个为真的子句求值；<code>else</code> 是最后的兜底。<code>if</code> 先判断谓词，再只求两个分支之一。<code>and</code> 与 <code>or</code> 也会短路，<code>not</code> 取反。由此可以定义绝对值和分段函数，而不会执行未选中的危险计算。</p><pre><code>(define (abs-value x)
+  (cond ((&lt; x 0) (- x))
+        (else x)))</code></pre><details class="reading-notes" id="notes-s1-1-6" data-notes-for="s1-1-6" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h4>真假与分支的契约</h4><p>Scheme 以 #<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math> 为假，其他值为真；谓词通常主动返回布尔值。短路还允许先验证分母不为零，再做除法。把 <code>if</code> 包在一个普通 <code>new-if</code> 过程中会丢失“未选分支不求值”的性质。</p></div></div></details></section><section id="s1-1-7"><h3>1.1.7 例子：牛顿法求平方根</h3><p class="source">原书 p.28 / <a href="../sicp.pdf#page=56">PDF 56</a> 起。</p><p>“平方等于输入”是说明式定义；牛顿迭代把它改成生成答案的方法。对正数和正猜测，用猜测与输入除以猜测的平均数改进，再检查是否足够好。原书把 <code>good-enough?</code>、<code>improve</code> 和 <code>sqrt-iter</code> 分开，因而能分别讨论停止、进展和控制。</p><p><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="y_next=(y+x/y)/2" display="inline"><mrow><msub><mi>y</mi><mtext>next</mtext></msub><mo>=</mo><mrow><mo>(</mo><mi>y</mi><mo>+</mo><mi>x</mi><mo>/</mo><mi>y</mi><mo>)</mo></mrow><mo>/</mo><mn>2</mn></mrow></math>。例如输入 2，从 1 开始依次得到 1.5、约 1.416667、约 1.414216。原书以平方残差小于 0.001 停止，这只是演示选择；它不承诺所有尺度上相同的有效数字。习题 1.7 将改用相邻猜测的相对变化，并显式处理零和非法输入。</p><details class="reading-notes" id="notes-s1-1-7" data-notes-for="s1-1-7" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h4>近似值为什么不继续变化</h4><p>浮点数只能取有限多个可表示值；即使目标误差尚未达到，下一次改进也可能舍入回自身。停止条件、相对误差、残差和最大迭代次数各管不同问题，不能把其中一项当成普遍收敛证明。</p></div></div></details></section><section id="s1-1-8"><h3>1.1.8 过程作为黑箱抽象</h3><p class="source">原书 p.33 / <a href="../sicp.pdf#page=61">PDF 61</a> 起。</p><p>求根的调用者不必同时阅读所有辅助过程。过程参数的名字可一致地改名而不改变行为，这称约束变量的改名；自由变量则来自外围绑定。把辅助过程放进 <code>sqrt</code> 内部，再让它们共享外部参数 <code>x</code>，便得到块结构和词法作用域：名字的含义由程序文本中的定义位置决定。</p><pre><code>(define (sqrt-local x)
+  (define (good? y) (&lt; (abs (- (* y y) x)) 0.001))
+  (define (improve y) (/ (+ y (/ x y)) 2))
+  (define (iter y) (if (good? y) y (iter (improve y))))
+  (iter 1.0))</code></pre><p>这里的内部辅助过程依赖同一次调用的 <code>x</code>，却不把它暴露为全局名字。上述代码忠实演示原书的停止规则；实际边界改进另见习题 1.7。过程抽象使我们能够更换实现，也要求我们明确客户可依赖的输入范围与近似精度。</p><details class="reading-notes" id="notes-s1-1-8" data-notes-for="s1-1-8" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h4>同名不表示同一绑定</h4><p>外层或别处也可以有名为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 的变量。分析某次出现时，从它在文本中的位置寻找最近有效绑定；不要沿运行时调用者的局部变量猜测。返回的过程仍能使用定义时的自由变量，这会在 §1.3.4 再次出现。</p></div></div></details></section></section><section id="s1-2"><h2>1.2 过程与它们产生的计算</h2><p class="source">原书 p.40 / <a href="../sicp.pdf#page=68">PDF 68</a> 起。</p><p>过程定义是静态描述，计算过程是描述随输入展开的活动。比较算法时既看结果，也看基本步骤数与必须保留的信息。以下空间指尚未完成的计算所需状态或控制信息，增长阶先按原书的基本操作单位计数；精确大整数的位成本另行说明。</p><details class="reading-notes" id="notes-s1-2" data-notes-for="s1-2" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h3>把输入规模与成本单位写出来</h3><p>指数、金额、整数大小各自是不同的规模变量。声称“对数时间”前先说相对于哪个变量，以及乘法、求余是否按常数成本计数；这决定结论的适用范围。</p></div></div></details><section id="s1-2-1"><h3>1.2.1 线性递归与迭代</h3><p class="source">原书 p.41 / <a href="../sicp.pdf#page=69">PDF 69</a> 起。</p><p>阶乘的直接定义先计算较小的阶乘，再补做乘法。展开时积压乘法，返回时逐层收缩，因此是线性递归过程。另一版本只保存当前乘积、计数器与上界，转移到下一状态时没有待做运算，因此是线性迭代过程。二者步骤数都随输入线性增长，控制空间分别线性与常量。</p><pre><code>(define (factorial-iter n)
+  (define (iter product counter)
+    (if (&gt; counter n) product
+        (iter (* counter product) (+ counter 1))))
+  (iter 1 1))</code></pre><p>迭代版本仍在语法上调用自己。Scheme 的尾调用语义使这种状态转移无需保留一层等待返回的调用；换到不保证尾调用的实现，应重新检查实际空间。源程序出现递归调用，不足以判定它产生递归过程。</p><details class="reading-notes" id="notes-s1-2-1" data-notes-for="s1-2-1" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h4>状态是否足以恢复下一步</h4><p>若只给当前乘积、计数器和上界，就能完整继续迭代；若仍有一串乘法等待子结果，则这些待做操作也是状态。用这个检查比数函数名出现几次更可靠。</p></div></div></details></section><section id="s1-2-2"><h3>1.2.2 树形递归与换零钱</h3><p class="source">原书 p.47 / <a href="../sicp.pdf#page=75">PDF 75</a> 起。</p><p>朴素 Fibonacci 把一次调用拆成两个较小调用，重复计算同一子问题。树的节点数按黄金比例指数增长，最大深度仍线性。利用相邻两项构造状态转移，可得到线性步数、常量个状态变量的版本。换零钱的递归则按“是否使用一种面额”分解：不用该面额，或使用一枚后继续处理剩余金额。</p><p>记金额为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math>、可用面额数为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="k" display="inline"><mi>k</mi></math>，则 <span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="C(a,k)=C(a,k−1)+C(a−d_k,k)" display="inline"><mrow><mi>C</mi><mrow><mo>(</mo><mi>a</mi><mo>,</mo><mi>k</mi><mo>)</mo></mrow><mo>=</mo><mi>C</mi><mrow><mo>(</mo><mi>a</mi><mo>,</mo><mi>k</mi><mo>−</mo><mn>1</mn><mo>)</mo></mrow><mo>+</mo><mi>C</mi><mrow><mo>(</mo><mi>a</mi><mo>−</mo><msub><mi>d</mi><mi>k</mi></msub><mo>,</mo><mi>k</mi><mo>)</mo></mrow></mrow></math></span>。金额为零有一种空选法；负金额或无可用面额而金额仍正时为零。这个分解避免按硬币排列重复计数。习题 1.14 给出 11 美分的全部调用关系。</p><details class="reading-notes" id="notes-s1-2-2" data-notes-for="s1-2-2" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h4>树适合说明分解，也会暴露重复</h4><p>重复节点不代表不同的答案，而是相同子问题被重新计算。把结果记忆下来会改变运行成本，也引入存储结构；本章先从原始树分析，不能把后来的动态规划成本写回原算法。</p></div></div></details></section><section id="s1-2-3"><h3>1.2.3 增长阶</h3><p class="source">原书 p.54 / <a href="../sicp.pdf#page=82">PDF 82</a> 起。</p><p>若存在正常数，使资源函数在足够大的输入上被同一个比较函数的常数倍从上下夹住，就写成 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="R(n)=Θ(f(n))" display="inline"><mrow><mi>R</mi><mrow><mo>(</mo><mi>n</mi><mo>)</mo></mrow><mo>=</mo><mi>Θ</mi><mrow><mo>(</mo><mi>f</mi><mrow><mo>(</mo><mi>n</mi><mo>)</mo></mrow><mo>)</mo></mrow></mrow></math>。它忽略常数和低阶项，保留输入增大时的主要趋势。线性递归阶乘的时间和空间均为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="Θ(n)" display="inline"><mrow><mi>Θ</mi><mrow><mo>(</mo><mi>n</mi><mo>)</mo></mrow></mrow></math>，尾迭代的控制空间为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="Θ(1)" display="inline"><mrow><mi>Θ</mi><mrow><mo>(</mo><mn>1</mn><mo>)</mo></mrow></mrow></math>；朴素 Fibonacci 时间为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="Θ(φ^n)" display="inline"><mrow><mi>Θ</mi><mrow><mo>(</mo><msup><mi>φ</mi><mi>n</mi></msup><mo>)</mo></mrow></mrow></math>、栈深为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="Θ(n)" display="inline"><mrow><mi>Θ</mi><mrow><mo>(</mo><mi>n</mi><mo>)</mo></mrow></mrow></math>。</p><p>这是粗粒度模型。返回一个巨大整数本身就需要越来越多位；“常量空间”通常指常量个寄存器或状态变量，而不是输出位数恒定。实测还会受到解释器、编译、缓存与计时分辨率影响。</p><details class="reading-notes" id="notes-s1-2-3" data-notes-for="s1-2-3" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h4>上界不等于紧确阶</h4><p>一个线性算法也满足二次上界，但不能据此称它为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="Θ(n²)" display="inline"><mrow><mi>Θ</mi><mrow><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mo>)</mo></mrow></mrow></math>。若只证明不超过某个量，用 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="O" display="inline"><mi>O</mi></math>；上下两侧都能成立才使用 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="Θ" display="inline"><mi>Θ</mi></math>。本章的计时表用来观察模型，不能反过来替代证明。</p></div></div></details></section><section id="s1-2-4"><h3>1.2.4 求幂：用不变量压缩步骤</h3><p class="source">原书 p.57 / <a href="../sicp.pdf#page=85">PDF 85</a> 起。</p><p>逐次乘法的次数与指数线性相关；偶数指数可以先算半指数，再平方。每次把指数减半，使计算深度与乘法次数降为对数。递归版本在返回时平方；迭代版本多保存一个累计乘积，用不变量 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a b^n=B^N" display="inline"><mrow><mi>a</mi><msup><mi>b</mi><mi>n</mi></msup><mo>=</mo><msup><mi>B</mi><mi>N</mi></msup></mrow></math> 表明每一步保持原目标。奇数步把一个底数并入累计值，偶数步则平方底数并折半指数。</p><p>相同思想可以作用到乘法和线性变换。§1.2.4 的脚注还把乘法次数精确关联到指数的二进制长度和其中 1 的数量；数量级分析只保留对数增长。</p><details class="reading-notes" id="notes-s1-2-4" data-notes-for="s1-2-4" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h4>平方结果必须复用</h4><p><code>(square (fast-expt b (/ n 2)))</code> 只计算一次半指数；把它写成两个同样的递归调用，会重新展开两棵树。习题 1.26 让这个差别在模幂中变得明显。</p></div></div></details></section><section id="s1-2-5"><h3>1.2.5 最大公约数</h3><p class="source">原书 p.62 / <a href="../sicp.pdf#page=90">PDF 90</a> 起。</p><p>若 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="r=a mod b" display="inline"><mrow><mi>r</mi><mo>=</mo><mi>a</mi><mo form="infix" lspace="0.278em" rspace="0.278em">mod</mo><mi>b</mi></mrow></math>，则 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="gcd(a,b)=gcd(b,r)" display="inline"><mrow><mi mathvariant="normal">gcd</mi><mrow><mo>(</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo>)</mo></mrow><mo>=</mo><mi mathvariant="normal">gcd</mi><mrow><mo>(</mo><mi>b</mi><mo>,</mo><mi>r</mi><mo>)</mo></mrow></mrow></math>，因为两对数有完全相同的公因子。不断把两数替换为较小数及余数，到第二项为零时，第一项即为答案。206 与 40 依次变成 (40,6)、(6,4)、(4,2)、(2,0)，共求余四次。</p><p>原书用 Lamé 定理连接 Fibonacci：若算法用了若干步，较小输入至少达到相应 Fibonacci 项，因此步数是输入数值的对数阶。此处求余仍按一次基本操作计数。换成正则序后，未化简的余数表达式被重复使用，实际基本操作次数也会改变。</p><details class="reading-notes" id="notes-s1-2-5" data-notes-for="s1-2-5" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h4>正确性与步数是两条论证</h4><p>公因子集合不变给出结果正确性，非负余数严格小于除数给出终止性；Lamé 定理再限制步数。不要仅凭“数变小了”跳过最终结果为什么是最大公约数。</p></div></div></details></section><section id="s1-2-6"><h3>1.2.6 素数测试与概率证据</h3><p class="source">原书 p.65 / <a href="../sicp.pdf#page=93">PDF 93</a> 起。</p><p>试除法寻找最小因子，超过平方根仍未找到即可判为素数，因为合数至少有一个不超过平方根的因子。只试 2 和奇数减少常数成本。Fermat 检验则利用素数满足 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a^n≡a (mod n)" display="inline"><mrow><msup><mi>a</mi><mi>n</mi></msup><mo>≡</mo><mi>a</mi><mrow><mo>(</mo><mo form="prefix" lspace="0em" rspace="0.278em">mod</mo><mi>n</mi><mo>)</mo></mrow></mrow></math>，并用逐步取模的快速幂避免构造完整巨数。失败能证实合数，通过却可能被 Carmichael 数欺骗。</p><p>重复随机检验的意义是：在固定合数输入上，以某种随机选底规则发生误接受的概率。它不是不带先验就能给出的“通过以后是素数的概率”。对 Carmichael 数，原书这一 Fermat 条件甚至会对所有题设底数通过；Miller–Rabin 补充更强的见证，详见 1.28。</p><details class="reading-notes" id="notes-s1-2-6" data-notes-for="s1-2-6" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h4>随机源、轮数与时间一起记录</h4><p>比较随机算法时，轮数不能悄悄随输入变化。本文固定 20 轮并记录种子；这支持可复现的性能实验，不能把固定少量底数的实测当作对任意大整数的素性证明。</p></div></div></details></section></section><section id="s1-3"><h2>1.3 用高阶过程构造抽象</h2><p class="source">原书 p.74 / <a href="../sicp.pdf#page=102">PDF 102</a> 起。</p><p>若若干过程只在“每项怎样计算”“下一项在哪里”“怎样合并”上不同，就可以把这些差异变成参数。高阶过程接收过程，或产生过程；一般方法因此也能由语言直接命名和组合。程序设计者仍需判断抽象是否适合当前任务，而不是把每个表达式都再包一层。</p><details class="reading-notes" id="notes-s1-3" data-notes-for="s1-3" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h3>先找稳定骨架，再决定参数</h3><p><code>sum</code> 固定了遍历与加法，把项和步进交给参数；accumulate 再把合并交给参数。每提升一层，都应说清增加了哪些可表达能力，以及哪些代数约定不再自动成立。</p></div></div></details><section id="s1-3-1"><h3>1.3.1 过程作为参数</h3><p class="source">原书 p.76 / <a href="../sicp.pdf#page=104">PDF 104</a> 起。</p><p>整数和、立方和及逼近圆周率的级数，共享沿区间逐项相加的骨架。<code>sum</code> 的参数分别给出项函数、起点、后继和终点；递归定义还给出空区间的和为零。数值积分可以把中点函数值乘上小区间宽度，转化为这样的求和。习题 1.29 再用 Simpson 权重改进精度。</p><pre><code>(define (sum term a next b)
+  (if (&gt; a b) 0
+      (+ (term a) (sum term (next a) next b))))</code></pre><p>这不是只能用于几种预制公式的模板：调用者传入不同过程，就能在同一控制骨架上表达新的求和。后面的 <code>product</code>、accumulate 与 <code>filtered-accumulate</code> 依次提取乘法、合并规则和筛选条件。</p><details class="reading-notes" id="notes-s1-3-1" data-notes-for="s1-3-1" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h4>过程参数同样有前提</h4><p>若 <code>next</code> 不前进，有限区间的递归也可能永远不结束。本文执行适配器要求后继严格增大；步长造成浮点停滞时明确报错。更一般的序列遍历需要其他终止契约，不能沿用这个数值区间接口。</p></div></div></details></section><section id="s1-3-2"><h3>1.3.2 <code>lambda</code>、<code>let</code> 与局部名字</h3><p class="source">原书 p.83 / <a href="../sicp.pdf#page=111">PDF 111</a> 起。</p><p><code>lambda</code> 产生匿名过程，例如 <code>(lambda (x) (+ x 4))</code>；它也能直接出现在操作符位置。过程定义可视为给这种过程值命名的方便语法。<code>let</code> 把局部中间结果命名，可改写成匿名过程的应用；绑定表达式在外部环境求值，因此同一 <code>let</code> 的各绑定不会依次看到彼此的新名字。</p><pre><code>(let ((x 3))
+  (let ((x 2) (y (+ x 2)))
+    (* x y)))
+;; =&gt; 10；y 使用外层 x=3</code></pre><p>局部名字能避免重复书写，也把表示细节留在使用范围。原书用一个包含中间量的函数展示 <code>let</code> 与 <code>lambda</code> 的对应关系，并提醒内部定义的一般细节需要更完整的求值模型；本章内部过程定义的用法可以先按词法范围理解。</p><details class="reading-notes" id="notes-s1-3-2" data-notes-for="s1-3-2" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h4><code>lambda</code> 的结果是过程，不是函数体的值</h4><p>求出一个 <code>lambda</code> 表达式时尚未提供实际参数，过程体不会就此被执行；调用该过程才进入过程体。这一层区别解释了为什么返回一个过程后，还需要再写一对调用括号。</p></div></div></details></section><section id="s1-3-3"><h3>1.3.3 把一般方法直接作为过程</h3><p class="source">原书 p.89 / <a href="../sicp.pdf#page=117">PDF 117</a> 起。</p><p>二分法保持两端函数值异号，在连续性前提下用中点缩小含根区间；达到区间宽度容差就返回中点。不动点法寻找 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f(x)=x" display="inline"><mrow><mi>f</mi><mrow><mo>(</mo><mi>x</mi><mo>)</mo></mrow><mo>=</mo><mi>x</mi></mrow></math>：从初值反复应用函数，直到相邻近似足够接近。二者都属于一般数值方法，却具有不同的前提和停止证据。</p><p>直接用 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f(y)=x/y" display="inline"><mrow><mi>f</mi><mrow><mo>(</mo><mi>y</mi><mo>)</mo></mrow><mo>=</mo><mi>x</mi><mo>/</mo><mi>y</mi></mrow></math> 求平方根通常在两个值间振荡，因为再应用一次回到原猜测。把它改造成 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f(y)=(y+x/y)/2" display="inline"><mrow><mi>f</mi><mrow><mo>(</mo><mi>y</mi><mo>)</mo></mrow><mo>=</mo><mrow><mo>(</mo><mi>y</mi><mo>+</mo><mi>x</mi><mo>/</mo><mi>y</mi><mo>)</mo></mrow><mo>/</mo><mn>2</mn></mrow></math>，保留相同正不动点，同时改善局部收敛。平均阻尼改变的是迭代函数，绝不保证任何函数都能收敛；如对数方程和高次根，需要具体分析。</p><details class="reading-notes" id="notes-s1-3-3" data-notes-for="s1-3-3" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h4>相邻接近不能单独证明根存在</h4><p>二分法依赖连续与异号，不能对跨越跳跃点的函数照搬根结论。不动点的步差小也需要结合残差与问题尺度理解。执行例子设迭代上限，失败明确返回错误，不输出一个伪装成成功的末值。</p></div></div></details></section><section id="s1-3-4"><h3>1.3.4 过程作为返回值</h3><p class="source">原书 p.97 / <a href="../sicp.pdf#page=125">PDF 125</a> 起。</p><p><code>average-damp</code> 接收一个函数，返回“输入与函数值的平均数”这个新函数。数值导数 <code>deriv</code> 也是函数到函数的变换；Newton 变换再产生 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x↦x−g(x)/Dg(x)" display="inline"><mrow><mi>x</mi><mo>↦</mo><mi>x</mi><mo>−</mo><mi>g</mi><mrow><mo>(</mo><mi>x</mi><mo>)</mo></mrow><mo>/</mo><mi>D</mi><mi>g</mi><mrow><mo>(</mo><mi>x</mi><mo>)</mo></mrow></mrow></math>，交给不动点寻找器。这样可分别重用目标函数、变换方法和迭代控制。</p><pre><code>(define (average-damp f)
+  (lambda (x) (/ (+ x (f x)) 2)))
+((average-damp square) 10) ; =&gt; 55</code></pre><p>过程拥有一等地位，意味着它能被命名、作为参数、作为结果，也能放入数据结构。返回过程需要保存其自由变量的关联；这不要求在本章先实现闭包存储，先观察接口就可以组合出重复应用、平滑与反复阻尼。数值 Newton 法还需要导数不接近零、初值适当等条件，原书快速收敛的描述有这些边界。</p><details class="reading-notes" id="notes-s1-3-4" data-notes-for="s1-3-4" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h4>抽象后再把依赖逐项接回去</h4><p>“求某个变换的不动点”把三种角色分开，但调用时必须选定 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="g" display="inline"><mi>g</mi></math>、transform 和 guess。表达更一般并没有消除数值前提；导数差分步长、停止容差和初值仍是具体方法的一部分。</p></div></div></details></section></section><section id="exercises"><h2>习题 1.1—1.46：题干、推导与实现</h2><details class="exercise-index-panel" id="exercise-index"><summary>本章习题索引 · 1.1—1.46（展开定位）</summary><div class="exercise-index exercise-links" role="navigation" aria-label="本章习题索引"><a href="#ex-1-1" aria-label="习题 1.1">1.1</a> · <a href="#ex-1-2" aria-label="习题 1.2">1.2</a> · <a href="#ex-1-3" aria-label="习题 1.3">1.3</a> · <a href="#ex-1-4" aria-label="习题 1.4">1.4</a> · <a href="#ex-1-5" aria-label="习题 1.5">1.5</a> · <a href="#ex-1-6" aria-label="习题 1.6">1.6</a> · <a href="#ex-1-7" aria-label="习题 1.7">1.7</a> · <a href="#ex-1-8" aria-label="习题 1.8">1.8</a> · <a href="#ex-1-9" aria-label="习题 1.9">1.9</a> · <a href="#ex-1-10" aria-label="习题 1.10">1.10</a> · <a href="#ex-1-11" aria-label="习题 1.11">1.11</a> · <a href="#ex-1-12" aria-label="习题 1.12">1.12</a> · <a href="#ex-1-13" aria-label="习题 1.13">1.13</a> · <a href="#ex-1-14" aria-label="习题 1.14">1.14</a> · <a href="#ex-1-15" aria-label="习题 1.15">1.15</a> · <a href="#ex-1-16" aria-label="习题 1.16">1.16</a> · <a href="#ex-1-17" aria-label="习题 1.17">1.17</a> · <a href="#ex-1-18" aria-label="习题 1.18">1.18</a> · <a href="#ex-1-19" aria-label="习题 1.19">1.19</a> · <a href="#ex-1-20" aria-label="习题 1.20">1.20</a> · <a href="#ex-1-21" aria-label="习题 1.21">1.21</a> · <a href="#ex-1-22" aria-label="习题 1.22">1.22</a> · <a href="#ex-1-23" aria-label="习题 1.23">1.23</a> · <a href="#ex-1-24" aria-label="习题 1.24">1.24</a> · <a href="#ex-1-25" aria-label="习题 1.25">1.25</a> · <a href="#ex-1-26" aria-label="习题 1.26">1.26</a> · <a href="#ex-1-27" aria-label="习题 1.27">1.27</a> · <a href="#ex-1-28" aria-label="习题 1.28">1.28</a> · <a href="#ex-1-29" aria-label="习题 1.29">1.29</a> · <a href="#ex-1-30" aria-label="习题 1.30">1.30</a> · <a href="#ex-1-31" aria-label="习题 1.31">1.31</a> · <a href="#ex-1-32" aria-label="习题 1.32">1.32</a> · <a href="#ex-1-33" aria-label="习题 1.33">1.33</a> · <a href="#ex-1-34" aria-label="习题 1.34">1.34</a> · <a href="#ex-1-35" aria-label="习题 1.35">1.35</a> · <a href="#ex-1-36" aria-label="习题 1.36">1.36</a> · <a href="#ex-1-37" aria-label="习题 1.37">1.37</a> · <a href="#ex-1-38" aria-label="习题 1.38">1.38</a> · <a href="#ex-1-39" aria-label="习题 1.39">1.39</a> · <a href="#ex-1-40" aria-label="习题 1.40">1.40</a> · <a href="#ex-1-41" aria-label="习题 1.41">1.41</a> · <a href="#ex-1-42" aria-label="习题 1.42">1.42</a> · <a href="#ex-1-43" aria-label="习题 1.43">1.43</a> · <a href="#ex-1-44" aria-label="习题 1.44">1.44</a> · <a href="#ex-1-45" aria-label="习题 1.45">1.45</a> · <a href="#ex-1-46" aria-label="习题 1.46">1.46</a></div></details><details class="exercise" id="ex-1-1"><summary>习题 1.1 · 求值顺序</summary><p class="source">原书 p.26 / <a href="../sicp.pdf#page=54">PDF 54</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=54">PDF 54</a>。</p><p>按给出的顺序求值以下表达式，解释器分别打印什么结果？各表达式共用前面已经建立的定义。</p><pre><code>10
+(+ 5 3 4)
+(- 9 1)
+(/ 6 2)
+(+ (* 2 4) (- 4 6))
+(define a 3)
+(define b (+ a 1))
+(+ a b (* a b))
+(= a b)
+(if (and (&gt; b a) (&lt; b (* a b)))
+    b
+    a)
+(cond ((= a 4) 6)
+      ((= b 4) (+ 6 7 a))
+      (else 25))
+(+ 2 (if (&gt; b a) b a))
+(* (cond ((&gt; a b) a)
+         ((&lt; a b) b)
+         (else -1))
+   (+ a 1))</code></pre></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p>依次得到 <code>10, 12, 8, 3, 6</code>。两个 <code>define</code> 建立 <code>a=3</code>、<code>b=4</code>；定义式本身没有本题可移植的数值打印约定。后续结果依次为 <code>19, #f, 4, 16, 6, 16</code>。最后一式先由条件选出 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="b" display="inline"><mi>b</mi></math>，再乘以 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a+1" display="inline"><mrow><mi>a</mi><mo>+</mo><mn>1</mn></mrow></math>；<code>cond</code> 选中第一个真子句后不继续向下。</p></div></details><details class="exercise" id="ex-1-2"><summary>习题 1.2 · 前缀分式</summary><p class="source">原书 p.27 / <a href="../sicp.pdf#page=55">PDF 55</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=55">PDF 55</a>。</p><p>把下列分式翻译成前缀形式。</p><div class="math-block"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow class="MJX-TeXAtom-ORD">
+<mfrac>
+<mrow>
+<mn>5</mn>
+<mo>+</mo>
+<mn>4</mn>
+<mo>+</mo>
+<mo stretchy="false">(</mo>
+<mn>2</mn>
+<mo>−<!-- − --></mo>
+<mo stretchy="false">(</mo>
+<mn>3</mn>
+<mo>−<!-- − --></mo>
+<mo stretchy="false">(</mo>
+<mn>6</mn>
+<mo>+</mo>
+<mfrac>
+<mn>4</mn>
+<mn>5</mn>
+</mfrac>
+<mo stretchy="false">)</mo>
+<mo stretchy="false">)</mo>
+<mo stretchy="false">)</mo>
+</mrow>
+<mrow>
+<mn>3</mn>
+<mo stretchy="false">(</mo>
+<mn>6</mn>
+<mo>−<!-- − --></mo>
+<mn>2</mn>
+<mo stretchy="false">)</mo>
+<mo stretchy="false">(</mo>
+<mn>2</mn>
+<mo>−<!-- − --></mo>
+<mn>7</mn>
+<mo stretchy="false">)</mo>
+</mrow>
+</mfrac>
+<mo>.</mo>
+</mrow>
+</math></div></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p>最外层是除法；分子中的每一层减法也必须保留原来的括号方向。结果为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="−37/150" display="inline"><mrow><mo>−</mo><mn>37</mn><mo>/</mo><mn>150</mn></mrow></math>。</p><pre><code>(/ (+ 5 4 (- 2 (- 3 (+ 6 (/ 4 5)))))
+   (* 3 (- 6 2) (- 2 7)))</code></pre></div></details><details class="exercise" id="ex-1-3"><summary>习题 1.3 · 两个较大数</summary><p class="source">原书 p.27 / <a href="../sicp.pdf#page=55">PDF 55</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=55">PDF 55</a>。</p><p>定义一个过程，以三个数为参数，返回其中较大两个数的平方和。</p></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p>从三个平方的和中减去“数值最小者”的平方，剩下的就是两个较大数的平方和。比较的是数值大小，不能改成比较绝对值；相等时去掉任意一个最小者均可。实现见下方 elementary，测试覆盖负数、零与相等情况。</p><div id="code-elementary"><p class="source">教学实现 · <a href="../code/chapter01.rkt">完整执行源</a>（依赖同文件中的基础定义）</p><!-- SICP:snippet elementary --><details class="code-details" open><summary>过程实现 · elementary</summary><pre><code>(define (two-largest-squares a b c)
+  (- (+ (square a) (square b) (square c)) (square (min a b c))))
+(define (a-plus-abs-b a b) ((if (&gt; b 0) + -) a b))
+(define (new-if predicate then-clause else-clause)
+  (cond [predicate then-clause] [else else-clause]))
+(define (sqrt-original x)
+  (let loop ([guess 1.0] [remaining 2000])
+    (cond [(&lt; (abs (- (square guess) x)) 0.001) guess]
+          [(zero? remaining) (error &#x27;sqrt-original &quot;iteration limit&quot;)]
+          [else (loop (average guess (/ x guess)) (sub1 remaining))])))</code></pre></details><!-- /SICP:snippet --></div></div></details><details class="exercise" id="ex-1-4"><summary>习题 1.4 · 操作符也是表达式</summary><p class="source">原书 p.27 / <a href="../sicp.pdf#page=55">PDF 55</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=55">PDF 55</a>。</p><p>我们的求值模型允许操作符本身是复合表达式。利用这一观察，说明以下过程的行为。</p><pre><code>(define (a-plus-abs-b a b)
+  ((if (&gt; b 0) + -) a b))</code></pre></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p>先计算操作符位置的 <code>if</code>：<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="b" display="inline"><mi>b</mi></math> 为正选 +，否则选 −；再把 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="b" display="inline"><mi>b</mi></math> 作为参数。结果总为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a+|b|" display="inline"><mrow><mi>a</mi><mo>+</mo><mrow><mo>|</mo><mi>b</mi><mo>|</mo></mrow></mrow></math>。<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="b" display="inline"><mi>b</mi></math> 为零时选择减法也返回 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math>。这里没有把条件结果当数，而是把过程当作可调用的值。</p></div></details><details class="exercise" id="ex-1-5"><summary>习题 1.5 · 求值与终止</summary><p class="source">原书 p.27 / <a href="../sicp.pdf#page=55">PDF 55</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=55">PDF 55</a>。</p><p>Ben Bitdiddle 定义了下面两个过程，用以检测解释器采用应用序还是正则序，然后求值 <code>(test 0 (p))</code>。两种解释器各会出现什么行为？解释原因。无论采用哪种序，都假定 <code>if</code> 的求值规则相同：先求谓词，只求选中的分支。</p><pre><code>(define (p) (p))
+
+(define (test x y) 
+  (if (= x 0) 
+      0 
+      y))</code></pre><pre><code>(test 0 (p))</code></pre></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p>应用序必须先求第二个参数 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(p)" display="inline"><mrow><mo>(</mo><mi>p</mi><mo>)</mo></mrow></math>；它不断调用自身，因此还没有进入 <code>test</code> 就不终止。正则序先展开成 <code>(if (= 0 0) 0 (p))</code>，谓词为真，只取 0，未选分支不求值。这个论证依赖题设给出的 <code>if</code> 规则；本文不实际启动一个无界循环来“验证”终止差异。</p></div></details><details class="exercise" id="ex-1-6"><summary>习题 1.6 · <code>new-if</code> 的陷阱</summary><p class="source">原书 p.32 / <a href="../sicp.pdf#page=60">PDF 60</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=60">PDF 60</a>。</p><p>Alyssa <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="P" display="inline"><mi>P</mi></math>. Hacker 不明白为什么 <code>if</code> 必须是特殊形式，认为可以用 <code>cond</code> 定义一个普通过程 <code>new-if</code>。她的朋友 Eva Lu Ator 给出如下定义和两个演示，随后 Alyssa 用它改写 <code>sqrt-iter</code>。她用这个新过程求平方根时会发生什么？解释原因。</p><pre><code>(define (new-if predicate 
+                then-clause 
+                else-clause)
+  (cond (predicate then-clause)
+        (else else-clause)))</code></pre><pre><code>(new-if (= 2 3) 0 5)
+5
+
+(new-if (= 1 1) 0 5)
+0
+</code></pre><pre><code>(define (sqrt-iter guess x)
+  (new-if (good-enough? guess x)
+          guess
+          (sqrt-iter (improve guess x) x)))</code></pre></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p><code>new-if</code> 是普通过程，应用前必须把 <code>then-clause</code> 与 <code>else-clause</code> 都求出。即使 <code>good-enough?</code> 已为真，递归 <code>sqrt-iter</code> 的调用仍要先完成，导致过程无法到达返回猜测的那一步。真正的 <code>if</code> 只求选中的分支。可执行回归用两个带计数的参数确认 <code>new-if</code> 会求两边，再由递归结构推导不终止；不同实现最终也可能因资源限制报错。</p></div></details><details class="exercise" id="ex-1-7"><summary>习题 1.7 · 相对停止条件</summary><p class="source">原书 p.33 / <a href="../sicp.pdf#page=61">PDF 61</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=61">PDF 61</a>。</p><p>求平方根时使用的 <code>good-enough?</code> 对极小数不够有效；真实计算机的算术精度有限，这个测试对很大的数也不足。解释并举例展示它如何在小数和大数上失败。另一种策略是观察一次迭代到下一次猜测的变化，在变化只占猜测的很小比例时停止。设计使用这种测试的平方根过程；它对小数和大数是否更好？</p></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p>输入 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="10^(−12)" display="inline"><msup><mn>10</mn><mrow><mo>−</mo><mn>12</mn></mrow></msup></math> 的平方根应为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="10^(−6)" display="inline"><msup><mn>10</mn><mrow><mo>−</mo><mn>6</mn></mrow></msup></math>，原测试却约在猜测 0.03125 时就接受，因为其平方已经小于 0.001；相对误差极大。实测输入 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="10^13" display="inline"><msup><mn>10</mn><mn>13</mn></msup></math> 时，原测试在 2000 步内仍不能接受，因浮点平方残差无法满足小于 0.001；猜测停滞也不会自动使它通过。另一些大数恰好可表示为所需平方，仍可能正常结束，所以问题是这一阈值缺少统一保证。</p><p>比较相邻值的差与二者绝对值较大者的比例，避免把绝对容差硬套到所有尺度。零直接返回，负数和非有限值拒绝，另设上限防止未预见的发散。本文相对阈值为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="10^(−12)" display="inline"><msup><mn>10</mn><mrow><mo>−</mo><mn>12</mn></mrow></msup></math>，在 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="10^(−200)" display="inline"><msup><mn>10</mn><mrow><mo>−</mo><mn>200</mn></mrow></msup></math> 到 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="10^200" display="inline"><msup><mn>10</mn><mn>200</mn></msup></math> 的选定案例上对照独立 <code>sqrt</code>；这是一组已测边界，不是全部浮点输入的精度定理。</p><div id="code-roots"><p class="source">教学实现 · <a href="../code/chapter01.rkt">完整执行源</a>（依赖同文件中的基础定义）</p><!-- SICP:snippet roots --><details class="code-details" open><summary>过程实现 · roots</summary><pre><code>(define (relative-close? a b)
+  (or (= a b) (&lt;= (abs (- a b)) (* 1e-12 (max (abs a) (abs b))))))
+(define (bounded-improve improve initial [close? relative-close?] [limit 2000])
+  (let loop ([guess initial] [left limit])
+    (when (zero? left) (error &#x27;bounded-improve &quot;iteration limit&quot;))
+    (let ([next (improve guess)])
+      (unless (finite-real? next) (error &#x27;bounded-improve &quot;non-finite iterate&quot;))
+      (if (close? guess next) next (loop next (sub1 left))))))
+(define (sqrt-relative x)
+  (unless (and (finite-real? x) (&gt;= x 0)) (error &#x27;sqrt-relative &quot;finite nonnegative input required&quot;))
+  (if (zero? x) 0.0
+      (bounded-improve (lambda (y) (average y (/ x y))) 1.0)))
+(define (cube-root x)
+  (unless (finite-real? x) (error &#x27;cube-root &quot;finite real input required&quot;))
+  (cond [(zero? x) 0.0] [(negative? x) (- (cube-root (- x)))]
+        [else (bounded-improve (lambda (y) (+ (/ (/ (/ x y) y) 3.0) (* 2/3 y))) 1.0)]))</code></pre></details><!-- /SICP:snippet --></div></div></details><details class="exercise" id="ex-1-8"><summary>习题 1.8 · 立方根</summary><p class="source">原书 p.33 / <a href="../sicp.pdf#page=61">PDF 61</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=61">PDF 61</a>。</p><p>立方根的 Newton 改进公式如下：若 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="y" display="inline"><mi>y</mi></math> 是 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 的立方根近似值，该式给出更好的近似。利用它实现一个与平方根过程相似的立方根过程。§1.3.4 将说明怎样把二者抽象起来。</p><div class="math-block"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow class="MJX-TeXAtom-ORD">
+<mfrac>
+<mrow>
+<mrow class="MJX-TeXAtom-ORD">
+<mi>x</mi>
+<mrow class="MJX-TeXAtom-ORD">
+<mo>/</mo>
+</mrow>
+<msup>
+<mi>y</mi>
+<mn>2</mn>
+</msup>
+</mrow>
+<mo>+</mo>
+<mn>2</mn>
+<mi>y</mi>
+</mrow>
+<mn>3</mn>
+</mfrac>
+<mo>.</mo>
+</mrow>
+</math></div></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p>对 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="g(y)=y^3−x" display="inline"><mrow><mi>g</mi><mrow><mo>(</mo><mi>y</mi><mo>)</mo></mrow><mo>=</mo><msup><mi>y</mi><mn>3</mn></msup><mo>−</mo><mi>x</mi></mrow></math> 用 Newton 步，得到 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="y_next=(x/y^2+2y)/3" display="inline"><mrow><msub><mi>y</mi><mtext>next</mtext></msub><mo>=</mo><mrow><mo>(</mo><mi>x</mi><mo>/</mo><msup><mi>y</mi><mn>2</mn></msup><mo>+</mo><mn>2</mn><mi>y</mi><mo>)</mo></mrow><mo>/</mo><mn>3</mn></mrow></math>。实现与 1.7 放在同一 roots 单元：把除法写成先除以 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="y" display="inline"><mi>y</mi></math> 再除以 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="y" display="inline"><mi>y</mi></math>，避免先算大平方；零直接处理，负输入取正数根再恢复符号。局部接近非零真根时误差快速下降，仍需停止测试和迭代保护。</p></div></details><details class="exercise" id="ex-1-9"><summary>习题 1.9 · 加法的两种过程</summary><p class="source">原书 p.46 / <a href="../sicp.pdf#page=74">PDF 74</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=74">PDF 74</a>。</p><p>下面两个过程都以 <code>inc</code> 和 dec 为基础把两个正整数相加。利用代换模型分别展示 <code>(+ 4 5)</code> 产生的计算过程。它们是迭代过程还是递归过程？</p><pre><code>(define (+ a b)
+  (if (= a 0) 
+      b 
+      (inc (+ (dec a) b))))
+
+(define (+ a b)
+  (if (= a 0) 
+      b 
+      (+ (dec a) (inc b))))</code></pre></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p>第一种先向下展开，留下 <code>inc</code> 链，再从内向外返回，是线性递归过程；第二种只把 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math> 减一、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="b" display="inline"><mi>b</mi></math> 加一，是线性迭代过程。两者结果均为 9。</p><pre><code>(+ 4 5) → (inc (+ 3 5)) → (inc (inc (+ 2 5)))
+→ (inc (inc (inc (+ 1 5)))) → (inc (inc (inc (inc 5))))
+→ (inc (inc (inc 6))) → (inc (inc 7)) → (inc 8) → 9
+
+(+ 4 5) → (+ 3 6) → (+ 2 7) → (+ 1 8) → (+ 0 9) → 9</code></pre></div></details><details class="exercise" id="ex-1-10"><summary>习题 1.10 · Ackermann 函数</summary><p class="source">原书 p.47 / <a href="../sicp.pdf#page=75">PDF 75</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=75">PDF 75</a>。</p><p>下面的过程计算称为 Ackermann 函数的一种数学函数。求出所列三个调用的值，再对随后定义的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="g" display="inline"><mi>g</mi></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="h" display="inline"><mi>h</mi></math> 给出正整数 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 上的简洁数学描述。例如 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="k" display="inline"><mi>k</mi></math> 计算 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="5n²" display="inline"><mrow><mn>5</mn><msup><mi>n</mi><mn>2</mn></msup></mrow></math>。</p><pre><code>(define (A x y)
+  (cond ((= y 0) 0)
+        ((= x 0) (* 2 y))
+        ((= y 1) 2)
+        (else (A (- x 1)
+                 (A x (- y 1))))))</code></pre><pre><code>(A 1 10)
+(A 2 4)
+(A 3 3)</code></pre><pre><code>(define (f n) (A 0 n))
+(define (g n) (A 1 n))
+(define (h n) (A 2 n))
+(define (k n) (* 5 n n))</code></pre></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p>三个值分别为 1024、65536、65536。对正整数，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f(n)=2n" display="inline"><mrow><mi>f</mi><mrow><mo>(</mo><mi>n</mi><mo>)</mo></mrow><mo>=</mo><mn>2</mn><mi>n</mi></mrow></math>，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="g(n)=2^n" display="inline"><mrow><mi>g</mi><mrow><mo>(</mo><mi>n</mi><mo>)</mo></mrow><mo>=</mo><msup><mn>2</mn><mi>n</mi></msup></mrow></math>；<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="h" display="inline"><mi>h</mi></math> 是由 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 个 2 形成的右结合幂塔，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="h(1)=2" display="inline"><mrow><mi>h</mi><mrow><mo>(</mo><mn>1</mn><mo>)</mo></mrow><mo>=</mo><mn>2</mn></mrow></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="h(n+1)=2^(h(n))" display="inline"><mrow><mi>h</mi><mrow><mo>(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo>)</mo></mrow><mo>=</mo><msup><mn>2</mn><mrow><mi>h</mi><mrow><mo>(</mo><mi>n</mi><mo>)</mo></mrow></mrow></msup></mrow></math>。注意 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="g(0)" display="inline"><mrow><mi>g</mi><mrow><mo>(</mo><mn>0</mn><mo>)</mo></mrow></mrow></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="h(0)" display="inline"><mrow><mi>h</mi><mrow><mo>(</mo><mn>0</mn><mo>)</mo></mrow></mrow></math> 根据原过程均为 0，不能把正整数公式无条件延到 0。<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="k" display="inline"><mi>k</mi></math> 的结果是 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="5n^2" display="inline"><mrow><mn>5</mn><msup><mi>n</mi><mn>2</mn></msup></mrow></math>。例如 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="A(2,4)" display="inline"><mrow><mi>A</mi><mrow><mo>(</mo><mn>2</mn><mo>,</mo><mn>4</mn><mo>)</mo></mrow></mrow></math> 依次归结为 2、4、16、65536 的幂塔层次。</p><div id="code-recursive-processes"><p class="source">教学实现 · <a href="../code/chapter01.rkt">完整执行源</a>（依赖同文件中的基础定义）</p><!-- SICP:snippet recursive-processes --><details class="code-details" open><summary>过程实现 · recursive-processes</summary><pre><code>(define (add-rec a b) (if (= a 0) b (inc (add-rec (sub1 a) b))))
+(define (add-iter a b) (if (= a 0) b (add-iter (sub1 a) (inc b))))
+(define (A x y)
+  (cond [(= y 0) 0] [(= x 0) (* 2 y)] [(= y 1) 2]
+        [else (A (sub1 x) (A x (sub1 y)))]))
+(define (f-rec n)
+  (if (&lt; n 3) n (+ (f-rec (- n 1)) (* 2 (f-rec (- n 2))) (* 3 (f-rec (- n 3))))))
+(define (f-iter n)
+  (if (&lt; n 3) n
+      (let loop ([a 2] [b 1] [c 0] [k n])
+        (if (= k 0) c (loop (+ a (* 2 b) (* 3 c)) a b (sub1 k))))))
+(define (pascal row column)
+  (natural &#x27;pascal row)
+  (unless (and (exact-nonnegative-integer? column) (&lt;= column row)) (error &#x27;pascal &quot;column outside row&quot;))
+  (if (or (= column 0) (= column row)) 1
+      (+ (pascal (sub1 row) (sub1 column)) (pascal (sub1 row) column))))
+(define coins &#x27;#(0 1 5 10 25 50))
+(define (cc amount kinds)
+  (cond [(= amount 0) 1] [(or (&lt; amount 0) (= kinds 0)) 0]
+        [else (+ (cc amount (sub1 kinds)) (cc (- amount (vector-ref coins kinds)) kinds))]))
+(define (sine-count angle)
+  (if (&lt;= (abs angle) 0.1) (values angle 0)
+      (let-values ([(s count) (sine-count (/ angle 3.0))])
+        (values (- (* 3 s) (* 4 (cube s))) (add1 count)))))</code></pre></details><!-- /SICP:snippet --></div></div></details><details class="exercise" id="ex-1-11"><summary>习题 1.11 · 三项递推</summary><p class="source">原书 p.53 / <a href="../sicp.pdf#page=81">PDF 81</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=81">PDF 81</a>。</p><p>函数 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math> 在 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 小于 3 时等于 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math>，否则等于 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f(n−1)+2f(n−2)+3f(n−3)" display="inline"><mrow><mi>f</mi><mrow><mo>(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo>)</mo></mrow><mo>+</mo><mn>2</mn><mi>f</mi><mrow><mo>(</mo><mi>n</mi><mo>−</mo><mn>2</mn><mo>)</mo></mrow><mo>+</mo><mn>3</mn><mi>f</mi><mrow><mo>(</mo><mi>n</mi><mo>−</mo><mn>3</mn><mo>)</mo></mrow></mrow></math>。分别写出产生递归过程和迭代过程的实现。</p></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p><code>f-rec</code> 直接跟随定义，产生三分支递归树。<code>f-iter</code> 的状态保持为连续三项 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(f(k+2),f(k+1),f(k))" display="inline"><mrow><mo>(</mo><mi>f</mi><mrow><mo>(</mo><mi>k</mi><mo>+</mo><mn>2</mn><mo>)</mo></mrow><mo>,</mo><mi>f</mi><mrow><mo>(</mo><mi>k</mi><mo>+</mo><mn>1</mn><mo>)</mo></mrow><mo>,</mo><mi>f</mi><mrow><mo>(</mo><mi>k</mi><mo>)</mo></mrow><mo>)</mo></mrow></math>；下一步用题设系数形成新首项，再把旧首、旧次向右移。初值为 (2,1,0)，循环 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 次返回第三项；小于 3 的输入直接按题设返回 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math>。实现同上，两版在有限输入上交叉核对，迭代的正确性另由该不变量说明。</p></div></details><details class="exercise" id="ex-1-12"><summary>习题 1.12 · Pascal 三角形</summary><p class="source">原书 p.53 / <a href="../sicp.pdf#page=81">PDF 81</a>–82。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=81">PDF 81</a>。</p><p>下列模式称为 Pascal 三角形：边缘都是 1，内部的每个数是上面两个数之和。写一个通过递归过程计算 Pascal 三角形元素的过程。</p><pre><code>         1
+       1   1
+     1   2   1
+   1   3   3   1
+ 1   4   6   4   1
+       . . .
+</code></pre></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p>约定第 0 行只有一个元素 1，列也从 0 起。边界列 0 和 row 返回 1，其余返回上一行 column−1 与 column 两项的和。每次行数减一，因而最终到边缘；非法列明确拒绝。第 4 行为 <code>(1 4 6 4 1)</code>。实现见 recursive-processes；每行和为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="2^r" display="inline"><msup><mn>2</mn><mi>r</mi></msup></math> 还提供独立核对。</p></div></details><details class="exercise" id="ex-1-13"><summary>习题 1.13 · Fibonacci 的闭式</summary><p class="source">原书 p.54 / <a href="../sicp.pdf#page=82">PDF 82</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=82">PDF 82</a>。</p><p>证明 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="Fib(n)" display="inline"><mrow><mi>F</mi><mi>i</mi><mi>b</mi><mrow><mo>(</mo><mi>n</mi><mo>)</mo></mrow></mrow></math> 是最接近 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="φⁿ/√5" display="inline"><mrow><msup><mi>φ</mi><mi>n</mi></msup><mo>/</mo><msqrt><mn>5</mn></msqrt></mrow></math> 的整数，其中 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="φ=(1+√5)/2" display="inline"><mrow><mi>φ</mi><mo>=</mo><mrow><mo>(</mo><mn>1</mn><mo>+</mo><msqrt><mn>5</mn></msqrt><mo>)</mo></mrow><mo>/</mo><mn>2</mn></mrow></math>。提示：令 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="ψ=(1−√5)/2" display="inline"><mrow><mi>ψ</mi><mo>=</mo><mrow><mo>(</mo><mn>1</mn><mo>−</mo><msqrt><mn>5</mn></msqrt><mo>)</mo></mrow><mo>/</mo><mn>2</mn></mrow></math>，利用归纳法和 §1.2.2 的 Fibonacci 定义，证明 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="Fib(n)=(φⁿ−ψⁿ)/√5" display="inline"><mrow><mi>F</mi><mi>i</mi><mi>b</mi><mrow><mo>(</mo><mi>n</mi><mo>)</mo></mrow><mo>=</mo><mrow><mo>(</mo><msup><mi>φ</mi><mi>n</mi></msup><mo>−</mo><msup><mi>ψ</mi><mi>n</mi></msup><mo>)</mo></mrow><mo>/</mo><msqrt><mn>5</mn></msqrt></mrow></math>。</p></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><details class="rn-proof" open><summary>证明：先闭式，再控制舍入误差</summary><div class="rn-proof-body"><p><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="φ" display="inline"><mi>φ</mi></math> 和 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="ψ" display="inline"><mi>ψ</mi></math> 都满足 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="t^2=t+1" display="inline"><mrow><msup><mi>t</mi><mn>2</mn></msup><mo>=</mo><mi>t</mi><mo>+</mo><mn>1</mn></mrow></math>，因此它们的幂序列都满足 Fibonacci 的二项递推。令 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="B_n=(φ^n−ψ^n)/√5" display="inline"><mrow><msub><mi>B</mi><mi>n</mi></msub><mo>=</mo><mrow><mo>(</mo><msup><mi>φ</mi><mi>n</mi></msup><mo>−</mo><msup><mi>ψ</mi><mi>n</mi></msup><mo>)</mo></mrow><mo>/</mo><msqrt><mn>5</mn></msqrt></mrow></math>，直接计算 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="B_0=0" display="inline"><mrow><msub><mi>B</mi><mn>0</mn></msub><mo>=</mo><mn>0</mn></mrow></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="B_1=1" display="inline"><mrow><msub><mi>B</mi><mn>1</mn></msub><mo>=</mo><mn>1</mn></mrow></math>；再由递推及归纳得 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="B_n=Fib(n)" display="inline"><mrow><msub><mi>B</mi><mi>n</mi></msub><mo>=</mo><mi>F</mi><mi>i</mi><mi>b</mi><mrow><mo>(</mo><mi>n</mi><mo>)</mo></mrow></mrow></math>。</p><p>于是 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="|φ^n/√5−Fib(n)|=|ψ|^n/√5" display="inline"><mrow><mrow><mo>|</mo><msup><mi>φ</mi><mi>n</mi></msup><mo>/</mo><msqrt><mn>5</mn></msqrt><mo>−</mo><mi>F</mi><mi>i</mi><mi>b</mi><mrow><mo>(</mo><mi>n</mi><mo>)</mo></mrow><mo>|</mo></mrow><mo>=</mo><msup><mrow><mo>|</mo><mi>ψ</mi><mo>|</mo></mrow><mi>n</mi></msup><mo>/</mo><msqrt><mn>5</mn></msqrt></mrow></math>。因为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="|ψ|&lt;1" display="inline"><mrow><mrow><mo>|</mo><mi>ψ</mi><mo>|</mo></mrow><mo>&lt;</mo><mn>1</mn></mrow></math> 且 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="1/√5&lt;1/2" display="inline"><mrow><mn>1</mn><mo>/</mo><msqrt><mn>5</mn></msqrt><mo>&lt;</mo><mn>1</mn><mo>/</mo><mn>2</mn></mrow></math>，对所有非负整数 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math>，该差严格小于半个单位。<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="Fib(n)" display="inline"><mrow><mi>F</mi><mi>i</mi><mi>b</mi><mrow><mo>(</mo><mi>n</mi><mo>)</mo></mrow></mrow></math> 是整数，所以它是唯一最近整数。这一步不能只说“小于 1”，那不足以排除另一个整数更近。</p></div></details></div></details><details class="exercise" id="ex-1-14"><summary>习题 1.14 · 完整换零钱调用树</summary><p class="source">原书 p.56 / <a href="../sicp.pdf#page=84">PDF 84</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=84">PDF 84</a>。</p><p>画出 §1.2.2 的 count-change 对 11 美分换零钱时产生的计算树。金额增大时，这个过程所用空间和步骤数各是什么增长阶？</p></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p>标准面额按 1、5、10、25、50 美分编号。11 美分有四种组合：十一枚 1；一枚 5 加六枚 1；两枚 5 加一枚 1；一枚 10 加一枚 1。下面先示意根部的两种分支，再逐节点列出完整调用树；父节点列和分支列保留所有边，成功叶子返回 1，其余失败叶子返回 0。</p><figure class="rn-figure"><svg class="rn-diagram compact-diagram" viewBox="0 0 360 240" role="img" aria-labelledby="tree-title tree-desc"><title id="tree-title">换零钱调用树的根部</title><desc id="tree-desc">cc(11,5) 分解为 cc(11,4) 与 cc(-39,5)；前者继续展开，后者是返回零的叶子。完整所有节点及父子关系见紧接的表。</desc><path class="rn-edge" d="M180 63L90 113"/><path class="rn-edge" d="M180 63L270 113"/><path class="rn-edge" d="M90 155L90 202"/><g class="rn-node"><rect x="115" y="18" width="130" height="45" rx="8"/><text x="180" y="46" text-anchor="middle">cc(11,5)</text></g><g class="rn-node"><rect x="17" y="113" width="146" height="42" rx="8"/><text x="90" y="140" text-anchor="middle">cc(11,4)</text></g><g class="rn-node"><rect x="197" y="113" width="146" height="42" rx="8"/><text x="270" y="140" text-anchor="middle">cc(-39,5) = 0</text></g><g class="rn-node"><rect x="17" y="202" width="146" height="33" rx="8"/><text x="90" y="225" text-anchor="middle">继续两种分支</text></g></svg><figcaption>根部示意。下表包含完整 55 个调用节点，编号按深度优先进入顺序；并未省略负金额叶子或同形重复调用。</figcaption></figure><div class="table-scroll"><table><caption>11 美分完整调用树：每一行是一项调用</caption><thead><tr><th scope="col">节点</th><th scope="col">父节点</th><th scope="col">来自父节点的分支</th><th scope="col">参数</th><th scope="col">返回值</th></tr></thead><tbody><tr><td>1</td><td>—</td><td>根</td><td><code>cc</code>(11,5)</td><td>4</td></tr><tr><td>2</td><td>1</td><td>不使用该面额</td><td><code>cc</code>(11,4)</td><td>4</td></tr><tr><td>3</td><td>2</td><td>不使用该面额</td><td><code>cc</code>(11,3)</td><td>4</td></tr><tr><td>4</td><td>3</td><td>不使用该面额</td><td><code>cc</code>(11,2)</td><td>3</td></tr><tr><td>5</td><td>4</td><td>不使用该面额</td><td><code>cc</code>(11,1)</td><td>1</td></tr><tr><td>6</td><td>5</td><td>不使用该面额</td><td><code>cc</code>(11,0)</td><td>0</td></tr><tr><td>7</td><td>5</td><td>使用一枚该面额</td><td><code>cc</code>(10,1)</td><td>1</td></tr><tr><td>8</td><td>7</td><td>不使用该面额</td><td><code>cc</code>(10,0)</td><td>0</td></tr><tr><td>9</td><td>7</td><td>使用一枚该面额</td><td><code>cc</code>(9,1)</td><td>1</td></tr><tr><td>10</td><td>9</td><td>不使用该面额</td><td><code>cc</code>(9,0)</td><td>0</td></tr><tr><td>11</td><td>9</td><td>使用一枚该面额</td><td><code>cc</code>(8,1)</td><td>1</td></tr><tr><td>12</td><td>11</td><td>不使用该面额</td><td><code>cc</code>(8,0)</td><td>0</td></tr><tr><td>13</td><td>11</td><td>使用一枚该面额</td><td><code>cc</code>(7,1)</td><td>1</td></tr><tr><td>14</td><td>13</td><td>不使用该面额</td><td><code>cc</code>(7,0)</td><td>0</td></tr><tr><td>15</td><td>13</td><td>使用一枚该面额</td><td><code>cc</code>(6,1)</td><td>1</td></tr><tr><td>16</td><td>15</td><td>不使用该面额</td><td><code>cc</code>(6,0)</td><td>0</td></tr><tr><td>17</td><td>15</td><td>使用一枚该面额</td><td><code>cc</code>(5,1)</td><td>1</td></tr><tr><td>18</td><td>17</td><td>不使用该面额</td><td><code>cc</code>(5,0)</td><td>0</td></tr><tr><td>19</td><td>17</td><td>使用一枚该面额</td><td><code>cc</code>(4,1)</td><td>1</td></tr><tr><td>20</td><td>19</td><td>不使用该面额</td><td><code>cc</code>(4,0)</td><td>0</td></tr><tr><td>21</td><td>19</td><td>使用一枚该面额</td><td><code>cc</code>(3,1)</td><td>1</td></tr><tr><td>22</td><td>21</td><td>不使用该面额</td><td><code>cc</code>(3,0)</td><td>0</td></tr><tr><td>23</td><td>21</td><td>使用一枚该面额</td><td><code>cc</code>(2,1)</td><td>1</td></tr><tr><td>24</td><td>23</td><td>不使用该面额</td><td><code>cc</code>(2,0)</td><td>0</td></tr><tr><td>25</td><td>23</td><td>使用一枚该面额</td><td><code>cc</code>(1,1)</td><td>1</td></tr><tr><td>26</td><td>25</td><td>不使用该面额</td><td><code>cc</code>(1,0)</td><td>0</td></tr><tr><td>27</td><td>25</td><td>使用一枚该面额</td><td><code>cc</code>(0,1)</td><td>1</td></tr><tr><td>28</td><td>4</td><td>使用一枚该面额</td><td><code>cc</code>(6,2)</td><td>2</td></tr><tr><td>29</td><td>28</td><td>不使用该面额</td><td><code>cc</code>(6,1)</td><td>1</td></tr><tr><td>30</td><td>29</td><td>不使用该面额</td><td><code>cc</code>(6,0)</td><td>0</td></tr><tr><td>31</td><td>29</td><td>使用一枚该面额</td><td><code>cc</code>(5,1)</td><td>1</td></tr><tr><td>32</td><td>31</td><td>不使用该面额</td><td><code>cc</code>(5,0)</td><td>0</td></tr><tr><td>33</td><td>31</td><td>使用一枚该面额</td><td><code>cc</code>(4,1)</td><td>1</td></tr><tr><td>34</td><td>33</td><td>不使用该面额</td><td><code>cc</code>(4,0)</td><td>0</td></tr><tr><td>35</td><td>33</td><td>使用一枚该面额</td><td><code>cc</code>(3,1)</td><td>1</td></tr><tr><td>36</td><td>35</td><td>不使用该面额</td><td><code>cc</code>(3,0)</td><td>0</td></tr><tr><td>37</td><td>35</td><td>使用一枚该面额</td><td><code>cc</code>(2,1)</td><td>1</td></tr><tr><td>38</td><td>37</td><td>不使用该面额</td><td><code>cc</code>(2,0)</td><td>0</td></tr><tr><td>39</td><td>37</td><td>使用一枚该面额</td><td><code>cc</code>(1,1)</td><td>1</td></tr><tr><td>40</td><td>39</td><td>不使用该面额</td><td><code>cc</code>(1,0)</td><td>0</td></tr><tr><td>41</td><td>39</td><td>使用一枚该面额</td><td><code>cc</code>(0,1)</td><td>1</td></tr><tr><td>42</td><td>28</td><td>使用一枚该面额</td><td><code>cc</code>(1,2)</td><td>1</td></tr><tr><td>43</td><td>42</td><td>不使用该面额</td><td><code>cc</code>(1,1)</td><td>1</td></tr><tr><td>44</td><td>43</td><td>不使用该面额</td><td><code>cc</code>(1,0)</td><td>0</td></tr><tr><td>45</td><td>43</td><td>使用一枚该面额</td><td><code>cc</code>(0,1)</td><td>1</td></tr><tr><td>46</td><td>42</td><td>使用一枚该面额</td><td><code>cc</code>(-4,2)</td><td>0</td></tr><tr><td>47</td><td>3</td><td>使用一枚该面额</td><td><code>cc</code>(1,3)</td><td>1</td></tr><tr><td>48</td><td>47</td><td>不使用该面额</td><td><code>cc</code>(1,2)</td><td>1</td></tr><tr><td>49</td><td>48</td><td>不使用该面额</td><td><code>cc</code>(1,1)</td><td>1</td></tr><tr><td>50</td><td>49</td><td>不使用该面额</td><td><code>cc</code>(1,0)</td><td>0</td></tr><tr><td>51</td><td>49</td><td>使用一枚该面额</td><td><code>cc</code>(0,1)</td><td>1</td></tr><tr><td>52</td><td>48</td><td>使用一枚该面额</td><td><code>cc</code>(-4,2)</td><td>0</td></tr><tr><td>53</td><td>47</td><td>使用一枚该面额</td><td><code>cc</code>(-9,3)</td><td>0</td></tr><tr><td>54</td><td>2</td><td>使用一枚该面额</td><td><code>cc</code>(-14,4)</td><td>0</td></tr><tr><td>55</td><td>1</td><td>使用一枚该面额</td><td><code>cc</code>(-39,5)</td><td>0</td></tr></tbody></table></div><p>对固定 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="k" display="inline"><mi>k</mi></math> 种正面额，原算法的调用数满足“同 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="k" display="inline"><mi>k</mi></math> 减金额”加“同金额减面额种类”的递推。一种面额时线性；逐层累加后 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="k" display="inline"><mi>k</mi></math> 种为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="Θ(a^k)" display="inline"><mrow><mi>Θ</mi><mrow><mo>(</mo><msup><mi>a</mi><mi>k</mi></msup><mo>)</mo></mrow></mrow></math>，故这五种面额时间为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="Θ(a^5)" display="inline"><mrow><mi>Θ</mi><mrow><mo>(</mo><msup><mi>a</mi><mn>5</mn></msup><mo>)</mo></mrow></mrow></math>。最长路径每次减金额或减种类，控制空间为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="Θ(a)" display="inline"><mrow><mi>Θ</mi><mrow><mo>(</mo><mi>a</mi><mo>)</mo></mrow></mrow></math>。这是金额趋大、面额集合固定的原递归分析，不能用输出的组合数替代调用数。</p></div></details><details class="exercise" id="ex-1-15"><summary>习题 1.15 · 三倍角的成本</summary><p class="source">原书 p.56 / <a href="../sicp.pdf#page=84">PDF 84</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=84">PDF 84</a>。</p><p>当角度足够小时，用 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="sin(x)≈x" display="inline"><mrow><mi mathvariant="normal">sin</mi><mrow><mo>(</mo><mi>x</mi><mo>)</mo></mrow><mo>≈</mo><mi>x</mi></mrow></math>；再用三倍角恒等式减小问题规模。这里“足够小”指绝对值不大于 0.1 弧度，程序如下。（<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math>）求值 <code>(sine 12.15)</code> 时，过程 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="p" display="inline"><mi>p</mi></math> 被调用多少次？（<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="b" display="inline"><mi>b</mi></math>）把角度 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math> 作为规模变量，计算 <code>(sine a)</code> 的空间和步骤数是什么增长阶？</p><pre><code>(define (cube x) (* x x x))
+(define (p x) (- (* 3 x) (* 4 (cube x))))
+(define (sine angle)
+   (if (not (&gt; (abs angle) 0.1))
+       angle
+       (p (sine (/ angle 3.0)))))</code></pre><div class="math-block"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow class="MJX-TeXAtom-ORD">
+<mi mathvariant="normal">sin</mi>
+<mo>⁡<!-- ⁡ --></mo>
+<mi>x</mi>
+</mrow>
+<mspace width="thinmathspace"></mspace>
+<mo>=</mo>
+<mspace width="thinmathspace"></mspace>
+<mrow class="MJX-TeXAtom-ORD">
+<mn>3</mn>
+<mi mathvariant="normal">sin</mi>
+<mo>⁡<!-- ⁡ --></mo>
+<mfrac>
+<mi>x</mi>
+<mn>3</mn>
+</mfrac>
+</mrow>
+<mspace width="thinmathspace"></mspace>
+<mo>−<!-- − --></mo>
+<mspace width="thinmathspace"></mspace>
+<mrow class="MJX-TeXAtom-ORD">
+<mn>4</mn>
+<msup>
+<mi mathvariant="normal">sin</mi>
+<mn>3</mn>
+</msup>
+<mo>⁡<!-- ⁡ --></mo>
+<mfrac>
+<mi>x</mi>
+<mn>3</mn>
+</mfrac>
+</mrow>
+</math></div></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p>(a) 12.15→4.05→1.35→0.45→0.15→0.05，共除以 3 五次，返回时 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="p" display="inline"><mi>p</mi></math> 因而应用五次。<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(b)" display="inline"><mrow><mo>(</mo><mi>b</mi><mo>)</mo></mrow></math> 对大绝对值角度，需要约 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="log_3(|a|/0.1)" display="inline"><mrow><msub><mi mathvariant="normal">log</mi><mn>3</mn></msub><mrow><mo>(</mo><mrow><mo>|</mo><mi>a</mi><mo>|</mo></mrow><mo>/</mo><mn>0.1</mn><mo>)</mo></mrow></mrow></math> 次缩小，每层有一个待做的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="p" display="inline"><mi>p</mi></math>，时间和控制空间均为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="Θ(log |a|)" display="inline"><mrow><mi>Θ</mi><mrow><mo>(</mo><mi mathvariant="normal">log</mi><mrow><mo>|</mo><mi>a</mi><mo>|</mo></mrow><mo>)</mo></mrow></mrow></math>；已在小角区间时均为常量。用三倍角恒等式递推不意味着小角近似误差消失；这里只分析给定程序。</p></div></details><details class="exercise" id="ex-1-16"><summary>习题 1.16 · 迭代快速幂</summary><p class="source">原书 p.59 / <a href="../sicp.pdf#page=87">PDF 87</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=87">PDF 87</a>。</p><p>设计一个求幂过程，要求使用连续平方、产生迭代过程、并且步数为对数阶。提示：除底数 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="b" display="inline"><mi>b</mi></math> 和指数 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 外，保留额外状态 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math>；始终保持 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="abⁿ" display="inline"><mrow><mi>a</mi><msup><mi>b</mi><mi>n</mi></msup></mrow></math> 不变，起始时 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a=1" display="inline"><mrow><mi>a</mi><mo>=</mo><mn>1</mn></mrow></math>，结束时 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math> 就是答案。这样的不变量常用于设计迭代算法。</p></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p>状态 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(a,b,n)" display="inline"><mrow><mo>(</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo>,</mo><mi>n</mi><mo>)</mo></mrow></math> 保持 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a b^n=B^N" display="inline"><mrow><mi>a</mi><msup><mi>b</mi><mi>n</mi></msup><mo>=</mo><msup><mi>B</mi><mi>N</mi></msup></mrow></math>：偶数变成 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(a,b²,n/2)" display="inline"><mrow><mo>(</mo><mi>a</mi><mo>,</mo><msup><mi>b</mi><mn>2</mn></msup><mo>,</mo><mi>n</mi><mo>/</mo><mn>2</mn><mo>)</mo></mrow></math>，奇数变成 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(ab,b,n−1)" display="inline"><mrow><mo>(</mo><mi>a</mi><mi>b</mi><mo>,</mo><mi>b</mi><mo>,</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo>)</mo></mrow></math>，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n=0" display="inline"><mrow><mi>n</mi><mo>=</mo><mn>0</mn></mrow></math> 返回 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math>。每次至多一个奇数步后便折半，故乘法步数为对数阶；底数与结果变大时，精确整数乘法本身仍有位成本。</p><div id="code-logarithmic"><p class="source">教学实现 · <a href="../code/chapter01.rkt">完整执行源</a>（依赖同文件中的基础定义）</p><!-- SICP:snippet logarithmic --><details class="code-details" open><summary>过程实现 · logarithmic</summary><pre><code>(define (double-number x) (+ x x))
+(define (fast-expt b n)
+  (natural &#x27;fast-expt n)
+  (let loop ([a 1] [b b] [n n])
+    (cond [(zero? n) a] [(even? n) (loop a (square b) (quotient n 2))]
+          [else (loop (* a b) b (sub1 n))])))
+(define (multiply-rec a b)
+  (natural &#x27;multiply-rec b)
+  (cond [(zero? b) 0] [(even? b) (double-number (multiply-rec a (quotient b 2)))]
+        [else (+ a (multiply-rec a (sub1 b)))]))
+(define (multiply-iter a b)
+  (unless (exact-integer? b) (error &#x27;multiply-iter &quot;integer multiplier required&quot;))
+  (let loop ([sum 0] [a (if (negative? b) (- a) a)] [b (abs b)])
+    (cond [(zero? b) sum] [(even? b) (loop sum (+ a a) (quotient b 2))]
+          [else (loop (+ sum a) a (sub1 b))])))
+(define (fib-fast n)
+  (natural &#x27;fib-fast n)
+  (let loop ([a 1] [b 0] [p 0] [q 1] [n n])
+    (cond [(zero? n) b]
+          [(even? n) (loop a b (+ (square p) (square q)) (+ (* 2 p q) (square q)) (quotient n 2))]
+          [else (loop (+ (* b q) (* a q) (* a p)) (+ (* b p) (* a q)) p q (sub1 n))])))
+(define (gcd-count a b)
+  (let loop ([a a] [b b] [count 0])
+    (if (= b 0) (values a count) (loop b (remainder a b) (add1 count)))))</code></pre></details><!-- /SICP:snippet --></div></div></details><details class="exercise" id="ex-1-17"><summary>习题 1.17 · 递归快速乘法</summary><p class="source">原书 p.60 / <a href="../sicp.pdf#page=88">PDF 88</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=88">PDF 88</a>。</p><p>本节求幂算法建立在反复乘法之上，乘法同样可以建立在反复加法之上，如下面的线性步数过程。假定只有加法、<code>double</code>（加倍整数）和 halve（把偶数除以 2），设计一个类似 <code>fast-expt</code>、只需对数步数的乘法过程。</p><pre><code>(define (* a b)
+  (if (= b 0)
+      0
+      (+ a (* a (- b 1)))))</code></pre></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p>对非负整数乘数 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="b" display="inline"><mi>b</mi></math>，偶数时先算 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math> 与 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="b/2" display="inline"><mrow><mi>b</mi><mo>/</mo><mn>2</mn></mrow></math> 的积，再加倍；奇数时先算 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="b−1" display="inline"><mrow><mi>b</mi><mo>−</mo><mn>1</mn></mrow></math> 再加 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math>。<code>multiply-rec</code> 的返回路径留有加倍或加法，因此是递归过程，层数与加法次数均为对数阶。<code>double-number</code> 只把参数与自身相加，折半使用题设允许的 halve 操作的宿主 quotient 适配，不调用通用乘法。</p></div></details><details class="exercise" id="ex-1-18"><summary>习题 1.18 · 迭代快速乘法</summary><p class="source">原书 p.61 / <a href="../sicp.pdf#page=89">PDF 89</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=89">PDF 89</a>。</p><p>利用习题 1.16 和 1.17 的结果，设计一个以加法、加倍和折半实现两整数相乘的过程，要求产生迭代过程且步骤数为对数阶。</p></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p>使用累计值 <code>sum</code>，保持 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="sum+a b=A B" display="inline"><mrow><mtext>sum</mtext><mo>+</mo><mi>a</mi><mi>b</mi><mo>=</mo><mi>A</mi><mi>B</mi></mrow></math>。偶数时 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math> 加倍、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="b" display="inline"><mi>b</mi></math> 折半；奇数时把 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math> 加入 <code>sum</code>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="b" display="inline"><mi>b</mi></math> 减一。所有转移都是尾调用。实现把负乘数的符号移到 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math> 后处理绝对值，因此也覆盖两负相乘和零。变量个数常量，精确结果所需的位数仍随输入增长。</p></div></details><details class="exercise" id="ex-1-19"><summary>习题 1.19 · 变换的连续平方</summary><p class="source">原书 p.61 / <a href="../sicp.pdf#page=89">PDF 89</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=89">PDF 89</a>。</p><p>有一个只需对数步数的 Fibonacci 算法。§1.2.2 的 <code>fib-iter</code> 使用变换 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="T" display="inline"><mi>T</mi></math>：<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a←a+b" display="inline"><mrow><mi>a</mi><mo>←</mo><mi>a</mi><mo>+</mo><mi>b</mi></mrow></math>，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="b←a" display="inline"><mrow><mi>b</mi><mo>←</mo><mi>a</mi></mrow></math>。从 (1,0) 开始应用 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 次得到 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="Fib(n+1)" display="inline"><mrow><mi>F</mi><mi>i</mi><mi>b</mi><mrow><mo>(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo>)</mo></mrow></mrow></math> 和 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="Fib(n)" display="inline"><mrow><mi>F</mi><mi>i</mi><mi>b</mi><mrow><mo>(</mo><mi>n</mi><mo>)</mo></mrow></mrow></math>。考虑更一般的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="T(p,q)" display="inline"><mrow><mi>T</mi><mrow><mo>(</mo><mi>p</mi><mo>,</mo><mi>q</mi><mo>)</mo></mrow></mrow></math>：<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a←bq+aq+ap" display="inline"><mrow><mi>a</mi><mo>←</mo><mi>b</mi><mi>q</mi><mo>+</mo><mi>a</mi><mi>q</mi><mo>+</mo><mi>a</mi><mi>p</mi></mrow></math>，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="b←bp+aq" display="inline"><mrow><mi>b</mi><mo>←</mo><mi>b</mi><mi>p</mi><mo>+</mo><mi>a</mi><mi>q</mi></mrow></math>，其中 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="T" display="inline"><mi>T</mi></math> 是 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="p=0" display="inline"><mrow><mi>p</mi><mo>=</mo><mn>0</mn></mrow></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="q=1" display="inline"><mrow><mi>q</mi><mo>=</mo><mn>1</mn></mrow></math> 的特例。证明连续应用两次 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="T(p,q)" display="inline"><mrow><mi>T</mi><mrow><mo>(</mo><mi>p</mi><mo>,</mo><mi>q</mi><mo>)</mo></mrow></mrow></math> 等价于某个 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="T(p′,q′)" display="inline"><mrow><mi>T</mi><mrow><mo>(</mo><mi>p</mi><mo>′</mo><mo>,</mo><mi>q</mi><mo>′</mo><mo>)</mo></mrow></mrow></math>，推导 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="p′" display="inline"><mrow><mi>p</mi><mo>′</mo></mrow></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="q′" display="inline"><mrow><mi>q</mi><mo>′</mo></mrow></math>，从而能像 <code>fast-expt</code> 那样连续平方变换。补全下面的过程。</p><pre><code>(define (fib n)
+  (fib-iter 1 0 0 1 n))
+
+(define (fib-iter a b p q count)
+  (cond ((= count 0) 
+         b)
+        ((even? count)
+         (fib-iter a
+                   b
+                   ⟨??⟩  ;compute p&#x27;
+                   ⟨??⟩  ;compute q&#x27;
+                   (/ count 2)))
+        (else 
+         (fib-iter (+ (* b q) 
+                      (* a q) 
+                      (* a p))
+                   (+ (* b p) 
+                      (* a q))
+                   p
+                   q
+                   (- count 1)))))</code></pre></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p>写成矩阵 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="M(p,q)" display="inline"><mrow><mi>M</mi><mrow><mo>(</mo><mi>p</mi><mo>,</mo><mi>q</mi><mo>)</mo></mrow></mrow></math> 的两行分别为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(p+q,q)" display="inline"><mrow><mo>(</mo><mi>p</mi><mo>+</mo><mi>q</mi><mo>,</mo><mi>q</mi><mo>)</mo></mrow></math> 和 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(q,p)" display="inline"><mrow><mo>(</mo><mi>q</mi><mo>,</mo><mi>p</mi><mo>)</mo></mrow></math>。直接相乘得到 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="p′=p^2+q^2" display="inline"><mrow><mi>p</mi><mo>′</mo><mo>=</mo><msup><mi>p</mi><mn>2</mn></msup><mo>+</mo><msup><mi>q</mi><mn>2</mn></msup></mrow></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="q′=2pq+q^2" display="inline"><mrow><mi>q</mi><mo>′</mo><mo>=</mo><mn>2</mn><mi>p</mi><mi>q</mi><mo>+</mo><msup><mi>q</mi><mn>2</mn></msup></mrow></math>，两次变换仍落在同一族中。<code>fib-fast</code> 在偶数步只平方 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="p" display="inline"><mi>p</mi></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="q" display="inline"><mi>q</mi></math> 并折半次数，奇数步则把一次变换应用到 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="b" display="inline"><mi>b</mi></math>；初态 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(1,0,0,1,n)" display="inline"><mrow><mo>(</mo><mn>1</mn><mo>,</mo><mn>0</mn><mo>,</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>,</mo><mi>n</mi><mo>)</mo></mrow></math>，次数为零时 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="b" display="inline"><mi>b</mi></math> 正是 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="Fib(n)" display="inline"><mrow><mi>F</mi><mi>i</mi><mi>b</mi><mrow><mo>(</mo><mi>n</mi><mo>)</mo></mrow></mrow></math>。独立线性版本核对了第 0 至 1000 项。</p></div></details><details class="exercise" id="ex-1-20"><summary>习题 1.20 · 正则序求余计数</summary><p class="source">原书 p.65 / <a href="../sicp.pdf#page=93">PDF 93</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=93">PDF 93</a>。</p><p>过程产生的计算也依赖解释器规则。假设把 §1.2.5 的迭代 gcd 交给采用 §1.1.5 正则序的解释器，并保持 <code>if</code> 的规则不变。用代换模型展示 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(gcd 206 40)" display="inline"><mrow><mo>(</mo><mi mathvariant="normal">gcd</mi><mn>206</mn><mn>40</mn><mo>)</mo></mrow></math> 的计算，标出实际执行的 remainder；正则序共做多少次求余，应用序又是多少次？</p></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p>应用序的四次求余为：<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="206 mod 40=6" display="inline"><mrow><mn>206</mn><mo form="infix" lspace="0.278em" rspace="0.278em">mod</mo><mn>40</mn><mo>=</mo><mn>6</mn></mrow></math>，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="40 mod 6=4" display="inline"><mrow><mn>40</mn><mo form="infix" lspace="0.278em" rspace="0.278em">mod</mo><mn>6</mn><mo>=</mo><mn>4</mn></mrow></math>，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="6 mod 4=2" display="inline"><mrow><mn>6</mn><mo form="infix" lspace="0.278em" rspace="0.278em">mod</mo><mn>4</mn><mo>=</mo><mn>2</mn></mrow></math>，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="4 mod 2=0" display="inline"><mrow><mn>4</mn><mo form="infix" lspace="0.278em" rspace="0.278em">mod</mo><mn>2</mn><mo>=</mo><mn>0</mn></mrow></math>。正则序先展开，只有 <code>if</code> 的谓词和基本求余需要数值时才约简，重复出现的表达式不共享结果。</p><table><caption>正则序中未化简参数与实际成本</caption><thead><tr><th scope="col">阶段</th><th scope="col"><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math> 参数</th><th scope="col"><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="b" display="inline"><mi>b</mi></math> 参数</th><th scope="col">谓词求余次数</th></tr></thead><tbody><tr><td>起点</td><td>206</td><td>40</td><td>0</td></tr><tr><td>1</td><td>40</td><td><code>R1=rem(206,40)</code></td><td>1</td></tr><tr><td>2</td><td>R1</td><td><code>R2=rem(40,R1)</code></td><td>2</td></tr><tr><td>3</td><td>R2</td><td><code>R3=rem(R1,R2)</code></td><td>4</td></tr><tr><td>4</td><td>R3</td><td><code>R4=rem(R2,R3)=0</code></td><td>7</td></tr></tbody></table><p>当 R4 为零返回 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math>，此时 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math> 仍是未化简的 R3，需再做 4 次求余。合计 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="0+1+2+4+7+4=18" display="inline"><mrow><mn>0</mn><mo>+</mo><mn>1</mn><mo>+</mo><mn>2</mn><mo>+</mo><mn>4</mn><mo>+</mo><mn>7</mn><mo>+</mo><mn>4</mn><mo>=</mo><mn>18</mn></mrow></math>；结果均为 2。表中的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="R" display="inline"><mi>R</mi></math> 名字只是压缩书写，每次出现都要重算，并不表示 <code>let</code> 或记忆化绑定。</p></div></details><details class="exercise" id="ex-1-21"><summary>习题 1.21 · 最小因子</summary><p class="source">原书 p.70 / <a href="../sicp.pdf#page=98">PDF 98</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=98">PDF 98</a>。</p><p>利用 <code>smallest-divisor</code> 找出 199、1999、19999 的最小因子。</p></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p>最小因子依次是 199、1999、7；前两个是素数，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="19999=7×2857" display="inline"><mrow><mn>19999</mn><mo>=</mo><mn>7</mn><mo>×</mo><mn>2857</mn></mrow></math>。试除必须包含平方根处可能相等的因子，因此停止条件是 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="d²" display="inline"><msup><mi>d</mi><mn>2</mn></msup></math> 大于 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math>，而不是大于或等于。</p></div></details><details class="exercise" id="ex-1-22"><summary>习题 1.22 · 四个尺度的实测</summary><p class="source">原书 p.70 / <a href="../sicp.pdf#page=98">PDF 98</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=98">PDF 98</a>。</p><p>多数 Lisp 实现提供 <code>runtime</code>，以整数给出系统已运行时间（例如微秒）。下面 <code>timed-prime-test</code> 打印 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math>，若 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 为素数还打印三个星号和检验耗时。利用它写 <code>search-for-primes</code>，检查给定区间中连续的奇数。分别找出大于 1000、10000、100000、1000000 的最小三个素数，并记录每个素数的检验时间。试除法是 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="Θ(√n)" display="inline"><mrow><mi>Θ</mi><mrow><mo>(</mo><msqrt><mi>n</mi></msqrt><mo>)</mo></mrow></mrow></math>，所以 10000 附近预计是 1000 附近的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="√10" display="inline"><msqrt><mn>10</mn></msqrt></math> 倍：数据支持吗？对另外两个尺度又作何预测？结果是否支持“所需计算步数决定运行时间”的说法？</p><pre><code>(define (timed-prime-test n)
+  (newline)
+  (display n)
+  (start-prime-test n (runtime)))</code></pre><pre><code>(define (start-prime-test n start-time)
+  (if (prime? n)
+      (report-prime (- (runtime) 
+                       start-time))))</code></pre><pre><code>(define (report-prime elapsed-time)
+  (display &quot; *** &quot;)
+  (display elapsed-time))</code></pre></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p>下面是同一台 Windows 主机、Racket 8.10 的实际运行数据。每个数先预热；每种算法取五个 1000 次调用批次的中位数，换算为每次微秒。Fermat 固定 20 轮，伪随机种子 20261106；计时包含随机选底。较短单次调用通过批量计时降低分辨率影响；这些数字描述这一轮实验，不作为性能门禁。</p><div class="table-scroll"><table><caption>同一组十二个素数的本机实测（微秒/次）</caption><thead><tr><th scope="col">严格大于</th><th scope="col">素数</th><th scope="col">全试除</th><th scope="col">跳过偶数</th><th scope="col">Fermat 20 轮</th></tr></thead><tbody><tr><td>1000</td><td>1009</td><td>0.1217</td><td>0.0782</td><td>4.3422</td></tr><tr><td>1000</td><td>1013</td><td>0.1213</td><td>0.0775</td><td>4.3172</td></tr><tr><td>1000</td><td>1019</td><td>0.1208</td><td>0.0769</td><td>4.4994</td></tr><tr><td>10000</td><td>10007</td><td>0.3561</td><td>0.2034</td><td>5.5954</td></tr><tr><td>10000</td><td>10009</td><td>0.3704</td><td>0.2018</td><td>4.9750</td></tr><tr><td>10000</td><td>10037</td><td>0.3587</td><td>0.2009</td><td>5.1298</td></tr><tr><td>100000</td><td>100003</td><td>1.1222</td><td>0.6039</td><td>5.9202</td></tr><tr><td>100000</td><td>100019</td><td>1.1340</td><td>0.5971</td><td>6.0611</td></tr><tr><td>100000</td><td>100043</td><td>1.1021</td><td>0.6162</td><td>6.0625</td></tr><tr><td>1000000</td><td>1000003</td><td>3.5428</td><td>1.9177</td><td>6.7824</td></tr><tr><td>1000000</td><td>1000033</td><td>3.8267</td><td>2.1396</td><td>7.2172</td></tr><tr><td>1000000</td><td>1000037</td><td>3.4915</td><td>1.9241</td><td>7.2017</td></tr></tbody></table></div><p>全试除在四个量级的组均值约为 0.121、0.362、1.119、3.620 微秒；逐级比约为 2.98、3.09、3.23，接近 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="√10≈3.162" display="inline"><mrow><msqrt><mn>10</mn></msqrt><mo>≈</mo><mn>3.162</mn></mrow></math> 的预测。计时常数项使小输入偏离更明显。数据支持本实现此范围的趋势，不能据此断言所有程序的基本步成本相同。</p><div id="code-primes"><p class="source">教学实现 · <a href="../code/chapter01.rkt">完整执行源</a>（依赖同文件中的基础定义）</p><!-- SICP:snippet primes --><details class="code-details" open><summary>过程实现 · primes</summary><pre><code>(define (next-odd d) (if (= d 2) 3 (+ d 2)))
+(define (smallest-divisor n [next add1])
+  (unless (and (exact-integer? n) (&gt;= n 2)) (error &#x27;smallest-divisor &quot;integer &gt;= 2 required&quot;))
+  (let loop ([d 2])
+    (cond [(&gt; (* d d) n) n] [(zero? (remainder n d)) d] [else (loop (next d))])))
+(define (prime? n [next add1])
+  (and (exact-integer? n) (&gt;= n 2) (= n (smallest-divisor n next))))
+(define (runtime) (inexact-&gt;exact (floor (* 1000 (current-inexact-monotonic-milliseconds)))))
+(define (timed-prime-test n [predicate prime?])
+  (newline) (display n)
+  (let* ([start (runtime)] [result (predicate n)])
+    (when result (display &quot; *** &quot;) (display (- (runtime) start)))
+    result))
+(define (search-for-primes lower [count 3] [upper +inf.0])
+  (natural &#x27;search-for-primes count)
+  (let loop ([n (if (even? lower) (add1 lower) (+ lower 2))] [left count] [found &#x27;()])
+    (cond [(or (zero? left) (&gt; n upper)) (reverse found)]
+          [(prime? n next-odd) (loop (+ n 2) (sub1 left) (cons n found))]
+          [else (loop (+ n 2) left found)])))
+(define (expmod base exponent modulus)
+  (cond [(zero? exponent) 1]
+        [(even? exponent) (modulo (square (expmod base (quotient exponent 2) modulus)) modulus)]
+        [else (modulo (* base (expmod base (sub1 exponent) modulus)) modulus)]))
+(define (fermat-base? n a) (= (expmod a n n) a))
+(define (fermat-all? n)
+  (for/and ([a (in-range 1 n)]) (fermat-base? n a)))
+;; The benchmark uses n &lt;= 1,000,037, within Racket&#x27;s single-argument random bound.
+(define (fermat-prime? n [rounds 20])
+  (and (exact-integer? n) (&gt;= n 2)
+       (for/and ([i (in-range rounds)]) (fermat-base? n (add1 (random (sub1 n)))))))
+(define (expmod-duplicated base exponent modulus)
+  (cond [(zero? exponent) 1]
+        [(even? exponent) (modulo (* (expmod-duplicated base (quotient exponent 2) modulus)
+                                    (expmod-duplicated base (quotient exponent 2) modulus)) modulus)]
+        [else (modulo (* base (expmod-duplicated base (sub1 exponent) modulus)) modulus)]))</code></pre></details><!-- /SICP:snippet --></div></div></details><details class="exercise" id="ex-1-23"><summary>习题 1.23 · 跳过偶数</summary><p class="source">原书 p.71 / <a href="../sicp.pdf#page=99">PDF 99</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=99">PDF 99</a>。</p><p><code>smallest-divisor</code> 已试过 2，继续测试大偶数便没有必要。定义 <code>next</code>：输入 2 时返回 3，其余返回输入加 2；让 <code>find-divisor</code> 用 <code>(next test-divisor)</code> 替代加 1。再用 <code>timed-prime-test</code> 检查 1.22 的十二个素数。省去约一半步骤时你预计快多少？实测速度比是多少？若不是 2，怎样解释？</p></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p><code>next-odd</code> 从 2 跳到 3，以后加 2，正确性来自大于 2 的偶数若能整除，2 早已能整除。表中全试除与跳偶数的速度比随规模在各规模约为 1.5–1.9；没有精确达到 2。函数调用、分支和循环管理未被减半，<code>next</code> 本身也有开销，所以“试除次数少一半”只能预测主项常数。</p></div></details><details class="exercise" id="ex-1-24"><summary>习题 1.24 · Fermat 的实测</summary><p class="source">原书 p.72 / <a href="../sicp.pdf#page=100">PDF 100</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=100">PDF 100</a>。</p><p>修改 1.22 的 <code>timed-prime-test</code>，使用 <code>fast-prime?</code>（Fermat 方法），并检验同一组十二个素数。Fermat 检验按 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="Θ(log n)" display="inline"><mrow><mi>Θ</mi><mrow><mo>(</mo><mi mathvariant="normal">log</mi><mi>n</mi><mo>)</mo></mrow></mrow></math> 增长，预计 1000000 附近与 1000 附近的时间有何关系？数据支持吗？解释所有差异。</p></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p>保持轮数后，单位成本模型预测 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="log(10^6)/log(10^3)=2" display="inline"><mrow><mi mathvariant="normal">log</mi><mrow><mo>(</mo><msup><mn>10</mn><mn>6</mn></msup><mo>)</mo></mrow><mo>/</mo><mi mathvariant="normal">log</mi><mrow><mo>(</mo><msup><mn>10</mn><mn>3</mn></msup><mo>)</mo></mrow><mo>=</mo><mn>2</mn></mrow></math>。表中 Fermat 组均值由约 4.39 增到 7.07 微秒，约 1.61 倍，仍远小于试除的约 30 倍增长。指数的二进制 1 的分布、随机选底及固定调用开销都会影响实际乘法次数；更大数还要计入大整数运算成本。此范围 Fermat 的绝对时间比试除还大，较好的增长阶不保证小输入更快。</p></div></details><details class="exercise" id="ex-1-25"><summary>习题 1.25 · 逐步取模为何必要</summary><p class="source">原书 p.72 / <a href="../sicp.pdf#page=100">PDF 100</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=100">PDF 100</a>。</p><p>Alyssa 认为 <code>expmod</code> 做了额外工作：既然已有求幂过程，可直接采用下面的定义。她说得对吗？这个过程能否很好地用于 <code>fast-prime?</code>？解释。</p><pre><code>(define (expmod base exp m)
+  (remainder (fast-expt base exp) m))</code></pre></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p>精确整数算术下，两种写法的数学余数相同；性能却不同。先形成完整 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="base^exp" display="inline"><msup><mtext>base</mtext><mi mathvariant="normal">exp</mi></msup></math>，中间数的位数随 exponent 线性增加；逐次取模把每一层主要结果限制在 modulus 的位长附近。即使不发生机器整数溢出，任意精度整数也要付出分配、乘法和存储代价。因此“已有快速求幂”不等于适合先求完整巨幂再取模。</p></div></details><details class="exercise" id="ex-1-26"><summary>习题 1.26 · 重复递归的代价</summary><p class="source">原书 p.73 / <a href="../sicp.pdf#page=101">PDF 101</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=101">PDF 101</a>。</p><p>Louis Reasoner 的 1.24 程序似乎比 <code>prime?</code> 还慢。Eva 看到他把 <code>expmod</code> 的平方写成了两个递归调用的显式乘法，如下。Eva 说这把 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="Θ(log n)" display="inline"><mrow><mi>Θ</mi><mrow><mo>(</mo><mi mathvariant="normal">log</mi><mi>n</mi><mo>)</mo></mrow></mrow></math> 过程变成了 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="Θ(n)" display="inline"><mrow><mi>Θ</mi><mrow><mo>(</mo><mi>n</mi><mo>)</mo></mrow></mrow></math> 过程。解释她为何正确。</p><pre><code>(define (expmod base exp m)
+  (cond ((= exp 0) 1)
+        ((even? exp)
+         (remainder 
+          (* (expmod base (/ exp 2) m)
+             (expmod base (/ exp 2) m))
+          m))
+        (else
+         (remainder 
+          (* base 
+             (expmod base (- exp 1) m))
+          m))))</code></pre></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p>两个相同的递归调用并不自动共用结果。偶数指数 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="e" display="inline"><mi>e</mi></math> 的递推从 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="T(e)=T(e/2)+O(1)" display="inline"><mrow><mi>T</mi><mrow><mo>(</mo><mi>e</mi><mo>)</mo></mrow><mo>=</mo><mi>T</mi><mrow><mo>(</mo><mi>e</mi><mo>/</mo><mn>2</mn><mo>)</mo></mrow><mo>+</mo><mi>O</mi><mrow><mo>(</mo><mn>1</mn><mo>)</mo></mrow></mrow></math> 变为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="T(e)=2T(e/2)+O(1)" display="inline"><mrow><mi>T</mi><mrow><mo>(</mo><mi>e</mi><mo>)</mo></mrow><mo>=</mo><mn>2</mn><mi>T</mi><mrow><mo>(</mo><mi>e</mi><mo>/</mo><mn>2</mn><mo>)</mo></mrow><mo>+</mo><mi>O</mi><mrow><mo>(</mo><mn>1</mn><mo>)</mo></mrow></mrow></math>；于是分别是对数阶和线性阶。特别 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="e" display="inline"><mi>e</mi></math> 为 2 的幂时，若计所有调用且 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="T(0)=1" display="inline"><mrow><mi>T</mi><mrow><mo>(</mo><mn>0</mn><mo>)</mo></mrow><mo>=</mo><mn>1</mn></mrow></math>，错误版调用数为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="3e−1" display="inline"><mn>3e−1</mn></math>，正确版为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="log_2(e)+2" display="inline"><mrow><msub><mi mathvariant="normal">log</mi><mn>2</mn></msub><mrow><mo>(</mo><mi>e</mi><mo>)</mo></mrow><mo>+</mo><mn>2</mn></mrow></math>。返回余数相同，计算树却不同。</p></div></details><details class="exercise" id="ex-1-27"><summary>习题 1.27 · Carmichael 全底数</summary><p class="source">原书 p.73 / <a href="../sicp.pdf#page=101">PDF 101</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=101">PDF 101</a>。</p><p>证明脚注 1.47 所列 Carmichael 数确实会欺骗 Fermat 检验：写一个过程，接收整数 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math>，检查每个 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a&lt;n" display="inline"><mrow><mi>a</mi><mo>&lt;</mo><mi>n</mi></mrow></math> 是否都有 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="aⁿ" display="inline"><msup><mi>a</mi><mi>n</mi></msup></math> 与 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math> 模 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 同余，并在这些数上运行。</p></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p><code>fermat-all?</code> 枚举题设所有正整数底数 1 到 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n−1" display="inline"><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></math>。561、1105、1729、2465、2821、6601 六个数全部通过，独立试除又都判合数。例如 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="561=3×11×17" display="inline"><mrow><mn>561</mn><mo>=</mo><mn>3</mn><mo>×</mo><mn>11</mn><mo>×</mo><mn>17</mn></mrow></math>。这正是反例证据：增加同一 Fermat 条件的轮数不会筛掉这些数；不是“偶然还没抽到正确底数”。</p></div></details><details class="exercise" id="ex-1-28"><summary>习题 1.28 · Miller–Rabin 与校注</summary><p class="source">原书 p.73 / <a href="../sicp.pdf#page=101">PDF 101</a>–102。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=101">PDF 101</a>。</p><p>Miller–Rabin 检验是不会被 Carmichael 数欺骗的 Fermat 变体。若 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 是素数，正整数 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a&lt;n" display="inline"><mrow><mi>a</mi><mo>&lt;</mo><mi>n</mi></mrow></math> 满足 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a^(n−1)≡1" display="inline"><mrow><msup><mi>a</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup><mo>≡</mo><mn>1</mn></mrow></math>（模 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math>）。随机取 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math>，用 <code>expmod</code> 计算这个幂；每次平方时检查是否发现模 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 的 1 的非平凡平方根，即不等于 1 或 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n−1" display="inline"><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></math>、平方却与 1 同余的数；发现它可证明 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 不是素数。原题进一步声称：对奇合数 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math>，至少一半 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a&lt;n" display="inline"><mrow><mi>a</mi><mo>&lt;</mo><mi>n</mi></mrow></math> 的上述幂计算会揭示这样的平方根，因此不会被欺骗。修改 <code>expmod</code>，使发现这种根时发出信号；再据此写类似 <code>fast-prime?</code> 的 Miller–Rabin 检验，在已知素数和合数上测试。提示：可让 <code>expmod</code> 返回 0 发信号。</p></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p>平方前保留 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math>，令 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="r=x² mod n" display="inline"><mrow><mi>r</mi><mo>=</mo><msup><mi>x</mi><mn>2</mn></msup><mo form="infix" lspace="0.278em" rspace="0.278em">mod</mo><mi>n</mi></mrow></math>；若 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="r=1" display="inline"><mrow><mi>r</mi><mo>=</mo><mn>1</mn></mrow></math> 且 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 既非 1 又非 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n−1" display="inline"><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></math>，返回哨兵 0，并让外层模运算继续传播 0。最终只有结果为 1 才接受，这也会拒绝未出现非平凡平方根、但最终余数已经不为 1 的底数。素数情况下，域中 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(x−1)(x+1)=0" display="inline"><mrow><mrow><mo>(</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo>)</mo></mrow><mrow><mo>(</mo><mi>x</mi><mo>+</mo><mn>1</mn><mo>)</mo></mrow><mo>=</mo><mn>0</mn></mrow></math> 只能给出 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="±1" display="inline"><mrow><mo>±</mo><mn>1</mn></mrow></math>，因此哨兵不会误拒素数。</p><div class="contract"><p><strong>原题校注：</strong>“至少一半底数会揭示非平凡平方根”不能逐字当作一般定理。9 的模平方根中，平方等于 1 的只有 1、8，没有非平凡者；底数 2 却给出 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="2^8 mod 9=4" display="inline"><mrow><msup><mn>2</mn><mn>8</mn></msup><mo form="infix" lspace="0.278em" rspace="0.278em">mod</mo><mn>9</mn><mo>=</mo><mn>4</mn></mrow></math>，由最终余数条件识别。正确的概率论述应针对完整的合数见证条件。本文保留原题措辞并用这个反例说明缺口，不把返回 0 当成唯一失败条件。</p></div><p>一次通过也不代表必为素数：2047 在底数 2 上通过，底数 3 上失败。回归检查 2–299 的所有合法底数、六个 Carmichael 数和该强伪素数；固定底数集合对任意整数没有额外确定性保证。</p><div id="code-miller-rabin"><p class="source">教学实现 · <a href="../code/chapter01.rkt">完整执行源</a>（依赖同文件中的基础定义）</p><!-- SICP:snippet miller-rabin --><details class="code-details" open><summary>过程实现 · miller-rabin</summary><pre><code>(define (mr-expmod base exponent modulus)
+  (define (checked-square x)
+    (let ([r (modulo (square x) modulus)])
+      (if (and (= r 1) (not (= x 1)) (not (= x (sub1 modulus)))) 0 r)))
+  (cond [(zero? exponent) 1]
+        [(even? exponent) (checked-square (mr-expmod base (quotient exponent 2) modulus))]
+        [else (modulo (* base (mr-expmod base (sub1 exponent) modulus)) modulus)]))
+(define (mr-base? n a)
+  (unless (and (exact-integer? n) (&gt;= n 2) (exact-integer? a) (&lt;= 1 a (sub1 n)))
+    (error &#x27;mr-base? &quot;require n &gt;= 2 and 1 &lt;= a &lt; n&quot;))
+  (= (mr-expmod a (sub1 n) n) 1))
+(define (miller-rabin? n bases)
+  (and (exact-integer? n) (&gt;= n 2)
+       (or (= n 2) (and (odd? n) (for/and ([a bases]) (mr-base? n (+ 1 (modulo (sub1 a) (sub1 n)))))))))</code></pre></details><!-- /SICP:snippet --></div></div></details><details class="exercise" id="ex-1-29"><summary>习题 1.29 · Simpson 积分</summary><p class="source">原书 p.80 / <a href="../sicp.pdf#page=108">PDF 108</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=108">PDF 108</a>。</p><p>Simpson 法比上面介绍的数值积分更精确，其权重公式如下；<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="h=(b−a)/n" display="inline"><mrow><mi>h</mi><mo>=</mo><mrow><mo>(</mo><mi>b</mi><mo>−</mo><mi>a</mi><mo>)</mo></mrow><mo>/</mo><mi>n</mi></mrow></math>，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 是偶数，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="y(k)=f(a+kh)" display="inline"><mrow><mi>y</mi><mrow><mo>(</mo><mi>k</mi><mo>)</mo></mrow><mo>=</mo><mi>f</mi><mrow><mo>(</mo><mi>a</mi><mo>+</mo><mi>k</mi><mi>h</mi><mo>)</mo></mrow></mrow></math>，增大 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 会提高近似精度。定义接收 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="b" display="inline"><mi>b</mi></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 并返回该近似积分的过程。用 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n=100" display="inline"><mrow><mi>n</mi><mo>=</mo><mn>100</mn></mrow></math> 和 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n=1000" display="inline"><mrow><mi>n</mi><mo>=</mo><mn>1000</mn></mrow></math> 积分 <code>cube</code> 从 0 到 1，与前面的 integral 结果比较。</p><div class="math-block"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML">
+<mfrac>
+<mi>h</mi>
+<mn>3</mn>
+</mfrac>
+<mo stretchy="false">(</mo>
+<msub>
+<mi>y</mi>
+<mn>0</mn>
+</msub>
+<mo>+</mo>
+<mrow class="MJX-TeXAtom-ORD">
+<mn>4</mn>
+<msub>
+<mi>y</mi>
+<mn>1</mn>
+</msub>
+</mrow>
+<mo>+</mo>
+<mrow class="MJX-TeXAtom-ORD">
+<mn>2</mn>
+<msub>
+<mi>y</mi>
+<mn>2</mn>
+</msub>
+</mrow>
+<mo>+</mo>
+<mrow class="MJX-TeXAtom-ORD">
+<mn>4</mn>
+<msub>
+<mi>y</mi>
+<mn>3</mn>
+</msub>
+</mrow>
+<mo>+</mo>
+<mrow class="MJX-TeXAtom-ORD">
+<mn>2</mn>
+<msub>
+<mi>y</mi>
+<mn>4</mn>
+</msub>
+</mrow>
+<mo>+</mo>
+<mo>⋯<!-- ⋯ --></mo>
+<mo>+</mo>
+<mrow class="MJX-TeXAtom-ORD">
+<mn>2</mn>
+<msub>
+<mi>y</mi>
+<mrow class="MJX-TeXAtom-ORD">
+<mi>n</mi>
+<mo>−<!-- − --></mo>
+<mn>2</mn>
+</mrow>
+</msub>
+</mrow>
+<mo>+</mo>
+<mrow class="MJX-TeXAtom-ORD">
+<mn>4</mn>
+<msub>
+<mi>y</mi>
+<mrow class="MJX-TeXAtom-ORD">
+<mi>n</mi>
+<mo>−<!-- − --></mo>
+<mn>1</mn>
+</mrow>
+</msub>
+<mo>+</mo>
+<msub>
+<mi>y</mi>
+<mi>n</mi>
+</msub>
+<mo stretchy="false">)</mo>
+<mo>,</mo>
+</mrow>
+</math></div></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p>把各项权重写成端点 1、内部奇下标 4、内部偶下标 2，再乘 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="h/3" display="inline"><mrow><mi>h</mi><mo>/</mo><mn>3</mn></mrow></math>。<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 必须为正偶数。以精确有理数和 <code>cube</code> 运行时，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n=100" display="inline"><mrow><mi>n</mi><mo>=</mo><mn>100</mn></mrow></math>、1000 都精确给出 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="1/4" display="inline"><mrow><mn>1</mn><mo>/</mo><mn>4</mn></mrow></math>，因为 Simpson 对三次多项式已经精确。原书中点法 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="dx=0.01" display="inline"><mrow><mi>d</mi><mi>x</mi><mo>=</mo><mn>0.01</mn></mrow></math> 与 0.001 分别约为 0.2499875、0.249999875。浮点实现通常会有舍入误差；不能把这一特例推成对任意 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math> 都精确。</p><div id="code-integration"><p class="source">教学实现 · <a href="../code/chapter01.rkt">完整执行源</a>（依赖同文件中的基础定义）</p><!-- SICP:snippet integration --><details class="code-details" open><summary>过程实现 · integration</summary><pre><code>(define (midpoint-integral f a b dx)
+  (unless (&gt; dx 0) (error &#x27;midpoint-integral &quot;positive dx required&quot;))
+  (* dx (sum-iter f (+ a (/ dx 2)) (lambda (x) (+ x dx)) b)))
+(define (simpson f a b n)
+  (unless (and (exact-positive-integer? n) (even? n)) (error &#x27;simpson &quot;positive even n required&quot;))
+  (let* ([h (/ (- b a) n)]
+         [term (lambda (k) (* (cond [(or (= k 0) (= k n)) 1] [(odd? k) 4] [else 2]) (f (+ a (* k h)))))])
+    (* (/ h 3) (sum-iter term 0 add1 n))))</code></pre></details><!-- /SICP:snippet --></div></div></details><details class="exercise" id="ex-1-30"><summary>习题 1.30 · 迭代 <code>sum</code></summary><p class="source">原书 p.80 / <a href="../sicp.pdf#page=108">PDF 108</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=108">PDF 108</a>。</p><p><code>sum</code> 产生线性递归过程；它也能写成迭代求和。补全下面定义里缺少的表达式，说明如何做到。</p><pre><code>(define (sum term a next b)
+  (define (iter a result)
+    (if ⟨??⟩
+        ⟨??⟩
+        (iter ⟨??⟩ ⟨??⟩)))
+  (iter ⟨??⟩ ⟨??⟩))</code></pre></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p>补入 <code>(&gt; a b)</code>、<code>result</code>、<code>(next a)</code>、<code>(+ result (term a))</code>，初始参数为 <code>a</code> 与 <code>0</code>。下面的 <code>sum-iter</code> 通过迭代 accumulate 取得同一结构；循环状态 result 等于已经处理部分的和。闭区间外直接返回中性元，下一项必须前进。</p><div id="code-accumulation"><p class="source">教学实现 · <a href="../code/chapter01.rkt">完整执行源</a>（依赖同文件中的基础定义）</p><!-- SICP:snippet accumulation --><details class="code-details" open><summary>过程实现 · accumulation</summary><pre><code>(define (advance next a)
+  (let ([b (next a)]) (unless (&gt; b a) (error &#x27;advance &quot;next must strictly increase&quot;)) b))
+(define (accumulate-rec combiner null-value term a next b)
+  (if (&gt; a b) null-value
+      (combiner (term a) (accumulate-rec combiner null-value term (advance next a) next b))))
+(define (accumulate-iter combiner null-value term a next b)
+  (let loop ([a a] [result null-value])
+    (if (&gt; a b) result (loop (advance next a) (combiner result (term a))))))
+(define (sum-rec term a next b) (accumulate-rec + 0 term a next b))
+(define (sum-iter term a next b) (accumulate-iter + 0 term a next b))
+(define (product-rec term a next b) (accumulate-rec * 1 term a next b))
+(define (product-iter term a next b) (accumulate-iter * 1 term a next b))
+(define (factorial n) (natural &#x27;factorial n) (product-iter values 1 add1 n))
+(define (wallis n)
+  (* 4.0 (product-iter (lambda (i) (/ (* (* 2.0 i) (+ (* 2.0 i) 2)) (square (+ (* 2.0 i) 1)))) 1 add1 n)))
+(define (filtered-accumulate predicate combiner null-value term a next b)
+  (let loop ([a a] [result null-value])
+    (if (&gt; a b) result
+        (loop (advance next a) (if (predicate a) (combiner result (term a)) result)))))
+(define (prime-square-sum a b) (filtered-accumulate prime? + 0 square a add1 b))
+(define (coprime-product n)
+  (unless (exact-positive-integer? n) (error &#x27;coprime-product &quot;positive integer required&quot;))
+  (filtered-accumulate (lambda (i) (= (gcd i n) 1)) * 1 values 1 add1 (sub1 n)))</code></pre></details><!-- /SICP:snippet --></div></div></details><details class="exercise" id="ex-1-31"><summary>习题 1.31 · <code>product</code> 与 Wallis 乘积</summary><p class="source">原书 p.80 / <a href="../sicp.pdf#page=108">PDF 108</a>–109。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=108">PDF 108</a>。</p><p>(a) <code>sum</code> 只是可以用高阶过程简洁表达的许多抽象中最简单的一个。写一个类似的 <code>product</code>，返回函数在给定范围各点的值的乘积；用 <code>product</code> 定义 <code>factorial</code>，并利用下面的 Wallis 公式计算 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="π" display="inline"><mi>π</mi></math> 的近似值。<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(b)" display="inline"><mrow><mo>(</mo><mi>b</mi><mo>)</mo></mrow></math> 若 <code>product</code> 产生递归过程，再写迭代版本；若已是迭代过程，则写递归版本。</p><div class="math-block"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML">
+<mfrac>
+<mi>π<!-- π --></mi>
+<mn>4</mn>
+</mfrac>
+<mspace width="thinmathspace"></mspace>
+<mo>=</mo>
+<mspace width="thinmathspace"></mspace>
+<mrow class="MJX-TeXAtom-ORD">
+<mfrac>
+<mrow>
+<mn>2</mn>
+<mo>⋅<!-- ⋅ --></mo>
+<mn>4</mn>
+<mo>⋅<!-- ⋅ --></mo>
+<mn>4</mn>
+<mo>⋅<!-- ⋅ --></mo>
+<mn>6</mn>
+<mo>⋅<!-- ⋅ --></mo>
+<mn>6</mn>
+<mo>⋅<!-- ⋅ --></mo>
+<mn>8</mn>
+<mo>⋅<!-- ⋅ --></mo>
+<mo>⋯<!-- ⋯ --></mo>
+</mrow>
+<mrow>
+<mn>3</mn>
+<mo>⋅<!-- ⋅ --></mo>
+<mn>3</mn>
+<mo>⋅<!-- ⋅ --></mo>
+<mn>5</mn>
+<mo>⋅<!-- ⋅ --></mo>
+<mn>5</mn>
+<mo>⋅<!-- ⋅ --></mo>
+<mn>7</mn>
+<mo>⋅<!-- ⋅ --></mo>
+<mn>7</mn>
+<mo>⋅<!-- ⋅ --></mo>
+<mo>⋯<!-- ⋯ --></mo>
+</mrow>
+</mfrac>
+<mo>.</mo>
+</mrow>
+</math></div></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p>(a) 把加法和 0 换成乘法和 1，便得到 <code>product</code>；<code>factorial</code> 取 1 到 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 的恒等项，0! 为空积 1。Wallis 公式可按成对因子写为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="π≈4∏((2i)(2i+2)/(2i+1)^2)" display="inline"><mrow><mi>π</mi><mo>≈</mo><mn>4</mn><mo>∏</mo><mrow><mo>(</mo><mrow><mo>(</mo><mn>2</mn><mi>i</mi><mo>)</mo></mrow><mrow><mo>(</mo><mn>2</mn><mi>i</mi><mo>+</mo><mn>2</mn><mo>)</mo></mrow><mo>/</mo><msup><mrow><mo>(</mo><mn>2</mn><mi>i</mi><mo>+</mo><mn>1</mn><mo>)</mo></mrow><mn>2</mn></msup><mo>)</mo></mrow></mrow></math>，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="i" display="inline"><mi>i</mi></math> 从 1 到 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="N" display="inline"><mi>N</mi></math>。本文 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="N=100" display="inline"><mrow><mi>N</mi><mo>=</mo><mn>100</mn></mrow></math>、1000、10000 的结果和误差在程序实验表中给出；公式收敛较慢，不能只打印 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="π" display="inline"><mi>π</mi></math> 的已知值。<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(b)" display="inline"><mrow><mo>(</mo><mi>b</mi><mo>)</mo></mrow></math> <code>product-rec</code> 留乘法等待返回，<code>product-iter</code> 把乘积带进下一状态，二者都在上面的 accumulation 单元中。</p></div></details><details class="exercise" id="ex-1-32"><summary>习题 1.32 · 一般累积与方向</summary><p class="source">原书 p.81 / <a href="../sicp.pdf#page=109">PDF 109</a>–110。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=109">PDF 109</a>。</p><p>(a) 证明 <code>sum</code> 和 <code>product</code> 都是更一般的 accumulate 的特例。accumulate 按下面的接口组合一系列项：<code>term</code>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math>、<code>next</code>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="b" display="inline"><mi>b</mi></math> 意义同前；<code>combiner</code> 是组合当前项和累积结果的二元过程，<code>null-value</code> 是没有项时的值。实现 accumulate，再用它定义 <code>sum</code> 和 <code>product</code>。（<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="b" display="inline"><mi>b</mi></math>）若实现产生递归过程，补写迭代版本；若产生迭代过程，补写递归版本。</p><pre><code>(accumulate 
+ combiner null-value term a next b)</code></pre></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p>(a) 递归 accumulate 把当前项放在 <code>combiner</code> 左侧，把后面的累积放右侧；<code>sum</code> 与 <code>product</code> 分别选择 (+,0) 与 (*,1)。<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(b)" display="inline"><mrow><mo>(</mo><mi>b</mi><mo>)</mo></mrow></math> 迭代版把已有结果放左侧，当前项放右侧，得到左折叠。对于精确加法和乘法，两种结合方向一致；任意 <code>combiner</code> 下不能保证一致。</p><p>例如取 <code>list</code>、初值 <code>z</code>、项 1,2,3：递归得到 <code>(1 (2 (3 z)))</code>，迭代得到 <code>(((z 1) 2) 3)</code>。若要求一般右折叠的完全相同结构，常量状态的左折叠不能直接代替；还需缓存项或构造待执行过程。浮点加法也不满足严格结合律。</p></div></details><details class="exercise" id="ex-1-33"><summary>习题 1.33 · 筛选累积</summary><p class="source">原书 p.82 / <a href="../sicp.pdf#page=110">PDF 110</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=110">PDF 110</a>。</p><p>引入筛选可让 accumulate 更一般：只组合范围内满足指定条件的项。写 <code>filtered-accumulate</code>，参数与 accumulate 相同，再增加一个一元筛选谓词。用它表达：<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(a)" display="inline"><mrow><mo>(</mo><mi>a</mi><mo>)</mo></mrow></math> 区间 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math> 到 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="b" display="inline"><mi>b</mi></math> 中素数的平方和，可假定已有 <code>prime?</code>；<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(b)" display="inline"><mrow><mo>(</mo><mi>b</mi><mo>)</mo></mrow></math> 所有小于 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 且与 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 互素的正整数之积，即 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="1≤i&lt;n" display="inline"><mrow><mn>1</mn><mo>≤</mo><mi>i</mi><mo>&lt;</mo><mi>n</mi></mrow></math> 且 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="gcd(i,n)=1" display="inline"><mrow><mi mathvariant="normal">gcd</mi><mrow><mo>(</mo><mi>i</mi><mo>,</mo><mi>n</mi><mo>)</mo></mrow><mo>=</mo><mn>1</mn></mrow></math> 的那些数。</p></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p>先对区间索引 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math> 判断谓词，只有通过后才求 <code>term</code> 并合并。拒绝项时原累积值直接保留，不能假定把 <code>null-value</code> 喂给任意 <code>combiner</code> 总无影响。<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(a)" display="inline"><mrow><mo>(</mo><mi>a</mi><mo>)</mo></mrow></math> 用 <code>prime?</code> 筛选，<code>term</code> 取平方、合并取加法、初值 0；2–10 得 87。<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(b)" display="inline"><mrow><mo>(</mo><mi>b</mi><mo>)</mo></mrow></math> 筛选 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="gcd(i,n)=1" display="inline"><mrow><mi mathvariant="normal">gcd</mi><mrow><mo>(</mo><mi>i</mi><mo>,</mo><mi>n</mi><mo>)</mo></mrow><mo>=</mo><mn>1</mn></mrow></math>，<code>term</code> 取 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="i" display="inline"><mi>i</mi></math>，合并取乘法、初值 1，范围 1 到 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n−1" display="inline"><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></math>；<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n=10" display="inline"><mrow><mi>n</mi><mo>=</mo><mn>10</mn></mrow></math> 得 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="1×3×7×9=189" display="inline"><mrow><mn>1</mn><mo>×</mo><mn>3</mn><mo>×</mo><mn>7</mn><mo>×</mo><mn>9</mn><mo>=</mo><mn>189</mn></mrow></math>，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n=1" display="inline"><mrow><mi>n</mi><mo>=</mo><mn>1</mn></mrow></math> 按空积得 1。</p></div></details><details class="exercise" id="ex-1-34"><summary>习题 1.34 · 过程与数值的层次</summary><p class="source">原书 p.88 / <a href="../sicp.pdf#page=116">PDF 116</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=116">PDF 116</a>。</p><p>假设定义 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math> 如下，于是 <code>(f square)</code> 得到 4，另一个给出的调用得到 6。如果让解释器求值 <code>(f f)</code>，会发生什么？解释。</p><pre><code>(define (f g) (g 2))</code></pre><pre><code>(f square)
+4
+
+(f (lambda (z) (* z (+ z 1))))
+6
+</code></pre></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p>展开为 <code>(f 2)</code>，再展开为 <code>(2 2)</code>。数字 2 不能作为过程应用，因此报错。<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math> 接受的是能以一个数为参数的过程；它自己虽是过程，传给自己以后却会把数字 2 当作新的过程参数，契约不再成立。</p></div></details><details class="exercise" id="ex-1-35"><summary>习题 1.35 · 黄金比例不动点</summary><p class="source">原书 p.94 / <a href="../sicp.pdf#page=122">PDF 122</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=122">PDF 122</a>。</p><p>证明黄金比例 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="φ" display="inline"><mi>φ</mi></math> 是变换 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x↦1+1/x" display="inline"><mrow><mi>x</mi><mo>↦</mo><mn>1</mn><mo>+</mo><mn>1</mn><mo>/</mo><mi>x</mi></mrow></math> 的不动点，利用这一事实通过 <code>fixed-point</code> 计算 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="φ" display="inline"><mi>φ</mi></math>。</p></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p>黄金比例满足 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="φ^2=φ+1" display="inline"><mrow><msup><mi>φ</mi><mn>2</mn></msup><mo>=</mo><mi>φ</mi><mo>+</mo><mn>1</mn></mrow></math>，除以正 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="φ" display="inline"><mi>φ</mi></math> 得 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="φ=1+1/φ" display="inline"><mrow><mi>φ</mi><mo>=</mo><mn>1</mn><mo>+</mo><mn>1</mn><mo>/</mo><mi>φ</mi></mrow></math>。从 1.0 开始调用 <code>fixed-point</code>，返回约 1.6180328；选定的相邻差容差为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="10^(−5)" display="inline"><msup><mn>10</mn><mrow><mo>−</mo><mn>5</mn></mrow></msup></math>。另一代数根为负数；这里通过正初值和所选分支逼近正黄金比例。</p><div id="code-fixed-point"><p class="source">教学实现 · <a href="../code/chapter01.rkt">完整执行源</a>（依赖同文件中的基础定义）</p><!-- SICP:snippet fixed-point --><details class="code-details" open><summary>过程实现 · <code>fixed-point</code></summary><pre><code>(define (fixed-point/trace f initial [tolerance 1e-5] [limit 2000])
+  (let loop ([guess initial] [trace (list initial)] [left limit])
+    (when (zero? left) (error &#x27;fixed-point &quot;iteration limit&quot;))
+    (let ([next (f guess)])
+      (unless (finite-real? next) (error &#x27;fixed-point &quot;non-finite iterate&quot;))
+      (if (&lt; (abs (- next guess)) tolerance)
+          (values next (reverse (cons next trace)))
+          (loop next (cons next trace) (sub1 left))))))
+(define (fixed-point f initial)
+  (let-values ([(result trace) (fixed-point/trace f initial)]) result))
+(define (average-damp f) (lambda (x) (average x (f x))))
+(define (half-interval f a b [tolerance 0.001])
+  (define (search lo hi)
+    (let* ([mid (average lo hi)] [v (f mid)])
+      (cond [(or (= v 0) (&lt; (abs (- hi lo)) tolerance)) mid]
+            [(positive? v) (search lo mid)] [else (search mid hi)])))
+  (let ([fa (f a)] [fb (f b)])
+    (cond [(= fa 0) a] [(= fb 0) b] [(and (&lt; fa 0) (&gt; fb 0)) (search a b)]
+          [(and (&gt; fa 0) (&lt; fb 0)) (search b a)] [else (error &#x27;half-interval &quot;endpoints must bracket a root&quot;)])) )</code></pre></details><!-- /SICP:snippet --></div></div></details><details class="exercise" id="ex-1-36"><summary>习题 1.36 · 打印迭代轨迹</summary><p class="source">原书 p.94 / <a href="../sicp.pdf#page=122">PDF 122</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=122">PDF 122</a>。</p><p>修改 <code>fixed-point</code>，用 1.22 的 newline 和 display 打印产生的近似值序列。通过寻找 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x↦log(1000)/log(x)" display="inline"><mrow><mi>x</mi><mo>↦</mo><mi mathvariant="normal">log</mi><mrow><mo>(</mo><mn>1000</mn><mo>)</mo></mrow><mo>/</mo><mi mathvariant="normal">log</mi><mrow><mo>(</mo><mi>x</mi><mo>)</mo></mrow></mrow></math> 的不动点求解 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="xˣ=1000" display="inline"><mrow><msup><mi>x</mi><mi>x</mi></msup><mo>=</mo><mn>1000</mn></mrow></math>，使用 Scheme 的 log 过程。比较使用和不使用平均阻尼的步数。初始猜测不能为 1，因为会除以 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="log(1)=0" display="inline"><mrow><mi mathvariant="normal">log</mi><mrow><mo>(</mo><mn>1</mn><mo>)</mo></mrow><mo>=</mo><mn>0</mn></mrow></math>。</p></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p>两版都从 2.0 起步，使用原书绝对步差 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="10^(−5)" display="inline"><msup><mn>10</mn><mrow><mo>−</mo><mn>5</mn></mrow></msup></math>。原始变换与平均阻尼分别产生下面的完整轨迹；迭代次数按变换调用计，不把最初猜测计作一步。阻尼使往返摆动减弱，但这个实验只涉及此函数和初值，不保证任意不动点函数都变快。</p><p>不阻尼共 34 步，一次阻尼共 9 步；两者逼近约 4.55553。</p><div class="table-scroll"><table><caption>初猜为 2.0 的完整不动点轨迹（保留 12 位有效数字）</caption><thead><tr><th scope="col">迭代次数</th><th scope="col">不阻尼</th><th scope="col">一次平均阻尼</th></tr></thead><tbody><tr><td>0</td><td>2</td><td>2</td></tr><tr><td>1</td><td>9.96578428466</td><td>5.98289214233</td></tr><tr><td>2</td><td>3.00447220984</td><td>4.92216872131</td></tr><tr><td>3</td><td>6.27919575751</td><td>4.6282243182</td></tr><tr><td>4</td><td>3.7598507024</td><td>4.56834651314</td></tr><tr><td>5</td><td>5.21584378493</td><td>4.55773059092</td></tr><tr><td>6</td><td>4.1822071924</td><td>4.55590980905</td></tr><tr><td>7</td><td>4.82776509834</td><td>4.55559941161</td></tr><tr><td>8</td><td>4.38759338466</td><td>4.55554655215</td></tr><tr><td>9</td><td>4.67125008576</td><td>4.555537552</td></tr><tr><td>10</td><td>4.4814036169</td><td>已停止</td></tr><tr><td>11</td><td>4.60536574609</td><td>已停止</td></tr><tr><td>12</td><td>4.52308496787</td><td>已停止</td></tr><tr><td>13</td><td>4.57711468205</td><td>已停止</td></tr><tr><td>14</td><td>4.54138248015</td><td>已停止</td></tr><tr><td>15</td><td>4.56490324523</td><td>已停止</td></tr><tr><td>16</td><td>4.5493726793</td><td>已停止</td></tr><tr><td>17</td><td>4.55960649191</td><td>已停止</td></tr><tr><td>18</td><td>4.55285387579</td><td>已停止</td></tr><tr><td>19</td><td>4.55730552975</td><td>已停止</td></tr><tr><td>20</td><td>4.55436906444</td><td>已停止</td></tr><tr><td>21</td><td>4.55630531153</td><td>已停止</td></tr><tr><td>22</td><td>4.55502826357</td><td>已停止</td></tr><tr><td>23</td><td>4.5558703967</td><td>已停止</td></tr><tr><td>24</td><td>4.55531500119</td><td>已停止</td></tr><tr><td>25</td><td>4.55568126354</td><td>已停止</td></tr><tr><td>26</td><td>4.55543971574</td><td>已停止</td></tr><tr><td>27</td><td>4.55559901</td><td>已停止</td></tr><tr><td>28</td><td>4.55549395753</td><td>已停止</td></tr><tr><td>29</td><td>4.55556323729</td><td>已停止</td></tr><tr><td>30</td><td>4.55551754842</td><td>已停止</td></tr><tr><td>31</td><td>4.55554767931</td><td>已停止</td></tr><tr><td>32</td><td>4.55552780852</td><td>已停止</td></tr><tr><td>33</td><td>4.55554091292</td><td>已停止</td></tr><tr><td>34</td><td>4.5555322708</td><td>已停止</td></tr></tbody></table></div></div></details><details class="exercise" id="ex-1-37"><summary>习题 1.37 · 连分式的两种方向</summary><p class="source">原书 p.94 / <a href="../sicp.pdf#page=122">PDF 122</a>–123。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=122">PDF 122</a>。</p><p>(a) 无限连分式及其截断到 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="k" display="inline"><mi>k</mi></math> 项的形式如下。分子与分母全为 1 时，其极限是 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="1/φ" display="inline"><mrow><mn>1</mn><mo>/</mo><mi>φ</mi></mrow></math>。假设 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="d" display="inline"><mi>d</mi></math> 是接收项序号 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="i" display="inline"><mi>i</mi></math> 并返回 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="N(i)" display="inline"><mrow><mi>N</mi><mrow><mo>(</mo><mi>i</mi><mo>)</mo></mrow></mrow></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="D(i)" display="inline"><mrow><mi>D</mi><mrow><mo>(</mo><mi>i</mi><mo>)</mo></mrow></mrow></math> 的过程，定义 <code>(cont-frac n d k)</code> 计算有限连分式。令分子分母过程均返回 1.0，逐渐增加 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="k" display="inline"><mi>k</mi></math>；要获得四位小数精度，需要多大的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="k" display="inline"><mi>k</mi></math>？（<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="b" display="inline"><mi>b</mi></math>）若实现产生递归过程，补写迭代版本；若产生迭代过程，则写递归版本。</p><pre><code>(cont-frac (lambda (i) 1.0)
+           (lambda (i) 1.0)
+           k)</code></pre><div class="math-block"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML">
+<mi>f</mi>
+<mspace width="thinmathspace"></mspace>
+<mo>=</mo>
+<mspace width="thinmathspace"></mspace>
+<mrow class="MJX-TeXAtom-ORD">
+<mfrac>
+<msub>
+<mi>N</mi>
+<mn>1</mn>
+</msub>
+<mrow>
+<msub>
+<mi>D</mi>
+<mn>1</mn>
+</msub>
+<mo>+</mo>
+<mfrac>
+<msub>
+<mi>N</mi>
+<mn>2</mn>
+</msub>
+<mrow>
+<msub>
+<mi>D</mi>
+<mn>2</mn>
+</msub>
+<mo>+</mo>
+<mfrac>
+<msub>
+<mi>N</mi>
+<mn>3</mn>
+</msub>
+<mrow>
+<msub>
+<mi>D</mi>
+<mn>3</mn>
+</msub>
+<mo>+</mo>
+<mo>…<!-- … --></mo>
+</mrow>
+</mfrac>
+</mrow>
+</mfrac>
+</mrow>
+</mfrac>
+<mo>.</mo>
+</mrow>
+</math></div><div class="math-block"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow class="MJX-TeXAtom-ORD">
+<mfrac>
+<msub>
+<mi>N</mi>
+<mn>1</mn>
+</msub>
+<mrow>
+<msub>
+<mi>D</mi>
+<mn>1</mn>
+</msub>
+<mo>+</mo>
+<mfrac>
+<msub>
+<mi>N</mi>
+<mn>2</mn>
+</msub>
+<mrow>
+<mo>⋱<!-- ⋱ --></mo>
+<mo>+</mo>
+<mfrac>
+<msub>
+<mi>N</mi>
+<mi>k</mi>
+</msub>
+<msub>
+<mi>D</mi>
+<mi>k</mi>
+</msub>
+</mfrac>
+</mrow>
+</mfrac>
+</mrow>
+</mfrac>
+<mo>.</mo>
+</mrow>
+</math></div></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p>递归版从第 1 层向深处展开，迭代版从第 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="k" display="inline"><mi>k</mi></math> 项向上倒推。规定 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="k=0" display="inline"><mrow><mi>k</mi><mo>=</mo><mn>0</mn></mrow></math> 的扩展值为 0；对正 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="k" display="inline"><mi>k</mi></math> 保留原题含义。四位小数需要先说明标准：若要求绝对误差小于半个末位单位，即 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="0.5×10^(−4)" display="inline"><mrow><mn>0.5</mn><mo>×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>4</mn></mrow></msup></mrow></math>，首次满足的是 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="k=11" display="inline"><mrow><mi>k</mi><mo>=</mo><mn>11</mn></mrow></math>；若只要求误差小于 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="10^(−4)" display="inline"><msup><mn>10</mn><mrow><mo>−</mo><mn>4</mn></mrow></msup></math>，首次为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="k=10" display="inline"><mrow><mi>k</mi><mo>=</mo><mn>10</mn></mrow></math>。<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="k=10" display="inline"><mrow><mi>k</mi><mo>=</mo><mn>10</mn></mrow></math>、11、12 的误差约为 0.00005646、0.00002157、0.00000824。</p><p>“四位舍入后的字符串相同”又是不同条件：<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="k=10" display="inline"><mrow><mi>k</mi><mo>=</mo><mn>10</mn></mrow></math> 恰好舍入到 0.6180，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="k=11" display="inline"><mrow><mi>k</mi><mo>=</mo><mn>11</mn></mrow></math> 却舍入到 0.6181，因此不能用一次字符串相同声称后续总稳定。代码和测试使用明确的数值误差标准。</p><div id="code-continued-fractions"><p class="source">教学实现 · <a href="../code/chapter01.rkt">完整执行源</a>（依赖同文件中的基础定义）</p><!-- SICP:snippet continued-fractions --><details class="code-details" open><summary>过程实现 · continued-fractions</summary><pre><code>(define (cont-frac-rec n d k)
+  (natural &#x27;cont-frac-rec k)
+  (define (walk i) (if (&gt; i k) 0 (/ (n i) (+ (d i) (walk (add1 i))))))
+  (walk 1))
+(define (cont-frac-iter n d k)
+  (natural &#x27;cont-frac-iter k)
+  (let loop ([i k] [tail 0]) (if (= i 0) tail (loop (sub1 i) (/ (n i) (+ (d i) tail))))))
+(define (e-approx k)
+  (+ 2 (cont-frac-iter (lambda (i) 1.0) (lambda (i) (if (= (modulo i 3) 2) (* 2 (/ (add1 i) 3)) 1)) k)))
+(define (tan-cf x k)
+  (cont-frac-iter (lambda (i) (if (= i 1) x (- (square x)))) (lambda (i) (sub1 (* 2 i))) k))</code></pre></details><!-- /SICP:snippet --></div></div></details><details class="exercise" id="ex-1-38"><summary>习题 1.38 · Euler 的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="e" display="inline"><mi>e</mi></math> 连分式</summary><p class="source">原书 p.96 / <a href="../sicp.pdf#page=124">PDF 124</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=124">PDF 124</a>。</p><p>Euler 在 1737 年发表的连分式给出 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="e−2" display="inline"><mrow><mi>e</mi><mo>−</mo><mn>2</mn></mrow></math>：所有分子为 1，分母依次是 1,2,1,1,4,1,1,6,1,1,8,…。用习题 1.37 的 cont-frac 根据这个展开逼近自然对数的底 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="e" display="inline"><mi>e</mi></math>。</p></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p>第 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="i" display="inline"><mi>i</mi></math> 个分母在 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="i" display="inline"><mi>i</mi></math> 除以 3 余 2 时为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="2(i+1)/3" display="inline"><mrow><mn>2</mn><mrow><mo>(</mo><mi>i</mi><mo>+</mo><mn>1</mn><mo>)</mo></mrow><mo>/</mo><mn>3</mn></mrow></math>，其余为 1；分子恒为 1。连分式算的是 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="e−2" display="inline"><mrow><mi>e</mi><mo>−</mo><mn>2</mn></mrow></math>，所以最后加 2。<code>e-approx</code> 的第 20 项结果约为 2.718281828459045，对照宿主 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="exp(1)" display="inline"><mrow><mi mathvariant="normal">exp</mi><mrow><mo>(</mo><mn>1</mn><mo>)</mo></mrow></mrow></math> 核对误差。</p></div></details><details class="exercise" id="ex-1-39"><summary>习题 1.39 · 正切连分式</summary><p class="source">原书 p.96 / <a href="../sicp.pdf#page=124">PDF 124</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=124">PDF 124</a>。</p><p>Lambert 于 1770 年发表了如下 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="tan(x)" display="inline"><mrow><mi mathvariant="normal">tan</mi><mrow><mo>(</mo><mi>x</mi><mo>)</mo></mrow></mrow></math> 的连分式表示，其中 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 用弧度计。定义 <code>(tan-cf x k)</code>，根据它计算正切的近似值；<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="k" display="inline"><mi>k</mi></math> 是与 1.37 相同的项数。</p><div class="math-block"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow class="MJX-TeXAtom-ORD">
+<mi mathvariant="normal">tan</mi>
+<mo>⁡<!-- ⁡ --></mo>
+<mi>x</mi>
+</mrow>
+<mspace width="thinmathspace"></mspace>
+<mo>=</mo>
+<mspace width="thinmathspace"></mspace>
+<mrow class="MJX-TeXAtom-ORD">
+<mfrac>
+<mi>x</mi>
+<mrow>
+<mn>1</mn>
+<mo>−<!-- − --></mo>
+<mfrac>
+<msup>
+<mi>x</mi>
+<mn>2</mn>
+</msup>
+<mrow>
+<mn>3</mn>
+<mo>−<!-- − --></mo>
+<mfrac>
+<msup>
+<mi>x</mi>
+<mn>2</mn>
+</msup>
+<mrow>
+<mn>5</mn>
+<mo>−<!-- − --></mo>
+<mo>…<!-- … --></mo>
+</mrow>
+</mfrac>
+</mrow>
+</mfrac>
+</mrow>
+</mfrac>
+<mspace width="thinmathspace"></mspace>
+<mo>,</mo>
+</mrow>
+</math></div></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p>取第一项分子 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math>，后续分子都取 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="−x²" display="inline"><mrow><mo>−</mo><msup><mi>x</mi><mn>2</mn></msup></mrow></math>，第 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="i" display="inline"><mi>i</mi></math> 个分母为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="2i−1" display="inline"><mrow><mn>2</mn><mi>i</mi><mo>−</mo><mn>1</mn></mrow></math>，即可把原来的连续减法装进统一的“分母加下一层”接口。<code>tan-cf</code>(1,20) 约为 1.557407724654902，与独立 tan 对照。输入单位必须是弧度；靠近正切极点时，有限截断可能极不稳定，也可能遇到零分母，不给出统一误差保证。</p></div></details><details class="exercise" id="ex-1-40"><summary>习题 1.40 · Newton 的三次式</summary><p class="source">原书 p.103 / <a href="../sicp.pdf#page=131">PDF 131</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=131">PDF 131</a>。</p><p>定义过程 <code>cubic</code>，使它能够在 <code>(newtons-method (cubic a b c) 1)</code> 中使用，以逼近三次式 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x³+ax²+bx+c" display="inline"><mrow><msup><mi>x</mi><mn>3</mn></msup><mo>+</mo><mi>a</mi><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>b</mi><mi>x</mi><mo>+</mo><mi>c</mi></mrow></math> 的零点。</p><pre><code>(newtons-method (cubic a b c) 1)</code></pre></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p><code>cubic</code> 返回捕获 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a" display="inline"><mi>a</mi></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="b" display="inline"><mi>b</mi></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="c" display="inline"><mi>c</mi></math> 的一元过程。导数用差分步长 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="10^(−5)" display="inline"><msup><mn>10</mn><mrow><mo>−</mo><mn>5</mn></mrow></msup></math>，Newton 变换再把它送入 <code>fixed-point</code>；导数过小则拒绝，避免把除零或巨大步长伪装成答案。例如 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a=0" display="inline"><mrow><mi>a</mi><mo>=</mo><mn>0</mn></mrow></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="b=−2" display="inline"><mrow><mi>b</mi><mo>=</mo><mo>−</mo><mn>2</mn></mrow></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="c=−3" display="inline"><mrow><mi>c</mi><mo>=</mo><mo>−</mo><mn>3</mn></mrow></math>，从 1.0 起步得到约 1.893289，代回三次式的残差在测试阈值内。不同系数和初值可能不收敛。</p><div id="code-transformations"><p class="source">教学实现 · <a href="../code/chapter01.rkt">完整执行源</a>（依赖同文件中的基础定义）</p><!-- SICP:snippet transformations --><details class="code-details" open><summary>过程实现 · transformations</summary><pre><code>(define dx 1e-5)
+(define (deriv g) (lambda (x) (/ (- (g (+ x dx)) (g x)) dx)))
+(define (newton-transform g)
+  (let ([dg (deriv g)])
+    (lambda (x) (let ([slope (dg x)])
+                  (when (&lt; (abs slope) 1e-14) (error &#x27;newton-transform &quot;derivative too small&quot;))
+                  (- x (/ (g x) slope))))))
+(define (newtons-method g guess) (fixed-point (newton-transform g) guess))
+(define (cubic a b c) (lambda (x) (+ (cube x) (* a (square x)) (* b x) c)))
+(define (double f) (lambda (x) (f (f x))))
+(define (compose f g) (lambda (x) (f (g x))))
+(define (repeated f n)
+  (natural &#x27;repeated n)
+  (let loop ([i n] [result values])
+    (if (= i 0) result (loop (sub1 i) (compose f result)))))
+(define (smooth f [step dx])
+  (lambda (x) (/ (+ (f (- x step)) (f x) (f (+ x step))) 3)))
+(define (n-fold-smooth f n [step dx]) ((repeated (lambda (g) (smooth g step)) n) f))
+(define (damping-count n)
+  (unless (exact-positive-integer? n) (error &#x27;damping-count &quot;positive degree required&quot;))
+  (sub1 (integer-length n)))
+(define (nth-root x n)
+  (unless (and (exact-positive-integer? n) (finite-real? x)) (error &#x27;nth-root &quot;finite x and positive integer n required&quot;))
+  (cond [(zero? x) 0.0] [(= n 1) x]
+        [(negative? x) (if (odd? n) (- (nth-root (- x) n)) (error &#x27;nth-root &quot;negative even root&quot;))]
+        [else (bounded-improve ((repeated average-damp (damping-count n))
+                               (lambda (y) (/ x (expt y (sub1 n))))) 1.0)]))</code></pre></details><!-- /SICP:snippet --></div></div></details><details class="exercise" id="ex-1-41"><summary>习题 1.41 · <code>double</code> 的高阶嵌套</summary><p class="source">原书 p.103 / <a href="../sicp.pdf#page=131">PDF 131</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=131">PDF 131</a>。</p><p>定义 <code>double</code>，接收一个一元过程，返回把它应用两次的新过程。例如 <code>(double inc)</code> 应得到加 2 的过程。下面表达式返回什么值？</p><pre><code>(((double (double double)) inc) 5)</code></pre></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p>结果是 21。<code>double</code> 把 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math> 变为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math> 的两次应用；<code>(double double)</code> 把某个 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math> 变成 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math> 的四次应用；外层再 <code>double</code> 此“变换”，相当于把四次应用的变换复合两次，得到十六次，而不是八次。最终对 <code>inc</code> 应用十六次，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="5+16=21" display="inline"><mrow><mn>5</mn><mo>+</mo><mn>16</mn><mo>=</mo><mn>21</mn></mrow></math>。</p></div></details><details class="exercise" id="ex-1-42"><summary>习题 1.42 · 函数复合</summary><p class="source">原书 p.103 / <a href="../sicp.pdf#page=131">PDF 131</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=131">PDF 131</a>。</p><p>令 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="g" display="inline"><mi>g</mi></math> 为一元函数，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math> 在 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="g" display="inline"><mi>g</mi></math> 之后的复合是 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x↦f(g(x))" display="inline"><mrow><mi>x</mi><mo>↦</mo><mi>f</mi><mrow><mo>(</mo><mi>g</mi><mrow><mo>(</mo><mi>x</mi><mo>)</mo></mrow><mo>)</mo></mrow></mrow></math>。定义实现这一点的 <code>compose</code>，例如下面调用应返回 49。</p><pre><code>((compose square inc) 6)
+49
+</code></pre></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p><code>compose</code> <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f g" display="inline"><mrow><mi>f</mi><mi>g</mi></mrow></math> 返回 <code>(lambda (x) (f (g x)))</code>，所以先执行 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="g" display="inline"><mi>g</mi></math> 后执行 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math>。<code>square</code> 在 <code>inc</code> 之后作用于 6，得到 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(6+1)^2=49" display="inline"><mrow><msup><mrow><mo>(</mo><mn>6</mn><mo>+</mo><mn>1</mn><mo>)</mo></mrow><mn>2</mn></msup><mo>=</mo><mn>49</mn></mrow></math>；反过来会得到 37。实现见 transformations 单元。</p></div></details><details class="exercise" id="ex-1-43"><summary>习题 1.43 · 反复应用</summary><p class="source">原书 p.104 / <a href="../sicp.pdf#page=132">PDF 132</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=132">PDF 132</a>。</p><p>若 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math> 是数值函数、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 是正整数，可把 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math> 连续应用 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 次，形成在 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 上给出 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f(f(…f(x)…))" display="inline"><mrow><mi>f</mi><mrow><mo>(</mo><mi>f</mi><mrow><mo>(</mo><mo>…</mo><mi>f</mi><mrow><mo>(</mo><mi>x</mi><mo>)</mo></mrow><mo>…</mo><mo>)</mo></mrow><mo>)</mo></mrow></mrow></math> 的函数。例如递增加 1 连用 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 次得到 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x+n" display="inline"><mrow><mi>x</mi><mo>+</mo><mi>n</mi></mrow></math>，平方连用 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 次得到 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="2ⁿ" display="inline"><msup><mn>2</mn><mi>n</mi></msup></math> 次幂。写一个接收 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 并返回这一函数的过程，使下面调用返回 625。提示：可用 1.42 的 <code>compose</code>。</p><pre><code>((repeated square 2) 5)
+625
+</code></pre></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p>从恒等过程开始，累计与 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math> 的复合，每加入一次便增加一次应用。<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n=2" display="inline"><mrow><mi>n</mi><mo>=</mo><mn>2</mn></mrow></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f=" display="inline"><mrow><mi>f</mi><mo>=</mo></mrow></math><code>square</code>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x=5" display="inline"><mrow><mi>x</mi><mo>=</mo><mn>5</mn></mrow></math> 得 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="(5^2)^2=625" display="inline"><mrow><msup><mrow><mo>(</mo><msup><mn>5</mn><mn>2</mn></msup><mo>)</mo></mrow><mn>2</mn></msup><mo>=</mo><mn>625</mn></mrow></math>。原题 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 为正整数，本文额外给 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n=0" display="inline"><mrow><mi>n</mi><mo>=</mo><mn>0</mn></mrow></math> 定义恒等过程并拒绝负数。构造循环是尾迭代，返回的嵌套过程仍包含 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 层组合及其存储，不能据此宣称全部资源恒定。</p></div></details><details class="exercise" id="ex-1-44"><summary>习题 1.44 · 反复平滑</summary><p class="source">原书 p.104 / <a href="../sicp.pdf#page=132">PDF 132</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=132">PDF 132</a>。</p><p>平滑函数在信号处理中很重要。若 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math> 是函数、dx 是小量，平滑后的函数在 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 取 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f(x−dx)" display="inline"><mrow><mi>f</mi><mrow><mo>(</mo><mi>x</mi><mo>−</mo><mi>d</mi><mi>x</mi><mo>)</mo></mrow></mrow></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f(x)" display="inline"><mrow><mi>f</mi><mrow><mo>(</mo><mi>x</mi><mo>)</mo></mrow></mrow></math>、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f(x+dx)" display="inline"><mrow><mi>f</mi><mrow><mo>(</mo><mi>x</mi><mo>+</mo><mi>d</mi><mi>x</mi><mo>)</mo></mrow></mrow></math> 的平均值。写 <code>smooth</code>，接收 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math> 并返回平滑函数。若要反复平滑，即平滑已经平滑过的函数，说明如何利用 <code>smooth</code> 和 1.43 的 <code>repeated</code> 得到任意函数的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 重平滑。</p></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p><code>smooth</code> 返回以同一个 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 的左右邻点和中心取平均的新过程。<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 重平滑应把 <code>smooth</code> 这个“函数到函数的变换”重复应用 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 次，再作用到 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math>，即 <code>((repeated smooth n) f)</code>；不是把已经平滑的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math> 在同一个数值上连用 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 次。</p><p>选 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="dx=1/10" display="inline"><mrow><mi>d</mi><mi>x</mi><mo>=</mo><mn>1</mn><mo>/</mo><mn>10</mn></mrow></math> 检查：常数与线性函数保持不变，平方函数一次平滑增加 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="2dx^2/3" display="inline"><mrow><mn>2</mn><mi>d</mi><msup><mi>x</mi><mn>2</mn></msup><mo>/</mo><mn>3</mn></mrow></math>，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 次增加 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="2n dx^2/3" display="inline"><mrow><mn>2</mn><mi>n</mi><mi>d</mi><msup><mi>x</mi><mn>2</mn></msup><mo>/</mo><mn>3</mn></mrow></math>。朴素实现每层求三次下层函数，求值量可按 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="3^n" display="inline"><msup><mn>3</mn><mi>n</mi></msup></math> 增长；抽象让表达变短，没有自动消除重复计算。</p></div></details><details class="exercise" id="ex-1-45"><summary>习题 1.45 · 高次根与阻尼次数</summary><p class="source">原书 p.105 / <a href="../sicp.pdf#page=133">PDF 133</a>。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=133">PDF 133</a>。</p><p>§1.3.3 中直接迭代 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="y↦x/y" display="inline"><mrow><mi>y</mi><mo>↦</mo><mi>x</mi><mo>/</mo><mi>y</mi></mrow></math> 求平方根不收敛，平均阻尼可以修复；立方根的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="y↦x/y²" display="inline"><mrow><mi>y</mi><mo>↦</mo><mi>x</mi><mo>/</mo><msup><mi>y</mi><mn>2</mn></msup></mrow></math> 也可这样处理。但一次阻尼不够让四次根的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="y↦x/y³" display="inline"><mrow><mi>y</mi><mo>↦</mo><mi>x</mi><mo>/</mo><msup><mi>y</mi><mn>3</mn></msup></mrow></math> 收敛，做两次却可以。做实验判断计算 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 次根需要几次平均阻尼；再用 <code>fixed-point</code>、<code>average-damp</code> 和 1.43 的 <code>repeated</code>，设计以反复平均阻尼 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="y↦x/y^(n−1)" display="inline"><mrow><mi>y</mi><mo>↦</mo><mi>x</mi><mo>/</mo><msup><mi>y</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup></mrow></math> 求 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 次根的简单过程。假定可用所有算术操作。</p></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p>对正目标根 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="α" display="inline"><mi>α</mi></math>，原变换在 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="α" display="inline"><mi>α</mi></math> 的导数为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="1−n" display="inline"><mrow><mn>1</mn><mo>−</mo><mi>n</mi></mrow></math>。平均阻尼 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="r" display="inline"><mi>r</mi></math> 次后，局部导数变为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="1−n/2^r" display="inline"><mrow><mn>1</mn><mo>−</mo><mi>n</mi><mo>/</mo><msup><mn>2</mn><mi>r</mi></msup></mrow></math>。局部收缩要求绝对值小于 1，即 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="2^r&gt;n/2" display="inline"><mrow><msup><mn>2</mn><mi>r</mi></msup><mo>&gt;</mo><mi>n</mi><mo>/</mo><mn>2</mn></mrow></math>；满足这一严格不等式的最小非负整数，在 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n≥2" display="inline"><mrow><mi>n</mi><mo>≥</mo><mn>2</mn></mrow></math> 时为 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="⌊log_2 n⌋" display="inline"><mrow><mo>⌊</mo><msub><mi mathvariant="normal">log</mi><mn>2</mn></msub><mi>n</mi><mo>⌋</mo></mrow></math>。例如四次根一次阻尼导数为 −1，落在边界；两次变成 0。</p><div class="table-scroll"><table><caption>目标 2、初值 1、相对步差 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="10⁻¹²" display="inline"><msup><mn>10</mn><mrow><mo>−</mo><mn>12</mn></mrow></msup></math>、最多 2000 步的实际实验</caption><thead><tr><th scope="col">次数 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math></th><th scope="col">阻尼 0 次</th><th scope="col">1 次</th><th scope="col">2 次</th><th scope="col">3 次</th><th scope="col">4 次</th></tr></thead><tbody><tr><td>2</td><td>未达标准</td><td>收敛</td><td>收敛</td><td>收敛</td><td>收敛</td></tr><tr><td>3</td><td>未达标准</td><td>收敛</td><td>收敛</td><td>收敛</td><td>收敛</td></tr><tr><td>4</td><td>未达标准</td><td>未达标准</td><td>收敛</td><td>收敛</td><td>收敛</td></tr><tr><td>5</td><td>未达标准</td><td>未达标准</td><td>收敛</td><td>收敛</td><td>收敛</td></tr><tr><td>8</td><td>未达标准</td><td>未达标准</td><td>未达标准</td><td>收敛</td><td>收敛</td></tr><tr><td>9</td><td>未达标准</td><td>未达标准</td><td>未达标准</td><td>收敛</td><td>收敛</td></tr><tr><td>16</td><td>未达标准</td><td>未达标准</td><td>未达标准</td><td>未达标准</td><td>收敛</td></tr></tbody></table></div><p>“收敛”同时要求有限迭代停止且幂残差小于 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="10⁻⁸" display="inline"><msup><mn>10</mn><mrow><mo>−</mo><mn>8</mn></mrow></msup></math>；“未达标准”包括超出上限、非有限中间值或残差不足，均未算作成功。</p><p>上述是根附近的局部分析。实现按该次数构造变换，设置有限迭代上限；零直接返回，负数只允许奇数次根。选定 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n=2" display="inline"><mrow><mi>n</mi><mo>=</mo><mn>2</mn></mrow></math>–20、<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x=17" display="inline"><mrow><mi>x</mi><mo>=</mo><mn>17</mn></mrow></math> 的数值测试通过；这不证明所有输入或远离根的初值都全局收敛，也不消除浮点幂的溢出风险。</p></div></details><details class="exercise" id="ex-1-46"><summary>习题 1.46 · 把改进控制再抽象</summary><p class="source">原书 p.105 / <a href="../sicp.pdf#page=133">PDF 133</a>–134。</p><div class="exercise-question"><p class="rn-exercise-label">原题（中文翻译）</p><p class="source">原书 <a href="../sicp.pdf#page=133">PDF 133</a>。</p><p>本章若干数值方法都是“迭代改进”的实例：从一个猜测开始，检查是否足够好，不够就改进并继续。写 <code>iterative-improve</code>，接收两个过程参数：判断猜测是否足够好和改进猜测的方法；返回一个接收初值并不断改进到足够好的过程。再用它重写 §1.1.7 的 <code>sqrt</code> 和 §1.3.3 的 <code>fixed-point</code>。</p></div><div class="answer"><p class="rn-exercise-label">解答与推导</p><p>返回一个接收初猜的过程：若 good? 成立就返回当前猜测，否则用 improve 产生下一猜测继续。<code>sqrt-via-improve</code> 使用 1.7 的相对步差，<code>fixed-point-via-improve</code> 检查当前猜测与 函数在该猜测处的值 的绝对差。后者返回当前值，原书 <code>fixed-point</code> 返回下一值，两者满足同一差值停止标准但末值不必逐位相等。</p><p>判好和改进都可能计算 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="f" display="inline"><mi>f</mi></math>，故这里要求这些过程无副作用；重复求值还会增加成本。执行适配器提供迭代上限和非有限值检查，这些是宿主保护，抽象的核心仍是题目要求的两个过程参数。</p><div id="code-iterative-improve"><p class="source">教学实现 · <a href="../code/chapter01.rkt">完整执行源</a>（依赖同文件中的基础定义）</p><!-- SICP:snippet iterative-improve --><details class="code-details" open><summary>过程实现 · <code>iterative-improve</code></summary><pre><code>(define (iterative-improve good? improve [limit 2000])
+  (lambda (initial)
+    (let loop ([guess initial] [left limit])
+      (cond [(good? guess) guess] [(zero? left) (error &#x27;iterative-improve &quot;iteration limit&quot;)]
+            [else (let ([next (improve guess)])
+                    (unless (finite-real? next) (error &#x27;iterative-improve &quot;non-finite iterate&quot;))
+                    (loop next (sub1 left)))]))))
+(define (sqrt-via-improve x)
+  (unless (and (finite-real? x) (&gt;= x 0)) (error &#x27;sqrt-via-improve &quot;finite nonnegative input required&quot;))
+  (if (zero? x) 0.0
+      (let ([improve (lambda (y) (average y (/ x y)))])
+        ((iterative-improve (lambda (y) (relative-close? y (improve y))) improve) 1.0))))
+(define (fixed-point-via-improve f first)
+  ((iterative-improve (lambda (y) (&lt; (abs (- y (f y))) 1e-5)) f) first))</code></pre></details><!-- /SICP:snippet --></div></div></details></section><section id="programs"><h2>程序、实验与回读</h2><p>本章 <a href="../code/chapter01.rkt">chapter01.rkt</a> 是教学实现维护源；<a href="../code/test-chapter01.rkt">test-chapter01.rkt</a> 给出独立结果、性质与失败边界；<a href="../code/benchmark-chapter01.rkt">计时程序</a>和<a href="../code/experiments-chapter01.rkt">数值实验程序</a>分别复现表格。宿主使用 Racket 8.10，#lang、模块导出、异常与测试框架是执行适配，不改变正在解释的 Scheme 核心过程。脚本不启动无界发散示例。</p><pre><code>racket books/sicp/code/test-chapter01.rkt
+racket books/sicp/code/benchmark-chapter01.rkt
+racket books/sicp/code/experiments-chapter01.rkt</code></pre><div class="table-scroll"><table><caption>Wallis 乘积的实际结果</caption><thead><tr><th scope="col"><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="N" display="inline"><mi>N</mi></math></th><th scope="col">近似 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="π" display="inline"><mi>π</mi></math></th><th scope="col">绝对误差</th></tr></thead><tbody><tr><td>100</td><td>3.1493784731686</td><td>0.00778581958</td></tr><tr><td>1000</td><td>3.14237736509389</td><td>0.000784711504</td></tr><tr><td>10000</td><td>3.1416711865345</td><td>7.85329447e-05</td></tr></tbody></table></div><p>实测数据与种子保存在 <a href="../code/chapter01-results.json">本次实验记录</a>。计时会随机器与负载变化；题解依赖明确输入和理论分析，测试不要求重跑时重现这些微秒值。回读本章时，先用契约解释每个方法，再用不变量或递归关系解释推进，最后核对成本与数值前提。</p><details class="code-details"><summary>完整教学实现（展开阅读；下载源与此副本同步）</summary><!-- SICP:full-source --><pre><code>#lang racket
+;; SICP 1.1--1.46. The algorithm bodies use Scheme; module/guards are Racket adapters.
+(provide (all-defined-out))
+(define (square x) (* x x))
+(define (cube x) (* x x x))
+(define (inc x) (+ x 1))
+(define (average x y) (+ (/ x 2.0) (/ y 2.0)))
+(define (natural who n)
+  (unless (exact-nonnegative-integer? n) (raise-argument-error who &quot;exact-nonnegative-integer?&quot; n)))
+(define (finite-real? x) (and (real? x) (not (nan? x)) (not (infinite? x))))
+;; BEGIN elementary
+(define (two-largest-squares a b c)
+  (- (+ (square a) (square b) (square c)) (square (min a b c))))
+(define (a-plus-abs-b a b) ((if (&gt; b 0) + -) a b))
+(define (new-if predicate then-clause else-clause)
+  (cond [predicate then-clause] [else else-clause]))
+(define (sqrt-original x)
+  (let loop ([guess 1.0] [remaining 2000])
+    (cond [(&lt; (abs (- (square guess) x)) 0.001) guess]
+          [(zero? remaining) (error &#x27;sqrt-original &quot;iteration limit&quot;)]
+          [else (loop (average guess (/ x guess)) (sub1 remaining))])))
+;; END elementary
+;; BEGIN roots
+(define (relative-close? a b)
+  (or (= a b) (&lt;= (abs (- a b)) (* 1e-12 (max (abs a) (abs b))))))
+(define (bounded-improve improve initial [close? relative-close?] [limit 2000])
+  (let loop ([guess initial] [left limit])
+    (when (zero? left) (error &#x27;bounded-improve &quot;iteration limit&quot;))
+    (let ([next (improve guess)])
+      (unless (finite-real? next) (error &#x27;bounded-improve &quot;non-finite iterate&quot;))
+      (if (close? guess next) next (loop next (sub1 left))))))
+(define (sqrt-relative x)
+  (unless (and (finite-real? x) (&gt;= x 0)) (error &#x27;sqrt-relative &quot;finite nonnegative input required&quot;))
+  (if (zero? x) 0.0
+      (bounded-improve (lambda (y) (average y (/ x y))) 1.0)))
+(define (cube-root x)
+  (unless (finite-real? x) (error &#x27;cube-root &quot;finite real input required&quot;))
+  (cond [(zero? x) 0.0] [(negative? x) (- (cube-root (- x)))]
+        [else (bounded-improve (lambda (y) (+ (/ (/ (/ x y) y) 3.0) (* 2/3 y))) 1.0)]))
+;; END roots
+;; BEGIN recursive-processes
+(define (add-rec a b) (if (= a 0) b (inc (add-rec (sub1 a) b))))
+(define (add-iter a b) (if (= a 0) b (add-iter (sub1 a) (inc b))))
+(define (A x y)
+  (cond [(= y 0) 0] [(= x 0) (* 2 y)] [(= y 1) 2]
+        [else (A (sub1 x) (A x (sub1 y)))]))
+(define (f-rec n)
+  (if (&lt; n 3) n (+ (f-rec (- n 1)) (* 2 (f-rec (- n 2))) (* 3 (f-rec (- n 3))))))
+(define (f-iter n)
+  (if (&lt; n 3) n
+      (let loop ([a 2] [b 1] [c 0] [k n])
+        (if (= k 0) c (loop (+ a (* 2 b) (* 3 c)) a b (sub1 k))))))
+(define (pascal row column)
+  (natural &#x27;pascal row)
+  (unless (and (exact-nonnegative-integer? column) (&lt;= column row)) (error &#x27;pascal &quot;column outside row&quot;))
+  (if (or (= column 0) (= column row)) 1
+      (+ (pascal (sub1 row) (sub1 column)) (pascal (sub1 row) column))))
+(define coins &#x27;#(0 1 5 10 25 50))
+(define (cc amount kinds)
+  (cond [(= amount 0) 1] [(or (&lt; amount 0) (= kinds 0)) 0]
+        [else (+ (cc amount (sub1 kinds)) (cc (- amount (vector-ref coins kinds)) kinds))]))
+(define (sine-count angle)
+  (if (&lt;= (abs angle) 0.1) (values angle 0)
+      (let-values ([(s count) (sine-count (/ angle 3.0))])
+        (values (- (* 3 s) (* 4 (cube s))) (add1 count)))))
+;; END recursive-processes
+;; BEGIN logarithmic
+(define (double-number x) (+ x x))
+(define (fast-expt b n)
+  (natural &#x27;fast-expt n)
+  (let loop ([a 1] [b b] [n n])
+    (cond [(zero? n) a] [(even? n) (loop a (square b) (quotient n 2))]
+          [else (loop (* a b) b (sub1 n))])))
+(define (multiply-rec a b)
+  (natural &#x27;multiply-rec b)
+  (cond [(zero? b) 0] [(even? b) (double-number (multiply-rec a (quotient b 2)))]
+        [else (+ a (multiply-rec a (sub1 b)))]))
+(define (multiply-iter a b)
+  (unless (exact-integer? b) (error &#x27;multiply-iter &quot;integer multiplier required&quot;))
+  (let loop ([sum 0] [a (if (negative? b) (- a) a)] [b (abs b)])
+    (cond [(zero? b) sum] [(even? b) (loop sum (+ a a) (quotient b 2))]
+          [else (loop (+ sum a) a (sub1 b))])))
+(define (fib-fast n)
+  (natural &#x27;fib-fast n)
+  (let loop ([a 1] [b 0] [p 0] [q 1] [n n])
+    (cond [(zero? n) b]
+          [(even? n) (loop a b (+ (square p) (square q)) (+ (* 2 p q) (square q)) (quotient n 2))]
+          [else (loop (+ (* b q) (* a q) (* a p)) (+ (* b p) (* a q)) p q (sub1 n))])))
+(define (gcd-count a b)
+  (let loop ([a a] [b b] [count 0])
+    (if (= b 0) (values a count) (loop b (remainder a b) (add1 count)))))
+;; END logarithmic
+;; BEGIN primes
+(define (next-odd d) (if (= d 2) 3 (+ d 2)))
+(define (smallest-divisor n [next add1])
+  (unless (and (exact-integer? n) (&gt;= n 2)) (error &#x27;smallest-divisor &quot;integer &gt;= 2 required&quot;))
+  (let loop ([d 2])
+    (cond [(&gt; (* d d) n) n] [(zero? (remainder n d)) d] [else (loop (next d))])))
+(define (prime? n [next add1])
+  (and (exact-integer? n) (&gt;= n 2) (= n (smallest-divisor n next))))
+(define (runtime) (inexact-&gt;exact (floor (* 1000 (current-inexact-monotonic-milliseconds)))))
+(define (timed-prime-test n [predicate prime?])
+  (newline) (display n)
+  (let* ([start (runtime)] [result (predicate n)])
+    (when result (display &quot; *** &quot;) (display (- (runtime) start)))
+    result))
+(define (search-for-primes lower [count 3] [upper +inf.0])
+  (natural &#x27;search-for-primes count)
+  (let loop ([n (if (even? lower) (add1 lower) (+ lower 2))] [left count] [found &#x27;()])
+    (cond [(or (zero? left) (&gt; n upper)) (reverse found)]
+          [(prime? n next-odd) (loop (+ n 2) (sub1 left) (cons n found))]
+          [else (loop (+ n 2) left found)])))
+(define (expmod base exponent modulus)
+  (cond [(zero? exponent) 1]
+        [(even? exponent) (modulo (square (expmod base (quotient exponent 2) modulus)) modulus)]
+        [else (modulo (* base (expmod base (sub1 exponent) modulus)) modulus)]))
+(define (fermat-base? n a) (= (expmod a n n) a))
+(define (fermat-all? n)
+  (for/and ([a (in-range 1 n)]) (fermat-base? n a)))
+;; The benchmark uses n &lt;= 1,000,037, within Racket&#x27;s single-argument random bound.
+(define (fermat-prime? n [rounds 20])
+  (and (exact-integer? n) (&gt;= n 2)
+       (for/and ([i (in-range rounds)]) (fermat-base? n (add1 (random (sub1 n)))))))
+(define (expmod-duplicated base exponent modulus)
+  (cond [(zero? exponent) 1]
+        [(even? exponent) (modulo (* (expmod-duplicated base (quotient exponent 2) modulus)
+                                    (expmod-duplicated base (quotient exponent 2) modulus)) modulus)]
+        [else (modulo (* base (expmod-duplicated base (sub1 exponent) modulus)) modulus)]))
+;; END primes
+;; BEGIN miller-rabin
+(define (mr-expmod base exponent modulus)
+  (define (checked-square x)
+    (let ([r (modulo (square x) modulus)])
+      (if (and (= r 1) (not (= x 1)) (not (= x (sub1 modulus)))) 0 r)))
+  (cond [(zero? exponent) 1]
+        [(even? exponent) (checked-square (mr-expmod base (quotient exponent 2) modulus))]
+        [else (modulo (* base (mr-expmod base (sub1 exponent) modulus)) modulus)]))
+(define (mr-base? n a)
+  (unless (and (exact-integer? n) (&gt;= n 2) (exact-integer? a) (&lt;= 1 a (sub1 n)))
+    (error &#x27;mr-base? &quot;require n &gt;= 2 and 1 &lt;= a &lt; n&quot;))
+  (= (mr-expmod a (sub1 n) n) 1))
+(define (miller-rabin? n bases)
+  (and (exact-integer? n) (&gt;= n 2)
+       (or (= n 2) (and (odd? n) (for/and ([a bases]) (mr-base? n (+ 1 (modulo (sub1 a) (sub1 n)))))))))
+;; END miller-rabin
+;; BEGIN accumulation
+(define (advance next a)
+  (let ([b (next a)]) (unless (&gt; b a) (error &#x27;advance &quot;next must strictly increase&quot;)) b))
+(define (accumulate-rec combiner null-value term a next b)
+  (if (&gt; a b) null-value
+      (combiner (term a) (accumulate-rec combiner null-value term (advance next a) next b))))
+(define (accumulate-iter combiner null-value term a next b)
+  (let loop ([a a] [result null-value])
+    (if (&gt; a b) result (loop (advance next a) (combiner result (term a))))))
+(define (sum-rec term a next b) (accumulate-rec + 0 term a next b))
+(define (sum-iter term a next b) (accumulate-iter + 0 term a next b))
+(define (product-rec term a next b) (accumulate-rec * 1 term a next b))
+(define (product-iter term a next b) (accumulate-iter * 1 term a next b))
+(define (factorial n) (natural &#x27;factorial n) (product-iter values 1 add1 n))
+(define (wallis n)
+  (* 4.0 (product-iter (lambda (i) (/ (* (* 2.0 i) (+ (* 2.0 i) 2)) (square (+ (* 2.0 i) 1)))) 1 add1 n)))
+(define (filtered-accumulate predicate combiner null-value term a next b)
+  (let loop ([a a] [result null-value])
+    (if (&gt; a b) result
+        (loop (advance next a) (if (predicate a) (combiner result (term a)) result)))))
+(define (prime-square-sum a b) (filtered-accumulate prime? + 0 square a add1 b))
+(define (coprime-product n)
+  (unless (exact-positive-integer? n) (error &#x27;coprime-product &quot;positive integer required&quot;))
+  (filtered-accumulate (lambda (i) (= (gcd i n) 1)) * 1 values 1 add1 (sub1 n)))
+;; END accumulation
+;; BEGIN integration
+(define (midpoint-integral f a b dx)
+  (unless (&gt; dx 0) (error &#x27;midpoint-integral &quot;positive dx required&quot;))
+  (* dx (sum-iter f (+ a (/ dx 2)) (lambda (x) (+ x dx)) b)))
+(define (simpson f a b n)
+  (unless (and (exact-positive-integer? n) (even? n)) (error &#x27;simpson &quot;positive even n required&quot;))
+  (let* ([h (/ (- b a) n)]
+         [term (lambda (k) (* (cond [(or (= k 0) (= k n)) 1] [(odd? k) 4] [else 2]) (f (+ a (* k h)))))])
+    (* (/ h 3) (sum-iter term 0 add1 n))))
+;; END integration
+;; BEGIN fixed-point
+(define (fixed-point/trace f initial [tolerance 1e-5] [limit 2000])
+  (let loop ([guess initial] [trace (list initial)] [left limit])
+    (when (zero? left) (error &#x27;fixed-point &quot;iteration limit&quot;))
+    (let ([next (f guess)])
+      (unless (finite-real? next) (error &#x27;fixed-point &quot;non-finite iterate&quot;))
+      (if (&lt; (abs (- next guess)) tolerance)
+          (values next (reverse (cons next trace)))
+          (loop next (cons next trace) (sub1 left))))))
+(define (fixed-point f initial)
+  (let-values ([(result trace) (fixed-point/trace f initial)]) result))
+(define (average-damp f) (lambda (x) (average x (f x))))
+(define (half-interval f a b [tolerance 0.001])
+  (define (search lo hi)
+    (let* ([mid (average lo hi)] [v (f mid)])
+      (cond [(or (= v 0) (&lt; (abs (- hi lo)) tolerance)) mid]
+            [(positive? v) (search lo mid)] [else (search mid hi)])))
+  (let ([fa (f a)] [fb (f b)])
+    (cond [(= fa 0) a] [(= fb 0) b] [(and (&lt; fa 0) (&gt; fb 0)) (search a b)]
+          [(and (&gt; fa 0) (&lt; fb 0)) (search b a)] [else (error &#x27;half-interval &quot;endpoints must bracket a root&quot;)])) )
+;; END fixed-point
+;; BEGIN continued-fractions
+(define (cont-frac-rec n d k)
+  (natural &#x27;cont-frac-rec k)
+  (define (walk i) (if (&gt; i k) 0 (/ (n i) (+ (d i) (walk (add1 i))))))
+  (walk 1))
+(define (cont-frac-iter n d k)
+  (natural &#x27;cont-frac-iter k)
+  (let loop ([i k] [tail 0]) (if (= i 0) tail (loop (sub1 i) (/ (n i) (+ (d i) tail))))))
+(define (e-approx k)
+  (+ 2 (cont-frac-iter (lambda (i) 1.0) (lambda (i) (if (= (modulo i 3) 2) (* 2 (/ (add1 i) 3)) 1)) k)))
+(define (tan-cf x k)
+  (cont-frac-iter (lambda (i) (if (= i 1) x (- (square x)))) (lambda (i) (sub1 (* 2 i))) k))
+;; END continued-fractions
+;; BEGIN transformations
+(define dx 1e-5)
+(define (deriv g) (lambda (x) (/ (- (g (+ x dx)) (g x)) dx)))
+(define (newton-transform g)
+  (let ([dg (deriv g)])
+    (lambda (x) (let ([slope (dg x)])
+                  (when (&lt; (abs slope) 1e-14) (error &#x27;newton-transform &quot;derivative too small&quot;))
+                  (- x (/ (g x) slope))))))
+(define (newtons-method g guess) (fixed-point (newton-transform g) guess))
+(define (cubic a b c) (lambda (x) (+ (cube x) (* a (square x)) (* b x) c)))
+(define (double f) (lambda (x) (f (f x))))
+(define (compose f g) (lambda (x) (f (g x))))
+(define (repeated f n)
+  (natural &#x27;repeated n)
+  (let loop ([i n] [result values])
+    (if (= i 0) result (loop (sub1 i) (compose f result)))))
+(define (smooth f [step dx])
+  (lambda (x) (/ (+ (f (- x step)) (f x) (f (+ x step))) 3)))
+(define (n-fold-smooth f n [step dx]) ((repeated (lambda (g) (smooth g step)) n) f))
+(define (damping-count n)
+  (unless (exact-positive-integer? n) (error &#x27;damping-count &quot;positive degree required&quot;))
+  (sub1 (integer-length n)))
+(define (nth-root x n)
+  (unless (and (exact-positive-integer? n) (finite-real? x)) (error &#x27;nth-root &quot;finite x and positive integer n required&quot;))
+  (cond [(zero? x) 0.0] [(= n 1) x]
+        [(negative? x) (if (odd? n) (- (nth-root (- x) n)) (error &#x27;nth-root &quot;negative even root&quot;))]
+        [else (bounded-improve ((repeated average-damp (damping-count n))
+                               (lambda (y) (/ x (expt y (sub1 n))))) 1.0)]))
+;; END transformations
+;; BEGIN iterative-improve
+(define (iterative-improve good? improve [limit 2000])
+  (lambda (initial)
+    (let loop ([guess initial] [left limit])
+      (cond [(good? guess) guess] [(zero? left) (error &#x27;iterative-improve &quot;iteration limit&quot;)]
+            [else (let ([next (improve guess)])
+                    (unless (finite-real? next) (error &#x27;iterative-improve &quot;non-finite iterate&quot;))
+                    (loop next (sub1 left)))]))))
+(define (sqrt-via-improve x)
+  (unless (and (finite-real? x) (&gt;= x 0)) (error &#x27;sqrt-via-improve &quot;finite nonnegative input required&quot;))
+  (if (zero? x) 0.0
+      (let ([improve (lambda (y) (average y (/ x y)))])
+        ((iterative-improve (lambda (y) (relative-close? y (improve y))) improve) 1.0))))
+(define (fixed-point-via-improve f first)
+  ((iterative-improve (lambda (y) (&lt; (abs (- y (f y))) 1e-5)) f) first))
+;; END iterative-improve</code></pre><!-- /SICP:full-source --></details></section><footer><p>来源：Abelson、Sussman、Sussman，SICP 第二版；原文页序以本仓库 PDF 为准。中文翻译、推导与教学实现由伴读撰写；代码保留原题的算法结构，并明确执行适配与数值边界。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="preface.html">← 序言</a><a href="#top">返回页首 ↑</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top">本节理解与补充</a></p><div id="annotation-content"></div></aside></div><script>
+(() => {
+  document.documentElement.classList.add('toc-enhanced');
+  const panel = document.getElementById('toc-panel');
+  const nav = document.getElementById('chapter-toc');
+  const wide = matchMedia('(min-width:1100px)');
+  const links = Array.from(nav.querySelectorAll('li a[href^="#"]'));
+  const entries = links.map(link => ({link, section: document.getElementById(link.hash.slice(1))})).filter(item => item.section);
+  let current = null, scheduled = false;
+  const fit = () => { panel.open = wide.matches; };
+  fit();
+  wide.addEventListener('change', fit);
+  const reveal = () => {
+    let node;
+    try {node=document.getElementById(decodeURIComponent(location.hash.slice(1)))} catch {return}
+    for(let n=node;n;n=n.parentElement)if(n.tagName==='DETAILS')n.open=true;
+    if(node)setTimeout(()=>{node.scrollIntoView();scrollBy(0,8)})
+  };
+  const mark = () => {
+    scheduled = false;
+    let next = entries[0];
+    for (const entry of entries) {
+      if (entry.section.getBoundingClientRect().top <= Math.max(110, wide.matches ? 100 : 110, wide.matches ? 0 : panel.querySelector('summary').getBoundingClientRect().bottom + 12) + 1) next = entry;
+    }
+    if (window.scrollY + innerHeight >= document.documentElement.scrollHeight - 2) next = entries[entries.length - 1];
+    if (next && next.link !== current) {
+      if (current) current.removeAttribute('aria-current');
+      current = next.link; current.setAttribute('aria-current', 'location');
+    }
+  };
+  const schedule = () => { if (!scheduled) { scheduled = true; requestAnimationFrame(mark); } };
+  nav.addEventListener('click', event => {
+    if (event.target.closest('a[href^="#"]') && !wide.matches) panel.open = false;
+  });
+  addEventListener('scroll', schedule, {passive:true});
+  addEventListener('resize', schedule);
+  addEventListener('hashchange', () => { reveal(); schedule(); });
+  document.addEventListener('toggle', schedule, true);
+  reveal(); mark();
+})();
+</script><script id="reading-notes-controller">
+(() => {
+  const rail = document.getElementById('annotation-rail');
+  const content = document.getElementById('annotation-content');
+  const context = document.getElementById('annotation-context-link');
+  const groups = Array.from(document.querySelectorAll('main .reading-notes')).map(notes => ({
+    notes, section: document.getElementById(notes.dataset.notesFor)
+  })).filter(item => item.section);
+  if (!rail || !content || !context || !groups.length) return;
+  const wide = matchMedia('(min-width:1440px)');
+  const sections = Array.from(document.querySelectorAll('main section[id]'));
+  let current = null, scheduled = false;
+  const update = () => {
+    scheduled = false;
+    if (!wide.matches) return;
+    let active = sections[0];
+    for (const section of sections) {
+      if (section.getBoundingClientRect().top <= 111) active = section;
+    }
+    // A short final section cannot always reach the usual reading-position line.
+    if (scrollY > 0 && scrollY + innerHeight >= document.documentElement.scrollHeight - 1) {
+      active = sections.findLast(section => section.getBoundingClientRect().top < innerHeight - 100) ?? active;
+    }
+    const next = groups.find(item => item.section === active);
+    rail.hidden = !next;
+    if (!next) {
+      content.replaceChildren();
+      delete rail.dataset.activeSection;
+      current = null;
+      return;
+    }
+    if (current === next) return;
+    const body = next.notes.querySelector('.reading-notes-body');
+    const heading = next.section.querySelector(':scope > h2, :scope > h3, :scope > h4');
+    if (!body || !heading) return;
+    content.replaceChildren(...Array.from(body.children, node => node.cloneNode(true)));
+    const label = heading.cloneNode(true);
+    label.querySelectorAll('.english-title,math annotation').forEach(node => node.remove());
+    context.textContent = label.textContent;
+    context.href = '#' + next.section.id;
+    rail.dataset.activeSection = next.section.id;
+    rail.scrollTop = 0;
+    current = next;
+  };
+  const schedule = () => {
+    if (!scheduled) { scheduled = true; requestAnimationFrame(update); }
+  };
+  const fit = () => {
+    rail.hidden = !wide.matches;
+    current = null;
+    if (wide.matches) {
+      document.documentElement.classList.add('notes-enhanced');
+      update();
+    } else {
+      document.documentElement.classList.remove('notes-enhanced');
+    }
+  };
+  wide.addEventListener('change', fit);
+  addEventListener('scroll', schedule, {passive:true});
+  addEventListener('resize', schedule);
+  addEventListener('hashchange', schedule);
+  document.addEventListener('toggle', schedule, true);
+  fit();
+})();
+</script><script data-purpose="print-details">
+(() => {
+  let saved=[];
+  addEventListener('beforeprint',()=>{
+    if(saved.length)return;
+    saved=[...document.querySelectorAll('main details')].map(node=>[node,node.open]);
+    saved.forEach(([node])=>{node.open=true;});
+  });
+  addEventListener('afterprint',()=>{
+    saved.forEach(([node,open])=>{node.open=open;});saved=[];
+  });
+})();
+</script></body></html>
