@@ -1,6 +1,6 @@
 # Reading Notes · 读书笔记
 
-把一本书作为独立子项目，在同一个仓库中维护中文伴读笔记、习题解答、可运行程序、原书来源和验证记录。目前收录 Richard Durrett《Essentials of Stochastic Processes》第三版、Mark Allen Weiss《Data Structures and Algorithm Analysis in C》第二版（中国改编版）、Bryant / O’Hallaron《Computer Systems: A Programmer’s Perspective》第三版 Global Edition、Nathan C. Carter《Visual Group Theory》（MAA 2009 版权电子版），程士宏《测度论与概率论基础》（北京大学出版社 2004 年第 1 版），以及 Friedman / Wand《Essentials of Programming Languages》第三版全书的地图、序言、第 1–9 章及附录 A/B。
+把一本书作为独立子项目，在同一个仓库中维护中文伴读笔记、习题解答、可运行程序、原书来源和验证记录。目前收录 Richard Durrett《Essentials of Stochastic Processes》第三版、Mark Allen Weiss《Data Structures and Algorithm Analysis in C》第二版（中国改编版）、Bryant / O’Hallaron《Computer Systems: A Programmer’s Perspective》第三版 Global Edition、Nathan C. Carter《Visual Group Theory》（MAA 2009 版权电子版），程士宏《测度论与概率论基础》（北京大学出版社 2004 年第 1 版），SICP《计算机程序的构造和解释》第二版的地图与引言，以及 Friedman / Wand《Essentials of Programming Languages》第三版全书的地图、序言、第 1–9 章及附录 A/B。
 
 统一阅读站点为 [notes.zzzping.top](https://notes.zzzping.top/)。GitHub 仓库为 [oonecab/reading-notes](https://github.com/oonecab/reading-notes)，沿用随机过程项目的 Git 历史；本地项目目录继续沿用原名。
 
@@ -12,8 +12,9 @@
 | [Carter 视觉群论](books/visual-group-theory/README.md) | [全书地图](books/visual-group-theory/notes/book_overview.html) | 12 个 HTML 页面：地图、序言、第 1—10 章及全部 302 题；10 组 C/Python 程序 |
 | [程士宏 测度论与概率论·全六章伴读](books/measure-probability/README.md) | [伴读总览](books/measure-probability/notes/book_overview.html) | 8 个 HTML 页面：总览、序言与前言、六章及全部 170 题；4 组 C/Python 程序，包含全部星号小节 |
 | [Friedman / Wand · EOPL](books/eopl/README.md) | [全书地图](books/eopl/notes/book_overview.html) | 13 个 HTML 页面：地图、导读与序言、第 1–9 章、附录 A/B；356 道完整题解及 Python/Racket/C 示例 |
+| [SICP 程序构造](books/sicp/README.md) | [全书地图](books/sicp/notes/book_overview.html) | 2 个 HTML 页面：五章地图与前言/两版序言释读；后续章节未展开 |
 
-EOPL 当前有地图、序言与第 1–9 章及附录 A/B 共十三个阅读页，覆盖全书全部 356 道习题。控制路线从[第 5 章](books/eopl/notes/chapter05_continuations.html)进入[第 6 章](books/eopl/notes/chapter06_cps.html)，把解释器续文、异常、线程、CPS转换和效果连接起来。[第 7 章](books/eopl/notes/chapter07_types.html)讲解类型检查、约束求解与多态，含30题及实际运行的检查器；本地验收见[T062](test/T062-eopl-ch07.md)。[第8章](books/eopl/notes/chapter08_modules.html)讲解模块、接口、抽象类型和参数化模块，含27题及实际运行的模块检查器，见[T063](test/T063-eopl-ch08.md)。[第9章](books/eopl/notes/chapter09_objects.html)讲解对象、类、继承、方法调用与TYPED-OO，含42题及实际运行的面向对象解释器，见[T064](test/T064-eopl-ch09.md)。[附录A](books/eopl/notes/appendix_a_reading.html)连接文献与全书主线，[附录B](books/eopl/notes/appendix_b_sllgen.html)包含SLLGEN扫描、解析、算术求值及B.1–B.5完整题解；全书收尾、本地与生产验收见 [T065](test/T065-eopl-completion-publication.md)，本轮实现修复及发布见[T066](test/T066-eopl-review-repairs.md)，当前生产版本为 `20261025T233903`。
+EOPL 当前有地图、序言与第 1–9 章及附录 A/B 共十三个阅读页，覆盖全书全部 356 道习题。控制路线从[第 5 章](books/eopl/notes/chapter05_continuations.html)进入[第 6 章](books/eopl/notes/chapter06_cps.html)，把解释器续文、异常、线程、CPS转换和效果连接起来。[第 7 章](books/eopl/notes/chapter07_types.html)讲解类型检查、约束求解与多态，含30题及实际运行的检查器；本地验收见[T062](test/T062-eopl-ch07.md)。[第8章](books/eopl/notes/chapter08_modules.html)讲解模块、接口、抽象类型和参数化模块，含27题及实际运行的模块检查器，见[T063](test/T063-eopl-ch08.md)。[第9章](books/eopl/notes/chapter09_objects.html)讲解对象、类、继承、方法调用与TYPED-OO，含42题及实际运行的面向对象解释器，见[T064](test/T064-eopl-ch09.md)。[附录A](books/eopl/notes/appendix_a_reading.html)连接文献与全书主线，[附录B](books/eopl/notes/appendix_b_sllgen.html)包含SLLGEN扫描、解析、算术求值及B.1–B.5完整题解；全书收尾、本地与生产验收见 [T065](test/T065-eopl-completion-publication.md)，本轮实现修复及发布见[T066](test/T066-eopl-review-repairs.md)，I066 当时发布版本为 `20261025T233903`；后续已记录的工具发布见 [T072](test/T072-tooling-publication.md)。
 
 CS:APP 全书笔记已接入统一首页与构建：从首页点击“进入 CS:APP 笔记”，进入全书地图后选择序言或第 1—12 章；阅读页顶部可返回书架。统一包收录笔记、教学程序与原书 PDF，点击章节、来源和习题中的页码链接可打开对应 PDF 页序。线上生效另按发布授权和验收记录确认。
 
@@ -33,7 +34,7 @@ python3 tools/project.py serve
 
 访问 `http://127.0.0.1:8000/`，按 `Ctrl+C` 停止；端口可用 `--port 8080` 指定。已生成版本可使用 `serve --release-id YYYYMMDDTHHMMSS` 预览。受控 HTML 与检查镜像的同步见 [Astro 维护说明](docs/astro-authoring.md)，预览提供正式包中的页面。
 
-Python 需要 3.10 或更高版本，项目脚本使用标准库。完整验证需要 Clang、Make 和 Poppler 的 `pdftotext` / `pdfinfo`；构建使用固定 Node 24.21.0 LTS、pnpm 11.21.0 和 Astro 7.4.0；先运行 `pnpm install --frozen-lockfile`。`doctor` 检查工具是否可用，不会安装软件。网页服务器只提供静态文件。
+Python 需要 3.10 或更高版本，项目脚本使用标准库。完整验证需要 Clang、Make 和 Poppler 的 `pdftotext` / `pdfinfo`；构建使用 Node >=24.21.0 <25 LTS、pnpm >=11.21.0 <12 和 Astro 7.4.0；先运行 `pnpm install --frozen-lockfile`。`doctor` 检查工具是否可用，不会安装软件。网页服务器只提供静态文件。
 
 ```sh
 # 随机过程：编译或运行独立示例
@@ -113,3 +114,7 @@ python3 tools/project.py build --release-id YYYYMMDDTHHMMSS
 使用 `python tools/project.py doctor --for local` 探测前置条件，再运行 `python tools/project.py check-local`。此入口只验证本地结构、来源及阅读契约，不替代完整程序/发布验证。`pnpm test`包含真实CLI入口和本地证据写入回归。完整 `check` / `check --quick` 保留POSIX发布门禁。平台能力、Windows证据持久性边界和报告状态见[TECH I070](TECH.md#i070-本地验证与完整门禁)。
 
 默认浏览器验收使用锁定的 Playwright 依赖与本机 Chrome；运行 `pnpm install --frozen-lockfile` 后可执行正式构建及离线检查。选择其他已安装浏览器或 Ego 的配置见 [Astro 编写说明](docs/astro-authoring.md)。
+
+## SICP 地图与引言
+
+新增[SICP全书地图](books/sicp/notes/book_overview.html)与[引言：前言与两版序言](books/sicp/notes/preface.html)，按本仓库第二版Texinfo PDF定位。五章仅列章意和原书入口，后续正文与习题本次先不做。来源、阅读计划与本地验收见[书级入口](books/sicp/README.md)和[T073](test/T073-sicp-map-introduction.md)；尚未生产发布。

@@ -75,3 +75,5 @@ I061 的章节图浏览器检查在原生横滚后等待可见几何稳定；轮
 I070后续：CS:APP quick已将POSIX程序依赖延迟到完整执行；本地结构可使用check-local，五个阅读CLI直接执行入口已适配Windows。该批次的正式构建仍受ego-browser缺失阻塞；I071已增加默认Playwright驱动完成同一CSP门禁，不能用本地结构通过替代。当前能力和元数据持久性约定见[TECH](../TECH.md#i070-本地验证与完整门禁)，最新执行见[T070](../test/T070-local-verification.md)。
 
 I071：默认使用锁定Playwright与本机Chrome运行原CSP/离线断言。安装依赖后执行pnpm build、pnpm check:offline；Ego用户可设置READING_NOTES_BROWSER_DRIVER=ego。产物属性引号压缩不修改受控源，完整parity和原性能预算继续强制执行。
+
+I074补充：登记的baseline_ref/book_baselines/page_baselines必须是当前HEAD祖先。合并新书时保留来源快照的提交历史，普通克隆即可git show；不能只在维护者本地保留一个未推送分支。根结构检查和项目契约回归执行此门禁。

@@ -1,0 +1,15 @@
+{
+  "issue": "I073",
+  "scope": "Pre-acceptance local source baseline; first failed mobile attempt is preserved, no previous accepted SICP content is replaced.",
+  "history": [
+    {
+      "previous_baseline": "9cdcd6a8b927768b4a6e195552a4a74e9051b69f",
+      "current_baseline": "e1331158e68105f5ccdc96537dceed7102905570",
+      "page": "sicp/notes/book_overview.html",
+      "previous_source_sha256": "0c26a3d32a78e904f351d715582a2529a5668750509ffed9dbdb0de251474317",
+      "current_source_sha256": "d6f932d2df28dd8113b3073f32b5104636620a8a92bf7c1033092f8800f3fc90",
+      "reason": "Actual390px failure: inherited min-width620px overrides compact map. Add min-width0/max-width100% to this map only; text, topology, anchors and source links unchanged.",
+      "failure_evidence": "tmp/reading-notes-migration/browser/sicp/runs/2026-11-06T14-24-05-389Z-26c6683e/report.json"
+    }
+  ]
+}

@@ -6695,6 +6695,148 @@
       ],
       "chinese_translation_required": true,
       "section_scope": "all-descendants"
+    },
+    {
+      "page": "sicp/notes/book_overview.html",
+      "source": "src/content/books/sicp/book_overview.html",
+      "sections": [
+        {
+          "id": "thread",
+          "title": "全书的问题：怎样让复杂程序仍然可理解",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念或阅读关系，须有补充理解。"
+        },
+        {
+          "id": "dependencies",
+          "title": "五章关系：上一层的假设成为下一层的问题",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念或阅读关系，须有补充理解。"
+        },
+        {
+          "id": "chapter-1",
+          "title": "第 1 章章意 · 用过程构造抽象",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念或阅读关系，须有补充理解。"
+        },
+        {
+          "id": "chapter-2",
+          "title": "第 2 章章意 · 用数据构造抽象",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念或阅读关系，须有补充理解。"
+        },
+        {
+          "id": "chapter-3",
+          "title": "第 3 章章意 · 模块化、对象和状态",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念或阅读关系，须有补充理解。"
+        },
+        {
+          "id": "chapter-4",
+          "title": "第 4 章章意 · 元语言抽象",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念或阅读关系，须有补充理解。"
+        },
+        {
+          "id": "chapter-5",
+          "title": "第 5 章章意 · 寄存器机器里的计算",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念或阅读关系，须有补充理解。"
+        },
+        {
+          "id": "models",
+          "title": "沿同一条表达式，辨认四个解释层次",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念或阅读关系，须有补充理解。"
+        },
+        {
+          "id": "routes",
+          "title": "怎样开始、选读与回读",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念或阅读关系，须有补充理解。"
+        },
+        {
+          "id": "program-guide",
+          "title": "本页之后怎样使用原书",
+          "annotation": "optional",
+          "role": "navigation-or-source",
+          "reason": "本批阅读范围、材料入口或来源页序说明。"
+        },
+        {
+          "id": "source",
+          "title": "原书身份、页序与来源边界",
+          "annotation": "optional",
+          "role": "navigation-or-source",
+          "reason": "本批阅读范围、材料入口或来源页序说明。"
+        }
+      ],
+      "questions": [],
+      "chinese_translation_required": false
+    },
+    {
+      "page": "sicp/notes/preface.html",
+      "source": "src/content/books/sicp/preface.html",
+      "sections": [
+        {
+          "id": "foreword",
+          "title": "Perlis 前言：程序怎样从模型中生长",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念或阅读关系，须有补充理解。"
+        },
+        {
+          "id": "foreword-language",
+          "title": "从可组合的部件，走向为问题发明语言",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念或阅读关系，须有补充理解。"
+        },
+        {
+          "id": "second-edition",
+          "title": "第二版序言：用“时间”重新串起全书",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念或阅读关系，须有补充理解。"
+        },
+        {
+          "id": "first-edition",
+          "title": "第一版序言：程序也是表达思想的媒介",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念或阅读关系，须有补充理解。"
+        },
+        {
+          "id": "complexity",
+          "title": "控制复杂性的三种办法",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念或阅读关系，须有补充理解。"
+        },
+        {
+          "id": "knowledge",
+          "title": "从“是什么”到“怎样做”：把知识写成过程",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念或阅读关系，须有补充理解。"
+        },
+        {
+          "id": "scheme",
+          "title": "为什么用 Scheme，以及带着什么进入正文",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节解释独立概念或阅读关系，须有补充理解。"
+        }
+      ],
+      "questions": [],
+      "chinese_translation_required": false
     }
   ]
 }

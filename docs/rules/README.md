@@ -90,3 +90,5 @@ EOPL对象批：[第九章](../../books/eopl/notes/chapter09_objects.html)定义
 EOPL完结（I065）：附录B算术数域、左结合、环境、数字/负号分工、模式与输入边界以[程序说明](../../books/eopl/code/README.md)为权威；第7/8章fuel正精确整数及第9章继承预验证与回归同步维护。来源、内容、程序、阅读和发布记录见[T065](../../test/T065-eopl-completion-publication.md)。
 
 2026-10-25 的 [I066](../../issues/I066-eopl-review-repairs.md) 修复EOPL第3–6章及附录B完整输入识别、第4/5章正精确整数预算，并将计数信号量、Mesa条件变量与可重用屏障接入THREADS。权威定义在[习题5.57](../../books/eopl/notes/chapter05_continuations.html#ex-5-57)与[程序接口](../../books/eopl/code/README.md)，输入异常、直接移交、重新取锁、代号和取消边界由[T066](../../test/T066-eopl-review-repairs.md)回归。[习题6.31](../../books/eopl/notes/chapter06_cps.html#ex-6-31)同时规定源绑定和生成续文的独立名字格式，避免k/h/join用户绑定被误判；两种数据化模式及目标/寄存器执行纳入同一回归。
+
+- SICP：[维护入口](../../books/sicp/agent.md)、[页面规范](../../books/sicp/notes/README.md)、[原书清单](../../books/sicp/notes/source_manifest.json)。本批仅地图和引言，无新计算规则；过程/环境/机器模型的比较由正式地图释读，逐章规则与程序待后续授权。

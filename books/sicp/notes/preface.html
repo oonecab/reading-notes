@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>引言：前言与两版序言 · SICP 计算机程序的构造和解释</title><style>
+
+:root{--ink:#252b29;--sub:#58615d;--rule:#d9dfda;--green:#285a4e;--paper:#fffefa;--tint:#f4f6f2}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.9 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}main{max-width:860px;margin:auto;padding:48px 24px 90px}h1{font-size:2.2rem;line-height:1.3;margin:.2rem 0}h2{font-size:1.55rem;margin:3.4rem 0 1.2rem;padding-bottom:.45rem;border-bottom:1px solid var(--rule)}h3{font-size:1.16rem;margin:2rem 0 .6rem}p{margin:.7rem 0 1.1rem}header{padding-bottom:22px;border-bottom:1px solid var(--rule)}.overline,.source,.small,figcaption{color:var(--sub);font-size:.85rem}.intro{font-size:1.08rem}a{color:var(--green);text-underline-offset:3px}nav{border-left:3px solid var(--green);padding:.6rem 1.3rem;margin:2rem 0;background:var(--tint)}nav ul{margin:.3rem 0;padding-left:1.2rem;columns:2}nav li{break-inside:avoid}.passage{border-left:2px solid var(--green);padding:.15rem 0 .15rem 1.2rem;margin:1.5rem 0}.english{font:italic 1.05rem/1.7 Georgia,serif}.passage p{margin:.25rem 0}pre{background:var(--tint);border:1px solid var(--rule);padding:1rem 1.1rem;overflow:auto;font:14px/1.65 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}code{font:.9em ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}pre code{font:inherit}.callout{background:var(--tint);padding:.8rem 1.1rem;margin:1.4rem 0;border-left:2px solid var(--green)}.scroll{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:.91rem;margin:1.1rem 0}th,td{padding:.6rem .7rem;text-align:left;vertical-align:top;border-bottom:1px solid var(--rule)}th{border-top:1px solid var(--rule);background:var(--tint)}.wide{min-width:640px}figure{margin:1.5rem 0}figure .scroll{padding:12px 8px;border:1px solid var(--rule);background:var(--tint)}figcaption{margin-top:.6rem}svg{display:block;width:100%;height:auto;min-width:620px}svg text{font-family:system-ui,-apple-system,"PingFang SC",sans-serif;text-anchor:middle;fill:var(--ink);font-size:16px}svg .n{fill:var(--paper);stroke:var(--green);stroke-width:1.3}svg .e{fill:none;stroke:#7b8f85;stroke-width:1.4}svg .hint{font-size:13px;fill:var(--sub)}ul,ol{padding-left:1.5rem}li{margin:.35rem 0}footer{border-top:1px solid var(--rule);padding-top:1rem;margin-top:4rem;color:var(--sub);font-size:.85rem}@media(max-width:640px){main{padding:30px 18px 60px}h1{font-size:1.75rem}nav ul{columns:1}h2{font-size:1.3rem}}
+.exercise{margin:.8rem 0;border:1px solid var(--rule);padding:.75rem 1rem;scroll-margin-top:16px}.exercise summary{cursor:pointer;color:var(--green);font-weight:600}.exercise summary:focus-visible{outline:2px solid var(--green);outline-offset:4px}.exercise-index{display:flex;flex-wrap:wrap;gap:.4rem 1rem;margin:1rem 0}.exercise .answer{margin-top:1rem}.tree-code{overflow-wrap:anywhere;word-break:break-word}.exercise .scroll table{min-width:620px}
+
+/* Native, static MathML: no network resources or runtime typesetting. */
+math{font-family:"STIX Two Math","Cambria Math",math;font-size:1.04em}
+.math-inline{display:inline-block;max-width:100%;overflow-x:auto;overflow-y:hidden;vertical-align:middle;margin:0 .08em;padding:0 .02em}
+.equation{overflow-x:auto;max-width:100%;padding:.65rem .2rem;margin:1rem 0;text-align:center}
+.equation math{display:block;width:max-content;margin:0 auto;font-size:1.08em}
+.answer :is(h3,h4){margin:1.35rem 0 .5rem;font-size:1rem}
+:not(pre)>code{overflow-wrap:anywhere}
+pre code{overflow-wrap:normal;white-space:pre}
+
+.comparison,.benchmark{min-width:800px}.array-values{min-width:620px}.array-values th,.array-values td{text-align:center;padding:.4rem .55rem}.forest-label{font-weight:600}svg .hint{font-size:12px}.answer pre{font-size:13px}.exercise{scroll-margin-top:20px}
+
+.code-pair{margin:1.2rem 0;border-left:2px solid var(--rule);padding-left:1rem}.code-version{margin:.5rem 0;padding:.35rem 0}.code-version>summary{cursor:pointer;font-weight:600;color:var(--green)}.code-version>summary:focus-visible{outline:2px solid var(--green);outline-offset:3px}.code-version pre{margin:.7rem 0 1rem}.code-reference{font-size:.92rem}.pair-note{font-size:.9rem;color:var(--sub)}.chapter-nav{display:flex;flex-wrap:wrap;gap:.4rem 1rem}.exercise>summary{line-height:1.65}.experiment{margin:1.2rem 0;padding:.7rem 1rem;border-left:2px solid var(--green);background:var(--tint)}
+
+.meta,.caption{color:var(--sub);font-size:.85rem}
+.scroll,.table-scroll,.diagram{max-width:100%;overflow-x:auto}
+main,header,section,.answer,.code-pair,.code-version{min-width:0}
+.math-inline{padding:.20em .05em}
+.chapter-nav{display:flex;flex-wrap:wrap;gap:.4rem 1rem}
+.scroll>table{min-width:620px}
+.puzzle{width:auto;margin:1.2rem auto}
+.scroll>table.puzzle{min-width:0}
+.puzzle th,.puzzle td{text-align:center;min-width:44px}
+.verification-table,.state-table,.benchmark{font-variant-numeric:tabular-nums}
+.diagram{margin:1.2rem 0;padding:1rem 1.1rem;border:1px solid var(--rule);background:var(--tint)}
+.diagram figcaption{margin:0 0 .65rem}
+.chain{display:flex;align-items:center;gap:.55rem;min-width:max-content;font-size:.92rem}
+.diagram>.chain+.chain{margin-top:.7rem}
+.chain .node{border:1px solid #9caaa2;background:var(--paper);padding:.3rem .6rem;white-space:nowrap}
+.chain .edge{color:var(--green);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;white-space:nowrap}
+.diagram-notes{margin:.75rem 0 0;padding-left:1.2rem;font-size:.92rem}
+.diagram-notes li{margin:0}
+.step-table th:first-child,.step-table td:first-child{width:5.3rem;white-space:nowrap}
+.step-table th:nth-child(2){width:14rem}
+.step-table code{white-space:nowrap}
+.step-table .chain{gap:.35rem}
+.step-table .node{padding:.1rem .4rem}
+.state-table{table-layout:fixed}
+.state-table th:first-child{width:37%}
+.state-table td:not(:first-child),.state-table th:not(:first-child){text-align:center}
+.state-table td:last-child{white-space:nowrap}
+svg .node{fill:var(--paper);stroke:var(--green);stroke-width:1.3}
+svg .edge{fill:none;stroke:#7b8f85;stroke-width:1.4;marker-end:url(#arrow)}
+svg .small{font-size:12px;fill:var(--sub)}
+svg .chapter-link{cursor:pointer}
+svg .chapter-link:hover .node,svg .chapter-link:focus-visible .node{fill:var(--tint);stroke-width:2.5}
+blockquote{margin:1.4rem 0;padding:.5rem 1.2rem;border-left:2px solid var(--green);background:var(--tint)}
+hr{border:0;border-top:1px solid var(--rule);margin:2.6rem 0}
+@media(max-width:640px){.diagram{padding:.8rem}.state-table{table-layout:auto;min-width:570px}}
+
+/* Reading rail: one table of contents beside the book page. */
+.reading-layout{display:grid;grid-template-columns:240px minmax(0,860px);gap:32px;max-width:1200px;margin:0 auto;padding:0 24px;align-items:start}
+.reading-layout>main{width:100%;min-width:0;margin:0}
+.chapter-sidebar{position:sticky;top:32px;max-height:calc(100dvh - 64px);overflow-y:auto;overscroll-behavior:contain;padding:8px 16px 12px 0;margin-top:40px;border-right:1px solid var(--rule);scrollbar-width:thin}
+.toc-panel>summary{display:flex;align-items:center;justify-content:space-between;gap:1rem;list-style:none;padding:.45rem .55rem;color:var(--green);font-size:.9rem;font-weight:650;cursor:pointer}
+.toc-panel>summary::-webkit-details-marker{display:none}
+.toc-panel>summary::after{content:"+";font-size:1.1rem;font-weight:400}
+.toc-panel[open]>summary::after{content:"−"}
+.toc-panel>summary:focus-visible,.chapter-toc a:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+.chapter-toc{border:0;background:transparent;margin:.45rem 0 0;padding:0;font-size:.84rem;line-height:1.65}
+.chapter-toc ul{columns:1;list-style:none;margin:0;padding:0}
+.chapter-toc li{margin:.18rem 0}
+.chapter-toc a{display:block;padding:.5rem .6rem;border-left:2px solid transparent;text-decoration:none;overflow-wrap:anywhere;color:var(--sub)}
+.chapter-toc a:hover{color:var(--green);background:var(--tint)}
+.chapter-toc a[aria-current="location"]{color:var(--green);border-left-color:var(--green);background:var(--tint);font-weight:600}
+.chapter-toc .toc-home{margin-bottom:.55rem;font-size:.8rem;color:var(--green)}
+.skip-link{position:fixed;left:16px;top:-100px;z-index:100;padding:.5rem 1rem;background:var(--paper);border:1px solid var(--green)}
+.skip-link:focus{top:12px}
+main[id],main [id]{scroll-margin-top:24px}
+@media(max-width:1099px){
+ .reading-layout{display:block;padding:0;max-width:860px}
+ .reading-layout>main{margin:auto}
+ .chapter-sidebar{position:static;top:0;z-index:10;margin:0;padding:8px 24px;border-right:0;border-bottom:1px solid var(--rule);background:var(--paper);max-height:none;overflow:visible}
+ .toc-enhanced .chapter-sidebar{position:sticky}
+ .toc-panel>summary{padding:.35rem 0;font-size:.88rem}
+ .chapter-toc{max-height:60dvh;overflow-y:auto;overscroll-behavior:contain;padding-bottom:.4rem}
+ main[id],main [id]{scroll-margin-top:80px}
+}
+@media(max-width:640px){.chapter-sidebar{padding:8px 18px}}
+@media print{.reading-layout{display:block;max-width:860px;padding:0}.chapter-sidebar,.skip-link{display:none}.reading-layout>main{padding:24px}}
+
+.result{font-variant-numeric:tabular-nums}.source-link{white-space:normal}
+.book-card{padding:1rem 0;border-bottom:1px solid var(--rule)}
+.book-card h3{margin:.2rem 0}.book-card p{margin:.4rem 0}
+.chart-svg{min-width:0} .chart-svg text{font-size:13px}
+.exercise-index a{font-variant-numeric:tabular-nums}.solution-link{font-size:.9rem}
+.exercise-question .scroll>table{min-width:480px}
+.question-note strong{color:var(--green)}
+
+/* Supplementary reading notes share the page's type and color palette. */
+.reading-notes{margin:2rem 0 0;padding:0.8rem 1rem;border-left:2px solid var(--green);background:var(--tint);font-size:0.92rem;line-height:1.85}
+.reading-notes>summary{color:var(--green);font-weight:650;cursor:pointer;list-style:none}
+.reading-notes>summary::-webkit-details-marker{display:none}
+.reading-notes>summary::after{content:"＋";float:right;font-weight:400}
+.reading-notes[open]>summary::after{content:"−"}
+.reading-notes>summary:focus-visible,.annotation-context a:focus-visible{outline:2px solid var(--green);outline-offset:4px}
+.annotation-card{min-width:0;margin:1.15rem 0 0;padding:1rem 0 0;border-top:1px solid var(--rule)}
+.annotation-card:first-child{border-top:0;padding-top:0}
+.annotation-kind{display:block;font-size:0.73rem;font-weight:600;letter-spacing:0.05em;color:var(--green);margin-bottom:0.25rem}
+.annotation-card h3{font-size:0.97rem;line-height:1.65;margin:0 0 0.5rem;font-weight:650}
+.annotation-card p{margin:0.4rem 0 0.7rem}
+.annotation-card p:last-child{margin-bottom:0}
+.annotation-card .equation{padding:0.5rem 0;margin:0.65rem 0}
+.annotation-card math{font-size:1em}
+.annotation-sidebar{display:none}
+@media(min-width:1440px){
+ .notes-enhanced .reading-layout{grid-template-columns:240px minmax(0,860px) 280px;max-width:1524px;gap:32px}
+ .notes-enhanced main .reading-notes{display:none}
+ .notes-enhanced .annotation-sidebar:not([hidden]){display:block;position:sticky;top:32px;max-height:calc(100dvh - 64px);overflow-y:auto;overscroll-behavior:contain;min-width:0;margin-top:40px;padding:8px 0 12px 22px;border-left:1px solid var(--rule);font-size:0.9rem;line-height:1.85;scrollbar-width:thin}
+ .annotation-label{color:var(--green);font-size:0.87rem;font-weight:650;margin:0 0 0.75rem}
+ .annotation-context{font-size:0.85rem;line-height:1.65;margin:0 0 1.25rem}
+ .annotation-context a{color:var(--sub);text-decoration:none}
+ .annotation-context a:hover{color:var(--green);text-decoration:underline}
+ .annotation-sidebar .annotation-card{margin-top:1.5rem;padding-top:1.35rem}
+ .annotation-sidebar .annotation-card:first-child{margin-top:0;padding-top:0}
+ .annotation-sidebar .annotation-card h3{font-size:0.95rem}
+}
+@media print{.annotation-sidebar{display:none!important}main .reading-notes{display:block!important;break-inside:avoid}}
+
+/* RN-001 shared teaching components. Inlined in every controlled reading page. */
+.rn-components {
+  --rn-space: 1rem;
+  --rn-label-size: .95rem;
+  --rn-title-size: 1.05rem;
+}
+.rn-components :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
+  min-width: 0;
+  scroll-margin-top: 24px;
+}
+.rn-components .rn-statement {
+  margin: 1.5rem 0;
+  padding: 1rem 1.15rem;
+  border: 0;
+  border-left: 3px solid var(--green);
+  background: var(--tint);
+}
+.rn-components :is(.rn-statement, .rn-example) > :is(h3, h4, .rn-title) {
+  margin: 0 0 .8rem;
+  padding: 0;
+  border: 0;
+  font-size: var(--rn-title-size);
+  line-height: 1.7;
+  font-weight: 650;
+  color: var(--green);
+}
+.rn-components .rn-statement > .statement-body {
+  padding: 0;
+  border: 0;
+}
+.rn-components .statement-body > :first-child { margin-top: 0; }
+.rn-components .statement-body > :last-child { margin-bottom: 0; }
+.rn-components .rn-statement .original-excerpt {
+  margin: .5rem 0 1rem;
+  padding: .1rem 0 .1rem .85rem;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-statement .statement-label {
+  margin: .8rem 0 .3rem;
+  color: var(--sub);
+  font-size: .85rem;
+  font-weight: 600;
+}
+.rn-components .rn-example {
+  margin: 1.75rem 0;
+  padding: 1rem 0 .25rem;
+  border: 0;
+  border-top: 1px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-proof {
+  margin: 1.1rem 0 1.75rem;
+  padding: 0 0 .2rem 1rem;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  background: transparent;
+}
+.rn-components .rn-proof > summary {
+  cursor: pointer;
+  margin: 0;
+  padding: .35rem 0;
+  color: var(--green);
+  font-size: var(--rn-label-size);
+  font-weight: 650;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .rn-proof > .rn-proof-body { margin-top: .7rem; }
+.rn-components .rn-proof-body p { margin: .85rem 0; }
+.rn-components .rn-proof-body > :first-child:not(.rn-example):not(.rn-statement):not(.rn-proof) {
+  margin-top: 0;
+}
+.rn-components :is(.rn-proof-body, .rn-statement, .rn-example) > :last-child:not(.rn-example):not(.rn-statement):not(.rn-proof) {
+  margin-bottom: 0;
+}
+.rn-components .exercise {
+  margin: 1rem 0;
+  padding: 0;
+  border: 1px solid var(--rule);
+  background: transparent;
+}
+.rn-components .exercise > summary {
+  margin: 0;
+  padding: .85rem 1rem;
+  color: var(--green);
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .exercise[open] > summary {
+  border-bottom: 1px solid var(--rule);
+  background: var(--tint);
+}
+.rn-components .exercise > :is(.exercise-question, .answer) {
+  margin: 0;
+  padding: 1rem;
+  border: 0;
+  background: transparent;
+  min-width: 0;
+}
+.rn-components .exercise > .answer {
+  border-top: 1px solid var(--rule);
+}
+.rn-components .exercise :is(.exercise-question, .answer) > :first-child {
+  margin: 0 0 .75rem;
+  padding: 0;
+  border: 0;
+  color: var(--green);
+  font-size: var(--rn-label-size);
+  font-weight: 650;
+  line-height: 1.75;
+}
+.rn-components .exercise :is(.exercise-question, .answer) > :first-child > strong { font-weight: inherit; }
+.rn-components :is(.exercise-question, .answer) > :last-child { margin-bottom: 0; }
+.rn-components :is(.rn-statement, .rn-example, .rn-proof, .exercise) .source {
+  margin-top: 1rem;
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components .exercise > .source {
+  margin: 0;
+  padding: 0 1rem 1rem;
+}
+.rn-components .rn-statement .source-status {
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components :is(.derivation-steps, .proof-steps, .solution-steps) {
+  margin: .75rem 0 1rem;
+  padding-left: 1.5rem;
+}
+.rn-components :is(.derivation-steps, .proof-steps, .solution-steps) > li {
+  padding-left: .15rem;
+  margin: .9rem 0;
+}
+.rn-components :is(.rn-proof, .exercise) > summary:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+.rn-components :is(.rn-proof-body, .rn-example, .rn-statement, .exercise-question, .answer) {
+  overflow-wrap: break-word;
+}
+.rn-components .code-details {
+  margin: 1.2rem 0;
+  padding: .35rem 0 .35rem 1rem;
+  border-left: 2px solid var(--rule);
+}
+.rn-components :is(.code-details, .code-version) > summary {
+  cursor: pointer;
+  color: var(--green);
+  font-size: .95rem;
+  font-weight: 600;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rn-components .code-details pre { margin: .7rem 0 1rem; }
+.rn-components :is(.code-details, .code-version) > summary:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+.rn-components .example-kind {
+  margin: .5rem 0 1rem;
+  color: var(--sub);
+  font-size: .85rem;
+  line-height: 1.7;
+}
+.rn-components .exercise-index a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: .1rem .25rem;
+  font-variant-numeric: tabular-nums;
+}
+.rn-components .exercise-index-panel {
+  margin: 1.2rem 0;
+  padding: .65rem .9rem;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: var(--paper, #fffefa);
+}
+.rn-components .exercise-index-panel > summary {
+  cursor: pointer;
+  color: var(--green);
+  font-weight: 600;
+}
+.rn-components .exercise-index { margin: .75rem 0 0; line-height: 1.8; }
+.rn-components .exercise-index a { margin: .15rem .5rem .15rem 0; }
+.rn-components .original-question {
+  margin: 1.2rem 0 0;
+  border-top: 1px solid var(--rule);
+  padding-top: .65rem;
+  color: var(--sub);
+}
+.rn-components .original-question > summary { cursor: pointer; color: var(--green); }
+.rn-components .question-translation { margin-top: .7rem; }
+/* Align the reading column independently of annotation enhancement. */
+@media (min-width: 1440px) {
+  .rn-components .reading-layout {
+    grid-template-columns: 240px minmax(0, 860px) 280px;
+    max-width: 1524px;
+    gap: 32px;
+  }
+}
+@media (max-width: 1100px) {
+  .rn-components:not(.portal-reader):not(.sample-fragment) :is(.rn-statement, .rn-example, .rn-proof, .exercise) {
+    scroll-margin-top: 90px;
+  }
+}
+@media (max-width: 640px) {
+  .rn-components .rn-statement { padding: .85rem .8rem; }
+  .rn-components .rn-proof { padding-left: .75rem; }
+  .rn-components .exercise > :is(summary, .exercise-question, .answer) {
+    padding: .85rem .8rem;
+  }
+  .rn-components .exercise > .source { padding: 0 .8rem .85rem; }
+}
+@media print {
+  .rn-components .rn-proof::details-content { content-visibility: visible !important; }
+}
+
+.book-diagram{display:block;width:330px;max-width:none;margin:0 auto}.book-diagram text{font-size:16px}.book-diagram .hint{font-size:13px}.map-nodes a:hover rect,.map-nodes a:focus-visible rect{stroke-width:3;fill:#edf3ed}
+@media print{.annotation-sidebar{display:none!important}}
+/* RN-001: a single Latin/digit face across prose, tables and diagrams.
+   CJK glyphs use the local Chinese fallback; no proprietary fonts are shipped. */
+:root{--rn-text-font:"Times New Roman",Times,system-ui,-apple-system,"PingFang SC","Microsoft YaHei",serif;--rn-diagram-blue:#edf5fd;--rn-diagram-blue-line:#a9bfd5;--rn-diagram-amber:#fff6e4;--rn-diagram-amber-line:#d6bd87;--rn-diagram-ink:#303b46;--rn-diagram-edge:#8c969f}
+body.rn-components,body.rn-components :not(math):not(math *):not(:where(pre,pre *,code,code *,kbd,kbd *,samp,samp *)){
+  font-family:var(--rn-text-font)!important
+}
+/* Program text uses the original local monospace family across reading pages
+   and source/program guides. Mathematical descendants keep their own fonts. */
+:root{--rn-code-font:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+body :is(pre,code,kbd,samp),body :is(pre,code,kbd,samp) :not(math):not(math *){
+  font-family:var(--rn-code-font)!important
+}
+
+body.rn-components math{font-family:"STIX Two Math","Cambria Math",math;font-size:1em}
+body.rn-components math :is(mi,mn,mtext,ms){font-family:var(--rn-text-font)!important}
+body.rn-components math mi:not([mathvariant]),body.rn-components math mi[mathvariant="italic"]{font-style:italic;text-transform:none}
+body.rn-components math :is(mn,mtext,ms),body.rn-components math mi[mathvariant="normal"]{font-style:normal}
+body.rn-components math mi:is([mathvariant="bold"],[mathvariant="bold-italic"]){font-weight:700;text-transform:none}
+body.rn-components math mi[mathvariant="bold-italic"]{font-style:italic}
+body.rn-components math mi:is([mathvariant="double-struck"],[mathvariant="script"],[mathvariant="bold-script"],[mathvariant="fraktur"],[mathvariant="bold-fraktur"]){font-family:"STIX Two Math","Cambria Math",math!important}
+body.rn-components math [mathvariant="monospace"]{font-family:var(--rn-code-font)!important;font-style:normal;text-transform:none}
+body.rn-components :is(p,li,td,th,summary,figcaption,h1,h2,h3,h4) math{vertical-align:baseline}
+body.rn-components .rn-math-inline{display:inline-block;max-width:100%;overflow-x:auto;overflow-y:hidden;vertical-align:middle}
+body.rn-components pre{line-height:1.65;tab-size:4;white-space:pre}
+body.rn-components pre code{font-size:inherit;white-space:inherit}
+/* Keep short expressions together; long statements wrap within the text column. */
+body.rn-components code:not(pre code){
+  display:inline-block;max-width:100%;vertical-align:baseline;
+  font-size:.9em;font-style:normal;font-weight:400;line-height:1.45;
+  color:#294553;background:#eef2f4;border:1px solid #dfe6e9;border-radius:4px;
+  padding:.08em .3em;box-decoration-break:clone;-webkit-box-decoration-break:clone;
+  white-space:normal;overflow-wrap:anywhere;word-break:normal
+}
+body.rn-components :is(h1,h2,h3,h4,summary,th) code:not(pre code){font-size:.9em;font-weight:inherit}
+body.rn-components a code:not(pre code){color:inherit}
+body.rn-components pre code{background:none;border:0;border-radius:0;padding:0;box-decoration-break:slice;overflow-wrap:normal}
+body.rn-components svg text{fill:var(--rn-diagram-ink)}
+body.rn-components svg.rn-diagram{background:transparent;border:0}
+body.rn-components svg tspan[baseline-shift]{font-size:70%}
+/* Node roles are explicit. Coordinate plots, data series, cells and generator
+   colours keep their original encodings. */
+body.rn-components svg.rn-diagram :is(.rn-node,.node,rect.n,circle.n,ellipse.n,.n rect,.n circle,.n ellipse){
+  fill:var(--rn-diagram-blue);stroke:var(--rn-diagram-blue-line);stroke-width:1.15;
+  vector-effect:non-scaling-stroke
+}
+body.rn-components svg.rn-diagram rect:is(.rn-node,.node),
+body.rn-components svg.rn-diagram .n rect,
+body.rn-components svg.rn-diagram rect.n{rx:10px;ry:10px}
+body.rn-components svg.rn-diagram .rn-node.rn-node-accent{fill:var(--rn-diagram-amber);stroke:var(--rn-diagram-amber-line)}
+body.rn-components svg.rn-diagram .rn-edge{
+  fill:none;stroke:var(--rn-diagram-edge);stroke-width:1.15;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke
+}
+body.rn-components svg.rn-diagram .rn-arrow{fill:var(--rn-diagram-edge);stroke:none}
+body.rn-components svg.rn-diagram .hint{fill:#626d77}
+body.rn-components svg.rn-diagram text{font-weight:400}
+body.rn-components figure:has(svg.rn-diagram){background:#fff;border:1px solid #e5e9ed;border-radius:12px;padding:1.25rem}
+body.rn-components :is(.scroll,.diagram):has(>svg.rn-diagram){background:transparent;border:0}
+@media(max-width:640px){body.rn-components figure:has(svg.rn-diagram){padding:.75rem}}
+@media print{body.rn-components figure:has(svg.rn-diagram){border-color:#bbb;break-inside:avoid}}
+
+</style></head><body class="rn-components"><a class="skip-link" href="#top">跳到正文</a><div class="reading-layout"><aside class="chapter-sidebar" aria-label="章节目录"><details class="toc-panel" id="toc-panel" open><summary>目录</summary><nav class="chapter-toc" id="chapter-toc"><a class="toc-home" href="book_overview.html">全书地图</a><a class="toc-home" href="preface.html">序言</a><ul><li><a href="#foreword">Perlis 前言：程序怎样从模型中生长</a></li><li><a href="#foreword-language">从可组合的部件，走向为问题发明语言</a></li><li><a href="#second-edition">第二版序言：用“时间”重新串起全书</a></li><li><a href="#first-edition">第一版序言：程序也是表达思想的媒介</a></li><li><a href="#complexity">控制复杂性的三种办法</a></li><li><a href="#knowledge">从“是什么”到“怎样做”：把知识写成过程</a></li><li><a href="#scheme">为什么用 Scheme，以及带着什么进入正文</a></li></ul></nav></details></aside><main id="top" tabindex="-1"><header><p class="overline">Abelson / Sussman / Sussman · SICP · Second Edition</p><h1>引言：前言与两版序言</h1><p class="intro">先理解本书希望培养的能力，再决定每一层抽象该读到哪里。</p><p class="source">Perlis 前言 xiii–xviii / <a href="../sicp.pdf#page=13">PDF 13–18</a>；第二版序言 xix–xx / <a href="../sicp.pdf#page=19">PDF 19–20</a>；第一版序言 xxi–xxiv / <a href="../sicp.pdf#page=21">PDF 21–24</a>。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a></p></header>
+<section id="foreword">
+<h2>Perlis 前言：程序怎样从模型中生长</h2>
+<p>前言先把编程放在人类组织活动的广阔背景中，然后把本书的任务落到计算机程序：大量阅读与书写，既要关心一个部件是否做好，也要关心它怎样与别的部件组成更大的系统。这里已经出现全书的尺度变化——从正确的一小段，走向能持续组织起来的整体。来源：xiii–xiv / <a href="../sicp.pdf#page=13">PDF 13–14</a>。</p><p>Perlis 区分三个相互作用的焦点：人的心智、程序的集合和计算机。程序是在头脑中形成的过程模型；随着理解变化，模型和程序也继续变化。计算机要求描述足够精确，却不替我们决定模型是否适合问题。一个程序完全按指令运行，与它忠实表达了我们真正想研究的现象，仍是两项需要分别检查的事。</p><p>因此，大型系统不仅需要局部正确，还需要可靠的惯用结构和组织方式。前言没有否定论证；它指出规格本身也可能不充分、不一致，不能以“已经写成形式”代替对问题的理解。原书随后用抽象、接口与语言，把这种组织能力变成可学习的方法。</p>
+<details class="reading-notes" id="notes-foreword" data-notes-for="foreword" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h3>模型错误与实现错误怎样分开</h3><p>例如模型假定一次提款是不可分割的操作，实现却允许两个提款交错，可能出现实现层面的错误；若需求本来就允许透支，模型却一律拒绝，则是规则选择出了问题。分清这两层，才能知道该检查程序步骤还是重新讨论假设。</p></div></div></details>
+</section>
+<section id="foreword-language">
+<h2>从可组合的部件，走向为问题发明语言</h2>
+<p>前言接着提醒：硬件要服从物理限制，高层程序却在我们愿意思考的概念层次上组织工作。把高层描述转换成机器动作的过程本身也可以写成程序。这个观察预示了第 4、5 章：语言处理器并不是站在程序世界外面的神秘装置，它也需要表示、组合和抽象。来源：xv–xvi / <a href="../sicp.pdf#page=15">PDF 15–16</a>。</p><p>Perlis 随后借 Pascal 的“金字塔”与 Lisp 的“有机体”作比，强调可生长系统中的复用与组合：统一、通用的数据表示，可以使许多操作相互配合，而不必为每种局部结构重新制造一组封闭操作。他最后把大型系统与语言设计联系起来——当系统长大时，用合适的语言隔离模块之间的交流。来源：xvii–xviii / <a href="../sicp.pdf#page=17">PDF 17–18</a>。</p><p>这个比喻应放在前言的历史语境中理解。值得带进全书的问题是：一项新功能加入时，哪些部分必须改动？共同接口是否允许不同部件组合？它并不构成对今天所有静态类型语言与动态语言的普遍优劣判断。第 2 章的通用运算、第 3 章的模拟器和第 4 章的求值器，会给出比语言口号更具体的比较对象。</p>
+<details class="reading-notes" id="notes-foreword-language" data-notes-for="foreword-language" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h3>统一表示仍需要明确约定</h3><p>相同的列表结构可以表示集合、表达式或指令，但形状相同并不保证含义相同。通用表示降低组合成本的同时，客户仍要知道元素、顺序和合法构造是什么；这些约定正是抽象边界的一部分。</p></div></div></details>
+</section>
+<section id="second-edition">
+<h2>第二版序言：用“时间”重新串起全书</h2>
+<p>第二版序言先说明教学反馈带来的澄清和改写，包括通用算术系统、解释器、寄存器机器模拟器与编译器。作者也说明已重写程序示例，使其符合当时的 IEEE Scheme 标准。这是该版的设计目标；读者仍须留意原书在各处给出的基本操作和运行环境约定。来源：xix–xx / <a href="../sicp.pdf#page=19">PDF 19–20</a>。</p><p>新增主题中最关键的是：<strong>计算模型怎样处理时间</strong>。对象把历史浓缩到当前状态，并发使事件次序进入正确性条件；函数式组织与流让我们描述整段值序列，惰性求值改变何时需要一个值，非确定性计算则把计算扩展为候选与回溯。它们彼此关联，也各自带来新的约束，不能把它们简单排列成“后一种取代前一种”。</p><p>由此看第 3、4 章，重点就不只是新语法。每次改变模型，都要问：哪些历史必须记住？哪些计算可以延后？失败之后如何继续搜索？观察或副作用会不会让求值顺序变得可见？本书把这些问题放进可以构造和修改的程序里。</p><p>作者同时说明，第二版的内容已超过一学期课程容量。他们提到可选略逻辑程序设计，使用模拟器而暂不研究其实现，或只概览编译器；也可以把课程限制在前三章或前四章。选读的依据是学习目标与依赖关系，并不要求在开始前掌握所有实现。来源：xx / <a href="../sicp.pdf#page=20">PDF 20</a>。</p>
+<details class="reading-notes" id="notes-second-edition" data-notes-for="second-edition" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h3>延后、并发与回溯分别改变什么</h3><p>延后计算改变值的取得时机；并发让多个计算的事件可能交错；回溯在失败后改试其他候选。三者都会让“下一步”需要更仔细的解释，但其状态恢复、同步与共享约定不能相互借用。</p></div></div></details>
+</section>
+<section id="first-edition">
+<h2>第一版序言：程序也是表达思想的媒介</h2>
+<p>第一版序言把课程放在 MIT 入门教育的背景中：学生经验差异很大，许多人没有正式的计算训练。序言开头借小提琴作比，说明媒介的灵活性需要学习和练习才能显现。这段话是对学习方式的提醒，不是要求读者先拥有丰富的软件经验。来源：xxi–xxii / <a href="../sicp.pdf#page=21">PDF 21–22</a>。</p><p>随后作者提出两项核心关注。第一，计算机语言是表达方法思想的形式媒介，程序应让人读懂，也能让机器执行。第二，入门课程要建立组织大型软件复杂性的技术。语法、算法效率和数学分析都将在需要时发挥作用；全书选择它们，是为了帮助读者形成可理解、可组合、可修改的程序结构。</p><p>作者用一项很具体的能力说明目标：能够阅读一个风格良好的、约五十页的程序，知道此刻应读什么、可以暂时不读什么，并能保留原有风格地修改它。这里的“暂时不读”依靠清楚的接口和信任依据。如果对外约定模糊，绕过实现就只能是猜测。来源：xxii / <a href="../sicp.pdf#page=22">PDF 22</a>。</p>
+<details class="reading-notes" id="notes-first-edition" data-notes-for="first-edition" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h3>可读性可以用一次修改来检验</h3><p>试着说明某个需求变化后，必须阅读和改动哪些部分。如果为了增加一个数据表示就要遍查所有客户，说明边界还不够清楚；如果接口已承诺所需行为，客户可以在该层次上继续工作。</p></div></div></details>
+</section>
+<section id="complexity">
+<h2>控制复杂性的三种办法</h2>
+<p>第一版序言接着把本书的方法归结为三项工程设计技术。<strong>抽象</strong>让我们在合适的地方隐藏实现细节；<strong>约定接口</strong>让已理解的部件能够组合；<strong>建立新语言</strong>则突出问题中当前重要的方面，把其他方面移出主要视野。来源：xxii–xxiii / <a href="../sicp.pdf#page=22">PDF 22–23</a>。</p><p>可以用一个伴读的短例子理解这三者。假设要统计一批观测值：首先把“取得下一条观测”封装成接口，使统计程序不必知道记录来自文件还是传感器；接着让过滤、变换与归并共享同一序列约定；最后用“选择哪些观测、计算哪些量”的描述来组织任务。这是三个不同层次的问题。换了输入来源，统计含义应保持；换了统计目标，则需要重新核对任务描述。</p><p>这个例子只说明组织方法，并未实现一套数据处理系统。第 1 章的高阶过程、第 2 章的序列接口和第 4 章的语言处理，会逐步提供把这类设计落成程序的工具。抽象不是越多越好；每层都应减少读者此刻必须同时考虑的细节，并保留足够清楚的含义。</p>
+<details class="reading-notes" id="notes-complexity" data-notes-for="complexity" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h3>接口约定包括行为而不只是名字</h3><p>两个部件都提供一个“下一条”操作，还不能断言可互换。读到末尾时返回什么、会不会改变共享状态、失败如何表达，都会影响客户。接口的作用，是把这些依赖说清楚并限制在边界上。</p></div></div></details>
+</section>
+<section id="knowledge">
+<h2>从“是什么”到“怎样做”：把知识写成过程</h2>
+<p>作者随后用 procedural epistemology 描述这一教育方向：从过程的角度研究知识的结构。数学表达擅长精确描述一个对象满足什么关系，计算则使我们精确描述怎样得到、检验或构造它。来源：xxiii / <a href="../sicp.pdf#page=23">PDF 23</a>。</p><p>例如，“一个数的平方等于给定值”给出的是关系；要实际求得近似平方根，还需要初始猜测、改进步骤、停止条件以及误差判断。关系能用来检查结果，过程能用来产生候选。若漏掉停止条件，写出了递推式也不一定得到一个可以完成的计算。</p><p>这种区分是理解重点的工具。它没有把数学简化为完全静态的陈述，也没有排除计算中的声明式表达。读到第 4 章逻辑程序设计时，还会看到：关系式可以交给求值机制寻找答案，而搜索次序、资源和终止性仍要另行分析。</p>
+<details class="reading-notes" id="notes-knowledge" data-notes-for="knowledge" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h3>写出步骤后，还要说明为什么能结束</h3><p>一个改进步骤可能让误差变小，也可能在某些输入上循环。正确结果、进展依据、停止条件与数值精度是不同的义务；后面的具体例子会逐步补足它们。</p></div></div></details>
+</section>
+<section id="scheme">
+<h2>为什么用 Scheme，以及带着什么进入正文</h2>
+<p>第一版序言最后解释语言选择。Lisp 风格的组合语法很少，使课程能够很快转向问题分解、过程和数据的组织。Scheme 同时提供过程与数据抽象、高阶过程、局部状态、延迟组织与嵌入语言等表达方式，因此适合在同一媒介里比较多种模块化策略。来源：xxiii–xxiv / <a href="../sicp.pdf#page=23">PDF 23–24</a>。</p><p>作者也点明两条传统的结合：从 Lisp 接过程序的数据表示与元语言能力、自动管理的堆数据；从 Algol 接过词法作用域和块结构。简单的表面语法降低书写负担，但名字绑定、过程调用和状态仍须建立模型来理解。括号本身不会替我们解释这些规则。</p><p>进入正文时，只需先带着三个问题：我定义的部件向外承诺什么？这些部件组合后怎样产生计算过程？换一种表示或求值规则，会改变什么？第 1 章从最小的表达式开始，随后逐层回答。你可以回到<a href="book_overview.html#chapter-1">第 1 章章意</a>，或直接打开<a href="../sicp.pdf#page=29">原书第 1 章（PDF 29）</a>。后续章节的伴读正文尚在计划中。</p>
+<details class="reading-notes" id="notes-scheme" data-notes-for="scheme" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h3>读者、宿主与目标语言各在什么位置</h3><p>直接写 Scheme 程序时，读者依赖已有实现；第 4 章再用 Scheme 作为宿主实现一个目标语言；第 5 章将控制进一步显式化。每次阅读都标出当前正在解释哪一层，能避免把宿主碰巧提供的能力误认为目标语言规则。</p></div></div></details>
+</section>
+
+<footer><p>原书论述按本仓库第二版 PDF 定位；中文释读、例子与章节关系归纳由伴读撰写。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="#top">返回页首 ↑</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top">本节理解与补充</a></p><div id="annotation-content"></div></aside></div>
+<script>
+(() => {
+  document.documentElement.classList.add('toc-enhanced');
+  const panel = document.getElementById('toc-panel');
+  const nav = document.getElementById('chapter-toc');
+  const wide = matchMedia('(min-width:1100px)');
+  const links = Array.from(nav.querySelectorAll('li a[href^="#"]'));
+  const entries = links.map(link => ({link, section: document.getElementById(link.hash.slice(1))})).filter(item => item.section);
+  let current = null, scheduled = false;
+  const fit = () => { panel.open = wide.matches; };
+  fit();
+  wide.addEventListener('change', fit);
+  const reveal = () => {
+    let node;
+    try {node=document.getElementById(decodeURIComponent(location.hash.slice(1)))} catch {return}
+    for(let n=node;n;n=n.parentElement)if(n.tagName==='DETAILS')n.open=true;
+    if(node)setTimeout(()=>{node.scrollIntoView();scrollBy(0,8)})
+  };
+  const mark = () => {
+    scheduled = false;
+    let next = entries[0];
+    for (const entry of entries) {
+      if (entry.section.getBoundingClientRect().top <= Math.max(110, wide.matches ? 100 : 110, wide.matches ? 0 : panel.querySelector('summary').getBoundingClientRect().bottom + 12) + 1) next = entry;
+    }
+    if (window.scrollY + innerHeight >= document.documentElement.scrollHeight - 2) next = entries[entries.length - 1];
+    if (next && next.link !== current) {
+      if (current) current.removeAttribute('aria-current');
+      current = next.link; current.setAttribute('aria-current', 'location');
+    }
+  };
+  const schedule = () => { if (!scheduled) { scheduled = true; requestAnimationFrame(mark); } };
+  nav.addEventListener('click', event => {
+    if (event.target.closest('a[href^="#"]') && !wide.matches) panel.open = false;
+  });
+  addEventListener('scroll', schedule, {passive:true});
+  addEventListener('resize', schedule);
+  addEventListener('hashchange', () => { reveal(); schedule(); });
+  document.addEventListener('toggle', schedule, true);
+  reveal(); mark();
+})();
+</script><script id="reading-notes-controller">
+(() => {
+  const rail = document.getElementById('annotation-rail');
+  const content = document.getElementById('annotation-content');
+  const context = document.getElementById('annotation-context-link');
+  const groups = Array.from(document.querySelectorAll('main .reading-notes')).map(notes => ({
+    notes, section: document.getElementById(notes.dataset.notesFor)
+  })).filter(item => item.section);
+  if (!rail || !content || !context || !groups.length) return;
+  const wide = matchMedia('(min-width:1440px)');
+  const sections = Array.from(document.querySelectorAll('main > section[id]'));
+  let current = null, scheduled = false;
+  const update = () => {
+    scheduled = false;
+    if (!wide.matches) return;
+    let active = sections[0];
+    for (const section of sections) {
+      if (section.getBoundingClientRect().top <= 111) active = section;
+    }
+    // A short final section cannot always reach the usual reading-position line.
+    if (scrollY > 0 && scrollY + innerHeight >= document.documentElement.scrollHeight - 1) {
+      active = sections.findLast(section => section.getBoundingClientRect().top < innerHeight - 100) ?? active;
+    }
+    const next = groups.find(item => item.section === active);
+    rail.hidden = !next;
+    if (!next) {
+      content.replaceChildren();
+      delete rail.dataset.activeSection;
+      current = null;
+      return;
+    }
+    if (current === next) return;
+    const body = next.notes.querySelector('.reading-notes-body');
+    const heading = next.section.querySelector('h2');
+    if (!body || !heading) return;
+    content.replaceChildren(...Array.from(body.children, node => node.cloneNode(true)));
+    const label = heading.cloneNode(true);
+    label.querySelectorAll('.english-title,math annotation').forEach(node => node.remove());
+    context.textContent = label.textContent;
+    context.href = '#' + next.section.id;
+    rail.dataset.activeSection = next.section.id;
+    rail.scrollTop = 0;
+    current = next;
+  };
+  const schedule = () => {
+    if (!scheduled) { scheduled = true; requestAnimationFrame(update); }
+  };
+  const fit = () => {
+    rail.hidden = !wide.matches;
+    current = null;
+    if (wide.matches) {
+      document.documentElement.classList.add('notes-enhanced');
+      update();
+    } else {
+      document.documentElement.classList.remove('notes-enhanced');
+    }
+  };
+  wide.addEventListener('change', fit);
+  addEventListener('scroll', schedule, {passive:true});
+  addEventListener('resize', schedule);
+  addEventListener('hashchange', schedule);
+  document.addEventListener('toggle', schedule, true);
+  fit();
+})();
+</script><script data-purpose="print-details">
+(() => {
+  let saved=[];
+  addEventListener('beforeprint',()=>{
+    if(saved.length)return;
+    saved=[...document.querySelectorAll('main details')].map(node=>[node,node.open]);
+    saved.forEach(([node])=>{node.open=true;});
+  });
+  addEventListener('afterprint',()=>{
+    saved.forEach(([node,open])=>{node.open=open;});saved=[];
+  });
+})();
+</script></body></html>

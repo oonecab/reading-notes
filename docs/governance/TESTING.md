@@ -76,3 +76,5 @@ I070登记 `python3 tools/project.py check-local` 与 `python3 tools/test_local_
 I071加入compact-html回归：危险属性值、自闭合标签及字节敏感岛必须保持等价。真实CSP验收包含篡改脚本被阻止的负例；Playwright驱动仍运行原浏览器断言。WSL执行发布单元测试属于Linux本地证据，不等于生产部署/掉电验收。
 
 I071 的产物审阅绑定回归在 `tools/test_reader_views.py` 中，要求安全语法变化通过，正文、属性值、脚本及保护岛变化仍失败。浏览器横滚检查等待真实 scrollLeft 增加后再断言；滚轮调用返回本身不代表滚动已经完成，原失败尝试保留。
+
+I074加入 `python tools/test_project_contracts.py`（由根check/check-local执行）：书架显式范围与catalog、完整来源元数据反例、默认中国标准时间边界、无可选时区数据库的真实CLI，以及构建来源Git对象随HEAD可达。普通克隆和真实PDF仍单独做集成核验，不能用纯函数测试替代。

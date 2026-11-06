@@ -2,7 +2,7 @@
 """Build Astro, validate the exact public inventory and package an immutable release."""
 import argparse
 import base64
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 import hashlib
 import json
 import os
@@ -13,12 +13,19 @@ import subprocess
 import sys
 import tempfile
 from urllib.parse import unquote, urljoin, urlsplit
-from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 from build_portal import Resources, Document, BOOKS, write_archive
 from public_policy import inspect, sums, POLICY, static_include
+
+
+def default_release_id(instant=None):
+    """Current Chinese standard time, without an optional system IANA database."""
+    instant = datetime.now(timezone.utc) if instant is None else instant
+    if instant.tzinfo is None or instant.utcoffset() is None:
+        raise ValueError('Release clock must be timezone-aware')
+    return instant.astimezone(timezone(timedelta(hours=8))).strftime('%Y%m%dT%H%M%S')
 
 
 def package(release_id):
@@ -105,9 +112,10 @@ def package(release_id):
 
 if __name__ == '__main__':
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument('--release-id', default=datetime.now(ZoneInfo('Asia/Shanghai')).strftime('%Y%m%dT%H%M%S'))
+    ap.add_argument('--release-id', default=None)
     ap.add_argument('--package-dist', action='store_true', help=argparse.SUPPRESS)
     a = ap.parse_args()
+    a.release_id = a.release_id or default_release_id()
     if not re.fullmatch(r'\d{8}T\d{6}', a.release_id):
         ap.error('Release ID must be YYYYMMDDTHHMMSS')
     if (ROOT/'deploy/portal-releases'/a.release_id).exists():

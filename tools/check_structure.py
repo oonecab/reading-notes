@@ -7,6 +7,7 @@ import hashlib
 import json
 from pathlib import Path
 import re
+import subprocess
 from urllib.parse import unquote, urlsplit
 
 from catalog import ROOT, load_books
@@ -14,6 +15,14 @@ from catalog import ROOT, load_books
 
 def main() -> None:
     books = load_books()
+    state = json.loads((ROOT / 'scripts/migration-state.json').read_text(encoding='utf8'))
+    refs = {state['baseline_ref'], *state.get('book_baselines', {}).values(),
+            *state.get('page_baselines', {}).values()}
+    for ref in sorted(refs):
+        result = subprocess.run(['git', 'merge-base', '--is-ancestor', ref, 'HEAD'],
+                                cwd=ROOT, capture_output=True, text=True)
+        if result.returncode:
+            raise ValueError(f'Build source snapshot must travel with HEAD history: {ref}')
     sources = [*ROOT.glob("tools/*.py"), *ROOT.glob("deploy/*.py")]
     for book in books.values():
         sources += [p for p in book["root"].rglob("*.py")

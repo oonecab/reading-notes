@@ -65,3 +65,5 @@ EOPL全书已在I065补齐附录A/B，13页356题；最近三章的边界修复�
 - [EOPL全书完结与生产发布审阅](eopl-completion-publication-review.json)：13页356题、最近7–9章边界修复、最终干净内容提交、不可变包、服务器恢复单元和正常域名实际阅读。
 
 - [EOPL实现修复与生产发布审阅](eopl-repairs-publication-review.json)：完整输入、运行预算、同步机制与CPS续文身份修复的干净提交、587文件、服务器恢复单位和公网阅读证据。
+
+- [SICP地图与引言](../books/sicp/README.md)：五章主线、Perlis前言与两版序言；本地范围和验收见[T073](../test/T073-sicp-map-introduction.md)。

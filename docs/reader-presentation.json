@@ -826,6 +826,63 @@
           ]
         }
       ]
+    },
+    "sicp": {
+      "pages": [
+        {
+          "file": "book_overview.html",
+          "kind": "overview",
+          "label": "全书地图"
+        },
+        {
+          "file": "preface.html",
+          "kind": "preface",
+          "label": "序言"
+        }
+      ],
+      "exceptions": [],
+      "overview_maps": [
+        {
+          "title": "SICP 五章的抽象递进图",
+          "nodes": [
+            {
+              "kind": "chapter-summary",
+              "number": 1,
+              "href": "#chapter-1",
+              "label": "第 1 章章意：用过程构造抽象",
+              "target_title": "第 1 章章意 · 用过程构造抽象"
+            },
+            {
+              "kind": "chapter-summary",
+              "number": 2,
+              "href": "#chapter-2",
+              "label": "第 2 章章意：用数据构造抽象",
+              "target_title": "第 2 章章意 · 用数据构造抽象"
+            },
+            {
+              "kind": "chapter-summary",
+              "number": 3,
+              "href": "#chapter-3",
+              "label": "第 3 章章意：模块化、对象和状态",
+              "target_title": "第 3 章章意 · 模块化、对象和状态"
+            },
+            {
+              "kind": "chapter-summary",
+              "number": 4,
+              "href": "#chapter-4",
+              "label": "第 4 章章意：元语言抽象",
+              "target_title": "第 4 章章意 · 元语言抽象"
+            },
+            {
+              "kind": "chapter-summary",
+              "number": 5,
+              "href": "#chapter-5",
+              "label": "第 5 章章意：寄存器机器里的计算",
+              "target_title": "第 5 章章意 · 寄存器机器里的计算"
+            }
+          ]
+        }
+      ]
     }
   },
   "standard_version": "1.1",
