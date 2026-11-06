@@ -30,3 +30,5 @@ Racket当前可执行版本实测8.10；不声称执行了EOPL历史8.17矩阵�
 数学证明、有限运行和浏览器观察分别交付：Binet/增长阶/正则序计数按推导评审；数值根不宣称任意初值全局收敛；Carmichael与2047反例和Miller–Rabin完整拒绝条件实测；计时保留实测波动，不把理论2倍写成测量结果。Windows全发布门禁的POSIX/rsync/目录耐久性不在本地结构范围；本次没有生产部署、实体手机、读屏器或第二浏览器验收。
 
 统一门禁`python tools/project.py check-local --book sicp`通过13项，记录为`tmp/project-check/20261107T005737-n3e0otq3/report.json`；`tools/check_astro_records.py`确认72受控页、当前绑定与历史源快照全部通过。Git暂存前`git diff --check`通过；干净克隆与主分支交付回执随后追加。
+
+干净克隆回读通过：内容提交`d395aa1`，来源快照`44f22bc`。使用`git clone --no-local --single-branch`仅传输可达历史；克隆内完整书级检查（含8组Racket）与11项项目契约再次通过，所有当前书级绑定逐字节一致，克隆工作区干净。临时结果位于`tmp/sicp-ch01/clean-clone-check/`。主分支采用前序授权合并/推送，最终远端SHA另由Git交付回执核对；不包含生产部署。
