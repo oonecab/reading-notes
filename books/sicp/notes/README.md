@@ -21,3 +21,5 @@
 accumulate-rec是右折叠、accumulate-iter是左折叠，对任意combiner不承诺结果相同；过滤谓词作用于索引而非变换后的项，next须严格增大。Simpson要求正偶数n。Fermat计时固定20轮，种子20261106，n≤1000037处于Racket单参数random界内；它是演示接口，不是通用密码库。Miller–Rabin既拒绝非平凡平方根哨兵0，也拒绝最终余数≠1；固定底数通过不作任意大整数素性保证。详见[程序接口](../code/README.md)及题内推导。
 
 根目录运行 `python tools/project.py check-local --book sicp`；完整书级程序执行用`python books/sicp/tools/check_notes.py`，构建/浏览器与执行分开登记于[T075](../../../test/T075-sicp-chapter01.md)。
+
+[逐节原文图、表与摘录清单](../../../docs/visual-contract.json)登记第 1 章 18 个二级小节、Figure 1.1–1.5 的等价呈现和 1.14 的调用树。

@@ -1,5 +1,7 @@
 // Reader-facing obligations are registered independently of rendered content.
+import { pdfPagesValid, registeredLegacy } from '../reading-components/exercise-contract.mjs';
 import fs from 'node:fs';
+import {checkVisualPage} from '../visual-contract/check.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import assert from 'node:assert/strict';
@@ -43,7 +45,7 @@ export function reviewedQuestions(html){
    })};
  });
 }
-export function checkReaderPage(html,policy,source,review){
+export function checkReaderPage(html,policy,source,review,{strictPages=false}={}){
  const nodes=walk(parse(html));const result={page:policy.page,questions:0,annotations:0,pdf_links:0};
  const find=id=>nodes.find(n=>attr(n,'id')===id);
  const main=nodes.find(n=>n.tagName==='main');assert(main,'main missing');
@@ -77,6 +79,7 @@ export function checkReaderPage(html,policy,source,review){
  for(const exercise of questions){
   const id=attr(exercise,'id'),q=walk(exercise).find(n=>has(n,'exercise-question'));
   assert(q,'Question missing: '+id);
+  if(strictPages)assert(pdfPagesValid(q),'Question PDF pages disagree: '+id);
   const chinese=(questionText(q).match(/[\u3400-\u9fff]/g)??[]).length;
   // A complete task can be as short as “证明” followed by a displayed formula.
   assert(chinese>=2,'Chinese question task missing: '+id);
@@ -130,13 +133,23 @@ export function checkAll({baseline=false}={}){
  const pages=entries();assert.equal(pages.length,policy.pages.length,'Unregistered reader page');
  for(const item of Object.values(sources))for(const filename of new Set([item.file,'books/'+item.route]))
   assert.equal(createHash('sha256').update(fs.readFileSync(filename)).digest('hex'),item.sha256,'Source PDF bytes changed: '+filename);
+ const visuals=JSON.parse(fs.readFileSync('docs/visual-contract.json'));
+ const verifiedVisuals=JSON.parse(fs.readFileSync('docs/visual-coverage-review.json'));
  const results=[],errors=[];
  for(const page of pages){
   const item=policy.pages.find(p=>p.page===page.metadata.route);assert(item,'Reader policy missing');
   let html=page.html;if(baseline)html=fs.readFileSync('tmp/reader-audit-20261021/baseline/'+item.source,'utf8');
   try{
+   if(!baseline){
+    const expected=verifiedVisuals.inventories?.[item.page];
+    if(expected){
+     const actual=visuals.books[page.metadata.book]?.pages[item.page]?.sections ?? {};
+     assert.deepEqual(Object.fromEntries(Object.entries(actual).map(([id,items])=>[id,items.map(i=>i.target)])),expected,'Reviewed visual inventory changed');
+    }
+    checkVisualPage(html,item,visuals,sources[page.metadata.book]);
+   }
    if(review)assert(review.pages[item.page],'Question source review missing: '+item.page);
-   results.push(checkReaderPage(html,item,sources[page.metadata.book],review?.pages[item.page]));
+   results.push(checkReaderPage(html,item,sources[page.metadata.book],review?.pages[item.page],{strictPages:!registeredLegacy(item.page,html)}));
   }catch(e){errors.push({page:item.page,error:e.message});}
  }
  return {status:errors.length?'failed':'passed',pages:pages.length,results,errors};

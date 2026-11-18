@@ -1,0 +1,834 @@
+{
+  "version": 1,
+  "authority": "RN-001 §2/§4",
+  "books": {
+    "sicp": {
+      "pages": {
+        "sicp/notes/chapter01_procedures.html": {
+          "sections": {
+            "s1-1-1": [
+              {
+                "kind": "table",
+                "source_pdf_page": 36,
+                "title": "前缀式中运算符的位置",
+                "status": "equivalent",
+                "representation": "table",
+                "reason": "由来源页改排，显式展示中间状态。",
+                "review_version": "I080",
+                "target": "#visual-s1-1-1-1"
+              }
+            ],
+            "s1-1-2": [
+              {
+                "kind": "table",
+                "source_pdf_page": 39,
+                "title": "绑定与再次取值",
+                "status": "equivalent",
+                "representation": "table",
+                "reason": "由来源页改排，显式展示中间状态。",
+                "review_version": "I080",
+                "target": "#visual-s1-1-2-1"
+              }
+            ],
+            "s1-1-3": [
+              {
+                "kind": "figure",
+                "source_pdf_page": 41,
+                "title": "Figure 1.1 · 从叶到根求值",
+                "status": "equivalent",
+                "representation": "table",
+                "reason": "由来源页改排，显式展示中间状态。",
+                "review_version": "I080",
+                "target": "#visual-s1-1-3-1"
+              }
+            ],
+            "s1-1-4": [
+              {
+                "kind": "table",
+                "source_pdf_page": 44,
+                "title": "平方过程的参数与结果",
+                "status": "equivalent",
+                "representation": "table",
+                "reason": "由来源页改排，显式展示中间状态。",
+                "review_version": "I080",
+                "target": "#visual-s1-1-4-1"
+              }
+            ],
+            "s1-1-5": [
+              {
+                "kind": "table",
+                "source_pdf_page": 47,
+                "title": "代换 f 的调用",
+                "status": "equivalent",
+                "representation": "table",
+                "reason": "由来源页改排，显式展示中间状态。",
+                "review_version": "I080",
+                "target": "#visual-s1-1-5-1"
+              }
+            ],
+            "s1-1-6": [
+              {
+                "kind": "table",
+                "source_pdf_page": 51,
+                "title": "cond 按子句顺序选择",
+                "status": "equivalent",
+                "representation": "table",
+                "reason": "由来源页改排，显式展示中间状态。",
+                "review_version": "I080",
+                "target": "#visual-s1-1-6-1"
+              }
+            ],
+            "s1-1-7": [
+              {
+                "kind": "table",
+                "source_pdf_page": 57,
+                "title": "求 2 的平方根时连续改进猜测",
+                "status": "equivalent",
+                "representation": "table",
+                "reason": "由来源页改排，显式展示中间状态。",
+                "review_version": "I080",
+                "target": "#visual-s1-1-7-1"
+              }
+            ],
+            "s1-1-8": [
+              {
+                "kind": "figure",
+                "source_pdf_page": 62,
+                "title": "Figure 1.2 · 平方根的过程分解",
+                "status": "equivalent",
+                "representation": "table",
+                "reason": "由来源页改排，显式展示中间状态。",
+                "review_version": "I080",
+                "target": "#visual-s1-1-8-1"
+              }
+            ],
+            "s1-2-1": [
+              {
+                "kind": "figure",
+                "source_pdf_page": 70,
+                "title": "Figure 1.3 · 阶乘递归留下的乘法",
+                "status": "equivalent",
+                "representation": "table",
+                "reason": "由来源页改排，显式展示中间状态。",
+                "review_version": "I080",
+                "target": "#visual-s1-2-1-1"
+              },
+              {
+                "kind": "figure",
+                "source_pdf_page": 71,
+                "title": "Figure 1.4 · 阶乘迭代的状态",
+                "status": "equivalent",
+                "representation": "table",
+                "reason": "由来源页改排，显式展示中间状态。",
+                "review_version": "I080",
+                "target": "#visual-s1-2-1-2"
+              }
+            ],
+            "s1-2-3": [
+              {
+                "kind": "table",
+                "source_pdf_page": 83,
+                "title": "比较规模加倍后的资源增长",
+                "status": "equivalent",
+                "representation": "table",
+                "reason": "由来源页改排，显式展示中间状态。",
+                "review_version": "I080",
+                "target": "#visual-s1-2-3-1"
+              }
+            ],
+            "s1-2-4": [
+              {
+                "kind": "table",
+                "source_pdf_page": 86,
+                "title": "平方求幂逐层减半",
+                "status": "equivalent",
+                "representation": "table",
+                "reason": "由来源页改排，显式展示中间状态。",
+                "review_version": "I080",
+                "target": "#visual-s1-2-4-1"
+              }
+            ],
+            "s1-2-5": [
+              {
+                "kind": "table",
+                "source_pdf_page": 91,
+                "title": "欧几里得过程的余数轨迹",
+                "status": "equivalent",
+                "representation": "table",
+                "reason": "由来源页改排，显式展示中间状态。",
+                "review_version": "I080",
+                "target": "#visual-s1-2-5-1"
+              }
+            ],
+            "s1-2-6": [
+              {
+                "kind": "table",
+                "source_pdf_page": 94,
+                "title": "试除时三个停止或推进条件",
+                "status": "equivalent",
+                "representation": "table",
+                "reason": "由来源页改排，显式展示中间状态。",
+                "review_version": "I080",
+                "target": "#visual-s1-2-6-1"
+              }
+            ],
+            "s1-3-1": [
+              {
+                "kind": "table",
+                "source_pdf_page": 105,
+                "title": "求和骨架的两个可变部分",
+                "status": "equivalent",
+                "representation": "table",
+                "reason": "由来源页改排，显式展示中间状态。",
+                "review_version": "I080",
+                "target": "#visual-s1-3-1-1"
+              },
+              {
+                "kind": "excerpt",
+                "source_pdf_page": 103,
+                "title": "高阶过程的定义",
+                "status": "reproduced",
+                "representation": "blockquote",
+                "reason": "保留 manipulate procedures 的术语边界。",
+                "review_version": "I080",
+                "target": "#visual-s1-3-1-2"
+              }
+            ],
+            "s1-3-2": [
+              {
+                "kind": "table",
+                "source_pdf_page": 112,
+                "title": "匿名过程的形参与实参",
+                "status": "equivalent",
+                "representation": "table",
+                "reason": "由来源页改排，显式展示中间状态。",
+                "review_version": "I080",
+                "target": "#visual-s1-3-2-1"
+              }
+            ],
+            "s1-3-3": [
+              {
+                "kind": "table",
+                "source_pdf_page": 118,
+                "title": "二分区间的中点测试",
+                "status": "equivalent",
+                "representation": "table",
+                "reason": "由来源页改排，显式展示中间状态。",
+                "review_version": "I080",
+                "target": "#visual-s1-3-3-1"
+              }
+            ],
+            "s1-3-4": [
+              {
+                "kind": "table",
+                "source_pdf_page": 126,
+                "title": "平均阻尼返回的新过程",
+                "status": "equivalent",
+                "representation": "table",
+                "reason": "由来源页改排，显式展示中间状态。",
+                "review_version": "I080",
+                "target": "#visual-s1-3-4-1"
+              }
+            ],
+            "s1-2-2": [
+              {
+                "kind": "figure",
+                "source_pdf_page": 76,
+                "title": "Figure 1.5 · fib 5 的树形递归",
+                "status": "required",
+                "representation": "svg",
+                "reason": "重复调用分布是本节的核心解释。",
+                "review_version": "I080",
+                "target": "#visual-s1-2-2-1"
+              },
+              {
+                "kind": "trace",
+                "source_pdf_page": 84,
+                "title": "换零钱的两条分支与完整调用轨迹",
+                "status": "linked",
+                "representation": "figure+table",
+                "reason": "复用习题 1.14 的实际调用记录。",
+                "review_version": "I080",
+                "target": "#ex-1-14",
+                "parts": [
+                  "#change-root",
+                  "#change-trace"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "legacy": [
+    {
+      "book": "measure-probability",
+      "page": "measure-probability/notes/book_overview.html",
+      "source_sha256": "b88c2f9d18a907273c1e41968a7832e5cd0aa95747aae15fde5c68c41ca6549a",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "measure-probability",
+      "page": "measure-probability/notes/chapter01_measurable_spaces.html",
+      "source_sha256": "e58cad1d03f7cc9e282bc52c409ef6010e1df2bea8cb889f2e282af9c2056f0b",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "measure-probability",
+      "page": "measure-probability/notes/chapter02_measure_spaces.html",
+      "source_sha256": "564022284dbe469c6335635c51ca85c5354c056b60939df8939efd3ae9b3a588",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "measure-probability",
+      "page": "measure-probability/notes/chapter03_integration.html",
+      "source_sha256": "df7b6f3fdbd514d476a8bd757251dc543ddbaa01f651efedeb0da36aec145460",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "measure-probability",
+      "page": "measure-probability/notes/chapter04_signed_measures.html",
+      "source_sha256": "50db929be2f4689784105634fa1f7fbd7769391e210bf3b0c06f9efb9985682e",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "measure-probability",
+      "page": "measure-probability/notes/chapter05_product_spaces.html",
+      "source_sha256": "039afa146adc7106ef776bfb092dd441e5145e26aea955e4f81c851ab238b699",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "measure-probability",
+      "page": "measure-probability/notes/chapter06_independent_sequences.html",
+      "source_sha256": "68284958753ca212efc1d621984a0244883e249c5c71805d0985bd080a6eadef",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "measure-probability",
+      "page": "measure-probability/notes/preface.html",
+      "source_sha256": "9021457eb7d14654ecba40893c6aa93b0c0c2ed3cc2549b4919ac24ddc617895",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "visual-group-theory",
+      "page": "visual-group-theory/notes/book_overview.html",
+      "source_sha256": "b07817646778cc930685951661343f3eeac9ffeb8c9b1526cb5fa688ec9c6049",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "visual-group-theory",
+      "page": "visual-group-theory/notes/chapter01_what_is_a_group.html",
+      "source_sha256": "2ae0dab3c002a68414d025b5d3d7a06e2a52d3350164106e8229b86025abf55e",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "visual-group-theory",
+      "page": "visual-group-theory/notes/chapter02_what_do_groups_look_like.html",
+      "source_sha256": "dfb09af9efe0edbfacfd155e8f5383057a2a9dd4a6040cf5272e4124f7e0c045",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "visual-group-theory",
+      "page": "visual-group-theory/notes/chapter03_why_study_groups.html",
+      "source_sha256": "deca7ac915ee52fb1f9bdf8e4eaeb8c6281aa3ff7829576ef3c85c698e65d2d9",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "visual-group-theory",
+      "page": "visual-group-theory/notes/chapter04_algebra_at_last.html",
+      "source_sha256": "c2bdba58c5516f266249069ccf54c19cdac87be44624a90a964f64270275160a",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "visual-group-theory",
+      "page": "visual-group-theory/notes/chapter05_five_families.html",
+      "source_sha256": "59c686b8213d6dba22a4b6149b4269610805b886a2c3d86f7b14c52cf377a616",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "visual-group-theory",
+      "page": "visual-group-theory/notes/chapter06_subgroups.html",
+      "source_sha256": "fbbe86f2abb6daf0c6301d13847343e292ab734137b462dea17d33476b3b482b",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "visual-group-theory",
+      "page": "visual-group-theory/notes/chapter07_products_and_quotients.html",
+      "source_sha256": "68db6f84b1cb2c71fc97518d21945bc97c1089a5d871412603ab38e9ee4cecdf",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "visual-group-theory",
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "source_sha256": "69495e1cec065e792860e4985efe0f49b088943479c64b41a9ad664792c19a0b",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "visual-group-theory",
+      "page": "visual-group-theory/notes/chapter09_sylow_theory.html",
+      "source_sha256": "dfa777b1a920388ed09de0857cec435a8c3fa6e637dc06468d093614ca37cc21",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "visual-group-theory",
+      "page": "visual-group-theory/notes/chapter10_galois_theory.html",
+      "source_sha256": "0d062cf305088ed7243c06e2803c7382c24f6afc6cfb94e1f09aae2b2248d07e",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "visual-group-theory",
+      "page": "visual-group-theory/notes/preface.html",
+      "source_sha256": "dfcb69774b805628398c8f480a2cc2da891e5418952fe22a24b9c54f5000c779",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "stochastic",
+      "page": "stochastic/notes/appendix_a_probability_review.html",
+      "source_sha256": "d95b108424db46d1ca4c25cd247945fbec2bf562a892389f8948b5594edce96a",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "stochastic",
+      "page": "stochastic/notes/book_overview.html",
+      "source_sha256": "19a16726feeaca4e97732ec6e30fbf90b613aba6b6bd814473980cc483190e52",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "stochastic",
+      "page": "stochastic/notes/chapter01_markov_chains.html",
+      "source_sha256": "78ea0ae894bc1b1a6f0c1c26a1f03a8206bf851692a5c88ed66dff835d69d911",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "stochastic",
+      "page": "stochastic/notes/chapter02_poisson_processes.html",
+      "source_sha256": "a48694a102eb6a774f227298b8a5e656bcdf5031527d6e2a9ee5ab7a3771eced",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "stochastic",
+      "page": "stochastic/notes/chapter03_renewal_processes.html",
+      "source_sha256": "75179af02eaf9e5d4acdc1bc10e7e788acadada65a76b0fb452fa95adb984ec5",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "stochastic",
+      "page": "stochastic/notes/chapter04_continuous_time_markov_chains.html",
+      "source_sha256": "0f1aa34b7710bc56c5a372465bb6bbe181339c0f0d09194035024442d1d5eadf",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "stochastic",
+      "page": "stochastic/notes/chapter05_martingales.html",
+      "source_sha256": "f97390279283b76a18f9258d2092e014b66838b21e29f6dadafd1fa59b1b099b",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "stochastic",
+      "page": "stochastic/notes/chapter06_mathematical_finance.html",
+      "source_sha256": "6721ee9f82f9ea15a62461ac38594c5868a94d9380ea2d09dae5e5bf5f75afda",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "stochastic",
+      "page": "stochastic/notes/preface.html",
+      "source_sha256": "304fd0541380d7aa521e1c9aa7813045d098b3870f8abf03c365e56fb55b5c55",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "weiss",
+      "page": "weiss/notes/book_overview.html",
+      "source_sha256": "ff1288a0a24a8f8a081b71ce5eccf2b0909ba7700e16bf929542efb0178e0f92",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "weiss",
+      "page": "weiss/notes/chapter01_introduction.html",
+      "source_sha256": "9e981b9652f44a87b73c2f3d34f8a163eab9585c681db89ca1bf5fea5adbbb1e",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "weiss",
+      "page": "weiss/notes/chapter02_algorithm_analysis.html",
+      "source_sha256": "ec16a5d0bad183cf371a5c08a7ce396f293e6e0ba82197f061e985c1c68ccf6e",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "weiss",
+      "page": "weiss/notes/chapter03_lists_stacks_queues.html",
+      "source_sha256": "c043e02912a44d3690ad45e9d0e184e0b6ea6443d6a50a66638510c33f48ba69",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "weiss",
+      "page": "weiss/notes/chapter04_trees.html",
+      "source_sha256": "e2b6b2a7fcfc224ec455de0e6dce85310ac8d89e03d0af3e2eb24ddcbaa9d702",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "weiss",
+      "page": "weiss/notes/chapter05_priority_queues.html",
+      "source_sha256": "07b30e44d47d012e0f3c8f631f58aaa71007218a320ca55304d3451968381c28",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "weiss",
+      "page": "weiss/notes/chapter06_sorting.html",
+      "source_sha256": "74b2149b9369e702f3dcdd6d382bd05e4ef8e94700210edfaebfd7afd789fee1",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "weiss",
+      "page": "weiss/notes/chapter07_hashing.html",
+      "source_sha256": "200868520ec28ff608200a2d8571e59f659b6e52f47c34ff879848c9cf6bf62d",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "weiss",
+      "page": "weiss/notes/chapter08_disjoint_sets.html",
+      "source_sha256": "e12babc6cff3523a4735d432d02f6bb1dcdecd7972e41c9e57d46b054ffa2903",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "weiss",
+      "page": "weiss/notes/chapter09_graph_algorithms.html",
+      "source_sha256": "654bc026c762a289bd4aca2c7669db6770d162f2653614174ab8166aa3da6130",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "weiss",
+      "page": "weiss/notes/chapter10_algorithm_design.html",
+      "source_sha256": "eb4e0f0a86862de9f00a73b4ae3aa3bfb1c4f770782c77f65debc3340a8618d3",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "weiss",
+      "page": "weiss/notes/chapter11_amortized_analysis.html",
+      "source_sha256": "f43ee1c7f929c3300f008dc29ef118bbcee4ff753cebefdbad8742b83660bb73",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "weiss",
+      "page": "weiss/notes/chapter12_advanced_data_structures.html",
+      "source_sha256": "c356e02142ff8870c8d310f6580e396bc47f104a87a2cb667876cfe1e0ed28c2",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "csapp",
+      "page": "csapp/notes/book_overview.html",
+      "source_sha256": "fbb9ce9383d5efdc5396345fe6f93543340df14b3913ecd69d336f8e97403394",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "csapp",
+      "page": "csapp/notes/chapter01_tour.html",
+      "source_sha256": "f6d1dfb719131649edaa41f5e26d0c11987224f8ff401fc38d9cd65f680e2427",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "csapp",
+      "page": "csapp/notes/chapter02_information.html",
+      "source_sha256": "8be3fa129e87378852a0db92917dffb747e03db8f2427a7e2d8b4d8b59f1fb80",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "csapp",
+      "page": "csapp/notes/chapter03_machine_level.html",
+      "source_sha256": "c16fd70bf4735a36270c2d1be344416a902a034285fbdb7f09566691a06362ac",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "csapp",
+      "page": "csapp/notes/chapter04_architecture.html",
+      "source_sha256": "abca8beae9ce80b3b7078b2420fd3d5e50c277d79554f4a3dd2943e6025c1aa6",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "csapp",
+      "page": "csapp/notes/chapter05_optimization.html",
+      "source_sha256": "bb1e18221b9bc3f868c63539b031e983be99d54ecb6a1912c6eff1a6f58b588c",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "csapp",
+      "page": "csapp/notes/chapter06_memory.html",
+      "source_sha256": "31f7753f1e972510a77dc1da4e4ab4829e8c3c023df955fc0f4036a3e3dc058a",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "csapp",
+      "page": "csapp/notes/chapter07_linking.html",
+      "source_sha256": "d4fa9f7dbdf5a34769f4e905ed1929bb3e7a18642b85e1b01684a3ed380fedda",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "csapp",
+      "page": "csapp/notes/chapter08_exceptional.html",
+      "source_sha256": "483f48346d18fca8bd50e3a1409458323789f0fb52851b51a1bfdef4abb49a17",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "csapp",
+      "page": "csapp/notes/chapter09_virtual_memory.html",
+      "source_sha256": "abab6aba8aa0816442ca33e69ea0b6d0c0cbfd3228e5b43616cc3513586f37e6",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "csapp",
+      "page": "csapp/notes/chapter10_system_io.html",
+      "source_sha256": "30407412073fc387536577f4e66b82c1aaf3f479dab5d8f5f8fcae656a2ca4af",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "csapp",
+      "page": "csapp/notes/chapter11_network.html",
+      "source_sha256": "697994cb0cc40f2d12c7c053e6f995e803b5870ce9646e3b77be6ade3fba4217",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "csapp",
+      "page": "csapp/notes/chapter12_concurrency.html",
+      "source_sha256": "8068c2239b288ccc86721ace98a804f9782a9b65751aaa6e4166bc96c15f23f2",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "csapp",
+      "page": "csapp/notes/preface.html",
+      "source_sha256": "49b94c8168d5eca391d266ed7221f29420c28b1a1a387f20ac13fc3fc3a20390",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "eopl",
+      "page": "eopl/notes/book_overview.html",
+      "source_sha256": "ac40b1722a23d16290bbd090880e0284e3fed06af208191f32bf0d4ed266185a",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "eopl",
+      "page": "eopl/notes/chapter01_inductive_data.html",
+      "source_sha256": "d7d3b96ad503a9c837db0eb59e8488ab849a2a8fcb0626fd98b611913ad1e663",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "eopl",
+      "page": "eopl/notes/chapter02_data_abstraction.html",
+      "source_sha256": "4d53d0caf1a949c959cc9e8d6682b4d8606d991a823cfae4ac4c000dbbb34073",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "eopl",
+      "page": "eopl/notes/preface.html",
+      "source_sha256": "e9c5032a0c5866a4c352031e8ef991fc7cf8e65244a8efc923c398101f59b0fb",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "eopl",
+      "page": "eopl/notes/chapter03_expressions.html",
+      "source_sha256": "98cb38f1d797803409566719656f4ce33211c523630f738b6013ee1a305c53cb",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "eopl",
+      "page": "eopl/notes/chapter04_state.html",
+      "source_sha256": "4c2a3a8e008670701304ddffbf25cfe47c159638ca6f9d4d39f6e8ef15b3132c",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "eopl",
+      "page": "eopl/notes/chapter05_continuations.html",
+      "source_sha256": "dde56722cd8479346fec0da7cbad0c636a2fa33078984d72626e0efe6e058947",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "eopl",
+      "page": "eopl/notes/chapter06_cps.html",
+      "source_sha256": "927351ce5f78f2c733a4a83adc0f8b09e17649f191fd58afb28dd324ad1514b6",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "eopl",
+      "page": "eopl/notes/chapter07_types.html",
+      "source_sha256": "c7927c9ded62b1b11287498f1273646525b8a4b98b7a7c5010f35e722627c732",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "eopl",
+      "page": "eopl/notes/chapter08_modules.html",
+      "source_sha256": "f1fba608cbebfaa6c26279bb4557d7fe4fe1093a6cea4374cd04e74a08751e8b",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "eopl",
+      "page": "eopl/notes/chapter09_objects.html",
+      "source_sha256": "f61c730b85b93fb0731a9eb412d030cab88de38e2262b2ec67f20ce893b1d1e7",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "eopl",
+      "page": "eopl/notes/appendix_a_reading.html",
+      "source_sha256": "3408b3da6167e4332b0387affe81a55b2ef22f478d21237fafcffd243569b19c",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "eopl",
+      "page": "eopl/notes/appendix_b_sllgen.html",
+      "source_sha256": "631e3686cf804fb68679e60045c21bb1a9df0c6e8f92d4f9f4311e91f22ce48f",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "sicp",
+      "page": "sicp/notes/book_overview.html",
+      "source_sha256": "f6df2c6a846506878244ac37c7af2c6943e48076f044b717eb28c59ac358cf96",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    },
+    {
+      "book": "sicp",
+      "page": "sicp/notes/preface.html",
+      "source_sha256": "52617c40f35616308332e4c3445e2dc84b91984ed5efda0913172959f9dc5671",
+      "reason": "原书逐节视觉清单尚未核对。",
+      "review_version": "I081",
+      "issue": "I081"
+    }
+  ]
+}

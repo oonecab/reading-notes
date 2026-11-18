@@ -1,0 +1,475 @@
+{
+  "version": 1,
+  "authority": "RN-001 §5",
+  "summary": "习题 N.M · 标题",
+  "self_check": "自测 ...",
+  "details_required": [
+    "id",
+    "data-exercise"
+  ],
+  "question_required": [
+    "data-original-exercise",
+    "data-source-pdf-pages"
+  ],
+  "question_label": "原题（中文翻译）",
+  "answer_label": "解答",
+  "index_threshold": 20,
+  "legacy": [
+    {
+      "book": "measure-probability",
+      "page": "measure-probability/notes/chapter01_measurable_spaces.html",
+      "reason": "I078 迁移前已有偏差：data-original-exercise、data-source-pdf-pages",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "e58cad1d03f7cc9e282bc52c409ef6010e1df2bea8cb889f2e282af9c2056f0b"
+    },
+    {
+      "book": "measure-probability",
+      "page": "measure-probability/notes/chapter02_measure_spaces.html",
+      "reason": "I078 迁移前已有偏差：data-original-exercise、data-source-pdf-pages",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "564022284dbe469c6335635c51ca85c5354c056b60939df8939efd3ae9b3a588"
+    },
+    {
+      "book": "measure-probability",
+      "page": "measure-probability/notes/chapter03_integration.html",
+      "reason": "I078 迁移前已有偏差：data-original-exercise、data-source-pdf-pages",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "df7b6f3fdbd514d476a8bd757251dc543ddbaa01f651efedeb0da36aec145460"
+    },
+    {
+      "book": "measure-probability",
+      "page": "measure-probability/notes/chapter04_signed_measures.html",
+      "reason": "I078 迁移前已有偏差：data-original-exercise、data-source-pdf-pages",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "50db929be2f4689784105634fa1f7fbd7769391e210bf3b0c06f9efb9985682e"
+    },
+    {
+      "book": "measure-probability",
+      "page": "measure-probability/notes/chapter05_product_spaces.html",
+      "reason": "I078 迁移前已有偏差：data-original-exercise、data-source-pdf-pages",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "039afa146adc7106ef776bfb092dd441e5145e26aea955e4f81c851ab238b699"
+    },
+    {
+      "book": "measure-probability",
+      "page": "measure-probability/notes/chapter06_independent_sequences.html",
+      "reason": "I078 迁移前已有偏差：data-original-exercise、data-source-pdf-pages",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "68284958753ca212efc1d621984a0244883e249c5c71805d0985bd080a6eadef"
+    },
+    {
+      "book": "visual-group-theory",
+      "page": "visual-group-theory/notes/chapter01_what_is_a_group.html",
+      "reason": "I078 迁移前已有偏差：question-label、answer-label、data-original-exercise、data-source-pdf-pages",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "2ae0dab3c002a68414d025b5d3d7a06e2a52d3350164106e8229b86025abf55e"
+    },
+    {
+      "book": "visual-group-theory",
+      "page": "visual-group-theory/notes/chapter02_what_do_groups_look_like.html",
+      "reason": "I078 迁移前已有偏差：question-title、answer-title、question-label、answer-label、data-original-exercise、data-source-pdf-pages",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "dfb09af9efe0edbfacfd155e8f5383057a2a9dd4a6040cf5272e4124f7e0c045"
+    },
+    {
+      "book": "visual-group-theory",
+      "page": "visual-group-theory/notes/chapter03_why_study_groups.html",
+      "reason": "I078 迁移前已有偏差：question-title、answer-title、question-label、answer-label、data-original-exercise、data-source-pdf-pages、summary、structure",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "deca7ac915ee52fb1f9bdf8e4eaeb8c6281aa3ff7829576ef3c85c698e65d2d9"
+    },
+    {
+      "book": "visual-group-theory",
+      "page": "visual-group-theory/notes/chapter04_algebra_at_last.html",
+      "reason": "I078 迁移前已有偏差：question-title、answer-title、question-label、answer-label、data-original-exercise、data-source-pdf-pages、summary",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "c2bdba58c5516f266249069ccf54c19cdac87be44624a90a964f64270275160a"
+    },
+    {
+      "book": "visual-group-theory",
+      "page": "visual-group-theory/notes/chapter05_five_families.html",
+      "reason": "I078 迁移前已有偏差：question-title、answer-title、question-label、answer-label、data-original-exercise、data-source-pdf-pages、summary",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "59c686b8213d6dba22a4b6149b4269610805b886a2c3d86f7b14c52cf377a616"
+    },
+    {
+      "book": "visual-group-theory",
+      "page": "visual-group-theory/notes/chapter06_subgroups.html",
+      "reason": "I078 迁移前已有偏差：question-title、answer-title、question-label、answer-label、data-original-exercise、data-source-pdf-pages、summary",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "fbbe86f2abb6daf0c6301d13847343e292ab734137b462dea17d33476b3b482b"
+    },
+    {
+      "book": "visual-group-theory",
+      "page": "visual-group-theory/notes/chapter07_products_and_quotients.html",
+      "reason": "I078 迁移前已有偏差：question-title、answer-title、question-label、answer-label、data-original-exercise、data-source-pdf-pages、summary",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "68db6f84b1cb2c71fc97518d21945bc97c1089a5d871412603ab38e9ee4cecdf"
+    },
+    {
+      "book": "visual-group-theory",
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "reason": "I078 迁移前已有偏差：question-title、answer-title、question-label、answer-label、data-original-exercise、data-source-pdf-pages、summary",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "69495e1cec065e792860e4985efe0f49b088943479c64b41a9ad664792c19a0b"
+    },
+    {
+      "book": "visual-group-theory",
+      "page": "visual-group-theory/notes/chapter09_sylow_theory.html",
+      "reason": "I078 迁移前已有偏差：question-title、answer-title、question-label、answer-label、data-original-exercise、data-source-pdf-pages、summary",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "dfa777b1a920388ed09de0857cec435a8c3fa6e637dc06468d093614ca37cc21"
+    },
+    {
+      "book": "visual-group-theory",
+      "page": "visual-group-theory/notes/chapter10_galois_theory.html",
+      "reason": "I078 迁移前已有偏差：question-title、answer-title、question-label、answer-label、data-original-exercise、data-source-pdf-pages、summary",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "0d062cf305088ed7243c06e2803c7382c24f6afc6cfb94e1f09aae2b2248d07e"
+    },
+    {
+      "book": "stochastic",
+      "page": "stochastic/notes/chapter01_markov_chains.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、data-original-exercise、exercise-index",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "78ea0ae894bc1b1a6f0c1c26a1f03a8206bf851692a5c88ed66dff835d69d911"
+    },
+    {
+      "book": "stochastic",
+      "page": "stochastic/notes/chapter02_poisson_processes.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、data-original-exercise、exercise-index",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "a48694a102eb6a774f227298b8a5e656bcdf5031527d6e2a9ee5ab7a3771eced"
+    },
+    {
+      "book": "stochastic",
+      "page": "stochastic/notes/chapter03_renewal_processes.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、data-original-exercise、exercise-index",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "75179af02eaf9e5d4acdc1bc10e7e788acadada65a76b0fb452fa95adb984ec5"
+    },
+    {
+      "book": "stochastic",
+      "page": "stochastic/notes/chapter04_continuous_time_markov_chains.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、data-original-exercise、exercise-index",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "0f1aa34b7710bc56c5a372465bb6bbe181339c0f0d09194035024442d1d5eadf"
+    },
+    {
+      "book": "stochastic",
+      "page": "stochastic/notes/chapter05_martingales.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、data-original-exercise",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "f97390279283b76a18f9258d2092e014b66838b21e29f6dadafd1fa59b1b099b"
+    },
+    {
+      "book": "stochastic",
+      "page": "stochastic/notes/chapter06_mathematical_finance.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、data-original-exercise、exercise-index",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "6721ee9f82f9ea15a62461ac38594c5868a94d9380ea2d09dae5e5bf5f75afda"
+    },
+    {
+      "book": "weiss",
+      "page": "weiss/notes/chapter01_introduction.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、data-original-exercise",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "9e981b9652f44a87b73c2f3d34f8a163eab9585c681db89ca1bf5fea5adbbb1e"
+    },
+    {
+      "book": "weiss",
+      "page": "weiss/notes/chapter02_algorithm_analysis.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、data-original-exercise、data-source-pdf-pages、exercise-index",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "ec16a5d0bad183cf371a5c08a7ce396f293e6e0ba82197f061e985c1c68ccf6e"
+    },
+    {
+      "book": "weiss",
+      "page": "weiss/notes/chapter03_lists_stacks_queues.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、data-original-exercise、exercise-index",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "c043e02912a44d3690ad45e9d0e184e0b6ea6443d6a50a66638510c33f48ba69"
+    },
+    {
+      "book": "weiss",
+      "page": "weiss/notes/chapter04_trees.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、data-original-exercise、data-source-pdf-pages、exercise-index",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "e2b6b2a7fcfc224ec455de0e6dce85310ac8d89e03d0af3e2eb24ddcbaa9d702"
+    },
+    {
+      "book": "weiss",
+      "page": "weiss/notes/chapter05_priority_queues.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、data-original-exercise、data-source-pdf-pages、exercise-index",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "07b30e44d47d012e0f3c8f631f58aaa71007218a320ca55304d3451968381c28"
+    },
+    {
+      "book": "weiss",
+      "page": "weiss/notes/chapter06_sorting.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、data-original-exercise、data-source-pdf-pages、exercise-index",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "74b2149b9369e702f3dcdd6d382bd05e4ef8e94700210edfaebfd7afd789fee1"
+    },
+    {
+      "book": "weiss",
+      "page": "weiss/notes/chapter07_hashing.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、data-original-exercise",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "200868520ec28ff608200a2d8571e59f659b6e52f47c34ff879848c9cf6bf62d"
+    },
+    {
+      "book": "weiss",
+      "page": "weiss/notes/chapter08_disjoint_sets.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、data-original-exercise",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "e12babc6cff3523a4735d432d02f6bb1dcdecd7972e41c9e57d46b054ffa2903"
+    },
+    {
+      "book": "weiss",
+      "page": "weiss/notes/chapter09_graph_algorithms.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、data-original-exercise、data-source-pdf-pages、exercise-index",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "654bc026c762a289bd4aca2c7669db6770d162f2653614174ab8166aa3da6130"
+    },
+    {
+      "book": "weiss",
+      "page": "weiss/notes/chapter10_algorithm_design.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、data-original-exercise、data-source-pdf-pages、exercise-index",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "eb4e0f0a86862de9f00a73b4ae3aa3bfb1c4f770782c77f65debc3340a8618d3"
+    },
+    {
+      "book": "weiss",
+      "page": "weiss/notes/chapter11_amortized_analysis.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、data-original-exercise",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "f43ee1c7f929c3300f008dc29ef118bbcee4ff753cebefdbad8742b83660bb73"
+    },
+    {
+      "book": "weiss",
+      "page": "weiss/notes/chapter12_advanced_data_structures.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、data-original-exercise、data-source-pdf-pages、exercise-index",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "c356e02142ff8870c8d310f6580e396bc47f104a87a2cb667876cfe1e0ed28c2"
+    },
+    {
+      "book": "csapp",
+      "page": "csapp/notes/chapter01_tour.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、data-original-exercise、question-title、answer-title、question-label、data-source-pdf-pages",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "f6d1dfb719131649edaa41f5e26d0c11987224f8ff401fc38d9cd65f680e2427"
+    },
+    {
+      "book": "csapp",
+      "page": "csapp/notes/chapter02_information.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、data-original-exercise、question-title、answer-title、question-label、data-source-pdf-pages、exercise-index",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "8be3fa129e87378852a0db92917dffb747e03db8f2427a7e2d8b4d8b59f1fb80"
+    },
+    {
+      "book": "csapp",
+      "page": "csapp/notes/chapter03_machine_level.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、data-original-exercise、data-source-pdf-pages、question-title、answer-title、question-label、exercise-index",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "c16fd70bf4735a36270c2d1be344416a902a034285fbdb7f09566691a06362ac"
+    },
+    {
+      "book": "csapp",
+      "page": "csapp/notes/chapter04_architecture.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、question-title、answer-title、question-label、data-original-exercise、data-source-pdf-pages、exercise-index",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "abca8beae9ce80b3b7078b2420fd3d5e50c277d79554f4a3dd2943e6025c1aa6"
+    },
+    {
+      "book": "csapp",
+      "page": "csapp/notes/chapter05_optimization.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、data-original-exercise、question-title、answer-title、question-label、data-source-pdf-pages、exercise-index",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "bb1e18221b9bc3f868c63539b031e983be99d54ecb6a1912c6eff1a6f58b588c"
+    },
+    {
+      "book": "csapp",
+      "page": "csapp/notes/chapter06_memory.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、question-title、answer-title、question-label、data-original-exercise、data-source-pdf-pages、exercise-index",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "31f7753f1e972510a77dc1da4e4ab4829e8c3c023df955fc0f4036a3e3dc058a"
+    },
+    {
+      "book": "csapp",
+      "page": "csapp/notes/chapter07_linking.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、question-label、data-original-exercise、data-source-pdf-pages",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "d4fa9f7dbdf5a34769f4e905ed1929bb3e7a18642b85e1b01684a3ed380fedda"
+    },
+    {
+      "book": "csapp",
+      "page": "csapp/notes/chapter08_exceptional.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、question-title、answer-title、question-label、data-original-exercise、data-source-pdf-pages、answer-label、exercise-index",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "483f48346d18fca8bd50e3a1409458323789f0fb52851b51a1bfdef4abb49a17"
+    },
+    {
+      "book": "csapp",
+      "page": "csapp/notes/chapter09_virtual_memory.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、answer-label、data-original-exercise、question-title、answer-title、question-label、data-source-pdf-pages、exercise-index",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "abab6aba8aa0816442ca33e69ea0b6d0c0cbfd3228e5b43616cc3513586f37e6"
+    },
+    {
+      "book": "csapp",
+      "page": "csapp/notes/chapter10_system_io.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、question-label、data-original-exercise、data-source-pdf-pages",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "30407412073fc387536577f4e66b82c1aaf3f479dab5d8f5f8fcae656a2ca4af"
+    },
+    {
+      "book": "csapp",
+      "page": "csapp/notes/chapter11_network.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、answer-label、data-original-exercise、question-title、answer-title、question-label、data-source-pdf-pages",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "697994cb0cc40f2d12c7c053e6f995e803b5870ce9646e3b77be6ade3fba4217"
+    },
+    {
+      "book": "csapp",
+      "page": "csapp/notes/chapter12_concurrency.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、answer-label、data-original-exercise、question-title、answer-title、question-label、data-source-pdf-pages、exercise-index",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "8068c2239b288ccc86721ace98a804f9782a9b65751aaa6e4166bc96c15f23f2"
+    },
+    {
+      "book": "eopl",
+      "page": "eopl/notes/appendix_b_sllgen.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、question-title、answer-title、question-label、answer-label、data-original-exercise、data-source-pdf-pages",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "631e3686cf804fb68679e60045c21bb1a9df0c6e8f92d4f9f4311e91f22ce48f"
+    },
+    {
+      "book": "eopl",
+      "page": "eopl/notes/chapter01_inductive_data.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、question-title、answer-title、question-label、answer-label、data-original-exercise、data-source-pdf-pages、exercise-index",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "d7d3b96ad503a9c837db0eb59e8488ab849a2a8fcb0626fd98b611913ad1e663"
+    },
+    {
+      "book": "eopl",
+      "page": "eopl/notes/chapter02_data_abstraction.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、question-title、answer-title、question-label、answer-label、data-original-exercise、data-source-pdf-pages、exercise-index",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "4d53d0caf1a949c959cc9e8d6682b4d8606d991a823cfae4ac4c000dbbb34073"
+    },
+    {
+      "book": "eopl",
+      "page": "eopl/notes/chapter03_expressions.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、question-title、answer-title、question-label、answer-label、data-original-exercise、data-source-pdf-pages、exercise-index",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "98cb38f1d797803409566719656f4ce33211c523630f738b6013ee1a305c53cb"
+    },
+    {
+      "book": "eopl",
+      "page": "eopl/notes/chapter04_state.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、question-title、answer-title、question-label、answer-label、data-original-exercise、data-source-pdf-pages、exercise-index",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "4c2a3a8e008670701304ddffbf25cfe47c159638ca6f9d4d39f6e8ef15b3132c"
+    },
+    {
+      "book": "eopl",
+      "page": "eopl/notes/chapter05_continuations.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、question-title、answer-title、question-label、answer-label、data-original-exercise、data-source-pdf-pages、exercise-index",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "dde56722cd8479346fec0da7cbad0c636a2fa33078984d72626e0efe6e058947"
+    },
+    {
+      "book": "eopl",
+      "page": "eopl/notes/chapter06_cps.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、question-title、answer-title、question-label、answer-label、data-original-exercise、data-source-pdf-pages、exercise-index",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "927351ce5f78f2c733a4a83adc0f8b09e17649f191fd58afb28dd324ad1514b6"
+    },
+    {
+      "book": "eopl",
+      "page": "eopl/notes/chapter07_types.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、question-title、answer-title、question-label、answer-label、data-original-exercise、data-source-pdf-pages、exercise-index",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "c7927c9ded62b1b11287498f1273646525b8a4b98b7a7c5010f35e722627c732"
+    },
+    {
+      "book": "eopl",
+      "page": "eopl/notes/chapter08_modules.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、question-title、answer-title、question-label、answer-label、data-original-exercise、data-source-pdf-pages、exercise-index",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "f1fba608cbebfaa6c26279bb4557d7fe4fe1093a6cea4374cd04e74a08751e8b"
+    },
+    {
+      "book": "eopl",
+      "page": "eopl/notes/chapter09_objects.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、question-title、answer-title、question-label、answer-label、data-original-exercise、data-source-pdf-pages、exercise-index",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "f61c730b85b93fb0731a9eb412d030cab88de38e2262b2ec67f20ce893b1d1e7"
+    },
+    {
+      "book": "eopl",
+      "page": "eopl/notes/preface.html",
+      "reason": "I078 迁移前已有偏差：data-exercise、summary、question-title、answer-title、answer-label、data-original-exercise、data-source-pdf-pages",
+      "issue": "I079",
+      "review_version": "I079 迁移验收或本页下次修改，以先到者为准",
+      "source_sha256": "e9c5032a0c5866a4c352031e8ef991fc7cf8e65244a8efc923c398101f59b0fb"
+    }
+  ]
+}

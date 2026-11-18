@@ -1,4 +1,5 @@
 // Validate shared teaching semantics independently of the browser geometry checks.
+import { checkExerciseContract } from './exercise-contract.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -151,6 +152,7 @@ export function checkAll() {
     const singleQuestionIndexExceptions = (presentation.books[e.metadata.book]?.exceptions ?? [])
       .filter(exception => exception.page === path.basename(e.filename) &&
         exception.rule === 'exercise-index-single-question-section');
+    checkExerciseContract(e.html, e.metadata.route);
     const counts = checkPage(e.html, e.metadata.book, singleQuestionIndexExceptions);
     const expected = inventory.pages.find(p => p.page === e.metadata.route);
     assert(expected, 'Missing component inventory');

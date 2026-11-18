@@ -145,3 +145,22 @@ test('splay local accounting distinguishes the two disjoint-subtree pairs', () =
   const issues = JSON.parse(fs.readFileSync('books/measure-probability/notes/source_issues.json'));
   assert(issues.issues.some(i => i.id === 'MP-COMPANION-627' && i.pdf_pages[0] === 228));
 });
+
+test('I078 enforces exercise metadata on every unregistered page', async () => {
+  const {checkExerciseContract} = await import('../tools/reading-components/exercise-contract.mjs');
+  const page = 'sicp/notes/new.html';
+  const source = '<details class="exercise" id="ex-1-1" data-exercise="1.1"><summary>习题 1.1 · 求值</summary><div class="exercise-question" data-original-exercise="1.1" data-source-pdf-pages="54,55"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p>计算表达式。</p><a href="../sicp.pdf#page=54">PDF 54</a></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>依次求值。</p></div></details>';
+  checkExerciseContract(source,page);
+  for (const [from,to] of [
+    ['question-title ',''], ['answer-title ',''], [' data-exercise="1.1"',''],
+    [' data-original-exercise="1.1"',''], [' data-source-pdf-pages="54,55"',''],
+    ['54,55','55'], ['原题（中文翻译）','题目'], ['>解答<','>解答与推导<'],
+    ['<details ','<details open '], ['习题 1.1 · 求值','习题 1.2 · 求值']
+  ]) assert.throws(() => checkExerciseContract(source.replace(from,to),page), /contract deviation/);
+  assert.throws(() => checkExerciseContract(fragment(exercise('<p>答案。</p>')),page), /contract deviation/);
+  const legacy = JSON.parse(fs.readFileSync('docs/exercise-contract.json')).legacy[0];
+  const old = entries().find(e => e.metadata.route === legacy.page).html;
+  checkExerciseContract(old,legacy.page);
+  assert.throws(() => checkExerciseContract(old,page), /contract deviation/);
+  assert.throws(() => checkExerciseContract(old+' ',legacy.page), /Legacy page changed/);
+});

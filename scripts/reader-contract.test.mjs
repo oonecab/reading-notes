@@ -59,3 +59,35 @@ test('explicit nested section inventory covers each subsection and its annotatio
  assert.throws(()=>checkReaderPage(nested.replace('data-notes-for="s1-1"','data-notes-for="missing"'),p,source),/Missing required annotation/);
  assert.throws(()=>checkReaderPage(nested,{...p,sections:[policy.sections[0],{...p.sections[1],parent:'other'}]},source),/Wrong subsection parent/);
 });
+
+import {checkVisualPage} from '../tools/visual-contract/check.mjs';
+test('visual obligations reject missing inventory, missing caption, broken source and unregistered assets',()=>{
+  const section = {id:'lesson',parent:'chapter',role:'teaching'};
+  const item = {kind:'figure',status:'required',representation:'svg',target:'#tree',title:'递归树',source_pdf_page:4,reason:'比较分支',review_version:'test'};
+  const apply = (body,sections) => checkVisualPage('<section id="lesson">'+body+'</section>',{...policy,sections:[section]},
+    {books:{book:{pages:{[policy.page]:{sections}}}},legacy:[]},source);
+  const fig = '<figure id="tree" aria-label="树" data-source-pdf-page="4"><svg></svg><figcaption>树 <a href="../assets/source.pdf#page=4">来源</a></figcaption></figure>';
+  const rows={lesson:[item]};
+  apply(fig,rows);
+  assert.throws(()=>apply(fig,{}),/Missing visual inventory/);
+  assert.throws(()=>apply('',rows),/Missing visual target/);
+  assert.throws(()=>apply(fig.replaceAll('figcaption','div'),rows),/Missing figure caption/);
+  assert.throws(()=>apply(fig.replace('page=4','page=3'),rows),/Missing visual source link/);
+  assert.throws(()=>apply(fig+'<figure></figure>',rows),/Unregistered visual/);
+  const excerpts={lesson:[{...item,kind:'excerpt',representation:'blockquote'}]};
+  const quote=s=>'<blockquote class="original-excerpt" id="tree" data-excerpt-reason="term" data-source-pdf-page="4"><p>'+s+'</p><cite><a href="../assets/source.pdf#page=4">PDF 4</a></cite></blockquote>';
+  apply(quote('One. Two.'),excerpts);
+  assert.throws(()=>apply(quote('a'.repeat(401)),excerpts),/Excerpt exceeds/);
+  assert.throws(()=>apply(quote('One. Two. Three.'),excerpts),/Excerpt exceeds/);
+});
+
+test('visual legacy pages need an explicit I081 issue as well as the frozen source identity', async () => {
+  const {createHash} = await import('node:crypto');
+  const row = {book:'book',page:policy.page,issue:'I081',review_version:'I081',
+    reason:'旧页等待来源清点',source_sha256:createHash('sha256').update(html).digest('hex')};
+  const check = entry => checkVisualPage(html,policy,{books:{},legacy:[entry]},source);
+  check(row);
+  const {issue,...missing} = row;
+  assert.throws(()=>check(missing),/Unregistered visual page/);
+  assert.throws(()=>check({...row,issue:'I079'}),/Unregistered visual page/);
+});

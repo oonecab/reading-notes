@@ -334,3 +334,7 @@ I074跨平台实测进一步发现：发布白名单的CRLF工作区与Git的LF�
 ## I075 SICP 第一章（2026-11-06）
 
 七书72受控阅读页；SICP三页46题，第一章覆盖PDF29–134、18二级小节。以既有Racket/Scheme工具链执行递归/迭代、素数与高阶数值方法，本机实际版本8.10（EOPL历史验收8.17保留其事实范围），没有新增运行时或服务。原题来源输入独立保存，程序镜像逐字核对，实测计时与数学证明分别记录；1.28的Miller–Rabin原题表述用模9反例校注。数值/精度/折叠约定由books/sicp/notes/README与题解维护；根契约、允许公开清单、书架和来源清单同步。无环境变量、端口或部署环境变化；完整本地证据见T075，生产发布另行授权。
+
+I078 将 RN-001 §5 习题结构接入组件与阅读检查器。逐页旧版登记、审计和迁移证据分别见 docs/exercise-contract.json、docs/exercise-contract-audit.json 和 docs/exercise-contract-review.json。无技术栈变更。
+
+I080 在阅读契约检查中执行 tools/visual-contract/check.mjs，逐节核对 docs/visual-contract.json 的图表、来源与短摘录。无技术栈变更。

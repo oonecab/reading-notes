@@ -10,3 +10,5 @@
 - 根检查器已登记 `tools/check_notes.py`，--quick检查来源/给定输入/程序镜像；不带--quick实际运行Racket回归。代码唯一源为code/下.rkt，页面片段和完整阅读副本须同步，不把结构通过当程序执行。第一章实测Racket8.10，历史EOPL8.17不是本次运行版本。
 - 数值阈值、折叠方向、随机实验范围见notes/README与code/README；Miller–Rabin的1.28校注须保留最终余数不为1这一拒绝条件。
 - 来源图像、日志与浏览器输出放忽略目录 tmp/；第一章证据见review/chapter01.json与根T075。历史review/map-introduction.md及T073不重写。生产发布须另有用户授权。
+
+[逐节原文图、表与摘录清单](../../docs/visual-contract.json)登记第 1 章 18 个二级小节、Figure 1.1–1.5 的等价呈现和 1.14 的调用树。

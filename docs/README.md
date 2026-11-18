@@ -20,6 +20,7 @@
 - [统一部署与恢复](../deploy/README.md)：实际发布步骤的唯一操作说明。
 - [治理更新流程](governance-updates.md)。
 - [RN-001 读书笔记共同标准](reading-notes-standard.md)：跨书的来源、全书规划、伴读讲解、题解、程序、版式与分层验收方法；[新书模板](templates/reading-notes/README.md)记录书级事实。
+- [习题统一结构契约](exercise-contract.json)：RN-001 §5 的字段、标签及逐页旧版登记；[全站审计](exercise-contract-audit.json)列出每页偏差。
 - [RN-002 阅读呈现、导航与检查规范](reading-presentation-standard.md)：页面族、唯一阅读路径、章节图逐节点落点、章首与索引位置、题干语言策略、三层检查与结论写法；机器登记在 `reader-presentation.json`，检查器为 `../tools/check-presentation-contract.mjs`。
 - [新增子项目](adding-a-book.md)与 [本次迁移](migration-20261012.md)。
 - [架构决策](decisions/ADR-001-book-subprojects.md)、[问题单](../issues/I001-project-merge.md)、[计划](../plan/P001-project-merge.md)、[测试设计](../test/T001-project-merge.md)与 [里程碑](../milestone/M001-project-merge.md)。
@@ -67,3 +68,5 @@ EOPL全书已在I065补齐附录A/B，13页356题；最近三章的边界修复�
 - [EOPL实现修复与生产发布审阅](eopl-repairs-publication-review.json)：完整输入、运行预算、同步机制与CPS续文身份修复的干净提交、587文件、服务器恢复单位和公网阅读证据。
 
 - [SICP地图与引言](../books/sicp/README.md)：五章主线、Perlis前言与两版序言；本地范围和验收见[T073](../test/T073-sicp-map-introduction.md)。
+
+[逐节原文图、表与摘录清单](visual-contract.json)登记第 1 章 18 个二级小节、Figure 1.1–1.5 的等价呈现和 1.14 的调用树。

@@ -94,3 +94,7 @@ EOPL完结（I065）：附录B算术数域、左结合、环境、数字/负号�
 - SICP：[维护入口](../../books/sicp/agent.md)、[页面规范](../../books/sicp/notes/README.md)、[原书清单](../../books/sicp/notes/source_manifest.json)。本批仅地图和引言，无新计算规则；过程/环境/机器模型的比较由正式地图释读，逐章规则与程序待后续授权。
 
 SICP第一章的求值模型、迭代数值阈值、四位小数口径、accumulate折叠方向和素数实验边界由[书级约定](../../books/sicp/notes/README.md)、[正式第一章](../../books/sicp/notes/chapter01_procedures.html)与[程序接口](../../books/sicp/code/README.md)维护；独立源码/给定输入及实际证据见[T075](../../test/T075-sicp-chapter01.md)。1.28原题与校注分开，不能把“未发现非平凡平方根”单独当作通过。
+
+习题结构权威位置为 [RN-001 §5](../reading-notes-standard.md)，字段、固定标签及逐页迁移范围见[习题机器契约](../exercise-contract.json)。
+
+[逐节原文图、表与摘录清单](../visual-contract.json)登记第 1 章 18 个二级小节、Figure 1.1–1.5 的等价呈现和 1.14 的调用树。
