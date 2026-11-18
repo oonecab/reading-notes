@@ -98,3 +98,5 @@ SICP第一章的求值模型、迭代数值阈值、四位小数口径、accumul
 习题结构权威位置为 [RN-001 §5](../reading-notes-standard.md)，字段、固定标签及逐页迁移范围见[习题机器契约](../exercise-contract.json)。
 
 [逐节原文图、表与摘录清单](../visual-contract.json)登记第 1 章 18 个二级小节、Figure 1.1–1.5 的等价呈现和 1.14 的调用树。
+
+I082 的[内容深度契约](../content-depth-contract.json)登记教学例子、材料解释、题解理由及读回证据。

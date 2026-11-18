@@ -1819,7 +1819,7 @@ x y))</code>产生<code>x</code>。</p>
   <mi>a</mi>
 </math>和<math xmlns="http://www.w3.org/1998/Math/MathML">
   <mi>b</mi>
-</math>表示为整数乘积<math xmlns="http://www.w3.org/1998/Math/MathML">
+</math>表示为整数乘积<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <mrow class="MJX-TeXAtom-ORD">
     <msup>
       <mn>2</mn>
@@ -1830,7 +1830,7 @@ x y))</code>产生<code>x</code>。</p>
       <mi>b</mi>
     </msup>
   </mrow>
-</math>，那么仅使用数字和算术运算就可以表示非负整数序对。给出过程<code>cons</code>、<code>car</code>和<code>cdr</code>的相应定义。</p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>构造器计算两幂之积。car 统计编码可被 2 连续整除几次，cdr 独立统计 3 的次数；唯一分解保证二者互不混淆。编码 1 表示 (0,0)。</p><p><a href="#code-representations">对照本章程序</a></p></div></details><details class="exercise" id="ex-2-6" data-exercise="2.6"><summary>习题 2.6 · Church 数</summary><div class="exercise-question" data-original-exercise="2.6" data-source-pdf-pages="154"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source">原书 p.126 / <a href="../sicp.pdf#page=154">PDF 154</a></p>
+</math></span>，那么仅使用数字和算术运算就可以表示非负整数序对。给出过程<code>cons</code>、<code>car</code>和<code>cdr</code>的相应定义。</p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>构造器计算两幂之积。car 统计编码可被 2 连续整除几次，cdr 独立统计 3 的次数；唯一分解保证二者互不混淆。编码 1 表示 (0,0)。</p><p><a href="#code-representations">对照本章程序</a></p></div></details><details class="exercise" id="ex-2-6" data-exercise="2.6"><summary>习题 2.6 · Church 数</summary><div class="exercise-question" data-original-exercise="2.6" data-source-pdf-pages="154"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source">原书 p.126 / <a href="../sicp.pdf#page=154">PDF 154</a></p>
 <p>如果觉得把序对表示为过程还不够令人费解，那么考虑一下，在一种能够操作过程的语言中，我们可以通过如下实现0和加1的运算来摆脱数字（至少就非负整数而言）：</p>
 
 <details class="code-details" open><summary>题中给定内容</summary><pre><code class="language-scheme">(define zero (lambda (f) (lambda (x) x)))
@@ -1855,7 +1855,7 @@ x y))</code>产生<code>x</code>。</p>
   <mi>A</mi>
 </math> 和 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <mi>B</mi>
-</math>，并用它们来计算表达式 <math xmlns="http://www.w3.org/1998/Math/MathML">
+</math>，并用它们来计算表达式 <span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <mrow class="MJX-TeXAtom-ORD">
     <mi>A</mi>
     <mrow class="MJX-TeXAtom-ORD">
@@ -1863,7 +1863,7 @@ x y))</code>产生<code>x</code>。</p>
     </mrow>
     <mi>A</mi>
   </mrow>
-</math> 和 <math xmlns="http://www.w3.org/1998/Math/MathML">
+</math></span> 和 <span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <mrow class="MJX-TeXAtom-ORD">
     <mi>A</mi>
     <mrow class="MJX-TeXAtom-ORD">
@@ -1871,7 +1871,7 @@ x y))</code>产生<code>x</code>。</p>
     </mrow>
     <mi>B</mi>
   </mrow>
-</math>。使用宽度为中心值很小百分比的区间将获得最多的洞见。以中心-百分比形式检查计算结果（见 <a href="#ex-2-12">习题 2.12</a>）。</p><p><a href="#input-1-par1">本题引用的原书过程 <code>par1</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>取 A=[99,101]、B=[198,202]。A/A 的端点是 99/101、101/99，中心为 10001/9999，相对容差为 200/10001。A/B 的端点恰为前例的一半，相对容差相同。par2 得 [66,202/3]；par1 更宽，因为同一个 A 或 B 在不同位置可以取不一致的端点。</p><p><a href="#code-intervals">对照本章程序</a></p></div></details><details class="exercise" id="ex-2-15" data-exercise="2.15"><summary>习题 2.15 · 重复不确定量</summary><div class="exercise-question" data-original-exercise="2.15" data-source-pdf-pages="160"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source">原书 p.132 / <a href="../sicp.pdf#page=160">PDF 160</a></p>
+</math></span>。使用宽度为中心值很小百分比的区间将获得最多的洞见。以中心-百分比形式检查计算结果（见 <a href="#ex-2-12">习题 2.12</a>）。</p><p><a href="#input-1-par1">本题引用的原书过程 <code>par1</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>取 A=[99,101]、B=[198,202]。A/A 的端点是 99/101、101/99，中心为 10001/9999，相对容差为 200/10001。A/B 的端点恰为前例的一半，相对容差相同。par2 得 [66,202/3]；par1 更宽，因为同一个 A 或 B 在不同位置可以取不一致的端点。</p><p><a href="#code-intervals">对照本章程序</a></p></div></details><details class="exercise" id="ex-2-15" data-exercise="2.15"><summary>习题 2.15 · 重复不确定量</summary><div class="exercise-question" data-original-exercise="2.15" data-source-pdf-pages="160"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source">原书 p.132 / <a href="../sicp.pdf#page=160">PDF 160</a></p>
 <p> 另一位用户 Eva Lu Ator 也注意到，由不同但代数等价的表达式计算出的区间不同。她说，如果使用 Alyssa 的系统计算区间的公式能够写成这样一种形式，即表示不确定数的变量不重复出现，那么它将产生更紧的误差界。因此，她说，<code>par2</code> 是比 <code>par1</code> 更“好”的并联电阻程序。她对吗？为什么？</p><p><a href="#input-1-par1">本题引用的原书过程 <code>par1</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>对这里的正电阻区间成立。par2 中各电阻各出现一次，倒数、相加与再次取倒数的端点可由同一组输入同时实现。par1 的乘积与和分别取极值时允许同一电阻取不同值，包围区间因此过宽。</p><p><a href="#code-intervals">对照本章程序</a></p></div></details><details class="exercise" id="ex-2-16" data-exercise="2.16"><summary>习题 2.16 · 等价表达式与依赖性</summary><div class="exercise-question" data-original-exercise="2.16" data-source-pdf-pages="160"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source">原书 p.132 / <a href="../sicp.pdf#page=160">PDF 160</a></p>
 <p> 一般性地解释为什么等价的代数表达式可能导致不同的答案。你能设计一个没有这个缺点的区间算术包吗，还是这个任务不可能完成？（警告：这个问题非常困难。）</p><p><a href="#input-1-par1">本题引用的原书过程 <code>par1</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>只保存上下端会抹去表达式间的依赖，例如 x-x 的真实范围为零，而两个独立但同范围的变量之差可以非零。仅凭二者端点，局部减法不可能区分这两种情况。附带符号身份、保留表达式或对受限表达式求精确范围能够改进；这个反例并未证明所有更丰富的表示都不可能。</p><p><a href="#code-intervals">对照本章程序</a></p></div></details><details class="exercise" id="ex-2-17" data-exercise="2.17"><summary>习题 2.17 · 末序对</summary><div class="exercise-question" data-original-exercise="2.17" data-source-pdf-pages="167"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source">原书 p.139 / <a href="../sicp.pdf#page=167">PDF 167</a></p>
 <p> 定义一个过程<code>last-pair</code>，它返回只包含给定（非空）表的最后一个元素的表：</p>
@@ -2196,7 +2196,7 @@ x
   </msub>
 </math> 开始，乘以 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <mi>x</mi>
-</math>，加上 <math xmlns="http://www.w3.org/1998/Math/MathML">
+</math>，加上 <span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <msub>
     <mi>a</mi>
     <mrow class="MJX-TeXAtom-ORD">
@@ -2205,7 +2205,7 @@ x
       <mn>1</mn>
     </mrow>
   </msub>
-</math>，乘以 <math xmlns="http://www.w3.org/1998/Math/MathML">
+</math></span>，乘以 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <mi>x</mi>
 </math>，依此类推，直到我们到达 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <msub>
@@ -2233,7 +2233,7 @@ x
    0
    coefficient-sequence))</code></pre></details>
 
-<p>例如，要在 <math xmlns="http://www.w3.org/1998/Math/MathML">
+<p>例如，要在 <span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <mrow class="MJX-TeXAtom-ORD">
     <mn>1</mn>
     <mo>+</mo>
@@ -2253,16 +2253,16 @@ x
       <mn>5</mn>
     </msup>
   </mrow>
-</math> 处计算 <math xmlns="http://www.w3.org/1998/Math/MathML">
+</math></span> 处计算 <span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <mrow class="MJX-TeXAtom-ORD">
     <mi>x</mi>
     <mo>=</mo>
     <mn>2</mn>
   </mrow>
-</math>，你会求值</p>
+</math></span>，你会求值</p>
 
 <details class="code-details" open><summary>题中给定内容</summary><pre><code class="language-scheme">(horner-eval 2 (list 1 3 0 5 0 1))</code></pre></details>
-<div class="source-note" id="q34FOOT82"><strong>原书注 82</strong><p>根据Knuth1981的说法，这个规则是由W. G. Horner在十九世纪初提出的，但该方法实际上在比这早一百多年的时候就被牛顿使用了。Horner规则在计算多项式时使用的加法和乘法比先计算<math xmlns="http://www.w3.org/1998/Math/MathML">
+<div class="source-note" id="q34FOOT82"><strong>原书注 82</strong><p>根据Knuth1981的说法，这个规则是由W. G. Horner在十九世纪初提出的，但该方法实际上在比这早一百多年的时候就被牛顿使用了。Horner规则在计算多项式时使用的加法和乘法比先计算<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <mrow class="MJX-TeXAtom-ORD">
     <msub>
       <mi>a</mi>
@@ -2273,7 +2273,7 @@ x
       <mi>n</mi>
     </msup>
   </mrow>
-</math>，然后加上<math xmlns="http://www.w3.org/1998/Math/MathML">
+</math></span>，然后加上<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <mrow class="MJX-TeXAtom-ORD">
     <msub>
       <mi>a</mi>
@@ -2292,7 +2292,7 @@ x
       </mrow>
     </msup>
   </mrow>
-</math>，依此类推的直接方法要少。事实上，可以证明任何用于计算任意多项式的算法都必须至少使用与Horner规则一样多的加法和乘法，因此Horner规则是多项式求值的最优算法。这一点（对于加法次数）由A. M. Ostrowski在一篇1954年的论文中证明，该论文基本上奠定了最优算法的现代研究。关于乘法的类似陈述由V. Y. Pan在1966年证明。Borodin和Munro（1975）的书概述了这些以及其他关于最优算法的结果。</p>
+</math></span>，依此类推的直接方法要少。事实上，可以证明任何用于计算任意多项式的算法都必须至少使用与Horner规则一样多的加法和乘法，因此Horner规则是多项式求值的最优算法。这一点（对于加法次数）由A. M. Ostrowski在一篇1954年的论文中证明，该论文基本上奠定了最优算法的现代研究。关于乘法的类似陈述由V. Y. Pan在1966年证明。Borodin和Munro（1975）的书概述了这些以及其他关于最优算法的结果。</p>
 </div><p><a href="#input-2-accumulate">本题引用的原书过程 <code>accumulate</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>填 (+ this-coeff (* x higher-terms))。右折叠首先读最高次系数，向低次依次乘 x 并加入下一系数。对 (1 3 0 5 0 1) 和 x=2，从右向左的值为 1、2、9、18、39、79。</p></div></details><details class="exercise" id="ex-2-35" data-exercise="2.35"><summary>习题 2.35 · 将叶子计数写成累积</summary><div class="exercise-question" data-original-exercise="2.35" data-source-pdf-pages="191"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source">原书 p.163 / <a href="../sicp.pdf#page=191">PDF 191</a></p>
 <p> 将 2.2.2 中的 <code>count-leaves</code> 重新定义为累积：</p>
 
@@ -2308,7 +2308,7 @@ x
       (cons (accumulate op init ⟨??⟩)
             (accumulate-n op init ⟨??⟩))))</code></pre></details>
 <p><a href="#input-2-accumulate">本题引用的原书过程 <code>accumulate</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>两个空分别填 (map car seqs) 和 (map cdr seqs)。第一次收集各行首元素交给 op，第二次同时将所有行推进一列。行等长且至少有一行是模板的前提。给定四行的三个列和为 22、26、30。</p></div></details><details class="exercise" id="ex-2-37" data-exercise="2.37"><summary>习题 2.37 · 矩阵与向量</summary><div class="exercise-question" data-original-exercise="2.37" data-source-pdf-pages="191"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source">原书 p.163 / <a href="../sicp.pdf#page=191">PDF 191</a></p>
-<p> 假设我们将向量 <b>v</b> = <math xmlns="http://www.w3.org/1998/Math/MathML">
+<p> 假设我们将向量 <b>v</b> = <span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
 <mrow class="MJX-TeXAtom-ORD">
   <mo stretchy="false">(</mo>
   <msub>
@@ -2317,7 +2317,7 @@ x
   </msub>
   <mo stretchy="false">)</mo>
 </mrow>
-</math> 表示为数的序列，将矩阵 <b>m</b> = <math xmlns="http://www.w3.org/1998/Math/MathML">
+</math></span> 表示为数的序列，将矩阵 <b>m</b> = <span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
 <mrow class="MJX-TeXAtom-ORD">
   <mo stretchy="false">(</mo>
   <msub>
@@ -2329,7 +2329,7 @@ x
   </msub>
   <mo stretchy="false">)</mo>
 </mrow>
-</math> 表示为向量的序列（矩阵的行）。例如，矩阵 <math aria-label="三行四列矩阵，行依次为一二三四、四五六六、六七八九" xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+</math></span> 表示为向量的序列（矩阵的行）。例如，矩阵 <math aria-label="三行四列矩阵，行依次为一二三四、四五六六、六七八九" xmlns="http://www.w3.org/1998/Math/MathML" display="block">
   <mrow>
     <mo>(</mo>
     <mtable rowspacing="4pt" columnspacing="1em">
@@ -2575,7 +2575,7 @@ x
 <p><a href="#input-2-accumulate">本题引用的原书过程 <code>accumulate</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>右折叠填 (append y (list x))，把当前元素放在已反转后缀末端，反复复制表前缀。左折叠填 (cons y x)，其中 x 是累积结果、y 是下一元素，逐项前插只需线性步数。</p></div></details><details class="exercise" id="ex-2-40" data-exercise="2.40"><summary>习题 2.40 · 只生成一次的整数对</summary><div class="exercise-question" data-original-exercise="2.40" data-source-pdf-pages="197"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source">原书 p.169 / <a href="../sicp.pdf#page=197">PDF 197</a></p>
 <p> 定义一个过程<code>unique-pairs</code>，给定一个整数<math xmlns="http://www.w3.org/1998/Math/MathML">
   <mi>n</mi>
-</math>，生成满足<math xmlns="http://www.w3.org/1998/Math/MathML">
+</math>，生成满足<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <mrow class="MJX-TeXAtom-ORD">
     <mo stretchy="false">(</mo>
     <mi>i</mi>
@@ -2583,7 +2583,7 @@ x
     <mi>j</mi>
     <mo stretchy="false">)</mo>
   </mrow>
-</math>的序对<math xmlns="http://www.w3.org/1998/Math/MathML">
+</math></span>的序对<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <mrow class="MJX-TeXAtom-ORD">
     <mn>1</mn>
     <mo>≤</mo>
@@ -2595,7 +2595,7 @@ x
     <mo>≤</mo>
     <mi>n</mi>
   </mrow>
-</math>的序列。使用<code>unique-pairs</code>来简化上面给出的<code>prime-sum-pairs</code>的定义。</p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>外层枚举 i=1 到 n，内层枚举 j=1 到 i−1，用 flatmap 合并每个 (list i j)。prime-sum-pairs 先按 (+ i j) 是否素数过滤，再映射成 (list i j (+ i j))；严格不等号排除了自身和交换后的重复对。</p></div></details><details class="exercise" id="ex-2-41" data-exercise="2.41"><summary>习题 2.41 · 和为指定值的三元组</summary><div class="exercise-question" data-original-exercise="2.41" data-source-pdf-pages="197"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source">原书 p.169 / <a href="../sicp.pdf#page=197">PDF 197</a></p>
+</math></span>的序列。使用<code>unique-pairs</code>来简化上面给出的<code>prime-sum-pairs</code>的定义。</p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>外层枚举 i=1 到 n，内层枚举 j=1 到 i−1，用 flatmap 合并每个 (list i j)。prime-sum-pairs 先按 (+ i j) 是否素数过滤，再映射成 (list i j (+ i j))；严格不等号排除了自身和交换后的重复对。</p></div></details><details class="exercise" id="ex-2-41" data-exercise="2.41"><summary>习题 2.41 · 和为指定值的三元组</summary><div class="exercise-question" data-original-exercise="2.41" data-source-pdf-pages="197"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source">原书 p.169 / <a href="../sicp.pdf#page=197">PDF 197</a></p>
 <p> 编写一个过程，找出所有由小于或等于给定整数<math xmlns="http://www.w3.org/1998/Math/MathML">
   <mi>i</mi>
 </math>的不同正整数<math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -2607,46 +2607,46 @@ x
 </math>组成的有序三元组，使它们的和等于给定整数<math xmlns="http://www.w3.org/1998/Math/MathML">
   <mi>s</mi>
 </math>。</p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>枚举三个互异的正整数时可直接固定前两项 i、j，令 k=s−i−j，仅在 k 属于 1..n 且三者互异时输出 (list i j k)。这会保留不同排列；若采用原书嵌套枚举的降序约定，额外要求 i&gt;j&gt;k，可从每种组合得到唯一代表。</p></div></details><details class="exercise" id="ex-2-42" data-exercise="2.42"><summary>习题 2.42 · 八皇后的局部安全性</summary><div class="exercise-question" data-original-exercise="2.42" data-source-pdf-pages="197"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source">原书 p.169 / <a href="../sicp.pdf#page=197">PDF 197</a></p>
-<p>“八皇后谜题”问的是如何将八个皇后放在棋盘上，使得没有皇后被其他皇后攻击（即没有两个皇后位于同一行、同一列或同一对角线上）。<a href="#fig-2-8">图2.8</a>中展示了一个可能的解。解决这个谜题的一种方法是横向遍历棋盘，在每一列放置一个皇后。一旦我们放置了<math xmlns="http://www.w3.org/1998/Math/MathML">
+<p>“八皇后谜题”问的是如何将八个皇后放在棋盘上，使得没有皇后被其他皇后攻击（即没有两个皇后位于同一行、同一列或同一对角线上）。<a href="#fig-2-8">图2.8</a>中展示了一个可能的解。解决这个谜题的一种方法是横向遍历棋盘，在每一列放置一个皇后。一旦我们放置了<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <mrow class="MJX-TeXAtom-ORD">
     <mi>k</mi>
     <mo>−</mo>
     <mn>1</mn>
   </mrow>
-</math>个皇后，就必须将第<math xmlns="http://www.w3.org/1998/Math/MathML">
+</math></span>个皇后，就必须将第<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <msup>
     <mi>k</mi>
     <mrow class="MJX-TeXAtom-ORD">
       <mtext>th</mtext>
     </mrow>
   </msup>
-</math>个皇后放在一个不会攻击棋盘上已有皇后的位置。我们可以递归地表述这种方法：假设我们已经生成了在棋盘前<math xmlns="http://www.w3.org/1998/Math/MathML">
+</math></span>个皇后放在一个不会攻击棋盘上已有皇后的位置。我们可以递归地表述这种方法：假设我们已经生成了在棋盘前<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <mrow class="MJX-TeXAtom-ORD">
     <mi>k</mi>
     <mo>−</mo>
     <mn>1</mn>
   </mrow>
-</math>列中放置<math xmlns="http://www.w3.org/1998/Math/MathML">
+</math></span>列中放置<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <mrow class="MJX-TeXAtom-ORD">
     <mi>k</mi>
     <mo>−</mo>
     <mn>1</mn>
   </mrow>
-</math>个皇后的所有可能方式的序列。对于其中的每一种方式，通过在第<math xmlns="http://www.w3.org/1998/Math/MathML">
+</math></span>个皇后的所有可能方式的序列。对于其中的每一种方式，通过在第<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <msup>
     <mi>k</mi>
     <mrow class="MJX-TeXAtom-ORD">
       <mtext>th</mtext>
     </mrow>
   </msup>
-</math>列的每一行放置一个皇后，生成一组扩展的位置。现在过滤这些位置，只保留第<math xmlns="http://www.w3.org/1998/Math/MathML">
+</math></span>列的每一行放置一个皇后，生成一组扩展的位置。现在过滤这些位置，只保留第<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <msup>
     <mi>k</mi>
     <mrow class="MJX-TeXAtom-ORD">
       <mtext>th</mtext>
     </mrow>
   </msup>
-</math>列的皇后相对于其他皇后安全的位置。这样就产生了在前<math xmlns="http://www.w3.org/1998/Math/MathML">
+</math></span>列的皇后相对于其他皇后安全的位置。这样就产生了在前<math xmlns="http://www.w3.org/1998/Math/MathML">
   <mi>k</mi>
 </math>列中放置<math xmlns="http://www.w3.org/1998/Math/MathML">
   <mi>k</mi>
@@ -2655,13 +2655,13 @@ x
 
 <p>我们将这个解法实现为一个过程<code>queens</code>，它返回在<math xmlns="http://www.w3.org/1998/Math/MathML">
   <mi>n</mi>
-</math>棋盘上放置<math xmlns="http://www.w3.org/1998/Math/MathML">
+</math>棋盘上放置<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <mrow class="MJX-TeXAtom-ORD">
     <mi>n</mi>
     <mo>×</mo>
     <mi>n</mi>
   </mrow>
-</math>个皇后问题的所有解的序列。<code>Queens</code>有一个内部过程<code>queen-cols</code>，它返回在棋盘前<math xmlns="http://www.w3.org/1998/Math/MathML">
+</math></span>个皇后问题的所有解的序列。<code>Queens</code>有一个内部过程<code>queen-cols</code>，它返回在棋盘前<math xmlns="http://www.w3.org/1998/Math/MathML">
   <mi>k</mi>
 </math>列中放置皇后的所有方式的序列。</p>
 
@@ -2685,40 +2685,40 @@ x
           (queen-cols (- k 1))))))
   (queen-cols board-size))</code></pre></details>
 
-<p>在这个过程中，<code>rest-of-queens</code>是在前<math xmlns="http://www.w3.org/1998/Math/MathML">
+<p>在这个过程中，<code>rest-of-queens</code>是在前<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <mrow class="MJX-TeXAtom-ORD">
     <mi>k</mi>
     <mo>−</mo>
     <mn>1</mn>
   </mrow>
-</math>列中放置<math xmlns="http://www.w3.org/1998/Math/MathML">
+</math></span>列中放置<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <mrow class="MJX-TeXAtom-ORD">
     <mi>k</mi>
     <mo>−</mo>
     <mn>1</mn>
   </mrow>
-</math>个皇后的一种方式，而<code>new-row</code>是为第<math xmlns="http://www.w3.org/1998/Math/MathML">
+</math></span>个皇后的一种方式，而<code>new-row</code>是为第<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <msup>
     <mi>k</mi>
     <mrow class="MJX-TeXAtom-ORD">
       <mtext>th</mtext>
     </mrow>
   </msup>
-</math>列放置皇后而提议的行。通过实现棋盘位置集合的表示来完成程序，包括过程<code>adjoin-position</code>，它将一个新的行-列位置添加到一个位置集合中，以及<code>empty-board</code>，它表示一个空的位置集合。你还必须编写过程<code>safe?</code>，它对于一个位置集合，判断第<math xmlns="http://www.w3.org/1998/Math/MathML">
+</math></span>列放置皇后而提议的行。通过实现棋盘位置集合的表示来完成程序，包括过程<code>adjoin-position</code>，它将一个新的行-列位置添加到一个位置集合中，以及<code>empty-board</code>，它表示一个空的位置集合。你还必须编写过程<code>safe?</code>，它对于一个位置集合，判断第<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <msup>
     <mi>k</mi>
     <mrow class="MJX-TeXAtom-ORD">
       <mtext>th</mtext>
     </mrow>
   </msup>
-</math>列的皇后相对于其他皇后是否安全。（注意我们只需要检查新皇后是否安全——其他皇后彼此之间已经保证安全了。）</p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>空棋盘为 ()，按列放置，把新行号 cons 到旧棋盘前端。检查新行与前面第 d 列的行号是否相等、两行差绝对值是否等于 d；列天然不同。旧棋盘内部已经安全，因此只需比较新后。四阶有两个解，八阶有 92 个解。完整可执行过程见本章 queens。</p><p><a href="#code-queens">对照本章程序</a></p><p>用四列的小棋盘核对安全判断。前三列行号依次为二、四、一时，第四列选三，与先前三行的距离分别为一、一、二，均不等于对应列距三、二、一；也没有重复行。若选二，虽与最近一列不同行，却和第一列同一行，必须回退。</p></div></details><details class="exercise" id="ex-2-43" data-exercise="2.43"><summary>习题 2.43 · 交换枚举的代价</summary><div class="exercise-question" data-original-exercise="2.43" data-source-pdf-pages="199"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source">原书 p.171 / <a href="../sicp.pdf#page=199">PDF 199</a></p>
-<p> Louis Reasoner 在做<a href="#ex-2-42">习题2.42</a>时遇到了大麻烦。他的<code>queens</code>过程似乎能工作，但运行极其缓慢。（Louis 从来没能等到它解决哪怕<math xmlns="http://www.w3.org/1998/Math/MathML">
+</math></span>列的皇后相对于其他皇后是否安全。（注意我们只需要检查新皇后是否安全——其他皇后彼此之间已经保证安全了。）</p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>空棋盘为 ()，按列放置，把新行号 cons 到旧棋盘前端。检查新行与前面第 d 列的行号是否相等、两行差绝对值是否等于 d；列天然不同。旧棋盘内部已经安全，因此只需比较新后。四阶有两个解，八阶有 92 个解。完整可执行过程见本章 queens。</p><p><a href="#code-queens">对照本章程序</a></p><p>用四列的小棋盘核对安全判断。前三列行号依次为二、四、一时，第四列选三，与先前三行的距离分别为一、一、二，均不等于对应列距三、二、一；也没有重复行。若选二，虽与最近一列不同行，却和第一列同一行，必须回退。</p></div></details><details class="exercise" id="ex-2-43" data-exercise="2.43"><summary>习题 2.43 · 交换枚举的代价</summary><div class="exercise-question" data-original-exercise="2.43" data-source-pdf-pages="199"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source">原书 p.171 / <a href="../sicp.pdf#page=199">PDF 199</a></p>
+<p> Louis Reasoner 在做<a href="#ex-2-42">习题2.42</a>时遇到了大麻烦。他的<code>queens</code>过程似乎能工作，但运行极其缓慢。（Louis 从来没能等到它解决哪怕<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <mrow class="MJX-TeXAtom-ORD">
     <mn>6</mn>
     <mo>×</mo>
     <mn>6</mn>
   </mrow>
-</math>的情形。）当 Louis 向 Eva Lu Ator 求助时，她指出他把<code>flatmap</code>中嵌套映射的顺序弄反了，写成了</p>
+</math></span>的情形。）当 Louis 向 Eva Lu Ator 求助时，她指出他把<code>flatmap</code>中嵌套映射的顺序弄反了，写成了</p>
 
 <details class="code-details" open><summary>题中给定内容</summary><pre><code class="language-scheme">(flatmap
  (lambda (new-row)
@@ -2987,7 +2987,7 @@ x
 <li>说明如何做到这一点，以便对以中缀形式表示的代数表达式求导，例如<code>(x + (3 * (x + (y + 2))))</code>。为简化任务，假设<code>+</code>和<code>*</code>总是接受两个参数，并且表达式是完全括号化的。</li><li>如果我们允许标准的代数记号，例如<code>(x + 3 * (x + y + 2))</code>，即省略不必要的括号并假定乘法先于加法进行，问题就会变得相当困难。你能为这种记号设计合适的谓词、选择函数和构造函数，使得我们的求导程序仍然有效吗？</li></ol>
 <p><a href="#input-3-deriv">本题引用的原书过程 <code>deriv</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>完全括号化的二元式 (a + b) 可用 cadr 判断运算符，car 与 caddr 取两项。一般式先在当前表层寻找 +，以其为根把左右切成两个子表达式；若无 + 再找 *。单元素列表拆去括号，嵌套表独立递归，如 x + 3 * (x + y + 2) 的根为 +。这样构造的树沿用原求导规则。</p></div></details><details class="exercise" id="ex-2-59" data-exercise="2.59"><summary>习题 2.59 · 无序集合的并</summary><div class="exercise-question" data-original-exercise="2.59" data-source-pdf-pages="235"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source">原书 p.207 / <a href="../sicp.pdf#page=235">PDF 235</a></p>
 <p> 为集合的无序表表示实现<code>union-set</code>操作。</p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>以第二个集合作为累积结果。遍历第一个集合，若元素已在结果中便跳过，否则 cons 到结果中。空集合是递归基例。两输入内部无重复时，(append (filter (lambda (x) (not (member x b))) a) b) 给出同一集合。</p></div></details><details class="exercise" id="ex-2-60" data-exercise="2.60"><summary>习题 2.60 · 允许重复元素的集合</summary><div class="exercise-question" data-original-exercise="2.60" data-source-pdf-pages="235"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source">原书 p.207 / <a href="../sicp.pdf#page=235">PDF 235</a></p>
-<p>我们规定集合表示为一个没有重复元素的表。现在假设我们允许重复。例如，集合<math xmlns="http://www.w3.org/1998/Math/MathML">
+<p>我们规定集合表示为一个没有重复元素的表。现在假设我们允许重复。例如，集合<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <mrow class="MJX-TeXAtom-ORD">
     <mo fence="false" stretchy="false">{</mo>
     <mn>1</mn>
@@ -2997,17 +2997,17 @@ x
     <mn>3</mn>
     <mo fence="false" stretchy="false">}</mo>
   </mrow>
-</math>可以表示为表<code>(2 3 2 1
+</math></span>可以表示为表<code>(2 3 2 1
 3 2 2)</code>。设计过程<code>element-of-set?</code>、<code>adjoin-set</code>、<code>union-set</code>和<code>intersection-set</code>，使其在这种表示上操作。每个过程的效率与无重复表示下的对应过程相比如何？是否存在某些应用，你会优先使用这种表示而不是无重复表示？</p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>成员测试照旧，adjoin 直接 cons，union 直接 append；intersection 过滤第一个表中属于第二个表的元素，重复仍是合法表示。加入变为常量时间，并集只复制第一表；重复项会增加存储和搜索开销。大量写入、很少查询的场景更合适。</p></div></details><details class="exercise" id="ex-2-61" data-exercise="2.61"><summary>习题 2.61 · 有序插入</summary><div class="exercise-question" data-original-exercise="2.61" data-source-pdf-pages="238"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source">原书 p.210 / <a href="../sicp.pdf#page=238">PDF 238</a></p>
 <p>给出使用有序表示的<code>adjoin-set</code>的实现。类比<code>element-of-set?</code>，说明如何利用排序来产生一个平均所需步数约为无序表示一半的过程。</p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>表空时生成单元素表；若新值等于首元返回原表，若小于首元则前插，否则保留首元并递归其尾部。目标在表中各位置近似等可能时，平均只需走半张表，最坏情形仍为线性。</p></div></details><details class="exercise" id="ex-2-62" data-exercise="2.62"><summary>习题 2.62 · 线性有序并集</summary><div class="exercise-question" data-original-exercise="2.62" data-source-pdf-pages="238"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source">原书 p.210 / <a href="../sicp.pdf#page=238">PDF 238</a></p>
-<p>给出对于表示为有序表的集合，<code>union-set</code>的<math xmlns="http://www.w3.org/1998/Math/MathML">
+<p>给出对于表示为有序表的集合，<code>union-set</code>的<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <mrow class="MJX-TeXAtom-ORD">
     <mi mathvariant="normal">Θ</mi>
     <mo stretchy="false">(</mo>
     <mi>n</mi>
     <mo stretchy="false">)</mo>
   </mrow>
-</math>实现。</p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>两表任一为空便返回另一表。比较首项，较小者进入结果且仅推进该表；相等则输出一次并同时推进。每步至少消费一个元素，所以两表长度之和给出线性上界。见 ordered-union。</p><p><a href="#code-symbolic-data">对照本章程序</a></p></div></details><details class="exercise" id="ex-2-63" data-exercise="2.63"><summary>习题 2.63 · 两种树到表的转换</summary><div class="exercise-question" data-original-exercise="2.63" data-source-pdf-pages="241"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source">原书 p.213 / <a href="../sicp.pdf#page=241">PDF 241</a></p>
+</math></span>实现。</p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>两表任一为空便返回另一表。比较首项，较小者进入结果且仅推进该表；相等则输出一次并同时推进。每步至少消费一个元素，所以两表长度之和给出线性上界。见 ordered-union。</p><p><a href="#code-symbolic-data">对照本章程序</a></p></div></details><details class="exercise" id="ex-2-63" data-exercise="2.63"><summary>习题 2.63 · 两种树到表的转换</summary><div class="exercise-question" data-original-exercise="2.63" data-source-pdf-pages="241"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source">原书 p.213 / <a href="../sicp.pdf#page=241">PDF 241</a></p>
 <p> 以下两个过程都将二叉树转换为表。</p>
 
 <details class="code-details" open><summary>题中给定内容</summary><pre><code class="language-scheme">(define (tree-&gt;list-1 tree)
@@ -3083,14 +3083,14 @@ x
   <mi>n</mi>
 </math> 个元素的表转换为树所需的步数的增长阶是什么？</li></ol>
 </div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>partial-tree 先消费前 floor((n−1)/2) 项构成左树，返回尚未消费的表尾；表尾首项作根，其余按已知长度构成右树。对 (1 3 5 7 9 11)，根为 5，左树根 1、右孩子 3；右树根 9，左右孩子 7 和 11。每项取作根恰好一次，总步数 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="Θ(n)" display="inline"><mrow><mi>Θ</mi><mrow><mo>(</mo><mi>n</mi><mo>)</mo></mrow></mrow></math>。</p></div></details><details class="exercise" id="ex-2-65" data-exercise="2.65"><summary>习题 2.65 · 平衡树集合的并与交</summary><div class="exercise-question" data-original-exercise="2.65" data-source-pdf-pages="244"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source">原书 p.216 / <a href="../sicp.pdf#page=244">PDF 244</a></p>
-<p> 使用 <a href="#ex-2-63">习题 2.63</a> 和 <a href="#ex-2-64">习题 2.64</a> 的结果，为作为（平衡）二叉树实现的集合给出 <math xmlns="http://www.w3.org/1998/Math/MathML">
+<p> 使用 <a href="#ex-2-63">习题 2.63</a> 和 <a href="#ex-2-64">习题 2.64</a> 的结果，为作为（平衡）二叉树实现的集合给出 <span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <mrow class="MJX-TeXAtom-ORD">
     <mi mathvariant="normal">Θ</mi>
     <mo stretchy="false">(</mo>
     <mi>n</mi>
     <mo stretchy="false">)</mo>
   </mrow>
-</math> 的 <code>union-set</code> 和 <code>intersection-set</code> 实现。<a href="#q65FOOT107">〔注 107〕</a></p><div class="source-note" id="q65FOOT107"><strong>原书注 107</strong><p> 习题2.63到习题2.65由Paul Hilfinger提供。</p>
+</math></span> 的 <code>union-set</code> 和 <code>intersection-set</code> 实现。<a href="#q65FOOT107">〔注 107〕</a></p><div class="source-note" id="q65FOOT107"><strong>原书注 107</strong><p> 习题2.63到习题2.65由Paul Hilfinger提供。</p>
 </div></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>分别用 tree-&gt;list-2 转成有序表。合并时，union 遇不同首项就输出较小者，intersection 遇不同首项只跳过较小者；相等时均输出一次并同时推进。把合并结果交给 list-&gt;tree。三个阶段总用时 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="Θ(n+m)" display="inline"><mrow><mi>Θ</mi><mrow><mo>(</mo><mi>n</mi><mo>+</mo><mi>m</mi><mo>)</mo></mrow></mrow></math>。</p></div></details><details class="exercise" id="ex-2-66" data-exercise="2.66"><summary>习题 2.66 · 按键查找树中的记录</summary><div class="exercise-question" data-original-exercise="2.66" data-source-pdf-pages="246"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source">原书 p.218 / <a href="../sicp.pdf#page=246">PDF 246</a></p>
 <p> 针对记录集结构为二叉树、按键的数值排序的情况，实现<code>lookup</code>过程。</p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>若树空返回 #f；否则取根记录 r，将目标与 (key r) 比较，相等返回整条 r，较小递归左树，较大递归右树。每次丢弃一个不可能包含目标的分支，平衡树的代价为对数级。</p></div></details><details class="exercise" id="ex-2-67" data-exercise="2.67"><summary>习题 2.67 · 解码样本消息</summary><div class="exercise-question" data-original-exercise="2.67" data-source-pdf-pages="254"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source">原书 p.226 / <a href="../sicp.pdf#page=254">PDF 254</a></p>
 <p> 定义一个编码树和一个样本消息：</p>
@@ -3149,7 +3149,7 @@ Sha boom</code></pre></details>
 111111111011001110000000001111111110110011100000000011011101010101010101010111011010</code></pre></details><p><a href="#code-symbolic-data">对照本章程序</a></p></div></details><details class="exercise" id="ex-2-71" data-exercise="2.71"><summary>习题 2.71 · 指数权重的树</summary><div class="exercise-question" data-original-exercise="2.71" data-source-pdf-pages="256"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source">原书 p.228 / <a href="../sicp.pdf#page=256">PDF 256</a></p>
 <p> 假设我们有一个针对<math xmlns="http://www.w3.org/1998/Math/MathML">
   <mi>n</mi>
-</math>个符号的字母表的 霍夫曼 树，并且这些符号的相对频率为<math xmlns="http://www.w3.org/1998/Math/MathML">
+</math>个符号的字母表的 霍夫曼 树，并且这些符号的相对频率为<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <mrow class="MJX-TeXAtom-ORD">
     <mn>1</mn>
     <mo>,</mo>
@@ -3168,19 +3168,19 @@ Sha boom</code></pre></details>
       </mrow>
     </msup>
   </mrow>
-</math>。画出<math xmlns="http://www.w3.org/1998/Math/MathML">
+</math></span>。画出<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <mrow class="MJX-TeXAtom-ORD">
     <mi>n</mi>
     <mo>=</mo>
     <mn>5</mn>
   </mrow>
-</math>的树；画出<math xmlns="http://www.w3.org/1998/Math/MathML">
+</math></span>的树；画出<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <mrow class="MJX-TeXAtom-ORD">
     <mi>n</mi>
     <mo>=</mo>
     <mn>10</mn>
   </mrow>
-</math>的树。在这样的树中（对于一般的<math xmlns="http://www.w3.org/1998/Math/MathML">
+</math></span>的树。在这样的树中（对于一般的<math xmlns="http://www.w3.org/1998/Math/MathML">
   <mi>n</mi>
 </math>），编码最频繁的符号需要多少位？最不频繁的符号呢？</p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>五符号的树形为 (16 (8 (4 (2 1))))，十符号为 (512 (256 (128 (64 (32 (16 (8 (4 (2 1)))))))))。括号两侧为两个子树；左右次序可互换。最重叶距根一步，最轻两叶深 n−1，因为每次最小两项合并后仍小于下一项。</p></div></details><details class="exercise" id="ex-2-72" data-exercise="2.72"><summary>习题 2.72 · 编码查找的增长</summary><div class="exercise-question" data-original-exercise="2.72" data-source-pdf-pages="257"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source">原书 p.229 / <a href="../sicp.pdf#page=257">PDF 257</a></p>
 <p> 考虑你在<a href="#ex-2-68">习题2.68</a>中设计的编码过程。编码一个符号所需的步数的增长阶是多少？务必包括在每个遇到的节点处搜索符号表所需的步数。一般来说回答这个问题是困难的。考虑<math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -3281,28 +3281,28 @@ Sha boom</code></pre></details>
 <p> 展示如何推广 <code>apply-generic</code> 以处理多个参数的一般情况下的强制转换。一种策略是尝试将所有参数强制转换为第一个参数的类型，然后转换为第二个参数的类型，依此类推。给出一个例子，说明这种策略（以及上面给出的双参数版本）不够通用。（提示：考虑表中存在一些合适的混合类型操作，但这些操作不会被尝试的情况。）</p><p><a href="#input-5-apply-generic">本题引用的原书过程 <code>apply-generic</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>收集每个实参的类型，逐一尝试把所有参数转换到候选类型；只有全部可转换且该参数标签序列有方法才调用。若 A 和 B 只可提升到第三类型 C，而仅有 (C,C) 方法，尝试 A、B 都失败。还可能存在只接受混合类型的签名；完整实现应搜索已登记的方法签名及可达转换路径。</p><p><a href="#code-tower">查看相应的 Racket 实现</a></p></div></details><details class="exercise" id="ex-2-83" data-exercise="2.83"><summary>习题 2.83 · 逐层提升</summary><div class="exercise-question" data-original-exercise="2.83" data-source-pdf-pages="300"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source">原书 p.272 / <a href="../sicp.pdf#page=300">PDF 300</a></p>
 <p> 假设你正在设计一个通用算术系统，用于处理 <a href="#fig-2-25">图 2.25</a> 中所示的类型塔：整数、有理数、实数、复数。对于每种类型（复数除外），设计一个过程，将该类型的对象在塔中提升一级。展示如何安装一个通用的 <code>raise</code> 操作，使其对每种类型（复数除外）都有效。</p><p><a href="#input-5-apply-generic">本题引用的原书过程 <code>apply-generic</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>整数 n 提升为 n/1，有理数取分子除以分母并用实数表示包装，实数 r 提升为 r+0i，复数已到顶层。以 raise 和当前的一元类型签名安装每个方法；顶层明确终止。提升时应区分数学数值与标签，不能仅依赖宿主判等。</p><p><a href="#code-tower">查看相应的 Racket 实现</a></p></div></details><details class="exercise" id="ex-2-84" data-exercise="2.84"><summary>习题 2.84 · 比较类型高度</summary><div class="exercise-question" data-original-exercise="2.84" data-source-pdf-pages="300"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source">原书 p.272 / <a href="../sicp.pdf#page=300">PDF 300</a></p>
 <p> 使用 <a href="#ex-2-83">习题 2.83</a> 的 <code>raise</code> 操作，修改 <code>apply-generic</code> 过程，使其通过逐次提升的方法将其参数强制转换为相同类型，如本节所讨论的。你需要设计一种方法来测试两种类型中哪一种在塔中更高。以一种与系统其余部分“兼容”且不会在向塔中添加新层级时导致问题的方式来实现这一点。</p><p><a href="#input-5-apply-generic">本题引用的原书过程 <code>apply-generic</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>先尝试已有方法，再沿 raise 链记录每个实参能达到的标签及对应值。两条链的首个共同可用类型就是候选；在该类型重新查找方法并防止重复尝试相同签名。这样新增一层只需登记相邻提升方法，不需重写所有类型间的比较。</p><p><a href="#code-tower">查看相应的 Racket 实现</a></p></div></details><details class="exercise" id="ex-2-85" data-exercise="2.85"><summary>习题 2.85 · 可逆时才下降</summary><div class="exercise-question" data-original-exercise="2.85" data-source-pdf-pages="300"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source">原书 p.272 / <a href="../sicp.pdf#page=300">PDF 300</a></p>
-<p> 本节提到了一种通过将数据对象在类型塔中尽可能降低来“简化”它的方法。设计一个过程 <code>drop</code>，对 <a href="#ex-2-83">习题 2.83</a> 中描述的塔完成这一任务。关键在于以某种通用的方式判断一个对象是否可以降低。例如，复数 <math xmlns="http://www.w3.org/1998/Math/MathML">
+<p> 本节提到了一种通过将数据对象在类型塔中尽可能降低来“简化”它的方法。设计一个过程 <code>drop</code>，对 <a href="#ex-2-83">习题 2.83</a> 中描述的塔完成这一任务。关键在于以某种通用的方式判断一个对象是否可以降低。例如，复数 <span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <mrow class="MJX-TeXAtom-ORD">
     <mn>1.5</mn>
     <mo>+</mo>
     <mn>0</mn>
     <mi>i</mi>
   </mrow>
-</math> 可以降低到 <code>real</code>，复数 <math xmlns="http://www.w3.org/1998/Math/MathML">
+</math></span> 可以降低到 <code>real</code>，复数 <span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <mrow class="MJX-TeXAtom-ORD">
     <mn>1</mn>
     <mo>+</mo>
     <mn>0</mn>
     <mi>i</mi>
   </mrow>
-</math> 可以降低到 <code>integer</code>，而复数 <math xmlns="http://www.w3.org/1998/Math/MathML">
+</math></span> 可以降低到 <code>integer</code>，而复数 <span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <mrow class="MJX-TeXAtom-ORD">
     <mn>2</mn>
     <mo>+</mo>
     <mn>3</mn>
     <mi>i</mi>
   </mrow>
-</math> 完全不能降低。以下是判断一个对象是否可以降低的方案：首先定义一个通用操作 <code>project</code>，将对象在塔中“下推”。例如，投影一个复数将涉及丢弃虚部。然后，如果一个数经过 <code>project</code> 再经过 <code>raise</code> 回到我们开始时的类型后，得到的结果等于我们开始时的结果，那么这个数就可以被降低。通过编写一个 <code>drop</code> 过程来尽可能降低一个对象，详细展示如何实现这一想法。你需要设计各种投影操作<a href="#q85FOOT119">〔注 119〕</a>，并将 <code>project</code> 作为通用操作安装到系统中。你还需要使用一个通用相等谓词，如 <a href="#ex-2-79">习题 2.79</a> 中所述。最后，使用 <code>drop</code> 重写 <a href="#ex-2-84">习题 2.84</a> 中的 <code>apply-generic</code>，使其“简化”其答案。</p><div class="source-note" id="q85FOOT119"><strong>原书注 119</strong><p> 可以使用<code>round</code>基本过程将实数投影为整数，它返回最接近其参数的整数。</p>
+</math></span> 完全不能降低。以下是判断一个对象是否可以降低的方案：首先定义一个通用操作 <code>project</code>，将对象在塔中“下推”。例如，投影一个复数将涉及丢弃虚部。然后，如果一个数经过 <code>project</code> 再经过 <code>raise</code> 回到我们开始时的类型后，得到的结果等于我们开始时的结果，那么这个数就可以被降低。通过编写一个 <code>drop</code> 过程来尽可能降低一个对象，详细展示如何实现这一想法。你需要设计各种投影操作<a href="#q85FOOT119">〔注 119〕</a>，并将 <code>project</code> 作为通用操作安装到系统中。你还需要使用一个通用相等谓词，如 <a href="#ex-2-79">习题 2.79</a> 中所述。最后，使用 <code>drop</code> 重写 <a href="#ex-2-84">习题 2.84</a> 中的 <code>apply-generic</code>，使其“简化”其答案。</p><div class="source-note" id="q85FOOT119"><strong>原书注 119</strong><p> 可以使用<code>round</code>基本过程将实数投影为整数，它返回最接近其参数的整数。</p>
 </div><p><a href="#input-5-apply-generic">本题引用的原书过程 <code>apply-generic</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>project 将复数映到实部，把实数映到候选有理数，把有理数映到候选整数。每次先 project 再 raise；仅当 equ? 判定回升值与原值相等时接受下降并重复。1+0i 可到整数，2+3i 首次往返即失败。apply-generic 只对产生塔中数值的算术结果调用 drop，不能对谓词或 raise 本身递归调用。</p><p><a href="#code-tower">查看相应的 Racket 实现</a></p></div></details><details class="exercise" id="ex-2-86" data-exercise="2.86"><summary>习题 2.86 · 复数分量也支持多类型</summary><div class="exercise-question" data-original-exercise="2.86" data-source-pdf-pages="301"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source">原书 p.273 / <a href="../sicp.pdf#page=301">PDF 301</a></p>
 <p> 假设我们想要处理实部、虚部、模和幅角可以是普通数、有理数或我们可能希望添加到系统中的其他数的复数。描述并实现系统所需的更改以适应这一点。你将需要定义诸如 <code>sine</code> 和 <code>cosine</code> 这样的操作，它们对普通数和有理数是通用的。</p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>将内部 +、*、/、平方根及二参数反正切换为通用操作。在直角包的 magnitude 中调用通用开方与通用平方和，在极坐标包的 real-part、imag-part 中调用通用乘法与 cosine、sine。为普通数注册宿主三角函数，为有理数先做带符号分子分母之商再调用；三角函数结果允许升为实数。</p></div></details><details class="exercise" id="ex-2-87" data-exercise="2.87"><summary>习题 2.87 · 多项式的通用判零</summary><div class="exercise-question" data-original-exercise="2.87" data-source-pdf-pages="311"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source">原书 p.283 / <a href="../sicp.pdf#page=311">PDF 311</a></p>
 <p> 在通用算术包中为多项式安装 <code>=zero?</code>。这将允许 <code>adjoin-term</code> 对系数本身是多项式的多项式起作用。</p><p><a href="#input-5-adjoin-term">本题引用的原书过程 <code>adjoin-term</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>空项表是零。若允许存储显式零项，则递归检查所有项的系数是否满足通用 =zero?，并在 adjoin-term 中丢弃零系数。这样系数自身是零多项式时也会被正确去掉，无须与宿主数字 0 比较。</p></div></details><details class="exercise" id="ex-2-88" data-exercise="2.88"><summary>习题 2.88 · 多项式减法</summary><div class="exercise-question" data-original-exercise="2.88" data-source-pdf-pages="311"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source">原书 p.283 / <a href="../sicp.pdf#page=311">PDF 311</a></p>

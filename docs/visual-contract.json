@@ -257,6 +257,577 @@
               }
             ]
           }
+        },
+        "sicp/notes/chapter02_data_abstraction.html": {
+          "sections": {
+            "s2-1-1": [
+              {
+                "kind": "table",
+                "source_pdf_page": 141,
+                "title": "运算与表示",
+                "status": "equivalent",
+                "representation": "table",
+                "reason": "将运算分支改排为可读的两列表。",
+                "review_version": "I077",
+                "target": "#s2-1-1-table"
+              }
+            ],
+            "s2-1-2": [
+              {
+                "kind": "table",
+                "source_pdf_page": 146,
+                "title": "图 2.1 的依赖层级",
+                "status": "equivalent",
+                "representation": "table",
+                "reason": "将运算分支改排为可读的两列表。",
+                "review_version": "I077",
+                "target": "#s2-1-2-table"
+              },
+              {
+                "kind": "figure",
+                "source_pdf_page": 147,
+                "title": "图 2.1 · 有理数系统的抽象屏障",
+                "status": "reproduced",
+                "representation": "svg",
+                "reason": "原书矢量图内嵌，保留节点、文字与连线，图内引用使用本图独立的标识。",
+                "review_version": "I077",
+                "target": "#fig-2-1",
+                "source_sha256": "63667398039196fedb4e26a9d5943ec50059d569735c74576a68975cdb3ff05d"
+              }
+            ],
+            "s2-1-3": [
+              {
+                "kind": "table",
+                "source_pdf_page": 150,
+                "title": "构造与观察",
+                "status": "equivalent",
+                "representation": "table",
+                "reason": "将运算分支改排为可读的两列表。",
+                "review_version": "I077",
+                "target": "#s2-1-3-table"
+              }
+            ],
+            "s2-1-4": [
+              {
+                "kind": "table",
+                "source_pdf_page": 154,
+                "title": "区间差的端点",
+                "status": "equivalent",
+                "representation": "table",
+                "reason": "将运算分支改排为可读的两列表。",
+                "review_version": "I077",
+                "target": "#s2-1-4-table"
+              }
+            ],
+            "s2-2-1": [
+              {
+                "kind": "table",
+                "source_pdf_page": 162,
+                "title": "图 2.4 的序对链",
+                "status": "equivalent",
+                "representation": "table",
+                "reason": "将运算分支改排为可读的两列表。",
+                "review_version": "I077",
+                "target": "#s2-2-1-table"
+              },
+              {
+                "kind": "figure",
+                "source_pdf_page": 161,
+                "title": "图 2.2 · 单个序对的盒箭图",
+                "status": "reproduced",
+                "representation": "svg",
+                "reason": "原书矢量图内嵌，保留节点、文字与连线，图内引用使用本图独立的标识。",
+                "review_version": "I077",
+                "target": "#fig-2-2",
+                "source_sha256": "829f89089dad0bc894e3706cbe9e6ebf85dc7e497461a09124bb9a87889888e2"
+              },
+              {
+                "kind": "figure",
+                "source_pdf_page": 161,
+                "title": "图 2.3 · 用序对组合四个数的两种方式",
+                "status": "reproduced",
+                "representation": "svg",
+                "reason": "原书矢量图内嵌，保留节点、文字与连线，图内引用使用本图独立的标识。",
+                "review_version": "I077",
+                "target": "#fig-2-3",
+                "source_sha256": "8ab92be56d5beb62753102bfcaeae545d1952caad6f9feb8b3f2bf5a23501f71"
+              },
+              {
+                "kind": "figure",
+                "source_pdf_page": 163,
+                "title": "图 2.4 · 表的指针链",
+                "status": "reproduced",
+                "representation": "svg",
+                "reason": "原书矢量图内嵌，保留节点、文字与连线，图内引用使用本图独立的标识。",
+                "review_version": "I077",
+                "target": "#fig-2-4",
+                "source_sha256": "5926b91dfab9938bc25f236ff8521115b963e47173bc91ccfc6a1f366ba3a0b2"
+              }
+            ],
+            "s2-2-2": [
+              {
+                "kind": "table",
+                "source_pdf_page": 174,
+                "title": "图 2.5–2.6 的分支",
+                "status": "equivalent",
+                "representation": "table",
+                "reason": "将运算分支改排为可读的两列表。",
+                "review_version": "I077",
+                "target": "#s2-2-2-table"
+              },
+              {
+                "kind": "figure",
+                "source_pdf_page": 175,
+                "title": "图 2.5 · 嵌套表的盒箭图",
+                "status": "reproduced",
+                "representation": "svg",
+                "reason": "原书矢量图内嵌，保留节点、文字与连线，图内引用使用本图独立的标识。",
+                "review_version": "I077",
+                "target": "#fig-2-5",
+                "source_sha256": "80c1d797ffb0389d52ca85b9257573ee4aaa1b7b3a4689d8c7d2468ab12615dc"
+              },
+              {
+                "kind": "figure",
+                "source_pdf_page": 176,
+                "title": "图 2.6 · 同一嵌套结构的树形表示",
+                "status": "reproduced",
+                "representation": "svg",
+                "reason": "原书矢量图内嵌，保留节点、文字与连线，图内引用使用本图独立的标识。",
+                "review_version": "I077",
+                "target": "#fig-2-6",
+                "source_sha256": "61f1c999f1984d8ec33b280ea8cc5269565dbc78b9c834e45ccd7b77387379d0"
+              }
+            ],
+            "s2-2-3": [
+              {
+                "kind": "table",
+                "source_pdf_page": 182,
+                "title": "图 2.7 的计算流",
+                "status": "equivalent",
+                "representation": "table",
+                "reason": "将运算分支改排为可读的两列表。",
+                "review_version": "I077",
+                "target": "#s2-2-3-table"
+              },
+              {
+                "kind": "figure",
+                "source_pdf_page": 184,
+                "title": "图 2.7 · 序列操作的信号流",
+                "status": "reproduced",
+                "representation": "svg",
+                "reason": "原书矢量图内嵌，保留节点、文字与连线，图内引用使用本图独立的标识。",
+                "review_version": "I077",
+                "target": "#fig-2-7",
+                "source_sha256": "0967d47ccf13d620368c19ba24396aaf91cb5b48f4da75b5ee36ca7c99aa0cd9"
+              },
+              {
+                "kind": "figure",
+                "source_pdf_page": 198,
+                "title": "图 2.8 · 八皇后的一种摆放",
+                "status": "reproduced",
+                "representation": "svg",
+                "reason": "原书矢量图内嵌，保留节点、文字与连线，图内引用使用本图独立的标识。",
+                "review_version": "I077",
+                "target": "#fig-2-8",
+                "source_sha256": "468226f52ae06f445743de95b26eb2291bbc2a0b14de80f0ba1ff1823c70afd0"
+              }
+            ],
+            "s2-2-4": [
+              {
+                "kind": "table",
+                "source_pdf_page": 200,
+                "title": "框架三个基准点",
+                "status": "equivalent",
+                "representation": "table",
+                "reason": "将运算分支改排为可读的两列表。",
+                "review_version": "I077",
+                "target": "#s2-2-4-table"
+              },
+              {
+                "kind": "figure",
+                "source_pdf_page": 201,
+                "title": "图 2.9 · 图形语言构成的图案",
+                "status": "reproduced",
+                "representation": "source-image",
+                "reason": "方形极限的原作图样是题 2.52 的改绘参照，保留原图的构图与局部纹样。",
+                "review_version": "I077",
+                "target": "#fig-2-9",
+                "asset": "sicp/assets/chapter02/figure-2-9.webp",
+                "asset_sha256": "385cdd19235ca0e2605b4d61a4ef0a7590d48c3b99f9c870d9d9a09a6a11d9d3",
+                "inline_sha256": "c1c6dcdfce63a67978e8aae73a8b0091a32943701939bce04eec0e721956682f"
+              },
+              {
+                "kind": "figure",
+                "source_pdf_page": 202,
+                "title": "图 2.10 · wave 与变换后的图像",
+                "status": "reproduced",
+                "representation": "svg",
+                "reason": "原书矢量图内嵌，保留节点、文字与连线，图内引用使用本图独立的标识。",
+                "review_version": "I077",
+                "target": "#fig-2-10",
+                "source_sha256": "07b569901da10a848aa9607ac106656c4611c369b544acb60cdc34eb02e8a2f0"
+              },
+              {
+                "kind": "figure",
+                "source_pdf_page": 204,
+                "title": "图 2.11 · Rogers 肖像及组合",
+                "status": "reproduced",
+                "representation": "source-image",
+                "reason": "Rogers 肖像是画家变换作用于连续色调图像的原书实例。",
+                "review_version": "I077",
+                "target": "#fig-2-11",
+                "asset": "sicp/assets/chapter02/figure-2-11.webp",
+                "asset_sha256": "9dd75dd19377dce0aa7b87af4f4b2c54efca32251f922c85eaa3fd74db94db95",
+                "inline_sha256": "9dd75dd19377dce0aa7b87af4f4b2c54efca32251f922c85eaa3fd74db94db95"
+              },
+              {
+                "kind": "figure",
+                "source_pdf_page": 205,
+                "title": "图 2.12 · 方形极限的组合步骤",
+                "status": "reproduced",
+                "representation": "svg",
+                "reason": "原书矢量图内嵌，保留节点、文字与连线，图内引用使用本图独立的标识。",
+                "review_version": "I077",
+                "target": "#fig-2-12",
+                "source_sha256": "d98978fc5187fefcd5816a153d716044936b68984ad899a51ebacb80d36729a3"
+              },
+              {
+                "kind": "figure",
+                "source_pdf_page": 206,
+                "title": "图 2.13 · 向右分割与角分割的递归方案",
+                "status": "reproduced",
+                "representation": "svg",
+                "reason": "原书矢量图内嵌，保留节点、文字与连线，图内引用使用本图独立的标识。",
+                "review_version": "I077",
+                "target": "#fig-2-13",
+                "source_sha256": "fa37230e57604e349712ad1253aeb5f3ba0374ac041df8f24d675a3bb4881c9b"
+              },
+              {
+                "kind": "figure",
+                "source_pdf_page": 208,
+                "title": "图 2.14 · 两种递归分割的展开",
+                "status": "reproduced",
+                "representation": "source-image",
+                "reason": "用同一幅原画的递归拼接对照两种分割结果，需要辨认各层的内容与朝向。",
+                "review_version": "I077",
+                "target": "#fig-2-14",
+                "asset": "sicp/assets/chapter02/figure-2-14.webp",
+                "asset_sha256": "0fd37e137cfab1fb74c162e2e7562cd321e9b8132ab0d68e6c47a7b646cdfcd6",
+                "inline_sha256": "8eef6741011f70f7712b47da36869faa9ad992726b8cacc3651b47b6449d48c2"
+              },
+              {
+                "kind": "figure",
+                "source_pdf_page": 211,
+                "title": "图 2.15 · 由原点和两条边向量定义框架",
+                "status": "reproduced",
+                "representation": "svg",
+                "reason": "原书矢量图内嵌，保留节点、文字与连线，图内引用使用本图独立的标识。",
+                "review_version": "I077",
+                "target": "#fig-2-15",
+                "source_sha256": "b689792205e55bd8e83d5073674fba4e9e07d9e7c6541cbcff45627b1c5c94bb"
+              }
+            ],
+            "s2-3-1": [
+              {
+                "kind": "table",
+                "source_pdf_page": 220,
+                "title": "引用的两层",
+                "status": "equivalent",
+                "representation": "table",
+                "reason": "将运算分支改排为可读的两列表。",
+                "review_version": "I077",
+                "target": "#s2-3-1-table"
+              }
+            ],
+            "s2-3-2": [
+              {
+                "kind": "table",
+                "source_pdf_page": 225,
+                "title": "导数的分支",
+                "status": "equivalent",
+                "representation": "table",
+                "reason": "将运算分支改排为可读的两列表。",
+                "review_version": "I077",
+                "target": "#s2-3-2-table"
+              }
+            ],
+            "s2-3-3": [
+              {
+                "kind": "table",
+                "source_pdf_page": 232,
+                "title": "搜索走向",
+                "status": "equivalent",
+                "representation": "table",
+                "reason": "将运算分支改排为可读的两列表。",
+                "review_version": "I077",
+                "target": "#s2-3-3-table"
+              },
+              {
+                "kind": "figure",
+                "source_pdf_page": 239,
+                "title": "图 2.16 · 同一集合的不同搜索树",
+                "status": "reproduced",
+                "representation": "svg",
+                "reason": "原书矢量图内嵌，保留节点、文字与连线，图内引用使用本图独立的标识。",
+                "review_version": "I077",
+                "target": "#fig-2-16",
+                "source_sha256": "6f2a19aa91806bf27cc8b960847522a3ef79efb464c4d9faf21a77f6f88499ea"
+              },
+              {
+                "kind": "figure",
+                "source_pdf_page": 242,
+                "title": "图 2.17 · 升序插入构成的退化树",
+                "status": "reproduced",
+                "representation": "svg",
+                "reason": "原书矢量图内嵌，保留节点、文字与连线，图内引用使用本图独立的标识。",
+                "review_version": "I077",
+                "target": "#fig-2-17",
+                "source_sha256": "aae289fdc4706c3189a4d44acd96f5dc8e78f2f29be50a8219504f61264b8a67"
+              }
+            ],
+            "s2-3-4": [
+              {
+                "kind": "table",
+                "source_pdf_page": 246,
+                "title": "习题 2.67 的前缀树",
+                "status": "equivalent",
+                "representation": "table",
+                "reason": "将运算分支改排为可读的两列表。",
+                "review_version": "I077",
+                "target": "#s2-3-4-table"
+              },
+              {
+                "kind": "figure",
+                "source_pdf_page": 249,
+                "title": "图 2.18 · Huffman 编码树",
+                "status": "reproduced",
+                "representation": "svg",
+                "reason": "原书矢量图内嵌，保留节点、文字与连线，图内引用使用本图独立的标识。",
+                "review_version": "I077",
+                "target": "#fig-2-18",
+                "source_sha256": "d1824570628bc5ae67815642b186f162b0cc0e556ab0c35f79e1e03938567baa"
+              }
+            ],
+            "s2-4-1": [
+              {
+                "kind": "table",
+                "source_pdf_page": 259,
+                "title": "同一点的两种描述",
+                "status": "equivalent",
+                "representation": "table",
+                "reason": "将运算分支改排为可读的两列表。",
+                "review_version": "I077",
+                "target": "#s2-4-1-table"
+              },
+              {
+                "kind": "figure",
+                "source_pdf_page": 260,
+                "title": "图 2.19 · 复数系统的抽象屏障",
+                "status": "reproduced",
+                "representation": "svg",
+                "reason": "原书矢量图内嵌，保留节点、文字与连线，图内引用使用本图独立的标识。",
+                "review_version": "I077",
+                "target": "#fig-2-19",
+                "source_sha256": "568447556928156340ce748e4ab2ccd70039fa1706a2a7fc3733a071cd162d59"
+              },
+              {
+                "kind": "figure",
+                "source_pdf_page": 261,
+                "title": "图 2.20 · 平面上的复数及其两种表示",
+                "status": "reproduced",
+                "representation": "svg",
+                "reason": "原书矢量图内嵌，保留节点、文字与连线，图内引用使用本图独立的标识。",
+                "review_version": "I077",
+                "target": "#fig-2-20",
+                "source_sha256": "7b4d412da0c82375c9c19e44f3ca18ad26ed48c3d0a6db28319987991b2c0b49"
+              }
+            ],
+            "s2-4-2": [
+              {
+                "kind": "table",
+                "source_pdf_page": 265,
+                "title": "同一操作的分派",
+                "status": "equivalent",
+                "representation": "table",
+                "reason": "将运算分支改排为可读的两列表。",
+                "review_version": "I077",
+                "target": "#s2-4-2-table"
+              },
+              {
+                "kind": "figure",
+                "source_pdf_page": 269,
+                "title": "图 2.21 · 通用复数算术的系统结构",
+                "status": "reproduced",
+                "representation": "svg",
+                "reason": "原书矢量图内嵌，保留节点、文字与连线，图内引用使用本图独立的标识。",
+                "review_version": "I077",
+                "target": "#fig-2-21",
+                "source_sha256": "7978185e39daad691ab29540b76ac9787e038d9908ad489aa3a9d90bec58f4fe"
+              }
+            ],
+            "s2-4-3": [
+              {
+                "kind": "table",
+                "source_pdf_page": 270,
+                "title": "分派表的两个轴",
+                "status": "equivalent",
+                "representation": "table",
+                "reason": "将运算分支改排为可读的两列表。",
+                "review_version": "I077",
+                "target": "#s2-4-3-table"
+              },
+              {
+                "kind": "figure",
+                "source_pdf_page": 272,
+                "title": "图 2.22 · 复数操作与表示的分派表",
+                "status": "reproduced",
+                "representation": "svg",
+                "reason": "原书矢量图内嵌，保留节点、文字与连线，图内引用使用本图独立的标识。",
+                "review_version": "I077",
+                "target": "#fig-2-22",
+                "source_sha256": "cad67da2533a779caafc4466e233ce0d1a1cfb2550419f5742693a1b47b898fd"
+              }
+            ],
+            "s2-5-1": [
+              {
+                "kind": "table",
+                "source_pdf_page": 282,
+                "title": "嵌套分派轨迹",
+                "status": "equivalent",
+                "representation": "table",
+                "reason": "将运算分支改排为可读的两列表。",
+                "review_version": "I077",
+                "target": "#s2-5-1-table"
+              },
+              {
+                "kind": "figure",
+                "source_pdf_page": 283,
+                "title": "图 2.23 · 通用算术系统",
+                "status": "reproduced",
+                "representation": "svg",
+                "reason": "原书矢量图内嵌，保留节点、文字与连线，图内引用使用本图独立的标识。",
+                "review_version": "I077",
+                "target": "#fig-2-23",
+                "source_sha256": "e4a87a9d405c3c5ddf3ac321058cbdd0eab2733061c1712f71bbe9f1e58e8f6f"
+              },
+              {
+                "kind": "figure",
+                "source_pdf_page": 288,
+                "title": "图 2.24 · 复数的嵌套类型标记",
+                "status": "reproduced",
+                "representation": "svg",
+                "reason": "原书矢量图内嵌，保留节点、文字与连线，图内引用使用本图独立的标识。",
+                "review_version": "I077",
+                "target": "#fig-2-24",
+                "source_sha256": "16abfda3624a087a9f77219ff253af2b21566852af51a894ad8115a739160e7f"
+              }
+            ],
+            "s2-5-2": [
+              {
+                "kind": "table",
+                "source_pdf_page": 290,
+                "title": "类型塔的相邻层",
+                "status": "equivalent",
+                "representation": "table",
+                "reason": "将运算分支改排为可读的两列表。",
+                "review_version": "I077",
+                "target": "#s2-5-2-table"
+              },
+              {
+                "kind": "figure",
+                "source_pdf_page": 295,
+                "title": "图 2.25 · 数值类型塔",
+                "status": "reproduced",
+                "representation": "svg",
+                "reason": "原书矢量图内嵌，保留节点、文字与连线，图内引用使用本图独立的标识。",
+                "review_version": "I077",
+                "target": "#fig-2-25",
+                "source_sha256": "e164abd08d6855e8085421f1291a243d8bde9e1723cd1954cc8bb44639c6b11b"
+              },
+              {
+                "kind": "figure",
+                "source_pdf_page": 297,
+                "title": "图 2.26 · 几何图形之间的类型关系",
+                "status": "reproduced",
+                "representation": "svg",
+                "reason": "原书矢量图内嵌，保留节点、文字与连线，图内引用使用本图独立的标识。",
+                "review_version": "I077",
+                "target": "#fig-2-26",
+                "source_sha256": "1261e4d04853ccb9aef9c2563227d5e62a99725b32cf18c0d7533df816adf0c2"
+              }
+            ],
+            "s2-5-3": [
+              {
+                "kind": "table",
+                "source_pdf_page": 302,
+                "title": "多项式长除轨迹",
+                "status": "equivalent",
+                "representation": "table",
+                "reason": "将运算分支改排为可读的两列表。",
+                "review_version": "I077",
+                "target": "#s2-5-3-table"
+              }
+            ],
+            "s2-1": [
+              {
+                "kind": "excerpt",
+                "source_pdf_page": 140,
+                "title": "§2.1 原句审阅",
+                "status": "reproduced",
+                "representation": "blockquote",
+                "reason": "保留 data abstraction 的命名，联系前一段的过程抽象。",
+                "review_version": "I077",
+                "target": "#excerpt-s2-1"
+              }
+            ],
+            "s2-2": [
+              {
+                "kind": "excerpt",
+                "source_pdf_page": 161,
+                "title": "§2.2 原句审阅",
+                "status": "reproduced",
+                "representation": "blockquote",
+                "reason": "保留 closure property 的操作性定义，区分封闭性与过程闭包。",
+                "review_version": "I077",
+                "target": "#excerpt-s2-2"
+              }
+            ],
+            "s2-3": [
+              {
+                "kind": "excerpt",
+                "source_pdf_page": 220,
+                "title": "§2.3 原句审阅",
+                "status": "omitted",
+                "representation": "blockquote",
+                "reason": "引号与求值的差异由双重引用、列表打印和求导实例直接展示，单独复引章首过渡句不能补充这一判据。",
+                "review_version": "I077"
+              }
+            ],
+            "s2-4": [
+              {
+                "kind": "excerpt",
+                "source_pdf_page": 258,
+                "title": "§2.4 原句审阅",
+                "status": "reproduced",
+                "representation": "blockquote",
+                "reason": "保留两种坐标表示适用条件的原句，对照正文加法与乘法的选择。",
+                "review_version": "I077",
+                "target": "#excerpt-s2-4"
+              }
+            ],
+            "s2-5": [
+              {
+                "kind": "excerpt",
+                "source_pdf_page": 282,
+                "title": "§2.5 原句审阅",
+                "status": "omitted",
+                "representation": "blockquote",
+                "reason": "两层标签、分派路径和类型提升已经通过操作表及具体调用呈现；章首对通用接口的概述没有额外术语歧义。",
+                "review_version": "I077"
+              }
+            ]
+          },
+          "status": "formal"
         }
       }
     }
@@ -817,7 +1388,7 @@
     {
       "book": "sicp",
       "page": "sicp/notes/book_overview.html",
-      "source_sha256": "f6df2c6a846506878244ac37c7af2c6943e48076f044b717eb28c59ac358cf96",
+      "source_sha256": "8f574c4ba23b7b0694c0399b946be2725299a945613fe9c02e4ed900c8739fb7",
       "reason": "原书逐节视觉清单尚未核对。",
       "review_version": "I081",
       "issue": "I081"
@@ -825,7 +1396,7 @@
     {
       "book": "sicp",
       "page": "sicp/notes/preface.html",
-      "source_sha256": "52617c40f35616308332e4c3445e2dc84b91984ed5efda0913172959f9dc5671",
+      "source_sha256": "5848bc6ba19d7b42ffcf5cd1292990b0a7cece523c5d11910f9bfc0fabfc9d43",
       "reason": "原书逐节视觉清单尚未核对。",
       "review_version": "I081",
       "issue": "I081"

@@ -1,43 +1,2192 @@
 {
   "schema_version": 1,
   "issue": "I077",
-  "status": "in_progress",
-  "scope": "Chapter2 preparation and section2.1 program regression only; no chapter2 reading page delivered",
+  "status": "accepted",
+  "scope": "第 2 章，印刷页 107–293，PDF 135–321。",
   "source": {
     "file": "books/sicp/sicp.pdf",
     "sha256": "afff2ca1486a46bcd47310bc5a974da1f9c6a6a0b15b39c93e2453350670f715",
-    "printed_pages": [107, 293],
-    "pdf_pages": [135, 321],
+    "printed_pages": [
+      107,
+      293
+    ],
+    "pdf_pages": [
+      135,
+      321
+    ],
     "inventory_exercises": 97,
     "heading_positions_checked": 97,
     "archive": "books/sicp/notes/questions_ch02.json",
-    "boundary": "Text extraction and heading-position checks do not constitute complete question, translation, formula or figure review. Raw HTML blocks may contain following textbook prose."
+    "boundary": "Question headings checked against the PDF. Source block boundaries inspected and trailing textbook commentary removed from 2.11 and 2.13. Code and MathML in questions come from the English source; translated question prose comes from the corresponding local Chinese XHTML.",
+    "numbered_figure_inventory": [
+      {
+        "figure": "2.1",
+        "pdf_page": 147,
+        "title": "有理数系统的抽象屏障"
+      },
+      {
+        "figure": "2.2",
+        "pdf_page": 161,
+        "title": "单个序对的盒箭图"
+      },
+      {
+        "figure": "2.3",
+        "pdf_page": 161,
+        "title": "用序对组合四个数的两种方式"
+      },
+      {
+        "figure": "2.4",
+        "pdf_page": 163,
+        "title": "表的指针链"
+      },
+      {
+        "figure": "2.5",
+        "pdf_page": 175,
+        "title": "嵌套表的盒箭图"
+      },
+      {
+        "figure": "2.6",
+        "pdf_page": 176,
+        "title": "同一嵌套结构的树形表示"
+      },
+      {
+        "figure": "2.7",
+        "pdf_page": 184,
+        "title": "序列操作的信号流"
+      },
+      {
+        "figure": "2.8",
+        "pdf_page": 198,
+        "title": "八皇后的一种摆放"
+      },
+      {
+        "figure": "2.9",
+        "pdf_page": 201,
+        "title": "图形语言构成的图案"
+      },
+      {
+        "figure": "2.10",
+        "pdf_page": 202,
+        "title": "wave 与变换后的图像"
+      },
+      {
+        "figure": "2.11",
+        "pdf_page": 204,
+        "title": "Rogers 肖像及组合"
+      },
+      {
+        "figure": "2.12",
+        "pdf_page": 205,
+        "title": "方形极限的组合步骤"
+      },
+      {
+        "figure": "2.13",
+        "pdf_page": 206,
+        "title": "向右分割与角分割的递归方案"
+      },
+      {
+        "figure": "2.14",
+        "pdf_page": 208,
+        "title": "两种递归分割的展开"
+      },
+      {
+        "figure": "2.15",
+        "pdf_page": 211,
+        "title": "由原点和两条边向量定义框架"
+      },
+      {
+        "figure": "2.16",
+        "pdf_page": 239,
+        "title": "同一集合的不同搜索树"
+      },
+      {
+        "figure": "2.17",
+        "pdf_page": 242,
+        "title": "升序插入构成的退化树"
+      },
+      {
+        "figure": "2.18",
+        "pdf_page": 249,
+        "title": "Huffman 编码树"
+      },
+      {
+        "figure": "2.19",
+        "pdf_page": 260,
+        "title": "复数系统的抽象屏障"
+      },
+      {
+        "figure": "2.20",
+        "pdf_page": 261,
+        "title": "平面上的复数及其两种表示"
+      },
+      {
+        "figure": "2.21",
+        "pdf_page": 269,
+        "title": "通用复数算术的系统结构"
+      },
+      {
+        "figure": "2.22",
+        "pdf_page": 272,
+        "title": "复数操作与表示的分派表"
+      },
+      {
+        "figure": "2.23",
+        "pdf_page": 283,
+        "title": "通用算术系统"
+      },
+      {
+        "figure": "2.24",
+        "pdf_page": 288,
+        "title": "复数的嵌套类型标记"
+      },
+      {
+        "figure": "2.25",
+        "pdf_page": 295,
+        "title": "数值类型塔"
+      },
+      {
+        "figure": "2.26",
+        "pdf_page": 297,
+        "title": "几何图形之间的类型关系"
+      }
+    ],
+    "figure_review_boundary": "All graphics are inline. The 26 WebP originals remain maintenance assets and were separately decoded from the book directory.",
+    "figure_assets": {
+      "figure-2-1.webp": {
+        "source_svg": "Fig2.1d.std.svg",
+        "source_sha256": "63667398039196fedb4e26a9d5943ec50059d569735c74576a68975cdb3ff05d",
+        "image_sha256": "6c44b0a7e39d60a549cb256f1f22725c34c762e09895515c2521f0e487b1956a"
+      },
+      "figure-2-2.webp": {
+        "source_svg": "Fig2.2e.std.svg",
+        "source_sha256": "829f89089dad0bc894e3706cbe9e6ebf85dc7e497461a09124bb9a87889888e2",
+        "image_sha256": "30107883db392a9b16bcd8b60706fb5020f3f55b8ea03d0c8e85ab85b106f082"
+      },
+      "figure-2-3.webp": {
+        "source_svg": "Fig2.3e.std.svg",
+        "source_sha256": "8ab92be56d5beb62753102bfcaeae545d1952caad6f9feb8b3f2bf5a23501f71",
+        "image_sha256": "31534219c5fc46d39a2c66b8fa538be540449392fc814a1f6984fee71eb75397"
+      },
+      "figure-2-4.webp": {
+        "source_svg": "Fig2.4e.std.svg",
+        "source_sha256": "5926b91dfab9938bc25f236ff8521115b963e47173bc91ccfc6a1f366ba3a0b2",
+        "image_sha256": "7aa4ddbf85f65d1b83f0b992a638b4be2bc89e1de5fbc2bacc877216fa4d0553"
+      },
+      "figure-2-5.webp": {
+        "source_svg": "Fig2.5e.std.svg",
+        "source_sha256": "80c1d797ffb0389d52ca85b9257573ee4aaa1b7b3a4689d8c7d2468ab12615dc",
+        "image_sha256": "f9df92164e28a0d5fb72c2a7411194db9a8cb37b29e36e083cfa196177cd23b2"
+      },
+      "figure-2-6.webp": {
+        "source_svg": "Fig2.6b.std.svg",
+        "source_sha256": "61f1c999f1984d8ec33b280ea8cc5269565dbc78b9c834e45ccd7b77387379d0",
+        "image_sha256": "c43d1ab3cb8f2628f47aeddb09f18fa58d04779d704c53fcc1d07535241351a1"
+      },
+      "figure-2-7.webp": {
+        "source_svg": "Fig2.7e.std.svg",
+        "source_sha256": "0967d47ccf13d620368c19ba24396aaf91cb5b48f4da75b5ee36ca7c99aa0cd9",
+        "image_sha256": "346f5dea1ec4b7f78c89d86e2e78565c0856b91b97213f2c77cc3daf53510048"
+      },
+      "figure-2-8.webp": {
+        "source_svg": "Fig2.8c.std.svg",
+        "source_sha256": "468226f52ae06f445743de95b26eb2291bbc2a0b14de80f0ba1ff1823c70afd0",
+        "image_sha256": "30fff091503fe2f8e76975e1c29b3c24138e550925a69036f77ccf79c4575888"
+      },
+      "figure-2-9.webp": {
+        "source_svg": "Fig2.9.std.svg",
+        "source_sha256": "6c656a81211ec4684ba9c48d0881975d7bf8a19fa3abf2f523405f117be5fbe5",
+        "image_sha256": "385cdd19235ca0e2605b4d61a4ef0a7590d48c3b99f9c870d9d9a09a6a11d9d3"
+      },
+      "figure-2-10.webp": {
+        "source_svg": "Fig2.10.std.svg",
+        "source_sha256": "07b569901da10a848aa9607ac106656c4611c369b544acb60cdc34eb02e8a2f0",
+        "image_sha256": "d3124e44d7c4b5f2191282e01dfa407826bd10bab9b7680fbee8175f3ebc938b"
+      },
+      "figure-2-11.webp": {
+        "source_svg": "Fig2.11.std.svg",
+        "source_sha256": "2b6405d986e0ba93b7e7db3a4589e300b21fd029c41fa6042aaaa6f034410dff",
+        "image_sha256": "9dd75dd19377dce0aa7b87af4f4b2c54efca32251f922c85eaa3fd74db94db95"
+      },
+      "figure-2-12.webp": {
+        "source_svg": "Fig2.12.std.svg",
+        "source_sha256": "d98978fc5187fefcd5816a153d716044936b68984ad899a51ebacb80d36729a3",
+        "image_sha256": "03e699acff62238741c1cf1e82f6053ee6a0f3284b81072bcd2e831c5ccab61f"
+      },
+      "figure-2-13.webp": {
+        "source_svg": "Fig2.13a.std.svg",
+        "source_sha256": "fa37230e57604e349712ad1253aeb5f3ba0374ac041df8f24d675a3bb4881c9b",
+        "image_sha256": "d0da403d05b83f0822f3e2554bca5b67176630a14689b9e60764ba1a3e2374ea"
+      },
+      "figure-2-14.webp": {
+        "source_svg": "Fig2.14b.std.svg",
+        "source_sha256": "99bbcac8b52aa15201d5e952ef97d9a260ec66cb23ce5c03a21e94a78ff4dd0b",
+        "image_sha256": "0fd37e137cfab1fb74c162e2e7562cd321e9b8132ab0d68e6c47a7b646cdfcd6"
+      },
+      "figure-2-15.webp": {
+        "source_svg": "Fig2.15a.std.svg",
+        "source_sha256": "b689792205e55bd8e83d5073674fba4e9e07d9e7c6541cbcff45627b1c5c94bb",
+        "image_sha256": "ff6b962d390a1cd57c9a3dfaeb33eef74e499cc003f2352adff497cc3f1c2944"
+      },
+      "figure-2-16.webp": {
+        "source_svg": "Fig2.16c.std.svg",
+        "source_sha256": "6f2a19aa91806bf27cc8b960847522a3ef79efb464c4d9faf21a77f6f88499ea",
+        "image_sha256": "cb49f7bc97c3ae6a5ebf091bf3e45de5957bb8bc195b1107c460b6494d7510b5"
+      },
+      "figure-2-17.webp": {
+        "source_svg": "Fig2.17a.std.svg",
+        "source_sha256": "aae289fdc4706c3189a4d44acd96f5dc8e78f2f29be50a8219504f61264b8a67",
+        "image_sha256": "39192956d37c6b7fb9364fa753b77504ec84a8c2d20b96547b2e7a0abf46abce"
+      },
+      "figure-2-18.webp": {
+        "source_svg": "Fig2.18a.std.svg",
+        "source_sha256": "d1824570628bc5ae67815642b186f162b0cc0e556ab0c35f79e1e03938567baa",
+        "image_sha256": "7a24dfe352ec517ae9b8d4546d7178644331c8e16e08783e2ea5edb6d754fd9f"
+      },
+      "figure-2-19.webp": {
+        "source_svg": "Fig2.19a.std.svg",
+        "source_sha256": "568447556928156340ce748e4ab2ccd70039fa1706a2a7fc3733a071cd162d59",
+        "image_sha256": "5d1bc31afa8934c316d4cce248171efdb1b6d75452ce02135393b5288d57dc0b"
+      },
+      "figure-2-20.webp": {
+        "source_svg": "Fig2.20.std.svg",
+        "source_sha256": "7b4d412da0c82375c9c19e44f3ca18ad26ed48c3d0a6db28319987991b2c0b49",
+        "image_sha256": "631449b329118c6d892b39777fa854ce6d97ff5e11e08a36b23175a964baa1f6"
+      },
+      "figure-2-21.webp": {
+        "source_svg": "Fig2.21a.std.svg",
+        "source_sha256": "7978185e39daad691ab29540b76ac9787e038d9908ad489aa3a9d90bec58f4fe",
+        "image_sha256": "963533cf845bed7fde130783ca2561396b565819098cf605c7d7f12cb61e3e75"
+      },
+      "figure-2-22.webp": {
+        "source_svg": "Fig2.22.std.svg",
+        "source_sha256": "cad67da2533a779caafc4466e233ce0d1a1cfb2550419f5742693a1b47b898fd",
+        "image_sha256": "302ed75d3887f7c71ec6c191b0b4fe0fc12ed983a29eedcd798d77c22870ba6c"
+      },
+      "figure-2-23.webp": {
+        "source_svg": "Fig2.23b.std.svg",
+        "source_sha256": "e4a87a9d405c3c5ddf3ac321058cbdd0eab2733061c1712f71bbe9f1e58e8f6f",
+        "image_sha256": "07844a5cc803657ffbd6f8e9f751945f0c1e981a532f1a2db4959cacf55974b0"
+      },
+      "figure-2-24.webp": {
+        "source_svg": "Fig2.24d.std.svg",
+        "source_sha256": "16abfda3624a087a9f77219ff253af2b21566852af51a894ad8115a739160e7f",
+        "image_sha256": "2ee38d615b5965eae41c1ead15ae698a1573718b4355d370a7720948d182af0f"
+      },
+      "figure-2-25.webp": {
+        "source_svg": "Fig2.25.std.svg",
+        "source_sha256": "e164abd08d6855e8085421f1291a243d8bde9e1723cd1954cc8bb44639c6b11b",
+        "image_sha256": "f47bfeb7720670226373e0432bc01ac69d07ab3423f611b5335b181c7f0460af"
+      },
+      "figure-2-26.webp": {
+        "source_svg": "Fig2.26f.std.svg",
+        "source_sha256": "1261e4d04853ccb9aef9c2563227d5e62a99725b32cf18c0d7533df816adf0c2",
+        "image_sha256": "c41ad5b1fae3e5bf0c568c95805f9ca601eec4b4723dc4585ffad22b158c1b43"
+      }
+    },
+    "question_boundary_review": {
+      "blocks_checked": 97,
+      "trimmed": [
+        "2.11",
+        "2.13"
+      ],
+      "question_footnotes": 7,
+      "source_pre_blocks": 68,
+      "referenced_programs": 16
+    }
   },
   "completion": {
     "published_pages": 0,
-    "accepted_exercises": 0,
-    "accepted_chapters": 0
+    "accepted_exercises": 97,
+    "accepted_chapters": 1,
+    "candidate_pages": 0,
+    "candidate_exercises": 0,
+    "formal_sicp_pages": 4,
+    "formal_sicp_exercises": 143
   },
   "program": {
-    "scope": "Section2.1 rational, geometry, pair representations, Church numerals and interval arithmetic",
+    "scope": "Sequence folds and trees, differentiation, sets, Huffman, operation dispatch, polynomial division and rational function normalization in addition to section 2.1; queens, painters and rational function dispatch",
     "runtime": "Racket8.10 [cs]",
     "command": "racket books/sicp/code/test-chapter02.rkt",
     "exit_code": 0,
-    "test_groups": 10,
+    "test_groups": 21,
     "results": "books/sicp/code/chapter02-results.json",
     "mutation": "Removing negative denominator normalization is rejected with exit1",
-    "boundary": "Sections2.2-2.5 and HTML program mirrors are not implemented or accepted"
+    "boundary": "21 groups exercise the selected Racket implementations; source snippets and the full program are checked against their reading copies."
   },
   "browser": {
-    "status": "not-run",
-    "reason": "No chapter2 reading page exists yet"
+    "status": "passed",
+    "scope": "Local formal dist",
+    "views": [
+      {
+        "width": 1800,
+        "js": true,
+        "map_scope": "dist",
+        "index_links": 97,
+        "initially_collapsed": 97,
+        "first_and_last": true,
+        "formula_anchor": "ex-2-34",
+        "inline_svgs": 23,
+        "embedded_webps": 3,
+        "decodable_maintenance_assets": 26,
+        "code_toggle": true,
+        "direct_figure_link": true,
+        "loaded_figures": 26,
+        "figure_scroll": {
+          "width": 812,
+          "content": 812,
+          "offset": 0
+        },
+        "block_formulas": 8,
+        "max_formula_overflow": 0,
+        "page_overflow": false,
+        "external_requests": []
+      },
+      {
+        "width": 1440,
+        "js": true,
+        "map_scope": "dist",
+        "index_links": 97,
+        "initially_collapsed": 97,
+        "first_and_last": true,
+        "formula_anchor": "ex-2-34",
+        "inline_svgs": 23,
+        "embedded_webps": 3,
+        "decodable_maintenance_assets": 26,
+        "code_toggle": true,
+        "direct_figure_link": true,
+        "loaded_figures": 26,
+        "figure_scroll": {
+          "width": 760,
+          "content": 760,
+          "offset": 0
+        },
+        "block_formulas": 8,
+        "max_formula_overflow": 0,
+        "page_overflow": false,
+        "external_requests": []
+      },
+      {
+        "width": 1024,
+        "js": true,
+        "map_scope": "dist",
+        "index_links": 97,
+        "initially_collapsed": 97,
+        "first_and_last": true,
+        "formula_anchor": "ex-2-34",
+        "inline_svgs": 23,
+        "embedded_webps": 3,
+        "decodable_maintenance_assets": 26,
+        "code_toggle": true,
+        "direct_figure_link": true,
+        "loaded_figures": 26,
+        "figure_scroll": {
+          "width": 812,
+          "content": 812,
+          "offset": 0
+        },
+        "block_formulas": 8,
+        "max_formula_overflow": 0,
+        "page_overflow": false,
+        "external_requests": []
+      },
+      {
+        "width": 390,
+        "js": true,
+        "map_scope": "dist",
+        "index_links": 97,
+        "initially_collapsed": 97,
+        "first_and_last": true,
+        "formula_anchor": "ex-2-34",
+        "inline_svgs": 23,
+        "embedded_webps": 3,
+        "decodable_maintenance_assets": 26,
+        "code_toggle": true,
+        "direct_figure_link": true,
+        "loaded_figures": 26,
+        "figure_scroll": {
+          "width": 354,
+          "content": 512,
+          "offset": 158
+        },
+        "block_formulas": 8,
+        "max_formula_overflow": 0,
+        "page_overflow": false,
+        "external_requests": []
+      },
+      {
+        "width": 1440,
+        "js": false,
+        "map_scope": "dist",
+        "index_links": 97,
+        "initially_collapsed": 97,
+        "first_and_last": true,
+        "formula_anchor": "ex-2-34",
+        "inline_svgs": 23,
+        "embedded_webps": 3,
+        "decodable_maintenance_assets": 26,
+        "code_toggle": true,
+        "direct_figure_link": true,
+        "loaded_figures": 26,
+        "figure_scroll": {
+          "width": 760,
+          "content": 760,
+          "offset": 0
+        },
+        "block_formulas": 8,
+        "max_formula_overflow": 0,
+        "page_overflow": false,
+        "external_requests": []
+      },
+      {
+        "width": 390,
+        "js": false,
+        "map_scope": "dist",
+        "index_links": 97,
+        "initially_collapsed": 97,
+        "first_and_last": true,
+        "formula_anchor": "ex-2-34",
+        "inline_svgs": 23,
+        "embedded_webps": 3,
+        "decodable_maintenance_assets": 26,
+        "code_toggle": true,
+        "direct_figure_link": true,
+        "loaded_figures": 26,
+        "figure_scroll": {
+          "width": 354,
+          "content": 512,
+          "offset": 158
+        },
+        "block_formulas": 8,
+        "max_formula_overflow": 0,
+        "page_overflow": false,
+        "external_requests": []
+      }
+    ],
+    "evidence": "tmp/i077/formal-browser/browser.json",
+    "report_sha256": "9f75c04e520b01cccaeeb49da87f16f8809d6969e53be072c8932131bc88c069",
+    "output_sha256": "acb5bcb88d7fc25cbf2015df12cf015491b1163629592c225dcf56d0e891c8bb",
+    "screenshots": {
+      "figure-1024-true.png": "660fef06552a776cb6efd5450a0cd9600ac15179f0358ba3be50258fa313e8be",
+      "figure-1440-false.png": "16bb3d1341984986ead238b99e50e870fa012968b50dce4fa90822266edddb18",
+      "figure-1440-true.png": "c499c24da6b9583a8858b8e05a15fa764ec2e18cd66ac1c82c4e783fd6f7b74a",
+      "figure-1800-true.png": "532c11fc60bdf54ce3c1e3b9a73d0e6ff9c11e1aef29997fe4725a09a4c3fdab",
+      "figure-390-false.png": "c812330794335222f1c23d8036699c4dd003a558906e9dcf247c3c40be6aa947",
+      "figure-390-true.png": "0df06505bf408e2573fe7b01dd4560e286aad38130d48578e2db03e3e91b087e"
+    }
   },
-  "open_findings": [
-    "Complete Chinese question bodies, all given inputs, diagrams, solutions and teaching annotations",
-    "Implement and independently test sections2.2-2.5",
-    "Register and sync one complete chapter, including current source/output review bindings",
-    "Extend the chapter1-specific checker without weakening its current assertions",
-    "Run all requested gates and actual chapter2 browser matrix before acceptance"
+  "open_findings": [],
+  "publication": "Local build only. No remote push or production deployment.",
+  "acceptance_dependencies": {
+    "baseline_ref_checked": "5281ead11a79edbef72d11a962c8993e44bb2379",
+    "baseline_path": "books/sicp/notes/chapter02_data_abstraction.html"
+  },
+  "reader_policy": {
+    "page": "sicp/notes/chapter02_data_abstraction.html",
+    "source": "src/content/books/sicp/chapter02_data_abstraction.html",
+    "sections": [
+      {
+        "id": "s2-1",
+        "title": "2.1 数据抽象导引",
+        "annotation": "required",
+        "role": "teaching",
+        "reason": "本节的表示选择、推导边界与可检验反例。"
+      },
+      {
+        "id": "s2-1-1",
+        "title": "2.1.1 从有理数的运算律确定接口",
+        "annotation": "required",
+        "role": "teaching",
+        "reason": "本节的表示选择、推导边界与可检验反例。",
+        "parent": "s2-1"
+      },
+      {
+        "id": "s2-1-2",
+        "title": "2.1.2 抽象屏障",
+        "annotation": "required",
+        "role": "teaching",
+        "reason": "本节的表示选择、推导边界与可检验反例。",
+        "parent": "s2-1"
+      },
+      {
+        "id": "s2-1-3",
+        "title": "2.1.3 数据由哪些操作定义",
+        "annotation": "required",
+        "role": "teaching",
+        "reason": "本节的表示选择、推导边界与可检验反例。",
+        "parent": "s2-1"
+      },
+      {
+        "id": "s2-1-4",
+        "title": "2.1.4 区间算术与相关性",
+        "annotation": "required",
+        "role": "teaching",
+        "reason": "本节的表示选择、推导边界与可检验反例。",
+        "parent": "s2-1"
+      },
+      {
+        "id": "s2-2",
+        "title": "2.2 层次性数据与闭包性质",
+        "annotation": "required",
+        "role": "teaching",
+        "reason": "本节的表示选择、推导边界与可检验反例。"
+      },
+      {
+        "id": "s2-2-1",
+        "title": "2.2.1 用序对构造序列",
+        "annotation": "required",
+        "role": "teaching",
+        "reason": "本节的表示选择、推导边界与可检验反例。",
+        "parent": "s2-2"
+      },
+      {
+        "id": "s2-2-2",
+        "title": "2.2.2 层次结构与树",
+        "annotation": "required",
+        "role": "teaching",
+        "reason": "本节的表示选择、推导边界与可检验反例。",
+        "parent": "s2-2"
+      },
+      {
+        "id": "s2-2-3",
+        "title": "2.2.3 把序列作为共同接口",
+        "annotation": "required",
+        "role": "teaching",
+        "reason": "本节的表示选择、推导边界与可检验反例。",
+        "parent": "s2-2"
+      },
+      {
+        "id": "s2-2-4",
+        "title": "2.2.4 画家、变换与框架",
+        "annotation": "required",
+        "role": "teaching",
+        "reason": "本节的表示选择、推导边界与可检验反例。",
+        "parent": "s2-2"
+      },
+      {
+        "id": "s2-3",
+        "title": "2.3 符号数据",
+        "annotation": "required",
+        "role": "teaching",
+        "reason": "本节的表示选择、推导边界与可检验反例。"
+      },
+      {
+        "id": "s2-3-1",
+        "title": "2.3.1 引用与符号",
+        "annotation": "required",
+        "role": "teaching",
+        "reason": "本节的表示选择、推导边界与可检验反例。",
+        "parent": "s2-3"
+      },
+      {
+        "id": "s2-3-2",
+        "title": "2.3.2 符号求导",
+        "annotation": "required",
+        "role": "teaching",
+        "reason": "本节的表示选择、推导边界与可检验反例。",
+        "parent": "s2-3"
+      },
+      {
+        "id": "s2-3-3",
+        "title": "2.3.3 集合的多种表示",
+        "annotation": "required",
+        "role": "teaching",
+        "reason": "本节的表示选择、推导边界与可检验反例。",
+        "parent": "s2-3"
+      },
+      {
+        "id": "s2-3-4",
+        "title": "2.3.4 Huffman 编码树",
+        "annotation": "required",
+        "role": "teaching",
+        "reason": "本节的表示选择、推导边界与可检验反例。",
+        "parent": "s2-3"
+      },
+      {
+        "id": "s2-4",
+        "title": "2.4 抽象数据的多重表示",
+        "annotation": "required",
+        "role": "teaching",
+        "reason": "本节的表示选择、推导边界与可检验反例。"
+      },
+      {
+        "id": "s2-4-1",
+        "title": "2.4.1 复数的两种表示",
+        "annotation": "required",
+        "role": "teaching",
+        "reason": "本节的表示选择、推导边界与可检验反例。",
+        "parent": "s2-4"
+      },
+      {
+        "id": "s2-4-2",
+        "title": "2.4.2 以标签识别表示",
+        "annotation": "required",
+        "role": "teaching",
+        "reason": "本节的表示选择、推导边界与可检验反例。",
+        "parent": "s2-4"
+      },
+      {
+        "id": "s2-4-3",
+        "title": "2.4.3 数据导向与消息传递",
+        "annotation": "required",
+        "role": "teaching",
+        "reason": "本节的表示选择、推导边界与可检验反例。",
+        "parent": "s2-4"
+      },
+      {
+        "id": "s2-5",
+        "title": "2.5 带有通用操作的系统",
+        "annotation": "required",
+        "role": "teaching",
+        "reason": "本节的表示选择、推导边界与可检验反例。"
+      },
+      {
+        "id": "s2-5-1",
+        "title": "2.5.1 通用算术",
+        "annotation": "required",
+        "role": "teaching",
+        "reason": "本节的表示选择、推导边界与可检验反例。",
+        "parent": "s2-5"
+      },
+      {
+        "id": "s2-5-2",
+        "title": "2.5.2 不同类型之间的运算",
+        "annotation": "required",
+        "role": "teaching",
+        "reason": "本节的表示选择、推导边界与可检验反例。",
+        "parent": "s2-5"
+      },
+      {
+        "id": "s2-5-3",
+        "title": "2.5.3 符号代数与多项式",
+        "annotation": "required",
+        "role": "teaching",
+        "reason": "本节的表示选择、推导边界与可检验反例。",
+        "parent": "s2-5"
+      },
+      {
+        "id": "exercises",
+        "title": "习题 2.1—2.97",
+        "annotation": "optional",
+        "role": "exercise-collection",
+        "reason": "提供习题或执行程序的定位。"
+      },
+      {
+        "id": "programs",
+        "title": "程序与执行",
+        "annotation": "optional",
+        "role": "navigation-or-source",
+        "reason": "提供习题或执行程序的定位。"
+      }
+    ],
+    "questions": [
+      "ex-2-1",
+      "ex-2-2",
+      "ex-2-3",
+      "ex-2-4",
+      "ex-2-5",
+      "ex-2-6",
+      "ex-2-7",
+      "ex-2-8",
+      "ex-2-9",
+      "ex-2-10",
+      "ex-2-11",
+      "ex-2-12",
+      "ex-2-13",
+      "ex-2-14",
+      "ex-2-15",
+      "ex-2-16",
+      "ex-2-17",
+      "ex-2-18",
+      "ex-2-19",
+      "ex-2-20",
+      "ex-2-21",
+      "ex-2-22",
+      "ex-2-23",
+      "ex-2-24",
+      "ex-2-25",
+      "ex-2-26",
+      "ex-2-27",
+      "ex-2-28",
+      "ex-2-29",
+      "ex-2-30",
+      "ex-2-31",
+      "ex-2-32",
+      "ex-2-33",
+      "ex-2-34",
+      "ex-2-35",
+      "ex-2-36",
+      "ex-2-37",
+      "ex-2-38",
+      "ex-2-39",
+      "ex-2-40",
+      "ex-2-41",
+      "ex-2-42",
+      "ex-2-43",
+      "ex-2-44",
+      "ex-2-45",
+      "ex-2-46",
+      "ex-2-47",
+      "ex-2-48",
+      "ex-2-49",
+      "ex-2-50",
+      "ex-2-51",
+      "ex-2-52",
+      "ex-2-53",
+      "ex-2-54",
+      "ex-2-55",
+      "ex-2-56",
+      "ex-2-57",
+      "ex-2-58",
+      "ex-2-59",
+      "ex-2-60",
+      "ex-2-61",
+      "ex-2-62",
+      "ex-2-63",
+      "ex-2-64",
+      "ex-2-65",
+      "ex-2-66",
+      "ex-2-67",
+      "ex-2-68",
+      "ex-2-69",
+      "ex-2-70",
+      "ex-2-71",
+      "ex-2-72",
+      "ex-2-73",
+      "ex-2-74",
+      "ex-2-75",
+      "ex-2-76",
+      "ex-2-77",
+      "ex-2-78",
+      "ex-2-79",
+      "ex-2-80",
+      "ex-2-81",
+      "ex-2-82",
+      "ex-2-83",
+      "ex-2-84",
+      "ex-2-85",
+      "ex-2-86",
+      "ex-2-87",
+      "ex-2-88",
+      "ex-2-89",
+      "ex-2-90",
+      "ex-2-91",
+      "ex-2-92",
+      "ex-2-93",
+      "ex-2-94",
+      "ex-2-95",
+      "ex-2-96",
+      "ex-2-97"
+    ],
+    "chinese_translation_required": true,
+    "section_scope": "all-descendants"
+  },
+  "question_bindings": [
+    {
+      "id": "ex-2-1",
+      "sha256": "24629299130f21eb32517f648f6f0b5e789e82ac385dbe0591546600d8c12cf3",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-2",
+      "sha256": "2d97fdd13cb56b8dc10fba8a7e5eaa92f4f8ff35cc48833c8cb5f609209e5390",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-3",
+      "sha256": "4aa8cb36bca39715d5b74d2772157f68c9fdf6e747d2d6b8895fe78f0272b75c",
+      "dependencies": [
+        {
+          "anchor": "#ex-2-2",
+          "sha256": "e566689190e5eaeb325bb1a52c614ce283bcb63e8587c4bfc84c67f26e887a72"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-4",
+      "sha256": "cde7646ce743e83186468e39276d4b1207a7435c0ecfc9e2a47b65da1106a341",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-5",
+      "sha256": "f126e42519e977f14a54443381e60790e9ed0835edc3355070d596849eb5bc2c",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-6",
+      "sha256": "0c7243a1c0cfb80e377b0fd4a6fc58a5de2528722f5cce21127babb20e10e1e0",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-7",
+      "sha256": "1051b71118d416a122bfe339482dc6b5f0e8fed8b617762d1f17a975e406fb32",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-8",
+      "sha256": "c7bec1f763dfda379526b33749d729ce60743563109ed1bfc585e10fcfe301ac",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-9",
+      "sha256": "270a7da637ac404ce66bcb812381d3fa04d366b8058259dd0bcd289031b10819",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-10",
+      "sha256": "a8545d5474b4eab0f76f0c3d0699e21c3c9be502b58c1bd63a05899df8e56e37",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-11",
+      "sha256": "bb394ce51bfff55b81ea814ef490813d9d6d51d36b5939c9b8c1446915d746a0",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-12",
+      "sha256": "3e5cf84145ceb6896bd8756cf8aa79a58b6e72cb2b058218baa35fe5c21d708e",
+      "dependencies": [
+        {
+          "anchor": "#input-1-make-center-width",
+          "sha256": "58c2de2bf2a70a9e0e5fdfbb7d4189b0f883eb3fbd7d876db7e66240834793aa"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-13",
+      "sha256": "c829f7bb5ed83132e008442558210e181dddef4623d1691362d63282c0edd64e",
+      "dependencies": [
+        {
+          "anchor": "#input-1-make-center-width",
+          "sha256": "58c2de2bf2a70a9e0e5fdfbb7d4189b0f883eb3fbd7d876db7e66240834793aa"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-14",
+      "sha256": "2de0b2c210b9fffe20e00e8ef419599550d88c8eece0c3bd061f8242c3369695",
+      "dependencies": [
+        {
+          "anchor": "#ex-2-12",
+          "sha256": "0bcc0d4e4170c8c290a7571010045ab58ee3b6b0c7dab0d1c5fc0fd4354c09ec"
+        },
+        {
+          "anchor": "#input-1-par1",
+          "sha256": "94629385811a35a41b09fd8b347df888d7a1e8cd1e50c8ea654314bbdccbc50b"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-15",
+      "sha256": "cde112f3ad1e5bfbbc4cc4fb8804584db2766323265ce50edb3af6e5df07e80a",
+      "dependencies": [
+        {
+          "anchor": "#input-1-par1",
+          "sha256": "94629385811a35a41b09fd8b347df888d7a1e8cd1e50c8ea654314bbdccbc50b"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-16",
+      "sha256": "2a5cf73640ada264b561423b8a8823010ba234b7907ceeb956638adff2369a7b",
+      "dependencies": [
+        {
+          "anchor": "#input-1-par1",
+          "sha256": "94629385811a35a41b09fd8b347df888d7a1e8cd1e50c8ea654314bbdccbc50b"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-17",
+      "sha256": "69b6e92b99a02d379c00aec317787166e31539b3a7dbf52ec30294cfa82cbe90",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-18",
+      "sha256": "2b3c5cc11fae619543db6e0bc24bf892196675fa89d4b3318e0982d16294d7cd",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-19",
+      "sha256": "e1ef2ca0915ef9dbede8b2e38cad34832d0c7a6699339c20eca1b600fcf61666",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-20",
+      "sha256": "c2e9480706c613549295288f76b7893b10075bc54c976a269a60b35fd84e8769",
+      "dependencies": [
+        {
+          "anchor": "#q20FOOT77",
+          "sha256": "eb00a209194fec190538fffddf56c2aed44fc16562e9b9c3f0cb61f73fba0059"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-21",
+      "sha256": "32af36fc922818c27ad06051accd4d9818029adb1c9f353e136c3c5ce1b85ffb",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-22",
+      "sha256": "0b794976b71d3ea14ea847c605b7c3caa357fe326851223610fa5170dd04bdc9",
+      "dependencies": [
+        {
+          "anchor": "#ex-2-21",
+          "sha256": "f2a87eee235ac69d4fc63e82aa6654d1266a6fdc025499d8aec6060739c9869a"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-23",
+      "sha256": "1ea97d196db9bf99cdaddbfad9338603a5322f53f13594aee6aa5a2538300689",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-24",
+      "sha256": "a43712e0204625def5951d6361f5df0959731578548e91dcc3fae4f56c471661",
+      "dependencies": [
+        {
+          "anchor": "#fig-2-6",
+          "sha256": "128bfced37057a6aa820d4725a7b62750ce0b63c29d5bad8ff397368a540b8c4"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-25",
+      "sha256": "97f019487ea820f614e72b8eabe716a0d0111b2474f35a3688cfc8d641687465",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-26",
+      "sha256": "d4e40ce5b91035e6184448b3c346a8c893d34e43abcc5ccfc59da1834ff715a7",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-27",
+      "sha256": "4553de10e124a82fe2e3b368120d19f78760295875e1d9009ad95442fa12d6ac",
+      "dependencies": [
+        {
+          "anchor": "#ex-2-18",
+          "sha256": "cba12cf43e40928bb69b3adf4253e29d177672f28273bb920e4ad7c2f20a4939"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-28",
+      "sha256": "49e39605b3f428f78574a651b1b27f8225b6969522152496ded0a03b612afea0",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-29",
+      "sha256": "f4c00f49d5fe3b404f01195fc5d617dc701e4760149653a9c87feac4893b755d",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-30",
+      "sha256": "4cb46a8a394508f0510762870362d196503db95beaf7bf755d52d667c2ac9fe6",
+      "dependencies": [
+        {
+          "anchor": "#ex-2-21",
+          "sha256": "f2a87eee235ac69d4fc63e82aa6654d1266a6fdc025499d8aec6060739c9869a"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-31",
+      "sha256": "e894dea4457a2d057f1fbd750121941fc22d9795fcfd68599d2b9d294cffb7b5",
+      "dependencies": [
+        {
+          "anchor": "#ex-2-30",
+          "sha256": "49331656e1bd6eefe5c0cdae2c797a57acd7691adcc7bc84f910417094477e6e"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-32",
+      "sha256": "4e0416e55bc8bfc3c83815d3c14feea3b8a87595c976c4706b5f278d89afa147",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-33",
+      "sha256": "0b5dd68a4a409b724d173f224843ab179ee9fcdffee370017479f6601c30b93d",
+      "dependencies": [
+        {
+          "anchor": "#input-2-accumulate",
+          "sha256": "c8727984102eca4aeb4a90164fe8f32ce81e7a0c76c48bfac54262af8a1cfe08"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-34",
+      "sha256": "2405291c6ee6396b9903c02dc6b220948e0e0482cede92c320c44044f6ce23bc",
+      "dependencies": [
+        {
+          "anchor": "#q34FOOT82",
+          "sha256": "b349f715b6efc17c9a9ab7c7925d3479ce811e4235894e802021f7831f3ab3be"
+        },
+        {
+          "anchor": "#input-2-accumulate",
+          "sha256": "c8727984102eca4aeb4a90164fe8f32ce81e7a0c76c48bfac54262af8a1cfe08"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-35",
+      "sha256": "3ddee92ed1579b2a8286139dd84995985fe4c2f44441a26ffab1db2c968ec498",
+      "dependencies": [
+        {
+          "anchor": "#input-2-accumulate",
+          "sha256": "c8727984102eca4aeb4a90164fe8f32ce81e7a0c76c48bfac54262af8a1cfe08"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-36",
+      "sha256": "7422cf448cee263a2aaadf31879f959345f82e537188b9392e218ce4dfb37524",
+      "dependencies": [
+        {
+          "anchor": "#input-2-accumulate",
+          "sha256": "c8727984102eca4aeb4a90164fe8f32ce81e7a0c76c48bfac54262af8a1cfe08"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-37",
+      "sha256": "33e826504e4f13c99011784e20163f731000cefe009e324c776bc89622bbab12",
+      "dependencies": [
+        {
+          "anchor": "#q37FOOT83",
+          "sha256": "e3df9e5e30e6c3d433d6cff3986d54e90ce25812906cb90682b1d651760988fc"
+        },
+        {
+          "anchor": "#ex-2-36",
+          "sha256": "9fc318fc2961eed94f8781599fa98c1fc6539c6c5fdd82239b823571f7e14783"
+        },
+        {
+          "anchor": "#input-2-accumulate",
+          "sha256": "c8727984102eca4aeb4a90164fe8f32ce81e7a0c76c48bfac54262af8a1cfe08"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-38",
+      "sha256": "2fe8e619ab575a28805ca79cc8a8a16ac75148d9e3f28ddf90c1aa6d1ceeae23",
+      "dependencies": [
+        {
+          "anchor": "#input-2-accumulate",
+          "sha256": "c8727984102eca4aeb4a90164fe8f32ce81e7a0c76c48bfac54262af8a1cfe08"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-39",
+      "sha256": "508793f6040590985f487cedff7eec0e7673b931ca43f8691a46b414bf4bb94a",
+      "dependencies": [
+        {
+          "anchor": "#ex-2-38",
+          "sha256": "adafab7241fafb9c01eae34b8b5f63645b4ffba7a3de2d66a02435e5e22b603c"
+        },
+        {
+          "anchor": "#ex-2-18",
+          "sha256": "cba12cf43e40928bb69b3adf4253e29d177672f28273bb920e4ad7c2f20a4939"
+        },
+        {
+          "anchor": "#input-2-accumulate",
+          "sha256": "c8727984102eca4aeb4a90164fe8f32ce81e7a0c76c48bfac54262af8a1cfe08"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-40",
+      "sha256": "36c284f2f356d0efc9ec55d3c6c5b614ae2d7791eb53e57b7ce0264ae00d3c6e",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-41",
+      "sha256": "a568f3e97eff3e0139d2beb881e5ffa144604b53ec96cb581ebac0781ba14b55",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-42",
+      "sha256": "a19684c845f2366650fc63b4e06480af75e0728d3b4c7525d88e91e2fcebb8a6",
+      "dependencies": [
+        {
+          "anchor": "#fig-2-8",
+          "sha256": "1aaab2b26ef442d00183602c8fee7d5fd05ab4658b77e3836c73eff94a340b59"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-43",
+      "sha256": "9764a0cde09a69ba75bb439d4333ce77094f5f470534c1519731ff0652112be8",
+      "dependencies": [
+        {
+          "anchor": "#ex-2-42",
+          "sha256": "3fe31002a3156ecc05219f87bfe4e2432b6bd9e018ff81c6879373926df38ed3"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-44",
+      "sha256": "9de235829a87d09c2975aac75a38b9c467a3c615ab446932806ab8fc1696e295",
+      "dependencies": [
+        {
+          "anchor": "#input-2-right-split",
+          "sha256": "a44a26ce67cbd81c8d32a24eb523f84d61a4f4b7c7f84ffcebf35679e9369524"
+        },
+        {
+          "anchor": "#input-2-corner-split",
+          "sha256": "083933c5eef9da0f26ce87c03677fe21a272371ae3bc2c7c18c539de16aa842c"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-45",
+      "sha256": "b1b0e41e8dfe2ab99dbaa69d79c5df32c23d10df33af2282dcb0a4a345d15ed3",
+      "dependencies": [
+        {
+          "anchor": "#input-2-right-split",
+          "sha256": "a44a26ce67cbd81c8d32a24eb523f84d61a4f4b7c7f84ffcebf35679e9369524"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-46",
+      "sha256": "8b016136c3a02a904c316b8d24740641eda20d2e8c8ce964cc666382dd26b1e1",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-47",
+      "sha256": "d59578ff08e8f0018f622818b897e06642a63f6f433f4603c16b379420018e11",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-48",
+      "sha256": "3f0b19b13c297869e0ea75446b87886e999b9bcb7631b6464df40ab30c87f366",
+      "dependencies": [
+        {
+          "anchor": "#ex-2-46",
+          "sha256": "d8b5ce122da7a2d00f078597142f887bcaef92766e63260a7eb9a552c255657e"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-49",
+      "sha256": "b45e83fbde4ba9ec7cfac697e9b34fcfca817c0a8a4882e800670e2a54b7037e",
+      "dependencies": [
+        {
+          "anchor": "#input-2-segments-to-painter",
+          "sha256": "629953b76cb28adb9ac1e078bca3769c16727905a21ed8061f8ed28c83318e97"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-50",
+      "sha256": "5b0718716b574acfca3b943e222aa32129ccd4b8ff0b04df1467c3d414eef4dc",
+      "dependencies": [
+        {
+          "anchor": "#input-2-transform-painter",
+          "sha256": "23ba0f1139eca7e66ed4fef219265856457f91abe83f094519b60d39e5378680"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-51",
+      "sha256": "4286f0889fdf9d9394e52dbcacf4c59aef0b1e752f0d68ed3cc21f15eeefa555",
+      "dependencies": [
+        {
+          "anchor": "#ex-2-50",
+          "sha256": "2b20f3925026536f55080f942230d610c18d631f8e691958cb75a947ddb12af9"
+        },
+        {
+          "anchor": "#input-2-transform-painter",
+          "sha256": "23ba0f1139eca7e66ed4fef219265856457f91abe83f094519b60d39e5378680"
+        },
+        {
+          "anchor": "#input-2-beside",
+          "sha256": "24935fcd5c3cf88e110e0ae4161d60307480ad2facc29a1817208d9413db190c"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-52",
+      "sha256": "74b56464304f1ffe88e4bb71bffca3fc07dd6edf9a73e25eb6bdb00e409e4c1c",
+      "dependencies": [
+        {
+          "anchor": "#fig-2-9",
+          "sha256": "e0bfc90734dd18e60e6a897915268c3a85adc060cdc3f73e6c36d52c25131ab4"
+        },
+        {
+          "anchor": "#ex-2-49",
+          "sha256": "f2817a94547256b3af5a7ce37d524f05e9959f0586ad9b20fa32109e3bbd26ad"
+        },
+        {
+          "anchor": "#input-2-corner-split",
+          "sha256": "083933c5eef9da0f26ce87c03677fe21a272371ae3bc2c7c18c539de16aa842c"
+        },
+        {
+          "anchor": "#input-2-segments-to-painter",
+          "sha256": "629953b76cb28adb9ac1e078bca3769c16727905a21ed8061f8ed28c83318e97"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-53",
+      "sha256": "b5c2944b9525e13495082cbfffc4d85118ad142bbe295a3811eb80a67b96cc3b",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-54",
+      "sha256": "83b41e01baf2729ef80c0846dc2b9b8418c67b42d96041fe4c1d2ab6b49639d6",
+      "dependencies": [
+        {
+          "anchor": "#q54FOOT102",
+          "sha256": "ce7a9e3c17fcebeff9f0f106fd0d3dd97dd8e728c9cf51fba14251db0ac8be65"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-55",
+      "sha256": "e7aa305763f7161a0a1247e41b23ca5e2ad9962757a78f001389811a08f0b67e",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-56",
+      "sha256": "5d6c5a2415568e7d4ffcc99318a90f2247b61f53acdff91d361e9ed0c81a3f41",
+      "dependencies": [
+        {
+          "anchor": "#input-3-deriv",
+          "sha256": "babd900786d29f80b33f98fca0335c379555f812aecef4ebab68d668128409ee"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-57",
+      "sha256": "c6a384f7ec654beb7416f694863002675a5c1714f4dfe03b0c8362ca95b09111",
+      "dependencies": [
+        {
+          "anchor": "#input-3-deriv",
+          "sha256": "babd900786d29f80b33f98fca0335c379555f812aecef4ebab68d668128409ee"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-58",
+      "sha256": "39ca401b3b06de8fd55d9f890cf618cd5ee6e9589eccfef529576c7558de4f5c",
+      "dependencies": [
+        {
+          "anchor": "#input-3-deriv",
+          "sha256": "babd900786d29f80b33f98fca0335c379555f812aecef4ebab68d668128409ee"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-59",
+      "sha256": "4b38d29ed3f64cced2c9a0baeceae9931f7524771b23868d217da01cd8729fb0",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-60",
+      "sha256": "a537ad99a998367b7ae3152fb07b75190ff7ad74623053357578319ae0e49251",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-61",
+      "sha256": "59ad5d065e95e35101c82c2b8715887786427008a7bbc1faaf64f127552787ca",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-62",
+      "sha256": "f727c895f758a1e332d731c3eeebf9d89b3db2760c4094fe1bf51b69b8c9f5cc",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-63",
+      "sha256": "1b4df00bca48819d962784abf9c233accd78bc14e92e61a01a5c8eb97668451e",
+      "dependencies": [
+        {
+          "anchor": "#fig-2-16",
+          "sha256": "f9913975015229bff5d45a6517e9814144b5645f67aca8c4b27964d6a03a6bab"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-64",
+      "sha256": "281d78eb79a64daf65fe98af3202c3854c01444708ad69760e27c3b4c6ae103c",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-65",
+      "sha256": "683cbc8a0fc6bc60d92efb4579809d8b15c5d9ea80fb4a63e6217e8d5635f7ba",
+      "dependencies": [
+        {
+          "anchor": "#ex-2-63",
+          "sha256": "8015f7fb0e8f27bd6d253de84c70a57d6dcf57463a549f7ae00d5a6fdad80170"
+        },
+        {
+          "anchor": "#ex-2-64",
+          "sha256": "647c2ab264819afc8443625e2b736c7ff7bc800f79234d6e74977154e00c5e8b"
+        },
+        {
+          "anchor": "#q65FOOT107",
+          "sha256": "7aaee4fb391a921e6f8fec43d82c4c480f961e89fa06748b96291e0ad9e0232a"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-66",
+      "sha256": "0e1fce9e94abaea3870478d3d212c746b88247a390d74ccf5e47e07b99cfe214",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-67",
+      "sha256": "2424a1f981fb5d5e7a19acfb20e761af82c4379849c5233acb63a6e138b30a1a",
+      "dependencies": [
+        {
+          "anchor": "#input-3-make-code-tree",
+          "sha256": "18c0675f054d9537326ad0c53d68dd5fb9deea52062c3d30d5b8cf78aa40ab42"
+        },
+        {
+          "anchor": "#input-3-decode",
+          "sha256": "fcd50e61a7eb36f9b323c4518752aca4bc7c5e24662742c7bc63f9f4f4bc1eff"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-68",
+      "sha256": "6d42ee22140786e637730560c2eeffc2e510e1733bc59333a4eacccff9fff586",
+      "dependencies": [
+        {
+          "anchor": "#ex-2-67",
+          "sha256": "a7b76228adbf34148ef20f899a4b89b28996da1332aa30891c8169bd28319a10"
+        },
+        {
+          "anchor": "#input-3-make-code-tree",
+          "sha256": "18c0675f054d9537326ad0c53d68dd5fb9deea52062c3d30d5b8cf78aa40ab42"
+        },
+        {
+          "anchor": "#input-3-decode",
+          "sha256": "fcd50e61a7eb36f9b323c4518752aca4bc7c5e24662742c7bc63f9f4f4bc1eff"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-69",
+      "sha256": "200612be2b84fb566bd6ab4b2db1634b5673c279d72c4d6d5f4bfd42c0439f48",
+      "dependencies": [
+        {
+          "anchor": "#input-3-make-code-tree",
+          "sha256": "18c0675f054d9537326ad0c53d68dd5fb9deea52062c3d30d5b8cf78aa40ab42"
+        },
+        {
+          "anchor": "#input-3-make-leaf-set",
+          "sha256": "b14bc72920708c10e805c608fbfc26a789d835c478408855fa5c9704818522ea"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-70",
+      "sha256": "57a5c8fce454125214cb11022f834c72bedf95937c50c06423faf2b301c6d4d1",
+      "dependencies": [
+        {
+          "anchor": "#ex-2-69",
+          "sha256": "7bbc0cdb3ef5b5e034a7672d00fc34ec223dda98ccbfb0405a430fe37a7d2a27"
+        },
+        {
+          "anchor": "#ex-2-68",
+          "sha256": "fa779a1d5316f4f66832d92cb953a9c042a3866b9f2ccd0d3bc0ddad797cb2b2"
+        },
+        {
+          "anchor": "#input-3-make-leaf-set",
+          "sha256": "b14bc72920708c10e805c608fbfc26a789d835c478408855fa5c9704818522ea"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-71",
+      "sha256": "5173f29c9ed560953aff7c776f87ee9173bab3ffec3826a176d36f7e50b22eb1",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-72",
+      "sha256": "3e1ac60a1dda43f4cc538e917b9f96c228e791285746ba32473c7a183745d5b4",
+      "dependencies": [
+        {
+          "anchor": "#ex-2-68",
+          "sha256": "fa779a1d5316f4f66832d92cb953a9c042a3866b9f2ccd0d3bc0ddad797cb2b2"
+        },
+        {
+          "anchor": "#ex-2-71",
+          "sha256": "9023ae8b237018dace63dfc9c7235ff2e80b016abd678d1a5fae8b5f53cd5b73"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-73",
+      "sha256": "1f6553c8c765c837025e4f6d0ab7ec1b95fc4722503b34b4cbb096651a42c868",
+      "dependencies": [
+        {
+          "anchor": "#ex-2-56",
+          "sha256": "2d749302dcbfaf56a1dae11fcd3e2003c93caec058b46336884d96e35ecaab41"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-74",
+      "sha256": "4b51f5929930604aabf52f0fb37b99f2fb49c1e5010a952e0a4d22429a8a1add",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-75",
+      "sha256": "f62511366547f5803d3eedcd9217cc18ecdd6ee1d391504a38b59c8ecbf678a0",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-76",
+      "sha256": "f7fffef360ec15b4fccdd41b00b7ed8077275fc181cad50d4c712804679a5b08",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-77",
+      "sha256": "93dda44eb6cc1c4c01072b0419a7af14c40438834b3a6398392656919f80b02c",
+      "dependencies": [
+        {
+          "anchor": "#fig-2-24",
+          "sha256": "cee623f6caac2e0c33d48fda53aecedc9a9ffbbc6c448bfc9ff4c4a8073cb464"
+        },
+        {
+          "anchor": "#input-4-apply-generic",
+          "sha256": "daf374d8767927fd83a9a556654b95388cfa75cf33f0fbf13e283fd68c3bb95f"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-78",
+      "sha256": "0f040832d9fc6878ba2cd5c94c99622c19d5337cfeba92ca854fb4f4e940aaa7",
+      "dependencies": [
+        {
+          "anchor": "#input-4-attach-tag",
+          "sha256": "3c18ac50153654b69793f417e0a6291e93de3840388938b7fb428c49983e070c"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-79",
+      "sha256": "7fc9701740307989517c5716d2ff3fc9664b4c735ae4cb65fa8e51e6c4782fe6",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-80",
+      "sha256": "6088a3c44d12c7dde21c228c152e538b511cacad2f2e4e62821b1565add8bda0",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-81",
+      "sha256": "bff85dd7c1f8691b05490b919a1d4d8356d7e6558b77275e0685595dca7ef424",
+      "dependencies": [
+        {
+          "anchor": "#input-5-apply-generic",
+          "sha256": "1ec8db1060b4fdfa97d4574d20747ea6313807c2776b72eeab27a8824785a9ff"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-82",
+      "sha256": "bd84ecf281c37cbb53de44577d37e081cc372a069227b1de2cb8453e0cd3317c",
+      "dependencies": [
+        {
+          "anchor": "#input-5-apply-generic",
+          "sha256": "1ec8db1060b4fdfa97d4574d20747ea6313807c2776b72eeab27a8824785a9ff"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-83",
+      "sha256": "70bdd4a5eaf3e508c530891d284edeccc6993e63b1f3c7d46a4fea865c228ce0",
+      "dependencies": [
+        {
+          "anchor": "#fig-2-25",
+          "sha256": "049ecb9d8f85cd3872c51bfb8a19bd5da4891322c40932d5210a76fb6cddbe0f"
+        },
+        {
+          "anchor": "#input-5-apply-generic",
+          "sha256": "1ec8db1060b4fdfa97d4574d20747ea6313807c2776b72eeab27a8824785a9ff"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-84",
+      "sha256": "16b5896ea648920640e56f6abec9e744de24ae27695626cae17c59f5255c1077",
+      "dependencies": [
+        {
+          "anchor": "#ex-2-83",
+          "sha256": "e02d3b5761175db22972c49ee83517ac29c7fde30b315a9f020cc8765872ca8c"
+        },
+        {
+          "anchor": "#input-5-apply-generic",
+          "sha256": "1ec8db1060b4fdfa97d4574d20747ea6313807c2776b72eeab27a8824785a9ff"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-85",
+      "sha256": "53c4d903e53a8aa5af33d80bd3e1460f4e720c53f7fec83fe049748a15d76f0a",
+      "dependencies": [
+        {
+          "anchor": "#ex-2-83",
+          "sha256": "e02d3b5761175db22972c49ee83517ac29c7fde30b315a9f020cc8765872ca8c"
+        },
+        {
+          "anchor": "#q85FOOT119",
+          "sha256": "c2f78d3037709280dd5fc579db604dce5e70155c619e2f995a592063b904017c"
+        },
+        {
+          "anchor": "#ex-2-79",
+          "sha256": "aa82c58e418c74a09ea729a7066341051984b4831c86150e9f19f9d0d75fc914"
+        },
+        {
+          "anchor": "#ex-2-84",
+          "sha256": "d328f716d04d75509745d0c8746979d97f5a45944537a26434a32bda5e367dd4"
+        },
+        {
+          "anchor": "#input-5-apply-generic",
+          "sha256": "1ec8db1060b4fdfa97d4574d20747ea6313807c2776b72eeab27a8824785a9ff"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-86",
+      "sha256": "ccede38c18b46928c4f555369a409ba10f1382ebfbfc0e5d07280981c3885188",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-87",
+      "sha256": "3efd5546795f863ac5526ae9bde913e3d83fb6e3b7f9b8d586a15fe29da73aaa",
+      "dependencies": [
+        {
+          "anchor": "#input-5-adjoin-term",
+          "sha256": "f3faa3aa9d4a13654e29a59d3013e40abfd1b21767928c16750a165795a46f00"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-88",
+      "sha256": "d57c5324fe48b6634a5fb06d224f5c3cd3f2863ff2266949b0b03334397ff50e",
+      "dependencies": [
+        {
+          "anchor": "#input-5-adjoin-term",
+          "sha256": "f3faa3aa9d4a13654e29a59d3013e40abfd1b21767928c16750a165795a46f00"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-89",
+      "sha256": "9592dff1a14deba6a9ae3e6994688bc6e916aa79d5c8fd965a198c874a3dc891",
+      "dependencies": [
+        {
+          "anchor": "#input-5-adjoin-term",
+          "sha256": "f3faa3aa9d4a13654e29a59d3013e40abfd1b21767928c16750a165795a46f00"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-90",
+      "sha256": "89cec19b533cde6dc144b667117d5296af465f943d35058b3bc171f47300e6ee",
+      "dependencies": [
+        {
+          "anchor": "#input-5-adjoin-term",
+          "sha256": "f3faa3aa9d4a13654e29a59d3013e40abfd1b21767928c16750a165795a46f00"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-91",
+      "sha256": "8a06f934a561c5a13d37925deac43881763c3b15cc6610130657dc764992bc78",
+      "dependencies": [
+        {
+          "anchor": "#input-5-adjoin-term",
+          "sha256": "f3faa3aa9d4a13654e29a59d3013e40abfd1b21767928c16750a165795a46f00"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-92",
+      "sha256": "044d0faa5af4251ca3c94df5eeec0ceb8aea1c9ec6ccba0a06710109e1f2cbfd",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-93",
+      "sha256": "dcc5eb30b47d81e6e550108d4830fb852e03f3eeb68a22b1a92b6d51bb2c958b",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-94",
+      "sha256": "e249e9e9107885c0472067a8b0f703466384a1ebee463ca24d2edf6877750e7f",
+      "dependencies": []
+    },
+    {
+      "id": "ex-2-95",
+      "sha256": "c46c3d44c36752b6882d333c65c815f80b007ecc10ce23087c9bd9e4fa760b98",
+      "dependencies": [
+        {
+          "anchor": "#ex-2-94",
+          "sha256": "629455d36efc196a45545bf62b7eb889bd8a66dec9bc5e70095efe32e834f724"
+        },
+        {
+          "anchor": "#q95FOOT127",
+          "sha256": "97af47b10aceb68303cb6f8cb9768528e8463104911e103219faf71958b840a8"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-96",
+      "sha256": "4d1a71605b9b227f29e52644921ebd302e6eaefd2e763f1c46550f3958337c45",
+      "dependencies": [
+        {
+          "anchor": "#ex-2-95",
+          "sha256": "d2dbf977097373688754b0e9fef3b523acb3020ba03a3762acc15bc68ee6657c"
+        }
+      ]
+    },
+    {
+      "id": "ex-2-97",
+      "sha256": "e4fda150f0f1874d1d60d2d1511893febf31e9dc76d5d195a7c6f3e6aee995b6",
+      "dependencies": []
+    }
   ],
-  "publication": "not executed; no commit/push/deploy"
+  "candidate_source_sha256": "fb838d1d73e8f297996ade21d55690d70b10bce0be18d7028a97392b21858d46",
+  "review_boundary": "97 question and shared-input bindings, 18 worked examples and 21 program regression groups. Browser evidence covers the local formal artifact.",
+  "verification": {
+    "test_record": "test/T077-sicp-ch02-05.md",
+    "root_report": "tmp/project-check/20261118T213752-k73pkc64/report.json",
+    "root_exit": 0,
+    "node_tests": 149,
+    "node_exit": 0,
+    "formal_parity_pages": 4,
+    "formal_parity_differences": 0,
+    "candidate_exercise_count": 97,
+    "candidate_browser_views": 6,
+    "racket_version": "8.10 [cs]",
+    "chapter1_racket_groups": 8,
+    "chapter2_racket_groups": 21,
+    "candidate_mutations_rejected": 14,
+    "worked_example_checks": 18,
+    "formal_browser_views": 6,
+    "formal_build": "20261118T213457",
+    "offline": {
+      "status": "passed",
+      "pages": 6,
+      "js_views": 24,
+      "no_js_views": 12,
+      "external_requests": [],
+      "evidence": "tmp\\reading-notes-migration\\browser\\sicp\\runs\\2026-11-18T13-39-24-146Z-aaa6a447"
+    },
+    "budget": {
+      "route": "sicp/notes/chapter02_data_abstraction.html",
+      "html_bytes": 864485,
+      "gzip_bytes": 305553,
+      "elements": 5428,
+      "js_bytes": 4924
+    },
+    "formal_visual_inventory": {
+      "figure": 26,
+      "table": 18,
+      "excerpt_reproduced": 3,
+      "excerpt_omitted": 2
+    }
+  },
+  "single_file_review": {
+    "previous_candidate_sha256": "cbdab8e3a96a88537e3ebab79ea633a05ff449469b6f7c21a0d71ef59a9e3f22",
+    "current_candidate_sha256": "fb838d1d73e8f297996ade21d55690d70b10bce0be18d7028a97392b21858d46",
+    "svg": 23,
+    "source_image": [
+      "2.9",
+      "2.11",
+      "2.14"
+    ],
+    "embedded_webp": 3,
+    "excerpts_pdf_pages": [
+      140,
+      161,
+      258
+    ],
+    "excerpt_omissions": [
+      "2.3",
+      "2.5"
+    ],
+    "shared_inputs": 16,
+    "questions_using_shared_inputs": 37,
+    "dependency_edges": 43,
+    "inline_only_questions": 45,
+    "other_reference_only_questions": 15,
+    "candidate_allowlist": "tmp/i077/chapter02-inline-package/allowlist.json",
+    "candidate_package_files": 4,
+    "all_original_webp_trial_gzip_bytes": 1026628,
+    "actual_gzip_bytes": 303332,
+    "gzip_budget_bytes": 310000,
+    "original_webp_embedded": [
+      "2.11"
+    ],
+    "resampled_webp_embedded": [
+      "2.9",
+      "2.14"
+    ]
+  },
+  "content_depth": {
+    "scope": "local formal dist",
+    "sections": [
+      {
+        "section": "s2-1-1",
+        "question": "分母不同的量怎样相加而仍能判断相等？",
+        "example": "把三分之一与六分之一相加。交叉相乘，未约分的分子为九，分母为十八；两者同除以九，读出一和二。反过来用二乘九、一乘十八，两边同为十八，验证了约分前后相等。",
+        "boundary": "构造器先拒绝零分母；把负号归入分子，否则同一个数会有两种符号位置。",
+        "figures": {},
+        "textbook_code": {},
+        "readback_conclusion": "九比十八与一比二的交叉积同为十八。这个检验也解释了为何改变有理数的存储不会改变和。",
+        "racket_readback": "2.1.1 (1 . 2)"
+      },
+      {
+        "section": "s2-1-2",
+        "question": "怎样替换有理数的存储而保留加法？",
+        "example": "构造二和四的有理数，两次取出它作加数。若在构造时约分，加法看到的是两个二分之一；若在选择时约分，内部可仍存二与四。沿同一套选择器读回和，两次均得一。",
+        "boundary": "越过屏障直接取存储槽，换成闭包时即失效；可把同一组加法与判等用例用于两种底层表示。",
+        "figures": {
+          "fig-2-1": "从最上层的有理数运算向下读，每跨过一道线就换一组可调用的接口。替换底层序对时，变化应止于构造器和选择器；上方的加法仍只读分子与分母。"
+        },
+        "textbook_code": {},
+        "readback_conclusion": "二比四可以在构造或读取时约分；两次相加都读出一。图下指明直接取槽会破坏这项替换。",
+        "racket_readback": "2.1.2 (1 1)"
+      },
+      {
+        "section": "s2-1-3",
+        "question": "没有现成的序对还能把两个值捆在一起吗？",
+        "example": "让闭包捕获红、蓝两个符号。先把返回第二个参数的选择过程交给闭包，得到蓝；再交给它返回第一个参数的过程，得到红。交换调用顺序重做，两个结果仍只由选择器决定。",
+        "boundary": "选择器必须接受两个参数。若改用质因数指数编码，应先限制元素为非负整数。",
+        "figures": {},
+        "textbook_code": {},
+        "readback_conclusion": "任选红蓝两项并改变选择顺序，红蓝仍可分别取回。选择器的元数和整数编码的定义域均已交代。",
+        "racket_readback": "2.1.3 (blue red)"
+      },
+      {
+        "section": "s2-1-4",
+        "question": "怎样给不精确的测量值一个可靠的结果范围？",
+        "example": "中心为十、半宽为一的电阻取值九至十一。两只这样的电阻串联，从两个下界相加得到十八，从两个上界相加得到二十二；二十位于其中。若把同一只电阻的读数减去自身，端点法却给出负二至二，真实差始终为零。",
+        "boundary": "包含真值是基本保证，重复使用同一量会丢失相关性；除数区间跨零时倒数没有有限的区间上界。",
+        "figures": {},
+        "textbook_code": {
+          "input-1-make-center-width": "构造器把中心减半宽、中心加半宽分别存为两端。以十和一为输入，端点是九与十一；选择器以两端的平均值还原十，以差的一半还原一。这里半宽应非负。",
+          "input-1-par1": "对两只均在九至十一之间的正电阻，第一种写法把乘积的两端和和的两端独立组合；最小乘积要求两只同时取九，最大和却要求同时取十一。第二种写法各取一次倒数，最后再取倒数，两端可分别用两个九、两个十一验算。"
+        },
+        "readback_conclusion": "串联区间为十八至二十二，同量自减却出现过宽的负二至二。两段程序旁已区分表示误差与相关性损失。",
+        "racket_readback": "2.1.4 ((18 . 22) (-2 . 2))"
+      },
+      {
+        "section": "s2-2-1",
+        "question": "如何从表头找到第三个元素？",
+        "example": "对表 (list 1 2 3 4)，先取一次尾得到从二开始的链，再取尾到三，最后取首得到三。回到原表取首仍得一，说明前进的是访问位置，链本身没有改变。",
+        "boundary": "每一步都需有下一个序对；到空表还要取首表示索引越界。",
+        "figures": {
+          "fig-2-2": "先看同一盒中的两个槽，再分别沿箭头走到各自保存的对象。左右两次选择都只走一步，槽中的对象还可以是另一个序对。",
+          "fig-2-3": "从两幅结构的根各取一次首、一次尾。虽然末端出现相同的四个数，各分支的嵌套位置不同；仅凭叶值无法还原构造次序。",
+          "fig-2-4": "只沿右侧的尾指针走，依次经过四个盒；在第三个盒改走首指针就读到三。末端的空表给这次遍历提供了终点。"
+        },
+        "textbook_code": {},
+        "readback_conclusion": "沿尾指针两次再取首得三，原表首仍为一。三幅图依次区分槽位、嵌套与顺序访问。",
+        "racket_readback": "2.2.1 (3 1)"
+      },
+      {
+        "section": "s2-2-2",
+        "question": "为什么外表的长度不能代替树的叶数？",
+        "example": "对 '((1 2) 3 4)，根有三个分支；第一支继续分为一和二，后两支各贡献一叶，合计四。再按从左到右的顺序枚举，得到四个数，与计数相符。",
+        "boundary": "空表贡献零，非空原子贡献一；把空表也当叶会给每条表尾多算一次。",
+        "figures": {
+          "fig-2-5": "从外表第一个槽走向子表，再沿子表的尾指针走到二。回到外表的尾部才能找到三；一直沿同一排盒子走会漏掉分支。",
+          "fig-2-6": "把上一图的访问路线改从树根往下读。通向子表的一条边在下一层分为两条，另外两条根边直接到叶，因此根有三支却共有四叶。"
+        },
+        "textbook_code": {},
+        "readback_conclusion": "外层三支展开为四片叶；树图与盒箭图给出同一枚举结果。空表分支不计入叶数。",
+        "racket_readback": "2.2.2 (3 4)"
+      },
+      {
+        "section": "s2-2-3",
+        "question": "怎样把树中的奇数叶平方后相加？",
+        "example": "把上一节的树展开得到一、二、三、四，筛后留一和三，平方后为一和九，从零累加得到十。手算两个奇数的平方和，正好也是十。",
+        "boundary": "空树经过前三段都产生空序列；最后一段必须返回加法的单位元零。",
+        "figures": {
+          "fig-2-7": "沿上排从左到右跟踪叶值三：枚举时出现，筛选后留下，映射后成为九，最后进入求和。下排更换了数据源和各段操作，段与段仍以序列相接。",
+          "fig-2-8": "选中棋盘上一枚皇后，沿同一行及两条斜线检查其余列。逐列扩展时只需检查新增皇后与旧列的冲突，原先安全的列之间没有变化。"
+        },
+        "textbook_code": {
+          "input-2-accumulate": "处理序列一、三时，最深调用先在空尾返回初值零，随后合并三，再合并一，得四。把组合过程改成构造序对，展开顺序相同，结果却是一张保持输入顺序的表。"
+        },
+        "readback_conclusion": "筛选后的一和三经平方累加得到十。皇后图另述旧列安全与新增列冲突的区别。",
+        "racket_readback": "2.2.3 10"
+      },
+      {
+        "section": "s2-2-4",
+        "question": "如何在倾斜的画框里复用同一条线？",
+        "example": "取原点 (1,1)，两条边向量分别为 (2,0) 和 (1,2)。从单位方形左下角到中心的线，起点映到 (1,1)，终点加上两条边各一半，得到 (2.5,2)。用四个角坐标的平均值重算中心，结果相同。",
+        "boundary": "坐标变换以原点为起点，边向量只表示位移；两条边共线会使画框塌为线段。",
+        "figures": {
+          "fig-2-9": "先看图案的四个象限，再在一个象限中寻找缩小的重复单元。外轮廓的对称来自对子画框的翻转与拼接，最小单元仍由同一个画家绘制。",
+          "fig-2-10": "辨认波形中的同一折点，再比较它相对四个虚线框的位置。框的边变长或倾斜，折点随局部坐标移动；虚线是参照框，不属于画家的笔画。",
+          "fig-2-11": "把肖像中的同一部位放回前图的四个框比较。面部随框压缩或倾斜，说明相同的框架映射也适用于连续色调的图像。",
+          "fig-2-12": "从单个波形开始，找出相邻的翻转副本，再看组合块在大框中如何重复。已组合的块还能作为下次组合的一个画家使用。",
+          "fig-2-13": "在向右分割图中，左侧是原画，右侧上下共用缩小一层的结果；角分割还在另一方向展开。沿递归引用走到深度零就回到原画。",
+          "fig-2-14": "在两种素材上分别找原图的大块和重复的小块。素材换掉后，两种分割留下的区域比例和朝向仍可辨认，这验证了布局只依赖画家接口。",
+          "fig-2-15": "从原点分别沿第一条边和第二条边移动；各走半条所得的位置是中心。改变边向量而保留局部坐标，就能解释前面同一折点的位置变化。"
+        },
+        "textbook_code": {
+          "input-2-right-split": "深度为零时直接交回原画；深度为一时把同一个零层结果上下叠在右半框，左半框放原画。观察三个区域中的同一笔画可核对每个子框的朝向。",
+          "input-2-corner-split": "对深度一，向上、向右及角落的递归调用都降到零，返回原画。先拼两份向上图及两份向右图，再与角落组合；再次加深只需将这些子位置换为下一层画家。",
+          "input-2-segments-to-painter": "输入是一列局部坐标线段，返回值是等待框架的过程。得到框架后才逐条映射两端并画线。空列表不会画笔画；对单条对角线，映射后的两端应恰在对应角点。",
+          "input-2-transform-painter": "先用外框映射三个控制点，再从两个角分别减去新原点，得到新边向量。若三点就是单位框原点及两个基准角，新框应与传入框相同，可用此查出漏减原点的问题。",
+          "input-2-beside": "分割点在底边中央。左画家的局部横坐标一与右画家的局部横坐标零都映到中线；新过程在同一外框调用两者，边界相接且各画家只占半宽。"
+        },
+        "readback_conclusion": "三基点给出的中心为 (2.5,2)，用四角平均重算相同。七幅图与五段过程分别说明素材、布局和调用时机。",
+        "racket_readback": "2.2.4 (5/2 . 2)"
+      },
+      {
+        "section": "s2-3-1",
+        "question": "怎样把符号本身当作数据交给过程？",
+        "example": "设变量 a 已绑定到十。求值 (list a 'a) 得到由十和符号 a 组成的表；取首得到数，取尾再取首得到符号。把变量重新绑定后再读已经构造的表，两项都不变。",
+        "boundary": "引号阻止被引表达式求值；若把第二项也去掉引号，两项都取变量的值。",
+        "figures": {},
+        "textbook_code": {},
+        "readback_conclusion": "按实际求值顺序可分别取得数十与符号 a。已构造表中的数值不随变量重绑而变化。",
+        "racket_readback": "2.3.1 (10 a)"
+      },
+      {
+        "section": "s2-3-2",
+        "question": "怎样对一棵表达式树求导而不依赖打印形式？",
+        "example": "以两个相同因子 x 的乘积为例。根是乘法，按乘积规则分成两项；两片变量叶对子变量 x 的导数都为一。化去乘一，结果是 x 加 x。在 x 取三时结果为六，与平方函数在三处的斜率一致。",
+        "boundary": "常数叶贡献零；未知运算符须报告，不能当作值为零的常数。",
+        "figures": {},
+        "textbook_code": {
+          "input-3-deriv": "输入是表达式与求导变量。常数、同名变量、异名变量三种叶分别给零、一、零；乘积节点才构造两项之和。若错误地把两个子导数直接相乘，平方的导数会成为常数一，代入三即可识别。"
+        },
+        "readback_conclusion": "平方在三处的导数是六；若把两片叶的导数相乘则会误得一，能区分正确与错误分支。",
+        "racket_readback": "2.3.2 (+ x x)"
+      },
+      {
+        "section": "s2-3-3",
+        "question": "怎样用树查同一集合里的键？",
+        "example": "从根七查找五。五小于七，走到左侧的三；五大于三，走右边命中五。中序列举核对五确在集合中。换树根会改变比较次数，但集合的成员应相同。",
+        "boundary": "走到空子树才判不存在；有序条件不能保证树平衡。",
+        "figures": {
+          "fig-2-16": "在几棵树中分别追查五，并按左、根、右读出全部键。搜索路径可长可短，中序所得的键序列相同，因此树形与集合内容可以分开检验。",
+          "fig-2-17": "从一查找七时每次只能向右，直至第七个节点。逐次插入更大的键仍满足有序条件，却使这次搜索付出线性代价。"
+        },
+        "textbook_code": {},
+        "readback_conclusion": "七、三、五的比较轨迹命中五；成员相同的树允许路径不同，升序插入则可退化成单链。",
+        "racket_readback": "2.3.3 (7 3 5)"
+      },
+      {
+        "section": "s2-3-4",
+        "question": "为什么变长编码仍能逐个符号读回？",
+        "example": "取本节表中的四符号码，依次编码 A、D、B 得到 0 110 10。连成六位后从根读取：第一位到 A，归根；三位到 D，再归根；最后两位到 B。输出与输入逐符号相同。",
+        "boundary": "只在叶上输出。只剩前缀 11 时还不能决定下一个符号，可用它测试截断检测。",
+        "figures": {
+          "fig-2-18": "先看权重十七的根及权重八的 A 叶，另一个子树合计九。每条边贡献一位，A 一步即到；低频叶路径更长。核对内部节点权重等于两子树之和。"
+        },
+        "textbook_code": {
+          "input-3-make-code-tree": "把 A 和 B 的叶接成树时，两棵子树仍保留，符号表拼接，权重相加。编码靠符号集合选择子树；解码只沿位选择左右边，两种访问都不能丢掉子树本身。",
+          "input-3-decode": "状态由剩余位和当前节点共同决定。位零选择左边，位一选择右边；遇叶就输出并把当前节点重置为根。教材空串分支直接返回空表，截断在内部节点时也会返回，严格解码需另查是否已回根。",
+          "input-3-make-leaf-set": "从空表开始，把每个符号和频数构造成叶，按权重插回已经排好的后缀。把权重二的叶插入一、四之间得一、二、四；下次合并才可安全地取头两项。"
+        },
+        "readback_conclusion": "六位消息读回 A、D、B；正文明确区分教材遇空尾直接结束与严格解码发现半个码字。",
+        "racket_readback": "2.3.4 (A D B)"
+      },
+      {
+        "section": "s2-4-1",
+        "question": "如何在加法和乘法之间选择复数坐标？",
+        "example": "取直角坐标 (3,4)，平方和为二十五，开方得模五。让它乘以单位虚数，极坐标的角增加四分之一圈，模仍为五；换回直角坐标为 (−4,3)，平方和仍是二十五。",
+        "boundary": "计算幅角要保留象限；原点的方向没有唯一值。",
+        "figures": {
+          "fig-2-19": "从复数加法沿选择器向下走。加法请求实部和虚部，屏障以下可以直接取字段，也可以先从极坐标换算；同一个和不应依赖内部布局。",
+          "fig-2-20": "沿实轴与虚轴作投影得到两个分量，沿原点到该点的线段读模长。点 (3,4) 的两种读法共享同一个直角三角形。"
+        },
+        "textbook_code": {},
+        "readback_conclusion": "四分之一圈旋转后为负四、三，模仍为五；方向和长度分别核对。",
+        "racket_readback": "2.4.1 (-4+3i 5)"
+      },
+      {
+        "section": "s2-4-2",
+        "question": "两项数字怎样指明应使用哪套选择器？",
+        "example": "给 (3,4) 加直角坐标标签。取实部时先读标签，选择直角方法，再取第一个字段，得到三。用模五和相应幅角构造极坐标对象，取实部会计算模乘余弦，也得到三。",
+        "boundary": "标签决定字段的含义；错误标签可能仍返回数值，仅检查结果是数不足以发现它。",
+        "figures": {
+          "fig-2-21": "从通用选择器向下追踪直角和极坐标两条分支。每个参数的标签决定读取方式，上层加法可以分别读取两种表示的分量。"
+        },
+        "textbook_code": {
+          "input-4-attach-tag": "标记操作把类型放在序对的首部，内容放在尾部。读取标签与内容后重组，应复原原对象；直接传数字给这两个选择器会进入非序对的错误分支。"
+        },
+        "readback_conclusion": "同一点的两种表示取实部都得三，改错标签却仍可能返回数字，说明测试要比较数值。",
+        "racket_readback": "2.4.2 3"
+      },
+      {
+        "section": "s2-4-3",
+        "question": "新增一种表示时如何找到正确的方法？",
+        "example": "安装极坐标的求模方法，再用操作名和单参数类型序列查表。命中后只向该方法传内容，它返回所存模五。改为给对象发送同名消息，也可从闭包取出五；两条路径查找发生的位置不同。",
+        "boundary": "键中参数的顺序与个数都必须保留。漏装方法时应报告未命中的签名。",
+        "figures": {
+          "fig-2-22": "在操作轴上定位求模，再在表示轴上选极坐标。交点给出直接读取模的方法；保持操作不变，移到直角表示就换成平方和开方。"
+        },
+        "textbook_code": {
+          "input-4-apply-generic": "先保留所有实参标签形成签名，再查操作表。找到过程后才剥去各参数的一层标签传给它；若先去掉标签就不能区分两种坐标。没有对应表项时走报错分支。"
+        },
+        "readback_conclusion": "二维表键与消息两种查找途径都返回五。新增表示与缺方法各有具体落点。",
+        "racket_readback": "2.4.3 (5 5)"
+      },
+      {
+        "section": "s2-5-1",
+        "question": "为什么一次求模会经过两次分派？",
+        "example": "把 (3,4) 装入直角标签，再装入复数标签。外层求模把仍带直角标签的内容转交内层，内层平方、求和、开方得五。直接在直角包上求模也得五。",
+        "boundary": "每次只剥当前方法负责的一层。若一次取净标签，内层就失去了查表依据。",
+        "figures": {
+          "fig-2-23": "从顶层加法下行到有理数或复数包，再看复数包内部还有坐标选择。一次通用调用可在较低层继续使用另一组通用操作。",
+          "fig-2-24": "从最外侧的复数标签一路读向内侧的直角标签和字段三、四。外层负责识别数值种类，内层才决定如何从字段算出模五。"
+        },
+        "textbook_code": {},
+        "readback_conclusion": "外层复数与内层坐标标签分别只剥一次；直角包独立求模仍得五。",
+        "racket_readback": "2.5.1 5"
+      },
+      {
+        "section": "s2-5-2",
+        "question": "没有混合类型加法时，怎样让两个参数相遇？",
+        "example": "整数二与二分之一相加，先查混合签名。无方法时把二提升为有理数二比一，再用有理数加法得到五比二。把结果乘以二，得到五，验证提升保留了数值。",
+        "boundary": "相同类型又缺方法时必须终止；把值转换成自身并重试会原地循环。",
+        "figures": {
+          "fig-2-25": "从整数沿相邻层逐次提升，每跨一层都要保持原值。反向尝试下降时，把投影再升回去比较，才能判断信息是否丢失。",
+          "fig-2-26": "从正方形沿不同父类向上找，可以经矩形或菱形到达更一般的图形。多条合法路径说明，这里的公共类型不能靠单链中固定的上一级来决定。"
+        },
+        "textbook_code": {
+          "input-5-apply-generic": "先试精确签名，仅在无方法且有两个实参时尝试强制转换，并用转换后的值重新分派。二与二分之一必须到能相加的共同表示；若返回原签名，下一次查表仍失败，应终止。"
+        },
+        "readback_conclusion": "二提升后与二分之一相加得到五比二；乘二回验得五。无进展转换有终止边界。",
+        "racket_readback": "2.5.2 (rational . 5/2)"
+      },
+      {
+        "section": "s2-5-3",
+        "question": "怎样用商、余数检验多项式长除法？",
+        "example": "以五次幂减一除以平方减一。首轮商项为三次幂，相减余三次幂减一；第二轮商项为一次幂，余一次幂减一。将两个商项之和乘回除式，再加余式，正好恢复原来的五次幂减一。",
+        "boundary": "每轮必须消掉当前首项，让余式次数严格下降。零除式没有可用于消项的首项。",
+        "figures": {},
+        "textbook_code": {
+          "input-5-adjoin-term": "读入一项时先对系数调用通用判零。零项原样返回现有项表，非零项才接到表头；调用方按次数组织输入。消去两个相反的首项后应直接露出低一阶的项，保证下一轮长除能前进。"
+        },
+        "readback_conclusion": "商为三次幂加一次幂、余为一次幂减一；乘回并加余式能恢复被除式，零首项须删除。",
+        "racket_readback": "2.5.3 ((0 1 0 1) (-1 1) (-1 0 0 0 0 1))"
+      }
+    ],
+    "source_sha256": "d481c5b3f3041b18c4fb32ddbe7b54e5134b315755467b75ba4a8d892e06e183",
+    "browser_readback": "tmp/i077/formal-browser/depth-readback.json",
+    "browser_readback_sha256": "5487bd02a906c27e9dabe12297d6e3715ea7afa0c4a580875d8dad7b4eda3a8b",
+    "method": "逐节核对候选页示例的推演、边界及 Chrome 实际显示的文字；浏览器核对图和教材过程与其解释的相邻关系。纸笔推演与 Racket 测试分别记录。",
+    "strengthened_answers": [
+      "2.2",
+      "2.20",
+      "2.33",
+      "2.42",
+      "2.43",
+      "2.97"
+    ],
+    "example_command": "racket books/sicp/tools/check_chapter02_examples.rkt",
+    "output_sha256": "acb5bcb88d7fc25cbf2015df12cf015491b1163629592c225dcf56d0e891c8bb"
+  },
+  "single_file_review_history": [
+    {
+      "previous_candidate_sha256": "325db44b5d58708929383a94278f60e883663b263a2ea28d06cc49390ba3aca5",
+      "current_candidate_sha256": "cbdab8e3a96a88537e3ebab79ea633a05ff449469b6f7c21a0d71ef59a9e3f22",
+      "svg": 23,
+      "source_image": [
+        "2.9",
+        "2.11",
+        "2.14"
+      ],
+      "embedded_webp": 3,
+      "excerpts_pdf_pages": [
+        140,
+        161,
+        258
+      ],
+      "excerpt_omissions": [
+        "2.3",
+        "2.5"
+      ],
+      "shared_inputs": 16,
+      "questions_using_shared_inputs": 37,
+      "dependency_edges": 43,
+      "inline_only_questions": 45,
+      "other_reference_only_questions": 15,
+      "candidate_allowlist": "tmp/i077/chapter02-package/allowlist.json",
+      "candidate_package_files": 30
+    }
+  ],
+  "source_sha256": {
+    "sicp/notes/chapter01_procedures.html": "cac3f0fdd3174b8ad6580da5b9abb1d7d0db476e09fb7a04a3be65a9720e4b53",
+    "sicp/notes/book_overview.html": "8f574c4ba23b7b0694c0399b946be2725299a945613fe9c02e4ed900c8739fb7",
+    "sicp/notes/preface.html": "5848bc6ba19d7b42ffcf5cd1292990b0a7cece523c5d11910f9bfc0fabfc9d43",
+    "sicp/notes/chapter02_data_abstraction.html": "d481c5b3f3041b18c4fb32ddbe7b54e5134b315755467b75ba4a8d892e06e183"
+  },
+  "depth_contract_sha256": "19f0a0f838ba5e2a712e71f1a736ca6005721a1c129f3246056cc590f56a2fb0",
+  "output_sha256": {
+    "sicp/notes/chapter01_procedures.html": "ccab1604a4c885064204ed566df6bb7ddff09c705a9a3951b85946fb9c79b21d",
+    "sicp/notes/book_overview.html": "1feebe8e854f42d9157b2748433be5ab5c72916792afd52783a065ce75abef72",
+    "sicp/notes/preface.html": "98d7f214a0256819cc90d4ce20cc815cd7ae6b93eee19d469050d34026c1a911",
+    "sicp/notes/chapter02_data_abstraction.html": "acb5bcb88d7fc25cbf2015df12cf015491b1163629592c225dcf56d0e891c8bb"
+  },
+  "candidate_browser_history": {
+    "status": "passed",
+    "scope": "local candidate and preview-only map",
+    "views": [
+      {
+        "width": 1800,
+        "js": true,
+        "map_scope": "candidate",
+        "index_links": 97,
+        "initially_collapsed": 97,
+        "first_and_last": true,
+        "formula_anchor": "ex-2-34",
+        "inline_svgs": 23,
+        "embedded_webps": 3,
+        "decodable_maintenance_assets": 26,
+        "code_toggle": true,
+        "direct_figure_link": true,
+        "loaded_figures": 26,
+        "figure_scroll": {
+          "width": 812,
+          "content": 812,
+          "offset": 0
+        },
+        "block_formulas": 8,
+        "max_formula_overflow": 0,
+        "page_overflow": false,
+        "external_requests": []
+      },
+      {
+        "width": 1440,
+        "js": true,
+        "map_scope": "candidate",
+        "index_links": 97,
+        "initially_collapsed": 97,
+        "first_and_last": true,
+        "formula_anchor": "ex-2-34",
+        "inline_svgs": 23,
+        "embedded_webps": 3,
+        "decodable_maintenance_assets": 26,
+        "code_toggle": true,
+        "direct_figure_link": true,
+        "loaded_figures": 26,
+        "figure_scroll": {
+          "width": 760,
+          "content": 760,
+          "offset": 0
+        },
+        "block_formulas": 8,
+        "max_formula_overflow": 0,
+        "page_overflow": false,
+        "external_requests": []
+      },
+      {
+        "width": 1024,
+        "js": true,
+        "map_scope": "candidate",
+        "index_links": 97,
+        "initially_collapsed": 97,
+        "first_and_last": true,
+        "formula_anchor": "ex-2-34",
+        "inline_svgs": 23,
+        "embedded_webps": 3,
+        "decodable_maintenance_assets": 26,
+        "code_toggle": true,
+        "direct_figure_link": true,
+        "loaded_figures": 26,
+        "figure_scroll": {
+          "width": 812,
+          "content": 812,
+          "offset": 0
+        },
+        "block_formulas": 8,
+        "max_formula_overflow": 0,
+        "page_overflow": false,
+        "external_requests": []
+      },
+      {
+        "width": 390,
+        "js": true,
+        "map_scope": "candidate",
+        "index_links": 97,
+        "initially_collapsed": 97,
+        "first_and_last": true,
+        "formula_anchor": "ex-2-34",
+        "inline_svgs": 23,
+        "embedded_webps": 3,
+        "decodable_maintenance_assets": 26,
+        "code_toggle": true,
+        "direct_figure_link": true,
+        "loaded_figures": 26,
+        "figure_scroll": {
+          "width": 354,
+          "content": 512,
+          "offset": 158
+        },
+        "block_formulas": 8,
+        "max_formula_overflow": 0,
+        "page_overflow": false,
+        "external_requests": []
+      },
+      {
+        "width": 1440,
+        "js": false,
+        "map_scope": "candidate",
+        "index_links": 97,
+        "initially_collapsed": 97,
+        "first_and_last": true,
+        "formula_anchor": "ex-2-34",
+        "inline_svgs": 23,
+        "embedded_webps": 3,
+        "decodable_maintenance_assets": 26,
+        "code_toggle": true,
+        "direct_figure_link": true,
+        "loaded_figures": 26,
+        "figure_scroll": {
+          "width": 760,
+          "content": 760,
+          "offset": 0
+        },
+        "block_formulas": 8,
+        "max_formula_overflow": 0,
+        "page_overflow": false,
+        "external_requests": []
+      },
+      {
+        "width": 390,
+        "js": false,
+        "map_scope": "candidate",
+        "index_links": 97,
+        "initially_collapsed": 97,
+        "first_and_last": true,
+        "formula_anchor": "ex-2-34",
+        "inline_svgs": 23,
+        "embedded_webps": 3,
+        "decodable_maintenance_assets": 26,
+        "code_toggle": true,
+        "direct_figure_link": true,
+        "loaded_figures": 26,
+        "figure_scroll": {
+          "width": 354,
+          "content": 512,
+          "offset": 158
+        },
+        "block_formulas": 8,
+        "max_formula_overflow": 0,
+        "page_overflow": false,
+        "external_requests": []
+      }
+    ],
+    "evidence": "tmp/i077/preview/browser.json",
+    "command": "node books/sicp/tools/check_chapter02_browser.mjs",
+    "report_sha256": "79d4ddcb4e7877ad2554041c2991781902c71a6ce47dd18ea19dfc421ca87d3c",
+    "candidate_html_sha256": "fb838d1d73e8f297996ade21d55690d70b10bce0be18d7028a97392b21858d46"
+  }
 }

@@ -86,8 +86,37 @@
       "output_bytes": 228973,
       "js_bytes": 4924,
       "js_ratio": 1
+    },
+    {
+      "page": "sicp/notes/chapter02_data_abstraction.html",
+      "source_baseline_ref": "5281ead11a79edbef72d11a962c8993e44bb2379",
+      "source_sha256": "fb838d1d73e8f297996ade21d55690d70b10bce0be18d7028a97392b21858d46",
+      "original_source_sha256": "fb838d1d73e8f297996ade21d55690d70b10bce0be18d7028a97392b21858d46",
+      "review_revision": null,
+      "output_sha256": "df1e6acb89bef9da45c6b092a0bb9f656285aa992804121478f119cbac28233c",
+      "source_counts": {
+        "exercises": 97,
+        "self_checks": 0,
+        "statements": 0,
+        "mathml": 112,
+        "svg": 23
+      },
+      "publication_counts": {
+        "exercises": 97,
+        "self_checks": 0,
+        "statements": 0,
+        "mathml": 112,
+        "svg": 24
+      },
+      "differences": [],
+      "script_additions": [],
+      "source_bytes": 859580,
+      "output_bytes": 863363,
+      "js_bytes": 4924,
+      "js_ratio": 1
     }
   ],
   "note": "Two pages reviewed for this batch; earlier failed mobile baseline retained in baseline-history.json.",
-  "I075_note": "Retain I073 original two-page records and initial chapter1 snapshot. Later changes are explicit source revisions in chapter01.json, never replacement baselines."
+  "I075_note": "Retain I073 original two-page records and initial chapter1 snapshot. Later changes are explicit source revisions in chapter01.json, never replacement baselines.",
+  "I077_note": "The first local 73-page build provides the unaltered chapter 2 baseline output; later wrapper-only revisions are tracked separately."
 }

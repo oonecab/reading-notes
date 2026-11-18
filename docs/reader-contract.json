@@ -7079,6 +7079,306 @@
       ],
       "chinese_translation_required": false,
       "section_scope": "all-descendants"
+    },
+    {
+      "page": "sicp/notes/chapter02_data_abstraction.html",
+      "source": "src/content/books/sicp/chapter02_data_abstraction.html",
+      "sections": [
+        {
+          "id": "s2-1",
+          "title": "2.1 数据抽象导引",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节的表示选择、推导边界与可检验反例。"
+        },
+        {
+          "id": "s2-1-1",
+          "title": "2.1.1 从有理数的运算律确定接口",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节的表示选择、推导边界与可检验反例。",
+          "parent": "s2-1"
+        },
+        {
+          "id": "s2-1-2",
+          "title": "2.1.2 抽象屏障",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节的表示选择、推导边界与可检验反例。",
+          "parent": "s2-1"
+        },
+        {
+          "id": "s2-1-3",
+          "title": "2.1.3 数据由哪些操作定义",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节的表示选择、推导边界与可检验反例。",
+          "parent": "s2-1"
+        },
+        {
+          "id": "s2-1-4",
+          "title": "2.1.4 区间算术与相关性",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节的表示选择、推导边界与可检验反例。",
+          "parent": "s2-1"
+        },
+        {
+          "id": "s2-2",
+          "title": "2.2 层次性数据与闭包性质",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节的表示选择、推导边界与可检验反例。"
+        },
+        {
+          "id": "s2-2-1",
+          "title": "2.2.1 用序对构造序列",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节的表示选择、推导边界与可检验反例。",
+          "parent": "s2-2"
+        },
+        {
+          "id": "s2-2-2",
+          "title": "2.2.2 层次结构与树",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节的表示选择、推导边界与可检验反例。",
+          "parent": "s2-2"
+        },
+        {
+          "id": "s2-2-3",
+          "title": "2.2.3 把序列作为共同接口",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节的表示选择、推导边界与可检验反例。",
+          "parent": "s2-2"
+        },
+        {
+          "id": "s2-2-4",
+          "title": "2.2.4 画家、变换与框架",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节的表示选择、推导边界与可检验反例。",
+          "parent": "s2-2"
+        },
+        {
+          "id": "s2-3",
+          "title": "2.3 符号数据",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节的表示选择、推导边界与可检验反例。"
+        },
+        {
+          "id": "s2-3-1",
+          "title": "2.3.1 引用与符号",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节的表示选择、推导边界与可检验反例。",
+          "parent": "s2-3"
+        },
+        {
+          "id": "s2-3-2",
+          "title": "2.3.2 符号求导",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节的表示选择、推导边界与可检验反例。",
+          "parent": "s2-3"
+        },
+        {
+          "id": "s2-3-3",
+          "title": "2.3.3 集合的多种表示",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节的表示选择、推导边界与可检验反例。",
+          "parent": "s2-3"
+        },
+        {
+          "id": "s2-3-4",
+          "title": "2.3.4 Huffman 编码树",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节的表示选择、推导边界与可检验反例。",
+          "parent": "s2-3"
+        },
+        {
+          "id": "s2-4",
+          "title": "2.4 抽象数据的多重表示",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节的表示选择、推导边界与可检验反例。"
+        },
+        {
+          "id": "s2-4-1",
+          "title": "2.4.1 复数的两种表示",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节的表示选择、推导边界与可检验反例。",
+          "parent": "s2-4"
+        },
+        {
+          "id": "s2-4-2",
+          "title": "2.4.2 以标签识别表示",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节的表示选择、推导边界与可检验反例。",
+          "parent": "s2-4"
+        },
+        {
+          "id": "s2-4-3",
+          "title": "2.4.3 数据导向与消息传递",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节的表示选择、推导边界与可检验反例。",
+          "parent": "s2-4"
+        },
+        {
+          "id": "s2-5",
+          "title": "2.5 带有通用操作的系统",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节的表示选择、推导边界与可检验反例。"
+        },
+        {
+          "id": "s2-5-1",
+          "title": "2.5.1 通用算术",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节的表示选择、推导边界与可检验反例。",
+          "parent": "s2-5"
+        },
+        {
+          "id": "s2-5-2",
+          "title": "2.5.2 不同类型之间的运算",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节的表示选择、推导边界与可检验反例。",
+          "parent": "s2-5"
+        },
+        {
+          "id": "s2-5-3",
+          "title": "2.5.3 符号代数与多项式",
+          "annotation": "required",
+          "role": "teaching",
+          "reason": "本节的表示选择、推导边界与可检验反例。",
+          "parent": "s2-5"
+        },
+        {
+          "id": "exercises",
+          "title": "习题 2.1—2.97",
+          "annotation": "optional",
+          "role": "exercise-collection",
+          "reason": "提供习题或执行程序的定位。"
+        },
+        {
+          "id": "programs",
+          "title": "程序与执行",
+          "annotation": "optional",
+          "role": "navigation-or-source",
+          "reason": "提供习题或执行程序的定位。"
+        }
+      ],
+      "questions": [
+        "ex-2-1",
+        "ex-2-2",
+        "ex-2-3",
+        "ex-2-4",
+        "ex-2-5",
+        "ex-2-6",
+        "ex-2-7",
+        "ex-2-8",
+        "ex-2-9",
+        "ex-2-10",
+        "ex-2-11",
+        "ex-2-12",
+        "ex-2-13",
+        "ex-2-14",
+        "ex-2-15",
+        "ex-2-16",
+        "ex-2-17",
+        "ex-2-18",
+        "ex-2-19",
+        "ex-2-20",
+        "ex-2-21",
+        "ex-2-22",
+        "ex-2-23",
+        "ex-2-24",
+        "ex-2-25",
+        "ex-2-26",
+        "ex-2-27",
+        "ex-2-28",
+        "ex-2-29",
+        "ex-2-30",
+        "ex-2-31",
+        "ex-2-32",
+        "ex-2-33",
+        "ex-2-34",
+        "ex-2-35",
+        "ex-2-36",
+        "ex-2-37",
+        "ex-2-38",
+        "ex-2-39",
+        "ex-2-40",
+        "ex-2-41",
+        "ex-2-42",
+        "ex-2-43",
+        "ex-2-44",
+        "ex-2-45",
+        "ex-2-46",
+        "ex-2-47",
+        "ex-2-48",
+        "ex-2-49",
+        "ex-2-50",
+        "ex-2-51",
+        "ex-2-52",
+        "ex-2-53",
+        "ex-2-54",
+        "ex-2-55",
+        "ex-2-56",
+        "ex-2-57",
+        "ex-2-58",
+        "ex-2-59",
+        "ex-2-60",
+        "ex-2-61",
+        "ex-2-62",
+        "ex-2-63",
+        "ex-2-64",
+        "ex-2-65",
+        "ex-2-66",
+        "ex-2-67",
+        "ex-2-68",
+        "ex-2-69",
+        "ex-2-70",
+        "ex-2-71",
+        "ex-2-72",
+        "ex-2-73",
+        "ex-2-74",
+        "ex-2-75",
+        "ex-2-76",
+        "ex-2-77",
+        "ex-2-78",
+        "ex-2-79",
+        "ex-2-80",
+        "ex-2-81",
+        "ex-2-82",
+        "ex-2-83",
+        "ex-2-84",
+        "ex-2-85",
+        "ex-2-86",
+        "ex-2-87",
+        "ex-2-88",
+        "ex-2-89",
+        "ex-2-90",
+        "ex-2-91",
+        "ex-2-92",
+        "ex-2-93",
+        "ex-2-94",
+        "ex-2-95",
+        "ex-2-96",
+        "ex-2-97"
+      ],
+      "chinese_translation_required": true,
+      "section_scope": "all-descendants"
     }
   ]
 }

@@ -1,14 +1,15 @@
 # SICP：页面、来源与组件
 
-遵循 [RN-001](../../../docs/reading-notes-standard.md) 与 [RN-002](../../../docs/reading-presentation-standard.md)。I073完成地图/引言，I075按用户续写要求展开第一章，第二章以后延后。
+遵循 [RN-001](../../../docs/reading-notes-standard.md) 与 [RN-002](../../../docs/reading-presentation-standard.md)。I073完成地图/引言，I075按用户续写要求展开第一章；I077 完成第二章。第三至五章保留章意。
 
 | 页面 | 原书范围 | 本批题解 |
 |---|---|---|
 | [全书地图](book_overview.html) | 五章及22主要节；目录 iii–viii / PDF3–8 | 无 |
 | [引言：前言与两版序言](preface.html) | Perlis xiii–xviii/PDF13–18；第二版 xix–xx/PDF19–20；第一版 xxi–xxiv/PDF21–24 | 无 |
 | [第1章：用过程构造抽象](chapter01_procedures.html) | pp.1–106/PDF29–134，§1.1–1.3全部18二级节 | 1.1–1.46，共46题 |
+| [第2章：用数据构造抽象](chapter02_data_abstraction.html) | pp.107–293/PDF135–321，§2.1–2.5全部18个二级小节 | 2.1–2.97，共97题 |
 
-唯一正文在 `src/content/books/sicp/`；notes HTML 是共享资源展开后的兼容镜像。复用EOPL地图/序言的reading-base、reading-content-2、reading-navigation、reading-annotations、reading-components和reading-typography。第一章采用reading-annotations-nested控制器；根契约登记全部子节及父节，防止只检测章级注解。地图第一节点直达第一章，其余四个保留章意。程序阅读副本由独立Python检查与code/源逐字比对。
+唯一正文在 `src/content/books/sicp/`；notes HTML 是共享资源展开后的兼容镜像。复用EOPL地图/序言的reading-base、reading-content-2、reading-navigation、reading-annotations、reading-components和reading-typography。第一章采用reading-annotations-nested控制器；根契约登记全部子节及父节，防止只检测章级注解。地图前两个节点直达相应章节，后三个保留章意。程序阅读副本由独立Python检查与code/源逐字比对。
 
 `source_manifest.json` 保存身份、分段页序和许可；`source_inventory.json` 从 PDF 书签与正文题号独立提取。PDF82 的1.13被公式打断，单独核对；PDF194 第二个2.38是2.39题干里的引用，去重而不新增题。所有原文入口为 `../sicp.pdf#page=N`。
 
@@ -23,3 +24,7 @@ accumulate-rec是右折叠、accumulate-iter是左折叠，对任意combiner不�
 根目录运行 `python tools/project.py check-local --book sicp`；完整书级程序执行用`python books/sicp/tools/check_notes.py`，构建/浏览器与执行分开登记于[T075](../../../test/T075-sicp-chapter01.md)。
 
 [逐节原文图、表与摘录清单](../../../docs/visual-contract.json)登记第 1 章 18 个二级小节、Figure 1.1–1.5 的等价呈现和 1.14 的调用树。
+
+### 第 2 章
+
+[用数据构造抽象](chapter02_data_abstraction.html)覆盖 PDF 135–321、97 题与 18 个二级小节。图像随 HTML 内嵌；伴读程序以 code/ 下的 Racket 源为准。正式浏览器回归使用 `node books/sicp/tools/check_chapter02_browser.mjs --dist`。

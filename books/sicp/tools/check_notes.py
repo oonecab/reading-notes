@@ -35,7 +35,7 @@ def quoted_code(text):
     return '\n'.join(line.rstrip(' \t') for line in lines)
 
 
-def check_manifest(manifest, digest, pages):
+def check_manifest(manifest, digest, pages, chapter_two_formal=False):
     source = manifest['source']
     require(source['file'] == 'books/sicp/sicp.pdf', 'PDF must be this repository source')
     require(source['sha256'] == digest, 'Source PDF identity changed')
@@ -58,10 +58,24 @@ def check_manifest(manifest, digest, pages):
                 ('Foreword', 'xiii', 'xviii', 13, 18), ('Preface to the Second Edition', 'xix', 'xx', 19, 20),
                 ('Preface to the First Edition', 'xxi', 'xxiv', 21, 24),
                 ('Acknowledgments', 'xxv', 'xxviii', 25, 28)], 'Front-matter mapping changed')
-    require(manifest['current_scope']['chapter_notes'] == [1], 'Only chapter 1 is complete')
-    require(manifest['current_scope']['completed_original_exercises'] == 46, 'Chapter 1 must include all 46 exercises')
-    require(manifest['current_scope']['pages'] == ['book_overview.html', 'preface.html', 'chapter01_procedures.html'],
+    chapters = [1, 2] if chapter_two_formal else [1]
+    files = ['book_overview.html', 'preface.html', 'chapter01_procedures.html']
+    if chapter_two_formal:
+        files.append('chapter02_data_abstraction.html')
+    require(manifest['current_scope']['chapter_notes'] == chapters, 'Formal chapters differ from the catalog')
+    require(manifest['current_scope']['completed_original_exercises'] == sum(COUNTS[:len(chapters)]), 'Exercise scope changed')
+    require(manifest['current_scope']['pages'] == files,
             'Current reading-page scope changed')
+
+
+def check_chapter_two_archive(items, inventory):
+    expected = [row for row in inventory['exercises'] if row['number'].startswith('2.')]
+    require(len(items) == len(expected) == 97, 'Chapter 2 exercise archive count changed')
+    for item, row in zip(items, expected):
+        require(all(item[key] == row[key] for key in ('number', 'printed_page', 'pdf_page')),
+                'Chapter 2 exercise or source position changed')
+        require(hashlib.sha256(item['original_html'].encode()).hexdigest() == item['source_block_sha256'],
+                'Chapter 2 source block changed: ' + row['number'])
 
 
 def check_inventory(inventory):
@@ -156,20 +170,26 @@ def main():
     digest = hashlib.sha256(source.read_bytes()).hexdigest()
     info = subprocess.check_output(['pdfinfo', '-enc', 'UTF-8', '-isodates', str(source)], encoding='utf8')
     pages = int(re.search(r'^Pages:\s+(\d+)', info, re.M)[1])
-    check_manifest(manifest, digest, pages)
+    catalog = json.loads((ROOT / 'books/catalog.json').read_text(encoding='utf8'))['books']
+    registered = next(row for row in catalog if row['id'] == 'sicp')
+    counts = (registered['expected_pages'], registered['expected_exercises'])
+    require(counts in {(3, 46), (4, 143)}, 'Unexpected SICP catalog scope')
+    chapter_two_formal = counts == (4, 143)
+    check_manifest(manifest, digest, pages, chapter_two_formal)
     check_inventory(inventory)
     expected = {f'{c}.{n}' for c, count in enumerate(COUNTS, 1) for n in range(1, count + 1)}
     require({e['number'] for e in inventory['exercises']} == expected, 'Original exercise inventory incomplete')
     require(len(inventory['exercises']) == inventory['total_exercises'] == 356, 'Duplicate/missing original exercises')
     for entry in [*inventory['sections'], *inventory['exercises']]:
         require(entry['pdf_page'] == entry['printed_page'] + 28, 'Body page mapping invalid')
-    filenames = {'book_overview.html', 'preface.html', 'chapter01_procedures.html'}
+    filenames = set(manifest['current_scope']['pages'])
     require({p.name for p in (BOOK / 'notes').glob('*.html')} == filenames, 'Reading-page scope mismatch')
     parsed = {name: Page((BOOK / 'notes' / name).read_text(encoding='utf8')) for name in filenames}
     pdf_links = 0
     for name, page in parsed.items():
         require(len(page.ids) == len(set(page.ids)), 'Duplicate anchor: ' + name)
-        require(page.exercises == (46 if name == 'chapter01_procedures.html' else 0), 'Exercise count mismatch')
+        page_exercises = {'chapter01_procedures.html': 46, 'chapter02_data_abstraction.html': 97}
+        require(page.exercises == page_exercises.get(name, 0), 'Exercise count mismatch')
         for href in page.hrefs:
             url = urlsplit(href)
             if url.scheme or url.netloc:
@@ -274,6 +294,48 @@ def main():
         (args.run_dir / 'racket-tests.txt').write_text(completed.stdout + completed.stderr, encoding='utf8')
         require(completed.returncode == 0, 'Racket chapter regression failed: ' + completed.stdout + completed.stderr)
         execution = completed.stdout.strip()
+    archive = json.loads((BOOK / 'notes/questions_ch02.json').read_text(encoding='utf8'))['items']
+    check_chapter_two_archive(archive, inventory)
+    for field, value in [('number', '2.98'), ('pdf_page', 322), ('original_html', '<p>missing input</p>')]:
+        broken = copy.deepcopy(archive)
+        broken[0][field] = value
+        try:
+            check_chapter_two_archive(broken, inventory)
+        except ValueError:
+            pass
+        else:
+            raise ValueError('Invalid chapter 2 archive mutation accepted: ' + field)
+    results = json.loads((BOOK / 'code/chapter02-results.json').read_text(encoding='utf8'))
+    for name in ('chapter02.rkt', 'test-chapter02.rkt'):
+        require(hashlib.sha256((BOOK / 'code' / name).read_bytes()).hexdigest() == results['program_sha256'][name],
+                'Chapter 2 Racket source differs from execution record')
+    if not args.quick:
+        chapter_two = subprocess.run([racket, str(BOOK / 'code/test-chapter02.rkt')], cwd=ROOT,
+                                     capture_output=True, text=True, encoding='utf8', timeout=120)
+        require(chapter_two.returncode == 0 and chapter_two.stdout.strip() == results['actual_output'],
+                'Chapter 2 Racket output differs from execution record')
+        review = json.loads((BOOK / 'review/chapter02.json').read_text(encoding='utf8'))
+        examples = subprocess.check_output(
+            [racket, str(BOOK / 'tools/check_chapter02_examples.rkt')], cwd=ROOT, text=True, timeout=120)
+        expected_examples = [row['racket_readback'] for row in review['content_depth']['sections']]
+        require(len(expected_examples) == 18 and examples.splitlines() == expected_examples,
+                'Worked examples differ from the per-section depth review')
+    candidate = subprocess.run(['node', str(BOOK / 'tools/chapter02-candidate.mjs')], cwd=ROOT,
+                               capture_output=True, text=True, encoding='utf8', timeout=120)
+    require(candidate.returncode == 0, 'Chapter 2 candidate validation failed: ' + candidate.stderr)
+    candidate_report = json.loads(candidate.stdout)
+    require((candidate_report['questions'], candidate_report['annotations'], candidate_report['figures'],
+             candidate_report['given_code_blocks']) == (97, 23, 26, 68), 'Chapter 2 coverage differs from review')
+    require((candidate_report['depth_sections'], candidate_report['index_links'], candidate_report['svg_figures'],
+             candidate_report['embedded_webp']) == (18, 97, 23, 3),
+            'Chapter 2 teaching sections, question index or reviewed inline figures changed')
+    if chapter_two_formal:
+        review = json.loads((BOOK / 'review/chapter02.json').read_text(encoding='utf8'))
+        route = 'sicp/notes/chapter02_data_abstraction.html'
+        require(review['status'] == 'accepted' and review['reader_policy']['source'] ==
+                'src/content/books/sicp/chapter02_data_abstraction.html', 'Chapter 2 lacks formal acceptance')
+        require(hashlib.sha256((ROOT / 'books' / route).read_bytes()).hexdigest() ==
+                review['source_sha256'][route], 'Chapter 2 formal mirror differs from verified body')
     negatives = 0
     for mutate in [lambda m: m['source'].update(sha256='0' * 64),
                    lambda m: m['chapters'][1].update(pdf_start=134),
@@ -282,15 +344,18 @@ def main():
         broken = copy.deepcopy(manifest)
         mutate(broken)
         try:
-            check_manifest(broken, digest, pages)
+            check_manifest(broken, digest, pages, chapter_two_formal)
         except ValueError:
             negatives += 1
         else:
             raise ValueError('Invalid source/scope mutation accepted')
     report = {'status': 'passed', 'book': 'sicp', 'quick': args.quick,
-              'scope': 'map, introduction and complete chapter1; source, questions, given inputs and program mirrors',
-              'pages': 3, 'source_pdf_pages': pages, 'original_inventory_exercises': 356,
-              'completed_exercises': 46, 'pdf_links': pdf_links, 'rejected_mutations': negatives,
+              'scope': ('map, introduction and complete chapters 1 and 2' if chapter_two_formal else
+                        'map, introduction and complete chapter1; source, questions, given inputs and program mirrors'),
+              'pages': len(parsed), 'source_pdf_pages': pages, 'original_inventory_exercises': 356,
+              'completed_exercises': sum(page.exercises for page in parsed.values()), 'pdf_links': pdf_links, 'rejected_mutations': negatives,
+              'chapter2_candidate': candidate_report, 'chapter2_archive_checked': len(archive), 'chapter2_archive_mutations_rejected': 3,
+              'chapter2_program': 'not run' if args.quick else chapter_two.stdout.strip(),
               'program_execution': execution}
     (args.run_dir / 'report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf8')
     print(json.dumps(report, ensure_ascii=False))

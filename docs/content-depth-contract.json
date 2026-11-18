@@ -1,0 +1,906 @@
+{
+  "version": 1,
+  "authority": "RN-001 §2",
+  "pages": {
+    "sicp/notes/chapter02_data_abstraction.html": {
+      "source_sha256": "d481c5b3f3041b18c4fb32ddbe7b54e5134b315755467b75ba4a8d892e06e183",
+      "review_record": "books/sicp/review/chapter02.json",
+      "sections": [
+        {
+          "section": "s2-1-1",
+          "question": "分母不同的量怎样相加而仍能判断相等？",
+          "example": "把三分之一与六分之一相加。交叉相乘，未约分的分子为九，分母为十八；两者同除以九，读出一和二。反过来用二乘九、一乘十八，两边同为十八，验证了约分前后相等。",
+          "boundary": "构造器先拒绝零分母；把负号归入分子，否则同一个数会有两种符号位置。",
+          "figures": {},
+          "textbook_code": {},
+          "readback_conclusion": "九比十八与一比二的交叉积同为十八。这个检验也解释了为何改变有理数的存储不会改变和。",
+          "racket_readback": "2.1.1 (1 . 2)",
+          "trace": {
+            "input": "1/3 与 1/6",
+            "initial": "尚未约分的整数对",
+            "steps": "构成交叉积之和再同除公因数",
+            "result": "1/2",
+            "check": "交叉积相等"
+          },
+          "invariant": "有理数的值在同时约分时保持",
+          "exercise": "ex-2-1",
+          "answer_reason": "先拒绝零分母，再用分子与分母的最大公约数同时约分",
+          "evidence": {
+            "probe": "2.1.1 (1 . 2)",
+            "readback": "九比十八与一比二的交叉积同为十八。这个检验也解释了为何改变有理数的存储不会改变和。"
+          },
+          "representation": "规范化的分子与分母整数对",
+          "coherence": "以约分前后的交叉积连接构造器、符号约定和题 2.1 的正负号处理"
+        },
+        {
+          "section": "s2-1-2",
+          "question": "怎样替换有理数的存储而保留加法？",
+          "example": "构造二和四的有理数，两次取出它作加数。若在构造时约分，加法看到的是两个二分之一；若在选择时约分，内部可仍存二与四。沿同一套选择器读回和，两次均得一。",
+          "boundary": "越过屏障直接取存储槽，换成闭包时即失效；可把同一组加法与判等用例用于两种底层表示。",
+          "figures": {
+            "fig-2-1": "从最上层的有理数运算向下读，每跨过一道线就换一组可调用的接口。替换底层序对时，变化应止于构造器和选择器；上方的加法仍只读分子与分母。"
+          },
+          "textbook_code": {},
+          "readback_conclusion": "二比四可以在构造或读取时约分；两次相加都读出一。图下指明直接取槽会破坏这项替换。",
+          "racket_readback": "2.1.2 (1 1)",
+          "trace": {
+            "input": "同一个 2/4 作两个加数",
+            "initial": "分别以规范对和原始对存储",
+            "steps": "通过选择器各相加一次",
+            "result": "两次都得一",
+            "check": "交换表示重算"
+          },
+          "invariant": "调用方只能经选择器观察值",
+          "exercise": "ex-2-3",
+          "answer_reason": "一套存原点、两边长和方向；另一套存原点和两条垂直边向量",
+          "evidence": {
+            "probe": "2.1.2 (1 1)",
+            "readback": "二比四可以在构造或读取时约分；两次相加都读出一。图下指明直接取槽会破坏这项替换。"
+          },
+          "representation": "有理数的构造与选择接口",
+          "coherence": "沿图 2.1 的层次替换表示，并用题 2.3 的两种矩形表示再次验证接口边界"
+        },
+        {
+          "section": "s2-1-3",
+          "question": "没有现成的序对还能把两个值捆在一起吗？",
+          "example": "让闭包捕获红、蓝两个符号。先把返回第二个参数的选择过程交给闭包，得到蓝；再交给它返回第一个参数的过程，得到红。交换调用顺序重做，两个结果仍只由选择器决定。",
+          "boundary": "选择器必须接受两个参数。若改用质因数指数编码，应先限制元素为非负整数。",
+          "figures": {},
+          "textbook_code": {},
+          "readback_conclusion": "任选红蓝两项并改变选择顺序，红蓝仍可分别取回。选择器的元数和整数编码的定义域均已交代。",
+          "racket_readback": "2.1.3 (blue red)",
+          "trace": {
+            "input": "红与蓝两个符号",
+            "initial": "闭包已捕获两个值",
+            "steps": "先调用取第二项再调用取第一项",
+            "result": "蓝、红",
+            "check": "颠倒提取次序"
+          },
+          "invariant": "闭包每次调用捕获同一对值",
+          "exercise": "ex-2-4",
+          "answer_reason": "cons 返回保存 x、y 的过程",
+          "evidence": {
+            "probe": "2.1.3 (blue red)",
+            "readback": "任选红蓝两项并改变选择顺序，红蓝仍可分别取回。选择器的元数和整数编码的定义域均已交代。"
+          },
+          "representation": "捕获两项的选择过程",
+          "coherence": "把两次选择与题 2.4 的代换步骤对照"
+        },
+        {
+          "section": "s2-1-4",
+          "question": "怎样给不精确的测量值一个可靠的结果范围？",
+          "example": "中心为十、半宽为一的电阻取值九至十一。两只这样的电阻串联，从两个下界相加得到十八，从两个上界相加得到二十二；二十位于其中。若把同一只电阻的读数减去自身，端点法却给出负二至二，真实差始终为零。",
+          "boundary": "包含真值是基本保证，重复使用同一量会丢失相关性；除数区间跨零时倒数没有有限的区间上界。",
+          "figures": {},
+          "textbook_code": {
+            "input-1-make-center-width": "构造器把中心减半宽、中心加半宽分别存为两端。以十和一为输入，端点是九与十一；选择器以两端的平均值还原十，以差的一半还原一。这里半宽应非负。",
+            "input-1-par1": "对两只均在九至十一之间的正电阻，第一种写法把乘积的两端和和的两端独立组合；最小乘积要求两只同时取九，最大和却要求同时取十一。第二种写法各取一次倒数，最后再取倒数，两端可分别用两个九、两个十一验算。"
+          },
+          "readback_conclusion": "串联区间为十八至二十二，同量自减却出现过宽的负二至二。两段程序旁已区分表示误差与相关性损失。",
+          "racket_readback": "2.1.4 ((18 . 22) (-2 . 2))",
+          "trace": {
+            "input": "中心十、半宽一",
+            "initial": "两端九与十一",
+            "steps": "相加取同向端点；自减取反向端点",
+            "result": "十八至二十二；负二至二",
+            "check": "真实自减为零，落在包围区间"
+          },
+          "invariant": "端点必须包围每个可实现结果",
+          "exercise": "ex-2-16",
+          "answer_reason": "只保存上下端会抹去表达式间的依赖，例如 x-x 的真实范围为零，而两个独立但同范围的变量之差可以非零",
+          "evidence": {
+            "probe": "2.1.4 ((18 . 22) (-2 . 2))",
+            "readback": "串联区间为十八至二十二，同量自减却出现过宽的负二至二。两段程序旁已区分表示误差与相关性损失。"
+          },
+          "representation": "上下端点或中心半宽",
+          "coherence": "用同一对端点贯穿中心转换、并联电阻与题 2.16 的相关性反例"
+        },
+        {
+          "section": "s2-2-1",
+          "question": "如何从表头找到第三个元素？",
+          "example": "对表 (list 1 2 3 4)，先取一次尾得到从二开始的链，再取尾到三，最后取首得到三。回到原表取首仍得一，说明前进的是访问位置，链本身没有改变。",
+          "boundary": "每一步都需有下一个序对；到空表还要取首表示索引越界。",
+          "figures": {
+            "fig-2-2": "先看同一盒中的两个槽，再分别沿箭头走到各自保存的对象。左右两次选择都只走一步，槽中的对象还可以是另一个序对。",
+            "fig-2-3": "从两幅结构的根各取一次首、一次尾。虽然末端出现相同的四个数，各分支的嵌套位置不同；仅凭叶值无法还原构造次序。",
+            "fig-2-4": "只沿右侧的尾指针走，依次经过四个盒；在第三个盒改走首指针就读到三。末端的空表给这次遍历提供了终点。"
+          },
+          "textbook_code": {},
+          "readback_conclusion": "沿尾指针两次再取首得三，原表首仍为一。三幅图依次区分槽位、嵌套与顺序访问。",
+          "racket_readback": "2.2.1 (3 1)",
+          "trace": {
+            "input": "表 (1 2 3 4)",
+            "initial": "访问指针在表头",
+            "steps": "沿尾指针两次再取首",
+            "result": "第三项为三",
+            "check": "回到表头仍读一"
+          },
+          "invariant": "推进访问位置保留原链",
+          "exercise": "ex-2-18",
+          "answer_reason": "用两个状态保存未读后缀 xs 与已读部分的逆序 acc",
+          "evidence": {
+            "probe": "2.2.1 (3 1)",
+            "readback": "沿尾指针两次再取首得三，原表首仍为一。三幅图依次区分槽位、嵌套与顺序访问。"
+          },
+          "representation": "首槽与尾槽组成的链",
+          "coherence": "沿图 2.4 跟踪访问位置，再与反转过程中移动的未读表头对照"
+        },
+        {
+          "section": "s2-2-2",
+          "question": "为什么外表的长度不能代替树的叶数？",
+          "example": "对 '((1 2) 3 4)，根有三个分支；第一支继续分为一和二，后两支各贡献一叶，合计四。再按从左到右的顺序枚举，得到四个数，与计数相符。",
+          "boundary": "空表贡献零，非空原子贡献一；把空表也当叶会给每条表尾多算一次。",
+          "figures": {
+            "fig-2-5": "从外表第一个槽走向子表，再沿子表的尾指针走到二。回到外表的尾部才能找到三；一直沿同一排盒子走会漏掉分支。",
+            "fig-2-6": "把上一图的访问路线改从树根往下读。通向子表的一条边在下一层分为两条，另外两条根边直接到叶，因此根有三支却共有四叶。"
+          },
+          "textbook_code": {},
+          "readback_conclusion": "外层三支展开为四片叶；树图与盒箭图给出同一枚举结果。空表分支不计入叶数。",
+          "racket_readback": "2.2.2 (3 4)",
+          "trace": {
+            "input": "嵌套表 ((1 2) 3 4)",
+            "initial": "外层有三个分支",
+            "steps": "递归枚举第一支的两片叶，再数其余两支",
+            "result": "四片叶",
+            "check": "逐项枚举长度为四"
+          },
+          "invariant": "每片叶按出现位置计一次",
+          "exercise": "ex-2-28",
+          "answer_reason": "空表不贡献叶，原子贡献自己；序对先取左部的叶再接右部的叶",
+          "evidence": {
+            "probe": "2.2.2 (3 4)",
+            "readback": "外层三支展开为四片叶；树图与盒箭图给出同一枚举结果。空表分支不计入叶数。"
+          },
+          "representation": "元素也可以是表的序对树",
+          "coherence": "把同一子表在盒箭图、树图及叶子枚举中的位置对应起来"
+        },
+        {
+          "section": "s2-2-3",
+          "question": "怎样把树中的奇数叶平方后相加？",
+          "example": "把上一节的树展开得到一、二、三、四，筛后留一和三，平方后为一和九，从零累加得到十。手算两个奇数的平方和，正好也是十。",
+          "boundary": "空树经过前三段都产生空序列；最后一段必须返回加法的单位元零。",
+          "figures": {
+            "fig-2-7": "沿上排从左到右跟踪叶值三：枚举时出现，筛选后留下，映射后成为九，最后进入求和。下排更换了数据源和各段操作，段与段仍以序列相接。",
+            "fig-2-8": "选中棋盘上一枚皇后，沿同一行及两条斜线检查其余列。逐列扩展时只需检查新增皇后与旧列的冲突，原先安全的列之间没有变化。"
+          },
+          "textbook_code": {
+            "input-2-accumulate": "处理序列一、三时，最深调用先在空尾返回初值零，随后合并三，再合并一，得四。把组合过程改成构造序对，展开顺序相同，结果却是一张保持输入顺序的表。"
+          },
+          "readback_conclusion": "筛选后的一和三经平方累加得到十。皇后图另述旧列安全与新增列冲突的区别。",
+          "racket_readback": "2.2.3 10",
+          "trace": {
+            "input": "叶序列一至四",
+            "initial": "从零开始累加",
+            "steps": "筛奇数、平方、求和",
+            "result": "十",
+            "check": "一与九相加"
+          },
+          "invariant": "折叠初值是加法单位元",
+          "exercise": "ex-2-34",
+          "answer_reason": "填 (+ this-coeff (* x higher-terms))",
+          "evidence": {
+            "probe": "2.2.3 10",
+            "readback": "筛选后的一和三经平方累加得到十。皇后图另述旧列安全与新增列冲突的区别。"
+          },
+          "representation": "枚举和折叠之间传递的序列",
+          "coherence": "按图 2.7 跟踪每段输入输出；题 2.34 改变折叠的组合操作"
+        },
+        {
+          "section": "s2-2-4",
+          "question": "如何在倾斜的画框里复用同一条线？",
+          "example": "取原点 (1,1)，两条边向量分别为 (2,0) 和 (1,2)。从单位方形左下角到中心的线，起点映到 (1,1)，终点加上两条边各一半，得到 (2.5,2)。用四个角坐标的平均值重算中心，结果相同。",
+          "boundary": "坐标变换以原点为起点，边向量只表示位移；两条边共线会使画框塌为线段。",
+          "figures": {
+            "fig-2-9": "先看图案的四个象限，再在一个象限中寻找缩小的重复单元。外轮廓的对称来自对子画框的翻转与拼接，最小单元仍由同一个画家绘制。",
+            "fig-2-10": "辨认波形中的同一折点，再比较它相对四个虚线框的位置。框的边变长或倾斜，折点随局部坐标移动；虚线是参照框，不属于画家的笔画。",
+            "fig-2-11": "把肖像中的同一部位放回前图的四个框比较。面部随框压缩或倾斜，说明相同的框架映射也适用于连续色调的图像。",
+            "fig-2-12": "从单个波形开始，找出相邻的翻转副本，再看组合块在大框中如何重复。已组合的块还能作为下次组合的一个画家使用。",
+            "fig-2-13": "在向右分割图中，左侧是原画，右侧上下共用缩小一层的结果；角分割还在另一方向展开。沿递归引用走到深度零就回到原画。",
+            "fig-2-14": "在两种素材上分别找原图的大块和重复的小块。素材换掉后，两种分割留下的区域比例和朝向仍可辨认，这验证了布局只依赖画家接口。",
+            "fig-2-15": "从原点分别沿第一条边和第二条边移动；各走半条所得的位置是中心。改变边向量而保留局部坐标，就能解释前面同一折点的位置变化。"
+          },
+          "textbook_code": {
+            "input-2-right-split": "深度为零时直接交回原画；深度为一时把同一个零层结果上下叠在右半框，左半框放原画。观察三个区域中的同一笔画可核对每个子框的朝向。",
+            "input-2-corner-split": "对深度一，向上、向右及角落的递归调用都降到零，返回原画。先拼两份向上图及两份向右图，再与角落组合；再次加深只需将这些子位置换为下一层画家。",
+            "input-2-segments-to-painter": "输入是一列局部坐标线段，返回值是等待框架的过程。得到框架后才逐条映射两端并画线。空列表不会画笔画；对单条对角线，映射后的两端应恰在对应角点。",
+            "input-2-transform-painter": "先用外框映射三个控制点，再从两个角分别减去新原点，得到新边向量。若三点就是单位框原点及两个基准角，新框应与传入框相同，可用此查出漏减原点的问题。",
+            "input-2-beside": "分割点在底边中央。左画家的局部横坐标一与右画家的局部横坐标零都映到中线；新过程在同一外框调用两者，边界相接且各画家只占半宽。"
+          },
+          "readback_conclusion": "三基点给出的中心为 (2.5,2)，用四角平均重算相同。七幅图与五段过程分别说明素材、布局和调用时机。",
+          "racket_readback": "2.2.4 (5/2 . 2)",
+          "trace": {
+            "input": "单位框中心和倾斜框",
+            "initial": "原点 (1,1)，边为 (2,0) 与 (1,2)",
+            "steps": "从原点加两条边各半",
+            "result": "中心 (2.5,2)",
+            "check": "四角坐标取平均"
+          },
+          "invariant": "局部坐标保持仿射组合的系数",
+          "exercise": "ex-2-47",
+          "answer_reason": "对 (list origin edge1 edge2)，三个选择器依次为 car、cadr、caddr",
+          "evidence": {
+            "probe": "2.2.4 (5/2 . 2)",
+            "readback": "三基点给出的中心为 (2.5,2)，用四角平均重算相同。七幅图与五段过程分别说明素材、布局和调用时机。"
+          },
+          "representation": "一个原点和两条有向边",
+          "coherence": "图 2.15 提供坐标基准，绘图与变换过程共用该表示，题 2.47 检查框架选择器"
+        },
+        {
+          "section": "s2-3-1",
+          "question": "怎样把符号本身当作数据交给过程？",
+          "example": "设变量 a 已绑定到十。求值 (list a 'a) 得到由十和符号 a 组成的表；取首得到数，取尾再取首得到符号。把变量重新绑定后再读已经构造的表，两项都不变。",
+          "boundary": "引号阻止被引表达式求值；若把第二项也去掉引号，两项都取变量的值。",
+          "figures": {},
+          "textbook_code": {},
+          "readback_conclusion": "按实际求值顺序可分别取得数十与符号 a。已构造表中的数值不随变量重绑而变化。",
+          "racket_readback": "2.3.1 (10 a)",
+          "trace": {
+            "input": "变量 a 和符号 a",
+            "initial": "变量绑定十",
+            "steps": "构造表，分别取两项，再重绑变量",
+            "result": "十和符号 a",
+            "check": "重读已构造的表"
+          },
+          "invariant": "引用的符号保留其身份",
+          "exercise": "ex-2-55",
+          "answer_reason": "读入时 ''abracadabra 展开为 (quote (quote abracadabra))",
+          "evidence": {
+            "probe": "2.3.1 (10 a)",
+            "readback": "按实际求值顺序可分别取得数十与符号 a。已构造表中的数值不随变量重绑而变化。"
+          },
+          "representation": "符号和已经求值的普通值组成的表",
+          "coherence": "将实例中的引用层数与题 2.55 中嵌套的引用逐层比较"
+        },
+        {
+          "section": "s2-3-2",
+          "question": "怎样对一棵表达式树求导而不依赖打印形式？",
+          "example": "以两个相同因子 x 的乘积为例。根是乘法，按乘积规则分成两项；两片变量叶对子变量 x 的导数都为一。化去乘一，结果是 x 加 x。在 x 取三时结果为六，与平方函数在三处的斜率一致。",
+          "boundary": "常数叶贡献零；未知运算符须报告，不能当作值为零的常数。",
+          "figures": {},
+          "textbook_code": {
+            "input-3-deriv": "输入是表达式与求导变量。常数、同名变量、异名变量三种叶分别给零、一、零；乘积节点才构造两项之和。若错误地把两个子导数直接相乘，平方的导数会成为常数一，代入三即可识别。"
+          },
+          "readback_conclusion": "平方在三处的导数是六；若把两片叶的导数相乘则会误得一，能区分正确与错误分支。",
+          "racket_readback": "2.3.2 (+ x x)",
+          "trace": {
+            "input": "乘积 (* x x)",
+            "initial": "根为乘法，叶是同一变量",
+            "steps": "应用乘积规则并消去两个乘一",
+            "result": "x 加 x",
+            "check": "在三处代入得六"
+          },
+          "invariant": "对表达式的每个子项按其构造规则求导",
+          "exercise": "ex-2-57",
+          "answer_reason": "把 addend 和 multiplier 仍定义为第一实参",
+          "evidence": {
+            "probe": "2.3.2 (+ x x)",
+            "readback": "平方在三处的导数是六；若把两片叶的导数相乘则会误得一，能区分正确与错误分支。"
+          },
+          "representation": "运算符加操作数构成的表达式树",
+          "coherence": "用乘法根的两个子项验证求导规则，再追踪题 2.57 的多因子输入"
+        },
+        {
+          "section": "s2-3-3",
+          "question": "怎样用树查同一集合里的键？",
+          "example": "从根七查找五。五小于七，走到左侧的三；五大于三，走右边命中五。中序列举核对五确在集合中。换树根会改变比较次数，但集合的成员应相同。",
+          "boundary": "走到空子树才判不存在；有序条件不能保证树平衡。",
+          "figures": {
+            "fig-2-16": "在几棵树中分别追查五，并按左、根、右读出全部键。搜索路径可长可短，中序所得的键序列相同，因此树形与集合内容可以分开检验。",
+            "fig-2-17": "从一查找七时每次只能向右，直至第七个节点。逐次插入更大的键仍满足有序条件，却使这次搜索付出线性代价。"
+          },
+          "textbook_code": {},
+          "readback_conclusion": "七、三、五的比较轨迹命中五；成员相同的树允许路径不同，升序插入则可退化成单链。",
+          "racket_readback": "2.3.3 (7 3 5)",
+          "trace": {
+            "input": "键五与根七的搜索树",
+            "initial": "当前位置为根",
+            "steps": "向左到三再向右到五",
+            "result": "命中五",
+            "check": "在中序序列中找到五"
+          },
+          "invariant": "左小右大允许排除另一整支",
+          "exercise": "ex-2-63",
+          "answer_reason": "两者都按左子树、根、右子树的顺序取值",
+          "evidence": {
+            "probe": "2.3.3 (7 3 5)",
+            "readback": "七、三、五的比较轨迹命中五；成员相同的树允许路径不同，升序插入则可退化成单链。"
+          },
+          "representation": "左子树、根与右子树",
+          "coherence": "将查找路径同图 2.16 的几种树形以及题 2.63 的中序输出相互验证"
+        },
+        {
+          "section": "s2-3-4",
+          "question": "为什么变长编码仍能逐个符号读回？",
+          "example": "取本节表中的四符号码，依次编码 A、D、B 得到 0 110 10。连成六位后从根读取：第一位到 A，归根；三位到 D，再归根；最后两位到 B。输出与输入逐符号相同。",
+          "boundary": "只在叶上输出。只剩前缀 11 时还不能决定下一个符号，可用它测试截断检测。",
+          "figures": {
+            "fig-2-18": "先看权重十七的根及权重八的 A 叶，另一个子树合计九。每条边贡献一位，A 一步即到；低频叶路径更长。核对内部节点权重等于两子树之和。"
+          },
+          "textbook_code": {
+            "input-3-make-code-tree": "把 A 和 B 的叶接成树时，两棵子树仍保留，符号表拼接，权重相加。编码靠符号集合选择子树；解码只沿位选择左右边，两种访问都不能丢掉子树本身。",
+            "input-3-decode": "状态由剩余位和当前节点共同决定。位零选择左边，位一选择右边；遇叶就输出并把当前节点重置为根。教材空串分支直接返回空表，截断在内部节点时也会返回，严格解码需另查是否已回根。",
+            "input-3-make-leaf-set": "从空表开始，把每个符号和频数构造成叶，按权重插回已经排好的后缀。把权重二的叶插入一、四之间得一、二、四；下次合并才可安全地取头两项。"
+          },
+          "readback_conclusion": "六位消息读回 A、D、B；正文明确区分教材遇空尾直接结束与严格解码发现半个码字。",
+          "racket_readback": "2.3.4 (A D B)",
+          "trace": {
+            "input": "四叶树和消息 A D B",
+            "initial": "当前节点在根",
+            "steps": "沿六个位前进，每到叶输出并回根",
+            "result": "读回 A D B",
+            "check": "与输入逐符号比较"
+          },
+          "invariant": "每个完整码字结束时重新位于根",
+          "exercise": "ex-2-67",
+          "answer_reason": "按给定树得到 A=0、B=10、D=110、C=111",
+          "evidence": {
+            "probe": "2.3.4 (A D B)",
+            "readback": "六位消息读回 A、D、B；正文明确区分教材遇空尾直接结束与严格解码发现半个码字。"
+          },
+          "representation": "带权叶和分支节点",
+          "coherence": "图 2.18 解释路径长度；用题 2.67 的小树实际逐位解码，区分两棵示例树"
+        },
+        {
+          "section": "s2-4-1",
+          "question": "如何在加法和乘法之间选择复数坐标？",
+          "example": "取直角坐标 (3,4)，平方和为二十五，开方得模五。让它乘以单位虚数，极坐标的角增加四分之一圈，模仍为五；换回直角坐标为 (−4,3)，平方和仍是二十五。",
+          "boundary": "计算幅角要保留象限；原点的方向没有唯一值。",
+          "figures": {
+            "fig-2-19": "从复数加法沿选择器向下走。加法请求实部和虚部，屏障以下可以直接取字段，也可以先从极坐标换算；同一个和不应依赖内部布局。",
+            "fig-2-20": "沿实轴与虚轴作投影得到两个分量，沿原点到该点的线段读模长。点 (3,4) 的两种读法共享同一个直角三角形。"
+          },
+          "textbook_code": {},
+          "readback_conclusion": "四分之一圈旋转后为负四、三，模仍为五；方向和长度分别核对。",
+          "racket_readback": "2.4.1 (-4+3i 5)",
+          "trace": {
+            "input": "点 (3,4) 与单位虚数",
+            "initial": "模为五",
+            "steps": "将角增加四分之一圈",
+            "result": "点 (−4,3)",
+            "check": "再次求模仍为五"
+          },
+          "invariant": "旋转保持模长",
+          "exercise": "ex-2-75",
+          "answer_reason": "闭包捕获 r 与 a，遇 magnitude 返回 r，angle 返回 a，real-part 返回 r·cos(a)，imag-part 返回 r·sin(a)，未知消息报错",
+          "evidence": {
+            "probe": "2.4.1 (-4+3i 5)",
+            "readback": "四分之一圈旋转后为负四、三，模仍为五；方向和长度分别核对。"
+          },
+          "representation": "实虚部或模与幅角",
+          "coherence": "图 2.20 的投影与半径属于同一点；用极坐标消息的选择操作读回数值"
+        },
+        {
+          "section": "s2-4-2",
+          "question": "两项数字怎样指明应使用哪套选择器？",
+          "example": "给 (3,4) 加直角坐标标签。取实部时先读标签，选择直角方法，再取第一个字段，得到三。用模五和相应幅角构造极坐标对象，取实部会计算模乘余弦，也得到三。",
+          "boundary": "标签决定字段的含义；错误标签可能仍返回数值，仅检查结果是数不足以发现它。",
+          "figures": {
+            "fig-2-21": "从通用选择器向下追踪直角和极坐标两条分支。每个参数的标签决定读取方式，上层加法可以分别读取两种表示的分量。"
+          },
+          "textbook_code": {
+            "input-4-attach-tag": "标记操作把类型放在序对的首部，内容放在尾部。读取标签与内容后重组，应复原原对象；直接传数字给这两个选择器会进入非序对的错误分支。"
+          },
+          "readback_conclusion": "同一点的两种表示取实部都得三，改错标签却仍可能返回数字，说明测试要比较数值。",
+          "racket_readback": "2.4.2 3",
+          "trace": {
+            "input": "点 (3,4) 的两种表示",
+            "initial": "分别持有直角和极坐标标签",
+            "steps": "按标签取字段或计算模乘余弦",
+            "result": "实部均为三",
+            "check": "比较同一点的两次选择"
+          },
+          "invariant": "标签决定字段解释",
+          "exercise": "ex-2-77",
+          "answer_reason": "外层对象标签 complex",
+          "evidence": {
+            "probe": "2.4.2 3",
+            "readback": "同一点的两种表示取实部都得三，改错标签却仍可能返回数字，说明测试要比较数值。"
+          },
+          "representation": "表示标签和内部字段对",
+          "coherence": "图 2.21 的分派通路解释同一实部操作在两个表示包中的不同实现"
+        },
+        {
+          "section": "s2-4-3",
+          "question": "新增一种表示时如何找到正确的方法？",
+          "example": "安装极坐标的求模方法，再用操作名和单参数类型序列查表。命中后只向该方法传内容，它返回所存模五。改为给对象发送同名消息，也可从闭包取出五；两条路径查找发生的位置不同。",
+          "boundary": "键中参数的顺序与个数都必须保留。漏装方法时应报告未命中的签名。",
+          "figures": {
+            "fig-2-22": "在操作轴上定位求模，再在表示轴上选极坐标。交点给出直接读取模的方法；保持操作不变，移到直角表示就换成平方和开方。"
+          },
+          "textbook_code": {
+            "input-4-apply-generic": "先保留所有实参标签形成签名，再查操作表。找到过程后才剥去各参数的一层标签传给它；若先去掉标签就不能区分两种坐标。没有对应表项时走报错分支。"
+          },
+          "readback_conclusion": "二维表键与消息两种查找途径都返回五。新增表示与缺方法各有具体落点。",
+          "racket_readback": "2.4.3 (5 5)",
+          "trace": {
+            "input": "极坐标对象与求模消息",
+            "initial": "表中已安装一元求模方法",
+            "steps": "按标签查表或向闭包发送消息",
+            "result": "两种途径得五",
+            "check": "比较查表与消息返回值"
+          },
+          "invariant": "方法签名保留参数类型与次序",
+          "exercise": "ex-2-76",
+          "answer_reason": "显式分派中新增类型需修改每个已有操作的条件分支；新增操作要写出对各类型的分支",
+          "evidence": {
+            "probe": "2.4.3 (5 5)",
+            "readback": "二维表键与消息两种查找途径都返回五。新增表示与缺方法各有具体落点。"
+          },
+          "representation": "以操作名和类型序列为键的表",
+          "coherence": "把图 2.22 的交点与教材查表调用相配，再与题 2.76 的消息传递比较"
+        },
+        {
+          "section": "s2-5-1",
+          "question": "为什么一次求模会经过两次分派？",
+          "example": "把 (3,4) 装入直角标签，再装入复数标签。外层求模把仍带直角标签的内容转交内层，内层平方、求和、开方得五。直接在直角包上求模也得五。",
+          "boundary": "每次只剥当前方法负责的一层。若一次取净标签，内层就失去了查表依据。",
+          "figures": {
+            "fig-2-23": "从顶层加法下行到有理数或复数包，再看复数包内部还有坐标选择。一次通用调用可在较低层继续使用另一组通用操作。",
+            "fig-2-24": "从最外侧的复数标签一路读向内侧的直角标签和字段三、四。外层负责识别数值种类，内层才决定如何从字段算出模五。"
+          },
+          "textbook_code": {},
+          "readback_conclusion": "外层复数与内层坐标标签分别只剥一次；直角包独立求模仍得五。",
+          "racket_readback": "2.5.1 5",
+          "trace": {
+            "input": "两层标签包裹 (3,4)",
+            "initial": "最外层为复数",
+            "steps": "剥一层转发给内层直角包",
+            "result": "模为五",
+            "check": "在直角包单独求模"
+          },
+          "invariant": "每次分派只剥一层标签",
+          "exercise": "ex-2-77",
+          "answer_reason": "外层对象标签 complex",
+          "evidence": {
+            "probe": "2.5.1 5",
+            "readback": "外层复数与内层坐标标签分别只剥一次；直角包独立求模仍得五。"
+          },
+          "representation": "外层复数与内层坐标的嵌套标签",
+          "coherence": "沿图 2.24 的两层标签验证题 2.77 的两次求模分派"
+        },
+        {
+          "section": "s2-5-2",
+          "question": "没有混合类型加法时，怎样让两个参数相遇？",
+          "example": "整数二与二分之一相加，先查混合签名。无方法时把二提升为有理数二比一，再用有理数加法得到五比二。把结果乘以二，得到五，验证提升保留了数值。",
+          "boundary": "相同类型又缺方法时必须终止；把值转换成自身并重试会原地循环。",
+          "figures": {
+            "fig-2-25": "从整数沿相邻层逐次提升，每跨一层都要保持原值。反向尝试下降时，把投影再升回去比较，才能判断信息是否丢失。",
+            "fig-2-26": "从正方形沿不同父类向上找，可以经矩形或菱形到达更一般的图形。多条合法路径说明，这里的公共类型不能靠单链中固定的上一级来决定。"
+          },
+          "textbook_code": {
+            "input-5-apply-generic": "先试精确签名，仅在无方法且有两个实参时尝试强制转换，并用转换后的值重新分派。二与二分之一必须到能相加的共同表示；若返回原签名，下一次查表仍失败，应终止。"
+          },
+          "readback_conclusion": "二提升后与二分之一相加得到五比二；乘二回验得五。无进展转换有终止边界。",
+          "racket_readback": "2.5.2 (rational . 5/2)",
+          "trace": {
+            "input": "整数二加二分之一",
+            "initial": "没有混合签名",
+            "steps": "提升整数，执行有理数加法",
+            "result": "五比二",
+            "check": "乘二得五"
+          },
+          "invariant": "提升保值且重试必须前进",
+          "exercise": "ex-2-84",
+          "answer_reason": "先尝试已有方法，再沿 raise 链记录每个实参能达到的标签及对应值",
+          "evidence": {
+            "probe": "2.5.2 (rational . 5/2)",
+            "readback": "二提升后与二分之一相加得到五比二；乘二回验得五。无进展转换有终止边界。"
+          },
+          "representation": "相邻提升关系及带标签的值",
+          "coherence": "据图 2.25 追踪二的提升；借图 2.26 说明题 2.84 的单链假设有边界"
+        },
+        {
+          "section": "s2-5-3",
+          "question": "怎样用商、余数检验多项式长除法？",
+          "example": "以五次幂减一除以平方减一。首轮商项为三次幂，相减余三次幂减一；第二轮商项为一次幂，余一次幂减一。将两个商项之和乘回除式，再加余式，正好恢复原来的五次幂减一。",
+          "boundary": "每轮必须消掉当前首项，让余式次数严格下降。零除式没有可用于消项的首项。",
+          "figures": {},
+          "textbook_code": {
+            "input-5-adjoin-term": "读入一项时先对系数调用通用判零。零项原样返回现有项表，非零项才接到表头；调用方按次数组织输入。消去两个相反的首项后应直接露出低一阶的项，保证下一轮长除能前进。"
+          },
+          "readback_conclusion": "商为三次幂加一次幂、余为一次幂减一；乘回并加余式能恢复被除式，零首项须删除。",
+          "racket_readback": "2.5.3 ((0 1 0 1) (-1 1) (-1 0 0 0 0 1))",
+          "trace": {
+            "input": "五次幂减一除以平方减一",
+            "initial": "余式初始等于被除式",
+            "steps": "两轮依次消去五次与三次首项",
+            "result": "商为三次幂加一次幂，余一次幂减一",
+            "check": "乘回除式并加余式"
+          },
+          "invariant": "每轮余式次数下降，重组仍等于原式",
+          "exercise": "ex-2-91",
+          "answer_reason": "令 t 的次数为首项次数之差，系数为首项系数之商",
+          "evidence": {
+            "probe": "2.5.3 ((0 1 0 1) (-1 1) (-1 0 0 0 0 1))",
+            "readback": "商为三次幂加一次幂、余为一次幂减一；乘回并加余式能恢复被除式，零首项须删除。"
+          },
+          "representation": "同变量多项式的降序非零项",
+          "coherence": "把长除两轮消项与题 2.91 的递归调用对应，由乘回验算商和余数"
+        }
+      ]
+    }
+  },
+  "legacy": [
+    {
+      "page": "measure-probability/notes/book_overview.html",
+      "source_sha256": "b88c2f9d18a907273c1e41968a7832e5cd0aa95747aae15fde5c68c41ca6549a",
+      "issue": "I083"
+    },
+    {
+      "page": "measure-probability/notes/chapter01_measurable_spaces.html",
+      "source_sha256": "e58cad1d03f7cc9e282bc52c409ef6010e1df2bea8cb889f2e282af9c2056f0b",
+      "issue": "I083"
+    },
+    {
+      "page": "measure-probability/notes/chapter02_measure_spaces.html",
+      "source_sha256": "564022284dbe469c6335635c51ca85c5354c056b60939df8939efd3ae9b3a588",
+      "issue": "I083"
+    },
+    {
+      "page": "measure-probability/notes/chapter03_integration.html",
+      "source_sha256": "df7b6f3fdbd514d476a8bd757251dc543ddbaa01f651efedeb0da36aec145460",
+      "issue": "I083"
+    },
+    {
+      "page": "measure-probability/notes/chapter04_signed_measures.html",
+      "source_sha256": "50db929be2f4689784105634fa1f7fbd7769391e210bf3b0c06f9efb9985682e",
+      "issue": "I083"
+    },
+    {
+      "page": "measure-probability/notes/chapter05_product_spaces.html",
+      "source_sha256": "039afa146adc7106ef776bfb092dd441e5145e26aea955e4f81c851ab238b699",
+      "issue": "I083"
+    },
+    {
+      "page": "measure-probability/notes/chapter06_independent_sequences.html",
+      "source_sha256": "68284958753ca212efc1d621984a0244883e249c5c71805d0985bd080a6eadef",
+      "issue": "I083"
+    },
+    {
+      "page": "measure-probability/notes/preface.html",
+      "source_sha256": "9021457eb7d14654ecba40893c6aa93b0c0c2ed3cc2549b4919ac24ddc617895",
+      "issue": "I083"
+    },
+    {
+      "page": "visual-group-theory/notes/book_overview.html",
+      "source_sha256": "b07817646778cc930685951661343f3eeac9ffeb8c9b1526cb5fa688ec9c6049",
+      "issue": "I083"
+    },
+    {
+      "page": "visual-group-theory/notes/chapter01_what_is_a_group.html",
+      "source_sha256": "2ae0dab3c002a68414d025b5d3d7a06e2a52d3350164106e8229b86025abf55e",
+      "issue": "I083"
+    },
+    {
+      "page": "visual-group-theory/notes/chapter02_what_do_groups_look_like.html",
+      "source_sha256": "dfb09af9efe0edbfacfd155e8f5383057a2a9dd4a6040cf5272e4124f7e0c045",
+      "issue": "I083"
+    },
+    {
+      "page": "visual-group-theory/notes/chapter03_why_study_groups.html",
+      "source_sha256": "deca7ac915ee52fb1f9bdf8e4eaeb8c6281aa3ff7829576ef3c85c698e65d2d9",
+      "issue": "I083"
+    },
+    {
+      "page": "visual-group-theory/notes/chapter04_algebra_at_last.html",
+      "source_sha256": "c2bdba58c5516f266249069ccf54c19cdac87be44624a90a964f64270275160a",
+      "issue": "I083"
+    },
+    {
+      "page": "visual-group-theory/notes/chapter05_five_families.html",
+      "source_sha256": "59c686b8213d6dba22a4b6149b4269610805b886a2c3d86f7b14c52cf377a616",
+      "issue": "I083"
+    },
+    {
+      "page": "visual-group-theory/notes/chapter06_subgroups.html",
+      "source_sha256": "fbbe86f2abb6daf0c6301d13847343e292ab734137b462dea17d33476b3b482b",
+      "issue": "I083"
+    },
+    {
+      "page": "visual-group-theory/notes/chapter07_products_and_quotients.html",
+      "source_sha256": "68db6f84b1cb2c71fc97518d21945bc97c1089a5d871412603ab38e9ee4cecdf",
+      "issue": "I083"
+    },
+    {
+      "page": "visual-group-theory/notes/chapter08_homomorphisms.html",
+      "source_sha256": "69495e1cec065e792860e4985efe0f49b088943479c64b41a9ad664792c19a0b",
+      "issue": "I083"
+    },
+    {
+      "page": "visual-group-theory/notes/chapter09_sylow_theory.html",
+      "source_sha256": "dfa777b1a920388ed09de0857cec435a8c3fa6e637dc06468d093614ca37cc21",
+      "issue": "I083"
+    },
+    {
+      "page": "visual-group-theory/notes/chapter10_galois_theory.html",
+      "source_sha256": "0d062cf305088ed7243c06e2803c7382c24f6afc6cfb94e1f09aae2b2248d07e",
+      "issue": "I083"
+    },
+    {
+      "page": "visual-group-theory/notes/preface.html",
+      "source_sha256": "dfcb69774b805628398c8f480a2cc2da891e5418952fe22a24b9c54f5000c779",
+      "issue": "I083"
+    },
+    {
+      "page": "stochastic/notes/appendix_a_probability_review.html",
+      "source_sha256": "d95b108424db46d1ca4c25cd247945fbec2bf562a892389f8948b5594edce96a",
+      "issue": "I083"
+    },
+    {
+      "page": "stochastic/notes/book_overview.html",
+      "source_sha256": "19a16726feeaca4e97732ec6e30fbf90b613aba6b6bd814473980cc483190e52",
+      "issue": "I083"
+    },
+    {
+      "page": "stochastic/notes/chapter01_markov_chains.html",
+      "source_sha256": "78ea0ae894bc1b1a6f0c1c26a1f03a8206bf851692a5c88ed66dff835d69d911",
+      "issue": "I083"
+    },
+    {
+      "page": "stochastic/notes/chapter02_poisson_processes.html",
+      "source_sha256": "a48694a102eb6a774f227298b8a5e656bcdf5031527d6e2a9ee5ab7a3771eced",
+      "issue": "I083"
+    },
+    {
+      "page": "stochastic/notes/chapter03_renewal_processes.html",
+      "source_sha256": "75179af02eaf9e5d4acdc1bc10e7e788acadada65a76b0fb452fa95adb984ec5",
+      "issue": "I083"
+    },
+    {
+      "page": "stochastic/notes/chapter04_continuous_time_markov_chains.html",
+      "source_sha256": "0f1aa34b7710bc56c5a372465bb6bbe181339c0f0d09194035024442d1d5eadf",
+      "issue": "I083"
+    },
+    {
+      "page": "stochastic/notes/chapter05_martingales.html",
+      "source_sha256": "f97390279283b76a18f9258d2092e014b66838b21e29f6dadafd1fa59b1b099b",
+      "issue": "I083"
+    },
+    {
+      "page": "stochastic/notes/chapter06_mathematical_finance.html",
+      "source_sha256": "6721ee9f82f9ea15a62461ac38594c5868a94d9380ea2d09dae5e5bf5f75afda",
+      "issue": "I083"
+    },
+    {
+      "page": "stochastic/notes/preface.html",
+      "source_sha256": "304fd0541380d7aa521e1c9aa7813045d098b3870f8abf03c365e56fb55b5c55",
+      "issue": "I083"
+    },
+    {
+      "page": "weiss/notes/book_overview.html",
+      "source_sha256": "ff1288a0a24a8f8a081b71ce5eccf2b0909ba7700e16bf929542efb0178e0f92",
+      "issue": "I083"
+    },
+    {
+      "page": "weiss/notes/chapter01_introduction.html",
+      "source_sha256": "9e981b9652f44a87b73c2f3d34f8a163eab9585c681db89ca1bf5fea5adbbb1e",
+      "issue": "I083"
+    },
+    {
+      "page": "weiss/notes/chapter02_algorithm_analysis.html",
+      "source_sha256": "ec16a5d0bad183cf371a5c08a7ce396f293e6e0ba82197f061e985c1c68ccf6e",
+      "issue": "I083"
+    },
+    {
+      "page": "weiss/notes/chapter03_lists_stacks_queues.html",
+      "source_sha256": "c043e02912a44d3690ad45e9d0e184e0b6ea6443d6a50a66638510c33f48ba69",
+      "issue": "I083"
+    },
+    {
+      "page": "weiss/notes/chapter04_trees.html",
+      "source_sha256": "e2b6b2a7fcfc224ec455de0e6dce85310ac8d89e03d0af3e2eb24ddcbaa9d702",
+      "issue": "I083"
+    },
+    {
+      "page": "weiss/notes/chapter05_priority_queues.html",
+      "source_sha256": "07b30e44d47d012e0f3c8f631f58aaa71007218a320ca55304d3451968381c28",
+      "issue": "I083"
+    },
+    {
+      "page": "weiss/notes/chapter06_sorting.html",
+      "source_sha256": "74b2149b9369e702f3dcdd6d382bd05e4ef8e94700210edfaebfd7afd789fee1",
+      "issue": "I083"
+    },
+    {
+      "page": "weiss/notes/chapter07_hashing.html",
+      "source_sha256": "200868520ec28ff608200a2d8571e59f659b6e52f47c34ff879848c9cf6bf62d",
+      "issue": "I083"
+    },
+    {
+      "page": "weiss/notes/chapter08_disjoint_sets.html",
+      "source_sha256": "e12babc6cff3523a4735d432d02f6bb1dcdecd7972e41c9e57d46b054ffa2903",
+      "issue": "I083"
+    },
+    {
+      "page": "weiss/notes/chapter09_graph_algorithms.html",
+      "source_sha256": "654bc026c762a289bd4aca2c7669db6770d162f2653614174ab8166aa3da6130",
+      "issue": "I083"
+    },
+    {
+      "page": "weiss/notes/chapter10_algorithm_design.html",
+      "source_sha256": "eb4e0f0a86862de9f00a73b4ae3aa3bfb1c4f770782c77f65debc3340a8618d3",
+      "issue": "I083"
+    },
+    {
+      "page": "weiss/notes/chapter11_amortized_analysis.html",
+      "source_sha256": "f43ee1c7f929c3300f008dc29ef118bbcee4ff753cebefdbad8742b83660bb73",
+      "issue": "I083"
+    },
+    {
+      "page": "weiss/notes/chapter12_advanced_data_structures.html",
+      "source_sha256": "c356e02142ff8870c8d310f6580e396bc47f104a87a2cb667876cfe1e0ed28c2",
+      "issue": "I083"
+    },
+    {
+      "page": "csapp/notes/book_overview.html",
+      "source_sha256": "fbb9ce9383d5efdc5396345fe6f93543340df14b3913ecd69d336f8e97403394",
+      "issue": "I083"
+    },
+    {
+      "page": "csapp/notes/chapter01_tour.html",
+      "source_sha256": "f6d1dfb719131649edaa41f5e26d0c11987224f8ff401fc38d9cd65f680e2427",
+      "issue": "I083"
+    },
+    {
+      "page": "csapp/notes/chapter02_information.html",
+      "source_sha256": "8be3fa129e87378852a0db92917dffb747e03db8f2427a7e2d8b4d8b59f1fb80",
+      "issue": "I083"
+    },
+    {
+      "page": "csapp/notes/chapter03_machine_level.html",
+      "source_sha256": "c16fd70bf4735a36270c2d1be344416a902a034285fbdb7f09566691a06362ac",
+      "issue": "I083"
+    },
+    {
+      "page": "csapp/notes/chapter04_architecture.html",
+      "source_sha256": "abca8beae9ce80b3b7078b2420fd3d5e50c277d79554f4a3dd2943e6025c1aa6",
+      "issue": "I083"
+    },
+    {
+      "page": "csapp/notes/chapter05_optimization.html",
+      "source_sha256": "bb1e18221b9bc3f868c63539b031e983be99d54ecb6a1912c6eff1a6f58b588c",
+      "issue": "I083"
+    },
+    {
+      "page": "csapp/notes/chapter06_memory.html",
+      "source_sha256": "31f7753f1e972510a77dc1da4e4ab4829e8c3c023df955fc0f4036a3e3dc058a",
+      "issue": "I083"
+    },
+    {
+      "page": "csapp/notes/chapter07_linking.html",
+      "source_sha256": "d4fa9f7dbdf5a34769f4e905ed1929bb3e7a18642b85e1b01684a3ed380fedda",
+      "issue": "I083"
+    },
+    {
+      "page": "csapp/notes/chapter08_exceptional.html",
+      "source_sha256": "483f48346d18fca8bd50e3a1409458323789f0fb52851b51a1bfdef4abb49a17",
+      "issue": "I083"
+    },
+    {
+      "page": "csapp/notes/chapter09_virtual_memory.html",
+      "source_sha256": "abab6aba8aa0816442ca33e69ea0b6d0c0cbfd3228e5b43616cc3513586f37e6",
+      "issue": "I083"
+    },
+    {
+      "page": "csapp/notes/chapter10_system_io.html",
+      "source_sha256": "30407412073fc387536577f4e66b82c1aaf3f479dab5d8f5f8fcae656a2ca4af",
+      "issue": "I083"
+    },
+    {
+      "page": "csapp/notes/chapter11_network.html",
+      "source_sha256": "697994cb0cc40f2d12c7c053e6f995e803b5870ce9646e3b77be6ade3fba4217",
+      "issue": "I083"
+    },
+    {
+      "page": "csapp/notes/chapter12_concurrency.html",
+      "source_sha256": "8068c2239b288ccc86721ace98a804f9782a9b65751aaa6e4166bc96c15f23f2",
+      "issue": "I083"
+    },
+    {
+      "page": "csapp/notes/preface.html",
+      "source_sha256": "49b94c8168d5eca391d266ed7221f29420c28b1a1a387f20ac13fc3fc3a20390",
+      "issue": "I083"
+    },
+    {
+      "page": "eopl/notes/appendix_a_reading.html",
+      "source_sha256": "3408b3da6167e4332b0387affe81a55b2ef22f478d21237fafcffd243569b19c",
+      "issue": "I083"
+    },
+    {
+      "page": "eopl/notes/appendix_b_sllgen.html",
+      "source_sha256": "631e3686cf804fb68679e60045c21bb1a9df0c6e8f92d4f9f4311e91f22ce48f",
+      "issue": "I083"
+    },
+    {
+      "page": "eopl/notes/book_overview.html",
+      "source_sha256": "ac40b1722a23d16290bbd090880e0284e3fed06af208191f32bf0d4ed266185a",
+      "issue": "I083"
+    },
+    {
+      "page": "eopl/notes/chapter01_inductive_data.html",
+      "source_sha256": "d7d3b96ad503a9c837db0eb59e8488ab849a2a8fcb0626fd98b611913ad1e663",
+      "issue": "I083"
+    },
+    {
+      "page": "eopl/notes/chapter02_data_abstraction.html",
+      "source_sha256": "4d53d0caf1a949c959cc9e8d6682b4d8606d991a823cfae4ac4c000dbbb34073",
+      "issue": "I083"
+    },
+    {
+      "page": "eopl/notes/chapter03_expressions.html",
+      "source_sha256": "98cb38f1d797803409566719656f4ce33211c523630f738b6013ee1a305c53cb",
+      "issue": "I083"
+    },
+    {
+      "page": "eopl/notes/chapter04_state.html",
+      "source_sha256": "4c2a3a8e008670701304ddffbf25cfe47c159638ca6f9d4d39f6e8ef15b3132c",
+      "issue": "I083"
+    },
+    {
+      "page": "eopl/notes/chapter05_continuations.html",
+      "source_sha256": "dde56722cd8479346fec0da7cbad0c636a2fa33078984d72626e0efe6e058947",
+      "issue": "I083"
+    },
+    {
+      "page": "eopl/notes/chapter06_cps.html",
+      "source_sha256": "927351ce5f78f2c733a4a83adc0f8b09e17649f191fd58afb28dd324ad1514b6",
+      "issue": "I083"
+    },
+    {
+      "page": "eopl/notes/chapter07_types.html",
+      "source_sha256": "c7927c9ded62b1b11287498f1273646525b8a4b98b7a7c5010f35e722627c732",
+      "issue": "I083"
+    },
+    {
+      "page": "eopl/notes/chapter08_modules.html",
+      "source_sha256": "f1fba608cbebfaa6c26279bb4557d7fe4fe1093a6cea4374cd04e74a08751e8b",
+      "issue": "I083"
+    },
+    {
+      "page": "eopl/notes/chapter09_objects.html",
+      "source_sha256": "f61c730b85b93fb0731a9eb412d030cab88de38e2262b2ec67f20ce893b1d1e7",
+      "issue": "I083"
+    },
+    {
+      "page": "eopl/notes/preface.html",
+      "source_sha256": "e9c5032a0c5866a4c352031e8ef991fc7cf8e65244a8efc923c398101f59b0fb",
+      "issue": "I083"
+    },
+    {
+      "page": "sicp/notes/book_overview.html",
+      "source_sha256": "8f574c4ba23b7b0694c0399b946be2725299a945613fe9c02e4ed900c8739fb7",
+      "issue": "I083"
+    },
+    {
+      "page": "sicp/notes/chapter01_procedures.html",
+      "source_sha256": "cac3f0fdd3174b8ad6580da5b9abb1d7d0db476e09fb7a04a3be65a9720e4b53",
+      "issue": "I083"
+    },
+    {
+      "page": "sicp/notes/preface.html",
+      "source_sha256": "5848bc6ba19d7b42ffcf5cd1292990b0a7cece523c5d11910f9bfc0fabfc9d43",
+      "issue": "I083"
+    }
+  ],
+  "legacy_snapshot": "615fdd6"
+}

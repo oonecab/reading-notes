@@ -1,3 +1,5 @@
+import {checkDepthPage} from "../content-depth/check.mjs";
+import {execFileSync} from "node:child_process";
 // Reader-facing obligations are registered independently of rendered content.
 import { pdfPagesValid, registeredLegacy } from '../reading-components/exercise-contract.mjs';
 import fs from 'node:fs';
@@ -126,6 +128,7 @@ export function isPdf(href,policy,source){
  const match=url.hash.match(/^#page=([1-9]\d*)$/);
  return !!match&&Number(match[1])<=source.pages;
 }
+
 export function checkAll({baseline=false}={}){
  const policy=JSON.parse(fs.readFileSync('docs/reader-contract.json'));
  const sources=JSON.parse(fs.readFileSync('docs/reader-sources.json')).books;
@@ -135,6 +138,10 @@ export function checkAll({baseline=false}={}){
   assert.equal(createHash('sha256').update(fs.readFileSync(filename)).digest('hex'),item.sha256,'Source PDF bytes changed: '+filename);
  const visuals=JSON.parse(fs.readFileSync('docs/visual-contract.json'));
  const verifiedVisuals=JSON.parse(fs.readFileSync('docs/visual-coverage-review.json'));
+ const depth=JSON.parse(fs.readFileSync('docs/content-depth-contract.json'));
+ const oldPages=new Set(JSON.parse(execFileSync('git',['show',depth.legacy_snapshot+':docs/reader-contract.json'],{maxBuffer:32*1024*1024})).pages.map(p=>p.page));
+ for(const entry of depth.legacy) assert(oldPages.has(entry.page),'New pages cannot claim legacy depth coverage');
+ assert.deepEqual([...Object.keys(depth.pages),...depth.legacy.map(p=>p.page)].sort(),policy.pages.map(p=>p.page).sort(),'Depth page inventory differs');
  const results=[],errors=[];
  for(const page of pages){
   const item=policy.pages.find(p=>p.page===page.metadata.route);assert(item,'Reader policy missing');
@@ -146,6 +153,8 @@ export function checkAll({baseline=false}={}){
      const actual=visuals.books[page.metadata.book]?.pages[item.page]?.sections ?? {};
      assert.deepEqual(Object.fromEntries(Object.entries(actual).map(([id,items])=>[id,items.map(i=>i.target)])),expected,'Reviewed visual inventory changed');
     }
+    const record=depth.pages[item.page];
+    checkDepthPage(html,item,depth,record && JSON.parse(fs.readFileSync(record.review_record)));
     checkVisualPage(html,item,visuals,sources[page.metadata.book]);
    }
    if(review)assert(review.pages[item.page],'Question source review missing: '+item.page);

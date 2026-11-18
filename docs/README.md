@@ -67,6 +67,8 @@ EOPL全书已在I065补齐附录A/B，13页356题；最近三章的边界修复�
 
 - [EOPL实现修复与生产发布审阅](eopl-repairs-publication-review.json)：完整输入、运行预算、同步机制与CPS续文身份修复的干净提交、587文件、服务器恢复单位和公网阅读证据。
 
-- [SICP地图与引言](../books/sicp/README.md)：五章主线、Perlis前言与两版序言；本地范围和验收见[T073](../test/T073-sicp-map-introduction.md)。
+- [SICP 地图、引言与前两章](../books/sicp/README.md)：五章主线、Perlis前言与两版序言；前两章共 143 题，验收见 [T077](../test/T077-sicp-ch02-05.md) 与 [T082](../test/T082-content-depth.md)。
 
 [逐节原文图、表与摘录清单](visual-contract.json)登记第 1 章 18 个二级小节、Figure 1.1–1.5 的等价呈现和 1.14 的调用树。
+
+I082 的[内容深度契约](content-depth-contract.json)登记教学例子、材料解释、题解理由及读回证据。

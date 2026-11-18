@@ -41,7 +41,7 @@
 <path class="rn-edge" d="M165 294V324"/>
 <path class="rn-edge" d="M165 396V426"/>
 </g><g class="map-nodes" text-anchor="middle"><a href="chapter01_procedures.html" aria-label="第 1 章：用过程构造抽象"><rect class="rn-node" x="22" y="18" width="286" height="72" data-rn-fit="flow"/><text x="165" y="46">第 1 章 · 用过程构造抽象</text><text class="hint" x="165" y="71">正文与全部 46 题</text></a>
-<a href="#chapter-2" aria-label="第 2 章章意：用数据构造抽象"><rect class="rn-node" x="22" y="120" width="286" height="72" data-rn-fit="flow"/><text x="165" y="148">第 2 章 · 用数据构造抽象</text><text class="hint" x="165" y="173">章意与原书入口</text></a>
+<a href="chapter02_data_abstraction.html" aria-label="第 2 章：用数据构造抽象"><rect class="rn-node" x="22" y="120" width="286" height="72" data-rn-fit="flow"/><text x="165" y="148">第 2 章 · 用数据构造抽象</text><text class="hint" x="165" y="173">正文与全部 97 题</text></a>
 <a href="#chapter-3" aria-label="第 3 章章意：模块化、对象和状态"><rect class="rn-node rn-node-accent" x="22" y="222" width="286" height="72" data-rn-fit="flow"/><text x="165" y="250">第 3 章 · 模块化、对象和状态</text><text class="hint" x="165" y="275">章意与原书入口</text></a>
 <a href="#chapter-4" aria-label="第 4 章章意：元语言抽象"><rect class="rn-node" x="22" y="324" width="286" height="72" data-rn-fit="flow"/><text x="165" y="352">第 4 章 · 元语言抽象</text><text class="hint" x="165" y="377">章意与原书入口</text></a>
 <a href="#chapter-5" aria-label="第 5 章章意：寄存器机器里的计算"><rect class="rn-node" x="22" y="426" width="286" height="72" data-rn-fit="flow"/><text x="165" y="454">第 5 章 · 寄存器机器里的计算</text><text class="hint" x="165" y="479">章意与原书入口</text></a>
@@ -55,7 +55,7 @@
 <details class="reading-notes" id="notes-chapter-1" data-notes-for="chapter-1" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h3>递归定义不直接决定空间</h3><p>同一个数学递推可以由不同控制过程实现。第 1 章先建立对过程形态的直觉；第 5 章才把待续工作、栈与尾递归的关系落成机器操作。</p></div></div></details>
 </section>
 <section id="chapter-2">
-<h2>第 2 章章意 · 用数据构造抽象</h2>
+<h2>第 2 章章意 · 用数据构造抽象</h2><p><a href="chapter02_data_abstraction.html">阅读第 2 章及全部 97 题</a></p>
 <p class="source">Building Abstractions with Data；pp.107–293 / <a href="../sicp.pdf#page=135">PDF 135–321</a>。原书习题 2.1–2.97，共 97 题。</p><p><strong>让数据的使用方式不依赖内部表示。</strong>有理数例子先划出构造器、选择器与客户程序的边界。序对、列表与树随后说明复合对象如何继续参与组合；序列接口和图形语言把数据抽象与高阶过程接在一起。符号求导、集合与 Huffman 编码把对象从数推广到符号和结构。多重表示、带标记数据、数据导向分派与通用算术，进一步讨论系统扩展时改动应该落在哪里。</p><p>不要把本章读成数据结构目录。相同的有理数值可以选择不同化简时机，复数可以采用直角或极坐标表示；真正需要追踪的是客户依赖了哪些操作、每层维持什么约定，以及新类型如何加入已有运算。</p><ul><li><strong>§2.1 数据抽象导引</strong>：p.112 / <a href="../sicp.pdf#page=140">PDF 140</a></li><li><strong>§2.2 层次数据与闭包性质</strong>：p.132 / <a href="../sicp.pdf#page=160">PDF 160</a></li><li><strong>§2.3 符号数据</strong>：p.192 / <a href="../sicp.pdf#page=220">PDF 220</a></li><li><strong>§2.4 抽象数据的多重表示</strong>：p.229 / <a href="../sicp.pdf#page=257">PDF 257</a></li><li><strong>§2.5 带通用操作的系统</strong>：p.254 / <a href="../sicp.pdf#page=282">PDF 282</a></li></ul>
 <details class="reading-notes" id="notes-chapter-2" data-notes-for="chapter-2" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><h3>两种“闭包”要按上下文分开</h3><p>§2.2 的 closure property 是组合结果还能继续参与同种组合的性质；过程捕获其定义环境通常也叫闭包。两者在抽象组织上有关联，但讨论的对象和判断条件不同。</p></div></div></details>
 </section>
@@ -92,7 +92,7 @@
 </section>
 <section id="program-guide">
 <h2>本页之后怎样使用原书</h2>
-<p>这份伴读现有地图、引言和<a href="chapter01_procedures.html">第 1 章正文及全部 46 题</a>三页。图中第一个节点直达正文；第 2—5 章节点仍是章意与原书入口，正式笔记尚在计划中。</p><p><a href="../code/README.md">第一章可运行示例</a>覆盖递归与迭代、素数检验和高阶数值方法，使用本机 Racket 执行。原书解释器、模拟器和编译器尚未展开；阅读时继续区分 Scheme 规则、原书约定与宿主适配。</p><p>可从这里进入 <a href="../sicp.pdf#page=3">原书目录（PDF 3）</a>、<a href="../sicp.pdf#page=872">习题列表（PDF 872）</a>、<a href="../sicp.pdf#page=874">图表列表（PDF 874）</a>和<a href="../sicp.pdf#page=876">术语索引（PDF 876）</a>。习题列表覆盖全书 356 道原题，不表示本伴读已有这些题的解答。</p>
+<p>这份伴读现有地图、引言和<a href="chapter01_procedures.html">第 1 章正文及全部 46 题</a>、<a href="chapter02_data_abstraction.html">第 2 章正文及全部 97 题</a>四页。前两个节点直达正文；第 3—5 章节点仍是章意与原书入口，正式笔记尚在计划中。</p><p><a href="../code/README.md">第一章可运行示例</a>覆盖递归与迭代、素数检验和高阶数值方法，使用本机 Racket 执行。原书解释器、模拟器和编译器尚未展开；阅读时继续区分 Scheme 规则、原书约定与宿主适配。</p><p>可从这里进入 <a href="../sicp.pdf#page=3">原书目录（PDF 3）</a>、<a href="../sicp.pdf#page=872">习题列表（PDF 872）</a>、<a href="../sicp.pdf#page=874">图表列表（PDF 874）</a>和<a href="../sicp.pdf#page=876">术语索引（PDF 876）</a>。习题列表覆盖全书 356 道原题，不表示本伴读已有这些题的解答。</p>
 
 </section>
 <section id="source">

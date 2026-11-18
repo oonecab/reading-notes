@@ -2,20 +2,20 @@
   "schema_version": 1,
   "book": "sicp",
   "status": "completed_locally",
-  "scope": "I075 chapter1 local acceptance plus revised map/preface; I073/I074 facts retained at ancestor ref in baseline-history.json",
+  "scope": "Locally registered SICP map, preface, chapters 1 and 2; historical records retained.",
   "file_sha256": {
-    "agent.md": "504790cbbd56a28e7c32d149c25d10d6a4c4213bed136141312b65e85bfdba27",
-    "notes/README.md": "26e13b41bbfa78b746a3f521687fd0c59c98b3a857874f2e467d202d8bfeef77",
-    "notes/source_manifest.json": "607e88dd69815b54e15673ec9e4335d4c8f56f339735eb0180b94da29ce6794d",
+    "agent.md": "94272e75c6e90736e3ab17e4519f59bbbea1b5de33ab9fc4185ad3d8e60b0fc4",
+    "notes/README.md": "0e0b8c1975d3c1908a374373f41645d54b74b1bf14f5e9abfa1f81121c7f492d",
+    "notes/source_manifest.json": "be33a4ccf4a1558229d601f3df9bd175cf3f1abc58e3b2ef94ab3d70f0e53f32",
     "notes/source_inventory.json": "0049cef36db50693d361fac34147d305796d0529158dd296b3845accebfdd772",
     "notes/questions_ch01.json": "0a604e7a1c8dea8fdc59e7f1a418634f860a3ad67a1605514c5e207b1a3fb8fd",
     "notes/chapter01-inputs.json": "7bf28ee70cc20f9ec464997b4c5cf689cbd4074519ec0929e40ad9cac77438aa",
     "code/README.md": "9435186272ddc83de3be7827c12b23f1373ee6dcce22bb5af14866addba2ec33",
     "code/chapter01-results.json": "6f28a74c768ba9f01fcb9e4a53757b72ac985d914358cb1b00b40184b77642aa",
-    "tools/check_notes.py": "6476cfa037130b5532cb71d88c3cbc1f733cc449f22151c8cbde7e1805b93cc0",
+    "tools/check_notes.py": "3cc556eda23c2e975c25205084bc4c4ba979326b17cfbcc2bed8213e7b22b35b",
     "tools/sync_chapter01.py": "377edd2aa45ad2b2e52ec415cd9848a451a225900fb65291100174d06a0f48fa",
-    "reading-plan.md": "41cd459b1e792bf0648e7da52736912e51d2b84927e48dedf68f1687c262f6b5",
-    "README.md": "2723b5d0205ca9016d8d76c1e61f6099ca2ae2ee3f9c72d4800d4ec5d5a84ed4"
+    "reading-plan.md": "01680e62cbbf0eca3ab90d980ca9637b0d85f13f278919ac22fe723e0eb66646",
+    "README.md": "b59c90f482b44c9f4017e93855feb056ce5645715d0532f60245da845268ca53"
   },
   "open_findings": [],
   "astro_migration": {
@@ -26,12 +26,14 @@
     "source_sha256": {
       "book_overview.html": "d6f932d2df28dd8113b3073f32b5104636620a8a92bf7c1033092f8800f3fc90",
       "chapter01_procedures.html": "af63907cbae9747250e488536294cc6762b25037dae298e6b315805e0704bc47",
-      "preface.html": "86a0294f04752866c068cde7551a2917b267b847c61f8d298838dd5d7108e17e"
+      "preface.html": "86a0294f04752866c068cde7551a2917b267b847c61f8d298838dd5d7108e17e",
+      "chapter02_data_abstraction.html": "fb838d1d73e8f297996ade21d55690d70b10bce0be18d7028a97392b21858d46"
     },
     "current_source_sha256": {
-      "sicp/notes/book_overview.html": "f6df2c6a846506878244ac37c7af2c6943e48076f044b717eb28c59ac358cf96",
-      "sicp/notes/preface.html": "52617c40f35616308332e4c3445e2dc84b91984ed5efda0913172959f9dc5671",
-      "sicp/notes/chapter01_procedures.html": "615d72ee21654a32a1a0453a4785dc7208053edc3adb149b04cc363dc2eb24c7"
+      "sicp/notes/book_overview.html": "8f574c4ba23b7b0694c0399b946be2725299a945613fe9c02e4ed900c8739fb7",
+      "sicp/notes/preface.html": "5848bc6ba19d7b42ffcf5cd1292990b0a7cece523c5d11910f9bfc0fabfc9d43",
+      "sicp/notes/chapter01_procedures.html": "cac3f0fdd3174b8ad6580da5b9abb1d7d0db476e09fb7a04a3be65a9720e4b53",
+      "sicp/notes/chapter02_data_abstraction.html": "d481c5b3f3041b18c4fb32ddbe7b54e5134b315755467b75ba4a8d892e06e183"
     }
   },
   "boundaries": [
@@ -125,6 +127,164 @@
           "previous_sha256": null,
           "current_sha256": "2723b5d0205ca9016d8d76c1e61f6099ca2ae2ee3f9c72d4800d4ec5d5a84ed4",
           "reason": "I075 complete chapter1 content, references, executable companion and current documentation reviewed"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-18T09:11:06.549130+00:00",
+      "changes": [
+        {
+          "file": "agent.md",
+          "previous_sha256": "504790cbbd56a28e7c32d149c25d10d6a4c4213bed136141312b65e85bfdba27",
+          "current_sha256": "11ceb12ce9856ffb8d74916821f0621f69d0bc3026d2cd79dae982d8f62d0df5",
+          "reason": "I080 visual coverage documentation and I077 chapter 2 maintenance checks"
+        },
+        {
+          "file": "notes/README.md",
+          "previous_sha256": "26e13b41bbfa78b746a3f521687fd0c59c98b3a857874f2e467d202d8bfeef77",
+          "current_sha256": "246d46e67f17df951c27c163777ddc08ec9afa865630a4fa44a64c89ffe81fc2",
+          "reason": "I080 visual coverage documentation and I077 chapter 2 maintenance checks"
+        },
+        {
+          "file": "tools/check_notes.py",
+          "previous_sha256": "6476cfa037130b5532cb71d88c3cbc1f733cc449f22151c8cbde7e1805b93cc0",
+          "current_sha256": "e6329df0ec5684b347c795608adf7d22e2dc974492ac8e73f739e24564e53e24",
+          "reason": "I080 visual coverage documentation and I077 chapter 2 maintenance checks"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-18T10:50:15.076488+00:00",
+      "changes": [
+        {
+          "file": "tools/check_notes.py",
+          "previous_sha256": "e6329df0ec5684b347c795608adf7d22e2dc974492ac8e73f739e24564e53e24",
+          "current_sha256": "1de341147158e52977fccdbedeb8310d47c77a1ece03acb33bda5aabfceb28d6",
+          "reason": "I077 checks the separately staged chapter 2 candidate while preserving formal chapter 1 checks."
+        }
+      ]
+    },
+    {
+      "at": "2026-11-18T10:56:41.224665+00:00",
+      "changes": [
+        {
+          "file": "notes/README.md",
+          "previous_sha256": "246d46e67f17df951c27c163777ddc08ec9afa865630a4fa44a64c89ffe81fc2",
+          "current_sha256": "ff6d6c4324d494b2e15109f9d892e3acf2a4b0af66fcae0e25eb9a1b4fd1837f",
+          "reason": "Add chapter 2 candidate preview instructions without changing the formal page inventory."
+        }
+      ]
+    },
+    {
+      "at": "2026-11-18T11:50:52.708841+00:00",
+      "changes": [
+        {
+          "file": "tools/check_notes.py",
+          "previous_sha256": "1de341147158e52977fccdbedeb8310d47c77a1ece03acb33bda5aabfceb28d6",
+          "current_sha256": "b2f70b5e833cc480e7529fd79e57e37268930ea33726e8849d3b162bb0a1209e",
+          "reason": "I077 single-file chapter 2 candidate package and catalog-aware scope checks."
+        },
+        {
+          "file": "notes/README.md",
+          "previous_sha256": "ff6d6c4324d494b2e15109f9d892e3acf2a4b0af66fcae0e25eb9a1b4fd1837f",
+          "current_sha256": "d8d7aa39ad2b3385b297f39649d4145605087bd694d9e40497ffdecc2e32f635",
+          "reason": "I077 single-file chapter 2 candidate package and catalog-aware scope checks."
+        }
+      ]
+    },
+    {
+      "at": "2026-11-18T12:17:13.145569+00:00",
+      "changes": [
+        {
+          "file": "notes/README.md",
+          "previous_sha256": "d8d7aa39ad2b3385b297f39649d4145605087bd694d9e40497ffdecc2e32f635",
+          "current_sha256": "91fb11e5b284629807d60c8a271f38633be8165e88a4cfdeb5114373ccda6e15",
+          "reason": "The isolated chapter 2 package embeds every figure and needs no public WebP files."
+        }
+      ]
+    },
+    {
+      "at": "2026-11-18T12:17:45.149560+00:00",
+      "changes": [
+        {
+          "file": "tools/check_notes.py",
+          "previous_sha256": "b2f70b5e833cc480e7529fd79e57e37268930ea33726e8849d3b162bb0a1209e",
+          "current_sha256": "990de05fe76146ba6bc6bfe5e29e8ffe4055ffc59d401948137f1b39a37a5717",
+          "reason": "Validate the chapter 2 worked sections, complete index and budgeted inline figure representations."
+        }
+      ]
+    },
+    {
+      "at": "2026-11-18T12:20:43.288085+00:00",
+      "changes": [
+        {
+          "file": "tools/check_notes.py",
+          "previous_sha256": "990de05fe76146ba6bc6bfe5e29e8ffe4055ffc59d401948137f1b39a37a5717",
+          "current_sha256": "38a2f7a9eb62f2153bd716c0d943c4f2b8ee0a72a367ebb80f692a40cc08c552",
+          "reason": "Run and compare all 18 chapter 2 worked-example probes in full mode."
+        }
+      ]
+    },
+    {
+      "at": "2026-11-18T13:37:21.088190+00:00",
+      "changes": [
+        {
+          "file": "agent.md",
+          "previous_sha256": "11ceb12ce9856ffb8d74916821f0621f69d0bc3026d2cd79dae982d8f62d0df5",
+          "current_sha256": "94272e75c6e90736e3ab17e4519f59bbbea1b5de33ab9fc4185ad3d8e60b0fc4",
+          "reason": "I077/I082 formal chapter 2 scope and depth verification"
+        },
+        {
+          "file": "notes/README.md",
+          "previous_sha256": "91fb11e5b284629807d60c8a271f38633be8165e88a4cfdeb5114373ccda6e15",
+          "current_sha256": "742bf2c1cf8cfe80a60c60a4d45986ee0c61bcc696b23b5f2e0d41e3b713e63c",
+          "reason": "I077/I082 formal chapter 2 scope and depth verification"
+        },
+        {
+          "file": "notes/source_manifest.json",
+          "previous_sha256": "607e88dd69815b54e15673ec9e4335d4c8f56f339735eb0180b94da29ce6794d",
+          "current_sha256": "be33a4ccf4a1558229d601f3df9bd175cf3f1abc58e3b2ef94ab3d70f0e53f32",
+          "reason": "I077/I082 formal chapter 2 scope and depth verification"
+        },
+        {
+          "file": "tools/check_notes.py",
+          "previous_sha256": "38a2f7a9eb62f2153bd716c0d943c4f2b8ee0a72a367ebb80f692a40cc08c552",
+          "current_sha256": "66645ef5795a332456e28b6447f89f1793caf6cf06b483fdb0435c02fe2a131e",
+          "reason": "I077/I082 formal chapter 2 scope and depth verification"
+        },
+        {
+          "file": "reading-plan.md",
+          "previous_sha256": "41cd459b1e792bf0648e7da52736912e51d2b84927e48dedf68f1687c262f6b5",
+          "current_sha256": "01680e62cbbf0eca3ab90d980ca9637b0d85f13f278919ac22fe723e0eb66646",
+          "reason": "I077/I082 formal chapter 2 scope and depth verification"
+        },
+        {
+          "file": "README.md",
+          "previous_sha256": "2723b5d0205ca9016d8d76c1e61f6099ca2ae2ee3f9c72d4800d4ec5d5a84ed4",
+          "current_sha256": "b59c90f482b44c9f4017e93855feb056ce5645715d0532f60245da845268ca53",
+          "reason": "I077/I082 formal chapter 2 scope and depth verification"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-18T13:41:13.213938+00:00",
+      "changes": [
+        {
+          "file": "notes/README.md",
+          "previous_sha256": "742bf2c1cf8cfe80a60c60a4d45986ee0c61bcc696b23b5f2e0d41e3b713e63c",
+          "current_sha256": "0e0b8c1975d3c1908a374373f41645d54b74b1bf14f5e9abfa1f81121c7f492d",
+          "reason": "I077/I082 formal chapter 2 scope and depth verification"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-18T13:43:51.778489+00:00",
+      "changes": [
+        {
+          "file": "tools/check_notes.py",
+          "previous_sha256": "66645ef5795a332456e28b6447f89f1793caf6cf06b483fdb0435c02fe2a131e",
+          "current_sha256": "3cc556eda23c2e975c25205084bc4c4ba979326b17cfbcc2bed8213e7b22b35b",
+          "reason": "I077/I082 formal chapter 2 scope and depth verification"
         }
       ]
     }

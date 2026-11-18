@@ -12016,8 +12016,8 @@
     },
     "sicp/notes/book_overview.html": {
       "original_sha256": "d6f932d2df28dd8113b3073f32b5104636620a8a92bf7c1033092f8800f3fc90",
-      "source_sha256": "f6df2c6a846506878244ac37c7af2c6943e48076f044b717eb28c59ac358cf96",
-      "review_record": "books/sicp/review/chapter01.json",
+      "source_sha256": "8f574c4ba23b7b0694c0399b946be2725299a945613fe9c02e4ed900c8739fb7",
+      "review_record": "books/sicp/review/chapter02.json",
       "history": [
         {
           "revision": "I075",
@@ -12029,13 +12029,22 @@
             "program-guide",
             "source"
           ]
+        },
+        {
+          "revision": "I077-registration",
+          "from_sha256": "f6df2c6a846506878244ac37c7af2c6943e48076f044b717eb28c59ac358cf96",
+          "to_sha256": "8f574c4ba23b7b0694c0399b946be2725299a945613fe9c02e4ed900c8739fb7",
+          "reason": "同步正式第 2 章的阅读入口与范围。",
+          "reviewed_anchors": [
+            "chapter-2"
+          ]
         }
       ]
     },
     "sicp/notes/preface.html": {
       "original_sha256": "86a0294f04752866c068cde7551a2917b267b847c61f8d298838dd5d7108e17e",
-      "source_sha256": "52617c40f35616308332e4c3445e2dc84b91984ed5efda0913172959f9dc5671",
-      "review_record": "books/sicp/review/chapter01.json",
+      "source_sha256": "5848bc6ba19d7b42ffcf5cd1292990b0a7cece523c5d11910f9bfc0fabfc9d43",
+      "review_record": "books/sicp/review/chapter02.json",
       "history": [
         {
           "revision": "I075",
@@ -12046,13 +12055,22 @@
             "scheme",
             "top"
           ]
+        },
+        {
+          "revision": "I077-registration",
+          "from_sha256": "52617c40f35616308332e4c3445e2dc84b91984ed5efda0913172959f9dc5671",
+          "to_sha256": "5848bc6ba19d7b42ffcf5cd1292990b0a7cece523c5d11910f9bfc0fabfc9d43",
+          "reason": "同步正式第 2 章的阅读入口与范围。",
+          "reviewed_anchors": [
+            "top"
+          ]
         }
       ]
     },
     "sicp/notes/chapter01_procedures.html": {
       "original_sha256": "af63907cbae9747250e488536294cc6762b25037dae298e6b315805e0704bc47",
-      "source_sha256": "44417902579f1855231beba88a02daf7bef18a24e94b22b89ab9dd9b1d4045c8",
-      "review_record": "docs/visual-coverage-review.json",
+      "source_sha256": "cac3f0fdd3174b8ad6580da5b9abb1d7d0db476e09fb7a04a3be65a9720e4b53",
+      "review_record": "books/sicp/review/chapter02.json",
       "history": [
         {
           "revision": "I075-figure",
@@ -12268,8 +12286,170 @@
             "s1-2-2",
             "ex-1-14"
           ]
+        },
+        {
+          "revision": "I077-registration",
+          "from_sha256": "44417902579f1855231beba88a02daf7bef18a24e94b22b89ab9dd9b1d4045c8",
+          "to_sha256": "cac3f0fdd3174b8ad6580da5b9abb1d7d0db476e09fb7a04a3be65a9720e4b53",
+          "reason": "同步正式第 2 章的阅读入口与范围。",
+          "reviewed_anchors": [
+            "top",
+            "exercises"
+          ]
         }
       ]
+    },
+    "sicp/notes/chapter02_data_abstraction.html": {
+      "original_sha256": "fb838d1d73e8f297996ade21d55690d70b10bce0be18d7028a97392b21858d46",
+      "source_sha256": "d481c5b3f3041b18c4fb32ddbe7b54e5134b315755467b75ba4a8d892e06e183",
+      "history": [
+        {
+          "revision": "I077-inline-scroll",
+          "from_sha256": "fb838d1d73e8f297996ade21d55690d70b10bce0be18d7028a97392b21858d46",
+          "to_sha256": "d481c5b3f3041b18c4fb32ddbe7b54e5134b315755467b75ba4a8d892e06e183",
+          "reviewed_anchors": [
+            "ex-2-85",
+            "ex-2-71",
+            "ex-2-65",
+            "ex-2-62",
+            "ex-2-60",
+            "ex-2-43",
+            "ex-2-42",
+            "ex-2-40",
+            "ex-2-37",
+            "q34FOOT82",
+            "ex-2-34",
+            "ex-2-14",
+            "ex-2-5"
+          ],
+          "reason": "为长行内公式增加局部横滚容器，保留 MathML 字节。"
+        }
+      ],
+      "reviewed_anchors": [
+        "s2-1",
+        "s2-1-1",
+        "s2-1-2",
+        "s2-1-3",
+        "s2-1-4",
+        "s2-2",
+        "s2-2-1",
+        "s2-2-2",
+        "s2-2-3",
+        "s2-2-4",
+        "s2-3",
+        "s2-3-1",
+        "s2-3-2",
+        "s2-3-3",
+        "s2-3-4",
+        "s2-4",
+        "s2-4-1",
+        "s2-4-2",
+        "s2-4-3",
+        "s2-5",
+        "s2-5-1",
+        "s2-5-2",
+        "s2-5-3",
+        "exercises",
+        "programs",
+        "ex-2-1",
+        "ex-2-2",
+        "ex-2-3",
+        "ex-2-4",
+        "ex-2-5",
+        "ex-2-6",
+        "ex-2-7",
+        "ex-2-8",
+        "ex-2-9",
+        "ex-2-10",
+        "ex-2-11",
+        "ex-2-12",
+        "ex-2-13",
+        "ex-2-14",
+        "ex-2-15",
+        "ex-2-16",
+        "ex-2-17",
+        "ex-2-18",
+        "ex-2-19",
+        "ex-2-20",
+        "ex-2-21",
+        "ex-2-22",
+        "ex-2-23",
+        "ex-2-24",
+        "ex-2-25",
+        "ex-2-26",
+        "ex-2-27",
+        "ex-2-28",
+        "ex-2-29",
+        "ex-2-30",
+        "ex-2-31",
+        "ex-2-32",
+        "ex-2-33",
+        "ex-2-34",
+        "ex-2-35",
+        "ex-2-36",
+        "ex-2-37",
+        "ex-2-38",
+        "ex-2-39",
+        "ex-2-40",
+        "ex-2-41",
+        "ex-2-42",
+        "ex-2-43",
+        "ex-2-44",
+        "ex-2-45",
+        "ex-2-46",
+        "ex-2-47",
+        "ex-2-48",
+        "ex-2-49",
+        "ex-2-50",
+        "ex-2-51",
+        "ex-2-52",
+        "ex-2-53",
+        "ex-2-54",
+        "ex-2-55",
+        "ex-2-56",
+        "ex-2-57",
+        "ex-2-58",
+        "ex-2-59",
+        "ex-2-60",
+        "ex-2-61",
+        "ex-2-62",
+        "ex-2-63",
+        "ex-2-64",
+        "ex-2-65",
+        "ex-2-66",
+        "ex-2-67",
+        "ex-2-68",
+        "ex-2-69",
+        "ex-2-70",
+        "ex-2-71",
+        "ex-2-72",
+        "ex-2-73",
+        "ex-2-74",
+        "ex-2-75",
+        "ex-2-76",
+        "ex-2-77",
+        "ex-2-78",
+        "ex-2-79",
+        "ex-2-80",
+        "ex-2-81",
+        "ex-2-82",
+        "ex-2-83",
+        "ex-2-84",
+        "ex-2-85",
+        "ex-2-86",
+        "ex-2-87",
+        "ex-2-88",
+        "ex-2-89",
+        "ex-2-90",
+        "ex-2-91",
+        "ex-2-92",
+        "ex-2-93",
+        "ex-2-94",
+        "ex-2-95",
+        "ex-2-96",
+        "ex-2-97"
+      ],
+      "review_record": "books/sicp/review/chapter02.json"
     }
   }
 }
