@@ -1,5 +1,7 @@
 # Reading Notes — 技术事实唯一来源
 
+I077 开发状态（2026-11-18）：SICP 正式范围仍为三页、第一章46题，第2–5章没有登记为完成。第2章原书97个题号已与PDF页序逐项匹配，原文块归档仍待内容审阅；新增的第2章Racket文件目前只实现§2.1，Racket8.10实测10组回归通过，不能替代完整章节验收。开发边界见I077/T077及books/sicp/review/chapter02.json。无技术栈变更，无发布。
+
 <!-- project-governance:managed:start -->
 ## 项目目的
 

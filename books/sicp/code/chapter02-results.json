@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "issue": "I077",
+  "status": "partial_section21_only",
+  "scope": "Section2.1 program regression; chapter2 incomplete and unpublished. No claim about sections2.2-2.5.",
+  "runtime": "Racket8.10 [cs]",
+  "command": "racket books/sicp/code/test-chapter02.rkt",
+  "exit_code": 0,
+  "tests": {
+    "passed": 10,
+    "failed": 0,
+    "errors": 0
+  },
+  "program_sha256": {
+    "chapter02.rkt": "e1d0c44b82b5d0467183ebe9aeb890bb6a65a132936d03c167139120f4b07196",
+    "test-chapter02.rkt": "3ba79d430d0518941a658993cead168ae675bd95dd24cdc9d7c4266e3c615965"
+  },
+  "experiment": {
+    "inputs": {
+      "A": {
+        "center": 100,
+        "percent": 1
+      },
+      "B": {
+        "center": 200,
+        "percent": 1
+      }
+    },
+    "arithmetic": "Exact rational endpoints; JSON strings preserve rational values; percentage is 100*width/abs(center)",
+    "results": [
+      {
+        "center": "10001/9999",
+        "expression": "A/A",
+        "lower": "99/101",
+        "percent": "20000/10001",
+        "upper": "101/99"
+      },
+      {
+        "center": "10001/19998",
+        "expression": "A/B",
+        "lower": "99/202",
+        "percent": "20000/10001",
+        "upper": "101/198"
+      },
+      {
+        "center": "2000600/29997",
+        "expression": "par1(A,B)",
+        "lower": "6534/101",
+        "percent": "30001/10003",
+        "upper": "20402/297"
+      },
+      {
+        "center": "200/3",
+        "expression": "par2(A,B)",
+        "lower": "66",
+        "percent": "1",
+        "upper": "202/3"
+      }
+    ]
+  },
+  "mutation": {
+    "name": "Remove negative-denominator normalization",
+    "exit_code": 1,
+    "status": "rejected",
+    "log": "tmp/i077/mutant-sign/test.log"
+  },
+  "boundaries": [
+    "No chapter2 HTML or program mirror acceptance yet",
+    "No chapter2 browser verification",
+    "Sections2.2-2.5 not implemented",
+    "No commit/push/deploy"
+  ]
+}

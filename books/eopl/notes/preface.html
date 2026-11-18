@@ -728,7 +728,7 @@ if __name__ == &quot;__main__&quot;:
 <pre><code>let f = proc (x) 11
 in (f -(proc (y) y, 1))</code></pre>
 <p>按值规则在进入过程体前求实参，因此报告非数值减法错误。按需规则先保存待求值表达式和环境；体内没有读取 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math>，所以不会触发它，结果为 11。这是对原书规则的推演；本页 Python 模型只实现按值求值，按需语言实验尚未执行。带副作用时还须继续区分按名反复求值与按需缓存。</p>
-<p><strong>第四组：</strong>INFERRED 可以写 <code>proc (x : ?) -(x,1)</code>，差运算给出 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 必须为 <code>int</code> 的约束，从而推得 <code>int → int</code>。CHECKED 的形式参数处需要写出 <code>int</code>。不能把这组差异概括为“CHECKED 完全不会推导任何表达式的类型”：它同样会按规则计算子表达式和整个表达式的类型，差异在于这里是否允许缺省注解。</p>
+<p><strong>第四组：</strong>INFERRED 可以写 <code>proc (x : ?) -(x,1)</code>，差运算给出 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="x" display="inline"><mi>x</mi></math> 必须为 <code>int</code> 的约束，从而推得 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="int → int" display="inline"><semantics><mrow><mi mathvariant="normal">int</mi><mo>→</mo><mi mathvariant="normal">int</mi></mrow><annotation encoding="text/plain">int → int</annotation></semantics></math>。CHECKED 的形式参数处需要写出 <code>int</code>。不能把这组差异概括为“CHECKED 完全不会推导任何表达式的类型”：它同样会按规则计算子表达式和整个表达式的类型，差异在于这里是否允许缺省注解。</p>
 <p>对真实语言做同样比较时，还应标明版本、方言与具体构造，并给出最小区分程序。例如一句“这个语言是惰性的”往往不够精确，应该说清是过程实参、局部绑定还是某种容器按需计算。本解答的四组结论直接依据本版 EOPL 的语言定义；题目所列参考书提供扩展查询的方向。</p>
 </div>
 </details>

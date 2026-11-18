@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "issue": "I077",
+  "status": "in_progress",
+  "scope": "Chapter2 preparation and section2.1 program regression only; no chapter2 reading page delivered",
+  "source": {
+    "file": "books/sicp/sicp.pdf",
+    "sha256": "afff2ca1486a46bcd47310bc5a974da1f9c6a6a0b15b39c93e2453350670f715",
+    "printed_pages": [107, 293],
+    "pdf_pages": [135, 321],
+    "inventory_exercises": 97,
+    "heading_positions_checked": 97,
+    "archive": "books/sicp/notes/questions_ch02.json",
+    "boundary": "Text extraction and heading-position checks do not constitute complete question, translation, formula or figure review. Raw HTML blocks may contain following textbook prose."
+  },
+  "completion": {
+    "published_pages": 0,
+    "accepted_exercises": 0,
+    "accepted_chapters": 0
+  },
+  "program": {
+    "scope": "Section2.1 rational, geometry, pair representations, Church numerals and interval arithmetic",
+    "runtime": "Racket8.10 [cs]",
+    "command": "racket books/sicp/code/test-chapter02.rkt",
+    "exit_code": 0,
+    "test_groups": 10,
+    "results": "books/sicp/code/chapter02-results.json",
+    "mutation": "Removing negative denominator normalization is rejected with exit1",
+    "boundary": "Sections2.2-2.5 and HTML program mirrors are not implemented or accepted"
+  },
+  "browser": {
+    "status": "not-run",
+    "reason": "No chapter2 reading page exists yet"
+  },
+  "open_findings": [
+    "Complete Chinese question bodies, all given inputs, diagrams, solutions and teaching annotations",
+    "Implement and independently test sections2.2-2.5",
+    "Register and sync one complete chapter, including current source/output review bindings",
+    "Extend the chapter1-specific checker without weakening its current assertions",
+    "Run all requested gates and actual chapter2 browser matrix before acceptance"
+  ],
+  "publication": "not executed; no commit/push/deploy"
+}
