@@ -1,5 +1,5 @@
 #lang racket
-;; I077 section 2.1 regression only; not the chapter completion gate yet.
+;; Executable regression for chapter 2 data abstractions.
 (require rackunit rackunit/text-ui "chapter02.rkt")
 (define suite
   (test-suite
@@ -65,4 +65,86 @@
      (check-true (< (lower-bound (par1 a b)) 66))
      (check-true (> (upper-bound (par1 a b)) 202/3))
      (check-equal? (percent (par2 a b)) 1))))
-(module+ main (exit (run-tests suite)))
+
+
+(define extended-suite
+  (test-suite "SICP 2.2-2.5"
+    (test-case "tree structure and right-fold order"
+      (check-equal? (tree-map-leaves sqr '(1 (2 . 3) ())) '(1 (4 . 9) ()))
+      (check-equal? (fringe '(1 (2 . 3) ())) '(1 2 3))
+      (check-equal? (fold-sequence / 1 '(1 2 3)) 3/2))
+    (test-case "symbolic differentiation and ordered union"
+      (check-equal? (deriv '(* x (+ x 3)) 'x) '(+ x (+ x 3)))
+      (check-exn exn:fail? (lambda () (deriv '(unknown x) 'x)))
+      (check-equal? (ordered-union '(1 3 7) '(3 4 8)) '(1 3 4 7 8)))
+    (test-case "prefix code, invalid and truncated inputs"
+      (define t (huffman '((a 4) (b 2) (c 1) (d 1))))
+      (check-equal? (huffman-encode '(a d a b) t) '(0 1 1 1 0 1 0))
+      (check-equal? (huffman-decode '(0 1 1 0 1 0) t) '(a c b))
+      (check-exn exn:fail? (lambda () (huffman-decode '(1) t)))
+      (check-exn exn:fail? (lambda () (huffman-decode '(2) t)))
+      (check-exn exn:fail? (lambda () (huffman '((a 1) (a 2))))))
+    (test-case "message selection and mixed type dispatch"
+      (define-values (put apply-op) (make-operation-table))
+      (install-arithmetic! put)
+      (check-equal? (apply-op 'mul '(scalar . 3) '(polynomial 1 2)) '(polynomial 3 6))
+      (check-equal? (apply-op 'add '(polynomial 1 2) '(scalar . 2)) '(polynomial 3 2))
+      (check-exn exn:fail? (lambda () (apply-op 'unknown '(scalar . 2))))
+      (check-equal? ((make-polar-message 5 0) 'real-part) 5)
+      (check-exn exn:fail? (lambda () ((make-polar-message 5 0) 'missing))))
+    (test-case "polynomial long division and rational function cancellation"
+      (define-values (q r) (poly-divmod '(-1 0 0 1) '(-1 0 1)))
+      (check-equal? q '(0 1)) (check-equal? r '(-1 1))
+      (check-equal? (make-rational-function '(-1 0 1) '(-1 1)) '((1 1) 1))
+      (check-equal? (make-rational-function '() '(3 4)) '(() 1))
+      (check-exn exn:fail? (lambda () (poly-divmod '(1) '(0 0))))
+      (check-exn exn:fail? (lambda () (make-rational-function '(1) '()))))))
+
+(define integration-suite
+  (test-suite "exercise integration"
+    (test-case "2.82-2.85 multi-argument dispatch and reversible projection"
+      (define methods (hash '(add rational rational rational)
+                            (lambda (a b c) (cons 'rational (+ a b c)))))
+      (check-equal? (tower-apply methods 'add '(integer . 2) '(rational . 1/3) '(rational . 2/3))
+                    '(integer . 3))
+      (check-equal? (tower-drop '(complex 2 . 3)) '(complex 2 . 3))
+      (check-equal? (tower-drop '(complex 3/2 . 0)) '(rational . 3/2))
+      (check-exn exn:fail? (lambda () (tower-apply methods 'absent '(integer . 1)))))
+    (test-case "2.89-2.92 sparse, dense and multivariable polynomials"
+      (check-equal? (term-list-add '(dense 2 0 3) '(sparse (2 -2) (1 5)) 'sparse)
+                    '(sparse (1 5) (0 3)))
+      (check-equal? (terms->dense '((3 2) (1 4))) '(2 0 4 0))
+      (check-exn exn:fail? (lambda () (terms->dense '((-1 2)))))
+      (define x (hash '(x) 1)) (define y (hash '(y) 1))
+      (check-equal? (mv-mul (mv-add x y) x) (hash '(x x) 1 '(x y) 1))
+      (check-equal? (mv-mul x y) (mv-mul y x)))
+    (test-case "2.95-2.96 pseudo-division and primitive GCD over integers"
+      (define factor '(1 -2 1))
+      (define a (poly-mul factor '(7 0 11)))
+      (define b (poly-mul factor '(5 13)))
+      (check-equal? (pseudo-remainder a b) '(1458 -2916 1458))
+      (check-equal? (integer-poly-gcd a b) factor)
+      (check-equal? (integer-poly-gcd '(-2 -4) '()) '(1 2))
+      (check-exn exn:fail? (lambda () (integer-poly-gcd '(1/2) '(1)))))
+    (test-case "2.44-2.52 paint into an asymmetric frame"
+      (define f (frame2 '(2 . 3) '(4 . 0) '(1 . 2)))
+      (check-equal? (first (outline-painter f)) (cons '(2 . 3) '(6 . 3)))
+      (check-equal? (first (diamond-painter f)) (cons '(5/2 . 4) '(5 . 5)))
+      (check-equal? (length (((split below beside) x-painter 2) f)) 14)
+      (check-equal? (length (smiling-wave f)) (+ 2 (length (wave-painter f)))))
+    (test-case "2.42 queens, empty and unsatisfiable boards"
+      (check-equal? (queens 0) '(()))
+      (check-equal? (queens 2) '())
+      (check-equal? (sort (queens 4) < #:key car) '((2 4 1 3) (3 1 4 2)))
+      (check-equal? (length (queens 8)) 92)
+      (check-exn exn:fail? (lambda () (queens -1))))
+    (test-case "2.97 polynomial fractions through operation dispatch"
+      (define-values (put dispatch) (make-operation-table))
+      (install-rational-functions! put)
+      (define (rf n d) (cons 'rational-function (make-rational-function n d)))
+      (define a (rf '(1 1) '(-1 0 0 1)))
+      (define b (rf '(0 1) '(-1 0 1)))
+      (check-equal? (dispatch 'add a b) (rf '(1 3 2 1) '(-1 -1 0 1 1)))
+      (check-equal? (dispatch 'mul a (rf '(-1 0 0 1) '(1 1))) (rf '(1) '(1)))
+      (check-exn exn:fail? (lambda () (rf '(1) '(0)))))))
+(module+ main (exit (run-tests (test-suite "Chapter 2" suite extended-suite integration-suite))))

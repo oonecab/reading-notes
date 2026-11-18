@@ -1,19 +1,19 @@
 {
   "schema_version": 1,
   "issue": "I077",
-  "status": "partial_section21_only",
-  "scope": "Section2.1 program regression; chapter2 incomplete and unpublished. No claim about sections2.2-2.5.",
+  "status": "program_regression_passed",
+  "scope": "Executable examples across sections 2.1–2.5, separate from exercise and page acceptance.",
   "runtime": "Racket8.10 [cs]",
   "command": "racket books/sicp/code/test-chapter02.rkt",
   "exit_code": 0,
   "tests": {
-    "passed": 10,
+    "passed": 21,
     "failed": 0,
     "errors": 0
   },
   "program_sha256": {
-    "chapter02.rkt": "e1d0c44b82b5d0467183ebe9aeb890bb6a65a132936d03c167139120f4b07196",
-    "test-chapter02.rkt": "3ba79d430d0518941a658993cead168ae675bd95dd24cdc9d7c4266e3c615965"
+    "chapter02.rkt": "797b0acf9b922ca28295a3841e21d519768df1319694540041e43427a33c4032",
+    "test-chapter02.rkt": "954514963b3855fe8bac35019077752d432c081a4f2a3552473c69216a269756"
   },
   "experiment": {
     "inputs": {
@@ -65,9 +65,8 @@
     "log": "tmp/i077/mutant-sign/test.log"
   },
   "boundaries": [
-    "No chapter2 HTML or program mirror acceptance yet",
-    "No chapter2 browser verification",
-    "Sections2.2-2.5 not implemented",
-    "No commit/push/deploy"
-  ]
+    "Candidate preview is distinct from formal publication.",
+    "Runtime regressions cover selected executable examples."
+  ],
+  "actual_output": "21 success(es) 0 failure(s) 0 error(s) 21 test(s) run"
 }

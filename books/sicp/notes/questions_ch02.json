@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "issue": "I077",
-  "status": "source_blocks_archived_not_chapter_complete",
-  "scope": "97 English source blocks for chapter2 maintenance. Not published; not evidence of 97 completed translations or solutions.",
+  "status": "question_boundaries_checked",
+  "scope": "97 original exercise blocks for maintenance. Two trailing textbook passages removed. Page acceptance is recorded separately.",
   "pdf": {
     "file": "books/sicp/sicp.pdf",
     "sha256": "afff2ca1486a46bcd47310bc5a974da1f9c6a6a0b15b39c93e2453350670f715",
@@ -32,6 +32,28 @@
         "name": "2_002e5.xhtml",
         "sha256": "b87eb0e0cc39a1806bc29ff60c87afc7f6787250324901223fc251f3d65c9243"
       }
+    ],
+    "translation_files": [
+      {
+        "name": "2_002e1_zh.xhtml",
+        "sha256": "bc9e37adf8097c560a181d71be0d22820e113557c45f761344726a83714fcf2f"
+      },
+      {
+        "name": "2_002e2_zh.xhtml",
+        "sha256": "513976cbef552e2e892b318e7c2fdf442e1779e3a9777ac6189780106298f341"
+      },
+      {
+        "name": "2_002e3_zh.xhtml",
+        "sha256": "fed000d04e4dfc9bf648b54c0c626150b25ff13d0635899501414375fc2f716e"
+      },
+      {
+        "name": "2_002e4_zh.xhtml",
+        "sha256": "d11a23f2cd45ffac0c59af2e996b95fb6e3d4d3fe9382901089bb866ee6fe856"
+      },
+      {
+        "name": "2_002e5_zh.xhtml",
+        "sha256": "7220abdfbfb0ff0f5d1b8e9ac6c9164d5bf4a39063c8747791b92eb13e88f4fa"
+      }
     ]
   },
   "items": [
@@ -44,8 +66,16 @@
       "original_text": "\nExercise 2.1: Define a better version of\nmake-rat that handles both positive and negative arguments.\nMake-rat should normalize the sign so that if the rational number is\npositive, both the numerator and denominator are positive, and if the rational\nnumber is negative, only the numerator is negative.\n",
       "source_block_sha256": "e069a772b25b4d8b79f2e1ace0b518d70a960a9a54f570e7327b261cf5006f0a",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。",
+      "reader_draft": {
+        "title": "有理数的符号",
+        "question_zh": "定义改进的 make-rat，使分子和分母均可为正或负。把符号规范化：有理数为正时分子、分母都为正，为负时只有分子为负。",
+        "answer_zh": "先拒绝零分母，再用分子与分母的最大公约数同时约分。若分母为负，同时取两项的相反数。这样 -2/-4 得 1/2，2/-4 得 -1/2，零归约为 0/1。",
+        "solution_region": "rational",
+        "given_programs": null,
+        "status": "draft_pending_page_integration"
+      }
     },
     {
       "number": "2.2",
@@ -56,8 +86,16 @@
       "original_text": "\nExercise 2.2: Consider the problem of\nrepresenting line segments in a plane.  Each segment is represented as a pair\nof points: a starting point and an ending point.  Define a constructor\nmake-segment and selectors start-segment and end-segment\nthat define the representation of segments in terms of points.  Furthermore, a\npoint can be represented as a pair of numbers: the \n  x\n coordinate and the\n\n  y\n coordinate.  Accordingly, specify a constructor make-point and\nselectors x-point and y-point that define this representation.\nFinally, using your selectors and constructors, define a procedure\nmidpoint-segment that takes a line segment as argument and returns its\nmidpoint (the point whose coordinates are the average of the coordinates of the\nendpoints).  To try your procedures, you’ll need a way to print points:\n\n\n(define (print-point p)\n  (newline)\n  (display \"(\")\n  (display (x-point p))\n  (display \",\")\n  (display (y-point p))\n  (display \")\"))\n",
       "source_block_sha256": "69413d36305d1e28452b2e599c044b2a09fac8fd64b044a441e794640e1c9ef8",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。",
+      "reader_draft": {
+        "title": "平面线段的中点",
+        "question_zh": "用起点和终点这两个点组成一条线段。给出 make-segment、start-segment、end-segment；又把每个点表示为横、纵坐标组成的序对，定义 make-point、x-point、y-point。只用构造器与选择器实现 midpoint-segment，返回两端坐标分别取平均所得的点。用给定的 print-point 过程显示结果。",
+        "answer_zh": "先选出两端，分别取出同一坐标相加并除以 2，然后把两个平均数交给 make-point。端点 (1,2) 与 (4,8) 得到 (5/2,5)，交换两端不影响结果。",
+        "solution_region": "geometry",
+        "given_programs": "retain verbatim from question block",
+        "status": "draft_pending_page_integration"
+      }
     },
     {
       "number": "2.3",
@@ -68,8 +106,16 @@
       "original_text": "\nExercise 2.3: Implement a representation for\nrectangles in a plane.  (Hint: You may want to make use of Exercise 2.2.)\nIn terms of your constructors and selectors, create procedures that compute the\nperimeter and the area of a given rectangle.  Now implement a different\nrepresentation for rectangles.  Can you design your system with suitable\nabstraction barriers, so that the same perimeter and area procedures will work\nusing either representation?\n",
       "source_block_sha256": "384f51c81f46a32f549e9a5cd1a732f686f38e3e5e4d6867dabcfc05114a401d",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。",
+      "reader_draft": {
+        "title": "同一矩形的两种表示",
+        "question_zh": "实现一种平面矩形表示，可借用习题 2.2。通过构造器和选择器计算矩形的周长和面积。再实现另一种表示。能否设置抽象屏障，使同一对周长、面积过程对两种表示都有效？",
+        "answer_zh": "一套存原点、两边长和方向；另一套存原点和两条垂直边向量。分别实现宽、高选择器。面积过程只把二者相乘，周长过程只把二者之和乘二；切换表示无需触动这两个过程。",
+        "solution_region": "geometry",
+        "given_programs": null,
+        "status": "draft_pending_page_integration"
+      }
     },
     {
       "number": "2.4",
@@ -80,8 +126,16 @@
       "original_text": "\nExercise 2.4: Here is an alternative procedural\nrepresentation of pairs.  For this representation, verify that (car (cons\nx y)) yields x for any objects x and y.\n\n\n(define (cons x y) \n  (lambda (m) (m x y)))\n\n(define (car z) \n  (z (lambda (p q) p)))\n\nWhat is the corresponding definition of cdr? (Hint: To verify that this\nworks, make use of the substitution model of 1.1.5.)\n",
       "source_block_sha256": "5a4ee9c913875794f9808899955c17e57c1cf74f82093d6a36d2d178298c5d3b",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。",
+      "reader_draft": {
+        "title": "用过程传递选择器",
+        "question_zh": "给定下列序对的过程表示，对任意对象 x 和 y 验证 (car (cons x y)) 得 x。写出配套的 cdr，并用 §1.1.5 的代换模型解释。",
+        "answer_zh": "cons 返回保存 x、y 的过程。car 把二元选择器传给它，调用化为 ((lambda (p q) p) x y)，所以返回 x。cdr 改为传入 (lambda (p q) q)，同样代换即得 y。",
+        "solution_region": "representations",
+        "given_programs": "retain verbatim from question block",
+        "status": "draft_pending_page_integration"
+      }
     },
     {
       "number": "2.5",
@@ -92,8 +146,16 @@
       "original_text": "\nExercise 2.5: Show that we can represent pairs of\nnonnegative integers using only numbers and arithmetic operations if we\nrepresent the pair \n  a\n and \n  b\n as the integer that is the product \n  \n    \n      2\n      a\n    \n    \n      3\n      b\n    \n  \n.\nGive the corresponding definitions of the procedures cons,\ncar, and cdr.\n",
       "source_block_sha256": "4246297bd2c6b06891bcfcd7b0373404620b8c07a49001791522c37357032bf2",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。",
+      "reader_draft": {
+        "title": "只用整数编码序对",
+        "question_zh": "把非负整数 a、b 编成二的 a 次幂乘三的 b 次幂。证明只用数和算术就能表示这种序对，并给出 cons、car、cdr 的定义。",
+        "answer_zh": "构造器计算两幂之积。car 统计编码可被 2 连续整除几次，cdr 独立统计 3 的次数；唯一分解保证二者互不混淆。编码 1 表示 (0,0)。",
+        "solution_region": "representations",
+        "given_programs": null,
+        "status": "draft_pending_page_integration"
+      }
     },
     {
       "number": "2.6",
@@ -104,8 +166,16 @@
       "original_text": "\nExercise 2.6: In case representing pairs as\nprocedures wasn’t mind-boggling enough, consider that, in a language that can\nmanipulate procedures, we can get by without numbers (at least insofar as\nnonnegative integers are concerned) by implementing 0 and the operation of\nadding 1 as\n\n\n(define zero (lambda (f) (lambda (x) x)))\n\n(define (add-1 n)\n  (lambda (f) (lambda (x) (f ((n f) x)))))\n\nThis representation is known as \nChurch numerals, after its inventor,\nAlonzo Church, the logician who invented the λ-calculus.\n\nDefine one and two directly (not in terms of zero and\nadd-1).  (Hint: Use substitution to evaluate (add-1 zero)).  Give\na direct definition of the addition procedure + (not in terms of\nrepeated application of add-1).\n",
       "source_block_sha256": "80f98c080dc082492543a29533a6bf345bb05de5d1176ec97e5b384b86377324",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。",
+      "reader_draft": {
+        "title": "Church 数",
+        "question_zh": "在能操作过程的语言中，用下列过程表示零和加一，即可表示非负整数。这称作 Church 数，以 λ 演算的发明者 Alonzo Church 命名。直接定义一和二，不能用 zero 和 add-1；可用代换求 (add-1 zero) 得到提示。再直接定义加法，不能反复调用 add-1。",
+        "answer_zh": "一把 f 作用一次，二作用两次。把 n 次作用的结果再送入 m 次作用，合计 m+n 次；因此加法返回 (lambda (f) (lambda (x) ((m f) ((n f) x))))。",
+        "solution_region": "representations",
+        "given_programs": "retain verbatim from question block",
+        "status": "draft_pending_page_integration"
+      }
     },
     {
       "number": "2.7",
@@ -116,8 +186,16 @@
       "original_text": "\nExercise 2.7: Alyssa’s program is incomplete\nbecause she has not specified the implementation of the interval abstraction.\nHere is a definition of the interval constructor:\n\n\n(define (make-interval a b) (cons a b))\n\nDefine selectors upper-bound and lower-bound to complete the\nimplementation.\n",
       "source_block_sha256": "b2005a3788b514b13492a34d0fe4179d1e7a2ad3a970819481c28c9a38219653",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。",
+      "reader_draft": {
+        "title": "区间端点",
+        "question_zh": "Alyssa 尚未完成区间抽象。给定下列 make-interval 构造器，定义 upper-bound 和 lower-bound 以补全实现。",
+        "answer_zh": "若约定传入下界、上界，分别用 car、cdr 读取下界、上界。程序适配在构造时先排序，使交换传入顺序也得到同一区间。",
+        "solution_region": "intervals",
+        "given_programs": "retain verbatim from question block",
+        "status": "draft_pending_page_integration"
+      }
     },
     {
       "number": "2.8",
@@ -128,8 +206,16 @@
       "original_text": "\nExercise 2.8: Using reasoning analogous to\nAlyssa’s, describe how the difference of two intervals may be computed.  Define\na corresponding subtraction procedure, called sub-interval.\n",
       "source_block_sha256": "e003e9a958bdf0215dbc971ab8c53c43877efc2f6c6e3866fc79f3eedcce370c",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。",
+      "reader_draft": {
+        "title": "区间相减",
+        "question_zh": "仿照 Alyssa 推导区间运算的方式，说明如何计算两个区间之差，并定义过程 sub-interval。",
+        "answer_zh": "最小差取左区间的下端减右区间的上端，最大差取左区间的上端减右区间的下端。例如 [2,5] 减 [3,7] 等于 [-5,2]。",
+        "solution_region": "intervals",
+        "given_programs": null,
+        "status": "draft_pending_page_integration"
+      }
     },
     {
       "number": "2.9",
@@ -140,8 +226,16 @@
       "original_text": "\nExercise 2.9: The \nwidth of an interval\nis half of the difference between its upper and lower bounds.  The width is a\nmeasure of the uncertainty of the number specified by the interval.  For some\narithmetic operations the width of the result of combining two intervals is a\nfunction only of the widths of the argument intervals, whereas for others the\nwidth of the combination is not a function of the widths of the argument\nintervals.  Show that the width of the sum (or difference) of two intervals is\na function only of the widths of the intervals being added (or subtracted).\nGive examples to show that this is not true for multiplication or division.\n",
       "source_block_sha256": "7cb00ac1a88612dc6c89abd62641114b83f799e83f91fcdca5d5650dc4595a0e",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。",
+      "reader_draft": {
+        "title": "宽度是否决定误差",
+        "question_zh": "区间宽度定义为上界减下界的一半，度量所表示数的不确定性。证明两个区间之和或差的宽度只取决于它们各自的宽度。用例子说明乘法和除法没有这个性质。",
+        "answer_zh": "和、差的上下端相减都得到两个区间端点差之和，再除二即为两宽度之和。比较 [1,2] 和 [3,4] 各自乘 [1,2]，结果宽度分别为 3/2 和 5/2。分别除以 [1,2]，结果宽度为 3/4 和 5/4，输入宽度却相同。",
+        "solution_region": "intervals",
+        "given_programs": null,
+        "status": "draft_pending_page_integration"
+      }
     },
     {
       "number": "2.10",
@@ -152,20 +246,36 @@
       "original_text": "\nExercise 2.10: Ben Bitdiddle, an expert systems\nprogrammer, looks over Alyssa’s shoulder and comments that it is not clear what\nit means to divide by an interval that spans zero.  Modify Alyssa’s code to\ncheck for this condition and to signal an error if it occurs.\n",
       "source_block_sha256": "607f643c29abe5a2f795ec7e897dd1aedae0954442ee4e95f1f1f90039f29f21",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。",
+      "reader_draft": {
+        "title": "除数区间含零",
+        "question_zh": "Ben Bitdiddle 指出以跨过零的区间作除数意义不清。修改 Alyssa 的代码，使它能检查这种情况并报告错误。",
+        "answer_zh": "取倒数前检查下界不大于零且上界不小于零；满足条件即拒绝，包括零恰好是端点的情形。否则倒数区间从上界的倒数到下界的倒数，再做区间乘法。",
+        "solution_region": "intervals",
+        "given_programs": null,
+        "status": "draft_pending_page_integration"
+      }
     },
     {
       "number": "2.11",
       "section": "2.1",
       "printed_page": 129,
       "pdf_page": 157,
-      "original_html": "<blockquote>\n<p><strong><a id=\"Exercise-2_002e11\"></a>Exercise 2.11:</strong> In passing, Ben also cryptically\ncomments: “By testing the signs of the endpoints of the intervals, it is\npossible to break <code>mul-interval</code> into nine cases, only one of which\nrequires more than two multiplications.”  Rewrite this procedure using Ben’s\nsuggestion.\n</p>\n<p>After debugging her program, Alyssa shows it to a potential user, who complains\nthat her program solves the wrong problem.  He wants a program that can deal\nwith numbers represented as a center value and an additive tolerance; for\nexample, he wants to work with intervals such as 3.5 <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n  <mo>±<!-- ± --></mo>\n</math> 0.15 rather than\n[3.35, 3.65].  Alyssa returns to her desk and fixes this problem by supplying\nan alternate constructor and alternate selectors:\n</p>\n<div class=\"lisp\">\n<pre class=\"lisp prettyprinted\" style=\"\"><span class=\"opn\">(</span><span class=\"kwd\">define</span><span class=\"pln\"> </span><span class=\"opn\">(</span><span class=\"pln\">make-center-width c w</span><span class=\"clo\">)</span><span class=\"pln\">\n  </span><span class=\"opn\">(</span><span class=\"pln\">make-interval </span><span class=\"opn\">(</span><span class=\"pun\">-</span><span class=\"pln\"> c w</span><span class=\"clo\">)</span><span class=\"pln\"> </span><span class=\"opn\">(</span><span class=\"pun\">+</span><span class=\"pln\"> c w</span><span class=\"clo\">)))</span><span class=\"pln\">\n\n</span><span class=\"opn\">(</span><span class=\"kwd\">define</span><span class=\"pln\"> </span><span class=\"opn\">(</span><span class=\"pln\">center i</span><span class=\"clo\">)</span><span class=\"pln\">\n  </span><span class=\"opn\">(</span><span class=\"pun\">/</span><span class=\"pln\"> </span><span class=\"opn\">(</span><span class=\"pun\">+</span><span class=\"pln\"> </span><span class=\"opn\">(</span><span class=\"pln\">lower-bound i</span><span class=\"clo\">)</span><span class=\"pln\"> \n        </span><span class=\"opn\">(</span><span class=\"pln\">upper-bound i</span><span class=\"clo\">))</span><span class=\"pln\"> \n     </span><span class=\"lit\">2</span><span class=\"clo\">))</span><span class=\"pln\">\n\n</span><span class=\"opn\">(</span><span class=\"kwd\">define</span><span class=\"pln\"> </span><span class=\"opn\">(</span><span class=\"pln\">width i</span><span class=\"clo\">)</span><span class=\"pln\">\n  </span><span class=\"opn\">(</span><span class=\"pun\">/</span><span class=\"pln\"> </span><span class=\"opn\">(</span><span class=\"pun\">-</span><span class=\"pln\"> </span><span class=\"opn\">(</span><span class=\"pln\">upper-bound i</span><span class=\"clo\">)</span><span class=\"pln\"> \n        </span><span class=\"opn\">(</span><span class=\"pln\">lower-bound i</span><span class=\"clo\">))</span><span class=\"pln\"> \n     </span><span class=\"lit\">2</span><span class=\"clo\">))</span></pre></div>\n\n<p>Unfortunately, most of Alyssa’s users are engineers.  Real engineering\nsituations usually involve measurements with only a small uncertainty, measured\nas the ratio of the width of the interval to the midpoint of the interval.\nEngineers usually specify percentage tolerances on the parameters of devices,\nas in the resistor specifications given earlier.\n</p></blockquote>",
-      "original_text": "\nExercise 2.11: In passing, Ben also cryptically\ncomments: “By testing the signs of the endpoints of the intervals, it is\npossible to break mul-interval into nine cases, only one of which\nrequires more than two multiplications.”  Rewrite this procedure using Ben’s\nsuggestion.\n\nAfter debugging her program, Alyssa shows it to a potential user, who complains\nthat her program solves the wrong problem.  He wants a program that can deal\nwith numbers represented as a center value and an additive tolerance; for\nexample, he wants to work with intervals such as 3.5 \n  ±\n 0.15 rather than\n[3.35, 3.65].  Alyssa returns to her desk and fixes this problem by supplying\nan alternate constructor and alternate selectors:\n\n\n(define (make-center-width c w)\n  (make-interval (- c w) (+ c w)))\n\n(define (center i)\n  (/ (+ (lower-bound i) \n        (upper-bound i)) \n     2))\n\n(define (width i)\n  (/ (- (upper-bound i) \n        (lower-bound i)) \n     2))\n\nUnfortunately, most of Alyssa’s users are engineers.  Real engineering\nsituations usually involve measurements with only a small uncertainty, measured\nas the ratio of the width of the interval to the midpoint of the interval.\nEngineers usually specify percentage tolerances on the parameters of devices,\nas in the resistor specifications given earlier.\n",
-      "source_block_sha256": "8fea0bcd8507be031fecc24ab84c62dce4e516a70d59c6bf2cdf1a43b2569d64",
+      "original_html": "<blockquote>\n<p><strong><a id=\"Exercise-2_002e11\"></a>Exercise 2.11:</strong> In passing, Ben also cryptically\ncomments: “By testing the signs of the endpoints of the intervals, it is\npossible to break <code>mul-interval</code> into nine cases, only one of which\nrequires more than two multiplications.”  Rewrite this procedure using Ben’s\nsuggestion.\n</p></blockquote>",
+      "original_text": "\nExercise 2.11: In passing, Ben also cryptically\ncomments: “By testing the signs of the endpoints of the intervals, it is\npossible to break mul-interval into nine cases, only one of which\nrequires more than two multiplications.”  Rewrite this procedure using Ben’s\nsuggestion.\n",
+      "source_block_sha256": "cf86f14325ccd979fe2e5cec6d94cfa33e8ccbce474a78c9f61a664a8761a28f",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "题目在第一段结束；后续教材讲解从维护档原题中裁出。",
+      "reader_draft": {
+        "title": "按九种符号组合做乘法",
+        "question_zh": "Ben 提示，检查两个区间端点的符号，可把 mul-interval 分成九种情形，只有一种需要超过两次乘法。按其建议重写该过程。",
+        "answer_zh": "把每个区间划为非负、非正、跨零三类。两区间都跨零时，取两组异号端点积中的较小者与两组同号端点积中的较大者。其余八种利用单调性各选一对最小积与最大积。程序按九种情况分支，测试用所有四角乘积独立核对。",
+        "solution_region": "intervals",
+        "given_programs": null,
+        "status": "draft_pending_page_integration"
+      }
     },
     {
       "number": "2.12",
@@ -176,20 +286,36 @@
       "original_text": "\nExercise 2.12: Define a constructor\nmake-center-percent that takes a center and a percentage tolerance and\nproduces the desired interval.  You must also define a selector percent\nthat produces the percentage tolerance for a given interval.  The center\nselector is the same as the one shown above.\n",
       "source_block_sha256": "145f3aaa6b995fece628e0e3f50ddf0b7dea00e83105c2a1dbefa43845e3aac2",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。",
+      "reader_draft": {
+        "title": "中心与相对容差",
+        "question_zh": "定义 make-center-percent，使它由中心和百分比容差构成区间，并定义 percent，从给定区间取得百分比容差。center 沿用上文选择器。",
+        "answer_zh": "取半宽为中心绝对值乘百分数再除以一百；上下端分别为中心减、加半宽。反向以半宽除以中心绝对值并乘一百；中心为零时相对量无定义。",
+        "solution_region": "intervals",
+        "given_programs": null,
+        "status": "draft_pending_page_integration"
+      }
     },
     {
       "number": "2.13",
       "section": "2.1",
       "printed_page": 130,
       "pdf_page": 158,
-      "original_html": "<blockquote>\n<p><strong><a id=\"Exercise-2_002e13\"></a>Exercise 2.13:</strong> Show that under the assumption of\nsmall percentage tolerances there is a simple formula for the approximate\npercentage tolerance of the product of two intervals in terms of the tolerances\nof the factors.  You may simplify the problem by assuming that all numbers are\npositive.\n</p>\n<p>After considerable work, Alyssa P. Hacker delivers her finished system.\nSeveral years later, after she has forgotten all about it, she gets a frenzied\ncall from an irate user, Lem E. Tweakit.  It seems that Lem has noticed that\nthe formula for parallel resistors can be written in two algebraically\nequivalent ways:\n<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\">\n  <mrow class=\"MJX-TeXAtom-ORD\">\n    <mfrac>\n      <mrow>\n        <msub>\n          <mi>R</mi>\n          <mn>1</mn>\n        </msub>\n        <msub>\n          <mi>R</mi>\n          <mn>2</mn>\n        </msub>\n      </mrow>\n      <mrow>\n        <msub>\n          <mi>R</mi>\n          <mn>1</mn>\n        </msub>\n        <mo>+</mo>\n        <msub>\n          <mi>R</mi>\n          <mn>2</mn>\n        </msub>\n      </mrow>\n    </mfrac>\n  </mrow>\n</math>\nand\n<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\">\n  <mrow class=\"MJX-TeXAtom-ORD\">\n    <mrow class=\"MJX-TeXAtom-ORD\">\n      <mfrac>\n        <mn>1</mn>\n        <mrow>\n          <mn>1</mn>\n          <mrow class=\"MJX-TeXAtom-ORD\">\n            <mo>/</mo>\n          </mrow>\n          <msub>\n            <mi>R</mi>\n            <mn>1</mn>\n          </msub>\n          <mo>+</mo>\n          <mn>1</mn>\n          <mrow class=\"MJX-TeXAtom-ORD\">\n            <mo>/</mo>\n          </mrow>\n          <msub>\n            <mi>R</mi>\n            <mn>2</mn>\n          </msub>\n        </mrow>\n      </mfrac>\n    </mrow>\n    <mo>.</mo>\n  </mrow>\n</math>\nHe has written the following two programs, each of which computes the\nparallel-resistors formula differently:\n</p>\n<div class=\"lisp\">\n<pre class=\"lisp prettyprinted\" style=\"\"><span class=\"opn\">(</span><span class=\"kwd\">define</span><span class=\"pln\"> </span><span class=\"opn\">(</span><span class=\"pln\">par1 r1 r2</span><span class=\"clo\">)</span><span class=\"pln\">\n  </span><span class=\"opn\">(</span><span class=\"pln\">div-interval \n   </span><span class=\"opn\">(</span><span class=\"pln\">mul-interval r1 r2</span><span class=\"clo\">)</span><span class=\"pln\">\n   </span><span class=\"opn\">(</span><span class=\"pln\">add-interval r1 r2</span><span class=\"clo\">)))</span><span class=\"pln\">\n\n</span><span class=\"opn\">(</span><span class=\"kwd\">define</span><span class=\"pln\"> </span><span class=\"opn\">(</span><span class=\"pln\">par2 r1 r2</span><span class=\"clo\">)</span><span class=\"pln\">\n  </span><span class=\"opn\">(</span><span class=\"kwd\">let</span><span class=\"pln\"> </span><span class=\"opn\">((</span><span class=\"pln\">one </span><span class=\"opn\">(</span><span class=\"pln\">make-interval </span><span class=\"lit\">1</span><span class=\"pln\"> </span><span class=\"lit\">1</span><span class=\"clo\">)))</span><span class=\"pln\">\n    </span><span class=\"opn\">(</span><span class=\"pln\">div-interval \n     one\n     </span><span class=\"opn\">(</span><span class=\"pln\">add-interval \n      </span><span class=\"opn\">(</span><span class=\"pln\">div-interval one r1</span><span class=\"clo\">)</span><span class=\"pln\"> \n      </span><span class=\"opn\">(</span><span class=\"pln\">div-interval one r2</span><span class=\"clo\">)))))</span></pre></div>\n\n<p>Lem complains that Alyssa’s program gives different answers for the two ways of\ncomputing. This is a serious complaint.\n</p></blockquote>",
-      "original_text": "\nExercise 2.13: Show that under the assumption of\nsmall percentage tolerances there is a simple formula for the approximate\npercentage tolerance of the product of two intervals in terms of the tolerances\nof the factors.  You may simplify the problem by assuming that all numbers are\npositive.\n\nAfter considerable work, Alyssa P. Hacker delivers her finished system.\nSeveral years later, after she has forgotten all about it, she gets a frenzied\ncall from an irate user, Lem E. Tweakit.  It seems that Lem has noticed that\nthe formula for parallel resistors can be written in two algebraically\nequivalent ways:\n\n  \n    \n      \n        \n          R\n          1\n        \n        \n          R\n          2\n        \n      \n      \n        \n          R\n          1\n        \n        +\n        \n          R\n          2\n        \n      \n    \n  \n\nand\n\n  \n    \n      \n        1\n        \n          1\n          \n            /\n          \n          \n            R\n            1\n          \n          +\n          1\n          \n            /\n          \n          \n            R\n            2\n          \n        \n      \n    \n    .\n  \n\nHe has written the following two programs, each of which computes the\nparallel-resistors formula differently:\n\n\n(define (par1 r1 r2)\n  (div-interval \n   (mul-interval r1 r2)\n   (add-interval r1 r2)))\n\n(define (par2 r1 r2)\n  (let ((one (make-interval 1 1)))\n    (div-interval \n     one\n     (add-interval \n      (div-interval one r1) \n      (div-interval one r2)))))\n\nLem complains that Alyssa’s program gives different answers for the two ways of\ncomputing. This is a serious complaint.\n",
-      "source_block_sha256": "fea06639e6491f0bdb2064f6b717678ad34b2eda886be29d906704634cb214e8",
+      "original_html": "<blockquote>\n<p><strong><a id=\"Exercise-2_002e13\"></a>Exercise 2.13:</strong> Show that under the assumption of\nsmall percentage tolerances there is a simple formula for the approximate\npercentage tolerance of the product of two intervals in terms of the tolerances\nof the factors.  You may simplify the problem by assuming that all numbers are\npositive.\n</p></blockquote>",
+      "original_text": "\nExercise 2.13: Show that under the assumption of\nsmall percentage tolerances there is a simple formula for the approximate\npercentage tolerance of the product of two intervals in terms of the tolerances\nof the factors.  You may simplify the problem by assuming that all numbers are\npositive.\n",
+      "source_block_sha256": "2f67141b438d79c59b86ae39dd60ea7c97302177a2a1700807dc97ea7b812f91",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "题目在第一段结束；后续教材讲解从维护档原题中裁出。",
+      "reader_draft": {
+        "title": "小误差相乘",
+        "question_zh": "假设百分比容差很小，证明两个区间乘积的近似百分比容差可用两个因子的容差简单表示。为简化可假定各数均为正。",
+        "answer_zh": "以相对容差 p、q 表示正因子的端点。乘积上下界分别带有因子 (1+p)(1+q)、(1-p)(1-q)，因此乘积中心带因子 1+pq，半宽带因子 p+q。相对容差精确为 (p+q)/(1+pq)，小时近似 p+q。",
+        "solution_region": "intervals",
+        "given_programs": null,
+        "status": "draft_pending_page_integration"
+      }
     },
     {
       "number": "2.14",
@@ -200,8 +326,16 @@
       "original_text": "\nExercise 2.14: Demonstrate that Lem is right.\nInvestigate the behavior of the system on a variety of arithmetic\nexpressions. Make some intervals \n  A\n and \n  B\n, and use them in computing the\nexpressions \n  \n    A\n    \n      /\n    \n    A\n  \n and \n  \n    A\n    \n      /\n    \n    B\n  \n.  You will get the most insight by\nusing intervals whose width is a small percentage of the center value. Examine\nthe results of the computation in center-percent form (see Exercise 2.12).\n",
       "source_block_sha256": "45a5752d018130493bebb3d298379d70bf08c2094034611e9d65dc841f74b23d",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。",
+      "reader_draft": {
+        "title": "比较两种并联公式",
+        "question_zh": "验证 Lem 关于并联电阻两种公式给出不同结果的观察。在多种算术表达式上试验区间系统：构造中心附近的窄区间 A、B，特别计算 A/A 与 A/B。用习题 2.12 的中心及百分比形式观察实际结果。",
+        "answer_zh": "取 A=[99,101]、B=[198,202]。A/A 的端点是 99/101、101/99，中心为 10001/9999，相对容差为 200/10001。A/B 的端点恰为前例的一半，相对容差相同。par2 得 [66,202/3]；par1 更宽，因为同一个 A 或 B 在不同位置可以取不一致的端点。",
+        "solution_region": "intervals",
+        "given_programs": null,
+        "status": "draft_pending_page_integration"
+      }
     },
     {
       "number": "2.15",
@@ -212,8 +346,16 @@
       "original_text": "\nExercise 2.15: Eva Lu Ator, another user, has\nalso noticed the different intervals computed by different but algebraically\nequivalent expressions. She says that a formula to compute with intervals using\nAlyssa’s system will produce tighter error bounds if it can be written in such\na form that no variable that represents an uncertain number is repeated.  Thus,\nshe says, par2 is a “better” program for parallel resistances than\npar1.  Is she right?  Why?\n",
       "source_block_sha256": "340b86d4bdf6ff475cbdcd46ebeda8ad7e7a2675323817909d154c3ca8e02ed5",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。",
+      "reader_draft": {
+        "title": "重复不确定量",
+        "question_zh": "Eva Lu Ator 也注意到代数等价的表达式会计算出不同区间。她认为若能改写公式，使每个表示不确定数的变量只出现一次，就能得到更紧的误差界；因此并联电阻的 par2 优于 par1。她说得对吗？说明理由。",
+        "answer_zh": "对这里的正电阻区间成立。par2 中各电阻各出现一次，倒数、相加与再次取倒数的端点可由同一组输入同时实现。par1 的乘积与和分别取极值时允许同一电阻取不同值，包围区间因此过宽。",
+        "solution_region": "intervals",
+        "given_programs": null,
+        "status": "draft_pending_page_integration"
+      }
     },
     {
       "number": "2.16",
@@ -224,8 +366,16 @@
       "original_text": "\nExercise 2.16: Explain, in general, why\nequivalent algebraic expressions may lead to different answers.  Can you devise\nan interval-arithmetic package that does not have this shortcoming, or is this\ntask impossible?  (Warning: This problem is very difficult.)\n",
       "source_block_sha256": "c0b5a711700fb85efcaaaee2162e06ad16b923a14658d5b8b2821222a04bcfdb",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。",
+      "reader_draft": {
+        "title": "等价表达式与依赖性",
+        "question_zh": "一般地解释为什么代数等价的表达式会算出不同结果。能设计一个没有这种缺点的区间运算包吗，还是这项任务不可能完成？原书提示此题很难。",
+        "answer_zh": "只保存上下端会抹去表达式间的依赖，例如 x-x 的真实范围为零，而两个独立但同范围的变量之差可以非零。仅凭二者端点，局部减法不可能区分这两种情况。附带符号身份、保留表达式或对受限表达式求精确范围能够改进；这个反例并未证明所有更丰富的表示都不可能。",
+        "solution_region": "intervals",
+        "given_programs": null,
+        "status": "draft_pending_page_integration"
+      }
     },
     {
       "number": "2.17",
@@ -236,8 +386,14 @@
       "original_text": "\nExercise 2.17: Define a procedure\nlast-pair that returns the list that contains only the last element of a\ngiven (nonempty) list:\n\n\n(last-pair (list 23 72 149 34))\n(34)\n\n",
       "source_block_sha256": "ff5992cef26e74f49a910e71d644cde22d8906b0a8555862c2b023099c2a90cf",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。",
+      "reader_draft": {
+        "title": "末序对",
+        "question_zh": "定义 last-pair，取一个非空表，返回只含最后一个元素的表。例如输入 (23 72 149 34) 应得到 (34)。",
+        "answer_zh": "(define (last-pair xs) (if (null? (cdr xs)) xs (last-pair (cdr xs))))。基例直接返回原末序对，既保留表形状，也不另造元素。",
+        "status": "draft_pending_page_integration"
+      }
     },
     {
       "number": "2.18",
@@ -248,8 +404,14 @@
       "original_text": "\nExercise 2.18: Define a procedure reverse\nthat takes a list as argument and returns a list of the same elements in\nreverse order:\n\n\n(reverse (list 1 4 9 16 25))\n(25 16 9 4 1)\n\n",
       "source_block_sha256": "6c9fdc54350b598e0bf2a6898f9edcfc3d11f295050a437c2697a14aff4c6748",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。",
+      "reader_draft": {
+        "title": "反转顺序",
+        "question_zh": "定义 reverse，使结果保留给定表的所有元素并反转顺序。例如 (1 4 9 16 25) 得 (25 16 9 4 1)。",
+        "answer_zh": "用两个状态保存未读后缀 xs 与已读部分的逆序 acc。每步把 (car xs) 压到 acc 前端，再读 (cdr xs)；遇空返回 acc。每个输入序对只访问一次。",
+        "status": "draft_pending_page_integration"
+      }
     },
     {
       "number": "2.19",
@@ -260,8 +422,14 @@
       "original_text": "\nExercise 2.19: Consider the change-counting\nprogram of 1.2.2.  It would be nice to be able to easily change\nthe currency used by the program, so that we could compute the number of ways\nto change a British pound, for example.  As the program is written, the\nknowledge of the currency is distributed partly into the procedure\nfirst-denomination and partly into the procedure count-change\n(which knows that there are five kinds of U.S. coins).  It would be nicer to be\nable to supply a list of coins to be used for making change.\n\nWe want to rewrite the procedure cc so that its second argument is a\nlist of the values of the coins to use rather than an integer specifying which\ncoins to use.  We could then have lists that defined each kind of currency:\n\n\n(define us-coins \n  (list 50 25 10 5 1))\n\n(define uk-coins \n  (list 100 50 20 10 5 2 1 0.5))\n\nWe could then call cc as follows:\n\n\n(cc 100 us-coins)\n292\n\n\nTo do this will require changing the program cc somewhat.  It will still\nhave the same form, but it will access its second argument differently, as\nfollows:\n\n\n(define (cc amount coin-values)\n  (cond ((= amount 0) \n         1)\n        ((or (< amount 0) \n             (no-more? coin-values)) \n         0)\n        (else\n         (+ (cc \n             amount\n             (except-first-denomination \n              coin-values))\n            (cc \n             (- amount\n                (first-denomination \n                 coin-values))\n             coin-values)))))\n\nDefine the procedures first-denomination,\nexcept-first-denomination and no-more? in terms of primitive\noperations on list structures.  Does the order of the list coin-values\naffect the answer produced by cc?  Why or why not?\n",
       "source_block_sha256": "5cd8d0cdf5a4f370f26dc5d19257132f5d294bbdefaa79be16878e055b1701fa",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。",
+      "reader_draft": {
+        "title": "可替换币制的换零钱",
+        "question_zh": "§1.2.2 把币制分散在 first-denomination 和知道美币有五种的 count-change 中。改让 cc 接受面额表，从而既能处理美币也能处理英镑。保留给定两套币值表、100 美分的 292 种结果及给定 cc 骨架。用基本表操作实现 first-denomination、except-first-denomination、no-more?；面额顺序是否影响答案？解释原因。",
+        "answer_zh": "三个过程分别为 car、cdr、null?。不用第一面额的分支去掉它，用一枚的分支保留它。每个非负硬币计数向量在任一固定面额次序下恰有一条路径；重排互异的正面额只改变枚举次序。英币的半单位可整批倍增改用整数。",
+        "status": "draft_pending_page_integration"
+      }
     },
     {
       "number": "2.20",
@@ -272,8 +440,20 @@
       "original_text": "\nExercise 2.20: The procedures +,\n*, and list take arbitrary numbers of arguments. One way to\ndefine such procedures is to use define with \ndotted-tail notation.  \nIn a procedure definition, a parameter list that has a dot before\nthe last parameter name indicates that, when the procedure is called, the\ninitial parameters (if any) will have as values the initial arguments, as\nusual, but the final parameter’s value will be a \nlist of any\nremaining arguments.  For instance, given the definition\n\n\n(define (f x y . z) ⟨body⟩)\n\nthe procedure f can be called with two or more arguments.  If we\nevaluate\n\n\n(f 1 2 3 4 5 6)\n\nthen in the body of f, x will be 1, y will be 2, and\nz will be the list (3 4 5 6).  Given the definition\n\n\n(define (g . w) ⟨body⟩)\n\nthe procedure g can be called with zero or more arguments.  If we\nevaluate\n\n\n(g 1 2 3 4 5 6)\n\nthen in the body of g, w will be the list (1 2 3 4 5\n6).77\n\nUse this notation to write a procedure same-parity that takes one or\nmore integers and returns a list of all the arguments that have the same\neven-odd parity as the first argument.  For example,\n\n\n(same-parity 1 2 3 4 5 6 7)\n(1 3 5 7)\n\n(same-parity 2 3 4 5 6 7)\n(2 4 6)\n\n",
       "source_block_sha256": "c0b32aaa2c4306e68048b826a0d49cc5e9cb7b15f1b57957c5a2b9d2756142ed",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。",
+      "reader_draft": {
+        "title": "筛出同奇偶性的实参",
+        "question_zh": "加法、乘法和 list 都允许可变数目的实参。点尾形参把剩余实参收成表：调用给定的 f 时 x、y 各取前两项；调用 g 时所有项进入 w。用这一写法定义 same-parity，接受一个或多个整数并按原序返回与首项同奇偶的所有项。保留两组示例。",
+        "answer_zh": "(define (same-parity x . xs) (cons x (filter (lambda (y) (= (modulo x 2) (modulo y 2))) xs)))。首项只放一次；使用 modulo 对负奇数也得到相同的余类。",
+        "status": "draft_pending_page_integration"
+      },
+      "source_footnotes": [
+        {
+          "id": "FOOT77",
+          "original_html": "<div id=\"FOOT77\"><p><a class=\"footnote_backlink\" href=\"#DOCF77\"><sup>77</sup></a>\nTo define <code>f</code> and <code>g</code> using <code>lambda</code> we would\nwrite\n</p>\n<div class=\"lisp\">\n<pre class=\"lisp prettyprinted\" style=\"\"><span class=\"opn\">(</span><span class=\"kwd\">define</span><span class=\"pln\"> f </span><span class=\"opn\">(</span><span class=\"kwd\">lambda</span><span class=\"pln\"> </span><span class=\"opn\">(</span><span class=\"pln\">x y </span><span class=\"pun\">.</span><span class=\"pln\"> z</span><span class=\"clo\">)</span><span class=\"pln\"> ⟨</span><var><span class=\"pln\">body</span></var><span class=\"pln\">⟩</span><span class=\"clo\">))</span><span class=\"pln\">\n</span><span class=\"opn\">(</span><span class=\"kwd\">define</span><span class=\"pln\"> g </span><span class=\"opn\">(</span><span class=\"kwd\">lambda</span><span class=\"pln\"> w ⟨</span><var><span class=\"pln\">body</span></var><span class=\"pln\">⟩</span><span class=\"clo\">))</span></pre></div>\n</div>"
+        }
+      ]
     },
     {
       "number": "2.21",
@@ -284,8 +464,14 @@
       "original_text": "\nExercise 2.21: The procedure square-list\ntakes a list of numbers as argument and returns a list of the squares of those\nnumbers.\n\n\n(square-list (list 1 2 3 4))\n(1 4 9 16)\n\n\nHere are two different definitions of square-list.  Complete both of\nthem by filling in the missing expressions:\n\n\n(define (square-list items)\n  (if (null? items)\n      nil\n      (cons ⟨??⟩ ⟨??⟩)))\n\n(define (square-list items)\n  (map ⟨??⟩ ⟨??⟩))\n",
       "source_block_sha256": "9e58b0e30c9a54d76777358ac802e3426c8aac173df77d64dbc9a25ff83d88d7",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。",
+      "reader_draft": {
+        "title": "列表平方的两种实现",
+        "question_zh": "square-list 应把数表的每一项换成其平方，例如 (1 2 3 4) 得 (1 4 9 16)。补全给定的递归式和 map 式两个定义。",
+        "answer_zh": "递归式的两个空依次为 (square (car items))、(square-list (cdr items))；map 式的两个空是 square、items。两式都保留表的次序。",
+        "status": "draft_pending_page_integration"
+      }
     },
     {
       "number": "2.22",
@@ -296,8 +482,14 @@
       "original_text": "\nExercise 2.22: Louis Reasoner tries to rewrite\nthe first square-list procedure of Exercise 2.21 so that it\nevolves an iterative process:\n\n\n(define (square-list items)\n  (define (iter things answer)\n    (if (null? things)\n        answer\n        (iter (cdr things)\n              (cons (square (car things))\n                    answer))))\n  (iter items nil))\n\nUnfortunately, defining square-list this way produces the answer list in\nthe reverse order of the one desired.  Why?\n\nLouis then tries to fix his bug by interchanging the arguments to cons:\n\n\n(define (square-list items)\n  (define (iter things answer)\n    (if (null? things)\n        answer\n        (iter (cdr things)\n              (cons answer\n                    (square \n                     (car things))))))\n  (iter items nil))\n\nThis doesn’t work either.  Explain.\n",
       "source_block_sha256": "74eae9448c1c5b1a8b17e9f02e88a30b72331d993ec90b7f1802b1dc6ded6c1c",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。",
+      "reader_draft": {
+        "title": "迭代平方表为何反向",
+        "question_zh": "Louis 把上一题的第一种解法改写成给定的迭代过程，却得到逆序的平方表。解释原因。他又交换 cons 的两个参数，为什么仍然失败？",
+        "answer_zh": "迭代从左往右，cons 总向表首添加，所以后来项排在先前项前面。交换参数会把整数放到 cdr 位置：第一次便形成 (() . 1)，后续只会加深嵌套，无法得到正常表。保留前插法，退出时反转一次即可。",
+        "status": "draft_pending_page_integration"
+      }
     },
     {
       "number": "2.23",
@@ -308,8 +500,14 @@
       "original_text": "\nExercise 2.23: The procedure for-each is\nsimilar to map.  It takes as arguments a procedure and a list of\nelements.  However, rather than forming a list of the results, for-each\njust applies the procedure to each of the elements in turn, from left to right.\nThe values returned by applying the procedure to the elements are not used at\nall—for-each is used with procedures that perform an action, such as\nprinting.  For example,\n\n\n(for-each \n (lambda (x) (newline) (display x))\n (list 57 321 88))\n\n57\n321\n88\n\n\nThe value returned by the call to for-each (not illustrated above) can\nbe something arbitrary, such as true.  Give an implementation of\nfor-each.\n",
       "source_block_sha256": "153f2b8a483486720e377fdd2ccade385e6b6642284672da96bd73af6178f733",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。",
+      "reader_draft": {
+        "title": "按顺序执行副作用",
+        "question_zh": "定义类似 map 的 for-each，接受一个过程和一个表，从左向右逐项应用过程，忽略每次调用的返回值。打印 57、321、88 的例子须保持顺序；for-each 自身可返回任意值，例如真。",
+        "answer_zh": "(define (for-each proc xs) (if (null? xs) #t (begin (proc (car xs)) (for-each proc (cdr xs)))))。begin 明确当前副作用发生在递归之前。",
+        "status": "draft_pending_page_integration"
+      }
     },
     {
       "number": "2.24",
@@ -320,8 +518,14 @@
       "original_text": "\nExercise 2.24: Suppose we evaluate the\nexpression (list 1 (list 2 (list 3 4))).  Give the result printed by the\ninterpreter, the corresponding box-and-pointer structure, and the\ninterpretation of this as a tree (as in Figure 2.6).\n",
       "source_block_sha256": "43abd6db6cf52996493a79316699c55bed9c86c27e91260c15e5821d102832ef",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。",
+      "reader_draft": {
+        "title": "同一嵌套表的三种读法",
+        "question_zh": "求 (list 1 (list 2 (list 3 4)))。给出解释器打印的结果、对应的盒箭结构，以及把它看成树时的形状（参照图 2.6）。",
+        "answer_zh": "打印 (1 (2 (3 4)))。外表是 [1|→] [↓|空]，向下的子表是 [2|→] [↓|空]，最内层为 [3|→] [4|空]。树的根分支指向叶 1 与第二层；第二层分支指向叶 2 与末层；末层以 3、4 为叶。",
+        "status": "draft_pending_page_integration"
+      }
     },
     {
       "number": "2.25",
@@ -332,8 +536,14 @@
       "original_text": "\nExercise 2.25: Give combinations of cars\nand cdrs that will pick 7 from each of the following lists:\n\n\n(1 3 (5 7) 9)\n((7))\n(1 (2 (3 (4 (5 (6 7))))))\n",
       "source_block_sha256": "44e6c18e6a99a575fed6a4f9d51483b090004df7c071f05a4f10b37a9937867d",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。",
+      "reader_draft": {
+        "title": "沿 car 与 cdr 找到 7",
+        "question_zh": "对给定的三个表分别写出 car、cdr 的组合以选出 7：(1 3 (5 7) 9)、((7))、(1 (2 (3 (4 (5 (6 7))))))。",
+        "answer_zh": "第一项 (cadr (caddr xs))，第二项 (caar xs)，第三项对 xs 连续取六次 cadr。第三个表每层的第二个元素指向下一层，最后一层的第二个元素是数 7。",
+        "status": "draft_pending_page_integration"
+      }
     },
     {
       "number": "2.26",
@@ -344,8 +554,14 @@
       "original_text": "\nExercise 2.26: Suppose we define x and\ny to be two lists:\n\n\n(define x (list 1 2 3))\n(define y (list 4 5 6))\n\nWhat result is printed by the interpreter in response to evaluating each of the\nfollowing expressions:\n\n\n(append x y)\n(cons x y)\n(list x y)\n",
       "source_block_sha256": "b89015187aacc5475160de79b1c9913fc7d8d490427cd73f0118547a156fcf64",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。",
+      "reader_draft": {
+        "title": "拼接与构造的区别",
+        "question_zh": "令 x、y 分别为给定的 (1 2 3) 与 (4 5 6)。解释器对 (append x y)、(cons x y)、(list x y) 各打印什么？",
+        "answer_zh": "依次打印 (1 2 3 4 5 6)、((1 2 3) 4 5 6)、((1 2 3) (4 5 6))。append 把 x 的元素置于 y 前；cons 以整个 x 为一个元素；list 把 x 与 y 都作为元素。",
+        "status": "draft_pending_page_integration"
+      }
     },
     {
       "number": "2.27",
@@ -356,8 +572,14 @@
       "original_text": "\nExercise 2.27: Modify your reverse\nprocedure of Exercise 2.18 to produce a deep-reverse procedure\nthat takes a list as argument and returns as its value the list with its\nelements reversed and with all sublists deep-reversed as well.  For example,\n\n\n(define x \n  (list (list 1 2) (list 3 4)))\n\nx\n((1 2) (3 4))\n\n(reverse x)\n((3 4) (1 2))\n\n(deep-reverse x)\n((4 3) (2 1))\n\n",
       "source_block_sha256": "bd14a628103511cddd1a43fda90b5dace8fdb1080eb3ad83f42d9011ed49d394",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。",
+      "reader_draft": {
+        "title": "深反转",
+        "question_zh": "将习题 2.18 的 reverse 改为 deep-reverse。它反转外表的顺序，并递归深反转每个子表。用给定 x 比较普通反转和深反转。",
+        "answer_zh": "对非表原子保持原值，对表递归处理每个元素并反转次序：(define (deep-reverse t) (if (list? t) (reverse (map deep-reverse t)) t))。对 ((1 2) (3 4)) 得 ((4 3) (2 1))。",
+        "status": "draft_pending_page_integration"
+      }
     },
     {
       "number": "2.28",
@@ -368,8 +590,14 @@
       "original_text": "\nExercise 2.28: Write a procedure fringe\nthat takes as argument a tree (represented as a list) and returns a list whose\nelements are all the leaves of the tree arranged in left-to-right order.  For\nexample,\n\n\n(define x \n  (list (list 1 2) (list 3 4)))\n\n(fringe x)\n(1 2 3 4)\n\n(fringe (list x x))\n(1 2 3 4 1 2 3 4)\n\n",
       "source_block_sha256": "1534850b576a06ee13d4e6c71067bf5ad05bd3ea8330485951859d949e4005cc",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。",
+      "reader_draft": {
+        "title": "树的边缘",
+        "question_zh": "定义 fringe，读取以表表示的树，按从左到右的次序列出所有叶。给定 x=((1 2) (3 4)) 及 (list x x)，应分别得到一份与连续两份 (1 2 3 4)。",
+        "answer_zh": "空表不贡献叶，原子贡献自己；序对先取左部的叶再接右部的叶。程序 fringe 把结果尾部当作参数传入，所以不必在每个内节点复制左侧结果表。",
+        "status": "draft_pending_page_integration"
+      }
     },
     {
       "number": "2.29",
@@ -380,8 +608,8 @@
       "original_text": "\nExercise 2.29: A binary mobile consists of two\nbranches, a left branch and a right branch.  Each branch is a rod of a certain\nlength, from which hangs either a weight or another binary mobile.  We can\nrepresent a binary mobile using compound data by constructing it from two\nbranches (for example, using list):\n\n\n(define (make-mobile left right)\n  (list left right))\n\nA branch is constructed from a length (which must be a number) together\nwith a structure, which may be either a number (representing a simple\nweight) or another mobile:\n\n\n(define (make-branch length structure)\n  (list length structure))\n\n\n Write the corresponding selectors left-branch and right-branch,\nwhich return the branches of a mobile, and branch-length and\nbranch-structure, which return the components of a branch.\n\n Using your selectors, define a procedure total-weight that returns the\ntotal weight of a mobile.\n\n A mobile is said to be \nbalanced if the torque applied by its top-left\nbranch is equal to that applied by its top-right branch (that is, if the length\nof the left rod multiplied by the weight hanging from that rod is equal to the\ncorresponding product for the right side) and if each of the submobiles hanging\noff its branches is balanced. Design a predicate that tests whether a binary\nmobile is balanced.\n\n Suppose we change the representation of mobiles so that the constructors are\n\n\n(define (make-mobile left right)\n  (cons left right))\n\n(define (make-branch length structure)\n  (cons length structure))\n\nHow much do you need to change your programs to convert to the new\nrepresentation?\n\n\n",
       "source_block_sha256": "b75d325a9bbdbee1174522d28125b0326301a79cd024b0314438727426c89158",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.30",
@@ -392,8 +620,8 @@
       "original_text": "\nExercise 2.30: Define a procedure\nsquare-tree analogous to the square-list procedure of\nExercise 2.21.  That is, square-tree should behave as follows:\n\n\n(square-tree\n (list 1\n       (list 2 (list 3 4) 5)\n       (list 6 7)))\n(1 (4 (9 16) 25) (36 49))\n\n\nDefine square-tree both directly (i.e., without using any higher-order\nprocedures) and also by using map and recursion.\n",
       "source_block_sha256": "43bd07e5c96b77fd6296b8c8b60320aa727bdcb886116b4866d963a936ab07bf",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.31",
@@ -404,8 +632,8 @@
       "original_text": "\nExercise 2.31: Abstract your answer to\nExercise 2.30 to produce a procedure tree-map with the property\nthat square-tree could be defined as\n\n\n(define (square-tree tree) \n  (tree-map square tree))\n",
       "source_block_sha256": "739112179ae2e363c054b89dac504692ecd77b07d08bfeabbe9e126ffdf71e60",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.32",
@@ -416,8 +644,8 @@
       "original_text": "\nExercise 2.32: We can represent a set as a list\nof distinct elements, and we can represent the set of all subsets of the set as\na list of lists.  For example, if the set is (1 2 3), then the set of\nall subsets is (() (3) (2) (2 3) (1) (1 3) (1 2) (1 2 3)).  Complete the\nfollowing definition of a procedure that generates the set of subsets of a set\nand give a clear explanation of why it works:\n\n\n(define (subsets s)\n  (if (null? s)\n      (list nil)\n      (let ((rest (subsets (cdr s))))\n        (append rest (map ⟨??⟩ rest)))))\n",
       "source_block_sha256": "577bc452b0593192e94234ae190cf742b4b93d48452cbcbd95e8280efc4f562c",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.33",
@@ -428,8 +656,8 @@
       "original_text": "\nExercise 2.33: Fill in the missing expressions\nto complete the following definitions of some basic list-manipulation\noperations as accumulations:\n\n\n(define (map p sequence)\n  (accumulate (lambda (x y) ⟨??⟩) \n              nil sequence))\n\n(define (append seq1 seq2)\n  (accumulate cons ⟨??⟩ ⟨??⟩))\n\n(define (length sequence)\n  (accumulate ⟨??⟩ 0 sequence))\n",
       "source_block_sha256": "bb73aa4f7ecfb14e51244f5e02ef7311d45f1e3559bd963be90400eda7d69ec7",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.34",
@@ -440,8 +668,14 @@
       "original_text": "\nExercise 2.34: Evaluating a polynomial in \n  x\n\nat a given value of \n  x\n can be formulated as an accumulation.  We evaluate\nthe polynomial\n\n  \n    \n      a\n      n\n    \n    \n      x\n      n\n    \n  \n  +\n  \n    \n      a\n      \n        n\n        −\n        1\n      \n    \n    \n      x\n      \n        n\n        −\n        1\n      \n    \n  \n  +\n  ⋯\n  +\n  \n    \n      a\n      1\n    \n    x\n  \n  +\n  \n    a\n    0\n  \n\nusing a well-known algorithm called \nHorner’s rule, which structures\nthe computation as\n\n  \n    (\n    …\n    (\n    \n      a\n      n\n    \n    x\n  \n  +\n  \n    \n      a\n      \n        n\n        −\n        1\n      \n    \n    )\n    x\n  \n  +\n  ⋯\n  +\n  \n    \n      a\n      1\n    \n    )\n    x\n  \n  +\n  \n    \n      a\n      0\n    \n    .\n  \n\nIn other words, we start with \n  \n    a\n    n\n  \n, multiply by \n  x\n, add\n\n  \n    a\n    \n      n\n      −\n      1\n    \n  \n, multiply by \n  x\n, and so on, until we reach\n\n  \n    a\n    0\n  \n.82\n\nFill in the following template to produce a procedure that evaluates a\npolynomial using Horner’s rule.  Assume that the coefficients of the polynomial\nare arranged in a sequence, from \n  \n    a\n    0\n  \n through \n  \n    a\n    n\n  \n.\n\n\n(define \n  (horner-eval x coefficient-sequence)\n  (accumulate \n   (lambda (this-coeff higher-terms)\n     ⟨??⟩)\n   0\n   coefficient-sequence))\n\nFor example, to compute \n  \n    1\n    +\n    3\n    x\n  \n  +\n  \n    5\n    \n      x\n      3\n    \n    +\n    \n      x\n      5\n    \n  \n at \n  \n    x\n    =\n    2\n  \n you\nwould evaluate\n\n\n(horner-eval 2 (list 1 3 0 5 0 1))\n",
       "source_block_sha256": "dcdba20bedd7905209876f74782ea5882b982b609fee74b05b18c48848e00a74",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。",
+      "source_footnotes": [
+        {
+          "id": "FOOT82",
+          "original_html": "<div id=\"FOOT82\"><p><a class=\"footnote_backlink\" href=\"#DOCF82\"><sup>82</sup></a>\nAccording to <a href=\"References.xhtml#Knuth-1981\">Knuth 1981</a>, this rule was formulated by\nW. G. Horner early in the nineteenth century, but the method was actually used\nby Newton over a hundred years earlier.  Horner’s rule evaluates the polynomial\nusing fewer additions and multiplications than does the straightforward method\nof first computing <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n  <mrow class=\"MJX-TeXAtom-ORD\">\n    <msub>\n      <mi>a</mi>\n      <mi>n</mi>\n    </msub>\n    <msup>\n      <mi>x</mi>\n      <mi>n</mi>\n    </msup>\n  </mrow>\n</math>, then adding\n<math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n  <mrow class=\"MJX-TeXAtom-ORD\">\n    <msub>\n      <mi>a</mi>\n      <mrow class=\"MJX-TeXAtom-ORD\">\n        <mi>n</mi>\n        <mo>−<!-- − --></mo>\n        <mn>1</mn>\n      </mrow>\n    </msub>\n    <msup>\n      <mi>x</mi>\n      <mrow class=\"MJX-TeXAtom-ORD\">\n        <mi>n</mi>\n        <mo>−<!-- − --></mo>\n        <mn>1</mn>\n      </mrow>\n    </msup>\n  </mrow>\n</math>, and so on.  In fact, it is possible to prove\nthat any algorithm for evaluating arbitrary polynomials must use at least as\nmany additions and multiplications as does Horner’s rule, and thus Horner’s\nrule is an optimal algorithm for polynomial evaluation.  This was proved (for\nthe number of additions) by A. M. Ostrowski in a 1954 paper that essentially\nfounded the modern study of optimal algorithms.  The analogous statement for\nmultiplications was proved by V. Y. Pan in 1966.  The book by <a href=\"References.xhtml#Borodin-and-Munro-_00281975_0029\">Borodin and Munro (1975)</a> \nprovides an overview of these and other results about optimal\nalgorithms.</p>\n</div>"
+        }
+      ]
     },
     {
       "number": "2.35",
@@ -452,8 +686,8 @@
       "original_text": "\nExercise 2.35: Redefine count-leaves from\n2.2.2 as an accumulation:\n\n\n(define (count-leaves t)\n  (accumulate ⟨??⟩ ⟨??⟩ (map ⟨??⟩ ⟨??⟩)))\n",
       "source_block_sha256": "9bd672598a8485c896693123bcd6d74d016e7f1831cff9aa56a137541a238c42",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.36",
@@ -464,8 +698,8 @@
       "original_text": "\nExercise 2.36: The procedure accumulate-n\nis similar to accumulate except that it takes as its third argument a\nsequence of sequences, which are all assumed to have the same number of\nelements.  It applies the designated accumulation procedure to combine all the\nfirst elements of the sequences, all the second elements of the sequences, and\nso on, and returns a sequence of the results.  For instance, if s is a\nsequence containing four sequences, ((1 2 3) (4 5 6) (7 8 9) (10 11\n12)), then the value of (accumulate-n + 0 s) should be the sequence\n(22 26 30).  Fill in the missing expressions in the following definition\nof accumulate-n:\n\n\n(define (accumulate-n op init seqs)\n  (if (null? (car seqs))\n      nil\n      (cons (accumulate op init ⟨??⟩)\n            (accumulate-n op init ⟨??⟩))))\n",
       "source_block_sha256": "3ae892c9866cfa4da210882745f982deaa53d4c9d06acc564bfaf036749c8fa4",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.37",
@@ -476,8 +710,14 @@
       "original_text": "\nExercise 2.37:\nSuppose we represent vectors v = \n\n  (\n  \n    v\n    i\n  \n  )\n\n as sequences of numbers, and\nmatrices m = \n\n  (\n  \n    m\n    \n      i\n      j\n    \n  \n  )\n\n as sequences of vectors (the rows of the\nmatrix).  For example, the matrix\n\n  \n    (\n    \n      \n        \n          1\n        \n        \n          2\n        \n        \n          3\n        \n        \n          4\n        \n      \n      \n        \n          4\n        \n        \n          5\n        \n        \n          6\n        \n        \n          6\n        \n      \n      \n        \n          6\n        \n        \n          7\n        \n        \n          8\n        \n        \n          9\n        \n      \n    \n    )\n  \n\nis represented as the sequence ((1 2 3 4) (4 5 6 6) (6 7 8 9)).  With\nthis representation, we can use sequence operations to concisely express the\nbasic matrix and vector operations.  These operations (which are described in\nany book on matrix algebra) are the following:\n\n\n  \n    \n      (dot-product v w)\n    \n    \n      returns the sum\n      \n      \n        Σ\n        i\n      \n      \n        v\n        i\n      \n      \n        w\n        i\n      \n      ;\n    \n  \n  \n    \n      (matrix-*-vector m v)\n    \n    \n      returns the vector\n      \n      \n        t\n      \n      ,\n    \n  \n  \n    \n    \n      where\n      \n      \n        t\n        i\n      \n      =\n      \n        Σ\n        j\n      \n      \n        m\n        \n          i\n          j\n        \n      \n      \n        v\n        j\n      \n      ;\n    \n  \n  \n    \n      (matrix-*-matrix m n)\n    \n    \n      returns the matrix\n      \n      \n        p\n      \n      ,\n    \n  \n  \n    \n    \n      where\n      \n      \n        p\n        \n          i\n          j\n        \n      \n      =\n      \n        Σ\n        k\n      \n      \n        m\n        \n          i\n          k\n        \n      \n      \n        n\n        \n          k\n          j\n        \n      \n      ;\n    \n  \n  \n    \n      (transpose m)\n    \n    \n      returns the matrix\n      \n      \n        n\n      \n      ,\n    \n  \n  \n    \n    \n      where\n      \n      \n        n\n        \n          i\n          j\n        \n      \n      =\n      \n        m\n        \n          j\n          i\n        \n      \n      .\n    \n  \n\n\nWe can define the dot product as83\n\n\n(define (dot-product v w)\n  (accumulate + 0 (map * v w)))\n\nFill in the missing expressions in the following procedures for computing the\nother matrix operations.  (The procedure accumulate-n is defined in\nExercise 2.36.)\n\n\n(define (matrix-*-vector m v)\n  (map ⟨??⟩ m))\n\n(define (transpose mat)\n  (accumulate-n ⟨??⟩ ⟨??⟩ mat))\n\n(define (matrix-*-matrix m n)\n  (let ((cols (transpose n)))\n    (map ⟨??⟩ m)))\n",
       "source_block_sha256": "488c4285a86d8ebac45126066e33ed13ec7c6424c3788ec34776315f69ea0459",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。",
+      "source_footnotes": [
+        {
+          "id": "FOOT83",
+          "original_html": "<div id=\"FOOT83\"><p><a class=\"footnote_backlink\" href=\"#DOCF83\"><sup>83</sup></a>\nThis definition uses the extended\nversion of <code>map</code> described in <a href=\"#Footnote-78\">Footnote 78</a>.</p>\n</div>"
+        }
+      ]
     },
     {
       "number": "2.38",
@@ -488,8 +728,8 @@
       "original_text": "\nExercise 2.38: The accumulate procedure\nis also known as fold-right, because it combines the first element of\nthe sequence with the result of combining all the elements to the right.  There\nis also a fold-left, which is similar to fold-right, except that\nit combines elements working in the opposite direction:\n\n\n(define (fold-left op initial sequence)\n  (define (iter result rest)\n    (if (null? rest)\n        result\n        (iter (op result (car rest))\n              (cdr rest))))\n  (iter initial sequence))\n\nWhat are the values of\n\n\n(fold-right / 1 (list 1 2 3))\n(fold-left  / 1 (list 1 2 3))\n(fold-right list nil (list 1 2 3))\n(fold-left  list nil (list 1 2 3))\n\nGive a property that op should satisfy to guarantee that\nfold-right and fold-left will produce the same values for any\nsequence.\n",
       "source_block_sha256": "1a773cf23f9a031f145724ebed6389347871ca6c8c84440fc78507b506a99ac9",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.39",
@@ -500,8 +740,8 @@
       "original_text": "\nExercise 2.39: Complete the following\ndefinitions of reverse (Exercise 2.18) in terms of\nfold-right and fold-left from Exercise 2.38:\n\n\n(define (reverse sequence)\n  (fold-right \n   (lambda (x y) ⟨??⟩) nil sequence))\n\n(define (reverse sequence)\n  (fold-left \n   (lambda (x y) ⟨??⟩) nil sequence))\n",
       "source_block_sha256": "3a437f956b920411ac0368f6a5626add573a878cceb94720fe7d4c201076fba5",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.40",
@@ -512,8 +752,8 @@
       "original_text": "\nExercise 2.40: Define a procedure\nunique-pairs that, given an integer \n  n\n, generates the sequence of\npairs \n  \n    (\n    i\n    ,\n    j\n    )\n  \n with \n  \n    1\n    ≤\n    j\n  \n  <\n  \n    i\n    ≤\n    n\n  \n.  Use unique-pairs\nto simplify the definition of prime-sum-pairs given above.\n",
       "source_block_sha256": "4019e8bfcdf6385c0b2f14b1bcbe017f7b31f36e6d7bea3e1d3426a5df8e04c4",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.41",
@@ -524,8 +764,8 @@
       "original_text": "\nExercise 2.41: Write a procedure to find all\nordered triples of distinct positive integers \n  i\n, \n  j\n, and \n  k\n less than\nor equal to a given integer \n  n\n that sum to a given integer \n  s\n.\n",
       "source_block_sha256": "2343f71a8333606031047c8f0a686b126a4b393b320419aed374a6f52e6eea68",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.42",
@@ -536,8 +776,8 @@
       "original_text": "\nExercise 2.42: The “eight-queens puzzle” asks\nhow to place eight queens on a chessboard so that no queen is in check from any\nother (i.e., no two queens are in the same row, column, or diagonal).  One\npossible solution is shown in Figure 2.8.  One way to solve the puzzle is\nto work across the board, placing a queen in each column.  Once we have placed\n\n  \n    k\n    −\n    1\n  \n queens, we must place the \n  \n    k\n    \n      th\n    \n  \n queen in a position where it does\nnot check any of the queens already on the board.  We can formulate this\napproach recursively: Assume that we have already generated the sequence of all\npossible ways to place \n  \n    k\n    −\n    1\n  \n queens in the first \n  \n    k\n    −\n    1\n  \n columns of the\nboard.  For each of these ways, generate an extended set of positions by\nplacing a queen in each row of the \n  \n    k\n    \n      th\n    \n  \n column.  Now filter these, keeping\nonly the positions for which the queen in the \n  \n    k\n    \n      th\n    \n  \n column is safe with\nrespect to the other queens.  This produces the sequence of all ways to place\n\n  k\n queens in the first \n  k\n columns.  By continuing this process, we will\nproduce not only one solution, but all solutions to the puzzle.\n\n\n\nSVG\n\n\nFigure 2.8: A solution to the eight-queens puzzle.\n\n\n\nWe implement this solution as a procedure queens, which returns a\nsequence of all solutions to the problem of placing \n  n\n queens on an\n\n  \n    n\n    ×\n    n\n  \n chessboard.  Queens has an internal procedure\nqueen-cols that returns the sequence of all ways to place queens in the\nfirst \n  k\n columns of the board.\n\n\n(define (queens board-size)\n  (define (queen-cols k)\n    (if (= k 0)\n        (list empty-board)\n        (filter\n         (lambda (positions) \n           (safe? k positions))\n         (flatmap\n          (lambda (rest-of-queens)\n            (map (lambda (new-row)\n                   (adjoin-position \n                    new-row \n                    k \n                    rest-of-queens))\n                 (enumerate-interval \n                  1 \n                  board-size)))\n          (queen-cols (- k 1))))))\n  (queen-cols board-size))\n\nIn this procedure rest-of-queens is a way to place \n  \n    k\n    −\n    1\n  \n queens in\nthe first \n  \n    k\n    −\n    1\n  \n columns, and new-row is a proposed row in which to\nplace the queen for the \n  \n    k\n    \n      th\n    \n  \n column.  Complete the program by implementing\nthe representation for sets of board positions, including the procedure\nadjoin-position, which adjoins a new row-column position to a set of\npositions, and empty-board, which represents an empty set of positions.\nYou must also write the procedure safe?, which determines for a set of\npositions, whether the queen in the \n  \n    k\n    \n      th\n    \n  \n column is safe with respect to the\nothers.  (Note that we need only check whether the new queen is safe—the\nother queens are already guaranteed safe with respect to each other.)\n",
       "source_block_sha256": "02a80ed23278c297c49a1270b0af74e3a89810cedcc784c64f8b749423125eef",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.43",
@@ -548,8 +788,8 @@
       "original_text": "\nExercise 2.43: Louis Reasoner is having a\nterrible time doing Exercise 2.42.  His queens procedure seems to\nwork, but it runs extremely slowly.  (Louis never does manage to wait long\nenough for it to solve even the \n  \n    6\n    ×\n    6\n  \n case.)  When Louis asks Eva Lu Ator for\nhelp, she points out that he has interchanged the order of the nested mappings\nin the flatmap, writing it as\n\n\n(flatmap\n (lambda (new-row)\n   (map (lambda (rest-of-queens)\n          (adjoin-position \n           new-row k rest-of-queens))\n        (queen-cols (- k 1))))\n (enumerate-interval 1 board-size))\n\nExplain why this interchange makes the program run slowly.  Estimate how long\nit will take Louis’s program to solve the eight-queens puzzle, assuming that\nthe program in Exercise 2.42 solves the puzzle in time \n  T\n.\n",
       "source_block_sha256": "a079f74c2b524338d382bcb66bf1dc524bf7e42ecf4832a1fed049f687aed9cb",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.44",
@@ -560,8 +800,8 @@
       "original_text": "\nExercise 2.44: Define the procedure\nup-split used by corner-split.  It is similar to\nright-split, except that it switches the roles of below and\nbeside.\n",
       "source_block_sha256": "3b22a7b88a9411c6d9f457ff250598a6bbe3a3955451ca559d3fbfd39c0a7411",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.45",
@@ -572,8 +812,8 @@
       "original_text": "\nExercise 2.45: Right-split and\nup-split can be expressed as instances of a general splitting operation.\nDefine a procedure split with the property that evaluating\n\n\n(define right-split (split beside below))\n(define up-split (split below beside))\n\nproduces procedures right-split and up-split with the same\nbehaviors as the ones already defined.\n",
       "source_block_sha256": "ca3a23f4c2906bcfa77de1143e72261fc5c0dc3d95522681387ee6286afc0887",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.46",
@@ -584,8 +824,8 @@
       "original_text": "\nExercise 2.46: A two-dimensional vector \n  v\n\nrunning from the origin to a point can be represented as a pair consisting of\nan \n  x\n-coordinate and a \n  y\n-coordinate.  Implement a data abstraction for\nvectors by giving a constructor make-vect and corresponding selectors\nxcor-vect and ycor-vect.  In terms of your selectors and\nconstructor, implement procedures add-vect, sub-vect, and\nscale-vect that perform the operations vector addition, vector\nsubtraction, and multiplying a vector by a scalar:\n\n  \n    \n      \n        (\n        \n          x\n          1\n        \n        ,\n        \n          y\n          1\n        \n        )\n        +\n        (\n        \n          x\n          2\n        \n        ,\n        \n          y\n          2\n        \n        )\n      \n      \n        =\n      \n      \n        (\n        \n          x\n          1\n        \n        +\n        \n          x\n          2\n        \n        ,\n        \n          y\n          1\n        \n        +\n        \n          y\n          2\n        \n        )\n        ,\n      \n    \n    \n      \n        (\n        \n          x\n          1\n        \n        ,\n        \n          y\n          1\n        \n        )\n        −\n        (\n        \n          x\n          2\n        \n        ,\n        \n          y\n          2\n        \n        )\n      \n      \n        =\n      \n      \n        (\n        \n          x\n          1\n        \n        −\n        \n          x\n          2\n        \n        ,\n        \n          y\n          1\n        \n        −\n        \n          y\n          2\n        \n        )\n        ,\n      \n    \n    \n      \n        s\n        ⋅\n        (\n        x\n        ,\n        y\n        )\n      \n      \n        =\n      \n      \n        (\n        s\n        x\n        ,\n        s\n        y\n        )\n        .\n      \n    \n  \n\n",
       "source_block_sha256": "db68c89a67257df1aee935266e196098ec6323eba155dd077af91454b4babc89",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.47",
@@ -596,8 +836,8 @@
       "original_text": "\nExercise 2.47: Here are two possible\nconstructors for frames:\n\n\n(define (make-frame origin edge1 edge2)\n  (list origin edge1 edge2))\n\n(define (make-frame origin edge1 edge2)\n  (cons origin (cons edge1 edge2)))\n\nFor each constructor supply the appropriate selectors to produce an\nimplementation for frames.\n",
       "source_block_sha256": "7469f6b56e22a19ff8f21b0906425d6f968eb2eb621328c635bec70a285a058e",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.48",
@@ -608,8 +848,8 @@
       "original_text": "\nExercise 2.48: A directed line segment in the\nplane can be represented as a pair of vectors—the vector running from the\norigin to the start-point of the segment, and the vector running from the\norigin to the end-point of the segment.  Use your vector representation from\nExercise 2.46 to define a representation for segments with a constructor\nmake-segment and selectors start-segment and end-segment.\n",
       "source_block_sha256": "557902a3f1e9b8cadfda41d259b8edb871a938f8d1eb3d5b3ff07b5c607b7e57",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.49",
@@ -620,8 +860,8 @@
       "original_text": "\nExercise 2.49: Use segments->painter\nto define the following primitive painters:\n\n\n The painter that draws the outline of the designated frame.\n\n The painter that draws an “X” by connecting opposite corners of the frame.\n\n The painter that draws a diamond shape by connecting the midpoints of the sides\nof the frame.\n\n The wave painter.\n\n\n",
       "source_block_sha256": "1abd7138b16b01412bf89b21ab64e9b49a7453bee1ee883d06da73242d356fcf",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.50",
@@ -632,8 +872,8 @@
       "original_text": "\nExercise 2.50: Define the transformation\nflip-horiz, which flips painters horizontally, and transformations that\nrotate painters counterclockwise by 180 degrees and 270 degrees.\n",
       "source_block_sha256": "e24f58c0e9b1ecb6d5b2a14fd96593290ea3153bf926fbefd1aa6f115bcbc279",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.51",
@@ -644,8 +884,8 @@
       "original_text": "\nExercise 2.51: Define the below operation\nfor painters.  Below takes two painters as arguments.  The resulting\npainter, given a frame, draws with the first painter in the bottom of the frame\nand with the second painter in the top.  Define below in two different\nways—first by writing a procedure that is analogous to the beside\nprocedure given above, and again in terms of beside and suitable\nrotation operations (from Exercise 2.50).\n",
       "source_block_sha256": "0451db1334660f8290ea972daf59151ab5a5dbb33f7d95b9dd052a16eb6f34c1",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.52",
@@ -656,8 +896,8 @@
       "original_text": "\nExercise 2.52: Make changes to the square limit\nof wave shown in Figure 2.9 by working at each of the levels\ndescribed above.  In particular:\n\n\n Add some segments to the primitive wave painter of Exercise 2.49\n(to add a smile, for example).\n\n Change the pattern constructed by corner-split (for example, by using\nonly one copy of the up-split and right-split images instead of\ntwo).\n\n Modify the version of square-limit that uses square-of-four so as\nto assemble the corners in a different pattern.  (For example, you might make\nthe big Mr. Rogers look outward from each corner of the square.)\n\n\n",
       "source_block_sha256": "139a2cc10a23141c3a2815cb6a41d6010d1f314f440e8a6f3ec4d7f2f42911b9",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.53",
@@ -668,8 +908,8 @@
       "original_text": "\nExercise 2.53: What would the interpreter print\nin response to evaluating each of the following expressions?\n\n\n(list 'a 'b 'c)\n(list (list 'george))\n(cdr '((x1 x2) (y1 y2)))\n(cadr '((x1 x2) (y1 y2)))\n(pair? (car '(a short list)))\n(memq 'red '((red shoes) (blue socks)))\n(memq 'red '(red shoes blue socks))\n",
       "source_block_sha256": "f99a802e0641e16c7af122389a5dc6ce43c7d568097eab65f3de0e41a0feae0e",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.54",
@@ -680,8 +920,14 @@
       "original_text": "\nExercise 2.54: Two lists are said to be\nequal? if they contain equal elements arranged in the same order.  For\nexample,\n\n\n(equal? '(this is a list) \n        '(this is a list))\n\nis true, but\n\n\n(equal? '(this is a list) \n        '(this (is a) list))\n\nis false.  To be more precise, we can define equal?  recursively in\nterms of the basic eq? equality of symbols by saying that a and\nb are equal? if they are both symbols and the symbols are\neq?, or if they are both lists such that (car a) is equal?\nto (car b) and (cdr a) is equal? to (cdr b).  Using\nthis idea, implement equal? as a procedure.102\n",
       "source_block_sha256": "d767a3b679f6259b5ba3a45b13441e6a510e4541e560635cc60237159abd96f2",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。",
+      "source_footnotes": [
+        {
+          "id": "FOOT102",
+          "original_html": "<div id=\"FOOT102\"><p><a class=\"footnote_backlink\" href=\"#DOCF102\"><sup>102</sup></a>\nIn practice,\nprogrammers use <code>equal?</code> to compare lists that contain numbers as well as\nsymbols.  Numbers are not considered to be symbols.  The question of whether\ntwo numerically equal numbers (as tested by <code>=</code>) are also <code>eq?</code> is\nhighly implementation-dependent.  A better definition of <code>equal?</code> (such as\nthe one that comes as a primitive in Scheme) would also stipulate that if\n<code>a</code> and <code>b</code> are both numbers, then <code>a</code> and <code>b</code> are\n<code>equal?</code> if they are numerically equal.</p>\n</div>"
+        }
+      ]
     },
     {
       "number": "2.55",
@@ -692,8 +938,8 @@
       "original_text": "\nExercise 2.55: Eva Lu Ator types to the\ninterpreter the expression\n\n\n(car ''abracadabra)\n\nTo her surprise, the interpreter prints back quote.  Explain.\n",
       "source_block_sha256": "6abfcd97475611b472e7d2a7c7cb8e1d53bcf1fb6ccd927ee290900d80efe2c6",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.56",
@@ -704,8 +950,8 @@
       "original_text": "\nExercise 2.56: Show how to extend the basic\ndifferentiator to handle more kinds of expressions.  For instance, implement\nthe differentiation rule\n\n  \n    \n      \n        d\n        (\n        \n          u\n          \n            \n            n\n          \n        \n        )\n      \n      \n        d\n        x\n      \n    \n  \n  \n  =\n  \n  \n    n\n    \n      u\n      \n        \n        n\n        −\n        1\n      \n    \n    \n    \n      \n        \n          d\n          u\n        \n        \n          d\n          x\n        \n      \n    \n  \n\nby adding a new clause to the deriv program and defining appropriate\nprocedures exponentiation?, base, exponent, and\nmake-exponentiation.  (You may use the symbol ** to denote\nexponentiation.)  Build in the rules that anything raised to the power 0 is 1\nand anything raised to the power 1 is the thing itself.\n",
       "source_block_sha256": "ef087da637997018ef2c5811a7a10e53939659ad1912c16e8a98a7f10b5a9807",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.57",
@@ -716,8 +962,8 @@
       "original_text": "\nExercise 2.57: Extend the differentiation\nprogram to handle sums and products of arbitrary numbers of (two or more)\nterms.  Then the last example above could be expressed as\n\n\n(deriv '(* x y (+ x 3)) 'x)\n\nTry to do this by changing only the representation for sums and products,\nwithout changing the deriv procedure at all.  For example, the\naddend of a sum would be the first term, and the augend would be\nthe sum of the rest of the terms.\n",
       "source_block_sha256": "3c277989bff0f1976381ea1deffedf9a8078d0baf94d7e6e912ee37022b8beb8",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.58",
@@ -728,8 +974,8 @@
       "original_text": "\nExercise 2.58: Suppose we want to modify the\ndifferentiation program so that it works with ordinary mathematical notation,\nin which + and * are infix rather than prefix operators.  Since\nthe differentiation program is defined in terms of abstract data, we can modify\nit to work with different representations of expressions solely by changing the\npredicates, selectors, and constructors that define the representation of the\nalgebraic expressions on which the differentiator is to operate.\n\n\n Show how to do this in order to differentiate algebraic expressions presented\nin infix form, such as (x + (3 * (x + (y + 2)))).  To simplify the task,\nassume that + and * always take two arguments and that\nexpressions are fully parenthesized.\n\n The problem becomes substantially harder if we allow standard algebraic\nnotation, such as (x + 3 * (x + y + 2)), which drops unnecessary\nparentheses and assumes that multiplication is done before addition.  Can you\ndesign appropriate predicates, selectors, and constructors for this notation\nsuch that our derivative program still works?\n\n\n",
       "source_block_sha256": "ee7276064215a3fd32c62c4c9a7d3af71a9ac403e7cf65c9e53dccd4374a5557",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.59",
@@ -740,8 +986,8 @@
       "original_text": "\nExercise 2.59: Implement the union-set\noperation for the unordered-list representation of sets.\n",
       "source_block_sha256": "4d0fd5381b170f9230f3d50cc8d27382dd0f1a21a17f9bfadd01b3f9134051e7",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.60",
@@ -752,8 +998,8 @@
       "original_text": "\nExercise 2.60: We specified that a set would be\nrepresented as a list with no duplicates.  Now suppose we allow duplicates.\nFor instance, the set \n  \n    {\n    1\n    ,\n    2\n    ,\n    3\n    }\n  \n could be represented as the list (2 3 2 1\n3 2 2).  Design procedures element-of-set?, adjoin-set,\nunion-set, and intersection-set that operate on this\nrepresentation.  How does the efficiency of each compare with the corresponding\nprocedure for the non-duplicate representation?  Are there applications for\nwhich you would use this representation in preference to the non-duplicate one?\n",
       "source_block_sha256": "a0cb1f04b748dfe9f477ec3f402cb9841734f17dc03c8b8971bfd7c301bff79c",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.61",
@@ -764,8 +1010,8 @@
       "original_text": "\nExercise 2.61: Give an implementation of\nadjoin-set using the ordered representation.  By analogy with\nelement-of-set? show how to take advantage of the ordering to produce a\nprocedure that requires on the average about half as many steps as with the\nunordered representation.\n",
       "source_block_sha256": "07343f8b8b08cd6f1af049c90251bc73fbdb7980c2192f9e1a055523eb2f7da5",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.62",
@@ -776,8 +1022,8 @@
       "original_text": "\nExercise 2.62: Give a \n  \n    Θ\n    (\n    n\n    )\n  \n\nimplementation of union-set for sets represented as ordered lists.\n",
       "source_block_sha256": "079244dedd6f811414b169f17b63c56b359cdf86c360f431d4702464cf28e0e5",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.63",
@@ -788,8 +1034,8 @@
       "original_text": "\nExercise 2.63: Each of the following two\nprocedures converts a binary tree to a list.\n\n\n(define (tree->list-1 tree)\n  (if (null? tree)\n      '()\n      (append \n       (tree->list-1 \n        (left-branch tree))\n       (cons (entry tree)\n             (tree->list-1 \n              (right-branch tree))))))\n\n(define (tree->list-2 tree)\n  (define (copy-to-list tree result-list)\n    (if (null? tree)\n        result-list\n        (copy-to-list \n         (left-branch tree)\n         (cons (entry tree)\n               (copy-to-list \n                (right-branch tree)\n                result-list)))))\n  (copy-to-list tree '()))\n\n\n Do the two procedures produce the same result for every tree?  If not, how do\nthe results differ?  What lists do the two procedures produce for the trees in\nFigure 2.16?\n\n Do the two procedures have the same order of growth in the number of steps\nrequired to convert a balanced tree with \n  n\n elements to a list?  If not,\nwhich one grows more slowly?\n\n\n",
       "source_block_sha256": "e3fc7541b696f4d423f91cc652121fa2033f83735599c99d438245266165cc53",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.64",
@@ -800,8 +1046,8 @@
       "original_text": "\nExercise 2.64: The following procedure\nlist->tree converts an ordered list to a balanced binary tree.  The\nhelper procedure partial-tree takes as arguments an integer \n  n\n and\nlist of at least \n  n\n elements and constructs a balanced tree containing the\nfirst \n  n\n elements of the list.  The result returned by partial-tree\nis a pair (formed with cons) whose car is the constructed tree\nand whose cdr is the list of elements not included in the tree.\n\n\n(define (list->tree elements)\n  (car (partial-tree \n        elements (length elements))))\n\n(define (partial-tree elts n)\n  (if (= n 0)\n      (cons '() elts)\n      (let ((left-size \n             (quotient (- n 1) 2)))\n        (let ((left-result \n               (partial-tree \n                elts left-size)))\n          (let ((left-tree \n                 (car left-result))\n                (non-left-elts \n                 (cdr left-result))\n                (right-size \n                 (- n (+ left-size 1))))\n            (let ((this-entry \n                   (car non-left-elts))\n                  (right-result \n                   (partial-tree \n                    (cdr non-left-elts)\n                    right-size)))\n              (let ((right-tree \n                     (car right-result))\n                    (remaining-elts \n                     (cdr right-result)))\n                (cons (make-tree this-entry \n                                 left-tree \n                                 right-tree)\n                      remaining-elts))))))))\n\n\n Write a short paragraph explaining as clearly as you can how\npartial-tree works.  Draw the tree produced by list->tree for\nthe list (1 3 5 7 9 11).\n\n What is the order of growth in the number of steps required by\nlist->tree to convert a list of \n  n\n elements?\n\n\n",
       "source_block_sha256": "829de3eb4c0394fe87075380aaedbdcd40e1475dd3cbcd93b99b343d91a3988a",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.65",
@@ -812,8 +1058,14 @@
       "original_text": "\nExercise 2.65: Use the results of Exercise 2.63 \nand Exercise 2.64 to give \n  \n    Θ\n    (\n    n\n    )\n  \n implementations of\nunion-set and intersection-set for sets implemented as (balanced)\nbinary trees.107\n",
       "source_block_sha256": "7ed8668f8af7ead78be98424c77c264f1729e5a107cb3807e57a4425a39ba362",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。",
+      "source_footnotes": [
+        {
+          "id": "FOOT107",
+          "original_html": "<div id=\"FOOT107\"><p><a class=\"footnote_backlink\" href=\"#DOCF107\"><sup>107</sup></a>\n<a href=\"#Exercise-2_002e63\">Exercise 2.63</a> through <a href=\"#Exercise-2_002e65\">Exercise 2.65</a> are due\nto Paul Hilfinger.</p>\n</div>"
+        }
+      ]
     },
     {
       "number": "2.66",
@@ -824,8 +1076,8 @@
       "original_text": "\nExercise 2.66: Implement the lookup\nprocedure for the case where the set of records is structured as a binary tree,\nordered by the numerical values of the keys.\n",
       "source_block_sha256": "4a7b721237b1c3340d6ee18b9e9b2d222436591b03400524e39f827208068319",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.67",
@@ -836,8 +1088,8 @@
       "original_text": "\nExercise 2.67: Define an encoding tree and a\nsample message:\n\n\n(define sample-tree\n  (make-code-tree \n   (make-leaf 'A 4)\n   (make-code-tree\n    (make-leaf 'B 2)\n    (make-code-tree \n     (make-leaf 'D 1)\n     (make-leaf 'C 1)))))\n\n(define sample-message \n  '(0 1 1 0 0 1 0 1 0 1 1 1 0))\n\nUse the decode procedure to decode the message, and give the result.\n",
       "source_block_sha256": "d0c6fafdf66366fd873399cbd2cc8ea0c7c3e494c29ae580c004e0b03664c172",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.68",
@@ -848,8 +1100,8 @@
       "original_text": "\nExercise 2.68: The encode procedure takes\nas arguments a message and a tree and produces the list of bits that gives the\nencoded message.\n\n\n(define (encode message tree)\n  (if (null? message)\n      '()\n      (append \n       (encode-symbol (car message) \n                      tree)\n       (encode (cdr message) tree))))\n\nEncode-symbol is a procedure, which you must write, that returns the\nlist of bits that encodes a given symbol according to a given tree.  You should\ndesign encode-symbol so that it signals an error if the symbol is not in\nthe tree at all.  Test your procedure by encoding the result you obtained in\nExercise 2.67 with the sample tree and seeing whether it is the same as\nthe original sample message.\n",
       "source_block_sha256": "7904d1c83165628a3862be45520ab3c0248eb09dcab275a3838ad4b796aa9dfc",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.69",
@@ -860,8 +1112,8 @@
       "original_text": "\nExercise 2.69: The following procedure takes as\nits argument a list of symbol-frequency pairs (where no symbol appears in more\nthan one pair) and generates a Huffman encoding tree according to the Huffman\nalgorithm.\n\n\n(define (generate-huffman-tree pairs)\n  (successive-merge \n   (make-leaf-set pairs)))\n\nMake-leaf-set is the procedure given above that transforms the list of\npairs into an ordered set of leaves.  Successive-merge is the procedure\nyou must write, using make-code-tree to successively merge the\nsmallest-weight elements of the set until there is only one element left, which\nis the desired Huffman tree.  (This procedure is slightly tricky, but not\nreally complicated.  If you find yourself designing a complex procedure, then\nyou are almost certainly doing something wrong.  You can take significant\nadvantage of the fact that we are using an ordered set representation.)\n",
       "source_block_sha256": "c0b2f3ffcc8c5a73ffd46b763726f5204f305941920bbf135305a769b165b734",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.70",
@@ -872,8 +1124,8 @@
       "original_text": "\nExercise 2.70: The following eight-symbol\nalphabet with associated relative frequencies was designed to efficiently\nencode the lyrics of 1950s rock songs.  (Note that the “symbols” of an\n“alphabet” need not be individual letters.)\n\n\nA    2    NA  16\nBOOM 1    SHA  3\nGET  2    YIP  9\nJOB  2    WAH  1\n\n\nUse generate-huffman-tree (Exercise 2.69) to generate a\ncorresponding Huffman tree, and use encode (Exercise 2.68) to\nencode the following message:\n\n\nGet a job\nSha na na na na na na na na\n\nGet a job\nSha na na na na na na na na\n\nWah yip yip yip yip \nyip yip yip yip yip\nSha boom\n\n\nHow many bits are required for the encoding?  What is the smallest number of\nbits that would be needed to encode this song if we used a fixed-length code\nfor the eight-symbol alphabet?\n",
       "source_block_sha256": "10441b4ec01f5e2cd6d0f65c21b2a9f9d2be1d4f0d1d60a6543ae31b22712fb0",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.71",
@@ -884,8 +1136,8 @@
       "original_text": "\nExercise 2.71: Suppose we have a Huffman tree\nfor an alphabet of \n  n\n symbols, and that the relative frequencies of the\nsymbols are \n  \n    1\n    ,\n    2\n    ,\n    4\n    ,\n    …\n    ,\n    \n      2\n      \n        n\n        −\n        1\n      \n    \n  \n.  Sketch the tree for \n  \n    n\n    =\n    5\n  \n; for\n\n  \n    n\n    =\n    10\n  \n.  In such a tree (for general \n  n\n) how many bits are required to\nencode the most frequent symbol?  The least frequent symbol?\n",
       "source_block_sha256": "bd79231f58d18b5c58ea4d7a7c97cc777166971f6d128bc27a4fdcc11904600b",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.72",
@@ -896,8 +1148,8 @@
       "original_text": "\nExercise 2.72: Consider the encoding procedure\nthat you designed in Exercise 2.68.  What is the order of growth in the\nnumber of steps needed to encode a symbol?  Be sure to include the number of\nsteps needed to search the symbol list at each node encountered.  To answer\nthis question in general is difficult.  Consider the special case where the\nrelative frequencies of the \n  n\n symbols are as described in Exercise 2.71, \nand give the order of growth (as a function of \n  n\n) of the number of\nsteps needed to encode the most frequent and least frequent symbols in the\nalphabet.\n",
       "source_block_sha256": "ae2bfb080fd99507249512fd90f06ab4aff30429a7b28dfc96587503c388f1e1",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.73",
@@ -908,8 +1160,8 @@
       "original_text": "\nExercise 2.73: 2.3.2 described a\nprogram that performs symbolic differentiation:\n\n\n(define (deriv exp var)\n  (cond ((number? exp) 0)\n        ((variable? exp) \n         (if (same-variable? exp var) 1 0))\n        ((sum? exp)\n         (make-sum (deriv (addend exp) var)\n                   (deriv (augend exp) var)))\n        ((product? exp)\n         (make-sum\n           (make-product \n            (multiplier exp)\n            (deriv (multiplicand exp) var))\n           (make-product \n            (deriv (multiplier exp) var)\n            (multiplicand exp))))\n        ⟨more rules can be added here⟩\n        (else (error \"unknown expression type:\n                      DERIV\" exp))))\n\nWe can regard this program as performing a dispatch on the type of the\nexpression to be differentiated.  In this situation the “type tag” of the\ndatum is the algebraic operator symbol (such as +) and the operation\nbeing performed is deriv.  We can transform this program into\ndata-directed style by rewriting the basic derivative procedure as\n\n\n(define (deriv exp var)\n   (cond ((number? exp) 0)\n         ((variable? exp) \n           (if (same-variable? exp var) \n               1 \n               0))\n         (else ((get 'deriv (operator exp)) \n                (operands exp) \n                var))))\n\n(define (operator exp) (car exp))\n(define (operands exp) (cdr exp))\n\n\n Explain what was done above.  Why can’t we assimilate the predicates\nnumber? and variable? into the data-directed dispatch?\n\n Write the procedures for derivatives of sums and products, and the auxiliary\ncode required to install them in the table used by the program above.\n\n Choose any additional differentiation rule that you like, such as the one for\nexponents (Exercise 2.56), and install it in this data-directed\nsystem.\n\n In this simple algebraic manipulator the type of an expression is the algebraic\noperator that binds it together.  Suppose, however, we indexed the procedures\nin the opposite way, so that the dispatch line in deriv looked like\n\n\n((get (operator exp) 'deriv) \n (operands exp) var)\n\nWhat corresponding changes to the derivative system are required?\n\n\n",
       "source_block_sha256": "a14d2e9b3402efe2c1fe394c73490e0ba6d154cea0bb125463834b989bd65b4e",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.74",
@@ -920,8 +1172,8 @@
       "original_text": "\nExercise 2.74: Insatiable Enterprises, Inc., is\na highly decentralized conglomerate company consisting of a large number of\nindependent divisions located all over the world.  The company’s computer\nfacilities have just been interconnected by means of a clever\nnetwork-interfacing scheme that makes the entire network appear to any user to\nbe a single computer.  Insatiable’s president, in her first attempt to exploit\nthe ability of the network to extract administrative information from division\nfiles, is dismayed to discover that, although all the division files have been\nimplemented as data structures in Scheme, the particular data structure used\nvaries from division to division.  A meeting of division managers is hastily\ncalled to search for a strategy to integrate the files that will satisfy\nheadquarters’ needs while preserving the existing autonomy of the divisions.\n\nShow how such a strategy can be implemented with data-directed programming.  As\nan example, suppose that each division’s personnel records consist of a single\nfile, which contains a set of records keyed on employees’ names.  The structure\nof the set varies from division to division.  Furthermore, each employee’s\nrecord is itself a set (structured differently from division to division) that\ncontains information keyed under identifiers such as address and\nsalary.  In particular:\n\n\n Implement for headquarters a get-record procedure that retrieves a\nspecified employee’s record from a specified personnel file.  The procedure\nshould be applicable to any division’s file.  Explain how the individual\ndivisions’ files should be structured.  In particular, what type information\nmust be supplied?\n\n Implement for headquarters a get-salary procedure that returns the\nsalary information from a given employee’s record from any division’s personnel\nfile.  How should the record be structured in order to make this operation\nwork?\n\n Implement for headquarters a find-employee-record procedure.  This\nshould search all the divisions’ files for the record of a given employee and\nreturn the record.  Assume that this procedure takes as arguments an employee’s\nname and a list of all the divisions’ files.\n\n When Insatiable takes over a new company, what changes must be made in order to\nincorporate the new personnel information into the central system?\n\n\n",
       "source_block_sha256": "11673a34880299d78c3f5a98415b933ce006981d00e13eca41f8526f250decb3",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.75",
@@ -932,8 +1184,8 @@
       "original_text": "\nExercise 2.75: Implement the constructor\nmake-from-mag-ang in message-passing style.  This procedure should be\nanalogous to the make-from-real-imag procedure given above.\n",
       "source_block_sha256": "987a63ea8e6518345db5718316ac03f4043ef8101cd35253836b00d05d7e5bac",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.76",
@@ -944,8 +1196,8 @@
       "original_text": "\nExercise 2.76: As a large system with generic\noperations evolves, new types of data objects or new operations may be needed.\nFor each of the three strategies—generic operations with explicit dispatch,\ndata-directed style, and message-passing-style—describe the changes that\nmust be made to a system in order to add new types or new operations.  Which\norganization would be most appropriate for a system in which new types must\noften be added?  Which would be most appropriate for a system in which new\noperations must often be added?\n",
       "source_block_sha256": "5d2ef53209b62973fc6443292f46ada1334e50ef5b6c5d771695cedd35ad73dd",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.77",
@@ -956,8 +1208,8 @@
       "original_text": "\nExercise 2.77: Louis Reasoner tries to evaluate\nthe expression (magnitude z) where z is the object shown in\nFigure 2.24.  To his surprise, instead of the answer 5 he gets an error\nmessage from apply-generic, saying there is no method for the operation\nmagnitude on the types (complex).  He shows this interaction to\nAlyssa P. Hacker, who says “The problem is that the complex-number selectors\nwere never defined for complex numbers, just for polar and\nrectangular numbers.  All you have to do to make this work is add the\nfollowing to the complex package:”\n\n\n(put 'real-part '(complex) real-part)\n(put 'imag-part '(complex) imag-part)\n(put 'magnitude '(complex) magnitude)\n(put 'angle '(complex) angle)\n\nDescribe in detail why this works.  As an example, trace through all the\nprocedures called in evaluating the expression (magnitude z) where\nz is the object shown in Figure 2.24.  In particular, how many\ntimes is apply-generic invoked?  What procedure is dispatched to in each\ncase?\n",
       "source_block_sha256": "d4132815e9cd09cf09fe35027a8c24195d8f4a398545be162dc88cdd3de7997a",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.78",
@@ -968,8 +1220,8 @@
       "original_text": "\nExercise 2.78: The internal procedures in the\nscheme-number package are essentially nothing more than calls to the\nprimitive procedures +, -, etc.  It was not possible to use the\nprimitives of the language directly because our type-tag system requires that\neach data object have a type attached to it.  In fact, however, all Lisp\nimplementations do have a type system, which they use internally.  Primitive\npredicates such as symbol? and number?  determine whether data\nobjects have particular types.  Modify the definitions of type-tag,\ncontents, and attach-tag from 2.4.2 so that our\ngeneric system takes advantage of Scheme’s internal type system.  That is to\nsay, the system should work as before except that ordinary numbers should be\nrepresented simply as Scheme numbers rather than as pairs whose car is\nthe symbol scheme-number.\n",
       "source_block_sha256": "44a2aa2e1acbc14542a86f2771398ec37ef3f1394441546c366bbf2ac143860f",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.79",
@@ -980,8 +1232,8 @@
       "original_text": "\nExercise 2.79: Define a generic equality\npredicate equ? that tests the equality of two numbers, and install it in\nthe generic arithmetic package.  This operation should work for ordinary\nnumbers, rational numbers, and complex numbers.\n",
       "source_block_sha256": "049592bc1666d05463b1c86e0556f6a6a6b91a5147c0a1e4799c2b8825acd6ca",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.80",
@@ -992,8 +1244,8 @@
       "original_text": "\nExercise 2.80: Define a generic predicate\n=zero? that tests if its argument is zero, and install it in the generic\narithmetic package.  This operation should work for ordinary numbers, rational\nnumbers, and complex numbers.\n",
       "source_block_sha256": "dc542d4cdb1349cd442788ba5c8e9af091d835a3668371791fbbe73e0966ce05",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.81",
@@ -1004,8 +1256,8 @@
       "original_text": "\nExercise 2.81: Louis Reasoner has noticed that\napply-generic may try to coerce the arguments to each other’s type even\nif they already have the same type.  Therefore, he reasons, we need to put\nprocedures in the coercion table to \ncoerce arguments of each type to\ntheir own type.  For example, in addition to the\nscheme-number->complex coercion shown above, he would do:\n\n\n(define (scheme-number->scheme-number n) n)\n(define (complex->complex z) z)\n\n(put-coercion 'scheme-number 'scheme-number\n              scheme-number->scheme-number)\n\n(put-coercion 'complex 'complex \n              complex->complex)\n\n\n With Louis’s coercion procedures installed, what happens if\napply-generic is called with two arguments of type scheme-number\nor two arguments of type complex for an operation that is not found in\nthe table for those types?  For example, assume that we’ve defined a generic\nexponentiation operation:\n\n\n(define (exp x y) \n  (apply-generic 'exp x y))\n\nand have put a procedure for exponentiation in the Scheme-number\npackage but not in any other package:\n\n\n;; following added to Scheme-number package\n(put 'exp \n     '(scheme-number scheme-number)\n     (lambda (x y) \n       (tag (expt x y)))) \n       ; using primitive expt\n\n\nWhat happens if we call exp with two complex numbers as arguments?\n\n Is Louis correct that something had to be done about coercion with arguments of\nthe same type, or does apply-generic work correctly as is?\n\n Modify apply-generic so that it doesn’t try coercion if the two\narguments have the same type.\n\n\n",
       "source_block_sha256": "c4f490efecec7dcad152f5c4f6c2336e9d54799a0aee43a177cf74b617fa24c0",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.82",
@@ -1016,8 +1268,8 @@
       "original_text": "\nExercise 2.82: Show how to generalize\napply-generic to handle coercion in the general case of multiple\narguments.  One strategy is to attempt to coerce all the arguments to the type\nof the first argument, then to the type of the second argument, and so on.\nGive an example of a situation where this strategy (and likewise the\ntwo-argument version given above) is not sufficiently general.  (Hint: Consider\nthe case where there are some suitable mixed-type operations present in the\ntable that will not be tried.)\n",
       "source_block_sha256": "09097bd638da9842bf596d7275a1300ba5d6d5cc333c878a0642815163fddd7d",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.83",
@@ -1028,8 +1280,8 @@
       "original_text": "\nExercise 2.83: Suppose you are designing a\ngeneric arithmetic system for dealing with the tower of types shown in\nFigure 2.25: integer, rational, real, complex.  For each type (except\ncomplex), design a procedure that raises objects of that type one level in the\ntower.  Show how to install a generic raise operation that will work for\neach type (except complex).\n",
       "source_block_sha256": "65dd0b25d3ce284716b85db0b1a7d667e7b197ad91407e870729a321322e8d90",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.84",
@@ -1040,8 +1292,8 @@
       "original_text": "\nExercise 2.84: Using the raise operation\nof Exercise 2.83, modify the apply-generic procedure so that it\ncoerces its arguments to have the same type by the method of successive\nraising, as discussed in this section.  You will need to devise a way to test\nwhich of two types is higher in the tower.  Do this in a manner that is\n“compatible” with the rest of the system and will not lead to problems in\nadding new levels to the tower.\n",
       "source_block_sha256": "0fc4fc6a2acee3eb83e5e1633e0c2658ae5fcd2732764fb55dd83083f1d28d81",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.85",
@@ -1052,8 +1304,14 @@
       "original_text": "\nExercise 2.85: This section mentioned a method\nfor “simplifying” a data object by lowering it in the tower of types as far\nas possible.  Design a procedure drop that accomplishes this for the\ntower described in Exercise 2.83.  The key is to decide, in some general\nway, whether an object can be lowered.  For example, the complex number \n\n  \n    1.5\n    +\n    0\n    i\n  \n can be lowered as far as real, the complex number \n  \n    1\n    +\n    0\n    i\n  \n can\nbe lowered as far as integer, and the complex number \n  \n    2\n    +\n    3\n    i\n  \n cannot\nbe lowered at all.  Here is a plan for determining whether an object can be\nlowered: Begin by defining a generic operation project that “pushes”\nan object down in the tower.  For example, projecting a complex number would\ninvolve throwing away the imaginary part.  Then a number can be dropped if,\nwhen we project it and raise the result back to the type we\nstarted with, we end up with something equal to what we started with.  Show how\nto implement this idea in detail, by writing a drop procedure that drops\nan object as far as possible.  You will need to design the various projection\noperations119 and\ninstall project as a generic operation in the system.  You will also\nneed to make use of a generic equality predicate, such as described in\nExercise 2.79.  Finally, use drop to rewrite apply-generic\nfrom Exercise 2.84 so that it “simplifies” its answers.\n",
       "source_block_sha256": "33b1c9caac47f512fffad658fdf0835160de1c4606333e1bb97c453c49860c73",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。",
+      "source_footnotes": [
+        {
+          "id": "FOOT119",
+          "original_html": "<div id=\"FOOT119\"><p><a class=\"footnote_backlink\" href=\"#DOCF119\"><sup>119</sup></a>\nA real number can be projected to an integer using the\n<code>round</code> primitive, which returns the closest integer to its argument.</p>\n</div>"
+        }
+      ]
     },
     {
       "number": "2.86",
@@ -1064,8 +1322,8 @@
       "original_text": "\nExercise 2.86: Suppose we want to handle complex\nnumbers whose real parts, imaginary parts, magnitudes, and angles can be either\nordinary numbers, rational numbers, or other numbers we might wish to add to\nthe system.  Describe and implement the changes to the system needed to\naccommodate this.  You will have to define operations such as sine and\ncosine that are generic over ordinary numbers and rational numbers.\n",
       "source_block_sha256": "0ce9fbb8e1e13ae602f3c3564a39ab63f1f7179b9c9cccc10a7506cd96e01cc4",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.87",
@@ -1076,8 +1334,8 @@
       "original_text": "\nExercise 2.87: Install =zero? for\npolynomials in the generic arithmetic package.  This will allow\nadjoin-term to work for polynomials with coefficients that are\nthemselves polynomials.\n",
       "source_block_sha256": "acc719ce3f18422b3be59f7139ec1ccb06d7cfc87fc01f323f21a7932b3e5ed9",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.88",
@@ -1088,8 +1346,8 @@
       "original_text": "\nExercise 2.88: Extend the polynomial system to\ninclude subtraction of polynomials.  (Hint: You may find it helpful to define a\ngeneric negation operation.)\n",
       "source_block_sha256": "f3ebd57c6b27d3da15b3ce162b894fc3485978fd09e68cb05eb2c2325689ed45",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.89",
@@ -1100,8 +1358,8 @@
       "original_text": "\nExercise 2.89: Define procedures that implement\nthe term-list representation described above as appropriate for dense\npolynomials.\n",
       "source_block_sha256": "335e4f7732ef9d1b9bc75f90b6cb55a21e8ddbde01ea32181fbc942a027b3862",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.90",
@@ -1112,8 +1370,8 @@
       "original_text": "\nExercise 2.90: Suppose we want to have a\npolynomial system that is efficient for both sparse and dense polynomials.  One\nway to do this is to allow both kinds of term-list representations in our\nsystem.  The situation is analogous to the complex-number example of \n2.4, where we allowed both rectangular and polar representations.  To do\nthis we must distinguish different types of term lists and make the operations\non term lists generic.  Redesign the polynomial system to implement this\ngeneralization.  This is a major effort, not a local change.\n",
       "source_block_sha256": "49238865df128b7c0a6a7794a259c30963dd0fc4fad5063ea746fc40ea249948",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.91",
@@ -1124,8 +1382,8 @@
       "original_text": "\nExercise 2.91: A univariate polynomial can be\ndivided by another one to produce a polynomial quotient and a polynomial\nremainder.  For example,\n\n  \n    \n      \n        \n          x\n          5\n        \n        −\n        1\n      \n      \n        \n          x\n          2\n        \n        −\n        1\n      \n    \n  \n  \n  =\n  \n  \n    \n      x\n      3\n    \n    +\n    x\n    ,\n  \n   remainder \n  \n    x\n    −\n    1.\n  \n\nDivision can be performed via long division.  That is, divide the highest-order\nterm of the dividend by the highest-order term of the divisor.  The result is\nthe first term of the quotient.  Next, multiply the result by the divisor,\nsubtract that from the dividend, and produce the rest of the answer by\nrecursively dividing the difference by the divisor.  Stop when the order of the\ndivisor exceeds the order of the dividend and declare the dividend to be the\nremainder.  Also, if the dividend ever becomes zero, return zero as both\nquotient and remainder.\n\nWe can design a div-poly procedure on the model of add-poly and\nmul-poly. The procedure checks to see if the two polys have the same\nvariable.  If so, div-poly strips off the variable and passes the\nproblem to div-terms, which performs the division operation on term\nlists. Div-poly finally reattaches the variable to the result supplied\nby div-terms.  It is convenient to design div-terms to compute\nboth the quotient and the remainder of a division.  Div-terms can take\ntwo term lists as arguments and return a list of the quotient term list and the\nremainder term list.\n\nComplete the following definition of div-terms by filling in the missing\nexpressions.  Use this to implement div-poly, which takes two polys as\narguments and returns a list of the quotient and remainder polys.\n\n\n(define (div-terms L1 L2)\n  (if (empty-termlist? L1)\n      (list (the-empty-termlist) \n            (the-empty-termlist))\n      (let ((t1 (first-term L1))\n            (t2 (first-term L2)))\n        (if (> (order t2) (order t1))\n            (list (the-empty-termlist) L1)\n            (let ((new-c (div (coeff t1) \n                              (coeff t2)))\n                  (new-o (- (order t1) \n                            (order t2))))\n              (let ((rest-of-result\n                     ⟨compute rest of result \n                     recursively⟩ ))\n                ⟨form complete result⟩ ))))))\n",
       "source_block_sha256": "e193c27c865744ba4e533419f911a31399b5eb192eed8fd8f1e4c09bb697667f",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.92",
@@ -1136,8 +1394,8 @@
       "original_text": "\nExercise 2.92: By imposing an ordering on\nvariables, extend the polynomial package so that addition and multiplication of\npolynomials works for polynomials in different variables.  (This is not easy!)\n",
       "source_block_sha256": "9926893260c8ccae60887b75fe41f6c45737d84fe21c7f2eaab590323b8ca9e6",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.93",
@@ -1148,8 +1406,8 @@
       "original_text": "\nExercise 2.93: Modify the rational-arithmetic\npackage to use generic operations, but change make-rat so that it does\nnot attempt to reduce fractions to lowest terms.  Test your system by calling\nmake-rational on two polynomials to produce a rational function:\n\n\n(define p1 (make-polynomial 'x '((2 1) (0 1))))\n(define p2 (make-polynomial 'x '((3 1) (0 1))))\n(define rf (make-rational p2 p1))\n\nNow add rf to itself, using add. You will observe that this\naddition procedure does not reduce fractions to lowest terms.\n",
       "source_block_sha256": "bf0caca75d85bff7f4f6cae196a59ab06e714d1e91d4b129fe0ecb6d20c952f5",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.94",
@@ -1160,8 +1418,8 @@
       "original_text": "\nExercise 2.94: Using div-terms, implement\nthe procedure remainder-terms and use this to define gcd-terms as\nabove.  Now write a procedure gcd-poly that computes the polynomial\nGCD of two polys.  (The procedure should signal an error if the two\npolys are not in the same variable.)  Install in the system a generic operation\ngreatest-common-divisor that reduces to gcd-poly for polynomials\nand to ordinary gcd for ordinary numbers.  As a test, try\n\n\n(define p1 \n  (make-polynomial \n   'x '((4 1) (3 -1) (2 -2) (1 2))))\n\n(define p2 \n  (make-polynomial \n   'x '((3 1) (1 -1))))\n\n(greatest-common-divisor p1 p2)\n\nand check your result by hand.\n",
       "source_block_sha256": "194df93dd619d16b07d1f90c68318a1a6db63cbd29fa23e0cae52f19070b7ca4",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.95",
@@ -1172,8 +1430,14 @@
       "original_text": "\nExercise 2.95: Define \n  \n    P\n    1\n  \n, \n  \n    P\n    2\n  \n, and\n\n  \n    P\n    3\n  \n to be the polynomials\n\n  \n    \n      \n        \n          P\n          1\n        \n        :\n      \n      \n        \n          x\n          2\n        \n        −\n        2\n        x\n        +\n        1\n        ,\n      \n    \n    \n      \n        \n          P\n          2\n        \n        :\n      \n      \n        11\n        \n          x\n          2\n        \n        +\n        7\n        ,\n      \n    \n    \n      \n        \n          P\n          3\n        \n        :\n      \n      \n        13\n        x\n        +\n        5.\n      \n    \n  \n\nNow define \n  \n    Q\n    1\n  \n to be the product of \n  \n    P\n    1\n  \n and \n  \n    P\n    2\n  \n, and \n  \n    Q\n    2\n  \n to be\nthe product of \n  \n    P\n    1\n  \n and \n  \n    P\n    3\n  \n, and use greatest-common-divisor\n(Exercise 2.94) to compute the GCD of \n  \n    Q\n    1\n  \n and \n  \n    Q\n    2\n  \n.\nNote that the answer is not the same as \n  \n    P\n    1\n  \n.  This example introduces\nnoninteger operations into the computation, causing difficulties with the\nGCD algorithm.127  To understand what is happening, try tracing\ngcd-terms while computing the GCD or try performing the\ndivision by hand.\n",
       "source_block_sha256": "4b8f287d93e3ddf9b5a9e07855acd24f4cd4241a1853d999f5e3f4f9ca8c8889",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。",
+      "source_footnotes": [
+        {
+          "id": "FOOT127",
+          "original_html": "<div id=\"FOOT127\"><p><a class=\"footnote_backlink\" href=\"#DOCF127\"><sup>127</sup></a>\nIn an implementation like <abbr>MIT</abbr>\nScheme, this produces a polynomial that is indeed a divisor of <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n  <msub>\n    <mi>Q</mi>\n    <mn>1</mn>\n  </msub>\n</math> and\n<math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n  <msub>\n    <mi>Q</mi>\n    <mn>2</mn>\n  </msub>\n</math>, but with rational coefficients.  In many other Scheme systems, in\nwhich division of integers can produce limited-precision decimal numbers, we\nmay fail to get a valid divisor.</p>\n</div>"
+        }
+      ]
     },
     {
       "number": "2.96",
@@ -1184,8 +1448,8 @@
       "original_text": "\nExercise 2.96:\n\n Implement the procedure pseudoremainder-terms, which is just like\nremainder-terms except that it multiplies the dividend by the\nintegerizing factor described above before calling div-terms.  Modify\ngcd-terms to use pseudoremainder-terms, and verify that\ngreatest-common-divisor now produces an answer with integer coefficients\non the example in Exercise 2.95.\n\n The GCD now has integer coefficients, but they are larger than those\nof \n  \n    P\n    1\n  \n.  Modify gcd-terms so that it removes common factors from the\ncoefficients of the answer by dividing all the coefficients by their (integer)\ngreatest common divisor.\n\n\n",
       "source_block_sha256": "c6b72698d5f2a3b386c24ba1b48cb822264c3f14f56bbe381902e51257e444aa",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     },
     {
       "number": "2.97",
@@ -1196,8 +1460,8 @@
       "original_text": "\nExercise 2.97:\n\n Implement this algorithm as a procedure reduce-terms that takes two term\nlists n and d as arguments and returns a list nn,\ndd, which are n and d reduced to lowest terms via the\nalgorithm given above.  Also write a procedure reduce-poly, analogous to\nadd-poly, that checks to see if the two polys have the same variable.\nIf so, reduce-poly strips off the variable and passes the problem to\nreduce-terms, then reattaches the variable to the two term lists\nsupplied by reduce-terms.\n\n Define a procedure analogous to reduce-terms that does what the original\nmake-rat did for integers:\n\n\n(define (reduce-integers n d)\n  (let ((g (gcd n d)))\n    (list (/ n g) (/ d g))))\n\nand define reduce as a generic operation that calls apply-generic\nto dispatch to either reduce-poly (for polynomial arguments) or\nreduce-integers (for scheme-number arguments).  You can now\neasily make the rational-arithmetic package reduce fractions to lowest terms by\nhaving make-rat call reduce before combining the given numerator\nand denominator to form a rational number.  The system now handles rational\nexpressions in either integers or polynomials.  To test your program, try the\nexample at the beginning of this extended exercise:\n\n\n(define p1 \n  (make-polynomial 'x '((1 1) (0 1))))\n(define p2 \n  (make-polynomial 'x '((3 1) (0 -1))))\n(define p3 \n  (make-polynomial 'x '((1 1))))\n(define p4 \n  (make-polynomial 'x '((2 1) (0 -1))))\n(define rf1 (make-rational p1 p2))\n(define rf2 (make-rational p3 p4))\n(add rf1 rf2)\n\nSee if you get the correct answer, correctly reduced to lowest terms.\n\n",
       "source_block_sha256": "23f96ac96cfc1f3c254e65e664361bd6d349be2c3345de2dd082ede0bc01a154",
       "pdf_heading_verified": true,
-      "review_status": "pending_content_review",
-      "note": "Raw English reference block, not yet trimmed to the question boundary. Some blocks include following textbook context. PDF heading checked; formulas, figures, footnotes and complete subquestions still require readback."
+      "review_status": "question_boundary_checked",
+      "note": "已逐项核对块级边界；保留原题给定输入、小问与原脚注引用。"
     }
   ]
 }

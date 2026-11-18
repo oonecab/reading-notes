@@ -1,0 +1,360 @@
+{
+  "schema_version": 1,
+  "scope": "Only separately anchored shared textbook programs appear in question_dependencies. A footnote contained within its own exercise is inline. References to other exercises or figures are recorded separately in the question review.",
+  "records": [
+    {
+      "id": "input-1-make-center-width",
+      "section": "s2-1-4",
+      "source_pdf_page": 158,
+      "code": "(define (make-center-width c w)\n  (make-interval (- c w) (+ c w)))\n\n(define (center i)\n  (/ (+ (lower-bound i) \n        (upper-bound i)) \n     2))\n\n(define (width i)\n  (/ (- (upper-bound i) \n        (lower-bound i)) \n     2))",
+      "exercises": [
+        12,
+        13
+      ]
+    },
+    {
+      "id": "input-1-par1",
+      "section": "s2-1-4",
+      "source_pdf_page": 159,
+      "code": "(define (par1 r1 r2)\n  (div-interval \n   (mul-interval r1 r2)\n   (add-interval r1 r2)))\n\n(define (par2 r1 r2)\n  (let ((one (make-interval 1 1)))\n    (div-interval \n     one\n     (add-interval \n      (div-interval one r1) \n      (div-interval one r2)))))",
+      "exercises": [
+        14,
+        15,
+        16
+      ]
+    },
+    {
+      "id": "input-2-accumulate",
+      "section": "s2-2-3",
+      "source_pdf_page": 186,
+      "code": "(define (accumulate op initial sequence)\n  (if (null? sequence)\n      initial\n      (op (car sequence)\n          (accumulate op \n                      initial \n                      (cdr sequence)))))\n\n(accumulate + 0 (list 1 2 3 4 5))\n15\n(accumulate * 1 (list 1 2 3 4 5))\n120\n(accumulate cons nil (list 1 2 3 4 5))\n(1 2 3 4 5)",
+      "exercises": [
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39
+      ]
+    },
+    {
+      "id": "input-2-right-split",
+      "section": "s2-2-4",
+      "source_pdf_page": 206,
+      "code": "(define (right-split painter n)\n  (if (= n 0)\n      painter\n      (let ((smaller (right-split painter \n                                  (- n 1))))\n        (beside painter \n                (below smaller smaller)))))",
+      "exercises": [
+        44,
+        45
+      ]
+    },
+    {
+      "id": "input-2-corner-split",
+      "section": "s2-2-4",
+      "source_pdf_page": 206,
+      "code": "(define (corner-split painter n)\n  (if (= n 0)\n      painter\n      (let ((up (up-split painter (- n 1)))\n            (right (right-split painter \n                                (- n 1))))\n        (let ((top-left (beside up up))\n              (bottom-right (below right \n                                   right))\n              (corner (corner-split painter \n                                    (- n 1))))\n          (beside (below painter top-left)\n                  (below bottom-right \n                         corner))))))",
+      "exercises": [
+        44,
+        52
+      ]
+    },
+    {
+      "id": "input-2-segments-to-painter",
+      "section": "s2-2-4",
+      "source_pdf_page": 213,
+      "code": "(define (segments->painter segment-list)\n  (lambda (frame)\n    (for-each\n     (lambda (segment)\n       (draw-line\n        ((frame-coord-map frame) \n         (start-segment segment))\n        ((frame-coord-map frame) \n         (end-segment segment))))\n     segment-list)))",
+      "exercises": [
+        49,
+        52
+      ]
+    },
+    {
+      "id": "input-2-transform-painter",
+      "section": "s2-2-4",
+      "source_pdf_page": 215,
+      "code": "(define (transform-painter \n         painter origin corner1 corner2)\n  (lambda (frame)\n    (let ((m (frame-coord-map frame)))\n      (let ((new-origin (m origin)))\n        (painter (make-frame new-origin\n                  (sub-vect (m corner1) \n                            new-origin)\n                  (sub-vect (m corner2)\n                            new-origin)))))))",
+      "exercises": [
+        50,
+        51
+      ]
+    },
+    {
+      "id": "input-2-beside",
+      "section": "s2-2-4",
+      "source_pdf_page": 217,
+      "code": "(define (beside painter1 painter2)\n  (let ((split-point (make-vect 0.5 0.0)))\n    (let ((paint-left  (transform-painter \n                        painter1\n                        (make-vect 0.0 0.0)\n                        split-point\n                        (make-vect 0.0 1.0)))\n          (paint-right (transform-painter\n                        painter2\n                        split-point\n                        (make-vect 1.0 0.0)\n                        (make-vect 0.5 1.0))))\n      (lambda (frame)\n        (paint-left frame)\n        (paint-right frame)))))",
+      "exercises": [
+        51
+      ]
+    },
+    {
+      "id": "input-3-deriv",
+      "section": "s2-3-2",
+      "source_pdf_page": 227,
+      "code": "(define (deriv exp var)\n  (cond ((number? exp) 0)\n        ((variable? exp)\n         (if (same-variable? exp var) 1 0))\n        ((sum? exp)\n         (make-sum (deriv (addend exp) var)\n                   (deriv (augend exp) var)))\n        ((product? exp)\n         (make-sum\n          (make-product \n           (multiplier exp)\n           (deriv (multiplicand exp) var))\n          (make-product \n           (deriv (multiplier exp) var)\n           (multiplicand exp))))\n        (else (error \"unknown expression \n                      type: DERIV\" exp))))",
+      "exercises": [
+        56,
+        57,
+        58
+      ]
+    },
+    {
+      "id": "input-3-make-code-tree",
+      "section": "s2-3-4",
+      "source_pdf_page": 251,
+      "code": "(define (make-code-tree left right)\n  (list left\n        right\n        (append (symbols left) \n                (symbols right))\n        (+ (weight left) (weight right))))",
+      "exercises": [
+        67,
+        68,
+        69
+      ]
+    },
+    {
+      "id": "input-3-decode",
+      "section": "s2-3-4",
+      "source_pdf_page": 252,
+      "code": "(define (decode bits tree)\n  (define (decode-1 bits current-branch)\n    (if (null? bits)\n        '()\n        (let ((next-branch\n               (choose-branch \n                (car bits) \n                current-branch)))\n          (if (leaf? next-branch)\n              (cons \n               (symbol-leaf next-branch)\n               (decode-1 (cdr bits) tree))\n              (decode-1 (cdr bits) \n                        next-branch)))))\n  (decode-1 bits tree))\n\n(define (choose-branch bit branch)\n  (cond ((= bit 0) (left-branch branch))\n        ((= bit 1) (right-branch branch))\n        (else (error \"bad bit: \n               CHOOSE-BRANCH\" bit))))",
+      "exercises": [
+        67,
+        68
+      ]
+    },
+    {
+      "id": "input-3-make-leaf-set",
+      "section": "s2-3-4",
+      "source_pdf_page": 254,
+      "code": "(define (make-leaf-set pairs)\n  (if (null? pairs)\n      '()\n      (let ((pair (car pairs)))\n        (adjoin-set \n         (make-leaf (car pair)    ; symbol\n                    (cadr pair))  ; frequency\n         (make-leaf-set (cdr pairs))))))",
+      "exercises": [
+        69,
+        70
+      ]
+    },
+    {
+      "id": "input-4-attach-tag",
+      "section": "s2-4-2",
+      "source_pdf_page": 265,
+      "code": "(define (attach-tag type-tag contents)\n  (cons type-tag contents))\n\n(define (type-tag datum)\n  (if (pair? datum)\n      (car datum)\n      (error \"Bad tagged datum: \n              TYPE-TAG\" datum)))\n\n(define (contents datum)\n  (if (pair? datum)\n      (cdr datum)\n      (error \"Bad tagged datum: \n              CONTENTS\" datum)))",
+      "exercises": [
+        78
+      ]
+    },
+    {
+      "id": "input-4-apply-generic",
+      "section": "s2-4-3",
+      "source_pdf_page": 275,
+      "code": "(define (apply-generic op . args)\n  (let ((type-tags (map type-tag args)))\n    (let ((proc (get op type-tags)))\n      (if proc\n          (apply proc (map contents args))\n          (error\n            \"No method for these types: \n             APPLY-GENERIC\"\n            (list op type-tags))))))",
+      "exercises": [
+        77
+      ]
+    },
+    {
+      "id": "input-5-apply-generic",
+      "section": "s2-5-2",
+      "source_pdf_page": 293,
+      "code": "(define (apply-generic op . args)\n  (let ((type-tags (map type-tag args)))\n    (let ((proc (get op type-tags)))\n      (if proc\n          (apply proc (map contents args))\n          (if (= (length args) 2)\n              (let ((type1 (car type-tags))\n                    (type2 (cadr type-tags))\n                    (a1 (car args))\n                    (a2 (cadr args)))\n                (let ((t1->t2 \n                       (get-coercion type1\n                                     type2))\n                      (t2->t1 \n                       (get-coercion type2 \n                                     type1)))\n                  (cond (t1->t2\n                         (apply-generic \n                          op (t1->t2 a1) a2))\n                        (t2->t1\n                         (apply-generic \n                          op a1 (t2->t1 a2)))\n                        (else\n                         (error \n                          \"No method for \n                           these types\"\n                          (list \n                           op \n                           type-tags))))))\n              (error \n               \"No method for these types\"\n               (list op type-tags)))))))",
+      "exercises": [
+        81,
+        82,
+        83,
+        84,
+        85
+      ]
+    },
+    {
+      "id": "input-5-adjoin-term",
+      "section": "s2-5-3",
+      "source_pdf_page": 310,
+      "code": "(define (adjoin-term term term-list)\n  (if (=zero? (coeff term))\n      term-list\n      (cons term term-list)))\n(define (the-empty-termlist) '())\n(define (first-term term-list) (car term-list))\n(define (rest-terms term-list) (cdr term-list))\n(define (empty-termlist? term-list) \n  (null? term-list))\n(define (make-term order coeff) \n  (list order coeff))\n(define (order term) (car term))\n(define (coeff term) (cadr term))",
+      "exercises": [
+        87,
+        88,
+        89,
+        90,
+        91
+      ]
+    }
+  ],
+  "question_dependencies": {
+    "ex-2-12": [
+      "input-1-make-center-width"
+    ],
+    "ex-2-13": [
+      "input-1-make-center-width"
+    ],
+    "ex-2-14": [
+      "input-1-par1"
+    ],
+    "ex-2-15": [
+      "input-1-par1"
+    ],
+    "ex-2-16": [
+      "input-1-par1"
+    ],
+    "ex-2-33": [
+      "input-2-accumulate"
+    ],
+    "ex-2-34": [
+      "input-2-accumulate"
+    ],
+    "ex-2-35": [
+      "input-2-accumulate"
+    ],
+    "ex-2-36": [
+      "input-2-accumulate"
+    ],
+    "ex-2-37": [
+      "input-2-accumulate"
+    ],
+    "ex-2-38": [
+      "input-2-accumulate"
+    ],
+    "ex-2-39": [
+      "input-2-accumulate"
+    ],
+    "ex-2-44": [
+      "input-2-right-split",
+      "input-2-corner-split"
+    ],
+    "ex-2-45": [
+      "input-2-right-split"
+    ],
+    "ex-2-49": [
+      "input-2-segments-to-painter"
+    ],
+    "ex-2-50": [
+      "input-2-transform-painter"
+    ],
+    "ex-2-51": [
+      "input-2-transform-painter",
+      "input-2-beside"
+    ],
+    "ex-2-52": [
+      "input-2-corner-split",
+      "input-2-segments-to-painter"
+    ],
+    "ex-2-56": [
+      "input-3-deriv"
+    ],
+    "ex-2-57": [
+      "input-3-deriv"
+    ],
+    "ex-2-58": [
+      "input-3-deriv"
+    ],
+    "ex-2-67": [
+      "input-3-make-code-tree",
+      "input-3-decode"
+    ],
+    "ex-2-68": [
+      "input-3-make-code-tree",
+      "input-3-decode"
+    ],
+    "ex-2-69": [
+      "input-3-make-code-tree",
+      "input-3-make-leaf-set"
+    ],
+    "ex-2-70": [
+      "input-3-make-leaf-set"
+    ],
+    "ex-2-77": [
+      "input-4-apply-generic"
+    ],
+    "ex-2-78": [
+      "input-4-attach-tag"
+    ],
+    "ex-2-81": [
+      "input-5-apply-generic"
+    ],
+    "ex-2-82": [
+      "input-5-apply-generic"
+    ],
+    "ex-2-83": [
+      "input-5-apply-generic"
+    ],
+    "ex-2-84": [
+      "input-5-apply-generic"
+    ],
+    "ex-2-85": [
+      "input-5-apply-generic"
+    ],
+    "ex-2-87": [
+      "input-5-adjoin-term"
+    ],
+    "ex-2-88": [
+      "input-5-adjoin-term"
+    ],
+    "ex-2-89": [
+      "input-5-adjoin-term"
+    ],
+    "ex-2-90": [
+      "input-5-adjoin-term"
+    ],
+    "ex-2-91": [
+      "input-5-adjoin-term"
+    ]
+  },
+  "inline_only": [
+    "ex-2-1",
+    "ex-2-2",
+    "ex-2-4",
+    "ex-2-5",
+    "ex-2-6",
+    "ex-2-7",
+    "ex-2-8",
+    "ex-2-9",
+    "ex-2-10",
+    "ex-2-11",
+    "ex-2-17",
+    "ex-2-18",
+    "ex-2-19",
+    "ex-2-20",
+    "ex-2-21",
+    "ex-2-23",
+    "ex-2-25",
+    "ex-2-26",
+    "ex-2-28",
+    "ex-2-29",
+    "ex-2-32",
+    "ex-2-40",
+    "ex-2-41",
+    "ex-2-46",
+    "ex-2-47",
+    "ex-2-53",
+    "ex-2-54",
+    "ex-2-55",
+    "ex-2-59",
+    "ex-2-60",
+    "ex-2-61",
+    "ex-2-62",
+    "ex-2-64",
+    "ex-2-66",
+    "ex-2-71",
+    "ex-2-74",
+    "ex-2-75",
+    "ex-2-76",
+    "ex-2-79",
+    "ex-2-80",
+    "ex-2-86",
+    "ex-2-92",
+    "ex-2-93",
+    "ex-2-94",
+    "ex-2-97"
+  ],
+  "other_references_only": [
+    "ex-2-3",
+    "ex-2-22",
+    "ex-2-24",
+    "ex-2-27",
+    "ex-2-30",
+    "ex-2-31",
+    "ex-2-42",
+    "ex-2-43",
+    "ex-2-48",
+    "ex-2-63",
+    "ex-2-65",
+    "ex-2-72",
+    "ex-2-73",
+    "ex-2-95",
+    "ex-2-96"
+  ]
+}
