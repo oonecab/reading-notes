@@ -1,5 +1,6 @@
 """Regression expectations from catalog, RN-001 and ordinary Git clone semantics."""
 import copy
+import hashlib
 from html.parser import HTMLParser
 import importlib.util
 import json
@@ -151,6 +152,27 @@ class ProjectContracts(unittest.TestCase):
                      'books/sicp/notes/source_inventory.json', 'deploy/publish-allowlist.json']:
             with self.subTest(file=name):
                 self.assertNotIn(b'\r\n', (ROOT / name).read_bytes())
+
+    def test_source_image_requires_exact_path_and_bytes(self):
+        policy = module('image_inventory', ROOT / 'deploy/public_policy.py')
+        name = 'sicp/assets/chapter02/figure-2-11.webp'
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            image = root / 'site' / name
+            image.parent.mkdir(parents=True)
+            image.write_bytes((ROOT / 'books' / name).read_bytes())
+            digest = hashlib.sha256(image.read_bytes()).hexdigest()
+            inventory = {'files': [{'path': name, 'mode': 'copy'}], 'authorized_pdfs': {}}
+            path = root / 'policy.json'
+            path.write_text(json.dumps(inventory))
+            with self.assertRaisesRegex(ValueError, 'Non-public path'):
+                policy.inspect(root / 'site', policy_path=path)
+            inventory['source_images'] = {name: digest}
+            path.write_text(json.dumps(inventory))
+            self.assertEqual(policy.inspect(root / 'site', policy_path=path)[0]['sha256'], digest)
+            image.write_bytes(b'changed')
+            with self.assertRaisesRegex(ValueError, 'bytes changed'):
+                policy.inspect(root / 'site', policy_path=path)
 
     def test_git_preserves_source_binary_and_managed_line_endings(self):
         paths = ['books/sicp/sicp.pdf', 'books/weiss/WEISS_2E.tar.Z',

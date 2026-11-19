@@ -10,12 +10,13 @@ import zipfile
 POLICY = Path(__file__).with_name('publish-allowlist.json')
 
 
-def safe_name(name):
+def safe_name(name, source_images=()):
     p = PurePosixPath(name)
     if (not name or p.is_absolute() or p.as_posix() != name or '..' in p.parts
             or '\\' in name or any(c in name for c in '\r\n\0')
             or any(x.startswith('.') or x in {'content', 'review', 'tmp', 'src', 'node_modules'} for x in p.parts)
-            or 'baseline' in p.name.lower() or p.suffix.lower() in {'.png', '.jpg', '.jpeg', '.webp'}):
+            or 'baseline' in p.name.lower() or p.suffix.lower() in {'.png', '.jpg', '.jpeg'}
+            or (p.suffix.lower() == '.webp' and name not in source_images)):
         raise ValueError('Non-public path: ' + name)
     return name
 
@@ -23,7 +24,13 @@ def safe_name(name):
 def load_policy(path=POLICY):
     data = json.loads(Path(path).read_text())
     rows = data['files']
-    names = [safe_name(r['path']) for r in rows]
+    images = data.get('source_images', {})
+    for name, digest in images.items():
+        if not re.fullmatch(r'[a-z0-9-]+/assets/[a-z0-9/-]+\.webp', name) or not re.fullmatch(r'[a-f0-9]{64}', digest):
+            raise ValueError('Invalid source image registration: ' + name)
+    names = [safe_name(r['path'], images) for r in rows]
+    if set(images) != {r['path'] for r in rows if r['path'].endswith('.webp') and r['mode'] == 'copy'}:
+        raise ValueError('Source image inventory differs from copy allowlist')
     if len(names) != len(set(names)) or any(r['mode'] not in {'copy', 'public-summary'} for r in rows):
         raise ValueError('Invalid allowlist')
     if {n for n in names if n.endswith('.pdf')} != set(data['authorized_pdfs']):
@@ -75,14 +82,15 @@ def inspect(site, transform=False, policy_path=POLICY):
     if site.is_symlink() or not site.is_dir():
         raise ValueError('Site must be a real directory')
     actual = {}
+    policy = load_policy(policy_path)
+    images = policy.get('source_images', {})
     for p in site.rglob('*'):
         name = p.relative_to(site).as_posix()
         if p.is_symlink() or not (p.is_dir() or p.is_file()):
             raise ValueError('Non-regular public entry: ' + name)
-        safe_name(name)
+        safe_name(name, images)
         if p.is_file():
             actual[name] = p
-    policy = load_policy(policy_path)
     expected = {r['path']: r for r in policy['files']}
     missing = expected.keys()-actual.keys()
     if missing:
@@ -94,6 +102,8 @@ def inspect(site, transform=False, policy_path=POLICY):
         raise ValueError(f'Allowlist mismatch: extra={sorted(actual.keys()-allowed)}, missing={sorted(allowed-actual.keys())}')
     for name, row in expected.items():
         p = actual[name]
+        if name in images and hashlib.sha256(p.read_bytes()).hexdigest() != images[name]:
+            raise ValueError('Registered source image bytes changed: ' + name)
         if row['mode'] == 'public-summary':
             if transform:
                 p.write_bytes(summary(name))
@@ -133,10 +143,11 @@ def sums(rows):
 if __name__ == '__main__':
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('site', type=Path)
+    ap.add_argument('--policy', type=Path, default=POLICY, help='inventory used to verify the local directory')
     ap.add_argument('--transform', action='store_true')
     ap.add_argument('--sums', type=Path)
     a = ap.parse_args()
-    rows = inspect(a.site, a.transform)
+    rows = inspect(a.site, a.transform, a.policy)
     if a.sums:
         a.sums.write_text(sums(rows))
     print(json.dumps({'status': 'passed', 'files': len(rows), 'bytes': sum(r['bytes'] for r in rows)}))
