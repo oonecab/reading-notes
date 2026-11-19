@@ -100,3 +100,5 @@ SICP第一章的求值模型、迭代数值阈值、四位小数口径、accumul
 [逐节原文图、表与摘录清单](../visual-contract.json)登记第 1 章 18 个二级小节、Figure 1.1–1.5 的等价呈现和 1.14 的调用树。
 
 I082 的[内容深度契约](../content-depth-contract.json)登记教学例子、材料解释、题解理由及读回证据。
+
+RN-001 的正文程序标记由 [reading-prose](../../tools/reading-prose/check.mjs) 扫描正式源页，覆盖 Scheme 引用、过程调用，以及由表题或说明标识的代码表单元格。带理由的词法例外只作用于匹配片段，负例见 [T084](../../test/T084-bare-code.md)。
