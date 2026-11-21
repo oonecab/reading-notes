@@ -104,7 +104,7 @@ svg.question-large-tree{min-width:1120px}
 /* Reading rail: one table of contents beside the book page. */
 .reading-layout{display:grid;grid-template-columns:240px minmax(0,860px);gap:32px;max-width:1200px;margin:0 auto;padding:0 24px;align-items:start}
 .reading-layout>main{width:100%;min-width:0;margin:0}
-.chapter-sidebar{position:sticky;top:32px;max-height:calc(100dvh - 64px);overflow-y:auto;overscroll-behavior:contain;padding:8px 16px 12px 0;margin-top:40px;border-right:1px solid var(--rule);scrollbar-width:thin}
+.chapter-sidebar{user-select:none;position:sticky;top:32px;max-height:calc(100dvh - 64px);overflow-y:auto;overscroll-behavior:contain;padding:8px 16px 12px 0;margin-top:40px;border-right:1px solid var(--rule);scrollbar-width:thin}
 .toc-panel>summary{display:flex;align-items:center;justify-content:space-between;gap:1rem;list-style:none;padding:.45rem .55rem;color:var(--green);font-size:.9rem;font-weight:650;cursor:pointer}
 .toc-panel>summary::-webkit-details-marker{display:none}
 .toc-panel>summary::after{content:"+";font-size:1.1rem;font-weight:400}
@@ -139,6 +139,15 @@ main[id],main [id]{scroll-margin-top:24px}
 .exercise-index a{font-variant-numeric:tabular-nums}.solution-link{font-size:.9rem}
 .exercise-question .scroll>table{min-width:480px}
 .question-note strong{color:var(--green)}
+.chapter-toc .toc-branch{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center}
+.chapter-toc .toc-branch>ul{grid-column:1/-1;padding-inline-start:1em}
+.chapter-toc .toc-branch>ul[hidden]{display:none}
+.chapter-toc .toc-toggle{font:inherit;color:var(--green);background:transparent;border:0;cursor:pointer;min-width:2rem;min-height:2rem}
+.chapter-toc .toc-toggle::before{content:"+"}
+.chapter-toc .toc-toggle[aria-expanded="true"]::before{content:"−"}
+.chapter-toc .toc-toggle:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+.chapter-toc .toc-branch:has([aria-current="location"])>.toc-toggle{font-weight:bold;background:var(--paper)}
+@media print{aside.chapter-sidebar:has(.toc-branch){display:block;position:static;max-height:none;overflow:visible}.chapter-toc{max-height:none;overflow:visible}.chapter-toc .toc-toggle{display:none}}
 
 /* Supplementary reading notes share the page's type and color palette. */
 .reading-notes{margin:2rem 0 0;padding:0.8rem 1rem;border-left:2px solid var(--green);background:var(--tint);font-size:0.92rem;line-height:1.85}
@@ -1136,14 +1145,97 @@ if __name__=="__main__":main()
 <p>其他人数对概率零。两机人数和固定四，因此不能把边缘几何分布作为独立变量相乘。</p><p>核对支持：只有五种总人数为四的状态；权重 <span class="math-inline"><math data-tex="256+64+16+4+1=341" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>256</mn><mo>&#x0002B;</mo><mn>64</mn><mo>&#x0002B;</mo><mn>16</mn><mo>&#x0002B;</mo><mn>4</mn><mo>&#x0002B;</mo><mn>1</mn><mo>&#x0003D;</mo><mn>341</mn></mrow></math></span>，除此之外质量全为零。</p></li></ol></div></details><details class="reading-notes" id="notes-exercises" data-notes-for="exercises" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card" data-note-id="chapter04_continuous_time_markov_chains-exercises-1"><span class="annotation-kind">解题</span><h3>先写每个状态允许发生的事件</h3><p>逐个列出事件、速率和目标状态，再填 <span class="math-inline"><math data-tex="Q" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>Q</mi></mrow></math></span>。尤其注意多个顾客、机器或服务器并行时总率的乘数；对角元最后由该行的总离开率确定。</p></div><div class="annotation-card" data-note-id="chapter04_continuous_time_markov_chains-exercises-2"><span class="annotation-kind">检查</span><h3>求时间时用整体加速做验算</h3><p>所有速率翻倍后，平均时间应减半，概率和长期人数比例通常不变。若答案只对某个速率的单位敏感，检查是否混入了离散步数或漏算并行时钟。</p></div></div></details>
 </section>
 <details class="statement-index" id="statement-index"><summary>本章定义与定理</summary><ul class="statement-links"><li><a href="#definition-ctmc">定义 · 连续时间马尔可夫链与生成矩阵</a></li><li><a href="#theorem-4-1">定理 4.1 · 连续时间的 Chapman–Kolmogorov 方程</a></li><li><a href="#principle-kolmogorov-equations">公式与推导 · 前向、后向方程与矩阵指数</a></li><li><a href="#theorem-4-2">定理 4.2 · Yule 纯出生过程的转移分布</a></li><li><a href="#lemma-4-3">引理 4.3 · 线性出生死亡过程的生成函数方程</a></li><li><a href="#lemma-4-4">引理 4.4 · 线性出生死亡分布中的零点质量与几何尾</a></li><li><a href="#theorem-4-5">定理 4.5 · 超临界出生死亡过程的缩放极限</a></li><li><a href="#lemma-4-6">引理 4.6 · 不可约连续时间链的正转移概率</a></li><li><a href="#lemma-4-7">引理 4.7 · 生成矩阵的平稳判据</a></li><li><a href="#theorem-4-8">定理 4.8 · 不可约连续时间链的稳态极限</a></li><li><a href="#theorem-4-9">定理 4.9 · 连续时间细致平衡</a></li><li><a href="#principle-ctmc-exit">公式与推导 · 退出概率与退出时间方程</a></li><li><a href="#lemma-4-10">引理 4.10 · 限制可逆链的状态空间</a></li><li><a href="#theorem-4-11">定理 4.11 · 随队长减小的入队概率保证可归一化</a></li><li><a href="#theorem-4-12">定理 <math data-tex="4.12 · M / M / s" xmlns="http://www.w3.org/1998/Math/MathML" aria-label="4.12 · M/M/s" display="inline"><mrow><mn>4.12</mn><mo>·</mo><mi>M</mi><mo>/</mo><mi>M</mi><mo>/</mo><mi>s</mi></mrow></math> 的三种常返类型</a></li><li><a href="#theorem-4-13">定理 4.13 · Burke 输出定理</a></li><li><a href="#lemma-4-14">引理 4.14 · 平稳连续时间链的反向转移</a></li><li><a href="#theorem-4-15">定理 4.15 · 状态依赖服务率的泊松输出</a></li><li><a href="#theorem-4-16">定理 4.16 · 平稳 <math data-tex="M / M / 1" xmlns="http://www.w3.org/1998/Math/MathML" aria-label="M/M/1" display="inline"><mrow><mi>M</mi><mo>/</mo><mi>M</mi><mo>/</mo><mn>1</mn></mrow></math> 的过去输出与当前队长独立</a></li><li><a href="#lemma-4-17">引理 4.17 · 两站串联队列的乘积平稳分布</a></li><li><a href="#theorem-4-18">定理 4.18 · 两站带路由网络的乘积形式</a></li><li><a href="#principle-open-network">公式与推导 · 开放队列网络的交通方程与乘积形式</a></li><li><a href="#principle-uniformization">公式与推导 · 统一化：以共同泊松时钟构造链</a></li></ul><p class="source">英文原文用于核对作者措辞；中文陈述集中列出条件与结论。公式与推导条目保留原书未编号结果的性质。</p><p class="source">共同基础：<a href="appendix_a_probability_review.html#axiom-probability">概率的三条公理</a> · <a href="appendix_a_probability_review.html#definition-conditional-probability">条件概率与独立性</a>。</p></details>
-<footer><p>本文按第三版原书的节次与题号组织。程序、公式、图和样式均嵌入本页，可离线阅读。程序使用说明见 <a href="book_overview.html#program-guide">全书地图</a>。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter03_renewal_processes.html">← 第 3 章 · 更新过程</a><a href="chapter05_martingales.html">第 5 章 · 鞅 →</a><a href="#top">返回页首 ↑</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top">本节理解与补充</a></p><div id="annotation-content"></div></aside></div><script>
+<footer><p>本文按第三版原书的节次与题号组织。程序、公式、图和样式均嵌入本页，可离线阅读。程序使用说明见 <a href="book_overview.html#program-guide">全书地图</a>。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter03_renewal_processes.html">← 第 3 章 · 更新过程</a><a href="chapter05_martingales.html">第 5 章 · 鞅 →</a><a href="#top">返回页首 ↑</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top">本节理解与补充</a></p><div id="annotation-content"></div></aside></div><script>(() => {
+  const initialized = new WeakSet();
+  function target(hash) {
+    try { return document.getElementById(decodeURIComponent(hash.slice(1))); } catch { return null; }
+  }
+  function entriesFor(nav) {
+    return Array.from(nav.querySelectorAll('li a[href^="#"]'), link => ({link, section:target(link.hash)}));
+  }
+  function init({nav, panel, breakpoint = 1100, groupHeading = "h2", childHeading = "h3"} = {}) {
+    if (!nav || !panel || initialized.has(nav)) return;
+    const entries = entriesFor(nav);
+    const groups = [];
+    let parent;
+    for (const entry of entries) {
+      const heading = /^h[1-6]$/.test(entry.section?.localName) ? entry.section :
+        entry.section?.querySelector(':scope > :is(h1,h2,h3,h4,h5,h6)');
+      if (heading?.localName !== childHeading) {
+        parent = heading?.localName === groupHeading ? entry : null;
+        continue;
+      }
+      if (!parent) continue;
+      const item = parent.link.closest('li');
+      const child = entry.link.closest('li');
+      const nested = child.parentElement.parentElement === item ? child.parentElement : null;
+      if (!nested && item.nextElementSibling !== child) {
+        parent = null;
+        continue;
+      }
+      if (!parent.group) {
+        const list = document.createElement('ul');
+        list.id = 'toc-group-' + parent.section.id;
+        while (document.getElementById(list.id)) list.id += '-sub';
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'toc-toggle';
+        button.setAttribute('aria-controls', list.id);
+        const title = parent.link.textContent.trim();
+        const open = expanded => {
+          list.hidden = !expanded;
+          button.ariaExpanded = expanded;
+          button.ariaLabel = (expanded ? '折叠 ' : '展开 ') + title;
+        };
+        button.addEventListener('click', () => open(list.hidden));
+        item.classList.add('toc-branch');
+        if (nested) nested.before(button, list);
+        else item.append(button, list);
+        parent.group = {list, open};
+        groups.push(parent.group);
+      }
+      parent.group.list.append(child);
+      entry.group = parent.group;
+    }
+    if (!groups.length) return;
+    initialized.add(nav);
+    const wide = matchMedia('(min-width:' + breakpoint + 'px)');
+    function targetGroup() {
+      const node = target(location.hash);
+      return entries.findLast(entry => entry.section?.contains(node))?.group;
+    }
+    function defaults() {
+      const active = targetGroup() || entries.find(entry => entry.link.hasAttribute('aria-current'))?.group || groups[0];
+      groups.forEach(group => group.open(wide.matches || group === active));
+    }
+    defaults();
+    wide.addEventListener('change', defaults);
+    addEventListener('hashchange', () => targetGroup()?.open(true));
+    let saved, panelWasOpen;
+    addEventListener('beforeprint', () => {
+      if (saved) return;
+      panelWasOpen = panel.open;
+      panel.open = true;
+      saved = groups.map(group => !group.list.hidden);
+      groups.forEach(group => group.open(true));
+    });
+    addEventListener('afterprint', () => {
+      if (!saved) return;
+      groups.forEach((group,i) => group.open(saved[i]));
+      panel.open = panelWasOpen;
+      saved = null;
+    });
+  }
+  window.TocTree = {init, entriesFor};
+})();
+
+
 (() => {
   document.documentElement.classList.add('toc-enhanced');
   const panel = document.getElementById('toc-panel');
   const nav = document.getElementById('chapter-toc');
   const wide = matchMedia('(min-width:1100px)');
-  const links = Array.from(nav.querySelectorAll('li a[href^="#"]'));
-  const entries = links.map(link => ({link, section: document.getElementById(link.hash.slice(1))})).filter(item => item.section);
+  const entries = window.TocTree.entriesFor(nav).filter(item => item.section);
   let current = null, scheduled = false;
   const fit = () => { panel.open = wide.matches; };
   fit();
@@ -1175,6 +1267,7 @@ if __name__=="__main__":main()
   addEventListener('hashchange', () => { reveal(); schedule(); });
   document.addEventListener('toggle', schedule, true);
   reveal(); mark();
+  window.TocTree.init({nav, panel});
 })();
 </script><script id="reading-notes-controller">
 (() => {

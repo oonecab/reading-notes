@@ -34,6 +34,26 @@
 
 ### 2.2 侧栏
 
+目录保持源链接、顺序和锚点。脚本按 h2 及其连续 h3 子项构树；分组链接旁的原生按钮使用 aria-controls、aria-expanded 和随状态更新的中文名称。桌面（至少 1100px）展开全部，窄屏只展开定位组，点链接后合上整栏。首次定位与 hashchange 展开目标组，普通滚动只更新高亮。打印前展开并在打印后恢复。无脚本可通过原生目录读取全部链接。
+
+组件从 nav 中的链接和目标标题推导分组。同一父标题后连续的子标题属于该组；其他级别、外部链接或缺失目标结束当前组。无子项的父标题保留为普通链接。源目录已有的子列表也保留链接顺序。高亮与页面定位仍由各书原有控制器负责。
+
+其他页面在目录和正文就绪后加载 `src/scripts/toc-tree.js`，并调用：
+
+```js
+window.TocTree.init({
+  nav: document.querySelector('.chapter-toc'),
+  panel: document.querySelector('#toc-panel'),
+  breakpoint: 1100,
+  groupHeading: 'h2',
+  childHeading: 'h3'
+});
+```
+
+nav 是包含列表链接的元素，panel 是外层原生 details。后三项为可选参数；标题名使用小写 h1 至 h6。锚点可指向标题本身或以标题为直接子元素的章节容器。重复初始化同一目录保留按钮、链接节点及手动展开状态。未提供元素或没有可分组链接时可安全调用。此 API 用于静态目录，返回 undefined。
+
+宿主 nav 使用 chapter-toc 类；引入 reading-navigation.css 的 .chapter-toc 分组样式（包括 hidden、按钮 ::before 加减号、focus-visible 和打印规则），即可呈现按钮、嵌套缩进与键盘焦点。提供 --green 和 --paper 两个颜色变量。窄屏整栏关闭、aria-current 高亮及正文定位由宿主负责。
+
 - 侧栏标题统一为 `目录`。
 - 章内页面先列 `全书地图`、`序言`（存在时），再列本章小节；`本章索引`（若存在）放在所有正文小节之后。
 - 侧栏链接必须全部落在本页真实锚点，且顺序与正文阅读顺序一致；不得出现指向地图段落的“章节入口”。
@@ -107,6 +127,8 @@
 三层都完成才可写“本轮阅读呈现检查通过”。任何一层缺失，必须在结论中写明缺的是哪层、覆盖哪些页、为什么没做。
 
 ### 7.2 命令与证据
+
+运行 `pnpm check:toc` 检查源镜像，运行 `pnpm check:toc:dist` 检查构建产物。按正式页面登记枚举，1440 像素逐页检查有脚本和无脚本模式，390 像素检查从源目录推导出的分组页。报告位于 `tmp/toc-tree-smoke/report.json`。键盘、打印、连续点击和移动端交互由 `scripts/toc-tree-browser.mjs` 的 SICP 样章覆盖。
 
 ```sh
 python3 tools/project.py check                 # 含契约检查

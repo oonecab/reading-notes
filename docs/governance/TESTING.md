@@ -78,3 +78,7 @@ I071加入compact-html回归：危险属性值、自闭合标签及字节敏感�
 I071 的产物审阅绑定回归在 `tools/test_reader_views.py` 中，要求安全语法变化通过，正文、属性值、脚本及保护岛变化仍失败。浏览器横滚检查等待真实 scrollLeft 增加后再断言；滚轮调用返回本身不代表滚动已经完成，原失败尝试保留。
 
 I074加入 `python tools/test_project_contracts.py`（由根check/check-local执行）：书架显式范围与catalog、完整来源元数据反例、默认中国标准时间边界、无可选时区数据库的真实CLI，以及构建来源Git对象随HEAD可达。普通克隆和真实PDF仍单独做集成核验，不能用纯函数测试替代。
+
+### 目录树浏览器门禁
+
+运行 `pnpm check:toc` 检查源镜像，运行 `pnpm check:toc:dist` 检查构建产物。按正式页面登记枚举，1440 像素逐页检查有脚本和无脚本模式，390 像素检查从源目录推导出的分组页。报告位于 `tmp/toc-tree-smoke/report.json`。键盘、打印、连续点击和移动端交互由 `scripts/toc-tree-browser.mjs` 的 SICP 样章覆盖。 包含 SICP 第二章的离线验收会同时执行全站 dist smoke 和样章交互。

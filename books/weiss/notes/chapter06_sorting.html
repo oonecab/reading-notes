@@ -8977,14 +8977,97 @@ L 128.987091 34.155
  </defs>
 </svg>
 </div></div></div></div></div></fieldset><figcaption>C 使用 <code>qsort</code>，Python 使用 <code>list.sort</code> 与 <code>cmp_to_key</code>；各自的耗时和比较器调用次数分别展示。两轴为对数刻度，原表的输入规模与结果全部保留。 数据见<a href="#benchmark-source-chapter06-20">原始表格</a>。</figcaption></figure>
-<p>本机这些样本未触发二次比较增长：随机输入随 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="N" display="inline"><mi>N</mi></math> 翻倍约增加到对数因子规模，二值和全部相等表现接近线性；逆序也未呈四倍比较数增长。这个结论仅覆盖上述系统库、规模和具体输入，不能推出所有 C 库都用同一个算法，更不能据此证明 <code>qsort</code> 对任意输入有某个最坏保证。</p><p>C 标准规定接口和排序效果，没有要求名为 <code>qsort</code> 的函数必须实现快速排序。相等项的原始顺序也没有稳定性保证；记录排序若需要稳定，应选有明确稳定约定的算法或附加顺序号。Python 这一列提供同任务、同测量口径的解法与对照；它的库性质不能反推 C 函数的内部实现。</p></div></details></section><footer><p>本章小节、图号及 44 道习题均以本版 PDF 为准。源码档案沿用另一套章号：排序示例在 <code>c/ch7.c</code> 与 <code>WEISS_2E_extracted/fig7.*</code>；本页的章号始终为 6。程序接口、稳定性、失败行为与实验条件按相邻说明阅读，原书的历史经验猜测按其性质记录。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter05_priority_queues.html">← 第 5 章 · 优先队列（堆）</a><a href="chapter07_hashing.html">第 7 章 · 散列 →</a><a href="#top">返回页首 ↑</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top">本节理解与补充</a></p><div id="annotation-content"></div></aside></div><script>
+<p>本机这些样本未触发二次比较增长：随机输入随 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="N" display="inline"><mi>N</mi></math> 翻倍约增加到对数因子规模，二值和全部相等表现接近线性；逆序也未呈四倍比较数增长。这个结论仅覆盖上述系统库、规模和具体输入，不能推出所有 C 库都用同一个算法，更不能据此证明 <code>qsort</code> 对任意输入有某个最坏保证。</p><p>C 标准规定接口和排序效果，没有要求名为 <code>qsort</code> 的函数必须实现快速排序。相等项的原始顺序也没有稳定性保证；记录排序若需要稳定，应选有明确稳定约定的算法或附加顺序号。Python 这一列提供同任务、同测量口径的解法与对照；它的库性质不能反推 C 函数的内部实现。</p></div></details></section><footer><p>本章小节、图号及 44 道习题均以本版 PDF 为准。源码档案沿用另一套章号：排序示例在 <code>c/ch7.c</code> 与 <code>WEISS_2E_extracted/fig7.*</code>；本页的章号始终为 6。程序接口、稳定性、失败行为与实验条件按相邻说明阅读，原书的历史经验猜测按其性质记录。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter05_priority_queues.html">← 第 5 章 · 优先队列（堆）</a><a href="chapter07_hashing.html">第 7 章 · 散列 →</a><a href="#top">返回页首 ↑</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top">本节理解与补充</a></p><div id="annotation-content"></div></aside></div><script>(() => {
+  const initialized = new WeakSet();
+  function target(hash) {
+    try { return document.getElementById(decodeURIComponent(hash.slice(1))); } catch { return null; }
+  }
+  function entriesFor(nav) {
+    return Array.from(nav.querySelectorAll('li a[href^="#"]'), link => ({link, section:target(link.hash)}));
+  }
+  function init({nav, panel, breakpoint = 1100, groupHeading = "h2", childHeading = "h3"} = {}) {
+    if (!nav || !panel || initialized.has(nav)) return;
+    const entries = entriesFor(nav);
+    const groups = [];
+    let parent;
+    for (const entry of entries) {
+      const heading = /^h[1-6]$/.test(entry.section?.localName) ? entry.section :
+        entry.section?.querySelector(':scope > :is(h1,h2,h3,h4,h5,h6)');
+      if (heading?.localName !== childHeading) {
+        parent = heading?.localName === groupHeading ? entry : null;
+        continue;
+      }
+      if (!parent) continue;
+      const item = parent.link.closest('li');
+      const child = entry.link.closest('li');
+      const nested = child.parentElement.parentElement === item ? child.parentElement : null;
+      if (!nested && item.nextElementSibling !== child) {
+        parent = null;
+        continue;
+      }
+      if (!parent.group) {
+        const list = document.createElement('ul');
+        list.id = 'toc-group-' + parent.section.id;
+        while (document.getElementById(list.id)) list.id += '-sub';
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'toc-toggle';
+        button.setAttribute('aria-controls', list.id);
+        const title = parent.link.textContent.trim();
+        const open = expanded => {
+          list.hidden = !expanded;
+          button.ariaExpanded = expanded;
+          button.ariaLabel = (expanded ? '折叠 ' : '展开 ') + title;
+        };
+        button.addEventListener('click', () => open(list.hidden));
+        item.classList.add('toc-branch');
+        if (nested) nested.before(button, list);
+        else item.append(button, list);
+        parent.group = {list, open};
+        groups.push(parent.group);
+      }
+      parent.group.list.append(child);
+      entry.group = parent.group;
+    }
+    if (!groups.length) return;
+    initialized.add(nav);
+    const wide = matchMedia('(min-width:' + breakpoint + 'px)');
+    function targetGroup() {
+      const node = target(location.hash);
+      return entries.findLast(entry => entry.section?.contains(node))?.group;
+    }
+    function defaults() {
+      const active = targetGroup() || entries.find(entry => entry.link.hasAttribute('aria-current'))?.group || groups[0];
+      groups.forEach(group => group.open(wide.matches || group === active));
+    }
+    defaults();
+    wide.addEventListener('change', defaults);
+    addEventListener('hashchange', () => targetGroup()?.open(true));
+    let saved, panelWasOpen;
+    addEventListener('beforeprint', () => {
+      if (saved) return;
+      panelWasOpen = panel.open;
+      panel.open = true;
+      saved = groups.map(group => !group.list.hidden);
+      groups.forEach(group => group.open(true));
+    });
+    addEventListener('afterprint', () => {
+      if (!saved) return;
+      groups.forEach((group,i) => group.open(saved[i]));
+      panel.open = panelWasOpen;
+      saved = null;
+    });
+  }
+  window.TocTree = {init, entriesFor};
+})();
+
+
 (() => {
   document.documentElement.classList.add('toc-enhanced');
   const panel = document.getElementById('toc-panel');
   const nav = document.getElementById('chapter-toc');
   const wide = matchMedia('(min-width:1100px)');
-  const links = Array.from(nav.querySelectorAll('li a[href^="#"]'));
-  const entries = links.map(link => ({link, section: document.getElementById(link.hash.slice(1))})).filter(item => item.section);
+  const entries = window.TocTree.entriesFor(nav).filter(item => item.section);
   let current = null, scheduled = false;
   const fit = () => { panel.open = wide.matches; };
   fit();
@@ -9016,6 +9099,7 @@ L 128.987091 34.155
   addEventListener('hashchange', () => { reveal(); schedule(); });
   document.addEventListener('toggle', schedule, true);
   reveal(); mark();
+  window.TocTree.init({nav, panel});
 })();
 </script><script id="reading-notes-controller">
 (() => {

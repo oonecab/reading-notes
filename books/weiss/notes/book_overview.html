@@ -547,14 +547,97 @@ python3 notes/tools/check_notes.py --verify /tmp/weiss-notes-check --benchmarks<
 <section id="reading"><h2>五、建议的阅读路径</h2><p>第一次学习可以按本版顺序阅读第 1—9 章，建立完整的数据结构基础，再进入第 10 章。在这个阶段，重点不是记住全部变体，而是能够解释每种结构的操作、约束、边界情况和复杂度前提。</p><p>进入第 11、12 章时，可以回看第 4、5 章：用摊还分析重新理解伸展树和斜堆，用高级实现比较 AVL、红黑树、AA 树和 Treap 的设计取舍。这会把第一次阅读中的直观理解转化成更系统的认识。</p><p>十二章伴读从引论延伸至<a href="chapter12_advanced_data_structures.html">高级数据结构与实现</a>。可以沿第 4、5、11、12 章回看树与堆：从中序和堆序不变量，到最坏、期望与摊还保证，再看实际程序中的旋转、层级、空间和操作次序。各章完整中文题干、题解、双语实现与实验图都保留在相应位置，程序使用说明集中在本页开头。</p><blockquote>会实现基本结构 → 会选择和组合结构 → 会设计算法 → 会解释其效率。</blockquote><details class="reading-notes" data-notes-for="reading" open><summary>本节理解与补充</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">读法</span><h3>用一次树访问贯穿三次阅读</h3><p>第一次读树与堆，手画一次访问会改动哪些链接；读摊还分析时，再问这次调整怎样改变后续操作的代价；进入高级实现后，检查节点字段是否足以维护这些关系。同一个小例子可以把操作、不变量与性能保证连续接起来。</p></div></div></details>
 </section>
 <footer>依据：本版 PDF 的改编者前言、作者前言 Overview、目录及相应章节主题。拓扑图按学习联系组织，不代表原书给出的正式依赖图。<p class="chapter-nav"><a href="chapter01_introduction.html">开始阅读：第 1 章 · 引论 →</a><a href="#top">返回页首 ↑</a></p></footer>
-</main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top">本节理解与补充</a></p><div id="annotation-content"></div></aside></div><script>
+</main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top">本节理解与补充</a></p><div id="annotation-content"></div></aside></div><script>(() => {
+  const initialized = new WeakSet();
+  function target(hash) {
+    try { return document.getElementById(decodeURIComponent(hash.slice(1))); } catch { return null; }
+  }
+  function entriesFor(nav) {
+    return Array.from(nav.querySelectorAll('li a[href^="#"]'), link => ({link, section:target(link.hash)}));
+  }
+  function init({nav, panel, breakpoint = 1100, groupHeading = "h2", childHeading = "h3"} = {}) {
+    if (!nav || !panel || initialized.has(nav)) return;
+    const entries = entriesFor(nav);
+    const groups = [];
+    let parent;
+    for (const entry of entries) {
+      const heading = /^h[1-6]$/.test(entry.section?.localName) ? entry.section :
+        entry.section?.querySelector(':scope > :is(h1,h2,h3,h4,h5,h6)');
+      if (heading?.localName !== childHeading) {
+        parent = heading?.localName === groupHeading ? entry : null;
+        continue;
+      }
+      if (!parent) continue;
+      const item = parent.link.closest('li');
+      const child = entry.link.closest('li');
+      const nested = child.parentElement.parentElement === item ? child.parentElement : null;
+      if (!nested && item.nextElementSibling !== child) {
+        parent = null;
+        continue;
+      }
+      if (!parent.group) {
+        const list = document.createElement('ul');
+        list.id = 'toc-group-' + parent.section.id;
+        while (document.getElementById(list.id)) list.id += '-sub';
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'toc-toggle';
+        button.setAttribute('aria-controls', list.id);
+        const title = parent.link.textContent.trim();
+        const open = expanded => {
+          list.hidden = !expanded;
+          button.ariaExpanded = expanded;
+          button.ariaLabel = (expanded ? '折叠 ' : '展开 ') + title;
+        };
+        button.addEventListener('click', () => open(list.hidden));
+        item.classList.add('toc-branch');
+        if (nested) nested.before(button, list);
+        else item.append(button, list);
+        parent.group = {list, open};
+        groups.push(parent.group);
+      }
+      parent.group.list.append(child);
+      entry.group = parent.group;
+    }
+    if (!groups.length) return;
+    initialized.add(nav);
+    const wide = matchMedia('(min-width:' + breakpoint + 'px)');
+    function targetGroup() {
+      const node = target(location.hash);
+      return entries.findLast(entry => entry.section?.contains(node))?.group;
+    }
+    function defaults() {
+      const active = targetGroup() || entries.find(entry => entry.link.hasAttribute('aria-current'))?.group || groups[0];
+      groups.forEach(group => group.open(wide.matches || group === active));
+    }
+    defaults();
+    wide.addEventListener('change', defaults);
+    addEventListener('hashchange', () => targetGroup()?.open(true));
+    let saved, panelWasOpen;
+    addEventListener('beforeprint', () => {
+      if (saved) return;
+      panelWasOpen = panel.open;
+      panel.open = true;
+      saved = groups.map(group => !group.list.hidden);
+      groups.forEach(group => group.open(true));
+    });
+    addEventListener('afterprint', () => {
+      if (!saved) return;
+      groups.forEach((group,i) => group.open(saved[i]));
+      panel.open = panelWasOpen;
+      saved = null;
+    });
+  }
+  window.TocTree = {init, entriesFor};
+})();
+
+
 (() => {
   document.documentElement.classList.add('toc-enhanced');
   const panel = document.getElementById('toc-panel');
   const nav = document.getElementById('chapter-toc');
   const wide = matchMedia('(min-width:1100px)');
-  const links = Array.from(nav.querySelectorAll('li a[href^="#"]'));
-  const entries = links.map(link => ({link, section: document.getElementById(link.hash.slice(1))})).filter(item => item.section);
+  const entries = window.TocTree.entriesFor(nav).filter(item => item.section);
   let current = null, scheduled = false;
   const fit = () => { panel.open = wide.matches; };
   fit();
@@ -586,6 +669,7 @@ python3 notes/tools/check_notes.py --verify /tmp/weiss-notes-check --benchmarks<
   addEventListener('hashchange', () => { reveal(); schedule(); });
   document.addEventListener('toggle', schedule, true);
   reveal(); mark();
+  window.TocTree.init({nav, panel});
 })();
 </script><script id="reading-notes-controller">
 (() => {

@@ -3718,14 +3718,97 @@ if __name__ == &quot;__main__&quot;:
     try: main()
     except (ValueError, MemoryError) as e:
         print(str(e), file=sys.stderr); sys.exit(1)</code></pre></details></div><details class="reading-notes" data-notes-for="programs" open><summary>本节理解与补充</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">条件</span><h3>删除后的节点归属由接口约定</h3><p>本章二项队列释放自己分配的被删根，而斜堆与 Fibonacci 堆接收调用者持有的节点，删除后返回节点。写驱动时，应先确认谁拥有节点，再处理失效句柄和释放。合并还会转移第二个堆的节点归属，旧句柄后续必须跟随新的拥有者。</p></div></div></details>
-</section><footer><p>本页按本仓库第二版中国改编版的题号与图号记录；势能用于证明，程序样本用于检查实现。题干保留原书表达，必要的成本口径与校注在相邻位置解释。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter10_algorithm_design.html">← 第 10 章 · 算法设计技巧</a><a href="chapter12_advanced_data_structures.html">第 12 章 · 高级数据结构与实现 →</a><a href="#top">返回页首 ↑</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top">本节理解与补充</a></p><div id="annotation-content"></div></aside></div><script>
+</section><footer><p>本页按本仓库第二版中国改编版的题号与图号记录；势能用于证明，程序样本用于检查实现。题干保留原书表达，必要的成本口径与校注在相邻位置解释。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter10_algorithm_design.html">← 第 10 章 · 算法设计技巧</a><a href="chapter12_advanced_data_structures.html">第 12 章 · 高级数据结构与实现 →</a><a href="#top">返回页首 ↑</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top">本节理解与补充</a></p><div id="annotation-content"></div></aside></div><script>(() => {
+  const initialized = new WeakSet();
+  function target(hash) {
+    try { return document.getElementById(decodeURIComponent(hash.slice(1))); } catch { return null; }
+  }
+  function entriesFor(nav) {
+    return Array.from(nav.querySelectorAll('li a[href^="#"]'), link => ({link, section:target(link.hash)}));
+  }
+  function init({nav, panel, breakpoint = 1100, groupHeading = "h2", childHeading = "h3"} = {}) {
+    if (!nav || !panel || initialized.has(nav)) return;
+    const entries = entriesFor(nav);
+    const groups = [];
+    let parent;
+    for (const entry of entries) {
+      const heading = /^h[1-6]$/.test(entry.section?.localName) ? entry.section :
+        entry.section?.querySelector(':scope > :is(h1,h2,h3,h4,h5,h6)');
+      if (heading?.localName !== childHeading) {
+        parent = heading?.localName === groupHeading ? entry : null;
+        continue;
+      }
+      if (!parent) continue;
+      const item = parent.link.closest('li');
+      const child = entry.link.closest('li');
+      const nested = child.parentElement.parentElement === item ? child.parentElement : null;
+      if (!nested && item.nextElementSibling !== child) {
+        parent = null;
+        continue;
+      }
+      if (!parent.group) {
+        const list = document.createElement('ul');
+        list.id = 'toc-group-' + parent.section.id;
+        while (document.getElementById(list.id)) list.id += '-sub';
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'toc-toggle';
+        button.setAttribute('aria-controls', list.id);
+        const title = parent.link.textContent.trim();
+        const open = expanded => {
+          list.hidden = !expanded;
+          button.ariaExpanded = expanded;
+          button.ariaLabel = (expanded ? '折叠 ' : '展开 ') + title;
+        };
+        button.addEventListener('click', () => open(list.hidden));
+        item.classList.add('toc-branch');
+        if (nested) nested.before(button, list);
+        else item.append(button, list);
+        parent.group = {list, open};
+        groups.push(parent.group);
+      }
+      parent.group.list.append(child);
+      entry.group = parent.group;
+    }
+    if (!groups.length) return;
+    initialized.add(nav);
+    const wide = matchMedia('(min-width:' + breakpoint + 'px)');
+    function targetGroup() {
+      const node = target(location.hash);
+      return entries.findLast(entry => entry.section?.contains(node))?.group;
+    }
+    function defaults() {
+      const active = targetGroup() || entries.find(entry => entry.link.hasAttribute('aria-current'))?.group || groups[0];
+      groups.forEach(group => group.open(wide.matches || group === active));
+    }
+    defaults();
+    wide.addEventListener('change', defaults);
+    addEventListener('hashchange', () => targetGroup()?.open(true));
+    let saved, panelWasOpen;
+    addEventListener('beforeprint', () => {
+      if (saved) return;
+      panelWasOpen = panel.open;
+      panel.open = true;
+      saved = groups.map(group => !group.list.hidden);
+      groups.forEach(group => group.open(true));
+    });
+    addEventListener('afterprint', () => {
+      if (!saved) return;
+      groups.forEach((group,i) => group.open(saved[i]));
+      panel.open = panelWasOpen;
+      saved = null;
+    });
+  }
+  window.TocTree = {init, entriesFor};
+})();
+
+
 (() => {
   document.documentElement.classList.add('toc-enhanced');
   const panel = document.getElementById('toc-panel');
   const nav = document.getElementById('chapter-toc');
   const wide = matchMedia('(min-width:1100px)');
-  const links = Array.from(nav.querySelectorAll('li a[href^="#"]'));
-  const entries = links.map(link => ({link, section: document.getElementById(link.hash.slice(1))})).filter(item => item.section);
+  const entries = window.TocTree.entriesFor(nav).filter(item => item.section);
   let current = null, scheduled = false;
   const fit = () => { panel.open = wide.matches; };
   fit();
@@ -3757,6 +3840,7 @@ if __name__ == &quot;__main__&quot;:
   addEventListener('hashchange', () => { reveal(); schedule(); });
   document.addEventListener('toggle', schedule, true);
   reveal(); mark();
+  window.TocTree.init({nav, panel});
 })();
 </script><script id="reading-notes-controller">
 (() => {

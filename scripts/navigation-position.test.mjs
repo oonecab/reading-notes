@@ -3,13 +3,15 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
 
-const source=fs.readFileSync(new URL('../src/scripts/6a3f8b30744a694f9192.js',import.meta.url),'utf8');
+const tree=fs.readFileSync(new URL('../src/scripts/toc-tree.js',import.meta.url),'utf8');
+const source=tree+'\n'+fs.readFileSync(new URL('../src/scripts/6a3f8b30744a694f9192.js',import.meta.url),'utf8');
 function navigation({wide=false,hash='#statement-index'}={}){
   const tasks=[],frames=[],events={};let top=584,scrolled=false;
-  const section={getBoundingClientRect:()=>({top:0})};
-  const index={tagName:'DETAILS',parentElement:null,open:false,
+  const plain={matches:()=>false,querySelector:()=>null,contains:()=>false};
+  const section={...plain,getBoundingClientRect:()=>({top:0})};
+  const index={...plain,tagName:'DETAILS',parentElement:null,open:false,
     getBoundingClientRect:()=>({top}),scrollIntoView(){top=wide?96:128;scrolled=true;}};
-  const link=id=>({hash:'#'+id,current:false,setAttribute(){this.current=true;},removeAttribute(){this.current=false;}});
+  const link=id=>({hash:'#'+id,getAttribute:()=>'#'+id,current:false,hasAttribute(){return this.current;},setAttribute(){this.current=true;},removeAttribute(){this.current=false;}});
   const first=link('first'),last=link('statement-index');
   const panel={open:false,querySelector:()=>({getBoundingClientRect:()=>({bottom:109.625})})};
   const nav={querySelectorAll:()=>[first,last],addEventListener(){}};

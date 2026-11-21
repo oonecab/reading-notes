@@ -11,7 +11,10 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "check:parity": "node scripts/verify-parity.mjs",
+    "check:toc": "node scripts/toc-tree-smoke.mjs",
+    "check:toc:dist": "node scripts/toc-tree-smoke.mjs --dist",
     "check:offline": "node scripts/check-offline.mjs",
+    "check:toc-tree": "node scripts/toc-tree-browser.mjs --dist",
     "test": "node --test scripts/*.test.mjs",
     "check:performance": "node scripts/performance-budget.mjs",
     "check:presentation": "node tools/check-presentation-contract.mjs",

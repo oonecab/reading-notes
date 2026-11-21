@@ -5937,14 +5937,97 @@ z
  </defs>
 </svg>
 </div></div></div></div></div></fieldset><figcaption>分别展示 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="N=8192" display="inline"><mrow><mi>N</mi><mo>=</mo><mn>8192</mn></mrow></math> 与 32768。查询视图对应 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="2N" display="inline"><mrow><mn>2</mn><mi>N</mi></mrow></math> 次查询；目录视图保留原表的桶入口或目录项数量，独立桶与链节点仍在原表中查阅。 数据见<a href="#benchmark-source-chapter07-13">原始表格</a>。</figcaption></figure>
-<p>本机 C 版本里，开放定址插入较快；<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="M=4" display="inline"><mrow><mi>M</mi><mo>=</mo><mn>4</mn></mrow></math> 的可扩展散列查询与短链接近，但插入要分配桶、重分记录和扩目录。<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="M=16" display="inline"><mrow><mi>M</mi><mo>=</mo><mn>16</mn></mrow></math> 减少目录与桶数量，查询时每桶内线性核实的记录可能更多。Python 的对象、循环和索引开销又改变了具体排名，分离链接在本次样本中比这里手写的开放定址与可扩展版本快。</p><p>例如 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="N=32768" display="inline"><mrow><mi>N</mi><mo>=</mo><mn>32768</mn></mrow></math> 时，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="M=4" display="inline"><mrow><mi>M</mi><mo>=</mo><mn>4</mn></mrow></math> 需要 131072 个目录入口和 11774 个桶；<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="M=16" display="inline"><mrow><mi>M</mi><mo>=</mo><mn>16</mn></mrow></math> 则为 8192 个入口和 2942 个桶。表中的链节点数与独立桶数是各结构的计数口径，不能直接当成同一尺寸的对象。链／开放定址复用了保存 64 位值的映射节点，可扩展实现只存集合键；总空间比较还要纳入这些记录布局、对齐与分配器开销。</p><p>可扩展散列的设计收益是外存访问：通过直接目录和局部分桶，避免查找时跨很多块及普通扩容时搬迁全部记录。整个结构都在内存时，这一收益变成指针索引，目录维护和桶分裂仍要付钱，所以它不必优于简单开放定址。上述表给出内存中的具体比较；按外存解释性能时，仍要采用正文说明的缓存、块容量和记录布局。</p></div></details></section><footer><p>本章小节、图号及十五道习题以本版 PDF 为准。源码档案采用另一套章号：散列相关材料位于 <code>c/ch5.c</code> 与 <code>WEISS_2E_extracted/fig5.*</code>；本页章号为 7。中文题干先于解答，实验参数、整数范围、失败行为与复杂度条件按相邻说明阅读。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter06_sorting.html">← 第 6 章 · 排序</a><a href="chapter08_disjoint_sets.html">第 8 章 · 不相交集（并查集） →</a><a href="#top">返回页首 ↑</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top">本节理解与补充</a></p><div id="annotation-content"></div></aside></div><script>
+<p>本机 C 版本里，开放定址插入较快；<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="M=4" display="inline"><mrow><mi>M</mi><mo>=</mo><mn>4</mn></mrow></math> 的可扩展散列查询与短链接近，但插入要分配桶、重分记录和扩目录。<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="M=16" display="inline"><mrow><mi>M</mi><mo>=</mo><mn>16</mn></mrow></math> 减少目录与桶数量，查询时每桶内线性核实的记录可能更多。Python 的对象、循环和索引开销又改变了具体排名，分离链接在本次样本中比这里手写的开放定址与可扩展版本快。</p><p>例如 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="N=32768" display="inline"><mrow><mi>N</mi><mo>=</mo><mn>32768</mn></mrow></math> 时，<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="M=4" display="inline"><mrow><mi>M</mi><mo>=</mo><mn>4</mn></mrow></math> 需要 131072 个目录入口和 11774 个桶；<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="M=16" display="inline"><mrow><mi>M</mi><mo>=</mo><mn>16</mn></mrow></math> 则为 8192 个入口和 2942 个桶。表中的链节点数与独立桶数是各结构的计数口径，不能直接当成同一尺寸的对象。链／开放定址复用了保存 64 位值的映射节点，可扩展实现只存集合键；总空间比较还要纳入这些记录布局、对齐与分配器开销。</p><p>可扩展散列的设计收益是外存访问：通过直接目录和局部分桶，避免查找时跨很多块及普通扩容时搬迁全部记录。整个结构都在内存时，这一收益变成指针索引，目录维护和桶分裂仍要付钱，所以它不必优于简单开放定址。上述表给出内存中的具体比较；按外存解释性能时，仍要采用正文说明的缓存、块容量和记录布局。</p></div></details></section><footer><p>本章小节、图号及十五道习题以本版 PDF 为准。源码档案采用另一套章号：散列相关材料位于 <code>c/ch5.c</code> 与 <code>WEISS_2E_extracted/fig5.*</code>；本页章号为 7。中文题干先于解答，实验参数、整数范围、失败行为与复杂度条件按相邻说明阅读。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter06_sorting.html">← 第 6 章 · 排序</a><a href="chapter08_disjoint_sets.html">第 8 章 · 不相交集（并查集） →</a><a href="#top">返回页首 ↑</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top">本节理解与补充</a></p><div id="annotation-content"></div></aside></div><script>(() => {
+  const initialized = new WeakSet();
+  function target(hash) {
+    try { return document.getElementById(decodeURIComponent(hash.slice(1))); } catch { return null; }
+  }
+  function entriesFor(nav) {
+    return Array.from(nav.querySelectorAll('li a[href^="#"]'), link => ({link, section:target(link.hash)}));
+  }
+  function init({nav, panel, breakpoint = 1100, groupHeading = "h2", childHeading = "h3"} = {}) {
+    if (!nav || !panel || initialized.has(nav)) return;
+    const entries = entriesFor(nav);
+    const groups = [];
+    let parent;
+    for (const entry of entries) {
+      const heading = /^h[1-6]$/.test(entry.section?.localName) ? entry.section :
+        entry.section?.querySelector(':scope > :is(h1,h2,h3,h4,h5,h6)');
+      if (heading?.localName !== childHeading) {
+        parent = heading?.localName === groupHeading ? entry : null;
+        continue;
+      }
+      if (!parent) continue;
+      const item = parent.link.closest('li');
+      const child = entry.link.closest('li');
+      const nested = child.parentElement.parentElement === item ? child.parentElement : null;
+      if (!nested && item.nextElementSibling !== child) {
+        parent = null;
+        continue;
+      }
+      if (!parent.group) {
+        const list = document.createElement('ul');
+        list.id = 'toc-group-' + parent.section.id;
+        while (document.getElementById(list.id)) list.id += '-sub';
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'toc-toggle';
+        button.setAttribute('aria-controls', list.id);
+        const title = parent.link.textContent.trim();
+        const open = expanded => {
+          list.hidden = !expanded;
+          button.ariaExpanded = expanded;
+          button.ariaLabel = (expanded ? '折叠 ' : '展开 ') + title;
+        };
+        button.addEventListener('click', () => open(list.hidden));
+        item.classList.add('toc-branch');
+        if (nested) nested.before(button, list);
+        else item.append(button, list);
+        parent.group = {list, open};
+        groups.push(parent.group);
+      }
+      parent.group.list.append(child);
+      entry.group = parent.group;
+    }
+    if (!groups.length) return;
+    initialized.add(nav);
+    const wide = matchMedia('(min-width:' + breakpoint + 'px)');
+    function targetGroup() {
+      const node = target(location.hash);
+      return entries.findLast(entry => entry.section?.contains(node))?.group;
+    }
+    function defaults() {
+      const active = targetGroup() || entries.find(entry => entry.link.hasAttribute('aria-current'))?.group || groups[0];
+      groups.forEach(group => group.open(wide.matches || group === active));
+    }
+    defaults();
+    wide.addEventListener('change', defaults);
+    addEventListener('hashchange', () => targetGroup()?.open(true));
+    let saved, panelWasOpen;
+    addEventListener('beforeprint', () => {
+      if (saved) return;
+      panelWasOpen = panel.open;
+      panel.open = true;
+      saved = groups.map(group => !group.list.hidden);
+      groups.forEach(group => group.open(true));
+    });
+    addEventListener('afterprint', () => {
+      if (!saved) return;
+      groups.forEach((group,i) => group.open(saved[i]));
+      panel.open = panelWasOpen;
+      saved = null;
+    });
+  }
+  window.TocTree = {init, entriesFor};
+})();
+
+
 (() => {
   document.documentElement.classList.add('toc-enhanced');
   const panel = document.getElementById('toc-panel');
   const nav = document.getElementById('chapter-toc');
   const wide = matchMedia('(min-width:1100px)');
-  const links = Array.from(nav.querySelectorAll('li a[href^="#"]'));
-  const entries = links.map(link => ({link, section: document.getElementById(link.hash.slice(1))})).filter(item => item.section);
+  const entries = window.TocTree.entriesFor(nav).filter(item => item.section);
   let current = null, scheduled = false;
   const fit = () => { panel.open = wide.matches; };
   fit();
@@ -5976,6 +6059,7 @@ z
   addEventListener('hashchange', () => { reveal(); schedule(); });
   document.addEventListener('toggle', schedule, true);
   reveal(); mark();
+  window.TocTree.init({nav, panel});
 })();
 </script><script id="reading-notes-controller">
 (() => {

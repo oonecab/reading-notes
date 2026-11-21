@@ -5513,14 +5513,97 @@ class KDTree:
 </code></pre></details></div><p>左侧严格小于切分值，右侧大于等于，因此查询左侧用严格 &lt;，右侧用 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="≥" display="inline"><mo>≥</mo></math>，与插入约定一致。测试 (<span class="math-inline"><math data-tex="2,1" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mn>2</mn><mo>,</mo><mn>1</mn></mrow></math></span>)、(<span class="math-inline"><math data-tex="2,3" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mn>2</mn><mo>,</mo><mn>3</mn></mrow></math></span>)、(<span class="math-inline"><math data-tex="1,2" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mn>1</mn><mo>,</mo><mn>2</mn></mrow></math></span>)、(<span class="math-inline"><math data-tex="4,4" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mn>4</mn><mo>,</mo><mn>4</mn></mrow></math></span>)，闭矩形 <span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline" data-tex="[2,2]×[0,3]" aria-label="[2,2]×[0,3]"><mrow><mrow><mo stretchy="false">[</mo><mn>2</mn><mo>,</mo><mn>2</mn><mo stretchy="false">]</mo></mrow><mo>×</mo><mrow><mo stretchy="false">[</mo><mn>0</mn><mo>,</mo><mn>3</mn><mo stretchy="false">]</mo></mrow></mrow></math></span> 必须找到两个 <span class="math-inline"><math data-tex="x=2" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>x</mi><mo>=</mo><mn>2</mn></mrow></math></span> 的点。单维满足并不充分，输出前 all 检查两维。</p><p>实现已把维度设为参数；<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="k" display="inline"><mi>k</mi></math> 维的轮换规则是把常数 2 改成 <span class="math-inline"><math data-tex="k" display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>k</mi></mrow></math></span>，并验证点与区间维度一致、每个下界不大于上界。几何剪枝会加速许多实例，但这份未经平衡的实现不具有最坏对数查询保证。</p><p>若维度 <span class="math-inline"><math data-tex="k" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>k</mi></mrow></math></span> 也作为输入参数，完整重复点比较与新点复制都要检查或复制 <span class="math-inline"><math data-tex="k" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>k</mi></mrow></math></span> 个坐标，插入最坏时间为 <span class="math-inline"><math data-tex="\mathrm{O}(k(h+1))" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>k</mi><mo stretchy="false">(</mo><mi>h</mi><mo>+</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow></math></span>。一次范围查询若实际访问 <span class="math-inline"><math data-tex="V" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>V</mi></mrow></math></span> 个节点，每个节点需检查全部维度，加上边界维数与有效性检查，共为 <span class="math-inline"><math data-tex="\mathrm{O}(k(V+1))" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>k</mi><mo stretchy="false">(</mo><mi>V</mi><mo>+</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow></math></span>；<span class="math-inline"><math data-tex="k" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>k</mi></mrow></math></span> 固定时才可把这个因子作为常数。C 回调与 Python 生成器借用已有点，若另行复制或输出 <span class="math-inline"><math data-tex="K" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>K</mi></mrow></math></span> 个完整点，还需计 <span class="math-inline"><math data-tex="\mathrm{O}(kK)" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>k</mi><mi>K</mi><mo stretchy="false">)</mo></mrow></math></span> 的坐标处理及实际输出成本。最坏 <span class="math-inline"><math data-tex="V=N" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>V</mi><mo>=</mo><mi>N</mi></mrow></math></span>，因此参数化维度时不能继续写成与 <span class="math-inline"><math data-tex="k" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>k</mi></mrow></math></span> 无关的线性查询界。</p></div></details>
 </section>
 <footer>依据：原书 §4.1–4.6、总结与习题；图号以本改编版 PDF 为准。图示是教学重绘，代码是独立教学实现。阅读中对关键公式与图 4.30 进行了页面图像核对；仓库中的旧配套文件与本版图号并非逐一对应。<p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter03_lists_stacks_queues.html">← 第 3 章 · 表、栈和队列</a><a href="chapter05_priority_queues.html">第 5 章 · 优先队列（堆） →</a><a href="#top">返回页首 ↑</a></p></footer>
-</main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top">本节理解与补充</a></p><div id="annotation-content"></div></aside></div><script>
+</main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top">本节理解与补充</a></p><div id="annotation-content"></div></aside></div><script>(() => {
+  const initialized = new WeakSet();
+  function target(hash) {
+    try { return document.getElementById(decodeURIComponent(hash.slice(1))); } catch { return null; }
+  }
+  function entriesFor(nav) {
+    return Array.from(nav.querySelectorAll('li a[href^="#"]'), link => ({link, section:target(link.hash)}));
+  }
+  function init({nav, panel, breakpoint = 1100, groupHeading = "h2", childHeading = "h3"} = {}) {
+    if (!nav || !panel || initialized.has(nav)) return;
+    const entries = entriesFor(nav);
+    const groups = [];
+    let parent;
+    for (const entry of entries) {
+      const heading = /^h[1-6]$/.test(entry.section?.localName) ? entry.section :
+        entry.section?.querySelector(':scope > :is(h1,h2,h3,h4,h5,h6)');
+      if (heading?.localName !== childHeading) {
+        parent = heading?.localName === groupHeading ? entry : null;
+        continue;
+      }
+      if (!parent) continue;
+      const item = parent.link.closest('li');
+      const child = entry.link.closest('li');
+      const nested = child.parentElement.parentElement === item ? child.parentElement : null;
+      if (!nested && item.nextElementSibling !== child) {
+        parent = null;
+        continue;
+      }
+      if (!parent.group) {
+        const list = document.createElement('ul');
+        list.id = 'toc-group-' + parent.section.id;
+        while (document.getElementById(list.id)) list.id += '-sub';
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'toc-toggle';
+        button.setAttribute('aria-controls', list.id);
+        const title = parent.link.textContent.trim();
+        const open = expanded => {
+          list.hidden = !expanded;
+          button.ariaExpanded = expanded;
+          button.ariaLabel = (expanded ? '折叠 ' : '展开 ') + title;
+        };
+        button.addEventListener('click', () => open(list.hidden));
+        item.classList.add('toc-branch');
+        if (nested) nested.before(button, list);
+        else item.append(button, list);
+        parent.group = {list, open};
+        groups.push(parent.group);
+      }
+      parent.group.list.append(child);
+      entry.group = parent.group;
+    }
+    if (!groups.length) return;
+    initialized.add(nav);
+    const wide = matchMedia('(min-width:' + breakpoint + 'px)');
+    function targetGroup() {
+      const node = target(location.hash);
+      return entries.findLast(entry => entry.section?.contains(node))?.group;
+    }
+    function defaults() {
+      const active = targetGroup() || entries.find(entry => entry.link.hasAttribute('aria-current'))?.group || groups[0];
+      groups.forEach(group => group.open(wide.matches || group === active));
+    }
+    defaults();
+    wide.addEventListener('change', defaults);
+    addEventListener('hashchange', () => targetGroup()?.open(true));
+    let saved, panelWasOpen;
+    addEventListener('beforeprint', () => {
+      if (saved) return;
+      panelWasOpen = panel.open;
+      panel.open = true;
+      saved = groups.map(group => !group.list.hidden);
+      groups.forEach(group => group.open(true));
+    });
+    addEventListener('afterprint', () => {
+      if (!saved) return;
+      groups.forEach((group,i) => group.open(saved[i]));
+      panel.open = panelWasOpen;
+      saved = null;
+    });
+  }
+  window.TocTree = {init, entriesFor};
+})();
+
+
 (() => {
   document.documentElement.classList.add('toc-enhanced');
   const panel = document.getElementById('toc-panel');
   const nav = document.getElementById('chapter-toc');
   const wide = matchMedia('(min-width:1100px)');
-  const links = Array.from(nav.querySelectorAll('li a[href^="#"]'));
-  const entries = links.map(link => ({link, section: document.getElementById(link.hash.slice(1))})).filter(item => item.section);
+  const entries = window.TocTree.entriesFor(nav).filter(item => item.section);
   let current = null, scheduled = false;
   const fit = () => { panel.open = wide.matches; };
   fit();
@@ -5552,6 +5635,7 @@ class KDTree:
   addEventListener('hashchange', () => { reveal(); schedule(); });
   document.addEventListener('toggle', schedule, true);
   reveal(); mark();
+  window.TocTree.init({nav, panel});
 })();
 </script><script id="reading-notes-controller">
 (() => {

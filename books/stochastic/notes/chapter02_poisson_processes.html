@@ -104,7 +104,7 @@ svg.question-large-tree{min-width:1120px}
 /* Reading rail: one table of contents beside the book page. */
 .reading-layout{display:grid;grid-template-columns:240px minmax(0,860px);gap:32px;max-width:1200px;margin:0 auto;padding:0 24px;align-items:start}
 .reading-layout>main{width:100%;min-width:0;margin:0}
-.chapter-sidebar{position:sticky;top:32px;max-height:calc(100dvh - 64px);overflow-y:auto;overscroll-behavior:contain;padding:8px 16px 12px 0;margin-top:40px;border-right:1px solid var(--rule);scrollbar-width:thin}
+.chapter-sidebar{user-select:none;position:sticky;top:32px;max-height:calc(100dvh - 64px);overflow-y:auto;overscroll-behavior:contain;padding:8px 16px 12px 0;margin-top:40px;border-right:1px solid var(--rule);scrollbar-width:thin}
 .toc-panel>summary{display:flex;align-items:center;justify-content:space-between;gap:1rem;list-style:none;padding:.45rem .55rem;color:var(--green);font-size:.9rem;font-weight:650;cursor:pointer}
 .toc-panel>summary::-webkit-details-marker{display:none}
 .toc-panel>summary::after{content:"+";font-size:1.1rem;font-weight:400}
@@ -139,6 +139,15 @@ main[id],main [id]{scroll-margin-top:24px}
 .exercise-index a{font-variant-numeric:tabular-nums}.solution-link{font-size:.9rem}
 .exercise-question .scroll>table{min-width:480px}
 .question-note strong{color:var(--green)}
+.chapter-toc .toc-branch{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center}
+.chapter-toc .toc-branch>ul{grid-column:1/-1;padding-inline-start:1em}
+.chapter-toc .toc-branch>ul[hidden]{display:none}
+.chapter-toc .toc-toggle{font:inherit;color:var(--green);background:transparent;border:0;cursor:pointer;min-width:2rem;min-height:2rem}
+.chapter-toc .toc-toggle::before{content:"+"}
+.chapter-toc .toc-toggle[aria-expanded="true"]::before{content:"−"}
+.chapter-toc .toc-toggle:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+.chapter-toc .toc-branch:has([aria-current="location"])>.toc-toggle{font-weight:bold;background:var(--paper)}
+@media print{aside.chapter-sidebar:has(.toc-branch){display:block;position:static;max-height:none;overflow:visible}.chapter-toc{max-height:none;overflow:visible}.chapter-toc .toc-toggle{display:none}}
 
 /* Supplementary reading notes share the page's type and color palette. */
 .reading-notes{margin:2rem 0 0;padding:0.8rem 1rem;border-left:2px solid var(--green);background:var(--tint);font-size:0.92rem;line-height:1.85}
@@ -1109,14 +1118,97 @@ if __name__=="__main__":main()
 <p>起点(0,0)概率一；任一负坐标概率零。等待时长影响到达时刻，不影响是否访问。</p><p>固定总步数核对：对所有 <math data-tex="i + j = n" xmlns="http://www.w3.org/1998/Math/MathML" aria-label="i+j=n" display="inline"><mrow><mi>i</mi><mo>+</mo><mi>j</mi><mo>=</mo><mi>n</mi></mrow></math> 求和，二项式给 <span class="math-inline"><math data-tex="(p+1-p)^n=1" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msup><mrow><mo stretchy="false">&#x00028;</mo><mi>p</mi><mo>&#x0002B;</mo><mn>1</mn><mo>&#x02212;</mo><mi>p</mi><mo stretchy="false">&#x00029;</mo></mrow><mi>n</mi></msup><mo>&#x0003D;</mo><mn>1</mn></mrow></math></span>；第 <math data-tex="n" xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n" display="inline"><mi>n</mi></math> 次跳转必访问这一斜线上的恰一个格点。</p></li></ol></div></details><details class="reading-notes" id="notes-exercises" data-notes-for="exercises" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card" data-note-id="chapter02_poisson_processes-exercises-1"><span class="annotation-kind">解题</span><h3>把事件翻译成计数再选分布</h3><p>“第六个红事件先于第四个绿事件”可翻译成前九个叠加事件里至少六个红。达到阈值的两个计数不可能同时成立，这一步事件翻译比后面的组合求和更关键。</p></div><div class="annotation-card" data-note-id="chapter02_poisson_processes-exercises-2"><span class="annotation-kind">检查</span><h3>复合计数分别算一阶矩与二阶矩</h3><p>先列单次金额的 <span class="math-inline"><math data-tex="EY" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>E</mi><mi>Y</mi></mrow></math></span> 与 <span class="math-inline"><math data-tex="E[Y^2]" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>E</mi><mo stretchy="false">[</mo><msup><mi>Y</mi><mn>2</mn></msup><mo stretchy="false">]</mo></mrow></math></span>，再乘相应的到达率和时长。多个独立流的方差相加；算出总方差后才取平方根得到标准差，避免在中间步骤混用。</p></div></div></details>
 </section>
 <details class="statement-index" id="statement-index"><summary>本章定义与定理</summary><ul class="statement-links"><li><a href="#definition-exponential">定义 · 指数分布与无记忆性</a></li><li><a href="#theorem-2-1">定理 2.1 · 独立指数时钟的竞赛</a></li><li><a href="#theorem-2-2">定理 2.2 · 指数间隔之和的 Gamma 分布</a></li><li><a href="#definition-poisson-process">定义 · 泊松分布与泊松过程</a></li><li><a href="#theorem-2-3">定理 2.3 · 泊松变量的下降阶乘矩</a></li><li><a href="#theorem-2-4">定理 2.4 · 独立泊松变量相加</a></li><li><a href="#theorem-2-5">定理 2.5 · 二项分布的泊松极限</a></li><li><a href="#lemma-2-6">引理 2.6 · 指数间隔构造得到泊松计数</a></li><li><a href="#lemma-2-7">引理 2.7 · 确定时刻之后重新开始</a></li><li><a href="#lemma-2-8">引理 2.8 · 泊松计数的独立增量</a></li><li><a href="#theorem-2-9">定理 2.9 · 不同成功概率的泊松近似误差</a></li><li><a href="#theorem-2-10">定理 2.10 · 独立随机和的均值与方差</a></li><li><a href="#definition-compound">定义 · 复合泊松过程</a></li><li><a href="#theorem-2-11">定理 2.11 · 独立标记后的泊松稀疏化</a></li><li><a href="#theorem-2-12">定理 2.12 · 随时间改变保留概率的稀疏化</a></li><li><a href="#theorem-2-13">定理 2.13 · 无限服务器系统的泊松人数极限</a></li><li><a href="#theorem-2-14">定理 2.14 · 独立泊松过程的叠加</a></li><li><a href="#theorem-2-15">定理 2.15 · 给定总到达数后的均匀次序统计量</a></li><li><a href="#theorem-2-16">定理 2.16 · 给定末时刻计数后的二项分布</a></li></ul><p class="source">英文原文用于核对作者措辞；中文陈述集中列出条件与结论。公式与推导条目保留原书未编号结果的性质。</p><p class="source">共同基础：<a href="appendix_a_probability_review.html#axiom-probability">概率的三条公理</a> · <a href="appendix_a_probability_review.html#definition-conditional-probability">条件概率与独立性</a>。</p></details>
-<footer><p>本文按第三版原书的节次与题号组织。程序、公式、图和样式均嵌入本页，可离线阅读。程序使用说明见 <a href="book_overview.html#program-guide">全书地图</a>。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter01_markov_chains.html">← 第 1 章 · 马尔可夫链</a><a href="chapter03_renewal_processes.html">第 3 章 · 更新过程 →</a><a href="#top">返回页首 ↑</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top">本节理解与补充</a></p><div id="annotation-content"></div></aside></div><script>
+<footer><p>本文按第三版原书的节次与题号组织。程序、公式、图和样式均嵌入本页，可离线阅读。程序使用说明见 <a href="book_overview.html#program-guide">全书地图</a>。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter01_markov_chains.html">← 第 1 章 · 马尔可夫链</a><a href="chapter03_renewal_processes.html">第 3 章 · 更新过程 →</a><a href="#top">返回页首 ↑</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top">本节理解与补充</a></p><div id="annotation-content"></div></aside></div><script>(() => {
+  const initialized = new WeakSet();
+  function target(hash) {
+    try { return document.getElementById(decodeURIComponent(hash.slice(1))); } catch { return null; }
+  }
+  function entriesFor(nav) {
+    return Array.from(nav.querySelectorAll('li a[href^="#"]'), link => ({link, section:target(link.hash)}));
+  }
+  function init({nav, panel, breakpoint = 1100, groupHeading = "h2", childHeading = "h3"} = {}) {
+    if (!nav || !panel || initialized.has(nav)) return;
+    const entries = entriesFor(nav);
+    const groups = [];
+    let parent;
+    for (const entry of entries) {
+      const heading = /^h[1-6]$/.test(entry.section?.localName) ? entry.section :
+        entry.section?.querySelector(':scope > :is(h1,h2,h3,h4,h5,h6)');
+      if (heading?.localName !== childHeading) {
+        parent = heading?.localName === groupHeading ? entry : null;
+        continue;
+      }
+      if (!parent) continue;
+      const item = parent.link.closest('li');
+      const child = entry.link.closest('li');
+      const nested = child.parentElement.parentElement === item ? child.parentElement : null;
+      if (!nested && item.nextElementSibling !== child) {
+        parent = null;
+        continue;
+      }
+      if (!parent.group) {
+        const list = document.createElement('ul');
+        list.id = 'toc-group-' + parent.section.id;
+        while (document.getElementById(list.id)) list.id += '-sub';
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'toc-toggle';
+        button.setAttribute('aria-controls', list.id);
+        const title = parent.link.textContent.trim();
+        const open = expanded => {
+          list.hidden = !expanded;
+          button.ariaExpanded = expanded;
+          button.ariaLabel = (expanded ? '折叠 ' : '展开 ') + title;
+        };
+        button.addEventListener('click', () => open(list.hidden));
+        item.classList.add('toc-branch');
+        if (nested) nested.before(button, list);
+        else item.append(button, list);
+        parent.group = {list, open};
+        groups.push(parent.group);
+      }
+      parent.group.list.append(child);
+      entry.group = parent.group;
+    }
+    if (!groups.length) return;
+    initialized.add(nav);
+    const wide = matchMedia('(min-width:' + breakpoint + 'px)');
+    function targetGroup() {
+      const node = target(location.hash);
+      return entries.findLast(entry => entry.section?.contains(node))?.group;
+    }
+    function defaults() {
+      const active = targetGroup() || entries.find(entry => entry.link.hasAttribute('aria-current'))?.group || groups[0];
+      groups.forEach(group => group.open(wide.matches || group === active));
+    }
+    defaults();
+    wide.addEventListener('change', defaults);
+    addEventListener('hashchange', () => targetGroup()?.open(true));
+    let saved, panelWasOpen;
+    addEventListener('beforeprint', () => {
+      if (saved) return;
+      panelWasOpen = panel.open;
+      panel.open = true;
+      saved = groups.map(group => !group.list.hidden);
+      groups.forEach(group => group.open(true));
+    });
+    addEventListener('afterprint', () => {
+      if (!saved) return;
+      groups.forEach((group,i) => group.open(saved[i]));
+      panel.open = panelWasOpen;
+      saved = null;
+    });
+  }
+  window.TocTree = {init, entriesFor};
+})();
+
+
 (() => {
   document.documentElement.classList.add('toc-enhanced');
   const panel = document.getElementById('toc-panel');
   const nav = document.getElementById('chapter-toc');
   const wide = matchMedia('(min-width:1100px)');
-  const links = Array.from(nav.querySelectorAll('li a[href^="#"]'));
-  const entries = links.map(link => ({link, section: document.getElementById(link.hash.slice(1))})).filter(item => item.section);
+  const entries = window.TocTree.entriesFor(nav).filter(item => item.section);
   let current = null, scheduled = false;
   const fit = () => { panel.open = wide.matches; };
   fit();
@@ -1148,6 +1240,7 @@ if __name__=="__main__":main()
   addEventListener('hashchange', () => { reveal(); schedule(); });
   document.addEventListener('toggle', schedule, true);
   reveal(); mark();
+  window.TocTree.init({nav, panel});
 })();
 </script><script id="reading-notes-controller">
 (() => {

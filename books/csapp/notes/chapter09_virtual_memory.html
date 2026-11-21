@@ -105,7 +105,7 @@ svg.question-large-tree{min-width:1120px}
 /* Reading rail: one table of contents beside the book page. */
 .reading-layout{display:grid;grid-template-columns:240px minmax(0,860px);gap:32px;max-width:1200px;margin:0 auto;padding:0 24px;align-items:start}
 .reading-layout>main{width:100%;min-width:0;margin:0}
-.chapter-sidebar{position:sticky;top:32px;max-height:calc(100dvh - 64px);overflow-y:auto;overscroll-behavior:contain;padding:8px 16px 12px 0;margin-top:40px;border-right:1px solid var(--rule);scrollbar-width:thin}
+.chapter-sidebar{user-select:none;position:sticky;top:32px;max-height:calc(100dvh - 64px);overflow-y:auto;overscroll-behavior:contain;padding:8px 16px 12px 0;margin-top:40px;border-right:1px solid var(--rule);scrollbar-width:thin}
 .toc-panel>summary{display:flex;align-items:center;justify-content:space-between;gap:1rem;list-style:none;padding:.45rem .55rem;color:var(--green);font-size:.9rem;font-weight:650;cursor:pointer}
 .toc-panel>summary::-webkit-details-marker{display:none}
 .toc-panel>summary::after{content:"+";font-size:1.1rem;font-weight:400}
@@ -140,6 +140,15 @@ main[id],main [id]{scroll-margin-top:24px}
 .exercise-index a{font-variant-numeric:tabular-nums}.solution-link{font-size:.9rem}
 .exercise-question .scroll>table{min-width:480px}
 .question-note strong{color:var(--green)}
+.chapter-toc .toc-branch{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center}
+.chapter-toc .toc-branch>ul{grid-column:1/-1;padding-inline-start:1em}
+.chapter-toc .toc-branch>ul[hidden]{display:none}
+.chapter-toc .toc-toggle{font:inherit;color:var(--green);background:transparent;border:0;cursor:pointer;min-width:2rem;min-height:2rem}
+.chapter-toc .toc-toggle::before{content:"+"}
+.chapter-toc .toc-toggle[aria-expanded="true"]::before{content:"−"}
+.chapter-toc .toc-toggle:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+.chapter-toc .toc-branch:has([aria-current="location"])>.toc-toggle{font-weight:bold;background:var(--paper)}
+@media print{aside.chapter-sidebar:has(.toc-branch){display:block;position:static;max-height:none;overflow:visible}.chapter-toc{max-height:none;overflow:visible}.chapter-toc .toc-toggle{display:none}}
 
 /* Supplementary reading notes share the page's type and color palette. */
 .reading-notes{margin:2rem 0 0;padding:0.8rem 1rem;border-left:2px solid var(--green);background:var(--tint);font-size:0.92rem;line-height:1.85}
@@ -1077,14 +1086,97 @@ int main(void) {
 #endif
 </code></pre></details></div></details></section><section id="self-check"><h2>原创自测：先预测，再展开</h2><details class="exercise" id="q9-1"><summary>原创自测 1 · TLB miss能否直接判成缺页？</summary><div class="exercise-question"><p class="rn-exercise-label">自测题</p><p>查TLB未命中，页表<code>present=1</code>，数据L1未命中。是否需要磁盘I/O？</p></div><div class="answer"><p class="rn-exercise-label">解答</p><p>不能由这些条件推得磁盘I/O。页已经驻留，只需遍历页表取得翻译，再从L2/L3/DRAM取数据。这里没有需求缺页。</p></div></details><details class="exercise" id="q9-2"><summary>原创自测 2 · 哪一块可以切出24 B？</summary><div class="exercise-question"><p class="rn-exercise-label">自测题</p><p>最小块16 B，候选空闲块分别32、40 B，已调整请求大小24 B。会如何放置？</p></div><div class="answer"><p class="rn-exercise-label">解答</p><p>32 B必须整块分配，剩8 B太小；40 B可以切成24 B已分配块与16 B空闲块。头尾、后继<code>prev_alloc</code>和游标都随结果更新。</p></div></details><details class="exercise" id="q9-3"><summary>原创自测 3 · COW为什么会“允许一次保护异常”？</summary><div class="exercise-question"><p class="rn-exercise-label">自测题</p><p>父子私有可写区域先共享只读物理页，子第一次写；权限冲突会让子退出吗？</p></div><div class="answer"><p class="rn-exercise-label">解答</p><p>内核先看区域语义，若是合法COW写，则复制或取得可独占页、更新PTE并重试，通常无需发<code>SIGSEGV</code>。真正的只读代码写入才应拒绝。</p></div></details></section>
 <details class="statement-index" id="source-index"><summary>本页原书摘录 · 4 处</summary><ul class="statement-links"><li><a href="#classic-9-address">翻译是一道运行时映射</a></li><li><a href="#classic-9-fault">缺页的缓存解释</a></li><li><a href="#classic-9-cow">推迟复制</a></li><li><a href="#classic-9-footer">已分配块可以省尾部</a></li></ul></details>
-<footer><p>依据 Bryant / O’Hallaron 第三版 Global Edition（Pearson 2016）。原书模型、C11/POSIX契约、有限arena模型与本机观测分别说明；源码、题号与来源随页面保持同步。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter08_exceptional.html">← 第 8 章 · 异常控制流</a><a href="chapter10_system_io.html">第 10 章 · 系统级 I/O →</a><a href="#top">返回页首 ↑</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top"></a></p><div id="annotation-content"></div></aside></div><script>
+<footer><p>依据 Bryant / O’Hallaron 第三版 Global Edition（Pearson 2016）。原书模型、C11/POSIX契约、有限arena模型与本机观测分别说明；源码、题号与来源随页面保持同步。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter08_exceptional.html">← 第 8 章 · 异常控制流</a><a href="chapter10_system_io.html">第 10 章 · 系统级 I/O →</a><a href="#top">返回页首 ↑</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top"></a></p><div id="annotation-content"></div></aside></div><script>(() => {
+  const initialized = new WeakSet();
+  function target(hash) {
+    try { return document.getElementById(decodeURIComponent(hash.slice(1))); } catch { return null; }
+  }
+  function entriesFor(nav) {
+    return Array.from(nav.querySelectorAll('li a[href^="#"]'), link => ({link, section:target(link.hash)}));
+  }
+  function init({nav, panel, breakpoint = 1100, groupHeading = "h2", childHeading = "h3"} = {}) {
+    if (!nav || !panel || initialized.has(nav)) return;
+    const entries = entriesFor(nav);
+    const groups = [];
+    let parent;
+    for (const entry of entries) {
+      const heading = /^h[1-6]$/.test(entry.section?.localName) ? entry.section :
+        entry.section?.querySelector(':scope > :is(h1,h2,h3,h4,h5,h6)');
+      if (heading?.localName !== childHeading) {
+        parent = heading?.localName === groupHeading ? entry : null;
+        continue;
+      }
+      if (!parent) continue;
+      const item = parent.link.closest('li');
+      const child = entry.link.closest('li');
+      const nested = child.parentElement.parentElement === item ? child.parentElement : null;
+      if (!nested && item.nextElementSibling !== child) {
+        parent = null;
+        continue;
+      }
+      if (!parent.group) {
+        const list = document.createElement('ul');
+        list.id = 'toc-group-' + parent.section.id;
+        while (document.getElementById(list.id)) list.id += '-sub';
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'toc-toggle';
+        button.setAttribute('aria-controls', list.id);
+        const title = parent.link.textContent.trim();
+        const open = expanded => {
+          list.hidden = !expanded;
+          button.ariaExpanded = expanded;
+          button.ariaLabel = (expanded ? '折叠 ' : '展开 ') + title;
+        };
+        button.addEventListener('click', () => open(list.hidden));
+        item.classList.add('toc-branch');
+        if (nested) nested.before(button, list);
+        else item.append(button, list);
+        parent.group = {list, open};
+        groups.push(parent.group);
+      }
+      parent.group.list.append(child);
+      entry.group = parent.group;
+    }
+    if (!groups.length) return;
+    initialized.add(nav);
+    const wide = matchMedia('(min-width:' + breakpoint + 'px)');
+    function targetGroup() {
+      const node = target(location.hash);
+      return entries.findLast(entry => entry.section?.contains(node))?.group;
+    }
+    function defaults() {
+      const active = targetGroup() || entries.find(entry => entry.link.hasAttribute('aria-current'))?.group || groups[0];
+      groups.forEach(group => group.open(wide.matches || group === active));
+    }
+    defaults();
+    wide.addEventListener('change', defaults);
+    addEventListener('hashchange', () => targetGroup()?.open(true));
+    let saved, panelWasOpen;
+    addEventListener('beforeprint', () => {
+      if (saved) return;
+      panelWasOpen = panel.open;
+      panel.open = true;
+      saved = groups.map(group => !group.list.hidden);
+      groups.forEach(group => group.open(true));
+    });
+    addEventListener('afterprint', () => {
+      if (!saved) return;
+      groups.forEach((group,i) => group.open(saved[i]));
+      panel.open = panelWasOpen;
+      saved = null;
+    });
+  }
+  window.TocTree = {init, entriesFor};
+})();
+
+
 (() => {
   document.documentElement.classList.add('toc-enhanced');
   const panel = document.getElementById('toc-panel');
   const nav = document.getElementById('chapter-toc');
   const wide = matchMedia('(min-width:1100px)');
-  const links = Array.from(nav.querySelectorAll('li a[href^="#"]'));
-  const entries = links.map(link => ({link, section: document.getElementById(link.hash.slice(1))})).filter(item => item.section);
+  const entries = window.TocTree.entriesFor(nav).filter(item => item.section);
   let current = null, scheduled = false;
   const fit = () => { panel.open = wide.matches; };
   fit();
@@ -1117,6 +1209,7 @@ int main(void) {
   addEventListener('hashchange', () => { reveal(); schedule(); });
   document.addEventListener('toggle', schedule, true);
   reveal(); mark();
+  window.TocTree.init({nav, panel});
 })();
 
 

@@ -104,7 +104,7 @@ svg.question-large-tree{min-width:1120px}
 /* Reading rail: one table of contents beside the book page. */
 .reading-layout{display:grid;grid-template-columns:240px minmax(0,860px);gap:32px;max-width:1200px;margin:0 auto;padding:0 24px;align-items:start}
 .reading-layout>main{width:100%;min-width:0;margin:0}
-.chapter-sidebar{position:sticky;top:32px;max-height:calc(100dvh - 64px);overflow-y:auto;overscroll-behavior:contain;padding:8px 16px 12px 0;margin-top:40px;border-right:1px solid var(--rule);scrollbar-width:thin}
+.chapter-sidebar{user-select:none;position:sticky;top:32px;max-height:calc(100dvh - 64px);overflow-y:auto;overscroll-behavior:contain;padding:8px 16px 12px 0;margin-top:40px;border-right:1px solid var(--rule);scrollbar-width:thin}
 .toc-panel>summary{display:flex;align-items:center;justify-content:space-between;gap:1rem;list-style:none;padding:.45rem .55rem;color:var(--green);font-size:.9rem;font-weight:650;cursor:pointer}
 .toc-panel>summary::-webkit-details-marker{display:none}
 .toc-panel>summary::after{content:"+";font-size:1.1rem;font-weight:400}
@@ -139,6 +139,15 @@ main[id],main [id]{scroll-margin-top:24px}
 .exercise-index a{font-variant-numeric:tabular-nums}.solution-link{font-size:.9rem}
 .exercise-question .scroll>table{min-width:480px}
 .question-note strong{color:var(--green)}
+.chapter-toc .toc-branch{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center}
+.chapter-toc .toc-branch>ul{grid-column:1/-1;padding-inline-start:1em}
+.chapter-toc .toc-branch>ul[hidden]{display:none}
+.chapter-toc .toc-toggle{font:inherit;color:var(--green);background:transparent;border:0;cursor:pointer;min-width:2rem;min-height:2rem}
+.chapter-toc .toc-toggle::before{content:"+"}
+.chapter-toc .toc-toggle[aria-expanded="true"]::before{content:"−"}
+.chapter-toc .toc-toggle:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+.chapter-toc .toc-branch:has([aria-current="location"])>.toc-toggle{font-weight:bold;background:var(--paper)}
+@media print{aside.chapter-sidebar:has(.toc-branch){display:block;position:static;max-height:none;overflow:visible}.chapter-toc{max-height:none;overflow:visible}.chapter-toc .toc-toggle{display:none}}
 
 /* Supplementary reading notes share the page's type and color palette. */
 .reading-notes{margin:2rem 0 0;padding:0.8rem 1rem;border-left:2px solid var(--green);background:var(--tint);font-size:0.92rem;line-height:1.85}
@@ -519,14 +528,97 @@ python3 finite_integrals.py 1,2,0,1 -2,1,9,4 0,0,1,1 2,-1,3,0</code></pre><p>这
 <div class="scroll"><table class="" aria-labelledby="rn-table-label-2"><thead><tr><th scope="col">材料</th><th scope="col">印刷页 / PDF 页序</th></tr></thead><tbody><tr><td>丛书序言</td><td><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="I" display="inline"><mi>I</mi></math>—II / 6—7</td></tr><tr><td>作者前言</td><td>III—IV / 8—9</td></tr><tr><td>完整目录</td><td><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="V" display="inline"><mi>V</mi></math>—VI / 11—12</td></tr><tr><td>第一章与习题</td><td>1—<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="22 / 13" display="inline"><mrow><mn>22</mn><mo>/</mo><mn>13</mn></mrow></math>—34</td></tr><tr><td>第二章与习题</td><td>23—<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="59 / 35" display="inline"><mrow><mn>59</mn><mo>/</mo><mn>35</mn></mrow></math>—71</td></tr><tr><td>第三章与习题</td><td>60—<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="93 / 72" display="inline"><mrow><mn>93</mn><mo>/</mo><mn>72</mn></mrow></math>—105</td></tr><tr><td>第四章与习题</td><td>94—<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="128 / 106" display="inline"><mrow><mn>128</mn><mo>/</mo><mn>106</mn></mrow></math>—140</td></tr><tr><td>第五章与习题</td><td>129—<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="166 / 141" display="inline"><mrow><mn>166</mn><mo>/</mo><mn>141</mn></mrow></math>—178</td></tr><tr><td>第六章与习题</td><td>167—<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="216 / 179" display="inline"><mrow><mn>216</mn><mo>/</mo><mn>179</mn></mrow></math>—228</td></tr><tr><td>对应附录提示</td><td>217—<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="239 / 229" display="inline"><mrow><mn>239</mn><mo>/</mo><mn>229</mn></mrow></math>—251</td></tr></tbody></table></div><p>原书在本地对照；本阅读包提供原创解释、必要陈述与题目材料。数学符号以扫描原页为依据，OCR 只用于定位。目录和前置页保留原有定位；正文六章及相应附录提示已按批次核对。第五、六章的扫描 PDF 141—228 与提示 PDF 242—251 经逐页目视，校注同时保留原式、可用结论与推导依据。</p>
 <p><a href="source_manifest.json">来源身份与目录清单</a>　·　<a href="source_inventory.json">当前编号覆盖清单</a>　·　<a href="source_issues.json">原书校注定位</a></p>
 <p>第五、六章校注：<a href="chapter05_product_spaces.html#correction-iterated-existence">MP-013</a>；<a href="chapter05_product_spaces.html#correction-iid-conditional-mean">MP-014</a>；<a href="chapter06_independent_sequences.html#correction-cf-continuity">MP-015</a>；<a href="chapter06_independent_sequences.html#correction-truncated-cf-frequency">MP-016</a>；<a href="chapter06_independent_sequences.html#correction-positive-log-limit">MP-017</a>；<a href="chapter06_independent_sequences.html#correction-chebyshev-scale">MP-018</a>；<a href="chapter06_independent_sequences.html#correction-khinchine-mean">MP-019</a>；<a href="chapter06_independent_sequences.html#correction-empirical-scale">MP-020</a>。各链接直接显示原式、修正与依据。</p></section>
-<section id="example-index"><h2 id="rn-table-label-3">全六章例子索引</h2><p>原书 33 个节内编号例子中，19 个归为完整例题，14 个为定义性短说明。分类描述阅读用途；常数函数、计数测度等直接检验定义的例子保留简短说明。第三章另有原书未编号的积分实例和伴读有限加权计算例，它们在正文中分别标明类型，不计入下列编号例子索引。</p><div class="scroll"><table aria-labelledby="rn-table-label-3"><thead><tr><th scope="col">原书例子</th><th scope="col">类型</th></tr></thead><tbody><tr><td><a href="chapter01_measurable_spaces.html#example-1-2-1">第 1 章 §2 例 1 · 半直线构成 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="π" display="inline"><mi>π</mi></math> 系</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter01_measurable_spaces.html#example-1-2-2">第 1 章 §2 例 2 · 半开区间怎样切开</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter01_measurable_spaces.html#example-1-2-3">第 1 章 §2 例 3 · 有限空间的单点</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter01_measurable_spaces.html#example-1-2-4">第 1 章 §2 例 4 · 有限个半开区间的并形成环</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter01_measurable_spaces.html#example-1-2-5">第 1 章 §2 例 5 · 有限空间的所有子集</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter01_measurable_spaces.html#example-1-4-1">第 1 章 §4 例 1 · 所有子集都可测</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter01_measurable_spaces.html#example-1-4-2">第 1 章 §4 例 2 · 常数函数</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter01_measurable_spaces.html#example-1-4-3">第 1 章 §4 例 3 · 指示函数</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter01_measurable_spaces.html#example-1-4-4">第 1 章 §4 例 4 · 不交两块上的常数</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter02_measure_spaces.html#example-2-1-1">第 2 章 §1 例 1 · 计数测度</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter02_measure_spaces.html#example-2-1-2">第 2 章 §1 例 2 · 点测度</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter02_measure_spaces.html#example-2-1-3">第 2 章 §1 例 3 · 有限可加却不是测度</a></td><td>完整例题</td></tr><tr><td><a href="chapter02_measure_spaces.html#example-2-1-4">第 2 章 §1 例 4 · 区间长度</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter02_measure_spaces.html#example-2-1-5">第 2 章 §1 例 5 · 可列点的权重</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter02_measure_spaces.html#example-2-1-6">第 2 章 §1 例 6 · 古典概型</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter02_measure_spaces.html#example-2-3-1">第 2 章 §3 例 1 · 有原始测度仍可能缩小集合系</a></td><td>完整例题</td></tr><tr><td><a href="chapter02_measure_spaces.html#example-2-3-2">第 2 章 §3 例 2 · 缺少有限覆盖时的非唯一性</a></td><td>完整例题</td></tr><tr><td><a href="chapter02_measure_spaces.html#example-2-5-1">第 2 章 §5 例 1 · 坏区域逃向无穷远</a></td><td>完整例题</td></tr><tr><td><a href="chapter02_measure_spaces.html#example-2-5-2">第 2 章 §5 例 2 · 越来越窄，却反复扫过每一点</a></td><td>完整例题</td></tr><tr><td><a href="chapter04_signed_measures.html#example-4-3-1">第 4 章 §3 例 1 · 去掉底测度 sigma 有限性会失败</a></td><td>完整例题</td></tr><tr><td><a href="chapter04_signed_measures.html#example-4-5-1">第 4 章 §5 例 1 · 只知道事件 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="B" display="inline"><mi>B</mi></math> 是否发生</a></td><td>完整例题</td></tr><tr><td><a href="chapter05_product_spaces.html#example-5-1-1">第 5 章 §1 例 1 · 计数测度失去 sigma 有限性</a></td><td>完整例题</td></tr><tr><td><a href="chapter05_product_spaces.html#example-5-1-2">第 5 章 §1 例 2 · 两个有限累次积分仍可能不相等</a></td><td>完整例题</td></tr><tr><td><a href="chapter06_independent_sequences.html#example-6-1-1">第 6 章 §1 例 1 · 收敛事件为什么属于尾域</a></td><td>完整例题</td></tr><tr><td><a href="chapter06_independent_sequences.html#example-6-1-2">第 6 章 §1 例 2 · 上下极限是尾随机变量</a></td><td>完整例题</td></tr><tr><td><a href="chapter06_independent_sequences.html#example-6-2-1">第 6 章 §2 例 1 · 二进制数字的频率</a></td><td>完整例题</td></tr><tr><td><a href="chapter06_independent_sequences.html#example-6-2-2">第 6 章 §2 例 2 · 有偏数字序列的典型集合</a></td><td>完整例题</td></tr><tr><td><a href="chapter06_independent_sequences.html#example-6-2-3">第 6 章 §2 例 3 · 连续而奇异的分布</a></td><td>完整例题</td></tr><tr><td><a href="chapter06_independent_sequences.html#example-6-3-1">第 6 章 §3 例 1 · 退化分布的相位</a></td><td>完整例题</td></tr><tr><td><a href="chapter06_independent_sequences.html#example-6-3-2">第 6 章 §3 例 2 · 标准正态的特征函数</a></td><td>完整例题</td></tr><tr><td><a href="chapter06_independent_sequences.html#example-6-3-3">第 6 章 §3 例 3 · Cauchy 特征函数及无一阶矩边界</a></td><td>完整例题</td></tr><tr><td><a href="chapter06_independent_sequences.html#example-6-5-1">第 6 章 §5 例 1 · Cauchy 平均的分布保持不变</a></td><td>完整例题</td></tr><tr><td><a href="chapter06_independent_sequences.html#example-6-5-2">第 6 章 §5 例 2 · 无限方差却仍能有正态极限</a></td><td>完整例题</td></tr></tbody></table></div></section><footer><p>依照 2004 年第 1 版展开。原书陈述、伴读解释与校注分别标明；每节和每题保留印刷页及 PDF 页序。</p><p class="chapter-nav"><a href="preface.html">开始阅读：序言 →</a><a href="#top">返回页首 ↑</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top">本节理解与补充</a></p><div id="annotation-content"></div></aside></div><script>
+<section id="example-index"><h2 id="rn-table-label-3">全六章例子索引</h2><p>原书 33 个节内编号例子中，19 个归为完整例题，14 个为定义性短说明。分类描述阅读用途；常数函数、计数测度等直接检验定义的例子保留简短说明。第三章另有原书未编号的积分实例和伴读有限加权计算例，它们在正文中分别标明类型，不计入下列编号例子索引。</p><div class="scroll"><table aria-labelledby="rn-table-label-3"><thead><tr><th scope="col">原书例子</th><th scope="col">类型</th></tr></thead><tbody><tr><td><a href="chapter01_measurable_spaces.html#example-1-2-1">第 1 章 §2 例 1 · 半直线构成 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="π" display="inline"><mi>π</mi></math> 系</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter01_measurable_spaces.html#example-1-2-2">第 1 章 §2 例 2 · 半开区间怎样切开</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter01_measurable_spaces.html#example-1-2-3">第 1 章 §2 例 3 · 有限空间的单点</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter01_measurable_spaces.html#example-1-2-4">第 1 章 §2 例 4 · 有限个半开区间的并形成环</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter01_measurable_spaces.html#example-1-2-5">第 1 章 §2 例 5 · 有限空间的所有子集</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter01_measurable_spaces.html#example-1-4-1">第 1 章 §4 例 1 · 所有子集都可测</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter01_measurable_spaces.html#example-1-4-2">第 1 章 §4 例 2 · 常数函数</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter01_measurable_spaces.html#example-1-4-3">第 1 章 §4 例 3 · 指示函数</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter01_measurable_spaces.html#example-1-4-4">第 1 章 §4 例 4 · 不交两块上的常数</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter02_measure_spaces.html#example-2-1-1">第 2 章 §1 例 1 · 计数测度</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter02_measure_spaces.html#example-2-1-2">第 2 章 §1 例 2 · 点测度</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter02_measure_spaces.html#example-2-1-3">第 2 章 §1 例 3 · 有限可加却不是测度</a></td><td>完整例题</td></tr><tr><td><a href="chapter02_measure_spaces.html#example-2-1-4">第 2 章 §1 例 4 · 区间长度</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter02_measure_spaces.html#example-2-1-5">第 2 章 §1 例 5 · 可列点的权重</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter02_measure_spaces.html#example-2-1-6">第 2 章 §1 例 6 · 古典概型</a></td><td>定义性短说明</td></tr><tr><td><a href="chapter02_measure_spaces.html#example-2-3-1">第 2 章 §3 例 1 · 有原始测度仍可能缩小集合系</a></td><td>完整例题</td></tr><tr><td><a href="chapter02_measure_spaces.html#example-2-3-2">第 2 章 §3 例 2 · 缺少有限覆盖时的非唯一性</a></td><td>完整例题</td></tr><tr><td><a href="chapter02_measure_spaces.html#example-2-5-1">第 2 章 §5 例 1 · 坏区域逃向无穷远</a></td><td>完整例题</td></tr><tr><td><a href="chapter02_measure_spaces.html#example-2-5-2">第 2 章 §5 例 2 · 越来越窄，却反复扫过每一点</a></td><td>完整例题</td></tr><tr><td><a href="chapter04_signed_measures.html#example-4-3-1">第 4 章 §3 例 1 · 去掉底测度 sigma 有限性会失败</a></td><td>完整例题</td></tr><tr><td><a href="chapter04_signed_measures.html#example-4-5-1">第 4 章 §5 例 1 · 只知道事件 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="B" display="inline"><mi>B</mi></math> 是否发生</a></td><td>完整例题</td></tr><tr><td><a href="chapter05_product_spaces.html#example-5-1-1">第 5 章 §1 例 1 · 计数测度失去 sigma 有限性</a></td><td>完整例题</td></tr><tr><td><a href="chapter05_product_spaces.html#example-5-1-2">第 5 章 §1 例 2 · 两个有限累次积分仍可能不相等</a></td><td>完整例题</td></tr><tr><td><a href="chapter06_independent_sequences.html#example-6-1-1">第 6 章 §1 例 1 · 收敛事件为什么属于尾域</a></td><td>完整例题</td></tr><tr><td><a href="chapter06_independent_sequences.html#example-6-1-2">第 6 章 §1 例 2 · 上下极限是尾随机变量</a></td><td>完整例题</td></tr><tr><td><a href="chapter06_independent_sequences.html#example-6-2-1">第 6 章 §2 例 1 · 二进制数字的频率</a></td><td>完整例题</td></tr><tr><td><a href="chapter06_independent_sequences.html#example-6-2-2">第 6 章 §2 例 2 · 有偏数字序列的典型集合</a></td><td>完整例题</td></tr><tr><td><a href="chapter06_independent_sequences.html#example-6-2-3">第 6 章 §2 例 3 · 连续而奇异的分布</a></td><td>完整例题</td></tr><tr><td><a href="chapter06_independent_sequences.html#example-6-3-1">第 6 章 §3 例 1 · 退化分布的相位</a></td><td>完整例题</td></tr><tr><td><a href="chapter06_independent_sequences.html#example-6-3-2">第 6 章 §3 例 2 · 标准正态的特征函数</a></td><td>完整例题</td></tr><tr><td><a href="chapter06_independent_sequences.html#example-6-3-3">第 6 章 §3 例 3 · Cauchy 特征函数及无一阶矩边界</a></td><td>完整例题</td></tr><tr><td><a href="chapter06_independent_sequences.html#example-6-5-1">第 6 章 §5 例 1 · Cauchy 平均的分布保持不变</a></td><td>完整例题</td></tr><tr><td><a href="chapter06_independent_sequences.html#example-6-5-2">第 6 章 §5 例 2 · 无限方差却仍能有正态极限</a></td><td>完整例题</td></tr></tbody></table></div></section><footer><p>依照 2004 年第 1 版展开。原书陈述、伴读解释与校注分别标明；每节和每题保留印刷页及 PDF 页序。</p><p class="chapter-nav"><a href="preface.html">开始阅读：序言 →</a><a href="#top">返回页首 ↑</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top">本节理解与补充</a></p><div id="annotation-content"></div></aside></div><script>(() => {
+  const initialized = new WeakSet();
+  function target(hash) {
+    try { return document.getElementById(decodeURIComponent(hash.slice(1))); } catch { return null; }
+  }
+  function entriesFor(nav) {
+    return Array.from(nav.querySelectorAll('li a[href^="#"]'), link => ({link, section:target(link.hash)}));
+  }
+  function init({nav, panel, breakpoint = 1100, groupHeading = "h2", childHeading = "h3"} = {}) {
+    if (!nav || !panel || initialized.has(nav)) return;
+    const entries = entriesFor(nav);
+    const groups = [];
+    let parent;
+    for (const entry of entries) {
+      const heading = /^h[1-6]$/.test(entry.section?.localName) ? entry.section :
+        entry.section?.querySelector(':scope > :is(h1,h2,h3,h4,h5,h6)');
+      if (heading?.localName !== childHeading) {
+        parent = heading?.localName === groupHeading ? entry : null;
+        continue;
+      }
+      if (!parent) continue;
+      const item = parent.link.closest('li');
+      const child = entry.link.closest('li');
+      const nested = child.parentElement.parentElement === item ? child.parentElement : null;
+      if (!nested && item.nextElementSibling !== child) {
+        parent = null;
+        continue;
+      }
+      if (!parent.group) {
+        const list = document.createElement('ul');
+        list.id = 'toc-group-' + parent.section.id;
+        while (document.getElementById(list.id)) list.id += '-sub';
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'toc-toggle';
+        button.setAttribute('aria-controls', list.id);
+        const title = parent.link.textContent.trim();
+        const open = expanded => {
+          list.hidden = !expanded;
+          button.ariaExpanded = expanded;
+          button.ariaLabel = (expanded ? '折叠 ' : '展开 ') + title;
+        };
+        button.addEventListener('click', () => open(list.hidden));
+        item.classList.add('toc-branch');
+        if (nested) nested.before(button, list);
+        else item.append(button, list);
+        parent.group = {list, open};
+        groups.push(parent.group);
+      }
+      parent.group.list.append(child);
+      entry.group = parent.group;
+    }
+    if (!groups.length) return;
+    initialized.add(nav);
+    const wide = matchMedia('(min-width:' + breakpoint + 'px)');
+    function targetGroup() {
+      const node = target(location.hash);
+      return entries.findLast(entry => entry.section?.contains(node))?.group;
+    }
+    function defaults() {
+      const active = targetGroup() || entries.find(entry => entry.link.hasAttribute('aria-current'))?.group || groups[0];
+      groups.forEach(group => group.open(wide.matches || group === active));
+    }
+    defaults();
+    wide.addEventListener('change', defaults);
+    addEventListener('hashchange', () => targetGroup()?.open(true));
+    let saved, panelWasOpen;
+    addEventListener('beforeprint', () => {
+      if (saved) return;
+      panelWasOpen = panel.open;
+      panel.open = true;
+      saved = groups.map(group => !group.list.hidden);
+      groups.forEach(group => group.open(true));
+    });
+    addEventListener('afterprint', () => {
+      if (!saved) return;
+      groups.forEach((group,i) => group.open(saved[i]));
+      panel.open = panelWasOpen;
+      saved = null;
+    });
+  }
+  window.TocTree = {init, entriesFor};
+})();
+
+
 (() => {
   document.documentElement.classList.add('toc-enhanced');
   const panel = document.getElementById('toc-panel');
   const nav = document.getElementById('chapter-toc');
   const wide = matchMedia('(min-width:1100px)');
-  const links = Array.from(nav.querySelectorAll('li a[href^="#"]'));
-  const entries = links.map(link => ({link, section: document.getElementById(link.hash.slice(1))})).filter(item => item.section);
+  const entries = window.TocTree.entriesFor(nav).filter(item => item.section);
   let current = null, scheduled = false;
   const fit = () => { panel.open = wide.matches; };
   fit();
@@ -558,6 +650,7 @@ python3 finite_integrals.py 1,2,0,1 -2,1,9,4 0,0,1,1 2,-1,3,0</code></pre><p>这
   addEventListener('hashchange', () => { reveal(); schedule(); });
   document.addEventListener('toggle', schedule, true);
   reveal(); mark();
+  window.TocTree.init({nav, panel});
 })();
 </script><script id="reading-notes-controller">
 (() => {

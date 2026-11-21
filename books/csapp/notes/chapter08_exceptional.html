@@ -105,7 +105,7 @@ svg.question-large-tree{min-width:1120px}
 /* Reading rail: one table of contents beside the book page. */
 .reading-layout{display:grid;grid-template-columns:240px minmax(0,860px);gap:32px;max-width:1200px;margin:0 auto;padding:0 24px;align-items:start}
 .reading-layout>main{width:100%;min-width:0;margin:0}
-.chapter-sidebar{position:sticky;top:32px;max-height:calc(100dvh - 64px);overflow-y:auto;overscroll-behavior:contain;padding:8px 16px 12px 0;margin-top:40px;border-right:1px solid var(--rule);scrollbar-width:thin}
+.chapter-sidebar{user-select:none;position:sticky;top:32px;max-height:calc(100dvh - 64px);overflow-y:auto;overscroll-behavior:contain;padding:8px 16px 12px 0;margin-top:40px;border-right:1px solid var(--rule);scrollbar-width:thin}
 .toc-panel>summary{display:flex;align-items:center;justify-content:space-between;gap:1rem;list-style:none;padding:.45rem .55rem;color:var(--green);font-size:.9rem;font-weight:650;cursor:pointer}
 .toc-panel>summary::-webkit-details-marker{display:none}
 .toc-panel>summary::after{content:"+";font-size:1.1rem;font-weight:400}
@@ -140,6 +140,15 @@ main[id],main [id]{scroll-margin-top:24px}
 .exercise-index a{font-variant-numeric:tabular-nums}.solution-link{font-size:.9rem}
 .exercise-question .scroll>table{min-width:480px}
 .question-note strong{color:var(--green)}
+.chapter-toc .toc-branch{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center}
+.chapter-toc .toc-branch>ul{grid-column:1/-1;padding-inline-start:1em}
+.chapter-toc .toc-branch>ul[hidden]{display:none}
+.chapter-toc .toc-toggle{font:inherit;color:var(--green);background:transparent;border:0;cursor:pointer;min-width:2rem;min-height:2rem}
+.chapter-toc .toc-toggle::before{content:"+"}
+.chapter-toc .toc-toggle[aria-expanded="true"]::before{content:"−"}
+.chapter-toc .toc-toggle:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+.chapter-toc .toc-branch:has([aria-current="location"])>.toc-toggle{font-weight:bold;background:var(--paper)}
+@media print{aside.chapter-sidebar:has(.toc-branch){display:block;position:static;max-height:none;overflow:visible}.chapter-toc{max-height:none;overflow:visible}.chapter-toc .toc-toggle{display:none}}
 
 /* Supplementary reading notes share the page's type and color palette. */
 .reading-notes{margin:2rem 0 0;padding:0.8rem 1rem;border-left:2px solid var(--green);background:var(--tint);font-size:0.92rem;line-height:1.85}
@@ -1465,14 +1474,97 @@ Job 5036 terminated by signal: Terminated
 &gt;quit
 </code></pre><p class="source"><a class="source-pdf" href="../csapp.pdf#page=831">来源：印刷 830—832 页 / PDF 831—833 页</a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答与推导</p><p>完整维护实现与逐字阅读副本见 <a href="#shell-model"><code>ch08_shell.c</code></a>。它采用三状态作业表（前台/后台/停止）、PID / JID 查找、双侧 <code>setpgid</code>、非阻塞 <code>waitpid</code> 排空、<code>SIGINT</code>/<code>SIGTSTP</code> 向 −PGID 转发、<code>sigsuspend</code> 等前台条件，以及 <code>pselect</code> 等待命令输入。所有作业表读写都在 <code>SIGCHLD</code>、<code>SIGINT</code>、<code>SIGTSTP</code> 屏蔽期间发生；处理程序只转发信号，不分配内存或打印。</p><p>单个命令最多 127 个词，行最多 1023 字节，同时最多 32 个作业，超界明确拒绝。题目只要求空格分词，因此路径直接交 <code>execve</code>，不加入引号、通配符、管道或 PATH 搜索语法。<code>--interactive</code> 进入命令循环；默认只创建一个 <code>/usr/bin/true</code> 前台孩子，确认正常退出且作业表归零后结束。quit/EOF 对仍登记作业的原进程组及直属 PID 分别发送终止信号，再回收直属孩子；孩子迁到其他进程组也会按 PID 清理，信号或回收失败则以非零状态退出。</p><p>这里符合原题的信号转发模型；需要前台程序直接读取真实终端的完整 shell，还应加入 <code>tcsetpgrp</code>、终端属性交接等。Python 同伴只验证状态机转换与模型不变量，实际子进程、信号转发和进程组行为由 C 与 POSIX 运行测试提供证据。</p></div></details></section>
 <details class="statement-index" id="source-index"><summary>本页原书摘录 · 5 处</summary><ul class="statement-links"><li><a href="#classic-8-exception">异常由事件触发</a></li><li><a href="#classic-8-process">进程的经典定义</a></li><li><a href="#classic-8-errors">先查返回值</a></li><li><a href="#classic-8-pending">通知表达至少一次</a></li><li><a href="#classic-8-nonlocal">跳向仍在执行的调用环境</a></li></ul></details>
-<footer><p>依据 Bryant / O’Hallaron《Computer Systems: A Programmer’s Perspective》第三版 Global Edition（Pearson 2016）。本章覆盖原书全部大节、二级节及 26 道题；程序的平台边界与原书校注随相关机制说明。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter07_linking.html">← 第 7 章 · 链接</a><a href="chapter09_virtual_memory.html">第 9 章 · 虚拟内存 →</a><a href="#top">返回页首 ↑</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top"></a></p><div id="annotation-content"></div></aside></div><script>
+<footer><p>依据 Bryant / O’Hallaron《Computer Systems: A Programmer’s Perspective》第三版 Global Edition（Pearson 2016）。本章覆盖原书全部大节、二级节及 26 道题；程序的平台边界与原书校注随相关机制说明。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter07_linking.html">← 第 7 章 · 链接</a><a href="chapter09_virtual_memory.html">第 9 章 · 虚拟内存 →</a><a href="#top">返回页首 ↑</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top"></a></p><div id="annotation-content"></div></aside></div><script>(() => {
+  const initialized = new WeakSet();
+  function target(hash) {
+    try { return document.getElementById(decodeURIComponent(hash.slice(1))); } catch { return null; }
+  }
+  function entriesFor(nav) {
+    return Array.from(nav.querySelectorAll('li a[href^="#"]'), link => ({link, section:target(link.hash)}));
+  }
+  function init({nav, panel, breakpoint = 1100, groupHeading = "h2", childHeading = "h3"} = {}) {
+    if (!nav || !panel || initialized.has(nav)) return;
+    const entries = entriesFor(nav);
+    const groups = [];
+    let parent;
+    for (const entry of entries) {
+      const heading = /^h[1-6]$/.test(entry.section?.localName) ? entry.section :
+        entry.section?.querySelector(':scope > :is(h1,h2,h3,h4,h5,h6)');
+      if (heading?.localName !== childHeading) {
+        parent = heading?.localName === groupHeading ? entry : null;
+        continue;
+      }
+      if (!parent) continue;
+      const item = parent.link.closest('li');
+      const child = entry.link.closest('li');
+      const nested = child.parentElement.parentElement === item ? child.parentElement : null;
+      if (!nested && item.nextElementSibling !== child) {
+        parent = null;
+        continue;
+      }
+      if (!parent.group) {
+        const list = document.createElement('ul');
+        list.id = 'toc-group-' + parent.section.id;
+        while (document.getElementById(list.id)) list.id += '-sub';
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'toc-toggle';
+        button.setAttribute('aria-controls', list.id);
+        const title = parent.link.textContent.trim();
+        const open = expanded => {
+          list.hidden = !expanded;
+          button.ariaExpanded = expanded;
+          button.ariaLabel = (expanded ? '折叠 ' : '展开 ') + title;
+        };
+        button.addEventListener('click', () => open(list.hidden));
+        item.classList.add('toc-branch');
+        if (nested) nested.before(button, list);
+        else item.append(button, list);
+        parent.group = {list, open};
+        groups.push(parent.group);
+      }
+      parent.group.list.append(child);
+      entry.group = parent.group;
+    }
+    if (!groups.length) return;
+    initialized.add(nav);
+    const wide = matchMedia('(min-width:' + breakpoint + 'px)');
+    function targetGroup() {
+      const node = target(location.hash);
+      return entries.findLast(entry => entry.section?.contains(node))?.group;
+    }
+    function defaults() {
+      const active = targetGroup() || entries.find(entry => entry.link.hasAttribute('aria-current'))?.group || groups[0];
+      groups.forEach(group => group.open(wide.matches || group === active));
+    }
+    defaults();
+    wide.addEventListener('change', defaults);
+    addEventListener('hashchange', () => targetGroup()?.open(true));
+    let saved, panelWasOpen;
+    addEventListener('beforeprint', () => {
+      if (saved) return;
+      panelWasOpen = panel.open;
+      panel.open = true;
+      saved = groups.map(group => !group.list.hidden);
+      groups.forEach(group => group.open(true));
+    });
+    addEventListener('afterprint', () => {
+      if (!saved) return;
+      groups.forEach((group,i) => group.open(saved[i]));
+      panel.open = panelWasOpen;
+      saved = null;
+    });
+  }
+  window.TocTree = {init, entriesFor};
+})();
+
+
 (() => {
   document.documentElement.classList.add('toc-enhanced');
   const panel = document.getElementById('toc-panel');
   const nav = document.getElementById('chapter-toc');
   const wide = matchMedia('(min-width:1100px)');
-  const links = Array.from(nav.querySelectorAll('li a[href^="#"]'));
-  const entries = links.map(link => ({link, section: document.getElementById(link.hash.slice(1))})).filter(item => item.section);
+  const entries = window.TocTree.entriesFor(nav).filter(item => item.section);
   let current = null, scheduled = false;
   const fit = () => { panel.open = wide.matches; };
   fit();
@@ -1505,6 +1597,7 @@ Job 5036 terminated by signal: Terminated
   addEventListener('hashchange', () => { reveal(); schedule(); });
   document.addEventListener('toggle', schedule, true);
   reveal(); mark();
+  window.TocTree.init({nav, panel});
 })();
 
 

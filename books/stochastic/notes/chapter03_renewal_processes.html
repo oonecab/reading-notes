@@ -104,7 +104,7 @@ svg.question-large-tree{min-width:1120px}
 /* Reading rail: one table of contents beside the book page. */
 .reading-layout{display:grid;grid-template-columns:240px minmax(0,860px);gap:32px;max-width:1200px;margin:0 auto;padding:0 24px;align-items:start}
 .reading-layout>main{width:100%;min-width:0;margin:0}
-.chapter-sidebar{position:sticky;top:32px;max-height:calc(100dvh - 64px);overflow-y:auto;overscroll-behavior:contain;padding:8px 16px 12px 0;margin-top:40px;border-right:1px solid var(--rule);scrollbar-width:thin}
+.chapter-sidebar{user-select:none;position:sticky;top:32px;max-height:calc(100dvh - 64px);overflow-y:auto;overscroll-behavior:contain;padding:8px 16px 12px 0;margin-top:40px;border-right:1px solid var(--rule);scrollbar-width:thin}
 .toc-panel>summary{display:flex;align-items:center;justify-content:space-between;gap:1rem;list-style:none;padding:.45rem .55rem;color:var(--green);font-size:.9rem;font-weight:650;cursor:pointer}
 .toc-panel>summary::-webkit-details-marker{display:none}
 .toc-panel>summary::after{content:"+";font-size:1.1rem;font-weight:400}
@@ -139,6 +139,15 @@ main[id],main [id]{scroll-margin-top:24px}
 .exercise-index a{font-variant-numeric:tabular-nums}.solution-link{font-size:.9rem}
 .exercise-question .scroll>table{min-width:480px}
 .question-note strong{color:var(--green)}
+.chapter-toc .toc-branch{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center}
+.chapter-toc .toc-branch>ul{grid-column:1/-1;padding-inline-start:1em}
+.chapter-toc .toc-branch>ul[hidden]{display:none}
+.chapter-toc .toc-toggle{font:inherit;color:var(--green);background:transparent;border:0;cursor:pointer;min-width:2rem;min-height:2rem}
+.chapter-toc .toc-toggle::before{content:"+"}
+.chapter-toc .toc-toggle[aria-expanded="true"]::before{content:"−"}
+.chapter-toc .toc-toggle:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+.chapter-toc .toc-branch:has([aria-current="location"])>.toc-toggle{font-weight:bold;background:var(--paper)}
+@media print{aside.chapter-sidebar:has(.toc-branch){display:block;position:static;max-height:none;overflow:visible}.chapter-toc{max-height:none;overflow:visible}.chapter-toc .toc-toggle{display:none}}
 
 /* Supplementary reading notes share the page's type and color palette. */
 .reading-notes{margin:2rem 0 0;padding:0.8rem 1rem;border-left:2px solid var(--green);background:var(--tint);font-size:0.92rem;line-height:1.85}
@@ -839,14 +848,97 @@ if __name__=="__main__":main()
 <div class="answer"><p class="answer-title rn-exercise-label">解答</p><ol class="solution-steps"><li><p>原分布未预先假设有密度；与平衡年龄积分相等先强迫它绝对连续，才允许下一步以导数求解。</p><p><strong>从分布等式推出绝对连续性。</strong></p><p>有限正均值 <math data-tex="m" xmlns="http://www.w3.org/1998/Math/MathML" aria-label="m" display="inline"><mi>m</mi></math> 下，假设 <span class="math-inline"><math data-tex="F(x)=m^{-1}\int_0^x[1-F(u)]du" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>F</mi><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><msup><mi>m</mi><mrow><mo>&#x02212;</mo><mn>1</mn></mrow></msup><msubsup><mo>&#x0222B;</mo><mn>0</mn><mi>x</mi></msubsup><mo stretchy="false">[</mo><mn>1</mn><mo>&#x02212;</mo><mi>F</mi><mo stretchy="false">&#x00028;</mo><mi>u</mi><mo stretchy="false">&#x00029;</mo><mo stretchy="false">]</mo><mi>d</mi><mi>u</mi></mrow></math></span>。右侧是连续且绝对连续的函数，故 <math data-tex="F" xmlns="http://www.w3.org/1998/Math/MathML" aria-label="F" display="inline"><mi>F</mi></math> 也如此，并有 <math data-tex="F ( 0 ) = 0" xmlns="http://www.w3.org/1998/Math/MathML" aria-label="F(0)=0" display="inline"><mrow><mi>F</mi><mrow><mo>(</mo><mn>0</mn><mo>)</mo></mrow><mo>=</mo><mn>0</mn></mrow></math>。</p></li><li><p>对积分方程求导得到几乎处处的一阶微分关系。乘积分因子 <span class="math-inline"><math data-tex="e^{x/m}" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msup><mi>e</mi><mrow><mi>x</mi><mo>&#x0002F;</mo><mi>m</mi></mrow></msup></mrow></math></span> 把两项合成一个导数，使其为零。</p><p><strong>改写为生存函数的一阶方程。</strong></p><p>令 <math data-tex="S ( x ) = 1 - F ( x )" xmlns="http://www.w3.org/1998/Math/MathML" aria-label="S(x)=1−F(x)" display="inline"><mrow><mi>S</mi><mrow><mo>(</mo><mi>x</mi><mo>)</mo></mrow><mo>=</mo><mn>1</mn><mo>−</mo><mi>F</mi><mrow><mo>(</mo><mi>x</mi><mo>)</mo></mrow></mrow></math>，几乎处处 <span class="math-inline"><math data-tex="S^{\prime}(x)=-S(x)/m" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msup><mi>S</mi><mrow><mi>&#x02032;</mi></mrow></msup><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><mo>&#x02212;</mo><mi>S</mi><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0002F;</mo><mi>m</mi></mrow></math></span>。因此 <span class="math-inline"><math data-tex="(e^{x/m}S(x))^{\prime}=0" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msup><mrow><mo stretchy="false">&#x00028;</mo><msup><mi>e</mi><mrow><mi>x</mi><mo>&#x0002F;</mo><mi>m</mi></mrow></msup><mi>S</mi><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo stretchy="false">&#x00029;</mo><mo stretchy="false">&#x00029;</mo></mrow><mrow><mi>&#x02032;</mi></mrow></msup><mo>&#x0003D;</mo><mn>0</mn></mrow></math></span> 几乎处处；绝对连续性保证该乘积处处是常数。</p></li><li><p>绝对连续函数的导数几乎处处为零会使函数为常数；初值 <math data-tex="S ( 0 ) = 1" xmlns="http://www.w3.org/1998/Math/MathML" aria-label="S(0)=1" display="inline"><mrow><mi>S</mi><mrow><mo>(</mo><mn>0</mn><mo>)</mo></mrow><mo>=</mo><mn>1</mn></mrow></math> 固定该常数，最后还要代回尾积分核对均值 <math data-tex="m" xmlns="http://www.w3.org/1998/Math/MathML" aria-label="m" display="inline"><mi>m</mi></math>，没有额外自由参数。</p><p><strong>代初值并验证均值。</strong></p><p><math data-tex="S ( 0 ) = 1" xmlns="http://www.w3.org/1998/Math/MathML" aria-label="S(0)=1" display="inline"><mrow><mi>S</mi><mrow><mo>(</mo><mn>0</mn><mo>)</mo></mrow><mo>=</mo><mn>1</mn></mrow></math> 给 <span class="math-inline"><math data-tex="S(x)=e^{-x/m}" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>S</mi><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><msup><mi>e</mi><mrow><mo>&#x02212;</mo><mi>x</mi><mo>&#x0002F;</mo><mi>m</mi></mrow></msup></mrow></math></span>，所以 <span class="math-inline"><math data-tex="F(x)=1-e^{-\lambda x}" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>F</mi><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><mn>1</mn><mo>&#x02212;</mo><msup><mi>e</mi><mrow><mo>&#x02212;</mo><mi>&#x003BB;</mi><mi>x</mi></mrow></msup></mrow></math></span>，<math data-tex="\lambda  = 1 / m &gt; 0" xmlns="http://www.w3.org/1998/Math/MathML" aria-label="λ=1/m&gt;0" display="inline"><mrow><mi>λ</mi><mo>=</mo><mn>1</mn><mo>/</mo><mi>m</mi><mo>&gt;</mo><mn>0</mn></mrow></math>。此分布的尾积分恰为 <math data-tex="m" xmlns="http://www.w3.org/1998/Math/MathML" aria-label="m" display="inline"><mi>m</mi></math>，满足原等式，因此指数分布既必要又充分。</p></li></ol></div></details><details class="reading-notes" id="notes-exercises" data-notes-for="exercises" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card" data-note-id="chapter03_renewal_processes-exercises-1"><span class="annotation-kind">解题</span><h3>先选一个真正重启的周期</h3><p>维修完成、库存补满或系统回到指定状态，都可能构成重启点。必须确认跨周期的随机结构满足题设；只截取同样长度的时间窗，不会自动得到独立同分布周期。</p></div><div class="annotation-card" data-note-id="chapter03_renewal_processes-exercises-2"><span class="annotation-kind">边界</span><h3>积分前先写出随机变量的支持</h3><p>涉及 <span class="math-inline"><math data-tex="\min(L,T)" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mo>min</mo><mo stretchy="false">&#x00028;</mo><mi>L</mi><mo>&#x0002C;</mo><mi>T</mi><mo stretchy="false">&#x00029;</mo></mrow></math></span>、年龄或剩余寿命时，先画出允许的区间。尾积分只在该变量可能超过积分点时有贡献，寿命上界与更换年龄的先后会改变积分范围。</p></div></div></details>
 </section>
 <details class="statement-index" id="statement-index"><summary>本章定义与定理</summary><ul class="statement-links"><li><a href="#definition-renewal">定义 · 更新过程与更新奖励过程</a></li><li><a href="#theorem-3-1">定理 3.1 · 更新计数的大数律</a></li><li><a href="#theorem-3-2">定理 3.2 · 独立同分布变量的强大数律</a></li><li><a href="#theorem-3-3">定理 3.3 · 更新奖励定理</a></li><li><a href="#definition-alternating">定义 · 交替更新过程</a></li><li><a href="#theorem-3-4">定理 3.4 · 交替更新中的时间比例</a></li><li><a href="#definition-queue">定义 <math data-tex="· G I / G / 1" xmlns="http://www.w3.org/1998/Math/MathML" aria-label="· GI/G/1" display="inline"><mrow><mo>·</mo><mi>G</mi><mi>I</mi><mo>/</mo><mi>G</mi><mo>/</mo><mn>1</mn></mrow></math> 与等待量的口径</a></li><li><a href="#theorem-3-5">定理 3.5 · 稳定 <math data-tex="G I / G / 1" xmlns="http://www.w3.org/1998/Math/MathML" aria-label="GI/G/1" display="inline"><mrow><mi>G</mi><mi>I</mi><mo>/</mo><mi>G</mi><mo>/</mo><mn>1</mn></mrow></math> 的清空与忙碌比例</a></li><li><a href="#theorem-3-6">定理 3.6 · Little 公式</a></li><li><a href="#theorem-3-7">定理 <math data-tex="3.7 · M / G / 1" xmlns="http://www.w3.org/1998/Math/MathML" aria-label="3.7 · M/G/1" display="inline"><mrow><mn>3.7</mn><mo>·</mo><mi>M</mi><mo>/</mo><mi>G</mi><mo>/</mo><mn>1</mn></mrow></math> 服务开始链的常返分类</a></li><li><a href="#theorem-3-8">定理 3.8 · 泊松到达看到时间平均</a></li><li><a href="#theorem-3-9">定理 3.9 · Pollaczek–Khintchine 等待公式</a></li><li><a href="#theorem-3-10">定理 3.10 · 离散更新剩余寿命的稳态分布</a></li><li><a href="#theorem-3-11">定理 3.11 · 连续时间年龄与剩余寿命的时间平均</a></li></ul><p class="source">英文原文用于核对作者措辞；中文陈述集中列出条件与结论。公式与推导条目保留原书未编号结果的性质。</p><p class="source">共同基础：<a href="appendix_a_probability_review.html#axiom-probability">概率的三条公理</a> · <a href="appendix_a_probability_review.html#definition-conditional-probability">条件概率与独立性</a>。</p></details>
-<footer><p>本文按第三版原书的节次与题号组织。程序、公式、图和样式均嵌入本页，可离线阅读。程序使用说明见 <a href="book_overview.html#program-guide">全书地图</a>。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter02_poisson_processes.html">← 第 2 章 · 泊松过程</a><a href="chapter04_continuous_time_markov_chains.html">第 4 章 · 连续时间马尔可夫链 →</a><a href="#top">返回页首 ↑</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top">本节理解与补充</a></p><div id="annotation-content"></div></aside></div><script>
+<footer><p>本文按第三版原书的节次与题号组织。程序、公式、图和样式均嵌入本页，可离线阅读。程序使用说明见 <a href="book_overview.html#program-guide">全书地图</a>。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter02_poisson_processes.html">← 第 2 章 · 泊松过程</a><a href="chapter04_continuous_time_markov_chains.html">第 4 章 · 连续时间马尔可夫链 →</a><a href="#top">返回页首 ↑</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top">本节理解与补充</a></p><div id="annotation-content"></div></aside></div><script>(() => {
+  const initialized = new WeakSet();
+  function target(hash) {
+    try { return document.getElementById(decodeURIComponent(hash.slice(1))); } catch { return null; }
+  }
+  function entriesFor(nav) {
+    return Array.from(nav.querySelectorAll('li a[href^="#"]'), link => ({link, section:target(link.hash)}));
+  }
+  function init({nav, panel, breakpoint = 1100, groupHeading = "h2", childHeading = "h3"} = {}) {
+    if (!nav || !panel || initialized.has(nav)) return;
+    const entries = entriesFor(nav);
+    const groups = [];
+    let parent;
+    for (const entry of entries) {
+      const heading = /^h[1-6]$/.test(entry.section?.localName) ? entry.section :
+        entry.section?.querySelector(':scope > :is(h1,h2,h3,h4,h5,h6)');
+      if (heading?.localName !== childHeading) {
+        parent = heading?.localName === groupHeading ? entry : null;
+        continue;
+      }
+      if (!parent) continue;
+      const item = parent.link.closest('li');
+      const child = entry.link.closest('li');
+      const nested = child.parentElement.parentElement === item ? child.parentElement : null;
+      if (!nested && item.nextElementSibling !== child) {
+        parent = null;
+        continue;
+      }
+      if (!parent.group) {
+        const list = document.createElement('ul');
+        list.id = 'toc-group-' + parent.section.id;
+        while (document.getElementById(list.id)) list.id += '-sub';
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'toc-toggle';
+        button.setAttribute('aria-controls', list.id);
+        const title = parent.link.textContent.trim();
+        const open = expanded => {
+          list.hidden = !expanded;
+          button.ariaExpanded = expanded;
+          button.ariaLabel = (expanded ? '折叠 ' : '展开 ') + title;
+        };
+        button.addEventListener('click', () => open(list.hidden));
+        item.classList.add('toc-branch');
+        if (nested) nested.before(button, list);
+        else item.append(button, list);
+        parent.group = {list, open};
+        groups.push(parent.group);
+      }
+      parent.group.list.append(child);
+      entry.group = parent.group;
+    }
+    if (!groups.length) return;
+    initialized.add(nav);
+    const wide = matchMedia('(min-width:' + breakpoint + 'px)');
+    function targetGroup() {
+      const node = target(location.hash);
+      return entries.findLast(entry => entry.section?.contains(node))?.group;
+    }
+    function defaults() {
+      const active = targetGroup() || entries.find(entry => entry.link.hasAttribute('aria-current'))?.group || groups[0];
+      groups.forEach(group => group.open(wide.matches || group === active));
+    }
+    defaults();
+    wide.addEventListener('change', defaults);
+    addEventListener('hashchange', () => targetGroup()?.open(true));
+    let saved, panelWasOpen;
+    addEventListener('beforeprint', () => {
+      if (saved) return;
+      panelWasOpen = panel.open;
+      panel.open = true;
+      saved = groups.map(group => !group.list.hidden);
+      groups.forEach(group => group.open(true));
+    });
+    addEventListener('afterprint', () => {
+      if (!saved) return;
+      groups.forEach((group,i) => group.open(saved[i]));
+      panel.open = panelWasOpen;
+      saved = null;
+    });
+  }
+  window.TocTree = {init, entriesFor};
+})();
+
+
 (() => {
   document.documentElement.classList.add('toc-enhanced');
   const panel = document.getElementById('toc-panel');
   const nav = document.getElementById('chapter-toc');
   const wide = matchMedia('(min-width:1100px)');
-  const links = Array.from(nav.querySelectorAll('li a[href^="#"]'));
-  const entries = links.map(link => ({link, section: document.getElementById(link.hash.slice(1))})).filter(item => item.section);
+  const entries = window.TocTree.entriesFor(nav).filter(item => item.section);
   let current = null, scheduled = false;
   const fit = () => { panel.open = wide.matches; };
   fit();
@@ -878,6 +970,7 @@ if __name__=="__main__":main()
   addEventListener('hashchange', () => { reveal(); schedule(); });
   document.addEventListener('toggle', schedule, true);
   reveal(); mark();
+  window.TocTree.init({nav, panel});
 })();
 </script><script id="reading-notes-controller">
 (() => {

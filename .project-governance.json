@@ -76,6 +76,8 @@
       "pnpm test",
       "pnpm check:parity",
       "pnpm check:offline",
+      "pnpm check:toc",
+      "pnpm check:toc:dist",
       "pnpm check:performance",
       "node tools/reader-contract/check.mjs",
       "pnpm check:presentation",

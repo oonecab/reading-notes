@@ -139,6 +139,9 @@ try {
         view.toc_clicks=[];
         for(const hash of [...new Set([state.toc[0],state.toc[Math.floor(state.toc.length/2)],state.toc.at(-1)])]){
           if(!await page.evaluate(()=>document.getElementById('toc-panel').open))await page.click('#toc-panel > summary',{label:'展开手机章节目录'});
+          const group = await page.evaluate(hash => [...document.querySelectorAll('#chapter-toc a')].find(a =>
+            a.getAttribute('href') === hash)?.closest('ul[hidden]')?.id, hash);
+          if (group) await page.click('#chapter-toc button[aria-controls="'+group+'"]',{label:'展开目标所在目录组'});
           await page.click('#chapter-toc a[href="'+hash+'"]',{label:'检查手机目录跳转'});
           await page.waitForFunction(hash=>{
             const target=document.getElementById(hash.slice(1));

@@ -104,7 +104,7 @@ svg.question-large-tree{min-width:1120px}
 /* Reading rail: one table of contents beside the book page. */
 .reading-layout{display:grid;grid-template-columns:240px minmax(0,860px);gap:32px;max-width:1200px;margin:0 auto;padding:0 24px;align-items:start}
 .reading-layout>main{width:100%;min-width:0;margin:0}
-.chapter-sidebar{position:sticky;top:32px;max-height:calc(100dvh - 64px);overflow-y:auto;overscroll-behavior:contain;padding:8px 16px 12px 0;margin-top:40px;border-right:1px solid var(--rule);scrollbar-width:thin}
+.chapter-sidebar{user-select:none;position:sticky;top:32px;max-height:calc(100dvh - 64px);overflow-y:auto;overscroll-behavior:contain;padding:8px 16px 12px 0;margin-top:40px;border-right:1px solid var(--rule);scrollbar-width:thin}
 .toc-panel>summary{display:flex;align-items:center;justify-content:space-between;gap:1rem;list-style:none;padding:.45rem .55rem;color:var(--green);font-size:.9rem;font-weight:650;cursor:pointer}
 .toc-panel>summary::-webkit-details-marker{display:none}
 .toc-panel>summary::after{content:"+";font-size:1.1rem;font-weight:400}
@@ -139,6 +139,15 @@ main[id],main [id]{scroll-margin-top:24px}
 .exercise-index a{font-variant-numeric:tabular-nums}.solution-link{font-size:.9rem}
 .exercise-question .scroll>table{min-width:480px}
 .question-note strong{color:var(--green)}
+.chapter-toc .toc-branch{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center}
+.chapter-toc .toc-branch>ul{grid-column:1/-1;padding-inline-start:1em}
+.chapter-toc .toc-branch>ul[hidden]{display:none}
+.chapter-toc .toc-toggle{font:inherit;color:var(--green);background:transparent;border:0;cursor:pointer;min-width:2rem;min-height:2rem}
+.chapter-toc .toc-toggle::before{content:"+"}
+.chapter-toc .toc-toggle[aria-expanded="true"]::before{content:"−"}
+.chapter-toc .toc-toggle:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+.chapter-toc .toc-branch:has([aria-current="location"])>.toc-toggle{font-weight:bold;background:var(--paper)}
+@media print{aside.chapter-sidebar:has(.toc-branch){display:block;position:static;max-height:none;overflow:visible}.chapter-toc{max-height:none;overflow:visible}.chapter-toc .toc-toggle{display:none}}
 
 /* Supplementary reading notes share the page's type and color palette. */
 .reading-notes{margin:2rem 0 0;padding:0.8rem 1rem;border-left:2px solid var(--green);background:var(--tint);font-size:0.92rem;line-height:1.85}
@@ -594,14 +603,97 @@ int main(int argc, char **argv) {
     printf(&quot;homomorphisms=%d\n&quot;, count);
     return 0;
 }
-</code></pre></details><details class="reading-notes" id="notes-program-homomorphisms" data-notes-for="program-homomorphisms" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与边界</span><h3>生成元的像决定整个映射</h3><p><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="Cₘ" display="inline"><semantics><msub><mi>C</mi><mi>m</mi></msub><annotation encoding="text/plain">Cₘ</annotation></semantics></math> 的每个元素是 1 的重复相加，所以 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="φ(x)=x·φ(1)" display="inline"><semantics><mrow><mi>φ</mi><mrow><mo>(</mo><mi>x</mi><mo>)</mo></mrow><mo>=</mo><mi>x</mi><mo>·</mo><mi>φ</mi><mrow><mo>(</mo><mn>1</mn><mo>)</mo></mrow></mrow><annotation encoding="text/plain">φ(x)=x·φ(1)</annotation></semantics></math>。候选 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a=φ(1)" display="inline"><semantics><mrow><mi>a</mi><mo>=</mo><mi>φ</mi><mrow><mo>(</mo><mn>1</mn><mo>)</mo></mrow></mrow><annotation encoding="text/plain">a=φ(1)</annotation></semantics></math> 还必须满足 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="ma≡0 mod n" display="inline"><semantics><mrow><mi>m</mi><mi>a</mi><mo>≡</mo><mn>0</mn><mo form="infix" lspace="0.278em" rspace="0.278em">mod</mo><mi>n</mi></mrow><annotation encoding="text/plain">ma≡0 mod n</annotation></semantics></math>，才能与定义域中的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="m=0" display="inline"><semantics><mrow><mi>m</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="text/plain">m=0</annotation></semantics></math> 相容。</p></div></div></details></section><section id="review"><h2>本章回看</h2><p>同态的决定性等式是保乘法。它迫使单位元、逆元、生成关系一起被保留，核因而正规，非空纤维因而恰是核陪集。商掉核所得结构与像完全相同；这条主线同时解释模运算、循环直积、半直积的作用条件，以及有限阿贝尔群分解中为什么可以反复取商再沿原像返回。</p><p>阅读自检：能否逐步写出 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="F(gK)=φ(g)" display="inline"><semantics><mrow><mi>F</mi><mrow><mo>(</mo><mi>g</mi><mi>K</mi><mo>)</mo></mrow><mo>=</mo><mi>φ</mi><mrow><mo>(</mo><mi>g</mi><mo>)</mo></mrow></mrow><annotation encoding="text/plain">F(gK)=φ(g)</annotation></semantics></math> 的良定义、单射、满射和保乘法？能否指出 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="φ(g)=g²" display="inline"><semantics><mrow><mi>φ</mi><mrow><mo>(</mo><mi>g</mi><mo>)</mo></mrow><mo>=</mo><msup><mi>g</mi><mn>2</mn></msup></mrow><annotation encoding="text/plain">φ(g)=g²</annotation></semantics></math> 在 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="S₃" display="inline"><semantics><msub><mi>S</mi><mn>3</mn></msub><annotation encoding="text/plain">S₃</annotation></semantics></math> 哪里失败？能否在 8.47 的逆推中解释为什么 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="Hᵢ" display="inline"><semantics><msub><mi>H</mi><mi>i</mi></msub><annotation encoding="text/plain">Hᵢ</annotation></semantics></math> 必须是整条原像？这三点连通了本章的定义、边界与最深的证明。</p><details class="reading-notes" id="notes-review" data-notes-for="review" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与边界</span><h3>把结构化简接到下一章</h3><p>同态将核压成单位元，再用像保存剩余乘法。接下来研究群作用时，可以把每个群元素送到一个置换，并用核辨认作用中看不见的部分。</p></div></div></details></section><footer><p>中文伴读、重绘图解与独立推演按原书问题组织；每题保留原号与原页。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter07_products_and_quotients.html">← 第 7 章 · 积与商</a><a href="chapter09_sylow_theory.html">第 9 章 · Sylow 理论 →</a><a href="#top">返回页首 ↑</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top">本节理解与补充</a></p><div id="annotation-content"></div></aside></div><script>
+</code></pre></details><details class="reading-notes" id="notes-program-homomorphisms" data-notes-for="program-homomorphisms" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与边界</span><h3>生成元的像决定整个映射</h3><p><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="Cₘ" display="inline"><semantics><msub><mi>C</mi><mi>m</mi></msub><annotation encoding="text/plain">Cₘ</annotation></semantics></math> 的每个元素是 1 的重复相加，所以 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="φ(x)=x·φ(1)" display="inline"><semantics><mrow><mi>φ</mi><mrow><mo>(</mo><mi>x</mi><mo>)</mo></mrow><mo>=</mo><mi>x</mi><mo>·</mo><mi>φ</mi><mrow><mo>(</mo><mn>1</mn><mo>)</mo></mrow></mrow><annotation encoding="text/plain">φ(x)=x·φ(1)</annotation></semantics></math>。候选 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="a=φ(1)" display="inline"><semantics><mrow><mi>a</mi><mo>=</mo><mi>φ</mi><mrow><mo>(</mo><mn>1</mn><mo>)</mo></mrow></mrow><annotation encoding="text/plain">a=φ(1)</annotation></semantics></math> 还必须满足 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="ma≡0 mod n" display="inline"><semantics><mrow><mi>m</mi><mi>a</mi><mo>≡</mo><mn>0</mn><mo form="infix" lspace="0.278em" rspace="0.278em">mod</mo><mi>n</mi></mrow><annotation encoding="text/plain">ma≡0 mod n</annotation></semantics></math>，才能与定义域中的 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="m=0" display="inline"><semantics><mrow><mi>m</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="text/plain">m=0</annotation></semantics></math> 相容。</p></div></div></details></section><section id="review"><h2>本章回看</h2><p>同态的决定性等式是保乘法。它迫使单位元、逆元、生成关系一起被保留，核因而正规，非空纤维因而恰是核陪集。商掉核所得结构与像完全相同；这条主线同时解释模运算、循环直积、半直积的作用条件，以及有限阿贝尔群分解中为什么可以反复取商再沿原像返回。</p><p>阅读自检：能否逐步写出 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="F(gK)=φ(g)" display="inline"><semantics><mrow><mi>F</mi><mrow><mo>(</mo><mi>g</mi><mi>K</mi><mo>)</mo></mrow><mo>=</mo><mi>φ</mi><mrow><mo>(</mo><mi>g</mi><mo>)</mo></mrow></mrow><annotation encoding="text/plain">F(gK)=φ(g)</annotation></semantics></math> 的良定义、单射、满射和保乘法？能否指出 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="φ(g)=g²" display="inline"><semantics><mrow><mi>φ</mi><mrow><mo>(</mo><mi>g</mi><mo>)</mo></mrow><mo>=</mo><msup><mi>g</mi><mn>2</mn></msup></mrow><annotation encoding="text/plain">φ(g)=g²</annotation></semantics></math> 在 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="S₃" display="inline"><semantics><msub><mi>S</mi><mn>3</mn></msub><annotation encoding="text/plain">S₃</annotation></semantics></math> 哪里失败？能否在 8.47 的逆推中解释为什么 <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="Hᵢ" display="inline"><semantics><msub><mi>H</mi><mi>i</mi></msub><annotation encoding="text/plain">Hᵢ</annotation></semantics></math> 必须是整条原像？这三点连通了本章的定义、边界与最深的证明。</p><details class="reading-notes" id="notes-review" data-notes-for="review" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与边界</span><h3>把结构化简接到下一章</h3><p>同态将核压成单位元，再用像保存剩余乘法。接下来研究群作用时，可以把每个群元素送到一个置换，并用核辨认作用中看不见的部分。</p></div></div></details></section><footer><p>中文伴读、重绘图解与独立推演按原书问题组织；每题保留原号与原页。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter07_products_and_quotients.html">← 第 7 章 · 积与商</a><a href="chapter09_sylow_theory.html">第 9 章 · Sylow 理论 →</a><a href="#top">返回页首 ↑</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top">本节理解与补充</a></p><div id="annotation-content"></div></aside></div><script>(() => {
+  const initialized = new WeakSet();
+  function target(hash) {
+    try { return document.getElementById(decodeURIComponent(hash.slice(1))); } catch { return null; }
+  }
+  function entriesFor(nav) {
+    return Array.from(nav.querySelectorAll('li a[href^="#"]'), link => ({link, section:target(link.hash)}));
+  }
+  function init({nav, panel, breakpoint = 1100, groupHeading = "h2", childHeading = "h3"} = {}) {
+    if (!nav || !panel || initialized.has(nav)) return;
+    const entries = entriesFor(nav);
+    const groups = [];
+    let parent;
+    for (const entry of entries) {
+      const heading = /^h[1-6]$/.test(entry.section?.localName) ? entry.section :
+        entry.section?.querySelector(':scope > :is(h1,h2,h3,h4,h5,h6)');
+      if (heading?.localName !== childHeading) {
+        parent = heading?.localName === groupHeading ? entry : null;
+        continue;
+      }
+      if (!parent) continue;
+      const item = parent.link.closest('li');
+      const child = entry.link.closest('li');
+      const nested = child.parentElement.parentElement === item ? child.parentElement : null;
+      if (!nested && item.nextElementSibling !== child) {
+        parent = null;
+        continue;
+      }
+      if (!parent.group) {
+        const list = document.createElement('ul');
+        list.id = 'toc-group-' + parent.section.id;
+        while (document.getElementById(list.id)) list.id += '-sub';
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'toc-toggle';
+        button.setAttribute('aria-controls', list.id);
+        const title = parent.link.textContent.trim();
+        const open = expanded => {
+          list.hidden = !expanded;
+          button.ariaExpanded = expanded;
+          button.ariaLabel = (expanded ? '折叠 ' : '展开 ') + title;
+        };
+        button.addEventListener('click', () => open(list.hidden));
+        item.classList.add('toc-branch');
+        if (nested) nested.before(button, list);
+        else item.append(button, list);
+        parent.group = {list, open};
+        groups.push(parent.group);
+      }
+      parent.group.list.append(child);
+      entry.group = parent.group;
+    }
+    if (!groups.length) return;
+    initialized.add(nav);
+    const wide = matchMedia('(min-width:' + breakpoint + 'px)');
+    function targetGroup() {
+      const node = target(location.hash);
+      return entries.findLast(entry => entry.section?.contains(node))?.group;
+    }
+    function defaults() {
+      const active = targetGroup() || entries.find(entry => entry.link.hasAttribute('aria-current'))?.group || groups[0];
+      groups.forEach(group => group.open(wide.matches || group === active));
+    }
+    defaults();
+    wide.addEventListener('change', defaults);
+    addEventListener('hashchange', () => targetGroup()?.open(true));
+    let saved, panelWasOpen;
+    addEventListener('beforeprint', () => {
+      if (saved) return;
+      panelWasOpen = panel.open;
+      panel.open = true;
+      saved = groups.map(group => !group.list.hidden);
+      groups.forEach(group => group.open(true));
+    });
+    addEventListener('afterprint', () => {
+      if (!saved) return;
+      groups.forEach((group,i) => group.open(saved[i]));
+      panel.open = panelWasOpen;
+      saved = null;
+    });
+  }
+  window.TocTree = {init, entriesFor};
+})();
+
+
 (() => {
   document.documentElement.classList.add('toc-enhanced');
   const panel = document.getElementById('toc-panel');
   const nav = document.getElementById('chapter-toc');
   const wide = matchMedia('(min-width:1100px)');
-  const links = Array.from(nav.querySelectorAll('li a[href^="#"]'));
-  const entries = links.map(link => ({link, section: document.getElementById(link.hash.slice(1))})).filter(item => item.section);
+  const entries = window.TocTree.entriesFor(nav).filter(item => item.section);
   let current = null, scheduled = false;
   const fit = () => { panel.open = wide.matches; };
   fit();
@@ -633,6 +725,7 @@ int main(int argc, char **argv) {
   addEventListener('hashchange', () => { reveal(); schedule(); });
   document.addEventListener('toggle', schedule, true);
   reveal(); mark();
+  window.TocTree.init({nav, panel});
 })();
 </script><script id="reading-notes-controller">
 (() => {

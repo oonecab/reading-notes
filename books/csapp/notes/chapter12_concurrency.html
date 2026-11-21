@@ -105,7 +105,7 @@ svg.question-large-tree{min-width:1120px}
 /* Reading rail: one table of contents beside the book page. */
 .reading-layout{display:grid;grid-template-columns:240px minmax(0,860px);gap:32px;max-width:1200px;margin:0 auto;padding:0 24px;align-items:start}
 .reading-layout>main{width:100%;min-width:0;margin:0}
-.chapter-sidebar{position:sticky;top:32px;max-height:calc(100dvh - 64px);overflow-y:auto;overscroll-behavior:contain;padding:8px 16px 12px 0;margin-top:40px;border-right:1px solid var(--rule);scrollbar-width:thin}
+.chapter-sidebar{user-select:none;position:sticky;top:32px;max-height:calc(100dvh - 64px);overflow-y:auto;overscroll-behavior:contain;padding:8px 16px 12px 0;margin-top:40px;border-right:1px solid var(--rule);scrollbar-width:thin}
 .toc-panel>summary{display:flex;align-items:center;justify-content:space-between;gap:1rem;list-style:none;padding:.45rem .55rem;color:var(--green);font-size:.9rem;font-weight:650;cursor:pointer}
 .toc-panel>summary::-webkit-details-marker{display:none}
 .toc-panel>summary::after{content:"+";font-size:1.1rem;font-weight:400}
@@ -140,6 +140,15 @@ main[id],main [id]{scroll-margin-top:24px}
 .exercise-index a{font-variant-numeric:tabular-nums}.solution-link{font-size:.9rem}
 .exercise-question .scroll>table{min-width:480px}
 .question-note strong{color:var(--green)}
+.chapter-toc .toc-branch{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center}
+.chapter-toc .toc-branch>ul{grid-column:1/-1;padding-inline-start:1em}
+.chapter-toc .toc-branch>ul[hidden]{display:none}
+.chapter-toc .toc-toggle{font:inherit;color:var(--green);background:transparent;border:0;cursor:pointer;min-width:2rem;min-height:2rem}
+.chapter-toc .toc-toggle::before{content:"+"}
+.chapter-toc .toc-toggle[aria-expanded="true"]::before{content:"−"}
+.chapter-toc .toc-toggle:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+.chapter-toc .toc-branch:has([aria-current="location"])>.toc-toggle{font-weight:bold;background:var(--paper)}
+@media print{aside.chapter-sidebar:has(.toc-branch){display:block;position:static;max-height:none;overflow:visible}.chapter-toc{max-height:none;overflow:visible}.chapter-toc .toc-toggle{display:none}}
 
 /* Supplementary reading notes share the page's type and color palette. */
 .reading-notes{margin:2rem 0 0;padding:0.8rem 1rem;border-left:2px solid var(--green);background:var(--tint);font-size:0.92rem;line-height:1.85}
@@ -2132,14 +2141,97 @@ matrix=96x96x96 serial_seconds=0.001137000 parallel_seconds=0.000555000 speedup=
 # Read LISTEN line, then open http://127.0.0.1:PORT/ in a browser.</code></pre><p>原书Tiny的GET静态/动态主线保留，实验根目录放home.html；GET/HEAD及GET/POST <code>/cgi-bin/adder</code>由同一有限核心处理。这些并发模式的C adder直接计算；第11章C异步CGI入口另行展示<code>fork</code>/<code>exec</code>、环境传递和<code>SIGCHLD</code>回收，Python保留同步参考。自动驱动验证字节协议与慢客户；2026-10-14真实ego-browser已对四种模式分别打开home.html，并用原生表单验证GET <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="20+22=42" display="inline"><mrow><mn>20</mn><mo>+</mo><mn>22</mn><mo>=</mo><mn>42</mn></mrow></math>、POST <math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="-8+50=42" display="inline"><mrow><mo>−</mo><mn>8</mn><mo>+</mo><mn>50</mn><mo>=</mo><mn>42</mn></mrow></math>，共8次表单交互；动态池扩缩容仍以单独负载测试为证据。</p></div></details><details class="exercise" id="ex-12-39" data-original-exercise="12.39" data-source-pdf-pages="1072,1073"><summary>12.39 · 会过滤、记录并并发转发的Web代理</summary><div class="exercise-question" data-original-exercise="12.39" data-source-pdf-pages="1072,1073"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a class="source-pdf" href="../csapp.pdf#page=1072">来源：印刷 1071—1072 页 / PDF 1072—1073 页</a></p><p>Web代理位于Web服务器和浏览器之间：浏览器先联系代理，由代理转发请求并把服务器响应交回浏览器。编写一个能过滤并记录请求的简单代理。A. 首先接受请求、解析HTTP、转发给服务器并把结果返回浏览器；把所有请求的URL写入磁盘日志，并阻止磁盘过滤文件中包含的URL。B. 随后升级为每个请求创建独立线程，使等待一个远程服务器响应时仍能处理另一个浏览器的待办请求。用真实Web浏览器检查代理。</p></div><div class="answer"><p class="answer-title rn-exercise-label">解答与推导</p><p>完整实现为<a href="#servers-code"><code>proxy_handle</code>、<code>blocked_and_log</code>与<code>proxy-serial</code>/<code>proxy</code>模式</a>。<code>proxy-serial</code>顺序处理对应A，<code>proxy</code>按连接创建thread对应B；解析绝对形式<code>GET http://host:port/path</code>，检查请求边界、版本与字符，再按原URL精确匹配过滤文件；日志记录<code>ALLOW</code>/<code>BLOCK</code>及URL。被过滤请求返回403，不建立上游连接；允许请求转换为origin-form <code>GET /path</code>并设置Host及<code>Connection: close</code>，收完整有限响应后写回。</p><p>日志以同一个mutex保护打开—追加—关闭，避免多个线程交错行；过滤读取也在此临界区，文件读取失败按错误返回。每条上游<code>socket</code>有独立生命周期，非阻塞<code>connect</code>等待完成后检查<code>SO_ERROR</code>，读写均有期限。响应限128KiB；不依赖DNS缓存或全局hostent。</p><pre><code data-language="shell" class="language-shell">./tmp/csapp/part3/ch12/servers --serve proxy-serial . 0 2 filter.txt proxy.log
 ./tmp/csapp/part3/ch12/servers --serve proxy . 0 128 filter.txt proxy.log</code></pre><p>本地可重复实验限定明文HTTP GET和环回上游，便于真实浏览器经代理访问同一回环地址上运行的Tiny；不支持TLS/CONNECT、任意公网主机、认证透传、缓存或通用HTTP分帧转换。它实现题中的过滤、日志、串行到线程并发主机制，范围属于可检验的本地代理，不宣称可替代日常公网代理。协议驱动已实测两种模式的允许/拒绝与日志。浏览器实验时，把HTTP代理设为程序输出的监听地址，依次访问允许与过滤的回环URL，核对页面正文、403状态和日志；须确认浏览器没有绕过本地地址的代理。所列运行结果来自协议驱动，真实浏览器经代理的路径尚未实测；前述四种 Tiny 的表单结果来自直接访问。复现代理实验时使用专用浏览器配置，将回环地址的代理绕过规则关闭：允许URL须显示上游正文并产生ALLOW日志；过滤URL须显示403、产生BLOCK日志且上游没有对应请求；慢上游尚未返回时，另一页面的快速请求应先完成。这三项分别观察代理转发、过滤与并发处理。</p></div></details></section><section id="self-check"><h2>原创自测：先判断谁拥有资源</h2><details class="exercise" id="q12-1"><summary>原创自测 1 · 线程能照抄<code>fork</code>后的<code>close</code>吗？</summary><div class="exercise-question"><p class="rn-exercise-label">自测题</p><p>主线程<code>accept</code>得<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="fd=7" display="inline"><mrow><mi>f</mi><mi>d</mi><mo>=</mo><mn>7</mn></mrow></math>，create工作线程后立即<code>close(7)</code>，工作线程稍后<code>read(7)</code>。为何这与<code>fork</code>版不同？</p></div><div class="answer"><p class="rn-exercise-label">解答</p><p>线程共享同一描述符表，主线程<code>close</code>撤销的就是工作线程要用的引用；号码还可能被另一<code>accept</code>复用。<code>fork</code>复制描述符表，父子各有一份引用，因此各<code>close</code>自己那份才正确。</p></div></details><details class="exercise" id="q12-2"><summary>原创自测 2 · 条件变量通知早到了会丢数据吗？</summary><div class="exercise-question"><p class="rn-exercise-label">自测题</p><p>生产者在消费者执行<code>wait</code>之前已经put一个元素并<code>signal</code>。消费者后来是否必然睡死？</p></div><div class="answer"><p class="rn-exercise-label">解答</p><p>正确实现先在mutex下检查<code>count</code>。此时<code>count</code>&gt;0便直接take，不会<code>wait</code>；通知不是数据本身，受锁保护的谓词才记住事实。若不检查谓词就直接<code>wait</code>，才会丢失唤醒效果。</p></div></details><details class="exercise" id="q12-3"><summary>原创自测 3 · 20条轨迹能证明实际<code>badcnt</code>只有两个结果吗？</summary><div class="exercise-question"><p class="rn-exercise-label">自测题</p><p>模型枚举20条<math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="L/U/S" display="inline"><mrow><mi>L</mi><mo>/</mo><mi>U</mi><mo>/</mo><mi>S</mi></mrow></math>交错，结果只有1和2。能否据此宣称所有C编译器上的未加锁<code>cnt++</code>都只会输出1或2？</p></div><div class="answer"><p class="rn-exercise-label">解答</p><p>不能。模型前提是给定三条原子指令且保留线程内顺序；C非原子数据竞争属于未定义行为，优化器不受这套枚举结论约束。实际执行用同步，错误模型用顺序模拟。</p></div></details></section>
 <details class="statement-index" id="source-index"><summary>本页原书摘录 · 4 处</summary><ul class="statement-links"><li><a href="#classic-12-shared">共享的判据是实例</a></li><li><a href="#classic-12-speedup">先定义比较的工作量</a></li><li><a href="#classic-12-reentrant">调用者也是条件的一部分</a></li><li><a href="#classic-12-lock-order">锁的统一顺序</a></li></ul></details>
-<footer><p>依据 Bryant / O’Hallaron 第三版 Global Edition（Pearson 2016）。有限状态模型、C11/POSIX语义与macOS宿主执行分别记录。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter11_network.html">← 第 11 章 · 网络编程</a><a href="#top">返回页首 ↑</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top"></a></p><div id="annotation-content"></div></aside></div><script>
+<footer><p>依据 Bryant / O’Hallaron 第三版 Global Edition（Pearson 2016）。有限状态模型、C11/POSIX语义与macOS宿主执行分别记录。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a><a href="chapter11_network.html">← 第 11 章 · 网络编程</a><a href="#top">返回页首 ↑</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top"></a></p><div id="annotation-content"></div></aside></div><script>(() => {
+  const initialized = new WeakSet();
+  function target(hash) {
+    try { return document.getElementById(decodeURIComponent(hash.slice(1))); } catch { return null; }
+  }
+  function entriesFor(nav) {
+    return Array.from(nav.querySelectorAll('li a[href^="#"]'), link => ({link, section:target(link.hash)}));
+  }
+  function init({nav, panel, breakpoint = 1100, groupHeading = "h2", childHeading = "h3"} = {}) {
+    if (!nav || !panel || initialized.has(nav)) return;
+    const entries = entriesFor(nav);
+    const groups = [];
+    let parent;
+    for (const entry of entries) {
+      const heading = /^h[1-6]$/.test(entry.section?.localName) ? entry.section :
+        entry.section?.querySelector(':scope > :is(h1,h2,h3,h4,h5,h6)');
+      if (heading?.localName !== childHeading) {
+        parent = heading?.localName === groupHeading ? entry : null;
+        continue;
+      }
+      if (!parent) continue;
+      const item = parent.link.closest('li');
+      const child = entry.link.closest('li');
+      const nested = child.parentElement.parentElement === item ? child.parentElement : null;
+      if (!nested && item.nextElementSibling !== child) {
+        parent = null;
+        continue;
+      }
+      if (!parent.group) {
+        const list = document.createElement('ul');
+        list.id = 'toc-group-' + parent.section.id;
+        while (document.getElementById(list.id)) list.id += '-sub';
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'toc-toggle';
+        button.setAttribute('aria-controls', list.id);
+        const title = parent.link.textContent.trim();
+        const open = expanded => {
+          list.hidden = !expanded;
+          button.ariaExpanded = expanded;
+          button.ariaLabel = (expanded ? '折叠 ' : '展开 ') + title;
+        };
+        button.addEventListener('click', () => open(list.hidden));
+        item.classList.add('toc-branch');
+        if (nested) nested.before(button, list);
+        else item.append(button, list);
+        parent.group = {list, open};
+        groups.push(parent.group);
+      }
+      parent.group.list.append(child);
+      entry.group = parent.group;
+    }
+    if (!groups.length) return;
+    initialized.add(nav);
+    const wide = matchMedia('(min-width:' + breakpoint + 'px)');
+    function targetGroup() {
+      const node = target(location.hash);
+      return entries.findLast(entry => entry.section?.contains(node))?.group;
+    }
+    function defaults() {
+      const active = targetGroup() || entries.find(entry => entry.link.hasAttribute('aria-current'))?.group || groups[0];
+      groups.forEach(group => group.open(wide.matches || group === active));
+    }
+    defaults();
+    wide.addEventListener('change', defaults);
+    addEventListener('hashchange', () => targetGroup()?.open(true));
+    let saved, panelWasOpen;
+    addEventListener('beforeprint', () => {
+      if (saved) return;
+      panelWasOpen = panel.open;
+      panel.open = true;
+      saved = groups.map(group => !group.list.hidden);
+      groups.forEach(group => group.open(true));
+    });
+    addEventListener('afterprint', () => {
+      if (!saved) return;
+      groups.forEach((group,i) => group.open(saved[i]));
+      panel.open = panelWasOpen;
+      saved = null;
+    });
+  }
+  window.TocTree = {init, entriesFor};
+})();
+
+
 (() => {
   document.documentElement.classList.add('toc-enhanced');
   const panel = document.getElementById('toc-panel');
   const nav = document.getElementById('chapter-toc');
   const wide = matchMedia('(min-width:1100px)');
-  const links = Array.from(nav.querySelectorAll('li a[href^="#"]'));
-  const entries = links.map(link => ({link, section: document.getElementById(link.hash.slice(1))})).filter(item => item.section);
+  const entries = window.TocTree.entriesFor(nav).filter(item => item.section);
   let current = null, scheduled = false;
   const fit = () => { panel.open = wide.matches; };
   fit();
@@ -2172,6 +2264,7 @@ matrix=96x96x96 serial_seconds=0.001137000 parallel_seconds=0.000555000 speedup=
   addEventListener('hashchange', () => { reveal(); schedule(); });
   document.addEventListener('toggle', schedule, true);
   reveal(); mark();
+  window.TocTree.init({nav, panel});
 })();
 
 

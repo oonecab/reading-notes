@@ -356,3 +356,6 @@ I080 在阅读契约检查中执行 tools/visual-contract/check.mjs，逐节核�
 本地正式目录为 4 页、143 题。第 2 章覆盖 97 题、18 个二级小节、23 组注解，正式成品内含 23 幅 SVG 与 3 幅 WebP。gzip 305,553 字节，预算 310,000 字节。Racket 8.10 执行 21 组章内回归与 18 个逐节例子；第 1 章 8 组回归保留。无技术栈变更。
 
 I084 在根 check-local 中增加 tools/reading-prose/check.mjs。它复用 parse5 与正式源页清单，在代码、公式、SVG 和脚本等容器之外检查程序语法；行内调用与完整定义分别采用 code 和 pre/code。未引入依赖或环境变量，无技术栈变更。
+I085 在现有目录控制器中共用 src/scripts/toc-tree.js。浏览器运行时仅用原生 DOM；分组状态不写入正文源文件。pnpm check:toc-tree 检查正式样章，包含 SICP 的离线检查也会执行该验收。构建使用现有 Astro/Vite 工具链内的 Rolldown 和 Lightning CSS 压缩阅读控制器与样式，以保持既有性能预算。无技术栈变更。
+
+I085 公开浏览器 API window.TocTree.init(options)。两份 TOC 控制器共用一个组件；保留各自的滚动定位与打印处理差异。独立接入示例和样式依赖见 RN-002 §2.2。无技术栈变更。

@@ -1,3 +1,4 @@
+import {execFileSync} from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
@@ -43,3 +44,8 @@ try{
   console.log(JSON.stringify({status:report.status,pages:pages.length,js_views:report.views.length,no_js_views:report.no_js.length,external_requests:report.external_requests,evidence:path.relative(root,run.output)}));
 }catch(error){if(run)failedRun(run,error);throw error;}
 finally{release();}
+
+if (selected.some(p => p.metadata.route === 'sicp/notes/chapter02_data_abstraction.html')) {
+  execFileSync(process.execPath, [path.join(root,'scripts/toc-tree-smoke.mjs'),'--dist'], {stdio:'inherit'});
+  execFileSync(process.execPath, [path.join(root,'scripts/toc-tree-browser.mjs'),'--dist'], {stdio:'inherit'});
+}

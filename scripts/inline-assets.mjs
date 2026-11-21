@@ -1,7 +1,17 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { createRequire } from 'node:module';
 import { parse } from 'parse5';
 import { walk, attr } from '../src/lib/controlled-html.mjs';
+
+// Use the minifier already shipped with the pinned Astro/Vite toolchain.
+const require = createRequire(import.meta.url);
+const astro = createRequire(require.resolve('astro/package.json'));
+const vite = createRequire(astro.resolve('vite/package.json'));
+const {minifySync} = vite('rolldown/utils');
+const {transform:transformCss} = vite('lightningcss');
+const compactNavigationStyles = new Map();
+const compactControllers = new Map();
 
 export function htmlFiles(directory) {
   return fs.readdirSync(directory,{withFileTypes:true}).flatMap(e => e.isDirectory() ? htmlFiles(path.join(directory,e.name)) : e.name.endsWith('.html') ? [path.join(directory,e.name)] : []);
@@ -17,6 +27,31 @@ export function inlineHtmlAssets(directory, file, html) {
     const style = node.tagName === 'link' && attr(node,'rel') === 'stylesheet';
     const script = node.tagName === 'script' && attr(node,'src');
     const icon = node.tagName === 'link' && attr(node,'rel') === 'icon';
+    if (node.tagName === 'style' && html.includes('window.TocTree =') && node.childNodes[0]) {
+      const css = node.childNodes[0].value;
+      if (!compactNavigationStyles.has(css)) {
+        const output = transformCss({filename:'reading.css',code:Buffer.from(css),minify:true});
+        compactNavigationStyles.set(css,output.code.toString());
+      }
+      edits.push({start:node.sourceCodeLocation.startTag.endOffset,end:node.sourceCodeLocation.endTag.startOffset,
+        value:compactNavigationStyles.get(css)});
+    }
+    if (node.tagName === 'script' && !script) {
+      const body = node.childNodes[0];
+      const readingController = body && [
+        'window.TocTree =',
+        "getElementById('annotation-rail')",
+        "querySelectorAll('main details')",
+        "document.addEventListener('copy', event",
+      ].some(marker => body.value.includes(marker));
+      if (readingController) {
+        if (!compactControllers.has(body.value)) {
+          compactControllers.set(body.value, minifySync('reading-controller.js', body.value).code);
+        }
+        edits.push({start:node.sourceCodeLocation.startTag.endOffset, end:node.sourceCodeLocation.endTag.startOffset,
+          value:compactControllers.get(body.value)});
+      }
+    }
     if (!style && !script && !icon) continue;
     const url = attr(node, style || icon ? 'href':'src');
     if (url.startsWith('data:')) continue;
