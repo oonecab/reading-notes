@@ -1477,6 +1477,902 @@
               }
             ]
           }
+        },
+        "sicp/notes/chapter04_metalinguistic.html": {
+          "sections": {
+            "s4-1": [
+              {
+                "kind": "excerpt",
+                "status": "reproduced",
+                "representation": "blockquote",
+                "source_pdf_page": 520,
+                "title": "4.1 元循环求值器原句",
+                "review_version": "I088",
+                "reason": "保留原书对元循环的定义，明确实现语言与被解释语言的关系。",
+                "target": "#excerpt-metacircular"
+              }
+            ],
+            "s4-1-1": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 522,
+                "title": "4.1.1 求值器的核心原句",
+                "review_version": "I088",
+                "reason": "如何区分求值表达式与应用过程？本节用中文例子直接演示该问题的状态变化。"
+              },
+              {
+                "kind": "figure",
+                "representation": "svg",
+                "status": "reproduced",
+                "target": "#fig-4-1",
+                "source_pdf_page": 522,
+                "title": "eval-apply 循环揭示了计算机语言的本质。",
+                "reason": "从表达式到过程与实参，再从复合过程回到对主体的求值，箭头闭合一次恰好对应一层调用。",
+                "review_version": "I088"
+              }
+            ],
+            "s4-1-2": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 529,
+                "title": "4.1.2 表达式的表示原句",
+                "review_version": "I088",
+                "reason": "新语法如何复用旧的求值规则？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ],
+            "s4-1-3": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 540,
+                "title": "4.1.3 求值器的数据结构原句",
+                "review_version": "I088",
+                "reason": "为什么闭包要保留环境而不复制当前值？本节用中文例子直接演示该问题的状态变化。"
+              },
+              {
+                "kind": "trace",
+                "representation": "table",
+                "status": "equivalent",
+                "target": "#trace-s4-1-3",
+                "source_pdf_page": 540,
+                "title": "定义环境与调用环境",
+                "reason": "闭包保存的是一条能抵达单元的环境链。更改同一单元后闭包应看见新值，而在别的帧中增加一个同名绑定，不会改变这条链的走向。",
+                "review_version": "I088"
+              }
+            ],
+            "s4-1-4": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 545,
+                "title": "4.1.4 把求值器作为程序运行原句",
+                "review_version": "I088",
+                "reason": "顶层驱动循环应该重复使用哪一部分状态？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ],
+            "s4-1-5": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 550,
+                "title": "4.1.5 数据作为程序原句",
+                "review_version": "I088",
+                "reason": "一个表示式何时从数据变为计算？本节用中文例子直接演示该问题的状态变化。"
+              },
+              {
+                "kind": "figure",
+                "representation": "svg",
+                "status": "reproduced",
+                "target": "#fig-4-2",
+                "source_pdf_page": 551,
+                "title": "阶乘程序，视为一台抽象机器。",
+                "reason": "输入寄存器保存待乘的整数，沿机器连线看控制如何逐步积累乘积，再与程序数据的执行结果对照。",
+                "review_version": "I088"
+              },
+              {
+                "kind": "figure",
+                "representation": "svg",
+                "status": "reproduced",
+                "target": "#fig-4-3",
+                "source_pdf_page": 552,
+                "title": "求值器模拟阶乘机器。",
+                "reason": "与前图同算阶乘，但此处再加一层解释：程序和输入分别进入通用求值器，机器的功能由读入的程序决定。",
+                "review_version": "I088"
+              }
+            ],
+            "s4-1-6": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 554,
+                "title": "4.1.6 内部定义原句",
+                "review_version": "I088",
+                "reason": "两个局部过程怎样互相引用？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ],
+            "s4-1-7": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 562,
+                "title": "4.1.7 分离语法分析与执行原句",
+                "review_version": "I088",
+                "reason": "重复执行同一段语法时可以省下哪一步？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ],
+            "s4-2": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 569,
+                "title": "4.2 惰性求值原句",
+                "review_version": "I088",
+                "reason": "过程可否在一个实参会报错时仍给出答案？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ],
+            "s4-2-1": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 570,
+                "title": "4.2.1 正则序与应用序原句",
+                "review_version": "I088",
+                "reason": "怎样避免计算未选中的分支？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ],
+            "s4-2-2": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 572,
+                "title": "4.2.2 惰性求值解释器原句",
+                "review_version": "I088",
+                "reason": "共享一个实参会不会重复其副作用？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ],
+            "s4-2-3": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 583,
+                "title": "4.2.3 流作为惰性表原句",
+                "review_version": "I088",
+                "reason": "不访问首项能否读到尾部？本节用中文例子直接演示该问题的状态变化。"
+              },
+              {
+                "kind": "trace",
+                "representation": "table",
+                "status": "equivalent",
+                "target": "#trace-s4-2-3",
+                "source_pdf_page": 583,
+                "title": "惰性序对的两条需求边",
+                "reason": "观察无限列表时给消费者加上明确预算，只取有限的层数与项数。若打印首项前先计算完整尾部，打印器本身就改变了程序的可观察终止行为。",
+                "review_version": "I088"
+              }
+            ],
+            "s4-3": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 587,
+                "title": "4.3 非确定性计算原句",
+                "review_version": "I088",
+                "reason": "怎样让一个求值过程交出不止一个答案？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ],
+            "s4-3-1": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 589,
+                "title": "4.3.1 选择与搜索原句",
+                "review_version": "I088",
+                "reason": "约束失败应回到哪里？本节用中文例子直接演示该问题的状态变化。"
+              },
+              {
+                "kind": "trace",
+                "representation": "table",
+                "status": "equivalent",
+                "target": "#trace-s4-3-1",
+                "source_pdf_page": 589,
+                "title": "约束失败后的搜索轨迹",
+                "reason": "公平性是枚举策略的性质，不能从有答案推断搜索器一定会抵达它。把无限备选放到内层再调换枚举次序，可以观察同一数学问题的不同终止行为。",
+                "review_version": "I088"
+              }
+            ],
+            "s4-3-2": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 595,
+                "title": "4.3.2 非确定性程序实例原句",
+                "review_version": "I088",
+                "reason": "为何应在生成部分赋值时就检查约束？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ],
+            "s4-3-3": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 606,
+                "title": "4.3.3 实现非确定性求值器原句",
+                "review_version": "I088",
+                "reason": "为什么普通赋值要附带恢复动作？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ],
+            "s4-4": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 622,
+                "title": "4.4 逻辑程序设计原句",
+                "review_version": "I088",
+                "reason": "能否从已知关系推出未知参数？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ],
+            "s4-4-1": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 627,
+                "title": "4.4.1 演绎信息检索原句",
+                "review_version": "I088",
+                "reason": "查询怎样保留两个条件之间的关联？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ],
+            "s4-4-2": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 643,
+                "title": "4.4.2 查询系统的工作方式原句",
+                "review_version": "I088",
+                "reason": "框架流怎样贯穿合取？本节用中文例子直接演示该问题的状态变化。"
+              },
+              {
+                "kind": "figure",
+                "representation": "svg",
+                "status": "reproduced",
+                "target": "#fig-4-4",
+                "source_pdf_page": 646,
+                "title": "查询处理一个框架流。",
+                "reason": "进入处理器的是一条框架流，模式对每一帧作一致性检查；出口处保留下来的绑定可能从一帧扩展成多帧。",
+                "review_version": "I088"
+              },
+              {
+                "kind": "figure",
+                "representation": "svg",
+                "status": "reproduced",
+                "target": "#fig-4-5",
+                "source_pdf_page": 647,
+                "title": "两个查询的and组合是通过串联操作框架流产生的。",
+                "reason": "顺着串联箭头读：第二个条件收到第一个条件扩展后的框架，因此能检验同一个人名。",
+                "review_version": "I088"
+              },
+              {
+                "kind": "figure",
+                "representation": "svg",
+                "status": "reproduced",
+                "target": "#fig-4-6",
+                "source_pdf_page": 648,
+                "title": "两个查询的or组合是通过并联操作框架流并合并结果产生的。",
+                "reason": "两条并联支路从相同输入开始，末端汇集答案；一支产生的绑定不会成为另一支的输入。",
+                "review_version": "I088"
+              }
+            ],
+            "s4-4-3": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 655,
+                "title": "4.4.3 查询系统是数理逻辑吗原句",
+                "review_version": "I088",
+                "reason": "数据库中的否定能说明什么？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ],
+            "s4-4-4": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 663,
+                "title": "4.4.4 实现查询系统原句",
+                "review_version": "I088",
+                "reason": "如何把匹配、规则和答案显示组织成可检查的程序？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ],
+            "s4-4-4-1": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 663,
+                "title": "4.4.4.1 驱动循环与实例化原句",
+                "review_version": "I088",
+                "reason": "返回给读者的答案如何去掉间接变量？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ],
+            "s4-4-4-2": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 666,
+                "title": "4.4.4.2 查询求值器原句",
+                "review_version": "I088",
+                "reason": "析取如何汇合两个可能的来源？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ],
+            "s4-4-4-3": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 670,
+                "title": "4.4.4.3 以模式匹配查找断言原句",
+                "review_version": "I088",
+                "reason": "重复变量能否匹配两个不同的值？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ],
+            "s4-4-4-4": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 673,
+                "title": "4.4.4.4 规则与合一原句",
+                "review_version": "I088",
+                "reason": "为何要拒绝变量依赖自身？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ],
+            "s4-4-4-5": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 679,
+                "title": "4.4.4.5 维护数据库原句",
+                "review_version": "I088",
+                "reason": "增加一条事实后旧查询快照应怎样表现？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ],
+            "s4-4-4-6": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 682,
+                "title": "4.4.4.6 流操作原句",
+                "review_version": "I088",
+                "reason": "怎样按需求观察并联搜索的前几项？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ],
+            "s4-4-4-7": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 684,
+                "title": "4.4.4.7 查询语法过程原句",
+                "review_version": "I088",
+                "reason": "怎样识别变量而保留普通符号？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ],
+            "s4-4-4-8": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 687,
+                "title": "4.4.4.8 框架与绑定原句",
+                "review_version": "I088",
+                "reason": "两条路径扩展同一输入是否会互相干扰？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ]
+          }
+        },
+        "sicp/notes/chapter05_register_machines.html": {
+          "sections": {
+            "s5-1": [
+              {
+                "kind": "excerpt",
+                "status": "reproduced",
+                "representation": "blockquote",
+                "source_pdf_page": 695,
+                "title": "5.1 设计寄存器机器原句",
+                "review_version": "I089",
+                "reason": "保留寄存器机指令的原文描述以对应读、算、写三步。",
+                "target": "#excerpt-register"
+              },
+              {
+                "kind": "figure",
+                "representation": "svg",
+                "status": "reproduced",
+                "target": "#fig-5-1",
+                "source_pdf_page": 698,
+                "title": "一台 GCD 机器的数据通路。",
+                "reason": "输入 a、b 的线同时进入余数盒，余数先落到临时槽；比较器只读 b，避免把测试误当写入。",
+                "review_version": "I089"
+              },
+              {
+                "kind": "figure",
+                "representation": "svg",
+                "status": "reproduced",
+                "target": "#fig-5-2",
+                "source_pdf_page": 699,
+                "title": "GCD机器的控制器。",
+                "reason": "从入口沿比较分出两条路，零的分支通向停止，另一条依次完成三次搬移后回到比较。",
+                "review_version": "I089"
+              }
+            ],
+            "s5-1-1": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 700,
+                "title": "5.1.1 描述机器的语言原句",
+                "review_version": "I089",
+                "reason": "为什么余数需要临时寄存器？本节用中文例子直接演示该问题的状态变化。"
+              },
+              {
+                "kind": "figure",
+                "representation": "figure",
+                "status": "reproduced",
+                "target": "#fig-5-3",
+                "source_pdf_page": 701,
+                "title": "机器说明",
+                "reason": "把数据通路的操作名与控制器的操作名对照，转移语句中出现的每条写入路径都必须有接线。",
+                "review_version": "I089"
+              },
+              {
+                "kind": "figure",
+                "representation": "svg",
+                "status": "reproduced",
+                "target": "#fig-5-4",
+                "source_pdf_page": 705,
+                "title": "一个读取输入并打印结果的GCD机器。",
+                "reason": "观察输入与输出在循环外侧的位置，完成一对输入之后才打印结果，接下来可以读下一对。",
+                "review_version": "I089"
+              }
+            ],
+            "s5-1-2": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 706,
+                "title": "5.1.2 机器设计的抽象原句",
+                "review_version": "I089",
+                "reason": "把余数器看成黑盒会隐藏什么？本节用中文例子直接演示该问题的状态变化。"
+              },
+              {
+                "kind": "figure",
+                "representation": "svg",
+                "status": "reproduced",
+                "target": "#fig-5-5",
+                "source_pdf_page": 708,
+                "title": "经展开后的GCD机器的数据通路和控制器。",
+                "reason": "余数盒被减法器和比较器替换，内层回边在余数小于除数时退出，外层寄存器看见相同接口。",
+                "review_version": "I089"
+              },
+              {
+                "kind": "figure",
+                "representation": "figure",
+                "status": "reproduced",
+                "target": "#fig-5-6",
+                "source_pdf_page": 707,
+                "title": "展开余数的控制器",
+                "reason": "两层控制循环有不同入口；不要把减法的内部测试误认为公因数外层的停机条件。",
+                "review_version": "I089"
+              }
+            ],
+            "s5-1-3": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 709,
+                "title": "5.1.3 子程序原句",
+                "review_version": "I089",
+                "reason": "两个调用点怎样共享同一段乘法？本节用中文例子直接演示该问题的状态变化。"
+              },
+              {
+                "kind": "figure",
+                "representation": "svg",
+                "status": "reproduced",
+                "target": "#fig-5-7",
+                "source_pdf_page": 710,
+                "title": "具有两个GCD计算的机器的数据通路和控制器序列的部分。",
+                "reason": "两处公因数计算复用算术盒，各有自己的回程；只有计算结束后才切换调用点。",
+                "review_version": "I089"
+              },
+              {
+                "kind": "figure",
+                "representation": "figure",
+                "status": "reproduced",
+                "target": "#fig-5-8",
+                "source_pdf_page": 711,
+                "title": "重复的子程序",
+                "reason": "这里复制了两份相同循环，比较两段尾部可以发现差异只在下一条指令的位置。",
+                "review_version": "I089"
+              },
+              {
+                "kind": "figure",
+                "representation": "figure",
+                "status": "reproduced",
+                "target": "#fig-5-9",
+                "source_pdf_page": 712,
+                "title": "返回选择",
+                "reason": "延续寄存器携带分支的选择码，回程需要再测试该码；多一个调用点就多一个待分派值。",
+                "review_version": "I089"
+              },
+              {
+                "kind": "figure",
+                "representation": "figure",
+                "status": "reproduced",
+                "target": "#fig-5-10",
+                "source_pdf_page": 713,
+                "title": "标签作为返回地址",
+                "reason": "把标签地址直接写入续点寄存器，共享循环出口通过间接跳转回到实际调用点。",
+                "review_version": "I089"
+              }
+            ],
+            "s5-1-4": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 714,
+                "title": "5.1.4 用栈实现递归原句",
+                "review_version": "I089",
+                "reason": "展开一层阶乘到底要记住什么？本节用中文例子直接演示该问题的状态变化。"
+              },
+              {
+                "kind": "figure",
+                "representation": "svg",
+                "status": "reproduced",
+                "target": "#fig-5-11",
+                "source_pdf_page": 719,
+                "title": "递归阶乘机器。",
+                "reason": "沿递归边看两个保存动作；沿返回边反向读取保存项，直到最外层的结束地址回到程序计数器。",
+                "review_version": "I089"
+              },
+              {
+                "kind": "figure",
+                "representation": "figure",
+                "status": "reproduced",
+                "target": "#fig-5-12",
+                "source_pdf_page": 721,
+                "title": "斐波那契控制器",
+                "reason": "第一次递归返回后仍有第二次递归，从左支保留的值与右支返回值分别进入最后的加法器。",
+                "review_version": "I089"
+              }
+            ],
+            "s5-1-5": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 723,
+                "title": "5.1.5 指令总结原句",
+                "review_version": "I089",
+                "reason": "相同的幂如何消去栈？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ],
+            "s5-2": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 724,
+                "title": "5.2 寄存器机器模拟器原句",
+                "review_version": "I089",
+                "reason": "怎样执行程序数据里的指令？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ],
+            "s5-2-1": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 726,
+                "title": "5.2.1 机器模型原句",
+                "review_version": "I089",
+                "reason": "机器状态至少包含哪些部分？本节用中文例子直接演示该问题的状态变化。"
+              },
+              {
+                "kind": "figure",
+                "representation": "figure",
+                "status": "reproduced",
+                "target": "#fig-5-13",
+                "source_pdf_page": 729,
+                "title": "机器构造器",
+                "reason": "分开看构造器提供的机器内部部件和对外消息；第一次启动与继续执行共享同一份指令序列。",
+                "review_version": "I089"
+              }
+            ],
+            "s5-2-2": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 732,
+                "title": "5.2.2 汇编器原句",
+                "review_version": "I089",
+                "reason": "向前跳到尚未出现的标签怎么做？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ],
+            "s5-2-3": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 736,
+                "title": "5.2.3 为指令生成执行过程原句",
+                "review_version": "I089",
+                "reason": "常量、寄存器和运算何时取值？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ],
+            "s5-2-4": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 746,
+                "title": "5.2.4 监视机器性能原句",
+                "review_version": "I089",
+                "reason": "累计压栈和栈峰值有什么区别？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ],
+            "s5-3": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 751,
+                "title": "5.3 存储分配和垃圾回收原句",
+                "review_version": "I089",
+                "reason": "机器怎样用有限槽位表示动态的序对？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ],
+            "s5-3-1": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 752,
+                "title": "5.3.1 向量内存原句",
+                "review_version": "I089",
+                "reason": "整数 1 和第一个堆地址怎么区分？本节用中文例子直接演示该问题的状态变化。"
+              },
+              {
+                "kind": "figure",
+                "representation": "svg",
+                "status": "reproduced",
+                "target": "#fig-5-14",
+                "source_pdf_page": 755,
+                "title": "表((1 2) 3 4)的盒指针表示和内存向量表示。",
+                "reason": "先从根追踪每个箭头，再在两行向量的同一列找首尾字段；指针是列号，数字数据不会被继续追踪。",
+                "review_version": "I089"
+              }
+            ],
+            "s5-3-2": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 759,
+                "title": "5.3.2 维持无限内存的假象原句",
+                "review_version": "I089",
+                "reason": "环和共享会导致复制不停吗？本节用中文例子直接演示该问题的状态变化。"
+              },
+              {
+                "kind": "figure",
+                "representation": "svg",
+                "status": "reproduced",
+                "target": "#fig-5-15",
+                "source_pdf_page": 764,
+                "title": "垃圾回收过程对内存的重新配置。",
+                "reason": "已扫描区、已复制未扫描区和未分配区都在新空间内。相遇的是扫描与分配边界，不是两块空间的物理末端。",
+                "review_version": "I089"
+              }
+            ],
+            "s5-4": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 769,
+                "title": "5.4 显式控制求值器原句",
+                "review_version": "I089",
+                "reason": "解释器的调用栈怎样成为可观察的数据？本节用中文例子直接演示该问题的状态变化。"
+              },
+              {
+                "kind": "figure",
+                "representation": "svg",
+                "status": "reproduced",
+                "target": "#fig-5-16",
+                "source_pdf_page": 770,
+                "title": "Scheme求值器的硅芯片实现。",
+                "reason": "原图给出了求值器的实际芯片布局。这里要区分用来保存状态的区域与提供控制的区域；版图本身不能给出某个表达式的动态轨迹。",
+                "review_version": "I089"
+              }
+            ],
+            "s5-4-1": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 771,
+                "title": "5.4.1 求值器的核心原句",
+                "review_version": "I089",
+                "reason": "一次复合调用如何找到定义环境？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ],
+            "s5-4-2": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 779,
+                "title": "5.4.2 序列求值与尾递归原句",
+                "review_version": "I089",
+                "reason": "尾调用为什么不会积累返回帧？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ],
+            "s5-4-3": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 784,
+                "title": "5.4.3 条件、赋值和定义原句",
+                "review_version": "I089",
+                "reason": "运行时为何只能求一个分支？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ],
+            "s5-4-4": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 787,
+                "title": "5.4.4 运行求值器原句",
+                "review_version": "I089",
+                "reason": "能否区分计算结果和栈代价？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ],
+            "s5-5": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 795,
+                "title": "5.5 编译原句",
+                "review_version": "I089",
+                "reason": "同一语义怎样提前确定控制与数据通路？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ],
+            "s5-5-1": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 800,
+                "title": "5.5.1 编译器结构原句",
+                "review_version": "I089",
+                "reason": "为何给每段代码指定目标和连接方式？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ],
+            "s5-5-2": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 807,
+                "title": "5.5.2 编译表达式原句",
+                "review_version": "I089",
+                "reason": "创建闭包时会运行其主体吗？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ],
+            "s5-5-3": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 816,
+                "title": "5.5.3 编译组合式原句",
+                "review_version": "I089",
+                "reason": "实参求值顺序与实参位置是否相同？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ],
+            "s5-5-4": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 825,
+                "title": "5.5.4 组合指令序列原句",
+                "review_version": "I089",
+                "reason": "什么时候保护寄存器才有必要？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ],
+            "s5-5-5": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 830,
+                "title": "5.5.5 编译代码实例原句",
+                "review_version": "I089",
+                "reason": "递归乘法留下了什么待办工作？本节用中文例子直接演示该问题的状态变化。"
+              },
+              {
+                "kind": "figure",
+                "representation": "figure",
+                "status": "reproduced",
+                "target": "#fig-5-17",
+                "source_pdf_page": 835,
+                "title": "编译阶乘",
+                "reason": "入口标签以上构造过程并跳过主体；执行主体时从入口扩展环境。递归分支的保存与恢复跨越真正的过程调用。",
+                "review_version": "I089"
+              },
+              {
+                "kind": "figure",
+                "representation": "figure",
+                "status": "reproduced",
+                "target": "#fig-5-18",
+                "source_pdf_page": 839,
+                "title": "反推源程序的指令清单",
+                "reason": "由定义出口的名字倒推入口形参，再逆着参数表构造追踪两次加法和中间对 g 的调用。",
+                "review_version": "I089"
+              }
+            ],
+            "s5-5-6": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 845,
+                "title": "5.5.6 词法寻址原句",
+                "review_version": "I089",
+                "reason": "同名变量如何取得最近的槽位？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ],
+            "s5-5-7": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 850,
+                "title": "5.5.7 编译代码与求值器接口原句",
+                "review_version": "I089",
+                "reason": "机器能否运行编译过的解释器？本节用中文例子直接演示该问题的状态变化。"
+              }
+            ]
+          }
         }
       }
     }
@@ -2037,7 +2933,7 @@
     {
       "book": "sicp",
       "page": "sicp/notes/book_overview.html",
-      "source_sha256": "4e417016b1ea75566079b3c5e6afb81ee39c308510bdd589089e3bbc6ad4967a",
+      "source_sha256": "eb480427193f761c1c7b83d96e48ef1213036d39d80e61f8c7d25b87c60c5abf",
       "reason": "原书逐节视觉清单尚未核对。",
       "review_version": "I081",
       "issue": "I081"

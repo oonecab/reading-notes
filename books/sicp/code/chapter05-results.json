@@ -1,0 +1,1097 @@
+{
+  "issue": "I089",
+  "runtime": "Welcome to Racket v8.10 [cs].",
+  "command": "racket books/sicp/code/test-chapter05.rkt",
+  "stdout": "36 success(es) 0 failure(s) 0 error(s) 36 test(s) run",
+  "exit_code": 0,
+  "groups": 36,
+  "example_readbacks": [
+    "s5-1-1 2",
+    "s5-1-2 2",
+    "s5-1-3 81",
+    "s5-1-4 6",
+    "s5-1-5 32",
+    "s5-2-1 120",
+    "s5-2-2 3",
+    "s5-2-3 42",
+    "s5-2-4 16",
+    "s5-3-1 3",
+    "s5-3-2 1",
+    "s5-4-1 7",
+    "s5-4-2 0",
+    "s5-4-3 9",
+    "s5-4-4 24",
+    "s5-5-1 42",
+    "s5-5-2 8",
+    "s5-5-3 -3",
+    "s5-5-4 2",
+    "s5-5-5 120",
+    "s5-5-6 (1 2)",
+    "s5-5-7 120"
+  ],
+  "c_readbacks": [
+    "compiled-metacircular 120",
+    "explicit-control-C 120",
+    "compiled-metacircular-C 120"
+  ],
+  "program_sha256": {
+    "chapter05.rkt": "630817ca811ae0fc4a88bd2207dd7a544e81327d7c577c0759489558881c1c8e",
+    "test-chapter05.rkt": "95de587f506939e216ec404827c62155383563238051e9c9cde4456b6d01de2a",
+    "chapter05-c.rkt": "509a83ac5166bdc6dc7db48ce1cd6389243f99fcfd5f87e45a7b3cd9e7f5ce01"
+  },
+  "stack_measurements": [
+    "factorial 1 ((1 22 8) (1 2 2) (1 0 0))",
+    "factorial 2 ((2 54 13) (2 8 5) (2 2 2))",
+    "factorial 3 ((6 86 18) (6 14 8) (6 4 4))",
+    "factorial 4 ((24 118 23) (24 20 11) (24 6 6))",
+    "factorial 5 ((120 150 28) (120 26 14) (120 8 8))",
+    "factorial 6 ((720 182 33) (720 32 17) (720 10 10))",
+    "factorial 7 ((5040 214 38) (5040 38 20) (5040 12 12))",
+    "iter 1 ((1 71 10) (1 8 3) (1 0 0))",
+    "iter 2 ((2 106 10) (2 14 3) (2 0 0))",
+    "iter 3 ((6 141 10) (6 20 3) (6 0 0))",
+    "iter 4 ((24 176 10) (24 26 3) (24 0 0))",
+    "iter 5 ((120 211 10) (120 32 3) (120 0 0))",
+    "iter 6 ((720 246 10) (720 38 3) (720 0 0))",
+    "iter 7 ((5040 281 10) (5040 44 3) (5040 0 0))",
+    "fib 1 ((1 22 8) (1 2 2) (1 0 0))",
+    "fib 2 ((1 78 13) (1 12 5) (1 4 2))",
+    "fib 3 ((2 134 18) (2 22 8) (2 8 4))",
+    "fib 4 ((3 246 23) (3 42 11) (3 16 6))",
+    "fib 5 ((5 414 28) (5 72 14) (5 28 8))",
+    "fib 6 ((8 694 33) (8 122 17) (8 48 10))",
+    "fib 7 ((13 1142 38) (13 202 20) (13 80 12))"
+  ],
+  "experiments": {
+    "columns": [
+      "value",
+      "executed_instructions",
+      "pushes",
+      "maximum_depth"
+    ],
+    "exercise_5_33": [
+      [
+        120,
+        219,
+        26,
+        14
+      ],
+      [
+        120,
+        219,
+        26,
+        14
+      ]
+    ],
+    "listings": {
+      "alternate": [
+        "(assign val (label entry558))",
+        "(assign val (op make-compiled-procedure) (reg val) (reg env))",
+        "(goto (label after-lambda559))",
+        "entry558",
+        "(assign env (op compiled-procedure-env) (reg proc))",
+        "(assign env (op extend-environment) (const (n)) (reg argl) (reg env))",
+        "(save continue)",
+        "(save env)",
+        "(assign proc (op lookup-variable-value) (const =) (reg env))",
+        "(assign val (const 1))",
+        "(assign argl (op list) (reg val))",
+        "(assign val (op lex-ref) (const (0 0)) (reg env))",
+        "(assign argl (op cons) (reg val) (reg argl))",
+        "(test (op primitive-procedure?) (reg proc))",
+        "(branch (label primitive-branch563))",
+        "compiled-branch564",
+        "(assign continue (label after-call565))",
+        "(assign val (op compiled-procedure-entry) (reg proc))",
+        "(goto (reg val))",
+        "primitive-branch563",
+        "(assign val (op apply-primitive-procedure) (reg proc) (reg argl))",
+        "after-call565",
+        "(restore env)",
+        "(restore continue)",
+        "(test (op false?) (reg val))",
+        "(branch (label false-branch561))",
+        "true-branch560",
+        "(assign val (const 1))",
+        "(goto (reg continue))",
+        "false-branch561",
+        "(assign proc (op lookup-variable-value) (const *) (reg env))",
+        "(save continue)",
+        "(save proc)",
+        "(save env)",
+        "(assign proc (op lookup-variable-value) (const f) (reg env))",
+        "(save proc)",
+        "(assign proc (op lookup-variable-value) (const -) (reg env))",
+        "(assign val (const 1))",
+        "(assign argl (op list) (reg val))",
+        "(assign val (op lex-ref) (const (0 0)) (reg env))",
+        "(assign argl (op cons) (reg val) (reg argl))",
+        "(test (op primitive-procedure?) (reg proc))",
+        "(branch (label primitive-branch566))",
+        "compiled-branch567",
+        "(assign continue (label after-call568))",
+        "(assign val (op compiled-procedure-entry) (reg proc))",
+        "(goto (reg val))",
+        "primitive-branch566",
+        "(assign val (op apply-primitive-procedure) (reg proc) (reg argl))",
+        "after-call568",
+        "(assign argl (op list) (reg val))",
+        "(restore proc)",
+        "(test (op primitive-procedure?) (reg proc))",
+        "(branch (label primitive-branch569))",
+        "compiled-branch570",
+        "(assign continue (label after-call571))",
+        "(assign val (op compiled-procedure-entry) (reg proc))",
+        "(goto (reg val))",
+        "primitive-branch569",
+        "(assign val (op apply-primitive-procedure) (reg proc) (reg argl))",
+        "after-call571",
+        "(assign argl (op list) (reg val))",
+        "(restore env)",
+        "(assign val (op lex-ref) (const (0 0)) (reg env))",
+        "(assign argl (op cons) (reg val) (reg argl))",
+        "(restore proc)",
+        "(restore continue)",
+        "(test (op primitive-procedure?) (reg proc))",
+        "(branch (label primitive-branch572))",
+        "compiled-branch573",
+        "(assign val (op compiled-procedure-entry) (reg proc))",
+        "(goto (reg val))",
+        "primitive-branch572",
+        "(assign val (op apply-primitive-procedure) (reg proc) (reg argl))",
+        "(goto (reg continue))",
+        "after-call574",
+        "after-if562",
+        "after-lambda559",
+        "(perform (op define-variable!) (const f) (reg val) (reg env))",
+        "(assign val (const ok))",
+        "(assign proc (op lookup-variable-value) (const f) (reg env))",
+        "(assign val (const 5))",
+        "(assign argl (op list) (reg val))",
+        "(test (op primitive-procedure?) (reg proc))",
+        "(branch (label primitive-branch575))",
+        "compiled-branch576",
+        "(assign val (op compiled-procedure-entry) (reg proc))",
+        "(goto (reg val))",
+        "primitive-branch575",
+        "(assign val (op apply-primitive-procedure) (reg proc) (reg argl))",
+        "(goto (reg continue))",
+        "after-call577"
+      ],
+      "recursive": [
+        "(assign val (label entry538))",
+        "(assign val (op make-compiled-procedure) (reg val) (reg env))",
+        "(goto (label after-lambda539))",
+        "entry538",
+        "(assign env (op compiled-procedure-env) (reg proc))",
+        "(assign env (op extend-environment) (const (n)) (reg argl) (reg env))",
+        "(save continue)",
+        "(save env)",
+        "(assign proc (op lookup-variable-value) (const =) (reg env))",
+        "(assign val (const 1))",
+        "(assign argl (op list) (reg val))",
+        "(assign val (op lex-ref) (const (0 0)) (reg env))",
+        "(assign argl (op cons) (reg val) (reg argl))",
+        "(test (op primitive-procedure?) (reg proc))",
+        "(branch (label primitive-branch543))",
+        "compiled-branch544",
+        "(assign continue (label after-call545))",
+        "(assign val (op compiled-procedure-entry) (reg proc))",
+        "(goto (reg val))",
+        "primitive-branch543",
+        "(assign val (op apply-primitive-procedure) (reg proc) (reg argl))",
+        "after-call545",
+        "(restore env)",
+        "(restore continue)",
+        "(test (op false?) (reg val))",
+        "(branch (label false-branch541))",
+        "true-branch540",
+        "(assign val (const 1))",
+        "(goto (reg continue))",
+        "false-branch541",
+        "(assign proc (op lookup-variable-value) (const *) (reg env))",
+        "(save continue)",
+        "(save proc)",
+        "(assign val (op lex-ref) (const (0 0)) (reg env))",
+        "(assign argl (op list) (reg val))",
+        "(save argl)",
+        "(assign proc (op lookup-variable-value) (const f) (reg env))",
+        "(save proc)",
+        "(assign proc (op lookup-variable-value) (const -) (reg env))",
+        "(assign val (const 1))",
+        "(assign argl (op list) (reg val))",
+        "(assign val (op lex-ref) (const (0 0)) (reg env))",
+        "(assign argl (op cons) (reg val) (reg argl))",
+        "(test (op primitive-procedure?) (reg proc))",
+        "(branch (label primitive-branch546))",
+        "compiled-branch547",
+        "(assign continue (label after-call548))",
+        "(assign val (op compiled-procedure-entry) (reg proc))",
+        "(goto (reg val))",
+        "primitive-branch546",
+        "(assign val (op apply-primitive-procedure) (reg proc) (reg argl))",
+        "after-call548",
+        "(assign argl (op list) (reg val))",
+        "(restore proc)",
+        "(test (op primitive-procedure?) (reg proc))",
+        "(branch (label primitive-branch549))",
+        "compiled-branch550",
+        "(assign continue (label after-call551))",
+        "(assign val (op compiled-procedure-entry) (reg proc))",
+        "(goto (reg val))",
+        "primitive-branch549",
+        "(assign val (op apply-primitive-procedure) (reg proc) (reg argl))",
+        "after-call551",
+        "(restore argl)",
+        "(assign argl (op cons) (reg val) (reg argl))",
+        "(restore proc)",
+        "(restore continue)",
+        "(test (op primitive-procedure?) (reg proc))",
+        "(branch (label primitive-branch552))",
+        "compiled-branch553",
+        "(assign val (op compiled-procedure-entry) (reg proc))",
+        "(goto (reg val))",
+        "primitive-branch552",
+        "(assign val (op apply-primitive-procedure) (reg proc) (reg argl))",
+        "(goto (reg continue))",
+        "after-call554",
+        "after-if542",
+        "after-lambda539",
+        "(perform (op define-variable!) (const f) (reg val) (reg env))",
+        "(assign val (const ok))",
+        "(assign proc (op lookup-variable-value) (const f) (reg env))",
+        "(assign val (const 5))",
+        "(assign argl (op list) (reg val))",
+        "(test (op primitive-procedure?) (reg proc))",
+        "(branch (label primitive-branch555))",
+        "compiled-branch556",
+        "(assign val (op compiled-procedure-entry) (reg proc))",
+        "(goto (reg val))",
+        "primitive-branch555",
+        "(assign val (op apply-primitive-procedure) (reg proc) (reg argl))",
+        "(goto (reg continue))",
+        "after-call557"
+      ],
+      "tail_iterative": [
+        "(assign val (label entry578))",
+        "(assign val (op make-compiled-procedure) (reg val) (reg env))",
+        "(goto (label after-lambda579))",
+        "entry578",
+        "(assign env (op compiled-procedure-env) (reg proc))",
+        "(assign env (op extend-environment) (const (n)) (reg argl) (reg env))",
+        "(assign val (label entry580))",
+        "(assign val (op make-compiled-procedure) (reg val) (reg env))",
+        "(goto (label after-lambda581))",
+        "entry580",
+        "(assign env (op compiled-procedure-env) (reg proc))",
+        "(assign env (op extend-environment) (const (product counter)) (reg argl) (reg env))",
+        "(save continue)",
+        "(save env)",
+        "(assign proc (op lookup-variable-value) (const >) (reg env))",
+        "(assign val (op lex-ref) (const (1 0)) (reg env))",
+        "(assign argl (op list) (reg val))",
+        "(assign val (op lex-ref) (const (0 1)) (reg env))",
+        "(assign argl (op cons) (reg val) (reg argl))",
+        "(test (op primitive-procedure?) (reg proc))",
+        "(branch (label primitive-branch585))",
+        "compiled-branch586",
+        "(assign continue (label after-call587))",
+        "(assign val (op compiled-procedure-entry) (reg proc))",
+        "(goto (reg val))",
+        "primitive-branch585",
+        "(assign val (op apply-primitive-procedure) (reg proc) (reg argl))",
+        "after-call587",
+        "(restore env)",
+        "(restore continue)",
+        "(test (op false?) (reg val))",
+        "(branch (label false-branch583))",
+        "true-branch582",
+        "(assign val (op lex-ref) (const (0 0)) (reg env))",
+        "(goto (reg continue))",
+        "false-branch583",
+        "(assign proc (op lookup-variable-value) (const iter) (reg env))",
+        "(save continue)",
+        "(save proc)",
+        "(save env)",
+        "(assign proc (op lookup-variable-value) (const +) (reg env))",
+        "(assign val (const 1))",
+        "(assign argl (op list) (reg val))",
+        "(assign val (op lex-ref) (const (0 1)) (reg env))",
+        "(assign argl (op cons) (reg val) (reg argl))",
+        "(test (op primitive-procedure?) (reg proc))",
+        "(branch (label primitive-branch591))",
+        "compiled-branch592",
+        "(assign continue (label after-call593))",
+        "(assign val (op compiled-procedure-entry) (reg proc))",
+        "(goto (reg val))",
+        "primitive-branch591",
+        "(assign val (op apply-primitive-procedure) (reg proc) (reg argl))",
+        "after-call593",
+        "(assign argl (op list) (reg val))",
+        "(restore env)",
+        "(save argl)",
+        "(assign proc (op lookup-variable-value) (const *) (reg env))",
+        "(assign val (op lex-ref) (const (0 0)) (reg env))",
+        "(assign argl (op list) (reg val))",
+        "(assign val (op lex-ref) (const (0 1)) (reg env))",
+        "(assign argl (op cons) (reg val) (reg argl))",
+        "(test (op primitive-procedure?) (reg proc))",
+        "(branch (label primitive-branch588))",
+        "compiled-branch589",
+        "(assign continue (label after-call590))",
+        "(assign val (op compiled-procedure-entry) (reg proc))",
+        "(goto (reg val))",
+        "primitive-branch588",
+        "(assign val (op apply-primitive-procedure) (reg proc) (reg argl))",
+        "after-call590",
+        "(restore argl)",
+        "(assign argl (op cons) (reg val) (reg argl))",
+        "(restore proc)",
+        "(restore continue)",
+        "(test (op primitive-procedure?) (reg proc))",
+        "(branch (label primitive-branch594))",
+        "compiled-branch595",
+        "(assign val (op compiled-procedure-entry) (reg proc))",
+        "(goto (reg val))",
+        "primitive-branch594",
+        "(assign val (op apply-primitive-procedure) (reg proc) (reg argl))",
+        "(goto (reg continue))",
+        "after-call596",
+        "after-if584",
+        "after-lambda581",
+        "(perform (op define-variable!) (const iter) (reg val) (reg env))",
+        "(assign val (const ok))",
+        "(assign proc (op lookup-variable-value) (const iter) (reg env))",
+        "(assign val (const 1))",
+        "(assign argl (op list) (reg val))",
+        "(assign val (const 1))",
+        "(assign argl (op cons) (reg val) (reg argl))",
+        "(test (op primitive-procedure?) (reg proc))",
+        "(branch (label primitive-branch597))",
+        "compiled-branch598",
+        "(assign val (op compiled-procedure-entry) (reg proc))",
+        "(goto (reg val))",
+        "primitive-branch597",
+        "(assign val (op apply-primitive-procedure) (reg proc) (reg argl))",
+        "(goto (reg continue))",
+        "after-call599",
+        "after-lambda579",
+        "(perform (op define-variable!) (const f) (reg val) (reg env))",
+        "(assign val (const ok))",
+        "(assign proc (op lookup-variable-value) (const f) (reg env))",
+        "(assign val (const 5))",
+        "(assign argl (op list) (reg val))",
+        "(test (op primitive-procedure?) (reg proc))",
+        "(branch (label primitive-branch600))",
+        "compiled-branch601",
+        "(assign val (op compiled-procedure-entry) (reg proc))",
+        "(goto (reg val))",
+        "primitive-branch600",
+        "(assign val (op apply-primitive-procedure) (reg proc) (reg argl))",
+        "(goto (reg continue))",
+        "after-call602"
+      ]
+    },
+    "measurements": {
+      "factorial": [
+        {
+          "compiled": [
+            1,
+            31,
+            2,
+            2
+          ],
+          "dedicated": [
+            1,
+            5,
+            0,
+            0
+          ],
+          "interpreted": [
+            1,
+            250,
+            22,
+            8
+          ],
+          "isolated_call": [
+            1,
+            174,
+            16,
+            8
+          ],
+          "n": 1,
+          "non_tail": [
+            1,
+            269,
+            26,
+            14
+          ]
+        },
+        {
+          "compiled": [
+            2,
+            78,
+            8,
+            5
+          ],
+          "dedicated": [
+            2,
+            16,
+            2,
+            2
+          ],
+          "interpreted": [
+            2,
+            564,
+            54,
+            13
+          ],
+          "isolated_call": [
+            2,
+            488,
+            48,
+            13
+          ],
+          "n": 2,
+          "non_tail": [
+            2,
+            593,
+            60,
+            22
+          ]
+        },
+        {
+          "compiled": [
+            6,
+            125,
+            14,
+            8
+          ],
+          "dedicated": [
+            6,
+            27,
+            4,
+            4
+          ],
+          "interpreted": [
+            6,
+            878,
+            86,
+            18
+          ],
+          "isolated_call": [
+            6,
+            802,
+            80,
+            18
+          ],
+          "n": 3,
+          "non_tail": [
+            6,
+            917,
+            94,
+            30
+          ]
+        },
+        {
+          "compiled": [
+            24,
+            172,
+            20,
+            11
+          ],
+          "dedicated": [
+            24,
+            38,
+            6,
+            6
+          ],
+          "interpreted": [
+            24,
+            1192,
+            118,
+            23
+          ],
+          "isolated_call": [
+            24,
+            1116,
+            112,
+            23
+          ],
+          "n": 4,
+          "non_tail": [
+            24,
+            1241,
+            128,
+            38
+          ]
+        },
+        {
+          "compiled": [
+            120,
+            219,
+            26,
+            14
+          ],
+          "dedicated": [
+            120,
+            49,
+            8,
+            8
+          ],
+          "interpreted": [
+            120,
+            1506,
+            150,
+            28
+          ],
+          "isolated_call": [
+            120,
+            1430,
+            144,
+            28
+          ],
+          "n": 5,
+          "non_tail": [
+            120,
+            1565,
+            162,
+            46
+          ]
+        },
+        {
+          "compiled": [
+            720,
+            266,
+            32,
+            17
+          ],
+          "dedicated": [
+            720,
+            60,
+            10,
+            10
+          ],
+          "interpreted": [
+            720,
+            1820,
+            182,
+            33
+          ],
+          "isolated_call": [
+            720,
+            1744,
+            176,
+            33
+          ],
+          "n": 6,
+          "non_tail": [
+            720,
+            1889,
+            196,
+            54
+          ]
+        },
+        {
+          "compiled": [
+            5040,
+            313,
+            38,
+            20
+          ],
+          "dedicated": [
+            5040,
+            71,
+            12,
+            12
+          ],
+          "interpreted": [
+            5040,
+            2134,
+            214,
+            38
+          ],
+          "isolated_call": [
+            5040,
+            2058,
+            208,
+            38
+          ],
+          "n": 7,
+          "non_tail": [
+            5040,
+            2213,
+            230,
+            62
+          ]
+        }
+      ],
+      "fib": [
+        {
+          "compiled": [
+            1,
+            31,
+            2,
+            2
+          ],
+          "dedicated": [
+            1,
+            5,
+            0,
+            0
+          ],
+          "interpreted": [
+            1,
+            252,
+            22,
+            8
+          ],
+          "isolated_call": [
+            1,
+            176,
+            16,
+            8
+          ],
+          "n": 1,
+          "non_tail": [
+            1,
+            271,
+            26,
+            14
+          ]
+        },
+        {
+          "compiled": [
+            1,
+            114,
+            12,
+            5
+          ],
+          "dedicated": [
+            1,
+            28,
+            4,
+            2
+          ],
+          "interpreted": [
+            1,
+            807,
+            78,
+            13
+          ],
+          "isolated_call": [
+            1,
+            731,
+            72,
+            13
+          ],
+          "n": 2,
+          "non_tail": [
+            1,
+            846,
+            86,
+            22
+          ]
+        },
+        {
+          "compiled": [
+            2,
+            197,
+            22,
+            8
+          ],
+          "dedicated": [
+            2,
+            51,
+            8,
+            4
+          ],
+          "interpreted": [
+            2,
+            1362,
+            134,
+            18
+          ],
+          "isolated_call": [
+            2,
+            1286,
+            128,
+            18
+          ],
+          "n": 3,
+          "non_tail": [
+            2,
+            1421,
+            146,
+            30
+          ]
+        },
+        {
+          "compiled": [
+            3,
+            363,
+            42,
+            11
+          ],
+          "dedicated": [
+            3,
+            97,
+            16,
+            6
+          ],
+          "interpreted": [
+            3,
+            2472,
+            246,
+            23
+          ],
+          "isolated_call": [
+            3,
+            2396,
+            240,
+            23
+          ],
+          "n": 4,
+          "non_tail": [
+            3,
+            2571,
+            266,
+            38
+          ]
+        },
+        {
+          "compiled": [
+            5,
+            612,
+            72,
+            14
+          ],
+          "dedicated": [
+            5,
+            166,
+            28,
+            8
+          ],
+          "interpreted": [
+            5,
+            4137,
+            414,
+            28
+          ],
+          "isolated_call": [
+            5,
+            4061,
+            408,
+            28
+          ],
+          "n": 5,
+          "non_tail": [
+            5,
+            4296,
+            446,
+            46
+          ]
+        },
+        {
+          "compiled": [
+            8,
+            1027,
+            122,
+            17
+          ],
+          "dedicated": [
+            8,
+            281,
+            48,
+            10
+          ],
+          "interpreted": [
+            8,
+            6912,
+            694,
+            33
+          ],
+          "isolated_call": [
+            8,
+            6836,
+            688,
+            33
+          ],
+          "n": 6,
+          "non_tail": [
+            8,
+            7171,
+            746,
+            54
+          ]
+        },
+        {
+          "compiled": [
+            13,
+            1691,
+            202,
+            20
+          ],
+          "dedicated": [
+            13,
+            465,
+            80,
+            12
+          ],
+          "interpreted": [
+            13,
+            11352,
+            1142,
+            38
+          ],
+          "isolated_call": [
+            13,
+            11276,
+            1136,
+            38
+          ],
+          "n": 7,
+          "non_tail": [
+            13,
+            11771,
+            1226,
+            62
+          ]
+        }
+      ],
+      "iter": [
+        {
+          "compiled": [
+            1,
+            94,
+            8,
+            3
+          ],
+          "dedicated": [
+            1,
+            9,
+            0,
+            0
+          ],
+          "interpreted": [
+            1,
+            750,
+            71,
+            10
+          ],
+          "isolated_call": [
+            1,
+            674,
+            65,
+            10
+          ],
+          "n": 1,
+          "non_tail": [
+            1,
+            799,
+            81,
+            23
+          ]
+        },
+        {
+          "compiled": [
+            2,
+            141,
+            14,
+            3
+          ],
+          "dedicated": [
+            2,
+            14,
+            0,
+            0
+          ],
+          "interpreted": [
+            2,
+            1086,
+            106,
+            10
+          ],
+          "isolated_call": [
+            2,
+            1010,
+            100,
+            10
+          ],
+          "n": 2,
+          "non_tail": [
+            2,
+            1145,
+            118,
+            26
+          ]
+        },
+        {
+          "compiled": [
+            6,
+            188,
+            20,
+            3
+          ],
+          "dedicated": [
+            6,
+            19,
+            0,
+            0
+          ],
+          "interpreted": [
+            6,
+            1422,
+            141,
+            10
+          ],
+          "isolated_call": [
+            6,
+            1346,
+            135,
+            10
+          ],
+          "n": 3,
+          "non_tail": [
+            6,
+            1491,
+            155,
+            29
+          ]
+        },
+        {
+          "compiled": [
+            24,
+            235,
+            26,
+            3
+          ],
+          "dedicated": [
+            24,
+            24,
+            0,
+            0
+          ],
+          "interpreted": [
+            24,
+            1758,
+            176,
+            10
+          ],
+          "isolated_call": [
+            24,
+            1682,
+            170,
+            10
+          ],
+          "n": 4,
+          "non_tail": [
+            24,
+            1837,
+            192,
+            32
+          ]
+        },
+        {
+          "compiled": [
+            120,
+            282,
+            32,
+            3
+          ],
+          "dedicated": [
+            120,
+            29,
+            0,
+            0
+          ],
+          "interpreted": [
+            120,
+            2094,
+            211,
+            10
+          ],
+          "isolated_call": [
+            120,
+            2018,
+            205,
+            10
+          ],
+          "n": 5,
+          "non_tail": [
+            120,
+            2183,
+            229,
+            35
+          ]
+        },
+        {
+          "compiled": [
+            720,
+            329,
+            38,
+            3
+          ],
+          "dedicated": [
+            720,
+            34,
+            0,
+            0
+          ],
+          "interpreted": [
+            720,
+            2430,
+            246,
+            10
+          ],
+          "isolated_call": [
+            720,
+            2354,
+            240,
+            10
+          ],
+          "n": 6,
+          "non_tail": [
+            720,
+            2529,
+            266,
+            38
+          ]
+        },
+        {
+          "compiled": [
+            5040,
+            376,
+            44,
+            3
+          ],
+          "dedicated": [
+            5040,
+            39,
+            0,
+            0
+          ],
+          "interpreted": [
+            5040,
+            2766,
+            281,
+            10
+          ],
+          "isolated_call": [
+            5040,
+            2690,
+            275,
+            10
+          ],
+          "n": 7,
+          "non_tail": [
+            5040,
+            2875,
+            303,
+            41
+          ]
+        }
+      ]
+    }
+  }
+}

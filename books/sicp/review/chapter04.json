@@ -1,0 +1,2835 @@
+{
+  "issue": "I088",
+  "status": "accepted",
+  "printed_pages": [
+    487,
+    665
+  ],
+  "pdf_pages": [
+    515,
+    693
+  ],
+  "source_outline": [
+    {
+      "level": 1,
+      "title": "Metalinguistic Abstraction",
+      "pdf_page": 515,
+      "printed_page": 487
+    },
+    {
+      "level": 2,
+      "title": "The Metacircular Evaluator",
+      "pdf_page": 520,
+      "printed_page": 492
+    },
+    {
+      "level": 3,
+      "title": "The Core of the Evaluator",
+      "pdf_page": 522,
+      "printed_page": 494
+    },
+    {
+      "level": 3,
+      "title": "Representing Expressions",
+      "pdf_page": 529,
+      "printed_page": 501
+    },
+    {
+      "level": 3,
+      "title": "Evaluator Data Structures",
+      "pdf_page": 540,
+      "printed_page": 512
+    },
+    {
+      "level": 3,
+      "title": "Running the Evaluator as a Program",
+      "pdf_page": 545,
+      "printed_page": 517
+    },
+    {
+      "level": 3,
+      "title": "Data as Programs",
+      "pdf_page": 550,
+      "printed_page": 522
+    },
+    {
+      "level": 3,
+      "title": "Internal Definitions",
+      "pdf_page": 554,
+      "printed_page": 526
+    },
+    {
+      "level": 3,
+      "title": "Separating Syntactic Analysis from Execution",
+      "pdf_page": 562,
+      "printed_page": 534
+    },
+    {
+      "level": 2,
+      "title": "Variations on a Scheme — Lazy Evaluation",
+      "pdf_page": 569,
+      "printed_page": 541
+    },
+    {
+      "level": 3,
+      "title": "Normal Order and Applicative Order",
+      "pdf_page": 570,
+      "printed_page": 542
+    },
+    {
+      "level": 3,
+      "title": "An Interpreter with Lazy Evaluation",
+      "pdf_page": 572,
+      "printed_page": 544
+    },
+    {
+      "level": 3,
+      "title": "Streams as Lazy Lists",
+      "pdf_page": 583,
+      "printed_page": 555
+    },
+    {
+      "level": 2,
+      "title": "Variations on a Scheme — Nondeterministic Computing",
+      "pdf_page": 587,
+      "printed_page": 559
+    },
+    {
+      "level": 3,
+      "title": "Amb and Search",
+      "pdf_page": 589,
+      "printed_page": 561
+    },
+    {
+      "level": 3,
+      "title": "Examples of Nondeterministic Programs",
+      "pdf_page": 595,
+      "printed_page": 567
+    },
+    {
+      "level": 3,
+      "title": "Implementing the amb Evaluator",
+      "pdf_page": 606,
+      "printed_page": 578
+    },
+    {
+      "level": 2,
+      "title": "Logic Programming",
+      "pdf_page": 622,
+      "printed_page": 594
+    },
+    {
+      "level": 3,
+      "title": "Deductive Information Retrieval",
+      "pdf_page": 627,
+      "printed_page": 599
+    },
+    {
+      "level": 3,
+      "title": "How the Query System Works",
+      "pdf_page": 643,
+      "printed_page": 615
+    },
+    {
+      "level": 3,
+      "title": "Is Logic Programming Mathematical Logic?",
+      "pdf_page": 655,
+      "printed_page": 627
+    },
+    {
+      "level": 3,
+      "title": "Implementing the Query System",
+      "pdf_page": 663,
+      "printed_page": 635
+    },
+    {
+      "level": 4,
+      "title": "The Driver Loop and Instantiation",
+      "pdf_page": 663,
+      "printed_page": 635
+    },
+    {
+      "level": 4,
+      "title": "The Evaluator",
+      "pdf_page": 666,
+      "printed_page": 638
+    },
+    {
+      "level": 4,
+      "title": "Finding Assertions by Pattern Matching",
+      "pdf_page": 670,
+      "printed_page": 642
+    },
+    {
+      "level": 4,
+      "title": "Rules and Unification",
+      "pdf_page": 673,
+      "printed_page": 645
+    },
+    {
+      "level": 4,
+      "title": "Maintaining the Data Base",
+      "pdf_page": 679,
+      "printed_page": 651
+    },
+    {
+      "level": 4,
+      "title": "Stream Operations",
+      "pdf_page": 682,
+      "printed_page": 654
+    },
+    {
+      "level": 4,
+      "title": "Query Syntax Procedures",
+      "pdf_page": 684,
+      "printed_page": 656
+    },
+    {
+      "level": 4,
+      "title": "Frames and Bindings",
+      "pdf_page": 687,
+      "printed_page": 659
+    }
+  ],
+  "exercise_archive_count": 79,
+  "reader_policy": {
+    "page": "sicp/notes/chapter04_metalinguistic.html",
+    "source": "src/content/books/sicp/chapter04_metalinguistic.html",
+    "sections": [
+      {
+        "id": "s4-1",
+        "title": "4.1 元循环求值器",
+        "role": "teaching",
+        "annotation": "required"
+      },
+      {
+        "id": "s4-1-1",
+        "title": "4.1.1 求值器的核心",
+        "role": "teaching",
+        "annotation": "required",
+        "parent": "s4-1"
+      },
+      {
+        "id": "s4-1-2",
+        "title": "4.1.2 表达式的表示",
+        "role": "teaching",
+        "annotation": "required",
+        "parent": "s4-1"
+      },
+      {
+        "id": "s4-1-3",
+        "title": "4.1.3 求值器的数据结构",
+        "role": "teaching",
+        "annotation": "required",
+        "parent": "s4-1"
+      },
+      {
+        "id": "s4-1-4",
+        "title": "4.1.4 把求值器作为程序运行",
+        "role": "teaching",
+        "annotation": "required",
+        "parent": "s4-1"
+      },
+      {
+        "id": "s4-1-5",
+        "title": "4.1.5 数据作为程序",
+        "role": "teaching",
+        "annotation": "required",
+        "parent": "s4-1"
+      },
+      {
+        "id": "s4-1-6",
+        "title": "4.1.6 内部定义",
+        "role": "teaching",
+        "annotation": "required",
+        "parent": "s4-1"
+      },
+      {
+        "id": "s4-1-7",
+        "title": "4.1.7 分离语法分析与执行",
+        "role": "teaching",
+        "annotation": "required",
+        "parent": "s4-1"
+      },
+      {
+        "id": "s4-2",
+        "title": "4.2 惰性求值",
+        "role": "teaching",
+        "annotation": "required"
+      },
+      {
+        "id": "s4-2-1",
+        "title": "4.2.1 正则序与应用序",
+        "role": "teaching",
+        "annotation": "required",
+        "parent": "s4-2"
+      },
+      {
+        "id": "s4-2-2",
+        "title": "4.2.2 惰性求值解释器",
+        "role": "teaching",
+        "annotation": "required",
+        "parent": "s4-2"
+      },
+      {
+        "id": "s4-2-3",
+        "title": "4.2.3 流作为惰性表",
+        "role": "teaching",
+        "annotation": "required",
+        "parent": "s4-2"
+      },
+      {
+        "id": "s4-3",
+        "title": "4.3 非确定性计算",
+        "role": "teaching",
+        "annotation": "required"
+      },
+      {
+        "id": "s4-3-1",
+        "title": "4.3.1 选择与搜索",
+        "role": "teaching",
+        "annotation": "required",
+        "parent": "s4-3"
+      },
+      {
+        "id": "s4-3-2",
+        "title": "4.3.2 非确定性程序实例",
+        "role": "teaching",
+        "annotation": "required",
+        "parent": "s4-3"
+      },
+      {
+        "id": "s4-3-3",
+        "title": "4.3.3 实现非确定性求值器",
+        "role": "teaching",
+        "annotation": "required",
+        "parent": "s4-3"
+      },
+      {
+        "id": "s4-4",
+        "title": "4.4 逻辑程序设计",
+        "role": "teaching",
+        "annotation": "required"
+      },
+      {
+        "id": "s4-4-1",
+        "title": "4.4.1 演绎信息检索",
+        "role": "teaching",
+        "annotation": "required",
+        "parent": "s4-4"
+      },
+      {
+        "id": "s4-4-2",
+        "title": "4.4.2 查询系统的工作方式",
+        "role": "teaching",
+        "annotation": "required",
+        "parent": "s4-4"
+      },
+      {
+        "id": "s4-4-3",
+        "title": "4.4.3 查询系统是数理逻辑吗",
+        "role": "teaching",
+        "annotation": "required",
+        "parent": "s4-4"
+      },
+      {
+        "id": "s4-4-4",
+        "title": "4.4.4 实现查询系统",
+        "role": "teaching",
+        "annotation": "required",
+        "parent": "s4-4"
+      },
+      {
+        "id": "s4-4-4-1",
+        "title": "4.4.4.1 驱动循环与实例化",
+        "role": "teaching",
+        "annotation": "required",
+        "parent": "s4-4-4"
+      },
+      {
+        "id": "s4-4-4-2",
+        "title": "4.4.4.2 查询求值器",
+        "role": "teaching",
+        "annotation": "required",
+        "parent": "s4-4-4"
+      },
+      {
+        "id": "s4-4-4-3",
+        "title": "4.4.4.3 以模式匹配查找断言",
+        "role": "teaching",
+        "annotation": "required",
+        "parent": "s4-4-4"
+      },
+      {
+        "id": "s4-4-4-4",
+        "title": "4.4.4.4 规则与合一",
+        "role": "teaching",
+        "annotation": "required",
+        "parent": "s4-4-4"
+      },
+      {
+        "id": "s4-4-4-5",
+        "title": "4.4.4.5 维护数据库",
+        "role": "teaching",
+        "annotation": "required",
+        "parent": "s4-4-4"
+      },
+      {
+        "id": "s4-4-4-6",
+        "title": "4.4.4.6 流操作",
+        "role": "teaching",
+        "annotation": "required",
+        "parent": "s4-4-4"
+      },
+      {
+        "id": "s4-4-4-7",
+        "title": "4.4.4.7 查询语法过程",
+        "role": "teaching",
+        "annotation": "required",
+        "parent": "s4-4-4"
+      },
+      {
+        "id": "s4-4-4-8",
+        "title": "4.4.4.8 框架与绑定",
+        "role": "teaching",
+        "annotation": "required",
+        "parent": "s4-4-4"
+      },
+      {
+        "id": "exercises",
+        "title": "习题 4.1—4.79",
+        "role": "exercise-collection",
+        "annotation": "optional",
+        "reason": "程序与习题定位入口。"
+      },
+      {
+        "id": "programs",
+        "title": "程序与执行",
+        "role": "navigation-or-source",
+        "annotation": "optional",
+        "reason": "程序与习题定位入口。"
+      }
+    ],
+    "questions": [
+      "ex-4-1",
+      "ex-4-2",
+      "ex-4-3",
+      "ex-4-4",
+      "ex-4-5",
+      "ex-4-6",
+      "ex-4-7",
+      "ex-4-8",
+      "ex-4-9",
+      "ex-4-10",
+      "ex-4-11",
+      "ex-4-12",
+      "ex-4-13",
+      "ex-4-14",
+      "ex-4-15",
+      "ex-4-16",
+      "ex-4-17",
+      "ex-4-18",
+      "ex-4-19",
+      "ex-4-20",
+      "ex-4-21",
+      "ex-4-22",
+      "ex-4-23",
+      "ex-4-24",
+      "ex-4-25",
+      "ex-4-26",
+      "ex-4-27",
+      "ex-4-28",
+      "ex-4-29",
+      "ex-4-30",
+      "ex-4-31",
+      "ex-4-32",
+      "ex-4-33",
+      "ex-4-34",
+      "ex-4-35",
+      "ex-4-36",
+      "ex-4-37",
+      "ex-4-38",
+      "ex-4-39",
+      "ex-4-40",
+      "ex-4-41",
+      "ex-4-42",
+      "ex-4-43",
+      "ex-4-44",
+      "ex-4-45",
+      "ex-4-46",
+      "ex-4-47",
+      "ex-4-48",
+      "ex-4-49",
+      "ex-4-50",
+      "ex-4-51",
+      "ex-4-52",
+      "ex-4-53",
+      "ex-4-54",
+      "ex-4-55",
+      "ex-4-56",
+      "ex-4-57",
+      "ex-4-58",
+      "ex-4-59",
+      "ex-4-60",
+      "ex-4-61",
+      "ex-4-62",
+      "ex-4-63",
+      "ex-4-64",
+      "ex-4-65",
+      "ex-4-66",
+      "ex-4-67",
+      "ex-4-68",
+      "ex-4-69",
+      "ex-4-70",
+      "ex-4-71",
+      "ex-4-72",
+      "ex-4-73",
+      "ex-4-74",
+      "ex-4-75",
+      "ex-4-76",
+      "ex-4-77",
+      "ex-4-78",
+      "ex-4-79"
+    ],
+    "chinese_translation_required": true,
+    "section_scope": "all-descendants"
+  },
+  "question_bindings": [
+    {
+      "id": "ex-4-1",
+      "sha256": "107823745d76ea053343e748acf47a0451e2c1c02c31de15310349fe1370ce0b",
+      "dependencies": [
+        {
+          "anchor": "#input-list-of-values",
+          "sha256": "3ee44fe6e5ff249350daf7069cab1ece839bba257bd034e5468a136901266974"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-2",
+      "sha256": "0df3bdd7f69eee8acd8666fb37a6702e2a62072f2509577ef4d8c2adb15fe1df",
+      "dependencies": [
+        {
+          "anchor": "#input-eval",
+          "sha256": "b72f027897a7ad8a325fd89d40ed6ebb700fd8a56fda92d45b5be4e980de7dad"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-3",
+      "sha256": "36dff656c7c920b15a9ffe55b4c8cf064f38bf82477d6ef508bc4a17da2be3e8",
+      "dependencies": [
+        {
+          "anchor": "#input-eval",
+          "sha256": "b72f027897a7ad8a325fd89d40ed6ebb700fd8a56fda92d45b5be4e980de7dad"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-4",
+      "sha256": "e6e3863fe3f50f0fa4d097e313a2a8a9b0220ecb961773f10fce2baff8a3eeb9",
+      "dependencies": [
+        {
+          "anchor": "#input-eval",
+          "sha256": "b72f027897a7ad8a325fd89d40ed6ebb700fd8a56fda92d45b5be4e980de7dad"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-5",
+      "sha256": "a913003994c4b3a7ca760a79f0926e7acab1d6ef4cb013ae7a40c9422732e5a7",
+      "dependencies": [
+        {
+          "anchor": "#input-eval",
+          "sha256": "b72f027897a7ad8a325fd89d40ed6ebb700fd8a56fda92d45b5be4e980de7dad"
+        },
+        {
+          "anchor": "#input-expand-cond",
+          "sha256": "8b919fed0f0c5e251474fc2ff90ef6fc340d3fcbd6dcd8e62c8a56733ce794dc"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-6",
+      "sha256": "669b6c9671477c3e5d39d655fdef8c60149f1c155c5f56b3c024c57aab9e5f51",
+      "dependencies": [
+        {
+          "anchor": "#input-expand-cond",
+          "sha256": "8b919fed0f0c5e251474fc2ff90ef6fc340d3fcbd6dcd8e62c8a56733ce794dc"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-7",
+      "sha256": "40831812bee47b0448452ca171e1762d6c58850e285459f2aed610ab560ef4a9",
+      "dependencies": [
+        {
+          "anchor": "#ex-4-6",
+          "sha256": "f6c002ed7b3e668a5e1a60eb6c6e7218e6d6599aeda8a87dd3d7f18ec3326d39"
+        },
+        {
+          "anchor": "#input-expand-cond",
+          "sha256": "8b919fed0f0c5e251474fc2ff90ef6fc340d3fcbd6dcd8e62c8a56733ce794dc"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-8",
+      "sha256": "812afc4431b7483b5f1fbaffdb48a7d7931364c3e9aaacb88a3024df1fa0c662",
+      "dependencies": [
+        {
+          "anchor": "#ex-4-6",
+          "sha256": "f6c002ed7b3e668a5e1a60eb6c6e7218e6d6599aeda8a87dd3d7f18ec3326d39"
+        },
+        {
+          "anchor": "#input-expand-cond",
+          "sha256": "8b919fed0f0c5e251474fc2ff90ef6fc340d3fcbd6dcd8e62c8a56733ce794dc"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-9",
+      "sha256": "67e094baf8b921c066f81170aadaa354091a6a45172d650e3d7899621d5338bf",
+      "dependencies": [
+        {
+          "anchor": "#input-eval",
+          "sha256": "b72f027897a7ad8a325fd89d40ed6ebb700fd8a56fda92d45b5be4e980de7dad"
+        },
+        {
+          "anchor": "#input-expand-cond",
+          "sha256": "8b919fed0f0c5e251474fc2ff90ef6fc340d3fcbd6dcd8e62c8a56733ce794dc"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-10",
+      "sha256": "8100b998d5725f3798c323d93a545da3266432ba8eeaa3cb3f70cfcb40efb65d",
+      "dependencies": [
+        {
+          "anchor": "#input-eval",
+          "sha256": "b72f027897a7ad8a325fd89d40ed6ebb700fd8a56fda92d45b5be4e980de7dad"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-11",
+      "sha256": "8033c3c608055fed2325fe065449dde6bdb9bc508d1b634a4ba3d42d72396c2d",
+      "dependencies": [
+        {
+          "anchor": "#input-make-frame",
+          "sha256": "16af9e8dba41c3c1606aae4e651f7d800e72db237ddb8affa06f689b520653a9"
+        },
+        {
+          "anchor": "#input-lookup-variable-value",
+          "sha256": "5ab253e6081b18a7467bf6dcfdb3b5e34a831973bf3d6292d2670561bc1d10d7"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-12",
+      "sha256": "4df886e7470fa3287d50280e188a498f0aa2e317bad6bedb84d4e7240187c78f",
+      "dependencies": [
+        {
+          "anchor": "#input-make-frame",
+          "sha256": "16af9e8dba41c3c1606aae4e651f7d800e72db237ddb8affa06f689b520653a9"
+        },
+        {
+          "anchor": "#input-lookup-variable-value",
+          "sha256": "5ab253e6081b18a7467bf6dcfdb3b5e34a831973bf3d6292d2670561bc1d10d7"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-13",
+      "sha256": "e93fca789fea840f17210826e38f346628db2d4f3c59db89edff7dd9af1b8e8a",
+      "dependencies": [
+        {
+          "anchor": "#input-make-frame",
+          "sha256": "16af9e8dba41c3c1606aae4e651f7d800e72db237ddb8affa06f689b520653a9"
+        },
+        {
+          "anchor": "#input-lookup-variable-value",
+          "sha256": "5ab253e6081b18a7467bf6dcfdb3b5e34a831973bf3d6292d2670561bc1d10d7"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-14",
+      "sha256": "2295edf9203a5dd1436632306858259ed26c9205863d13779a4c42f539e37999",
+      "dependencies": [
+        {
+          "anchor": "#input-apply",
+          "sha256": "c832b6c3e3aebdf2c9bbaae8df62de5cc7ea9134e0c9faaa05932d2eefbe44f3"
+        },
+        {
+          "anchor": "#input-apply-primitive",
+          "sha256": "ada7bc0d6a9f18374078598db3e26ed706e0032af7ab789e54522a106e314c21"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-15",
+      "sha256": "4924bd83f5d0cdee3b27a3f204e38ac06d98cdd9e4b8a0d090cb344ae04e95bc",
+      "dependencies": []
+    },
+    {
+      "id": "ex-4-16",
+      "sha256": "067e5f446c46a46a31d76820c17363404493a9f8173877d8105d8db75dccabe8",
+      "dependencies": [
+        {
+          "anchor": "#ex-4-6",
+          "sha256": "f6c002ed7b3e668a5e1a60eb6c6e7218e6d6599aeda8a87dd3d7f18ec3326d39"
+        },
+        {
+          "anchor": "#input-lookup-variable-value",
+          "sha256": "5ab253e6081b18a7467bf6dcfdb3b5e34a831973bf3d6292d2670561bc1d10d7"
+        },
+        {
+          "anchor": "#input-internal-body",
+          "sha256": "3ba4466c3af4ecc71d9493b321015d19fb202bbd62984d104c27e2d03d9a32b0"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-17",
+      "sha256": "ed0dcf9a1850c40331594f3e0f901170b2ccce31d8758ab581b50b0d2dfbf1a7",
+      "dependencies": [
+        {
+          "anchor": "#input-internal-body",
+          "sha256": "3ba4466c3af4ecc71d9493b321015d19fb202bbd62984d104c27e2d03d9a32b0"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-18",
+      "sha256": "3b2adc3b58f607afcdc0d05a47fc828830dc2ef1a4275b1fb024ac16b38476dd",
+      "dependencies": [
+        {
+          "anchor": "#input-internal-body",
+          "sha256": "3ba4466c3af4ecc71d9493b321015d19fb202bbd62984d104c27e2d03d9a32b0"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-19",
+      "sha256": "438188bd54cdfb5ed831e2a9774b1134c5824ab193bd3ca6b65b0a20f15f02f2",
+      "dependencies": [
+        {
+          "anchor": "#ex-4-16",
+          "sha256": "2cef25a1e5f4806f6864d607d2ff07e74a510fe9ca21be56b5d1d8c7096abd8f"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-20",
+      "sha256": "d98e28bef6f5181adfc3970936fbec278bf61eb8ad289eaddcb119b309794734",
+      "dependencies": [
+        {
+          "anchor": "#ex-4-18",
+          "sha256": "cc15039b045e645938c097e6b6b2272bc525c24a5046390c7f1d653d50a1add3"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-21",
+      "sha256": "9aa87d06236cd98626ebd36c93b064f62545c221d60b701a8b1ea2a3f73d662f",
+      "dependencies": [
+        {
+          "anchor": "#ex-4-20",
+          "sha256": "c7594a9960a953ee952092fd892f52ddc14824f314ccfb988f1fe319b896b934"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-22",
+      "sha256": "dd474543a6fecf264a29b85de7ae04dfb8508d3c73e47f655a0a502c21aeec1f",
+      "dependencies": [
+        {
+          "anchor": "#ex-4-6",
+          "sha256": "f6c002ed7b3e668a5e1a60eb6c6e7218e6d6599aeda8a87dd3d7f18ec3326d39"
+        },
+        {
+          "anchor": "#input-analyze-sequence",
+          "sha256": "db6c82872bb1904922e6877fccd12680e0ebe5830a9a4bc22387e1073dbdbf29"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-23",
+      "sha256": "3aa623c31bcead31d5ef78baa8c4ecca99f5a5f6f2ce6b7390aa8c667c959d61",
+      "dependencies": [
+        {
+          "anchor": "#input-analyze-sequence",
+          "sha256": "db6c82872bb1904922e6877fccd12680e0ebe5830a9a4bc22387e1073dbdbf29"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-24",
+      "sha256": "2cc0f66e206e533f27fa06c9f8753cb9bf3959c6f86cf70f06ec9c994f4413dc",
+      "dependencies": [
+        {
+          "anchor": "#input-analyze-sequence",
+          "sha256": "db6c82872bb1904922e6877fccd12680e0ebe5830a9a4bc22387e1073dbdbf29"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-25",
+      "sha256": "ecb0c15e20478d9f78c0ead1726eb8940545556c43090f3435fff8e1d81dcf0b",
+      "dependencies": [
+        {
+          "anchor": "#input-unless",
+          "sha256": "08953192e04b990c2bb5e38b47c68a3ba0f3a47a5af8e43387f4de13e8151909"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-26",
+      "sha256": "c91598b38dd6b65f0d4fd5bf2e12ffcbf0062582ac5bff6d35839922f9956490",
+      "dependencies": [
+        {
+          "anchor": "#input-unless",
+          "sha256": "08953192e04b990c2bb5e38b47c68a3ba0f3a47a5af8e43387f4de13e8151909"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-27",
+      "sha256": "14e5cec3689fa0a8a36dd997ba3ab2984a431e366080cff74f8bba4589228095",
+      "dependencies": [
+        {
+          "anchor": "#input-actual-value",
+          "sha256": "c4a31c461fae6d6da1d392a371507321f4ac2720f076b92ea2d41ea48aa4fd23"
+        },
+        {
+          "anchor": "#input-force-it",
+          "sha256": "657fa723f48aa9e297be6a6e4b0ddc41e2d959110341b8deecdd20ef6c23a004"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-28",
+      "sha256": "0078b01bcf44cb7c20b75479850c2236b6054d709bd165739e51fd599b53f9fa",
+      "dependencies": [
+        {
+          "anchor": "#input-actual-value",
+          "sha256": "c4a31c461fae6d6da1d392a371507321f4ac2720f076b92ea2d41ea48aa4fd23"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-29",
+      "sha256": "d458d0dd0ee9b143b69a795aca58c33045d234fb4787d6d13781392d6f139bc2",
+      "dependencies": [
+        {
+          "anchor": "#ex-4-27",
+          "sha256": "f983b11d471e61c29598034d20ed171a330b1b856887d667b77677ad45d2cb5e"
+        },
+        {
+          "anchor": "#input-actual-value",
+          "sha256": "c4a31c461fae6d6da1d392a371507321f4ac2720f076b92ea2d41ea48aa4fd23"
+        },
+        {
+          "anchor": "#input-force-it",
+          "sha256": "657fa723f48aa9e297be6a6e4b0ddc41e2d959110341b8deecdd20ef6c23a004"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-30",
+      "sha256": "9dab882acb9d549a0322528f9b084467791b8c43afce5262458e67d95cd2f7ab",
+      "dependencies": [
+        {
+          "anchor": "#input-actual-value",
+          "sha256": "c4a31c461fae6d6da1d392a371507321f4ac2720f076b92ea2d41ea48aa4fd23"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-31",
+      "sha256": "c3edb2f9ca915cf97ba04541bbcab25391a2132c79b6685da69e03deca52f7f5",
+      "dependencies": [
+        {
+          "anchor": "#input-actual-value",
+          "sha256": "c4a31c461fae6d6da1d392a371507321f4ac2720f076b92ea2d41ea48aa4fd23"
+        },
+        {
+          "anchor": "#input-force-it",
+          "sha256": "657fa723f48aa9e297be6a6e4b0ddc41e2d959110341b8deecdd20ef6c23a004"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-32",
+      "sha256": "343add397b99ce714130196516648bed863adb4764b15967b83292a09bbc389b",
+      "dependencies": [
+        {
+          "anchor": "#input-lazy-pairs",
+          "sha256": "13034af734de8354a517b589dbe8f823174ba1b85a54c61505c9c26c070092e8"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-33",
+      "sha256": "55e1053ae54d8994170f0396878533b0e2d4f06e68d07325cd7b7416c74be1f4",
+      "dependencies": [
+        {
+          "anchor": "#input-lazy-pairs",
+          "sha256": "13034af734de8354a517b589dbe8f823174ba1b85a54c61505c9c26c070092e8"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-34",
+      "sha256": "e6e234adeeb7f5a2c072acffe8b1f25157e2652bb02398f12bce44fdf84e8715",
+      "dependencies": [
+        {
+          "anchor": "#input-lazy-pairs",
+          "sha256": "13034af734de8354a517b589dbe8f823174ba1b85a54c61505c9c26c070092e8"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-35",
+      "sha256": "0d571aaf7cab16cd1567a43e4e7fd4072db7146a069de37becd7dd190cf5d349",
+      "dependencies": [
+        {
+          "anchor": "#input-require",
+          "sha256": "53ca27eea47e3081c2fe65424148ff7437d8a98845f5d0cf3f307c9aca1fc726"
+        },
+        {
+          "anchor": "#input-an-element-of",
+          "sha256": "15a1ded192a77544dabb7df68b0f6fbf0c9f2f665253ee8d145905df1128073e"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-36",
+      "sha256": "639d45312b455232a308f568833e6be16bcf77cc917509c5e54104664acdfee4",
+      "dependencies": [
+        {
+          "anchor": "#ex-4-35",
+          "sha256": "c59325e1f8677175943ab3b4e4c0b5ba52602026a7130d77b8e149ace79b83df"
+        },
+        {
+          "anchor": "#input-require",
+          "sha256": "53ca27eea47e3081c2fe65424148ff7437d8a98845f5d0cf3f307c9aca1fc726"
+        },
+        {
+          "anchor": "#input-an-integer-starting-from",
+          "sha256": "0defec9c03d52871ede268c0cf8238bbf22709add540c8958f553ba8994d51b7"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-37",
+      "sha256": "2510347e87a5b7be45b3a2aaeac77c166bdd9dbc6edbc9a2f2dd48f66f62368f",
+      "dependencies": [
+        {
+          "anchor": "#ex-4-35",
+          "sha256": "c59325e1f8677175943ab3b4e4c0b5ba52602026a7130d77b8e149ace79b83df"
+        },
+        {
+          "anchor": "#input-require",
+          "sha256": "53ca27eea47e3081c2fe65424148ff7437d8a98845f5d0cf3f307c9aca1fc726"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-38",
+      "sha256": "8cd4921c1b31d5ea117923cc9f967d9ecc23b7ba59a5afc780c7d90ca5246d36",
+      "dependencies": [
+        {
+          "anchor": "#input-an-element-of",
+          "sha256": "15a1ded192a77544dabb7df68b0f6fbf0c9f2f665253ee8d145905df1128073e"
+        },
+        {
+          "anchor": "#input-multiple-dwelling",
+          "sha256": "0c8d4c3ae5389fc754904f4ab714f117f5e98a1ed8985363d48952347cbc324b"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-39",
+      "sha256": "69e41e6296b1fc87711717684742bb645b302828ddbe328de070d28e44c169a3",
+      "dependencies": [
+        {
+          "anchor": "#input-an-element-of",
+          "sha256": "15a1ded192a77544dabb7df68b0f6fbf0c9f2f665253ee8d145905df1128073e"
+        },
+        {
+          "anchor": "#input-multiple-dwelling",
+          "sha256": "0c8d4c3ae5389fc754904f4ab714f117f5e98a1ed8985363d48952347cbc324b"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-40",
+      "sha256": "9929b9742e6cd4e1e4f054371318b0105e1d1f8f8cb1dd94ed1aba5598f3b7b4",
+      "dependencies": [
+        {
+          "anchor": "#input-require",
+          "sha256": "53ca27eea47e3081c2fe65424148ff7437d8a98845f5d0cf3f307c9aca1fc726"
+        },
+        {
+          "anchor": "#input-an-element-of",
+          "sha256": "15a1ded192a77544dabb7df68b0f6fbf0c9f2f665253ee8d145905df1128073e"
+        },
+        {
+          "anchor": "#input-multiple-dwelling",
+          "sha256": "0c8d4c3ae5389fc754904f4ab714f117f5e98a1ed8985363d48952347cbc324b"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-41",
+      "sha256": "5d4501780b0e42993225e51877f941578253ac4ac1ff91f8af68ae3fac43ba3c",
+      "dependencies": [
+        {
+          "anchor": "#input-an-element-of",
+          "sha256": "15a1ded192a77544dabb7df68b0f6fbf0c9f2f665253ee8d145905df1128073e"
+        },
+        {
+          "anchor": "#input-multiple-dwelling",
+          "sha256": "0c8d4c3ae5389fc754904f4ab714f117f5e98a1ed8985363d48952347cbc324b"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-42",
+      "sha256": "d3936c501a8c2a2d782e96c6bcc55e3e900b561e63d67fa658b958142ae80692",
+      "dependencies": [
+        {
+          "anchor": "#input-an-element-of",
+          "sha256": "15a1ded192a77544dabb7df68b0f6fbf0c9f2f665253ee8d145905df1128073e"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-43",
+      "sha256": "f4feed7cf7630aa0786091c3fac1d7b1dd15d1e55c01c6651c3c15c70b8c2819",
+      "dependencies": [
+        {
+          "anchor": "#ex-4-40",
+          "sha256": "66db508164e3d7b803f02029e41ba2e11da39e85ddd900148f723131cb8fe39c"
+        },
+        {
+          "anchor": "#input-an-element-of",
+          "sha256": "15a1ded192a77544dabb7df68b0f6fbf0c9f2f665253ee8d145905df1128073e"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-44",
+      "sha256": "2dc064a747af3830ddd2715617513e985326e1c896143028f8fc939c250f30a8",
+      "dependencies": [
+        {
+          "anchor": "#input-require",
+          "sha256": "53ca27eea47e3081c2fe65424148ff7437d8a98845f5d0cf3f307c9aca1fc726"
+        },
+        {
+          "anchor": "#input-an-element-of",
+          "sha256": "15a1ded192a77544dabb7df68b0f6fbf0c9f2f665253ee8d145905df1128073e"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-45",
+      "sha256": "e1c0286b6fb89eb78b6ef2d112332c418143031e2a0567664a4b90c4347bfe13",
+      "dependencies": [
+        {
+          "anchor": "#input-word-lists",
+          "sha256": "ca852459920eeceb0b9695270ca1b67b0f3953f295e5b26398e9d2dc58525b49"
+        },
+        {
+          "anchor": "#input-parse-word",
+          "sha256": "5f60da51547594ab7955b336e3bf70d5e85eb42acd93c49534062182ad23a1bd"
+        },
+        {
+          "anchor": "#input-parse-prepositional-phrase",
+          "sha256": "3b03ae6fe1dbc5d5819cfc6198193224552cd9094cf5fe2ff534dfa92b3b72cb"
+        },
+        {
+          "anchor": "#input-parse-sentence",
+          "sha256": "11de94d59e1917d99e48d8c36bc7f892b453ea8a9a0dee6a57001cc2d0708933"
+        },
+        {
+          "anchor": "#input-parse-noun-phrase",
+          "sha256": "07c65e637479433740cd599527435547b59d7d80b8e6b91ef1b440b3f1865993"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-46",
+      "sha256": "98b78b1407dbd0abff42cf066730160e2acdaa976fec007213b07d76f1b6cb18",
+      "dependencies": [
+        {
+          "anchor": "#input-word-lists",
+          "sha256": "ca852459920eeceb0b9695270ca1b67b0f3953f295e5b26398e9d2dc58525b49"
+        },
+        {
+          "anchor": "#input-parse-word",
+          "sha256": "5f60da51547594ab7955b336e3bf70d5e85eb42acd93c49534062182ad23a1bd"
+        },
+        {
+          "anchor": "#input-parse-sentence",
+          "sha256": "11de94d59e1917d99e48d8c36bc7f892b453ea8a9a0dee6a57001cc2d0708933"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-47",
+      "sha256": "866ae682203e451b5c33a9f7fecd15028893334df731669e7123f989a0bfe68f",
+      "dependencies": [
+        {
+          "anchor": "#input-word-lists",
+          "sha256": "ca852459920eeceb0b9695270ca1b67b0f3953f295e5b26398e9d2dc58525b49"
+        },
+        {
+          "anchor": "#input-parse-word",
+          "sha256": "5f60da51547594ab7955b336e3bf70d5e85eb42acd93c49534062182ad23a1bd"
+        },
+        {
+          "anchor": "#input-parse-prepositional-phrase",
+          "sha256": "3b03ae6fe1dbc5d5819cfc6198193224552cd9094cf5fe2ff534dfa92b3b72cb"
+        },
+        {
+          "anchor": "#input-parse-sentence",
+          "sha256": "11de94d59e1917d99e48d8c36bc7f892b453ea8a9a0dee6a57001cc2d0708933"
+        },
+        {
+          "anchor": "#input-parse-noun-phrase",
+          "sha256": "07c65e637479433740cd599527435547b59d7d80b8e6b91ef1b440b3f1865993"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-48",
+      "sha256": "fd580ecf6bf88a6c469c6193b1a4e4e9f18f1275e1a477f839137d2c154973b0",
+      "dependencies": [
+        {
+          "anchor": "#input-word-lists",
+          "sha256": "ca852459920eeceb0b9695270ca1b67b0f3953f295e5b26398e9d2dc58525b49"
+        },
+        {
+          "anchor": "#input-parse-word",
+          "sha256": "5f60da51547594ab7955b336e3bf70d5e85eb42acd93c49534062182ad23a1bd"
+        },
+        {
+          "anchor": "#input-parse-prepositional-phrase",
+          "sha256": "3b03ae6fe1dbc5d5819cfc6198193224552cd9094cf5fe2ff534dfa92b3b72cb"
+        },
+        {
+          "anchor": "#input-parse-sentence",
+          "sha256": "11de94d59e1917d99e48d8c36bc7f892b453ea8a9a0dee6a57001cc2d0708933"
+        },
+        {
+          "anchor": "#input-parse-noun-phrase",
+          "sha256": "07c65e637479433740cd599527435547b59d7d80b8e6b91ef1b440b3f1865993"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-49",
+      "sha256": "e126022ee98519109188a60520982a0de6985c9612bbfcf8d1cc1e19264de775",
+      "dependencies": [
+        {
+          "anchor": "#ex-4-50",
+          "sha256": "9e0e432c4076e7af5c587cce403927308b4113e92c0870ea71f2440e9bc2c69e"
+        },
+        {
+          "anchor": "#input-an-element-of",
+          "sha256": "15a1ded192a77544dabb7df68b0f6fbf0c9f2f665253ee8d145905df1128073e"
+        },
+        {
+          "anchor": "#input-word-lists",
+          "sha256": "ca852459920eeceb0b9695270ca1b67b0f3953f295e5b26398e9d2dc58525b49"
+        },
+        {
+          "anchor": "#input-parse-word",
+          "sha256": "5f60da51547594ab7955b336e3bf70d5e85eb42acd93c49534062182ad23a1bd"
+        },
+        {
+          "anchor": "#input-parse-sentence",
+          "sha256": "11de94d59e1917d99e48d8c36bc7f892b453ea8a9a0dee6a57001cc2d0708933"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-50",
+      "sha256": "9e71ba0783be512cae8d7253774ebf01a7b4d5a2a4a3e514bb3417493d38d6ae",
+      "dependencies": [
+        {
+          "anchor": "#ex-4-49",
+          "sha256": "afe35d8ccf57a661c1bf2e58ffd1622cd18627ff8fd0f720353dba02f68e92b8"
+        },
+        {
+          "anchor": "#input-analyze-amb",
+          "sha256": "2a6195c6ac80a552e24aa51b47d0e4e3bb631747dc4a6f40646c733b4a22201e"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-51",
+      "sha256": "044740928cccb9c09f3a7a337c7f699b50b9f18f2410586a5eaafc33199917b4",
+      "dependencies": [
+        {
+          "anchor": "#input-an-element-of",
+          "sha256": "15a1ded192a77544dabb7df68b0f6fbf0c9f2f665253ee8d145905df1128073e"
+        },
+        {
+          "anchor": "#input-amb-assignment",
+          "sha256": "7e71d1d06be0020c4cc934f115d87d995646aebbcd1058b69040a2856e30c2f9"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-52",
+      "sha256": "c0e400aecc962bc89460f1db54a74fda5c3f2765af9d731c7b0523e30817a463",
+      "dependencies": [
+        {
+          "anchor": "#input-analyze-amb",
+          "sha256": "2a6195c6ac80a552e24aa51b47d0e4e3bb631747dc4a6f40646c733b4a22201e"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-53",
+      "sha256": "544b130f5365bad51d161ec18adbf193c636caa46b7f106c84c751f1d42d6df6",
+      "dependencies": [
+        {
+          "anchor": "#ex-4-51",
+          "sha256": "c580096802aa58ea654a9c26a9d58063e92475fef2494714401a4d0f202f0815"
+        },
+        {
+          "anchor": "#ex-4-52",
+          "sha256": "dcf6829af9c69c42b7bc2b6a59e5bb8f790e92d3d8cb5de31e7815b579421659"
+        },
+        {
+          "anchor": "#input-an-element-of",
+          "sha256": "15a1ded192a77544dabb7df68b0f6fbf0c9f2f665253ee8d145905df1128073e"
+        },
+        {
+          "anchor": "#input-amb-assignment",
+          "sha256": "7e71d1d06be0020c4cc934f115d87d995646aebbcd1058b69040a2856e30c2f9"
+        },
+        {
+          "anchor": "#input-prime-sum-pair",
+          "sha256": "d2ef9a9ca9386d100d17707803452e899af7edb1950d07c14371c373a0c98144"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-54",
+      "sha256": "38acef872eade0ee02e32324ab5839baeb903046bbb70f9d4ced40c798eeb73d",
+      "dependencies": [
+        {
+          "anchor": "#input-require",
+          "sha256": "53ca27eea47e3081c2fe65424148ff7437d8a98845f5d0cf3f307c9aca1fc726"
+        },
+        {
+          "anchor": "#input-analyze-amb",
+          "sha256": "2a6195c6ac80a552e24aa51b47d0e4e3bb631747dc4a6f40646c733b4a22201e"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-55",
+      "sha256": "2ce7bfe208617e9fc06ff644058fa3b879594b6c5b49e8bd623c36bb6e85bb44",
+      "dependencies": [
+        {
+          "anchor": "#input-microshaft",
+          "sha256": "3221553da5b2f54c8e2c38523ab9f7e320c62c74bf7abf8993eacd0abee5ccab"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-56",
+      "sha256": "86787c140dfa302612ffd940b91462fee91e0179fbc0a60a5503d45e53a4a9eb",
+      "dependencies": [
+        {
+          "anchor": "#input-microshaft",
+          "sha256": "3221553da5b2f54c8e2c38523ab9f7e320c62c74bf7abf8993eacd0abee5ccab"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-57",
+      "sha256": "c95425102b78d9b2ec4b45bd95b23ff41b2a1440107ef22b208324882b05eb3d",
+      "dependencies": [
+        {
+          "anchor": "#input-microshaft",
+          "sha256": "3221553da5b2f54c8e2c38523ab9f7e320c62c74bf7abf8993eacd0abee5ccab"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-58",
+      "sha256": "2b520a9a333d8afcadcdd58540008d5991b28b04775851cd5ddb0fda6f755e4a",
+      "dependencies": [
+        {
+          "anchor": "#input-microshaft",
+          "sha256": "3221553da5b2f54c8e2c38523ab9f7e320c62c74bf7abf8993eacd0abee5ccab"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-59",
+      "sha256": "4f788baee7046ae93eb03b1346319a5969f677901064ca36823e508e307f5af9",
+      "dependencies": [
+        {
+          "anchor": "#input-microshaft",
+          "sha256": "3221553da5b2f54c8e2c38523ab9f7e320c62c74bf7abf8993eacd0abee5ccab"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-60",
+      "sha256": "0bd683948be5f18352bb8bff7c7faabfef129c6b387b4a08ee184b34a9a473e9",
+      "dependencies": [
+        {
+          "anchor": "#input-microshaft",
+          "sha256": "3221553da5b2f54c8e2c38523ab9f7e320c62c74bf7abf8993eacd0abee5ccab"
+        },
+        {
+          "anchor": "#input-lives-near",
+          "sha256": "5c2a33887b9a189d0a007f4dfede95840c279d2dd563a37c357b9dc4f68c54a3"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-61",
+      "sha256": "32aa55cf64932255373dcebd3cc709437ed547141f3b05848967e7d2cfde785f",
+      "dependencies": []
+    },
+    {
+      "id": "ex-4-62",
+      "sha256": "11789dc2a03444f623164f98b9fc22f1251e6e763c025571b77c45247be41d11",
+      "dependencies": [
+        {
+          "anchor": "#input-append-to-form",
+          "sha256": "8fae05be5dbc067de3416dfdccf7004bae6ee5ec55f4cfc6f80713348c6d603e"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-63",
+      "sha256": "62a9592a17d9a4daa0bfc5ec8894f963a325bf1613a305e621aa5958cf3b94f2",
+      "dependencies": [
+        {
+          "anchor": "#ex-4-69",
+          "sha256": "2a7ff00b6d6093939efdc0b7651cb950ad270ea38ab583ed9458580ca686f19c"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-64",
+      "sha256": "8a1835fef69487fefb8fdd9f7f6e1f2e5b2236cafade5a82771b6cf49800f07e",
+      "dependencies": [
+        {
+          "anchor": "#input-microshaft",
+          "sha256": "3221553da5b2f54c8e2c38523ab9f7e320c62c74bf7abf8993eacd0abee5ccab"
+        },
+        {
+          "anchor": "#input-outranked-by",
+          "sha256": "5f97958ffd271c10ea14f6362b8e0672ad927c8393f730f77fcaff6db2f0cae5"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-65",
+      "sha256": "1c4763f4812b072fb4c6f9ce2206cc5e24c2657377ef91de8e0e8d86324d6eb4",
+      "dependencies": [
+        {
+          "anchor": "#input-microshaft",
+          "sha256": "3221553da5b2f54c8e2c38523ab9f7e320c62c74bf7abf8993eacd0abee5ccab"
+        },
+        {
+          "anchor": "#input-wheel",
+          "sha256": "38fadb33a02b1cabd1b0dc8297146be3100dd24a86f040997b1ef47e138be0d5"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-66",
+      "sha256": "39d50b0c38893e41bfb27d4c5d29c56be12a13b2650b94d6d8af58cb930256f0",
+      "dependencies": [
+        {
+          "anchor": "#ex-4-65",
+          "sha256": "78a9dd98905f3e67eb18aa7d80d4ff0c60b434d57bf9a6077c90e6109353d0b3"
+        },
+        {
+          "anchor": "#input-microshaft",
+          "sha256": "3221553da5b2f54c8e2c38523ab9f7e320c62c74bf7abf8993eacd0abee5ccab"
+        },
+        {
+          "anchor": "#input-wheel",
+          "sha256": "38fadb33a02b1cabd1b0dc8297146be3100dd24a86f040997b1ef47e138be0d5"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-67",
+      "sha256": "bcb571118e0ecc03e67d22e91643d3c0b344cc1bd2583a203a0d783912e8d26b",
+      "dependencies": [
+        {
+          "anchor": "#ex-4-64",
+          "sha256": "d073282881c69970f2a3b06b7d39462c729e4605771cf8ed73870dddd5cf1397"
+        },
+        {
+          "anchor": "#input-outranked-by",
+          "sha256": "5f97958ffd271c10ea14f6362b8e0672ad927c8393f730f77fcaff6db2f0cae5"
+        },
+        {
+          "anchor": "#input-unify-match",
+          "sha256": "35832aefb44e6786684684e4451102e900b5581666de7d16cf5452cbffc2ee9c"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-68",
+      "sha256": "4fe6f7f462bc4ec454959a2a5c6ff7a0c70f211206142950c5fc6768cd80ae44",
+      "dependencies": [
+        {
+          "anchor": "#input-append-to-form",
+          "sha256": "8fae05be5dbc067de3416dfdccf7004bae6ee5ec55f4cfc6f80713348c6d603e"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-69",
+      "sha256": "c5c0b19730d65ae94ef3b7e2d782ef7f0013ffd58fa778eebeffdc8cf3045c56",
+      "dependencies": [
+        {
+          "anchor": "#ex-4-63",
+          "sha256": "12c45874e4ebd1ebac9148cd911a43976b9169b6b24314571380a2ef01a8975a"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-70",
+      "sha256": "305369a4aa164754cbd399d318bce1bf22dd29eb5c94990a432ae3218f417a3f",
+      "dependencies": [
+        {
+          "anchor": "#input-add-assertion",
+          "sha256": "241d4eb189efea5080e5f0295d2fe4a1890d2bcd974525a98bea1d98128eded0"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-71",
+      "sha256": "53da9016fc962e386f9fb1fb89787ce67e7aa6c1b58176bdf0f3201d3bff482c",
+      "dependencies": [
+        {
+          "anchor": "#input-simple-query",
+          "sha256": "1b01854d32405bf9323a51c73987a3410652f5c0f9ed9ade23152ea6243943c6"
+        },
+        {
+          "anchor": "#input-disjoin",
+          "sha256": "88e988ba11bbf80e74329ab7de63a78c364e0f193baa03cca0554584298b51bb"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-72",
+      "sha256": "19fd34bcc00b081ea6d1f5572b87bff5d156fe7a2a643701612d045c71d4ed1d",
+      "dependencies": [
+        {
+          "anchor": "#input-simple-query",
+          "sha256": "1b01854d32405bf9323a51c73987a3410652f5c0f9ed9ade23152ea6243943c6"
+        },
+        {
+          "anchor": "#input-disjoin",
+          "sha256": "88e988ba11bbf80e74329ab7de63a78c364e0f193baa03cca0554584298b51bb"
+        },
+        {
+          "anchor": "#input-stream-flatmap",
+          "sha256": "40678d857073464ff8cdad31d663334e1ecf0ef14876b542ff432e02579265c1"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-73",
+      "sha256": "c96a14288db0499beb8e8d42debbe035489ec5f2d661aa714561fc6eb33025a5",
+      "dependencies": [
+        {
+          "anchor": "#input-stream-flatmap",
+          "sha256": "40678d857073464ff8cdad31d663334e1ecf0ef14876b542ff432e02579265c1"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-74",
+      "sha256": "a8ff3ff34f63f5e8134baf8a612bdc6ba59da9982117254c30d2e57f5c11b21c",
+      "dependencies": [
+        {
+          "anchor": "#input-stream-flatmap",
+          "sha256": "40678d857073464ff8cdad31d663334e1ecf0ef14876b542ff432e02579265c1"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-75",
+      "sha256": "21ad0c3664c12090be94af9325e43d2d0169b52daeb5ab78c1fe8052d70a9d2f",
+      "dependencies": [
+        {
+          "anchor": "#input-microshaft",
+          "sha256": "3221553da5b2f54c8e2c38523ab9f7e320c62c74bf7abf8993eacd0abee5ccab"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-76",
+      "sha256": "d5bb0e8136e4ac8e21d732a49130a06c28285249b709ddcf20ac03ceaab4f0ee",
+      "dependencies": [
+        {
+          "anchor": "#fig-4-5",
+          "sha256": "4925e58c155d1e5046849563e478955426af5d6b6dfc9e64338edf7b82d0b67b"
+        },
+        {
+          "anchor": "#input-disjoin",
+          "sha256": "88e988ba11bbf80e74329ab7de63a78c364e0f193baa03cca0554584298b51bb"
+        },
+        {
+          "anchor": "#input-unify-match",
+          "sha256": "35832aefb44e6786684684e4451102e900b5581666de7d16cf5452cbffc2ee9c"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-77",
+      "sha256": "21c4c1fa5d9efbbbf80dbb6260670183a9f9d479368b26417aa5064fd2507451",
+      "dependencies": []
+    },
+    {
+      "id": "ex-4-78",
+      "sha256": "5f4d66a9134b98ae883d420a5861bb87a514eb7163de31ec6f34f16ff5e8c776",
+      "dependencies": [
+        {
+          "anchor": "#input-analyze-amb",
+          "sha256": "2a6195c6ac80a552e24aa51b47d0e4e3bb631747dc4a6f40646c733b4a22201e"
+        }
+      ]
+    },
+    {
+      "id": "ex-4-79",
+      "sha256": "65af84391caafbd88c0087ce5e184cb14de483e1775639a5d7eb760d7067f07b",
+      "dependencies": [
+        {
+          "anchor": "#input-unify-match",
+          "sha256": "35832aefb44e6786684684e4451102e900b5581666de7d16cf5452cbffc2ee9c"
+        }
+      ]
+    }
+  ],
+  "content_depth": {
+    "sections": [
+      {
+        "section": "s4-1-1",
+        "question": "如何区分求值表达式与应用过程？",
+        "example": "闭包将输入加 2。形参尚未绑定。先求操作符，再把 5 绑定到形参，执行加法，结果为 7。验算时，从结果减回 2 得 5。",
+        "boundary": "参数个数不符应在进入主体前报错。",
+        "invariant": "闭包携带定义环境，实参在调用环境求值。",
+        "representation": "基本过程和复合过程都能出现在操作符位置。检查一次应用时，先记下操作符求得的对象，再写出实参值列表，这样能区分求值顺序错误和参数位置错误。",
+        "trace": {
+          "input": "闭包将输入加 2",
+          "initial": "形参尚未绑定",
+          "steps": "先求操作符，再把 5 绑定到形参，执行加法",
+          "result": "结果为 7",
+          "check": "从结果减回 2 得 5"
+        },
+        "exercise": "ex-4-1",
+        "figures": {
+          "fig-4-1": "从表达式到过程与实参，再从复合过程回到对主体的求值，箭头闭合一次恰好对应一层调用。"
+        },
+        "textbook_code": {
+          "input-eval": "先辨认语法；只有应用分支才要处理操作符及实参。",
+          "input-apply": "基本过程直接调用实现，复合过程必须用定义环境扩展出新帧。",
+          "input-list-of-values": "构造出的表保持从左到右的位置，只看构造语法不足以决定副作用次序。"
+        },
+        "answer_reason": "先用单绑定保存首实参的值，再递归处理尾部；倒序版本先保存尾部各值，再求首项。两种遍历都按原来的形参位置组表。对三个会记录名字的实参，访问顺序分别是 a、b、c 和 c、b、a，结果表的位置完全相同。页末的 operands-left 和 operands-right 可直接运行。",
+        "coherence": "用“闭包将输入加 2”检验本节方法，再与习题 4.1 的适用条件对照。",
+        "racket_readback": "s4-1-1 7",
+        "readback_conclusion": "实际运行得到 7，与“结果为 7”相符。",
+        "evidence": {
+          "probe": "s4-1-1 7",
+          "readback": "实际运行得到 7，与“结果为 7”相符。"
+        }
+      },
+      {
+        "section": "s4-1-2",
+        "question": "新语法如何复用旧的求值规则？",
+        "example": "两个局部变量分别取 3 和 5。初值在外层求出。把绑定改写为具有两个形参的匿名过程，再求乘积，得到 15。验算时，直接将 3 与 5 相乘得到同一值。",
+        "boundary": "普通绑定的右侧不能偷看同层另一个新变量。",
+        "invariant": "识别器决定分派标签，选择器决定传给处理器的子表达式。",
+        "representation": "语法变换应只重排表达式，不能在变换时提前求值。若两个初值都读取外层名字，生成的匿名过程必须把它们留在调用处，否则后一个初值会读错帧。",
+        "trace": {
+          "input": "两个局部变量分别取 3 和 5",
+          "initial": "初值在外层求出",
+          "steps": "把绑定改写为具有两个形参的匿名过程，再求乘积",
+          "result": "得到 15",
+          "check": "直接将 3 与 5 相乘得到同一值"
+        },
+        "exercise": "ex-4-6",
+        "figures": {},
+        "textbook_code": {
+          "input-expand-cond": "从末尾向前组织分支；带接收者的子句必须额外保存测试值。"
+        },
+        "answer_reason": "以各绑定的名字为形参、原主体为过程体，构造匿名过程，再把各右侧表达式依次作为实参。两项绑定的右侧都在外层环境求值，因此内层同名变量不能改变另一个初值。求值器中 let 分支即此变换。",
+        "coherence": "用“两个局部变量分别取 3 和 5”检验本节方法，再与习题 4.6 的适用条件对照。",
+        "racket_readback": "s4-1-2 15",
+        "readback_conclusion": "实际运行得到 15，与“得到 15”相符。",
+        "evidence": {
+          "probe": "s4-1-2 15",
+          "readback": "实际运行得到 15，与“得到 15”相符。"
+        }
+      },
+      {
+        "section": "s4-1-3",
+        "question": "为什么闭包要保留环境而不复制当前值？",
+        "example": "外层 x 为 7，内层另有一个 x 为 100。加法闭包在外层创建。从内层传入 3，查自由名时回到定义环境，返回 10。验算时，若误用调用环境会得到 103。",
+        "boundary": "自由名沿父帧仍找不到时须报错。",
+        "invariant": "两个同名槽是不同位置，沿定义边而非调用边查找。",
+        "representation": "闭包保存的是一条能抵达单元的环境链。更改同一单元后闭包应看见新值，而在别的帧中增加一个同名绑定，不会改变这条链的走向。",
+        "trace": {
+          "input": "外层 x 为 7，内层另有一个 x 为 100",
+          "initial": "加法闭包在外层创建",
+          "steps": "从内层传入 3，查自由名时回到定义环境",
+          "result": "返回 10",
+          "check": "若误用调用环境会得到 103"
+        },
+        "exercise": "ex-4-11",
+        "figures": {},
+        "textbook_code": {
+          "input-make-frame": "变量名表和值表的对应位置是一条绑定，改变表示必须同步改动查找和写入。",
+          "input-lookup-variable-value": "扫完一帧之后才走向父帧，决定了同名变量的遮蔽顺序。"
+        },
+        "answer_reason": "一帧保存名字到可写单元的映射。扩展环境同时遍历形参和实参创建单元；查找逐帧返回最内层匹配单元；赋值修改它，定义只在首帧创建或更新。页末 extend、cell、bind! 展示这个表示，空帧也是有效的帧。",
+        "coherence": "用“外层 x 为 7，内层另有一个 x 为 100”检验本节方法，再与习题 4.11 的适用条件对照。",
+        "racket_readback": "s4-1-3 10",
+        "readback_conclusion": "实际运行得到 10，与“返回 10”相符。",
+        "evidence": {
+          "probe": "s4-1-3 10",
+          "readback": "实际运行得到 10，与“返回 10”相符。"
+        }
+      },
+      {
+        "section": "s4-1-4",
+        "question": "顶层驱动循环应该重复使用哪一部分状态？",
+        "example": "依次提交定义、赋值和读取。同一个顶层环境从空用户帧开始。把计数设为 4，第二次请求加 3，第三次只读，读到 7。验算时，换成另一个初始环境，名字应无绑定。",
+        "boundary": "每条请求重建全局环境会丢失定义。",
+        "invariant": "交互输入是新的表达式，顶层帧的身份却必须延续。",
+        "representation": "用同一个环境连续提交三次请求，再换一个新环境重复最后一次读取。前者测试状态跨请求延续，后者测试两个解释器实例之间没有意外共享。",
+        "trace": {
+          "input": "依次提交定义、赋值和读取",
+          "initial": "同一个顶层环境从空用户帧开始",
+          "steps": "把计数设为 4，第二次请求加 3，第三次只读",
+          "result": "读到 7",
+          "check": "换成另一个初始环境，名字应无绑定"
+        },
+        "exercise": "ex-4-14",
+        "figures": {},
+        "textbook_code": {
+          "input-apply-primitive": "宿主调用的入口应只接收已登记为基本过程的实现。"
+        },
+        "answer_reason": "解释器定义的映射过程经过自己的应用分派，能拆解客体闭包。宿主映射过程却试图把同一闭包记录当作宿主可调用值，因而报错。桥接时应逐项调用解释器的应用操作并传入单元素实参表。",
+        "coherence": "用“依次提交定义、赋值和读取”检验本节方法，再与习题 4.14 的适用条件对照。",
+        "racket_readback": "s4-1-4 7",
+        "readback_conclusion": "实际运行得到 7，与“读到 7”相符。",
+        "evidence": {
+          "probe": "s4-1-4 7",
+          "readback": "实际运行得到 7，与“读到 7”相符。"
+        }
+      },
+      {
+        "section": "s4-1-5",
+        "question": "一个表示式何时从数据变为计算？",
+        "example": "由符号乘号及两个 5 构成列表。引文保留三个元素。先读取这个列表，再显式交给解释器求值，得到 25。验算时，对原列表取首仍得到符号乘号。",
+        "boundary": "看起来像应用的数据不会自行执行。",
+        "invariant": "引文与执行分属两层，必须明确谁在解释谁的数据。",
+        "representation": "把一串符号当作程序，必须同时给出解释这些符号的环境。同一个表示式在乘号绑定不同的环境中可以有不同结果，因此语法数据本身并不决定行为。",
+        "trace": {
+          "input": "由符号乘号及两个 5 构成列表",
+          "initial": "引文保留三个元素",
+          "steps": "先读取这个列表，再显式交给解释器求值",
+          "result": "得到 25",
+          "check": "对原列表取首仍得到符号乘号"
+        },
+        "exercise": "ex-4-15",
+        "figures": {
+          "fig-4-2": "输入寄存器保存待乘的整数，沿机器连线看控制如何逐步积累乘积，再与程序数据的执行结果对照。",
+          "fig-4-3": "与前图同算阶乘，但此处再加一层解释：程序和输入分别进入通用求值器，机器的功能由读入的程序决定。"
+        },
+        "textbook_code": {},
+        "answer_reason": "假设判定器存在，把题中的过程自身也作为输入。若它断言该调用会返回，过程转而无限循环；若断言不会返回，过程立即返回。两种回答均与运行定义矛盾，故不存在对所有过程和输入都正确的判定器。",
+        "coherence": "用“由符号乘号及两个 5 构成列表”检验本节方法，再与习题 4.15 的适用条件对照。",
+        "racket_readback": "s4-1-5 25",
+        "readback_conclusion": "实际运行得到 25，与“得到 25”相符。",
+        "evidence": {
+          "probe": "s4-1-5 25",
+          "readback": "实际运行得到 25，与“得到 25”相符。"
+        }
+      },
+      {
+        "section": "s4-1-6",
+        "question": "两个局部过程怎样互相引用？",
+        "example": "让奇偶过程轮流递减 7。同一帧先有两个未赋值单元。分别写入闭包，奇过程调用偶过程直到零，7 判为奇数。验算时，把起点改成 6 则奇数判断为假。",
+        "boundary": "读未赋值槽与查不到名字是两种不同错误。",
+        "invariant": "闭包创建时只需环境存在，应用时才读取另一个过程。",
+        "representation": "相互递归只要求构造闭包时环境已存在，并不要求立即产生另一个过程的运行结果。比较创建闭包和直接读取未赋值变量，能看清两者的时间差。",
+        "trace": {
+          "input": "让奇偶过程轮流递减 7",
+          "initial": "同一帧先有两个未赋值单元",
+          "steps": "分别写入闭包，奇过程调用偶过程直到零",
+          "result": "7 判为奇数",
+          "check": "把起点改成 6 则奇数判断为假"
+        },
+        "exercise": "ex-4-20",
+        "figures": {},
+        "textbook_code": {
+          "input-internal-body": "顺序写入与同时建立名字是两个步骤；闭包可以晚于建立时才读取槽。"
+        },
+        "answer_reason": "递归版本：调用帧〔x=5〕内建子帧〔偶、奇〕；两个闭包的定义环境都指回子帧，调用偶时能找到奇。普通版本：同样有子帧，但两闭包在建立子帧前创建，都指向 x 所在帧，故自由名字奇无绑定。实现先建未赋值帧再赋值，页末 letrec 分支展示了这两步。",
+        "coherence": "用“让奇偶过程轮流递减 7”检验本节方法，再与习题 4.20 的适用条件对照。",
+        "racket_readback": "s4-1-6 #t",
+        "readback_conclusion": "实际运行得到 #t，与“7 判为奇数”相符。",
+        "evidence": {
+          "probe": "s4-1-6 #t",
+          "readback": "实际运行得到 #t，与“7 判为奇数”相符。"
+        }
+      },
+      {
+        "section": "s4-1-7",
+        "question": "重复执行同一段语法时可以省下哪一步？",
+        "example": "把平方过程应用于 9。分析器先生成接受环境的执行过程。同一执行过程在新帧里把两个 9 相乘，得到 81。验算时，直接求值同一程序也得 81。",
+        "boundary": "缓存执行过程不能连同上一次实参的值一起缓存。",
+        "invariant": "分析一次可重复执行，变量读取仍发生在运行时。",
+        "representation": "同一棵语法树可以多次执行，每次执行时的环境可能不同。在分析时记住变量的位置或选择分支的代码是合理的，记住变量这一次的值就会出错。",
+        "trace": {
+          "input": "把平方过程应用于 9",
+          "initial": "分析器先生成接受环境的执行过程",
+          "steps": "同一执行过程在新帧里把两个 9 相乘",
+          "result": "得到 81",
+          "check": "直接求值同一程序也得 81"
+        },
+        "exercise": "ex-4-24",
+        "figures": {},
+        "textbook_code": {
+          "input-analyze-sequence": "序列执行器复用分析阶段构造的子过程，而不能缓存某次环境中的值。"
+        },
+        "answer_reason": "以同一闭包重复求值递归阶乘，对照直接解释、单次分析和复用执行过程三个阶段。用相同参数和独立环境核对两方的数值，再分别记录分析和执行时间；分析所占比例是分析时间除以分析与执行时间之和。测量记录见本题实验。",
+        "coherence": "用“把平方过程应用于 9”检验本节方法，再与习题 4.24 的适用条件对照。",
+        "racket_readback": "s4-1-7 81",
+        "readback_conclusion": "实际运行得到 81，与“得到 81”相符。",
+        "evidence": {
+          "probe": "s4-1-7 81",
+          "readback": "实际运行得到 81，与“得到 81”相符。"
+        }
+      },
+      {
+        "section": "s4-2-1",
+        "question": "怎样避免计算未选中的分支？",
+        "example": "返回首参数的过程收到 7 和除零计算。第二个参数可以用承诺表示。主体只索取第一个参数，除法没有被启动，结果是 7。验算时，严格模式会先报告除零错误。",
+        "boundary": "只有在真正需要结果的位置才应迫使延迟参数。",
+        "invariant": "这里差异在终止性，不只是少做一次算术。",
+        "representation": "“可省略一个参数”和“省略任何工作”不同。条件测试的真假与基本算术需要实际值，普通闭包却可以先接收承诺，再由它的主体决定需求。",
+        "trace": {
+          "input": "返回首参数的过程收到 7 和除零计算",
+          "initial": "第二个参数可以用承诺表示",
+          "steps": "主体只索取第一个参数，除法没有被启动",
+          "result": "结果是 7",
+          "check": "严格模式会先报告除零错误"
+        },
+        "exercise": "ex-4-25",
+        "figures": {},
+        "textbook_code": {
+          "input-unless": "作为普通过程时，选用哪一分支不能反过来阻止严格调用者计算实参。"
+        },
+        "answer_reason": "求阶乘 5 时，普通调用先求所有实参，包括递归调用。即使计数已经等于 1，也先求 0、负数的阶乘，因而永不返回。正规序只迫使被选分支，得到 120。",
+        "coherence": "用“返回首参数的过程收到 7 和除零计算”检验本节方法，再与习题 4.25 的适用条件对照。",
+        "racket_readback": "s4-2-1 7",
+        "readback_conclusion": "实际运行得到 7，与“结果是 7”相符。",
+        "evidence": {
+          "probe": "s4-2-1 7",
+          "readback": "实际运行得到 7，与“结果是 7”相符。"
+        }
+      },
+      {
+        "section": "s4-2-2",
+        "question": "共享一个实参会不会重复其副作用？",
+        "example": "把记数恒等过程作用在 10 上，再将它交给平方过程。计数器从 0 开始。第一次乘法取参运行恒等过程并记忆，第二次读取缓存，平方为 100，计数为 1。验算时，两次独立承诺则会分别增加计数。",
+        "boundary": "记忆化必须区分尚未计算和计算结果为假。",
+        "invariant": "缓存属于承诺对象的身份，而非表达式打印出的文字。",
+        "representation": "两个相同的表达式不必对应同一个承诺。要验证记忆化，应让两次需求经过同一个形参槽，并用可观察的计数器区分一次计算和两次计算。",
+        "trace": {
+          "input": "把记数恒等过程作用在 10 上，再将它交给平方过程",
+          "initial": "计数器从 0 开始",
+          "steps": "第一次乘法取参运行恒等过程并记忆，第二次读取缓存",
+          "result": "平方为 100，计数为 1",
+          "check": "两次独立承诺则会分别增加计数"
+        },
+        "exercise": "ex-4-29",
+        "figures": {},
+        "textbook_code": {
+          "input-actual-value": "取实际值会追踪承诺链，操作符位置也可能需要这一操作。",
+          "input-force-it": "记忆化的关键是把共享对象改写成结果，返回假值也应算已计算。"
+        },
+        "answer_reason": "反复把同一参数传给平方过程，其嵌套深度每增一层，非记忆版可能把底层工作重复一倍。题给两版均返回 100，记忆版只执行一次有副作用的恒等过程，计数 1；非记忆版两次读取参数，计数 2。",
+        "coherence": "用“把记数恒等过程作用在 10 上，再将它交给平方过程”检验本节方法，再与习题 4.29 的适用条件对照。",
+        "racket_readback": "s4-2-2 (100 1)",
+        "readback_conclusion": "实际运行得到 (100 1)，与“平方为 100，计数为 1”相符。",
+        "evidence": {
+          "probe": "s4-2-2 (100 1)",
+          "readback": "实际运行得到 (100 1)，与“平方为 100，计数为 1”相符。"
+        }
+      },
+      {
+        "section": "s4-2-3",
+        "question": "不访问首项能否读到尾部？",
+        "example": "闭包序对的首项是除零，尾项是 7。构造只产生选择器闭包。让选择器返回第二项，迫使该值，尾项为 7。验算时，选择首项则应出现除零错误。",
+        "boundary": "无限表的显示必须限制长度，不能为打印而穷尽尾流。",
+        "invariant": "过程式序对把两个分量的需求交给消费者决定。",
+        "representation": "观察无限列表时给消费者加上明确预算，只取有限的层数与项数。若打印首项前先计算完整尾部，打印器本身就改变了程序的可观察终止行为。",
+        "trace": {
+          "input": "闭包序对的首项是除零，尾项是 7",
+          "initial": "构造只产生选择器闭包",
+          "steps": "让选择器返回第二项，迫使该值",
+          "result": "尾项为 7",
+          "check": "选择首项则应出现除零错误"
+        },
+        "exercise": "ex-4-32",
+        "figures": {},
+        "textbook_code": {
+          "input-lazy-pairs": "构造器把两个参数都留在闭包里，选择器决定需求哪一项。"
+        },
+        "answer_reason": "第三章的流在造结点时求首项；本章的过程序对只在选择某一分量时才取其值。构造首项为除零、尾项为 7 的序对，只取尾部仍得 7。它允许先遍历行索引，再选择真正需要的昂贵矩阵元素。",
+        "coherence": "用“闭包序对的首项是除零，尾项是 7”检验本节方法，再与习题 4.32 的适用条件对照。",
+        "racket_readback": "s4-2-3 7",
+        "readback_conclusion": "实际运行得到 7，与“尾项为 7”相符。",
+        "evidence": {
+          "probe": "s4-2-3 7",
+          "readback": "实际运行得到 7，与“尾项为 7”相符。"
+        }
+      },
+      {
+        "section": "s4-3-1",
+        "question": "约束失败应回到哪里？",
+        "example": "备选值依次为 2、3、4。所有值尚待尝试。拒绝 2，返回 3，再次取解得到 4，答案为 3 和 4。验算时，耗尽后为空，不会重复第一解。",
+        "boundary": "若某个分支本身无限递归，深度优先不能保证访问兄弟分支。",
+        "invariant": "失败续文保存尚未搜索的分支和相应状态。",
+        "representation": "公平性是枚举策略的性质，不能从有答案推断搜索器一定会抵达它。把无限备选放到内层再调换枚举次序，可以观察同一数学问题的不同终止行为。",
+        "trace": {
+          "input": "备选值依次为 2、3、4",
+          "initial": "所有值尚待尝试",
+          "steps": "拒绝 2，返回 3，再次取解得到 4",
+          "result": "答案为 3 和 4",
+          "check": "耗尽后为空，不会重复第一解"
+        },
+        "exercise": "ex-4-36",
+        "figures": {},
+        "textbook_code": {
+          "input-require": "条件不满足时进入空选择点，控制退到最近还有替代项的位置。",
+          "input-an-element-of": "先试表头，失败续文保存余表。空表耗尽时沿外层续文回退。",
+          "input-an-integer-starting-from": "递归备选在需要下一解时才使用；嵌套无限选择可能饿死外层备选。",
+          "input-prime-sum-pair": "两层选择确定数对，素数谓词只过滤，不能改变候选次序。"
+        },
+        "answer_reason": "深度优先在固定两条直角边后无限尝试斜边，无法返回外层。改为以斜边 k 从小到大递增，两个直角边各在 1 至 k 的有限范围枚举，保持前者不大于后者。每个固定 k 均在有限步内穷尽，因此任意三元组最终会被访问。",
+        "coherence": "用“备选值依次为 2、3、4”检验本节方法，再与习题 4.36 的适用条件对照。",
+        "racket_readback": "s4-3-1 (3 4)",
+        "readback_conclusion": "实际运行得到 (3 4)，与“答案为 3 和 4”相符。",
+        "evidence": {
+          "probe": "s4-3-1 (3 4)",
+          "readback": "实际运行得到 (3 4)，与“答案为 3 和 4”相符。"
+        }
+      },
+      {
+        "section": "s4-3-2",
+        "question": "为何应在生成部分赋值时就检查约束？",
+        "example": "两个人从 1、2 楼分别选楼层。起始尚无人入住。第一人选 1 后排除第二人同层，再交换顺序，只剩 (1 2) 与 (2 1)。验算时，四种原始组合减去两种同层组合。",
+        "boundary": "带副作用的约束若任意换序，答案本身可能改变。",
+        "invariant": "纯约束可提早剪枝，不会改变合法解的集合。",
+        "representation": "楼层题中“两人不住同层”在这两人选定后即可判断。若一直等到所有人选定才检查，合法布局相同，但每次失败都丢弃了更多已经做过的工作。",
+        "trace": {
+          "input": "两个人从 1、2 楼分别选楼层",
+          "initial": "起始尚无人入住",
+          "steps": "第一人选 1 后排除第二人同层，再交换顺序",
+          "result": "只剩 (1 2) 与 (2 1)",
+          "check": "四种原始组合减去两种同层组合"
+        },
+        "exercise": "ex-4-40",
+        "figures": {},
+        "textbook_code": {
+          "input-multiple-dwelling": "每个楼层变量独立提出候选，互异及相邻条件再剔除不合法组合。",
+          "input-word-lists": "词表第一项是类别标签，后面才是可消费或可生成的词。",
+          "input-parse-word": "成功匹配表头时推进游标，失败时恢复，语法依赖从左向右消费。",
+          "input-parse-prepositional-phrase": "介词后要解析一个名词短语，短语自身仍可带修饰语。",
+          "input-parse-sentence": "名词短语与动词短语分用输入的连续前后两段。",
+          "input-parse-noun-phrase": "先消耗简单短语再尝试扩展，使递归在有限输入上取得进展。"
+        },
+        "answer_reason": "不要求互异有 5 的五次方即 3125 种，互异只余 5! 即 120 种。每一步从尚未占用楼层挑选，Fletcher 只考虑中间楼层，Cooper 确定后立即限制 Miller 与 Fletcher。唯一结果依 Baker、Cooper、Fletcher、Miller、Smith 顺序为 (3 2 4 5 1)。",
+        "coherence": "用“两个人从 1、2 楼分别选楼层”检验本节方法，再与习题 4.40 的适用条件对照。",
+        "racket_readback": "s4-3-2 ((1 2) (2 1))",
+        "readback_conclusion": "实际运行得到 ((1 2) (2 1))，与“只剩 (1 2) 与 (2 1)”相符。",
+        "evidence": {
+          "probe": "s4-3-2 ((1 2) (2 1))",
+          "readback": "实际运行得到 ((1 2) (2 1))，与“只剩 (1 2) 与 (2 1)”相符。"
+        }
+      },
+      {
+        "section": "s4-3-3",
+        "question": "为什么普通赋值要附带恢复动作？",
+        "example": "两条分支都让计数加 1。初始计数为 0。第一支成功后请求下一支，先恢复旧值再加，两次均读到 1。验算时，永久赋值在同一路径会依次读到 1 和 2。",
+        "boundary": "故意终止于首解时，不能声称已经遍历其余搜索树。",
+        "invariant": "恢复动作要接回右侧表达式的失败续文。",
+        "representation": "失败续文不仅保存下一个候选，还可能保存如何撤销这条路径的赋值。将普通赋值换成永久赋值，再对比第二个结果，便能直接观察这一层责任。",
+        "trace": {
+          "input": "两条分支都让计数加 1",
+          "initial": "初始计数为 0",
+          "steps": "第一支成功后请求下一支，先恢复旧值再加",
+          "result": "两次均读到 1",
+          "check": "永久赋值在同一路径会依次读到 1 和 2"
+        },
+        "exercise": "ex-4-51",
+        "figures": {},
+        "textbook_code": {
+          "input-analyze-amb": "列表耗尽调用旧失败续文；每个分支成功时能交回新的继续搜索入口。",
+          "input-amb-assignment": "备选路径开始时的值保存在恢复动作里，永久赋值省去这一动作。"
+        },
+        "answer_reason": "赋值成功后继续使用右侧传来的失败续文，不包装恢复旧值的操作。若改用普通赋值，失败或请求下一解时撤销计数，因此前两个成功答案为 (a b 1)、(a c 1)。永久版本则把被拒绝的 (a a) 尝试也计入。",
+        "coherence": "用“两条分支都让计数加 1”检验本节方法，再与习题 4.51 的适用条件对照。",
+        "racket_readback": "s4-3-3 (1 1)",
+        "readback_conclusion": "实际运行得到 (1 1)，与“两次均读到 1”相符。",
+        "evidence": {
+          "probe": "s4-3-3 (1 1)",
+          "readback": "实际运行得到 (1 1)，与“两次均读到 1”相符。"
+        }
+      },
+      {
+        "section": "s4-4-1",
+        "question": "查询怎样保留两个条件之间的关联？",
+        "example": "边表含 a 到 b、b 到 c。以空绑定查两步路径。第一项绑定中点 b，第二项只接受从 b 出发的边，终点为 c。验算时，尝试把终点填成 a 会失败。",
+        "boundary": "匿名地各查一次两条边会把不相连的记录也配对。",
+        "invariant": "一个框架内同名变量代表同一未知量。",
+        "representation": "一条查询里重复出现同一个变量，就是要求各位置一致。把管理者姓名分别写进两个不同变量，会把本来需要相连的两条记录错拼成笛卡尔积。",
+        "trace": {
+          "input": "边表含 a 到 b、b 到 c",
+          "initial": "以空绑定查两步路径",
+          "steps": "第一项绑定中点 b，第二项只接受从 b 出发的边",
+          "result": "终点为 c",
+          "check": "尝试把终点填成 a 会失败"
+        },
+        "exercise": "ex-4-55",
+        "figures": {},
+        "textbook_code": {
+          "input-microshaft": "地址、职位、工资和主管通过同一个人名连接；任职能力是职位间的有向关系。",
+          "input-lives-near": "两个住址模式共享镇名变量，并用不同的人名排除自配对。",
+          "input-wheel": "中层主管及下属都是证据的一部分，投影出高层主管时可能产生重复姓名。",
+          "input-outranked-by": "先找到直接主管，递归时才沿着已经确定的上级继续。",
+          "input-append-to-form": "关系的基例固定空前缀，递归把前缀第一个元素原样移到输出头部。"
+        },
+        "answer_reason": "主管用 (supervisor ?who (Bitdiddle Ben))；职位用 (job ?who (accounting . ?kind))；住址用 (address ?who (Slumerville . ?where))。点尾变量保留任意长度的后缀，不能写成固定两元素列表。",
+        "coherence": "用“边表含 a 到 b、b 到 c”检验本节方法，再与习题 4.55 的适用条件对照。",
+        "racket_readback": "s4-4-1 (c)",
+        "readback_conclusion": "实际运行得到 (c)，与“终点为 c”相符。",
+        "evidence": {
+          "probe": "s4-4-1 (c)",
+          "readback": "实际运行得到 (c)，与“终点为 c”相符。"
+        }
+      },
+      {
+        "section": "s4-4-2",
+        "question": "框架流怎样贯穿合取？",
+        "example": "候选工资是 3 和 7，阈值为 4。事实查询生成两个工资绑定。第二个条件在每一帧读取工资，只让大于 4 者通过，剩 7。验算时，把条件倒置会遇到未绑定参数。",
+        "boundary": "宿主谓词只能使用已经实例化的实参。",
+        "invariant": "流单元是整份一致绑定，筛选不能丢掉前面的约束。",
+        "representation": "合取把上一阶段的每个输出送入下一阶段；析取直接把相同输入分别送入各分支。看图时先标出输入框架，才能判断一个过滤器有没有获得必需的值。",
+        "trace": {
+          "input": "候选工资是 3 和 7，阈值为 4",
+          "initial": "事实查询生成两个工资绑定",
+          "steps": "第二个条件在每一帧读取工资，只让大于 4 者通过",
+          "result": "剩 7",
+          "check": "把条件倒置会遇到未绑定参数"
+        },
+        "exercise": "ex-4-76",
+        "figures": {
+          "fig-4-4": "进入处理器的是一条框架流，模式对每一帧作一致性检查；出口处保留下来的绑定可能从一帧扩展成多帧。",
+          "fig-4-5": "顺着串联箭头读：第二个条件收到第一个条件扩展后的框架，因此能检验同一个人名。",
+          "fig-4-6": "两条并联支路从相同输入开始，末端汇集答案；一支产生的绑定不会成为另一支的输入。"
+        },
+        "textbook_code": {},
+        "answer_reason": "令两个子查询从同一输入框架独立产生答案。对每个左右组合，把右框架的每个绑定同左框架中的对应变量合一；遇冲突即弃，否则传出合并框架。必须用合一处理间接变量，不能只比较打印值。若一边是依赖另一边先绑定的过滤条件，须推迟过滤。",
+        "coherence": "用“候选工资是 3 和 7，阈值为 4”检验本节方法，再与习题 4.76 的适用条件对照。",
+        "racket_readback": "s4-4-2 (7)",
+        "readback_conclusion": "实际运行得到 (7)，与“剩 7”相符。",
+        "evidence": {
+          "probe": "s4-4-2 (7)",
+          "readback": "实际运行得到 (7)，与“剩 7”相符。"
+        }
+      },
+      {
+        "section": "s4-4-3",
+        "question": "数据库中的否定能说明什么？",
+        "example": "事实含 a 到 b、a 到 d、b 到 c。第一步取得两个候选终点。逐个检查是否存在从终点到 c 的边，仅 d 被保留。验算时，补入 d 到 c 后，结果变为空。",
+        "boundary": "当前库中无法推导与逻辑上的绝对否定不同。",
+        "invariant": "否定依据当前框架和数据库中的可证性。",
+        "representation": "把否定测试放到能绑定人名的事实查询之前，相当于问“全库有没有这样的人”，而非“这个人是否符合”。操作次序会改变这类查询的含义。",
+        "trace": {
+          "input": "事实含 a 到 b、a 到 d、b 到 c",
+          "initial": "第一步取得两个候选终点",
+          "steps": "逐个检查是否存在从终点到 c 的边",
+          "result": "仅 d 被保留",
+          "check": "补入 d 到 c 后，结果变为空"
+        },
+        "exercise": "ex-4-64",
+        "figures": {},
+        "textbook_code": {},
+        "answer_reason": "错误规则先调用尚未受主管事实限制的递归目标，每调用一次只把中间名换成新变量，未沿任何已知管理边前进。先查直接主管，绑定中间人后再递归，有限无环组织图的链长会逐步缩短。",
+        "coherence": "用“事实含 a 到 b、a 到 d、b 到 c”检验本节方法，再与习题 4.64 的适用条件对照。",
+        "racket_readback": "s4-4-3 (d)",
+        "readback_conclusion": "实际运行得到 (d)，与“仅 d 被保留”相符。",
+        "evidence": {
+          "probe": "s4-4-3 (d)",
+          "readback": "实际运行得到 (d)，与“仅 d 被保留”相符。"
+        }
+      },
+      {
+        "section": "s4-4-4-1",
+        "question": "返回给读者的答案如何去掉间接变量？",
+        "example": "变量 x 指向 y，y 指向 3。查询模板是含 x 的单元素表。沿两次绑定替换，再重建模板外层序对，显示 (3)。验算时，原始不可变框架仍保存两条绑定。",
+        "boundary": "自由变量应保留名字而非随意填一个值。",
+        "invariant": "实例化只读框架，不会把不同答案合成一份。",
+        "representation": "内部绑定可能指向另一个尚未展开的变量。如果只替换模板的第一层，读者会看到实现内部的临时名字，而看不到最终在更深框架中得到的值。",
+        "trace": {
+          "input": "变量 x 指向 y，y 指向 3",
+          "initial": "查询模板是含 x 的单元素表",
+          "steps": "沿两次绑定替换，再重建模板外层序对",
+          "result": "显示 (3)",
+          "check": "原始不可变框架仍保存两条绑定"
+        },
+        "exercise": "ex-4-79",
+        "figures": {},
+        "textbook_code": {},
+        "answer_reason": "每次应用规则分配子环境，槽位由“环境对象、变量名”共同定位。把调用者目标同子环境的结论合一时，变量引用携带各自环境；例如两次调用平方都有名字 x，但分属两个帧。规则成功后只向调用者投影可见变量，保留能从结果到达的约束。扩展时可让子帧保存局部规则，查询先见局部再见父规则；在子帧暂加假设 P 推出 A、B 后退出，假设不会泄漏给别的分支。",
+        "coherence": "用“变量 x 指向 y，y 指向 3”检验本节方法，再与习题 4.79 的适用条件对照。",
+        "racket_readback": "s4-4-4-1 (3)",
+        "readback_conclusion": "实际运行得到 (3)，与“显示 (3)”相符。",
+        "evidence": {
+          "probe": "s4-4-4-1 (3)",
+          "readback": "实际运行得到 (3)，与“显示 (3)”相符。"
+        }
+      },
+      {
+        "section": "s4-4-4-2",
+        "question": "析取如何汇合两个可能的来源？",
+        "example": "查询红色或蓝色的物品。两条事实分别描述笔与杯。让两个分支读取同一初始帧，再交错结果，得到笔和杯两个绑定。验算时，任一分支为空时另一边仍可输出。",
+        "boundary": "两个分支得到的框架不能按变量名直接混合。",
+        "invariant": "合取串联输入，析取并联输入。",
+        "representation": "检查并联搜索时，给两个分支使用互不相同的标记，再读取输出前缀。这样能区分实际交错与先耗尽左边再追加右边的实现。",
+        "trace": {
+          "input": "查询红色或蓝色的物品",
+          "initial": "两条事实分别描述笔与杯",
+          "steps": "让两个分支读取同一初始帧，再交错结果",
+          "result": "得到笔和杯两个绑定",
+          "check": "任一分支为空时另一边仍可输出"
+        },
+        "exercise": "ex-4-72",
+        "figures": {},
+        "textbook_code": {
+          "input-simple-query": "单个框架先匹配断言，再按需尝试规则；未得到第一条事实时仍可能需要规则分支。",
+          "input-disjoin": "分支共享输入框架，结果交错，允许两边都向读者贡献答案。"
+        },
+        "answer_reason": "若首分支不断产生答案，普通追加永远不会读第二分支。每输出一个值就交换两条流，便能在首支的第一、第二个答案之间读到另一支的第一个答案。若某支连首项都无法产生，这种合作式交错仍可能停住。",
+        "coherence": "用“查询红色或蓝色的物品”检验本节方法，再与习题 4.72 的适用条件对照。",
+        "racket_readback": "s4-4-4-2 (pen cup)",
+        "readback_conclusion": "实际运行得到 (pen cup)，与“得到笔和杯两个绑定”相符。",
+        "evidence": {
+          "probe": "s4-4-4-2 (pen cup)",
+          "readback": "实际运行得到 (pen cup)，与“得到笔和杯两个绑定”相符。"
+        }
+      },
+      {
+        "section": "s4-4-4-3",
+        "question": "重复变量能否匹配两个不同的值？",
+        "example": "模式要求一对元素相同，事实有 (1 1) 和 (1 2)。首个变量尚无绑定。匹配首槽后绑定为 1，再约束第二槽，只有第一条事实成功。验算时，把两事实顺序倒置也只得到 1。",
+        "boundary": "已经绑定的变量再次出现时必须复核一致性。",
+        "invariant": "匹配产生新帧，失败的尝试不能污染下一条事实。",
+        "representation": "点对模式的首部和尾部要依次匹配。首部产生的绑定必须传给尾部，若两边都从旧框架独立出发，同一变量出现在不同位置的约束就会失效。",
+        "trace": {
+          "input": "模式要求一对元素相同，事实有 (1 1) 和 (1 2)",
+          "initial": "首个变量尚无绑定",
+          "steps": "匹配首槽后绑定为 1，再约束第二槽",
+          "result": "只有第一条事实成功",
+          "check": "把两事实顺序倒置也只得到 1"
+        },
+        "exercise": "ex-4-61",
+        "figures": {},
+        "textbook_code": {},
+        "answer_reason": "第一个查询依次匹配 1 与整个子表 (2 3)，以及该子表与 4；不会进入子表把 2 和 3 当外层元素。第二个查询中 2 和 3 都紧邻一个 1，因而有两个绑定。",
+        "coherence": "用“模式要求一对元素相同，事实有 (1 1) 和 (1 2)”检验本节方法，再与习题 4.61 的适用条件对照。",
+        "racket_readback": "s4-4-4-3 (1)",
+        "readback_conclusion": "实际运行得到 (1)，与“只有第一条事实成功”相符。",
+        "evidence": {
+          "probe": "s4-4-4-3 (1)",
+          "readback": "实际运行得到 (1)，与“只有第一条事实成功”相符。"
+        }
+      },
+      {
+        "section": "s4-4-4-4",
+        "question": "为何要拒绝变量依赖自身？",
+        "example": "尝试让 x 等于以 x 为尾的序对。变量尚自由。沿候选结构检查发现同一变量，合一失败。验算时，将尾部改为空表则可以绑定。",
+        "boundary": "省略出现检查会令后续实例化无限展开。",
+        "invariant": "递归应用规则先刷新局部变量，再合一头部与查询。",
+        "representation": "先做变量追踪再检查出现关系。若变量之间已间接关联，仅在待绑定表达式中搜索名字的字面出现，仍会漏掉经另一变量返回自身的循环。",
+        "trace": {
+          "input": "尝试让 x 等于以 x 为尾的序对",
+          "initial": "变量尚自由",
+          "steps": "沿候选结构检查发现同一变量",
+          "result": "合一失败",
+          "check": "将尾部改为空表则可以绑定"
+        },
+        "exercise": "ex-4-67",
+        "figures": {},
+        "textbook_code": {
+          "input-unify-match": "两边都可以带变量；比较表尾时必须使用比较表头后得到的新框架。"
+        },
+        "answer_reason": "沿当前推导路径保存已代入框架的目标，并把尚自由的变量按首次出现顺序编号。再次遇到同一关系、同一参数结构且无新增约束，截断该分支。兄弟分支有各自历史；只记录关系名将误杀沿部门层级推进的递归。该办法不解决参数持续变大的搜索。",
+        "coherence": "用“尝试让 x 等于以 x 为尾的序对”检验本节方法，再与习题 4.67 的适用条件对照。",
+        "racket_readback": "s4-4-4-4 #f",
+        "readback_conclusion": "实际运行得到 #f，与“合一失败”相符。",
+        "evidence": {
+          "probe": "s4-4-4-4 #f",
+          "readback": "实际运行得到 #f，与“合一失败”相符。"
+        }
+      },
+      {
+        "section": "s4-4-4-5",
+        "question": "增加一条事实后旧查询快照应怎样表现？",
+        "example": "旧库只有 a 到 b，新库另加 a 到 d。先保留对旧库的引用。分别在旧库和新库查 a 的后继，分别得到一个与两个后继。验算时，旧库仍只给 b。",
+        "boundary": "延迟尾部捕获已更新的全局名字可能制造循环。",
+        "invariant": "这里以不可变列表模拟版本，展示为什么必须捕获旧流本身。",
+        "representation": "持有旧数据库的读取者应能继续完成原查询。把旧流先存进独立的局部位置，再构建新流头，可以让两个版本共享旧尾而不把新头指回自身。",
+        "trace": {
+          "input": "旧库只有 a 到 b，新库另加 a 到 d",
+          "initial": "先保留对旧库的引用",
+          "steps": "分别在旧库和新库查 a 的后继",
+          "result": "分别得到一个与两个后继",
+          "check": "旧库仍只给 b"
+        },
+        "exercise": "ex-4-70",
+        "figures": {},
+        "textbook_code": {
+          "input-add-assertion": "全局事实流会被替换，延迟尾部必须指向修改以前的流对象。"
+        },
+        "answer_reason": "新增断言的尾部应指向更新前的流。若延迟表达式直接读取稍后已重绑定的全局名字，迫使尾部时将读到新流本身，形成首项无限重复的环。先以局部绑定保存旧值，再让承诺捕获该绑定即可。",
+        "coherence": "用“旧库只有 a 到 b，新库另加 a 到 d”检验本节方法，再与习题 4.70 的适用条件对照。",
+        "racket_readback": "s4-4-4-5 ((b) (d b))",
+        "readback_conclusion": "实际运行得到 ((b) (d b))，与“分别得到一个与两个后继”相符。",
+        "evidence": {
+          "probe": "s4-4-4-5 ((b) (d b))",
+          "readback": "实际运行得到 ((b) (d b))，与“分别得到一个与两个后继”相符。"
+        }
+      },
+      {
+        "section": "s4-4-4-6",
+        "question": "怎样按需求观察并联搜索的前几项？",
+        "example": "两个分支各有两个答案。每条支流从自己的首帧开始。读首支一项，再换次支，继续交换，前两项来自两个不同分支。验算时，取有限前缀即可确认交错顺序。",
+        "boundary": "单支永远不能产生首项时，普通交错不能抢占它。",
+        "invariant": "惰性尾部保存剩余计算而非一次性展开整棵树。",
+        "representation": "交错让能逐步产生结果的两条分支轮流前进。它不能中断一个计算首项就永不返回的过程，因此测试公平性时要把这两类无界行为分开。",
+        "trace": {
+          "input": "两个分支各有两个答案",
+          "initial": "每条支流从自己的首帧开始",
+          "steps": "读首支一项，再换次支，继续交换",
+          "result": "前两项来自两个不同分支",
+          "check": "取有限前缀即可确认交错顺序"
+        },
+        "exercise": "ex-4-73",
+        "figures": {},
+        "textbook_code": {
+          "input-stream-flatmap": "映射生成一条子流的流，压平时要兼顾各条子流的进展。"
+        },
+        "answer_reason": "严格求值会先递归计算外层剩余流的平坦化结果，再把它传给交错过程。外层若无限，计算永远到不了第一项。把递归调用包进承诺，先交出当前子流的首项，需求尾部时才继续。",
+        "coherence": "用“两个分支各有两个答案”检验本节方法，再与习题 4.73 的适用条件对照。",
+        "racket_readback": "s4-4-4-6 (1 3)",
+        "readback_conclusion": "实际运行得到 (1 3)，与“前两项来自两个不同分支”相符。",
+        "evidence": {
+          "probe": "s4-4-4-6 (1 3)",
+          "readback": "实际运行得到 (1 3)，与“前两项来自两个不同分支”相符。"
+        }
+      },
+      {
+        "section": "s4-4-4-7",
+        "question": "怎样识别变量而保留普通符号？",
+        "example": "查询表中一个名字以问号开头，另一个是常量 red。输入框架为空。将变量绑定为 red，再把模板实例化，得到两个 red。验算时，不同常量 red 和 blue 无法合一。",
+        "boundary": "常量与变量必须使用一致的识别约定。",
+        "invariant": "执行适配直接识别带问号的符号，原书读入时先转换为内部表示。",
+        "representation": "问号前缀是读入规则。若一处把它当普通符号，另一处却把它当变量，相同查询在显示和规则匹配时会得出彼此矛盾的绑定结果。",
+        "trace": {
+          "input": "查询表中一个名字以问号开头，另一个是常量 red",
+          "initial": "输入框架为空",
+          "steps": "将变量绑定为 red，再把模板实例化",
+          "result": "得到两个 red",
+          "check": "不同常量 red 和 blue 无法合一"
+        },
+        "exercise": "ex-4-75",
+        "figures": {},
+        "textbook_code": {},
+        "answer_reason": "对每个输入框架运行子查询；无首项或有第二项均返回空流，只有恰一项才传出那个扩展框架。注意返回的是扩展后的绑定。检查每位主管是否只管理一人可用 (and (supervisor ?p ?s) (unique (supervisor ?other ?s)))。可执行分支见 query。",
+        "coherence": "用“查询表中一个名字以问号开头，另一个是常量 red”检验本节方法，再与习题 4.75 的适用条件对照。",
+        "racket_readback": "s4-4-4-7 (red red)",
+        "readback_conclusion": "实际运行得到 (red red)，与“得到两个 red”相符。",
+        "evidence": {
+          "probe": "s4-4-4-7 (red red)",
+          "readback": "实际运行得到 (red red)，与“得到两个 red”相符。"
+        }
+      },
+      {
+        "section": "s4-4-4-8",
+        "question": "两条路径扩展同一输入是否会互相干扰？",
+        "example": "左右候选分别把 x 绑定到 3 和 5。两方共用一个空帧。分别以不可变扩展产生新帧，读取到 3、5。验算时，旧帧仍然没有 x 的绑定。",
+        "boundary": "不能把失败标记当作一个合法的空帧。",
+        "invariant": "分支共享旧结构，各自扩展的绑定只存在于新框架。",
+        "representation": "成功的空框架是一个合法起点。失败必须有单独标记，否则一条完全由常量组成且确实成立的事实会被误当成毫无解答。",
+        "trace": {
+          "input": "左右候选分别把 x 绑定到 3 和 5",
+          "initial": "两方共用一个空帧",
+          "steps": "分别以不可变扩展产生新帧",
+          "result": "读取到 3、5",
+          "check": "旧帧仍然没有 x 的绑定"
+        },
+        "exercise": "ex-4-76",
+        "figures": {},
+        "textbook_code": {},
+        "answer_reason": "令两个子查询从同一输入框架独立产生答案。对每个左右组合，把右框架的每个绑定同左框架中的对应变量合一；遇冲突即弃，否则传出合并框架。必须用合一处理间接变量，不能只比较打印值。若一边是依赖另一边先绑定的过滤条件，须推迟过滤。",
+        "coherence": "用“左右候选分别把 x 绑定到 3 和 5”检验本节方法，再与习题 4.76 的适用条件对照。",
+        "racket_readback": "s4-4-4-8 (3 5)",
+        "readback_conclusion": "实际运行得到 (3 5)，与“读取到 3、5”相符。",
+        "evidence": {
+          "probe": "s4-4-4-8 (3 5)",
+          "readback": "实际运行得到 (3 5)，与“读取到 3、5”相符。"
+        }
+      }
+    ],
+    "parent_sections": [
+      {
+        "section": "s4-1",
+        "question": "程序怎样取得一门新语言的含义？",
+        "example": "把一个加二过程应用于 5，求值器先算出闭包和实参，再建立形参绑定，最后把加法委托给基本过程，得到 7。",
+        "boundary": "只有基本算术委托给 Racket；拆表达式、建立环境和选分支均由本章程序完成。",
+        "worked_sections": [
+          "s4-1-1",
+          "s4-1-2",
+          "s4-1-3",
+          "s4-1-4",
+          "s4-1-5",
+          "s4-1-6",
+          "s4-1-7"
+        ],
+        "execution_evidence": [
+          "s4-1-1 7",
+          "s4-1-2 15",
+          "s4-1-3 10",
+          "s4-1-4 7",
+          "s4-1-5 25",
+          "s4-1-6 #t",
+          "s4-1-7 81"
+        ]
+      },
+      {
+        "section": "s4-2",
+        "question": "过程可否在一个实参会报错时仍给出答案？",
+        "example": "一个返回首参数的过程收到 7 和除零表达式；严格应用先求两项而失败，惰性应用只需要 7。",
+        "boundary": "延迟保存表达式和调用环境；仅保存语法会在同名变量被遮蔽时读错值。",
+        "worked_sections": [
+          "s4-2-1",
+          "s4-2-2",
+          "s4-2-3"
+        ],
+        "execution_evidence": [
+          "s4-2-1 7",
+          "s4-2-2 (100 1)",
+          "s4-2-3 7"
+        ]
+      },
+      {
+        "section": "s4-3",
+        "question": "怎样让一个求值过程交出不止一个答案？",
+        "example": "从 2、3、4 中挑大于 2 的数；第一支失败，返回最近的选择点，后两支分别交出 3、4。",
+        "boundary": "成功返回值还包含下一次搜索的入口，不能提早丢掉。",
+        "worked_sections": [
+          "s4-3-1",
+          "s4-3-2",
+          "s4-3-3"
+        ],
+        "execution_evidence": [
+          "s4-3-1 (3 4)",
+          "s4-3-2 ((1 2) (2 1))",
+          "s4-3-3 (1 1)"
+        ]
+      },
+      {
+        "section": "s4-4",
+        "question": "能否从已知关系推出未知参数？",
+        "example": "输入两条父子事实，从祖父到中间人再到孙子用同一变量接合；若第二条事实的父亲不匹配，就丢弃该框架。",
+        "boundary": "关系的真值和搜索能否在有限时间给出证明要分开讨论。",
+        "worked_sections": [
+          "s4-4-1",
+          "s4-4-2",
+          "s4-4-3",
+          "s4-4-4-1",
+          "s4-4-4-2",
+          "s4-4-4-3",
+          "s4-4-4-4",
+          "s4-4-4-5",
+          "s4-4-4-6",
+          "s4-4-4-7",
+          "s4-4-4-8"
+        ],
+        "execution_evidence": [
+          "s4-4-1 (c)",
+          "s4-4-2 (7)",
+          "s4-4-3 (d)",
+          "s4-4-4-1 (3)",
+          "s4-4-4-2 (pen cup)",
+          "s4-4-4-3 (1)",
+          "s4-4-4-4 #f",
+          "s4-4-4-5 ((b) (d b))",
+          "s4-4-4-6 (1 3)",
+          "s4-4-4-7 (red red)",
+          "s4-4-4-8 (3 5)"
+        ]
+      },
+      {
+        "section": "s4-4-4",
+        "question": "如何把匹配、规则和答案显示组织成可检查的程序？",
+        "example": "先用事实固定人名，再应用一条规则推导关系，最后按原查询模板代入绑定。读者可沿以下八步分别检查每个接口。",
+        "boundary": "每次规则应用都必须隔离局部变量；显示时只展开可达绑定。",
+        "worked_sections": [
+          "s4-4-4-1",
+          "s4-4-4-2",
+          "s4-4-4-3",
+          "s4-4-4-4",
+          "s4-4-4-5",
+          "s4-4-4-6",
+          "s4-4-4-7",
+          "s4-4-4-8"
+        ],
+        "execution_evidence": [
+          "s4-4-4-1 (3)",
+          "s4-4-4-2 (pen cup)",
+          "s4-4-4-3 (1)",
+          "s4-4-4-4 #f",
+          "s4-4-4-5 ((b) (d b))",
+          "s4-4-4-6 (1 3)",
+          "s4-4-4-7 (red red)",
+          "s4-4-4-8 (3 5)"
+        ]
+      }
+    ]
+  },
+  "depth_contract_sha256": "91d68b6a82e074630c78ac1b6d9546fc57d78164373683b67346c8cee7be868c",
+  "visual_sections": {
+    "s4-1": [
+      {
+        "kind": "excerpt",
+        "status": "reproduced",
+        "representation": "blockquote",
+        "source_pdf_page": 520,
+        "title": "4.1 元循环求值器原句",
+        "review_version": "I088",
+        "reason": "保留原书对元循环的定义，明确实现语言与被解释语言的关系。",
+        "target": "#excerpt-metacircular"
+      }
+    ],
+    "s4-1-1": [
+      {
+        "kind": "excerpt",
+        "status": "omitted",
+        "representation": "blockquote",
+        "source_pdf_page": 522,
+        "title": "4.1.1 求值器的核心原句",
+        "review_version": "I088",
+        "reason": "如何区分求值表达式与应用过程？本节用中文例子直接演示该问题的状态变化。"
+      },
+      {
+        "kind": "figure",
+        "representation": "svg",
+        "status": "reproduced",
+        "target": "#fig-4-1",
+        "source_pdf_page": 522,
+        "title": "eval-apply 循环揭示了计算机语言的本质。",
+        "reason": "从表达式到过程与实参，再从复合过程回到对主体的求值，箭头闭合一次恰好对应一层调用。",
+        "review_version": "I088"
+      }
+    ],
+    "s4-1-2": [
+      {
+        "kind": "excerpt",
+        "status": "omitted",
+        "representation": "blockquote",
+        "source_pdf_page": 529,
+        "title": "4.1.2 表达式的表示原句",
+        "review_version": "I088",
+        "reason": "新语法如何复用旧的求值规则？本节用中文例子直接演示该问题的状态变化。"
+      }
+    ],
+    "s4-1-3": [
+      {
+        "kind": "excerpt",
+        "status": "omitted",
+        "representation": "blockquote",
+        "source_pdf_page": 540,
+        "title": "4.1.3 求值器的数据结构原句",
+        "review_version": "I088",
+        "reason": "为什么闭包要保留环境而不复制当前值？本节用中文例子直接演示该问题的状态变化。"
+      },
+      {
+        "kind": "trace",
+        "representation": "table",
+        "status": "equivalent",
+        "target": "#trace-s4-1-3",
+        "source_pdf_page": 540,
+        "title": "定义环境与调用环境",
+        "reason": "闭包保存的是一条能抵达单元的环境链。更改同一单元后闭包应看见新值，而在别的帧中增加一个同名绑定，不会改变这条链的走向。",
+        "review_version": "I088"
+      }
+    ],
+    "s4-1-4": [
+      {
+        "kind": "excerpt",
+        "status": "omitted",
+        "representation": "blockquote",
+        "source_pdf_page": 545,
+        "title": "4.1.4 把求值器作为程序运行原句",
+        "review_version": "I088",
+        "reason": "顶层驱动循环应该重复使用哪一部分状态？本节用中文例子直接演示该问题的状态变化。"
+      }
+    ],
+    "s4-1-5": [
+      {
+        "kind": "excerpt",
+        "status": "omitted",
+        "representation": "blockquote",
+        "source_pdf_page": 550,
+        "title": "4.1.5 数据作为程序原句",
+        "review_version": "I088",
+        "reason": "一个表示式何时从数据变为计算？本节用中文例子直接演示该问题的状态变化。"
+      },
+      {
+        "kind": "figure",
+        "representation": "svg",
+        "status": "reproduced",
+        "target": "#fig-4-2",
+        "source_pdf_page": 551,
+        "title": "阶乘程序，视为一台抽象机器。",
+        "reason": "输入寄存器保存待乘的整数，沿机器连线看控制如何逐步积累乘积，再与程序数据的执行结果对照。",
+        "review_version": "I088"
+      },
+      {
+        "kind": "figure",
+        "representation": "svg",
+        "status": "reproduced",
+        "target": "#fig-4-3",
+        "source_pdf_page": 552,
+        "title": "求值器模拟阶乘机器。",
+        "reason": "与前图同算阶乘，但此处再加一层解释：程序和输入分别进入通用求值器，机器的功能由读入的程序决定。",
+        "review_version": "I088"
+      }
+    ],
+    "s4-1-6": [
+      {
+        "kind": "excerpt",
+        "status": "omitted",
+        "representation": "blockquote",
+        "source_pdf_page": 554,
+        "title": "4.1.6 内部定义原句",
+        "review_version": "I088",
+        "reason": "两个局部过程怎样互相引用？本节用中文例子直接演示该问题的状态变化。"
+      }
+    ],
+    "s4-1-7": [
+      {
+        "kind": "excerpt",
+        "status": "omitted",
+        "representation": "blockquote",
+        "source_pdf_page": 562,
+        "title": "4.1.7 分离语法分析与执行原句",
+        "review_version": "I088",
+        "reason": "重复执行同一段语法时可以省下哪一步？本节用中文例子直接演示该问题的状态变化。"
+      }
+    ],
+    "s4-2": [
+      {
+        "kind": "excerpt",
+        "status": "omitted",
+        "representation": "blockquote",
+        "source_pdf_page": 569,
+        "title": "4.2 惰性求值原句",
+        "review_version": "I088",
+        "reason": "过程可否在一个实参会报错时仍给出答案？本节用中文例子直接演示该问题的状态变化。"
+      }
+    ],
+    "s4-2-1": [
+      {
+        "kind": "excerpt",
+        "status": "omitted",
+        "representation": "blockquote",
+        "source_pdf_page": 570,
+        "title": "4.2.1 正则序与应用序原句",
+        "review_version": "I088",
+        "reason": "怎样避免计算未选中的分支？本节用中文例子直接演示该问题的状态变化。"
+      }
+    ],
+    "s4-2-2": [
+      {
+        "kind": "excerpt",
+        "status": "omitted",
+        "representation": "blockquote",
+        "source_pdf_page": 572,
+        "title": "4.2.2 惰性求值解释器原句",
+        "review_version": "I088",
+        "reason": "共享一个实参会不会重复其副作用？本节用中文例子直接演示该问题的状态变化。"
+      }
+    ],
+    "s4-2-3": [
+      {
+        "kind": "excerpt",
+        "status": "omitted",
+        "representation": "blockquote",
+        "source_pdf_page": 583,
+        "title": "4.2.3 流作为惰性表原句",
+        "review_version": "I088",
+        "reason": "不访问首项能否读到尾部？本节用中文例子直接演示该问题的状态变化。"
+      },
+      {
+        "kind": "trace",
+        "representation": "table",
+        "status": "equivalent",
+        "target": "#trace-s4-2-3",
+        "source_pdf_page": 583,
+        "title": "惰性序对的两条需求边",
+        "reason": "观察无限列表时给消费者加上明确预算，只取有限的层数与项数。若打印首项前先计算完整尾部，打印器本身就改变了程序的可观察终止行为。",
+        "review_version": "I088"
+      }
+    ],
+    "s4-3": [
+      {
+        "kind": "excerpt",
+        "status": "omitted",
+        "representation": "blockquote",
+        "source_pdf_page": 587,
+        "title": "4.3 非确定性计算原句",
+        "review_version": "I088",
+        "reason": "怎样让一个求值过程交出不止一个答案？本节用中文例子直接演示该问题的状态变化。"
+      }
+    ],
+    "s4-3-1": [
+      {
+        "kind": "excerpt",
+        "status": "omitted",
+        "representation": "blockquote",
+        "source_pdf_page": 589,
+        "title": "4.3.1 选择与搜索原句",
+        "review_version": "I088",
+        "reason": "约束失败应回到哪里？本节用中文例子直接演示该问题的状态变化。"
+      },
+      {
+        "kind": "trace",
+        "representation": "table",
+        "status": "equivalent",
+        "target": "#trace-s4-3-1",
+        "source_pdf_page": 589,
+        "title": "约束失败后的搜索轨迹",
+        "reason": "公平性是枚举策略的性质，不能从有答案推断搜索器一定会抵达它。把无限备选放到内层再调换枚举次序，可以观察同一数学问题的不同终止行为。",
+        "review_version": "I088"
+      }
+    ],
+    "s4-3-2": [
+      {
+        "kind": "excerpt",
+        "status": "omitted",
+        "representation": "blockquote",
+        "source_pdf_page": 595,
+        "title": "4.3.2 非确定性程序实例原句",
+        "review_version": "I088",
+        "reason": "为何应在生成部分赋值时就检查约束？本节用中文例子直接演示该问题的状态变化。"
+      }
+    ],
+    "s4-3-3": [
+      {
+        "kind": "excerpt",
+        "status": "omitted",
+        "representation": "blockquote",
+        "source_pdf_page": 606,
+        "title": "4.3.3 实现非确定性求值器原句",
+        "review_version": "I088",
+        "reason": "为什么普通赋值要附带恢复动作？本节用中文例子直接演示该问题的状态变化。"
+      }
+    ],
+    "s4-4": [
+      {
+        "kind": "excerpt",
+        "status": "omitted",
+        "representation": "blockquote",
+        "source_pdf_page": 622,
+        "title": "4.4 逻辑程序设计原句",
+        "review_version": "I088",
+        "reason": "能否从已知关系推出未知参数？本节用中文例子直接演示该问题的状态变化。"
+      }
+    ],
+    "s4-4-1": [
+      {
+        "kind": "excerpt",
+        "status": "omitted",
+        "representation": "blockquote",
+        "source_pdf_page": 627,
+        "title": "4.4.1 演绎信息检索原句",
+        "review_version": "I088",
+        "reason": "查询怎样保留两个条件之间的关联？本节用中文例子直接演示该问题的状态变化。"
+      }
+    ],
+    "s4-4-2": [
+      {
+        "kind": "excerpt",
+        "status": "omitted",
+        "representation": "blockquote",
+        "source_pdf_page": 643,
+        "title": "4.4.2 查询系统的工作方式原句",
+        "review_version": "I088",
+        "reason": "框架流怎样贯穿合取？本节用中文例子直接演示该问题的状态变化。"
+      },
+      {
+        "kind": "figure",
+        "representation": "svg",
+        "status": "reproduced",
+        "target": "#fig-4-4",
+        "source_pdf_page": 646,
+        "title": "查询处理一个框架流。",
+        "reason": "进入处理器的是一条框架流，模式对每一帧作一致性检查；出口处保留下来的绑定可能从一帧扩展成多帧。",
+        "review_version": "I088"
+      },
+      {
+        "kind": "figure",
+        "representation": "svg",
+        "status": "reproduced",
+        "target": "#fig-4-5",
+        "source_pdf_page": 647,
+        "title": "两个查询的and组合是通过串联操作框架流产生的。",
+        "reason": "顺着串联箭头读：第二个条件收到第一个条件扩展后的框架，因此能检验同一个人名。",
+        "review_version": "I088"
+      },
+      {
+        "kind": "figure",
+        "representation": "svg",
+        "status": "reproduced",
+        "target": "#fig-4-6",
+        "source_pdf_page": 648,
+        "title": "两个查询的or组合是通过并联操作框架流并合并结果产生的。",
+        "reason": "两条并联支路从相同输入开始，末端汇集答案；一支产生的绑定不会成为另一支的输入。",
+        "review_version": "I088"
+      }
+    ],
+    "s4-4-3": [
+      {
+        "kind": "excerpt",
+        "status": "omitted",
+        "representation": "blockquote",
+        "source_pdf_page": 655,
+        "title": "4.4.3 查询系统是数理逻辑吗原句",
+        "review_version": "I088",
+        "reason": "数据库中的否定能说明什么？本节用中文例子直接演示该问题的状态变化。"
+      }
+    ],
+    "s4-4-4": [
+      {
+        "kind": "excerpt",
+        "status": "omitted",
+        "representation": "blockquote",
+        "source_pdf_page": 663,
+        "title": "4.4.4 实现查询系统原句",
+        "review_version": "I088",
+        "reason": "如何把匹配、规则和答案显示组织成可检查的程序？本节用中文例子直接演示该问题的状态变化。"
+      }
+    ],
+    "s4-4-4-1": [
+      {
+        "kind": "excerpt",
+        "status": "omitted",
+        "representation": "blockquote",
+        "source_pdf_page": 663,
+        "title": "4.4.4.1 驱动循环与实例化原句",
+        "review_version": "I088",
+        "reason": "返回给读者的答案如何去掉间接变量？本节用中文例子直接演示该问题的状态变化。"
+      }
+    ],
+    "s4-4-4-2": [
+      {
+        "kind": "excerpt",
+        "status": "omitted",
+        "representation": "blockquote",
+        "source_pdf_page": 666,
+        "title": "4.4.4.2 查询求值器原句",
+        "review_version": "I088",
+        "reason": "析取如何汇合两个可能的来源？本节用中文例子直接演示该问题的状态变化。"
+      }
+    ],
+    "s4-4-4-3": [
+      {
+        "kind": "excerpt",
+        "status": "omitted",
+        "representation": "blockquote",
+        "source_pdf_page": 670,
+        "title": "4.4.4.3 以模式匹配查找断言原句",
+        "review_version": "I088",
+        "reason": "重复变量能否匹配两个不同的值？本节用中文例子直接演示该问题的状态变化。"
+      }
+    ],
+    "s4-4-4-4": [
+      {
+        "kind": "excerpt",
+        "status": "omitted",
+        "representation": "blockquote",
+        "source_pdf_page": 673,
+        "title": "4.4.4.4 规则与合一原句",
+        "review_version": "I088",
+        "reason": "为何要拒绝变量依赖自身？本节用中文例子直接演示该问题的状态变化。"
+      }
+    ],
+    "s4-4-4-5": [
+      {
+        "kind": "excerpt",
+        "status": "omitted",
+        "representation": "blockquote",
+        "source_pdf_page": 679,
+        "title": "4.4.4.5 维护数据库原句",
+        "review_version": "I088",
+        "reason": "增加一条事实后旧查询快照应怎样表现？本节用中文例子直接演示该问题的状态变化。"
+      }
+    ],
+    "s4-4-4-6": [
+      {
+        "kind": "excerpt",
+        "status": "omitted",
+        "representation": "blockquote",
+        "source_pdf_page": 682,
+        "title": "4.4.4.6 流操作原句",
+        "review_version": "I088",
+        "reason": "怎样按需求观察并联搜索的前几项？本节用中文例子直接演示该问题的状态变化。"
+      }
+    ],
+    "s4-4-4-7": [
+      {
+        "kind": "excerpt",
+        "status": "omitted",
+        "representation": "blockquote",
+        "source_pdf_page": 684,
+        "title": "4.4.4.7 查询语法过程原句",
+        "review_version": "I088",
+        "reason": "怎样识别变量而保留普通符号？本节用中文例子直接演示该问题的状态变化。"
+      }
+    ],
+    "s4-4-4-8": [
+      {
+        "kind": "excerpt",
+        "status": "omitted",
+        "representation": "blockquote",
+        "source_pdf_page": 687,
+        "title": "4.4.4.8 框架与绑定原句",
+        "review_version": "I088",
+        "reason": "两条路径扩展同一输入是否会互相干扰？本节用中文例子直接演示该问题的状态变化。"
+      }
+    ]
+  },
+  "source_sha256": {
+    "sicp/notes/chapter04_metalinguistic.html": "8bc09ff1bee6f14adad8625c8ce615af8d1d73e64e7bf52ce419783d7ab61f2b"
+  },
+  "output_sha256": {
+    "sicp/notes/chapter04_metalinguistic.html": "f93972237d0e7fd6f91479d305179609375272b53f281944b14930b83358e667"
+  },
+  "formal_page": "sicp/notes/chapter04_metalinguistic.html",
+  "open_items": [],
+  "scope": "6 pages, 304 exercises; chapters 1–4",
+  "runtime": "Racket 8.10 [cs]",
+  "verification": {
+    "commands": {
+      "node scripts/sync-legacy.mjs --write": 0,
+      "node tools/check-presentation-contract.mjs": 0,
+      "node tools/reader-contract/check.mjs": 0,
+      "node tools/reading-typography/check.mjs": 0,
+      "node tools/reading-presentation/check.mjs": 0,
+      "node tools/reading-prose/check.mjs": 0,
+      "node --test scripts/*.test.mjs": 0,
+      "python books/sicp/tools/check_notes.py": 0,
+      "node scripts/toc-tree-smoke.mjs": 0,
+      "python tools/project.py build": 0,
+      "git diff --check": 0,
+      "node scripts/sync-legacy.mjs": 0,
+      "racket books/sicp/code/test-chapter04.rkt": 0,
+      "racket books/sicp/tools/check_chapter04_examples.rkt": 0,
+      "node books/sicp/tools/chapter04-candidate.mjs": 0,
+      "node books/sicp/tools/check_chapter04_browser.mjs": 0,
+      "node scripts/verify-parity.mjs --book sicp": 0,
+      "node books/sicp/tools/check_chapter04_browser.mjs --dist": 0,
+      "node scripts/toc-tree-smoke.mjs --dist": 0,
+      "node scripts/check-offline.mjs --book sicp": 0,
+      "python tools/project.py check-local": 0,
+      "python tools/check_astro_records.py": 0
+    },
+    "baseline_ref": "beb2aad54b87a026282c4dd42dceca593fc06390",
+    "build": "20261122T202756",
+    "node_tests": 173,
+    "regression_groups": 25,
+    "worked_examples": 24,
+    "negative_cases": 8,
+    "browser": {
+      "source": "tmp/i088/g15.log",
+      "dist": "tmp/i088/g17.log",
+      "widths_js": [
+        1800,
+        1440,
+        1024,
+        390
+      ],
+      "widths_no_js": [
+        1440,
+        390
+      ],
+      "offline_report": "tmp/reading-notes-migration/browser/sicp/runs/2026-11-22T12-33-40-425Z-29c0d914/report.json",
+      "offline_report_sha256": "fabddc6c973b6cb298c56722e1174554c44e9760a87fe439a7e0c2d95d64b83f",
+      "external_requests": []
+    },
+    "toc_smoke": {
+      "pages": 75,
+      "grouped_pages": 18,
+      "groups": 48,
+      "source_and_dist_views": [
+        {
+          "width": 1440,
+          "js": true,
+          "passed": 75,
+          "failures": []
+        },
+        {
+          "width": 1440,
+          "js": false,
+          "passed": 75,
+          "failures": []
+        },
+        {
+          "width": 390,
+          "js": true,
+          "passed": 18,
+          "failures": []
+        },
+        {
+          "width": 390,
+          "js": false,
+          "passed": 18,
+          "failures": []
+        }
+      ]
+    },
+    "check_local": "tmp/project-check/20261122T203417-mfn9r75u/report.json"
+  }
+}

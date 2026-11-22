@@ -2,21 +2,21 @@
   "schema_version": 1,
   "book": "sicp",
   "status": "completed_locally",
-  "scope": "Locally registered SICP map, preface and chapters 1–3; 5 pages and 225 exercises.",
+  "scope": "Local map, preface and all five chapters; 7 pages, 356 exercises.",
   "file_sha256": {
-    "agent.md": "400e4925ae0dd7acb864b3ea39096d948f5ca80b407b3759d30388d10f8c182d",
-    "notes/README.md": "2932bfef869f9505dd91f21401967ca1de8861e83d8d5f4ac82472479e3b3a2d",
-    "notes/source_manifest.json": "c72ced043e9d0fb7756a8799c19bf7b32c738891610925e30dc5a9c740f73681",
+    "agent.md": "e843c8001acc0d9490831e10c3c0b8f92209c02f1472fa78142a511ff69628e9",
+    "notes/README.md": "fdf2842440e5d7d75295fc35e17b7f84f265b8db9a8b616282388bfaabeea41c",
+    "notes/source_manifest.json": "4579d7d0dab1523ef1c173e4208e9c013d1165dd2b24b1f2feb585c55cbdc0d6",
     "notes/source_inventory.json": "0049cef36db50693d361fac34147d305796d0529158dd296b3845accebfdd772",
     "notes/questions_ch01.json": "0a604e7a1c8dea8fdc59e7f1a418634f860a3ad67a1605514c5e207b1a3fb8fd",
     "notes/chapter01-inputs.json": "7bf28ee70cc20f9ec464997b4c5cf689cbd4074519ec0929e40ad9cac77438aa",
-    "code/README.md": "9435186272ddc83de3be7827c12b23f1373ee6dcce22bb5af14866addba2ec33",
+    "code/README.md": "0b8cdd41ddb540b7d4b2ca882b4ef3302228fbd9d843a618c685015fdcbcf84f",
     "code/chapter01-results.json": "6f28a74c768ba9f01fcb9e4a53757b72ac985d914358cb1b00b40184b77642aa",
-    "tools/check_notes.py": "057e478a3090716ffd524672a5c07c651d9d5313361ebe5b2e1de88282fbdd12",
+    "tools/check_notes.py": "5a1bfcefad96f6f35e138bebe6dd419b6ff80a084854b337b77ea2f51b2d6b9c",
     "tools/sync_chapter01.py": "377edd2aa45ad2b2e52ec415cd9848a451a225900fb65291100174d06a0f48fa",
-    "reading-plan.md": "08f1a1687671d0b79dfae07e54f470c1002208bde7eb212f5dcfae3a70675955",
-    "README.md": "27152643527b7dd67e2b5eb386dd7c77ef1e47b9e1b4b424bd3fa5382e7ca1c3",
-    "review/chapter03.json": "4d3ae0165024a752c28e860543ad36a8204a8638a9abf4ed5db7d0f1f864e84e",
+    "reading-plan.md": "496f255eeefa3a977367ebc9873ab583f89da392ec68c465848000b1c3fb32d4",
+    "README.md": "9dcf5567de93a515bdcb618b3e1e6d7372bc1393b85969d8d50df5b89286991c",
+    "review/chapter03.json": "1e527107f18760f2f237e2068853e4e3eb7370b732b4bf6666e8dc44edc3f580",
     "code/chapter03.rkt": "6a7817bb6d5f1197596afa47861f8f76afb7174774148dc0eb78c0cee796d383",
     "code/test-chapter03.rkt": "5a09b5226f95056e274ca2804bf045b813b53de0d00d6d4b2ca4d66207d7ddae",
     "code/chapter03-results.json": "65e34648540552fa52c771f88f80c1ce0f41b728890976cf5cbd5694e80784f0",
@@ -24,7 +24,26 @@
     "notes/chapter03-inputs.json": "200bbe2fff5642a6e25449ac083eca881c0d4f8b14f2380f707f7b7446288ce4",
     "tools/check_chapter03_examples.rkt": "cde223407db21558bb2663bac6109d0e405d2bc6fc9edaaa6c3999397bd8a6c9",
     "tools/check_chapter03_browser.mjs": "8ac5e22bd7f97a13635d5dc60cb67aac6c41032424cd8b4939fb589b37901ee0",
-    "tools/chapter03-candidate.mjs": "b202dad39fb237d342a954b82e43f141af7d5bd761eb1acfea267f3c92afd7b4"
+    "tools/chapter03-candidate.mjs": "b202dad39fb237d342a954b82e43f141af7d5bd761eb1acfea267f3c92afd7b4",
+    "review/chapter04.json": "4447fdcadb9cf390811dc126bd92b3d8340daaaa84662329d9b338f154dfb8e8",
+    "notes/questions_ch04.json": "d4269f9457b1482b7eaee94477008560d0a7432b5aa7e1a16a3d793ec29e0cd1",
+    "notes/chapter04-inputs.json": "22f87935b3a73d543154230140c937c724baf6cb2e998e63e05f64dd0fbe80da",
+    "code/chapter04.rkt": "81e953d8c71ee868586c288174e5ee304a385fba1ce9bfb15db43de3e9e3ea2f",
+    "code/test-chapter04.rkt": "35b58a95ef60179805c2fdcf39e77d129d8704163e4fc8cdf8e7e86adb6a3f7d",
+    "code/chapter04-results.json": "28efb65a55157ea0e37cc66efcbf641bb5fca988614e1a4ff5ae97f17a06dc8b",
+    "tools/chapter04-candidate.mjs": "724eb0f47be8bd730d3e1c3c4ef71c721e4e86a5376872c1c6445a5510a93842",
+    "tools/check_chapter04_examples.rkt": "1c51deb7b68b0180b4c3e3cf39b6a72a6b02f773ba31c9c0fe95c7ce538f7588",
+    "tools/check_chapter04_browser.mjs": "7e91a3435a3349caff5236896f34307bd6cc32916dd55cd14f3f797d9ab1ee3b",
+    "review/chapter05.json": "fd2b1a1d4a76b0cc3daca7305f96f2222da67c0a8d7428ded04cbeec732d4a57",
+    "notes/questions_ch05.json": "fd7d1133d642acf0fc34961045a146f57d7d83243a6177fd41991922f2924648",
+    "notes/chapter05-inputs.json": "8c921894f44bb8ee9ab8d65415970d6e8ce5e605e0e415b79f60a94061abe39f",
+    "code/chapter05.rkt": "630817ca811ae0fc4a88bd2207dd7a544e81327d7c577c0759489558881c1c8e",
+    "code/chapter05-c.rkt": "509a83ac5166bdc6dc7db48ce1cd6389243f99fcfd5f87e45a7b3cd9e7f5ce01",
+    "code/test-chapter05.rkt": "95de587f506939e216ec404827c62155383563238051e9c9cde4456b6d01de2a",
+    "code/chapter05-results.json": "9e622d441f8d1d203cbedf91d1b5903e210c171e4ac00be2de0aa3fec51e35c8",
+    "tools/chapter05-candidate.mjs": "3e3921d9a30175fe442b8c908037fd8f28f0597264f41019b01c76374024b1da",
+    "tools/check_chapter05_examples.rkt": "820f0288db2b8f1e531ae29930313681cf7ae50d6dc767c44f53e0210b904acc",
+    "tools/check_chapter05_browser.mjs": "3fd65a896af0be563453a296c2ca757c463172c60b41a10525c37611b0da8278"
   },
   "open_findings": [],
   "astro_migration": {
@@ -37,7 +56,9 @@
       "chapter01_procedures.html": "af63907cbae9747250e488536294cc6762b25037dae298e6b315805e0704bc47",
       "preface.html": "86a0294f04752866c068cde7551a2917b267b847c61f8d298838dd5d7108e17e",
       "chapter02_data_abstraction.html": "fb838d1d73e8f297996ade21d55690d70b10bce0be18d7028a97392b21858d46",
-      "chapter03_modularity.html": "209776d12cbf366060b929d850620993586738c2b4bf0ea98504ac98136a7a19"
+      "chapter03_modularity.html": "209776d12cbf366060b929d850620993586738c2b4bf0ea98504ac98136a7a19",
+      "chapter04_metalinguistic.html": "1f33d1164080421942bf510631bf2ca5999f10346eda63dbab4692eceea7f871",
+      "chapter05_register_machines.html": "7ab7e3edea5797a171a76c89af64f9d177046fcc699d9ae2f42716a081aeb810"
     },
     "current_source_sha256": {
       "sicp/notes/book_overview.html": "7fc0fc5cd23e19cbe46482ff912ec749ab768234b00361582246ad40530e276e",
@@ -47,7 +68,7 @@
     }
   },
   "boundaries": [
-    "Chapters 4–5 remain outside the completed scope.",
+    "All five chapters are included. Production publication is outside this review.",
     "No physical mobile, screen reader or other browser validation",
     "Production not deployed"
   ],
@@ -383,7 +404,115 @@
           "reason": "同步书级维护范围"
         }
       ]
+    },
+    {
+      "issue": "I088",
+      "changes": [
+        {
+          "file": "agent.md",
+          "previous_sha256": "400e4925ae0dd7acb864b3ea39096d948f5ca80b407b3759d30388d10f8c182d",
+          "current_sha256": "87fb5cfa1479db0b81265b5e73482f0b928d89e99c8c2e9292b1a6c396213b6e",
+          "reason": "第 4 章新增入口、范围和验证。"
+        },
+        {
+          "file": "notes/README.md",
+          "previous_sha256": "2932bfef869f9505dd91f21401967ca1de8861e83d8d5f4ac82472479e3b3a2d",
+          "current_sha256": "a1fab96595717912c58fc981caae841e95a6b84d45093de53c74d00c384aa969",
+          "reason": "第 4 章新增入口、范围和验证。"
+        },
+        {
+          "file": "notes/source_manifest.json",
+          "previous_sha256": "c72ced043e9d0fb7756a8799c19bf7b32c738891610925e30dc5a9c740f73681",
+          "current_sha256": "adb510551b933e2492a8aeae30823133d413cbed9c3cf1e302e6b01d10bde48a",
+          "reason": "第 4 章新增入口、范围和验证。"
+        },
+        {
+          "file": "code/README.md",
+          "previous_sha256": "9435186272ddc83de3be7827c12b23f1373ee6dcce22bb5af14866addba2ec33",
+          "current_sha256": "231873b4685630bad5f33574578fefca77f190603ad99be3f6aa1bb32defd551",
+          "reason": "第 4 章新增入口、范围和验证。"
+        },
+        {
+          "file": "tools/check_notes.py",
+          "previous_sha256": "057e478a3090716ffd524672a5c07c651d9d5313361ebe5b2e1de88282fbdd12",
+          "current_sha256": "6a14879b91eee341b851fb3beb2beddaf20e3c78f1a0bf3a3411c15becbcc08f",
+          "reason": "第 4 章新增入口、范围和验证。"
+        },
+        {
+          "file": "reading-plan.md",
+          "previous_sha256": "08f1a1687671d0b79dfae07e54f470c1002208bde7eb212f5dcfae3a70675955",
+          "current_sha256": "1073de0f500aae64b6d7cadf0cfc2f8ec4a0b94e3635a6bf01a691fbef0214d0",
+          "reason": "第 4 章新增入口、范围和验证。"
+        },
+        {
+          "file": "README.md",
+          "previous_sha256": "27152643527b7dd67e2b5eb386dd7c77ef1e47b9e1b4b424bd3fa5382e7ca1c3",
+          "current_sha256": "019c6241acb4d43d6361369dd54fe867aef06e281f7f97d80f298f57f9f2a53e",
+          "reason": "第 4 章新增入口、范围和验证。"
+        },
+        {
+          "file": "review/chapter03.json",
+          "previous_sha256": "4d3ae0165024a752c28e860543ad36a8204a8638a9abf4ed5db7d0f1f864e84e",
+          "current_sha256": "1e527107f18760f2f237e2068853e4e3eb7370b732b4bf6666e8dc44edc3f580",
+          "reason": "第 4 章新增入口、范围和验证。"
+        }
+      ]
+    },
+    {
+      "issue": "I089",
+      "changes": [
+        {
+          "file": "agent.md",
+          "previous_sha256": "87fb5cfa1479db0b81265b5e73482f0b928d89e99c8c2e9292b1a6c396213b6e",
+          "current_sha256": "e843c8001acc0d9490831e10c3c0b8f92209c02f1472fa78142a511ff69628e9",
+          "reason": "第 5 章新增入口、范围和验证。"
+        },
+        {
+          "file": "notes/README.md",
+          "previous_sha256": "a1fab96595717912c58fc981caae841e95a6b84d45093de53c74d00c384aa969",
+          "current_sha256": "fdf2842440e5d7d75295fc35e17b7f84f265b8db9a8b616282388bfaabeea41c",
+          "reason": "第 5 章新增入口、范围和验证。"
+        },
+        {
+          "file": "notes/source_manifest.json",
+          "previous_sha256": "adb510551b933e2492a8aeae30823133d413cbed9c3cf1e302e6b01d10bde48a",
+          "current_sha256": "4579d7d0dab1523ef1c173e4208e9c013d1165dd2b24b1f2feb585c55cbdc0d6",
+          "reason": "第 5 章新增入口、范围和验证。"
+        },
+        {
+          "file": "code/README.md",
+          "previous_sha256": "231873b4685630bad5f33574578fefca77f190603ad99be3f6aa1bb32defd551",
+          "current_sha256": "0b8cdd41ddb540b7d4b2ca882b4ef3302228fbd9d843a618c685015fdcbcf84f",
+          "reason": "第 5 章新增入口、范围和验证。"
+        },
+        {
+          "file": "tools/check_notes.py",
+          "previous_sha256": "6a14879b91eee341b851fb3beb2beddaf20e3c78f1a0bf3a3411c15becbcc08f",
+          "current_sha256": "5a1bfcefad96f6f35e138bebe6dd419b6ff80a084854b337b77ea2f51b2d6b9c",
+          "reason": "第 5 章新增入口、范围和验证。"
+        },
+        {
+          "file": "reading-plan.md",
+          "previous_sha256": "1073de0f500aae64b6d7cadf0cfc2f8ec4a0b94e3635a6bf01a691fbef0214d0",
+          "current_sha256": "496f255eeefa3a977367ebc9873ab583f89da392ec68c465848000b1c3fb32d4",
+          "reason": "第 5 章新增入口、范围和验证。"
+        },
+        {
+          "file": "README.md",
+          "previous_sha256": "019c6241acb4d43d6361369dd54fe867aef06e281f7f97d80f298f57f9f2a53e",
+          "current_sha256": "9dcf5567de93a515bdcb618b3e1e6d7372bc1393b85969d8d50df5b89286991c",
+          "reason": "第 5 章新增入口、范围和验证。"
+        },
+        {
+          "file": "review/chapter04.json",
+          "previous_sha256": "540cba9f2fdae90ae1208e8a1424557e76acd1936543bbe2c409a4f052fdb75b",
+          "current_sha256": "4447fdcadb9cf390811dc126bd92b3d8340daaaa84662329d9b338f154dfb8e8",
+          "reason": "第 5 章新增入口、范围和验证。"
+        }
+      ]
     }
   ],
-  "chapter03_review": "review/chapter03.json"
+  "chapter03_review": "review/chapter03.json",
+  "chapter04_review": "review/chapter04.json",
+  "chapter05_review": "review/chapter05.json"
 }

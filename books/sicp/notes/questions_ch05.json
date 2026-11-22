@@ -1,0 +1,538 @@
+{
+  "schema_version": 1,
+  "issue": "I089",
+  "status": "question_boundaries_checked",
+  "reference": {
+    "file": "ZZZping/sicp/sicp-pocket.texi",
+    "sha256": "c070e11c9e5b6d9833c19915d88c8e0e396fa1df3fc7c2d4539057d7c08a2f37",
+    "boundary": "Exercise heading quotation through its matching end quotation"
+  },
+  "pdf": {
+    "file": "books/sicp/sicp.pdf",
+    "sha256": "afff2ca1486a46bcd47310bc5a974da1f9c6a6a0b15b39c93e2453350670f715",
+    "start": 694,
+    "end": 861
+  },
+  "items": [
+    {
+      "number": "5.1",
+      "printed_page": 672,
+      "pdf_page": 700,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.1}Exercise 5.1:} Design a register machine to\ncompute factorials using the iterative algorithm specified by the following\nprocedure.  Draw data-path and controller diagrams for this machine.\n\n@lisp\n(define (factorial n)\n  (define (iter product counter)\n    (if (> counter n)\n        product\n        (iter (* counter product)\n              (+ counter 1))))\n  (iter 1 1))\n@end lisp\n@end quotation",
+      "source_block_sha256": "8663c3285a965fcd14942ed6da16035e01142b2966f9c07c94510d9367365a20",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "04364bbd7c78845e11fc627122c1f2efa6af0cc5e88124fa78ff28a6d97a19e2"
+    },
+    {
+      "number": "5.2",
+      "printed_page": 676,
+      "pdf_page": 704,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.2}Exercise 5.2:} Use the register-machine language\nto describe the iterative factorial machine of @ref{Exercise 5.1}.\n@end quotation",
+      "source_block_sha256": "791d68a206a805aff4f1150136dc9f848e948543ff9fd1c1b89ccce79551d6d6",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "aace463232c5464590d389bc5066406191e343610c9827125115b2029c482906"
+    },
+    {
+      "number": "5.3",
+      "printed_page": 679,
+      "pdf_page": 707,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.3}Exercise 5.3:} Design a machine to compute square\nroots using Newton's method, as described in @ref{Sec.1.1.7,,1.1.7}:\n\n@lisp\n(define (sqrt x)\n  (define (good-enough? guess)\n    (< (abs (- (square guess) x)) 0.001))\n  (define (improve guess)\n    (average guess (/ x guess)))\n  (define (sqrt-iter guess)\n    (if (good-enough? guess)\n        guess\n        (sqrt-iter (improve guess))))\n  (sqrt-iter 1.0))\n@end lisp\n\nBegin by assuming that @code{good-enough?} and @code{improve} operations are\navailable as primitives.  Then show how to expand these in terms of arithmetic\noperations.  Describe each version of the @code{sqrt} machine design by drawing\na data-path diagram and writing a controller definition in the register-machine\nlanguage.\n@end quotation",
+      "source_block_sha256": "aef945a2c44de294b258b87d851500033c78a81e95be97afe4b6e12d3bed27b0",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "7aa631a917f4174c505d90294731b7e2eaa566a758253eab94eac2850a81fcea"
+    },
+    {
+      "number": "5.4",
+      "printed_page": 694,
+      "pdf_page": 722,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.4}Exercise 5.4:} Specify register machines that\nimplement each of the following procedures.  For each machine, write a\ncontroller instruction sequence and draw a diagram showing the data paths.\n\n@enumerate a\n\n@item\nRecursive exponentiation:\n\n@lisp\n(define (expt b n)\n  (if (= n 0)\n      1\n      (* b (expt b (- n 1)))))\n@end lisp\n\n@item\nIterative exponentiation:\n\n@lisp\n(define (expt b n)\n  (define (expt-iter counter product)\n    (if (= counter 0)\n        product\n        (expt-iter (- counter 1)\n                   (* b product))))\n  (expt-iter n 1))\n@end lisp\n\n@end enumerate\n@end quotation",
+      "source_block_sha256": "eceb876977e62281e11794ea7bc2795a3d1ea387a60aac83826f7e5a8789d53e",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "2163f1cd67f72b1b4ca037132709bac83d8183f751f9c22773091ac1b1f08bc0"
+    },
+    {
+      "number": "5.5",
+      "printed_page": 694,
+      "pdf_page": 722,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.5}Exercise 5.5:} Hand-simulate the factorial and\nFibonacci machines, using some nontrivial input (requiring execution of at\nleast one recursive call).  Show the contents of the stack at each significant\npoint in the execution.\n@end quotation",
+      "source_block_sha256": "f3f4fa716cff56a58279151b14bd1e6f58e5908faed8da119604711dcd125819",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "2c02671b2a147e7b49c56df6f191d435c7972c998ac935778f16eaef66db34e9"
+    },
+    {
+      "number": "5.6",
+      "printed_page": 694,
+      "pdf_page": 722,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.6}Exercise 5.6:} Ben Bitdiddle observes that the\nFibonacci machine's controller sequence has an extra @code{save} and an extra\n@code{restore}, which can be removed to make a faster machine.  Where are these\ninstructions?\n@end quotation",
+      "source_block_sha256": "392c58feceb0b494cccfa16225b70f8ace2c740c92020e3c63bbfac2015ef613",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "2ec548c897bfff7d97a152f3c3a615e444dc1273bb5aba102095ff2674ba1f1a"
+    },
+    {
+      "number": "5.7",
+      "printed_page": 698,
+      "pdf_page": 726,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.7}Exercise 5.7:} Use the simulator to test the\nmachines you designed in @ref{Exercise 5.4}.\n@end quotation",
+      "source_block_sha256": "43ffe289016f27a44d78eeb494e6c624d52fffd6af0990487194fae18d21e31c",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "a2b686b96317362daaddbb5c99569e779990b8efcb2f6601f9454b51fd88ea20"
+    },
+    {
+      "number": "5.8",
+      "printed_page": 708,
+      "pdf_page": 736,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.8}Exercise 5.8:} The following register-machine code\nis ambiguous, because the label @code{here} is defined more than once:\n\n@lisp\nstart\n  (goto (label here))\nhere\n  (assign a (const 3))\n  (goto (label there))\nhere\n  (assign a (const 4))\n  (goto (label there))\nthere\n@end lisp\n\nWith the simulator as written, what will the contents of register @code{a} be\nwhen control reaches @code{there}?  Modify the @code{extract-labels} procedure\nso that the assembler will signal an error if the same label name is used to\nindicate two different locations.\n@end quotation",
+      "source_block_sha256": "f35a4dd523df429e3e51a0d302c70e2cedd85277b681a1edf4a61d200b14fe05",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "fe07e586f3997f71131d9322b990cf21f402b6b1ba2e193b819d7db897c61933"
+    },
+    {
+      "number": "5.9",
+      "printed_page": 716,
+      "pdf_page": 744,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.9}Exercise 5.9:} The treatment of machine operations\nabove permits them to operate on labels as well as on constants and the\ncontents of registers.  Modify the expression-processing procedures to enforce\nthe condition that operations can be used only with registers and constants.\n@end quotation",
+      "source_block_sha256": "9dcc11da60fb6550b8992305e1197cc2aaf730b59db5f90015a826e4a1914ee9",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "d25bbdc483411159ac1fee56f2b0240f7ceb4bd5ff964c096140701b20582347"
+    },
+    {
+      "number": "5.10",
+      "printed_page": 716,
+      "pdf_page": 744,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.10}Exercise 5.10:} Design a new syntax for\nregister-machine instructions and modify the simulator to use your new syntax.\nCan you implement your new syntax without changing any part of the simulator\nexcept the syntax procedures in this section?\n@end quotation",
+      "source_block_sha256": "96f2151a4b950dac4a468e00885b2760a4198b9e1289af88561ad9512ef70007",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "23a4b6ea011be58fcf440bb527fcba557063bbf9d2883ec7cf41c183137d2f98"
+    },
+    {
+      "number": "5.11",
+      "printed_page": 716,
+      "pdf_page": 744,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.11}Exercise 5.11:} When we introduced @code{save}\nand @code{restore} in @ref{5.1.4}, we didn't specify what would happen\nif you tried to restore a register that was not the last one saved, as in the\nsequence\n\n@lisp\n(save y)\n(save x)\n(restore y)\n@end lisp\n\nThere are several reasonable possibilities for the meaning of @code{restore}:\n\n@enumerate a\n\n@item\n@code{(restore y)} puts into @code{y} the last value saved on the stack,\nregardless of what register that value came from.  This is the way our\nsimulator behaves.  Show how to take advantage of this behavior to eliminate\none instruction from the Fibonacci machine of @ref{5.1.4} (@ref{Figure 5.12}).\n\n@item\n@code{(restore y)} puts into @code{y} the last value saved on the stack, but\nonly if that value was saved from @code{y}; otherwise, it signals an error.\nModify the simulator to behave this way.  You will have to change @code{save}\nto put the register name on the stack along with the value.\n\n@item\n@code{(restore y)} puts into @code{y} the last value saved from @code{y}\nregardless of what other registers were saved after @code{y} and not restored.\nModify the simulator to behave this way.  You will have to associate a separate\nstack with each register.  You should make the @code{initialize-stack}\noperation initialize all the register stacks.\n\n@end enumerate\n@end quotation",
+      "source_block_sha256": "a9ad0d2f3e551ab268c911c77577f0f4b5b2fb817d86f3a2d5e7c9e0f3470336",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "b674a638943689ad31f565a3762da65a22ce765b427321b38e37661bf1bc0add"
+    },
+    {
+      "number": "5.12",
+      "printed_page": 717,
+      "pdf_page": 745,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.12}Exercise 5.12:} The simulator can be used to help\ndetermine the data paths required for implementing a machine with a given\ncontroller.  Extend the assembler to store the following information in the\nmachine model:\n\n@itemize\n\n@item\na list of all instructions, with duplicates removed, sorted by instruction type\n(@code{assign}, @code{goto}, and so on);\n\n@item\na list (without duplicates) of the registers used to hold entry points (these\nare the registers referenced by @code{goto} instructions);\n\n@item\na list (without duplicates) of the registers that are @code{save}d\nor @code{restore}d;\n\n@item\nfor each register, a list (without duplicates) of the sources from which it is\nassigned (for example, the sources for register @code{val} in the factorial\nmachine of @ref{Figure 5.11} are @code{(const 1)} and @code{((op *) (reg n)\n(reg val))}).\n\n@end itemize\n\nExtend the message-passing interface to the machine to provide access to this\nnew information.  To test your analyzer, define the Fibonacci machine from\n@ref{Figure 5.12} and examine the lists you constructed.\n@end quotation",
+      "source_block_sha256": "41d163fe24c6fe6f47f23c0ec9bc4d22909610e0cad5efbda13d6bbf8bac7d5f",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "f45a91008305be152503fe0e704f0184a292e13828c8f57cce5e8b7c8125b411"
+    },
+    {
+      "number": "5.13",
+      "printed_page": 718,
+      "pdf_page": 746,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.13}Exercise 5.13:} Modify the simulator so that it\nuses the controller sequence to determine what registers the machine has rather\nthan requiring a list of registers as an argument to @code{make-machine}.\nInstead of pre-allocating the registers in @code{make-machine}, you can\nallocate them one at a time when they are first seen during assembly of the\ninstructions.\n@end quotation",
+      "source_block_sha256": "16cf6e9bbb8d8db25e018c3f6aef07c6778a93fc51887564f870fabfcfa0875a",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "a7f470067d6e9192b500b8435f83be35c1975c5bfb0ad5bec92ff938a042737c"
+    },
+    {
+      "number": "5.14",
+      "printed_page": 720,
+      "pdf_page": 748,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.14}Exercise 5.14:} Measure the number of pushes and\nthe maximum stack depth required to compute @math{{n!}} for various small values of\n@math{n} using the factorial machine shown in @ref{Figure 5.11}.  From your data\ndetermine formulas in terms of @math{n} for the total number of push operations\nand the maximum stack depth used in computing @math{{n!}} for any @math{{n > 1}}. Note\nthat each of these is a linear function of @math{n} and is thus determined by two\nconstants.  In order to get the statistics printed, you will have to augment\nthe factorial machine with instructions to initialize the stack and print the\nstatistics.  You may want to also modify the machine so that it repeatedly\nreads a value for @math{n}, computes the factorial, and prints the result (as we\ndid for the @abbr{GCD} machine in @ref{Figure 5.4}), so that you will not\nhave to repeatedly invoke @code{get-register-contents},\n@code{set-register-contents!}, and @code{start}.\n@end quotation",
+      "source_block_sha256": "0b0a8b9e9c7b98ab527cfb0bf82399cc83ea859666cebed40b6bc289c857f4a5",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "1810c4788d096b09b7b571729448dbe708ca0584f7a4500e99062816c4e7311c"
+    },
+    {
+      "number": "5.15",
+      "printed_page": 721,
+      "pdf_page": 749,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.15}Exercise 5.15:} Add @newterm{instruction counting} \nto the register machine simulation.  That is, have the machine model\nkeep track of the number of instructions executed.  Extend the machine model's\ninterface to accept a new message that prints the value of the instruction\ncount and resets the count to zero.\n@end quotation",
+      "source_block_sha256": "fbb4dfc57d4620c53f368f4a5635702fa94eae536c6ad7b8d4b5379214005135",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "39d0a2e44674cdaf343cac6642f40cacd6271cd8a25dd21c309429f1e761ab47"
+    },
+    {
+      "number": "5.16",
+      "printed_page": 721,
+      "pdf_page": 749,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.16}Exercise 5.16:} Augment the simulator to provide\nfor @newterm{instruction tracing}.  That is, before each instruction is\nexecuted, the simulator should print the text of the instruction.  Make the\nmachine model accept @code{trace-on} and @code{trace-off} messages to turn\ntracing on and off.\n@end quotation",
+      "source_block_sha256": "c50c98d1396c4574778ee3b69326113613045948da681ad09d6537d5176c9a22",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "d8acb41cc3f2cca21b1d6df5151bf1af578cdb5b5e92ab59a1f00a7a33c33a0e"
+    },
+    {
+      "number": "5.17",
+      "printed_page": 721,
+      "pdf_page": 749,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.17}Exercise 5.17:} Extend the instruction tracing of\n@ref{Exercise 5.16} so that before printing an instruction, the simulator\nprints any labels that immediately precede that instruction in the controller\nsequence.  Be careful to do this in a way that does not interfere with\ninstruction counting (@ref{Exercise 5.15}).  You will have to make the\nsimulator retain the necessary label information.\n@end quotation",
+      "source_block_sha256": "a59d4f7eff6607c6c6158a338e73b9ace79c5bf450bf4a26bef7868b8e0398dc",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "4b4f7e64e30c58c00c61f28ad7a13629d00e72797608527df3761fd332c7de26"
+    },
+    {
+      "number": "5.18",
+      "printed_page": 721,
+      "pdf_page": 749,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.18}Exercise 5.18:} Modify the @code{make-register}\nprocedure of @ref{5.2.1} so that registers can be traced.  Registers\nshould accept messages that turn tracing on and off.  When a register is\ntraced, assigning a value to the register should print the name of the\nregister, the old contents of the register, and the new contents being\nassigned.  Extend the interface to the machine model to permit you to turn\ntracing on and off for designated machine registers.\n@end quotation",
+      "source_block_sha256": "c12d00fd0583a50297d8ff297781384135df6c5abc84411d6e8d753b9664dd6a",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "842c9fe99f9818707db1ce2d3ad15f2eddaf596e153228df81a0f8feae360b6e"
+    },
+    {
+      "number": "5.19",
+      "printed_page": 722,
+      "pdf_page": 750,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.19}Exercise 5.19:} Alyssa P. Hacker wants a\n@newterm{breakpoint} feature in the simulator to help her debug her machine\ndesigns.  You have been hired to install this feature for her.  She wants to be\nable to specify a place in the controller sequence where the simulator will\nstop and allow her to examine the state of the machine.  You are to implement a\nprocedure\n\n@lisp\n(set-breakpoint ⟨@var{machine}⟩ ⟨@var{label}⟩ ⟨@var{n}⟩)\n@end lisp\n\n@noindent\nthat sets a breakpoint just before the @math{n^{\\text{th}}} instruction after the given\nlabel.  For example,\n\n@lisp\n(set-breakpoint gcd-machine 'test-b 4)\n@end lisp\n\n@noindent\ninstalls a breakpoint in @code{gcd-machine} just before the assignment to\nregister @code{a}.  When the simulator reaches the breakpoint it should print\nthe label and the offset of the breakpoint and stop executing instructions.\nAlyssa can then use @code{get-register-contents} and\n@code{set-register-contents!} to manipulate the state of the simulated machine.\nShe should then be able to continue execution by saying\n\n@lisp\n(proceed-machine ⟨@var{machine}⟩)\n@end lisp\n\nShe should also be able to remove a specific breakpoint by means of\n\n@lisp\n(cancel-breakpoint ⟨@var{machine}⟩ ⟨@var{label}⟩ ⟨@var{n}⟩)\n@end lisp\n\n@noindent\nor to remove all breakpoints by means of\n\n@lisp\n(cancel-all-breakpoints ⟨@var{machine}⟩)\n@end lisp\n@end quotation",
+      "source_block_sha256": "b238ab1e620bd16d9f9f404dba81153f5014938011b0ae7e691a4a3b6180212f",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "b9bc23fb32906dc13b7ced337d273c778ef005d0799fc0e3c76b1906e83b1385"
+    },
+    {
+      "number": "5.20",
+      "printed_page": 730,
+      "pdf_page": 758,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.20}Exercise 5.20:} Draw the box-and-pointer\nrepresentation and the memory-vector representation (as in @ref{Figure 5.14})\nof the list structure produced by\n\n@lisp\n(define x (cons 1 2))\n(define y (list x x))\n@end lisp\n\n@noindent\nwith the @code{free} pointer initially @code{p1}.  What is the final value of\n@code{free}?  What pointers represent the values of @code{x} and @code{y}?\n@end quotation",
+      "source_block_sha256": "57b8b37d1aeb07d8c93ffd547048382f076843f3efd5384b44ca4a4484c11bc8",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "93c1641c2e9d100a41810a01fb2fed474ff719f077125626e9917c7b86306a3b"
+    },
+    {
+      "number": "5.21",
+      "printed_page": 730,
+      "pdf_page": 758,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.21}Exercise 5.21:} Implement register machines for\nthe following procedures.  Assume that the list-structure memory operations are\navailable as machine primitives.\n\n@enumerate a\n\n@item\nRecursive @code{count-leaves}:\n\n@lisp\n(define (count-leaves tree)\n  (cond ((null? tree) 0)\n        ((not (pair? tree)) 1)\n        (else \n         (+ (count-leaves (car tree))\n            (count-leaves (cdr tree))))))\n@end lisp\n\n@item\nRecursive @code{count-leaves} with explicit counter:\n\n@lisp\n(define (count-leaves tree)\n  (define (count-iter tree n)\n    (cond ((null? tree) n)\n          ((not (pair? tree)) (+ n 1))\n          (else \n           (count-iter \n            (cdr tree)\n            (count-iter (car tree) \n                        n)))))\n  (count-iter tree 0))\n@end lisp\n@end enumerate\n@end quotation",
+      "source_block_sha256": "faf2de68609a958762685308206a88b9cb779fb507b174d8df4d4b96e9612b36",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "79ec348b19d2a18e75551db897db79ce11e650132fa2a32965ae5ffb5c85b6d2"
+    },
+    {
+      "number": "5.22",
+      "printed_page": 731,
+      "pdf_page": 759,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.22}Exercise 5.22:} @ref{Exercise 3.12} of \n@ref{3.3.1} presented an @code{append} procedure that appends two lists to form\na new list and an @code{append!} procedure that splices two lists together.\nDesign a register machine to implement each of these procedures.  Assume that\nthe list-structure memory operations are available as primitive operations.\n@end quotation",
+      "source_block_sha256": "77bbb998a7542aeafdc891d0e2e3336dfc55ff73c98b000c64f6a13082bb6576",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "33fe912015f0ee41df3aafcf6e895ca1d4baaf896bf347bcc7c46efa823a5a2f"
+    },
+    {
+      "number": "5.23",
+      "printed_page": 758,
+      "pdf_page": 786,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.23}Exercise 5.23:} Extend the evaluator to handle\nderived expressions such as @code{cond}, @code{let}, and so on \n(@ref{4.1.2}).  You may ``cheat'' and assume that the syntax transformers such\nas @code{cond->if} are available as machine operations.@footnote{This isn't\nreally cheating.  In an actual implementation built from scratch, we would use\nour explicit-control evaluator to interpret a Scheme program that performs\nsource-level transformations like @code{cond->if} in a syntax phase that runs\nbefore execution.}\n@end quotation",
+      "source_block_sha256": "fb314ceeaa58d13ba8f7a61b00f03e744e47730575baa5eb89d209c3aa8f1da5",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "38be44263f04c38e95e644c474fed1b4ca0084fbe783c8c2de7e146c9020e8a8"
+    },
+    {
+      "number": "5.24",
+      "printed_page": 758,
+      "pdf_page": 786,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.24}Exercise 5.24:} Implement @code{cond} as a new\nbasic special form without reducing it to @code{if}.  You will have to\nconstruct a loop that tests the predicates of successive @code{cond} clauses\nuntil you find one that is true, and then use @code{ev-sequence} to evaluate\nthe actions of the clause.\n@end quotation",
+      "source_block_sha256": "fba24996c365fc281fa11a3900f728ced687e0aff17681629afffd86f6671ee9",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "230736bae1abe67d48b5323d6d45f2a83e7f034340bb73657499753d7aa39e7b"
+    },
+    {
+      "number": "5.25",
+      "printed_page": 759,
+      "pdf_page": 787,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.25}Exercise 5.25:} Modify the evaluator so that it\nuses normal-order evaluation, based on the lazy evaluator of @ref{4.2}.\n@end quotation",
+      "source_block_sha256": "f121e13cf56e8d6043ceb6f647c6b81d38f796b3aea24c99879c969e09dc61ee",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "0e9318b6b522c42e2415c5ea11b05105bf80ddbb1fcf1523793f4ec86820f105"
+    },
+    {
+      "number": "5.26",
+      "printed_page": 763,
+      "pdf_page": 791,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.26}Exercise 5.26:} Use the monitored stack to\nexplore the tail-recursive property of the evaluator (@ref{5.4.2}).\nStart the evaluator and define the iterative @code{factorial} procedure from\n@ref{1.2.1}:\n\n@lisp\n(define (factorial n)\n  (define (iter product counter)\n    (if (> counter n)\n        product\n        (iter (* counter product)\n              (+ counter 1))))\n  (iter 1 1))\n@end lisp\n\nRun the procedure with some small values of @math{n}.  Record the maximum stack\ndepth and the number of pushes required to compute @math{{n!}} for each of these\nvalues.\n\n@enumerate a\n\n@item\nYou will find that the maximum depth required to evaluate @math{{n!}} is independent\nof @math{n}.  What is that depth?\n\n@item\nDetermine from your data a formula in terms of @math{n} for the total number of\npush operations used in evaluating @math{{n!}} for any @math{{n \\ge 1}}.  Note that the\nnumber of operations used is a linear function of @math{n} and is thus determined\nby two constants.\n\n@end enumerate\n@end quotation",
+      "source_block_sha256": "fe81bf67f30199734f2ee9974d62787163a2c4930477366af3f6c2c43eb72cda",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "cef7493603c4997a9c3bfb385a156b4b8ec19ed2ca7ab8d4c462744e1dc9d47a"
+    },
+    {
+      "number": "5.27",
+      "printed_page": 764,
+      "pdf_page": 792,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.27}Exercise 5.27:} For comparison with @ref{Exercise 5.26}, \nexplore the behavior of the following procedure for computing factorials\nrecursively:\n\n@lisp\n(define (factorial n)\n  (if (= n 1)\n      1\n      (* (factorial (- n 1)) n)))\n@end lisp\n\nBy running this procedure with the monitored stack, determine, as a function of\n@math{n}, the maximum depth of the stack and the total number of pushes used in\nevaluating @math{{n!}} for @math{{n \\ge 1}}.  (Again, these functions will be linear.)\nSummarize your experiments by filling in the following table with the\nappropriate expressions in terms of @math{n}:\n@ifinfo\n\n@example\n               Maximum depth       Number of pushes\n\nRecursive\nfactorial\n\nIterative\nfactorial\n@end example\n\n@end ifinfo\n@tex\n\\[ % :82:\n\n\\begin{array}{l|l|l}\n                \t& \\text{Maximum} \t& \\text{Number of} \t\\\\\n                \t& \\text{depth} \t        & \\text{pushes} \t\\\\\n\\hline\n\\text{Recursive} \t&\t                &  \\\\\n\\text{factorial} \t&  \t                &  \\\\\n\\hline\n\\text{Iterative} \t&               \t&  \\\\\n\\text{factorial} \t&  \t                & \n\\end{array}\n\\]\n@end tex\nThe maximum depth is a measure of the amount of space used by the evaluator in\ncarrying out the computation, and the number of pushes correlates well with the\ntime required.\n@end quotation",
+      "source_block_sha256": "941336ffd8d77e2e87190b54ca6c7fd7d7a08bf2e80af24397700008ed529b14",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "a32ba3ea1ae5424510b423d7ac23f7a68507586f7347e4224d2983253b00bcbd"
+    },
+    {
+      "number": "5.28",
+      "printed_page": 765,
+      "pdf_page": 793,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.28}Exercise 5.28:} Modify the definition of the\nevaluator by changing @code{eval-sequence} as described in @ref{5.4.2}\nso that the evaluator is no longer tail-recursive.  Rerun your experiments from\n@ref{Exercise 5.26} and @ref{Exercise 5.27} to demonstrate that both versions\nof the @code{factorial} procedure now require space that grows linearly with\ntheir input.\n@end quotation",
+      "source_block_sha256": "267ea9f8cbcd1b9ee7f4949fd5b97ec80fba901eaf67838fa0c5c54fc2c6e639",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "43163efaa0d8f5d83c0c7c19f30e303bf06878f5d6679a1ed05836a441e4ec20"
+    },
+    {
+      "number": "5.29",
+      "printed_page": 765,
+      "pdf_page": 793,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.29}Exercise 5.29:} Monitor the stack operations in\nthe tree-recursive Fibonacci computation:\n\n@lisp\n(define (fib n)\n  (if (< n 2)\n      n\n      (+ (fib (- n 1)) (fib (- n 2)))))\n@end lisp\n\n@enumerate a\n\n@item\nGive a formula in terms of @math{n} for the maximum depth of the stack required to\ncompute @math{{\\text{Fib}(n)}} for @math{{n \\ge 2}}.  Hint: In @ref{1.2.2} we\nargued that the space used by this process grows linearly with @math{n}.\n\n@item\nGive a formula for the total number of pushes used to compute @math{{\\text{Fib}(n)}}\nfor @math{{n \\ge 2}}.  You should find that the number of pushes (which correlates\nwell with the time used) grows exponentially with @math{n}.  Hint: Let\n@math{{S(n)}} be the number of pushes used in computing @math{{\\text{Fib}(n)}}.  You\nshould be able to argue that there is a formula that expresses @math{{S(n)}} in\nterms of @math{{S(n - 1)}}, @math{{S(n - 2)}}, and some fixed ``overhead''\nconstant @math{k} that is independent of @math{n}.  Give the formula, and say what\n@math{k} is.  Then show that @math{{S(n)}} can be expressed as \n@math{{a\\cdot\\text{Fib}(n + 1) + b}} and give the values of @math{a} and @math{b}.\n\n@end enumerate\n@end quotation",
+      "source_block_sha256": "cd33d0570918b05d3cca8bc721dbd309c209aa4664d622c60db74ebb937be03b",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "571739cf6072e587e0743ba79ab7d435263864195767f39212b84cde33ddf558"
+    },
+    {
+      "number": "5.30",
+      "printed_page": 766,
+      "pdf_page": 794,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.30}Exercise 5.30:} Our evaluator currently catches\nand signals only two kinds of errors---unknown expression types and unknown\nprocedure types.  Other errors will take us out of the evaluator\nread-eval-print loop.  When we run the evaluator using the register-machine\nsimulator, these errors are caught by the underlying Scheme system.  This is\nanalogous to the computer crashing when a user program makes an\nerror.@footnote{Regrettably, this is the normal state of affairs in\nconventional compiler-based language systems such as C.  In @abbr{UNIX}(tm)\nthe system ``dumps core,'' and in @abbr{DOS}/Windows(tm) it becomes\ncatatonic.  The Macintosh(tm) displays a picture of an exploding bomb and\noffers you the opportunity to reboot the computer---if you're lucky.}  It is a\nlarge project to make a real error system work, but it is well worth the effort\nto understand what is involved here.\n\n@enumerate a\n\n@item\nErrors that occur in the evaluation process, such as an attempt to access an\nunbound variable, could be caught by changing the lookup operation to make it\nreturn a distinguished condition code, which cannot be a possible value of any\nuser variable.  The evaluator can test for this condition code and then do what\nis necessary to go to @code{signal-error}.  Find all of the places in the\nevaluator where such a change is necessary and fix them.  This is lots of work.\n\n@item\nMuch worse is the problem of handling errors that are signaled by applying\nprimitive procedures, such as an attempt to divide by zero or an attempt to\nextract the @code{car} of a symbol.  In a professionally written high-quality\nsystem, each primitive application is checked for safety as part of the\nprimitive.  For example, every call to @code{car} could first check that the\nargument is a pair.  If the argument is not a pair, the application would\nreturn a distinguished condition code to the evaluator, which would then report\nthe failure.  We could arrange for this in our register-machine simulator by\nmaking each primitive procedure check for applicability and returning an\nappropriate distinguished condition code on failure. Then the\n@code{primitive-apply} code in the evaluator can check for the condition code\nand go to @code{signal-error} if necessary.  Build this structure and make it\nwork.  This is a major project.\n\n@end enumerate\n@end quotation",
+      "source_block_sha256": "7422a4aae154eb0e58e0d6c25cbafebc7d6b3fc930a3a21d79800d1d49ac151c",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "4112c1fcebccd4ad2975c4c325e06c3a644682bb1cbb4c5983f54d157d49e22f"
+    },
+    {
+      "number": "5.31",
+      "printed_page": 778,
+      "pdf_page": 806,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.31}Exercise 5.31:} In evaluating a procedure\napplication, the explicit-control evaluator always saves and restores the\n@code{env} register around the evaluation of the operator, saves and restores\n@code{env} around the evaluation of each operand (except the final one), saves\nand restores @code{argl} around the evaluation of each operand, and saves and\nrestores @code{proc} around the evaluation of the operand sequence.  For each\nof the following combinations, say which of these @code{save} and\n@code{restore} operations are superfluous and thus could be eliminated by the\ncompiler's @code{preserving} mechanism:\n\n@lisp\n(f 'x 'y)\n((f) 'x 'y)\n(f (g 'x) y)\n(f (g 'x) 'y)\n@end lisp\n@end quotation",
+      "source_block_sha256": "5cde5203c2b166c08b0dd8d271bfd9f861c55c6e2bcf8a4cae23bc1c8513427a",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "89002251dcd93520111850f533bd08357a67c05c8450eb43cb9a4844542be1a9"
+    },
+    {
+      "number": "5.32",
+      "printed_page": 778,
+      "pdf_page": 806,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.32}Exercise 5.32:} Using the @code{preserving}\nmechanism, the compiler will avoid saving and restoring @code{env} around the\nevaluation of the operator of a combination in the case where the operator is a\nsymbol.  We could also build such optimizations into the evaluator.  Indeed,\nthe explicit-control evaluator of @ref{5.4} already performs a similar\noptimization, by treating combinations with no operands as a special case.\n\n@enumerate a\n\n@item\nExtend the explicit-control evaluator to recognize as a separate class of\nexpressions combinations whose operator is a symbol, and to take advantage of\nthis fact in evaluating such expressions.\n\n@item\nAlyssa P. Hacker suggests that by extending the evaluator to recognize more and\nmore special cases we could incorporate all the compiler's optimizations, and\nthat this would eliminate the advantage of compilation altogether.  What do you\nthink of this idea?\n\n@end enumerate\n@end quotation",
+      "source_block_sha256": "c34dbfff207fed01d9167e078997badefb00468d6ad8a5b381b3e3a4cef0fb4c",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "8763b5d4d25adaff63fd1bef06bafbcc30cdb7f390f1866d9c13291221eaf671"
+    },
+    {
+      "number": "5.33",
+      "printed_page": 806,
+      "pdf_page": 834,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.33}Exercise 5.33:} Consider the following definition\nof a factorial procedure, which is slightly different from the one given above:\n\n@lisp\n(define (factorial-alt n)\n  (if (= n 1)\n      1\n      (* n (factorial-alt (- n 1)))))\n@end lisp\n\nCompile this procedure and compare the resulting code with that produced for\n@code{factorial}.  Explain any differences you find.  Does either program\nexecute more efficiently than the other?\n@end quotation",
+      "source_block_sha256": "b2f0bab88b67650459c0608beeed25f0dec16e137fc887820cba1c7ca31ac8af",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "060feb763814991ea2ca02a8cb14da8d10d84c3d2f6fadd085f8114aaa3bbbd4"
+    },
+    {
+      "number": "5.34",
+      "printed_page": 807,
+      "pdf_page": 835,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.34}Exercise 5.34:} Compile the iterative factorial\nprocedure\n\n@lisp\n(define (factorial n)\n  (define (iter product counter)\n    (if (> counter n)\n        product\n        (iter (* counter product)\n              (+ counter 1))))\n  (iter 1 1))\n@end lisp\n\nAnnotate the resulting code, showing the essential difference between the code\nfor iterative and recursive versions of @code{factorial} that makes one process\nbuild up stack space and the other run in constant stack space.\n@end quotation",
+      "source_block_sha256": "e28095a3c9d1921eccb4e5edcdc82961039216a3a661ce6ab756cb21c7fe2104",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "ddc1f85c6f5f70645d1414b9bdcb1c474ae64330d3e107fa60b6d13c4d74c729"
+    },
+    {
+      "number": "5.35",
+      "printed_page": 811,
+      "pdf_page": 839,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.35}Exercise 5.35:} What expression was compiled to\nproduce the code shown in @ref{Figure 5.18}?\n@end quotation",
+      "source_block_sha256": "a31efbfc60f5d4fd3202b95a4905575efe2b7e410f235307e1ab0ee00ba6a7bd",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "1545d74434541b11abc5f3aaf062e18be174b06a90113037e74717c667656883"
+    },
+    {
+      "number": "5.36",
+      "printed_page": 814,
+      "pdf_page": 842,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.36}Exercise 5.36:} What order of evaluation does our\ncompiler produce for operands of a combination?  Is it left-to-right,\nright-to-left, or some other order?  Where in the compiler is this order\ndetermined?  Modify the compiler so that it produces some other order of\nevaluation.  (See the discussion of order of evaluation for the\nexplicit-control evaluator in @ref{5.4.1}.)  How does changing the\norder of operand evaluation affect the efficiency of the code that constructs\nthe argument list?\n@end quotation",
+      "source_block_sha256": "3353d84a8b3a15522397ee836cf641218b08ada97ea607b5473f3627c97f39b8",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "6664ccd200dc56d26a37764875845f74251410bf7ac01bd8c80e0048f5918365"
+    },
+    {
+      "number": "5.37",
+      "printed_page": 814,
+      "pdf_page": 842,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.37}Exercise 5.37:} One way to understand the\ncompiler's @code{preserving} mechanism for optimizing stack usage is to see\nwhat extra operations would be generated if we did not use this idea.  Modify\n@code{preserving} so that it always generates the @code{save} and\n@code{restore} operations.  Compile some simple expressions and identify the\nunnecessary stack operations that are generated.  Compare the code to that\ngenerated with the @code{preserving} mechanism intact.\n@end quotation",
+      "source_block_sha256": "eed266de10d1a7016226748420c67027947d5bf97fe863ac0981fb0266607a76",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "03ed765c44f3a24c5b9b61948cef221fc71bc997c7a8269a031ce41fee1214ec"
+    },
+    {
+      "number": "5.38",
+      "printed_page": 814,
+      "pdf_page": 842,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.38}Exercise 5.38:} Our compiler is clever about\navoiding unnecessary stack operations, but it is not clever at all when it\ncomes to compiling calls to the primitive procedures of the language in terms\nof the primitive operations supplied by the machine.  For example, consider how\nmuch code is compiled to compute @code{(+ a 1)}: The code sets up an argument\nlist in @code{argl}, puts the primitive addition procedure (which it finds by\nlooking up the symbol @code{+} in the environment) into @code{proc}, and tests\nwhether the procedure is primitive or compound.  The compiler always generates\ncode to perform the test, as well as code for primitive and compound branches\n(only one of which will be executed).  We have not shown the part of the\ncontroller that implements primitives, but we presume that these instructions\nmake use of primitive arithmetic operations in the machine's data paths.\nConsider how much less code would be generated if the compiler could\n@newterm{open-code} primitives---that is, if it could generate code to directly\nuse these primitive machine operations.  The expression @code{(+ a 1)} might be\ncompiled into something as simple as@footnote{We have used the same symbol\n@code{+} here to denote both the source-language procedure and the machine\noperation.  In general there will not be a one-to-one correspondence between\nprimitives of the source language and primitives of the machine.}\n\n@lisp\n(assign val (op lookup-variable-value) \n            (const a) \n            (reg env))\n(assign val (op +)\n            (reg val)\n            (const 1))\n@end lisp\n\nIn this exercise we will extend our compiler to support open coding of selected\nprimitives.  Special-purpose code will be generated for calls to these\nprimitive procedures instead of the general procedure-application code.  In\norder to support this, we will augment our machine with special argument\nregisters @code{arg1} and @code{arg2}.  The primitive arithmetic operations of\nthe machine will take their inputs from @code{arg1} and @code{arg2}. The\nresults may be put into @code{val}, @code{arg1}, or @code{arg2}.\n\nThe compiler must be able to recognize the application of an open-coded\nprimitive in the source program.  We will augment the dispatch in the\n@code{compile} procedure to recognize the names of these primitives in addition\nto the reserved words (the special forms) it currently\nrecognizes.@footnote{Making the primitives into reserved words is in general a\nbad idea, since a user cannot then rebind these names to different procedures.\nMoreover, if we add reserved words to a compiler that is in use, existing\nprograms that define procedures with these names will stop working.  See\n@ref{Exercise 5.44} for ideas on how to avoid this problem.} For each special\nform our compiler has a code generator.  In this exercise we will construct a\nfamily of code generators for the open-coded primitives.\n\n@enumerate a\n\n@item\nThe open-coded primitives, unlike the special forms, all need their operands\nevaluated.  Write a code generator @code{spread-arguments} for use by all the\nopen-coding code generators.  @code{Spread-arguments} should take an operand\nlist and compile the given operands targeted to successive argument registers.\nNote that an operand may contain a call to an open-coded primitive, so argument\nregisters will have to be preserved during operand evaluation.\n\n@item\nFor each of the primitive procedures @code{=}, @code{*}, @code{-}, and\n@code{+}, write a code generator that takes a combination with that operator,\ntogether with a target and a linkage descriptor, and produces code to spread\nthe arguments into the registers and then perform the operation targeted to the\ngiven target with the given linkage.  You need only handle expressions with two\noperands.  Make @code{compile} dispatch to these code generators.\n\n@item\nTry your new compiler on the @code{factorial} example.  Compare the resulting\ncode with the result produced without open coding.\n\n@item\nExtend your code generators for @code{+} and @code{*} so that they can handle\nexpressions with arbitrary numbers of operands.  An expression with more than\ntwo operands will have to be compiled into a sequence of operations, each with\nonly two inputs.\n\n@end enumerate\n@end quotation",
+      "source_block_sha256": "3daf609e1fa09238464de20a5fd1aec44dffa101be191a7e60deb5af7f9ffa0b",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "51673a0cb302050dec8e533f4bfcf8245e5cc83e4d68c5f51173b42daaee9abe"
+    },
+    {
+      "number": "5.39",
+      "printed_page": 820,
+      "pdf_page": 848,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.39}Exercise 5.39:} Write a procedure\n@code{lexical-address-lookup} that implements the new lookup operation.  It\nshould take two arguments---a lexical address and a run-time environment---and\nreturn the value of the variable stored at the specified lexical address.\n@code{Lexical-address-lookup} should signal an error if the value of the\nvariable is the symbol @code{*unassigned*}.@footnote{This is the modification\nto variable lookup required if we implement the scanning method to eliminate\ninternal definitions (@ref{Exercise 5.43}).  We will need to eliminate these\ndefinitions in order for lexical addressing to work.} Also write a procedure\n@code{lexical-address-set!} that implements the operation that changes the\nvalue of the variable at a specified lexical address.\n@end quotation",
+      "source_block_sha256": "1c085881fa928d7d0a70721ffdfc47e71e2a1d74911fa03dee48083fa25cf4f6",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "2950ccaeb57c6cd78269bc99e6359882ae97e1e068249657ae033045ad709d8a"
+    },
+    {
+      "number": "5.40",
+      "printed_page": 820,
+      "pdf_page": 848,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.40}Exercise 5.40:} Modify the compiler to maintain\nthe compile-time environment as described above.  That is, add a\ncompile-time-environment argument to @code{compile} and the various code\ngenerators, and extend it in @code{compile-lambda-body}.\n@end quotation",
+      "source_block_sha256": "3236c35799410ed7749305d71ebb80822e1bbe7e5531e70174782bbf16b4c179",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "55a22e03088e72cb1ffb9d156d035ea22639d25b83be0a88f6da945927928295"
+    },
+    {
+      "number": "5.41",
+      "printed_page": 820,
+      "pdf_page": 848,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.41}Exercise 5.41:} Write a procedure\n@code{find-variable} that takes as arguments a variable and a compile-time\nenvironment and returns the lexical address of the variable with respect to\nthat environment.  For example, in the program fragment that is shown above,\nthe compile-time environment during the compilation of expression @code{⟨}@var{e1}@code{⟩} is\n@code{((y z) (a b c d e) (x y))}.  @code{Find-variable} should produce\n\n@lisp\n(find-variable \n 'c '((y z) (a b c d e) (x y)))\n@i{(1 2)}\n\n(find-variable \n 'x '((y z) (a b c d e) (x y)))\n@i{(2 0)}\n\n(find-variable \n 'w '((y z) (a b c d e) (x y)))\n@i{not-found}\n@end lisp\n@end quotation",
+      "source_block_sha256": "0d21fab428308c08bc2af10834fece24e8386a715b5aa025d1923a43155b9438",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "7decfdadaa80e05736004acac462809acc67be39dfe54afc46ef55654ccdda2b"
+    },
+    {
+      "number": "5.42",
+      "printed_page": 821,
+      "pdf_page": 849,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.42}Exercise 5.42:} Using @code{find-variable} from\n@ref{Exercise 5.41}, rewrite @code{compile-variable} and\n@code{compile-assignment} to output lexical-address instructions.  In cases\nwhere @code{find-variable} returns @code{not-found} (that is, where the\nvariable is not in the compile-time environment), you should have the code\ngenerators use the evaluator operations, as before, to search for the binding.\n(The only place a variable that is not found at compile time can be is in the\nglobal environment, which is part of the run-time environment but is not part\nof the compile-time environment.@footnote{Lexical addresses cannot be used to\naccess variables in the global environment, because these names can be defined\nand redefined interactively at any time.  With internal definitions scanned\nout, as in @ref{Exercise 5.43}, the only definitions the compiler sees are\nthose at top level, which act on the global environment.  Compilation of a\ndefinition does not cause the defined name to be entered in the compile-time\nenvironment.}  Thus, if you wish, you may have the evaluator operations look\ndirectly in the global environment, which can be obtained with the operation\n@code{(op get-global-environment)}, instead of having them search the whole\nrun-time environment found in @code{env}.)  Test the modified compiler on a few\nsimple cases, such as the nested @code{lambda} combination at the beginning of\nthis section.\n@end quotation",
+      "source_block_sha256": "df66b80327510d3838fa4985fd9c028ab9e6f2558a94c5e6f78fdfeb1d3e7301",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "306a63dc647b315c4e5f682665f7769689d1e3a41758192852bf91b836f2da58"
+    },
+    {
+      "number": "5.43",
+      "printed_page": 821,
+      "pdf_page": 849,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.43}Exercise 5.43:} We argued in @ref{4.1.6}\nthat internal definitions for block structure should not be considered ``real''\n@code{define}s.  Rather, a procedure body should be interpreted as if the\ninternal variables being defined were installed as ordinary @code{lambda}\nvariables initialized to their correct values using @code{set!}.  \n@ref{4.1.6} and @ref{Exercise 4.16} showed how to modify the metacircular\ninterpreter to accomplish this by scanning out internal definitions.  Modify\nthe compiler to perform the same transformation before it compiles a procedure\nbody.\n@end quotation",
+      "source_block_sha256": "a535f46666b14a35d58134da157f561351896520c74ea1f90489552293d8bde3",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "ec9f28cb555b82cde317a7ffd836dcfbb9985794eac44e441d9fbb7d25b6d94e"
+    },
+    {
+      "number": "5.44",
+      "printed_page": 822,
+      "pdf_page": 850,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.44}Exercise 5.44:} In this section we have focused\non the use of the compile-time environment to produce lexical addresses.  But\nthere are other uses for compile-time environments.  For instance, in\n@ref{Exercise 5.38} we increased the efficiency of compiled code by open-coding\nprimitive procedures.  Our implementation treated the names of open-coded\nprocedures as reserved words.  If a program were to rebind such a name, the\nmechanism described in @ref{Exercise 5.38} would still open-code it as a\nprimitive, ignoring the new binding.  For example, consider the procedure\n\n@lisp\n(lambda (+ * a b x y)\n  (+ (* a x) (* b y)))\n@end lisp\n\n@noindent\nwhich computes a linear combination of @code{x} and @code{y}.  We might call it\nwith arguments @code{+matrix}, @code{*matrix}, and four matrices, but the\nopen-coding compiler would still open-code the @code{+} and the @code{*} in\n@code{(+ (* a x) (* b y))} as primitive @code{+} and @code{*}.  Modify the\nopen-coding compiler to consult the compile-time environment in order to\ncompile the correct code for expressions involving the names of primitive\nprocedures.  (The code will work correctly as long as the program does not\n@code{define} or @code{set!} these names.)\n@end quotation",
+      "source_block_sha256": "c4230c28bf6eb9df29b139f608972cdf5d456bda08cb417660c3effb34020cb2",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "7facb9167a3c01ce3ebab92584fa1595fb09af41825b737b574e267b45fab50f"
+    },
+    {
+      "number": "5.45",
+      "printed_page": 829,
+      "pdf_page": 857,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.45}Exercise 5.45:} By comparing the stack operations\nused by compiled code to the stack operations used by the evaluator for the\nsame computation, we can determine the extent to which the compiler optimizes\nuse of the stack, both in speed (reducing the total number of stack operations)\nand in space (reducing the maximum stack depth).  Comparing this optimized\nstack use to the performance of a special-purpose machine for the same\ncomputation gives some indication of the quality of the compiler.\n\n@enumerate a\n\n@item\n@ref{Exercise 5.27} asked you to determine, as a function of @math{n}, the number\nof pushes and the maximum stack depth needed by the evaluator to compute @math{{n!}}\nusing the recursive factorial procedure given above.  @ref{Exercise 5.14} asked\nyou to do the same measurements for the special-purpose factorial machine shown\nin @ref{Figure 5.11}. Now perform the same analysis using the compiled\n@code{factorial} procedure.\n\nTake the ratio of the number of pushes in the compiled version to the number of\npushes in the interpreted version, and do the same for the maximum stack depth.\nSince the number of operations and the stack depth used to compute @math{{n!}}  are\nlinear in @math{n}, these ratios should approach constants as @math{n} becomes large.\nWhat are these constants?  Similarly, find the ratios of the stack usage in the\nspecial-purpose machine to the usage in the interpreted version.\n\nCompare the ratios for special-purpose versus interpreted code to the ratios\nfor compiled versus interpreted code.  You should find that the special-purpose\nmachine does much better than the compiled code, since the hand-tailored\ncontroller code should be much better than what is produced by our rudimentary\ngeneral-purpose compiler.\n\n@item\nCan you suggest improvements to the compiler that would help it generate code\nthat would come closer in performance to the hand-tailored version?\n\n@end enumerate\n@end quotation",
+      "source_block_sha256": "5546d2e9476861dafab190b16e5d95af1262203871f24c5f3693de421b63e954",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "d09fbb620b38d28325fce4159c94a722cf9c4e218b33f72c43635164e2378988"
+    },
+    {
+      "number": "5.46",
+      "printed_page": 830,
+      "pdf_page": 858,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.46}Exercise 5.46:} Carry out an analysis like the\none in @ref{Exercise 5.45} to determine the effectiveness of compiling the\ntree-recursive Fibonacci procedure\n\n@lisp\n(define (fib n)\n  (if (< n 2)\n      n\n      (+ (fib (- n 1)) (fib (- n 2)))))\n@end lisp\n\n@noindent\ncompared to the effectiveness of using the special-purpose Fibonacci machine of\n@ref{Figure 5.12}.  (For measurement of the interpreted performance, see\n@ref{Exercise 5.29}.)  For Fibonacci, the time resource used is not linear in\n@math{{n;}} hence the ratios of stack operations will not approach a limiting value\nthat is independent of @math{n}.\n@end quotation",
+      "source_block_sha256": "c4cb8aca97b17b4de32ca13d4b04864a38124767257d52ac045bdf4446da1bf9",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "a6d5bdb3fe36646c159d44932f166c75eebb3d4a158f7fb48a07c010bd8a1cd4"
+    },
+    {
+      "number": "5.47",
+      "printed_page": 831,
+      "pdf_page": 859,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.47}Exercise 5.47:} This section described how to\nmodify the explicit-control evaluator so that interpreted code can call\ncompiled procedures.  Show how to modify the compiler so that compiled\nprocedures can call not only primitive procedures and compiled procedures, but\ninterpreted procedures as well.  This requires modifying\n@code{compile-procedure-call} to handle the case of compound (interpreted)\nprocedures.  Be sure to handle all the same @code{target} and @code{linkage}\ncombinations as in @code{compile-proc-appl}.  To do the actual procedure\napplication, the code needs to jump to the evaluator's @code{compound-apply}\nentry point.  This label cannot be directly referenced in object code (since\nthe assembler requires that all labels referenced by the code it is assembling\nbe defined there), so we will add a register called @code{compapp} to the\nevaluator machine to hold this entry point, and add an instruction to\ninitialize it:\n\n@lisp\n  (assign compapp (label compound-apply))\n  @r{;; branches if @code{flag} is set:}\n  (branch (label external-entry))\nread-eval-print-loop @r{…}\n@end lisp\n\nTo test your code, start by defining a procedure @code{f} that calls a\nprocedure @code{g}.  Use @code{compile-and-go} to compile the definition of\n@code{f} and start the evaluator.  Now, typing at the evaluator, define\n@code{g} and try to call @code{f}.\n@end quotation",
+      "source_block_sha256": "85bc727fa748ac0cc280012ae67ed474cafff8b0b4537c8d2d1ac70149e7f0e3",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "d003a8768f62c3de0d7ecdc12b1e2f36238273773df31c1e6fa29757731a61b1"
+    },
+    {
+      "number": "5.48",
+      "printed_page": 831,
+      "pdf_page": 859,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.48}Exercise 5.48:} The @code{compile-and-go}\ninterface implemented in this section is awkward, since the compiler can be\ncalled only once (when the evaluator machine is started).  Augment the\ncompiler-interpreter interface by providing a @code{compile-and-run} primitive\nthat can be called from within the explicit-control evaluator as follows:\n\n@lisp\n@i{;;; EC-Eval input:}\n(compile-and-run\n '(define (factorial n)\n    (if (= n 1)\n        1\n        (* (factorial (- n 1)) n))))\n\n@i{;;; EC-Eval value:}\n@i{ok}\n\n@i{;;; EC-Eval input:}\n(factorial 5)\n\n@i{;;; EC-Eval value:}\n@i{120}\n@end lisp\n@end quotation",
+      "source_block_sha256": "097f90ff1ee8170996e0f6a758d8ac26d9de1a5584ad23f2abaa9daba53ac46b",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "15813546282c3d8cd2216b13d53714be403f22f1fd825cd82de789352145d36d"
+    },
+    {
+      "number": "5.49",
+      "printed_page": 832,
+      "pdf_page": 860,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.49}Exercise 5.49:} As an alternative to using the\nexplicit-control evaluator's read-eval-print loop, design a register machine\nthat performs a read-compile-execute-print loop.  That is, the machine should\nrun a loop that reads an expression, compiles it, assembles and executes the\nresulting code, and prints the result.  This is easy to run in our simulated\nsetup, since we can arrange to call the procedures @code{compile} and\n@code{assemble} as ``register-machine operations.''\n@end quotation",
+      "source_block_sha256": "391e6fde1d5ba58e0789e6af27f858b6b06ef4343fe43d8fd3c093c5f6c19e6c",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "99df7c756006f3876ea214a64190e9551035a6d02b815f416e88df1ed9e47429"
+    },
+    {
+      "number": "5.50",
+      "printed_page": 832,
+      "pdf_page": 860,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.50}Exercise 5.50:} Use the compiler to compile the\nmetacircular evaluator of @ref{4.1} and run this program using the\nregister-machine simulator.  (To compile more than one definition at a time,\nyou can package the definitions in a @code{begin}.)  The resulting interpreter\nwill run very slowly because of the multiple levels of interpretation, but\ngetting all the details to work is an instructive exercise.\n@end quotation",
+      "source_block_sha256": "3c585d6268631ab0ff21d192d7573036bf91babd15abaaa08cbcfd28721baab5",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "7376c04e6f5416448a66bece1eb8aebc50f802adc104a43457685bea87ad9735"
+    },
+    {
+      "number": "5.51",
+      "printed_page": 832,
+      "pdf_page": 860,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.51}Exercise 5.51:} Develop a rudimentary\nimplementation of Scheme in C (or some other low-level language of your choice)\nby translating the explicit-control evaluator of @ref{5.4} into C.  In\norder to run this code you will need to also provide appropriate\nstorage-allocation routines and other run-time support.\n@end quotation",
+      "source_block_sha256": "e0b4d7cd85df03dc6c89b4d7f686dad8f7326d50b6fd7697807a1a50e84177ae",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "8a5132e932dcb0305079bdf61f02d426cc7b635333371a503ebb5e1bf5ca4264"
+    },
+    {
+      "number": "5.52",
+      "printed_page": 833,
+      "pdf_page": 861,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 5.52}Exercise 5.52:} As a counterpoint to \n@ref{Exercise 5.51}, modify the compiler so that it compiles Scheme procedures\ninto sequences of C instructions.  Compile the metacircular evaluator of\n@ref{4.1} to produce a Scheme interpreter written in C.\n@end quotation",
+      "source_block_sha256": "e68b397b708b8ccf24eb54df6d886eb9522b524b142f831d26e23fd74f1c0429",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "45221ed6a5fd1435caff87b1c503e1b6ffeb6d12d9f41819df4c2050cdac8e09"
+    }
+  ]
+}

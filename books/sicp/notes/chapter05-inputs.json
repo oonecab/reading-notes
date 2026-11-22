@@ -1,0 +1,447 @@
+{
+  "schema_version": 1,
+  "scope": "原书共享输入；各题独有的给定程序留在中文题干内。",
+  "records": [
+    {
+      "id": "input-gcd-machine",
+      "section": "s5-1-1",
+      "source_pdf_page": 701,
+      "code": "(data-paths\n (registers\n  ((name a)\n   (buttons ((name a<-b) \n             (source (register b)))))\n  ((name b)\n   (buttons ((name b<-t)\n             (source (register t)))))\n  ((name t)\n   (buttons ((name t<-r)\n             (source (operation rem))))))\n (operations\n  ((name rem)\n   (inputs (register a) (register b)))\n  ((name =)\n   (inputs (register b) (constant 0)))))\n\n(controller\n test-b                ; label\n   (test =)            ; test\n   (branch \n    (label gcd-done))  ; conditional branch\n   (t<-r)              ; button push\n   (a<-b)              ; button push\n   (b<-t)              ; button push\n   (goto \n    (label test-b))    ; unconditional branch\n gcd-done)             ; label\n\n(controller\n test-b\n   (test (op =) (reg b) (const 0))\n   (branch (label gcd-done))\n   (assign t (op rem) (reg a) (reg b))\n   (assign a (reg b))\n   (assign b (reg t))\n   (goto (label test-b))\n gcd-done)",
+      "exercises": [
+        1,
+        2
+      ],
+      "guide": "先在数据通路找余数运算的两条输入边，再按控制器的赋值顺序读写寄存器，旧除数必须在覆盖之前送到新位置。"
+    },
+    {
+      "id": "input-gcd-subtract",
+      "section": "s5-1-2",
+      "source_pdf_page": 707,
+      "code": "(controller\n test-b\n   (test (op =) (reg b) (const 0))\n   (branch (label gcd-done))\n   (assign t (reg a))\n rem-loop\n   (test (op <) (reg t) (reg b))\n   (branch (label rem-done))\n   (assign t (op -) (reg t) (reg b))\n   (goto (label rem-loop))\n rem-done\n   (assign a (reg b))\n   (assign b (reg t))\n   (goto (label test-b))\n gcd-done)",
+      "exercises": [
+        3
+      ],
+      "guide": "把余数盒拆成比较、减法和回跳，外层控制器仍然只依赖余数出口。"
+    },
+    {
+      "id": "input-return-register",
+      "section": "s5-1-3",
+      "source_pdf_page": 712,
+      "code": "gcd\n (test (op =) (reg b) (const 0))\n (branch (label gcd-done))\n (assign t (op rem) (reg a) (reg b))\n (assign a (reg b))\n (assign b (reg t))\n (goto (label gcd))\ngcd-done\n (goto (reg continue))\n  …\n;; Before calling gcd, \n;; we assign to continue the label\n;; to which gcd should return.\n (assign continue (label after-gcd-1))\n (goto (label gcd))\nafter-gcd-1\n  …\n;; Here is the second call to gcd,\n;; with a different continuation.\n (assign continue (label after-gcd-2))\n (goto (label gcd))\nafter-gcd-2",
+      "exercises": [
+        4,
+        5
+      ],
+      "guide": "返回地址是控制数据；同一段指令可以从两个调用点进入，退出时沿寄存器中的地址返回。"
+    },
+    {
+      "id": "input-fib-controller",
+      "section": "s5-1-4",
+      "source_pdf_page": 721,
+      "code": "(controller\n   (assign continue (label fib-done))\n fib-loop\n   (test (op <) (reg n) (const 2))\n   (branch (label immediate-answer))\n   ;; set up to compute Fib(n − 1)\n   (save continue)\n   (assign continue (label afterfib-n-1))\n   (save n)           ; save old value of n\n   (assign n \n           (op -)\n           (reg n)\n           (const 1)) ; clobber n to n-1\n   (goto \n    (label fib-loop)) ; perform recursive call\n afterfib-n-1 ; upon return, val contains Fib(n − 1)\n   (restore n)\n   (restore continue)\n   ;; set up to compute Fib(n − 2)\n   (assign n (op -) (reg n) (const 2))\n   (save continue)\n   (assign continue (label afterfib-n-2))\n   (save val)         ; save Fib(n − 1)\n   (goto (label fib-loop))\n afterfib-n-2 ; upon return, val contains Fib(n − 2)\n   (assign n \n           (reg val)) ; n now contains Fib(n − 2)\n   (restore val)      ; val now contains Fib(n − 1)\n   (restore continue)\n   (assign val        ; Fib(n − 1) + Fib(n − 2)\n           (op +) \n           (reg val)\n           (reg n))\n   (goto              ; return to caller,\n    (reg continue))   ; answer is in val\n immediate-answer\n   (assign val \n           (reg n))   ; base case: Fib(n) = n\n   (goto (reg continue))\n fib-done)",
+      "exercises": [
+        5,
+        6,
+        11,
+        46
+      ],
+      "guide": "第二次递归前要保留第一次的值；一次返回只消费最靠上的那组保存值。"
+    },
+    {
+      "id": "input-make-machine",
+      "section": "s5-2-1",
+      "source_pdf_page": 726,
+      "code": "(define (make-machine register-names \n                      ops \n                      controller-text)\n  (let ((machine (make-new-machine)))\n    (for-each (lambda (register-name)\n                ((machine 'allocate-register) \n                 register-name))\n              register-names)\n    ((machine 'install-operations) ops)\n    ((machine 'install-instruction-sequence)\n     (assemble controller-text machine))\n    machine))",
+      "exercises": [
+        13,
+        15,
+        16,
+        18,
+        19
+      ],
+      "guide": "构造阶段接入寄存器、操作和控制器，启动以后程序计数器只指向已汇编的指令。"
+    },
+    {
+      "id": "input-assembler",
+      "section": "s5-2-2",
+      "source_pdf_page": 733,
+      "code": "(define (assemble controller-text machine)\n  (extract-labels controller-text\n    (lambda (insts labels)\n      (update-insts! insts labels machine)\n      insts)))\n\n(define (extract-labels text receive)\n  (if (null? text)\n      (receive '() '())\n      (extract-labels \n       (cdr text)\n       (lambda (insts labels)\n         (let ((next-inst (car text)))\n           (if (symbol? next-inst)\n               (receive \n                   insts\n                   (cons \n                    (make-label-entry \n                     next-inst\n                     insts)\n                    labels))\n               (receive \n                   (cons (make-instruction \n                          next-inst)\n                         insts)\n                   labels)))))))",
+      "exercises": [
+        8,
+        12,
+        13
+      ],
+      "guide": "先为所有标签确定地址，第二趟才能解决向前跳转，重复名称会使这张表产生歧义。"
+    },
+    {
+      "id": "input-operation-expression",
+      "section": "s5-2-3",
+      "source_pdf_page": 742,
+      "code": "(define (make-primitive-exp exp machine labels)\n  (cond ((constant-exp? exp)\n         (let ((c (constant-exp-value exp)))\n           (lambda () c)))\n        ((label-exp? exp)\n         (let ((insts\n                (lookup-label \n                 labels\n                 (label-exp-label exp))))\n           (lambda () insts)))\n        ((register-exp? exp)\n         (let ((r (get-register\n                   machine\n                   (register-exp-reg exp))))\n           (lambda () (get-contents r))))\n        (else (error \"Unknown expression type: \n                      ASSEMBLE\"\n                     exp))))\n\n(define (register-exp? exp)\n  (tagged-list? exp 'reg))\n(define (register-exp-reg exp)\n  (cadr exp))\n(define (constant-exp? exp)\n  (tagged-list? exp 'const))\n(define (constant-exp-value exp)\n  (cadr exp))\n(define (label-exp? exp)\n  (tagged-list? exp 'label))\n(define (label-exp-label exp) \n  (cadr exp))\n\n(define (make-operation-exp\n         exp machine labels operations)\n  (let ((op (lookup-prim \n             (operation-exp-op exp)\n             operations))\n        (aprocs\n         (map (lambda (e)\n                (make-primitive-exp \n                 e machine labels))\n              (operation-exp-operands exp))))\n    (lambda () (apply op (map (lambda (p) (p))\n                              aprocs)))))",
+      "exercises": [
+        9,
+        10
+      ],
+      "guide": "操作的名字在汇编层解析；操作数在指令运行时从寄存器或常量取值。"
+    },
+    {
+      "id": "input-monitored-stack",
+      "section": "s5-2-4",
+      "source_pdf_page": 747,
+      "code": "(define (make-stack)\n  (let ((s '())\n        (number-pushes 0)\n        (max-depth 0)\n        (current-depth 0))\n    (define (push x)\n      (set! s (cons x s))\n      (set! number-pushes (+ 1 number-pushes))\n      (set! current-depth (+ 1 current-depth))\n      (set! max-depth \n            (max current-depth max-depth)))\n    (define (pop)\n      (if (null? s)\n          (error \"Empty stack: POP\")\n          (let ((top (car s)))\n            (set! s (cdr s))\n            (set! current-depth\n                  (- current-depth 1))\n            top)))\n    (define (initialize)\n      (set! s '())\n      (set! number-pushes 0)\n      (set! max-depth 0)\n      (set! current-depth 0)\n      'done)\n\n    (define (print-statistics)\n      (newline)\n      (display (list 'total-pushes \n                     '= \n                     number-pushes\n                     'maximum-depth\n                     '=\n                     max-depth)))\n    (define (dispatch message)\n      (cond ((eq? message 'push) push)\n            ((eq? message 'pop) (pop))\n            ((eq? message 'initialize)\n             (initialize))\n            ((eq? message 'print-statistics)\n             (print-statistics))\n            (else\n             (error \"Unknown request: STACK\"\n                    message))))\n    dispatch))",
+      "exercises": [
+        14,
+        26,
+        27,
+        28,
+        29,
+        45,
+        46
+      ],
+      "guide": "累计压栈次数只增不减，当前深度在弹栈时下降，峰值取两次访问之间达到的最大值。"
+    },
+    {
+      "id": "input-vector-car",
+      "section": "s5-3-1",
+      "source_pdf_page": 756,
+      "code": "(assign ⟨reg₁⟩ (op car) (reg ⟨reg₂⟩))\n(assign ⟨reg₁⟩ (op cdr) (reg ⟨reg₂⟩))\n\n(assign ⟨reg₁⟩ \n        (op vector-ref)\n        (reg the-cars)\n        (reg ⟨reg₂⟩))\n(assign ⟨reg₁⟩\n        (op vector-ref)\n        (reg the-cdrs)\n        (reg ⟨reg₂⟩))",
+      "exercises": [
+        20,
+        21,
+        22
+      ],
+      "guide": "同一下标分别索引首部与尾部向量；两个位置即便装有相同值，也不代表是同一地址。"
+    },
+    {
+      "id": "input-cheney",
+      "section": "s5-3-2",
+      "source_pdf_page": 765,
+      "code": "begin-garbage-collection\n  (assign free (const 0))\n  (assign scan (const 0))\n  (assign old (reg root))\n  (assign relocate-continue \n          (label reassign-root))\n  (goto (label relocate-old-result-in-new))\nreassign-root\n  (assign root (reg new))\n  (goto (label gc-loop))\n\ngc-loop\n  (test (op =) (reg scan) (reg free))\n  (branch (label gc-flip))\n  (assign old \n          (op vector-ref)\n          (reg new-cars)\n          (reg scan))\n  (assign relocate-continue \n          (label update-car))\n  (goto (label relocate-old-result-in-new))\n\nupdate-car\n  (perform (op vector-set!)\n           (reg new-cars)\n           (reg scan)\n           (reg new))\n  (assign  old \n           (op vector-ref)\n           (reg new-cdrs)\n           (reg scan))\n  (assign  relocate-continue\n           (label update-cdr))\n  (goto (label relocate-old-result-in-new))\nupdate-cdr\n  (perform (op vector-set!)\n           (reg new-cdrs)\n           (reg scan)\n           (reg new))\n  (assign  scan (op +) (reg scan) (const 1))\n  (goto (label gc-loop))\n\nrelocate-old-result-in-new\n  (test (op pointer-to-pair?) (reg old))\n  (branch (label pair))\n  (assign new (reg old))\n  (goto (reg relocate-continue))\npair\n  (assign  oldcr \n           (op vector-ref)\n           (reg the-cars)\n           (reg old))\n  (test (op broken-heart?) (reg oldcr))\n  (branch  (label already-moved))\n  (assign  new (reg free)) ; new location for pair\n  ;; Update free pointer.\n  (assign free (op +) (reg free) (const 1))\n  ;; Copy the car and cdr to new memory.\n  (perform (op vector-set!)\n           (reg new-cars)\n           (reg new)\n           (reg oldcr))\n  (assign  oldcr \n           (op vector-ref)\n           (reg the-cdrs)\n           (reg old))\n  (perform (op vector-set!)\n           (reg new-cdrs)\n           (reg new)\n           (reg oldcr))\n  ;; Construct the broken heart.\n  (perform (op vector-set!)\n           (reg the-cars)\n           (reg old)\n           (const broken-heart))\n  (perform (op vector-set!)\n           (reg the-cdrs)\n           (reg old)\n           (reg new))\n  (goto (reg relocate-continue))\nalready-moved\n  (assign  new\n           (op vector-ref)\n           (reg the-cdrs)\n           (reg old))\n  (goto (reg relocate-continue))\n\ngc-flip\n  (assign temp (reg the-cdrs))\n  (assign the-cdrs (reg new-cdrs))\n  (assign new-cdrs (reg temp))\n  (assign temp (reg the-cars))\n  (assign the-cars (reg new-cars))\n  (assign new-cars (reg temp))",
+      "exercises": [
+        51,
+        52
+      ],
+      "guide": "从根开始转移，将新地址留在旧单元。扫描指针追上分配指针时，新空间每个可达指针都已修复。"
+    },
+    {
+      "id": "input-ec-application",
+      "section": "s5-4-1",
+      "source_pdf_page": 774,
+      "code": "ev-application\n  (save continue)\n  (save env)\n  (assign unev (op operands) (reg exp))\n  (save unev)\n  (assign exp (op operator) (reg exp))\n  (assign\n   continue (label ev-appl-did-operator))\n  (goto (label eval-dispatch))\n\nev-appl-did-operator\n  (restore unev)             ; the operands\n  (restore env)\n  (assign argl (op empty-arglist))\n  (assign proc (reg val))    ; the operator\n  (test (op no-operands?) (reg unev))\n  (branch (label apply-dispatch))\n  (save proc)\n\nev-appl-operand-loop\n  (save argl)\n  (assign exp\n          (op first-operand)\n          (reg unev))\n  (test (op last-operand?) (reg unev))\n  (branch (label ev-appl-last-arg))\n  (save env)\n  (save unev)\n  (assign continue \n          (label ev-appl-accumulate-arg))\n  (goto (label eval-dispatch))\n\nev-appl-accumulate-arg\n  (restore unev)\n  (restore env)\n  (restore argl)\n  (assign argl \n          (op adjoin-arg)\n          (reg val)\n          (reg argl))\n  (assign unev\n          (op rest-operands)\n          (reg unev))\n  (goto (label ev-appl-operand-loop))\n\nev-appl-last-arg\n  (assign continue \n          (label ev-appl-accum-last-arg))\n  (goto (label eval-dispatch))\nev-appl-accum-last-arg\n  (restore argl)\n  (assign argl \n          (op adjoin-arg)\n          (reg val)\n          (reg argl))\n  (restore proc)\n  (goto (label apply-dispatch))",
+      "exercises": [
+        25,
+        31,
+        32
+      ],
+      "guide": "先保存环境再求操作符；处理剩余实参时区分末项，末项返回后直接应用过程。"
+    },
+    {
+      "id": "input-ec-sequence",
+      "section": "s5-4-2",
+      "source_pdf_page": 781,
+      "code": "ev-sequence\n  (assign exp (op first-exp) (reg unev))\n  (test (op last-exp?) (reg unev))\n  (branch (label ev-sequence-last-exp))\n  (save unev)\n  (save env)\n  (assign continue\n          (label ev-sequence-continue))\n  (goto (label eval-dispatch))\nev-sequence-continue\n  (restore env)\n  (restore unev)\n  (assign unev\n          (op rest-exps)\n          (reg unev))\n  (goto (label ev-sequence))\nev-sequence-last-exp\n  (restore continue)\n  (goto (label eval-dispatch))",
+      "exercises": [
+        26,
+        27,
+        28,
+        29
+      ],
+      "guide": "最后一个表达式复用调用者的返回地址，递归调用前没有等待当前体收尾的栈帧。"
+    },
+    {
+      "id": "input-ec-if",
+      "section": "s5-4-3",
+      "source_pdf_page": 784,
+      "code": "ev-if\n  (save exp)   ; save expression for later\n  (save env)\n  (save continue)\n  (assign continue (label ev-if-decide))\n  (assign exp (op if-predicate) (reg exp))\n  ; evaluate the predicate:\n  (goto (label eval-dispatch))\n\nev-if-decide\n  (restore continue)\n  (restore env)\n  (restore exp)\n  (test (op true?) (reg val))\n  (branch (label ev-if-consequent))\nev-if-alternative\n  (assign exp (op if-alternative) (reg exp))\n  (goto (label eval-dispatch))\nev-if-consequent\n  (assign exp (op if-consequent) (reg exp))\n  (goto (label eval-dispatch))",
+      "exercises": [
+        23,
+        24
+      ],
+      "guide": "测试谓词前保留原式、环境和返回地址。恢复后只有被选择的分支获得控制权。"
+    },
+    {
+      "id": "input-ec-error",
+      "section": "s5-4-4",
+      "source_pdf_page": 788,
+      "code": "unknown-expression-type\n  (assign \n   val\n   (const unknown-expression-type-error))\n  (goto (label signal-error))\nunknown-procedure-type\n  ; clean up stack (from apply-dispatch):\n  (restore continue)    \n  (assign \n   val\n   (const unknown-procedure-type-error))\n  (goto (label signal-error))\nsignal-error\n  (perform (op user-print) (reg val))\n  (goto (label read-eval-print-loop))",
+      "exercises": [
+        30,
+        51
+      ],
+      "guide": "错误入口把内部条件传给驱动层；已保存但尚未恢复的寄存器不能带入下一次独立求值。"
+    },
+    {
+      "id": "input-linkage",
+      "section": "s5-5-1",
+      "source_pdf_page": 808,
+      "code": "(define (compile-linkage linkage)\n  (cond ((eq? linkage 'return)\n         (make-instruction-sequence \n          '(continue)\n          '()\n          '((goto (reg continue)))))\n        ((eq? linkage 'next)\n         (empty-instruction-sequence))\n        (else\n         (make-instruction-sequence '() '()\n          `((goto (label ,linkage)))))))\n\n(define (end-with-linkage \n         linkage instruction-sequence)\n  (preserving '(continue)\n   instruction-sequence\n   (compile-linkage linkage)))",
+      "exercises": [
+        31,
+        47
+      ],
+      "guide": "连接为返回时必须能读到续点；顺序落入下一段时不需要跳转。"
+    },
+    {
+      "id": "input-lambda-body",
+      "section": "s5-5-2",
+      "source_pdf_page": 815,
+      "code": "(define (compile-lambda exp target linkage)\n  (let ((proc-entry \n         (make-label 'entry))\n        (after-lambda \n         (make-label 'after-lambda)))\n    (let ((lambda-linkage\n           (if (eq? linkage 'next)\n               after-lambda\n               linkage)))\n      (append-instruction-sequences\n       (tack-on-instruction-sequence\n        (end-with-linkage \n         lambda-linkage\n         (make-instruction-sequence \n          '(env)\n          (list target)\n          `((assign \n             ,target\n             (op make-compiled-procedure)\n             (label ,proc-entry)\n             (reg env)))))\n        (compile-lambda-body exp proc-entry))\n       after-lambda))))\n\n(define (compile-lambda-body exp proc-entry)\n  (let ((formals (lambda-parameters exp)))\n    (append-instruction-sequences\n     (make-instruction-sequence \n      '(env proc argl)\n      '(env)\n      `(,proc-entry\n        (assign env \n                (op compiled-procedure-env)\n                (reg proc))\n        (assign env\n                (op extend-environment)\n                (const ,formals)\n                (reg argl)\n                (reg env))))\n     (compile-sequence (lambda-body exp)\n                       'val\n                       'return))))",
+      "exercises": [
+        33,
+        34,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44
+      ],
+      "guide": "建立闭包与执行主体是两条路径，进入主体后扩展定义环境并给形式参数分配槽位。"
+    },
+    {
+      "id": "input-arglist",
+      "section": "s5-5-3",
+      "source_pdf_page": 818,
+      "code": "(define (construct-arglist operand-codes)\n  (let ((operand-codes \n         (reverse operand-codes)))\n    (if (null? operand-codes)\n        (make-instruction-sequence \n         '() \n         '(argl)\n         '((assign argl (const ()))))\n        (let ((code-to-get-last-arg\n               (append-instruction-sequences\n                (car operand-codes)\n                (make-instruction-sequence \n                 '(val)\n                 '(argl)\n                 '((assign argl\n                           (op list)\n                           (reg val)))))))\n          (if (null? (cdr operand-codes))\n              code-to-get-last-arg\n              (preserving \n               '(env)\n               code-to-get-last-arg\n               (code-to-get-rest-args\n                (cdr operand-codes))))))))\n\n(define (code-to-get-rest-args operand-codes)\n  (let ((code-for-next-arg\n         (preserving \n          '(argl)\n          (car operand-codes)\n          (make-instruction-sequence \n           '(val argl)\n           '(argl)\n           '((assign argl\n                     (op cons)\n                     (reg val)\n                     (reg argl)))))))\n    (if (null? (cdr operand-codes))\n        code-for-next-arg\n        (preserving \n         '(env)\n         code-for-next-arg\n         (code-to-get-rest-args \n          (cdr operand-codes))))))",
+      "exercises": [
+        32,
+        33,
+        36,
+        38,
+        47
+      ],
+      "guide": "先求最右实参再向表头加入较左实参，得到的参数位置仍与源码一致。"
+    },
+    {
+      "id": "input-preserving",
+      "section": "s5-5-4",
+      "source_pdf_page": 828,
+      "code": "(define (preserving regs seq1 seq2)\n  (if (null? regs)\n      (append-instruction-sequences seq1 seq2)\n      (let ((first-reg (car regs)))\n        (if (and \n             (needs-register? seq2 first-reg)\n             (modifies-register? seq1 \n                                 first-reg))\n            (preserving \n             (cdr regs)\n             (make-instruction-sequence\n              (list-union \n               (list first-reg)\n               (registers-needed seq1))\n              (list-difference\n               (registers-modified seq1)\n               (list first-reg))\n              (append `((save ,first-reg))\n                      (statements seq1)\n                      `((restore ,first-reg))))\n             seq2)\n            (preserving \n             (cdr regs)\n             seq1\n             seq2)))))",
+      "exercises": [
+        31,
+        37,
+        38,
+        45,
+        46
+      ],
+      "guide": "交集只包括后段确实需要且前段会改写的寄存器；多保存不会改变值，却会改变栈统计。"
+    },
+    {
+      "id": "input-compiled-listing",
+      "section": "s5-5-5",
+      "source_pdf_page": 839,
+      "code": "(assign val (op make-compiled-procedure) \n            (label entry16) \n            (reg env))\n  (goto (label after-lambda15))\nentry16\n  (assign env (op compiled-procedure-env)\n              (reg proc))\n  (assign env (op extend-environment) \n              (const (x)) \n              (reg argl) \n              (reg env))\n  (assign proc (op lookup-variable-value) \n               (const +) \n               (reg env))\n  (save continue) (save proc) (save env)\n  (assign proc (op lookup-variable-value) \n               (const g) \n               (reg env))\n  (save proc)\n  (assign proc (op lookup-variable-value) \n               (const +) \n               (reg env))\n  (assign val (const 2))\n  (assign argl (op list) (reg val))\n  (assign val (op lookup-variable-value)\n              (const x) \n              (reg env))\n  (assign argl (op cons)\n               (reg val)\n               (reg argl))\n  (test (op primitive-procedure?)\n        (reg proc))\n  (branch (label primitive-branch19))\ncompiled-branch18\n  (assign continue (label after-call17))\n  (assign val\n          (op compiled-procedure-entry)\n          (reg proc))\n  (goto (reg val))\nprimitive-branch19\n  (assign val\n          (op apply-primitive-procedure)\n          (reg proc) \n          (reg argl))\nafter-call17\n  (assign argl (op list) (reg val))\n  (restore proc)\n  (test (op primitive-procedure?)\n        (reg proc))\n  (branch (label primitive-branch22))\ncompiled-branch21\n  (assign continue (label after-call20))\n  (assign val\n          (op compiled-procedure-entry)\n          (reg proc))\n  (goto (reg val))\nprimitive-branch22\n  (assign val \n          (op apply-primitive-procedure) \n          (reg proc) \n          (reg argl))\nafter-call20\n  (assign argl (op list) (reg val))\n  (restore env)\n  (assign val\n          (op lookup-variable-value) \n          (const x) \n          (reg env))\n  (assign argl\n          (op cons)\n          (reg val)\n          (reg argl))\n  (restore proc)\n  (restore continue)\n  (test (op primitive-procedure?)\n        (reg proc))\n  (branch (label primitive-branch25))\ncompiled-branch24\n  (assign val (op compiled-procedure-entry)\n              (reg proc))\n  (goto (reg val))\nprimitive-branch25\n  (assign val \n          (op apply-primitive-procedure)\n          (reg proc) \n          (reg argl))\n  (goto (reg continue))\nafter-call23\nafter-lambda15\n  (perform (op define-variable!) \n           (const f) \n           (reg val) \n           (reg env))\n  (assign val (const ok))",
+      "exercises": [
+        35
+      ],
+      "guide": "从创建闭包、入口和外层定义三处辨认源码，再倒读实参构造的次序。"
+    },
+    {
+      "id": "input-lexical-address",
+      "section": "s5-5-6",
+      "source_pdf_page": 848,
+      "code": "(find-variable \n 'c '((y z) (a b c d e) (x y)))\n(1 2)\n\n(find-variable \n 'x '((y z) (a b c d e) (x y)))\n(2 0)\n\n(find-variable \n 'w '((y z) (a b c d e) (x y)))\nnot-found",
+      "exercises": [
+        39,
+        40,
+        41,
+        42,
+        43,
+        44
+      ],
+      "guide": "第一个坐标沿静态框架链，第二个坐标在固定形参顺序中定位，以最近绑定优先。"
+    },
+    {
+      "id": "input-compiled-entry",
+      "section": "s5-5-7",
+      "source_pdf_page": 852,
+      "code": "apply-dispatch\n  (test (op primitive-procedure?) (reg proc))\n  (branch (label primitive-apply))\n  (test (op compound-procedure?) (reg proc))\n  (branch (label compound-apply))\n  (test (op compiled-procedure?) (reg proc))\n  (branch (label compiled-apply))\n  (goto (label unknown-procedure-type))\n\ncompiled-apply\n  (restore continue)\n  (assign val\n          (op compiled-procedure-entry)\n          (reg proc))\n  (goto (reg val))\n\n;; branches if flag is set:\n(branch (label external-entry)) \nread-eval-print-loop\n  (perform (op initialize-stack))\n  …\n\nexternal-entry\n  (perform (op initialize-stack))\n  (assign env (op get-global-environment))\n  (assign continue (label print-result))\n  (goto (reg val))\n\n(define (compile-and-go expression)\n  (let ((instructions\n         (assemble \n          (statements\n           (compile \n            expression 'val 'return))\n          eceval)))\n    (set! the-global-environment\n          (setup-environment))\n    (set-register-contents! \n     eceval 'val instructions)\n    (set-register-contents! \n     eceval 'flag true)\n    (start eceval)))",
+      "exercises": [
+        47,
+        48,
+        49,
+        50,
+        51,
+        52
+      ],
+      "guide": "从解释器进入编译入口前设置返回协议，值寄存器和环境寄存器必须遵守同一约定。"
+    }
+  ],
+  "question_dependencies": {
+    "5.1": [
+      "input-gcd-machine"
+    ],
+    "5.2": [
+      "input-gcd-machine"
+    ],
+    "5.3": [
+      "input-gcd-subtract"
+    ],
+    "5.4": [
+      "input-return-register"
+    ],
+    "5.5": [
+      "input-return-register",
+      "input-fib-controller"
+    ],
+    "5.6": [
+      "input-fib-controller"
+    ],
+    "5.11": [
+      "input-fib-controller"
+    ],
+    "5.46": [
+      "input-fib-controller",
+      "input-monitored-stack",
+      "input-preserving"
+    ],
+    "5.13": [
+      "input-make-machine",
+      "input-assembler"
+    ],
+    "5.15": [
+      "input-make-machine"
+    ],
+    "5.16": [
+      "input-make-machine"
+    ],
+    "5.18": [
+      "input-make-machine"
+    ],
+    "5.19": [
+      "input-make-machine"
+    ],
+    "5.8": [
+      "input-assembler"
+    ],
+    "5.12": [
+      "input-assembler"
+    ],
+    "5.9": [
+      "input-operation-expression"
+    ],
+    "5.10": [
+      "input-operation-expression"
+    ],
+    "5.14": [
+      "input-monitored-stack"
+    ],
+    "5.26": [
+      "input-monitored-stack",
+      "input-ec-sequence"
+    ],
+    "5.27": [
+      "input-monitored-stack",
+      "input-ec-sequence"
+    ],
+    "5.28": [
+      "input-monitored-stack",
+      "input-ec-sequence"
+    ],
+    "5.29": [
+      "input-monitored-stack",
+      "input-ec-sequence"
+    ],
+    "5.45": [
+      "input-monitored-stack",
+      "input-preserving"
+    ],
+    "5.20": [
+      "input-vector-car"
+    ],
+    "5.21": [
+      "input-vector-car"
+    ],
+    "5.22": [
+      "input-vector-car"
+    ],
+    "5.51": [
+      "input-cheney",
+      "input-ec-error",
+      "input-compiled-entry"
+    ],
+    "5.52": [
+      "input-cheney",
+      "input-compiled-entry"
+    ],
+    "5.25": [
+      "input-ec-application"
+    ],
+    "5.31": [
+      "input-ec-application",
+      "input-linkage",
+      "input-preserving"
+    ],
+    "5.32": [
+      "input-ec-application",
+      "input-arglist"
+    ],
+    "5.23": [
+      "input-ec-if"
+    ],
+    "5.24": [
+      "input-ec-if"
+    ],
+    "5.30": [
+      "input-ec-error"
+    ],
+    "5.47": [
+      "input-linkage",
+      "input-arglist",
+      "input-compiled-entry"
+    ],
+    "5.33": [
+      "input-lambda-body",
+      "input-arglist"
+    ],
+    "5.34": [
+      "input-lambda-body"
+    ],
+    "5.39": [
+      "input-lambda-body",
+      "input-lexical-address"
+    ],
+    "5.40": [
+      "input-lambda-body",
+      "input-lexical-address"
+    ],
+    "5.41": [
+      "input-lambda-body",
+      "input-lexical-address"
+    ],
+    "5.42": [
+      "input-lambda-body",
+      "input-lexical-address"
+    ],
+    "5.43": [
+      "input-lambda-body",
+      "input-lexical-address"
+    ],
+    "5.44": [
+      "input-lambda-body",
+      "input-lexical-address"
+    ],
+    "5.36": [
+      "input-arglist"
+    ],
+    "5.38": [
+      "input-arglist",
+      "input-preserving"
+    ],
+    "5.37": [
+      "input-preserving"
+    ],
+    "5.35": [
+      "input-compiled-listing"
+    ],
+    "5.48": [
+      "input-compiled-entry"
+    ],
+    "5.49": [
+      "input-compiled-entry"
+    ],
+    "5.50": [
+      "input-compiled-entry"
+    ]
+  }
+}

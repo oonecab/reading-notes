@@ -1,0 +1,808 @@
+{
+  "schema_version": 1,
+  "issue": "I088",
+  "status": "question_boundaries_checked",
+  "reference": {
+    "file": "ZZZping/sicp/sicp-pocket.texi",
+    "sha256": "c070e11c9e5b6d9833c19915d88c8e0e396fa1df3fc7c2d4539057d7c08a2f37",
+    "boundary": "One exercise heading through its quotation end or next exercise heading. Exercises 4.28 and 4.29 share one quotation and are split at the latter heading."
+  },
+  "pdf": {
+    "file": "books/sicp/sicp.pdf",
+    "sha256": "afff2ca1486a46bcd47310bc5a974da1f9c6a6a0b15b39c93e2453350670f715",
+    "start": 515,
+    "end": 693
+  },
+  "items": [
+    {
+      "number": "4.1",
+      "printed_page": 500,
+      "pdf_page": 528,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.1}Exercise 4.1:} Notice that we cannot tell whether\nthe metacircular evaluator evaluates operands from left to right or from right\nto left.  Its evaluation order is inherited from the underlying Lisp: If the\narguments to @code{cons} in @code{list-of-values} are evaluated from left to\nright, then @code{list-of-values} will evaluate operands from left to right;\nand if the arguments to @code{cons} are evaluated from right to left, then\n@code{list-of-values} will evaluate operands from right to left.\n\nWrite a version of @code{list-of-values} that evaluates operands from left to\nright regardless of the order of evaluation in the underlying Lisp.  Also write\na version of @code{list-of-values} that evaluates operands from right to left.\n@end quotation",
+      "source_block_sha256": "5f49ca374d4ef4fc0296550432379068f7db5726d1c31398519085fadbbc01e4",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "107823745d76ea053343e748acf47a0451e2c1c02c31de15310349fe1370ce0b"
+    },
+    {
+      "number": "4.2",
+      "printed_page": 507,
+      "pdf_page": 535,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.2}Exercise 4.2:} Louis Reasoner plans to reorder the\n@code{cond} clauses in @code{eval} so that the clause for procedure\napplications appears before the clause for assignments.  He argues that this\nwill make the interpreter more efficient: Since programs usually contain more\napplications than assignments, definitions, and so on, his modified @code{eval}\nwill usually check fewer clauses than the original @code{eval} before\nidentifying the type of an expression.\n\n@enumerate a\n\n@item\nWhat is wrong with Louis's plan?  (Hint: What will Louis's evaluator do with\nthe expression @code{(define x 3)}?)\n\n@item\nLouis is upset that his plan didn't work.  He is willing to go to any lengths\nto make his evaluator recognize procedure applications before it checks for\nmost other kinds of expressions.  Help him by changing the syntax of the\nevaluated language so that procedure applications start with @code{call}.  For\nexample, instead of @code{(factorial 3)} we will now have to write @code{(call\nfactorial 3)} and instead of @code{(+ 1 2)} we will have to write @code{(call +\n1 2)}.\n\n@end enumerate\n@end quotation",
+      "source_block_sha256": "ca10f19408d596e2e137052fb596c78130c26deca5cd5406e92fcd08efd76237",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "0df3bdd7f69eee8acd8666fb37a6702e2a62072f2509577ef4d8c2adb15fe1df"
+    },
+    {
+      "number": "4.3",
+      "printed_page": 508,
+      "pdf_page": 536,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.3}Exercise 4.3:} Rewrite @code{eval} so that the\ndispatch is done in data-directed style.  Compare this with the data-directed\ndifferentiation procedure of @ref{Exercise 2.73}.  (You may use the @code{car}\nof a compound expression as the type of the expression, as is appropriate for\nthe syntax implemented in this section.)\n@end quotation",
+      "source_block_sha256": "1f38bf8ffc4d07d5e28feb1518cff25d2c4ed83cdaae40ad3986ff79ef3af017",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "36dff656c7c920b15a9ffe55b4c8cf064f38bf82477d6ef508bc4a17da2be3e8"
+    },
+    {
+      "number": "4.4",
+      "printed_page": 508,
+      "pdf_page": 536,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.4}Exercise 4.4:} Recall the definitions of the\nspecial forms @code{and} and @code{or} from @ref{Chapter 1}:\n\n@itemize @bullet\n\n@item\n@code{and}: The expressions are evaluated from left to right.  If any\nexpression evaluates to false, false is returned; any remaining expressions are\nnot evaluated.  If all the expressions evaluate to true values, the value of\nthe last expression is returned.  If there are no expressions then true is\nreturned.\n\n@item\n@code{or}: The expressions are evaluated from left to right.  If any expression\nevaluates to a true value, that value is returned; any remaining expressions\nare not evaluated.  If all expressions evaluate to false, or if there are no\nexpressions, then false is returned.\n\n@end itemize\n\nInstall @code{and} and @code{or} as new special forms for the evaluator by\ndefining appropriate syntax procedures and evaluation procedures\n@code{eval-and} and @code{eval-or}.  Alternatively, show how to implement\n@code{and} and @code{or} as derived expressions.\n@end quotation",
+      "source_block_sha256": "56e22b0725f9b8de8065cfdfe70f06e9f4c79c5f2f00b2aaf30eb8fb0ed4c5b9",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "e6e3863fe3f50f0fa4d097e313a2a8a9b0220ecb961773f10fce2baff8a3eeb9"
+    },
+    {
+      "number": "4.5",
+      "printed_page": 509,
+      "pdf_page": 537,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.5}Exercise 4.5:} Scheme allows an additional syntax\nfor @code{cond} clauses, @code{(⟨@var{test}⟩ => ⟨@var{recipient}⟩)}.  If\n@code{⟨}@var{test}@code{⟩} evaluates to a true value, then @code{⟨}@var{recipient}@code{⟩} is evaluated.\nIts value must be a procedure of one argument; this procedure is then invoked\non the value of the @code{⟨}@var{test}@code{⟩}, and the result is returned as the value of\nthe @code{cond} expression.  For example\n\n@lisp\n(cond ((assoc 'b '((a 1) (b 2))) => cadr)\n      (else false))\n@end lisp\n\n@noindent\nreturns 2.  Modify the handling of @code{cond} so that it supports this\nextended syntax.\n@end quotation",
+      "source_block_sha256": "3a362afe308daaf130b77b5520ac0e51a5a4fb30c332f7db7891b6cffcc46c01",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "a913003994c4b3a7ca760a79f0926e7acab1d6ef4cb013ae7a40c9422732e5a7"
+    },
+    {
+      "number": "4.6",
+      "printed_page": 509,
+      "pdf_page": 537,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.6}Exercise 4.6:} @code{Let} expressions are derived\nexpressions, because\n\n@lisp\n(let ((⟨@var{var₁}⟩ ⟨@var{exp₁}⟩) @r{…} (⟨@var{varₙ}⟩ ⟨@var{expₙ}⟩))\n  ⟨@var{body}⟩)\n@end lisp\n\n@noindent\nis equivalent to\n\n@lisp\n((lambda (⟨@var{var₁}⟩ @r{…} ⟨@var{varₙ}⟩)\n   ⟨@var{body}⟩)\n ⟨@var{exp₁}⟩\n @r{…}\n ⟨@var{expₙ}⟩)\n@end lisp\n\nImplement a syntactic transformation @code{let->combination} that reduces\nevaluating @code{let} expressions to evaluating combinations of the type shown\nabove, and add the appropriate clause to @code{eval} to handle @code{let}\nexpressions.\n@end quotation",
+      "source_block_sha256": "5bdba4420f77a7e3a9c36d25de50e0eeaaed1086791a5632fdb42346c49dc5dc",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "669b6c9671477c3e5d39d655fdef8c60149f1c155c5f56b3c024c57aab9e5f51"
+    },
+    {
+      "number": "4.7",
+      "printed_page": 510,
+      "pdf_page": 538,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.7}Exercise 4.7:} @code{Let*} is similar to\n@code{let}, except that the bindings of the @code{let*} variables are performed\nsequentially from left to right, and each binding is made in an environment in\nwhich all of the preceding bindings are visible.  For example\n\n@lisp\n(let* ((x 3)\n       (y (+ x 2))\n       (z (+ x y 5)))\n  (* x z))\n@end lisp\n\n@noindent\nreturns 39.  Explain how a @code{let*} expression can be rewritten as a set of\nnested @code{let} expressions, and write a procedure @code{let*->nested-lets}\nthat performs this transformation.  If we have already implemented @code{let}\n(@ref{Exercise 4.6}) and we want to extend the evaluator to handle @code{let*},\nis it sufficient to add a clause to @code{eval} whose action is\n\n@lisp\n(eval (let*->nested-lets exp) env)\n@end lisp\n\n@noindent\nor must we explicitly expand @code{let*} in terms of non-derived expressions?\n@end quotation",
+      "source_block_sha256": "73d02c27db0964d228bd326101dc4e3837896498393079b975f7cc325e4de384",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "40831812bee47b0448452ca171e1762d6c58850e285459f2aed610ab560ef4a9"
+    },
+    {
+      "number": "4.8",
+      "printed_page": 510,
+      "pdf_page": 538,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.8}Exercise 4.8:} ``Named @code{let}'' is a variant\nof @code{let} that has the form \n\n@lisp\n(let ⟨@var{var}⟩ ⟨@var{bindings}⟩ ⟨@var{body}⟩)\n@end lisp\n\nThe @code{⟨}@var{bindings}@code{⟩} and @code{⟨}@var{body}@code{⟩} are just as in ordinary @code{let},\nexcept that @code{⟨}@var{var}@code{⟩} is bound within @code{⟨}@var{body}@code{⟩} to a procedure whose body\nis @code{⟨}@var{body}@code{⟩} and whose parameters are the variables in the @code{⟨}@var{bindings}@code{⟩}.\nThus, one can repeatedly execute the @code{⟨}@var{body}@code{⟩} by invoking the procedure\nnamed @code{⟨}@var{var}@code{⟩}.  For example, the iterative Fibonacci procedure \n(@ref{1.2.2}) can be rewritten using named @code{let} as follows:\n\n@lisp\n(define (fib n)\n  (let fib-iter ((a 1) (b 0) (count n))\n    (if (= count 0)\n        b\n        (fib-iter (+ a b) \n                  a \n                  (- count 1)))))\n@end lisp\n\nModify @code{let->combination} of @ref{Exercise 4.6} to also support named\n@code{let}.\n@end quotation",
+      "source_block_sha256": "2c0c6ab189126dd3667d8d0595854b6bfd19579ceccbdf34270c2d4063456a3b",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "812afc4431b7483b5f1fbaffdb48a7d7931364c3e9aaacb88a3024df1fa0c662"
+    },
+    {
+      "number": "4.9",
+      "printed_page": 511,
+      "pdf_page": 539,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.9}Exercise 4.9:} Many languages support a variety of\niteration constructs, such as @code{do}, @code{for}, @code{while}, and\n@code{until}.  In Scheme, iterative processes can be expressed in terms of\nordinary procedure calls, so special iteration constructs provide no essential\ngain in computational power.  On the other hand, such constructs are often\nconvenient.  Design some iteration constructs, give examples of their use, and\nshow how to implement them as derived expressions.\n@end quotation",
+      "source_block_sha256": "04dfa4deed3e0ed86654b5c4f8fdcac3776bf793baf121a3acba626851f507e3",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "67e094baf8b921c066f81170aadaa354091a6a45172d650e3d7899621d5338bf"
+    },
+    {
+      "number": "4.10",
+      "printed_page": 511,
+      "pdf_page": 539,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.10}Exercise 4.10:} By using data abstraction, we\nwere able to write an @code{eval} procedure that is independent of the\nparticular syntax of the language to be evaluated.  To illustrate this, design\nand implement a new syntax for Scheme by modifying the procedures in this\nsection, without changing @code{eval} or @code{apply}.\n@end quotation",
+      "source_block_sha256": "406a49e61bda80c280d35dc3c619642233bdc50f7bcf5a69d4a513ef9e9e4554",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "8100b998d5725f3798c323d93a545da3266432ba8eeaa3cb3f70cfcb40efb65d"
+    },
+    {
+      "number": "4.11",
+      "printed_page": 517,
+      "pdf_page": 545,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.11}Exercise 4.11:} Instead of representing a frame\nas a pair of lists, we can represent a frame as a list of bindings, where each\nbinding is a name-value pair.  Rewrite the environment operations to use this\nalternative representation.\n@end quotation",
+      "source_block_sha256": "fc0dd9fe7bc9728b2b86178e2ca0ee83cafec7b5ce7ba83ab7ba742582daf994",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "8033c3c608055fed2325fe065449dde6bdb9bc508d1b634a4ba3d42d72396c2d"
+    },
+    {
+      "number": "4.12",
+      "printed_page": 517,
+      "pdf_page": 545,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.12}Exercise 4.12:} The procedures\n@code{define-variable!}, @code{set-variable-value!} and\n@code{lookup-variable-value} can be expressed in terms of more abstract\nprocedures for traversing the environment structure.  Define abstractions that\ncapture the common patterns and redefine the three procedures in terms of these\nabstractions.\n@end quotation",
+      "source_block_sha256": "3a04f58deaaf81312ba9364b8fdf97690aa9de676247e912b42de3c68955071b",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "4df886e7470fa3287d50280e188a498f0aa2e317bad6bedb84d4e7240187c78f"
+    },
+    {
+      "number": "4.13",
+      "printed_page": 517,
+      "pdf_page": 545,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.13}Exercise 4.13:} Scheme allows us to create new\nbindings for variables by means of @code{define}, but provides no way to get\nrid of bindings.  Implement for the evaluator a special form\n@code{make-unbound!} that removes the binding of a given symbol from the\nenvironment in which the @code{make-unbound!} expression is evaluated.  This\nproblem is not completely specified.  For example, should we remove only the\nbinding in the first frame of the environment?  Complete the specification and\njustify any choices you make.\n@end quotation",
+      "source_block_sha256": "bc526d354f472b1f0b329958633528d4b2bb60516852e3d43edb56e7a52e99a7",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "e93fca789fea840f17210826e38f346628db2d4f3c59db89edff7dd9af1b8e8a"
+    },
+    {
+      "number": "4.14",
+      "printed_page": 522,
+      "pdf_page": 550,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.14}Exercise 4.14:} Eva Lu Ator and Louis Reasoner\nare each experimenting with the metacircular evaluator.  Eva types in the\ndefinition of @code{map}, and runs some test programs that use it.  They work\nfine.  Louis, in contrast, has installed the system version of @code{map} as a\nprimitive for the metacircular evaluator.  When he tries it, things go terribly\nwrong.  Explain why Louis's @code{map} fails even though Eva's works.\n@end quotation",
+      "source_block_sha256": "edef63d7b30e2236cc1d5b1b340a4c2b2d14594b270e937597782073583c8ade",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "2295edf9203a5dd1436632306858259ed26c9205863d13779a4c42f539e37999"
+    },
+    {
+      "number": "4.15",
+      "printed_page": 526,
+      "pdf_page": 554,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.15}Exercise 4.15:} Given a one-argument procedure\n@code{p} and an object @code{a}, @code{p} is said to ``halt'' on @code{a} if\nevaluating the expression @code{(p a)} returns a value (as opposed to\nterminating with an error message or running forever).  Show that it is\nimpossible to write a procedure @code{halts?} that correctly determines whether\n@code{p} halts on @code{a} for any procedure @code{p} and object @code{a}.  Use\nthe following reasoning: If you had such a procedure @code{halts?}, you could\nimplement the following program:\n\n@lisp\n(define (run-forever)\n  (run-forever))\n\n(define (try p)\n  (if (halts? p p)\n      (run-forever)\n      'halted))\n@end lisp\n\nNow consider evaluating the expression @code{(try try)} and show that any\npossible outcome (either halting or running forever) violates the intended\nbehavior of @code{halts?}.@footnote{Although we stipulated that @code{halts?}\nis given a procedure object, notice that this reasoning still applies even if\n@code{halts?} can gain access to the procedure's text and its environment.\nThis is Turing's celebrated @newterm{Halting Theorem}, which gave the first\nclear example of a @newterm{non-computable} problem, i.e., a well-posed task\nthat cannot be carried out as a computational procedure.}\n@end quotation",
+      "source_block_sha256": "436b7de5e63d68e8247b78132a3e90e5acf5dded0a79e92614b753412e542547",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "4924bd83f5d0cdee3b27a3f204e38ac06d98cdd9e4b8a0d090cb344ae04e95bc"
+    },
+    {
+      "number": "4.16",
+      "printed_page": 529,
+      "pdf_page": 557,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.16}Exercise 4.16:} In this exercise we implement the\nmethod just described for interpreting internal definitions.  We assume that\nthe evaluator supports @code{let} (see @ref{Exercise 4.6}).\n\n@enumerate a\n\n@item\nChange @code{lookup-variable-value} (@ref{4.1.3}) to signal an error if\nthe value it finds is the symbol @code{*unassigned*}.\n\n@item\nWrite a procedure @code{scan-out-defines} that takes a procedure body and\nreturns an equivalent one that has no internal definitions, by making the\ntransformation described above.\n\n@item\nInstall @code{scan-out-defines} in the interpreter, either in\n@code{make-procedure} or in @code{procedure-body} (see @ref{4.1.3}).\nWhich place is better?  Why?\n\n@end enumerate\n@end quotation",
+      "source_block_sha256": "326f241a0794067a75921d036ae0d9ea4cfad0f29ae734e7ee804fb9ca6d6d54",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "067e5f446c46a46a31d76820c17363404493a9f8173877d8105d8db75dccabe8"
+    },
+    {
+      "number": "4.17",
+      "printed_page": 529,
+      "pdf_page": 557,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.17}Exercise 4.17:} Draw diagrams of the environment\nin effect when evaluating the expression @code{⟨}@var{e3}@code{⟩} in the procedure in the\ntext, comparing how this will be structured when definitions are interpreted\nsequentially with how it will be structured if definitions are scanned out as\ndescribed.  Why is there an extra frame in the transformed program?  Explain\nwhy this difference in environment structure can never make a difference in the\nbehavior of a correct program.  Design a way to make the interpreter implement\nthe ``simultaneous'' scope rule for internal definitions without constructing\nthe extra frame.\n@end quotation",
+      "source_block_sha256": "a4a87acb62e44f1a89b09d7204cacd82a3b5f11ef70a7bee1c802194cce053b8",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "ed0dcf9a1850c40331594f3e0f901170b2ccce31d8758ab581b50b0d2dfbf1a7"
+    },
+    {
+      "number": "4.18",
+      "printed_page": 530,
+      "pdf_page": 558,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.18}Exercise 4.18:} Consider an alternative strategy\nfor scanning out definitions that translates the example in the text to\n\n@lisp\n(lambda ⟨@var{vars}⟩\n  (let ((u '*unassigned*)\n        (v '*unassigned*))\n    (let ((a ⟨@var{e1}⟩)\n          (b ⟨@var{e2}⟩))\n      (set! u a)\n      (set! v b))\n    ⟨@var{e3}⟩))\n@end lisp\n\nHere @code{a} and @code{b} are meant to represent new variable names, created\nby the interpreter, that do not appear in the user's program.  Consider the\n@code{solve} procedure from @ref{3.5.4}:\n\n@lisp\n(define (solve f y0 dt)\n  (define y (integral (delay dy) y0 dt))\n  (define dy (stream-map f y))\n  y)\n@end lisp\n\nWill this procedure work if internal definitions are scanned out as shown in\nthis exercise?  What if they are scanned out as shown in the text?  Explain.\n@end quotation",
+      "source_block_sha256": "c283cd075092f98a25025e557d4271d53b2d00c30aa98590c52e7ac88aa9e10c",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "3b2adc3b58f607afcdc0d05a47fc828830dc2ef1a4275b1fb024ac16b38476dd"
+    },
+    {
+      "number": "4.19",
+      "printed_page": 531,
+      "pdf_page": 559,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.19}Exercise 4.19:} Ben Bitdiddle, Alyssa P. Hacker,\nand Eva Lu Ator are arguing about the desired result of evaluating the\nexpression\n\n@lisp\n(let ((a 1))\n  (define (f x)\n    (define b (+ a x))\n    (define a 5)\n    (+ a b))\n  (f 10))\n@end lisp\n\nBen asserts that the result should be obtained using the sequential rule for\n@code{define}: @code{b} is defined to be 11, then @code{a} is defined to be 5,\nso the result is 16.  Alyssa objects that mutual recursion requires the\nsimultaneous scope rule for internal procedure definitions, and that it is\nunreasonable to treat procedure names differently from other names.  Thus, she\nargues for the mechanism implemented in @ref{Exercise 4.16}.  This would lead\nto @code{a} being unassigned at the time that the value for @code{b} is to be\ncomputed.  Hence, in Alyssa's view the procedure should produce an error.  Eva\nhas a third opinion.  She says that if the definitions of @code{a} and @code{b}\nare truly meant to be simultaneous, then the value 5 for @code{a} should be\nused in evaluating @code{b}.  Hence, in Eva's view @code{a} should be 5,\n@code{b} should be 15, and the result should be 20.  Which (if any) of these\nviewpoints do you support?  Can you devise a way to implement internal\ndefinitions so that they behave as Eva prefers?@footnote{The @abbr{MIT}\nimplementors of Scheme support Alyssa on the following grounds: Eva is in\nprinciple correct---the definitions should be regarded as simultaneous.  But\nit seems difficult to implement a general, efficient mechanism that does what\nEva requires.  In the absence of such a mechanism, it is better to generate an\nerror in the difficult cases of simultaneous definitions (Alyssa's notion) than\nto produce an incorrect answer (as Ben would have it).}\n@end quotation",
+      "source_block_sha256": "d415d9e0fdd5776036b2e5a75de8ad397dd1e0d4902c004a18f6ced03f77e676",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "438188bd54cdfb5ed831e2a9774b1134c5824ab193bd3ca6b65b0a20f15f02f2"
+    },
+    {
+      "number": "4.20",
+      "printed_page": 532,
+      "pdf_page": 560,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.20}Exercise 4.20:} Because internal definitions look\nsequential but are actually simultaneous, some people prefer to avoid them\nentirely, and use the special form @code{letrec} instead.  @code{Letrec} looks\nlike @code{let}, so it is not surprising that the variables it binds are bound\nsimultaneously and have the same scope as each other.  The sample procedure\n@code{f} above can be written without internal definitions, but with exactly\nthe same meaning, as\n\n@lisp\n(define (f x)\n  (letrec\n      ((even?\n        (lambda (n)\n          (if (= n 0)\n              true\n              (odd? (- n 1)))))\n       (odd?\n        (lambda (n)\n          (if (= n 0)\n              false\n              (even? (- n 1))))))\n    ⟨@var{rest of body of @code{f}}⟩))\n@end lisp\n\n@code{Letrec} expressions, which have the form\n\n@lisp\n(letrec ((⟨@var{var₁}⟩ ⟨@var{exp₁}⟩) @r{…} (⟨@var{varₙ}⟩ ⟨@var{expₙ}⟩))\n  ⟨@var{body}⟩)\n@end lisp\n\n@noindent\nare a variation on @code{let} in which the expressions\n@math{{⟨\\kern0.1em exp_k⟩}} that provide the initial values for the\nvariables @math{{⟨\\kern0.06em var_k⟩}} are evaluated in an environment\nthat includes all the @code{letrec} bindings.  This permits recursion in the\nbindings, such as the mutual recursion of @code{even?} and @code{odd?} in the\nexample above, or the evaluation of 10 factorial with\n\n@lisp\n(letrec\n    ((fact\n      (lambda (n)\n        (if (= n 1)\n            1\n            (* n (fact (- n 1)))))))\n  (fact 10))\n@end lisp\n\n@enumerate a\n\n@item\nImplement @code{letrec} as a derived expression, by transforming a\n@code{letrec} expression into a @code{let} expression as shown in the text\nabove or in @ref{Exercise 4.18}.  That is, the @code{letrec} variables should\nbe created with a @code{let} and then be assigned their values with\n@code{set!}.\n\n@item\nLouis Reasoner is confused by all this fuss about internal definitions.  The\nway he sees it, if you don't like to use @code{define} inside a procedure, you\ncan just use @code{let}.  Illustrate what is loose about his reasoning by\ndrawing an environment diagram that shows the environment in which the\n@code{⟨}@var{rest of body of @code{f}}@code{⟩} is evaluated during evaluation of the\nexpression @code{(f 5)}, with @code{f} defined as in this exercise.  Draw an\nenvironment diagram for the same evaluation, but with @code{let} in place of\n@code{letrec} in the definition of @code{f}.\n\n@end enumerate\n@end quotation",
+      "source_block_sha256": "0530faef0c101838b3b7b2052481701ff14ff5860df81504fb0028900c26071e",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "d98e28bef6f5181adfc3970936fbec278bf61eb8ad289eaddcb119b309794734"
+    },
+    {
+      "number": "4.21",
+      "printed_page": 533,
+      "pdf_page": 561,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.21}Exercise 4.21:} Amazingly, Louis's intuition in\n@ref{Exercise 4.20} is correct.  It is indeed possible to specify recursive\nprocedures without using @code{letrec} (or even @code{define}), although the\nmethod for accomplishing this is much more subtle than Louis imagined.  The\nfollowing expression computes 10 factorial by applying a recursive factorial\nprocedure:@footnote{This example illustrates a programming trick for\nformulating recursive procedures without using @code{define}.  The most general\ntrick of this sort is the @math{Y} @newterm{operator}, which can be used to give a\n``pure λ-calculus'' implementation of recursion.  (See @ref{Stoy 1977} for\ndetails on the λ-calculus, and @ref{Gabriel 1988} for an exposition of the\n@math{Y} operator in Scheme.)}\n\n@lisp\n((lambda (n)\n   ((lambda (fact) (fact fact n))\n    (lambda (ft k)\n      (if (= k 1)\n          1\n          (* k (ft ft (- k 1)))))))\n 10)\n@end lisp\n\n@enumerate a\n\n@item\nCheck (by evaluating the expression) that this really does compute factorials.\nDevise an analogous expression for computing Fibonacci numbers.\n\n@item\nConsider the following procedure, which includes mutually recursive internal\ndefinitions:\n\n@lisp\n(define (f x)\n  (define (even? n)\n    (if (= n 0)\n        true\n        (odd? (- n 1))))\n  (define (odd? n)\n    (if (= n 0)\n        false\n        (even? (- n 1))))\n  (even? x))\n@end lisp\n\nFill in the missing expressions to complete an alternative definition of\n@code{f}, which uses neither internal definitions nor @code{letrec}:\n\n@lisp\n(define (f x)\n  ((lambda (even? odd?)\n     (even? even? odd? x))\n   (lambda (ev? od? n)\n     (if (= n 0) \n         true \n         (od? ⟨??⟩ ⟨??⟩ ⟨??⟩)))\n   (lambda (ev? od? n)\n     (if (= n 0) \n         false \n         (ev? ⟨??⟩ ⟨??⟩ ⟨??⟩)))))\n@end lisp\n@end enumerate\n@end quotation",
+      "source_block_sha256": "d45ed30c57fdf56a2e5c4bfced09cfde47b0258085e5a349daeb8bb384191569",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "9aa87d06236cd98626ebd36c93b064f62545c221d60b701a8b1ea2a3f73d662f"
+    },
+    {
+      "number": "4.22",
+      "printed_page": 539,
+      "pdf_page": 567,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.22}Exercise 4.22:} Extend the evaluator in this\nsection to support the special form @code{let}.  (See @ref{Exercise 4.6}.)\n@end quotation",
+      "source_block_sha256": "94ba79562c308950f2039c28c3052497436580f5a0c7aa94c983f7f4966172f8",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "dd474543a6fecf264a29b85de7ae04dfb8508d3c73e47f655a0a502c21aeec1f"
+    },
+    {
+      "number": "4.23",
+      "printed_page": 539,
+      "pdf_page": 567,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.23}Exercise 4.23:} Alyssa P. Hacker doesn't\nunderstand why @code{analyze-sequence} needs to be so complicated.  All the\nother analysis procedures are straightforward transformations of the\ncorresponding evaluation procedures (or @code{eval} clauses) in \n@ref{4.1.1}.  She expected @code{analyze-sequence} to look like this:\n\n@lisp\n(define (analyze-sequence exps)\n  (define (execute-sequence procs env)\n    (cond ((null? (cdr procs)) \n           ((car procs) env))\n          (else ((car procs) env)\n                (execute-sequence \n                 (cdr procs) env))))\n  (let ((procs (map analyze exps)))\n    (if (null? procs)\n        (error \"Empty sequence: \n                ANALYZE\"))\n    (lambda (env) \n      (execute-sequence procs env))))\n@end lisp\n\nEva Lu Ator explains to Alyssa that the version in the text does more of the\nwork of evaluating a sequence at analysis time.  Alyssa's sequence-execution\nprocedure, rather than having the calls to the individual execution procedures\nbuilt in, loops through the procedures in order to call them: In effect,\nalthough the individual expressions in the sequence have been analyzed, the\nsequence itself has not been.\n\nCompare the two versions of @code{analyze-sequence}.  For example, consider the\ncommon case (typical of procedure bodies) where the sequence has just one\nexpression.  What work will the execution procedure produced by Alyssa's\nprogram do?  What about the execution procedure produced by the program in the\ntext above?  How do the two versions compare for a sequence with two\nexpressions?\n@end quotation",
+      "source_block_sha256": "840e619e724aa4ffa4b9e152bb7070ce9b1dae1af4b2019e6c0a430e202b6ba2",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "3aa623c31bcead31d5ef78baa8c4ecca99f5a5f6f2ce6b7390aa8c667c959d61"
+    },
+    {
+      "number": "4.24",
+      "printed_page": 541,
+      "pdf_page": 569,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.24}Exercise 4.24:} Design and carry out some\nexperiments to compare the speed of the original metacircular evaluator with\nthe version in this section.  Use your results to estimate the fraction of time\nthat is spent in analysis versus execution for various procedures.\n@end quotation",
+      "source_block_sha256": "659e5b0e1ba382a28932b3bdbe9340f2d7f21851e5600920517a07299a21eb75",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "2cc0f66e206e533f27fa06c9f8753cb9bf3959c6f86cf70f06ec9c994f4413dc"
+    },
+    {
+      "number": "4.25",
+      "printed_page": 543,
+      "pdf_page": 571,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.25}Exercise 4.25:} Suppose that (in ordinary\napplicative-order Scheme) we define @code{unless} as shown above and then\ndefine @code{factorial} in terms of @code{unless} as\n\n@lisp\n(define (factorial n)\n  (unless (= n 1)\n          (* n (factorial (- n 1)))\n          1))\n@end lisp\n\nWhat happens if we attempt to evaluate @code{(factorial 5)}?  Will our\ndefinitions work in a normal-order language?\n@end quotation",
+      "source_block_sha256": "a860cae746ba5c16006c198d32c6038fed1462cf4952f6998656d16cb74d6726",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "ecb0c15e20478d9f78c0ead1726eb8940545556c43090f3435fff8e1d81dcf0b"
+    },
+    {
+      "number": "4.26",
+      "printed_page": 544,
+      "pdf_page": 572,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.26}Exercise 4.26:} Ben Bitdiddle and Alyssa\nP. Hacker disagree over the importance of lazy evaluation for implementing\nthings such as @code{unless}.  Ben points out that it's possible to implement\n@code{unless} in applicative order as a special form.  Alyssa counters that, if\none did that, @code{unless} would be merely syntax, not a procedure that could\nbe used in conjunction with higher-order procedures.  Fill in the details on\nboth sides of the argument.  Show how to implement @code{unless} as a derived\nexpression (like @code{cond} or @code{let}), and give an example of a situation\nwhere it might be useful to have @code{unless} available as a procedure, rather\nthan as a special form.\n@end quotation",
+      "source_block_sha256": "814c86fab44a76ef3d27ddde4bd9c0b544701acd48824fd7c8ca9496f5531f6e",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "c91598b38dd6b65f0d4fd5bf2e12ffcbf0062582ac5bff6d35839922f9956490"
+    },
+    {
+      "number": "4.27",
+      "printed_page": 551,
+      "pdf_page": 579,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.27}Exercise 4.27:} Suppose we type in the following\ndefinitions to the lazy evaluator:\n\n@lisp\n(define count 0)\n(define (id x) (set! count (+ count 1)) x)\n@end lisp\n\nGive the missing values in the following sequence of interactions, and explain\nyour answers.@footnote{This exercise demonstrates that the interaction between\nlazy evaluation and side effects can be very confusing.  This is just what you\nmight expect from the discussion in @ref{Chapter 3}.}\n\n@lisp\n(define w (id (id 10)))\n\n@i{;;; L-Eval input:}\ncount\n\n@i{;;; L-Eval value:}\n⟨@var{response}⟩\n\n@i{;;; L-Eval input:}\nw\n\n@i{;;; L-Eval value:}\n⟨@var{response}⟩\n\n@i{;;; L-Eval input:}\ncount\n\n@i{;;; L-Eval value:}\n⟨@var{response}⟩\n@end lisp\n@end quotation",
+      "source_block_sha256": "769beeae9c34dc2f466ca2dbec554e0bf4cad22bc8ee0c816e61c0b28a14613f",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "14e5cec3689fa0a8a36dd997ba3ab2984a431e366080cff74f8bba4589228095"
+    },
+    {
+      "number": "4.28",
+      "printed_page": 551,
+      "pdf_page": 579,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.28}Exercise 4.28:} @code{Eval} uses\n@code{actual-value} rather than @code{eval} to evaluate the operator before\npassing it to @code{apply}, in order to force the value of the operator.  Give\nan example that demonstrates the need for this forcing.",
+      "source_block_sha256": "f3b7a22f7b8d5ac44a02de3827b3480748725d30075b96c9c46f8c92948f62c1",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "0078b01bcf44cb7c20b75479850c2236b6054d709bd165739e51fd599b53f9fa"
+    },
+    {
+      "number": "4.29",
+      "printed_page": 551,
+      "pdf_page": 579,
+      "original_texinfo": "@strong{@anchor{Exercise 4.29}Exercise 4.29:} Exhibit a program that you would\nexpect to run much more slowly without memoization than with memoization.\nAlso, consider the following interaction, where the @code{id} procedure is\ndefined as in @ref{Exercise 4.27} and @code{count} starts at 0:\n\n@lisp\n(define (square x) (* x x))\n\n@i{;;; L-Eval input:}\n(square (id 10))\n\n@i{;;; L-Eval value:}\n⟨@var{response}⟩\n\n@i{;;; L-Eval input:}\ncount\n\n@i{;;; L-Eval value:}\n⟨@var{response}⟩\n@end lisp\n\nGive the responses both when the evaluator memoizes and when it does not.\n@end quotation",
+      "source_block_sha256": "7605beb742835ab5f094b9ccb6a2f16103172bbf0631e7947558194f13b46e85",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "d458d0dd0ee9b143b69a795aca58c33045d234fb4787d6d13781392d6f139bc2"
+    },
+    {
+      "number": "4.30",
+      "printed_page": 552,
+      "pdf_page": 580,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.30}Exercise 4.30:} Cy D. Fect, a reformed C\nprogrammer, is worried that some side effects may never take place, because the\nlazy evaluator doesn't force the expressions in a sequence.  Since the value of\nan expression in a sequence other than the last one is not used (the expression\nis there only for its effect, such as assigning to a variable or printing),\nthere can be no subsequent use of this value (e.g., as an argument to a\nprimitive procedure) that will cause it to be forced.  Cy thus thinks that when\nevaluating sequences, we must force all expressions in the sequence except the\nfinal one.  He proposes to modify @code{eval-sequence} from @ref{4.1.1}\nto use @code{actual-value} rather than @code{eval}:\n\n@lisp\n(define (eval-sequence exps env)\n  (cond ((last-exp? exps) \n         (eval (first-exp exps) env))\n        (else \n         (actual-value (first-exp exps) \n                       env)\n         (eval-sequence (rest-exps exps) \n                        env))))\n@end lisp\n\n@enumerate a\n\n@item\nBen Bitdiddle thinks Cy is wrong.  He shows Cy the @code{for-each} procedure\ndescribed in @ref{Exercise 2.23}, which gives an important example of a\nsequence with side effects:\n\n@lisp\n(define (for-each proc items)\n  (if (null? items)\n      'done\n      (begin (proc (car items))\n             (for-each proc \n                       (cdr items)))))\n@end lisp\n\nHe claims that the evaluator in the text (with the original\n@code{eval-sequence}) handles this correctly:\n\n@lisp\n@i{;;; L-Eval input:}\n(for-each\n (lambda (x) (newline) (display x))\n (list 57 321 88))\n@i{57}\n@i{321}\n@i{88}\n\n@i{;;; L-Eval value:}\n@i{done}\n@end lisp\n\nExplain why Ben is right about the behavior of @code{for-each}.\n\n@item\nCy agrees that Ben is right about the @code{for-each} example, but says that\nthat's not the kind of program he was thinking about when he proposed his\nchange to @code{eval-sequence}.  He defines the following two procedures in the\nlazy evaluator:\n\n@lisp\n(define (p1 x)\n  (set! x (cons x '(2))) x)\n\n(define (p2 x)\n  (define (p e) e x)\n  (p (set! x (cons x '(2)))))\n@end lisp\n\nWhat are the values of @code{(p1 1)} and @code{(p2 1)} with the original\n@code{eval-sequence}?  What would the values be with Cy's proposed change to\n@code{eval-sequence}?\n\n@item\nCy also points out that changing @code{eval-sequence} as he proposes does not\naffect the behavior of the example in part a.  Explain why this is true.\n\n@item\nHow do you think sequences ought to be treated in the lazy evaluator?  Do you\nlike Cy's approach, the approach in the text, or some other approach?\n\n@end enumerate\n@end quotation",
+      "source_block_sha256": "7648b2a58ee395b55258419ad993211cb9b55a72640ccefe2730984718487dfc",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "9dab882acb9d549a0322528f9b084467791b8c43afce5262458e67d95cd2f7ab"
+    },
+    {
+      "number": "4.31",
+      "printed_page": 554,
+      "pdf_page": 582,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.31}Exercise 4.31:} The approach taken in this\nsection is somewhat unpleasant, because it makes an incompatible change to\nScheme.  It might be nicer to implement lazy evaluation as an\n@newterm{upward-compatible extension}, that is, so that ordinary Scheme\nprograms will work as before.  We can do this by extending the syntax of\nprocedure declarations to let the user control whether or not arguments are to\nbe delayed.  While we're at it, we may as well also give the user the choice\nbetween delaying with and without memoization.  For example, the definition\n\n@lisp\n(define (f a (b lazy) c (d lazy-memo))\n  @r{…})\n@end lisp\n\n@noindent\nwould define @code{f} to be a procedure of four arguments, where the first and\nthird arguments are evaluated when the procedure is called, the second argument\nis delayed, and the fourth argument is both delayed and memoized.  Thus,\nordinary procedure definitions will produce the same behavior as ordinary\nScheme, while adding the @code{lazy-memo} declaration to each parameter of\nevery compound procedure will produce the behavior of the lazy evaluator\ndefined in this section. Design and implement the changes required to produce\nsuch an extension to Scheme.  You will have to implement new syntax procedures\nto handle the new syntax for @code{define}.  You must also arrange for\n@code{eval} or @code{apply} to determine when arguments are to be delayed, and\nto force or delay arguments accordingly, and you must arrange for forcing to\nmemoize or not, as appropriate.\n@end quotation",
+      "source_block_sha256": "1846e514361bf3058099d68cec9c3c6144b9cf72bfa9e4872aa1f0e90710eae4",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "c3edb2f9ca915cf97ba04541bbcab25391a2132c79b6685da69e03deca52f7f5"
+    },
+    {
+      "number": "4.32",
+      "printed_page": 558,
+      "pdf_page": 586,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.32}Exercise 4.32:} Give some examples that\nillustrate the difference between the streams of @ref{Chapter 3} and the\n``lazier'' lazy lists described in this section.  How can you take advantage of\nthis extra laziness?\n@end quotation",
+      "source_block_sha256": "e8a742d7c121c36a64b4d984f6847d686092472bca1d533609e276f179477c55",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "343add397b99ce714130196516648bed863adb4764b15967b83292a09bbc389b"
+    },
+    {
+      "number": "4.33",
+      "printed_page": 558,
+      "pdf_page": 586,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.33}Exercise 4.33:} Ben Bitdiddle tests the lazy list\nimplementation given above by evaluating the expression\n\n@lisp\n(car '(a b c))\n@end lisp\n\nTo his surprise, this produces an error.  After some thought, he realizes that\nthe ``lists'' obtained by reading in quoted expressions are different from the\nlists manipulated by the new definitions of @code{cons}, @code{car}, and\n@code{cdr}.  Modify the evaluator's treatment of quoted expressions so that\nquoted lists typed at the driver loop will produce true lazy lists.\n@end quotation",
+      "source_block_sha256": "189bd16b5dc055bcc3a41c501728292bfd84c275f8d40f9954f6263ab7ecd761",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "55e1053ae54d8994170f0396878533b0e2d4f06e68d07325cd7b7416c74be1f4"
+    },
+    {
+      "number": "4.34",
+      "printed_page": 558,
+      "pdf_page": 586,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.34}Exercise 4.34:} Modify the driver loop for the\nevaluator so that lazy pairs and lists will print in some reasonable way.\n(What are you going to do about infinite lists?)  You may also need to modify\nthe representation of lazy pairs so that the evaluator can identify them in\norder to print them.\n@end quotation",
+      "source_block_sha256": "d8b83964c21c52c03974f91db57e24557a5bae8ce3d8b136da476edebc490662",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "e6e234adeeb7f5a2c072acffe8b1f25157e2652bb02398f12bce44fdf84e8715"
+    },
+    {
+      "number": "4.35",
+      "printed_page": 566,
+      "pdf_page": 594,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.35}Exercise 4.35:} Write a procedure\n@code{an-integer-between} that returns an integer between two given bounds.\nThis can be used to implement a procedure that finds Pythagorean triples, i.e.,\ntriples of integers @math{{(i, j, k)}} between the given bounds such that\n@math{{i \\le j}} and @math{{i^2 + j^2 = k^2}}, as follows:\n\n@lisp\n(define (a-pythagorean-triple-between low high)\n  (let ((i (an-integer-between low high)))\n    (let ((j (an-integer-between i high)))\n      (let ((k (an-integer-between j high)))\n        (require (= (+ (* i i) (* j j)) \n                    (* k k)))\n        (list i j k)))))\n@end lisp\n@end quotation",
+      "source_block_sha256": "23d7687c0704ae745b290cfe2885cd31f32f2100ad23e08c814fac39b743add1",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "0d571aaf7cab16cd1567a43e4e7fd4072db7146a069de37becd7dd190cf5d349"
+    },
+    {
+      "number": "4.36",
+      "printed_page": 566,
+      "pdf_page": 594,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.36}Exercise 4.36:} @ref{Exercise 3.69} discussed how\nto generate the stream of @emph{all} Pythagorean triples, with no upper bound\non the size of the integers to be searched.  Explain why simply replacing\n@code{an-integer-between} by @code{an-integer-starting-from} in the procedure\nin @ref{Exercise 4.35} is not an adequate way to generate arbit@-rary Py@-tha@-go@-rean\ntriples.  Write a procedure that actually will accomplish this.  (That is,\nwrite a procedure for which repeatedly typing @code{try-again} would in\nprinciple eventually generate all Py@-tha@-go@-rean triples.)\n@end quotation",
+      "source_block_sha256": "a82a8ef15d4b0af9ba8572f7c4e64db9225296310008610f921ac02b7cd4541d",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "639d45312b455232a308f568833e6be16bcf77cc917509c5e54104664acdfee4"
+    },
+    {
+      "number": "4.37",
+      "printed_page": 567,
+      "pdf_page": 595,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.37}Exercise 4.37:} Ben Bitdiddle claims that the\nfollowing method for generating Pythagorean triples is more efficient than the\none in @ref{Exercise 4.35}.  Is he correct?  (Hint: Consider the number of\npossibilities that must be explored.)\n\n@lisp\n(define (a-pythagorean-triple-between low high)\n  (let ((i (an-integer-between low high))\n        (hsq (* high high)))\n    (let ((j (an-integer-between i high)))\n      (let ((ksq (+ (* i i) (* j j))))\n        (require (>= hsq ksq))\n        (let ((k (sqrt ksq)))\n          (require (integer? k))\n          (list i j k))))))\n@end lisp\n@end quotation",
+      "source_block_sha256": "1e27100697210f56a9814b2b1837d585bcd251d2c7535d937bd5619bbc72b29b",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "2510347e87a5b7be45b3a2aaeac77c166bdd9dbc6edbc9a2f2dd48f66f62368f"
+    },
+    {
+      "number": "4.38",
+      "printed_page": 569,
+      "pdf_page": 597,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.38}Exercise 4.38:} Modify the multiple-dwelling\nprocedure to omit the requirement that Smith and Fletcher do not live on\nadjacent floors.  How many solutions are there to this modified puzzle?\n@end quotation",
+      "source_block_sha256": "64b01481edcf796bc6503e28e86561fcec4b6ced780432a9898a6073dcedc557",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "8cd4921c1b31d5ea117923cc9f967d9ecc23b7ba59a5afc780c7d90ca5246d36"
+    },
+    {
+      "number": "4.39",
+      "printed_page": 569,
+      "pdf_page": 597,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.39}Exercise 4.39:} Does the order of the\nrestrictions in the multiple-dwelling procedure affect the answer? Does it\naffect the time to find an answer?  If you think it matters, demonstrate a\nfaster program obtained from the given one by reordering the restrictions.  If\nyou think it does not matter, argue your case.\n@end quotation",
+      "source_block_sha256": "eadaaa582af8268e2bfd1ee3dc4b791e8e93de68d0b948787afbbf84ac71a53a",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "69e41e6296b1fc87711717684742bb645b302828ddbe328de070d28e44c169a3"
+    },
+    {
+      "number": "4.40",
+      "printed_page": 569,
+      "pdf_page": 597,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.40}Exercise 4.40:} In the multiple dwelling problem,\nhow many sets of assignments are there of people to floors, both before and\nafter the requirement that floor assignments be distinct?  It is very\ninefficient to generate all possible assignments of people to floors and then\nleave it to backtracking to eliminate them.  For example, most of the\nrestrictions depend on only one or two of the person-floor variables, and can\nthus be imposed before floors have been selected for all the people.  Write and\ndemonstrate a much more efficient nondeterministic procedure that solves this\nproblem based upon generating only those possibilities that are not already\nruled out by previous restrictions.  (Hint: This will require a nest of\n@code{let} expressions.)\n@end quotation",
+      "source_block_sha256": "0f44d62d02cdaa058b3c5834778bcd6490bc293796ecae10a7bea3d098c23a14",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "9929b9742e6cd4e1e4f054371318b0105e1d1f8f8cb1dd94ed1aba5598f3b7b4"
+    },
+    {
+      "number": "4.41",
+      "printed_page": 570,
+      "pdf_page": 598,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.41}Exercise 4.41:} Write an ordinary Scheme program\nto solve the multiple dwelling puzzle.\n@end quotation",
+      "source_block_sha256": "3320a41892a9a9c8aa98968a08e5317b2575aa0e8e38fdde517cf93d1bb830d4",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "5d4501780b0e42993225e51877f941578253ac4ac1ff91f8af68ae3fac43ba3c"
+    },
+    {
+      "number": "4.42",
+      "printed_page": 570,
+      "pdf_page": 598,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.42}Exercise 4.42:} Solve the following ``Liars''\npuzzle (from @ref{Phillips 1934}):\n\nFive schoolgirls sat for an examination.  Their parents---so they\nthought---showed an undue degree of interest in the result.  They therefore\nagreed that, in writing home about the examination, each girl should make one\ntrue statement and one untrue one.  The following are the relevant passages\nfrom their letters:\n\n@itemize @bullet\n\n@item\nBetty: ``Kitty was second in the examination.  I was only third.''\n\n@item\nEthel: ``You'll be glad to hear that I was on top.  Joan was second.''\n\n@item\nJoan: ``I was third, and poor old Ethel was bottom.''\n\n@item\nKitty: ``I came out second.  Mary was only fourth.''\n\n@item\nMary: ``I was fourth.  Top place was taken by Betty.''\n\n@end itemize\n\nWhat in fact was the order in which the five girls were placed?\n@end quotation",
+      "source_block_sha256": "fa2856d91ef1f93972aecaffc9fe071be461e7fa68db385ff7654162da0f8a9b",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "d3936c501a8c2a2d782e96c6bcc55e3e900b561e63d67fa658b958142ae80692"
+    },
+    {
+      "number": "4.43",
+      "printed_page": 571,
+      "pdf_page": 599,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.43}Exercise 4.43:} Use the @code{amb} evaluator to\nsolve the following puzzle:@footnote{This is taken from a booklet called\n``Problematical Recreations,'' published in the 1960s by Litton Industries,\nwhere it is attributed to the @cite{Kansas State Engineer}.}\n\n@quotation\nMary Ann Moore's father has a yacht and so has each of his four friends:\nColonel Downing, Mr. Hall, Sir Barnacle Hood, and Dr.  Parker.  Each of the\nfive also has one daughter and each has named his yacht after a daughter of one\nof the others.  Sir Barnacle's yacht is the Gabrielle, Mr. Moore owns the\nLorna; Mr. Hall the Rosalind.  The Melissa, owned by Colonel Downing, is named\nafter Sir Barnacle's daughter.  Gabrielle's father owns the yacht that is named\nafter Dr.  Parker's daughter.  Who is Lorna's father?\n@end quotation\n\nTry to write the program so that it runs efficiently (see @ref{Exercise 4.40}).\nAlso determine how many solutions there are if we are not told that Mary Ann's\nlast name is Moore.\n@end quotation",
+      "source_block_sha256": "a0eb42aec933c0bca1d6f3e85231d1eb2738bb6ad6061841c864b741f49c2cf4",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "f4feed7cf7630aa0786091c3fac1d7b1dd15d1e55c01c6651c3c15c70b8c2819"
+    },
+    {
+      "number": "4.44",
+      "printed_page": 571,
+      "pdf_page": 599,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.44}Exercise 4.44:} @ref{Exercise 2.42} described the\n``eight-queens puzzle'' of placing queens on a chessboard so that no two attack\neach other.  Write a nondeterministic program to solve this puzzle.\n@end quotation",
+      "source_block_sha256": "177323bfb49108e4864ac094e3f547a0c164ba545a4366a1dce586177badeb5e",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "2dc064a747af3830ddd2715617513e985326e1c896143028f8fc939c250f30a8"
+    },
+    {
+      "number": "4.45",
+      "printed_page": 577,
+      "pdf_page": 605,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.45}Exercise 4.45:} With the grammar given above, the\nfollowing sentence can be parsed in five different ways: ``The professor\nlectures to the student in the class with the cat.''  Give the five parses and\nexplain the differences in shades of meaning among them.\n@end quotation",
+      "source_block_sha256": "07429f9c2905483a329fd64e39cf92104cf92b37afd6446d03eeadef4e5940db",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "e1c0286b6fb89eb78b6ef2d112332c418143031e2a0567664a4b90c4347bfe13"
+    },
+    {
+      "number": "4.46",
+      "printed_page": 577,
+      "pdf_page": 605,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.46}Exercise 4.46:} The evaluators in \n@ref{4.1} and @ref{4.2} do not determine what order operands are evaluated in.\nWe will see that the @code{amb} evaluator evaluates them from left to right.\nExplain why our parsing program wouldn't work if the operands were evaluated in\nsome other order.\n@end quotation",
+      "source_block_sha256": "d58da3d2b947866d96a8fe34c855b392176f4bfa7336fddab0001043399e805c",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "98b78b1407dbd0abff42cf066730160e2acdaa976fec007213b07d76f1b6cb18"
+    },
+    {
+      "number": "4.47",
+      "printed_page": 577,
+      "pdf_page": 605,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.47}Exercise 4.47:} Louis Reasoner suggests that,\nsince a verb phrase is either a verb or a verb phrase followed by a\nprepositional phrase, it would be much more straightforward to define the\nprocedure @code{parse-verb-phrase} as follows (and similarly for noun phrases):\n\n@lisp\n(define (parse-verb-phrase)\n  (amb (parse-word verbs)\n       (list \n        'verb-phrase\n        (parse-verb-phrase)\n        (parse-prepositional-phrase))))\n@end lisp\n\nDoes this work?  Does the program's behavior change if we interchange the order\nof expressions in the @code{amb}?\n@end quotation",
+      "source_block_sha256": "15d4e17a89d26cc54f25fe991cdd5c3c3135c28798609ef813dc5aca559f9978",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "866ae682203e451b5c33a9f7fecd15028893334df731669e7123f989a0bfe68f"
+    },
+    {
+      "number": "4.48",
+      "printed_page": 578,
+      "pdf_page": 606,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.48}Exercise 4.48:} Extend the grammar given above to\nhandle more complex sentences.  For example, you could extend noun phrases and\nverb phrases to include adjectives and adverbs, or you could handle compound\nsentences.@footnote{This kind of grammar can become arbitrarily complex, but it\nis only a toy as far as real language understanding is concerned.  Real\nnatural-language understanding by computer requires an elaborate mixture of\nsyntactic analysis and interpretation of meaning.  On the other hand, even toy\nparsers can be useful in supporting flexible command languages for programs\nsuch as information-retrieval systems.  @ref{Winston 1992} discusses computational\napproaches to real language understanding and also the applications of simple\ngrammars to command languages.}\n@end quotation",
+      "source_block_sha256": "80019a8bd1fa568d834c197bd404d568cf856c6aee8f5a5349ec5d238e83fdfe",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "fd580ecf6bf88a6c469c6193b1a4e4e9f18f1275e1a477f839137d2c154973b0"
+    },
+    {
+      "number": "4.49",
+      "printed_page": 578,
+      "pdf_page": 606,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.49}Exercise 4.49:} Alyssa P. Hacker is more\ninterested in generating interesting sentences than in parsing them.  She\nreasons that by simply changing the procedure @code{parse-word} so that it\nignores the ``input sentence'' and instead always succeeds and generates an\nappropriate word, we can use the programs we had built for parsing to do\ngeneration instead.  Implement Alyssa's idea, and show the first half-dozen or\nso sentences generated.@footnote{Although Alyssa's idea works just fine (and is\nsurprisingly simple), the sentences that it generates are a bit boring---they\ndon't sample the possible sentences of this language in a very interesting way.\nIn fact, the grammar is highly recursive in many places, and Alyssa's technique\n``falls into'' one of these recursions and gets stuck.  See @ref{Exercise 4.50}\nfor a way to deal with this.}\n@end quotation",
+      "source_block_sha256": "3dafa4e7c3f0cad067a3cc86b5ff47a43bb4973d1110714f80a4c9b1fe8ecc30",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "e126022ee98519109188a60520982a0de6985c9612bbfcf8d1cc1e19264de775"
+    },
+    {
+      "number": "4.50",
+      "printed_page": 591,
+      "pdf_page": 619,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.50}Exercise 4.50:} Implement a new special form\n@code{ramb} that is like @code{amb} except that it searches alternatives in a\nrandom order, rather than from left to right.  Show how this can help with\nAlyssa's problem in @ref{Exercise 4.49}.\n@end quotation",
+      "source_block_sha256": "cfebeeead9e593126a075f26ab853d7ebe50f8cf147b7412871b2f057110ac66",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "9e71ba0783be512cae8d7253774ebf01a7b4d5a2a4a3e514bb3417493d38d6ae"
+    },
+    {
+      "number": "4.51",
+      "printed_page": 592,
+      "pdf_page": 620,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.51}Exercise 4.51:} Implement a new kind of\nassignment called @code{permanent-set!} that is not undone upon failure.  For\nexample, we can choose two distinct elements from a list and count the number\nof trials required to make a successful choice as follows:\n\n@lisp\n(define count 0)\n(let ((x (an-element-of '(a b c)))\n      (y (an-element-of '(a b c))))\n  (permanent-set! count (+ count 1))\n  (require (not (eq? x y)))\n  (list x y count))\n\n@i{;;; Starting a new problem}\n@i{;;; Amb-Eval value:}\n@i{(a b 2)}\n\n@i{;;; Amb-Eval input:}\ntry-again\n\n@i{;;; Amb-Eval value:}\n@i{(a c 3)}\n@end lisp\n\nWhat values would have been displayed if we had used @code{set!} here\nrather than @code{permanent-set!}?\n@end quotation",
+      "source_block_sha256": "67c08cc3e8e1183a7b979b8306cfa8b45ef16e9d6bb946993409f1e028cfb00a",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "044740928cccb9c09f3a7a337c7f699b50b9f18f2410586a5eaafc33199917b4"
+    },
+    {
+      "number": "4.52",
+      "printed_page": 592,
+      "pdf_page": 620,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.52}Exercise 4.52:} Implement a new construct called\n@code{if-fail} that permits the user to catch the failure of an expression.\n@code{If-fail} takes two expressions.  It evaluates the first expression as\nusual and returns as usual if the evaluation succeeds.  If the evaluation\nfails, however, the value of the second expression is returned, as in the\nfollowing example:\n\n@lisp\n@i{;;; Amb-Eval input:}\n(if-fail \n (let ((x (an-element-of '(1 3 5))))\n   (require (even? x))\n   x)\n 'all-odd)\n\n@i{;;; Starting a new problem}\n@i{;;; Amb-Eval value:}\n@i{all-odd}\n\n@i{;;; Amb-Eval input:}\n(if-fail\n (let ((x (an-element-of '(1 3 5 8))))\n   (require (even? x))\n   x)\n 'all-odd)\n\n@i{;;; Starting a new problem}\n@i{;;; Amb-Eval value:}\n@i{8}\n@end lisp\n@end quotation",
+      "source_block_sha256": "144d14c1c0c2b554aff3480cff469e928904ec082d8c0bbbe6d190a24f026ab1",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "c0e400aecc962bc89460f1db54a74fda5c3f2765af9d731c7b0523e30817a463"
+    },
+    {
+      "number": "4.53",
+      "printed_page": 593,
+      "pdf_page": 621,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.53}Exercise 4.53:} With @code{permanent-set!} as\ndescribed in @ref{Exercise 4.51} and @code{if-fail} as in @ref{Exercise 4.52},\nwhat will be the result of evaluating\n\n@lisp\n(let ((pairs '()))\n  (if-fail \n   (let ((p (prime-sum-pair \n             '(1 3 5 8) \n             '(20 35 110))))\n     (permanent-set! pairs \n                     (cons p pairs))\n     (amb))\n   pairs))\n@end lisp\n@end quotation",
+      "source_block_sha256": "9a8cfa959bcbbcb9eacc5b6c8b95e2fedfaf2240471e9d8e7fb104195cd9b258",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "544b130f5365bad51d161ec18adbf193c636caa46b7f106c84c751f1d42d6df6"
+    },
+    {
+      "number": "4.54",
+      "printed_page": 593,
+      "pdf_page": 621,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.54}Exercise 4.54:} If we had not realized that\n@code{require} could be implemented as an ordinary procedure that uses\n@code{amb}, to be defined by the user as part of a nondeterministic program, we\nwould have had to implement it as a special form.  This would require syntax\nprocedures\n\n@lisp\n(define (require? exp) \n  (tagged-list? exp 'require))\n\n(define (require-predicate exp) \n  (cadr exp))\n@end lisp\n\n@noindent\nand a new clause in the dispatch in @code{analyze}\n\n@lisp\n((require? exp) (analyze-require exp))\n@end lisp\n\n@noindent\nas well the procedure @code{analyze-require} that handles @code{require}\nexpressions.  Complete the following definition of @code{analyze-require}.\n\n@lisp\n(define (analyze-require exp)\n  (let ((pproc (analyze \n                (require-predicate exp))))\n    (lambda (env succeed fail)\n      (pproc env\n             (lambda (pred-value fail2)\n               (if ⟨??⟩\n                   ⟨??⟩\n                   (succeed 'ok fail2)))\n             fail))))\n@end lisp\n@end quotation",
+      "source_block_sha256": "5afd95d650c3c21d63bbb3bcf67057d480ee92820e22410b34771b08c91d5259",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "38acef872eade0ee02e32324ab5839baeb903046bbb70f9d4ced40c798eeb73d"
+    },
+    {
+      "number": "4.55",
+      "printed_page": 605,
+      "pdf_page": 633,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.55}Exercise 4.55:} Give simple queries that retrieve\nthe following information from the data base:\n\n@enumerate\n\n@item\nall people supervised by Ben Bitdiddle;\n\n@item\nthe names and jobs of all people in the accounting division;\n\n@item\nthe names and addresses of all people who live in Slumerville.\n\n@end enumerate\n@end quotation",
+      "source_block_sha256": "67e84c6e69736d0bd95c11aa95dbf09537b2e0372462dd8b3b2a9c516253c6ed",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "2ce7bfe208617e9fc06ff644058fa3b879594b6c5b49e8bd623c36bb6e85bb44"
+    },
+    {
+      "number": "4.56",
+      "printed_page": 607,
+      "pdf_page": 635,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.56}Exercise 4.56:} Formulate compound queries that\nretrieve the following information:\n\n@enumerate a\n\n@item\nthe names of all people who are supervised by Ben Bitdiddle, together with\ntheir addresses;\n\n@item\nall people whose salary is less than Ben Bitdiddle's, together with their\nsalary and Ben Bitdiddle's salary;\n\n@item\nall people who are supervised by someone who is not in the computer division,\ntogether with the supervisor's name and job.\n\n@end enumerate\n@end quotation",
+      "source_block_sha256": "20fcbc1f98017d7dd6c5f0ec5ec4da5a0ee8883f7493a69ebefb3c9c04dbf4c0",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "86787c140dfa302612ffd940b91462fee91e0179fbc0a60a5503d45e53a4a9eb"
+    },
+    {
+      "number": "4.57",
+      "printed_page": 610,
+      "pdf_page": 638,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.57}Exercise 4.57:} Define a rule that says that\nperson 1 can replace person 2 if either person 1 does the same job as person 2\nor someone who does person 1's job can also do person 2's job, and if person 1\nand person 2 are not the same person. Using your rule, give queries that find\nthe following:\n\n@enumerate a\n\n@item\nall people who can replace Cy D. Fect;\n\n@item\nall people who can replace someone who is being paid more than they are,\ntogether with the two salaries.\n\n@end enumerate\n@end quotation",
+      "source_block_sha256": "6c38878262e5a5081f02086317145bfe0141e08173a971c5ecbb42d3d080d336",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "c95425102b78d9b2ec4b45bd95b23ff41b2a1440107ef22b208324882b05eb3d"
+    },
+    {
+      "number": "4.58",
+      "printed_page": 610,
+      "pdf_page": 638,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.58}Exercise 4.58:} Define a rule that says that a\nperson is a ``big shot'' in a division if the person works in the division but\ndoes not have a supervisor who works in the division.\n@end quotation",
+      "source_block_sha256": "b30c93539c8142034677a27aa56fffbf7bc9c4ac6ffae8d975759a86ce9b825e",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "2b520a9a333d8afcadcdd58540008d5991b28b04775851cd5ddb0fda6f755e4a"
+    },
+    {
+      "number": "4.59",
+      "printed_page": 610,
+      "pdf_page": 638,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.59}Exercise 4.59:} Ben Bitdiddle has missed one\nmeeting too many.  Fearing that his habit of forgetting meetings could cost him\nhis job, Ben decides to do something about it.  He adds all the weekly meetings\nof the firm to the Microshaft data base by asserting the following:\n\n@lisp\n(meeting accounting (Monday 9am))\n(meeting administration (Monday 10am))\n(meeting computer (Wednesday 3pm))\n(meeting administration (Friday 1pm))\n@end lisp\n\nEach of the above assertions is for a meeting of an entire division.  Ben also\nadds an entry for the company-wide meeting that spans all the divisions.  All\nof the company's employees attend this meeting.\n\n@lisp\n(meeting whole-company (Wednesday 4pm))\n@end lisp\n\n@enumerate a\n\n@item\nOn Friday morning, Ben wants to query the data base for all the meetings that\noccur that day.  What query should he use?\n\n@item\nAlyssa P. Hacker is unimpressed.  She thinks it would be much more useful to be\nable to ask for her meetings by specifying her name.  So she designs a rule\nthat says that a person's meetings include all @code{whole-company} meetings\nplus all meetings of that person's division.  Fill in the body of Alyssa's\nrule.\n\n@lisp\n(rule (meeting-time ?person ?day-and-time)\n      ⟨@var{rule-body}⟩)\n@end lisp\n\n@item\nAlyssa arrives at work on Wednesday morning and wonders what meetings she has\nto attend that day.  Having defined the above rule, what query should she make\nto find this out?\n\n@end enumerate\n@end quotation",
+      "source_block_sha256": "0076911c3b6b6bbe1b5f4552a349edff74a92e4e7866de7a306a9fc9bbdd948e",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "4f788baee7046ae93eb03b1346319a5969f677901064ca36823e508e307f5af9"
+    },
+    {
+      "number": "4.60",
+      "printed_page": 611,
+      "pdf_page": 639,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.60}Exercise 4.60:} By giving the query\n\n@lisp\n(lives-near ?person (Hacker Alyssa P))\n@end lisp\n\nAlyssa P. Hacker is able to find people who live near her, with whom she can\nride to work.  On the other hand, when she tries to find all pairs of people\nwho live near each other by querying\n\n@lisp\n(lives-near ?person-1 ?person-2)\n@end lisp\n\n@noindent\nshe notices that each pair of people who live near each other is listed twice;\nfor example,\n\n@lisp\n(lives-near (Hacker Alyssa P) (Fect Cy D))\n(lives-near (Fect Cy D) (Hacker Alyssa P))\n@end lisp\n\nWhy does this happen?  Is there a way to find a list of people who live near\neach other, in which each pair appears only once?  Explain.\n@end quotation",
+      "source_block_sha256": "da6a9d152a6cd81ea16816c723c1208511518f4a104dbbc6f401dd47119d9017",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "0bd683948be5f18352bb8bff7c7faabfef129c6b387b4a08ee184b34a9a473e9"
+    },
+    {
+      "number": "4.61",
+      "printed_page": 614,
+      "pdf_page": 642,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.61}Exercise 4.61:} The following rules implement a\n@code{next-to} relation that finds adjacent elements of a list:\n\n@lisp\n(rule (?x next-to ?y in (?x ?y . ?u)))\n(rule (?x next-to ?y in (?v . ?z))\n      (?x next-to ?y in ?z))\n@end lisp\n\nWhat will the response be to the following queries?\n\n@lisp\n(?x next-to ?y in (1 (2 3) 4))\n(?x next-to 1 in (2 1 3 1))\n@end lisp\n@end quotation",
+      "source_block_sha256": "bbb9ac22fccc9897a835ebcd97b84e91b056f6d4d1ac111709c81dabedd96dac",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "32aa55cf64932255373dcebd3cc709437ed547141f3b05848967e7d2cfde785f"
+    },
+    {
+      "number": "4.62",
+      "printed_page": 614,
+      "pdf_page": 642,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.62}Exercise 4.62:} Define rules to implement the\n@code{last-pair} operation of @ref{Exercise 2.17}, which returns a list\ncontaining the last element of a nonempty list.  Check your rules on queries\nsuch as @code{(last-pair (3) ?x)}, @code{(last-pair (1 2 3) ?x)} and\n@code{(last-pair (2 ?x) (3))}.  Do your rules work correctly on queries such as\n@code{(last-pair ?x (3))}?\n@end quotation",
+      "source_block_sha256": "be326c22a34e5cc9e5e7a3f329d8ca4e1a91bb46ab76a981a30b6e1a6b57772b",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "11789dc2a03444f623164f98b9fc22f1251e6e763c025571b77c45247be41d11"
+    },
+    {
+      "number": "4.63",
+      "printed_page": 614,
+      "pdf_page": 642,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.63}Exercise 4.63:} The following data base (see\nGenesis 4) traces the genealogy of the descendants of Ada back to Adam, by way\nof Cain:\n\n@lisp\n(son Adam Cain) (son Cain Enoch)\n(son Enoch Irad) (son Irad Mehujael)\n(son Mehujael Methushael)\n(son Methushael Lamech)\n(wife Lamech Ada) (son Ada Jabal)\n(son Ada Jubal)\n@end lisp\n\nFormulate rules such as ``If @math{S} is the son of @math{f}, and @math{f} is the son of\n@math{G}, then @math{S} is the grandson of @math{G}'' and ``If @math{W} is the wife of\n@math{M}, and @math{S} is the son of @math{W}, then @math{S} is the son of @math{M}'' (which\nwas supposedly more true in biblical times than today) that will enable the\nquery system to find the grandson of Cain; the sons of Lamech; the grandsons of\nMethushael.  (See @ref{Exercise 4.69} for some rules to deduce more complicated\nrelationships.)\n@end quotation",
+      "source_block_sha256": "a3eb7bdc13df35150371e66492032a3323ebdbe364baf00fb23f55ce1e2a0556",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "62a9592a17d9a4daa0bfc5ec8894f963a325bf1613a305e621aa5958cf3b94f2"
+    },
+    {
+      "number": "4.64",
+      "printed_page": 632,
+      "pdf_page": 660,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.64}Exercise 4.64:} Louis Reasoner mistakenly deletes\nthe @code{outranked-by} rule (@ref{4.4.1}) from the data base.  When he\nrealizes this, he quickly reinstalls it.  Unfortunately, he makes a slight\nchange in the rule, and types it in as\n\n@lisp\n(rule (outranked-by ?staff-person ?boss)\n  (or (supervisor ?staff-person ?boss)\n      (and (outranked-by ?middle-manager\n                         ?boss)\n           (supervisor ?staff-person \n                       ?middle-manager))))\n@end lisp\n\nJust after Louis types this information into the system, DeWitt Aull comes by\nto find out who outranks Ben Bitdiddle. He issues the query\n\n@lisp\n(outranked-by (Bitdiddle Ben) ?who)\n@end lisp\n\nAfter answering, the system goes into an infinite loop.  Explain why.\n@end quotation",
+      "source_block_sha256": "1642551cddc56a522dd564a40bb1ce79be98ee51a10969353deaceab0912011e",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "8a1835fef69487fefb8fdd9f7f6e1f2e5b2236cafade5a82771b6cf49800f07e"
+    },
+    {
+      "number": "4.65",
+      "printed_page": 633,
+      "pdf_page": 661,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.65}Exercise 4.65:} Cy D. Fect, looking forward to\nthe day when he will rise in the organization, gives a query to find all the\nwheels (using the @code{wheel} rule of @ref{4.4.1}):\n\n@lisp\n(wheel ?who)\n@end lisp\n\nTo his surprise, the system responds\n\n@lisp\n@i{;;; Query results:}\n(wheel (Warbucks Oliver))\n(wheel (Bitdiddle Ben))\n(wheel (Warbucks Oliver))\n(wheel (Warbucks Oliver))\n(wheel (Warbucks Oliver))\n@end lisp\n\nWhy is Oliver Warbucks listed four times?\n@end quotation",
+      "source_block_sha256": "24630daf49f4de78c839dc7a3364f86b0dc9043225618a7e73e2b32a681bb139",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "1c4763f4812b072fb4c6f9ce2206cc5e24c2657377ef91de8e0e8d86324d6eb4"
+    },
+    {
+      "number": "4.66",
+      "printed_page": 633,
+      "pdf_page": 661,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.66}Exercise 4.66:} Ben has been generalizing the\nquery system to provide statistics about the company.  For example, to find the\ntotal salaries of all the computer programmers one will be able to say\n\n@lisp\n(sum ?amount\n     (and (job ?x (computer programmer))\n          (salary ?x ?amount)))\n@end lisp\n\nIn general, Ben's new system allows expressions of the form\n\n@lisp\n(accumulation-function ⟨@var{variable}⟩\n                       ⟨@var{query pattern}⟩)\n@end lisp\n\n@noindent\nwhere @code{accumulation-function} can be things like @code{sum},\n@code{average}, or @code{maximum}.  Ben reasons that it should be a cinch to\nimplement this.  He will simply feed the query pattern to @code{qeval}.  This\nwill produce a stream of frames.  He will then pass this stream through a\nmapping function that extracts the value of the designated variable from each\nframe in the stream and feed the resulting stream of values to the accumulation\nfunction.  Just as Ben completes the implementation and is about to try it out,\nCy walks by, still puzzling over the @code{wheel} query result in \n@ref{Exercise 4.65}.  When Cy shows Ben the system's response, Ben groans,\n``Oh, no, my simple accumulation scheme won't work!''\n\nWhat has Ben just realized?  Outline a method he can use to salvage the\nsituation.\n@end quotation",
+      "source_block_sha256": "c4cc547b4a0ce1e31daac828cb9f2c3d86ccf33d3b56c7d0f9917ce993808647",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "39d50b0c38893e41bfb27d4c5d29c56be12a13b2650b94d6d8af58cb930256f0"
+    },
+    {
+      "number": "4.67",
+      "printed_page": 634,
+      "pdf_page": 662,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.67}Exercise 4.67:} Devise a way to install a loop\ndetector in the query system so as to avoid the kinds of simple loops\nillustrated in the text and in @ref{Exercise 4.64}.  The general idea is that\nthe system should maintain some sort of history of its current chain of\ndeductions and should not begin processing a query that it is already working\non.  Describe what kind of information (patterns and frames) is included in\nthis history, and how the check should be made.  (After you study the details\nof the query-system implementation in @ref{4.4.4}, you may want to\nmodify the system to include your loop detector.)\n@end quotation",
+      "source_block_sha256": "b41731d752c616e3cafa2bb77ccf5f6b3c89a3cdb83fc45021865484e500f52d",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "bcb571118e0ecc03e67d22e91643d3c0b344cc1bd2583a203a0d783912e8d26b"
+    },
+    {
+      "number": "4.68",
+      "printed_page": 635,
+      "pdf_page": 663,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.68}Exercise 4.68:} Define rules to implement the\n@code{reverse} operation of @ref{Exercise 2.18}, which returns a list\ncontaining the same elements as a given list in reverse order.  (Hint: Use\n@code{append-to-form}.)  Can your rules answer both @code{(reverse (1 2 3) ?x)}\nand @code{(reverse ?x (1 2 3))}?\n@end quotation",
+      "source_block_sha256": "555e6726cda2acd8c2f7308e1493e2cca4109939cc8160002df720fa9a1f6984",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "4fe6f7f462bc4ec454959a2a5c6ff7a0c70f211206142950c5fc6768cd80ae44"
+    },
+    {
+      "number": "4.69",
+      "printed_page": 635,
+      "pdf_page": 663,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.69}Exercise 4.69:} Beginning with the data base and\nthe rules you formulated in @ref{Exercise 4.63}, devise a rule for adding\n``greats'' to a grandson relationship. This should enable the system to deduce\nthat Irad is the great-grandson of Adam, or that Jabal and Jubal are the\ngreat-great-great-great-great-grandsons of Adam.  (Hint: Represent the fact\nabout Irad, for example, as @code{((great grandson) Adam Irad)}.  Write rules\nthat determine if a list ends in the word @code{grandson}.  Use this to express\na rule that allows one to derive the relationship @code{((great .  ?rel) ?x\n?y)}, where @code{?rel} is a list ending in @code{grandson}.)  Check your rules\non queries such as @code{((great grandson) ?g ?ggs)} and @code{(?relationship\nAdam Irad)}.\n@end quotation",
+      "source_block_sha256": "0688ed7ce1802f4e694cb7ceab5470ac6052be539b06b78d17584ec7379e8c40",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "c5c0b19730d65ae94ef3b7e2d782ef7f0013ffd58fa778eebeffdc8cf3045c56"
+    },
+    {
+      "number": "4.70",
+      "printed_page": 654,
+      "pdf_page": 682,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.70}Exercise 4.70:} What is the purpose of the\n@code{let} bindings in the procedures @code{add-assertion!} and\n@code{add-rule!}?  What would be wrong with the following implementation of\n@code{add-assertion!}?  Hint: Recall the definition of the infinite stream of\nones in @ref{3.5.2}: @code{(define ones (cons-stream 1 ones))}.\n\n@lisp\n(define (add-assertion! assertion)\n  (store-assertion-in-index assertion)\n  (set! THE-ASSERTIONS\n        (cons-stream assertion \n                     THE-ASSERTIONS))\n  'ok)\n@end lisp\n@end quotation",
+      "source_block_sha256": "ecac92a14eeec72a12f5e59a53e14a66390b747168a9474ee7aa2b05f24e2b50",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "305369a4aa164754cbd399d318bce1bf22dd29eb5c94990a432ae3218f417a3f"
+    },
+    {
+      "number": "4.71",
+      "printed_page": 660,
+      "pdf_page": 688,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.71}Exercise 4.71:} Louis Reasoner wonders why the\n@code{simple-query} and @code{disjoin} procedures (@ref{4.4.4.2}) are\nimplemented using explicit @code{delay} operations, rather than being defined\nas follows:\n\n@lisp\n(define (simple-query \n         query-pattern frame-stream)\n  (stream-flatmap\n   (lambda (frame)\n     (stream-append\n      (find-assertions query-pattern frame)\n      (apply-rules query-pattern frame)))\n   frame-stream))\n\n(define (disjoin disjuncts frame-stream)\n  (if (empty-disjunction? disjuncts)\n      the-empty-stream\n      (interleave\n       (qeval (first-disjunct disjuncts)\n              frame-stream)\n       (disjoin (rest-disjuncts disjuncts)\n                frame-stream))))\n@end lisp\n\nCan you give examples of queries where these simpler definitions would lead to\nundesirable behavior?\n@end quotation",
+      "source_block_sha256": "ee576a18aadf993cccbfb1430835d598f20f604a3485f2c224d8692e3d0432f4",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "53da9016fc962e386f9fb1fb89787ce67e7aa6c1b58176bdf0f3201d3bff482c"
+    },
+    {
+      "number": "4.72",
+      "printed_page": 660,
+      "pdf_page": 688,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.72}Exercise 4.72:} Why do @code{disjoin} and\n@code{stream-flatmap} interleave the streams rather than simply append them?\nGive examples that illustrate why interleaving works better.  (Hint: Why did we\nuse @code{interleave} in @ref{3.5.3}?)\n@end quotation",
+      "source_block_sha256": "6777bde954a58b0bf64b33dfc7cbe1709664a1f3c4cbfa18069295c811d1807a",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "19fd34bcc00b081ea6d1f5572b87bff5d156fe7a2a643701612d045c71d4ed1d"
+    },
+    {
+      "number": "4.73",
+      "printed_page": 660,
+      "pdf_page": 688,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.73}Exercise 4.73:} Why does @code{flatten-stream}\nuse @code{delay} explicitly?  What would be wrong with defining it as follows:\n\n@lisp\n(define (flatten-stream stream)\n  (if (stream-null? stream)\n      the-empty-stream\n      (interleave (stream-car stream)\n                  (flatten-stream \n                   (stream-cdr stream)))))\n@end lisp\n@end quotation",
+      "source_block_sha256": "edd8581eaed0477ccccc439a93327c923945e9a0c5c82c89221283da6af02754",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "c96a14288db0499beb8e8d42debbe035489ec5f2d661aa714561fc6eb33025a5"
+    },
+    {
+      "number": "4.74",
+      "printed_page": 661,
+      "pdf_page": 689,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.74}Exercise 4.74:} Alyssa P. Hacker proposes to use\na simpler version of @code{stream-flatmap} in @code{negate}, @code{lisp-value},\nand @code{find-assertions}.  She observes that the procedure that is mapped\nover the frame stream in these cases always produces either the empty stream or\na singleton stream, so no interleaving is needed when combining these streams.\n\n@enumerate a\n\n@item\nFill in the missing expressions in Alyssa's program.\n\n@lisp\n(define (simple-stream-flatmap proc s)\n  (simple-flatten (stream-map proc s)))\n\n(define (simple-flatten stream)\n  (stream-map ⟨??⟩\n              (stream-filter ⟨??⟩ \n                             stream)))\n@end lisp\n\n@item\nDoes the query system's behavior change if we change it in this way?\n\n@end enumerate\n@end quotation",
+      "source_block_sha256": "1fc4dfe224dc70d3e038a6ad503dadf1e8c2970a340283e480f60df332c9926f",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "a8ff3ff34f63f5e8134baf8a612bdc6ba59da9982117254c30d2e57f5c11b21c"
+    },
+    {
+      "number": "4.75",
+      "printed_page": 661,
+      "pdf_page": 689,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.75}Exercise 4.75:} Implement for the query language\na new special form called @code{unique}.  @code{Unique} should succeed if there\nis precisely one item in the data base satisfying a specified query.  For\nexample,\n\n@lisp\n(unique (job ?x (computer wizard)))\n@end lisp\n\n@noindent\nshould print the one-item stream\n\n@lisp\n(unique (job (Bitdiddle Ben)\n             (computer wizard)))\n@end lisp\n\n@noindent\nsince Ben is the only computer wizard, and\n\n@lisp\n(unique (job ?x (computer programmer)))\n@end lisp\n\n@noindent\nshould print the empty stream, since there is more than one computer\nprogrammer.  Moreover,\n\n@lisp\n(and (job ?x ?j) \n     (unique (job ?anyone ?j)))\n@end lisp\n\n@noindent\nshould list all the jobs that are filled by only one person, and the people who\nfill them.\n\nThere are two parts to implementing @code{unique}.  The first is to write a\nprocedure that handles this special form, and the second is to make\n@code{qeval} dispatch to that procedure.  The second part is trivial, since\n@code{qeval} does its dispatching in a data-directed way.  If your procedure is\ncalled @code{uniquely-asserted}, all you need to do is\n\n@lisp\n(put 'unique 'qeval uniquely-asserted)\n@end lisp\n\n@noindent\nand @code{qeval} will dispatch to this procedure for every query whose\n@code{type} (@code{car}) is the symbol @code{unique}.\n\nThe real problem is to write the procedure @code{uniquely-asserted}.  This\nshould take as input the @code{contents} (@code{cdr}) of the @code{unique}\nquery, together with a stream of frames.  For each frame in the stream, it\nshould use @code{qeval} to find the stream of all extensions to the frame that\nsatisfy the given query.  Any stream that does not have exactly one item in it\nshould be eliminated.  The remaining streams should be passed back to be\naccumulated into one big stream that is the result of the @code{unique} query.\nThis is similar to the implementation of the @code{not} special form.\n\nTest your implementation by forming a query that lists all people who supervise\nprecisely one person.\n@end quotation",
+      "source_block_sha256": "c9e6a720e94f6d510c7597c7ef7a78dee7e0d2072424b37f5785b31504fcc7c8",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "21ad0c3664c12090be94af9325e43d2d0169b52daeb5ab78c1fe8052d70a9d2f"
+    },
+    {
+      "number": "4.76",
+      "printed_page": 663,
+      "pdf_page": 691,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.76}Exercise 4.76:} Our implementation of @code{and}\nas a series combination of queries (@ref{Figure 4.5}) is elegant, but it is\ninefficient because in processing the second query of the @code{and} we must\nscan the data base for each frame produced by the first query.  If the data\nbase has @math{n} elements, and a typical query produces a number of output frames\nproportional to @math{n} (say @math{{n \\,/\\, k}}), then scanning the data base for each\nframe produced by the first query will require @math{{n^2 /\\, k}} calls to the\npattern matcher.  Another approach would be to process the two clauses of the\n@code{and} separately, then look for all pairs of output frames that are\ncompatible.  If each query produces @math{{n \\,/\\, k}} output frames, then this means\nthat we must perform @math{{n^2 /\\, k^2}} compatibility checks---a factor of @math{k}\nfewer than the number of matches required in our current method.\n\nDevise an implementation of @code{and} that uses this strategy.  You must\nimplement a procedure that takes two frames as inputs, checks whether the\nbindings in the frames are compatible, and, if so, produces a frame that merges\nthe two sets of bindings.  This operation is similar to unification.\n@end quotation",
+      "source_block_sha256": "0ed5272f93bc35c4b0aadb4ecd6baf98a9e7992b00dd2ada110fc23e212387b0",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "d5bb0e8136e4ac8e21d732a49130a06c28285249b709ddcf20ac03ceaab4f0ee"
+    },
+    {
+      "number": "4.77",
+      "printed_page": 663,
+      "pdf_page": 691,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.77}Exercise 4.77:} In @ref{4.4.3} we saw\nthat @code{not} and @code{lisp-value} can cause the query language to give\n``wrong'' answers if these filtering operations are applied to frames in which\nvariables are unbound.  Devise a way to fix this shortcoming.  One idea is to\nperform the filtering in a ``delayed'' manner by appending to the frame a\n``promise'' to filter that is fulfilled only when enough variables have been\nbound to make the operation possible.  We could wait to perform filtering until\nall other operations have been performed.  However, for efficiency's sake, we\nwould like to perform filtering as soon as possible so as to cut down on the\nnumber of intermediate frames generated.\n@end quotation",
+      "source_block_sha256": "e27ffcfadf49965ff8cf20b11f92d3cfaa53849d1c6056bb385144f8243f448b",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "21c4c1fa5d9efbbbf80dbb6260670183a9f9d479368b26417aa5064fd2507451"
+    },
+    {
+      "number": "4.78",
+      "printed_page": 664,
+      "pdf_page": 692,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.78}Exercise 4.78:} Redesign the query language as a\nnondeterministic program to be implemented using the evaluator of \n@ref{4.3}, rather than as a stream process.  In this approach, each query will\nproduce a single answer (rather than the stream of all answers) and the user\ncan type @code{try-again} to see more answers.  You should find that much of\nthe mechanism we built in this section is subsumed by nondeterministic search\nand backtracking.  You will probably also find, however, that your new query\nlanguage has subtle differences in behavior from the one implemented here.  Can\nyou find examples that illustrate this difference?\n@end quotation",
+      "source_block_sha256": "221c3f9dbbb39980cc0220076cae5f7e5dd2e4203ef35d3f8cf1af9b6c28021b",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "5f4d66a9134b98ae883d420a5861bb87a514eb7163de31ec6f34f16ff5e8c776"
+    },
+    {
+      "number": "4.79",
+      "printed_page": 664,
+      "pdf_page": 692,
+      "original_texinfo": "@quotation\n@strong{@anchor{Exercise 4.79}Exercise 4.79:} When we implemented the Lisp\nevaluator in @ref{4.1}, we saw how to use local environments to avoid\nname conflicts between the parameters of procedures.  For example, in\nevaluating\n\n@lisp\n(define (square x) \n  (* x x))\n\n(define (sum-of-squares x y)\n  (+ (square x) (square y)))\n\n(sum-of-squares 3 4)\n@end lisp\n\n@noindent\nthere is no confusion between the @code{x} in @code{square} and the @code{x} in\n@code{sum-of-squares}, because we evaluate the body of each procedure in an\nenvironment that is specially constructed to contain bindings for the local\nvariables.  In the query system, we used a different strategy to avoid name\nconflicts in applying rules.  Each time we apply a rule we rename the variables\nwith new names that are guaranteed to be unique.  The analogous strategy for\nthe Lisp evaluator would be to do away with local environments and simply\nrename the variables in the body of a procedure each time we apply the\nprocedure.\n\nImplement for the query language a rule-application method that uses\nenvironments rather than renaming.  See if you can build on your environment\nstructure to create constructs in the query language for dealing with large\nsystems, such as the rule analog of block-structured procedures.  Can you\nrelate any of this to the problem of making deductions in a context (e.g., ``If\nI supposed that @math{P} were true, then I would be able to deduce @math{A} and\n@math{B}.'') as a method of problem solving?  (This problem is open-ended.  A good\nanswer is probably worth a Ph.D.)\n@end quotation",
+      "source_block_sha256": "40231b88ab2436481d8451af634a9e237ef793d646f21f8b22877ec15fff4182",
+      "pdf_heading_verified": true,
+      "review_status": "source_boundary_and_published_question_bound",
+      "published_question_sha256": "65af84391caafbd88c0087ce5e184cb14de483e1775639a5d7eb760d7067f07b"
+    }
+  ]
+}

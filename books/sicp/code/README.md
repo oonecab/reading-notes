@@ -23,4 +23,18 @@ python books/sicp/tools/check_notes.py
 
 正文的14组“教材输入”是用于读题的原始片段与基本约定，保存于独立清单；它们不是第二份执行维护源。题目通过精确锚点引用，完整可运行版本与改进的数值/边界语义仍以本目录源码为准。
 
-原书解释器、寄存器机器模拟器和编译器尚未展开；第一章执行结果不代表这些后续系统已验证。
+第 4 章的四种求值模型共用 `chapter04.rkt`。在仓库根目录运行 `racket books/sicp/code/test-chapter04.rkt` 检查 25 组回归，运行 `racket books/sicp/tools/check_chapter04_examples.rkt` 复算 24 个教学示例。第 5 章提供模拟器、回收器和可运行的编译器。
+
+### 第 5 章 · 寄存器机器里的计算
+
+全书地图、引言及五章正文共 7 页、356 题。第 5 章对应 PDF 694–861，含 5 个大节、22 个二级小节与 52 道习题。程序以 Racket 8.10 执行；末两题用 GCC 编译 C99 控制器，数据操作通过本地运行时提供。
+
+在仓库根目录运行 `racket books/sicp/code/test-chapter05.rkt` 验证模拟器、显式堆、求值器和编译器。要复算习题 5.14、5.26–29、5.33–34、5.45–46 的栈表及编译清单，运行下列命令。每组指标依次为结果、执行指令数、累计压栈次数、峰值深度。分别保留整段定义加调用、单独调用和非尾序列的口径。
+
+```sh
+racket -e '(require (submod "books/sicp/code/test-chapter05.rkt" experiments))'
+racket books/sicp/tools/check_chapter05_examples.rkt
+racket books/sicp/code/chapter05-c.rkt
+```
+
+最后一条命令需要 PATH 中的 GCC。C99 共享库在独立临时目录中编译、装载并在运行后清理；执行控制和基本对象运行时通过有界接口连接。

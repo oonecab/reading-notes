@@ -142,10 +142,68 @@
       "output_bytes": 968776,
       "js_bytes": 4984,
       "js_ratio": 1
+    },
+    {
+      "page": "sicp/notes/chapter04_metalinguistic.html",
+      "source_baseline_ref": "beb2aad54b87a026282c4dd42dceca593fc06390",
+      "source_sha256": "1f33d1164080421942bf510631bf2ca5999f10346eda63dbab4692eceea7f871",
+      "original_source_sha256": "1f33d1164080421942bf510631bf2ca5999f10346eda63dbab4692eceea7f871",
+      "review_revision": null,
+      "output_sha256": "e9ef84b31baeb522162143a8fa8fd34a9b991948d991ce7dc6f582a426ac5419",
+      "source_counts": {
+        "exercises": 79,
+        "self_checks": 0,
+        "statements": 0,
+        "mathml": 29,
+        "svg": 6
+      },
+      "publication_counts": {
+        "exercises": 79,
+        "self_checks": 0,
+        "statements": 0,
+        "mathml": 29,
+        "svg": 7
+      },
+      "differences": [],
+      "script_additions": [],
+      "source_bytes": 345021,
+      "output_bytes": 343808,
+      "js_bytes": 4984,
+      "js_ratio": 1
+    },
+    {
+      "page": "sicp/notes/chapter05_register_machines.html",
+      "source_baseline_ref": "41e861b27dde14cd958e1439658a64975a41116c",
+      "source_sha256": "7ab7e3edea5797a171a76c89af64f9d177046fcc699d9ae2f42716a081aeb810",
+      "original_source_sha256": "7ab7e3edea5797a171a76c89af64f9d177046fcc699d9ae2f42716a081aeb810",
+      "review_revision": null,
+      "output_sha256": "3bb79b29d95f3ebd41095d798c1ad0f17471ffebc368fa38dc9e1f8fbdd96a82",
+      "source_counts": {
+        "exercises": 52,
+        "self_checks": 0,
+        "statements": 0,
+        "mathml": 59,
+        "svg": 9
+      },
+      "publication_counts": {
+        "exercises": 52,
+        "self_checks": 0,
+        "statements": 0,
+        "mathml": 59,
+        "svg": 10
+      },
+      "differences": [],
+      "script_additions": [],
+      "source_bytes": 681893,
+      "output_bytes": 681146,
+      "js_bytes": 4984,
+      "js_ratio": 1
     }
   ],
   "note": "Two pages reviewed for this batch; earlier failed mobile baseline retained in baseline-history.json.",
   "I075_note": "Retain I073 original two-page records and initial chapter1 snapshot. Later changes are explicit source revisions in chapter01.json, never replacement baselines.",
   "I077_note": "The first local 73-page build provides the unaltered chapter 2 baseline output; later wrapper-only revisions are tracked separately.",
-  "I087_note": "第 3 章冻结镜像经发布转换、ReaderLayout 独立构建、资产内联及压缩，与转换结果做结构比对。当前输出另见 chapter03.json。"
+  "I087_note": "第 3 章冻结镜像经发布转换、ReaderLayout 独立构建、资产内联及压缩，与转换结果做结构比对。当前输出另见 chapter03.json。",
+  "I088_note": "第 4 章新页采用本地 I074 基线，首次输出绑定本次实际构建与 parity 记录。",
+  "I089_note": "第五章绑定本地祖先镜像与首次正式构建的 parity 记录。"
 }

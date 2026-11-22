@@ -7648,6 +7648,568 @@
       ],
       "chinese_translation_required": true,
       "section_scope": "all-descendants"
+    },
+    {
+      "page": "sicp/notes/chapter04_metalinguistic.html",
+      "source": "src/content/books/sicp/chapter04_metalinguistic.html",
+      "sections": [
+        {
+          "id": "s4-1",
+          "title": "4.1 元循环求值器",
+          "role": "teaching",
+          "annotation": "required"
+        },
+        {
+          "id": "s4-1-1",
+          "title": "4.1.1 求值器的核心",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s4-1"
+        },
+        {
+          "id": "s4-1-2",
+          "title": "4.1.2 表达式的表示",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s4-1"
+        },
+        {
+          "id": "s4-1-3",
+          "title": "4.1.3 求值器的数据结构",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s4-1"
+        },
+        {
+          "id": "s4-1-4",
+          "title": "4.1.4 把求值器作为程序运行",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s4-1"
+        },
+        {
+          "id": "s4-1-5",
+          "title": "4.1.5 数据作为程序",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s4-1"
+        },
+        {
+          "id": "s4-1-6",
+          "title": "4.1.6 内部定义",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s4-1"
+        },
+        {
+          "id": "s4-1-7",
+          "title": "4.1.7 分离语法分析与执行",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s4-1"
+        },
+        {
+          "id": "s4-2",
+          "title": "4.2 惰性求值",
+          "role": "teaching",
+          "annotation": "required"
+        },
+        {
+          "id": "s4-2-1",
+          "title": "4.2.1 正则序与应用序",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s4-2"
+        },
+        {
+          "id": "s4-2-2",
+          "title": "4.2.2 惰性求值解释器",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s4-2"
+        },
+        {
+          "id": "s4-2-3",
+          "title": "4.2.3 流作为惰性表",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s4-2"
+        },
+        {
+          "id": "s4-3",
+          "title": "4.3 非确定性计算",
+          "role": "teaching",
+          "annotation": "required"
+        },
+        {
+          "id": "s4-3-1",
+          "title": "4.3.1 选择与搜索",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s4-3"
+        },
+        {
+          "id": "s4-3-2",
+          "title": "4.3.2 非确定性程序实例",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s4-3"
+        },
+        {
+          "id": "s4-3-3",
+          "title": "4.3.3 实现非确定性求值器",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s4-3"
+        },
+        {
+          "id": "s4-4",
+          "title": "4.4 逻辑程序设计",
+          "role": "teaching",
+          "annotation": "required"
+        },
+        {
+          "id": "s4-4-1",
+          "title": "4.4.1 演绎信息检索",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s4-4"
+        },
+        {
+          "id": "s4-4-2",
+          "title": "4.4.2 查询系统的工作方式",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s4-4"
+        },
+        {
+          "id": "s4-4-3",
+          "title": "4.4.3 查询系统是数理逻辑吗",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s4-4"
+        },
+        {
+          "id": "s4-4-4",
+          "title": "4.4.4 实现查询系统",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s4-4"
+        },
+        {
+          "id": "s4-4-4-1",
+          "title": "4.4.4.1 驱动循环与实例化",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s4-4-4"
+        },
+        {
+          "id": "s4-4-4-2",
+          "title": "4.4.4.2 查询求值器",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s4-4-4"
+        },
+        {
+          "id": "s4-4-4-3",
+          "title": "4.4.4.3 以模式匹配查找断言",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s4-4-4"
+        },
+        {
+          "id": "s4-4-4-4",
+          "title": "4.4.4.4 规则与合一",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s4-4-4"
+        },
+        {
+          "id": "s4-4-4-5",
+          "title": "4.4.4.5 维护数据库",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s4-4-4"
+        },
+        {
+          "id": "s4-4-4-6",
+          "title": "4.4.4.6 流操作",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s4-4-4"
+        },
+        {
+          "id": "s4-4-4-7",
+          "title": "4.4.4.7 查询语法过程",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s4-4-4"
+        },
+        {
+          "id": "s4-4-4-8",
+          "title": "4.4.4.8 框架与绑定",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s4-4-4"
+        },
+        {
+          "id": "exercises",
+          "title": "习题 4.1—4.79",
+          "role": "exercise-collection",
+          "annotation": "optional",
+          "reason": "程序与习题定位入口。"
+        },
+        {
+          "id": "programs",
+          "title": "程序与执行",
+          "role": "navigation-or-source",
+          "annotation": "optional",
+          "reason": "程序与习题定位入口。"
+        }
+      ],
+      "questions": [
+        "ex-4-1",
+        "ex-4-2",
+        "ex-4-3",
+        "ex-4-4",
+        "ex-4-5",
+        "ex-4-6",
+        "ex-4-7",
+        "ex-4-8",
+        "ex-4-9",
+        "ex-4-10",
+        "ex-4-11",
+        "ex-4-12",
+        "ex-4-13",
+        "ex-4-14",
+        "ex-4-15",
+        "ex-4-16",
+        "ex-4-17",
+        "ex-4-18",
+        "ex-4-19",
+        "ex-4-20",
+        "ex-4-21",
+        "ex-4-22",
+        "ex-4-23",
+        "ex-4-24",
+        "ex-4-25",
+        "ex-4-26",
+        "ex-4-27",
+        "ex-4-28",
+        "ex-4-29",
+        "ex-4-30",
+        "ex-4-31",
+        "ex-4-32",
+        "ex-4-33",
+        "ex-4-34",
+        "ex-4-35",
+        "ex-4-36",
+        "ex-4-37",
+        "ex-4-38",
+        "ex-4-39",
+        "ex-4-40",
+        "ex-4-41",
+        "ex-4-42",
+        "ex-4-43",
+        "ex-4-44",
+        "ex-4-45",
+        "ex-4-46",
+        "ex-4-47",
+        "ex-4-48",
+        "ex-4-49",
+        "ex-4-50",
+        "ex-4-51",
+        "ex-4-52",
+        "ex-4-53",
+        "ex-4-54",
+        "ex-4-55",
+        "ex-4-56",
+        "ex-4-57",
+        "ex-4-58",
+        "ex-4-59",
+        "ex-4-60",
+        "ex-4-61",
+        "ex-4-62",
+        "ex-4-63",
+        "ex-4-64",
+        "ex-4-65",
+        "ex-4-66",
+        "ex-4-67",
+        "ex-4-68",
+        "ex-4-69",
+        "ex-4-70",
+        "ex-4-71",
+        "ex-4-72",
+        "ex-4-73",
+        "ex-4-74",
+        "ex-4-75",
+        "ex-4-76",
+        "ex-4-77",
+        "ex-4-78",
+        "ex-4-79"
+      ],
+      "chinese_translation_required": true,
+      "section_scope": "all-descendants"
+    },
+    {
+      "page": "sicp/notes/chapter05_register_machines.html",
+      "source": "src/content/books/sicp/chapter05_register_machines.html",
+      "sections": [
+        {
+          "id": "s5-1",
+          "title": "5.1 设计寄存器机器",
+          "role": "teaching",
+          "annotation": "required"
+        },
+        {
+          "id": "s5-1-1",
+          "title": "5.1.1 描述机器的语言",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s5-1"
+        },
+        {
+          "id": "s5-1-2",
+          "title": "5.1.2 机器设计的抽象",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s5-1"
+        },
+        {
+          "id": "s5-1-3",
+          "title": "5.1.3 子程序",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s5-1"
+        },
+        {
+          "id": "s5-1-4",
+          "title": "5.1.4 用栈实现递归",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s5-1"
+        },
+        {
+          "id": "s5-1-5",
+          "title": "5.1.5 指令总结",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s5-1"
+        },
+        {
+          "id": "s5-2",
+          "title": "5.2 寄存器机器模拟器",
+          "role": "teaching",
+          "annotation": "required"
+        },
+        {
+          "id": "s5-2-1",
+          "title": "5.2.1 机器模型",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s5-2"
+        },
+        {
+          "id": "s5-2-2",
+          "title": "5.2.2 汇编器",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s5-2"
+        },
+        {
+          "id": "s5-2-3",
+          "title": "5.2.3 为指令生成执行过程",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s5-2"
+        },
+        {
+          "id": "s5-2-4",
+          "title": "5.2.4 监视机器性能",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s5-2"
+        },
+        {
+          "id": "s5-3",
+          "title": "5.3 存储分配和垃圾回收",
+          "role": "teaching",
+          "annotation": "required"
+        },
+        {
+          "id": "s5-3-1",
+          "title": "5.3.1 向量内存",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s5-3"
+        },
+        {
+          "id": "s5-3-2",
+          "title": "5.3.2 维持无限内存的假象",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s5-3"
+        },
+        {
+          "id": "s5-4",
+          "title": "5.4 显式控制求值器",
+          "role": "teaching",
+          "annotation": "required"
+        },
+        {
+          "id": "s5-4-1",
+          "title": "5.4.1 求值器的核心",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s5-4"
+        },
+        {
+          "id": "s5-4-2",
+          "title": "5.4.2 序列求值与尾递归",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s5-4"
+        },
+        {
+          "id": "s5-4-3",
+          "title": "5.4.3 条件、赋值和定义",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s5-4"
+        },
+        {
+          "id": "s5-4-4",
+          "title": "5.4.4 运行求值器",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s5-4"
+        },
+        {
+          "id": "s5-5",
+          "title": "5.5 编译",
+          "role": "teaching",
+          "annotation": "required"
+        },
+        {
+          "id": "s5-5-1",
+          "title": "5.5.1 编译器结构",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s5-5"
+        },
+        {
+          "id": "s5-5-2",
+          "title": "5.5.2 编译表达式",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s5-5"
+        },
+        {
+          "id": "s5-5-3",
+          "title": "5.5.3 编译组合式",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s5-5"
+        },
+        {
+          "id": "s5-5-4",
+          "title": "5.5.4 组合指令序列",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s5-5"
+        },
+        {
+          "id": "s5-5-5",
+          "title": "5.5.5 编译代码实例",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s5-5"
+        },
+        {
+          "id": "s5-5-6",
+          "title": "5.5.6 词法寻址",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s5-5"
+        },
+        {
+          "id": "s5-5-7",
+          "title": "5.5.7 编译代码与求值器接口",
+          "role": "teaching",
+          "annotation": "required",
+          "parent": "s5-5"
+        },
+        {
+          "id": "exercises",
+          "title": "习题 5.1—5.52",
+          "role": "exercise-collection",
+          "annotation": "optional",
+          "reason": "程序与习题定位入口。"
+        },
+        {
+          "id": "programs",
+          "title": "程序与执行",
+          "role": "navigation-or-source",
+          "annotation": "optional",
+          "reason": "程序与习题定位入口。"
+        }
+      ],
+      "questions": [
+        "ex-5-1",
+        "ex-5-2",
+        "ex-5-3",
+        "ex-5-4",
+        "ex-5-5",
+        "ex-5-6",
+        "ex-5-7",
+        "ex-5-8",
+        "ex-5-9",
+        "ex-5-10",
+        "ex-5-11",
+        "ex-5-12",
+        "ex-5-13",
+        "ex-5-14",
+        "ex-5-15",
+        "ex-5-16",
+        "ex-5-17",
+        "ex-5-18",
+        "ex-5-19",
+        "ex-5-20",
+        "ex-5-21",
+        "ex-5-22",
+        "ex-5-23",
+        "ex-5-24",
+        "ex-5-25",
+        "ex-5-26",
+        "ex-5-27",
+        "ex-5-28",
+        "ex-5-29",
+        "ex-5-30",
+        "ex-5-31",
+        "ex-5-32",
+        "ex-5-33",
+        "ex-5-34",
+        "ex-5-35",
+        "ex-5-36",
+        "ex-5-37",
+        "ex-5-38",
+        "ex-5-39",
+        "ex-5-40",
+        "ex-5-41",
+        "ex-5-42",
+        "ex-5-43",
+        "ex-5-44",
+        "ex-5-45",
+        "ex-5-46",
+        "ex-5-47",
+        "ex-5-48",
+        "ex-5-49",
+        "ex-5-50",
+        "ex-5-51",
+        "ex-5-52"
+      ],
+      "chinese_translation_required": true,
+      "section_scope": "all-descendants"
     }
   ]
 }

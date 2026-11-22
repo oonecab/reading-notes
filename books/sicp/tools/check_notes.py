@@ -35,7 +35,7 @@ def quoted_code(text):
     return '\n'.join(line.rstrip(' \t') for line in lines)
 
 
-def check_manifest(manifest, digest, pages, chapter_two_formal=False, chapter_three_formal=False):
+def check_manifest(manifest, digest, pages, chapter_two_formal=False, chapter_three_formal=False, chapter_four_formal=False, chapter_five_formal=False):
     source = manifest['source']
     require(source['file'] == 'books/sicp/sicp.pdf', 'PDF must be this repository source')
     require(source['sha256'] == digest, 'Source PDF identity changed')
@@ -65,6 +65,12 @@ def check_manifest(manifest, digest, pages, chapter_two_formal=False, chapter_th
     if chapter_three_formal:
         chapters.append(3)
         files.append('chapter03_modularity.html')
+    if chapter_four_formal:
+        chapters.append(4)
+        files.append('chapter04_metalinguistic.html')
+    if chapter_five_formal:
+        chapters.append(5)
+        files.append('chapter05_register_machines.html')
     require(manifest['current_scope']['chapter_notes'] == chapters, 'Formal chapters differ from the catalog')
     require(manifest['current_scope']['completed_original_exercises'] == sum(COUNTS[:len(chapters)]), 'Exercise scope changed')
     require(manifest['current_scope']['pages'] == files,
@@ -176,10 +182,12 @@ def main():
     catalog = json.loads((ROOT / 'books/catalog.json').read_text(encoding='utf8'))['books']
     registered = next(row for row in catalog if row['id'] == 'sicp')
     counts = (registered['expected_pages'], registered['expected_exercises'])
-    require(counts in {(3, 46), (4, 143), (5, 225)}, 'Unexpected SICP catalog scope')
-    chapter_two_formal = counts in {(4, 143), (5, 225)}
-    chapter_three_formal = counts == (5, 225)
-    check_manifest(manifest, digest, pages, chapter_two_formal, chapter_three_formal)
+    require(counts in {(3, 46), (4, 143), (5, 225), (6, 304), (7, 356)}, 'Unexpected SICP catalog scope')
+    chapter_two_formal = counts in {(4, 143), (5, 225), (6, 304), (7, 356)}
+    chapter_three_formal = counts in {(5, 225), (6, 304), (7, 356)}
+    chapter_four_formal = counts in {(6, 304), (7, 356)}
+    chapter_five_formal = counts == (7, 356)
+    check_manifest(manifest, digest, pages, chapter_two_formal, chapter_three_formal, chapter_four_formal, chapter_five_formal)
     check_inventory(inventory)
     expected = {f'{c}.{n}' for c, count in enumerate(COUNTS, 1) for n in range(1, count + 1)}
     require({e['number'] for e in inventory['exercises']} == expected, 'Original exercise inventory incomplete')
@@ -192,7 +200,7 @@ def main():
     pdf_links = 0
     for name, page in parsed.items():
         require(len(page.ids) == len(set(page.ids)), 'Duplicate anchor: ' + name)
-        page_exercises = {'chapter01_procedures.html': 46, 'chapter02_data_abstraction.html': 97, 'chapter03_modularity.html': 82}
+        page_exercises = {'chapter01_procedures.html': 46, 'chapter02_data_abstraction.html': 97, 'chapter03_modularity.html': 82, 'chapter04_metalinguistic.html': 79, 'chapter05_register_machines.html': 52}
         require(page.exercises == page_exercises.get(name, 0), 'Exercise count mismatch')
         for href in page.hrefs:
             url = urlsplit(href)
@@ -348,7 +356,7 @@ def main():
         broken = copy.deepcopy(manifest)
         mutate(broken)
         try:
-            check_manifest(broken, digest, pages, chapter_two_formal, chapter_three_formal)
+            check_manifest(broken, digest, pages, chapter_two_formal, chapter_three_formal, chapter_four_formal, chapter_five_formal)
         except ValueError:
             negatives += 1
         else:
@@ -365,11 +373,59 @@ def main():
                 else:
                     third_review = json.loads((BOOK / 'review/chapter03.json').read_text(encoding='utf8'))
                     require(output.splitlines() == [row['racket_readback'] for row in third_review['content_depth']['sections']], 'Chapter 3 worked example differs')
+    fourth_report = None
+    if chapter_four_formal:
+        def run_fourth(*command):
+            return subprocess.check_output(command, cwd=ROOT, encoding='utf8').strip()
+        fourth_report = json.loads(run_fourth('node', str(BOOK / 'tools/chapter04-candidate.mjs')))
+        if not args.quick:
+            results = json.loads((BOOK / 'code/chapter04-results.json').read_text(encoding='utf8'))
+            for filename, expected_hash in results['program_sha256'].items():
+                require(hashlib.sha256((BOOK / 'code' / filename).read_bytes()).hexdigest() == expected_hash,
+                        f'Chapter 4 program binding changed: {filename}')
+            chapter_review = json.loads((BOOK / 'review/chapter04.json').read_text(encoding='utf8'))
+            require([row['racket_readback'] for row in chapter_review['content_depth']['sections']]
+                    == results['example_readbacks'], 'Chapter 4 teaching readbacks differ')
+            require(run_fourth(racket, str(BOOK / 'code/test-chapter04.rkt')) == results['stdout'],
+                    'Chapter 4 regression output differs')
+            require(run_fourth(racket, str(BOOK / 'tools/check_chapter04_examples.rkt')).splitlines()
+                    == results['example_readbacks'], 'Chapter 4 worked examples differ')
+    fifth_report = None
+    if chapter_five_formal:
+        presentation = json.loads((ROOT / 'docs/reader-presentation.json').read_bytes())['books']['sicp']
+        links = [node['href'] for node in presentation['overview_maps'][0]['nodes']]
+        require(links == manifest['current_scope']['pages'][2:], 'Five chapter nodes must lead to the five formal pages')
+        portal = (ROOT / 'portal/index.html').read_text(encoding='utf8').split('id="sicp-title"', 1)[1].split('</article>', 1)[0]
+        require('<strong>7</strong> 页笔记 / <strong>356</strong>' in portal, 'Portal SICP scope differs')
+        require(any('7 个 HTML 页面' in line and '356 题' in line for line in
+                (ROOT / 'README.md').read_text(encoding='utf8').splitlines() if 'SICP 程序构造' in line),
+                'Root bookshelf SICP scope differs')
+        def run_fifth(*command):
+            return subprocess.check_output(command, cwd=ROOT, encoding='utf8', timeout=120).strip()
+        fifth_report = json.loads(run_fifth('node', str(BOOK / 'tools/chapter05-candidate.mjs')))
+        results = json.loads((BOOK / 'code/chapter05-results.json').read_bytes())
+        for filename, digest in results['program_sha256'].items():
+            require(hashlib.sha256((BOOK / 'code' / filename).read_bytes()).hexdigest() == digest,
+                    f'Chapter 5 program changed: {filename}')
+        if not args.quick:
+            require(run_fifth(racket, str(BOOK / 'code/test-chapter05.rkt')) == results['stdout'],
+                    'Chapter 5 program output changed')
+            probes = run_fifth(racket, str(BOOK / 'tools/check_chapter05_examples.rkt')).splitlines()
+            rows = json.loads((BOOK / 'review/chapter05.json').read_bytes())['content_depth']['sections']
+            require(probes == results['example_readbacks'] == [r['racket_readback'] for r in rows],
+                    'Chapter 5 example readbacks differ')
+            experiments = '(require (submod "books/sicp/code/test-chapter05.rkt" experiments))'
+            require(json.loads(run_fifth(racket, '-e', experiments)) == results['experiments'],
+                    'Stack measurements or annotated exercise input compiler listings changed')
+            require(run_fifth(racket, str(BOOK / 'code/chapter05-c.rkt')).splitlines() == results['c_readbacks'],
+                    'Compiled chapter 5 C controller output changed')
     report = {'status': 'passed', 'book': 'sicp', 'quick': args.quick,
-              'scope': ('map, introduction and complete chapters 1–3' if chapter_three_formal else 'map, introduction and complete chapters 1 and 2' if chapter_two_formal else
+              'scope': ('complete book: map, introduction and all five chapters' if chapter_five_formal else 'map, introduction and complete chapters 1–4' if chapter_four_formal else 'map, introduction and complete chapters 1–3' if chapter_three_formal else 'map, introduction and complete chapters 1 and 2' if chapter_two_formal else
                         'map, introduction and complete chapter1; source, questions, given inputs and program mirrors'),
               'pages': len(parsed), 'source_pdf_pages': pages, 'original_inventory_exercises': 356,
               'completed_exercises': sum(page.exercises for page in parsed.values()), 'pdf_links': pdf_links, 'rejected_mutations': negatives,
+              'chapter5_candidate': fifth_report,
+              'chapter4_candidate': fourth_report,
               'chapter3_candidate': third_report if chapter_three_formal else None,
               'chapter2_candidate': candidate_report, 'chapter2_archive_checked': len(archive), 'chapter2_archive_mutations_rejected': 3,
               'chapter2_program': 'not run' if args.quick else chapter_two.stdout.strip(),

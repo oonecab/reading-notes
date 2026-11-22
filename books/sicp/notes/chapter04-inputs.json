@@ -1,0 +1,703 @@
+{
+  "schema_version": 1,
+  "scope": "原书共享输入；各题独有的给定程序留在中文题干内。",
+  "records": [
+    {
+      "id": "input-eval",
+      "section": "s4-1-1",
+      "source_pdf_page": 524,
+      "code": "(define (eval exp env)\n  (cond ((self-evaluating? exp) \n         exp)\n        ((variable? exp) \n         (lookup-variable-value exp env))\n        ((quoted? exp) \n         (text-of-quotation exp))\n        ((assignment? exp) \n         (eval-assignment exp env))\n        ((definition? exp) \n         (eval-definition exp env))\n        ((if? exp) \n         (eval-if exp env))\n        ((lambda? exp)\n         (make-procedure \n          (lambda-parameters exp)\n          (lambda-body exp)\n          env))\n        ((begin? exp)\n         (eval-sequence \n          (begin-actions exp) \n          env))\n        ((cond? exp) \n         (eval (cond->if exp) env))\n        ((application? exp)\n         (apply (eval (operator exp) env)\n                (list-of-values \n                 (operands exp) \n                 env)))\n        (else\n         (error \"Unknown expression \n                 type: EVAL\" exp))))",
+      "exercises": [
+        2,
+        3,
+        4,
+        5,
+        9,
+        10
+      ],
+      "guide": "先辨认语法；只有应用分支才要处理操作符及实参。"
+    },
+    {
+      "id": "input-apply",
+      "section": "s4-1-1",
+      "source_pdf_page": 525,
+      "code": "(define (apply procedure arguments)\n  (cond ((primitive-procedure? procedure)\n         (apply-primitive-procedure \n          procedure \n          arguments))\n        ((compound-procedure? procedure)\n         (eval-sequence\n           (procedure-body procedure)\n           (extend-environment\n             (procedure-parameters \n              procedure)\n             arguments\n             (procedure-environment \n              procedure))))\n        (else\n         (error \"Unknown procedure \n                 type: APPLY\" \n                procedure))))",
+      "exercises": [
+        14
+      ],
+      "guide": "基本过程直接调用实现，复合过程必须用定义环境扩展出新帧。"
+    },
+    {
+      "id": "input-list-of-values",
+      "section": "s4-1-1",
+      "source_pdf_page": 526,
+      "code": "(define (list-of-values exps env)\n  (if (no-operands? exps)\n      '()\n      (cons (eval (first-operand exps) env)\n            (list-of-values \n             (rest-operands exps) \n             env))))",
+      "exercises": [
+        1
+      ],
+      "guide": "构造出的表保持从左到右的位置，只看构造语法不足以决定副作用次序。"
+    },
+    {
+      "id": "input-expand-cond",
+      "section": "s4-1-2",
+      "source_pdf_page": 534,
+      "code": "(define (cond? exp) \n  (tagged-list? exp 'cond))\n(define (cond-clauses exp) (cdr exp))\n(define (cond-else-clause? clause)\n  (eq? (cond-predicate clause) 'else))\n(define (cond-predicate clause) \n  (car clause))\n(define (cond-actions clause) \n  (cdr clause))\n(define (cond->if exp)\n  (expand-clauses (cond-clauses exp)))\n(define (expand-clauses clauses)\n  (if (null? clauses)\n      'false     ; no else clause\n      (let ((first (car clauses))\n            (rest (cdr clauses)))\n        (if (cond-else-clause? first)\n            (if (null? rest)\n                (sequence->exp \n                 (cond-actions first))\n                (error \"ELSE clause isn't \n                        last: COND->IF\"\n                       clauses))\n            (make-if (cond-predicate first)\n                     (sequence->exp \n                      (cond-actions first))\n                     (expand-clauses \n                      rest))))))",
+      "exercises": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "guide": "从末尾向前组织分支；带接收者的子句必须额外保存测试值。"
+    },
+    {
+      "id": "input-make-frame",
+      "section": "s4-1-3",
+      "source_pdf_page": 542,
+      "code": "(define (make-frame variables values)\n  (cons variables values))\n(define (frame-variables frame) (car frame))\n(define (frame-values frame) (cdr frame))\n(define (add-binding-to-frame! var val frame)\n  (set-car! frame (cons var (car frame)))\n  (set-cdr! frame (cons val (cdr frame))))",
+      "exercises": [
+        11,
+        12,
+        13
+      ],
+      "guide": "变量名表和值表的对应位置是一条绑定，改变表示必须同步改动查找和写入。"
+    },
+    {
+      "id": "input-lookup-variable-value",
+      "section": "s4-1-3",
+      "source_pdf_page": 543,
+      "code": "(define (lookup-variable-value var env)\n  (define (env-loop env)\n    (define (scan vars vals)\n      (cond ((null? vars)\n             (env-loop \n              (enclosing-environment env)))\n            ((eq? var (car vars))\n             (car vals))\n            (else (scan (cdr vars) \n                        (cdr vals)))))\n    (if (eq? env the-empty-environment)\n        (error \"Unbound variable\" var)\n        (let ((frame (first-frame env)))\n          (scan (frame-variables frame)\n                (frame-values frame)))))\n  (env-loop env))",
+      "exercises": [
+        11,
+        12,
+        13,
+        16
+      ],
+      "guide": "扫完一帧之后才走向父帧，决定了同名变量的遮蔽顺序。"
+    },
+    {
+      "id": "input-apply-primitive",
+      "section": "s4-1-4",
+      "source_pdf_page": 548,
+      "code": "(define (apply-primitive-procedure proc args)\n  (apply-in-underlying-scheme\n   (primitive-implementation proc) args))",
+      "exercises": [
+        14
+      ],
+      "guide": "宿主调用的入口应只接收已登记为基本过程的实现。"
+    },
+    {
+      "id": "input-internal-body",
+      "section": "s4-1-6",
+      "source_pdf_page": 556,
+      "code": "(lambda ⟨vars⟩\n  (define u ⟨e1⟩)\n  (define v ⟨e2⟩)\n  ⟨e3⟩)",
+      "exercises": [
+        16,
+        17,
+        18
+      ],
+      "guide": "顺序写入与同时建立名字是两个步骤；闭包可以晚于建立时才读取槽。"
+    },
+    {
+      "id": "input-analyze-sequence",
+      "section": "s4-1-7",
+      "source_pdf_page": 566,
+      "code": "(define (analyze-sequence exps)\n  (define (sequentially proc1 proc2)\n    (lambda (env) (proc1 env) (proc2 env)))\n  (define (loop first-proc rest-procs)\n    (if (null? rest-procs)\n        first-proc\n        (loop (sequentially first-proc \n                            (car rest-procs))\n              (cdr rest-procs))))\n  (let ((procs (map analyze exps)))\n    (if (null? procs)\n        (error \"Empty sequence: ANALYZE\"))\n    (loop (car procs) (cdr procs))))",
+      "exercises": [
+        22,
+        23,
+        24
+      ],
+      "guide": "序列执行器复用分析阶段构造的子过程，而不能缓存某次环境中的值。"
+    },
+    {
+      "id": "input-unless",
+      "section": "s4-2-1",
+      "source_pdf_page": 570,
+      "code": "(define (unless condition \n                usual-value \n                exceptional-value)\n  (if condition \n      exceptional-value \n      usual-value))",
+      "exercises": [
+        25,
+        26
+      ],
+      "guide": "作为普通过程时，选用哪一分支不能反过来阻止严格调用者计算实参。"
+    },
+    {
+      "id": "input-actual-value",
+      "section": "s4-2-2",
+      "source_pdf_page": 574,
+      "code": "(define (actual-value exp env)\n  (force-it (eval exp env)))",
+      "exercises": [
+        27,
+        28,
+        29,
+        30,
+        31
+      ],
+      "guide": "取实际值会追踪承诺链，操作符位置也可能需要这一操作。"
+    },
+    {
+      "id": "input-force-it",
+      "section": "s4-2-2",
+      "source_pdf_page": 577,
+      "code": "(define (force-it obj)\n  (if (thunk? obj)\n      (actual-value (thunk-exp obj) \n                    (thunk-env obj))\n      obj))",
+      "exercises": [
+        27,
+        29,
+        31
+      ],
+      "guide": "记忆化的关键是把共享对象改写成结果，返回假值也应算已计算。"
+    },
+    {
+      "id": "input-lazy-pairs",
+      "section": "s4-2-3",
+      "source_pdf_page": 584,
+      "code": "(define (cons x y) (lambda (m) (m x y)))\n(define (car z) (z (lambda (p q) p)))\n(define (cdr z) (z (lambda (p q) q)))",
+      "exercises": [
+        32,
+        33,
+        34
+      ],
+      "guide": "构造器把两个参数都留在闭包里，选择器决定需求哪一项。"
+    },
+    {
+      "id": "input-require",
+      "section": "s4-3-1",
+      "source_pdf_page": 590,
+      "code": "(define (require p)\n  (if (not p) (amb)))",
+      "exercises": [
+        35,
+        36,
+        37,
+        40,
+        44,
+        54
+      ],
+      "guide": "条件不满足时进入空选择点，控制退到最近还有替代项的位置。"
+    },
+    {
+      "id": "input-an-element-of",
+      "section": "s4-3-1",
+      "source_pdf_page": 590,
+      "code": "(define (an-element-of items)\n  (require (not (null? items)))\n  (amb (car items) \n       (an-element-of (cdr items))))",
+      "exercises": [
+        35,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        49,
+        51,
+        53
+      ],
+      "guide": "先试表头，失败续文保存余表。空表耗尽时沿外层续文回退。"
+    },
+    {
+      "id": "input-an-integer-starting-from",
+      "section": "s4-3-1",
+      "source_pdf_page": 590,
+      "code": "(define (an-integer-starting-from n)\n  (amb n (an-integer-starting-from (+ n 1))))",
+      "exercises": [
+        36
+      ],
+      "guide": "递归备选在需要下一解时才使用；嵌套无限选择可能饿死外层备选。"
+    },
+    {
+      "id": "input-multiple-dwelling",
+      "section": "s4-3-2",
+      "source_pdf_page": 596,
+      "code": "(define (multiple-dwelling)\n  (let ((baker (amb 1 2 3 4 5))\n        (cooper (amb 1 2 3 4 5))\n        (fletcher (amb 1 2 3 4 5))\n        (miller (amb 1 2 3 4 5))\n        (smith (amb 1 2 3 4 5)))\n    (require\n     (distinct? (list baker cooper fletcher \n                      miller smith)))\n    (require (not (= baker 5)))\n    (require (not (= cooper 1)))\n    (require (not (= fletcher 5)))\n    (require (not (= fletcher 1)))\n    (require (> miller cooper))\n    (require\n     (not (= (abs (- smith fletcher)) 1)))\n    (require \n     (not (= (abs (- fletcher cooper)) 1)))\n    (list (list 'baker baker)\n          (list 'cooper cooper)\n          (list 'fletcher fletcher)\n          (list 'miller miller)\n          (list 'smith smith))))",
+      "exercises": [
+        38,
+        39,
+        40,
+        41
+      ],
+      "guide": "每个楼层变量独立提出候选，互异及相邻条件再剔除不合法组合。"
+    },
+    {
+      "id": "input-word-lists",
+      "section": "s4-3-2",
+      "source_pdf_page": 600,
+      "code": "(define nouns \n  '(noun student professor cat class))\n\n(define verbs \n  '(verb studies lectures eats sleeps))\n\n(define articles '(article the a))",
+      "exercises": [
+        45,
+        46,
+        47,
+        48,
+        49
+      ],
+      "guide": "词表第一项是类别标签，后面才是可消费或可生成的词。"
+    },
+    {
+      "id": "input-parse-word",
+      "section": "s4-3-2",
+      "source_pdf_page": 601,
+      "code": "(define (parse-word word-list)\n  (require (not (null? *unparsed*)))\n  (require (memq (car *unparsed*) \n                 (cdr word-list)))\n  (let ((found-word (car *unparsed*)))\n    (set! *unparsed* (cdr *unparsed*))\n    (list (car word-list) found-word)))",
+      "exercises": [
+        45,
+        46,
+        47,
+        48,
+        49
+      ],
+      "guide": "成功匹配表头时推进游标，失败时恢复，语法依赖从左向右消费。"
+    },
+    {
+      "id": "input-parse-prepositional-phrase",
+      "section": "s4-3-2",
+      "source_pdf_page": 602,
+      "code": "(define (parse-prepositional-phrase)\n  (list 'prep-phrase\n        (parse-word prepositions)\n        (parse-noun-phrase)))",
+      "exercises": [
+        45,
+        47,
+        48
+      ],
+      "guide": "介词后要解析一个名词短语，短语自身仍可带修饰语。"
+    },
+    {
+      "id": "input-parse-sentence",
+      "section": "s4-3-2",
+      "source_pdf_page": 602,
+      "code": "(define (parse-sentence)\n  (list 'sentence\n         (parse-noun-phrase)\n         (parse-verb-phrase)))\n\n(define (parse-verb-phrase)\n  (define (maybe-extend verb-phrase)\n    (amb \n     verb-phrase\n     (maybe-extend \n      (list 'verb-phrase\n            verb-phrase\n            (parse-prepositional-phrase)))))\n  (maybe-extend (parse-word verbs)))",
+      "exercises": [
+        45,
+        46,
+        47,
+        48,
+        49
+      ],
+      "guide": "名词短语与动词短语分用输入的连续前后两段。"
+    },
+    {
+      "id": "input-parse-noun-phrase",
+      "section": "s4-3-2",
+      "source_pdf_page": 603,
+      "code": "(define (parse-simple-noun-phrase)\n  (list 'simple-noun-phrase\n        (parse-word articles)\n        (parse-word nouns)))\n\n(define (parse-noun-phrase)\n  (define (maybe-extend noun-phrase)\n    (amb \n     noun-phrase\n     (maybe-extend \n      (list 'noun-phrase\n            noun-phrase\n            (parse-prepositional-phrase)))))\n  (maybe-extend (parse-simple-noun-phrase)))",
+      "exercises": [
+        45,
+        47,
+        48
+      ],
+      "guide": "先消耗简单短语再尝试扩展，使递归在有限输入上取得进展。"
+    },
+    {
+      "id": "input-analyze-amb",
+      "section": "s4-3-3",
+      "source_pdf_page": 617,
+      "code": "(define (analyze-amb exp)\n  (let ((cprocs\n         (map analyze (amb-choices exp))))\n    (lambda (env succeed fail)\n      (define (try-next choices)\n        (if (null? choices)\n            (fail)\n            ((car choices) \n             env\n             succeed\n             (lambda ()\n               (try-next (cdr choices))))))\n      (try-next cprocs))))",
+      "exercises": [
+        50,
+        52,
+        54,
+        78
+      ],
+      "guide": "列表耗尽调用旧失败续文；每个分支成功时能交回新的继续搜索入口。"
+    },
+    {
+      "id": "input-amb-assignment",
+      "section": "s4-3-3",
+      "source_pdf_page": 563,
+      "code": "(define (analyze-assignment exp)\n  (let ((var (assignment-variable exp))\n        (vproc (analyze \n                (assignment-value exp))))\n    (lambda (env succeed fail)\n      (vproc env\n             (lambda (val fail2)    ; *1*\n               (let ((old-value\n                      (lookup-variable-value \n                       var \n                       env)))\n                 (set-variable-value!\n                  var \n                  val \n                  env)\n                 (succeed \n                  'ok\n                  (lambda ()    ; *2*\n                    (set-variable-value! \n                     var\n                     old-value\n                     env)\n                    (fail2)))))\n               fail))))",
+      "exercises": [
+        51,
+        53
+      ],
+      "guide": "备选路径开始时的值保存在恢复动作里，永久赋值省去这一动作。"
+    },
+    {
+      "id": "input-prime-sum-pair",
+      "section": "s4-3-1",
+      "source_pdf_page": 587,
+      "code": "(define (prime-sum-pair list1 list2)\n  (let ((a (an-element-of list1))\n        (b (an-element-of list2)))\n    (require (prime? (+ a b)))\n    (list a b)))",
+      "exercises": [
+        53
+      ],
+      "guide": "两层选择确定数对，素数谓词只过滤，不能改变候选次序。"
+    },
+    {
+      "id": "input-microshaft",
+      "section": "s4-4-1",
+      "source_pdf_page": 628,
+      "code": "(address (Bitdiddle Ben) \n         (Slumerville (Ridge Road) 10))\n(job (Bitdiddle Ben) (computer wizard))\n(salary (Bitdiddle Ben) 60000)\n\n(address (Hacker Alyssa P) \n         (Cambridge (Mass Ave) 78))\n(job (Hacker Alyssa P) (computer programmer))\n(salary (Hacker Alyssa P) 40000)\n(supervisor (Hacker Alyssa P) (Bitdiddle Ben))\n\n(address (Fect Cy D) \n         (Cambridge (Ames Street) 3))\n(job (Fect Cy D) (computer programmer))\n(salary (Fect Cy D) 35000)\n(supervisor (Fect Cy D) (Bitdiddle Ben))\n\n(address (Tweakit Lem E) \n         (Boston (Bay State Road) 22))\n(job (Tweakit Lem E) (computer technician))\n(salary (Tweakit Lem E) 25000)\n(supervisor (Tweakit Lem E) (Bitdiddle Ben))\n\n(address (Reasoner Louis) \n         (Slumerville (Pine Tree Road) 80))\n(job (Reasoner Louis) \n     (computer programmer trainee))\n(salary (Reasoner Louis) 30000)\n(supervisor (Reasoner Louis) \n            (Hacker Alyssa P))\n\n(supervisor (Bitdiddle Ben) (Warbucks Oliver))\n(address (Warbucks Oliver) \n         (Swellesley (Top Heap Road)))\n(job (Warbucks Oliver) \n     (administration big wheel))\n(salary (Warbucks Oliver) 150000)\n\n(address (Scrooge Eben) \n         (Weston (Shady Lane) 10))\n(job (Scrooge Eben) \n     (accounting chief accountant))\n(salary (Scrooge Eben) 75000)\n(supervisor (Scrooge Eben) (Warbucks Oliver))\n\n(address (Cratchet Robert) \n         (Allston (N Harvard Street) 16))\n(job (Cratchet Robert) (accounting scrivener))\n(salary (Cratchet Robert) 18000)\n(supervisor (Cratchet Robert) (Scrooge Eben))\n\n(address (Aull DeWitt) \n         (Slumerville (Onion Square) 5))\n(job (Aull DeWitt) (administration secretary))\n(salary (Aull DeWitt) 25000)\n(supervisor (Aull DeWitt) (Warbucks Oliver))\n\n(can-do-job (computer wizard) \n            (computer programmer))\n\n(can-do-job (computer wizard) \n            (computer technician))\n\n(can-do-job (computer programmer)\n            (computer programmer trainee))\n\n(can-do-job (administration secretary)\n            (administration big wheel))",
+      "exercises": [
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        64,
+        65,
+        66,
+        75
+      ],
+      "guide": "地址、职位、工资和主管通过同一个人名连接；任职能力是职位间的有向关系。"
+    },
+    {
+      "id": "input-lives-near",
+      "section": "s4-4-1",
+      "source_pdf_page": 636,
+      "code": "(rule (lives-near ?person-1 ?person-2)\n      (and (address ?person-1 \n                    (?town . ?rest-1))\n           (address ?person-2 \n                    (?town . ?rest-2))\n           (not (same ?person-1 ?person-2))))",
+      "exercises": [
+        60
+      ],
+      "guide": "两个住址模式共享镇名变量，并用不同的人名排除自配对。"
+    },
+    {
+      "id": "input-wheel",
+      "section": "s4-4-1",
+      "source_pdf_page": 637,
+      "code": "(rule (wheel ?person)\n      (and (supervisor ?middle-manager \n                       ?person)\n           (supervisor ?x ?middle-manager)))",
+      "exercises": [
+        65,
+        66
+      ],
+      "guide": "中层主管及下属都是证据的一部分，投影出高层主管时可能产生重复姓名。"
+    },
+    {
+      "id": "input-outranked-by",
+      "section": "s4-4-1",
+      "source_pdf_page": 638,
+      "code": "(rule (outranked-by ?staff-person ?boss)\n      (or (supervisor ?staff-person ?boss)\n          (and (supervisor ?staff-person \n                           ?middle-manager)\n               (outranked-by ?middle-manager \n                             ?boss))))",
+      "exercises": [
+        64,
+        67
+      ],
+      "guide": "先找到直接主管，递归时才沿着已经确定的上级继续。"
+    },
+    {
+      "id": "input-append-to-form",
+      "section": "s4-4-1",
+      "source_pdf_page": 641,
+      "code": "(rule (append-to-form () ?y ?y))\n(rule (append-to-form (?u . ?v) ?y (?u . ?z))\n      (append-to-form ?v ?y ?z))",
+      "exercises": [
+        62,
+        68
+      ],
+      "guide": "关系的基例固定空前缀，递归把前缀第一个元素原样移到输出头部。"
+    },
+    {
+      "id": "input-simple-query",
+      "section": "s4-4-4-2",
+      "source_pdf_page": 688,
+      "code": "(define (simple-query query-pattern \n                      frame-stream)\n  (stream-flatmap\n   (lambda (frame)\n     (stream-append-delayed\n      (find-assertions query-pattern frame)\n      (delay \n        (apply-rules query-pattern frame))))\n   frame-stream))",
+      "exercises": [
+        71,
+        72
+      ],
+      "guide": "单个框架先匹配断言，再按需尝试规则；未得到第一条事实时仍可能需要规则分支。"
+    },
+    {
+      "id": "input-disjoin",
+      "section": "s4-4-4-2",
+      "source_pdf_page": 668,
+      "code": "(define (disjoin disjuncts frame-stream)\n  (if (empty-disjunction? disjuncts)\n      the-empty-stream\n      (interleave-delayed\n       (qeval (first-disjunct disjuncts) \n              frame-stream)\n       (delay (disjoin \n               (rest-disjuncts disjuncts)\n               frame-stream)))))\n(put 'or 'qeval disjoin)",
+      "exercises": [
+        71,
+        72,
+        76
+      ],
+      "guide": "分支共享输入框架，结果交错，允许两边都向读者贡献答案。"
+    },
+    {
+      "id": "input-unify-match",
+      "section": "s4-4-4-4",
+      "source_pdf_page": 675,
+      "code": "(define (unify-match p1 p2 frame)\n  (cond ((eq? frame 'failed) 'failed)\n        ((equal? p1 p2) frame)\n        ((var? p1)\n         (extend-if-possible p1 p2 frame))\n        ((var? p2)\n         (extend-if-possible \n          p2 \n          p1 \n          frame))        ; ***\n        ((and (pair? p1) \n              (pair? p2))\n         (unify-match \n          (cdr p1) \n          (cdr p2)\n          (unify-match \n           (car p1)\n           (car p2)\n           frame)))\n        (else 'failed)))",
+      "exercises": [
+        67,
+        76,
+        79
+      ],
+      "guide": "两边都可以带变量；比较表尾时必须使用比较表头后得到的新框架。"
+    },
+    {
+      "id": "input-add-assertion",
+      "section": "s4-4-4-5",
+      "source_pdf_page": 680,
+      "code": "(define (add-rule-or-assertion! assertion)\n  (if (rule? assertion)\n      (add-rule! assertion)\n      (add-assertion! assertion)))\n\n(define (add-assertion! assertion)\n  (store-assertion-in-index assertion)\n  (let ((old-assertions THE-ASSERTIONS))\n    (set! THE-ASSERTIONS\n          (cons-stream assertion \n                       old-assertions))\n    'ok))\n\n(define (add-rule! rule)\n  (store-rule-in-index rule)\n  (let ((old-rules THE-RULES))\n    (set! THE-RULES\n          (cons-stream rule old-rules))\n    'ok))",
+      "exercises": [
+        70
+      ],
+      "guide": "全局事实流会被替换，延迟尾部必须指向修改以前的流对象。"
+    },
+    {
+      "id": "input-stream-flatmap",
+      "section": "s4-4-4-6",
+      "source_pdf_page": 683,
+      "code": "(define (stream-flatmap proc s)\n  (flatten-stream (stream-map proc s)))\n\n(define (flatten-stream stream)\n  (if (stream-null? stream)\n      the-empty-stream\n      (interleave-delayed\n       (stream-car stream)\n       (delay (flatten-stream\n               (stream-cdr stream))))))",
+      "exercises": [
+        72,
+        73,
+        74
+      ],
+      "guide": "映射生成一条子流的流，压平时要兼顾各条子流的进展。"
+    }
+  ],
+  "question_dependencies": {
+    "4.2": [
+      "input-eval"
+    ],
+    "4.3": [
+      "input-eval"
+    ],
+    "4.4": [
+      "input-eval"
+    ],
+    "4.5": [
+      "input-eval",
+      "input-expand-cond"
+    ],
+    "4.9": [
+      "input-eval",
+      "input-expand-cond"
+    ],
+    "4.10": [
+      "input-eval"
+    ],
+    "4.14": [
+      "input-apply",
+      "input-apply-primitive"
+    ],
+    "4.1": [
+      "input-list-of-values"
+    ],
+    "4.6": [
+      "input-expand-cond"
+    ],
+    "4.7": [
+      "input-expand-cond"
+    ],
+    "4.8": [
+      "input-expand-cond"
+    ],
+    "4.11": [
+      "input-make-frame",
+      "input-lookup-variable-value"
+    ],
+    "4.12": [
+      "input-make-frame",
+      "input-lookup-variable-value"
+    ],
+    "4.13": [
+      "input-make-frame",
+      "input-lookup-variable-value"
+    ],
+    "4.16": [
+      "input-lookup-variable-value",
+      "input-internal-body"
+    ],
+    "4.17": [
+      "input-internal-body"
+    ],
+    "4.18": [
+      "input-internal-body"
+    ],
+    "4.22": [
+      "input-analyze-sequence"
+    ],
+    "4.23": [
+      "input-analyze-sequence"
+    ],
+    "4.24": [
+      "input-analyze-sequence"
+    ],
+    "4.25": [
+      "input-unless"
+    ],
+    "4.26": [
+      "input-unless"
+    ],
+    "4.27": [
+      "input-actual-value",
+      "input-force-it"
+    ],
+    "4.28": [
+      "input-actual-value"
+    ],
+    "4.29": [
+      "input-actual-value",
+      "input-force-it"
+    ],
+    "4.30": [
+      "input-actual-value"
+    ],
+    "4.31": [
+      "input-actual-value",
+      "input-force-it"
+    ],
+    "4.32": [
+      "input-lazy-pairs"
+    ],
+    "4.33": [
+      "input-lazy-pairs"
+    ],
+    "4.34": [
+      "input-lazy-pairs"
+    ],
+    "4.35": [
+      "input-require",
+      "input-an-element-of"
+    ],
+    "4.36": [
+      "input-require",
+      "input-an-integer-starting-from"
+    ],
+    "4.37": [
+      "input-require"
+    ],
+    "4.40": [
+      "input-require",
+      "input-an-element-of",
+      "input-multiple-dwelling"
+    ],
+    "4.44": [
+      "input-require",
+      "input-an-element-of"
+    ],
+    "4.54": [
+      "input-require",
+      "input-analyze-amb"
+    ],
+    "4.38": [
+      "input-an-element-of",
+      "input-multiple-dwelling"
+    ],
+    "4.39": [
+      "input-an-element-of",
+      "input-multiple-dwelling"
+    ],
+    "4.41": [
+      "input-an-element-of",
+      "input-multiple-dwelling"
+    ],
+    "4.42": [
+      "input-an-element-of"
+    ],
+    "4.43": [
+      "input-an-element-of"
+    ],
+    "4.49": [
+      "input-an-element-of",
+      "input-word-lists",
+      "input-parse-word",
+      "input-parse-sentence"
+    ],
+    "4.51": [
+      "input-an-element-of",
+      "input-amb-assignment"
+    ],
+    "4.53": [
+      "input-an-element-of",
+      "input-amb-assignment",
+      "input-prime-sum-pair"
+    ],
+    "4.45": [
+      "input-word-lists",
+      "input-parse-word",
+      "input-parse-prepositional-phrase",
+      "input-parse-sentence",
+      "input-parse-noun-phrase"
+    ],
+    "4.46": [
+      "input-word-lists",
+      "input-parse-word",
+      "input-parse-sentence"
+    ],
+    "4.47": [
+      "input-word-lists",
+      "input-parse-word",
+      "input-parse-prepositional-phrase",
+      "input-parse-sentence",
+      "input-parse-noun-phrase"
+    ],
+    "4.48": [
+      "input-word-lists",
+      "input-parse-word",
+      "input-parse-prepositional-phrase",
+      "input-parse-sentence",
+      "input-parse-noun-phrase"
+    ],
+    "4.50": [
+      "input-analyze-amb"
+    ],
+    "4.52": [
+      "input-analyze-amb"
+    ],
+    "4.78": [
+      "input-analyze-amb"
+    ],
+    "4.55": [
+      "input-microshaft"
+    ],
+    "4.56": [
+      "input-microshaft"
+    ],
+    "4.57": [
+      "input-microshaft"
+    ],
+    "4.58": [
+      "input-microshaft"
+    ],
+    "4.59": [
+      "input-microshaft"
+    ],
+    "4.60": [
+      "input-microshaft",
+      "input-lives-near"
+    ],
+    "4.64": [
+      "input-microshaft",
+      "input-outranked-by"
+    ],
+    "4.65": [
+      "input-microshaft",
+      "input-wheel"
+    ],
+    "4.66": [
+      "input-microshaft",
+      "input-wheel"
+    ],
+    "4.75": [
+      "input-microshaft"
+    ],
+    "4.67": [
+      "input-outranked-by",
+      "input-unify-match"
+    ],
+    "4.62": [
+      "input-append-to-form"
+    ],
+    "4.68": [
+      "input-append-to-form"
+    ],
+    "4.71": [
+      "input-simple-query",
+      "input-disjoin"
+    ],
+    "4.72": [
+      "input-simple-query",
+      "input-disjoin",
+      "input-stream-flatmap"
+    ],
+    "4.76": [
+      "input-disjoin",
+      "input-unify-match"
+    ],
+    "4.79": [
+      "input-unify-match"
+    ],
+    "4.70": [
+      "input-add-assertion"
+    ],
+    "4.73": [
+      "input-stream-flatmap"
+    ],
+    "4.74": [
+      "input-stream-flatmap"
+    ]
+  }
+}
