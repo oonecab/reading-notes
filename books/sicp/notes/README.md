@@ -1,6 +1,6 @@
 # SICP：页面、来源与组件
 
-遵循 [RN-001](../../../docs/reading-notes-standard.md) 与 [RN-002](../../../docs/reading-presentation-standard.md)。I073完成地图/引言，I075按用户续写要求展开第一章；I077 完成第二章。第三至五章保留章意。
+遵循 [RN-001](../../../docs/reading-notes-standard.md) 与 [RN-002](../../../docs/reading-presentation-standard.md)。I073完成地图/引言，I075按用户续写要求展开第一章；I077 完成第二章。I087 完成第三章。第四、五章保留章意。
 
 | 页面 | 原书范围 | 本批题解 |
 |---|---|---|
@@ -28,3 +28,7 @@ accumulate-rec是右折叠、accumulate-iter是左折叠，对任意combiner不�
 ### 第 2 章
 
 [用数据构造抽象](chapter02_data_abstraction.html)覆盖 PDF 135–321、97 题与 18 个二级小节。图像随 HTML 内嵌；伴读程序以 code/ 下的 Racket 源为准。正式浏览器回归使用 `node books/sicp/tools/check_chapter02_browser.mjs --dist`。
+
+### 第 3 章 · 模块化、对象和状态
+
+正式范围为地图、引言及第 1–3 章，共 5 页、225 题。第 3 章对应 PDF 322–514，包含 82 题、19 个二级小节。可变序对使用 Racket 可变序对适配；并发示例采用明确交错模型，流测试读取有限前缀。第 4、5 章保留章意。

@@ -1429,7 +1429,30 @@
 </svg>
 </div><figcaption id="fig-3-17-caption">图 3.17 · 由<code>(cons (list &#x27;a &#x27;b) (list &#x27;a &#x27;b))</code>形成的表z2。 · <a href="../sicp.pdf#page=377">PDF 377</a></figcaption></figure><p data-explains="fig-3-17">两条外边落点不同，虽然打印内容相同，左侧写入不会穿过右侧的边。</p><div id="input-set-to-wow-mutate"><p>原书程序 · <a href="../sicp.pdf#page=376">PDF 376</a></p><details class="code-details"><summary>查看程序</summary><pre><code class="language-scheme">(define (set-to-wow! x)
   (set-car! (car x) &#x27;wow)
-  x)</code></pre></details></div><p data-explains="input-set-to-wow-mutate">先取得外盒的首槽，再改写其指向的内盒。</p></section><section id="s3-3-2"><h3>3.3.2 队列的表示</h3><p class="source"><a href="../sicp.pdf#page=381">PDF 381</a></p><p data-worked-example="s3-3-2">如何让插入、删除都不遍历整条链？空队列插入 a 时首尾指同一结点；再插 b 时只修改旧尾和尾指针。删去 a 后首尾同指 b，删去 b 后首指针为空。逐次读取首元素得到 a、b，符合先进先出。查询空队首应报错；题给实现只依据首指针判空。</p><details class="reading-notes" id="notes-s3-3-2" data-notes-for="s3-3-2" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><p>检查空、单元素和多元素三种状态。单元素时首尾引用的应是同一个盒子，打印队列若同时遍历两个指针，就会错误地把最后一个元素算两遍。</p></div></div></details><figure id="fig-3-18" data-source-pdf-page="382" aria-labelledby="fig-3-18-caption"><div class="figure-scroll"><svg role="img" aria-label="队列操作。" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1" preserveAspectRatio="xMinYMin meet" viewBox="0 0 556 267" id="f3-18-svg5876" width="100%" height="100%">
+  x)</code></pre></details></div><p data-explains="input-set-to-wow-mutate">先取得外盒的首槽，再改写其指向的内盒。</p><div id="input-z1"><p>原书程序 · <a href="../sicp.pdf#page=376">PDF 376</a></p><details class="code-details"><summary>查看程序</summary><pre><code class="language-scheme">(define x (list &#x27;a &#x27;b))
+(define z1 (cons x x))</code></pre></details></div><p data-explains="input-z1">同一子表作为两个实参传入，沿两条边走到相同的可变对象。</p><div id="input-z2"><p>原书程序 · <a href="../sicp.pdf#page=376">PDF 376</a></p><details class="code-details"><summary>查看程序</summary><pre><code class="language-scheme">(define z2&#32;
+  (cons (list &#x27;a &#x27;b) (list &#x27;a &#x27;b)))</code></pre></details></div><p data-explains="input-z2">分别构造的两个子表打印相同，沿边抵达的结点身份却不同。</p><div id="input-procedural-cons"><p>原书程序 · <a href="../sicp.pdf#page=380">PDF 380</a></p><details class="code-details"><summary>查看程序</summary><pre><code class="language-scheme">(define (cons x y)
+  (define (set-x! v) (set! x v))
+  (define (set-y! v) (set! y v))
+  (define (dispatch m)
+    (cond ((eq? m &#x27;car) x)
+          ((eq? m &#x27;cdr) y)
+          ((eq? m &#x27;set-car!) set-x!)
+          ((eq? m &#x27;set-cdr!) set-y!)
+          (else (error &quot;Undefined&#32;
+                 operation: CONS&quot; m))))
+  dispatch)
+
+(define (car z) (z &#x27;car))
+(define (cdr z) (z &#x27;cdr))
+
+(define (set-car! z new-value)
+  ((z &#x27;set-car!) new-value)
+  z)
+
+(define (set-cdr! z new-value)
+  ((z &#x27;set-cdr!) new-value)
+  z)</code></pre></details></div><p data-explains="input-procedural-cons">两个写操作和读操作捕获同一个构造帧；改写其中的绑定等价于改写该序对的槽。</p></section><section id="s3-3-2"><h3>3.3.2 队列的表示</h3><p class="source"><a href="../sicp.pdf#page=381">PDF 381</a></p><p data-worked-example="s3-3-2">如何让插入、删除都不遍历整条链？空队列插入 a 时首尾指同一结点；再插 b 时只修改旧尾和尾指针。删去 a 后首尾同指 b，删去 b 后首指针为空。逐次读取首元素得到 a、b，符合先进先出。查询空队首应报错；题给实现只依据首指针判空。</p><details class="reading-notes" id="notes-s3-3-2" data-notes-for="s3-3-2" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><p>检查空、单元素和多元素三种状态。单元素时首尾引用的应是同一个盒子，打印队列若同时遍历两个指针，就会错误地把最后一个元素算两遍。</p></div></div></details><figure id="fig-3-18" data-source-pdf-page="382" aria-labelledby="fig-3-18-caption"><div class="figure-scroll"><svg role="img" aria-label="队列操作。" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1" preserveAspectRatio="xMinYMin meet" viewBox="0 0 556 267" id="f3-18-svg5876" width="100%" height="100%">
   
   <defs id="f3-18-defs5878"/>
   
@@ -2030,7 +2053,42 @@
   </g>
 </svg>
 </div><figcaption id="fig-3-23-caption">图 3.23 · 一个二维表。 · <a href="../sicp.pdf#page=392">PDF 392</a></figcaption></figure><p data-explains="fig-3-23">先用第一键选择子表，再在子表内找第二键。不同子表中可以出现相同第二键。</p><div id="input-make-table"><p>原书程序 · <a href="../sicp.pdf#page=391">PDF 391</a></p><details class="code-details"><summary>查看程序</summary><pre><code class="language-scheme">(define (make-table)
-  (list &#x27;*table*))</code></pre></details></div><p data-explains="input-make-table">局部表由分派过程捕获，查到子表之后再按第二键定位。</p></section><section id="s3-3-4"><h3>3.3.4 数字电路模拟器</h3><p class="source"><a href="../sicp.pdf#page=397">PDF 397</a></p><p data-worked-example="s3-3-4">为什么输出事件必须记住安排时的输入？初始与门输入为 0、1，同一时刻先升第一线再降第二线，得到两次采样 1、0。两项事件在同一未来时刻按入列次序执行，最后输出 0，与稳定输入的真值表相符。颠倒同刻事件会让过时的 1 留在输出端。</p><details class="reading-notes" id="notes-s3-3-4" data-notes-for="s3-3-4" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><p>只追踪最终稳定值可能掩盖同刻事件逆序的错误。把事件入队时采样的位和出队写入的位分别记下来，反向排列时就能看到陈旧值覆盖新值。</p></div></div></details><figure id="fig-3-24" data-source-pdf-page="398" aria-labelledby="fig-3-24-caption"><div class="figure-scroll"><svg role="img" aria-label="数字逻辑模拟器中的基本功能。" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 571 129" id="f3-24-svg3108" style="display:inline" version="1.1">
+  (list &#x27;*table*))</code></pre></details></div><p data-explains="input-make-table">局部表由分派过程捕获，查到子表之后再按第二键定位。</p><div id="input-dispatch-table"><p>原书程序 · <a href="../sicp.pdf#page=394">PDF 394</a></p><details class="code-details"><summary>查看程序</summary><pre><code class="language-scheme">(define (make-table)
+  (let ((local-table (list &#x27;*table*)))
+    (define (lookup key-1 key-2)
+      (let ((subtable&#32;
+             (assoc key-1 (cdr local-table))))
+        (if subtable
+            (let ((record&#32;
+                   (assoc key-2&#32;
+                          (cdr subtable))))
+              (if record (cdr record) false))
+            false)))
+    (define (insert! key-1 key-2 value)
+      (let ((subtable&#32;
+             (assoc key-1 (cdr local-table))))
+        (if subtable
+            (let ((record&#32;
+                   (assoc key-2&#32;
+                          (cdr subtable))))
+              (if record
+                  (set-cdr! record value)
+                  (set-cdr!&#32;
+                   subtable
+                   (cons (cons key-2 value)
+                         (cdr subtable)))))
+            (set-cdr!&#32;
+             local-table
+             (cons (list key-1
+                         (cons key-2 value))
+                   (cdr local-table)))))
+      &#x27;ok)
+    (define (dispatch m)
+      (cond ((eq? m &#x27;lookup-proc) lookup)
+            ((eq? m &#x27;insert-proc!) insert!)
+            (else (error &quot;Unknown operation:&#32;
+                          TABLE&quot; m))))
+    dispatch))</code></pre></details></div><p data-explains="input-dispatch-table">构造函数把局部表封闭起来，读写应共享同一条比较规则。</p></section><section id="s3-3-4"><h3>3.3.4 数字电路模拟器</h3><p class="source"><a href="../sicp.pdf#page=397">PDF 397</a></p><p data-worked-example="s3-3-4">为什么输出事件必须记住安排时的输入？初始与门输入为 0、1，同一时刻先升第一线再降第二线，得到两次采样 1、0。两项事件在同一未来时刻按入列次序执行，最后输出 0，与稳定输入的真值表相符。颠倒同刻事件会让过时的 1 留在输出端。</p><details class="reading-notes" id="notes-s3-3-4" data-notes-for="s3-3-4" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><p>只追踪最终稳定值可能掩盖同刻事件逆序的错误。把事件入队时采样的位和出队写入的位分别记下来，反向排列时就能看到陈旧值覆盖新值。</p></div></div></details><figure id="fig-3-24" data-source-pdf-page="398" aria-labelledby="fig-3-24-caption"><div class="figure-scroll"><svg role="img" aria-label="数字逻辑模拟器中的基本功能。" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 571 129" id="f3-24-svg3108" style="display:inline" version="1.1">
   <defs id="f3-24-defs3110"/>
   
   <g transform="translate(-104.68587,-76.1875)" id="f3-24-layer2" style="display:inline">
@@ -2221,7 +2279,29 @@
     (half-adder b c-in s c1)
     (half-adder a s sum c2)
     (or-gate c1 c2 c-out)
-    &#x27;ok))</code></pre></details></div><p data-explains="input-full-adder">两个半加器依次传递中间和，再合并两个进位。</p></section><section id="s3-3-5"><h3>3.3.5 约束的传播</h3><p class="source"><a href="../sicp.pdf#page=414">PDF 414</a></p><p data-worked-example="s3-3-5">温度关系能否不用两套程序就双向计算？输入摄氏 25，通过乘 9、除 5、加 32 得到华氏 77。先撤回原信息，再从华氏端输入 212，依次减 32、乘 5、除 9 得摄氏 100。两组值均满足同一等式。未撤回既有值便写入矛盾值应报告冲突。</p><details class="reading-notes" id="notes-s3-3-5" data-notes-for="s3-3-5" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><p>传播要知道是谁提供了当前值。若甲推得一个值，乙随后撤回自己的输入，不能无条件擦掉甲仍支持的事实；只有对应信息源可使连接器失值。</p></div></div></details><figure id="fig-3-28" data-source-pdf-page="416" aria-labelledby="fig-3-28-caption"><div class="figure-scroll"><svg role="img" aria-label="关系 
+    &#x27;ok))</code></pre></details></div><p data-explains="input-full-adder">两个半加器依次传递中间和，再合并两个进位。</p><div id="input-wire"><p>原书程序 · <a href="../sicp.pdf#page=405">PDF 405</a></p><details class="code-details"><summary>查看程序</summary><pre><code class="language-scheme">(define (make-wire)
+  (let ((signal-value 0)&#32;
+        (action-procedures &#x27;()))
+    (define (set-my-signal! new-value)
+      (if (not (= signal-value new-value))
+          (begin (set! signal-value new-value)
+                 (call-each&#32;
+                  action-procedures))
+          &#x27;done))
+    (define (accept-action-procedure! proc)
+      (set! action-procedures&#32;
+            (cons proc action-procedures))
+      (proc))
+    (define (dispatch m)
+      (cond ((eq? m &#x27;get-signal)&#32;
+             signal-value)
+            ((eq? m &#x27;set-signal!)&#32;
+             set-my-signal!)
+            ((eq? m &#x27;add-action!)&#32;
+             accept-action-procedure!)
+            (else (error &quot;Unknown operation:&#32;
+                          WIRE&quot; m))))
+    dispatch))</code></pre></details></div><p data-explains="input-wire">电线上挂的是动作列表。信号真实改变时才通知，登记新动作则立即用现值初始化。</p></section><section id="s3-3-5"><h3>3.3.5 约束的传播</h3><p class="source"><a href="../sicp.pdf#page=414">PDF 414</a></p><p data-worked-example="s3-3-5">温度关系能否不用两套程序就双向计算？输入摄氏 25，通过乘 9、除 5、加 32 得到华氏 77。先撤回原信息，再从华氏端输入 212，依次减 32、乘 5、除 9 得摄氏 100。两组值均满足同一等式。未撤回既有值便写入矛盾值应报告冲突。</p><details class="reading-notes" id="notes-s3-3-5" data-notes-for="s3-3-5" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><p>传播要知道是谁提供了当前值。若甲推得一个值，乙随后撤回自己的输入，不能无条件擦掉甲仍支持的事实；只有对应信息源可使连接器失值。</p></div></div></details><figure id="fig-3-28" data-source-pdf-page="416" aria-labelledby="fig-3-28-caption"><div class="figure-scroll"><svg role="img" aria-label="关系&#32;
   
     9
     C
@@ -2637,7 +2717,37 @@
                  (the-mutex &#x27;acquire))) ; retry
             ((eq? m &#x27;release) (clear! cell))))
     the-mutex))
-(define (clear! cell) (set-car! cell false))</code></pre></details></div><p data-explains="input-make-mutex">原子地抢占唯一标志才可进入临界区，失败者必须等待。</p></section></section><section id="s3-5"><h2>3.5 流</h2><p class="source"><a href="../sicp.pdf#page=456">PDF 456</a></p><p data-worked-example="s3-5">有限内存中怎样观察无限序列？以 1 为首项，把其余自然数的构造推迟。索取第三项才逐步产生 2、3；再次读取第三项可复用同一承诺的缓存。把无限流一次性转换为普通列表永远不会完成。</p><details class="reading-notes" id="notes-s3-5" data-notes-for="s3-5" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><p>将一个延迟尾部看成承诺：建立时记住计算环境，请求时才给出结果。比较多次索取同一尾部时的副作用次数，可以观察承诺是否记忆结果。</p></div></div></details><section id="s3-5-1"><h3>3.5.1 流是延迟的表</h3><p class="source"><a href="../sicp.pdf#page=458">PDF 458</a></p><p data-worked-example="s3-5-1">映射时究竟在什么时候做计算？把带打印的恒等过程映射到 0 至 10。定义时打印 0，读取位置 5 新打印 1 至 5，读取位置 7 只新打印 6、7。把每次新打印项串起，正好是无重复的 0 至 7。若只推迟而不记忆，第二次索引可能重做前面的副作用。</p><details class="reading-notes" id="notes-s3-5-1" data-notes-for="s3-5-1" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><p>用有限索引来问一个无限流，只会迫使到该索引为止的前缀。筛选是例外：为了找到下一个满足谓词的值，可能需要检查很多输入甚至一直找下去。</p></div></div></details><div id="input-stream-ref"><p>原书程序 · <a href="../sicp.pdf#page=461">PDF 461</a></p><details class="code-details"><summary>查看程序</summary><pre><code class="language-scheme">(define (stream-ref s n)
+(define (clear! cell) (set-car! cell false))</code></pre></details></div><p data-explains="input-make-mutex">原子地抢占唯一标志才可进入临界区，失败者必须等待。</p><div id="input-account-serializer"><p>原书程序 · <a href="../sicp.pdf#page=446">PDF 446</a></p><details class="code-details"><summary>查看程序</summary><pre><code class="language-scheme">(define (make-account-and-serializer balance)
+  (define (withdraw amount)
+    (if (&gt;= balance amount)
+        (begin&#32;
+          (set! balance (- balance amount))
+          balance)
+        &quot;Insufficient funds&quot;))
+  (define (deposit amount)
+    (set! balance (+ balance amount))
+    balance)
+  (let ((balance-serializer&#32;
+         (make-serializer)))
+    (define (dispatch m)
+      (cond ((eq? m &#x27;withdraw) withdraw)
+            ((eq? m &#x27;deposit) deposit)
+            ((eq? m &#x27;balance) balance)
+            ((eq? m &#x27;serializer)&#32;
+             balance-serializer)
+            (else (error &quot;Unknown request:&#32;
+                          MAKE-ACCOUNT&quot;
+                         m))))
+    dispatch))</code></pre></details></div><p data-explains="input-account-serializer">账户返回串行器与原始操作，让跨账户操作能够在较大的临界区内完成。</p><div id="input-serialized-exchange"><p>原书程序 · <a href="../sicp.pdf#page=447">PDF 447</a></p><details class="code-details"><summary>查看程序</summary><pre><code class="language-scheme">(define (serialized-exchange account1 account2)
+  (let ((serializer1 (account1 &#x27;serializer))
+        (serializer2 (account2 &#x27;serializer)))
+    ((serializer1 (serializer2 exchange))
+     account1
+     account2)))</code></pre></details></div><p data-explains="input-serialized-exchange">两个账户的锁包住整个交换。若调用顺序反转，两条锁边可首尾相接形成等待环。</p><div id="input-test-and-set"><p>原书程序 · <a href="../sicp.pdf#page=451">PDF 451</a></p><details class="code-details"><summary>查看程序</summary><pre><code class="language-scheme">(define (test-and-set! cell)
+  (if (car cell)
+      true
+      (begin (set-car! cell true)
+             false)))</code></pre></details></div><p data-explains="input-test-and-set">读取旧值与改写标志必须是一个原子步骤；普通过程的语法本身不保证这一点。</p></section></section><section id="s3-5"><h2>3.5 流</h2><p class="source"><a href="../sicp.pdf#page=456">PDF 456</a></p><p data-worked-example="s3-5">有限内存中怎样观察无限序列？以 1 为首项，把其余自然数的构造推迟。索取第三项才逐步产生 2、3；再次读取第三项可复用同一承诺的缓存。把无限流一次性转换为普通列表永远不会完成。</p><details class="reading-notes" id="notes-s3-5" data-notes-for="s3-5" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><p>将一个延迟尾部看成承诺：建立时记住计算环境，请求时才给出结果。比较多次索取同一尾部时的副作用次数，可以观察承诺是否记忆结果。</p></div></div></details><section id="s3-5-1"><h3>3.5.1 流是延迟的表</h3><p class="source"><a href="../sicp.pdf#page=458">PDF 458</a></p><p data-worked-example="s3-5-1">映射时究竟在什么时候做计算？把带打印的恒等过程映射到 0 至 10。定义时打印 0，读取位置 5 新打印 1 至 5，读取位置 7 只新打印 6、7。把每次新打印项串起，正好是无重复的 0 至 7。若只推迟而不记忆，第二次索引可能重做前面的副作用。</p><details class="reading-notes" id="notes-s3-5-1" data-notes-for="s3-5-1" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><p>用有限索引来问一个无限流，只会迫使到该索引为止的前缀。筛选是例外：为了找到下一个满足谓词的值，可能需要检查很多输入甚至一直找下去。</p></div></div></details><div id="input-stream-ref"><p>原书程序 · <a href="../sicp.pdf#page=461">PDF 461</a></p><details class="code-details"><summary>查看程序</summary><pre><code class="language-scheme">(define (stream-ref s n)
   (if (= n 0)
       (stream-car s)
       (stream-ref (stream-cdr s) (- n 1))))
@@ -2666,7 +2776,14 @@
            (stream-cdr stream))))
         (else (stream-filter 
                pred 
-               (stream-cdr stream)))))</code></pre></details></div><p data-explains="input-stream-filter">不匹配时立即继续搜索，获得首个匹配后才推迟尾部。</p></section><section id="s3-5-2"><h3>3.5.2 无限流</h3><p class="source"><a href="../sicp.pdf#page=469">PDF 469</a></p><p data-worked-example="s3-5-2">自引用为什么可以产生数值？首项显式给 1，尾流令已有项逐项加自身。要求四项时按顺序得到 1、2、4、8；用每一项除以前一项都得 2，算第四项无需第五项。如果首项也要先读取自己，延迟无法提供起点。</p><details class="reading-notes" id="notes-s3-5-2" data-notes-for="s3-5-2" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><p>在筛法中，下一级只见到尚未被早先素数整除的数。沿输入从左向右追踪 2、3、5 三个筛子，就能解释为什么 9 到不了输出端。</p></div></div></details><figure id="fig-3-31" data-source-pdf-page="472" aria-labelledby="fig-3-31-caption"><div class="figure-scroll"><svg role="img" aria-label="被视为信号处理系统的素数筛选器。" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 626 323" id="f3-31-svg7429" version="1.1">
+               (stream-cdr stream)))))</code></pre></details></div><p data-explains="input-stream-filter">不匹配时立即继续搜索，获得首个匹配后才推迟尾部。</p><div id="input-promise-cache"><p>原书程序 · <a href="../sicp.pdf#page=467">PDF 467</a></p><details class="code-details"><summary>查看程序</summary><pre><code class="language-scheme">(define (memo-proc proc)
+  (let ((already-run? false) (result false))
+    (lambda ()
+      (if (not already-run?)
+          (begin (set! result (proc))
+                 (set! already-run? true)
+                 result)
+          result))))</code></pre></details></div><p data-explains="input-promise-cache">已运行标志独立于结果，因此返回假值的计算也能只执行一次。</p></section><section id="s3-5-2"><h3>3.5.2 无限流</h3><p class="source"><a href="../sicp.pdf#page=469">PDF 469</a></p><p data-worked-example="s3-5-2">自引用为什么可以产生数值？首项显式给 1，尾流令已有项逐项加自身。要求四项时按顺序得到 1、2、4、8；用每一项除以前一项都得 2，算第四项无需第五项。如果首项也要先读取自己，延迟无法提供起点。</p><details class="reading-notes" id="notes-s3-5-2" data-notes-for="s3-5-2" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><p>在筛法中，下一级只见到尚未被早先素数整除的数。沿输入从左向右追踪 2、3、5 三个筛子，就能解释为什么 9 到不了输出端。</p></div></div></details><figure id="fig-3-31" data-source-pdf-page="472" aria-labelledby="fig-3-31-caption"><div class="figure-scroll"><svg role="img" aria-label="被视为信号处理系统的素数筛选器。" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 626 323" id="f3-31-svg7429" version="1.1">
   <title id="f3-31-title3892">SICP Figure 3.31</title>
   <defs id="f3-31-defs7431">
     <marker refX="0" refY="0" orient="auto" id="f3-31-Arrow1Mend" style="overflow:visible">
@@ -2924,7 +3041,26 @@
      initial-value
      (add-streams (scale-stream integrand dt)
                   int)))
-  int)</code></pre></details></div><p data-explains="input-integral">初值构成结果首项，尾部把已有结果与缩放后的输入相加。</p></section><section id="s3-5-4"><h3>3.5.4 流和延迟求值</h3><p class="source"><a href="../sicp.pdf#page=498">PDF 498</a></p><p data-worked-example="s3-5-4">反馈支路如何在还没有导数时开始积分？取电压 10、电流 0，步长 0.1，电感 1、电容 0.2、电阻 1。先输出初值，再用旧状态同时更新，得到 (10,1) 和 (9.5,1.9)。把第一步电流增量除以步长得 10，吻合初始电感电压。必须推迟对导数流的访问，且积分步长影响数值稳定性。</p><details class="reading-notes" id="notes-s3-5-4" data-notes-for="s3-5-4" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><p>电路方程同时使用两个状态变量，若按赋值顺序原地改写便可能引入新的积分法。逐步列出前后状态，再比较首两个采样间隔的斜率。</p></div></div></details><figure id="fig-3-34" data-source-pdf-page="499" aria-labelledby="fig-3-34-caption"><div class="figure-scroll"><svg role="img" aria-label="一个求解方程
+  int)</code></pre></details></div><p data-explains="input-integral">初值构成结果首项，尾部把已有结果与缩放后的输入相加。</p><div id="input-tableau"><p>原书程序 · <a href="../sicp.pdf#page=485">PDF 485</a></p><details class="code-details"><summary>查看程序</summary><pre><code class="language-scheme">(define (make-tableau transform s)
+  (cons-stream&#32;
+   s
+   (make-tableau
+    transform
+    (transform s))))</code></pre></details></div><p data-explains="input-tableau">每一行再对前一行作一次变换，取各行首项形成加速的对角序列。</p><div id="input-interleave"><p>原书程序 · <a href="../sicp.pdf#page=490">PDF 490</a></p><details class="code-details"><summary>查看程序</summary><pre><code class="language-scheme">(define (interleave s1 s2)
+  (if (stream-null? s1)
+      s2
+      (cons-stream&#32;
+       (stream-car s1)
+       (interleave s2 (stream-cdr s1)))))</code></pre></details></div><p data-explains="input-interleave">取一项就交换两路的角色，所以任何一路都不能永久压住另一路。</p><div id="input-zero-crossings"><p>原书程序 · <a href="../sicp.pdf#page=497">PDF 497</a></p><details class="code-details"><summary>查看程序</summary><pre><code class="language-scheme">(define (make-zero-crossings&#32;
+         input-stream last-value)
+  (let ((avpt&#32;
+         (/ (+ (stream-car input-stream)&#32;
+               last-value)&#32;
+            2)))
+    (cons-stream&#32;
+     (sign-change-detector avpt last-value)
+     (make-zero-crossings&#32;
+      (stream-cdr input-stream) avpt))))</code></pre></details></div><p data-explains="input-zero-crossings">这一版本保留的上一步均值不能冒充原样本。拆开平滑与比较才能明确两种状态。</p></section><section id="s3-5-4"><h3>3.5.4 流和延迟求值</h3><p class="source"><a href="../sicp.pdf#page=498">PDF 498</a></p><p data-worked-example="s3-5-4">反馈支路如何在还没有导数时开始积分？取电压 10、电流 0，步长 0.1，电感 1、电容 0.2、电阻 1。先输出初值，再用旧状态同时更新，得到 (10,1) 和 (9.5,1.9)。把第一步电流增量除以步长得 10，吻合初始电感电压。必须推迟对导数流的访问，且积分步长影响数值稳定性。</p><details class="reading-notes" id="notes-s3-5-4" data-notes-for="s3-5-4" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><p>电路方程同时使用两个状态变量，若按赋值顺序原地改写便可能引入新的积分法。逐步列出前后状态，再比较首两个采样间隔的斜率。</p></div></div></details><figure id="fig-3-34" data-source-pdf-page="499" aria-labelledby="fig-3-34-caption"><div class="figure-scroll"><svg role="img" aria-label="一个求解方程
   
     d
     y
@@ -3198,7 +3334,10 @@
 </div><figcaption id="fig-3-37-caption">图 3.37 · 串联RLC电路解的信号流图。 · <a href="../sicp.pdf#page=504">PDF 504</a></figcaption></figure><p data-explains="fig-3-37">两条积分支路通过导数交叉相连。初流为零时电容电压第一步不变，而初压会推动电流上升。</p><div id="input-solve"><p>原书程序 · <a href="../sicp.pdf#page=499">PDF 499</a></p><details class="code-details"><summary>查看程序</summary><pre><code class="language-scheme">(define (solve f y0 dt)
   (define y (integral dy y0 dt))
   (define dy (stream-map f y))
-  y)</code></pre></details></div><p data-explains="input-solve">先建立延迟的导数依赖，再以初值启动积分。</p></section><section id="s3-5-5"><h3>3.5.5 函数式程序的模块化与对象</h3><p class="source"><a href="../sicp.pdf#page=506">PDF 506</a></p><p data-worked-example="s3-5-5">没有可变余额怎样重建银行账户的历史？初值 100，输入按先取 20、再存 10 合并，余额流为 100、80、90。调换顺序得到 100、110、90。最终余额相同，中途可观察的轨迹不同。函数可纯粹地处理既定顺序；并发请求如何合并仍需明确。</p><details class="reading-notes" id="notes-s3-5-5" data-notes-for="s3-5-5" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><p>可重放请求流有利于调试，因为同一前缀会产生同一条状态轨迹。若两个数据源各自有序，合并器仍需要外部时序约定来决定相互之间的顺序。</p></div></div></details><figure id="fig-3-38" data-source-pdf-page="513" aria-labelledby="fig-3-38-caption"><div class="figure-scroll"><svg role="img" aria-label="通过合并两个交易请求流来建模的联名银行账户。" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 633 113" id="f3-38-svg4566" version="1.1">
+  y)</code></pre></details></div><p data-explains="input-solve">先建立延迟的导数依赖，再以初值启动积分。</p><div id="input-delayed-solve"><p>原书程序 · <a href="../sicp.pdf#page=500">PDF 500</a></p><details class="code-details"><summary>查看程序</summary><pre><code class="language-scheme">(define (solve f y0 dt)
+  (define y (integral (delay dy) y0 dt))
+  (define dy (stream-map f y))
+  y)</code></pre></details></div><p data-explains="input-delayed-solve">把导数引用放入承诺后，积分器能先产生初值，再通过反馈请求下一步。</p></section><section id="s3-5-5"><h3>3.5.5 函数式程序的模块化与对象</h3><p class="source"><a href="../sicp.pdf#page=506">PDF 506</a></p><p data-worked-example="s3-5-5">没有可变余额怎样重建银行账户的历史？初值 100，输入按先取 20、再存 10 合并，余额流为 100、80、90。调换顺序得到 100、110、90。最终余额相同，中途可观察的轨迹不同。函数可纯粹地处理既定顺序；并发请求如何合并仍需明确。</p><details class="reading-notes" id="notes-s3-5-5" data-notes-for="s3-5-5" open><summary>阅读注解</summary><div class="reading-notes-body"><div class="annotation-card"><span class="annotation-kind">理解与补充</span><p>可重放请求流有利于调试，因为同一前缀会产生同一条状态轨迹。若两个数据源各自有序，合并器仍需要外部时序约定来决定相互之间的顺序。</p></div></div></details><figure id="fig-3-38" data-source-pdf-page="513" aria-labelledby="fig-3-38-caption"><div class="figure-scroll"><svg role="img" aria-label="通过合并两个交易请求流来建模的联名银行账户。" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 633 113" id="f3-38-svg4566" version="1.1">
   <defs id="f3-38-defs4568">
     <marker refX="0" refY="0" orient="auto" id="f3-38-Arrow1Mend" style="overflow:visible">
       <path d="M 0,0 5,-5 -12.5,0 5,5 0,0 z" transform="matrix(-0.4,0,0,-0.4,-4,0)" id="f3-38-path4415" style="fill:#383838;fill-rule:evenodd;stroke:#383838;stroke-width:1pt;marker-start:none"/>
@@ -3575,7 +3714,7 @@ w
 后来：w → D → C → B → A → ∅
                        ↑
                        v</code></pre></div></details><details class="exercise" id="ex-3-15" data-exercise="3.15"><summary>习题 3.15 · 共享与相等</summary><div class="exercise-question" data-original-exercise="3.15" data-source-pdf-pages="378"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=378">PDF 378</a></p>
-<p>画出盒指针图来解释<code>set-to-wow!</code>对上述结构<code>z1</code>和<code>z2</code>的效果。</p><p>共享输入：<a href="#input-set-to-wow-mutate"><code>set-to-wow-mutate</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>在 z1 中，两条边落到同一盒子 X。修改 X 的首槽之后，两边都读到 (wow b)。在 z2 中，左右边原来落到两个不同但内容相等的盒子，只改左边，右边仍为 (a b)。</p><pre><code class="language-text">共享：z1 的首、尾两槽 → X[wow] → B[b]
+<p>画出盒指针图来解释<code>set-to-wow!</code>对上述结构<code>z1</code>和<code>z2</code>的效果。</p><p>共享输入：<a href="#input-set-to-wow-mutate"><code>set-to-wow-mutate</code></a></p><p>原书定义：<a href="#input-z1"><code>z1</code></a></p><p>原书定义：<a href="#input-z2"><code>z2</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>在 z1 中，两条边落到同一盒子 X。修改 X 的首槽之后，两边都读到 (wow b)。在 z2 中，左右边原来落到两个不同但内容相等的盒子，只改左边，右边仍为 (a b)。</p><pre><code class="language-text">共享：z1 的首、尾两槽 → X[wow] → B[b]
 独立：z2 的首槽 → L[wow] → B1[b]
       z2 的尾槽 → R[a]   → B2[b]</code></pre></div></details><details class="exercise" id="ex-3-16" data-exercise="3.16"><summary>习题 3.16 · 路径数与结点数</summary><div class="exercise-question" data-original-exercise="3.16" data-source-pdf-pages="378"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=378">PDF 378</a></p>
 <p>Ben Bitdiddle决定编写一个过程来计算任何表结构中的序对数量。“这很容易，”他推理道。“任何结构中的序对数量是<code>car</code>中的数量加上<code>cdr</code>中的数量，再加一以计入当前序对。”于是Ben编写了以下过程：</p>
@@ -3622,7 +3761,7 @@ w
 17
 </code></pre>
 
-<p>使用上面给出的序对的过程式实现。（比较<a href="#ex-3-11">习题 3.11</a>。）</p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>第一个分派闭包捕获帧 X，槽值为 1 和 2；第二个捕获帧 Z，两槽都存指向第一个闭包的引用。从 Z 的尾槽取得该闭包，调用它的首槽修改器，把 X 中的 1 写为 17。因此再次通过 x 访问的也是 17。</p><pre><code class="language-text">全局 x → 分派闭包 → 帧 X：[首 1→17，尾 2]
+<p>使用上面给出的序对的过程式实现。（比较<a href="#ex-3-11">习题 3.11</a>。）</p><p>原书定义：<a href="#input-procedural-cons"><code>procedural-cons</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>第一个分派闭包捕获帧 X，槽值为 1 和 2；第二个捕获帧 Z，两槽都存指向第一个闭包的引用。从 Z 的尾槽取得该闭包，调用它的首槽修改器，把 X 中的 1 写为 17。因此再次通过 x 访问的也是 17。</p><pre><code class="language-text">全局 x → 分派闭包 → 帧 X：[首 1→17，尾 2]
 全局 z → 分派闭包 → 帧 Z：[首 x，尾 x]
 修改器的调用帧：[新值 17] → 帧 X</code></pre></div></details><details class="exercise" id="ex-3-21" data-exercise="3.21"><summary>习题 3.21 · 打印队列内容</summary><div class="exercise-question" data-original-exercise="3.21" data-source-pdf-pages="387"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=387">PDF 387</a></p>
 <p>Ben Bitdiddle 决定测试上面描述的队列实现。他将这些过程输入 Lisp 解释器并开始尝试使用它们：</p>
@@ -3719,7 +3858,7 @@ w
        (when (memq op &#x27;(front-delete! rear-delete!)) (link! (back n) (forward n)))
        (mcar n)]
       [else (error &#x27;deque &quot;unknown request&quot;)])))</code></pre></details></div></details><details class="exercise" id="ex-3-24" data-exercise="3.24"><summary>习题 3.24 · 按调用者的规则查键</summary><div class="exercise-question" data-original-exercise="3.24" data-source-pdf-pages="395"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=395">PDF 395</a></p>
-<p>在上面的表实现中，键的相等性测试使用的是<code>equal?</code>（由<code>assoc</code>调用）。这并不总是合适的测试。例如，我们可能有一个带有数值键的表，其中我们不需要与所查找的数字精确匹配，而只需要在某个容差范围内的数字。设计一个表构造函数<code>make-table</code>，它接受一个<code>same-key?</code>过程作为参数，该过程将用于测试键的“相等性”。<code>Make-table</code>应返回一个<code>dispatch</code>过程，该过程可用于访问局部表的相应<code>lookup</code>和<code>insert!</code>过程。</p><p>共享输入：<a href="#input-make-table"><code>make-table</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>构造表时保存比较过程。查找与插入都用同一个过程顺序查记录，命中就读或覆盖值，否则插入新记录。近似相等通常不具传递性；同一查询若落入两个容差区间，必须规定按表序取第一个匹配。</p><details class="code-details"><summary>查看实现 · <code>make-path-table</code></summary><pre><code class="language-scheme">(define (make-path-table same-key?)
+<p>在上面的表实现中，键的相等性测试使用的是<code>equal?</code>（由<code>assoc</code>调用）。这并不总是合适的测试。例如，我们可能有一个带有数值键的表，其中我们不需要与所查找的数字精确匹配，而只需要在某个容差范围内的数字。设计一个表构造函数<code>make-table</code>，它接受一个<code>same-key?</code>过程作为参数，该过程将用于测试键的“相等性”。<code>Make-table</code>应返回一个<code>dispatch</code>过程，该过程可用于访问局部表的相应<code>lookup</code>和<code>insert!</code>过程。</p><p>共享输入：<a href="#input-make-table"><code>make-table</code></a></p><p>原书定义：<a href="#input-dispatch-table"><code>dispatch-table</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>构造表时保存比较过程。查找与插入都用同一个过程顺序查记录，命中就读或覆盖值，否则插入新记录。近似相等通常不具传递性；同一查询若落入两个容差区间，必须规定按表序取第一个匹配。</p><details class="code-details"><summary>查看实现 · <code>make-path-table</code></summary><pre><code class="language-scheme">(define (make-path-table same-key?)
   (struct branch (children value present?) #:mutable)
   (define root (branch &#x27;() #f #f))
   (define (find path insert?)
@@ -3742,7 +3881,7 @@ w
        (unless (and node (branch-present? node)) (error &#x27;table &quot;no value&quot;))
        (branch-value node)]
       [else (error &#x27;table &quot;unknown message&quot;)])))</code></pre></details></div></details><details class="exercise" id="ex-3-25" data-exercise="3.25"><summary>习题 3.25 · 任意长度的键路径</summary><div class="exercise-question" data-original-exercise="3.25" data-source-pdf-pages="395"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=395">PDF 395</a></p>
-<p>将一维和二维表推广，展示如何实现一个表，其中值存储在任意数量的键下，并且不同的值可以存储在不同数量的键下。<code>lookup</code>和<code>insert!</code>过程应接受一个用于访问表的键的表作为输入。</p><p>共享输入：<a href="#input-make-table"><code>make-table</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>以根为起点，每一层按当前键找子表；插入遇到缺边就建结点。耗尽键后只读写当前结点的值槽，值槽与子表分开。这样路径 (a) 的值不会被 (a b) 的值覆盖。另设有值标志以区分未登记与值为假。</p><details class="code-details"><summary>查看实现 · <code>make-path-table</code></summary><pre><code class="language-scheme">(define (make-path-table same-key?)
+<p>将一维和二维表推广，展示如何实现一个表，其中值存储在任意数量的键下，并且不同的值可以存储在不同数量的键下。<code>lookup</code>和<code>insert!</code>过程应接受一个用于访问表的键的表作为输入。</p><p>共享输入：<a href="#input-make-table"><code>make-table</code></a></p><p>原书定义：<a href="#input-dispatch-table"><code>dispatch-table</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>以根为起点，每一层按当前键找子表；插入遇到缺边就建结点。耗尽键后只读写当前结点的值槽，值槽与子表分开。这样路径 (a) 的值不会被 (a b) 的值覆盖。另设有值标志以区分未登记与值为假。</p><details class="code-details"><summary>查看实现 · <code>make-path-table</code></summary><pre><code class="language-scheme">(define (make-path-table same-key?)
   (struct branch (children value present?) #:mutable)
   (define root (branch &#x27;() #f #f))
   (define (find path insert?)
@@ -3809,7 +3948,7 @@ w
 </math></span>成正比。如果我们简单地将<code>memo-fib</code>定义为<code>(memoize fib)</code>，该方案仍然有效吗？</p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>全局绑定指向包装闭包，闭包捕获同一张表。第一次算 3，未命中的参数依次是 3、2、1、0；2 算出 1 后存表，回到 3 再取 1 时命中，最后存 3→2。每个参数只展开一次，表操作按常数计时才得线性总时间。仅包装普通 fib 的最外层不会让内部递归穿过缓存。</p><pre><code class="language-text">全局 memo-fib → 包装闭包 → 共享表
 调用 3 → 首次算 2 → 首次算 1、0 → 存 2
        → 命中 1 → 存 3     表为 {0:0,1:1,2:1,3:2}</code></pre></div></details><details class="exercise" id="ex-3-28" data-exercise="3.28"><summary>习题 3.28 · 基本或门</summary><div class="exercise-question" data-original-exercise="3.28" data-source-pdf-pages="403"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=403">PDF 403</a></p>
-<p>将或门定义为基本功能盒。你的<code>or-gate</code>构造过程应类似于<code>and-gate</code>。</p><p>共享输入：<a href="#input-and-gate"><code>and-gate</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>向两根输入线登记同一动作；动作运行时读两输入，计算至少一位为 1 时输出 1，否则输出 0。把已计算的位捕获到延迟事件中，到期后写输出线；若到期才读输入就丢失中途的脉冲。</p><details class="code-details"><summary>查看实现 · <code>make-logic-network</code></summary><pre><code class="language-scheme">(define (make-logic-network and-delay or-delay not-delay)
+<p>将或门定义为基本功能盒。你的<code>or-gate</code>构造过程应类似于<code>and-gate</code>。</p><p>共享输入：<a href="#input-and-gate"><code>and-gate</code></a></p><p>原书定义：<a href="#input-wire"><code>wire</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>向两根输入线登记同一动作；动作运行时读两输入，计算至少一位为 1 时输出 1，否则输出 0。把已计算的位捕获到延迟事件中，到期后写输出线；若到期才读输入就丢失中途的脉冲。</p><details class="code-details"><summary>查看实现 · <code>make-logic-network</code></summary><pre><code class="language-scheme">(define (make-logic-network and-delay or-delay not-delay)
   (define clock 0)
   (define events &#x27;())
   (define (later delay action)
@@ -4057,8 +4196,8 @@ w
 <pre><code class="language-scheme">(define (accept-action-procedure! proc)
   (set! action-procedures 
         (cons proc action-procedures)))</code></pre>
-<p>共享输入：<a href="#input-half-adder"><code>half-adder</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>初始全零，半加器内进位线也为零，反相后应为 1。若登记时不调用动作，这条反相输出仍停在默认 0。单独把一个输入升为 1 时进位仍是 0，不会触发反相器，和位便可能错误地保持 0。</p></div></details><details class="exercise" id="ex-3-32" data-exercise="3.32"><summary>习题 3.32 · 同一时刻的事件顺序</summary><div class="exercise-question" data-original-exercise="3.32" data-source-pdf-pages="413"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=413">PDF 413</a></p>
-<p>日程表的每个时间段中要运行的过程保存在一个队列中。因此，每个时间段的过程按照它们被添加到日程表的顺序被调用（先进先出）。解释为什么必须使用这种顺序。特别地，追踪一个与门的行为，其输入在同一时间段内从 0、1 变为 1、0，并说明如果我们把某个时间段的过程存储在一个普通的表中，只在表的前端添加和移除过程（后进先出），行为会有什么不同。</p><p>共享输入：<a href="#input-and-gate"><code>and-gate</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>输入由 (0,1) 经 (1,1) 变为 (1,0)，与门按先后采到 1、0，安排在同一未来时刻写输出。先进先出时最后为 0；栈顺序最后反而写回陈旧的 1。</p></div></details><details class="exercise" id="ex-3-33" data-exercise="3.33"><summary>习题 3.33 · 平均值约束</summary><div class="exercise-question" data-original-exercise="3.33" data-source-pdf-pages="426"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=426">PDF 426</a></p>
+<p>共享输入：<a href="#input-half-adder"><code>half-adder</code></a></p><p>原书定义：<a href="#input-wire"><code>wire</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>初始全零，半加器内进位线也为零，反相后应为 1。若登记时不调用动作，这条反相输出仍停在默认 0。单独把一个输入升为 1 时进位仍是 0，不会触发反相器，和位便可能错误地保持 0。</p></div></details><details class="exercise" id="ex-3-32" data-exercise="3.32"><summary>习题 3.32 · 同一时刻的事件顺序</summary><div class="exercise-question" data-original-exercise="3.32" data-source-pdf-pages="413"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=413">PDF 413</a></p>
+<p>日程表的每个时间段中要运行的过程保存在一个队列中。因此，每个时间段的过程按照它们被添加到日程表的顺序被调用（先进先出）。解释为什么必须使用这种顺序。特别地，追踪一个与门的行为，其输入在同一时间段内从 0、1 变为 1、0，并说明如果我们把某个时间段的过程存储在一个普通的表中，只在表的前端添加和移除过程（后进先出），行为会有什么不同。</p><p>共享输入：<a href="#input-and-gate"><code>and-gate</code></a></p><p>原书定义：<a href="#input-wire"><code>wire</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>输入由 (0,1) 经 (1,1) 变为 (1,0)，与门按先后采到 1、0，安排在同一未来时刻写输出。先进先出时最后为 0；栈顺序最后反而写回陈旧的 1。</p></div></details><details class="exercise" id="ex-3-33" data-exercise="3.33"><summary>习题 3.33 · 平均值约束</summary><div class="exercise-question" data-original-exercise="3.33" data-source-pdf-pages="426"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=426">PDF 426</a></p>
 <p>使用基本乘法器、加法器和常量约束，定义一个过程<code>averager</code>，它接受三个连接器<code>a</code>、<code>b</code>和<code>c</code>作为输入，并建立约束：<code>c</code>的值是<code>a</code>和<code>b</code>的值的平均值。</p><p>共享输入：<a href="#input-multiplier"><code>multiplier</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>设内部和连接器 s，常量连接器 k 固定为 2。以加法器连接 a、b、s，再以乘法器连接 c、k、s。输入 4、8 得到 6；已知 c=6 及 a=4 也能反推出 b=8。</p><details class="code-details"><summary>查看实现 · <code>averager</code></summary><pre><code class="language-scheme">(define (averager a b c) (relation * / c (c-constant 2) (c-sum a b) #t))</code></pre></details></div></details><details class="exercise" id="ex-3-34" data-exercise="3.34"><summary>习题 3.34 · 重复接线不能求平方根</summary><div class="exercise-question" data-original-exercise="3.34" data-source-pdf-pages="426"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=426">PDF 426</a></p>
 <p>Louis Reasoner想要构建一个平方器，一种具有两个端子的约束装置，使得第二个端子上的连接器<code>b</code>的值始终是第一个端子上的值<code>a</code>的平方。他提出了以下由乘法器构成的简单装置：</p>
 
@@ -4264,7 +4403,7 @@ Mary:  (set! balance (- balance
       dispatch)))</code></pre>
 
 <p>这是一个安全的更改吗？特别是，这两个版本的 <code>make-account</code> 所允许的并发性有任何区别吗？</p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>同一账户构造时已经只有一个串行器。每次请求新包装一个过程或复用预建包装，只要都经过同一个串行器，存取操作的互斥关系相同，不同账户仍可并发。</p></div></details><details class="exercise" id="ex-3-43" data-exercise="3.43"><summary>习题 3.43 · 交换保持的性质</summary><div class="exercise-question" data-original-exercise="3.43" data-source-pdf-pages="447"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=447">PDF 447</a></p>
-<p> 假设三个账户中的余额初始分别为 $10、$20 和 $30，并且多个进程运行，交换账户中的余额。论证如果这些进程顺序运行，那么在任何数量的并发交换之后，账户余额应该以某种顺序为 $10、$20 和 $30。画一个类似 <a href="#fig-3-29">图 3.29</a> 中的时序图，以展示如果使用本节中第一个版本的账户交换程序来实现交换，这个条件如何可能被违反。另一方面，论证即使使用这个 <code>exchange</code> 程序，账户中余额的总和也将保持不变。画一个时序图，以展示如果我们不串行化单个账户上的事务，甚至这个条件也会如何被违反。</p><p>共享输入：<a href="#input-exchange"><code>exchange</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>完整串行交换只置换余额。若先各自读取差值再单独锁住提款和存款，两个交换可使用过期差值：余额 10、20、30，前两户和后两户的交换同时算得差值 −10；分别更新后可得到 20、20、20。总额仍为 60。连单户更新也不保护时，两次存款可同读一个旧值，后一写覆盖前一写，连总额也会改变。</p><pre><code class="language-text">交换甲乙读差 −10 → 交换乙丙读差 −10
+<p> 假设三个账户中的余额初始分别为 $10、$20 和 $30，并且多个进程运行，交换账户中的余额。论证如果这些进程顺序运行，那么在任何数量的并发交换之后，账户余额应该以某种顺序为 $10、$20 和 $30。画一个类似 <a href="#fig-3-29">图 3.29</a> 中的时序图，以展示如果使用本节中第一个版本的账户交换程序来实现交换，这个条件如何可能被违反。另一方面，论证即使使用这个 <code>exchange</code> 程序，账户中余额的总和也将保持不变。画一个时序图，以展示如果我们不串行化单个账户上的事务，甚至这个条件也会如何被违反。</p><p>共享输入：<a href="#input-exchange"><code>exchange</code></a></p><p>原书定义：<a href="#input-account-serializer"><code>account-serializer</code></a></p><p>原书定义：<a href="#input-serialized-exchange"><code>serialized-exchange</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>完整串行交换只置换余额。若先各自读取差值再单独锁住提款和存款，两个交换可使用过期差值：余额 10、20、30，前两户和后两户的交换同时算得差值 −10；分别更新后可得到 20、20、20。总额仍为 60。连单户更新也不保护时，两次存款可同读一个旧值，后一写覆盖前一写，连总额也会改变。</p><pre><code class="language-text">交换甲乙读差 −10 → 交换乙丙读差 −10
 甲 +10，乙 −10 → 乙 +10，丙 −10 → (20,20,20)
 若乙的两次更新都读到 20，先写 10 后写 30 → (20,30,20)</code></pre></div></details><details class="exercise" id="ex-3-44" data-exercise="3.44"><summary>习题 3.44 · 固定金额的转账</summary><div class="exercise-question" data-original-exercise="3.44" data-source-pdf-pages="447"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=447">PDF 447</a></p>
 <p> 考虑从一个账户向另一个账户转账一定金额的问题。Ben Bitdiddle 声称，即使有多个人同时在多个账户之间转账，使用任何串行化存款和取款事务的账户机制，例如上文中的 <code>make-account</code> 版本，这也可以用以下过程完成。</p>
@@ -4274,7 +4413,7 @@ Mary:  (set! balance (- balance
   ((from-account 'withdraw) amount)
   ((to-account 'deposit) amount))</code></pre>
 
-<p>Louis Reasoner 声称这里有一个问题，并且我们需要使用一种更复杂的方法，例如处理交换问题所需的那种方法。Louis 对吗？如果不对，转账问题和交换问题之间的本质区别是什么？（你应该假设 <code>from-account</code> 中的余额至少为 <code>amount</code>。）</p><p>共享输入：<a href="#input-exchange"><code>exchange</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>转账的金额由参数给定，不取决于两个余额的差；在提款必能成功且单户存取已串行化的假设下，每次完整转账的净变化为零。交换金额由旧快照决定；同样的单户锁不能保证完成后仍是原余额的一次置换。</p></div></details><details class="exercise" id="ex-3-45" data-exercise="3.45"><summary>习题 3.45 · 重复进入同一把锁</summary><div class="exercise-question" data-original-exercise="3.45" data-source-pdf-pages="448"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=448">PDF 448</a></p>
+<p>Louis Reasoner 声称这里有一个问题，并且我们需要使用一种更复杂的方法，例如处理交换问题所需的那种方法。Louis 对吗？如果不对，转账问题和交换问题之间的本质区别是什么？（你应该假设 <code>from-account</code> 中的余额至少为 <code>amount</code>。）</p><p>共享输入：<a href="#input-exchange"><code>exchange</code></a></p><p>原书定义：<a href="#input-account-serializer"><code>account-serializer</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>转账的金额由参数给定，不取决于两个余额的差；在提款必能成功且单户存取已串行化的假设下，每次完整转账的净变化为零。交换金额由旧快照决定；同样的单户锁不能保证完成后仍是原余额的一次置换。</p></div></details><details class="exercise" id="ex-3-45" data-exercise="3.45"><summary>习题 3.45 · 重复进入同一把锁</summary><div class="exercise-question" data-original-exercise="3.45" data-source-pdf-pages="448"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=448">PDF 448</a></p>
 <p> Louis Reasoner 认为，既然存款和取款不再自动串行化，我们的银行账户系统就不必要地复杂且容易出错。他建议 <code>make-account-and-serializer</code> 应该除了（而不是代替）像 <code>make-account</code> 那样使用串行化器来串行化账户和存款之外，还导出串行化器（供诸如 <code>serialized-exchange</code> 这样的过程使用）。他提议如下重新定义账户：</p>
 
 <pre><code class="language-scheme">(define 
@@ -4309,8 +4448,8 @@ Mary:  (set! balance (- balance
 <pre><code class="language-scheme">(define (deposit account amount)
   ((account 'deposit) amount))</code></pre>
 
-<p>解释 Louis 的推理有什么问题。特别地，考虑当调用 <code>serialized-exchange</code> 时会发生什么。</p><p>共享输入：<a href="#input-exchange"><code>exchange</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>交换已取得账户锁，又通过自动包装的提款过程尝试取得同一非重入锁。它必须等自己释放，自己却要等提款返回才释放，因此会自锁，即使没有第二个并发进程。</p></div></details><details class="exercise" id="ex-3-46" data-exercise="3.46"><summary>习题 3.46 · 非原子检查与设置</summary><div class="exercise-question" data-original-exercise="3.46" data-source-pdf-pages="452"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=452">PDF 452</a></p>
-<p>假设我们使用文本中所示的普通过程来实现<code>test-and-set!</code>，而不试图使该操作成为原子的。画一个类似于<a href="#fig-3-29">图3.29</a>中的时序图，来演示互斥量实现如何通过允许两个进程同时获取互斥量而失败。</p><p>共享输入：<a href="#input-make-mutex"><code>make-mutex</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>时间线：甲读假；乙读假；甲写真并返回旧值假；乙也写真并返回旧值假。两者均认为取得了锁。必须使读旧值和设新值成为单一原子动作。</p><pre><code class="language-text">甲读标志：假 → 乙读标志：假 → 甲写：真 → 乙写：真
+<p>解释 Louis 的推理有什么问题。特别地，考虑当调用 <code>serialized-exchange</code> 时会发生什么。</p><p>共享输入：<a href="#input-exchange"><code>exchange</code></a></p><p>原书定义：<a href="#input-account-serializer"><code>account-serializer</code></a></p><p>原书定义：<a href="#input-serialized-exchange"><code>serialized-exchange</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>交换已取得账户锁，又通过自动包装的提款过程尝试取得同一非重入锁。它必须等自己释放，自己却要等提款返回才释放，因此会自锁，即使没有第二个并发进程。</p></div></details><details class="exercise" id="ex-3-46" data-exercise="3.46"><summary>习题 3.46 · 非原子检查与设置</summary><div class="exercise-question" data-original-exercise="3.46" data-source-pdf-pages="452"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=452">PDF 452</a></p>
+<p>假设我们使用文本中所示的普通过程来实现<code>test-and-set!</code>，而不试图使该操作成为原子的。画一个类似于<a href="#fig-3-29">图3.29</a>中的时序图，来演示互斥量实现如何通过允许两个进程同时获取互斥量而失败。</p><p>共享输入：<a href="#input-make-mutex"><code>make-mutex</code></a></p><p>原书定义：<a href="#input-test-and-set"><code>test-and-set</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>时间线：甲读假；乙读假；甲写真并返回旧值假；乙也写真并返回旧值假。两者均认为取得了锁。必须使读旧值和设新值成为单一原子动作。</p><pre><code class="language-text">甲读标志：假 → 乙读标志：假 → 甲写：真 → 乙写：真
 两者均以为自己成功，临界区出现两个持有者。</code></pre></div></details><details class="exercise" id="ex-3-47" data-exercise="3.47"><summary>习题 3.47 · 有容量的信号量</summary><div class="exercise-question" data-original-exercise="3.47" data-source-pdf-pages="453"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=453">PDF 453</a></p>
 <p>信号量（大小为<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <mi>n</mi>
@@ -4319,7 +4458,7 @@ Mary:  (set! balance (- balance
 </math></span>个进程并发地获取它。试图获取信号量的额外进程必须等待释放操作。给出信号量的实现</p>
 <ol>
 <li>基于互斥量</li><li>基于原子<code>test-and-set!</code>操作。</li></ol>
-<p>共享输入：<a href="#input-make-mutex"><code>make-mutex</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>保存可用名额，初值 n。互斥版在锁内检测正数并减一，否则先释放锁再重试；释放在锁内加一。另一版以原子测试并置位实现保护计数器的小锁，增减后清除小锁。不能持小锁等待名额，否则释放者无法归还名额。</p><details class="code-details"><summary>查看实现 · <code>semaphore-counter</code></summary><pre><code class="language-scheme">(define (semaphore-counter n)
+<p>共享输入：<a href="#input-make-mutex"><code>make-mutex</code></a></p><p>原书定义：<a href="#input-test-and-set"><code>test-and-set</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>保存可用名额，初值 n。互斥版在锁内检测正数并减一，否则先释放锁再重试；释放在锁内加一。另一版以原子测试并置位实现保护计数器的小锁，增减后清除小锁。不能持小锁等待名额，否则释放者无法归还名额。</p><details class="code-details"><summary>查看实现 · <code>semaphore-counter</code></summary><pre><code class="language-scheme">(define (semaphore-counter n)
   (unless (exact-positive-integer? n) (error &#x27;semaphore-counter &quot;expected positive capacity&quot;))
   (define guard (make-semaphore 1))
   (define wake (make-semaphore 0))
@@ -4337,9 +4476,46 @@ Mary:  (set! balance (- balance
            (when (= free n) (error &#x27;semaphore-counter &quot;unmatched release&quot;))
            (set! free (add1 free))
            (semaphore-post wake)))]
-      [else (error &#x27;semaphore-counter &quot;unknown request&quot;)])))</code></pre></details></div></details><details class="exercise" id="ex-3-48" data-exercise="3.48"><summary>习题 3.48 · 按账户编号取锁</summary><div class="exercise-question" data-original-exercise="3.48" data-source-pdf-pages="454"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=454">PDF 454</a></p>
-<p>详细解释为什么上述死锁避免方法（即，账户被编号，每个进程首先尝试获取编号较小的账户）在交换问题中避免了死锁。重写<code>serialized-exchange</code>以纳入这个想法。（你还需要修改<code>make-account</code>，使得每个账户在创建时带有一个编号，可以通过发送适当的消息来访问该编号。）</p><p>共享输入：<a href="#input-exchange"><code>exchange</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>创建账户时在同步保护下分配唯一编号。交换时先取得较小编号，再取较大编号，锁齐后交换；同一账户直接返回。若出现环形等待，沿环编号必须严格递增再回到起点，矛盾。</p></div></details><details class="exercise" id="ex-3-49" data-exercise="3.49"><summary>习题 3.49 · 不能预知的资源</summary><div class="exercise-question" data-original-exercise="3.49" data-source-pdf-pages="454"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=454">PDF 454</a></p>
-<p>给出一个上述死锁避免机制不起作用的场景。（提示：在交换问题中，每个进程事先知道它需要访问哪些账户。考虑这样一种情况：一个进程必须先访问某些共享资源，然后才能知道它还需要哪些额外的共享资源。）</p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>转账过程中若要先锁住一条记录才知道下一条记录的编号，可能持高编号锁后才发现还需低编号锁。另一个进程按相反路径便可形成等待环。可先收集再排序、释放后重试并重新验证，或采用更粗粒度的锁。</p></div></details><details class="exercise" id="ex-3-50" data-exercise="3.50"><summary>习题 3.50 · 多个流逐项映射</summary><div class="exercise-question" data-original-exercise="3.50" data-source-pdf-pages="468"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=468">PDF 468</a></p>
+      [else (error &#x27;semaphore-counter &quot;unknown request&quot;)])))</code></pre></details><details class="code-details"><summary>查看实现</summary><pre><code class="language-scheme">(define (semaphore-cas n)
+  (unless (exact-positive-integer? n) (error &#x27;semaphore-cas &quot;invalid capacity&quot;))
+  (define busy (box #f))
+  (define free n)
+  (define (with-guard proc)
+    (let retry ()
+      (if (box-cas! busy #f #t)
+          (dynamic-wind void proc (lambda () (set-box! busy #f)))
+          (begin (sleep 0) (retry)))))
+  (lambda (message)
+    (case message
+      [(acquire)
+       (let retry ()
+         (unless (with-guard (lambda () (and (&gt; free 0) (begin (set! free (sub1 free)) #t))))
+           (sleep 0) (retry)))]
+      [(release)
+       (with-guard (lambda ()
+                     (when (= free n) (error &#x27;semaphore-cas &quot;unmatched release&quot;))
+                     (set! free (add1 free))))]
+      [else (error &#x27;semaphore-cas &quot;unknown request&quot;)])))</code></pre></details></div></details><details class="exercise" id="ex-3-48" data-exercise="3.48"><summary>习题 3.48 · 按账户编号取锁</summary><div class="exercise-question" data-original-exercise="3.48" data-source-pdf-pages="454"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=454">PDF 454</a></p>
+<p>详细解释为什么上述死锁避免方法（即，账户被编号，每个进程首先尝试获取编号较小的账户）在交换问题中避免了死锁。重写<code>serialized-exchange</code>以纳入这个想法。（你还需要修改<code>make-account</code>，使得每个账户在创建时带有一个编号，可以通过发送适当的消息来访问该编号。）</p><p>共享输入：<a href="#input-exchange"><code>exchange</code></a></p><p>原书定义：<a href="#input-account-serializer"><code>account-serializer</code></a></p><p>原书定义：<a href="#input-serialized-exchange"><code>serialized-exchange</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>创建账户时在同步保护下分配唯一编号。交换时先取得较小编号，再取较大编号，锁齐后交换；同一账户直接返回。若出现环形等待，沿环编号必须严格递增再回到起点，矛盾。</p><details class="code-details"><summary>查看实现</summary><pre><code class="language-scheme">(struct numbered (id lock balance))
+(define ordered-account
+  (let ([counter 0] [guard (make-semaphore 1)])
+    (lambda (balance)
+      (call-with-semaphore guard
+        (lambda ()
+          (set! counter (add1 counter))
+          (numbered counter (make-semaphore 1) (box balance)))))))
+(define (serialized-exchange a b)
+  (unless (eq? a b)
+    (define first (if (&lt; (numbered-id a) (numbered-id b)) a b))
+    (define other (if (eq? first a) b a))
+    (call-with-semaphore (numbered-lock first)
+      (lambda ()
+        (call-with-semaphore (numbered-lock other)
+          (lambda ()
+            (define old (unbox (numbered-balance a)))
+            (set-box! (numbered-balance a) (unbox (numbered-balance b)))
+            (set-box! (numbered-balance b) old)))))))</code></pre></details></div></details><details class="exercise" id="ex-3-49" data-exercise="3.49"><summary>习题 3.49 · 不能预知的资源</summary><div class="exercise-question" data-original-exercise="3.49" data-source-pdf-pages="454"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=454">PDF 454</a></p>
+<p>给出一个上述死锁避免机制不起作用的场景。（提示：在交换问题中，每个进程事先知道它需要访问哪些账户。考虑这样一种情况：一个进程必须先访问某些共享资源，然后才能知道它还需要哪些额外的共享资源。）</p><p>原书定义：<a href="#input-serialized-exchange"><code>serialized-exchange</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>转账过程中若要先锁住一条记录才知道下一条记录的编号，可能持高编号锁后才发现还需低编号锁。另一个进程按相反路径便可形成等待环。可先收集再排序、释放后重试并重新验证，或采用更粗粒度的锁。</p></div></details><details class="exercise" id="ex-3-50" data-exercise="3.50"><summary>习题 3.50 · 多个流逐项映射</summary><div class="exercise-question" data-original-exercise="3.50" data-source-pdf-pages="468"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=468">PDF 468</a></p>
 <p>完成下面的定义，它推广了<code>stream-map</code>，以允许接受多个参数的过程，类似于2.2.1中的<code>map</code>，脚注 78。</p>
 
 <pre><code class="language-scheme">(define (stream-map proc . argstreams)
@@ -4371,7 +4547,7 @@ Mary:  (set! balance (- balance
 (stream-ref x 5)
 (stream-ref x 7)</code></pre>
 <aside>脚注 <p><sup>187</sup>像<a href="#ex-3-51">习题3.51</a>和<a href="#ex-3-52">习题3.52</a>这样的练习对于测试我们对<code>delay</code>如何工作的理解很有价值。另一方面，将延迟求值与打印混合——更糟糕的是，与赋值混合——极其令人困惑，计算机语言课程的教师传统上用本节中的这类考试题来折磨学生。不用说，编写依赖这种微妙之处的程序是令人厌恶的编程风格。流处理的部分威力在于它让我们忽略程序中事件实际发生的顺序。不幸的是，这正是我们在赋值存在时无法做到的，赋值迫使我们关注时间和变化。</p>
-</aside><p>共享输入：<a href="#input-stream-ref"><code>stream-ref</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>构造 x 时立即计算首项并打印 0。取第 5 项迫使后继依次打印 1 至 5，返回 5。再取第 7 项只新打印 6、7，返回 7。解释器另行显示返回值，不应把它算作过程的打印。</p></div></details><details class="exercise" id="ex-3-52" data-exercise="3.52"><summary>习题 3.52 · 记忆化与副作用</summary><div class="exercise-question" data-original-exercise="3.52" data-source-pdf-pages="469"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=469">PDF 469</a></p>
+</aside><p>共享输入：<a href="#input-stream-ref"><code>stream-ref</code></a></p><p>原书定义：<a href="#input-promise-cache"><code>promise-cache</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>构造 x 时立即计算首项并打印 0。取第 5 项迫使后继依次打印 1 至 5，返回 5。再取第 7 项只新打印 6、7，返回 7。解释器另行显示返回值，不应把它算作过程的打印。</p></div></details><details class="exercise" id="ex-3-52" data-exercise="3.52"><summary>习题 3.52 · 记忆化与副作用</summary><div class="exercise-question" data-original-exercise="3.52" data-source-pdf-pages="469"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=469">PDF 469</a></p>
 <p>考虑下面这组表达式</p>
 
 <pre><code class="language-scheme">(define sum 0)
@@ -4395,7 +4571,7 @@ Mary:  (set! balance (- balance
 (stream-ref y 7)
 (display-stream z)</code></pre>
 
-<p>在求值上述每个表达式之后，<code>sum</code>的值是什么？求值<code>stream-ref</code>和<code>display-stream</code>表达式时打印的响应是什么？如果我们把<code>(delay ⟨exp⟩)</code>简单地实现为<code>(lambda () ⟨exp⟩)</code>而不使用<code>memo-proc</code>提供的优化，这些响应会不同吗？解释。</p><p>共享输入：<a href="#input-stream-ref"><code>stream-ref</code></a> · <a href="#input-stream-filter"><code>stream-filter</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>各定义后累计值依次为 0（初值）、0（定义过程）、1（构造首项）、6（首次找到偶数）、10（首次找到 5 的倍数）。索引 7 得 136，此时累计到第 16 项。输出 z 为 10、15、45、55、105、120、190、210，最终和 210。取消记忆化会在不同消费者索取同一条尾边时重做加法，因而连被筛选的数值也会改变。</p></div></details><details class="exercise" id="ex-3-53" data-exercise="3.53"><summary>习题 3.53 · 自相加的流</summary><div class="exercise-question" data-original-exercise="3.53" data-source-pdf-pages="475"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=475">PDF 475</a></p>
+<p>在求值上述每个表达式之后，<code>sum</code>的值是什么？求值<code>stream-ref</code>和<code>display-stream</code>表达式时打印的响应是什么？如果我们把<code>(delay ⟨exp⟩)</code>简单地实现为<code>(lambda () ⟨exp⟩)</code>而不使用<code>memo-proc</code>提供的优化，这些响应会不同吗？解释。</p><p>共享输入：<a href="#input-stream-ref"><code>stream-ref</code></a> · <a href="#input-stream-filter"><code>stream-filter</code></a></p><p>原书定义：<a href="#input-promise-cache"><code>promise-cache</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>各定义后累计值依次为 0（初值）、0（定义过程）、1（构造首项）、6（首次找到偶数）、10（首次找到 5 的倍数）。索引 7 得 136，此时累计到第 16 项。输出 z 为 10、15、45、55、105、120、190、210，最终和 210。取消记忆化会在不同消费者索取同一条尾边时重做加法，因而连被筛选的数值也会改变。</p><p>按同一求值顺序去掉尾部缓存后，构造三个流时累计值依次为 1、6、15；读取索引 7 得 162。此后输出第三个流为 15、180、230、305，遍历结束累计值为 362。第二次筛选从同一首项重新走向尾部，最早的一处差异已出现在第三个流的首项。</p></div></details><details class="exercise" id="ex-3-53" data-exercise="3.53"><summary>习题 3.53 · 自相加的流</summary><div class="exercise-question" data-original-exercise="3.53" data-source-pdf-pages="475"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=475">PDF 475</a></p>
 <p> 不运行程序，描述由以下定义的流的元素</p>
 
 <pre><code class="language-scheme">(define s (cons-stream 1 (add-streams s s)))</code></pre>
@@ -4505,7 +4681,7 @@ Mary:  (set! balance (- balance
     </mrow>
   </msup>
 </math></span> 个 斐波那契数时，会执行多少次加法？证明：如果我们把 <code>(delay ⟨exp⟩)</code> 简单地实现为 <code>(lambda () ⟨exp⟩)</code>，而不使用 3.5.1 中描述的 <code>memo-proc</code> 过程所提供的优化，那么加法的次数将呈指数级增长。<sup>192</sup></p><aside>脚注 <p><sup>192</sup>这个练习展示了按需调用与<a href="#ex-3-27">习题3.27</a>中描述的普通记忆化如何密切相关。在那个练习中，我们使用赋值显式构造了一个局部表。我们的按需调用流优化有效地自动构造了这样一个表，将值存储在流中先前已强制求值的部分。</p>
-</aside><p>共享输入：<a href="#input-add-streams"><code>add-streams</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>取第 n 项（从 0 起）且 <span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n≥2" display="inline"><mrow><mi>n</mi><mo>≥</mo><mn>2</mn></mrow></math></span> 时恰做 n−1 次加法：从第 2 项到第 n 项每项只首次强制一次。没有记忆化时，为求一项而分别展开前两项，重叠子问题形成斐波那契形递归树。</p></div></details><details class="exercise" id="ex-3-58" data-exercise="3.58"><summary>习题 3.58 · 有理数的小数展开</summary><div class="exercise-question" data-original-exercise="3.58" data-source-pdf-pages="478"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=478">PDF 478</a></p>
+</aside><p>共享输入：<a href="#input-add-streams"><code>add-streams</code></a></p><p>原书定义：<a href="#input-promise-cache"><code>promise-cache</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>取第 n 项（从 0 起）且 <span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="n≥2" display="inline"><mrow><mi>n</mi><mo>≥</mo><mn>2</mn></mrow></math></span> 时恰做 n−1 次加法：从第 2 项到第 n 项每项只首次强制一次。没有记忆化时，为求一项而分别展开前两项，重叠子问题形成斐波那契形递归树。</p></div></details><details class="exercise" id="ex-3-58" data-exercise="3.58"><summary>习题 3.58 · 有理数的小数展开</summary><div class="exercise-question" data-original-exercise="3.58" data-source-pdf-pages="478"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=478">PDF 478</a></p>
 <p> 给出对下列过程所计算的流的解释：</p>
 
 <pre><code class="language-scheme">(define (expand num den radix)
@@ -5087,7 +5263,7 @@ Mary:  (set! balance (- balance
                  (sqrt-improve guess x))
                (sqrt-stream x))))</code></pre>
 
-<p>Alyssa P. Hacker 回答说这个版本的过程效率要低得多，因为它执行了冗余计算。解释 Alyssa 的回答。如果我们的<code>delay</code>实现只使用<code>(lambda () ⟨exp⟩)</code>而不使用<code>memo-proc</code>提供的优化（3.5.1），这两个版本在效率上还会有差异吗？</p><p>共享输入：<a href="#input-sqrt-stream"><code>sqrt-stream</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>局部名字指向同一猜测流，因此每次改进都复用之前已经求出的尾部。递归重建新流则把前面的改进重新计算，取前 n 项可由线性增加为二次工作量。若尾部从不缓存，共享名字本身不能避免重复求值。</p></div></details><details class="exercise" id="ex-3-64" data-exercise="3.64"><summary>习题 3.64 · 用相邻项停止</summary><div class="exercise-question" data-original-exercise="3.64" data-source-pdf-pages="486"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=486">PDF 486</a></p>
+<p>Alyssa P. Hacker 回答说这个版本的过程效率要低得多，因为它执行了冗余计算。解释 Alyssa 的回答。如果我们的<code>delay</code>实现只使用<code>(lambda () ⟨exp⟩)</code>而不使用<code>memo-proc</code>提供的优化（3.5.1），这两个版本在效率上还会有差异吗？</p><p>共享输入：<a href="#input-sqrt-stream"><code>sqrt-stream</code></a></p><p>原书定义：<a href="#input-promise-cache"><code>promise-cache</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>局部名字指向同一猜测流，因此每次改进都复用之前已经求出的尾部。递归重建新流则把前面的改进重新计算，取前 n 项可由线性增加为二次工作量。若尾部从不缓存，共享名字本身不能避免重复求值。</p></div></details><details class="exercise" id="ex-3-64" data-exercise="3.64"><summary>习题 3.64 · 用相邻项停止</summary><div class="exercise-question" data-original-exercise="3.64" data-source-pdf-pages="486"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=486">PDF 486</a></p>
 <p> 编写一个过程<code>stream-limit</code>，它接受一个流和一个数字（容差）作为参数。它应该检查流，直到找到两个连续元素，其差的绝对值小于容差，并返回这两个元素中的第二个。使用这个，我们可以通过以下方式计算平方根到给定的容差</p>
 
 <pre><code class="language-scheme">(define (sqrt x tolerance)
@@ -5130,9 +5306,9 @@ Mary:  (set! balance (- balance
   <mo>…<!-- … --></mo>
 </math>来计算2的自然对数的三个近似值序列，方式与我们上面为<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <mi>π<!-- π --></mi>
-</math></span>所做的一样。这些序列收敛得有多快？</p><p>共享输入：<a href="#input-euler-transform"><code>euler-transform</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>交错项为 1、−1/2、1/3……先求部分和；第二个流对连续三个部分和使用欧拉变换，第三个取反复变换所得表的对角线。原序列前三项为 1、0.5、0.833333；首次变换首项为 0.7，第二次变换首项约 0.693277。原序列截断误差至多是下一项大小，后两种在此前缀明显更快。</p><details class="code-details"><summary>查看实现 · <code>accelerated-stream</code></summary><pre><code class="language-scheme">(define (accelerated-stream s) (scons (car s) (accelerated-stream (euler s))))</code></pre></details></div></details><details class="exercise" id="ex-3-66" data-exercise="3.66"><summary>习题 3.66 · 交错枚举的序号</summary><div class="exercise-question" data-original-exercise="3.66" data-source-pdf-pages="490"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=490">PDF 490</a></p>
+</math></span>所做的一样。这些序列收敛得有多快？</p><p>共享输入：<a href="#input-euler-transform"><code>euler-transform</code></a></p><p>原书定义：<a href="#input-tableau"><code>tableau</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>交错项为 1、−1/2、1/3……先求部分和；第二个流对连续三个部分和使用欧拉变换，第三个取反复变换所得表的对角线。原序列前三项为 1、0.5、0.833333；首次变换首项为 0.7，第二次变换首项约 0.693277。原序列截断误差至多是下一项大小，后两种在此前缀明显更快。</p><details class="code-details"><summary>查看实现 · <code>accelerated-stream</code></summary><pre><code class="language-scheme">(define (accelerated-stream s) (scons (car s) (accelerated-stream (euler s))))</code></pre></details></div></details><details class="exercise" id="ex-3-66" data-exercise="3.66"><summary>习题 3.66 · 交错枚举的序号</summary><div class="exercise-question" data-original-exercise="3.66" data-source-pdf-pages="490"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=490">PDF 490</a></p>
 <p>检查流<code>(pairs
-integers integers)</code>。你能对序对被放入流中的顺序做出任何一般性评论吗？例如，大约有多少个序对排在序对(1, 100)之前？序对(99, 100)之前？序对(100, 100)之前？（如果你能在这里做出精确的数学陈述，那就更好了。但如果你发现自己陷入困境，也可以随意给出更定性的答案。）</p><p>共享输入：<a href="#input-pairs"><code>pairs</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>以首项位置 0 计，第一行的 (1,j) 在 j&gt;1 时位置为 2j−3；剥去首行，剩余子流位置 k 映到 2k+2。因此三问分别为 197、3·<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="2⁹⁸" display="inline"><msup><mn>2</mn><mn>98</mn></msup></math></span>−2、<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="2¹⁰⁰" display="inline"><msup><mn>2</mn><mn>100</mn></msup></math></span>−2 个前驱。对角线附近虽都能到达，等待时间按层翻倍。</p></div></details><details class="exercise" id="ex-3-67" data-exercise="3.67"><summary>习题 3.67 · 覆盖两个三角区</summary><div class="exercise-question" data-original-exercise="3.67" data-source-pdf-pages="490"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=490">PDF 490</a></p>
+integers integers)</code>。你能对序对被放入流中的顺序做出任何一般性评论吗？例如，大约有多少个序对排在序对(1, 100)之前？序对(99, 100)之前？序对(100, 100)之前？（如果你能在这里做出精确的数学陈述，那就更好了。但如果你发现自己陷入困境，也可以随意给出更定性的答案。）</p><p>共享输入：<a href="#input-pairs"><code>pairs</code></a></p><p>原书定义：<a href="#input-interleave"><code>interleave</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>以首项位置 0 计，第一行的 (1,j) 在 j&gt;1 时位置为 2j−3；剥去首行，剩余子流位置 k 映到 2k+2。因此三问分别为 197、3·<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="2⁹⁸" display="inline"><msup><mn>2</mn><mn>98</mn></msup></math></span>−2、<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="2¹⁰⁰" display="inline"><msup><mn>2</mn><mn>100</mn></msup></math></span>−2 个前驱。对角线附近虽都能到达，等待时间按层翻倍。</p></div></details><details class="exercise" id="ex-3-67" data-exercise="3.67"><summary>习题 3.67 · 覆盖两个三角区</summary><div class="exercise-question" data-original-exercise="3.67" data-source-pdf-pages="490"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=490">PDF 490</a></p>
 <p>修改<code>pairs</code>过程，使得<code>(pairs integers integers)</code>将产生<em>所有</em>整数序对<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <mrow class="MJX-TeXAtom-ORD">
     <mo stretchy="false">(</mo>
@@ -5147,7 +5323,7 @@ integers integers)</code>。你能对序对被放入流中的顺序做出任何�
     <mo>≤<!-- ≤ --></mo>
     <mi>j</mi>
   </mrow>
-</math></span>）。提示：你需要混入一个额外的流。</p><p>共享输入：<a href="#input-pairs"><code>pairs</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>输出两个首元组成的序对，再公平交错三支：固定左首元配右尾，固定右首元配左尾，以及两尾的递归枚举。三支互不重叠；对角元素只在递归支中产生一次。</p><details class="code-details"><summary>查看实现 · <code>all-pairs</code></summary><pre><code class="language-scheme">(define (all-pairs s t)
+</math></span>）。提示：你需要混入一个额外的流。</p><p>共享输入：<a href="#input-pairs"><code>pairs</code></a></p><p>原书定义：<a href="#input-interleave"><code>interleave</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>输出两个首元组成的序对，再公平交错三支：固定左首元配右尾，固定右首元配左尾，以及两尾的递归枚举。三支互不重叠；对角元素只在递归支中产生一次。</p><details class="code-details"><summary>查看实现 · <code>all-pairs</code></summary><pre><code class="language-scheme">(define (all-pairs s t)
   (scons (list (car s) (car t))
          (interleave (smap (lambda (x) (list (car s) x)) (stail t))
                      (interleave (smap (lambda (x) (list x (car t))) (stail s))
@@ -5178,7 +5354,7 @@ integers integers)</code>。你能对序对被放入流中的顺序做出任何�
           (stream-cdr t))))</code></pre>
 
 <p>这样能行吗？考虑如果我们使用Louis的<code>pairs</code>定义来求值<code>(pairs integers
-integers)</code>会发生什么。</p><p>共享输入：<a href="#input-pairs"><code>pairs</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>在应用序中调用交错过程前必须先算出两个实参，第二个实参又立即递归调用 pairs。尚未产出任何流结点就进入下一层。递归构造必须放在延迟的尾部。</p></div></details><details class="exercise" id="ex-3-69" data-exercise="3.69"><summary>习题 3.69 · 三元组和勾股数</summary><div class="exercise-question" data-original-exercise="3.69" data-source-pdf-pages="491"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=491">PDF 491</a></p>
+integers)</code>会发生什么。</p><p>共享输入：<a href="#input-pairs"><code>pairs</code></a></p><p>原书定义：<a href="#input-interleave"><code>interleave</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>在应用序中调用交错过程前必须先算出两个实参，第二个实参又立即递归调用 pairs。尚未产出任何流结点就进入下一层。递归构造必须放在延迟的尾部。</p></div></details><details class="exercise" id="ex-3-69" data-exercise="3.69"><summary>习题 3.69 · 三元组和勾股数</summary><div class="exercise-question" data-original-exercise="3.69" data-source-pdf-pages="491"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=491">PDF 491</a></p>
 <p>编写一个过程<code>triples</code>，它接受三个无穷流<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <mi>S</mi>
 </math></span>、<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -5245,7 +5421,7 @@ integers)</code>会发生什么。</p><p>共享输入：<a href="#input-pairs"><
     <mi>k</mi>
     <mo stretchy="false">)</mo>
   </mrow>
-</math></span>。</p><p>共享输入：<a href="#input-pairs"><code>pairs</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>输出三个首元，再交错两支：固定第一元配后两流的序对（去掉首对），以及三个尾流的递归结果。首支给 i 固定的其余组合，后支覆盖更大的 i。过滤满足 <span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="i²" display="inline"><msup><mi>i</mi><mn>2</mn></msup></math></span>+<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="j²" display="inline"><msup><mi>j</mi><mn>2</mn></msup></math></span>=<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="k²" display="inline"><msup><mi>k</mi><mn>2</mn></msup></math></span> 的项可得到 (3,4,5)、(6,8,10) 等。</p><details class="code-details"><summary>查看实现 · <code>triples</code></summary><pre><code class="language-scheme">(define (triples s t u)
+</math></span>。</p><p>共享输入：<a href="#input-pairs"><code>pairs</code></a></p><p>原书定义：<a href="#input-interleave"><code>interleave</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>输出三个首元，再交错两支：固定第一元配后两流的序对（去掉首对），以及三个尾流的递归结果。首支给 i 固定的其余组合，后支覆盖更大的 i。过滤满足 <span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="i²" display="inline"><msup><mi>i</mi><mn>2</mn></msup></math></span>+<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="j²" display="inline"><msup><mi>j</mi><mn>2</mn></msup></math></span>=<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" aria-label="k²" display="inline"><msup><mi>k</mi><mn>2</mn></msup></math></span> 的项可得到 (3,4,5)、(6,8,10) 等。</p><details class="code-details"><summary>查看实现 · <code>triples</code></summary><pre><code class="language-scheme">(define (triples s t u)
   (scons (list (car s) (car t) (car u))
          (interleave (smap (lambda (pair) (cons (car s) pair)) (stail (ordered-pairs t u)))
                      (triples (stail s) (stail t) (stail u)))))</code></pre></details></div></details><details class="exercise" id="ex-3-70" data-exercise="3.70"><summary>习题 3.70 · 有序加权枚举</summary><div class="exercise-question" data-original-exercise="3.70" data-source-pdf-pages="491"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=491">PDF 491</a></p>
@@ -5373,7 +5549,12 @@ integers)</code>会发生什么。</p><p>共享输入：<a href="#input-pairs"><
 </aside><p>共享输入：<a href="#input-merge"><code>merge</code></a> · <a href="#input-pairs"><code>pairs</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>比较两个首对的权重，取较小者并推进该支；相等时保留两个不同表示。每层输出对角首对，再归并固定第一元的剩余行与递归的两尾。第一问用自然数流与加法权重。第二问先筛除 2、3、5 的倍数，再用题给权重。两个权重均随任一坐标增长，归并才维持有序。</p><details class="code-details"><summary>查看实现 · <code>weighted-pairs</code></summary><pre><code class="language-scheme">(define (weighted-pairs s t weight)
   (scons (list (car s) (car t))
          (merge-weighted (smap (lambda (x) (list (car s) x)) (stail t))
-                         (weighted-pairs (stail s) (stail t) weight) weight)))</code></pre></details></div></details><details class="exercise" id="ex-3-71" data-exercise="3.71"><summary>习题 3.71 · 两种立方和</summary><div class="exercise-question" data-original-exercise="3.71" data-source-pdf-pages="492"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=492">PDF 492</a></p>
+                         (weighted-pairs (stail s) (stail t) weight) weight)))</code></pre></details><details class="code-details"><summary>查看实现</summary><pre><code class="language-scheme">(define by-sum (weighted-pairs ints ints (lambda (p) (apply + p))))
+(define eligible
+  (sfilter (lambda (n) (andmap (lambda (k) (not (zero? (remainder n k)))) &#x27;(2 3 5))) ints))
+(define by-weight
+  (weighted-pairs eligible eligible
+    (match-lambda [(list i j) (+ (* 2 i) (* 3 j) (* 5 i j))])))</code></pre></details></div></details><details class="exercise" id="ex-3-71" data-exercise="3.71"><summary>习题 3.71 · 两种立方和</summary><div class="exercise-question" data-original-exercise="3.71" data-source-pdf-pages="492"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=492">PDF 492</a></p>
 <p>可以用不止一种方式表示为两个立方数之和的数有时被称为<em>拉马努金数</em>，以纪念数学家斯里尼瓦瑟·拉马努金。<sup>198</sup>有序的序对流为计算这些数的问题提供了一个优雅的解法。要找到一个可以用两种不同方式写成两个立方数之和的数，我们只需生成整数对<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <mrow class="MJX-TeXAtom-ORD">
     <mo stretchy="false">(</mo>
@@ -5451,7 +5632,7 @@ integers)</code>会发生什么。</p><p>共享输入：<a href="#input-pairs"><
 </math></span> = 5欧姆、<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <mi>C</mi>
 </math></span> = 1法拉和0.5秒时间步长的RC电路建模。这将<code>RC1</code>定义为一个过程，它接受表示电流时间序列的流和初始电容器电压，并产生输出电压流。</p><p>共享输入：<a href="#input-integral"><code>integral</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>电容电压流以初压开头，每步增量是电流乘步长再除以电容；输出电压流是该流加电流的 R 倍。题给 R=5、C=1、步长 0.5，若输入恒为 1 且初压 0，则前缀为 5、5.5、6。</p><details class="code-details"><summary>查看实现 · <code>RC</code></summary><pre><code class="language-scheme">(define ((RC r c dt) i initial)
-  (smap + (scale i r) (integral (delay (scale i (/ 1 c))) initial dt)))</code></pre></details></div></details><details class="exercise" id="ex-3-74" data-exercise="3.74"><summary>习题 3.74 · 过零检测</summary><div class="exercise-question" data-original-exercise="3.74" data-source-pdf-pages="495"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=495">PDF 495</a></p>
+  (smap + (scale i r) (integral (delay (scale i (/ 1 c))) initial dt)))</code></pre></details><details class="code-details"><summary>查看实现</summary><pre><code class="language-scheme">(define RC1 (RC 5 1 0.5))</code></pre></details></div></details><details class="exercise" id="ex-3-74" data-exercise="3.74"><summary>习题 3.74 · 过零检测</summary><div class="exercise-question" data-original-exercise="3.74" data-source-pdf-pages="495"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=495">PDF 495</a></p>
 <p>Alyssa P. Hacker正在设计一个系统来处理来自物理传感器的信号。她希望产生的一个重要特征是描述输入信号<em>过零点</em>的信号。也就是说，当输入信号从负变为正时，结果信号应为<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <mrow class="MJX-TeXAtom-ORD">
     <mo>+</mo>
@@ -5503,7 +5684,7 @@ integers)</code>会发生什么。</p><p>共享输入：<a href="#input-pairs"><
               sense-data 
               ⟨expression⟩))</code></pre>
 
-<p>通过提供所指示的<code>⟨</code>expression<code>⟩</code>来完成程序。</p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>第三实参是前置 0 的输入流；两个输入分别给出本次和上次读数。符号从负转非负输出 1，反向输出 −1，其余为 0。错位方向若反过来，符号也会颠倒。</p></div></details><details class="exercise" id="ex-3-75" data-exercise="3.75"><summary>习题 3.75 · 保留两个历史量</summary><div class="exercise-question" data-original-exercise="3.75" data-source-pdf-pages="497"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=497">PDF 497</a></p>
+<p>通过提供所指示的<code>⟨</code>expression<code>⟩</code>来完成程序。</p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>第三实参是前置 0 的输入流；两个输入分别给出本次和上次读数。符号从负转非负输出 1，反向输出 −1，其余为 0。错位方向若反过来，符号也会颠倒。</p><details class="code-details"><summary>查看实现</summary><pre><code class="language-scheme">(stream-map sign-change-detector sense-data (cons-stream 0 sense-data))</code></pre></details></div></details><details class="exercise" id="ex-3-75" data-exercise="3.75"><summary>习题 3.75 · 保留两个历史量</summary><div class="exercise-question" data-original-exercise="3.75" data-source-pdf-pages="497"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=497">PDF 497</a></p>
 <p>不幸的是，<a href="#ex-3-74">习题3.74</a>中Alyssa的过零检测器被证明是不够的，因为来自传感器的含噪信号导致虚假的过零点。硬件专家Lem E. Tweakit建议Alyssa在提取过零点之前平滑信号以滤除噪声。Alyssa接受了他的建议，决定从通过将每个感测数据值与前一个值平均而构造的信号中提取过零点。她向助手Louis Reasoner解释了这个问题，后者试图实现这个想法，将Alyssa的程序修改如下：</p>
 
 <pre><code class="language-scheme">(define (make-zero-crossings 
@@ -5517,8 +5698,14 @@ integers)</code>会发生什么。</p><p>共享输入：<a href="#input-pairs"><
      (make-zero-crossings 
       (stream-cdr input-stream) avpt))))</code></pre>
 
-<p>这没有正确地实现Alyssa的计划。找出Louis引入的错误，并在不改变程序结构的情况下修复它。（提示：你需要增加<code>make-zero-crossings</code>的参数数量。）</p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>需要同时保存上一原始样本和上一平滑结果。本次均值取当前样本与上一原始样本，过零比较则取本次均值与上一均值。递归时分别传当前样本、本次均值，不能把滤过的值又当作原始样本。</p></div></details><details class="exercise" id="ex-3-76" data-exercise="3.76"><summary>习题 3.76 · 把平滑与检测分开</summary><div class="exercise-question" data-original-exercise="3.76" data-source-pdf-pages="497"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=497">PDF 497</a></p>
-<p>Eva Lu Ator 对 Louis 在<a href="#ex-3-75">习题3.75</a>中的方法提出了批评。他写的程序不是模块化的，因为它将平滑操作与过零提取混在了一起。例如，如果 Alyssa 找到了更好的方法来调理她的输入信号，提取器不应该需要改变。通过编写一个过程<code>smooth</code>来帮助 Louis，该过程接受一个流作为输入，并产生一个流，其中每个元素是输入流中两个连续元素的平均值。然后使用<code>smooth</code>作为组件，以更模块化的风格实现过零检测器。</p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>先把原流与向后错开一位的原流逐项求平均，再将均值流与错开一位的均值流送入符号比较器。若沿用上一题初始条件，两个前置样本取 0；首项由初始化决定。</p><details class="code-details"><summary>查看实现 · <code>smooth-stream</code></summary><pre><code class="language-scheme">(define (smooth-stream s) (smap (lambda (a b) (/ (+ a b) 2)) s (scons 0 s)))</code></pre></details></div></details><details class="exercise" id="ex-3-77" data-exercise="3.77"><summary>习题 3.77 · 延迟被积流</summary><div class="exercise-question" data-original-exercise="3.77" data-source-pdf-pages="501"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=501">PDF 501</a></p>
+<p>这没有正确地实现Alyssa的计划。找出Louis引入的错误，并在不改变程序结构的情况下修复它。（提示：你需要增加<code>make-zero-crossings</code>的参数数量。）</p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>需要同时保存上一原始样本和上一平滑结果。本次均值取当前样本与上一原始样本，过零比较则取本次均值与上一均值。递归时分别传当前样本、本次均值，不能把滤过的值又当作原始样本。</p><details class="code-details"><summary>查看实现</summary><pre><code class="language-scheme">(define (make-zero-crossings input previous-sample previous-average)
+  (if (stream-null? input)
+      the-empty-stream
+      (let* ((sample (stream-car input))
+             (average (/ (+ sample previous-sample) 2)))
+        (cons-stream (sign-change-detector average previous-average)
+                     (make-zero-crossings (stream-cdr input) sample average)))))</code></pre></details></div></details><details class="exercise" id="ex-3-76" data-exercise="3.76"><summary>习题 3.76 · 把平滑与检测分开</summary><div class="exercise-question" data-original-exercise="3.76" data-source-pdf-pages="497"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=497">PDF 497</a></p>
+<p>Eva Lu Ator 对 Louis 在<a href="#ex-3-75">习题3.75</a>中的方法提出了批评。他写的程序不是模块化的，因为它将平滑操作与过零提取混在了一起。例如，如果 Alyssa 找到了更好的方法来调理她的输入信号，提取器不应该需要改变。通过编写一个过程<code>smooth</code>来帮助 Louis，该过程接受一个流作为输入，并产生一个流，其中每个元素是输入流中两个连续元素的平均值。然后使用<code>smooth</code>作为组件，以更模块化的风格实现过零检测器。</p><p>原书定义：<a href="#input-zero-crossings"><code>zero-crossings</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>先把原流与向后错开一位的原流逐项求平均，再将均值流与错开一位的均值流送入符号比较器。若沿用上一题初始条件，两个前置样本取 0；首项由初始化决定。</p><details class="code-details"><summary>查看实现 · <code>smooth-stream</code></summary><pre><code class="language-scheme">(define (smooth-stream s) (smap (lambda (a b) (/ (+ a b) 2)) s (scons 0 s)))</code></pre></details></div></details><details class="exercise" id="ex-3-77" data-exercise="3.77"><summary>习题 3.77 · 延迟被积流</summary><div class="exercise-question" data-original-exercise="3.77" data-source-pdf-pages="501"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=501">PDF 501</a></p>
 <p>上面使用的<code>integral</code>过程类似于3.5.2中无限整数流的“隐式”定义。或者，我们可以给出一个更像<code>integers-starting-from</code>的<code>integral</code>定义（同样在3.5.2中）：</p>
 
 <pre><code class="language-scheme">(define (integral
@@ -5533,7 +5720,7 @@ integers)</code>会发生什么。</p><p>共享输入：<a href="#input-pairs"><
            initial-value)
         dt))))</code></pre>
 
-<p>当用于带回路的系统时，这个过程与我们原始版本的<code>integral</code>有同样的问题。修改该过程，使其期望<code>integrand</code>作为延迟参数，从而可以用于上面展示的<code>solve</code>过程。</p><p>共享输入：<a href="#input-integral"><code>integral</code></a> · <a href="#input-solve"><code>solve</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>积分先生成初值，索取尾部时才强制被积流。若为空则终止；否则生成以下一状态为初值的递归积分，下一状态等于现状态加步长乘被积流首项，并把被积流的尾再次包进延迟。由此微分方程可先接好反馈再索取导数。</p><details class="code-details"><summary>查看实现 · <code>integral</code></summary><pre><code class="language-scheme">(define (integral delayed initial dt)
+<p>当用于带回路的系统时，这个过程与我们原始版本的<code>integral</code>有同样的问题。修改该过程，使其期望<code>integrand</code>作为延迟参数，从而可以用于上面展示的<code>solve</code>过程。</p><p>共享输入：<a href="#input-integral"><code>integral</code></a> · <a href="#input-solve"><code>solve</code></a></p><p>原书定义：<a href="#input-delayed-solve"><code>delayed-solve</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>积分先生成初值，索取尾部时才强制被积流。若为空则终止；否则生成以下一状态为初值的递归积分，下一状态等于现状态加步长乘被积流首项，并把被积流的尾再次包进延迟。由此微分方程可先接好反馈再索取导数。</p><details class="code-details"><summary>查看实现 · <code>integral</code></summary><pre><code class="language-scheme">(define (integral delayed initial dt)
   (scons initial
          (let ([s (force delayed)])
            (if (null? s) &#x27;()
@@ -5662,7 +5849,7 @@ integers)</code>会发生什么。</p><p>共享输入：<a href="#input-pairs"><
   </mrow>
 </math></span>作为参数，并生成<span class="rn-math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML">
   <mi>y</mi>
-</math></span>的连续值流。</p><p>共享输入：<a href="#input-solve"><code>solve</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>建立位移流与速度流，分别从初位移、初速度积分。加速度由速度的 a 倍加位移的 b 倍得到；积分器只收延迟导数。两路更新都读同一步的旧状态，不能先改位移再拿新位移算旧加速度。</p><details class="code-details"><summary>查看实现 · <code>solve-second</code></summary><pre><code class="language-scheme">(define (solve-second acceleration dt y0 v0)
+</math></span>的连续值流。</p><p>共享输入：<a href="#input-solve"><code>solve</code></a></p><p>原书定义：<a href="#input-delayed-solve"><code>delayed-solve</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>建立位移流与速度流，分别从初位移、初速度积分。加速度由速度的 a 倍加位移的 b 倍得到；积分器只收延迟导数。两路更新都读同一步的旧状态，不能先改位移再拿新位移算旧加速度。</p><details class="code-details"><summary>查看实现 · <code>solve-second</code></summary><pre><code class="language-scheme">(define (solve-second acceleration dt y0 v0)
   (define y (integral (delay v) y0 dt))
   (define v (integral (delay (smap acceleration v y)) v0 dt))
   y)</code></pre></details></div></details><details class="exercise" id="ex-3-79" data-exercise="3.79"><summary>习题 3.79 · 一般二阶方程</summary><div class="exercise-question" data-original-exercise="3.79" data-source-pdf-pages="503"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=503">PDF 503</a></p>
@@ -5697,7 +5884,7 @@ integers)</code>会发生什么。</p><p>共享输入：<a href="#input-pairs"><
     <mi>y</mi>
     <mo stretchy="false">)</mo>
   </mrow>
-</math></span>。</p><p>共享输入：<a href="#input-solve"><code>solve</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>把线性组合替换为逐项应用二元过程 f，参数依题意为速度、位移。初始化和两级积分不变。取 f 恒等于零时速度恒定，位置每一步恰增加初速度乘步长，可作验算。</p><details class="code-details"><summary>查看实现 · <code>solve-second</code></summary><pre><code class="language-scheme">(define (solve-second acceleration dt y0 v0)
+</math></span>。</p><p>共享输入：<a href="#input-solve"><code>solve</code></a></p><p>原书定义：<a href="#input-delayed-solve"><code>delayed-solve</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>把线性组合替换为逐项应用二元过程 f，参数依题意为速度、位移。初始化和两级积分不变。取 f 恒等于零时速度恒定，位置每一步恰增加初速度乘步长，可作验算。</p><details class="code-details"><summary>查看实现 · <code>solve-second</code></summary><pre><code class="language-scheme">(define (solve-second acceleration dt y0 v0)
   (define y (integral (delay v) y0 dt))
   (define v (integral (delay (smap acceleration v y)) v0 dt))
   y)</code></pre></details></div></details><details class="exercise" id="ex-3-80" data-exercise="3.80"><summary>习题 3.80 · 串联 RLC 电路</summary><div class="exercise-question" data-original-exercise="3.80" data-source-pdf-pages="503"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=503">PDF 503</a></p>
@@ -6026,7 +6213,8 @@ integers)</code>会发生什么。</p><p>共享输入：<a href="#input-pairs"><
 </math></span> = 10伏特。</p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>同时从初压、初流积分。电压导数为 −i/C，电流导数为 (v−Ri)/L。把两条流作为序对返回；R=1、C=0.2、L=1、步长 0.1、初压 10 初流 0 时，头三个状态为 (10,0)、(10,1)、(9.5,1.9)。只强制这些有限前缀即可检验耦合方向。</p><details class="code-details"><summary>查看实现 · <code>RLC</code></summary><pre><code class="language-scheme">(define ((RLC r l c dt) v0 i0)
   (define v (integral (delay (scale i (- (/ 1 c)))) v0 dt))
   (define i (integral (delay (smap (lambda (v i) (/ (- v (* r i)) l)) v i)) i0 dt))
-  (cons v i))</code></pre></details></div></details><details class="exercise" id="ex-3-81" data-exercise="3.81"><summary>习题 3.81 · 由请求流驱动随机数</summary><div class="exercise-question" data-original-exercise="3.81" data-source-pdf-pages="509"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=509">PDF 509</a></p>
+  (cons v i))</code></pre></details><details class="code-details"><summary>查看实现</summary><pre><code class="language-scheme">(define states ((RLC 1 1 1/5 1/10) 10 0))
+(prefix (smap list (car states) (cdr states)) 3)</code></pre></details></div></details><details class="exercise" id="ex-3-81" data-exercise="3.81"><summary>习题 3.81 · 由请求流驱动随机数</summary><div class="exercise-question" data-original-exercise="3.81" data-source-pdf-pages="509"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=509">PDF 509</a></p>
 <p> <a href="#ex-3-6">习题3.6</a>讨论了将随机数生成器推广，使得人们可以重置随机数序列，从而产生可重复的“随机”数序列。请给出同一个生成器的流表述，它作用于一个请求输入流，请求要么是<code>generate</code>一个新的随机数，要么是将序列<code>reset</code>到指定值，并产生所需的随机数流。在你的解答中不要使用赋值。</p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>递归参数携带当前种子。生成请求用更新函数得到新种子并输出，再把新种子交给剩余请求；重置请求读取指定种子并把它用于下一次生成。若约定重置不输出随机数，则该分支直接处理后续请求。同一种子与请求前缀完全决定输出。</p><details class="code-details"><summary>查看实现 · <code>request-states</code></summary><pre><code class="language-scheme">(define (request-states update seed requests)
   (match requests
     [&#x27;() &#x27;()]
@@ -6036,7 +6224,7 @@ integers)</code>会发生什么。</p><p>共享输入：<a href="#input-pairs"><
     [(cons (list &#x27;reset value) rest) (request-states update value rest)]))</code></pre></details></div></details><details class="exercise" id="ex-3-82" data-exercise="3.82"><summary>习题 3.82 · 逐次给出面积估计</summary><div class="exercise-question" data-original-exercise="3.82" data-source-pdf-pages="509"><p class="question-title rn-exercise-label">原题（中文翻译）</p><p class="source"><a href="../sicp.pdf#page=509">PDF 509</a></p>
 <p>用流重新做<a href="#ex-3-5">习题3.5</a>中关于蒙特卡洛积分的内容。<code>estimate-integral</code>的流版本将不会有一个参数告诉要进行多少次试验。相反，它将基于越来越多的试验产生一个估计值的流。</p><p>共享输入：<a href="#input-monte-carlo"><code>monte-carlo</code></a></p></div><div class="answer"><p class="answer-title rn-exercise-label">解答</p><p>为每次试验取两个独立坐标，把谓词结果映为 1 或 0 并做部分和。第 n 项以累计命中数除以 n，再乘矩形面积；流可在任一正整数处截取。对单位圆，首两次若取中心与角点，前两次的估计是 4、2。无需预设试验总数。</p><details class="code-details"><summary>查看实现 · <code>area-estimates</code></summary><pre><code class="language-scheme">(define (area-estimates pred area points)
   (define hits (smap (lambda (point) (if (apply pred point) 1 0)) points))
-  (scale (smap / (sums hits) ints) area))</code></pre></details></div></details></section><section id="programs"><h2>程序与执行</h2><p>原书可变序对保留原过程名。以下 Racket 8.10 执行适配使用 <code>mcons</code>、<code>mcar</code>、<code>mcdr</code> 和相应修改器。并发示例枚举确定性交错。流以承诺保存尾部，测试只读取有限前缀。</p><details class="code-details"><summary>查看程序</summary><pre><code class="language-scheme">#lang racket
+  (scale (smap / (sums hits) ints) area))</code></pre></details></div></details></section><section id="programs"><h2>程序与执行</h2><p>原书可变序对保留原过程名。以下 Racket 8.10 执行适配使用 <code>mcons</code>、<code>mcar</code>、<code>mcdr</code> 和相应修改器。并发示例枚举确定性交错。流以承诺保存尾部，测试只读取有限前缀。<a href="../code/chapter03.rkt">完整程序</a> · <a href="../code/test-chapter03.rkt">回归用例</a> · <a href="../code/chapter03-results.json">执行记录</a>。</p><details class="code-details"><summary>查看程序</summary><pre><code class="language-scheme">#lang racket
 (provide make-accumulator make-monitored make-account make-joint estimate-integral make-rand make-first-factor)
 
 (define (make-accumulator sum)
@@ -6485,5 +6673,51 @@ integers)</code>会发生什么。</p><p>共享输入：<a href="#input-pairs"><
 (define (c-product a b) (define z (make-connector)) (relation * / a b z #t) z)
 (define (c-quotient a b) (define z (make-connector)) (relation * / b z a #t) z)
 (define (averager a b c) (relation * / c (c-constant 2) (c-sum a b) #t))
+;; Atomic test-and-set alternative for exercise 3.47. The only shared update
+;; of the guard is box-cas!; waiting takes place after releasing that guard.
+(provide semaphore-cas serialized-exchange ordered-account)
+(define (semaphore-cas n)
+  (unless (exact-positive-integer? n) (error &#x27;semaphore-cas &quot;invalid capacity&quot;))
+  (define busy (box #f))
+  (define free n)
+  (define (with-guard proc)
+    (let retry ()
+      (if (box-cas! busy #f #t)
+          (dynamic-wind void proc (lambda () (set-box! busy #f)))
+          (begin (sleep 0) (retry)))))
+  (lambda (message)
+    (case message
+      [(acquire)
+       (let retry ()
+         (unless (with-guard (lambda () (and (&gt; free 0) (begin (set! free (sub1 free)) #t))))
+           (sleep 0) (retry)))]
+      [(release)
+       (with-guard (lambda ()
+                     (when (= free n) (error &#x27;semaphore-cas &quot;unmatched release&quot;))
+                     (set! free (add1 free))))]
+      [else (error &#x27;semaphore-cas &quot;unknown request&quot;)])))
+
+(struct numbered (id lock balance))
+(define ordered-account
+  (let ([counter 0] [guard (make-semaphore 1)])
+    (lambda (balance)
+      (call-with-semaphore guard
+        (lambda ()
+          (set! counter (add1 counter))
+          (numbered counter (make-semaphore 1) (box balance)))))))
+(define (serialized-exchange a b)
+  (unless (eq? a b)
+    (define first (if (&lt; (numbered-id a) (numbered-id b)) a b))
+    (define other (if (eq? first a) b a))
+    (call-with-semaphore (numbered-lock first)
+      (lambda ()
+        (call-with-semaphore (numbered-lock other)
+          (lambda ()
+            (define old (unbox (numbered-balance a)))
+            (set-box! (numbered-balance a) (unbox (numbered-balance b)))
+            (set-box! (numbered-balance b) old)))))))
+(define (account-snapshot a)
+  (call-with-semaphore (numbered-lock a) (lambda () (unbox (numbered-balance a)))))
+(provide account-snapshot)
 </code></pre></details></section><footer><p>题文依据 Abelson、Sussman、Sussman 的 SICP 第二版及 ZZZping/sicp 中英对照版改排，沿用 CC BY-SA 4.0。</p><p class="chapter-nav"><a href="book_overview.html">全书地图</a> · <a href="chapter02_data_abstraction.html">← 第 2 章 · 用数据构造抽象</a> · <a href="#top">返回页首 ↑</a></p></footer></main><aside class="annotation-sidebar" id="annotation-rail" aria-label="阅读注解" hidden><p class="annotation-label">阅读注解</p><p class="annotation-context"><a id="annotation-context-link" href="#top">本节理解与补充</a></p><div id="annotation-content"></div></aside></div><script><!-- RN:include scripts/toc-tree.js -->
 <!-- RN:include scripts/6a3f8b30744a694f9192.js --></script><script id="reading-notes-controller"><!-- RN:include scripts/reading-annotations-nested.js --></script><script data-purpose="print-details"><!-- RN:include scripts/3497ba81d7e642909037.js --></script></body></html>

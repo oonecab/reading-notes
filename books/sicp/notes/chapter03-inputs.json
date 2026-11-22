@@ -1,0 +1,569 @@
+{
+  "schema_version": 1,
+  "scope": "Reviewed shared textbook definitions; inline exercise programs are retained separately.",
+  "records": [
+    {
+      "id": "input-make-account",
+      "section": "s3-1-1",
+      "source_pdf_page": 330,
+      "code": "(define (make-account balance)\n  (define (withdraw amount)\n    (if (>= balance amount)\n        (begin (set! balance \n                     (- balance amount))\n               balance)\n        \"Insufficient funds\"))\n  (define (deposit amount)\n    (set! balance (+ balance amount))\n    balance)\n  (define (dispatch m)\n    (cond ((eq? m 'withdraw) withdraw)\n          ((eq? m 'deposit) deposit)\n          (else (error \"Unknown request: \n                 MAKE-ACCOUNT\" m))))\n  dispatch)",
+      "exercises": [
+        3,
+        4,
+        7,
+        11
+      ]
+    },
+    {
+      "id": "input-monte-carlo",
+      "section": "s3-1-2",
+      "source_pdf_page": 335,
+      "code": "(define (estimate-pi trials)\n  (sqrt (/ 6 (monte-carlo trials \n                          cesaro-test))))\n(define (cesaro-test)\n   (= (gcd (rand) (rand)) 1))\n\n(define (monte-carlo trials experiment)\n  (define (iter trials-remaining trials-passed)\n    (cond ((= trials-remaining 0)\n           (/ trials-passed trials))\n          ((experiment)\n           (iter (- trials-remaining 1) \n                 (+ trials-passed 1)))\n          (else\n           (iter (- trials-remaining 1) \n                 trials-passed))))\n  (iter trials 0))",
+      "exercises": [
+        5,
+        82
+      ]
+    },
+    {
+      "id": "input-make-withdraw",
+      "section": "s3-1-1",
+      "source_pdf_page": 329,
+      "code": "(define (make-withdraw balance)\n  (lambda (amount)\n    (if (>= balance amount)\n        (begin (set! balance \n                     (- balance amount))\n               balance)\n        \"Insufficient funds\")))",
+      "exercises": [
+        10
+      ]
+    },
+    {
+      "id": "input-set-to-wow-mutate",
+      "section": "s3-3-1",
+      "source_pdf_page": 376,
+      "code": "(define (set-to-wow! x)\n  (set-car! (car x) 'wow)\n  x)",
+      "exercises": [
+        15
+      ]
+    },
+    {
+      "id": "input-make-queue",
+      "section": "s3-3-2",
+      "source_pdf_page": 384,
+      "code": "(define (make-queue) (cons '() '()))",
+      "exercises": [
+        21,
+        22
+      ]
+    },
+    {
+      "id": "input-make-table",
+      "section": "s3-3-3",
+      "source_pdf_page": 391,
+      "code": "(define (make-table)\n  (list '*table*))",
+      "exercises": [
+        24,
+        25,
+        26
+      ]
+    },
+    {
+      "id": "input-and-gate",
+      "section": "s3-3-4",
+      "source_pdf_page": 403,
+      "code": "(define (and-gate a1 a2 output)\n  (define (and-action-procedure)\n    (let ((new-value\n           (logical-and (get-signal a1) \n                        (get-signal a2))))\n      (after-delay \n       and-gate-delay\n       (lambda ()\n         (set-signal! output new-value)))))\n  (add-action! a1 and-action-procedure)\n  (add-action! a2 and-action-procedure)\n  'ok)",
+      "exercises": [
+        28,
+        29,
+        32
+      ]
+    },
+    {
+      "id": "input-half-adder",
+      "section": "s3-3-4",
+      "source_pdf_page": 400,
+      "code": "(define (half-adder a b s c)\n  (let ((d (make-wire)) (e (make-wire)))\n    (or-gate a b d)\n    (and-gate a b c)\n    (inverter c e)\n    (and-gate d e s)\n    'ok))",
+      "exercises": [
+        30,
+        31
+      ]
+    },
+    {
+      "id": "input-full-adder",
+      "section": "s3-3-4",
+      "source_pdf_page": 401,
+      "code": "(define (full-adder a b c-in sum c-out)\n  (let ((c1 (make-wire)) \n        (c2 (make-wire))\n        (s  (make-wire)))\n    (half-adder b c-in s c1)\n    (half-adder a s sum c2)\n    (or-gate c1 c2 c-out)\n    'ok))",
+      "exercises": [
+        30
+      ]
+    },
+    {
+      "id": "input-multiplier",
+      "section": "s3-3-5",
+      "source_pdf_page": 421,
+      "code": "(define (multiplier m1 m2 product)\n  (define (process-new-value)\n    (cond ((or (and (has-value? m1) \n                    (= (get-value m1) 0))\n               (and (has-value? m2) \n                    (= (get-value m2) 0)))\n           (set-value! product 0 me))\n          ((and (has-value? m1) \n                (has-value? m2))\n           (set-value! product\n                       (* (get-value m1) \n                          (get-value m2))\n                       me))\n          ((and (has-value? product) \n                (has-value? m1))\n           (set-value! m2\n                       (/ (get-value product) \n                          (get-value m1))\n                       me))\n          ((and (has-value? product) \n                (has-value? m2))\n           (set-value! m1\n                       (/ (get-value product) \n                          (get-value m2))\n                       me))))\n  (define (process-forget-value)\n    (forget-value! product me)\n    (forget-value! m1 me)\n    (forget-value! m2 me)\n    (process-new-value))\n  (define (me request)\n    (cond ((eq? request 'I-have-a-value)\n           (process-new-value))\n          ((eq? request 'I-lost-my-value)\n           (process-forget-value))\n          (else\n           (error \"Unknown request: \n                   MULTIPLIER\" \n                  request))))\n  (connect m1 me)\n  (connect m2 me)\n  (connect product me)\n  me)",
+      "exercises": [
+        33,
+        34,
+        35
+      ]
+    },
+    {
+      "id": "input-make-connector",
+      "section": "s3-3-5",
+      "source_pdf_page": 423,
+      "code": "(define (make-connector)\n  (let ((value false) \n        (informant false) \n        (constraints '()))\n    (define (set-my-value newval setter)\n      (cond ((not (has-value? me))\n             (set! value newval)\n             (set! informant setter)\n             (for-each-except \n              setter\n              inform-about-value\n              constraints))\n            ((not (= value newval))\n             (error \"Contradiction\" \n                    (list value newval)))\n            (else 'ignored)))\n    (define (forget-my-value retractor)\n      (if (eq? retractor informant)\n          (begin (set! informant false)\n                 (for-each-except \n                  retractor\n                  inform-about-no-value\n                  constraints))\n          'ignored))\n    (define (connect new-constraint)\n      (if (not (memq new-constraint \n                     constraints))\n          (set! constraints\n                (cons new-constraint \n                      constraints)))\n      (if (has-value? me)\n          (inform-about-value new-constraint))\n      'done)\n    (define (me request)\n      (cond ((eq? request 'has-value?)\n             (if informant true false))\n            ((eq? request 'value) value)\n            ((eq? request 'set-value!) \n             set-my-value)\n            ((eq? request 'forget) \n             forget-my-value)\n            ((eq? request 'connect) connect)\n            (else (error \"Unknown operation: \n                          CONNECTOR\"\n                         request))))\n    me))",
+      "exercises": [
+        36,
+        37
+      ]
+    },
+    {
+      "id": "input-exchange",
+      "section": "s3-4-2",
+      "source_pdf_page": 445,
+      "code": "(define (exchange account1 account2)\n  (let ((difference (- (account1 'balance)\n                       (account2 'balance))))\n    ((account1 'withdraw) difference)\n    ((account2 'deposit) difference)))",
+      "exercises": [
+        43,
+        44,
+        45,
+        48
+      ]
+    },
+    {
+      "id": "input-make-mutex",
+      "section": "s3-4-2",
+      "source_pdf_page": 451,
+      "code": "(define (make-mutex)\n  (let ((cell (list false)))\n    (define (the-mutex m)\n      (cond ((eq? m 'acquire)\n             (if (test-and-set! cell)\n                 (the-mutex 'acquire))) ; retry\n            ((eq? m 'release) (clear! cell))))\n    the-mutex))\n(define (clear! cell) (set-car! cell false))",
+      "exercises": [
+        46,
+        47
+      ]
+    },
+    {
+      "id": "input-stream-ref",
+      "section": "s3-5-1",
+      "source_pdf_page": 461,
+      "code": "(define (stream-ref s n)\n  (if (= n 0)\n      (stream-car s)\n      (stream-ref (stream-cdr s) (- n 1))))\n\n(define (stream-map proc s)\n  (if (stream-null? s)\n      the-empty-stream\n      (cons-stream \n       (proc (stream-car s))\n       (stream-map proc (stream-cdr s)))))\n\n(define (stream-for-each proc s)\n  (if (stream-null? s)\n      'done\n      (begin \n        (proc (stream-car s))\n        (stream-for-each proc \n                         (stream-cdr s)))))",
+      "exercises": [
+        51,
+        52
+      ]
+    },
+    {
+      "id": "input-stream-filter",
+      "section": "s3-5-1",
+      "source_pdf_page": 464,
+      "code": "(define (stream-filter pred stream)\n  (cond ((stream-null? stream) \n         the-empty-stream)\n        ((pred (stream-car stream))\n         (cons-stream \n          (stream-car stream)\n          (stream-filter \n           pred\n           (stream-cdr stream))))\n        (else (stream-filter \n               pred \n               (stream-cdr stream)))))",
+      "exercises": [
+        52
+      ]
+    },
+    {
+      "id": "input-add-streams",
+      "section": "s3-5-2",
+      "source_pdf_page": 473,
+      "code": "(define (add-streams s1 s2) \n  (stream-map + s1 s2))",
+      "exercises": [
+        53,
+        54,
+        55,
+        57
+      ]
+    },
+    {
+      "id": "input-merge",
+      "section": "s3-5-2",
+      "source_pdf_page": 477,
+      "code": "(define (merge s1 s2)\n  (cond ((stream-null? s1) s2)\n        ((stream-null? s2) s1)\n        (else\n         (let ((s1car (stream-car s1))\n               (s2car (stream-car s2)))\n           (cond ((< s1car s2car)\n                  (cons-stream \n                   s1car \n                   (merge (stream-cdr s1) \n                          s2)))\n                 ((> s1car s2car)\n                  (cons-stream \n                   s2car \n                   (merge s1 \n                          (stream-cdr s2))))\n                 (else\n                  (cons-stream \n                   s1car\n                   (merge \n                    (stream-cdr s1)\n                    (stream-cdr s2)))))))))",
+      "exercises": [
+        56,
+        70
+      ]
+    },
+    {
+      "id": "input-sqrt-stream",
+      "section": "s3-5-3",
+      "source_pdf_page": 482,
+      "code": "(define (sqrt-stream x)\n  (define guesses\n    (cons-stream \n     1.0 (stream-map\n          (lambda (guess)\n            (sqrt-improve guess x))\n          guesses)))\n  guesses)\n\n(display-stream (sqrt-stream 2))\n1.\n1.5\n1.4166666666666665\n1.4142156862745097\n1.4142135623746899\n…",
+      "exercises": [
+        63,
+        64
+      ]
+    },
+    {
+      "id": "input-euler-transform",
+      "section": "s3-5-3",
+      "source_pdf_page": 484,
+      "code": "(define (euler-transform s)\n  (let ((s0 (stream-ref s 0))     ; Sₙ₋₁\n        (s1 (stream-ref s 1))     ; Sₙ\n        (s2 (stream-ref s 2)))    ; Sₙ₊₁\n    (cons-stream \n     (- s2 (/ (square (- s2 s1))\n              (+ s0 (* -2 s1) s2)))\n     (euler-transform (stream-cdr s)))))",
+      "exercises": [
+        65
+      ]
+    },
+    {
+      "id": "input-pairs",
+      "section": "s3-5-3",
+      "source_pdf_page": 488,
+      "code": "(define (pairs s t)\n  (cons-stream\n   (list (stream-car s) (stream-car t))\n   (⟨combine-in-some-way⟩\n    (stream-map (lambda (x) \n                  (list (stream-car s) x))\n                (stream-cdr t))\n    (pairs (stream-cdr s)\n           (stream-cdr t)))))",
+      "exercises": [
+        66,
+        67,
+        68,
+        69,
+        70
+      ]
+    },
+    {
+      "id": "input-integral",
+      "section": "s3-5-3",
+      "source_pdf_page": 493,
+      "code": "(define (integral integrand initial-value dt)\n  (define int\n    (cons-stream \n     initial-value\n     (add-streams (scale-stream integrand dt)\n                  int)))\n  int)",
+      "exercises": [
+        73,
+        77
+      ]
+    },
+    {
+      "id": "input-solve",
+      "section": "s3-5-4",
+      "source_pdf_page": 499,
+      "code": "(define (solve f y0 dt)\n  (define y (integral dy y0 dt))\n  (define dy (stream-map f y))\n  y)",
+      "exercises": [
+        77,
+        78,
+        79
+      ]
+    },
+    {
+      "id": "input-z1",
+      "section": "s3-3-1",
+      "source_pdf_page": 376,
+      "code": "(define x (list 'a 'b))\n(define z1 (cons x x))",
+      "exercises": [
+        15
+      ],
+      "guide": "同一子表作为两个实参传入，沿两条边走到相同的可变对象。"
+    },
+    {
+      "id": "input-z2",
+      "section": "s3-3-1",
+      "source_pdf_page": 376,
+      "code": "(define z2 \n  (cons (list 'a 'b) (list 'a 'b)))",
+      "exercises": [
+        15
+      ],
+      "guide": "分别构造的两个子表打印相同，沿边抵达的结点身份却不同。"
+    },
+    {
+      "id": "input-procedural-cons",
+      "section": "s3-3-1",
+      "source_pdf_page": 380,
+      "code": "(define (cons x y)\n  (define (set-x! v) (set! x v))\n  (define (set-y! v) (set! y v))\n  (define (dispatch m)\n    (cond ((eq? m 'car) x)\n          ((eq? m 'cdr) y)\n          ((eq? m 'set-car!) set-x!)\n          ((eq? m 'set-cdr!) set-y!)\n          (else (error \"Undefined \n                 operation: CONS\" m))))\n  dispatch)\n\n(define (car z) (z 'car))\n(define (cdr z) (z 'cdr))\n\n(define (set-car! z new-value)\n  ((z 'set-car!) new-value)\n  z)\n\n(define (set-cdr! z new-value)\n  ((z 'set-cdr!) new-value)\n  z)",
+      "exercises": [
+        20
+      ],
+      "guide": "两个写操作和读操作捕获同一个构造帧；改写其中的绑定等价于改写该序对的槽。"
+    },
+    {
+      "id": "input-dispatch-table",
+      "section": "s3-3-3",
+      "source_pdf_page": 394,
+      "code": "(define (make-table)\n  (let ((local-table (list '*table*)))\n    (define (lookup key-1 key-2)\n      (let ((subtable \n             (assoc key-1 (cdr local-table))))\n        (if subtable\n            (let ((record \n                   (assoc key-2 \n                          (cdr subtable))))\n              (if record (cdr record) false))\n            false)))\n    (define (insert! key-1 key-2 value)\n      (let ((subtable \n             (assoc key-1 (cdr local-table))))\n        (if subtable\n            (let ((record \n                   (assoc key-2 \n                          (cdr subtable))))\n              (if record\n                  (set-cdr! record value)\n                  (set-cdr! \n                   subtable\n                   (cons (cons key-2 value)\n                         (cdr subtable)))))\n            (set-cdr! \n             local-table\n             (cons (list key-1\n                         (cons key-2 value))\n                   (cdr local-table)))))\n      'ok)\n    (define (dispatch m)\n      (cond ((eq? m 'lookup-proc) lookup)\n            ((eq? m 'insert-proc!) insert!)\n            (else (error \"Unknown operation: \n                          TABLE\" m))))\n    dispatch))",
+      "exercises": [
+        24,
+        25
+      ],
+      "guide": "构造函数把局部表封闭起来，读写应共享同一条比较规则。"
+    },
+    {
+      "id": "input-wire",
+      "section": "s3-3-4",
+      "source_pdf_page": 405,
+      "code": "(define (make-wire)\n  (let ((signal-value 0) \n        (action-procedures '()))\n    (define (set-my-signal! new-value)\n      (if (not (= signal-value new-value))\n          (begin (set! signal-value new-value)\n                 (call-each \n                  action-procedures))\n          'done))\n    (define (accept-action-procedure! proc)\n      (set! action-procedures \n            (cons proc action-procedures))\n      (proc))\n    (define (dispatch m)\n      (cond ((eq? m 'get-signal) \n             signal-value)\n            ((eq? m 'set-signal!) \n             set-my-signal!)\n            ((eq? m 'add-action!) \n             accept-action-procedure!)\n            (else (error \"Unknown operation: \n                          WIRE\" m))))\n    dispatch))",
+      "exercises": [
+        28,
+        31,
+        32
+      ],
+      "guide": "电线上挂的是动作列表。信号真实改变时才通知，登记新动作则立即用现值初始化。"
+    },
+    {
+      "id": "input-account-serializer",
+      "section": "s3-4-2",
+      "source_pdf_page": 446,
+      "code": "(define (make-account-and-serializer balance)\n  (define (withdraw amount)\n    (if (>= balance amount)\n        (begin \n          (set! balance (- balance amount))\n          balance)\n        \"Insufficient funds\"))\n  (define (deposit amount)\n    (set! balance (+ balance amount))\n    balance)\n  (let ((balance-serializer \n         (make-serializer)))\n    (define (dispatch m)\n      (cond ((eq? m 'withdraw) withdraw)\n            ((eq? m 'deposit) deposit)\n            ((eq? m 'balance) balance)\n            ((eq? m 'serializer) \n             balance-serializer)\n            (else (error \"Unknown request: \n                          MAKE-ACCOUNT\"\n                         m))))\n    dispatch))",
+      "exercises": [
+        43,
+        44,
+        45,
+        48
+      ],
+      "guide": "账户返回串行器与原始操作，让跨账户操作能够在较大的临界区内完成。"
+    },
+    {
+      "id": "input-serialized-exchange",
+      "section": "s3-4-2",
+      "source_pdf_page": 447,
+      "code": "(define (serialized-exchange account1 account2)\n  (let ((serializer1 (account1 'serializer))\n        (serializer2 (account2 'serializer)))\n    ((serializer1 (serializer2 exchange))\n     account1\n     account2)))",
+      "exercises": [
+        43,
+        45,
+        48,
+        49
+      ],
+      "guide": "两个账户的锁包住整个交换。若调用顺序反转，两条锁边可首尾相接形成等待环。"
+    },
+    {
+      "id": "input-test-and-set",
+      "section": "s3-4-2",
+      "source_pdf_page": 451,
+      "code": "(define (test-and-set! cell)\n  (if (car cell)\n      true\n      (begin (set-car! cell true)\n             false)))",
+      "exercises": [
+        46,
+        47
+      ],
+      "guide": "读取旧值与改写标志必须是一个原子步骤；普通过程的语法本身不保证这一点。"
+    },
+    {
+      "id": "input-promise-cache",
+      "section": "s3-5-1",
+      "source_pdf_page": 467,
+      "code": "(define (memo-proc proc)\n  (let ((already-run? false) (result false))\n    (lambda ()\n      (if (not already-run?)\n          (begin (set! result (proc))\n                 (set! already-run? true)\n                 result)\n          result))))",
+      "exercises": [
+        51,
+        52,
+        57,
+        63
+      ],
+      "guide": "已运行标志独立于结果，因此返回假值的计算也能只执行一次。"
+    },
+    {
+      "id": "input-tableau",
+      "section": "s3-5-3",
+      "source_pdf_page": 485,
+      "code": "(define (make-tableau transform s)\n  (cons-stream \n   s\n   (make-tableau\n    transform\n    (transform s))))",
+      "exercises": [
+        65
+      ],
+      "guide": "每一行再对前一行作一次变换，取各行首项形成加速的对角序列。"
+    },
+    {
+      "id": "input-interleave",
+      "section": "s3-5-3",
+      "source_pdf_page": 490,
+      "code": "(define (interleave s1 s2)\n  (if (stream-null? s1)\n      s2\n      (cons-stream \n       (stream-car s1)\n       (interleave s2 (stream-cdr s1)))))",
+      "exercises": [
+        66,
+        67,
+        68,
+        69
+      ],
+      "guide": "取一项就交换两路的角色，所以任何一路都不能永久压住另一路。"
+    },
+    {
+      "id": "input-zero-crossings",
+      "section": "s3-5-3",
+      "source_pdf_page": 497,
+      "code": "(define (make-zero-crossings \n         input-stream last-value)\n  (let ((avpt \n         (/ (+ (stream-car input-stream) \n               last-value) \n            2)))\n    (cons-stream \n     (sign-change-detector avpt last-value)\n     (make-zero-crossings \n      (stream-cdr input-stream) avpt))))",
+      "exercises": [
+        76
+      ],
+      "guide": "这一版本保留的上一步均值不能冒充原样本。拆开平滑与比较才能明确两种状态。"
+    },
+    {
+      "id": "input-delayed-solve",
+      "section": "s3-5-4",
+      "source_pdf_page": 500,
+      "code": "(define (solve f y0 dt)\n  (define y (integral (delay dy) y0 dt))\n  (define dy (stream-map f y))\n  y)",
+      "exercises": [
+        77,
+        78,
+        79
+      ],
+      "guide": "把导数引用放入承诺后，积分器能先产生初值，再通过反馈请求下一步。"
+    }
+  ],
+  "question_dependencies": {
+    "3.3": [
+      "input-make-account"
+    ],
+    "3.4": [
+      "input-make-account"
+    ],
+    "3.7": [
+      "input-make-account"
+    ],
+    "3.11": [
+      "input-make-account"
+    ],
+    "3.5": [
+      "input-monte-carlo"
+    ],
+    "3.82": [
+      "input-monte-carlo"
+    ],
+    "3.10": [
+      "input-make-withdraw"
+    ],
+    "3.15": [
+      "input-set-to-wow-mutate",
+      "input-z1",
+      "input-z2"
+    ],
+    "3.21": [
+      "input-make-queue"
+    ],
+    "3.22": [
+      "input-make-queue"
+    ],
+    "3.24": [
+      "input-make-table",
+      "input-dispatch-table"
+    ],
+    "3.25": [
+      "input-make-table",
+      "input-dispatch-table"
+    ],
+    "3.26": [
+      "input-make-table"
+    ],
+    "3.28": [
+      "input-and-gate",
+      "input-wire"
+    ],
+    "3.29": [
+      "input-and-gate"
+    ],
+    "3.32": [
+      "input-and-gate",
+      "input-wire"
+    ],
+    "3.30": [
+      "input-half-adder",
+      "input-full-adder"
+    ],
+    "3.31": [
+      "input-half-adder",
+      "input-wire"
+    ],
+    "3.33": [
+      "input-multiplier"
+    ],
+    "3.34": [
+      "input-multiplier"
+    ],
+    "3.35": [
+      "input-multiplier"
+    ],
+    "3.36": [
+      "input-make-connector"
+    ],
+    "3.37": [
+      "input-make-connector"
+    ],
+    "3.43": [
+      "input-exchange",
+      "input-account-serializer",
+      "input-serialized-exchange"
+    ],
+    "3.44": [
+      "input-exchange",
+      "input-account-serializer"
+    ],
+    "3.45": [
+      "input-exchange",
+      "input-account-serializer",
+      "input-serialized-exchange"
+    ],
+    "3.48": [
+      "input-exchange",
+      "input-account-serializer",
+      "input-serialized-exchange"
+    ],
+    "3.46": [
+      "input-make-mutex",
+      "input-test-and-set"
+    ],
+    "3.47": [
+      "input-make-mutex",
+      "input-test-and-set"
+    ],
+    "3.51": [
+      "input-stream-ref",
+      "input-promise-cache"
+    ],
+    "3.52": [
+      "input-stream-ref",
+      "input-stream-filter",
+      "input-promise-cache"
+    ],
+    "3.53": [
+      "input-add-streams"
+    ],
+    "3.54": [
+      "input-add-streams"
+    ],
+    "3.55": [
+      "input-add-streams"
+    ],
+    "3.57": [
+      "input-add-streams",
+      "input-promise-cache"
+    ],
+    "3.56": [
+      "input-merge"
+    ],
+    "3.70": [
+      "input-merge",
+      "input-pairs"
+    ],
+    "3.63": [
+      "input-sqrt-stream",
+      "input-promise-cache"
+    ],
+    "3.64": [
+      "input-sqrt-stream"
+    ],
+    "3.65": [
+      "input-euler-transform",
+      "input-tableau"
+    ],
+    "3.66": [
+      "input-pairs",
+      "input-interleave"
+    ],
+    "3.67": [
+      "input-pairs",
+      "input-interleave"
+    ],
+    "3.68": [
+      "input-pairs",
+      "input-interleave"
+    ],
+    "3.69": [
+      "input-pairs",
+      "input-interleave"
+    ],
+    "3.73": [
+      "input-integral"
+    ],
+    "3.77": [
+      "input-integral",
+      "input-solve",
+      "input-delayed-solve"
+    ],
+    "3.78": [
+      "input-solve",
+      "input-delayed-solve"
+    ],
+    "3.79": [
+      "input-solve",
+      "input-delayed-solve"
+    ],
+    "3.20": [
+      "input-procedural-cons"
+    ],
+    "3.49": [
+      "input-serialized-exchange"
+    ],
+    "3.76": [
+      "input-zero-crossings"
+    ]
+  }
+}

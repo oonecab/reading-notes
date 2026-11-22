@@ -114,9 +114,38 @@
       "output_bytes": 863363,
       "js_bytes": 4924,
       "js_ratio": 1
+    },
+    {
+      "page": "sicp/notes/chapter03_modularity.html",
+      "source_baseline_ref": "fcda9af98b33fd1ae499ba789bf559900a40f9cd",
+      "source_sha256": "209776d12cbf366060b929d850620993586738c2b4bf0ea98504ac98136a7a19",
+      "original_source_sha256": "209776d12cbf366060b929d850620993586738c2b4bf0ea98504ac98136a7a19",
+      "review_revision": null,
+      "output_sha256": "b39e83626802f43b359aabcf0960efe3600c037b98ad0463a364f31be9b17b1a",
+      "source_counts": {
+        "exercises": 82,
+        "self_checks": 0,
+        "statements": 0,
+        "mathml": 177,
+        "svg": 38
+      },
+      "publication_counts": {
+        "exercises": 82,
+        "self_checks": 0,
+        "statements": 0,
+        "mathml": 177,
+        "svg": 39
+      },
+      "differences": [],
+      "script_additions": [],
+      "source_bytes": 970375,
+      "output_bytes": 968776,
+      "js_bytes": 4984,
+      "js_ratio": 1
     }
   ],
   "note": "Two pages reviewed for this batch; earlier failed mobile baseline retained in baseline-history.json.",
   "I075_note": "Retain I073 original two-page records and initial chapter1 snapshot. Later changes are explicit source revisions in chapter01.json, never replacement baselines.",
-  "I077_note": "The first local 73-page build provides the unaltered chapter 2 baseline output; later wrapper-only revisions are tracked separately."
+  "I077_note": "The first local 73-page build provides the unaltered chapter 2 baseline output; later wrapper-only revisions are tracked separately.",
+  "I087_note": "第 3 章冻结镜像经发布转换、ReaderLayout 独立构建、资产内联及压缩，与转换结果做结构比对。当前输出另见 chapter03.json。"
 }

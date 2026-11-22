@@ -12745,7 +12745,7 @@
     },
     "sicp/notes/book_overview.html": {
       "original_sha256": "d6f932d2df28dd8113b3073f32b5104636620a8a92bf7c1033092f8800f3fc90",
-      "source_sha256": "7fc0fc5cd23e19cbe46482ff912ec749ab768234b00361582246ad40530e276e",
+      "source_sha256": "4e417016b1ea75566079b3c5e6afb81ee39c308510bdd589089e3bbc6ad4967a",
       "review_record": "docs/toc-tree-review.json",
       "history": [
         {
@@ -12776,6 +12776,15 @@
           "reviewed_anchors": [
             "toc-panel",
             "chapter-toc"
+          ]
+        },
+        {
+          "revision": "I087",
+          "from_sha256": "7fc0fc5cd23e19cbe46482ff912ec749ab768234b00361582246ad40530e276e",
+          "to_sha256": "4e417016b1ea75566079b3c5e6afb81ee39c308510bdd589089e3bbc6ad4967a",
+          "reason": "第 3 章正式入口及相邻导航。",
+          "reviewed_anchors": [
+            "chapter-3"
           ]
         }
       ]
@@ -13069,7 +13078,7 @@
     },
     "sicp/notes/chapter02_data_abstraction.html": {
       "original_sha256": "fb838d1d73e8f297996ade21d55690d70b10bce0be18d7028a97392b21858d46",
-      "source_sha256": "5e0a95f64fe6c75c991145b9289a41d42e69d3838127f9f58bdb4ccdd49cc77d",
+      "source_sha256": "fec516d4f33ee1b0211c1909f558643bf887a03251c2d80475ae1b007e65b18d",
       "history": [
         {
           "revision": "I077-inline-scroll",
@@ -13155,6 +13164,15 @@
           "reviewed_anchors": [
             "toc-panel",
             "chapter-toc"
+          ]
+        },
+        {
+          "revision": "I087",
+          "from_sha256": "5e0a95f64fe6c75c991145b9289a41d42e69d3838127f9f58bdb4ccdd49cc77d",
+          "to_sha256": "fec516d4f33ee1b0211c1909f558643bf887a03251c2d80475ae1b007e65b18d",
+          "reason": "第 3 章正式入口及相邻导航。",
+          "reviewed_anchors": [
+            "top"
           ]
         }
       ],
@@ -13300,6 +13318,125 @@
         }
       ],
       "review_record": "docs/toc-tree-review.json"
+    },
+    "sicp/notes/chapter03_modularity.html": {
+      "original_sha256": "209776d12cbf366060b929d850620993586738c2b4bf0ea98504ac98136a7a19",
+      "source_sha256": "edd191338afa8a67a9d3c7b850258a431d3962329c7f5a074bdd15c6138da94e",
+      "history": [
+        {
+          "revision": "I087",
+          "from_sha256": "209776d12cbf366060b929d850620993586738c2b4bf0ea98504ac98136a7a19",
+          "to_sha256": "83b716fe32aa0361ba266dfc1d9528611eeade7723d72576277c96e87b177fce",
+          "reason": "补入题给共享输入、无缓存执行轨迹、同步实现与可运行程序阅读副本。",
+          "reviewed_anchors": [
+            "ex-3-15",
+            "ex-3-47",
+            "ex-3-48",
+            "ex-3-52",
+            "ex-3-70",
+            "ex-3-74",
+            "ex-3-75",
+            "ex-3-80",
+            "programs"
+          ]
+        },
+        {
+          "revision": "I087",
+          "from_sha256": "83b716fe32aa0361ba266dfc1d9528611eeade7723d72576277c96e87b177fce",
+          "to_sha256": "edd191338afa8a67a9d3c7b850258a431d3962329c7f5a074bdd15c6138da94e",
+          "reason": "原书行末空格转为等值 HTML 字符引用，保留程序文本。",
+          "reviewed_anchors": [
+            "input-z2",
+            "input-wire",
+            "input-interleave"
+          ]
+        }
+      ],
+      "reviewed_anchors": [
+        "ex-3-1",
+        "ex-3-2",
+        "ex-3-3",
+        "ex-3-4",
+        "ex-3-5",
+        "ex-3-6",
+        "ex-3-7",
+        "ex-3-8",
+        "ex-3-9",
+        "ex-3-10",
+        "ex-3-11",
+        "ex-3-12",
+        "ex-3-13",
+        "ex-3-14",
+        "ex-3-15",
+        "ex-3-16",
+        "ex-3-17",
+        "ex-3-18",
+        "ex-3-19",
+        "ex-3-20",
+        "ex-3-21",
+        "ex-3-22",
+        "ex-3-23",
+        "ex-3-24",
+        "ex-3-25",
+        "ex-3-26",
+        "ex-3-27",
+        "ex-3-28",
+        "ex-3-29",
+        "ex-3-30",
+        "ex-3-31",
+        "ex-3-32",
+        "ex-3-33",
+        "ex-3-34",
+        "ex-3-35",
+        "ex-3-36",
+        "ex-3-37",
+        "ex-3-38",
+        "ex-3-39",
+        "ex-3-40",
+        "ex-3-41",
+        "ex-3-42",
+        "ex-3-43",
+        "ex-3-44",
+        "ex-3-45",
+        "ex-3-46",
+        "ex-3-47",
+        "ex-3-48",
+        "ex-3-49",
+        "ex-3-50",
+        "ex-3-51",
+        "ex-3-52",
+        "ex-3-53",
+        "ex-3-54",
+        "ex-3-55",
+        "ex-3-56",
+        "ex-3-57",
+        "ex-3-58",
+        "ex-3-59",
+        "ex-3-60",
+        "ex-3-61",
+        "ex-3-62",
+        "ex-3-63",
+        "ex-3-64",
+        "ex-3-65",
+        "ex-3-66",
+        "ex-3-67",
+        "ex-3-68",
+        "ex-3-69",
+        "ex-3-70",
+        "ex-3-71",
+        "ex-3-72",
+        "ex-3-73",
+        "ex-3-74",
+        "ex-3-75",
+        "ex-3-76",
+        "ex-3-77",
+        "ex-3-78",
+        "ex-3-79",
+        "ex-3-80",
+        "ex-3-81",
+        "ex-3-82"
+      ],
+      "review_record": "books/sicp/review/chapter03.json"
     }
   }
 }

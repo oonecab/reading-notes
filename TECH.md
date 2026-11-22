@@ -359,3 +359,7 @@ I084 在根 check-local 中增加 tools/reading-prose/check.mjs。它复用 pars
 I085 在现有目录控制器中共用 src/scripts/toc-tree.js。浏览器运行时仅用原生 DOM；分组状态不写入正文源文件。pnpm check:toc-tree 检查正式样章，包含 SICP 的离线检查也会执行该验收。构建使用现有 Astro/Vite 工具链内的 Rolldown 和 Lightning CSS 压缩阅读控制器与样式，以保持既有性能预算。无技术栈变更。
 
 I085 公开浏览器 API window.TocTree.init(options)。两份 TOC 控制器共用一个组件；保留各自的滚动定位与打印处理差异。独立接入示例和样式依赖见 RN-002 §2.2。无技术栈变更。
+
+## I087 · SICP 第 3 章
+
+正式范围扩展到第 1–3 章，共 5 页、225 道习题。第 3 章使用 38 幅内联 SVG、35 份共享输入，按 19 个教学小节核对内容深度。Racket 8.10 执行 29 组回归和 19 个示例读回。并发例使用可复现的交错执行，不依赖线程调度顺序。无技术栈变更。

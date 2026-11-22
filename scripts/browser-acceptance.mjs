@@ -155,11 +155,19 @@ try {
       }
       const scroll=await page.evaluate(()=>{
         const candidates=[...document.querySelectorAll('main .scroll,main .equation,main pre,main .diagram,main .rn-math-inline')];
-        const e=candidates.find(e=>e.clientWidth>0&&e.scrollWidth>e.clientWidth+10&&['auto','scroll'].includes(getComputedStyle(e).overflowX));
-        if(!e)return null;e.scrollIntoView({block:'center',behavior:'instant'});const r=e.getBoundingClientRect();e.setAttribute('data-offline-scroll-test','');
-        // Tall tables extend beyond the viewport: target the visible intersection,
-        // below the persistent navigation, rather than the table's offscreen top.
-        return {x:(Math.max(0,r.left)+Math.min(innerWidth,r.right))/2,y:(Math.max(160,r.top)+Math.min(innerHeight-20,r.bottom))/2,before:e.scrollLeft,client:e.clientWidth,scroll:e.scrollWidth};
+        // Chrome can report layout dimensions for descendants of closed details.
+        // Send the wheel to a real, exposed point inside the verified scroller.
+        const eligible=candidates.filter(e=>!e.closest('details:not([open])')&&e.clientWidth>0&&e.scrollWidth>e.clientWidth+10&&['auto','scroll'].includes(getComputedStyle(e).overflowX));
+        for(const e of eligible){
+          e.scrollIntoView({block:'center',behavior:'instant'});
+          const r=e.getBoundingClientRect(),top=Math.max(160,r.top),bottom=Math.min(innerHeight-20,r.bottom);
+          const x=(Math.max(0,r.left)+Math.min(innerWidth,r.right))/2,y=(top+bottom)/2;
+          if(top>=bottom||!e.contains(document.elementFromPoint(x,y)))continue;
+          e.setAttribute('data-offline-scroll-test','');
+          return {x,y,before:e.scrollLeft,client:e.clientWidth,scroll:e.scrollWidth};
+        }
+        if(eligible.length)throw new Error('No hit-testable point on visible horizontal scrollers');
+        return null;
       });
       if(scroll){await page.mouse.move(scroll.x,scroll.y,{label:'定位局部滚动区域'});await page.mouse.wheel(220,0,{label:'检查公式图表横向滚动'});
         // Input dispatch can finish before the compositor applies the wheel.

@@ -828,6 +828,655 @@
             ]
           },
           "status": "formal"
+        },
+        "sicp/notes/chapter03_modularity.html": {
+          "sections": {
+            "s3-1": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 324,
+                "title": "赋值与局部状态的原句",
+                "review_version": "I087",
+                "reason": "本节以赋值与局部状态的中文步骤和可核对的状态说明展开；引述英文概述不会补充例中所需的操作条件。"
+              }
+            ],
+            "s3-1-1": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 325,
+                "title": "局部状态变量的原句",
+                "review_version": "I087",
+                "reason": "本节以局部状态变量的中文步骤和可核对的状态说明展开；引述英文概述不会补充例中所需的操作条件。"
+              }
+            ],
+            "s3-1-2": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 333,
+                "title": "引入赋值的好处的原句",
+                "review_version": "I087",
+                "reason": "本节以引入赋值的好处的中文步骤和可核对的状态说明展开；引述英文概述不会补充例中所需的操作条件。"
+              }
+            ],
+            "s3-1-3": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 339,
+                "title": "引入赋值的代价的原句",
+                "review_version": "I087",
+                "reason": "本节以引入赋值的代价的中文步骤和可核对的状态说明展开；引述英文概述不会补充例中所需的操作条件。"
+              }
+            ],
+            "s3-2": [
+              {
+                "kind": "excerpt",
+                "status": "reproduced",
+                "representation": "blockquote",
+                "target": "#excerpt-s3-2",
+                "source_pdf_page": 349,
+                "title": "环境与框架",
+                "reason": "保留环境与框架之间的定义关系。",
+                "review_version": "I087"
+              },
+              {
+                "kind": "figure",
+                "status": "reproduced",
+                "representation": "svg",
+                "source_pdf_page": 350,
+                "title": "一个简单的环境结构。",
+                "target": "#fig-3-1",
+                "reason": "查找先从最内层框架开始。两个分支都能到达同一外围框架，却不能直接查找彼此的局部名字。",
+                "review_version": "I087"
+              }
+            ],
+            "s3-2-1": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 350,
+                "title": "求值规则的原句",
+                "review_version": "I087",
+                "reason": "本节以求值规则的中文步骤和可核对的状态说明展开；引述英文概述不会补充例中所需的操作条件。"
+              },
+              {
+                "kind": "figure",
+                "status": "reproduced",
+                "representation": "svg",
+                "source_pdf_page": 352,
+                "title": "在全局环境中求值 (define (square x) (* x x)) 所产生的环境结构。",
+                "target": "#fig-3-2",
+                "reason": "过程对象有一条边指向函数体，另一条边指向定义环境。全局名字指向整个对象。",
+                "review_version": "I087"
+              },
+              {
+                "kind": "figure",
+                "status": "reproduced",
+                "representation": "svg",
+                "source_pdf_page": 353,
+                "title": "在全局环境中求值 (square 5) 所创建的环境。",
+                "target": "#fig-3-3",
+                "reason": "沿实参绑定找到 5，再沿过程体的两次变量引用取得同一个 5，返回 25。",
+                "review_version": "I087"
+              }
+            ],
+            "s3-2-2": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 355,
+                "title": "简单过程的应用的原句",
+                "review_version": "I087",
+                "reason": "本节以简单过程的应用的中文步骤和可核对的状态说明展开；引述英文概述不会补充例中所需的操作条件。"
+              },
+              {
+                "kind": "figure",
+                "status": "reproduced",
+                "representation": "svg",
+                "source_pdf_page": 356,
+                "title": "全局框架中的过程对象。",
+                "target": "#fig-3-4",
+                "reason": "几个全局过程的代码各异，词法环境却都指回同一个全局框架。",
+                "review_version": "I087"
+              },
+              {
+                "kind": "figure",
+                "status": "reproduced",
+                "representation": "svg",
+                "source_pdf_page": 357,
+                "title": "使用 图 3.4 中的过程求值 (f 5) 所创建的环境。",
+                "target": "#fig-3-5",
+                "reason": "沿每个调用框的外围指针看，它们直接连接定义环境；执行顺序不能代替这些箭头。",
+                "review_version": "I087"
+              }
+            ],
+            "s3-2-3": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 358,
+                "title": "储存局部状态的框架的原句",
+                "review_version": "I087",
+                "reason": "本节以储存局部状态的框架的中文步骤和可核对的状态说明展开；引述英文概述不会补充例中所需的操作条件。"
+              },
+              {
+                "kind": "figure",
+                "status": "reproduced",
+                "representation": "svg",
+                "source_pdf_page": 359,
+                "title": "在全局环境中定义make-withdraw的结果。",
+                "target": "#fig-3-6",
+                "reason": "此时仅有构造过程，余额要等到调用后才有自己的存储位置。",
+                "review_version": "I087"
+              },
+              {
+                "kind": "figure",
+                "status": "reproduced",
+                "representation": "svg",
+                "source_pdf_page": 360,
+                "title": "求值(define W1 (make-withdraw 100))的结果。",
+                "target": "#fig-3-7",
+                "reason": "第一个取款闭包的环境边落在余额 100 的帧上；返回闭包让该帧继续可达。",
+                "review_version": "I087"
+              },
+              {
+                "kind": "figure",
+                "status": "reproduced",
+                "representation": "svg",
+                "source_pdf_page": 361,
+                "title": "应用过程对象W1所创建的环境。",
+                "target": "#fig-3-8",
+                "reason": "取款形参在新帧中，改写的余额在它的外围；两个名字归属不同的框。",
+                "review_version": "I087"
+              },
+              {
+                "kind": "figure",
+                "status": "reproduced",
+                "representation": "svg",
+                "source_pdf_page": 362,
+                "title": "调用W1之后的环境。",
+                "target": "#fig-3-9",
+                "reason": "调用结束后短命的金额帧消失，沿闭包仍能找到已扣减的余额。",
+                "review_version": "I087"
+              },
+              {
+                "kind": "figure",
+                "status": "reproduced",
+                "representation": "svg",
+                "source_pdf_page": 363,
+                "title": "使用(define W2 (make-withdraw 100))创建第二个对象。",
+                "target": "#fig-3-10",
+                "reason": "第二次开户重新分配余额帧，两个 100 在写入时可以区分。",
+                "review_version": "I087"
+              }
+            ],
+            "s3-2-4": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 365,
+                "title": "内部定义的原句",
+                "review_version": "I087",
+                "reason": "本节以内部定义的中文步骤和可核对的状态说明展开；引述英文概述不会补充例中所需的操作条件。"
+              },
+              {
+                "kind": "figure",
+                "status": "reproduced",
+                "representation": "svg",
+                "source_pdf_page": 366,
+                "title": "带有内部定义的Sqrt过程。",
+                "target": "#fig-3-11",
+                "reason": "看内部过程的环境边，它们共享这一次开平方调用的局部变量，另一次调用会有另一帧。",
+                "review_version": "I087"
+              }
+            ],
+            "s3-3": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 369,
+                "title": "用可变数据建模的原句",
+                "review_version": "I087",
+                "reason": "本节以用可变数据建模的中文步骤和可核对的状态说明展开；引述英文概述不会补充例中所需的操作条件。"
+              }
+            ],
+            "s3-3-1": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 370,
+                "title": "可变表结构的原句",
+                "review_version": "I087",
+                "reason": "本节以可变表结构的中文步骤和可核对的状态说明展开；引述英文概述不会补充例中所需的操作条件。"
+              },
+              {
+                "kind": "figure",
+                "status": "reproduced",
+                "representation": "svg",
+                "source_pdf_page": 371,
+                "title": "表x：((a b) c d)和y：(e f)。",
+                "target": "#fig-3-12",
+                "reason": "先沿尾边读外层表，再进入首槽所指的子表。内外层不是同一条链。",
+                "review_version": "I087"
+              },
+              {
+                "kind": "figure",
+                "status": "reproduced",
+                "representation": "svg",
+                "source_pdf_page": 371,
+                "title": "(set-car! x y)对图3.12中表的影响。",
+                "target": "#fig-3-13",
+                "reason": "比较改写前后的首槽，新边指向第二个表；已有变量仍指原来的外盒。",
+                "review_version": "I087"
+              },
+              {
+                "kind": "figure",
+                "status": "reproduced",
+                "representation": "svg",
+                "source_pdf_page": 372,
+                "title": "(define z (cons y (cdr x)))对图3.12中表的影响。",
+                "target": "#fig-3-14",
+                "reason": "新建盒子自己的两条边分别指向旧结构。分配新头不会复制两个后缀。",
+                "review_version": "I087"
+              },
+              {
+                "kind": "figure",
+                "status": "reproduced",
+                "representation": "svg",
+                "source_pdf_page": 372,
+                "title": "(set-cdr! x y)对图3.12中的表的效果。",
+                "target": "#fig-3-15",
+                "reason": "替换尾槽后，从旧头出发转入另一条尾链。原尾是否仍可达取决于其他根。",
+                "review_version": "I087"
+              },
+              {
+                "kind": "figure",
+                "status": "reproduced",
+                "representation": "svg",
+                "source_pdf_page": 377,
+                "title": "由(cons x x)形成的表z1。",
+                "target": "#fig-3-16",
+                "reason": "两个槽的箭头汇入同一个结点。经任一路写首槽，另一路都会观察到变化。",
+                "review_version": "I087"
+              },
+              {
+                "kind": "figure",
+                "status": "reproduced",
+                "representation": "svg",
+                "source_pdf_page": 377,
+                "title": "由(cons (list 'a 'b) (list 'a 'b))形成的表z2。",
+                "target": "#fig-3-17",
+                "reason": "两条外边落点不同，虽然打印内容相同，左侧写入不会穿过右侧的边。",
+                "review_version": "I087"
+              }
+            ],
+            "s3-3-2": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 381,
+                "title": "队列的表示的原句",
+                "review_version": "I087",
+                "reason": "本节以队列的表示的中文步骤和可核对的状态说明展开；引述英文概述不会补充例中所需的操作条件。"
+              },
+              {
+                "kind": "figure",
+                "status": "reproduced",
+                "representation": "svg",
+                "source_pdf_page": 382,
+                "title": "队列操作。",
+                "target": "#fig-3-18",
+                "reason": "队列一端加入、另一端离开；比较每次操作前后谁是最早仍在队中的元素。",
+                "review_version": "I087"
+              },
+              {
+                "kind": "figure",
+                "status": "reproduced",
+                "representation": "svg",
+                "source_pdf_page": 384,
+                "title": "将队列实现为带有前端和后端指针的表。",
+                "target": "#fig-3-19",
+                "reason": "首指针给出遍历入口，尾指针只缓存最后一个盒子；尾端没有额外一份数据。",
+                "review_version": "I087"
+              },
+              {
+                "kind": "figure",
+                "status": "reproduced",
+                "representation": "svg",
+                "source_pdf_page": 385,
+                "title": "对图3.19的队列使用(insert-queue! q 'd)的结果。",
+                "target": "#fig-3-20",
+                "reason": "旧尾的空边接到新结点之后，还要把尾指针移过去。首指针保持原位。",
+                "review_version": "I087"
+              },
+              {
+                "kind": "figure",
+                "status": "reproduced",
+                "representation": "svg",
+                "source_pdf_page": 386,
+                "title": "对图3.20的队列使用(delete-queue!  q)的结果。",
+                "target": "#fig-3-21",
+                "reason": "删除只把首指针向后移一步。未被删的结点无须向前复制。",
+                "review_version": "I087"
+              }
+            ],
+            "s3-3-3": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 388,
+                "title": "表格的表示的原句",
+                "review_version": "I087",
+                "reason": "本节以表格的表示的中文步骤和可核对的状态说明展开；引述英文概述不会补充例中所需的操作条件。"
+              },
+              {
+                "kind": "figure",
+                "status": "reproduced",
+                "representation": "svg",
+                "source_pdf_page": 389,
+                "title": "一个表示为带表头的表的表。",
+                "target": "#fig-3-22",
+                "reason": "表头是可修改的锚点，不属于用户键值记录；搜索从表头的后继开始。",
+                "review_version": "I087"
+              },
+              {
+                "kind": "figure",
+                "status": "reproduced",
+                "representation": "svg",
+                "source_pdf_page": 392,
+                "title": "一个二维表。",
+                "target": "#fig-3-23",
+                "reason": "先用第一键选择子表，再在子表内找第二键。不同子表中可以出现相同第二键。",
+                "review_version": "I087"
+              }
+            ],
+            "s3-3-4": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 397,
+                "title": "数字电路模拟器的原句",
+                "review_version": "I087",
+                "reason": "本节以数字电路模拟器的中文步骤和可核对的状态说明展开；引述英文概述不会补充例中所需的操作条件。"
+              },
+              {
+                "kind": "figure",
+                "status": "reproduced",
+                "representation": "svg",
+                "source_pdf_page": 398,
+                "title": "数字逻辑模拟器中的基本功能。",
+                "target": "#fig-3-24",
+                "reason": "沿输入线看动作怎样计算输出；门的延迟属于写输出的事件，不属于读取输入。",
+                "review_version": "I087"
+              },
+              {
+                "kind": "figure",
+                "status": "reproduced",
+                "representation": "svg",
+                "source_pdf_page": 399,
+                "title": "一个半加器电路。",
+                "target": "#fig-3-25",
+                "reason": "输入 1、0 时，或门得 1，与门进位为 0，反相后允许和位为 1。",
+                "review_version": "I087"
+              },
+              {
+                "kind": "figure",
+                "status": "reproduced",
+                "representation": "svg",
+                "source_pdf_page": 401,
+                "title": "一个全加器电路。",
+                "target": "#fig-3-26",
+                "reason": "第一个半加器先合并两位，第二个再合并中间和，两个局部进位由或门合并。",
+                "review_version": "I087"
+              },
+              {
+                "kind": "figure",
+                "status": "reproduced",
+                "representation": "svg",
+                "source_pdf_page": 404,
+                "title": "用于 \n  n\n 位数的行波进位加法器。",
+                "target": "#fig-3-27",
+                "reason": "从低位向高位沿进位线读，每个后续级依赖上一级，不能把所有级的延迟只算一次。",
+                "review_version": "I087"
+              }
+            ],
+            "s3-3-5": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 414,
+                "title": "约束的传播的原句",
+                "review_version": "I087",
+                "reason": "本节以约束的传播的中文步骤和可核对的状态说明展开；引述英文概述不会补充例中所需的操作条件。"
+              },
+              {
+                "kind": "figure",
+                "status": "reproduced",
+                "representation": "svg",
+                "source_pdf_page": 416,
+                "title": "关系 \n  \n    9\n    C\n    =\n    5\n    (\n    F\n    −\n    32\n    )\n  \n 表示为约束网络。",
+                "target": "#fig-3-28",
+                "reason": "从摄氏端走到乘法器再到加法器，也可由华氏端反走。连接器只保存值和信息来源。",
+                "review_version": "I087"
+              }
+            ],
+            "s3-4": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 429,
+                "title": "并发：时间与顺序的原句",
+                "review_version": "I087",
+                "reason": "本节以并发：时间与顺序的中文步骤和可核对的状态说明展开；引述英文概述不会补充例中所需的操作条件。"
+              }
+            ],
+            "s3-4-1": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 431,
+                "title": "并发系统中时间的性质的原句",
+                "review_version": "I087",
+                "reason": "本节以并发系统中时间的性质的中文步骤和可核对的状态说明展开；引述英文概述不会补充例中所需的操作条件。"
+              },
+              {
+                "kind": "figure",
+                "status": "reproduced",
+                "representation": "svg",
+                "source_pdf_page": 433,
+                "title": "时序图，展示了在两次银行取款中交错事件顺序如何导致错误的最终余额。",
+                "target": "#fig-3-29",
+                "reason": "两条时间线先读同一个旧值再分别写回，最后写者覆盖另一笔已完成的计算。",
+                "review_version": "I087"
+              }
+            ],
+            "s3-4-2": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 438,
+                "title": "并发控制机制的原句",
+                "review_version": "I087",
+                "reason": "本节以并发控制机制的中文步骤和可核对的状态说明展开；引述英文概述不会补充例中所需的操作条件。"
+              },
+              {
+                "kind": "figure",
+                "status": "reproduced",
+                "representation": "svg",
+                "source_pdf_page": 436,
+                "title": "在银行1的联名账户和银行2的私人账户中并发的存款和取款。",
+                "target": "#fig-3-30",
+                "reason": "共用账户的两笔操作需要协调，独立银行账户的操作无需占用同一把锁。",
+                "review_version": "I087"
+              }
+            ],
+            "s3-5": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 456,
+                "title": "流的原句",
+                "review_version": "I087",
+                "reason": "本节以流的中文步骤和可核对的状态说明展开；引述英文概述不会补充例中所需的操作条件。"
+              }
+            ],
+            "s3-5-1": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 458,
+                "title": "流是延迟的表的原句",
+                "review_version": "I087",
+                "reason": "本节以流是延迟的表的中文步骤和可核对的状态说明展开；引述英文概述不会补充例中所需的操作条件。"
+              }
+            ],
+            "s3-5-2": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 469,
+                "title": "无限流的原句",
+                "review_version": "I087",
+                "reason": "本节以无限流的中文步骤和可核对的状态说明展开；引述英文概述不会补充例中所需的操作条件。"
+              },
+              {
+                "kind": "figure",
+                "status": "reproduced",
+                "representation": "svg",
+                "source_pdf_page": 472,
+                "title": "被视为信号处理系统的素数筛选器。",
+                "target": "#fig-3-31",
+                "reason": "每一级保留首个素数并过滤其倍数；后一级永远不需要重新处理已剔除项。",
+                "review_version": "I087"
+              }
+            ],
+            "s3-5-3": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 481,
+                "title": "流范式的应用的原句",
+                "review_version": "I087",
+                "reason": "本节以流范式的应用的中文步骤和可核对的状态说明展开；引述英文概述不会补充例中所需的操作条件。"
+              },
+              {
+                "kind": "figure",
+                "status": "reproduced",
+                "representation": "svg",
+                "source_pdf_page": 494,
+                "title": "将integral过程视为信号处理系统。",
+                "target": "#fig-3-32",
+                "reason": "反馈边把上次的积分结果送进加法器，初值使第一个输出无需先读取反馈。",
+                "review_version": "I087"
+              },
+              {
+                "kind": "figure",
+                "status": "reproduced",
+                "representation": "svg",
+                "source_pdf_page": 495,
+                "title": "一个RC电路及相关的信号流图。",
+                "target": "#fig-3-33",
+                "reason": "电阻支路取当前输入的倍数，电容支路累积过去的输入，最终电压来自两者相加。",
+                "review_version": "I087"
+              }
+            ],
+            "s3-5-4": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 498,
+                "title": "流和延迟求值的原句",
+                "review_version": "I087",
+                "reason": "本节以流和延迟求值的中文步骤和可核对的状态说明展开；引述英文概述不会补充例中所需的操作条件。"
+              },
+              {
+                "kind": "figure",
+                "status": "reproduced",
+                "representation": "svg",
+                "source_pdf_page": 499,
+                "title": "一个求解方程\n  \n    d\n    y\n    \n      /\n    \n    d\n    t\n    =\n    f\n    (\n    y\n    )\n  \n的“模拟计算机电路”。",
+                "target": "#fig-3-34",
+                "reason": "初始值先通过积分器输出，再经函数求导数并回到积分器；延迟打破立即求值环。",
+                "review_version": "I087"
+              },
+              {
+                "kind": "figure",
+                "status": "reproduced",
+                "representation": "svg",
+                "source_pdf_page": 502,
+                "title": "二阶线性微分方程解的信号流图。",
+                "target": "#fig-3-35",
+                "reason": "两级积分分别记住速度与位置。计算下一步时只能使用同一时刻的两路旧值。",
+                "review_version": "I087"
+              },
+              {
+                "kind": "figure",
+                "status": "reproduced",
+                "representation": "svg",
+                "source_pdf_page": 503,
+                "title": "一个串联 RLC 电路。",
+                "target": "#fig-3-36",
+                "reason": "沿电流方向标出三元件的电压降；电容的电流参考方向与电感相反。",
+                "review_version": "I087"
+              },
+              {
+                "kind": "figure",
+                "status": "reproduced",
+                "representation": "svg",
+                "source_pdf_page": 504,
+                "title": "串联RLC电路解的信号流图。",
+                "target": "#fig-3-37",
+                "reason": "两条积分支路通过导数交叉相连。初流为零时电容电压第一步不变，而初压会推动电流上升。",
+                "review_version": "I087"
+              }
+            ],
+            "s3-5-5": [
+              {
+                "kind": "excerpt",
+                "status": "omitted",
+                "representation": "blockquote",
+                "source_pdf_page": 506,
+                "title": "函数式程序的模块化与对象的原句",
+                "review_version": "I087",
+                "reason": "本节以函数式程序的模块化与对象的中文步骤和可核对的状态说明展开；引述英文概述不会补充例中所需的操作条件。"
+              },
+              {
+                "kind": "figure",
+                "status": "reproduced",
+                "representation": "svg",
+                "source_pdf_page": 513,
+                "title": "通过合并两个交易请求流来建模的联名银行账户。",
+                "target": "#fig-3-38",
+                "reason": "两路请求都送入同一个合并器。输出次序决定账户轨迹，单个输入流不能决定两者之间的先后。",
+                "review_version": "I087"
+              }
+            ]
+          }
         }
       }
     }
@@ -1388,7 +2037,7 @@
     {
       "book": "sicp",
       "page": "sicp/notes/book_overview.html",
-      "source_sha256": "7fc0fc5cd23e19cbe46482ff912ec749ab768234b00361582246ad40530e276e",
+      "source_sha256": "4e417016b1ea75566079b3c5e6afb81ee39c308510bdd589089e3bbc6ad4967a",
       "reason": "原书逐节视觉清单尚未核对。",
       "review_version": "I081",
       "issue": "I081"
